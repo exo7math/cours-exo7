@@ -1,0 +1,16 @@
+\begin{tikzpicture}[scale=3,xscale=2]
+  \draw[gray,->] (-0.20,0) -- (1.2,0) node[below,black] {$x$};
+\pgfmathparse{0}
+\let\j\pgfmathresult
+  \foreach \x in {0.15,0.22,0.5,0.6,0.72,0.87}
+  {
+  \pgfmathparse{\j+1.}
+  \let\j\pgfmathresult
+  \pgfmathint{\j}
+  \global\let\j\pgfmathresult
+  \draw (\x,1pt) -- (\x,-1pt) node[anchor=north] {$x_\j$};
+  }
+% du texte
+  \draw (0 cm,1pt) -- (0 cm,-1pt) node[below] {$x_0$} node [above=7pt] {$a$};
+  \draw (1 cm,1pt) -- (1 cm,-1pt) node[anchor=north] {$x_7$}node [above=7pt] {$b$};
+\end{tikzpicture}

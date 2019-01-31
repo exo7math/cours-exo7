@@ -1,0 +1,345 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={0,199,174}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+
+
+\title{{\bf Dérivée d'une fonction}}
+\subtitle{Calcul des dérivées}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Somme, produit,...
+    \item<4-> Dérivée de fonctions usuelles
+    \item<5-> Composition
+    \item<6-> Dérivées successives
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section*{Somme, produit,...}
+
+
+\begin{frame}
+
+\begin{proposition}
+Soient $f,g : I \to \Rr$ deux fonctions dérivables sur $I$. Pour tout $x \in I$ :
+\pause
+\begin{itemize}[<+->]
+\setlength{\itemsep}{7pt} 
+  \item $(f+g)'(x) = f'(x)+g'(x)$
+  \item $(\lambda f)'(x) = \lambda f'(x)$ où $\lambda$ est un réel fixé
+  \item $(f \times g)'(x) = f'(x)g(x)+f(x)g'(x)$
+  \item $\left(\frac{1}{f}\right)'(x)=-\frac{f'(x)}{f(x)^2}$ (si $f(x) \neq 0$)
+  \item $\left(\frac{f}{g}\right)'(x)=\frac{f'(x)g(x)-f(x)g'(x)}{g(x)^2}$ (si $g(x) \neq 0$)
+\end{itemize}  
+\end{proposition}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+$$(f+g)'=f'+g',\quad  (\lambda f)' = \lambda f' \quad (f \times g)' = f'g+fg' $$
+\pause
+$$\left(\frac{1}{f}\right)'=-\frac{f'}{f^2} \pause\qquad \qquad \left(\frac{f}{g}\right)'=\frac{f'g-fg'}{g^2}$$
+\pause
+
+\begin{proof}
+Prouvons par exemple $(f \times g)' = f'g+fg'$
+
+\pause 
+
+Fixons $x_0 \in I$
+
+\pause 
+
+$$\frac{f(x)g(x)-f(x_0)g(x_0)}{x-x_0} 
+\pause 
+=\frac{f(x)-f(x_0)}{x-x_0} g(x)+\frac{g(x)-g(x_0)}{x-x_0}f(x_0)$$
+\pause
+$$\hspace*{7em} \xrightarrow[x\to x_0]{} \quad  f'(x_0) \  g(x_0) \quad + \quad g'(x_0) \ f(x_0)$$
+
+\pause 
+
+Ainsi la fonction $f\times g$ est dérivable sur $I$ de dérivée $f'g+fg'$
+\end{proof}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section*{Dérivée de fonctions usuelles}
+
+
+\begin{frame}
+\begin{center}
+%\noindent
+\setlength{\arrayrulewidth}{0.05mm}
+%\begin{tabular}{|l|l|l|} \hline
+\begin{tabular}[t]{cc@{\vrule depth 1.2ex height 3ex width 0mm \ }} 
+\textbf{Fonction}         & \textbf{Dérivée} \\ \hline
+   $x^n$         & $nx^{n-1}$  \quad ($n \in \Zz$)   \\ \hline
+   $\frac 1x$    & $-\frac{1}{x^2}$              \\ \hline
+   $\sqrt{x}$    & $\frac12 \frac1{\sqrt{x}}$   \\ \hline
+   $x^\alpha$   & $\alpha x^{\alpha-1}$  \quad ($\alpha\in\Rr$)  \\ \hline
+   $e^x$         & $e^x$                        \\ \hline
+   $\ln x$       & $\frac 1x$                   \\ \hline
+   $\cos x$      & $-\sin x$                    \\ \hline
+   $\sin x$      & $\cos x$                     \\ \hline
+   $\tan x$      & $1+\tan^2 x = \frac{1}{\cos^2 x}$        \\ \hline
+\end{tabular} 
+\end{center}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section*{Composition}
+
+
+\begin{frame}
+
+\begin{proposition}
+Si $f$ est dérivable en $x$ et $g$ est dérivable en $f(x)$ alors $g\circ f$ est
+dérivable en $x$ 
+\pause 
+\mybox{$\big( g \circ f \big)'(x) = g'\big( f(x) \big) \cdot f'(x)$}
+\end{proposition}
+\pause 
+
+\begin{exemple}
+Calculons la dérivée de $\ln(1+x^2)$
+\pause 
+\begin{itemize}
+  \item $f(x)=1+x^2$ avec $f'(x) = 2x$
+ \pause  
+  \item $g(x)=\ln(x)$ avec $g'(x) = \frac 1x$
+ \pause  
+  \item $\ln(1+x^2)=g\circ f(x)$
+ \pause  
+  \item $\big( g \circ f \big)'(x) = g'\big( f(x) \big) \cdot f'(x) \pause = g'\big( 1+x^2 \big) \cdot 2x \pause = \frac{2x}{1+x^2}$
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{center}
+\begin{tabular}[t]{cc@{\vrule depth 1.2ex height 3ex width 0mm \ }} 
+\textbf{Fonction}         & \textbf{Dérivée} \\ \hline
+   $u^n$         & $nu'u^{n-1}$  \quad  ($n \in \Zz$)   \\ \hline
+   $\frac 1u$    & $-\frac{u'}{u^2}$              \\ \hline
+   $\sqrt{u}$    & $\frac12 \frac{u'}{\sqrt{u}}$   \\ \hline
+   $u^\alpha$   & $\alpha u' u^{\alpha-1}$ \quad ($\alpha\in\Rr$)  \\ \hline
+   $e^u$         & $u'e^u$                        \\ \hline
+   $\ln u$       & $\frac {u'}{u}$                   \\ \hline
+   $\cos u$      & $-u'\sin u$                    \\ \hline
+   $\sin u$      & $u'\cos u$                     \\ \hline
+   $\tan u$      & $u'(1+\tan^2 u) = \frac{u'}{\cos^2 u}$        \\ \hline
+\end{tabular} 
+\hfill
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}
+\begin{remarque}
+\begin{itemize}
+\setlength{\itemsep}{7pt} 
+  \item Les formules pour $x^n$, $\frac 1x$ $\sqrt x$ et $x^\alpha$ découlent de la dérivée de $e^x$
+\pause
+  \item Exemple : $x^\alpha \pause= e^{\alpha \ln x}$ 
+\pause
+\centerline{$\displaystyle \frac{d }{dx}(x^\alpha) \pause= \frac{d}{dx} (e^{\alpha \ln x}) 
+\pause= \alpha \frac{1}{x} e^{\alpha \ln x} \pause=\alpha \frac 1x x^{\alpha} \pause=\alpha x^{\alpha-1}$}
+\pause
+  \item Pour dériver une fonction avec un exposant dépendant de $x$ il faut repasser à la forme exponentielle
+
+\pause
+  \item Exemple : $f(x)= 2^x \pause= e^{x\ln 2}$ 
+\pause
+\centerline{$f'(x)= \ln 2  \cdot e^{x\ln 2} \pause= \ln 2 \cdot 2^x$}
+\end{itemize}
+
+\end{remarque}
+
+\end{frame}
+
+\begin{frame}
+Soit $I$ un intervalle ouvert. Soit $f : I \to J$ dérivable et bijective
+
+ $f^{-1} : J \to I$ sa bijection réciproque
+
+\pause
+
+\begin{corollaire}
+Si $f'$ ne s'annule pas sur $I$ alors $f^{-1}$ est dérivable
+
+\pause
+
+Pour tout $x \in J$ 
+\mybox{$\displaystyle \big(f^{-1}\big)'(x)= \frac{1}{f'\big( f^{-1}(x) \big)} $}
+\end{corollaire}
+
+\pause
+
+Notons $g=f^{-1}$
+\pause
+\vspace*{-2ex}
+$$f\big( g(x) \big)  = x$$ 
+\pause
+\vspace*{-2ex}
+$$\implies f'\big(g(x)\big) \cdot g'(x) = 1 $$
+\pause
+\vspace*{-2ex}
+$$\implies \big(f^{-1}\big)'(x)= \frac{1}{f'\big( f^{-1}(x) \big)}$$
+\end{frame}
+
+\begin{frame}
+
+\begin{exemple}
+Soit $f : \Rr \to \Rr$ définie par $f(x)=x+\exp(x)$
+\pause
+\begin{enumerate}
+  \item \'Etude de $f$
+\pause
+  \begin{itemize}
+    \item $f$ est dérivable car $f$ est la somme de deux fonctions dérivables
+\pause
+    \item $f$ est strictement croissante
+\pause    
+    \item $f$ est une bijection car $\lim_{x\to\pm\infty} f(x)=\pm\infty$
+\pause    
+    \item $f'(x) = 1 + \exp(x)$ ne s'annule jamais
+  \end{itemize}
+\pause  
+  \item \'Etude de $g=f^{-1}$
+\pause
+  \begin{itemize}[<+->]
+    \item $f\big( g(x) \big)  = x$ 
+    \item En dérivant $f'\big(g(x)\big) \cdot g'(x) = 1$
+    \item $g'(x) = \frac{1}{f'\big( g(x) \big)} = \frac{1}{1+\exp\big( g(x) \big)}$
+    \item $f\big( g(x)\big) \!=\!x$ alors $g(x)+\exp\big( g(x) \big)\!=\!x$ donc 
+$\exp\big( g(x) \big)=x-g(x)$
+    \item $g'(x) =  \frac{1}{1+x -g(x)}$
+    \item $f(0)=1$ donc $g(1)=0$ et donc $g'(1)=\frac12$
+    \item La tangente à  $f^{-1}$ en $x_0=1$ est $y=\frac12 (x-1)$
+  \end{itemize}
+\end{enumerate}
+
+\end{exemple}
+
+\end{frame}
+
+\begin{frame}
+\myfigure{1}{
+\tikzinput{fig_derive13} 
+}  
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section*{Dérivées successives}
+
+
+\begin{frame}
+
+\begin{itemize}
+  \item Soit $f : I \to \Rr$ une fonction dérivable
+\pause
+  \item Si $f' : I \to \Rr$ est dérivable on note $f''=(f')'$ la \defi{dérivée seconde}
+\pause
+  \item $f^{(0)} = f, \quad f^{(1)} = f', \quad f^{(2)} = f'' \quad \text{ et } \quad f^{(n+1)} = \big(f^{(n)}\big)'$
+\pause
+  \item Si la \defi{dérivée $n$-ième} $f^{(n)}$ existe  on dit que $f$ est \defi{$n$ fois dérivable}
+\end{itemize}
+\pause
+\begin{theoreme}[Formule de Leibniz]
+\ 
+\vspace*{-4ex}
+\mybox{\small $\displaystyle \!\!\!\big( f \cdot g \big)^{(n)} =  f^{(n)} \cdot g + \binom{n}{1}\ f^{(n-1)}\cdot g^{(1)}
++ \cdots  \binom{n}{k} \ f^{(n-k)} \cdot g^{(k)}\cdots + f \cdot g^{(n)}\!\!$} 
+\end{theoreme}
+\pause
+$$\big( f \cdot g \big)^{(n)} = \sum_{k=0}^n \binom{n}{k} \ f^{(n-k)} \cdot g^{(k)}$$
+
+\pause
+\begin{itemize}
+  \item $n=1$ \quad $(f\cdot g)'= f' g + f g'$
+\pause
+  \item $n=2$ \quad $(f\cdot g)''= f''g + 2f' g' + fg''$
+\end{itemize}  
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}[<+->]
+\setlength{\itemsep}{7pt}
+  \item Dérivées de $\exp(x) \cdot (x^2+1)$
+  \item $f(x)=\exp x$ \quad $f'(x)=\exp x$ \quad  $f''(x)=\exp x$ \quad $f^{(k)}(x)=\exp x$
+  \item $g(x)=x^2+1$ \quad $g'(x)=2x$ \quad $g''(x)=2$ \quad$g^{(k)}(x)=0$ ($k\ge 3$)
+  \item Formule de Leibniz 
+$\big( f \cdot g \big)^{(n)}(x) =  f^{(n)}(x) \cdot g(x) + \binom{n}{1}\ f^{(n-1)}(x)\cdot g^{(1)}(x)
++ \binom{n}{2}\  f^{(n-2)}(x)\cdot g^{(2)}(x) + \binom{n}{3}\ f^{(n-3)}(x)\cdot g^{(3)}(x) + \cdots $
+  \item $\big( f \cdot g \big)^{(n)}(x) =  \exp(x) \cdot (x^2+1) + \binom{n}{1}\ \exp(x) \cdot 2x
++ \binom{n}{2}\  \exp(x) \cdot 2$
+  \item $\big( f \cdot g \big)^{(n)}(x) =  \exp(x) \cdot \Big(x^2 + 2nx + \frac{n(n-1)}{2}+1  \Big)$
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Mini-exercices}
+
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Calculer les dérivées des fonctions suivantes :
+$f_1(x) = x\ln x$, $f_2(x)=\sin \frac 1x$, $f_3(x)=\sqrt{1+\sqrt{1+x^2}}$, $f_4(x)= \big(\ln(\frac{1+x}{1-x})\big)^{\frac13}$,
+$f_5(x) = x^x$, $f_6(x) = \arctan x + \arctan \frac 1x$.
+  \item On note $\Delta(f)=\frac{f'}{f}$. Calculer $\Delta(f\times g)$.
+  \item Soit $f : ]1, +\infty[ \to ]-1, +\infty[$ définie par $f(x)= x\ln (x) - x$.
+Montrer que $f$ est une bijection. Notons $g=f^{-1}$. Calculer $g(0)$ et $g'(0)$.
+  \item Calculer les dérivées successives de $f(x)=\ln(1+x)$.
+  \item Calculer les dérivées successives de $f(x)=\ln(x) \cdot x^3$.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+\end{document}

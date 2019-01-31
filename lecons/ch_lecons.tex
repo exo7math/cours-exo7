@@ -1,0 +1,732 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Leçons de choses}
+%====================================================================
+
+
+\insertvideo{hju3f2VVPWw}{partie 1. L'alphabet grec}
+
+\insertvideo{PRZ3cqjE1-4}{partie 2. \LaTeX\ en cinq minutes}
+
+\insertvideo{yTQxjJ73lgM}{partie 3. Formules de trigonométrie : sinus, cosinus, tangente}
+
+\insertvideo{89quOLXleak}{partie 4. Formulaire: trigonométrie circulaire et hyperbolique}
+
+\insertvideo{b0zQuVDQ2Yw}{partie 5. Développements limités}
+
+\insertvideo{QRwIVrdc-jI}{partie 6. Primitives}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Alphabet grec}
+
+
+\begin{center}
+%\noindent
+\setlength{\arrayrulewidth}{0.05mm}
+%\begin{tabular}{|l|l|l|} \hline
+\begin{tabular}[t]{|ll|l@{\vrule depth 1.2ex height 3ex width 0mm \ }|}
+\hline
+   $\alpha$      &               & alpha   \\ \hline
+   $\beta$       &               & beta    \\ \hline
+   $\gamma$      & $\Gamma$      & gamma   \\ \hline
+   $\delta$      & $\Delta$      & delta   \\ \hline
+   $\varepsilon$ &               & epsilon \\ \hline
+   $\zeta$       &               & zeta    \\ \hline
+   $\eta$        &               & eta     \\ \hline
+   $\theta$      & $\Theta$      & theta   \\ \hline
+   $\iota$       &               & iota    \\ \hline
+   $\kappa$      &               & kappa   \\ \hline
+   $\lambda$     & $\Lambda$     & lambda  \\ \hline
+   $\mu$         &               & mu      \\ \hline
+\end{tabular}
+\hspace*{2cm}
+\begin{tabular}[t]{|ll|l@{\vrule depth 1.2ex height 3ex width 0mm \ }|}
+\hline
+   $\nu$         &               & nu      \\ \hline
+   $\xi$         &               & xi      \\ \hline
+   $o$           &               & omicron \\ \hline
+   $\pi$         & $\Pi$         & pi      \\ \hline
+   $\rho,\varrho$ &              & rho     \\ \hline
+   $\sigma$      & $\Sigma$      & sigma   \\ \hline
+   $\tau$        &               & tau     \\ \hline
+   $\upsilon$    &               & upsilon \\ \hline
+   $\phi,\varphi$& $\Phi$        & phi     \\ \hline
+   $\chi$        &               & chi     \\ \hline
+   $\psi$        & $\Psi$        & psi     \\ \hline
+   $\omega$      & $\Omega$      & omega   \\ \hline
+\end{tabular}\hfill
+\end{center}
+
+\medskip
+
+On rencontre aussi ``nabla'' $\nabla$, l'opérateur de dérivée
+partielle $\partial$ (dites ``d rond''), et aussi la première
+lettre de l'alphabet hébreu ``aleph'' $\aleph$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Écrire des mathématiques: \LaTeX\ en cinq minutes}
+
+\subsection{Les bases}
+
+Pour écrire des mathématiques, il existe un langage pratique et universel,
+le langage \LaTeX\ (prononcé [latek]). Il est utile pour rédiger des textes contenant des formules,
+mais aussi accepté sur certains blogs et vous permet d'écrire des maths
+dans un courriel ou un texto.
+
+\bigskip
+
+Une formule s'écrit entre deux dollars \verb?$\pi^2$? qui donne $\pi^2$ ou entre double dollars
+si l'on veut la centrer sur une nouvelle ligne ; \verb?$$\lim u_n = +\infty$$? affichera:
+$$\lim u_n = + \infty$$
+
+Dans la suite on omettra les balises dollars.
+
+
+\subsection{Premières commandes}
+
+Les exposants s'obtiennent avec la commande \verb?^? et les indices avec \verb?_?:
+ $a^2$ s'écrit \verb?a^2? ; $u_n$ s'écrit \verb?u_n? ; $\alpha_i^2$ s'écrit \verb?\alpha_i^2?.
+Les accolades \verb?{ }? permettent de grouper du texte: \verb?2^{10}? pour $2^{10}$ ;
+ \verb?a_{i,j}? pour $a_{i,j}$.
+
+
+Il y a ensuite toute une liste de commandes (qui commencent par \verb?\?) dont voici les plus utiles:
+
+
+\begin{tabular}{cccc@{\vrule depth 1.2ex height 4ex width 0mm \ }}
+
+\verb?\sqrt? & racine &
+   $\sqrt{a}$ & \verb?\sqrt{a}? \\
+&& $\sqrt{1+\sqrt{2}}$ & \verb?\sqrt{1+\sqrt{2}}?  \\
+&&  $\sqrt[3]{x}$ & \verb?\sqrt[3]{x}?  \\
+
+\verb?\frac? & fraction &
+   $\dfrac{a}{b}$ & \verb?\frac{a}{b}? \\
+&& $\dfrac{\pi^3}{12}$ & \verb?\frac{\pi^3}{12}?   \\
+&& $\dfrac{1}{2+ \frac{3}{4}}$ & \verb?\frac{1}{2 + \frac{3}{4}}?  \\
+&& $\gamma^{\frac{1}{n}}$ & \verb?\gamma^{\frac{1}{n}}? \\
+
+
+\verb?\lim? & limite &
+  $\lim_{n \to + \infty} u_n = 0$ & \verb?\lim_{n \to +\infty} u_n = 0?  \\
+&& $\lim_{x \to 0^+} f(x) < \epsilon$ & \verb?\lim_{x \to 0^+} f(x) < \epsilon?  \\
+
+\verb?\sum? & somme &
+   $\displaystyle \sum_{i=1}^n \frac{1}{i}$ & \verb?\sum_{i=1}^n \frac{1}{i}? \\
+&& $\displaystyle \sum_{i \ge 0} a_i$ & \verb?\sum_{i \ge 0} a_i?  \\
+
+\verb?\int? & intégrale &
+  $\displaystyle \int_a^b \phi(t) dt$ & \verb?\int_a^b \phi(t) dt?  \\
+
+\end{tabular}
+
+\subsection{D'autres commandes}
+
+Voici d'autres commandes, assez naturelles pour les anglophones.
+
+\begin{center}
+\begin{tabular}{cc}
+$f : E \to F$ & \verb?f : E \to F?  \\
+$+\infty$ & \verb?+\infty? \\
+$a \le 0$ & \verb?a \le 0? \\
+$a > 0$ & \verb?a > 0?  \\
+$a \ge 1$ & \verb?a \ge 1? \\
+$\delta$ & \verb?\delta? \\
+$\Delta$ & \verb?\Delta? \\
+\end{tabular}\hspace{2cm}
+\begin{tabular}{cc}
+$a \in E$ & \verb?a \in E? \\
+$A \subset E$ & \verb?A \subset E? \\
+$P \implies Q$ & \verb?P \implies Q? \\
+$P \iff Q$ & \verb?P \iff Q? \\
+$\forall$ & \verb?\forall? \\
+$\exists$ & \verb?\exists? \\
+$\cup$ & \verb?\cup? \\
+$\cap$ & \verb?\cap?  \\
+\end{tabular}
+\end{center}
+
+\subsection{Pour allez plus loin}
+
+Il est possible de créer ses propres commandes avec \verb?\newcommand?.
+Par exemple avec l'instruction
+
+\hfil \verb?\newcommand{\Rr}{\mathbb{R}}?
+
+vous définissez une nouvelle commande \verb?\Rr? qui exécutera l'instruction
+\verb?\mathbb{R}? et affichera donc $\Rr$.
+
+Autre exemple, après avoir défini
+
+\hfil \verb?\newcommand{\monintegrale}{\int_0^{+\infty} \frac{\sin t}{t} dt}?
+
+la commande \verb?\monintegrale? affichera $\int_0^{+\infty} \frac{\sin t}{t} dt$.
+
+\bigskip
+
+Pour (beaucoup) plus de détails, consultez le manuel \emph{Une courte (?) introduction à \LaTeX}.
+
+
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\'Ecrire en \LaTeX\ toutes ces formules (qui par ailleurs sont vraies!).
+
+\begin{enumerate}
+  \item $\displaystyle \sqrt{a}-\sqrt{b} = \frac{a-b}{\sqrt a + \sqrt b}$
+  \item $\displaystyle \sum_{n=1}^{+\infty}{\frac{1}{n^2}} = \frac{\pi^2}{6}$
+  \item $\displaystyle \lim_{R\to+\infty} \int_{-R}^{+R} e^{-t^2} dt = \sqrt{\pi}$
+  \item $\displaystyle \forall \epsilon>0 \quad \exists \delta \ge 0 \quad (|x-x_0|<\delta \implies |\ln(x)-\ln(x_0)|<\epsilon)$
+  \item $\displaystyle \sum_{k=0}^{+\infty} \ \frac{1}{16^k} \left(\frac{4}{8k+1}-\frac{2}{8k+4}-\frac{1}{8k+5}-\frac{1}{8k+6} \right) = \pi$
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Formules de trigonométrie: sinus, cosinus, tangente}
+
+%--------------------------------------------------------
+\subsection{Le cercle trigonométrique}
+
+
+
+
+\myfigure{0.85}{
+  \tikzinput{fig_lecons07}
+}
+Voici le cercle trigonométrique (de rayon $1$),
+le sens de lecture est l'inverse du sens des aiguilles d'une montre.
+Les angles remarquables sont marqués de $0$ à $2 \pi$ (en radian) et de $0^\circ$ à $360^\circ$.
+Les coordonnées des points correspondant à ces angles sont aussi indiquées.
+
+
+\myfigure{0.85}{
+  \tikzinput{fig_lecons02}
+}
+
+Le point $M$ a pour coordonnées $(\cos x,\sin x)$.
+La droite $(OM)$ coupe la droite d'équation $(x=1)$ en $T$,
+l'ordonnée du point $T$ est $\tan x$.
+
+Les formules de base:
+\begin{align*}
+& \cos^2 x + \sin^2 x = 1 \\
+& \cos(x+2\pi)=\cos x \\
+& \sin(x+2\pi)=\sin x \\
+\end{align*}
+
+\begin{minipage}{0.45\textwidth}
+\myfigure{0.8}{
+  \tikzinput{fig_lecons06}
+}
+\end{minipage}
+\begin{minipage}{0.42\textwidth}
+Nous avons les formules suivantes:
+\begin{align*}
+\cos (-x) &= \cos x \\
+\sin (-x) &= -\sin x \\
+\end{align*}
+On retrouve graphiquement ces formules à l'aide du dessin des angles $x$ et $-x$.
+\end{minipage}
+
+Il en est de même pour les formules suivantes:
+
+\begin{minipage}{0.32\textwidth}
+\begin{align*}
+\cos (\pi + x) &= -\cos x \\
+\sin (\pi + x) &= -\sin x \\
+\end{align*}
+\end{minipage}
+\begin{minipage}{0.32\textwidth}
+\begin{align*}
+\cos (\pi - x) &= -\cos x \\
+\sin (\pi - x) &= \sin x \\
+\end{align*}
+\end{minipage}
+\begin{minipage}{0.32\textwidth}
+\begin{align*}
+\cos (\frac\pi2 - x) &= \sin x \\
+\sin (\frac\pi2 - x) &= \cos x \\
+\end{align*}
+\end{minipage}
+\myfigure{0.8}{
+  \tikzinput{fig_lecons04}
+  \tikzinput{fig_lecons03}
+  \tikzinput{fig_lecons05}
+}
+
+
+{
+\renewcommand{\arraystretch}{3}
+$$
+\begin{array}{c|*{5}{c}}
+    x     & \qquad 0 \qquad & \qquad \dfrac\pi6 \qquad & \qquad \dfrac\pi 4\qquad
+& \qquad \dfrac \pi 3\qquad  &\qquad  \dfrac \pi 2\qquad  \\
+\hline
+\cos x  \quad & 1 & \dfrac{\sqrt3}{2} & \dfrac{\sqrt2}{2} & \dfrac12 & 0 \\
+\hline
+\sin x  \quad & 0 &\dfrac12 & \dfrac{\sqrt2}{2} & \dfrac{\sqrt3}{2} & 1\\
+\hline
+\tan x  \ & 0 & \dfrac{1}{\sqrt{3}} & 1 & \sqrt{3} &
+\end{array}
+$$
+}
+
+Valeurs que l'on retrouve bien sur le cercle trigonométrique.
+\myfigure{1}{
+  \tikzinput{fig_lecons08}
+}
+
+%--------------------------------------------------------
+\subsection{Les fonctions sinus, cosinus, tangente}
+
+La fonction cosinus est périodique de période $2\pi$
+et elle paire (donc symétrique par rapport à l'axe des ordonnées).
+La fonction sinus est aussi périodique de période de $2\pi$ mais elle impaire
+(donc symétrique par rapport à l'origine).
+
+
+
+\myfigure{0.57}{
+  \tikzinput{fig_lecons10}
+}
+
+Voici un zoom sur l'intervalle $[-\pi,\pi]$.
+\myfigure{1.2}{
+  \tikzinput{fig_lecons11}
+}
+
+
+Pour tout $x$ n'appartenant pas à $\{\ldots, -\frac\pi2, \frac\pi2, \frac{3\pi}{2}, \frac{5\pi}{2},\ldots  \}$
+la tangente est définie par
+$$\tan x = \frac{\sin x}{\cos x}$$
+La fonction $x \mapsto \tan x$ est périodique de période $\pi$ ; c'est une fonction impaire.
+
+\myfigure{0.7}{
+  \tikzinput{fig_lecons12}
+}
+
+
+Voici les dérivées:
+\begin{align*}
+\cos'x&= -\sin x\\
+\sin'x&=\cos x\\
+\tan' x &= 1+\tan^2x=\frac{1}{\cos^2x}\\
+\end{align*}
+
+
+
+
+%--------------------------------------------------------
+\subsection{Les formules d'additions}
+
+
+
+\begin{align*}
+\cos(a+b) &= \cos a \cdot \cos b - \sin a \cdot \sin b \\
+\sin(a+b) &= \sin a\cdot \cos b  +  \sin b\cdot\cos a \\
+\tan (a+b) &=\dfrac{\tan a + \tan b}{1-\tan a \cdot \tan b}\\
+\end{align*}
+
+
+
+On en déduit immédiatement :
+\begin{align*}
+\cos(a-b)&=\cos a\cdot\cos b + \sin a\cdot\sin b\\
+\sin(a-b)&=\sin a\cdot\cos b  - \sin b\cdot\cos a \\
+\tan (a-b)&=\frac{\tan a - \tan b}{1+\tan a\cdot\tan b} \\
+\end{align*}
+
+
+
+Il est bon de connaître par c\oe ur les formules suivantes (faire $a=b$ dans les formules d'additions) :
+\begin{align*}
+\cos 2a &= 2\cos^2a-1\\
+    &= 1-2\sin^2a\\
+    &=\cos^2a-\sin^2a\\
+\sin 2a &= 2\sin a\cdot \cos a\\
+\tan 2a &= \frac{2\tan a}{1-\tan^2 a}
+\end{align*}
+
+%--------------------------------------------------------
+\subsection{Les autres formules}
+
+Voici d'autres formules qui se déduisent des formules d'additions.
+Il n'est pas nécessaire de les connaître mais il faut savoir 
+les retrouver en cas de besoin.
+
+\begin{align*}
+\cos a\cdot\cos b &= \frac{1}{2}\big[ \cos(a+b)+\cos(a-b)\big]\\
+\sin a\cdot\sin b &= \frac{1}{2}\big[ \cos(a-b)-\cos(a+b)\big]\\
+\sin a\cdot\cos b &= \frac{1}{2}\big[ \sin(a+b)+\sin(a-b)\big]
+\end{align*}
+
+
+
+Les formules précédentes se reformulent aussi en:
+\begin{align*}
+\cos p+\cos q &= 2\cos \frac{p+q}{2}\cdot\cos\frac{p-q}{2}\\
+\cos p-\cos q &= -2\sin \frac{p+q}{2}\cdot\sin \frac{p-q}{2}\\
+\sin p+\sin q &= 2\sin \frac{p+q}{2}\cdot\cos\frac{p-q}{2}\\
+\sin p-\sin q &= 2\sin \frac{p-q}{2}\cdot\cos\frac{p+q}{2}\\
+\end{align*}
+
+
+Enfin les formules de la \og tangente de l'arc moitié\fg{} permettent d'exprimer sinus, cosinus et tangente
+en fonction de $\tan \frac x2$.
+\begin{align*}
+\text{Avec }\quad  t&=\tan \frac{x}{2} \quad \text{ on a } \quad
+\begin{cases}
+    \cos x &= \frac {1-t^2}{1+t^2} \\
+    \sin x &= \frac{2t}{1+t^2} \\
+    \tan x &= \frac{2t}{1-t^2}
+\end{cases}
+\end{align*}
+
+Ces formules sont utiles pour le calcul de certaines intégrales par changement de variable,
+en utilisant en plus la relation $dx=\dfrac{2dt}{1+t^2}$.
+
+
+
+%--------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Montrer que $1+\tan^2x=\frac{1}{\cos^2x}$.
+  \item Montrer la formule d'addition de $\tan(a+b)$.
+  \item Prouver la formule pour $\cos a\cdot\cos b$.
+  \item Prouver la formule pour $\cos p+\cos q$.
+  \item Prouver la formule: $\sin x = \dfrac{2\tan \frac{x}{2}}{1+(\tan \frac{x}{2})^2}$.
+  \item Montrer que $\cos \frac{\pi}{8}= \frac 12\sqrt{ \sqrt{2} + 2}$. Calculer $\cos \frac{\pi}{16}$,
+$\cos \frac{\pi}{32}$,\ldots
+  \item Exprimer $\cos(3x)$ en fonction $\cos x$ ; $\sin(3x)$ en fonction $\sin x$ ;
+$\tan(3x)$ en fonction $\tan x$.
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Formulaire: trigonométrie circulaire et hyperbolique}
+
+
+\begin{multicols}{2}[
+\begin{center}
+\emph{\textbf{Propri\'et\'es trigonom\'etriques}: remplacer $\cos$ par $\ch$
+et $\sin$ par $\ii\cdot\sh$.}
+\end{center}
+\vspace{0.5em}]
+
+$$\cos^2 x + \sin^2 x = 1$$
+
+\begin{align*}
+\cos(a+b)&=\cos a\cdot\cos b - \sin a\cdot\sin b\\
+\sin(a+b)&=\sin a\cdot\cos b  +  \sin b\cdot\cos a \\
+\tan (a+b)&=\frac{\tan a + \tan b}{1-\tan a\cdot\tan b} \\
+\end{align*}
+
+
+$$\ch^2 x - \sh^2 x = 1$$
+
+\begin{align*}
+\ch(a+b)&=\ch a\cdot\ch b + \sh a\cdot\sh b\\
+\sh(a+b)&=\sh a\cdot\ch b  +  \sh b\cdot\ch a\\
+\tanh (a+b)&=\frac{\tanh a + \tanh b}{1+\tanh a\cdot\tanh b}\\
+\end{align*}
+\end{multicols}
+
+
+
+\begin{multicols}{2}
+\begin{align*}
+\cos(a-b)&=\cos a\cdot\cos b + \sin a\cdot\sin b\\
+\sin(a-b)&=\sin a\cdot\cos b  - \sin b\cdot\cos a \\
+\tan (a-b)&=\frac{\tan a - \tan b}{1+\tan a\cdot\tan b} \\
+\end{align*}
+
+\begin{align*}
+\ch(a-b)&=\ch a\cdot\ch b - \sh a\cdot\sh b\\
+\sh(a-b)&=\sh a\cdot\ch b  - \sh b\cdot\ch a\\
+\tanh (a-b)&=\frac{\tanh a - \tanh b}{1-\tanh a\cdot\tanh b}\\
+\end{align*}
+
+\end{multicols}
+
+%\vspace{0.5cm}
+\begin{multicols}{2}
+\begin{align*}
+\cos 2a &= 2\,\cos^2a-1\\
+    &= 1-2\,\sin^2a\\
+    &=\cos^2a-\sin^2a\\[3mm]
+\sin 2a &= 2\,\sin a\cdot\cos a\\[3mm]
+\tan 2a &= \frac{2\,\tan a}{1-\tan^2 a}
+\end{align*}
+
+\begin{align*}
+\ch 2a &= 2\,\ch^2a-1\\
+    &= 1+2\,\sh^2a\\
+    &=\ch^2a+\sh^2a\\[3mm]
+\sh 2a &= 2\,\sh a\cdot\ch a\\[3mm]
+\tanh 2a &= \frac{2\,\tanh a}{1+\tanh^2 a}
+\end{align*}
+\end{multicols}
+
+
+\begin{multicols}{2}
+\small
+\begin{align*}
+\cos a\cdot\cos b &= \frac{1}{2}\,\big[ \cos(a+b)+\cos(a-b)\big]\\
+\sin a\cdot\sin b &= \frac{1}{2}\,\big[ \cos(a-b)-\cos(a+b)\big]\\
+\sin a\cdot\cos b &= \frac{1}{2}\,\big[ \sin(a+b)+\sin(a-b)\big]
+\end{align*}
+
+\begin{align*}
+\ch a\cdot\ch b &= \frac{1}{2}\,\big[ \ch(a+b)+\ch(a-b)\big]\\
+\sh a\cdot\sh b &= \frac{1}{2}\,\big[ \ch(a+b)-\ch(a-b)\big]\\
+\sh a\cdot\ch b &= \frac{1}{2}\,\big[ \sh(a+b)+\sh(a-b)\big]
+\end{align*}
+\end{multicols}
+
+
+
+\begin{multicols}{2}
+\begin{align*}
+\cos p+\cos q &= 2\,\cos \frac{p+q}{2}\cdot\cos\frac{p-q}{2}\\
+\cos p-\cos q &= -2\,\sin \frac{p+q}{2}\cdot\sin \frac{p-q}{2}\\
+\sin p+\sin q &= 2\,\sin \frac{p+q}{2}\cdot\cos\frac{p-q}{2}\\
+\sin p-\sin q &= 2\,\sin \frac{p-q}{2}\cdot\cos\frac{p+q}{2}
+\end{align*}\vspace{0.1cm}
+\begin{align*}
+\ch p+\ch q &= 2\,\ch \frac{p+q}{2}\cdot\ch\frac{p-q}{2}\\
+\ch p-\ch q &= 2\,\sh \frac{p+q}{2}\cdot\sh \frac{p-q}{2}\\
+\sh p+\sh q &= 2\,\sh \frac{p+q}{2}\cdot\ch\frac{p-q}{2}\\
+\sh p-\sh q &= 2\,\sh \frac{p-q}{2}\cdot\ch\frac{p+q}{2}
+\end{align*}
+\end{multicols}
+
+%**********************************
+%\newpage
+
+\begin{multicols}{2}
+Avec \quad $t=\tan \frac{x}{2}$ \quad on a \quad
+$$
+\begin{cases}
+    \cos x &= \frac {1-t^2}{1+t^2} \\
+    \sin x &= \frac{2t}{1+t^2} \\
+    \tan x &= \frac{2t}{1-t^2}
+\end{cases}$$
+
+Avec \quad $t=\tanh \frac{x}{2}$ \quad on a \quad
+$$
+\begin{cases}
+    \ch x &= \frac {1+t^2}{1-t^2} \\
+    \sh x &= \frac{2t}{1-t^2} \\
+    \tanh x &= \frac{2t}{1+t^2}
+\end{cases}$$
+\end{multicols}
+
+\vspace{2cm}
+\begin{multicols}{2}[\begin{center}
+\emph{\textbf{D\'eriv\'ees}: la multiplication par $\ii$ n'est plus valable}
+\end{center}]
+
+
+\begin{align*}
+\cos'x&= -\sin x\\
+\sin'x&=\cos x\\
+\tan' x &= 1+\tan^2x=\frac{1}{\cos^2x}\\
+\end{align*}\vspace{0.1cm}
+\begin{align*}
+\ch'x&= \sh x\\
+\sh'x&=\ch x\\
+\tanh' x &= 1-\tanh^2x=\frac{1}{\ch^2x}\\
+\end{align*}
+\end{multicols}
+
+
+\begin{multicols}{2}
+\begin{align*}
+\text{arccos}'x&=\frac{-1}{\sqrt{1-x^2}} \quad (|x|<1)\\
+\text{arcsin}'x&=\frac{1}{\sqrt{1-x^2}} \quad (|x|<1)\\
+\text{arctan}'x&=\frac{1}{1+x^2}
+\end{align*}%\vspace{0.1cm}
+\begin{align*}
+\text{Argch}'x&=\frac{1}{\sqrt{x^2-1}} \quad (x>1)\\
+\text{Argsh}'x&=\frac{1}{\sqrt{x^2+1}} \\
+\text{Argth}'x&=\frac{1}{1-x^2} \quad (|x|<1)
+\end{align*}
+\end{multicols}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\newpage
+\newpage
+\section{Formules de développements limités}
+
+\emph{Développements limités usuels (au voisinage de $0$)}
+
+{\small
+\begin{align*}
+e^x &\ \ =\ \  1 + \frac{x}{1!}+\frac{x^2}{2!}+ \cdots + \frac{x^n}{n!}\ \  + \ \ o(x^n)
+ = \sum_{k=0}^n \frac{x^k}{k!} \ \ + \ \ o(x^n)
+\\[1.2em]
+\text{cos } x &\ \ =\ \
+1 - \frac{x^2}{2!}+\frac{x^4}{4!}- \cdots + (-1)^n \cdot \frac{x^{2n}}{(2n)!}\ \  + \ \ o(x^{2n+1})
+= \sum_{k=0}^n (-1)^{k} \frac{x^{2k}}{(2k)!}  \ \  + \ \ o(x^{2n+1})
+\\[0.5em]
+\text{sin } x &\ \ =\ \
+x - \frac{x^3}{3!}+\frac{x^5}{5!}- \cdots + (-1)^n \cdot \frac{x^{2n+1}}{(2n+1)!}\ \  + \ \ o(x^{2n+2})
+= \sum_{k=0}^n (-1)^{k} \frac{x^{2k+1}}{(2k+1)!}  \ \  + \ \ o(x^{2n+2})
+ \\[0.5em]
+\text{tan } x &\ \ =\ \
+x +  \frac{x^3}{3} + \frac{2}{15}x^5 + \frac{17}{315}x^7\ \  + \ \ o(x^{8})  \\[1.2em]
+\text{ch } x &\ \ =\ \
+1 + \frac{x^2}{2!}+\frac{x^4}{4!}+ \cdots + \frac{x^{2n}}{(2n)!}\ \  + \ \ o(x^{2n+1})
+= \sum_{k=0}^n \frac{x^{2k}}{(2k)!} \ \  + \ \ o(x^{2n+1})
+\\[0.5em]
+\text{sh } x &\ \ =\ \
+x + \frac{x^3}{3!}+\frac{x^5}{5!}+ \cdots + \frac{x^{2n+1}}{(2n+1)!}\ \  + \ \ o(x^{2n+2})
+= \sum_{k=0}^n \frac{x^{2k+1}}{(2k+1)!} \ \  + \ \ o(x^{2n+2})
+\\[0.5em]
+\text{th } x &\ \ =\ \
+x -  \frac{x^3}{3} + \frac{2}{15}x^5 - \frac{17}{315}x^7\ \  + \ \ o(x^{8})
+\\[0.5em]
+\end{align*}
+}
+
+{\small
+\begin{align*}
+\text{ln}\, (1+x)&\ \ =\ \
+x - \frac{x^2}{2}+\frac{x^3}{3}- \cdots + (-1)^{n-1}\cdot\frac{x^n}{n}\ \  + \ \ o(x^n)
+= \sum_{k=1}^n (-1)^{k+1} \frac{x^k}{k} \ \  + \ \ o(x^n)
+\\[0.5em]
+(1+x)^\alpha &\ \ =\ \
+1 + \alpha x + \frac{\alpha(\alpha - 1)}{2!}x^2+ \cdots +
+\frac {\alpha(\alpha-1)\cdots(\alpha - n+1)}{n!} x^n \ \  + \ \ o(x^n)\\
+&\ \ =\ \ \sum_{k=0}^n \binom{\alpha}{k} x^k \ \  + \ \ o(x^n)
+\\[1.2em]
+\frac{1}{1+x}&\ \ =\ \
+1 -x+x^2-\cdots+(-1)^n x^n \ \ +\ \ o(x^n)
+= \sum_{k=0}^n (-1)^k x^k \ \ +\ \ o(x^n)
+\\[0.5em]
+\frac{1}{1-x}&\ \ =\ \
+1 + x+x^2+ \cdots+ x^n\ \ +\ \ o(x^n) = \sum_{k=0}^n x^k \ \ +\ \ o(x^n)
+\\[0.5em]
+\sqrt{1+x}&\ \ =\ \
+1 + \frac{x}{2} - \frac{1}{8}x^2- \cdots +
+(-1)^{n-1}\cdot\frac{1\cdot1\cdot3\cdot5\cdots(2n-3)}{2^n n!}x^n\ \  + \ \ o(x^n)
+\\[0.5em]
+\frac{1}{\sqrt{1+x}}&\ \ =\ \
+1 - \frac{x}{2} + \frac{3}{8}x^2- \cdots +
+(-1)^{n}\cdot\frac{1\cdot3\cdot5\cdots(2n-1)}{2^n n!} x^n\ \ + \ \ o(x^n)
+\\[1.2em]
+\text{arccos } x &\ \ =\ \
+\frac{\pi}{2} - x - \frac{1}{2}\frac{x^3}{3} - \frac{1\cdot3}{2\cdot4}\frac{x^5}{5}- \cdots -
+\frac{1\cdot3\cdot5\cdots(2n-1)}{2\cdot4\cdot6\cdots(2n)} \frac{x^{2n+1}}{2n+1}\ \ + \ \ o(x^{2n+2})
+\\[0.5em]
+\text{arcsin } x &\ \ =\ \
+x + \frac{1}{2}\frac{x^3}{3} + \frac{1\cdot3}{2\cdot4}\frac{x^5}{5}+ \cdots +
+\frac{1\cdot3\cdot5\cdots(2n-1)}{2\cdot4\cdot6\cdots(2n)} \frac{x^{2n+1}}{2n+1}\ \ + \ \ o(x^{2n+2})
+\\[0.5em]
+\text{arctan } x &\ \ =\ \
+x - \frac{x^3}{3}+\frac{x^5}{5}+ \cdots + (-1)^{n}\cdot\frac{x^{2n+1}}{2n+1}\ \  + \ \ o(x^{2n+2})
+\end{align*}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section{Formulaire : primitives}
+
+
+\emph{$C$ d\'esigne une constante arbitraire. Les intervalles sont \`a pr\'eciser.}
+
+$$\int e^{\alpha t} \, dt= \frac{e^{\alpha t}}{\alpha}+C \quad (\alpha \in \Cc^*)$$
+
+\begin{multicols}{2}[
+%\begin{center}
+%\textbf{\textsf{\Large{Primitives  usuelles}}}
+%\vspace{0.5cm}
+%    \textit{$C$ d\'esigne une constante arbitraire. Les intervalles sont \`a pr\'eciser.}
+%\vspace{0.5cm}
+%$$\int e^{\alpha t} \, dt= \frac{e^{\alpha t}}{\alpha}+C \quad (\alpha \in \Cc^*)$$
+%\vspace{0.5cm}
+%\end{center}
+]
+
+$$\int t^{\alpha} \, dt= \frac{t^{\alpha +1}}{\alpha+1}+C \quad (\alpha \not= -1)$$
+
+\vspace{2mm}
+
+$$\int \frac{dt}{1+t^2} = \text{Arctan }t+C$$
+
+\vspace{6mm}
+
+$$\int \frac{dt}{\sqrt{1-t^2}} = \text{Arcsin }t+C$$
+
+\vspace{4mm}
+
+
+$$\int \cos t \, dt = \sin t +C$$
+
+$$\int \sin t \, dt = -\cos t +C$$
+
+$$\int \frac{dt}{\cos^2 t} = \tan t +C$$
+
+$$\int \frac{dt}{\sin^2 t} = -\text{cotan } t +C$$
+
+$$\int \frac{dt}{\cos t} = \ln \left| \tan \left( \frac{t}{2}+\frac{\pi}{4} \right) \right| +C$$
+
+$$\int \frac{dt}{\sin t} = \ln \left| \tan \frac{t}{2} \right| +C$$
+
+$$\int \tan t \, dt = - \ln \left| \cos t \right| +C$$
+
+\vspace{-2mm}
+
+$$\int \text{cotan } t \, dt = \ln \left| \sin t \right| +C$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Changement de colonne
+
+$$\int \frac{dt}{t} = \ln|t|+C$$
+
+$$\int \frac{dt}{1-t^2} = \frac{1}{2}\ln \left| \frac{1+t}{1-t} \right| +C$$
+
+$$\int \frac{dt}{\sqrt{t^2+\alpha}} = \ln \left| t+\sqrt{t^2+\alpha} \right| +C$$
+
+$$\int \text{ch } t \, dt = \text{sh } t +C$$
+
+$$\int \text{sh } t \, dt = \text{ch } t +C$$
+
+$$\int \frac{dt}{\text{ch}^2 t} = \text{th } t +C$$
+
+$$\int \frac{dt}{\text{sh}^2 t} = -\text{coth } t +C$$
+
+$$\int \frac{dt}{\text{ch } t} = 2\text{Arctan }e^t +C$$
+
+\vspace{2mm}
+
+$$\int \frac{dt}{\text{sh } t} = \ln \left| \text{th } \frac{t}{2} \right| +C$$
+
+$$\int \text{th } t \, dt =  \ln \left( \text{ch } t \right) +C$$
+
+$$\int \text{coth } t \, dt = \ln \left| \text{sh } t \right| +C$$
+\end{multicols}
+
+
+% \auteurs{
+% Arnaud Bodin
+% }
+
+\finchapitre
+\end{document}

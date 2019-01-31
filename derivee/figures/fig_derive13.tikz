@@ -1,0 +1,28 @@
+\begin{tikzpicture}
+
+  %    \draw[gray!50] (-0.25,-0.25) grid (4.25,3.25);
+      \draw[->,>=latex, gray] (-2,0)--(4.5,0) node[below,black] {$x$};
+       \draw[->,>=latex, gray] (0,-2)--(0,4) node[right,black] {$y$};
+
+
+
+       \node at (0,1) [left] {$1$};
+       \node at (0,0) [below right] {$0$};
+       \node at (1,0) [below] {$1$};
+
+
+
+      \draw[ultra thick, color=myred,domain=-2:1,samples=100] plot (\x,{\x+exp(\x)})node[right] {$y=x+\exp(x)$};
+
+\beameronly{\uncover<2->}{
+      \draw[domain=-2:3] plot (\x,\x)  node[right] {$y=x$};
+
+      \draw[ultra thick, color=blue,domain=-2:1,samples=100] plot ({\x+exp(\x)},\x)node[right] {$y=g(x)$};
+}
+\beameronly{\uncover<3->}{
+      \draw[very thick, color=myorange,domain=-0.8:3] plot (\x,{0.5*\x-0.45})  node[above right] {$y=\tfrac12(x-1)$};
+}
+       \fill (0,1) circle (1pt);
+       \fill (0,0) circle (1pt);
+       \fill (1,0) circle (1pt);
+\end{tikzpicture}

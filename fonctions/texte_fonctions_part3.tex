@@ -1,0 +1,501 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+\change
+
+Dans cette leçon nous allons définir ce qu'est la continuité d'une fonction en 
+un point.
+
+\change
+
+Nous verrons ensuite que la somme, le produit, etc. de deux fonctions continues 
+restent continus.
+
+\change
+
+Puis nous verrons comment étendre le domaine de définition d'une fonction,
+tout en conservant la continuité.
+
+\change
+
+Enfin nous terminons par une caractérisation de la continuité par les suites.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Je considère une fonction $f$ définie sur un intervalle $I$ de $\Rr$, et $x_0$ un point de $I$.
+
+
+Voici la définition de $f$ \defi{continue au point $x_0$} :
+
+
+$\forall \epsilon>0 \quad \exists \delta>0 \quad \forall x\in I \quad \vert x-x_0\vert <\delta 
+\implies \vert f(x)-f(x_0)\vert <\epsilon$
+
+C'est une définition délicate à maîtriser, prenons un peu de temps pour en discuter :
+
+\change
+
+en terme de limite cette définition signifie que 
+$f$ admet une limite en $x_0$  et, comme $f$ est définit au point $x_0$, cette limite vaut nécessairement $f(x_0)$.
+ 
+ 
+Autrement dit $f(x)$ tend vers $f(x_0)$ lorsque $x$ tend vers $x_0$
+ 
+ 
+ 
+\change
+
+Voici comment s'explique la définition de la continuité sur un dessin.
+
+
+On regarde ce qui se passe autour de $x_0$ sur l'axe des $x$, et autour de $f(x_0)$
+sur l'axe des $y$.
+
+Pour chaque $\epsilon>0$, même très petit, que l'on me donne, 
+
+
+je dois trouver un $\delta$ tel que si 
+$x$ est situé à une distance de $x_0$ inférieure à $\delta$, alors
+$f(x)$ est situé à une distance de $f(x_0)$ inférieure à $\epsilon$.
+
+ 
+\change 
+ 
+On dit que $f$ est continue sur l'intervalle $I$ si $f$ est continue 
+en tous les $x_0$ de l'intervalle $I$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour mieux comprendre la définition de la continuité,
+voici des fonctions qui ne sont **pas** continues en $x_0$ :
+
+Intuitivement, une fonction est continue sur un intervalle, 
+si on peut tracer son graphe 
+<< sans lever le crayon >>, c'est-à-dire si elle n'a pas de saut.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voici une liste de fonctions qui sont continues :
+
+\change
+
+une fonction constante est continue sur n'importe quel intervalle,
+
+\change
+
+la fonction racine carrée  est continue en tout point positif ou nul.
+
+\change
+
+les fonctions $\sin$ et $\cos$ sont continue sur $\Rr$,
+
+\change
+
+la fonction valeur absolue aussi,
+
+\change
+
+ la fonction exponentielle est continue sur $\Rr$
+alors que que la fonction logarithme est continue sur $]0,+\infty[$.
+
+\change
+
+
+Par contre, la fonction partie entière $E$ n'est pas continue aux points 
+$x_0$ qui sont des entiers, puisqu'elle n'admet pas de limite en ces points. 
+
+En un point $x_0$ réel mais pas entier, la fonction partie entière est continue.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+La continuité est une condition assez naturelle, elle assure par exemple que 
+si la fonction n'est pas nulle en un point 
+alors elle n'est pas nulle autour de ce point. 
+
+\change 
+
+[[montrer dessin]]
+On passe donc d'une propriété en un seul point à une propriété 
+tout autour de ce point.
+
+Voici l'énoncé :
+Si $f$ est continue en $x_0$ et si $f(x_0)\neq 0$, alors il existe $\delta>0$
+
+tel que, quelque soit $x$ compris entre $x_0-\delta$ et $x_0+\delta$,
+$f(x)$ reste non nul.
+
+\change
+
+Voici la démonstration :
+
+Supposons par exemple que $f(x_0)>0$
+
+\change
+
+\'Ecrivons la définition de la continuité de $f$ en $x_0$ :
+\[
+\forall \epsilon>0 \quad \exists \delta>0 \quad \forall x\in I \quad  x\in \, ]x_0-\delta,x_0+\delta [
+\implies f(x_0)-\epsilon < f(x) <f(x_0)+\epsilon.
+\]
+
+\change
+
+Cette assertion est vraie quel que soit $\epsilon$.
+
+Donc en particulier, je fixe un $\epsilon$ qui vérifie  $\epsilon<f(x_0)$. 
+
+\change
+
+Alors cette inégalité $f(x)>f(x_0)-\epsilon$ [montrer]
+implique maintenant que $f(x) > 0$ comme nous le souhaitions.
+
+Ainsi pour tout $x$ de l'intervalle $]x_0-\delta,x_0+\delta [$,
+$f(x)$ est non nul.
+
+Si au départ $f(x_0)<0$, la preuve est similaire.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+La continuité se comporte bien avec les opérations élémentaires. 
+
+Les propositions suivantes sont des conséquences immédiates des propositions analogues sur les limites.
+
+\change
+
+Si $f$ est une fonction continue en $x_0$ alors 
+pour tout $\lambda\in\R$, $\lambda\cdot f$ est continue en $x_0$ 
+
+\change
+
+Si  $f$ et $g$ sont continues $x_0$ alors
+la somme $f+g$ est continue en $x_0$,
+ 
+ \change
+ 
+ c'est la même chose pour le produit :  $f\times g$ est continue en $x_0$
+
+ 
+ \change
+ 
+ Enfin si $f(x_0)\neq 0$, alors $\frac1f$ est définie et continue en $x_0$.
+ 
+ 
+ [pause]
+ 
+ Si maintenant on suppose que $f$ et $g$ sont continues en tout point d'un intervalle $I$.
+ 
+ Alors  [montrer chaque item] $\lambda\cdot f$ ,  $f+g$,  $f\times g$ sont continue sur l'intervalle $I$
+
+ et si $f$ ne s'annule en aucun point de l'intervalle $I$ alors $1/f$ est continue sur $I$.
+ 
+ \change
+ 
+ 
+Cette proposition permet de vérifier que d'autres fonctions usuelles sont continues :
+
+\change
+
+comme la fonction $x\mapsto x$ est continue alors 
+la fonction puissance $x\mapsto x^n$ est continue sur $\Rr$ car c'est un produit $x \times x \times \cdots$
+de fonctions continues.
+
+
+\change
+
+Quand on fait la somme de fonctions puissance, et des multiplications par des réels
+on obtient que les fonctions polynomiales sont des fonctions continues.
+
+\change
+
+le quotient de deux polynômes fournit aussi une fonction continue en tout point où le dénominateur 
+ne s'annule pas.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+La composition conserve la continuité (mais il faut faire attention en quels
+points les hypothèses s'appliquent).
+
+
+Si $f$ est continue en un point $x_0$ et si $g$ est continue *en $f(x_0)$*, 
+alors $g\circ f$ est continue en $x_0$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le prolongement par continuité, c'est le moyen d'étendre le domaine de définition
+d'une fonction $f$ en un point où elle n'est pas définie tout en préservant la continuité.
+
+
+Partons d'un intervalle $I$, $x_0$ un point de $I$ et $f:I\setminus\{x_0\}\to\Rr$ une fonction,
+qui n'est pour l'instant pas définie en $x_0$.
+
+
+\change
+
+ On dit que $f$ est \defi{prolongeable par continuité} en $x_0$ si $f$ admet une 
+  limite finie en $x_0$. 
+  
+\change
+  
+Dans ce cas on note $\ell$ la limite de $f$ en $x_0$.
+
+\change
+
+
+Et on peut alors étendre la fonction $f$ :
+on définit la fonction $\tilde f$  en posant pour tout $x\in I$
+  \[
+  \tilde f(x) =
+  \begin{cases}
+  f(x) &\text{ si } x\neq x_0\\
+  \ell &\text{ si } x=x_0.
+  \end{cases}
+  \]
+  
+  Cette nouvelle fonction $\tilde f$ est définie en $x_0$, et de plus on a tout fait pour que $\tilde f$ soit continue en $x_0$.
+  
+  On appelle $\tilde f$ le \defi{prolongement par continuité} de $f$ en $x_0$.
+  
+  [dessin]
+  
+  Sur le dessin nous avons une fonction qui n'est pas définie en $x_0$ mais qui admet
+  des limites à gauche et à droite qui sont les mêmes.
+  
+  \change
+  
+
+  
+  Alors il est naturel d'étendre la définition de $f$ en $x_0$ en posant
+  pour valeur de $\tilde f$ en $x_0$ cette limite.
+  
+  La fonction obtenue est maintenant continue en $x_0$.
+
+Dans la pratique, on continuera souvent à noter $f$ à la place de $\tilde f$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Passons à un exemple de prolongement par continuité.
+
+
+Considérons la fonction $f$ définie en dehors de $0$ par $f(x)=x\sin\left(\frac1x\right)$. 
+
+Voyons si $f$ admet un prolongement par continuité en $0$. Ceci revient à se demander si $f$ admet une limite finie en $0$.
+
+\change
+
+Comme $|\sin 1/x| \le 1$ alors pour tout $x$ non nul 
+on a $\vert f(x)\vert\leq \vert x\vert$, 
+
+\change
+
+on en déduit que $f$ tend vers $0$ en $0$. 
+
+\change
+
+
+Elle est donc prolongeable par continuité en $0$ et son prolongement est la fonction $\tilde f$ 
+définie sur $\Rr$ tout entier par :
+
+
+$\tilde f(x) = x\sin\left(\frac1x\right)$ si $ x\neq 0$
+
+et $\tilde f(0)=0$.
+
+La nouvelle fonction $\tilde f$ est définie partout,
+elle est continue en dehors de $0$ comme l'était $f$,
+mais elle est de plus continue en $0$ par notre choix de $\tilde f(0)=0$.
+
+Ainsi $\tilde f$ est continue partout.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On termine par un résultat important qui lie les suites et la continuité des fonctions.
+
+Partons d'une fonction $f$, et soit $x_0$ un point de son intervalle de définition $I$. 
+
+\change
+
+
+Alors nous avons l'équivalence entre les deux assertions suivantes  :
+
+$f \text{ est continue en } x_0$
+
+
+*et* 
+
+pour toute suite $(u_n)$ qui tend vers $x_0$, la suite $(f(u_n))$ tend vers $f(x_0)$.
+
+
+Je reprends :
+
+si $f$ est continue en $x_0$ alors 
+pour n'importe quelle suite qui tend $x_0$,
+on a aussi $(f(u_n))$ qui tend vers $f(x_0)$.
+
+Et réciproquement :
+
+si pour  n'importe quelle suite qui tend $x_0$,
+on a aussi $(f(u_n))$ qui tend vers $f(x_0)$,
+cela implique que $f$ est continue en $x_0$.
+
+
+
+
+C'est surtout cette implication [$\implies]$ qui sera utile
+
+\change
+
+On l'utilisera intensivement pour l'étude des suites récurrentes : soit une suite
+$(u_n)$ définie par une formule de récurrences $u_{n+1}= f(u_n)$.
+
+\change
+
+Le résultat ci-dessus implique que 
+si $f$ est continue et $u_n\to \ell$, 
+alors $(f(u_n))$ tend vers $f(\ell)$. Mais comme $u_{n+1}$ tend aussi vers $\ell$, on en déduit ainsi que $\ell$ vérifie l'équation $f(\ell)=\ell$.
+
+Ceci donne une contrainte importante sur la limite $\ell$ et permet assez souvent de la calculer.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On termine par la démonstration de l'équivalence dans la proposition précédente.
+Démonstration que vous pouvez éluder en première lecture.
+
+\change
+
+On commence par la preuve de l'implication directe.
+
+On suppose donc que $f$ est continue en $x_0$
+et on considère une suite $(u_n)$ qui 
+  converge vers $x_0$
+  
+ Il s'agit de  montrer que $(f(u_n))$ converge vers $f(x_0)$.
+
+ \change
+ 
+
+  Soit $\epsilon >0$ fixé. 
+ 
+ \change
+ 
+  Comme $f$ est continue en $x_0$, alors par définition, pour ce $\epsilon$,
+  il existe un $\delta>0$ tel que
+\[
+\forall x \in I \quad  |x-x_0|<\delta \implies |f(x)-f(x_0)|<\epsilon.
+\]
+
+\change
+
+Comme $(u_n)$ tend vers $x_0$, 
+alors pour le $\delta$ que l'on vient d'obtenir, il existe grand $N$ tel que
+pour tout $n\geq N$ on a $|u_n-x_0|<\delta.$
+
+\change
+
+
+On en déduit que, pour  $n\geq N$, comme $|u_n-x_0|<\delta$, 
+alors par la continuité on a $|f(u_n)-f(x_0)|<\epsilon$.
+
+\change
+
+Bilan : on a montré que pour $n\ge N$, $|f(u_n)-f(x_0)|<\epsilon$,
+
+c'est donc que l'on a prouvé que $(f(u_n))$ converge vers $f(x_0)$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Pour montrer l'implication réciproque [$\Leftarrow$]
+
+on va en fait montrer la contraposée : 
+  
+  c'est-à-dire on suppose que $f$ n'est pas continue en $x_0$ et on va
+  montrer qu'il existe   une suite $(u_n)$ qui converge vers $x_0$ mais telle que $(f(u_n))$ ne converge pas 
+  vers $f(x_0)$.
+  
+ \change
+ 
+ 
+  
+  Par hypothèse, comme $f$ n'est pas continue en $x_0$ :
+\[
+\exists \epsilon_0>0 \quad \forall\delta>0 \quad \exists x_\delta \in I \quad 
+\text{tel que} \quad |x_\delta-x_0|<\delta \text{ et } |f(x_\delta)-f(x_0)|>\epsilon_0.
+\]
+
+\change
+
+On construit la suite $(u_n)$ de la façon suivante : pour tout $n\in \Nn^*$, 
+on choisit dans l'assertion précédente $\delta=1/n$ 
+
+\change
+
+et on obtient qu'il existe $u_n$ (qui est $x_\delta$ avec $\delta = 1/n$) tel que 
+\[
+|u_n-x_0|<\frac1n \quad \text{et} \quad |f(u_n)-f(x_0)|>\epsilon_0.
+\]
+
+\change
+
+La suite $(u_n)$ converge vers $x_0$ alors que la suite $(f(u_n))$ ne peut pas converger vers $f(x_0)$.
+
+Nous avons montré l'implication réciproque,
+ce qui termine la démonstration de l'équivalence.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici toute une série de petits exercices pour vous entraîner !
+
+
+\end{document}

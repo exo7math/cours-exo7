@@ -1,0 +1,343 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={205,100,0}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf L'espace vectoriel $\Rr^n$}}
+\subtitle{Exemples d'applications linéaires}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Applications linéaires
+    \item<4-> Exemples géométriques 
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Applications linéaires}
+
+\begin{frame}
+
+\begin{itemize}[<+->]\setlength{\itemsep}{8pt}
+  \item Soient $n$ fonctions de $p$ variables réelles à valeurs réelles
+  
+  \item $f_1 : \Rr^p \longrightarrow \Rr \qquad f_2 : \Rr^p \longrightarrow \Rr \qquad \cdots \qquad f_n : \Rr^p \longrightarrow \Rr$
+  
+  \item $f_i : \Rr^p \longrightarrow \Rr, \qquad (x_1,x_2,\ldots,x_p) \mapsto f_i(x_1,\ldots,x_p)$
+  
+  \item On construit une application $f : \Rr^p \longrightarrow \Rr^n$
+  
+  \item Définie par $f(x_1,\dots , x_p)  = \left(f_1 (x_1, \dots , x_p), \dots , f_n (x_1, \dots , x_p)\right)$
+  
+\end{itemize}
+
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\begin{mydefinition}
+Une application $f: \Rr^p  \longrightarrow \Rr^n$ définie par $f(x_1, \dots , x_p) = (y_1, \dots , y_n)$
+est dite une \defi{application linéaire} si 
+\vspace*{-2ex}
+ $$  \left\{
+\begin{array}{ccccccccc}
+y_1 & = &a_{11}x_1 &+ &a_{12} x_2 & + & \cdots & + & a_{1p}x_p\\
+y_2 & = & a_{21} x_1 & + & a_{22} x_2 & + & \cdots & + & a_{2p} x_p\\
+\vdots &&\vdots &&\vdots & & & &\vdots\\
+y_n & = & a_{n1}x_1 & + & a_{n2}x_2 &+&\cdots & +& a_{np} x_p\, 
+\end{array}\right.
+$$
+\end{mydefinition}
+
+\pause
+
+\begin{itemize}[<+->]
+  \item $f\left(\begin{smallmatrix} x_1\\x_2 \\ \vdots \\x_p \end{smallmatrix}\right)= 
+\left(\begin{smallmatrix} y_1\\ y_2\\ \vdots\\ y_n  \end{smallmatrix}\right) = 
+\left(\begin{smallmatrix}
+a_{11} & a_{12} & \cdots & a_{1p}\\
+a_{21} & a_{22} & \cdots & a_{2p}\\
+\vdots & \vdots & & \vdots\\
+a_{n1}& a_{n2} & \cdots & a_{np}  
+\end{smallmatrix}\right)
+\left(\begin{smallmatrix} x_1\\x_2 \\ \vdots \\x_p \end{smallmatrix}\right)
+$
+  
+  \item $X= \left(\begin{smallmatrix} x_1\\ \vdots \\x_p \end{smallmatrix}\right)$ et 
+$A = (a_{ij}) \in M_{n,p}(\Rr)$ 
+\myboxinline{$f(X)=AX$}
+  
+  \item Une application linéaire $\Rr^p \to \Rr^n$ s'écrit $X \mapsto A X$
+  
+  \item $A\in M_{n,p}(\Rr)$ est la \defi{matrice de l'application linéaire} $f$
+  
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+La fonction $f: \Rr^4 \longrightarrow \Rr^3$ définie par
+$$\left\{\begin{array}{rcccccccc}
+y_1 & = & -2x_1 &+& 5x_2 &+& 2x_3 &-& 7x_4\\
+y_2 & = & 4x_1 &+& 2x_2 &-& 3x_3 &+& 3x_4\\
+y_3 & = & 7x_1 &-& 3x_2 &+& 9x_3 && 
+\end{array}\right.$$
+s'exprime sous forme matricielle comme suit : 
+$$\begin{pmatrix} y_1\\ y_2\\ y_3 \end{pmatrix} =
+\begin{pmatrix}
+-2 & 5 & 2 & -7\\
+4 & 2 & -3 & 3\\
+7 & -3 & 9 & 0  
+\end{pmatrix}\quad
+\begin{pmatrix}x_1\\ x_2\\ x_3\\ x_4 \end{pmatrix}$$
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}\setlength{\itemsep}{8pt}
+  \item Pour l'application linéaire identité $\Rr^n \to \Rr^n$, $(x_1,\ldots,x_n) \mapsto (x_1,\ldots,x_n)$, sa matrice associée
+  est l'identité $I_n$ (car $I_n X= X$)
+
+  \pause
+  
+  \item Pour l'application linéaire nulle $\Rr^p \to \Rr^n$, $(x_1,\ldots,x_p) \mapsto (0,\ldots,0)$, sa matrice associée
+  est la matrice nulle $0_{n,p}$ (car $0_{n,p} X= 0$)
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exemples géométriques}
+
+\begin{frame}
+\evidence{Réflexion par rapport à l'axe $(Oy)$} 
+
+
+La fonction
+$$f : \Rr^2 \longrightarrow \Rr^2 \qquad \begin{pmatrix} x \\ y \end{pmatrix} \mapsto \begin{pmatrix} -x \\ y \end{pmatrix}$$
+est la réflexion par rapport à l'axe des ordonnées $(Oy)$
+
+\medskip
+
+Sa matrice est \quad
+$\begin{pmatrix}-1 & 0 \\ 0 & 1 \end{pmatrix}
+\quad \text{ car } \quad 
+\begin{pmatrix} -1 & 0 \\ 0 & 1 \end{pmatrix}
+\begin{pmatrix} x \\ y \end{pmatrix}
+= \begin{pmatrix} -x \\ y \end{pmatrix}$
+
+
+\myfigure{1}{
+\tikzinput{fig_erene05} 
+}
+\end{frame}
+
+
+\begin{frame}
+\evidence{Réflexion par rapport à l'axe $(Ox)$}
+
+La réflexion par rapport à l'axe des abscisses $(Ox)$ est donnée par la matrice
+$\begin{pmatrix} 1 & 0\\ 0 & -1 \end{pmatrix}$
+
+\myfigure{0.9}{
+\tikzinput{fig_erene07} 
+}
+\end{frame}
+
+
+\begin{frame}
+\evidence{Réflexion par rapport à la droite $(y = x)$}
+
+
+La réflexion par rapport à la droite $(y=x)$ est donnée par
+$$f: \Rr^2 \longrightarrow \Rr^2, \qquad 
+\begin{pmatrix}x\\y\end{pmatrix} \mapsto \begin{pmatrix}y\\x\end{pmatrix}$$
+Sa matrice est
+$\begin{pmatrix}0 & 1\\1 & 0\end{pmatrix}$
+
+\myfigure{0.9}{
+\tikzinput{fig_erene06} 
+}
+\end{frame}
+
+
+\begin{frame}
+\evidence{Homothéties} 
+
+L'homothétie de rapport $\lambda$ centrée à l'origine est : 
+$$f: \Rr^2 \longrightarrow \Rr^2, \qquad 
+\begin{pmatrix}x\\y\end{pmatrix} \mapsto \begin{pmatrix} \lambda x \\ \lambda y \end{pmatrix}$$
+
+Ainsi 
+$f\left(\begin{smallmatrix} x \\ y \end{smallmatrix}\right) = 
+\left(\begin{smallmatrix} \lambda & 0 \\ 0 & \lambda \end{smallmatrix}\right)
+\left(\begin{smallmatrix} x \\ y \end{smallmatrix}\right)$
+et la matrice de l'homothétie est
+$\begin{pmatrix} \lambda & 0 \\ 0 & \lambda \end{pmatrix}$
+ 
+\myfigure{1}{
+\tikzinput{fig_erene08} 
+}
+
+\end{frame}
+
+
+\begin{frame}
+\evidence{Rotations}
+
+
+Soit $f: \Rr^2 \longrightarrow \Rr^2$ la rotation d'angle $\theta$, centrée à l'origine.
+
+Si $\left(\begin{smallmatrix}x' \\ y' \end{smallmatrix}\right)$ dénote l'image 
+de $\left(\begin{smallmatrix}x \\ y \end{smallmatrix}\right)$ par la rotation d'angle
+$\theta$, on obtient :
+$$\left\{\begin{array}{rcl}
+x' & = & x \cos  \theta - y \sin\theta\\
+y' & = & x\sin \, \theta + y \cos\theta
+\end{array}\right.
+\quad \text{ donc }\quad 
+\begin{pmatrix}x' \\ y' \end{pmatrix}
+= \begin{pmatrix}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{pmatrix}
+\begin{pmatrix}x \\ y \end{pmatrix}
+$$ 
+
+
+\myfigure{0.9}{
+\tikzinput{fig_erene09pres} 
+}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\evidence{Projections orthogonales}
+
+\begin{enumerate}
+  \item L'application linéaire
+$f: \Rr^2  \longrightarrow \Rr^2, \qquad \left(\begin{smallmatrix}x\\y\end{smallmatrix}\right) \mapsto 
+\left(\begin{smallmatrix}x\\0\end{smallmatrix}\right)$
+est la projection orthogonale sur l'axe $(Ox)$.
+Sa matrice est
+$\left(\begin{smallmatrix} 1 & 0 \\ 0 & 0 \end{smallmatrix}\right)$
+
+
+ \uncover<2->{
+
+  \item L'application linéaire 
+  $f: \Rr^3  \longrightarrow \Rr^3, \qquad
+\left(\begin{smallmatrix}x\\y\\z\end{smallmatrix}\right)  
+\mapsto \left(\begin{smallmatrix}x\\y\\0\end{smallmatrix}\right)$
+est la projection orthogonale sur le plan $(Oxy)$ et sa matrice est
+$\left(\begin{smallmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 0
+\end{smallmatrix}\right)$
+}
+\end{enumerate}
+
+
+\myfigure{0.7}{
+
+\begin{minipage}{0.49\textwidth}
+\tikzinput{fig_erene10}  
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+\uncover<2->{\tikzinput{fig_erene11}}
+\end{minipage}
+}
+
+
+\end{frame}
+
+
+\begin{frame}
+\evidence{Réflexions dans l'espace}
+
+\bigskip
+
+L'application 
+$$
+f: \Rr^3  \longrightarrow \Rr^3, \qquad \begin{pmatrix}x\\y\\z\end{pmatrix} \mapsto \begin{pmatrix}x\\y\\-z\end{pmatrix}$$
+est la réflexion par rapport au plan $(Oxy)$. C'est une application linéaire et sa matrice est
+\[ \begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & -1 
+\end{pmatrix}
+ \]
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Soit $A=\left(\begin{smallmatrix} 1 & 2 \\ 1 & 3 \end{smallmatrix} \right)$
+  et soit $f$ l'application linéaire associée. Calculer et dessiner l'image par $f$ de 
+  $\left(\begin{smallmatrix} 1 \\ 0 \end{smallmatrix} \right)$, puis
+  $\left(\begin{smallmatrix} 0 \\ 1 \end{smallmatrix} \right)$
+et plus généralement de $\left(\begin{smallmatrix} x \\ y \end{smallmatrix} \right)$.
+Dessiner l'image par $f$ du carré de sommets 
+$\left(\begin{smallmatrix} 0 \\ 0 \end{smallmatrix} \right)$
+$\left(\begin{smallmatrix} 1 \\ 0 \end{smallmatrix} \right)$
+$\left(\begin{smallmatrix} 1 \\ 1 \end{smallmatrix} \right)$
+$\left(\begin{smallmatrix} 0 \\ 1 \end{smallmatrix} \right)$.
+Dessiner l'image par $f$ du cercle inscrit dans ce carré.
+  
+  \item Soit $A=\left(\begin{smallmatrix} 1 & 2 & -1 \\ 0 & 1 & 0 \\ 2 & 1 & 1 \end{smallmatrix} \right)$
+  et soit $f$ l'application linéaire associée. Calculer l'image par $f$ de 
+  $\left(\begin{smallmatrix} 1 \\ 0 \\ 0 \end{smallmatrix} \right)$,
+  $\left(\begin{smallmatrix} 0 \\ 1 \\ 0 \end{smallmatrix} \right)$,
+  $\left(\begin{smallmatrix} 0 \\ 0 \\ 1 \end{smallmatrix} \right)$ 
+et plus généralement de $\left(\begin{smallmatrix} x \\ y \\z \end{smallmatrix} \right)$.
+
+  
+  \item \'Ecrire la matrice de la rotation du plan d'angle $\frac\pi4$ centrée à l'origine.
+ Idem dans l'espace avec la rotation d'angle $\frac\pi4$ d'axe $(Ox)$.
+  
+  \item \'Ecrire la matrice de la réflexion du plan par rapport à la droite $(y=-x)$.
+ Idem dans l'espace avec la réflexion par rapport au plan d'équation $(y=-x)$.
+ 
+ \item\'Ecrire la matrice de la projection orthogonale de l'espace sur l'axe $(Oy)$.
+ 
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

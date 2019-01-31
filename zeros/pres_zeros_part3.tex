@@ -1,0 +1,343 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={0,127,0}]{structure}
+
+% Commande spécifique à ce chapitre
+
+
+\makeatletter
+\pgfdeclareverticalshading[black,bg]{bmb@shadow}{200cm}{%
+  color(0bp)=(blue!25); color(4bp)=(black!50!bg); color(8bp)=(black!50!bg)}
+\pgfdeclareradialshading[black,bg]{bmb@shadowball}{\pgfpointorigin}{%
+  color(0bp)=(black!50!bg); color(4bp)=(blue!25)}
+\pgfdeclareradialshading[black,bg]{bmb@shadowballlarge}{\pgfpointorigin}{%
+  color(0bp)=(black!50!bg); color(4bp)=(black!50!bg); color(8bp)=(blue!25)}
+  %
+\makeatother
+   
+\newcommand{\Python}{\texttt{Python}}
+\renewcommand{\evidence}[1]{{\color{blue}\textbf{#1}}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Zéros des fonctions}}
+\subtitle{La méthode de Newton}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Méthode de Newton 
+    \item<4-> Résultats pour $\sqrt{10}$
+    \item<5-> Résultats numériques pour $(1,10)^{1/12}$
+    \item<6-> Calcul de l'erreur pour $\sqrt{10}$
+    \item<7-> Algorithme    
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Méthode de Newton}
+
+\begin{frame}
+
+\begin{itemize}
+  \item $f:[a,b] \to \Rr$ dérivable et d'un point $u_0 \in[a,b]$
+ 
+\uncover<5->{  \item Tangente au graphe de $f$ en $(u_0,f(u_0))$}
+ 
+\uncover<7->{  \item $(u_1,0)$ l'intersection de la tangente avec l'axe des abscisses }
+  
+\uncover<9->{  \item Si $u_1 \in[a,b]$ alors on recommence le processus }
+\end{itemize}
+
+\uncover<12->{
+\mybox{$\displaystyle u_0 \in [a,b] \quad \text{ et } \quad u_{n+1} = u_n - \frac{f(u_n)}{f'(u_n)}$}
+}
+
+\uncover<2->{
+\myfigure{1}{
+\tikzinput{fig_zeros08-pres}
+}
+}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{minipage}{0.62\textwidth}
+\mybox{$\displaystyle u_0 \in [a,b] \quad \text{ et } \quad u_{n+1} = u_n - \frac{f(u_n)}{f'(u_n)}$}  
+\end{minipage}
+\pause
+\begin{minipage}{0.32\textwidth}
+\myfigure{0.7}{
+\tikzinput{fig_zeros09-pres}
+}  
+\end{minipage}
+\pause\pause\pause
+\vspace*{-3ex}
+\begin{proof}
+\begin{itemize}[<+->]
+\pause
+
+  \item La tangente au point d'abscisse $u_n$ a pour équation :
+$y = f'(u_n)(x-u_n)+f(u_n)$
+  \item Donc le point $(x,0)$ appartenant à la tangente 
+(et à l'axe des abscisses)
+vérifie $0=f'(u_n)(x-u_n)+f(u_n)$
+  \item D'où $x=u_n - \frac{f(u_n)}{f'(u_n)}$ \qedhere
+\end{itemize}
+
+\end{proof}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Résultats pour $\sqrt{10}$}
+
+\begin{frame}
+\medskip
+\begin{minipage}{0.47\textwidth}
+\begin{itemize}
+  \item Calcul de $\sqrt{a}$
+  \item $f(x)=x^2-a$ 
+  \item $f'(x)=2x$
+  \item $u_0>0$ et $u_{n+1} = u_n - \frac{u_n^2-a}{2u_n}$
+\end{itemize}  
+\end{minipage}
+\pause 
+\begin{minipage}{0.49\textwidth}
+\hspace*{-2em}
+\myboxinline{$\displaystyle u_0>0 \quad \text{ et } 
+\quad u_{n+1} = \frac12 \left(u_n+\frac{a}{u_n}\right)$}
+
+\   
+\end{minipage}
+\medskip
+\pause 
+\begin{proposition}
+\label{prop:heron}
+Cette suite $(u_n)$ converge vers $\sqrt{a}$
+\end{proposition}
+\pause 
+$$
+\begin{array}{l}
+  u_0 = 4     \\
+\pause 
+  u_1 = \frac12 \left(u_0+\frac{10}{u_0}\right) = \frac12\left(4+\frac{10}{4}\right) = \frac{13}{4} = 3,25 \\
+\pause 
+  u_2 = \frac12 \left(u_1+\frac{10}{u_1}\right) = \frac12\left(\tfrac{13}{4}+\frac{10}{\tfrac{13}{4}}\right) 
+  = \frac{329}{104} = 3,1634\ldots \\
+\pause 
+  u_3 = \frac12 \left(u_2+\frac{10}{u_2}\right) = \frac{216\,401}{68\,432} = 3,16227788 \ldots \\
+\pause 
+  u_4 = 3,1622776601683\ldots  
+\end{array}
+$$
+
+\end{frame}
+
+
+\begin{frame}
+\vspace*{-1ex}
+\mybox{$\displaystyle u_0>0 \quad \text{ et } \quad u_{n+1} = \frac12 \left(u_n+\frac{a}{u_n}\right)$}
+\vspace*{-2ex}
+\begin{proof} \vspace*{-1ex}
+\pause
+\begin{enumerate}
+  \item $u_n \ge \sqrt{a}$ pour $n\ge1$
+ \vspace*{-2ex}   
+  $$u_{n+1}^2-a = \frac14 \left(\frac{u_n^2 + a}{u_n}\right)^2 - a 
+  = \frac{1}{4u_n^2}(u_n^4-2au_n^2+a^2)=\frac14 \frac{(u_n^2-a)^2}{u_n^2}$$
+\vspace*{-1ex}  
+  Donc $u_{n+1}^2 - a \ge 0$, ainsi pour tout $n\ge 0$, $u_{n+1} \ge \sqrt{a}$
+  
+\pause  
+  \item $(u_n)_{n\ge1}$ est décroissante et converge
+  \begin{itemize}
+    \item $\frac{u_{n+1}}{u_n} = \frac12 \left(1+\frac{a}{u_n^2}\right)$
+    \item $u_n^2 \ge a$ (donc $\frac{a}{u_n^2}\le 1$) alors $\frac{u_{n+1}}{u_n} \le 1$
+    \item $(u_n)_{n\ge1}$ est décroissante et minorée par $0$ donc elle converge
+  \end{itemize}
+
+\pause 
+  \item $(u_n)$ converge vers $\sqrt{a}$
+  \begin{itemize}
+    \item $u_n \to \ell$ et $u_{n+1} \to \ell$
+    \item relation $u_{n+1} = \frac12 \left(u_n+\frac{a}{u_n}\right)$ implique  $\ell = \frac12 \left(\ell+\frac{a}{\ell}\right)$
+    \item d'où $\ell^2=a$ et ainsi $\ell = \sqrt{a}$ \qedhere
+  \end{itemize}\vspace*{-1ex}   
+\end{enumerate}
+
+\end{proof}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Résultats numériques pour $(1,10)^{1/12}$}
+
+\begin{frame}
+
+\begin{itemize}[<+->]\setlength{\itemsep}{6pt}
+  \item Calcul de $(1,10)^{1/12}$
+  \item On pose $f(x)=x^{12}-a$, $a=1,10$
+  \item $f'(x)=12x^{11}$
+  \item $u_0>0 \quad \text{ et } \quad u_{n+1}= u_n - \frac{u_n^{12}-a}{12u_n^{11}} = \frac1{12} \left(11u_n+\frac{a}{u_n^{11}}\right)$
+  \item Résultats numériques pour $(1,10)^{1/12}$ en partant de $u_0=1$
+  $$
+\begin{array}{l}
+  u_0 = 1     \\
+  u_1 = 1,0083333333333333 \ldots \\
+  u_2 = 1,0079748433368980\ldots \\
+  u_3 = 1,0079741404315996 \ldots \\
+  u_4 = 1,0079741404289038 \ldots \\
+\end{array}
+$$  
+\end{itemize}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Calcul de l'erreur pour $\sqrt{10}$}
+
+\begin{frame}
+\begin{proposition}
+\begin{enumerate}
+  \item Soit $k$ tel que $u_1-\sqrt a\le k$ alors pour $n\ge 1$ :
+  $$u_n - \sqrt{a} \le 2\sqrt{a} \left( \frac{k}{2\sqrt{a}} \right)^{2^{n-1}}$$
+
+  \pause
+  
+  \item Pour $a=10$, $u_0=4$, on a $u_1=3,25$, $k = \frac14$ et 
+  $$u_n - \sqrt{10} \le 8 \left(\frac{1}{24} \right)^{2^{n-1}}$$
+%  Donc si $\ell \ge 1+\frac{\log\left(\frac{\ell-\log8}{\log24}\right)}{\log2}$ alors $u_n - \sqrt{10} \le 10^{-\ell}$.
+\end{enumerate}
+\end{proposition}
+
+  \pause
+
+  \medskip
+  
+\begin{center}
+\begin{tabular}{ll}
+  $10^{-10}$ ($\sim 10$ décimales) &  $4$ itérations \\
+  $10^{-100}$ ($\sim 100$ décimales) &  $8$ itérations \\ 
+  $10^{-1000}$ ($\sim 1000$ décimales) &  $11$ itérations \\ 
+\end{tabular}  
+\end{center}
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Algorithme}
+
+\begin{frame}[fragile]
+\begin{algo}[secante.py]
+\begin{lstlisting}
+def racine_carree(a,n):
+    u=4                # N'importe qu'elle valeur > 0
+    for i in range(n):
+        u = 0.5*(u+a/u)
+    return u
+
+\end{lstlisting}  
+\end{algo} 
+\end{frame}
+
+
+\begin{frame}
+
+\centerline{Pour $n=11$, $u_{11}$ donne $1000$ décimales de $\sqrt{10}$}
+
+\begin{center}
+{\scriptsize
+\qquad\qquad\qquad 3, \hfill\hfill\   \\
+16227766016837933199889354443271853371955513932521 \ 68268575048527925944386392382213442481083793002951 \\
+87347284152840055148548856030453880014690519596700 \ 15390334492165717925994065915015347411333948412408 \\
+53169295770904715764610443692578790620378086099418 \ 28371711548406328552999118596824564203326961604691 \\
+31433612894979189026652954361267617878135006138818 \ 62785804636831349524780311437693346719738195131856 \\
+78403231241795402218308045872844614600253577579702 \ 82864402902440797789603454398916334922265261206779 \\
+26516760310484366977937569261557205003698949094694 \ 21850007358348844643882731109289109042348054235653 \\
+40390727401978654372593964172600130699000095578446 \ 31096267906944183361301813028945417033158077316263 \\
+86395193793704654765220632063686587197822049312426 \ 05345411160935697982813245229700079888352375958532 \\
+85792513629646865114976752171234595592380393756251 \ 25369855194955325099947038843990336466165470647234 \\
+99979613234340302185705218783667634578951073298287 \ 51579452157716521396263244383990184845609357626020 \\
+  }  
+\end{center}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item \`A la calculette, calculer les trois premières étapes pour une approximation de 
+  $\sqrt{3}$, sous forme de nombres rationnels.   Idem avec $\sqrt[3]{2}$. 
+   
+  \item Implémenter la méthode de Newton, étant données une fonction $f$ et sa dérivée $f'$.
+  
+  \item Calculer une approximation des solutions de l'équation $x^3+1=3x$.
+  
+  \item Soit $a>0$. Comment calculer $\frac{1}{a}$ par une méthode de Newton ?
+  
+  \item Calculer $n$ de sorte que $u_n-\sqrt{10} \le 10^{-\ell}$ (avec $u_0=4$, 
+  $u_{n+1} =\frac{1}{2} \left(u_n+\frac{a}{u_n}\right)$, $a=10$).
+  
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

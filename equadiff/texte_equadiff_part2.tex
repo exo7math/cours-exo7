@@ -1,0 +1,674 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous étudions ici l'un des cas les plus simple mais aussi des plus important :
+les équations différentielles linéaires du premier ordre.
+
+
+\change
+
+\change
+On commence par les équations du type  $y'=ay$,
+
+\change
+puis $y'=a(x)y$
+
+\change
+et enfin $y' = a(x)y+b(x)$
+
+\change
+On termine par le théorème de Cauchy-Lipschitz,
+
+\change
+la notion de courbes intégrales,
+
+\change
+et des exemples !
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Une équation différentielle \defi{linéaire du premier ordre} est une équation du type: 
+\begin{equation}
+  y'=a(x)y + b(x)   
+  \label{eq:eqdifflinordre1}
+  \tag{$E$}
+\end{equation}
+où $a$ et $b$ sont des fonctions, et on se placera ici 
+sur un intervalle ouvert $I$ de $\Rr$. 
+
+\change
+Dans la suite on supposera que $a$ et $b$ sont 
+des fonctions continues sur $I$.
+
+\change
+On peut envisager la forme : 
+$\alpha (x)y'+\beta (x)y=\gamma (x)$.
+
+\change
+On demandera alors que $\alpha (x)\neq 0$ pour tout $x\in I$. 
+
+\change
+La division par $\alpha $ permet de retrouver la forme précédente.
+ 
+
+ \change
+Voici le plan de cette vidéo :
+On commence par résoudre le cas où $a$ est une constante et $b=0$.
+
+\change
+Puis $a$ sera une fonction et $b$ est encore nul.
+
+\change
+On termine par le cas général où $a$ et $b$ sont deux fonctions.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Soit $a$ un réel quelconque. Considérons 
+l'équation différentielle :
+$y' = a y $ 
+
+\change
+
+Les solutions de cette équation sont les fonctions $y$ définies par :
+$y(x) = k e^{ax}$
+
+$a$ est la constante de l'équation différentielle,
+
+\change
+par contre $k\in \Rr$ est une constante quelconque.
+
+
+\change
+Voici un petit exemple :
+on souhaite résoudre l'équation différentielle : 
+$$3y' - 5y = 0$$
+
+\change
+On écrit cette équation sous la forme $y' = \frac53 y$
+
+qui est bien de de cette forme là.
+
+\change
+Ses solutions sont les : $y(x) = k e^{\frac53x}$, ceci quelque soit
+$k \in \Rr$.  
+
+Cela peut aussi s'interpréter ainsi : 
+si $y_0$ est une solution non identiquement nulle de
+cette équation différentielle, 
+alors toutes les autres solutions $y$ sont des multiples de $y_0$. 
+En termes plus savants,
+l'ensemble des solutions forme un espace vectoriel de dimension $1$ (une droite vectorielle).
+
+\change
+
+Ce résultat est fondamental. Il est tout aussi fondamental de 
+comprendre d'où vient cette formule, via une preuve rapide 
+(mais pas tout à fait rigoureuse). 
+
+\change
+On réécrit l'équation 
+différentielle sous la forme
+$$\frac{y'}{y} =  a$$
+
+\change
+que l'on intègre à gauche et à droite pour trouver :
+$$\ln |y(x)| = ax+b$$
+
+\change
+On compose par l'exponentielle des deux côtés pour obtenir :
+$$|y(x)| = e^{ax+b} = e^{ax}\times e^b$$
+
+\change
+Autrement dit  $y(x) = \pm e^b e^{ax}$.
+On posant $k = \pm e^b$ on obtient les solutions 
+(non nulles) cherchées.
+Nous verrons une preuve plus rigoureuse juste après.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+L'équation différentielle $y'= a y$
+admet donc une infinité de solutions.
+
+Voici les graphes des solutions.
+
+Par exemple ici à gauche $a$ est fixé et est positif.
+
+Chaque valeur de $k$ fournie une solution.
+
+
+A droite $a$ est fixé et est négatif, 
+il y a aussi une infinité de solutions.
+
+
+La constante $k$ peut être nulle. Dans ce cas, on obtient 
+  la \og solution nulle \fg : $y = 0$ sur $\Rr$ qui est une solution
+  évidente de l'équation différentielle.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+On passe à la preuve du théorème que l'on vient de voir :
+
+Les solutions de $y' = a y$ sont les fonctions $y$ définies par :
+$y(x) = k e^{ax}$
+
+Voici la démonstration rigoureuse :
+  
+\change
+Tout d'abord  il est facile de vérifier que les fonctions 
+proposées sont bien solutions : 
+en effet pour $y(x) = k e^{ax}$ alors 
+  $y'(x) = ake^{ax} = a y(x).$
+  
+\change
+Montrons qu'il n'y pas pas d'autres solutions. 
+
+\change
+On part de $y$ une solution quelconque de l'équation $y' = a y$.
+
+\change
+On introduit un nouvelle fonction $z$ définie par : 
+$z(x) = y(x) e^{-ax}$ et on va montrer que $z$ est une fonction constante.
+
+\change
+Par la formule de dérivation d'un produit :
+  $$z'(x) = y'(x)e^{-ax} +  y(x)\big(-ae^{-ax}\big) =  e^{-ax}\big(y'(x)-ay(x)\big)$$
+  
+\change
+  Mais, par hypothèse, $y$ est une solution de l'équation différentielle
+  donc $y'(x) - ay(x) = 0$. 
+  
+  Ce qui implique $z'(x) = 0$, pour tout $x$.
+  
+  \change
+  Ainsi $z$ est une fonction constante sur $\Rr$.
+  Autrement dit, il existe une constante $k$ telle que 
+  $z(x)=k$ pour tout $x$.
+  
+  \change
+  Maintenant que $z(x)= k$ alors $y(x) e^{-ax} = k$
+  et ainsi $y(x) = ke^{ax}.$
+  
+  Une solution quelconque est bien de la forme annoncée
+  et on a fini la preuve.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+[[petit $a$/grand $A$]]
+
+Le théorème suivant affirme que lorsque $a$ est une fonction,
+résoudre l'équation différentielle $y'=a(x)y$ 
+revient à déterminer une primitive $A$ de $a$ 
+(ce qui n'est pas toujours possible explicitement).
+
+
+Voici l'énoncé :
+
+Théorème :
+
+Soit $a : I \to \Rr$ une fonction continue. Soit $A : I \to \Rr$ une primitive de $a$.
+Soit l'équation différentielle :
+$$
+   y' = a(x) y   
+$$
+
+\change
+
+Alors les solutions cette équation différentielle
+sont les fonctions $y$ définies par :
+$y(x) = k e^{*A*(x)}$
+où $k\in \Rr$ est une constante quelconque.
+
+Notez bien ici que c'est $*A*(x)$ dans l'exponentielle.
+
+On retrouve en prime le théorème précédent : si $a(x)=a$ est 
+une fonction constante, alors une primitive est $A(x)=ax$ 
+et on obtient bien les solutions $y = k e^{ax}$ du théorème précédent.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+[[petit $a$/grand $A$]]
+
+Reprenons le théorème : les solutions de $y' = a(x) y$ 
+sont les $y(x) = k e^{A(x)}$.
+
+\change
+Voici une preuve rapide de ce théorème :
+
+On écrit l'équation différentielle sous la forme 
+$\frac{y'}{y} =  a(x) $
+
+\change
+on intègre des deux côtés :
+$\ln |y(x)| = A(x) + b$
+
+
+Je vous rappelle que $A(x)$ est une primitive de $a(x)$
+
+\change
+on prend l'exponentielle à gauche et à droite
+$|y(x)| = e^{A(x)+b}$
+
+\change
+ce qui donne $y(x) = \pm e^b e^{A(x)}$
+
+\change
+c-à-d $y(x) = k e^{A(x)}$ où $k$ est une constante.
+
+Il faut en plus ajouter la solution nulle pour obtenir le théorème.
+
+\change
+
+Voici un exemple : Comment résoudre 
+l'équation différentielle $x^2y'=y$ ?
+
+\change
+On se place sur l'intervalle $I_+=]0,+\infty[$ 
+ou $I_-=]-\infty,0[$.
+
+\change
+L'équation devient $y'= \frac{1}{x^2}y$. 
+
+(ou encore $\frac{y'}{y}= \frac{1}{x^2}$ pour se ramener à cette forme là)
+
+\change
+Donc ici $a(x)=\frac{1}{x^2}$, dont on connaît une primitive :
+$A(x)=-\frac1x$. 
+
+\change
+Ainsi, par le théorème, les solutions cherchées sont 
+$y(x) = k e^{-\frac1x}$, où $k\in\Rr$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Il nous reste le cas général de l'équation différentielle linéaire d'ordre $1$ avec second membre :
+\begin{equation}
+   y' = a(x) y  + b(x)
+  \label{eq:eqdifflinordre1scnd}
+  \tag{$E$}
+\end{equation}
+où $a : I \to \Rr$ et $b: I \to \Rr$ sont des fonctions continues.
+
+\change
+On aura besoin de l'équation homogène associée :
+\begin{equation}
+   y' = a(x) y
+  \label{eq:eqdifflinordre1scndhomo}
+  \tag{$E_0$}
+\end{equation}
+
+\change
+Il n'y a pas de nouvelle formule à apprendre pour ce cas.
+Il suffit d'appliquer le principe de superposition : 
+les solutions de (\ref{eq:eqdifflinordre1scnd}) s'obtiennent en
+ajoutant à une solution particulière de (\ref{eq:eqdifflinordre1scnd}) les solutions de
+(\ref{eq:eqdifflinordre1scndhomo}).
+Ce qui donne :
+
+
+[[petit $a$/grand $A$]]
+
+Proposition : 
+Si $y_0$ est une solution de (\ref{eq:eqdifflinordre1scnd}), 
+alors les solutions de (\ref{eq:eqdifflinordre1scnd}) sont les
+fonctions $y : I \to \Rr$, définie par: 
+$$y(x)= y_0(x)+k e^{A(x)} \qquad k \in \Rr$$
+où $x\mapsto A(x)$ est une primitive de $x \mapsto a(x)$.
+
+\change
+
+La recherche de la solution générale 
+de (\ref{eq:eqdifflinordre1scnd}) se réduit 
+donc à la recherche d'une solution particulière. 
+
+Parfois ceci 
+se fait en remarquant une solution évidente. 
+
+\change
+Par exemple, l'équation différentielle $y'=2xy+4x$
+
+\change
+a pour solution particulière la fonction constante $y_0(x)=-2$ ;
+
+\change
+donc l'ensemble des solutions de cette équation sont les 
+$y(x) = -2 + ke^{x^2}$, où $k\in\Rr$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici la méthode de variation de la constante.
+
+Le nom de cette méthode est paradoxal mais justifié !
+C'est une méthode générale pour trouver une solution 
+particulière en se ramenant à un calcul de primitive.
+
+\change
+On souhaite trouver une solution de cette équation $y' = a(x) y  + b(x)$
+
+\change
+La solution générale de l'équation sans second membre
+$y' = a(x) y$, est donnée 
+par $y(x)=ke^{A(x)}$, avec $k\in \Rr$ une constante.
+
+\change
+La méthode de la variation de la constante consiste à chercher 
+une solution particulière sous la forme $y_0(x)=k(x)e^{A(x)}$, 
+où $k$ est maintenant une fonction à déterminer
+
+\change 
+On commence par calculer la dérivée de $y_0$.
+Puisque $A'=a$, on a :
+$$y_0'(x)=a(x)k(x)e^{A(x)} + k'(x)e^{A(x)}= a(x)y_0(x) + k'(x)e^{A(x)}.$$
+
+\change
+Que l'on réécrit : $y_0'(x) - a(x)y_0(x) = k'(x)e^{A(x)}$
+
+\change
+On veut que $y_0$ soit une solution de l'équation 
+(\ref{eq:eqdifflinordre1scnd}) $y' = a(x) y  + b(x)$. 
+
+Donc $y_0$ est une solution de (\ref{eq:eqdifflinordre1scnd}) 
+si et seulement si
+le terme de gauche est $b(x)$,
+c-à-d $k'(x)e^{A(x)}=b(x)$
+
+\change
+Autrement dit $k'(x)=b(x)e^{-A(x)}$
+
+\change
+ce qui équivaut à $k(x)=\int b(x)e^{-A(x)}\dd x.$
+
+\change
+Ce qui donne une solution particulière  de (\ref{eq:eqdifflinordre1scnd}) : 
+
+$y_0(x) = \left(\int b(x)e^{-A(x)}\dd x \right)e^{A(x)}$
+
+\change
+Maintenant 
+La solution générale de  (\ref{eq:eqdifflinordre1scnd}) est donnée par
+la somme de notre solution particulière $y_0(x)$
+et des solutions de l'équation sans second membre.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons comment fonctionne la méthode de variation de la constante
+sur un exemple.
+
+On souhaite résoudre l'équation différentielle $y'+y = e^x+1$.
+
+\change
+On commence par résoudre l'équation homogène : $y'=-y$,
+
+les solutions sont les $y(x) = k e^{-x}$, $k\in\Rr$. 
+
+\change
+Pour trouver une solution particulière de l'équation avec second membre,
+
+on considère $y_0(x) = k(x) e^{-x}$ où $k$ est maintenant une fonction. 
+
+\change
+On doit trouver $k(x)$ afin que $y_0$ vérifie l'équation 
+différentielle $y'+y = e^x+1$.
+
+\change
+Que $y_0$ soit solution de l'équation différentielle signifie 
+
+$y_0'+y_0 = e^x+1$
+
+\change
+$\iff  \left(k'(x) e^{-x} - k(x) e^{-x} \right) + k(x) e^{-x} = e^x+1$
+
+\change
+
+Cela se simplifie --en fait cela doit toujours se simplifier--
+$\iff  k'(x)e^{-x} = e^x+1$
+
+\change
+$\iff  k'(x) = e^{2x}+e^x$
+
+\change
+$\iff  k(x) = \frac12e^{2x}+e^x + c$
+
+\change
+On choisit par exemple $c=0$ (n'importe quelle valeur convient)
+
+Nous tenons notre solution particulière !
+$$y_0(x) =  k(x) e^{-x} 
+= \left(\frac12e^{2x}+e^x\right)e^{-x} 
+= \frac12e^{x}+1$$
+
+\change
+Les solutions générales de l'équation
+$y'+y = e^x+1$ s'obtiennent en additionnant cette solution 
+particulière aux solutions de l'équation homogène :
+$$y(x) = \frac12e^{x}+1 + k e^{-x}, \qquad k\in\Rr.$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voici l'énoncé du théorème de Cauchy-Lipschitz dans le cas des 
+équations différentielles linéaires du premier ordre.
+
+Théorème : 
+Soit $y'=a(x)y + b(x)$ une équation différentielle linéaire du premier ordre,
+où $a,b : I \to \Rr$ sont des fonctions continues sur un intervalle ouvert $I$.
+Alors pour tout $x_0 \in I$ et pour tout $y_0 \in \Rr$, il existe une et une 
+seule solution $y$ telle que $y(x_0)=y_0$.
+
+
+Il faut comprendre ce théorème ainsi, cette équation différentielle admet une infinité de solution,
+mais en fixant une condition initiale, alors il existe une unique solution. On a existence
+et unicité.
+
+
+
+\change
+Nos calculs précédents nous permettent d'écrire explicitement cette solution, même si ce n'est pas très utile :
+
+[[grand $A$/petit $a$]]
+
+$$y(x) = \left(\int_{x_0}^x b(t)e^{-A(t)}\dd t \right)e^{A(x)} + y_0e^{A(x)}$$
+où $A$ est la primitive de $a$ s'annulant en $x_0$, 
+
+et cette solution vérifie bien $y(x_0)=y_0$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Illustrons le théorème de Cauchy-Lipschitz par un exemple.
+
+
+Quelle est la fonction $y$ qui vérifie l'équation différentielle
+$y'+y = e^x+1$, et en plus la condition  $y(1)=2$.
+
+\change
+Nous avons déjà trouvé toutes les solutions de cette 
+équation dans l'exemple précédent.
+Ce sont les  $y(x) = \frac12e^{x}+1 + k e^{-x}$
+où $k\in\Rr$. 
+
+\change
+Nous allons déterminer la constante $k$ afin que la condition initiale
+$y(1)=2$ soit vérifiée :
+
+\change \change
+$y(1)=2 \iff \frac12e^{1}+1 + k e^{-1} = 2$
+
+\change
+$\iff \frac{k}{e} = 1 - \frac{e}{2}$
+
+\change
+et donc $k = e - \frac{e^2}{2}$
+
+\change
+Ainsi la solution cherchée est 
+$y(x) = \frac12e^{x}+1 + \left(e - \frac{e^2}{2}\right)e^{-x}$,
+et c'est la seule solution.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Il est primordial d'avoir aussi une vision géométrique
+des solutions.
+
+Une \defi{courbe intégrale} d'une équation différentielle $(E)$
+est le graphe d'une solution de $(E)$.
+
+\change
+Le théorème de Cauchy-Lipschitz pour les équations 
+différentielle linéaire du premier ordre $y'=a(x)y + b(x)$
+se reformule ainsi :
+
+\og Par chaque point $(x_0,y_0) \in I \times \Rr$
+passe une et une seule courbe intégrale. \fg
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Illustrons cette notion de courbe intégrale.
+
+avec l'équation différentielle $y'+y=x$.
+
+
+\change
+On sait résoudre cette équations et on trouve que les solutions
+sont les $y(x) = x-1 + ke^{-x}$, avec une solutions pour chaque 
+$k \in\Rr$.
+
+Pour chaque $k$, on trace le graphe de la fonction, chaque courbe est une courbe intégrale.
+
+\change
+
+Le théorème de Cauchy-Lipschitz affirme que pour chaque couple 
+$(x_0,y_0)$, il existe une unique solution
+$y$, telle que $y(x_0)=y_0$. 
+
+\change
+Géométriquement cela signifie que pour chaque point 
+$(x_0,y_0)$ 
+
+\change
+il existe une unique 
+courbe intégrale passant par $(x_0,y_0)$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On termine par un exemple qui va nous permettre de récapituler plusieurs
+point de cette section.
+
+On va résoudre l'équation différentielle 
+$(E) : \quad x^3y'+(2-3x^2)y=x^3$. 
+
+
+\change
+On commence avec l'équation homogène $(E_0)$ :
+$x^3y'+(2-3x^2)y=0$.  
+
+\change
+Pour $x\neq 0$, on a $y'=-\frac{2-3x^2}{x^3}y$. 
+
+\change
+Donc la solution générale s'obtient en trouvant une primitive
+de $-\frac{2-3x^2}{x^3}$,
+
+\change
+c'est une fraction qui se décompose $1/x^2$ et en $1/x$ et 
+et donc après intégration on obtient 
+$y(x) =k e^{3\ln |x|}e^{1/x^2}=k|x|^3e^{1/x^2}$. 
+
+\change
+Ainsi la solution générale de l'équation homogène 
+est  : $y(x)= k_1 x^3e^{1/x^2}$ ; sur l'intervalle $]0,+\infty[$
+
+\change 
+et $y(x)= k_2 x^3e^{1/x^2}$ sur $]-\infty,0[$.
+
+Attention ! à part la solution nulle, 
+les solutions ne sont pas définies sur $\Rr$.
+
+
+\change
+On revient à l'équation avec second membre.
+
+Il nous suffit de trouver cherche une seule solution de cette équation,
+
+nous allons-la trouver ici par la méthode de variation de la constante.  
+
+\change
+On cherche une solution sous la forme $y(x)=k(x)x^3e^{1/x^2}$, 
+
+c-à-d que $k$ qui était une constante dans la solution de l'équation homogène
+devient ici une fonction à déterminer.
+
+\change
+en dérivant,
+en remplaçant dans l'équation différentielle
+et en simplifiant, on obtient 
+$k'(x) x^3e^{1/x^2} =1. $ 
+
+\change
+On intègre pour avoir $k(x)=\frac{1}{2}e^{-1/x^2}+c$. 
+
+\change
+Et donc on obtient une solution 
+particulière avec par exemple $c=0$
+$y_0(x)=k(x)x^3e^{1/x^2}$ ce qui se simplifie en $\frac{1}{2}x^3$. 
+
+On n'oublie pas se rassurer en vérifiant que ceci est bien une solution particulière.
+
+\change
+Il ne reste plus qu'à appliquer le principe de superposition 
+
+\change
+
+\change
+    
+sur $]0,+\infty[$  les solutions sont les : $y(x)=\frac{1}{2}x^3+k_1x^3e^{1/x^2}$.   
+
+sur $]-\infty,0[$ : les solutions sont $y(x)=\frac{1}{2}x^3+k_2x^3e^{1/x^2}$.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Au trvail pour résoudre ces exercices !
+
+
+
+\end{document}

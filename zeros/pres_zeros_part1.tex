@@ -1,0 +1,407 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={0,127,0}]{structure}
+
+
+% Commande spécifique à ce chapitre
+
+\newcommand{\Python}{\texttt{Python}}
+\renewcommand{\evidence}[1]{{\color{blue}\textbf{#1}}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Zéros des fonctions}}
+\subtitle{La dichotomie}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Principe de la dichotomie
+    \item<4-> Résultats numériques pour $\sqrt{10}$
+    \item<5-> Résultats numériques pour $(1,10)^{1/12}$
+    \item<6-> Calcul de l'erreur
+    \item<7-> Algorithme   
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Principe de la dichotomie}
+
+\begin{frame}
+
+\begin{theoreme}[des valeurs intermédiaires]
+Soit $f:[a,b]\to\Rr$ une fonction continue sur un segment
+\mybox{Si $f(a)\cdot f(b) \le 0$, alors il existe $\ell\in[a,b]$ tel que $f(\ell)=0$}
+\end{theoreme}
+
+\pause
+
+\myfigure{0.8}{
+\tikzinput{fig_zeros01}
+\quad\pause
+\tikzinput{fig_zeros02}
+}
+
+\end{frame}
+
+
+\begin{frame}
+
+$f : [a,b] \to \Rr$ continue, avec $a < b$, et $f(a)\cdot f(b)\le0$
+
+\pause
+
+Première étape de la construction : on regarde le signe 
+de la valeur de la fonction $f$ appliquée au point milieu $\frac{a+b}{2}$
+
+\pause
+
+\begin{itemize}
+\uncover<3->{
+  \item Si $f(a)\cdot f(\frac{a+b}{2})\le0$, alors il existe 
+  $c \in [a,\frac{a+b}{2}]$ tel que $f(c)=0$
+  }
+\uncover<5->{  
+  \item Si $f(a)\cdot f(\frac{a+b}{2})>0$, cela implique que 
+  $f(\frac{a+b}{2})\cdot f(b)\le0$, et alors il existe $c \in [\frac{a+b}{2},b]$ tel que $f(c)=0$
+  }
+\end{itemize}
+
+\myfigure{0.75}{
+\uncover<4->{\tikzinput{fig_zeros03}}
+\quad\pause
+\uncover<6->{\tikzinput{fig_zeros04}}
+}
+
+\pause\pause\pause
+
+Nous avons obtenu un intervalle de longueur moitié dans 
+lequel l'équation $(f(x)=0)$ admet une solution
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+
+\begin{itemize}
+  \item {\bf Au rang 0} On pose $a_0=a$, $b_0=b$. Il existe une solution $x_0$ de l'équation $(f(x)=0)$ 
+  dans l'intervalle $[a_0,b_0]$
+
+\pause
+\medskip
+
+  \item {\bf Au rang 1}
+
+  \begin{itemize}
+  \item  Si $f(a_0)\cdot f(\frac{a_0+b_0}{2}) \le 0$, alors on pose $a_1=a_0$ et 
+  $b_1=\frac{a_0+b_0}{2}$,
+    \item sinon on pose $a_1=\frac{a_0+b_0}{2}$ et $b_1=b$
+    \item il existe une solution $x_1$ de $(f(x)=0)$ dans $[a_1,b_1]$ 
+  \end{itemize}
+  
+\pause  
+\medskip
+  
+  \item $ \cdots$
+  
+\pause  
+\medskip
+
+  \item {\bf Au rang $n$}
+  \begin{itemize}
+    \item Si $f(a_n)\cdot f(\frac{a_n+b_n}{2}) \le 0$, alors on
+   pose $a_{n+1}=a_n$ et $b_{n+1}=\frac{a_n+b_n}{2}$
+    \item sinon on pose $a_{n+1}=\frac{a_n+b_n}{2}$ et $b_{n+1}=b_n$ 
+    \item il existe une solution $x_{n+1}$ de $(f(x)=0)$ dans $[a_{n+1},b_{n+1}]$
+  \end{itemize} 
+\end{itemize}   
+\end{frame}
+
+
+\begin{frame}
+
+\begin{itemize}[<+->]
+  \setlength{\itemsep}{5pt} 
+  \item \`A chaque étape on a $a_n \le x_n \le b_n$
+
+  \item $(a_n)$ est une suite croissante, $(b_n)$ une suite décroissante, 
+  $(b_n-a_n) \to 0$ lorsque $n\to +\infty$ : les suites $(a_n)$ et $(b_n)$ sont adjacentes
+  
+  \item $(a_n), (b_n), (x_n)$ tendent vers $\ell$
+  
+  \item $f$ continue : $f(\ell)=\lim_{n\to +\infty} f(x_n)=\lim_{n\to +\infty} 0 =0$
+  
+  \item Donc $(a_n)$\! et \!$(b_n)$ tendent vers $\ell$, qui est une solution de $(f(x)=0)$  
+  
+  \item On arrête le processus dès que $b_n-a_n=\frac{b-a}{2^n}$ est inférieur à la précision souhaitée
+  
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Résultats numériques pour $\sqrt{10}$}
+
+\begin{frame}
+\begin{itemize}[<+->]
+  \setlength{\itemsep}{7pt}
+  \item Approximation de $\sqrt{10}$
+  
+  \item $f$ définie par $f(x)=x^2 - 10$, $f$ continue sur $\Rr$, 
+  unique solution positive $(f(x)=0)$ est $\sqrt{10}$
+  
+  \item Intervalle $[3,4]$ : $f(3) \le 0$ et $f(4) \ge 0$, donc $\sqrt{10} \in [3,4]$
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+
+
+\myfigure{1.6}{\hspace*{-2cm}
+\tikzinput{fig_zeros05}
+}
+
+  
+\end{frame}
+
+\begin{frame}
+\begin{enumerate} \setlength{\itemsep}{7pt}
+  \item 
+  \begin{itemize}\setlength{\itemsep}{4pt}
+    \item $a_0=3$ et $b_0=4$ ; $f(a_0)\le 0$ et $f(b_0) \ge 0$
+    \item $f(\frac{a_0+b_0}{2})=f(3,5)=3,5^2-10 = 2,25 \ge0$
+    \item Donc $\sqrt{10}$ est dans l'intervalle $[3 ; 3,5]$
+    \item $a_1 = a_0 = 3$ et $b_1 = \frac{a_0+b_0}{2} = 3,5$    
+  \end{itemize}
+
+  \pause
+  
+  \item
+  \begin{itemize}\setlength{\itemsep}{4pt}
+    \item $f(a_1) \le 0$ et $f(b_1) \ge0$
+    \item $f(\frac{a_1+b_1}{2})=f(3,25)=0,5625 \ge 0$
+    \item $a_2=3$ et $b_2=3,25$   
+  \end{itemize}  
+
+  \pause
+  
+  \item
+  \begin{itemize}\setlength{\itemsep}{4pt}
+    \item $f(\frac{a_2+b_2}{2})=f(3,125)=-0,23\ldots \le 0$
+    \item $f(b_2) \ge 0$, $f$ s'annule sur $[\frac{a_2+b_2}{2},b_2]$
+    \item $a_3=\frac{a_2+b_2}{2}=3,125$ et $b_3=b_2=3,25$ 
+    \item $3,125 \le \sqrt{10} \le 3,25$
+  \end{itemize}  
+\end{enumerate}
+
+\end{frame}
+
+
+
+\begin{frame}
+$$
+\begin{array}{ll}
+  a_0 = 3      & b_0 = 4 \\
+  a_1 = 3      & b_1 = 3,5 \\
+  a_2 = 3      & b_2 = 3,25 \\
+  a_3 = 3,125  & b_3 = 3,25 \\
+  a_4 = 3,125  & b_4 = 3,1875 \\
+  a_5 = 3,15625 & b_5 = 3,1875 \\
+  a_6 = 3,15625 & b_6 = 3,171875 \\
+  a_7 = 3,15625 & b_7 = 3,164062\ldots \\
+  a_8 = 3,16015\ldots & b_8 = 3,164062\ldots \\
+\end{array}
+$$
+
+
+$$3,160  \le \sqrt{10} \le 3,165$$
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Résultats numériques pour $(1,10)^{1/12}$}
+
+\begin{frame}
+\begin{itemize}
+  \item Approximation de $(1,10)^{1/12}$
+  
+  \item $f(x) = x^{12} - 1,10$
+  
+  \item $a_0=1$ et $b_0=1,1$
+  
+  \item $f(a_0)=-0,10 \le 0$ et $f(b_0)=2,038\ldots \ge 0$
+ 
+\end{itemize}
+
+$$
+\begin{array}{ll}
+  a_0 = 1             & b_0 = 1,10 \\
+  a_1 = 1             & b_1 = 1,05 \\
+  a_2 = 1             & b_2 = 1,025 \\
+  a_3 = 1             & b_3 = 1,0125 \\
+  a_4 = 1,00625       & b_4 = 1,0125 \\
+  a_5 = 1,00625       & b_5 = 1,00937\ldots\\
+  a_6 = 1,00781\ldots & b_6 = 1,00937\ldots \\
+  a_7 = 1,00781\ldots & b_7 = 1,00859\ldots \\
+  a_8 = 1,00781\ldots & b_8 = 1,00820\ldots \\
+\end{array}
+$$
+
+$$ 1,00781 \le (1,10)^{1/12} \le 1,00821$$
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Calcul de l'erreur}
+
+\begin{frame}
+
+\begin{itemize}\setlength{\itemsep}{6pt}
+  \item $\ell \in [a_n,b_n]$ de longueur $\frac{b-a}{2^n}$
+  
+\pause
+
+  \item $$\begin{array}{rcl}
+\frac{b-a}{2^n} \le 10^{-N} 
+ & \iff & (b-a)10^N \le 2^n  \\
+ & \iff & \log(b-a) + \log(10^N)  \le \log(2^n) \\
+ & \iff & \log(b-a) + N \le n \log 2 \\
+ & \iff & n \ge \frac{N +  \log(b-a)}{\log 2} \\            
+          \end{array}
+$$
+
+
+\pause
+
+  \item Exemple avec $b-a \le 1$
+
+\begin{center}
+\begin{tabular}{ll}
+  $10^{-10}$ ($\sim 10$ décimales) &  $34$ itérations \\
+  $10^{-100}$ ($\sim 100$ décimales) &  $333$ itérations \\ 
+  $10^{-1000}$ ($\sim 1000$ décimales) &  $3322$ itérations \\ 
+\end{tabular}  
+\end{center}
+  
+\end{itemize}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Algorithme}
+
+\begin{frame}[fragile]
+
+\begin{algo}[dichotomie.py (1)]
+\begin{lstlisting}
+def f(x):
+    return x*x - 10 
+\end{lstlisting}  
+\end{algo}
+
+\begin{algo}[dichotomie.py (2)]
+\begin{lstlisting}
+def dicho(a,b,n):    
+    for i in range(n):
+        c = (a+b)/2
+        if f(a)*f(c) <= 0:
+            b = c
+        else:
+            a = c
+    return a,b
+\end{lstlisting}  
+\end{algo}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item \`A la main, calculer un encadrement à $0,1$ près de $\sqrt{3}$.
+  Idem avec $\sqrt[3]{2}$. 
+  
+  \item Calculer une approximation des solutions de l'équation $x^3+1=3x$.
+  
+  \item Est-il plus efficace de diviser l'intervalle en $4$ au lieu d'en $2$ ?
+  (\`A chaque itération, la dichotomie classique nécessite l'évaluation de $f$ en une nouvelle valeur 
+  $\frac{a+b}{2}$ pour une précision améliorée d'un facteur $2$.) 
+  
+  \item \'Ecrire un algorithme pour calculer plusieurs solutions de $(f(x)=0)$.
+  
+  \item On se donne un tableau trié de taille $N$, rempli de nombres appartenant à $\{1,\ldots,n\}$.
+  \'Ecrire un algorithme qui teste si une valeur $k$ apparaît dans le tableau et en quelle position.
+
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

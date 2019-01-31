@@ -1,0 +1,502 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons voir que le moyen le plus simple pour calculer une intégrale
+est de trouver d'abord une primitive, lorsque cela est possible bien sûr !
+
+\change
+
+\change
+
+On commence par la définition de ce qu'est une primitive,
+
+\change
+
+Puis nous verrons la liste des primitives des fonctions usuelles
+
+\change
+
+Ensuite on montre comment calculer une intégrale à partir d'une primitive.
+
+\change
+
+On termine avec les sommes de Riemann
+qui sont des limites de sommes obtenues à partir d'un calcul d'intégrale.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+[[petit f, grand F]]
+
+Soit $f:I \to \Rr$ une fonction définie sur un intervalle $I$ quelconque. 
+
+
+On dit que $F : I \to \Rr$ est une \defi{primitive} de $f$ sur $I$ si
+
+tout d'abord 
+$F$ est une fonction dérivable sur $I$ 
+
+et ensuite $F'(x)=f(x)$ pour tout $x \in I$. 
+
+La dérivée de $F$ est $f$.
+
+\change
+
+
+Voyons deux exemples :
+
+Notons $f$ la fonction $x^2$, ici l'intervalle de définition est $\Rr$ tout entier.
+
+\change
+
+Alors la fonction  $F$ définie par $F(x) = \frac{x^3}{3}$ est une primitive de $f$
+
+en effet lorsque l'on dérive $F$ on retrouve $f$.
+
+\change
+
+Notez que l'on aurait aussi pu prendre $F(x)= \frac{x^3}{3}+1$ comme primitive de $f$
+
+
+\change
+
+Soit maintenant $g$ la fonction racine carrée, définie sur l'intervalle $[0,+\infty[$.
+
+\change
+
+Alors  $G(x)=\frac{2}{3} x^{\frac{3}{2}}$ est une primitive de $g$
+
+car encore une fois lorsque l'on dérive $G$ on trouve $g$.
+
+\change
+
+Bien sûr si on prend la fonction $G+c$ où $c$ est une constante,
+alors comme la dérivée d'une constante est nulle,
+lorsque l'on dérive on retrouve $g$.  
+
+Ainsi $G+c$ est aussi une primitive de $g$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons voir que trouver une primitive permet de les trouver toutes.
+
+[[petit f, grand F]]
+
+Soit $f$ une fonction et soit $F$ une primitive de $f$. 
+
+Toute primitive de $f$ s'écrit sous la forme $G=F+c$ où $c$ est une constante réelle.
+
+\change
+
+La preuve n'est pas difficile,
+
+remarquons d'abord que 
+ si l'on note $G$ la fonction définie par $G(x)=F(x)+c$ alors
+$G'(x)=F'(x)$ 
+
+\change
+
+mais comme $F'(x)=f(x)$ alors $G'(x)=f(x)$ 
+
+\change
+
+et $G$ est bien une primitive de $f$.
+
+\change
+
+Pour la réciproque supposons que $G$ soit une primitive quelconque de $f$.
+Alors $(G-F)'(x)$
+
+\change
+
+$=G'(x)-F'(x)$
+
+Mais comme $G$ et $F$ sont des primitives de $f$ alors ces deux dérivées valent $f(x)$
+
+\change
+
+\change
+
+ainsi la fonction $G-F$ a une dérivée nulle sur un intervalle, c'est donc une fonction constante!
+
+\change
+
+Il existe donc $c\in \Rr$ tel que $G(x)=F(x)+c$ (pour tout $x\in I$).
+
+
+(pause)
+
+
+\change
+
+
+On notera une primitive de $f$ par $\int f(t) \; dt$  
+
+\change
+
+Cette notation est standard mais elle prête un peu à confusion.
+
+Tout d'abord on peut indifféremment noter cette primitive par 
+$\int f(x) \; dx$ ou $\int f(u) \; du$ ou simplement par~$\int f$
+
+car les lettres $t, x, u, ...$ sont  des variables muettes
+c'est-à-dire interchangeables. 
+
+\change
+
+
+Cette proposition [[montrer]] nous dit que si $F$ est une primitive de $f$ 
+alors il existe un réel $c$, tel que $F=\int f(t) \; dt + c$. 
+
+\change
+
+Voici une dernière mise en garde : $\int f(t)\;dt$ désigne une fonction de $I$ dans $\Rr$
+
+\change
+
+alors que l'intégrale $\int_a^b f(t) \; dt$ désigne un nombre réel.
+
+Nous verrons dans très peu de temps que bien sûr primitives et intégrales sont étroitement liées.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Par dérivation on prouve facilement le résultat suivant :
+
+Soit $F$ une primitive de $f$ et $G$ une primitive de $g$. 
+
+Alors $F+G$ est une
+primitive de $f+g$.
+
+\change
+
+Si maintenant $\lambda$ est un réel alors $\lambda F$ est une primitive de $\lambda f$.
+
+\change
+
+Une autre formulation est de dire que pour tous réels $\lambda,\mu$ on a 
+: 
+
+$\int\big(\lambda f(t)+ \mu g(t)\big) \; dt=\lambda \int f(t) \; dt+\mu \int g(t)\; dt$
+
+Qui bien sûr est à mettre en parallèle avec la linéarité de l'intégrale !
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici maintenant une liste de primitives de fonctions classiques
+
+   $\int e^x \; dx  = e^x + c$
+
+\change
+
+   $\int \cos x \; dx  = \sin x  + c$
+
+\change
+
+   $\int \sin x \; dx  = -\cos x  + c$  
+
+\change
+
+   $\int x^n \; dx = \frac{x^{n+1}}{n+1} + c$  où $n$ est un entier positif
+
+\change
+
+Et plus généralement si $\alpha$ est un réel différent de $-1$
+
+   $\int x^\alpha \; dx = \frac{x^{\alpha+1}}{\alpha+1} + c$  
+
+
+\change
+
+Le cas $\alpha=-1$ est fondamentalement différent et essentiel :
+
+   $\int \frac 1x \; dx  = \ln |x|  + c$  
+
+
+
+(pause)
+
+Ces formules sont à savoir par coeur mais en fait elles découlent 
+directement des formules de dérivation que vous connaissez déjà.
+
+(pause)
+
+
+Voici comment bien lire ce tableau. Si par exemple $f$ est la fonction définie sur $\Rr$ par $f(x)=x^n$
+alors la fonction : $x \mapsto \frac{x^{n+1}}{n+1}$ est une primitive de $f$ sur $\Rr$. Les primitives
+de $f$ sont les fonctions définies par $x \mapsto \frac{x^{n+1}}{n+1}+c$ (pour $c$ une constante réelle quelconque).
+
+% (pause)
+% 
+% Souvenez vous que la variable sous le symbole intégrale est une variable muette. On peut aussi bien écrire
+% $\int t^n \; dt = \frac{x^{n+1}}{n+1}+c$.
+
+
+(pause)
+
+La constante est définie pour un intervalle. Si l'on a deux intervalles, il y a 
+deux constantes qui peuvent être différentes. Par exemple pour $\int \frac 1x \; dx$ nous avons deux domaines de validité :
+et une constante sur chacun des intervalles.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On continue avec 
+
+   $\int\sh x \; dx=\ch x+c$
+
+et 
+
+   $\int \ch x \; dx=\sh x+c$ 
+
+\change
+
+   $\int \frac{dx}{1+x^2}= \arctan x+c$
+
+\change
+
+   $\int\frac{dx}{\sqrt{1-x^2}} = \left\{ \begin{array}{l}
+   \arcsin x + c \\ \frac\pi2-\arccos x +c \end{array} \right.$ 
+
+\change
+
+   $\int \frac{dx}{\sqrt {x^2+1}}=  \left\{ \begin{array}{l} \mbox{argsh} x+c \\
+   \ln\big(x+\sqrt{x^2+1}\big)+c  \end{array} \right.$ 
+
+\change
+
+   $\int \frac{dx}{\sqrt {x^2-1}} = \left\{ \begin{array}{l} \mbox{argch} x+c \\ 
+   \ln\big(x+\sqrt{x^2-1}\big)+c \end{array} \right.$
+
+Vous remarquez que l'on peut trouver des primitives aux allures très différentes par exemple $x\mapsto \arcsin x$ et 
+$x\mapsto \frac{\pi}{2}-\arccos x$ sont deux primitives de la même fonction $x\mapsto \frac{1}{\sqrt{1-x^2}}$.
+
+Mais bien sûr on sait que $\arcsin x + \arccos x = \frac\pi2$, donc les primitives diffèrent bien d'une constante !
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+[[petit f, grand F]]
+
+Voici le théorème le plus important de cette séquence : 
+le lien entre l'intégrale d'une fonction et ses primtives.
+
+
+Soit $f : [a,b] \to \Rr$ une fonction continue.
+La fonction $F:I \to \Rr$ définie par
+$\displaystyle F(x)=\int_a^x f(t) \; dt$
+est une primitive de $f$, c'est-à-dire $F$ est dérivable et $F'(x)=f(x)$.
+
+
+\change
+
+Une fois que l'on a une primitive on les a toutes, donc une autre formulation de ce résultat
+est que si maintenant $F$ est une primitive *quelconque* de $f$
+alors on a 
+$\int_a^b f(t) \; dt = F(b)-F(a)$
+
+
+\change
+
+On va noter $\big[F(x)\big]_a^b$ la valeur $F(b)-F(a)$.
+Donc l'intégrale de petit $f$ entre $a$ et $b$ est le crochet de grand $F$ entre $a$ et $b$.
+
+\change
+
+On peut même être un peu plus précis 
+$F(x)=\int_a^x f(t) \; dt$ est même l'unique primitive de $f$ qui s'annule en $a$.
+
+
+\change
+
+Enfin une dernière formulation du théorème dit que si $F$ est une fonction de classe $\mathcal{C}^1$ alors
+
+$\int_a^b F'(t) \; dt = F(b)-F(a)$
+
+
+Cela exprime bien qu'intégrer une fonction est l'opération inverse de dériver.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+
+Le théorème précédent est un fantastique moyen de calculer des intégrales :
+ Recalculons d'abord des intégrales déjà rencontrées.
+
+[petit f, grand F]
+
+\change
+
+ Pour $f(x)=e^x$ 
+
+\change
+
+une primitive est $F(x)=e^x$ donc
+
+\change
+
+$\int_0^1 e^x \; dx =  \big[e^x\big]_0^1=e^1-e^0=e-1.$
+
+\change
+
+Pour $g(x)=x^2$ 
+
+\change
+
+une primitive est $G(x)=\frac{x^3}{3}$ 
+
+
+\change
+
+donc $\int_0^1 x^2 \; dx =  \big[\tfrac{x^3}{3}\big]_0^1=\tfrac{1}{3}.$
+
+\change 
+
+Continuons avec de nouveaux exemples :
+
+\change
+
+Une primitive de $\cos t$ est $\sin t$.
+
+Donc 
+$\int_a^x \cos t \; dt = \big[ \sin t\big]_{t=a}^{t=x}$
+
+
+c'à-d $= \sin x - \sin a$
+
+% En tant que fonction de $x$, $\int_a^x \cos t \; dt$ est une primitive de $\cos x$.
+
+\change
+
+Enfin je vous laisse vérifier que si un fonction $f$ est impaire alors 
+ses primitives sont paires.
+
+\change
+
+Et que l'on en plus $\int_{-a}^a f(t)  \; dt = 0$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Terminons avec la formule des sommes de Riemann.
+
+Nous avons défini l'intégrale comme étant une limite de sommes (rappelez-vous les aires de rectangles 
+avec une base de plus en plus petites)
+
+
+Mais maintenant que nous savons calculer des intégrales à l'aide des primitives 
+on peut faire le cheminement inverse : calculer des limites de sommes à partir d'intégrales.
+
+Dans cette formule on part d'une fonction $f$ sur un intervalle $a,b$.
+On l'évalue en $n$ points répartis régulièrement, les $a+k\tfrac{b-a}{n}$
+alors $S_n = \tfrac{b-a}{n} \sum_{k=1}^{n} f\big(a+k\tfrac{b-a}{n} \big) 
+\qquad \xrightarrow[n\to+\infty]{} \qquad \int_a^b f(x) \; dx$
+
+On applique cette formule lorsque l'on sait calculer l'intégrale et que l'on cherche à connaître la limite des sommes.
+
+
+\change
+
+Le cas le plus courant c'est pour $a=0$, $b=1$ alors $\frac{b-a}{n}=\frac1n$ et 
+$f\big(a+k\frac{b-a}{n}\big) = f\big(\frac kn\big)$.
+
+
+La somme $S_n$ est alors $\tfrac{1}{n} \sum_{k=1}^{n} f\big(\tfrac kn \big)$
+et tend vers $\int_0^1 f(x) \; dx$
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons les sommes de Riemann en action  !
+
+On souhaite calculer la limite de la somme $S_n= \sum_{k=1}^{n} \frac1{n+k}$.
+
+
+\change
+
+Tout d'abord calculons les premiers termes  $S_1=\frac12$, 
+
+$S_2=\frac13+\frac14$,
+
+\change
+
+$S_3=\frac14+\frac15+\frac16$,
+
+\change
+ 
+$S_4=\frac15+\frac16+\frac17+\frac18$,\ldots
+
+Il n'est pas du tout évident de deviner la limite !
+
+\change
+
+Mais réécrivons cette somme sous la forme  $S_n = \frac{1}{n}  \sum_{k=1}^{n} \frac1{1+\frac kn}$.
+
+Cela ressemble furieusement à une somme de Riemann.
+
+\change
+
+
+En effet en posant $f(x)=\frac{1}{1+x}$, $a=0$ et $b=1$,
+on reconnaît que $S_n$ est une somme de Riemann.
+
+\change
+
+$S_n=\tfrac{1}{n} \sum_{k=1}^{n} f\big(\tfrac kn\big)$
+
+\change
+
+Donc lorsque $n \to +\infty$ alors 
+$S_n$ tend vers $\int_a^b f(x) \; dx$
+
+\change
+
+Il ne reste plus qu'a calculer l'intégrale 
+ici $a=0$ et $b=1$, $f(x)=\frac{1}{1+x}$
+
+Donc la limite est $\int_0^1 \frac{1}{1+x} \; dx$
+
+\change 
+
+Une primitive de $\frac{1}{1+x}$ est $\ln |1+x|$
+
+Donc l'intégrale vaut 
+$\big[\ln|1+x|\big]_0^1 = \ln 2-\ln 1 = \ln 2.$
+
+\change 
+
+Ainsi, lorsque $n\to +\infty$, $S_n \to \ln 2$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici une série de petit exercices pour vérifier si vous avez assimiler le cours.
+
+
+\end{document}

@@ -1,0 +1,228 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={102,51,102}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Intégrales impropres}}
+\subtitle{Fonctions oscillantes}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Intégrale absolument convergente
+    \item<4-> Intégrale semi-convergente
+    \item<5-> Théorème d'Abel
+      \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+\begin{frame}
+\myfigure{1}{
+\tikzinput{fig_intimp03}
+}
+
+\pause
+
+$$\int_a^{+\infty} f(t)\;\dd t = \lim_{x\rightarrow +\infty} \int_a^x f(t)\;\dd t$$
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Intégrale absolument convergente}
+
+\begin{frame}
+\subsection{Intégrale absolument convergente}
+
+Soit $f$ une fonction continue sur $[a,+\infty[$
+\begin{mydefinition}
+$\int_a^{+\infty} f(t)\;\dd t$ est \defi{absolument convergente} si 
+$\int_a^{+\infty} \big|f(t)\big|\;\dd t$ converge
+\end{mydefinition}
+
+\pause
+
+\begin{theoreme}
+\label{th:acvimpliquecv}
+Si l'intégrale $\int_a^{+\infty} f(t)\;\dd t$ est absolument
+convergente, alors elle est convergente
+\end{theoreme}
+
+\pause
+
+\begin{proof} 
+\pause
+\begin{itemize}
+  \item Comme $\int_a^{+\infty} \big|f(t)\big| \; \dd t$ converge
+alors par le critère de Cauchy (sens direct) :
+\vspace*{-1ex}
+$$\forall \epsilon>0  \quad \exists  M \ge a \qquad
+\left( u,v \ge M \implies \int_u^v \big|f(t)\big| \;\dd t<\epsilon\right)$$
+\vspace*{-2ex}
+\pause  
+  \item $\left|\int_u^v f(t) \;\dd t\right| \le \int_u^v \big|f(t)\big| \;\dd t < \epsilon$
+\pause  
+  \item Par le critère de Cauchy (sens réciproque),
+$\int_a^{+\infty} f(t) \; \dd t$ converge \qedhere
+\end{itemize}
+
+\end{proof}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}
+$$\int_1^{+\infty} \frac{\sin t}{t^2}\;\dd t\quad\text{ est absolument convergente (donc convergente)}$$
+
+\pause
+Preuve :\pause
+\begin{itemize}
+  \item $\frac{|\sin t |}{t^2}\le \frac{1}{t^2}$, pour tout $t$
+\pause  
+  \item or $\int_1^{+\infty} \frac{1}{t^2}\;\dd t$ est convergente
+\pause   
+  \item par le théorème de comparaison, $\int_1^{+\infty} \frac{\sin t}{t^2}\;\dd t$ est absolument convergente
+\end{itemize}
+
+\end{exemple}
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Intégrale semi-convergente}
+
+\begin{frame}
+\begin{mydefinition}
+Une intégrale $\int_a^{+\infty} f(t)\;\dd t$ est \defi{semi-convergente} si 
+elle est convergente mais pas absolument convergente
+\end{mydefinition}
+\pause
+
+\begin{exemple}
+$$\int_1^{+\infty} \frac{\sin t }{t}\;\dd t \quad\text{ est semi-convergente}$$
+\pause
+\vspace*{-2ex}
+\begin{enumerate}
+
+  
+  \item \textbf{L'intégrale est convergente}
+
+  \begin{itemize}
+    \item $\int_1^x \frac{\sin t}{t}\;\dd t  = \left[\frac{-\cos t}{t}\right]_1^x
+-  \int_1^x \frac{\cos t}{t^2}\;\dd t$
+\pause  
+    \item $\left[\frac{-\cos t}{t}\right]_1^x = -\frac{\cos x}{x}+\cos 1 \pause\xrightarrow{x\mapsto +\infty} \cos 1$
+\pause
+        
+    \item $\int_1^{+\infty} \frac{\cos t}{t^2}\;\dd t$ est absolument convergente        
+  \end{itemize}
+
+
+ \pause
+ 
+  \item \textbf{L'intégrale n'est pas absolument convergente}
+   \pause
+  \begin{itemize}
+    \item $\frac{|\sin t|}{t} \ge \frac{\sin^2 t}{t} \pause= \frac{1-\cos(2t)}{2t}$
+     \pause
+    \item $\int_1^{+\infty}\frac{1-\cos(2t)}{2t}\;\dd t 
+    \pause= \int_1^{+\infty}\frac{1}{2t}\;\dd t-\int_1^{+\infty}\frac{\cos(2t)}{2t}\;\dd t$ 
+%    \pause diverge
+     \pause
+    \item $\int_1^{+\infty}\frac{|\sin t|}{t}\;\dd t$ diverge
+  \end{itemize}  
+
+  
+\end{enumerate}  
+\end{exemple}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Théorème d'Abel}
+
+\begin{frame}
+\begin{theoreme}[d'Abel]
+\begin{itemize}
+  \item Soit $f$ une fonction $\mathcal{C}^1$ sur $[a,+\infty[$, positive,
+décroissante, ayant une limite nulle en $+\infty$
+  \item Soit $g$ une fonction continue sur $[a,+\infty[$, telle que la
+primitive $\int_a^x g(t)\;\dd t$ soit bornée
+\end{itemize}
+Alors l'intégrale
+$$
+\int_a^{+\infty} f(t)\,g(t)\;\dd t\quad\text{ converge}
+$$  
+\end{theoreme}
+
+	\pause
+
+
+\begin{exemple}
+Si $\alpha>0$ et $k$ impair, alors l'intégrale 
+$$
+\int_1^{+\infty} \frac{\sin^k(t)}{t^\alpha}\;\dd t\quad\text{ converge}
+$$
+
+        \pause
+
+Théorème d'Abel pour $f(t) = \frac{1}{t^\alpha}$ et $g(t)=\sin^k(t)= \sum \sin(\ell t)$
+\end{exemple}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \section*{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+	\begin{enumerate}
+
+ 
+  \item Soient $f :[a,+\infty[ \to \Rr$ une fonction continue et $\alpha > \frac12$
+  tel que $\lim_{t\to+\infty} t^\alpha f(t) = 0$.
+  Montrer que l'intégrale $\int_a^{+\infty} \frac{f(t)}{t^\alpha}\;\dd t$ est  absolument convergente.
+  En déduire que si $P(t)$ est un polynôme alors
+  $\int_0^{+\infty} P(t)e^{-t}\;\dd t$ converge.
+
+
+  \item En admettant que le théorème d'Abel est vrai pour une fonction $g$ à valeurs complexes,
+  montrer que $\int_1^{+\infty} \frac{e^{\ii t}}{t^\alpha}\; \dd t$ est convergente pour tout $\alpha > 0$.
+  Est-elle toujours absolument convergente ?
+  
+  \item Montrer $\int_{n\pi}^{(n+1)\pi} \left|\frac{\sin t}{t}\right| \;\dd t \ge \frac{2}{(n+1)\pi}$.
+  (Indication : garder le sinus dans une première minoration.)
+  En utilisant un résultat sur les séries, en déduire une nouvelle démonstration du fait 
+  que l'intégrale $\int_\pi^{+\infty} \frac{\sin t}{t} \;\dd t$ n'est pas absolument convergente. 
+\end{enumerate}
+
+\end{miniexercice}	
+\end{frame}
+
+
+
+
+\end{document}
+

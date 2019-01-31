@@ -1,0 +1,50 @@
+\begin{tikzpicture}
+
+% Axes
+     \draw[->,>=latex,thick, gray] (-6.5,0)--(7,0) node[below,black] {$x$};
+     \draw[->,>=latex,thick, gray] (0,-5.5)--(0,6) node[right,black] {$y$};
+
+ % Ticks
+    	\foreach \x in {1,...,6}
+     		\draw (\x,2pt) -- (\x,-2pt)
+			node[anchor=north] {\x};
+    	\foreach \x in {-1,...,-6}
+     		\draw (\x,2pt) -- (\x,-2pt)
+			node[anchor=north] {\x};
+    	\foreach \x in {1,...,5}
+     		\draw (2pt,\x) -- (-2pt,\x)
+			node[anchor=east] {\x};
+    	\foreach \x in {-1,...,-5}
+     		\draw (2pt,\x) -- (-2pt,\x)
+			node[anchor=east] {\x};
+
+% Asymptotes
+ \draw[thick, blue!50] (-6.5,{-5/6})--(7,{-5/6}) node[below left,blue] {$y=-\frac56$};
+
+ \def\x{-5.8};      \def\y{6.3};
+ \draw[thick, blue!50] (\x,{2*\x/3+1/2})--(\y,{2*\y/3+1/2}) node[below right,blue] {$y=\frac23x+\frac12$};
+
+ \def\x{-5.5};      \def\y{5.5};
+ \draw[thick, blue!50] (\x,{\x+1/3})--(\y,{\y+1/3}) node[above left,blue] {$y=x+\frac13$};
+
+
+% Courbe
+% Sur ]1,+\infty[
+     \draw [very thick, color=red,samples=100,smooth, variable=\t,domain=1.1:5.3] plot( {(\t*\t*\t)/(\t*\t-1)} , {(\t*(3*\t-2))/(3*(\t-1))} );
+
+% Sur ]-\infty,-1[
+      \draw [very thick, color=red,samples=100,smooth, variable=\t,domain=-5.3:-1.097] plot( {(\t*\t*\t)/(\t*\t-1)} , {(\t*(3*\t-2))/(3*(\t-1))} );
+
+% Entre -1 et 1
+      \draw [very thick, color=red,samples=100,smooth, variable=\t,domain=-0.94:0.93] plot( {(\t*\t*\t)/(\t*\t-1)} , {(\t*(3*\t-2))/(3*(\t-1))} );
+
+% Branches
+
+  \node[red] at (-6,-4.8) {$t\to-\infty$};
+  \node[red] at (-6,-1.3) {$t\to-1^-$};
+  \node[red] at (7,-0.5) {$t\to-1^+$};
+  \node[red] at (-6,-3) {$t\to+1^-$};
+  \node[red] at (7,5) {$t\to+1^+$};
+  \node[red] at (6.2,5.8) {$t\to+\infty$};
+
+\end{tikzpicture}

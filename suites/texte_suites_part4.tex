@@ -1,0 +1,547 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Dans cette partie du chapitre sur les suites, nous nous intéressons aux théorèmes 
+de convergence, c'est-à-dire ceux qui permettent d'affirmer qu'une suite converge.
+
+\change
+
+Nous commencerons par nous intéresser aux suites croissantes et majorées,
+
+\change
+
+puis nous étudierons en détail deux exemples,
+
+\change
+
+avant d'énoncer le théorème sur les suites adjacentes.
+
+
+\change
+
+
+On conclut par un résultat très important : le théorème de Bolzano-Weierstrass.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \diapo
+
+Le premier résultat est simple à énoncer : 
+toute suite croissante et majorée est convergente
+C-à-d admet une limite finie.
+
+\change
+
+On a aussi aisément le résultat symétrique : 
+toute suite décroissante et minorée converge.
+
+\change
+
+Pour une suite croissante qui ne serait pas majorée alors elle tend vers $+\infty$.
+
+\change
+
+Passons à la démonstration du théorème. On note $A$ 
+l'ensemble des valeurs de la suite, c'est un sous-ensemble de $\Rr$. 
+
+\change
+
+Par hypothèse la suite $(u_n)_{n\in \Nn}$ 
+est majorée par un réel $M$, donc l'ensemble $A$ est majoré par $M$.
+
+\change
+
+De plus $A$ est clairement non vide, 
+puisqu'il contient tous les termes de la suite.
+
+Donc d'après un théorème du chapitre sur les réels, 
+l'ensemble $A$ admet une borne supérieure finie, que l'on va noter $\ell=\sup A$. 
+
+C'est un nombre réel.
+
+\change
+
+Montrons qu'en fait $\lim_{n\to +\infty} u_n=\ell$,
+
+\change
+
+[petit $n$, grand $N$]
+
+On fixe un $\epsilon >0$. 
+
+
+Par définition de la borne supérieure, il existe un élément $u_N$ de $A$ tel que
+ $\ell-\epsilon < u_N \leq \ell$. 
+ 
+
+Mais comme la suite est croissante, il s'ensuit que pour $n\geq N$ on a 
+$\ell-\epsilon < u_N \leq u_n \leq \ell$, 
+ 
+et donc $\lvert u_n-\ell \rvert \leq \epsilon$, ce qui signifie exactement que $u_n \to \ell$
+et conclut la preuve.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \diapo
+
+Le premier exemple est la suite dont le terme général est :
+
+$$ u_n =1+\frac{1}{2^2} +\frac{1}{3^2}+\cdots+\frac{1}{n^2} $$
+
+%$u_1 = 1$, $u_2=1+\frac{1}{2^2}$, $u_3=1+\frac{1}{2^2} +\frac{1}{3^2}$,  \qquad etc.
+
+\change
+
+Il est clair que la suite $(u_n)_{n\geq 1}$ est croissante : 
+car le calcul de la différence entre deux termes consécutifs est
+$$u_{n+1}-u_n= \frac{1}{(n+1)^2}>0$$ 
+
+\change
+
+De plus, par récurrence nous allons prouver que pour tout  
+$n\geq 1$ on a $$u_n\leq 2 - \frac{1}{n} $$
+
+\change
+
+Pour $n=1$, on a $u_1=1\leq 2 - \frac{1}{1}$.
+
+\change
+
+Fixons $n\geq 1$ et supposons $u_n\leq 2 - \frac{1}{n}$. 
+Alors $u_{n+1}=u_n+ \frac{1}{(n+1)^2}\leq  2 - \frac{1}{n}+ \frac{1}{(n+1)^2}$
+par notre hypothèse de récurrence.
+
+Pour continuer on peut par exemple écrire 
+$\frac{1}{(n+1)^2}\leq \frac{1}{n(n+1)}=\frac{1}{n}-\frac{1}{n+1}$, 
+
+donc en utilisant cette inégalité on trouve
+qu'au rang suivant $u_{n+1}\leq 2-\frac{1}{n+1}$, .
+
+\change
+
+Ce qui achève la récurrence.
+Donc pour tout $n$, $u_n\leq 2 - \frac{1}{n} $ et donc en particulier $u_n \le 2$.
+
+\change
+
+On peut appliquer le théorème que nous venons de voir : 
+la suite $(u_n)_{n\geq 1}$ est croissante et majorée par $2$, donc  elle converge.
+
+\change
+
+Cette limite est notée $\zeta(2)$, pour l'instant on ne connaît pas la valeur de
+cette limite mais plus tard vous prouverez que $\zeta(2)=\frac{\pi^2}{6}$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \diapo
+
+
+ Le deuxième exemple est la suite harmonique, qui est définie de manière analogue : 
+ son terme général est la somme des inverses des 
+ $n$ premiers entiers naturels :
+ $$ u_n =1+\frac{1}{2} +\frac{1}{3}+\cdots+\frac{1}{n} $$
+
+ \change
+
+Nous allons montrer que $u_n \to +\infty$.
+
+\change
+
+La suite $(u_n)_{n\geq 1}$ est croissante :  
+on calcule de nouveau la différence entre deux termes consécutifs $u_{n+1}-u_n= \frac{1}{n+1}>0$. 
+
+\change
+
+On va par contre montrer que la suite n'est pas majorée, 
+pour cela on va calculer une minoration de certains termes.
+
+
+\change
+
+
+Estimons la différence entre
+le terme au rang ${2^p}$ et celui au rang ${2^{p-1}}$.
+
+\change
+
+Lorsque l'on calcule la différence
+$u_{2^p}-u_{2^{p-1}}$ les premiers termes se télescopent et il reste
+cette somme des inverses, 
+
+\change 
+
+Il reste exactement $2^p-2^{p-1}$
+soit $2^{p-1}$ termes 
+
+\change
+
+et chaque terme est supérieur à $\frac{1}{2^p}$, 
+
+\change 
+
+ce qui conduit à la minoration
+$2^{p-1}\times \frac{1}{2^p}$ 
+
+
+\change
+
+qui vaut exactement $\frac{1}{2}$.
+
+ 
+\change
+
+À présent $u_{2^p}-1 = u_{2^p}-u_1$ est la somme télescopique 
+$$(u_2 - u_1)+ (u_4 - u_2)+(u_8-u_4) \cdots +  (u_{2^p}-u_{2^{p-1}})$$ 
+C'est la somme de $p$ termes tous supérieurs à $\frac{1}{2}$, 
+donc cette somme est minorée par $\frac{p}{2}$.
+
+\change
+
+Comme $p$ est un entier arbitrairement grand, 
+on en déduit que la suite  $(u_n)_{n\geq 1}$ est croissante 
+et non bornée, donc elle tend vers $+\infty$.   
+
+Conclusion : la suite harmonique tend vers $+\infty$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons à présent aux suites adjacentes.
+
+
+Deux suites $(u_n)_{n\in \Nn}$ et $(v_n)_{n\in \Nn}$ sont \defi{adjacentes} si
+elles vérifient les trois points suivants. 
+
+\begin{enumerate}
+  \item la suite $(u_n)_{n\in \Nn}$ est croissante et la suite $(v_n)_{n\in \Nn}$ est décroissante,
+  \item pour tout $n$, $u_n$ est majoré par  $v_n$,
+  \item La limite de la suite différence $v_n-u_n$ est nulle.
+\end{enumerate}
+
+\change
+
+Les suites adjacentes sont intéressantes car elles convergent :
+
+Théorème : si $(u_n)_{n\in \Nn}$ et $(v_n)_{n\in \Nn}$ 
+sont deux suites adjacentes alors elles sont toutes les deux convergentes 
+et tendent vers la même limite.
+
+\change
+
+Voici la situation :
+
+$u_n$ est croissante, $u_0 \le u_1 \le u_2 \le \cdots \le u_n $
+
+$v_n$ est décroissante $v_n\le \cdots \le v_2 \le v_1 \le v_0$
+
+et $u_n$ doit toujours être inférieure à $v_n$.
+
+
+\change
+
+La preuve du théorème est simple :
+
+ \begin{itemize}
+    \item La suite $(u_n)_{n\in \Nn}$ est croissante et majorée par $v_0$, 
+    donc elle converge vers une limite que l'on note $\ell$.
+
+\change 
+    
+\item De même la suite $(v_n)_{n\in \Nn}$ est décroissante et minorée par $u_0$, 
+    donc elle converge vers une limite notée cette fois $\ell'$.
+
+\change
+
+    \item De plus  $\ell'-\ell$ est la limite de la suite 
+    $v_n -u_n$, donc vaut $0$ par hypothèse, d'où l'égalité des limites $\ell=\ell'$.
+  \end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Reprenons l'exemple de $\zeta(2)$. 
+Soit $(u_n)$ la suite définie 
+$$u_n =  1+\frac{1}{2^2} +\frac{1}{3^2}+\cdots+\frac{1}{n^2}$$
+
+\change
+
+et soit $v_n$ la suite définie par $$ v_n = u_n + \frac2{n+1} .$$
+
+\change
+
+Montrons que $(u_n)$ et $(v_n)$ sont deux suites adjacentes :
+
+\change
+
+Tout d'abord $(u_n)$ est une suite croissante car $u_{n+1}-u_n = \frac{1}{(n+1)^2} > 0$.
+
+\change
+
+$(v_n)$ est une suite décroissante :
+    
+    
+Mais le calcul est plus compliqué :
+$v_{n+1}-v_n = \frac{1}{(n+1)^2} + \frac{2}{n+2} - \frac{2}{n+1} $
+
+\change
+
+On réduit au même dénominateur 
+
+\change
+
+Et l'expression se simplifie en 
+$= \frac{-n}{(n+2)(n+1)^2}$
+
+qui est clairement négatif.
+
+
+La suite $(u_n)$ est croissante, 
+
+la suite $(v_n)$ est décroissante.
+
+
+\change
+
+
+La différence entre les deux suites est
+$v_n-u_n = \frac{2}{n+1} >0$, 
+
+\change
+
+donc $u_n$ est inférieure à $v_n$ pour tout $n$.
+
+\change
+
+ Enfin comme $v_n-u_n = \frac{2}{n+1}$ 
+ 
+\change
+
+ alors $ (v_n-u_n) \to 0$.
+
+ 
+ \change
+ 
+ On vient de montrer que les suites $(u_n)$ et $(v_n)$ sont deux suites adjacentes, 
+ 
+ \change
+ 
+ Par le théorème sur les suites adjacentes ces deux suite
+ convergent vers une même limite finie $\ell$. 
+
+\change
+
+Nous avons même un peu plus car nous avons obtenu un 
+encadrement de la limite : $u_n \le \ell \le v_n$ pour tout $n$.
+
+\change
+
+Par exemple si $n=3$
+nous obtenons l'encadrement suivant [[show]]
+
+
+\change
+
+Et numériquement cela donne ces inégalités pour la limite  [[show]]
+
+Bien sûr pour avoir un encadrement plus précis il 
+faut prendre de plus grandes valeurs de $n$.
+ 
+ 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \diapo
+
+ Nous introduisons à présent la dernière notion importante de ce chapitre, 
+ celle de sous-suite ou suite extraite.
+
+ 
+ De manière informelle, extraire une sous-suite, 
+ 
+ c'est à partir d'une suite $(u_n)$, ici représentée par des croix bleues,
+ 
+ne retenir que certains termes, ici entourés en rouge, afin 
+ obtenir une nouvelle suite.
+
+
+ Plus rigoureusement, une \defi{suite extraite} de la suite
+ $(u_n)_{n\in \Nn}$ est une suite qui s'écrit 
+$(u_{\phi(n)})_{n\in \Nn}$, où $\phi$ est une 
+application strictement croissante de $\Nn$ dans $\Nn$.
+
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \diapo
+ 
+Revoici la définition de suite extraite 
+
+\change
+
+et regardons des exemples tiré de la suite $(u_n)$ 
+de terme général $(-1)^n$. 
+
+\change
+
+Si on ne retient que les termes d'indices pairs, c-à-d si on pose
+$\phi(n)=2n$ on trouve la sous-suite de terme $u_{\phi(n)} = (-1) ^{2n}$ 
+
+\change
+
+donc c'est une suite
+constante égale à $1$.
+
+\change
+
+Voici la représentation, on extrait le terme d'indice $\phi(0)$ donc $u_0$ qui vaut $1$,
+puis le terme d'indice $\phi(1)$ donc $u_2$ qui vaut aussi $1$, etc.
+
+En fait à partir de la suite, $(u_n)$ on ne retient qu'un terme sur $2$.
+
+\change
+
+Si on ne retient que les termes d'indices multiples de $3$, 
+c-à-d cette fois on pose $\psi(n)=3n$
+
+alors $(-1) ^{3n}= (-1)^n$ 
+
+\change
+
+\change
+
+et on retrouve la suite de départ.
+La suite qui vaut d'abord $+1$, puis $-1$, puis $+1$,...
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \diapo
+
+On a le résultat suivant : toute suite extraite d'une suite 
+convergente converge vers la même limite.
+
+C-à-d : Si $u_n \to \ell$ alors toutes les suites extraites $u_{\phi(n)}$ 
+tendent aussi vers $\ell$.
+
+\change
+
+La notion de suite extraite est utile en particulier 
+pour montrer qu'une suite diverge. 
+
+Si une suite admet une sous-suite qui diverge alors la suite initiale diverge.
+
+C'est aussi le cas si une suite admet deux sous-suites 
+convergeant vers deux limites distinctes : elle est alors divergente.
+
+\change
+
+On peut appliquer ce corollaire à la suite $(-1)^n$.
+
+
+La sous-suite des termes d'indices pairs est la suite constante égale à $1$ (donc converge vers $1$)
+
+alors que celle des termes d'indices impairs est la suite constante égale à $-1$ (donc converge vers $-1$),
+
+Les deux  sous-suites ont des limites distinctes donc la suite diverge.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \diapo
+
+ Nous terminons ce chapitre par un résultat important, 
+ le théorème de Bolzano-Weierstrass.
+
+
+ Celui-ci affirme que toute suite bornée admet une sous-suite convergente.
+
+ 
+ 
+ \change
+ 
+ Reprenons notre exemple de la suite $u_n = (-1)^n$.
+ 
+C'est bien une suite bornée et nous avons
+bien des sous suites convergentes,
+
+par exemple la suite des termes de rang pair, ou celle des termes de rang impairs
+(qui sont même des suites constantes).
+
+\change
+
+Autre exemple avec la suite définie par $v_n = \cos n$.
+
+C'est encore une suite bornée, mais il n'est pas facile de montrer explicitement qu'il existe une sous-suite
+qui converge. 
+
+Le théorème de Bolzano-Weierstrass affirme pourtant qu'une telle
+sous-suite existe !
+
+C'est un résultat d'existence mais qui n'indique pas comment expliciter une sous-suite convergente.
+% 
+%  Voici la preuve, qui repose sur un procédé par dichotomie. 
+%  
+%  \change
+% 
+%  Comme la suite est bornée, l'ensemble des valeurs de la suite est contenue dans un intervalle $[a,b]$. 
+% 
+% \change
+% 
+% On initialise la construction en posant $a_0=a$, $b_0=b$, $\phi(0)=0$.
+% 
+% 
+% \change
+% 
+% Au moins un des deux intervalles obtenu en coupant $[a,b]$ en deux sous-intervalles égaux contient $u_n$ pour une infinité d'indices $n$. 
+% 
+% \change
+% 
+% On note $[a_1,b_1]$ un tel  intervalle, par hypothèse il existe $\phi(1)$ un entier $\phi(1)>\phi(0)$  tel que $u_{\phi(1)}\in [a_1,b_1]$. 
+% 
+% \change
+% 
+% Par récurrence,  on construit pour tout entier naturel $n$ un intervalle $[a_n,b_n]$, 
+% de longueur $\frac{b-a}{2^n}$,
+% 
+% \change
+% 
+% et un entier $\phi(n)>\phi(n-1)$ tel que $u_{\phi(n)}\in [a_n,b_n]$. 
+% 
+% \change
+% 
+% Par construction la suite $(a_n)_{n\in \Nn}$ est croissante et la suite 
+% $(b_n)_{n\in \Nn}$ est décroissante. 
+% 
+% \change
+% 
+% De plus $\lim_{n\to +\infty} (b_n-a_n)=\lim_{n\to +\infty} \frac{b-a}{2^n}=0$, 
+% 
+% \change
+% 
+% donc les suites $(a_n)_{n\in \Nn}$ et $(b_n)_{n\in \Nn}$ sont adjacentes et convergent vers une même limite $\ell$.
+% 
+% \change
+% 
+% On peut conclure, en appliquant le théorème \og{} des gendarmes\fg{}, que $\lim_{n\to +\infty} u_{\phi(n)}=\ell$.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \diapo
+
+
+Voici quelques exercices pour vous aider à assimiler le cours.
+
+
+\end{document}

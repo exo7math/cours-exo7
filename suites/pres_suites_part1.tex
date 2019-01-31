@@ -1,0 +1,230 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={34,139,34}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{{\bf Suites}}
+\subtitle{Premières définitions}
+
+
+
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition d'une suite
+    \item<4-> Suite majorée, minorée, bornée
+    \item<5-> Suite croissante, décroissante
+%    \item<6-> 
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+\setcounter{framenumber}{0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Introduction}
+
+\begin{frame}
+
+
+\begin{itemize}
+  \item On place une somme $S$ à un taux annuel de $10\%$
+
+\pause
+\medskip
+
+  \item $S_n$ représente la somme que l'on obtiendra après $n$ années
+ 
+\pause
+\medskip
+
+  \item $S_0=S \quad    S_1=S\times 1,1\quad \ldots \quad   S_n=S\times (1,1)^n$
+ 
+\pause
+\medskip
+
+  \item Au bout de $n=10$ ans, on possédera \\ \medskip
+  \hfil $S_{10}=S_n=S\times (1,1)^{10}\thickapprox S\times 2,59$
+      
+\end{itemize}
+\end{frame}
+
+\section{Définition d'une suite}
+
+\begin{frame}
+
+\begin{mydefinition}
+    \begin{itemize}
+      \item Une \defi{suite} est une application $u:\Nn\to \Rr$
+\pause
+      \item Pour $n\in \Nn$, on note $u(n)$ par $u_n$ et on l'appelle \defi{terme} de la suite
+    \end{itemize}
+\end{mydefinition}
+
+\pause
+\medskip
+
+\begin{exemple}
+    \begin{itemize}
+      \setlength{\itemsep}{7pt} 
+      \item $(\sqrt{n})_{n\geq 0}$ \qquad $0$, $1$, $\sqrt2$, $\sqrt3$,\ldots
+      
+\pause
+
+      \item $((-1)^n)_{n\geq 0}$\qquad $+1$, $-1$, $+1$, $-1$,\ldots
+   %   \item La suite $(S_n)_{n\geq 0}$ de l'introduction définie par $S_n=S\times (1,1)^n$,
+   
+\pause   
+   
+      \item 
+      \begin{itemize}
+        \item $(F_n)_{n\geq 0}$ définie par $F_0=1$, $F_1=1$ 
+        \pause
+        \item et la relation $F_{n+2}=F_{n+1}+F_n$  pour $n\in \Nn$
+        \pause
+        \item $1$, $1$, $2$, $3$, $5$, $8$, $13$, \ldots 
+      \end{itemize}
+\pause 
+ 
+      \item $\left(\frac{1}{n^2}\right)_{n\geq 1}$ \qquad  $1$, $\frac14$, $\frac19$, $\frac{1}{16}$, \ldots
+
+    \end{itemize}
+\end{exemple}
+\end{frame}
+
+\section{Suite majorée, minorée, bornée}
+
+\begin{frame}
+%Soit $(u_n)_{n\in \Nn}$ une suite
+\begin{mydefinition}
+\begin{itemize}
+  \item $(u_n)_{n\in \Nn}$ est \defi{majorée} si \quad $\exists M \in \Rr \quad \forall n\in \Nn \quad u_n \leq M$
+\uncover<3->{
+  \item $(u_n)_{n\in \Nn}$ est \defi{minorée} si \quad $\exists m \in \Rr \quad  \forall n\in \Nn \quad u_n \geq m$
+  }
+\uncover<5->{
+  \item $(u_n)_{n\in \Nn}$ est \defi{bornée} si elle est majorée et minorée\pause, c'est-à-dire : 
+  \vspace*{-2ex}
+$$\exists M \in \Rr \quad  \forall n\in \Nn \quad |u_n| \leq M$$
+}
+\end{itemize}\vspace*{-5ex}
+\end{mydefinition}
+
+
+\myfigure{0.9}{
+\uncover<2->{\tikzinput{fig_suites01a}}
+\qquad
+\uncover<4->{\tikzinput{fig_suites01b}}
+}
+
+\end{frame}
+
+
+\section{Suite croissante, décroissante}
+
+\begin{frame}
+\begin{mydefinition}
+%Soit $(u_n)_{n\in \Nn}$ une suite.
+\begin{itemize}
+  \item La suite $(u_n)_{n\in \Nn}$ est \defi{croissante} si \quad $\forall n\in \Nn \quad u_{n+1} \ge u_n $
+
+\uncover<3->{  
+  \item $(u_n)_{n\in \Nn}$ est \defi{strictement croissante} si \quad $\forall n\in \Nn \quad u_{n+1} > u_n$
+}
+\uncover<4->{
+  \item \defi{décroissante}, \defi{strictement décroissante} en inversant le sens des inégalités
+}    
+\uncover<5->{    
+  \item $(u_n)_{n\in \Nn}$ est \defi{monotone} si elle est croissante ou décroissante
+}
+  \end{itemize}
+\end{mydefinition}
+
+
+\myfigure{0.9}{
+\uncover<2->{\tikzinput{fig_suites02}}
+}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+
+   \begin{itemize}
+     \item La suite $(S_n)_{n\geq 0}$ définie par $S_n=S\times (1,1)^n$ est strictement croissante car $S_{n+1}/S_n=1,1>1$
+     
+ \pause
+ 
+     \item 
+ 
+     \begin{itemize} 
+     
+   
+       \item La suite $(u_n)_{n\geq 1}$ définie par $u_n=(-1)^n/n$, 
+n'est ni croissante ni décroissante
+
+      \myfigure{0.6}{\tikzinput{fig_suites03}}
+      
+ \pause
+       \item Elle est majorée par $1/2$ (borne atteinte en $n=2$)
+     
+ \pause       
+       \item Minorée par $-1$ (borne atteinte en $n=1$)
+     \end{itemize}
+
+
+\pause
+     \item 
+     \begin{itemize}    
+       \item La suite $\left(\frac1n\right)_{n\geq1}$ est une suite strictement décroissante
+     
+ \pause       
+       \item Elle est majorée par $1$ (borne atteinte pour $n=1$)
+     
+ \pause       
+       \item Minorée par $0$ mais cette valeur n'est jamais atteinte
+     \end{itemize}       
+   \end{itemize}
+\end{exemple}
+
+\end{frame}
+
+\section*{Mini-exercices}
+
+\begin{frame}
+	\begin{miniexercice}
+	\begin{enumerate}
+  \item La suite $\big(\frac{n}{n+1}\big)_{n\in \Nn}$ est-elle monotone ? Est-elle bornée ?
+%  \item La suite $((1+\frac{1}{n})^n)_{n \ge 1}$ est-elle bornée ? [[Arnaud : comment on fait ??]]
+  \item La suite $\big(\frac{n\sin(n!)}{1+n^2}\big)_{n\in \Nn}$ est-elle bornée ?
+  \item Réécrire les phrases suivantes en une phrase mathématique. 
+  \'Ecrire ensuite la négation mathématique de chacune des phrases.
+  (a) La suite $(u_n)_{n\in\Nn}$ est majorée par $7$.
+  (b) La suite $(u_n)_{n\in\Nn}$ est constante.
+  (c) La suite $(u_n)_{n\in\Nn}$ est strictement positive à partir d'un certain rang.
+  (d) $(u_n)_{n\in\Nn}$ n'est pas strictement croissante.
+  \item Est-il vrai qu'une suite croissante est minorée ? Majorée ?
+  \item Soit $x>0$ un réel. Montrer que la suite $\left(\frac{x^n}{n!}\right)_{n\in \Nn}$ 
+  est décroissante à partir d'un certain rang. 
+\end{enumerate}
+\end{miniexercice}
+
+
+\end{frame}
+
+\end{document}

@@ -1,0 +1,482 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={0,153,0}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcommand{\GL}{\mathcal{G}\ell}
+\newcounter{saveenumi}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+
+
+\title{{\bf Groupes}}
+\subtitle{Morphismes de groupes}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition
+    \item<4-> Propriétés
+    \item<5-> Noyau et image
+    \item<6-> Exemples
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%---------------------------------------------------------------
+\section{Définition}
+
+\begin{frame}
+Soient $(G,\star)$ et $(G',\diamond)$ deux groupes
+\begin{mydefinition}
+$f : G \longrightarrow G'$ 
+\pause
+est un \defi{morphisme de groupes} si 
+\mybox{$\text{pour tout } x,x' \in G  \qquad f(x \star x') = f(x) \diamond f(x')$}
+\end{mydefinition}
+
+\pause
+
+\begin{exemple}
+$G$ le groupe $(\Rr,+)$ \quad $G'$ le groupe $(\Rr_+^*,\times)$
+
+$$
+\begin{array}{lccc}
+f : & \Rr & \longrightarrow & \Rr^*_+ \\
+    & x  & \longmapsto & \exp(x) \\
+\end{array}
+$$
+
+\pause
+
+$f$ est un morphisme de groupes car
+$$f(x+x') =\exp(x+x')= \exp(x) \times \exp(x') = f(x) \times f(x')$$
+\end{exemple}
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Propriétés}
+
+\begin{frame}
+
+
+\begin{proposition}
+Soit $f : G \longrightarrow G'$ un morphisme de groupes alors 
+\begin{itemize}
+  \item $f(e_G) = e_{G'}$
+\pause
+  \item pour tout $x \in G$,\ \  $f(x^{-1}) = \big(f(x)\big)^{-1}$
+\end{itemize} 
+\end{proposition}
+
+\pause
+\bigskip
+
+\begin{exemple}
+$f : \Rr \longrightarrow \Rr_+^*$ défini par $f(x)= \exp(x)$
+
+\pause
+\medskip
+
+\centerline{$f(0)=1$ \pause\qquad $f(-x)= \exp(-x)= \frac{1}{\exp(x)}=\frac{1}{f(x)}$}
+\end{exemple}
+ 
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{proposition}
+Soient deux morphismes de groupes $f : G \longrightarrow G'$ et $g : G'  \longrightarrow G''$
+
+Alors $g \circ f : G \longrightarrow G''$ est un morphisme de groupes
+\end{proposition}
+
+\pause
+
+\begin{proposition}
+Si $f : G \longrightarrow G'$ est un morphisme bijectif 
+
+Alors $f^{-1} : G' \longrightarrow G$ est aussi un morphisme de groupes
+\end{proposition}
+
+\pause
+
+\begin{proof}
+$$(G,\tikz[remember picture]\coordinate(invtop);\star) 
+\overset{f}{\relbar\joinrel\relbar\joinrel\relbar\joinrel\relbar\joinrel\longrightarrow} 
+(G',\tikz[remember picture]\coordinate(invbot);\diamond)$$
+
+\pause
+
+
+\begin{tikzpicture}[x=1mm,y=1mm, remember picture, overlay]
+   \coordinate (mytop) at ($(invtop)+(-1,-2)$);
+   \coordinate (mybot) at ($(invbot)+(-1,-2)$);
+   \draw[->, myred, very thick] (mybot) to[bend left,thick]node[above, midway]{$f^{-1}$} (mytop);
+\end{tikzpicture}
+
+\pause
+
+Soient $y,y'\in G'$
+
+Comme $f$ est bijective, il existe $x,x'\in G$ tels que $f(x)=y$ et $f(x')=y'$
+ $$f^{-1}(y\diamond y') = 
+\pause
+ f^{-1}\big(f(x)\diamond f(x') \big) 
+\pause
+= f^{-1}\big(f(x \star x') \big) 
+\pause
+= x\star x' 
+\pause
+= f^{-1}(y)\star f^{-1}(y')$$
+\end{proof}  
+\end{frame}
+
+
+\begin{frame}
+\begin{mydefinition}
+Un morphisme bijectif est un \defi{isomorphisme}
+
+$G, G'$ sont \defi{isomorphes}
+s'il existe un morphisme bijectif $f : G \longrightarrow G'$
+\end{mydefinition}
+\pause
+\begin{exemple}
+$$
+\begin{array}{lccc}
+f : & \Rr & \longrightarrow & \Rr^*_+ \\
+    & x  & \longmapsto & \exp(x) \\
+\end{array}
+$$
+\pause
+\begin{itemize}
+  \item $f$ est une application bijective
+\pause
+  \item $f^{-1} :  \Rr_+^* \longrightarrow \Rr$ est définie par $f^{-1}(x) = \ln(x)$
+\pause
+  \item $f^{-1}$ est aussi un morphisme
+
+$f^{-1}(x\times x')=f^{-1}(x) + f^{-1}(x')$
+
+$\ln(x \times x') = \ln(x) + \ln(x')$
+\pause
+  \item $f$ est un isomorphisme
+  \item les groupes $(\Rr,+)$ et $(\Rr_+^*,\times)$ sont
+isomorphes
+\end{itemize}
+\end{exemple}
+  
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+\section{Noyau et image}
+
+
+\begin{frame}
+Soit $f: G \longrightarrow G'$ un morphisme de groupes
+\medskip
+
+\begin{mydefinition}
+Le \defi{noyau} de $f$ est 
+\myboxinline{$\Ker f = \big\{ x \in G \mid f(x) = e_{G'} \big\}$}
+\end{mydefinition}
+
+\pause
+\bigskip
+
+\begin{itemize}
+  \item $\Ker f \subset G$
+\pause
+  \item $\Ker f = f^{-1}\big(\{ e_{G'} \}\big)$
+\pause
+  \item $\Ker f$ sont les éléments de $G$ qui sont envoyés 
+par $f$ sur l'élément neutre de $G'$
+\end{itemize}  
+
+
+\end{frame}
+
+\begin{frame}
+
+\begin{proposition}
+\begin{enumerate}
+  \item $\Ker f$ est un sous-groupe de $G$
+\pause
+  \item $f$ injectif $\iff$ $\Ker f = \{ e_G \}$
+\end{enumerate}
+\end{proposition}
+
+\pause
+
+\begin{proof}
+\vspace*{-1ex}
+\centerline{$f : (G,\star) 
+{\relbar\joinrel\relbar\joinrel\relbar\joinrel\relbar\joinrel\longrightarrow} 
+(G',\diamond)$}
+\begin{enumerate}
+  \item 
+
+   \begin{itemize}   {\footnotesize
+     \item $f(e_G)=e_{G'}$ donc $e_G \in \Ker f$
+\pause
+     \item Soient $x,x' \in \Ker f$, 
+
+ $f(x\star x') = f(x) \diamond f(x')= e_{G'} \diamond e_{G'} = e_{G'}$ 
+et donc $x \star x'\in \Ker f$
+\pause
+     \item Soit $x \in \Ker f$ \qquad
+$f(x^{-1}) = f(x)^{-1}=e_{G'}^{-1} = e_{G'}$ et donc $x^{-1} \in \Ker f$
+    }
+    \end{itemize}        
+
+\pause
+   \item
+   \begin{itemize}   {\footnotesize
+     \item[$\Rightarrow$] Supposons $f$ est injective
+ 
+Soit $x\in \Ker f$, alors $f(x)=e_{G'}$ donc $f(x)=f(e_G)$
+
+Comme $f$ est injective alors $x=e_G$. Donc $\Ker f = \{ e_G \}$
+
+\pause
+
+     \item[$\Leftarrow$] Supposons $\Ker f = \{ e_G \}$
+
+Soient $x,x' \in G$ tels que $f(x)=f(x')$,
+donc $f(x)\diamond \big( f(x') \big)^{-1} = e_{G'}$ d'où $f(x)\diamond f(x'^{-1}) = e_{G'}$ et
+donc $f(x \star x'^{-1}) = e_{G'}$
+
+Ceci implique que $x \star x'^{-1} \in \Ker f$.
+Comme $\Ker f = \{ e_G \}$ alors $x \star x'^{-1} = e_G$ et donc $x=x'$. Ainsi $f$ est injective
+   }
+   \end{itemize}
+\end{enumerate}
+\vspace*{-2ex}
+\end{proof}
+
+\end{frame}
+
+
+\begin{frame}
+
+Soit $f: G \longrightarrow G'$ un morphisme de groupes
+
+\medskip
+
+\begin{mydefinition}
+L'\defi{image} de $f$ est 
+\myboxinline{$\Im f = \big\{ f(x)  \mid x \in G \big\}$}
+\end{mydefinition}
+
+\pause
+
+
+\begin{itemize}
+  \item $\Im f \subset G'$
+  \item $\Im f = f(G)$
+  \item $\Im f$ sont les éléments de $G'$ qui ont (au moins) un antécédent par~$f$
+\end{itemize}  
+
+\pause 
+
+
+\begin{proposition}
+\begin{enumerate}
+  \item $\Im f$ est un sous-groupe de $G'$
+  \item $f$ surjectif $\iff$ $\Im f = G'$
+\end{enumerate}
+\end{proposition}
+  
+\end{frame}
+
+
+
+
+
+%---------------------------------------------------------------
+\section{Exemples}
+
+
+\begin{frame}
+
+\begin{exemple}
+
+$$
+\begin{array}{lccc}
+f : & \Zz & \longrightarrow & \Zz  \\
+    & k & \longmapsto & 3k  \\
+\end{array}$$
+
+\pause
+
+\begin{itemize}
+  \item $f$ est un morphisme de $(\Zz,+)$ dans $(\Zz,+)$
+
+\pause
+
+  $f(k+k')= 3(k+k')= 3k + 3k'=f(k)+f(k')$
+
+\pause
+
+   \item Calcul du noyau $\Ker f = \{ k \in \Zz \mid f(k)=0\}$
+
+\pause
+
+Si $f(k)=0$ alors $3k=0$ donc $k=0$
+
+\pause
+
+Ainsi $\Ker f = \{ 0 \}$  donc $f$ est injective
+
+\pause
+
+  \item $\Im f = \{ f(k) \mid k \in \Zz \} = \{ 3k \mid k \in\Zz\} = 3\Zz$
+
+\pause
+
+Nous retrouvons que $3\Zz$ est un sous-groupe de $(\Zz,+)$
+\end{itemize}
+
+\end{exemple}
+\end{frame}
+
+\begin{frame}
+\begin{exemple}
+$$
+\begin{array}{lccc}
+f : & \Rr & \longrightarrow & \mathbb{U}  \\
+    & t   & \longmapsto  & e^{\ii t} \\
+\end{array}
+$$
+\pause
+\begin{itemize}
+  \item $f$ est un morphisme
+
+ $f(t+t')=e^{\ii (t+t')}= e^{\ii t} \times e^{\ii t'} = f(t)\times f(t')$
+
+\pause
+
+  \item Calcul du noyau $\Ker f = \{ t \in \Rr \mid f(t)=1 \}$
+
+ $f(t)=1 \iff  e^{\ii t}= 1 \iff t= 0 \pmod{2\pi}$
+
+D'où $\Ker f = \{ 2k\pi \mid k \in \Zz\} = 2\pi \Zz$
+
+\pause
+
+ Ainsi $f$ n'est pas injective
+
+\pause
+  \item $\Im f = \mathbb{U}$ car tout nombre complexe de module $1$ 
+s'écrit sous la forme $f(t)=e^{\ii t}$
+\end{itemize}
+\end{exemple}
+
+% \begin{exemple}
+% $$
+% \begin{array}{lccc}
+% f : & G\ell_2 & \longrightarrow & \Rr^*  \\
+%     & M & \longmapsto & \det M \\
+% \end{array}
+% $$
+% \pause
+% \begin{itemize}
+%   \item $f$ est un morphisme de groupes
+% 
+% $\det(M\times M')=\det M \times \det M'$
+% 
+% \pause
+% 
+%   \item Le morphisme $f$ n'est pas injectif 
+% 
+% Par exemple $\det\left(\begin{smallmatrix} 1 & 0 \\ 0 & t \\ \end{smallmatrix}\right)=
+% \det\left(\begin{smallmatrix} t & 0 \\ 0 & 1 \\ \end{smallmatrix}\right)$
+% 
+%   \item Le morphisme $f$ est surjectif 
+% si $t \in \Rr^*$ alors $\det\left(\begin{smallmatrix} 1 & 0 \\ 0 & t \\ \end{smallmatrix}\right)
+% = t$
+% 
+% \end{itemize}
+% \end{exemple}
+\end{frame}
+
+\begin{frame}
+Attention : ne pas confondre les notations
+$$x^{-1}\qquad  f^{-1} \qquad f^{-1}\big(\{ e_{G'} \}\big)$$
+\pause
+\begin{itemize}
+  \item $x^{-1}$ est l'inverse de $x$ dans un groupe $(G,\star)$
+
+Si le groupe est $(\Rr^*,\times)$ alors $x^{-1}=\frac 1 x$
+\pause
+
+  \item Pour une application bijective $f^{-1}$ est la bijection réciproque
+\pause
+
+  \item Pour $f : E \longrightarrow F$ quelconque, l'image réciproque d'une partie $B\subset F$ est 
+$f^{-1}(B) = \big\{ x \in E \mid f(x) = B \big\}$
+
+
+Le noyau d'un morphisme $\Ker f = f^{-1}\big(\{ e_{G'} \}\big)$ est défini même si $f$ n'est pas bijective
+\end{itemize}  
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+\section*{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Soit $f : (\Zz,+) \longrightarrow (\Qq^*,\times)$ défini par $f(n)=2^n$. Montrer que 
+$f$ est un morphisme de groupes. Déterminer le noyau de $f$. $f$ est-elle injective ? surjective ?
+
+  \item Mêmes questions pour $f : (\Rr,+) \longrightarrow (\mathcal{R},\circ)$, qui à un réel
+$\theta$ associe la rotation d'angle $\theta$ de centre l'origine. 
+
+  \item Soit $(G,\star)$ un groupe et $f : G \longrightarrow G$ l'application définie par
+$f(x)=x^2$. (Rappel : $x^2=x\star x$.) Montrer que si $(G,\star)$ est commutatif alors $f$
+est un morphisme. Montrer ensuite la réciproque.
+  \item Montrer qu'il n'existe pas de morphisme $f : (\Zz,+) \to (\Zz,+)$ tel que $f(2)=3$.
+  \item Montrer que $f, g : (\Rr^*,\times) \to (\Rr^*,\times)$ définis par $f(x)=x^2$,
+$g(x)=x^3$ sont des morphismes de groupes. Calculer leur image et leur noyau.
+\end{enumerate}
+
+
+\end{miniexercice}
+\end{frame}
+
+
+\end{document}

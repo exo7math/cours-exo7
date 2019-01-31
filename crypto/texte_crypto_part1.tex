@@ -1,0 +1,511 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+On attribue à César l'un des premiers protocoles de cryptage d'informations.
+
+\change
+
+Nous verrons son principe ->
+
+\change
+
+qui repose sur de l'arithmétique élémentaire : les calculs modulaires.
+
+\change
+
+Cela nous permettra de chiffrer (et déchiffrer) des messages
+
+\change
+
+Malheureusement nous verrons que ce procédé est trop simple pour apporter un niveau de sécurité suffisant.
+
+\change 
+
+Nous terminons par une mise en oeuvre algorithmique et informatique.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Personne ne peut affirmer que César ait lui-même prononcé la phrase imprononçable écrite ici !
+
+\change
+
+Mais les historiens lui attribue l'un des premiers protocoles cryptographiques.
+
+En tant que chef des armées, César ne tenait pas à ce que ses ordres soient interceptés et utilisés par ses ennemis avant même d'arriver sur les lieux de bataille.
+
+Il avait donc recours à un procédé qui rendait ses message inintelligibles. On parlerait aujourd'hui d'un protocole de chiffrement.
+
+\change
+
+Ce procédé était en fait un simple décalage des lettres de l'alphabet : 
+
+\change
+
+pour crypter un message, on fait correspondre à la lettre $A$ du message initial la lettre $D$ du message transmis, à $B$  $E$, $C$  $F$ etc...
+
+
+\change
+
+
+$\equiv \equiv \equiv$ Voici une figure avec l'alphabet d'origine en ROUGE (qui correspond au texte que l'on veut cacher), en correspondance avec l'alphabet 
+en VERT (destiné à être transmis au risque d'être intercepté par l'ennemi). On retrouve le fait que A en rouge devient un D en vert 
+
+||| etc...
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour prendre en compte le décalage des dernières lettres de l'alphabet, il est plus judicieux de représenter les alphabets sur deux anneaux.
+
+\change
+
+On parle alors d'un \defi{décalage circulaire} des lettres de l'alphabet.
+
+\change
+
+
+Pour déchiffrer le message de César, il suffit de lire cette correspondance dans le sens inverse, c'est-à-dire de l'alphabet en VERT à celui en ROUGE.
+
+\change
+
+$\equiv \equiv \equiv$ $D$ se déchiffre en $A$, $E$ en $B$,...
+
+\change
+
+Reprenons la phrase citée précédemment. Le $D$ se déchiffre en $A$, le $O$ en $L$, etc... 
+
+\change
+ce qui conduit à :
+
+\centerline{ALEA \  JACTA \  EST}
+
+
+||| qui se traduit du latin par \og Les dés sont jetés \fg.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Depuis le début, nous parlons de chiffrement et de déchiffrement. 
+
+La raison en est que nous pouvons décrire mathématiquement ces procédés avec des nombres et des opérations sur les nombres et ainsi confier aux ordinateurs toutes ces opérations.
+
+Nous nous limiterons dans ce cours à utiliser le codage des 26 lettres de l'alphabet en les mettant en correspondance avec les entiers de 0 à 25.
+
+\change
+
+$\equiv \equiv \equiv$ En termes mathématiques, nous définissons une bijection $f$ 
+qui va de l'ensemble des 26 lettres de l'alphabet dans l'ensemble des entiers de $0$ à $25$
+
+et qui à $A$ associe $0$
+
+à $B$ associe $1$
+
+et à $Z$ associe $25$
+
+\change
+
+Par exemple la suite de lettres  
+"A L E A" 
+devient la suite de nombres 
+"0 12 4 0".
+
+\change
+ 
+||| Le chiffrement de César est un cas particulier de \defi{chiffrement mono-alphabétique}, 
+c'est-à-dire une procédé au cours duquel cha\-que lettre du message initial subit une transformation pour donner une lettre du message crypté.
+
+\change
+
+Nous allons tout de suite voir l'intérêt de transformer les lettres en nombres. 
+En effet, le chiffrement de César correspond à une opération mathématique très simple.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Soit un entier $n \ge 2$ fixé.
+
+Nous dirons que \defi{$a$ est congru à $b$ modulo $n$},
+si $n$ divise la différence des entiers $b$ et $a$.
+
+\change
+
+$\equiv \equiv \equiv$ On note alors 
+$$a \equiv b \pmod n$$ 
+
+
+\change
+
+|||  Dans le cadre de notre travail, nous compterons modulo $26$ (les $26$ lettres de l'alphabet).
+
+On pose donc $n=26$. 
+
+Par exemple $28 \equiv  2 \pmod {26}$,
+
+\change
+
+$\equiv \equiv \equiv$ car $28-2=26$ est bien divisible par $26$. 
+
+\change
+
+De même $85 = 26+ 59$ donc $85 \equiv  59 \pmod {26}$
+
+\change
+Mais on a également $85 = 3 \times 26+ 7$ donc $85-7$ est divisible par $26$ ce qui fait que 
+$85 \equiv  7 \pmod {26}$. 
+
+\change
+
+On note $\Zz/26 \Zz$ l'ensemble de tous les éléments de $\Zz$ modulo $26$. 
+
+\change
+
+Cet ensemble peut par exemple être représenté par les $26$ éléments $\{0,1,2,\ldots, 25\}$. 
+
+\change
+
+En effet, puisque l'on compte modulo $26$, les premiers entiers sont en quelque sorte eux-mêmes
+$0,\ 1,\ 2,\ \ldots,\  25,$
+
+\change
+
+ puis  $26\equiv 0,\  27 \equiv  1,\  28 \equiv  2,  \ldots$
+
+\change
+ 
+ et ainsi de suite $52\equiv 0,\  53\equiv 1, \ldots$ pour les entiers positifs
+
+\change
+ 
+et de même $-1\equiv 25$, $-2\equiv 24$,... pour les entiers négatifs
+
+\change
+
+Plus généralement $\Zz / n \Zz$ contient exactement $n$ éléments.
+
+\change
+
+||| Pour un entier $a \in \Zz$ quelconque, son \defi{représentant}
+que nous choisissons ici dans l'ensemble $\{0,1,2,\ldots, n-1\}$ s'obtient comme le reste $k$
+de la division euclidienne de $a$ par $n$ :
+
+
+$a = bn + k$.
+
+\change
+
+Ce qui permet d'avoir $a \equiv  k \pmod n$ et $0 \le k < n$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+De façon naturelle l'addition et la multiplication d'entiers se transposent dans $\Zz/n\Zz$.
+
+Commençons par l'addition.
+
+\change
+
+Pour $a,b \in \Zz/n\Zz$, on associe $a+b \in \Zz/n\Zz$.
+
+\change
+Par exemple dans $\Zz/26\Zz$, $15+13$ égale $2$.
+
+\change
+$\equiv \equiv \equiv$ En effet $15+13 = 28 \equiv 2 \pmod{26}$.
+
+\change
+Autre exemple : que vaut $133+64$ ?
+
+\change
+$133+64=197=7\times 26 +15 \equiv 15 \pmod {26}$.
+
+\change
+Mais on pourrait procéder différemment.
+
+Tout d'abord trouver le représentant de 133 modulo 26 :
+
+$133 = 5 \times 26 + 3 \equiv 3 \pmod {26}$
+
+\change
+et de même $64 = 2 \times 26 + 12 \equiv 12 \pmod{26}$.
+
+\change
+Et maintenant :
+$133 + 64 \equiv 3 + 12 \equiv 15 \pmod{26}$.
+
+
+\change
+||| On fait de même pour la multiplication :
+pour $a,b \in \Zz/n\Zz$, on associe $a \times b \in \Zz/n\Zz$.
+
+\change
+$\equiv \equiv \equiv$ Par exemple $3 \times 12$ donne $36$ donc $10$ modulo $26$.
+
+\change
+Autre exemple : que vaut $3 \times 27$ ?
+
+$3 \times 27 = 81 = 3 \times 26 + 3 \equiv 3 \pmod{26}$.
+
+\change
+Une autre façon de voir la même opération est d'écrire d'abord 
+$27 \equiv 1 \pmod{26}$ puis $3 \times 27 \equiv 3 \times 1 \equiv 3 \pmod{26}$.
+
+||| Ces exemples soulignent que les opérations d'addition et de multiplication sur les entiers 
+sont bien compatibles avec les opérations d'addition et de multiplication sur les entiers modulaires.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le chiffrement de César peut maintenant être vu comme une simple addition dans $\Zz/26\Zz$ !
+
+Fixons un entier $k$ qui est le décalage (nous avions choisi $k=3$ dans l'exemple) 
+et définissons la  \defi{fonction de chiffrement de César de décalage $k$}
+qui va de l'ensemble $\Zz/26 \Zz$ dans lui-même :
+
+$\equiv \equiv \equiv$ cette fonction associe à $x$ le nombre $x+k$. 
+
+Comme l'ensemble d'arrivée est $\Zz/26 \Zz$ il faut bien comprendre que cela revient à calculer  $x+k$ modulo $26$.
+
+\change
+
+Par exemple, pour un décalage de $3$ lettres comme précédemment : $C_3(0)=3$, $C_3(1)=4$\ldots
+
+\change 
+
+||| Pour déchiffrer, rien de plus simple ! Il suffit d'aller dans l'autre sens, c'est-à-dire ici de soustraire.
+
+$\equiv \equiv \equiv$ A $x$ on associe $x-k$.
+
+\change
+
+En effet, si $1$ a été chiffré en $4$, par la fonction $C_3$ alors 
+
+$D_3(4)=4-3=1$. 
+
+||| On retrouve le nombre initial.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Mathématiquement, $D_k$ est la bijection réciproque de $C_k$, 
+
+\change
+
+ce qui implique que pour tout 
+$x \in \Zz/26 \Zz$ :
+
+$\equiv \equiv \equiv$ $D_k \big( C_k(x) \big) = x$
+
+\change
+
+En d'autres termes, si $x$ est un nombre, on applique la fonction de chiffrement 
+pour obtenir le nombre crypté $y=C_k(x)$ ; ensuite 
+la fonction de déchiffrement fait bien ce que l'on attend d'elle 
+$D_k(y)=x$, 
+
+||| on retrouve le nombre initial $x$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici le principe du chiffrement : 
+
+\change
+Alice souhaite envoyer des messages secrets à Bruno.
+
+\change
+Ils se sont d'abord mis d'accord sur une clé secrète $k$, supposons par exemple que ce soit maintenant $k=11$.
+
+\change
+Le message qu'Alice souhaite envoyer est "COUCOU"
+
+\change
+$\equiv \equiv \equiv$ Elle transforme d'abord les lettres de "COUCOU" en une liste de nombres $C$ devient $2$, $O$ devient $14$ et $U$ devient $20$.
+
+\change
+Alice applique la fonction de chiffrement $C_{11}$ définie par 
+
+$C_{11}(x)=x+11$ à chacun de ces nombres :
+
+$2$ devient $2+11=13$, 
+
+$14+11=25$ 
+
+et $20+11=31 \equiv 5$ modulo 26.
+
+\change
+ce qui correspond au mot crypté "NZFNZF".
+
+Elle transmet le mot crypté à Bruno, 
+
+
+\change
+qui selon le même principe 
+applique la fonction de déchiffrement $D_{11}$ définie par 
+
+$D_{11}(x)=x-11$.
+
+Et trouvera bien sûr le message "COUCOU".
+
+\change 
+
+Tout ceci est représenté par le schéma que voici
+
+la transformation de lettre en nombre, le chiffrement, la transformation de nombre en lettre
+
+
+la transmission
+
+et ici le déchiffrement.
+
+% \change
+% 
+% Un exemple classique est le "rot13"  (pour rotation par un décalage de $13$) :
+% $$C_{13}(x) = x +13$$
+% et comme $-13=13 \pmod{26}$ alors $D_{13}(x)=x+13$.
+% La fonction de déchiffrement est la même que la fonction de chiffrement !
+% 
+% Exemple : déchiffrez le mot "PRFNE". ["CESAR"]
+% 
+% \end{exemple}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Combien existe-t-il de chiffrements de César différents ?
+
+\change
+
+Dans l'absolu, le paramètre $k$ de décalage peut prendre 26 va\-leurs différentes : il y a donc $26$ fonctions $C_k$ différentes, $k=0,1,\ldots,25$. 
+
+Même si le décalage de 0 lettre n'a que peu d'intérêt crypto\-graphique !!
+
+\change
+
+Du point de vue des entiers ou des entiers modulaires, $k$ appartient à $\Zz / 26 \Zz$, 
+
+\change
+
+On retrouve ici le fait que les fonctions $C_{29}$ et $C_3$ sont identiques car $29$ est congru à $3$ modulo $26$.
+
+\change
+
+Le décalage $k$ s'appelle la \defi{clé de chiffrement}, c'est l'information nécessaire pour crypter le message.
+
+\change
+
+Il y a donc $26$ clés différentes et l'\defi{espace des clés} est
+$\Zz/26\Zz$.
+
+
+\change
+
+Il est clair que ce protocole de chiffrement est d'une sécurité très faible.
+
+
+Si Alice envoie un message crypté à Bruno et que Chloé intercepte ce message, 
+il lui sera facile de le décrypter même sans connaître la clé de chiffrement.
+
+En effet, Chloé peut déchiffrer le message intercepté selon les $26$ façons différentes et reconnaître parmi 
+les $26$ résultats celui qui donne un texte compréhensible. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Les ordinateurs ont révolutionnés la cryptographie 
+
+- tant sur le plan de l'automatisation du chiffrement des messages à envoyer 
+
+- que sur celui des attaques multiples sur les messages chiffrés interceptés.
+
+Nous montrons ici, à l'aide du langage Python comment programmer 
+le chiffrement de César. 
+
+Tout d'abord la fonction de chiffrement se programme en une seule ligne :
+
+$\equiv \equiv \equiv$ Ici \codeinline{x} est un nombre de $\{0,1,\ldots,25\}$ et \codeinline{k}
+est le décalage : ce sont les arguments de la fonction.
+
+ \codeinline{(x+k)\%26} renvoie le reste modulo $26$ de la somme \codeinline{(x+k)}.
+
+\change
+
+||| Pour le déchiffrement, c'est aussi simple : on soustrait le décalage.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Pour chiffrer un mot ou un phrase, il n'y a pas de problèmes théoriques, seulement 
+des difficultés techniques.
+
+~
+
+Nous présentons ici la fonction qui crypte un mot avec un certain décalage.
+
+~
+
+Un mot est une chaîne de caractères (choisis parmi les 26 lettres de l'alphabet) qui en fait se comporte comme une liste.
+
+~
+
+$\equiv \equiv \equiv$   la boucle \codeinline{for lettre in mot:} permet de parcourir une à une les lettres du mot
+
+  
+||| Pour transformer une lettre en un nombre, on utilise la fonction \codeinline{ord} qui à chaque caractère 
+  associe son code Ascii qui est un entier. Par exemple : \codeinline{ord(A)} vaut $65$, \codeinline{ord(B)} vaut $66$... 
+  
+~
+
+Si nous souhaitons que la lettre A corresponde à l'entier 0, il suffit de considérer pour chaque lettre l'entier 
+
+$\equiv \equiv \equiv$  \codeinline{(ord(lettre) - 65)} 
+
+qui pour les lettres de $A$ à $Z$ sera un entier entre $0$ et $25$.
+
+~
+
+On peut maintenant appliquer la fonction de chiffrement, qui je vous le rappelle renvoie juste  nb+k modulo 26
+ 
+~
+ 
+La transformation des nombres en caractères se fait par la fonction \codeinline{chr}
+
+~
+  
+On ajoute la lettre à la liste des lettres cryptées avec \codeinline{append}
+  
+Enfin on transforme cette liste en une chaîne de caractères 
+
+~
+
+||| qui est notre résultat : le mot crypté.
+ 
+\end{document}

@@ -1,0 +1,424 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+\change
+Nous allons voir plusieurs applications des déterminants.
+
+\change
+Nous commencerons par la méthode de Cramer pour résou\-dre des systèmes linéaires.
+
+\change
+Puis nous verrons comment les déterminants permettent de savoir si une famille de vecteurs forme une base.
+
+\change
+Grâce aux déterminants, nous définirons les mineurs d'une matrice, 
+
+\change
+et nous les utiliserons pour déterminer son rang.
+
+\change
+Enfin, nous en déduirons le rang d'une matrice transposée.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Nous commençons par énoncer un théorème, appelé \defi{règle de Cramer}, qui donne une 
+formule explicite pour la solution de systèmes d'équations linéaires 
+ayant autant d'équa\-tions que d'inconnues. 
+
+Considérons le système d'équations linéaires à $n$ équations et $n$ inconnues suivant.
+% geste
+
+\change
+
+[petit x, grand X]
+
+Ce système peut aussi s'écrire sous forme matricielle $AX=B$ où 
+
+\change
+$A$ est la matrice carrée des coefficients $a_{ij}$ du système linéaire, 
+
+\change
+$X$ est le vecteur colonne de taille $n$ dont les composantes $x_1$, \ldots, $x_n$ sont les inconnues du système, 
+
+\change
+et $B$ est le vecteur colonne de taille $n$ également, dont les composantes sont les seconds membres du système.
+
+\change
+Définissons la matrice $A_j \in M_{n}(\Kk)$ ainsi : $A_j$ est la matrice obtenue en remplaçant la $j$-ème colonne de $A$ par le second membre $B$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La règle de Cramer va nous permettre de calculer la solution $X$ du système précédent dans le cas où le déterminant de $A $ est non nul, en fonction des déterminants des matrices $A$ et $A_j$, que l'on vient de définir. \\
+
+Théorème : Soit $AX = B$ un système de $n$ équations  à $n$ inconnues. 
+
+\change
+Supposons que $\det A \neq 0$.
+
+\change
+Alors l'unique solution $(x_1,x_2,\ldots,x_n)$ du système est donnée par:\\
+
+$
+x_1 = \frac{\det A_1}{\det A} \qquad x_2 = \frac{\det A_2}{\det A} \qquad \ldots \qquad x_n = \frac{\det A_n}{\det A}.
+$
+
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \diapo
+% Démontrons le théorème précédent, c'est-à-dire que l'unique solution du système est donnée par $x_i = \frac{\det A_i}{\det A} $.
+% 
+% \change
+% Nous avons supposé que $\det A \neq 0$. 
+% 
+% \change
+% Donc $A$ est inversible. 
+% 
+% \change
+% Alors $X = A^{-1} B$ est l'unique solution du système. 
+% 
+% \change
+% D'autre part, nous avons vu que l'inverse de $A$ est donnée par $\frac{1}{\det A} C^T$ où $C$ est la comatrice de $A$.
+% 
+% \change
+% Donc $X = \frac{1}{\det A} C^T B$.
+% 
+% \change
+% En développant, on a que le vecteur $X$, de composantes $x_1, \ldots, x_n $ est égal à $ \frac{1}{\det A}$ fois la transposée de la comatrice, fois le second membre $b_1, \ldots, b_n $,
+% 
+% \change
+% ce qui vaut $\frac{1}{\det A} $ multiplié par le vecteur colonne
+% $
+% \begin{pmatrix}
+% C_{11} b_1 + \dots + C_{n1} b_n\\
+% \vdots\\
+% C_{1n}b_1  + \dots + C_{nn} b_n  
+% \end{pmatrix}
+% $
+% 
+% \change
+% C'est-à-dire si on l'écrit composante par composante :
+% \[
+% x_1  =  \frac{C_{11} b_1 + \dots + C_{n1} b_n}{\det A}
+% \quad\ldots\quad
+% x_i  =  \frac{C_{1i}b_1 + \dots + C_{ni} b_n}{\det A} \quad\ldots\ \text{etc}
+% \]
+% 
+% \change
+% Mais $b_1 C_{1i} + \dots + b_n C_{ni}$ est exactement le développement en cofacteurs de 
+% $\det A_i$ par rapport à sa $i$-ème colonne.  
+% 
+% \change
+% Donc
+% \[
+% x_i = \frac{\det A_i}{\det A}\, \cdotp
+% \]
+% 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Appliquons la règle de Cramer sur un exemple et résolvons le système suivant de 3 équations à 3 inconnues.
+%geste
+
+\change
+On écrit ce système sous forme matricielle avec $A$ la matrice $3\times3$ des coefficients du système, et
+$
+B = \left(
+\begin{array}{c} 6 \\ 30 \\ 8 \end{array}\right)
+$
+le second membre. Les matrices $A_j$ sont données par
+
+\change
+$A_1$ où on a remplacé la première colonne de $A$ par $6, 30, 8$, c'est-à-dire par $B$, les deux dernières colonnes étant inchangées
+
+\change
+de même pour $A_2$ en remplaçant la deuxième colonne de $A$ par $B$
+
+\change
+et pour $A_3$ en remplaçant la troisième colonne.
+
+\change
+On calcule  $\det A  =  44$,
+
+\change
+$\det A_1  =  -40$,
+
+\change
+$\det A_2  =  72$, (...)
+
+\change
+et enfin $\det A_3  =  152.$
+
+\change
+La solution de notre système est alors 
+$
+x_1 = \frac{\det A_1}{\det A} $ c'est-à-dire $= -\frac{40}{44} $
+
+\change
+ce qui après simplification donne $ -\frac{10}{11}$.
+
+\change
+De même $x_2 = \frac{\det A_2}{\det A} = \frac{72}{44} $
+
+\change
+ce qui donne $\frac{18}{11}$.
+
+\change
+Et enfin $x_3 = \frac{\det A_3}{\det A} = \frac{152}{44} $
+
+\change
+c-à-d $ \frac{38}{11}$. \\
+
+
+Remarquons pour conclure que la méthode de Cramer n'est pas la méthode la plus efficace 
+pour résoudre un système, mais elle est utile si le système contient des paramètres.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Soit maintenant $E$ un $\Kk$-espace vectoriel de dimension $n$. Fixons une base $\mathcal{B}$ de $E$.
+
+\change
+On considère $n$ vecteurs $v_1,v_2,\ldots,v_n$ de $E$
+
+\change
+et on  veut décider s'ils forment une base de $E$.
+
+\change
+Pour cela, on écrit la matrice $A \in M_n(\Kk)$ dont la $j$-ème colonne est formée
+des coordonnées du vecteur $v_j$ dans la base $\mathcal{B}$ 
+(comme pour la matrice de passage). \\
+
+La matrice $A$ est donc obtenue en juxtaposant les coordonnées des vecteurs $v_j$ dans la base $\mathcal{B}$.
+
+\change
+Le calcul de déterminant apporte la réponse à notre problème. \\
+
+Théorème. Les vecteurs $(v_1,v_2,\ldots,v_n)$ forment une base de $E$ si et seulement si $\det A \neq 0.$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La démonstration du théorème fait appel à des résultats du chapitre «Matrices et applications linéaires»,
+ section «Rang d'une famille de vecteurs». Elle est immédiate.
+
+\change
+Les vecteurs $(v_1,v_2,\ldots,v_n)$ forment une base de $E$ si et seulement si leur rang est maximal, 
+c'est-à-dire égal à $n$.
+
+\change
+Ce qui est équivalent à ce que la matrice $A$ soit elle-même de rang $n$.
+
+\change
+Mais cela signifie que $A$ est inversible,
+
+\change
+c-à-d que son déterminant est non nul.
+
+\change
+On a un corollaire du théorème précédent pour le cas où l'espace vectoriel $E$ est $\Rr^n$.\\
+
+Considérons une famille de $n$ vecteurs de $\Rr^n$ .
+
+\change
+Elle forme une base si et seulement si le déterminant de la matrice dont les coefficients sont 
+$a_{ij}$ n'est pas nul.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Appliquons le corollaire précédent sur un exemple et déter\-minons pour quelles valeurs réelles de $a,b$ les trois vecteurs  de $\Rr^3$
+$$
+\begin{pmatrix}0\\a\\b\end{pmatrix} \quad
+\begin{pmatrix}a\\b\\0\end{pmatrix} \quad
+\begin{pmatrix}b\\0\\a\end{pmatrix}$$
+forment une base de $\Rr^3$. 
+
+\change
+Pour répondre, il suffit de calculer le déterminant formé par ces trois vecteurs
+
+\change
+Il vaut $ - a^3 - b^3$.
+
+\change
+En conclusion: 
+
+\change
+si $a^3 \neq - b^3$ alors les trois vecteurs forment une base de $\Rr^3$.
+
+\change
+Si $a^3 = - b^3$ alors les trois vecteurs sont liés.
+
+\change
+Pour finir, vous pouvez montrer en exercice que $a^3=-b^3$ si et seulement si $a=-b$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Soit $A=(a_{ij}) \in M_{n,p}(\Kk)$ une matrice à $n$ lignes 
+et $p$ colonnes à coefficients dans $\Kk$. 
+
+\change
+On se donne un entier  $k$, inférieur à la fois à $n$ et à $p$.
+
+\change
+On appelle \defi{mineur d'ordre $k$} le déterminant de toute matrice carrée de taille $k$ extraite 
+de $A$
+
+\change
+ Une matrice carrée de taille $k$ extraite de $A$, est obtenue en supprimant $n-k$ lignes 
+ et $p-k$ colonnes de $A$.
+
+\change
+Noter que $A$ n'a pas besoin d'être une matrice carrée, pas contre, les déterminant que l'on calcule 
+sont bien sûr ceux de sous-matrices carrées.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Calculons quelques mineurs de la matrice $A$ suivante.
+
+\change
+Un mineur d'ordre $1$ est simplement un coefficient de la matrice $A$.
+
+\change 
+Un mineur d'ordre $2$ est le déterminant d'une matrice $2\times 2$ extraite de $A$.
+
+\change
+Par exemple en supprimant la ligne 2 et les colonnes 1~et~3, 
+
+\change
+on obtient la matrice extraite 
+$\begin{pmatrix}2&4\\1&5\end{pmatrix}$.
+  
+\change  
+Donc un des mineurs d'ordre $2$ de $A$ est le déterminant de cette matrice, qui vaut $ 6$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Poursuivons nos calculs de mineurs sur la même matrice~$A$.
+  
+\change
+Un mineur d'ordre $3$ est le déterminant d'une matrice $3\times 3$ extraite de $A$.
+
+\change
+Par exemple, en supprimant la deuxième colonne de $A$, 
+
+\change
+on obtient ce mineur, qui vaut $-28$.
+  
+\change
+Il n'y a pas de mineur d'ordre $4$ (car la matrice n'a que $3$ lignes).
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Rappelons la définition du rang d'une matrice. \\
+
+Le rang d'une matrice est la dimension de l'espace vectoriel  engendré par les vecteurs colonnes. C'est donc le maximum de vecteurs colonnes linéairement indépendants. \\
+
+Les mineurs nous fournissent un moyen de déterminer le rang d'une matrice.
+
+\change
+On a en effet le théorème suivant. Le rang d'une matrice $A$ est le plus grand entier $r$ 
+tel qu'il existe un mineur d'ordre~$r$ extrait de $A$ qui soit non nul.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Soit $\alpha$ un paramètre réel. Calculons le rang
+de cette matrice $A$ qui dépend de $\alpha$.
+
+\change
+Clairement, le rang ne peut pas être égal à $4$, puisque $4$ vecteurs de $\Rr^3$ ne sauraient être indépendants.\\
+
+On obtient les mineurs d'ordre $3$ de $A$ en supprimant une colonne. 
+
+\change
+Calculons le mineur d'ordre $3$ obtenu en supprimant la première colonne, 
+
+\change
+c'est-à-dire ce déterminant
+
+\change
+On le développe par rapport à \emph{sa} première colonne,
+  
+\change 
+et on obtient qu'il vaut  $\alpha - 2$.
+
+\change
+Par conséquent, si $\alpha \neq 2$, le mineur précédent est non nul et le rang de la matrice $A$ est $3$.\\
+
+Il nous reste encore à étudier le cas où $\alpha$ vaut $2$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Si $\alpha =2$, la matrice $A$ prend cette forme
+% geste
+
+\change
+on vérifie que les $4$ mineurs d'ordre $3$ de $A$ sont nuls. Ils s'obtiennent chacun en supprimant une colonne de $A$ :
+
+\change
+la première
+
+\change
+la deuxième
+
+\change
+la troisième
+
+\change
+et enfin la quatrième.
+
+\change
+Par le calcul, on trouve à chaque fois $0$.
+
+\change
+Donc dans ce cas,  $A$ est de rang inférieur ou égal à $2$.
+
+\change
+Cherchons si $A$ admet un mineur d'ordre $2$ non nul. En supprimant $L_3$, $C_3$, $C_4$ dans $A$, 
+
+\change
+on obtient  ce mineur d'ordre $2$
+
+\change
+qui vaut $1$ : il est donc non nul.
+
+\change
+Donc si $\alpha = 2$ , le rang de $A$ est $2$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On termine à la fois cette leçon et le chapitre sur les déterminants par la proposition suivante:\\
+
+Le rang de $A$ est égal au rang de sa transposée $A^T$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici la dernière série d'exercices sur les déterminants : entraînez-vous bien, pour assimiler cette notion qui est fondamentale en mathématiques.
+
+\end{document}

@@ -1,0 +1,11 @@
+from sage.calculus.desolvers import desolve_system_rk4
+x,y,t=var('x,y,t')
+ep=5.2
+for y_0 in [1.9, 2, 2.1]:
+    P1=desolve_system_rk4([y,-sin(x)],[x,y],ics=[0,0,y_0],ivar=t,end_points=-ep,step=0.01)
+    P2=desolve_system_rk4([y,-sin(x)],[x,y],ics=[0,0,y_0],ivar=t,end_points=+ep,step=0.01)
+    Q1=[ [j,k] for i,j,k in P1]
+    Q2=[ [j,k] for i,j,k in P2]
+    LP1=list_plot(Q1,color=hue(-float(y_0)))
+    LP2=list_plot(Q2,color=hue(-float(y_0)))
+    q+=LP1+LP2

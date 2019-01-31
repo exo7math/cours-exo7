@@ -1,0 +1,30 @@
+\begin{tikzpicture}
+
+% Axes
+     \draw[->,>=latex,thick, gray] (-0.5,0)--(5,0) node[below,black] {$x$};
+     \draw[->,>=latex,thick, gray] (0,-1.5)--(0,1.5) node[right,black] {$y$};
+
+ % Ticks
+    	\foreach \x in {1,...,4}
+     		\draw (\x,2pt) -- (\x,-2pt)
+			node[anchor=north] {\x};
+    	\foreach \x in {1}
+     		\draw (2pt,\x) -- (-2pt,\x)
+			node[anchor=east] {\x};
+    	\foreach \x in {-1}
+     		\draw (2pt,\x) -- (-2pt,\x)
+			node[anchor=east] {\x};
+
+% Courbe
+
+\draw [very thick, color=red, domain=0:pi, samples=100, smooth]
+  plot (xy polar cs:angle=\x r, radius={(\x+1)*cos(\x r)});
+
+ \beameronly{\uncover<3->}{
+  \draw[->,>=latex,thick, blue] (0,0)--+(0,0.5);
+  \draw[->,>=latex,thick, blue] (0,0)--+(0,-0.5);
+}
+ \beameronly{\uncover<2->}{
+   \fill (0:0) circle (2pt) node[below left] {$\theta=\frac\pi2$};
+}
+\end{tikzpicture}

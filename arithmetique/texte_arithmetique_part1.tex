@@ -1,0 +1,456 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+ Nous aborderons quatre thèmes dans cette leçon.
+
+\change
+
+ 1. Nous définirons ce que ``diviser'' veut dire pour des entiers, 
+et énoncerons le théorème de la division euclidienne.
+
+\change
+
+ 2. Nous définirons le pgcd de deux entiers.
+
+\change
+
+ 3. Nous verrons comment calculer efficacement ce pgcd avec l'algorithme d'Euclide.
+
+\change 
+
+ 4. Nous terminerons pas la notion de nombres premiers entres eux.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Commençons par une motivation. [[rythme rapide]]
+
+L'arithmétique est le coeur du système de cryptage le plus utilisé pour
+les communications, en particulier sur internet.
+
+Ce principe repose uniquement sur des connaissances que vous acquerrez dans ce chapitre.
+
+Voyons quelles sont ces notions.
+
+\change
+
+Nous avons besoin de choisir deux nombres premiers (qui vous devez garder secrets).
+Ce sont généralement des entiers ayant des centaines de chiffres. 
+On calcule alors le produit $n=p\times q$. 
+
+\change
+
+Alors même si $n$ est rendu public, il est très difficile de retrouver les facteurs $p$ et $q$.
+
+
+\change
+
+Vous produisez ensuite deux nombres : un clé secrète et une clé publique à l'aide de l'algorithme d'Euclide et des
+coefficients de Bézout.
+
+\change
+
+Pour crypter un message, votre interlocuteur transforme son message en nombre et fait des calculs 
+avec la clé publique, à l'aide de congruences modulo $n$.
+
+\change
+
+Vous seul pouvez décrypter le message avec la clé secrète et grâce au petit théorème de Fermat.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Prenons deux entiers $a$ et $b$.
+
+On dit que $b$ divise $a$ s'il existe un entier $q$
+
+tel que $a = b \times q$
+
+\change
+
+On note alors $b$ divise $a$ ainsi.
+
+\change
+
+Par exemple  $7 | 21$ 
+
+car en prenant $q=3$ on a bien $21 = 7 \times 3$.
+
+\change
+
+$6 | 48$  
+
+\change
+
+ou encore $a$ est pair si et seulement si $2|a$
+
+\change
+
+Il y a deux cas spéciaux. Tout entier  divise $0$ (prenez $q=0$)
+
+\change 
+
+et $1$ divise tout entier.
+
+\change
+
+Les seuls entiers qui divisent $1$ sont $1$ lui-même et $-1$.
+
+\change
+
+Terminons par quelques propriétés faciles à démontrer :
+si $(a|b \text{ et } b|a)$ alors $b= +a$ ou $b=-a$.
+
+\change
+
+ si $a|b$  et  $b|c$ alors $a$ divise aussi $c$ 
+
+\change
+
+si $a$ divise à la fois $b$ et $c$ alors $a$ divise la somme $b+c$
+(et bien sûr aussi le produit $b\times c$).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Bien sûr pour des entiers $a,b$ quelconques il n'est pas toujours vrai que $b$ divise $a$.
+Cependant on peut trouver une écriture qui s'en rapproche : c'est la division euclidienne.
+
+Prenons donc $a,b$ deux entiers quelconques alors il existe un entier $q$ et entier $r$
+tel que $a=bq+r$. 
+
+\change
+
+De plus on peut choisir $q$ de sorte que le reste $r$ soit compris entre 
+$0$ (au sens large) et $b$ (au sens stricte).
+
+\change
+
+Nous seulement on peut trouver $q$ et $r$ remplissant ces deux conditions
+mais en plus les $q$ et $r$ que l'on trouve sont uniques.
+
+\change
+
+
+Nous avons l'existence et l'unicité.
+
+
+Bien sûr $b$ divise $a$ si et seulement si le reste $r$ est nul.
+
+\change
+
+La division euclidienne est la division que vous avez appris à poser
+à l'école primaire.
+
+Pour $a=6789$ et $b=34$ la division euclidienne s'écrit
+ $6789= 34 \times 199 + 23$
+
+Ainsi $q=199$ et $r=23$, le reste $23$ est bien strictement plus petit que $34$.
+
+\change
+
+Et je vous laisse poser la division et vérifier les calculs.
+
+\change
+
+Voici les termes utilisés :
+
+ - $a$ s'appelle le dividende,
+
+ - $b$ s'appelle le diviseur,
+
+ - $q$ est le quotient,
+
+ - $r$ est le reste.
+
+Le reste doit être strictement plus petit que le diviseur, 
+
+sinon c'est que vous n'avez pas été assez
+loin dans la division !
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Etant donnés deux entiers $a$ et $b$.
+
+Le plus grand diviseur commun de $a$ et $b$ est le plus grand entier qui divise à la fois $a$ et
+$b$.
+
+\change
+
+Il se note $\pgcd(a,b)$
+
+\change
+
+Voyons quelques exemples.
+
+le $\pgcd(21,14)$ est $7$, en effet $7$ divise à la fois $21$ et $14$,
+et aucun entier plus grand ne divise $21$ et $14$.
+
+\change
+
+ $\pgcd(12,32)=4$ 
+
+\change
+
+ $\pgcd(21,26)=1$
+
+C'est-à-dire qu'aucun entier plus grand que $1$ ne divise $21$ et $26$.
+
+\change
+
+le pgcd de $a$ et d'un multiple de $a$ est $a$ lui-même.
+
+\change
+
+Enfin deux situations spéciales ou l'on connaît le pgcd :
+
+le  $\pgcd(a,0)=a$ 
+
+\change
+
+et le $\pgcd(a,1)=1$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons mettre en place une méthode pour calculer le pgcd : l'algorithme d'Euclide.
+
+Pour cela nous avons besoin d'un résultat préliminaire.
+
+Soient $a$ et $b$ deux entiers. 
+\'Ecrivons la division euclidienne $a=bq+r$
+
+Alors $\pgcd(a,b)=\pgcd(b,r)$
+
+Le pgcd de $a$ et de $b$ est donc égal au pgcd 
+de $b$ avec le reste de la division euclidienne de $a$ par $b$.
+
+\change
+
+
+En fait on a même $\pgcd(a,b) = \pgcd(b,a-qb)$ pour tout $q\in \Zz$.
+
+
+Mais pour optimiser l'algorithme d'Euclide on applique le lemme avec $q$ le quotient.
+
+\change
+
+Effectuons la preuve.
+
+Si $d$ est un diviseur de $a$ et de $b$. Alors $d$ divise $bq$ et $a$ donc aussi $bq-a$ donc divise $r$.
+
+\change
+
+Si $d$ un diviseur de $b$ et de $r$. Alors $d$ divise aussi $bq+r=a$.
+
+\change
+
+Les diviseurs communs à $a$ et $b$ sont exactement les mêmes que les diviseurs communs à $b$ et $r$.
+
+En particulier les plus grand diviseurs communs sont égaux.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous sommes prêts pour calculer le pgcd de deux entiers avec l'algorithme d'Euclide.
+
+\change
+
+Nous allons calculer successivement des division euclidienne.
+
+\change
+
+En utilisant le lemme précédent le pgcd sera le dernier 
+reste non nul.
+
+
+\change
+
+Voyons comment fonctionne l'algorithme en calculant le pgcd de $600$ et $124$.
+
+\change
+
+On écrit la division euclidienne de $600$ par $124$ :
+
+$600=124 \times 4 + 104$.
+
+
+\change
+
+L'étape suivante est la division euclidienne du diviseur par le reste de la ligne du dessus.
+
+
+
+$124$ était le diviseur, $104$ le reste, on écrit donc la division euclidienne de $124$ par $104$ :
+
+\change
+
+$124$ = $104 \times 1 + 20$.
+
+\change
+
+On continue en écrivant la division euclidienne de $104$ (notre diviseur précédent)
+par $20$ (notre reste précédent)
+
+\change
+
+$104= 20 \times 5 + 4$.
+
+\change
+
+Enfin la division euclidienne du diviseur précédent $20$ par le reste précédent $4$
+est
+
+$20 = 4 \times 5 + 0$.
+
+\change
+
+Nous obtenons un reste nul, et le pgcd est le dernier reste non nul, c'est donc $4$.
+
+\change
+
+(pause)
+Justifions pourquoi le dernier reste non nul est le pgcd,
+
+par le lemme vu précédemment
+le pgcd de $600$ et $124$ égale le pgcd de $124$, $104$
+
+Mais par le même lemme appliqué à la deuxième division euclidienne le pgcd de $124$ et $104$ 
+égal au pgcd de $104$, $20$,
+
+qui à son tour égale le pgcd de $20$ et $4$
+
+qui égale au pgcd de $4$ et $0$ et donc vaut $4$ !
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+C'est un algorithme donc vous devez arrivez au bon résultat en un nombre fini d'étape.
+
+Voyons un exemple un chouïa plus compliqué
+avec le pgcd de $9945$ et de $3003$.
+
+\change
+
+On calcule la division euclidienne de $9945$ par $3003$.
+
+\change
+
+Puis celle du diviseur précédent par le reste précédent, 
+c'est-à-dire la division euclidienne de
+ $3003$ par $936$.
+
+\change
+
+Puis la division de $936$ par $195$.
+
+\change
+
+
+Puis $195$ diviser par $156$
+
+\change
+
+Et enfin pour $156$ diviser par $39$ on obtient un reste nul.
+
+\change
+
+Le dernier reste non nul est donc $39$...
+
+\change
+
+et donc  le pgcd de $9945$ et  $3003$ vaut $39$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous dirons que $a$ et $b$ sont premiers entre eux si leur pgcd vaut $1$.
+
+\change
+
+Voici un petit exercice le pgcd de deux nombres consécutif $a$ et $a+1$ est toujours
+égal à $1$.
+
+\change
+
+En effet soit $d$ un diviseur commun à $a$ et à $a+1$
+
+\change
+
+alors 
+
+$d|a \text{ et } d|a+1$
+
+\change
+
+donc $d$ divise la différence $a+1-a$
+
+\change
+
+qui vaut $1$, donc $d$ divise $1$.
+
+\change
+
+Mais les seuls diviseurs de $1$ sont $+1$ ou $-1$.
+
+
+\change
+
+Et donc le plus grand entier qui divise à la fois $a$ et $a+1$ est $+1$.
+
+Ainsi $a$ et $a+1$ sont premier entre eux.
+
+Par exemple $14$ et $15$ sont premiers entre eux, $15$ et $16$ aussi, etc.
+
+\change
+
+
+Si deux entiers ne sont pas premiers entre eux, on peut s'y ramener en divisant par leur pgcd.
+
+Plus précisément, étant donnés deux entiers $a,b \in \Zz$ quelconques, notons $d$ leur pgcd.
+
+
+Alors la décomposition suivante est souvent utile :
+
+$d$ divise $a$ donc on peut écrire $a=a'd$,
+
+$d$ divise aussi $b$ donc on peut écrire $b=b'd$.
+
+Bien sûr $a'$ et $b'$ sont des entiers mais en plus comme on a diviser par le pgcd
+
+alors $a'$ et $b'$ sont premiers entre eux.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Mettez en pratique les concepts de cette leçon pour les assimiler.
+
+
+
+\end{document}

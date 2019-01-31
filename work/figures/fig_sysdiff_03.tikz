@@ -1,0 +1,27 @@
+\newcommand{\spirale}{
+   \def\k{1}
+   \draw [very thick, color=red,samples=25,smooth, domain=-2.5:-0.5] 
+            plot( 
+                      {exp(\x) * ( cos(2*\x) - \k * sin(2*\x r) )} ,
+                      {-exp(\x) * ( sin(2*\x) + \k * cos(2*\x r) )} 
+                    );        
+}
+
+\begin{tikzpicture}[scale=2]
+     \draw[->,>=latex,thick, gray] (-1.3,0)--(1.3,0) node[below,black] {$x$};
+     \draw[->,>=latex,thick, gray] (0,-1.3)--(0,1.3) node[right,black] {$y$};
+ 
+
+
+   
+\begin{scope}
+    \clip (-2,-2) rectangle (2,2);
+    \spirale;
+    \foreach \theta in {20,40,...,340}{
+    \begin{scope}[rotate=\theta]
+        \spirale;
+   \end{scope}
+   }
+\end{scope}
+
+\end{tikzpicture}

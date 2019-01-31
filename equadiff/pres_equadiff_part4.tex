@@ -1,0 +1,596 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={51,102,51}]{structure}
+
+% Commande spécifique à ce chapitre
+%\newcommand{\alenvers}[1]{\rotatebox[origin=c]{180}{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf \'Equations différentielles}}
+\subtitle{Problèmes conduisant à des équations différentielles}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Parachutiste
+    \item<4-> Demi-vie
+    \item<5-> Modèles d'évolution
+    \item<6-> Masse attachée à un ressort
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Parachutiste}
+
+\begin{frame}
+\begin{minipage}{0.49\textwidth}
+\evidence{Parachutiste}
+\uncover<2->{$$\uncover<1-4>{m}\frac{\dd v(t)}{\dd t}= 
+\uncover<1-4>{m}g \uncover<4->{- \uncover<1-4>{m} f\cdot v(t)}$$}
+\begin{itemize}
+  \uncover<6->{\item $g$ constante de gravitation}
+  \uncover<7->{\item $f$ coefficient de frottement}
+  \uncover<8->{\item vitesse $v(t)$ inconnue}
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+  
+\end{minipage}\begin{minipage}{0.49\textwidth}
+  \myfigure{1}{
+    \tikzinput{fig_equadiff02}
+  }  
+\end{minipage}
+
+\begin{itemize}
+  \uncover<9->{\item \evidence{\'Equation homogène} $v'(t)=-f \cdot v(t)$.}
+  \uncover<10->{Solutions : $v(t)= ke^{-ft}$}
+
+  \item \uncover<11->{\evidence{Solution particulière}}
+  \begin{itemize}
+    \uncover<12->{\item solution particulière sous la forme $v_p(t)=k(t)e^{-ft}$}
+    \uncover<13->{\item $v_p'(t) = k'(t)  e^{-ft} -f k(t)e^{-ft}$}
+    \uncover<14->{\item $v_p$ solution $\iff$  $k'(t)e^{-ft}=g$}
+    \uncover<15->{\item ainsi $k'(t)=ge^{ft}$ donc $k(t)=\frac{g}{f}e^{ft}$}
+    \uncover<16->{\item $v_p(t)=\frac{g}{f}$}
+  \end{itemize}
+  
+  \item \uncover<17->{\evidence{Solutions générales} : $v(t)=\frac{g}{f}+k e^{-ft}$, $k\in\Rr$}
+  
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{itemize}
+  \item \evidence{Condition initiale.}
+  \pause
+  Si $v(0)=0$, alors $\displaystyle v(t)=\frac{g}{f}-\frac{g}{f}e^{-ft}$
+
+   \pause\vspace*{-1ex} 
+  
+  \myfigure{1.2}{
+    \tikzinput{fig_equadiff05}
+  }
+
+  \pause\vspace*{-1ex}
+  
+  \item \evidence{Vitesse limite}
+  \pause
+  \begin{itemize}
+    \item lorsque $t\to+\infty$, $v(t) \to v_\infty = \frac{g}{f}$
+    \pause
+    \item on mesure que $v_\infty$ vaut environ \SI{5}{\meter\per\second} (\SI{20}{\kilo\meter\per\hour})
+  \end{itemize}
+  
+  \pause
+  \item \evidence{Position}
+  \begin{itemize}
+  \pause
+    \item $v(t) = \frac{\dd x(t)}{\dd t}$
+    \pause
+    \item trouver la position $x$ revient à trouver une primitive de $v$
+    \pause
+    \item $x(t) = \frac{g}{f} t + \frac{g}{f^2}\big(e^{-ft}-1\big)$, $x(0)=0$
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Demi-vie}
+
+\begin{frame}
+
+\evidence{Demi-vie}
+\pause
+
+\begin{itemize}
+  \item Dans un tissu radioactif, la vitesse de désintégration des noyaux radioactifs 
+est proportionnelle au nombre de noyaux radioactifs $N(t)$ présents dans le
+tissu à l'instant $t$
+  \pause
+  \item Il existe $\lambda>0$ telle que :
+$$N'(t) = -\lambda N(t)$$
+
+
+\pause
+  \item Si $N_0$ désigne le nombre de noyaux à l'instant initial, on a donc :
+$$N(t) = N_0 e^{-\lambda t}$$
+\end{itemize}
+\vspace*{-2ex}\pause
+  \myfigure{1}{
+    \tikzinput{fig_equadiff06-pres}
+  }
+\end{frame}
+
+
+% \begin{frame}
+% $$N(t) = N_0 e^{-\lambda t}$$
+% 
+% \pause
+% \begin{itemize}
+%   \item Le \defi{temps caractéristique} est $\displaystyle \tau = \frac{1}{\lambda}$
+%   \pause
+%   \item  Le temps caractéristique $\tau$ est l'abscisse du point d'intersection de la 
+%   tangente à l'origine $(T)$ avec l'axe du temps
+%   
+%   
+%   \myfigure{1}{
+%     \tikzinput{fig_equadiff06}
+%   } 
+%   
+%   \pause
+%   \item \'Equation de $(T)$ : $y = N'(0)t + N(0) = -\lambda N_0 t + N_0$,
+%   
+%   si $t = \tau$, on a bien $y = 0$
+%    
+% \end{itemize}
+% 
+% \end{frame}
+
+
+\begin{frame}
+$$N(t) = N_0 e^{-\lambda t}$$
+
+\pause
+\begin{itemize}
+  \item La \defi{période de demi-vie} $\tau_{1/2}$ 
+  est la période au bout de laquelle la moitié des noyaux se
+  sont désintégrés
+  
+  \pause
+  \item 
+  \begin{itemize}
+    \item on a $N(\tau_{1/2}) = \frac{N_0}{2}$
+    \pause
+    \item donc $N_0 e^{ -\lambda \tau_{1/2} } =   \frac{N_0}{2}$, d'où 
+  $\lambda \tau_{1/2} = \ln 2$ 
+    \pause
+   \item ainsi \myboxinline{$\tau_{1/ 2} = \frac{\ln 2}{\lambda}$}% $\displaystyle = \tau \ln 2$
+    
+  \end{itemize}
+  
+  \pause
+  \item $\displaystyle N(t) = N_0 e^{-\lambda t} %= N_0 e^{-\frac{t}{\tau}} 
+  \pause =  N_0 e^{-\frac{t}{\tau_{1/2}} \ln 2} 
+  \pause = N_0 2^{-\frac{t}{\tau_{1/2}}}$
+ \pause
+  \item $\tau_{1/ 2}$ est bien le
+    temps nécessaire pour que la moitié des noyaux se
+  soient désintégrés, quel que soit l'instant initial 
+  
+  \pause
+  \vspace*{-4ex}
+  $$N(t+\tau_{1/ 2}) 
+  \pause = N_0 2^{-\frac{t+\tau_{1/2}}{\tau_{1/2}}}
+  \pause = N_0 2^{-\frac{t}{\tau_{1/2}}-1} 
+  \pause = \frac12 N_0 2^{-\frac{t}{\tau_{1/2}}}
+  \pause = \frac{N(t)}{2}$$
+  
+\end{itemize}
+ 
+          
+      
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Modèles d'évolution}
+
+\begin{frame}
+
+\evidence{Modèles d'évolutions}
+
+
+\pause
+\begin{itemize}
+  \item Culture de bactéries en milieu clos
+  \pause
+  \item Soit $N_0$ le nombre de bactéries 
+  introduites dans la culture à $t = 0$
+
+\end{itemize}
+
+\bigskip
+
+\pause
+\evidence{Loi de Malthus}
+
+\pause
+\begin{itemize}
+  \item Hypothèse : la vitesse d'accroissement des bactéries 
+est proportionnelle au nombre de bactéries présentes
+  \pause
+  \item Le nombre $N(t)$ de bactéries vérifie l'équation différentielle 
+  
+ \vspace*{-2ex} 
+$$y' = ay$$
+\vspace*{-2ex}
+
+  \pause
+  \item $a>0$ dépend des conditions expérimentales
+  \pause
+  \item Solution : 
+  
+  \vspace*{-3ex}
+  $$N(t) = N_0 e^{at}$$
+  \vspace*{-2ex}
+  
+  \pause
+  \item Le milieu étant limité, ce modèle ne peut pas 
+  s'appliquer sur une longue période
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+
+\evidence{Modèle de Verhulst}
+
+\pause
+\begin{itemize}
+  \item Hypothèse : le nombre $N(t)$ de bactéries vérifie 
+  l'équation différentielle ($a>0$ et $M>0$)
+
+   \vspace*{-3ex}
+\begin{equation}
+  y' = ay(M - y)
+  \label{eq:eqdiffverhulst}
+  \tag{$E$}
+\end{equation}
+
+  \pause
+  \item On cherche solutions $y$ telles que
+$y(t)>0$ pour $t\in I = [0,+\infty[$
+ 
+ \pause
+  \item \textbf{Changement de fonction}
+  \begin{itemize}
+  \pause
+    \item on pose $z(x) = \frac{1}{y(x)}$
+    
+    \pause
+    \item $\displaystyle z'=-\frac{y'}{y^2} = \frac{ay(y-M)}{y^2} = a - \frac{aM}{y} = a-aMz$
+
+  \end{itemize}
+  
+  \pause
+  \item \textbf{Solutions $z$}
+  \begin{itemize}
+  \pause
+    \item $z' = a-aMz$
+    \pause
+    \item $z(x) = k e^{-aMx} + \frac1M$, $k \in \Rr$
+    
+  \end{itemize}
+
+\pause
+  \item \textbf{Solutions $y$}
+
+  \pause
+  \vspace*{-2ex}
+  $$y(x) = \frac{1}{z(x)} = \frac{1}{k e^{-aMx} + \frac1M} = \frac{M}{kM e^{-aMx}+1}$$
+  
+  \pause
+  \item La constante $k$ est déterminée par la condition initiale 
+  $y(0) = \frac{M}{kM+1}=N_0$, ainsi $k = \frac{1}{N_0}-\frac{1}{M}$
+\end{itemize}  
+\end{frame}
+
+
+\begin{frame} 
+
+\vspace*{-2ex}
+
+$$y' = y(1 - y)$$
+
+\vspace*{-2ex}
+
+
+\evidence{Exemple}
+ 
+\pause 
+\begin{itemize}
+  \item $N_0 = 0,01$ (en million de bactéries) et $M=1$, $a=1$
+  \pause
+  \item Alors $k = \frac{1}{N_0}-\frac{1}{M} = 99$
+  \pause
+  \item $N(t) = \frac{1}{1 + 99 e^{-t}}$
+  \pause
+  \item $0<N(t)<1$, pour tout $t\ge0$ 
+  \pause et  $N(t) \to 1$ lorsque $t\to+\infty$
+  
+  \pause
+  \item Variations de la fonction $N$ 
+  \begin{itemize}
+  \pause
+    \item $N$ solution de (\ref{eq:eqdiffverhulst}) :   $N'(t) = N(t)(1 - N(t))$
+    \pause
+    \item ainsi $N'(t)>0$, donc $N$ est croissante
+  \end{itemize}
+\end{itemize}
+\pause
+
+  \myfigure{1.3}{
+    \tikzinput{fig_equadiff07}
+  }
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Masse attachée à un ressort}
+
+\begin{frame}
+
+\evidence{Masse attachée à un ressort}
+
+
+\uncover<2->{Quelles sont les forces qui s'appliquent à cette masse ?}
+
+\vspace*{-2ex}
+
+\begin{minipage}{0.45\textwidth}
+\begin{itemize}
+  \uncover<3->{\item Un poids $\vec P$}
+  \uncover<4->{\item une réaction $\vec R=-\vec P$ qui s'oppose au poids}
+  \uncover<5->{\item une force de rappel $\vec T$}
+  \uncover<6->{\item une force de frottement $\vec F$}
+\end{itemize}  
+\end{minipage}
+\begin{minipage}{0.50\textwidth}
+ \vspace*{3ex}
+  \myfigure{0.6}{
+    \tikzinput{fig_equadiff09}
+  }  
+\end{minipage}
+
+
+
+  
+\uncover<7->{\evidence{Principe fondamental de la mécanique}}
+ 
+\uncover<8->{$$\vec P + \vec R + \vec T + \vec F = m\vec a$$}
+
+
+\uncover<9->{Comme $\vec P+\vec R = \vec 0$, l'équation devient :
+$$\vec T + \vec F = m\vec a$$}
+
+\end{frame}
+
+
+\begin{frame}
+
+\vspace*{3ex}
+
+\evidence{Force de rappel}
+
+\vspace*{-3ex}
+
+\hspace*{-1em}
+\begin{minipage}{0.59\textwidth}
+\begin{itemize}
+  \uncover<2->{\item C'est une force horizontale, nulle 
+à la position d'équilibre $x=0$}
+  
+  \uncover<3->{\item La force de rappel est un vecteur horizontal qui pointe 
+vers la position d'équilibre}
+  
+  \uncover<4->{\item Modélisation $\vec T = -k x \vec i$}
+  
+  \uncover<5->{\item $x \in \Rr$ est la position de la masse}
+  
+  \uncover<6->{\item $k>0$ est une constante qui dépend du ressort}
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.40\textwidth}
+  \myfigure{0.45}{
+    \tikzinput{fig_equadiff09a}\ \ 
+    \tikzinput{fig_equadiff09b}\ \  
+    \tikzinput{fig_equadiff09c}\ \      
+  }  
+\end{minipage}
+
+
+  
+ \end{frame}
+
+
+\begin{frame} 
+
+
+\evidence{Oscillations sans frottements}
+\pause
+\begin{itemize}[<+->]
+  \item Pas de frottement : $\vec F = \vec 0$
+  
+  \item Principe fondamental de la mécanique $-kx(t) = m\frac{\dd^2 x(t)}{\dd t^2}$
+  
+  \item \'Equation différentielle 
+  $$y'' + \frac{k}{m} y = 0$$
+  
+  \item \'Equation caractéristique est $r^2+\frac{k}{m} = 0$ \quad ($\Delta <0$)
+  
+  \item $r_1 = +\ii\sqrt{\frac{k}{m}}$ et $r_2 = -\ii\sqrt{\frac{k}{m}}$
+  
+  \item Solutions de l'équation différentielle
+  $$y(x) = e^{\alpha x}\big(\lambda\cos (\beta x)+\mu\sin (\beta x)\big)$$
+
+  \item Ici : 
+  $$x(t) = \lambda\cos \left(\sqrt{\tfrac{k}{m}}t\right)
++\mu\sin \left(\sqrt{\tfrac{k}{m}}t\right)
+\qquad \lambda, \mu \in \Rr$$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\centerline{$x(t) = \lambda\cos \left(\sqrt{\tfrac{k}{m}}t\right)
++\mu\sin \left(\sqrt{\tfrac{k}{m}}t\right)$}
+
+\smallskip
+
+\begin{itemize}
+  \pause
+  \item On lâche la masse au point d'abscisse $1$, sans vitesse initiale
+  \pause
+  \item Conditions initiales : $x(0)=1$ et $x'(0)=0$
+  \pause
+  \item Comme $x(0)=1$ alors $\lambda=1$
+  \pause
+  \item Comme $x'(0) = 0$ alors $\mu = 0$
+  \pause
+  \item On trouve une solution périodique :
+  
+\vspace*{-2ex}  
+$$x(t) = \cos \left(\sqrt{\tfrac{k}{m}}t\right)$$
+\end{itemize}
+
+\vspace*{-6ex}
+
+  \myfigure{1}{
+    \tikzinput{fig_equadiff10}
+  }
+ 
+ \vspace*{-5ex}
+ 
+\end{exemple}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\evidence{Oscillations avec faibles frottements}
+
+\pause
+
+\begin{itemize}[<+->]
+  \item Force de frottement est proportionnelle 
+  à la vitesse et s'oppose au déplacement
+  
+  \item  $\vec F =  -fm \frac{\dd x(t)}{\dd t}$
+  
+  \item Principe fondamental de la mécanique $-kx(t)-fm \frac{\dd x(t)}{\dd t} = m\frac{\dd^2 x(t)}{\dd t^2}$
+  
+  \item \'Equation différentielle : 
+   
+  \vspace*{-3ex} 
+  $$y'' + f y' + \frac{k}{m} y = 0$$
+
+  \item \'Equation caractéristique $r^2+fr+\frac{k}{m}=0$
+  
+  \item $\Delta = f^2-4\frac{k}{m}$, frottement $f$ faible, $\Delta <0$
+  
+  \item $r_1 = \alpha + \ii \beta$ et $r_2 = \alpha - \ii \beta$
+  
+  \item $\alpha = -\frac{f}{2}$, $\beta = \frac{\delta}{2}$, 
+  $\delta = \sqrt{|\Delta|}$
+  
+  \item Solutions de l'équation différentielle
+$$y(x) = e^{\alpha x}\big(\lambda\cos (\beta x)+\mu\sin (\beta x)\big)$$
+
+  \item Ici :
+  
+  \vspace*{-3ex}
+$$x(t) = e^{-\frac{f}{2} t}\left(\lambda\cos \left(\tfrac{\delta}{2}t\right)
++\mu\sin \left(\tfrac{\delta}{2}t\right)\right)\qquad \lambda, \mu \in \Rr$$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+\evidence{Oscillations avec faibles frottements}
+
+
+$$x(t) = e^{-\frac{f}{2} t}\left(\lambda\cos \left(\tfrac{\delta}{2}t\right)
++\mu\sin \left(\tfrac{\delta}{2}t\right)\right)$$
+
+  
+  \myfigure{1}{
+    \tikzinput{fig_equadiff11}
+  }
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \section*{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Un circuit électrique constitué d'un condensateur 
+  de capacité $C$ se décharge dans une résistance $R$.
+  Calculer l'évolution de la charge électrique qui vérifie
+  $q(t) = -RC \frac{\dd q(t)}{\dd t}$.
+  
+  \item Calculer et tracer les solutions du système masse-ressort
+  pour différents niveaux de frottements.
+  
+  \item Un tasse de café de température $T_0= \SI{100}{\celsius}$
+  est posée dans une pièce de température $T_\infty = \SI{20}{\celsius}$.
+  La loi de Newton affirme que la vitesse de décroissance de la température
+  $\frac{\dd T(t)}{\dd t}$ est proportionnelle à l'écart entre sa température
+  $T(t)$ et la température ambiante $T_\infty$.
+  Sachant qu'au bout de \SI{3}{\minute} la température du café 
+  est passée à $\SI{80}{\celsius}$, combien de temps faudra-t-il 
+  pour avoir un café à $\SI{65}{\celsius}$ ?
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+
+
+\end{document}

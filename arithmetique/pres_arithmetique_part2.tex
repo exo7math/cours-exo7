@@ -1,0 +1,449 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={153, 204, 0}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcounter{saveenumi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+
+
+\title{{\bf Arithmétique}}
+\subtitle{Théorème de Bézout}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Théorème de Bézout
+    \item<4-> Corollaires du théorème de Bézout
+    \item<5-> \'Equations $ax+by=c$
+    \item<6-> ppcm
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Théorème de Bézout}
+
+\begin{frame}
+  
+\begin{theoreme}[de Bézout]
+Soient $a,b$ des entiers. Il existe
+des entiers $u,v \in \Zz$ tels que 
+\mybox{$au+bv=\pgcd(a,b)$}
+\end{theoreme}
+
+\pause
+\bigskip
+
+\begin{itemize}
+  \item Les entiers $u,v$ sont des \defi{coefficients de Bézout}
+  \item Ils s'obtiennent en <<remontant>> l'algorithme d'Euclide
+  \item Les entiers $u,v$ ne sont pas uniques
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+Calcul des coefficients de Bézout pour $a=600$ et $b=124$
+\pause\smallskip
+{
+$$\footnotesize
+\begin{array}{rclclcl}
+&&&&& \\
+600 & = & 124 & \times & 4 & + & 104\tikz[remember picture]\coordinate(bezun); \\ \\
+124 & = & 104 & \times & 1 & + & 20 \\ \\
+104 & = & 20  & \times & 5 & + & \textcolor{red}{4}\tikz[remember picture]\coordinate(bezdeux); \\ \\
+20  & = & 4   & \times & 5 & + & 0 \\
+\end{array}
+\qquad
+\pause
+\begin{array}{rcl}
+\uncover<8->{&=& 600 \times \textcolor{blue}{6} + 124 \times (\textcolor{blue}{-29})} \\
+\uncover<7->{\tikz[remember picture]\coordinate(bezquatre);\textcolor{red}{4} &=& 124 \times (-5) + (600-124\times4) \times 6}   \\      
+\uncover<6->{&=& 124 \times (-5) + 104 \times 6}\\
+\uncover<5->{\textcolor{red}{4} &=& 104 - (124-104\times 1) \times 5}  \\ 
+\\
+\uncover<4->{\tikz[remember picture]\coordinate(beztrois);\textcolor{red}{4} &=& 104 - 20 \times 5}  \\ \\ \\ 
+\end{array}
+$$
+\begin{tikzpicture}[x=1mm,y=1mm, remember picture, overlay]
+   \coordinate (mybezun) at ($(bezun)+(+3,+2)$);
+   \coordinate (mybezdeux) at ($(bezdeux)+(+6,-5)$);
+   \coordinate (mybeztrois) at ($(beztrois)+(-3,-5)$);
+   \coordinate (mybezquatre) at ($(bezquatre)+(-3,+2)$);
+   \draw[->, myred, very thick] (mybezun)..controls(mybezdeux) and (mybeztrois)..(mybezquatre);
+\end{tikzpicture}
+}
+\pause \pause \pause \pause \pause \pause
+\smallskip
+
+Pour $u=6$ et $v=-29$ alors $600 \times 6 + 124 \times (-29)=4$. Vérifiez !
+\end{exemple}
+\end{frame}
+
+\begin{frame}
+
+\begin{exemple}
+Calcul des coefficients de Bézout pour $9945u+3003v=39$
+\pause
+$$\small
+\begin{array}{rclclcl}
+9945 & = & 3003 & \times & 3 & + & 936\tikz[remember picture]\coordinate(bbezun); \\ 
+3003 & = & 936  & \times & 3 & + & 195 \\
+936  & = & 195  & \times & 4 & + & 156 \\
+195  & = & 156  & \times & 1 & + & \textcolor{red}{39}\tikz[remember picture]\coordinate(bbezdeux); \\
+156  & = & 39   & \times & 4 & + & 0 \\
+\end{array}
+\pause\qquad
+\uncover<4->{
+\begin{array}{rclclcl}
+\uncover<6->{\tikz[remember picture]\coordinate(bbezquatre);\textcolor{red}{39}  & = & 9945 \times (\textcolor{blue}{-16}) +  3003\times \textcolor{blue}{53}}  \\ 
+\uncover<6->{\textcolor{red}{39}  & = & \cdots} \\
+\uncover<5->{\textcolor{red}{39}  & = & \cdots} \\
+\tikz[remember picture]\coordinate(bbeztrois);\textcolor{red}{39}  & = & 195- 156  \times  1 \\
+&& \\
+\end{array}
+}
+$$
+\begin{tikzpicture}[x=1mm,y=1mm, remember picture, overlay]
+   \coordinate (mybbezun) at ($(bbezun)+(+3,+2)$);
+   \coordinate (mybbezdeux) at ($(bbezdeux)+(+6,-5)$);
+   \coordinate (mybbeztrois) at ($(bbeztrois)+(-3,-5)$);
+   \coordinate (mybbezquatre) at ($(bbezquatre)+(-3,+2)$);
+
+   \draw[->, myred, very thick] (mybbezun)..controls(mybbezdeux) and (mybbeztrois)..(mybbezquatre);
+\end{tikzpicture}
+\pause
+\pause
+\pause
+\pause
+D'où $9945 \times (-16) +  3003\times 53 = 39$
+\end{exemple}
+  
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Corollaires du théorème de Bézout}
+
+\begin{frame}
+
+\begin{corollaire}
+$a,b$ sont premiers entre eux 
+\textbf{si et seulement si} il existe $u,v \in \Zz$ tels que
+\vspace*{-3ex}
+\mybox{$au+bv=1$}
+\end{corollaire}
+
+\pause
+\medskip
+
+\begin{proof}
+$\Rightarrow$ Théorème de Bézout
+
+\pause
+\smallskip
+
+$\Leftarrow$ On suppose qu'il existe $u,v$ tels que $au+bv=1$
+
+Comme $\pgcd(a,b)|a$ alors $\pgcd(a,b)|au$
+
+De même $\pgcd(a,b)|bv$
+
+Donc $\pgcd(a,b)|au+bv=1$. Donc $\pgcd(a,b)=1$
+\end{proof}
+
+\pause
+\medskip
+
+
+Si on trouve $u',v'$ tels que $au'+bv'=d$, cela implique seulement que $\pgcd(a,b)|d$
+
+\pause
+
+Exemple : $a=12$, $b=8$ ; $12 \times 1 + 8 \times 3 = 36$ et $\pgcd(a,b)=4$
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{corollaire}
+Si $d|a$ et $d|b$ alors $d | \pgcd(a,b)$
+\end{corollaire}
+
+\pause
+\medskip
+
+Exemple : $4|16$ et $4|24$ donc $4$ divise $\pgcd(16,24)$
+
+
+\pause
+\bigskip
+\bigskip
+
+\begin{corollaire}[Lemme de Gauss]
+\mybox{Si \ \ $a | bc$ \ \  et \ \  $\pgcd(a,b)=1$ \ \  alors \ \  $a|c$}
+\end{corollaire}
+
+\pause
+\medskip
+Exemple : si $4 \, | \, 7c$ alors $4|c$
+
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{\'Equations $ax+by=c$}
+
+
+\label{ssec:dioph}
+
+\begin{frame}
+
+\begin{proposition}
+\label{prop:dioph}
+Soient $a,b,c \in \Zz$. L'équation
+\begin{equation}
+\label{eq:bezout}
+\tag{E}
+\myboxinline{ax+by=c}
+\end{equation}
+\pause
+\begin{enumerate}
+  \item (\ref{eq:bezout}) possède des solutions $(x,y)\in\! \Zz^2$ si et seulement si
+$\pgcd(a,b) | c$
+
+\pause
+
+  \item Les solutions sont alors les 
+$(x,y) = (x_0+ \alpha k, y_0 + \beta k)$ avec $k$ parcourant $\Zz$ et $x_0,y_0,\alpha,\beta \in \Zz$ fixés
+\end{enumerate}
+\end{proposition}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}
+Trouver les solutions entières de 
+\vspace*{-1ex}
+\begin{equation}
+\label{eq:exbezout}
+\tag{E}
+\myboxinline{161x+368y=115}
+\end{equation}
+\end{exemple}
+
+\pause
+\medskip
+
+\textbf{Première étape.} \evidence{Y a-t'il des solutions ? L'algorithme d'Euclide}
+
+\pause
+
+Calcul du pgcd de $a=161$ et $b=368$
+
+\pause
+
+$$
+\begin{array}{rclclcl}
+368 & = & 161 & \times & 2 & + & 46 \\ 
+\pause
+161 & = & 46 & \times & 3 & + & \alert<7>{23} \\
+\pause
+46  & = & 23   & \times & 2 & + & 0 \\
+\end{array}
+$$
+
+\pause
+Donc $\pgcd(368,161)=23$
+
+\pause
+\medskip
+
+Comme $115=5\times23$ alors $\pgcd(368,161) | 115$
+
+\pause
+
+Par le théorème de Bézout, l'équation (\ref{eq:exbezout}) admet des solutions entières
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\begin{equation}
+\tag{E}
+161x+368y=115 
+\end{equation}
+
+
+\textbf{Deuxième étape.} \evidence{Trouver une solution particulière : la remontée de l'algorithme d'Euclide}
+\pause
+$$
+\hspace*{-1em}\begin{array}{rclclcl}
+\\
+368 & = & 161 & \times & 2 & + & 46 \\ 
+161 & = & 46 & \times & 3 & + & \textcolor{red}{23} \\
+46  & = & 23   & \times & 2 & + & 0 \\
+\end{array}
+\quad 
+\pause
+\begin{array}{rcl}
+\uncover<5->{&=&\small 161 \times \textcolor{blue}{7} + 368 \times (\textcolor{blue}{-3})}\\
+\uncover<4->{\textcolor{red}{23} &=& 161 + (368-2\times 161)\times (-3)}\\        
+\uncover<3->{\textcolor{red}{23} &=& 161 + 46\times (-3)}  \\
+&& \\
+\end{array}
+$$
+\pause\pause\pause
+$$161\times\textcolor{blue}{7} + 368\times(\textcolor{blue}{-3})=23$$
+
+\pause
+
+Comme $115=5\times23$ on multiplie par $5$ 
+\pause
+$$161\times\textcolor{blue}{35} + 368\times(\textcolor{blue}{-15})=115$$
+
+\pause
+
+$(x_0,y_0) = (35,-15)$ est une \defi{solution particulière} de (\ref{eq:exbezout})
+
+\end{frame}
+
+
+\begin{frame}
+
+\textbf{Troisième étape.} \evidence{Recherche de toutes les solutions}
+
+\pause
+
+Soit $(x,y) \in \Zz^2$ une solution de (\ref{eq:exbezout})
+\uncover<4->{\quad $(x_0,y_0)$ est aussi solution}
+$$\uncover<3->{161x+368y=115} \quad \pause \uncover<5->{\text{ et } \quad 161x_0+368y_0=115}$$
+\pause\pause\pause
+\vspace*{-2ex}
+$$\begin{array}{ll}
+& 161 \times (x-x_0) + 368 \times (y-y_0) = 0 \\
+\pause
+\implies \quad & 23 \times 7 \times (x-x_0) + 23 \times 16 \times  (y-y_0) = 0 \\
+\pause
+\implies \quad & 7 (x-x_0) = -16 (y-y_0) \qquad  (*)\\
+\end{array}$$
+\vspace*{-2ex}
+\pause
+\begin{itemize}
+  \item Ainsi $7 | 16(y-y_0)$,
+\pause
+or $\pgcd(7,16)=1$ donc par le lemme de Gauss $7|y-y_0$.
+\pause
+Il existe donc $k\in \Zz$ tel que $y-y_0 = 7 \times k$
+\pause
+  \item Repartons de l'équation $(*)$ : $7 (x-x_0) = -16 (y-y_0)$
+\pause
+$\implies$ $7(x-x_0)=-16\times 7 \times k$
+\pause
+$\implies$ $x-x_0 = -16k$
+\pause
+  \item Donc $(x,y) = (x_0-16k,y_0+7k)$ \pause\quad  avec \quad  $(x_0,y_0)=(35,-15)$
+\end{itemize}
+
+\pause
+
+\mybox{
+\begin{minipage}{0.8\textwidth}
+\center
+Les solutions entières de $161x+368y=115$
+sont les $(x,y) = (35-16k,-15+7k)$, $k$ parcourant $\Zz$  
+\end{minipage}
+}
+
+  
+\end{frame}
+
+%---------------------------------------------------------------
+\section{ppcm}
+
+\begin{frame}
+
+
+\begin{mydefinition}
+Le $\text{ppcm}(a,b)$ (\defi{plus petit multiple commun}) 
+est le plus petit entier positif divisible par $a$ et par $b$
+\end{mydefinition}
+
+\pause
+
+Exemple : $\text{ppcm}(12,9)=36$
+
+\pause
+
+\begin{proposition}
+\mybox{$\pgcd(a,b) \times \text{ppcm}(a,b) = |ab|$} 
+\end{proposition}
+
+\pause
+
+\begin{proposition}
+Si $a|c$ et $b|c$ alors $\text{ppcm}(a,b)|c$
+\end{proposition}
+
+\pause
+
+Exemple : $6|36$, $9|36$ alors $\text{ppcm}(6,9)=18$ divise bien $36$
+
+\pause
+
+Il serait faux de penser que $ab|c$ : ici $6\times 9$ ne divise pas $36$
+
+
+\end{frame}
+
+
+
+
+%---------------------------------------------------------------
+\section*{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Calculer les coefficients de Bézout correspondant à $\pgcd(560,133)$, $\pgcd(12\,121,789)$.
+  \item Montrer à l'aide d'un corollaire du théorème de Bézout que $\pgcd(a,a+1)=1$.
+  \item Résoudre les équations : $407x+129y=1$ ; $720x+54y=6$ ; $216x+92y=8$.
+  \item Trouver les couples $(a,b)$ vérifiant $\pgcd(a,b)=12$ et $\text{ppcm}(a,b)=360$.
+\end{enumerate}  
+\end{miniexercice}
+\end{frame}
+
+
+\end{document}

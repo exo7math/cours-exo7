@@ -1,0 +1,398 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Dans ces leçons nous allons appliquer toutes les notions sur les suites et les fonctions,
+à la recherche des zéros des fonctions. Plus précisément, nous allons voir trois méthodes afin
+de trouver des approximations des solutions d'une équation du type $(f(x)=0)$ :
+La dichotomie, la méthode de la sécante, et la méthode de Newton.
+
+
+\change
+
+On commence par la méthode de la dichotomie,
+
+\change
+
+on en explique le principe,
+
+\change
+
+on l'applique au calcul d'une approximation de $\sqrt{10}$
+
+\change
+
+et de $(1,10)^{1/12}$
+
+\change
+
+On donne ensuite une majoration de l'erreur
+
+\change
+
+Et on termine par la mise en oeuvre pratique sous la forme d'un algorithme.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le principe de dichotomie repose sur la version suivante du théorème des valeurs intermédiaires :
+
+Soit $f:[a,b]\to\Rr$ une fonction continue sur un segment. 
+Si $f(a)\cdot f(b) \le 0$, alors il existe $\ell\in[a,b]$ tel que $f(\ell)=0$.
+
+
+
+La condition $f(a)\cdot f(b)\le0$ signifie que $f(a)$ et $f(b)$ 
+sont de signes opposés (ou que l'un des deux est nul). 
+
+
+\change
+
+Par exemple ici $f(a)$ négatif et $f(b)$ positif.
+La fonction s'annule ici en $\ell$.
+
+
+\change
+
+L'autre situation est $f(a)$ positif et $f(b)$ négatif.
+
+La fonction admet un zéro ici en $\ell$.
+
+L'hypothèse de continuité est bien sûr essentielle !
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour rendre effectif le théorème des valeurs intermédiaires, et trouver une solution (approchée) de l'équation $(f(x)=0)$, 
+il s'agit maintenant de l'appliquer sur un intervalle suffisamment petit. 
+On va voir que cela permet d'obtenir un $\ell$, solution de l'équation $(f(x)=0)$ comme la limite d'une suite.
+
+On part d'une fonction $f : [a,b] \to \Rr$ continue, avec $a < b$, et $f(a)\cdot f(b)\le0$. 
+
+\change
+
+Voici la première étape de la construction : on évalue la fonction au point milieu $\frac{a+b}{2}$ 
+et on regarde le signe.
+
+\change
+
+Si $f(a)\cdot f(\frac{a+b}{2})\le0$, alors par le théorème des valeurs intermédiaires
+entre $a$ et $\frac{a+b}{2}]$ il existe 
+  $c$ dans cet intervalle tel que $f(c)=0$.
+  
+\change
+
+Voici une telle situation.
+
+\change
+
+Si par contre $f(a)\cdot f(\frac{a+b}{2})>0$, alors nécessairement c'est 
+  $f(\frac{a+b}{2})\cdot f(b)$ qui est négatif, et on applique le théorème des valeurs intermédiaires
+  entre $\frac{a+b}{2}$ et $b$, et alors il existe $c$ dans cet intervalle qui est un zéro de $f$.
+  
+\change 
+
+Voici un exemple pour ce deuxième cas.
+
+\change
+
+
+Nous avons obtenu dans les deux cas un intervalle d'une longueur divisé par $2$ dans 
+lequel l'équation $(f(x)=0)$ a une solution. On va itérer ce processus
+pour diviser de nouveau l'intervalle en deux.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici le processus complet :
+
+
+On commence par poser $a_0=a$, $b_0=b$. Comme $f(a_0)$ et $f(b_0)$ sont de signe contraire,
+il existe au moins une solution, que l'on appelle $x_0$ de l'équation $(f(x)=0)$ dans l'intervalle $[a_0,b_0]$.
+
+\change
+
+On divise notre intervalle $[a_0,b_0]$ en deux, on évalue la fonction à la moitié  
+
+si $f(a_0)$ et $f(\frac{a_0+b_0}{2})$ sont de signe contraire alors on pose
+$a_1=a_0$ et $b_1=\frac{a_0+b_0}{2}$, 
+
+ sinon on pose $a_1=\frac{a_0+b_0}{2}$ et $b_1=b$.
+ 
+ Dans les deux cas, il existe une solution $x_1$ de l'équation $(f(x)=0)$ 
+ dans l'intervalle $[a_1,b_1]$. 
+ 
+ \change
+ 
+ On itère ainsi le processus en divisant l'intervalle précédent en deux à chaque fois.
+ 
+ 
+ \change
+ 
+ Voici l'étape au rang $n$ : supposons construit un intervalle $[a_n,b_n]$, 
+ %de longueur $\frac{b-a}{2^n}$ et 
+ contenant une solution $x_n$ de l'équation $(f(x)=0)$. Alors :
+
+ On évalue $f$ à la moitié de l'intervalle $[a_n,b_n]$,
+ 
+si $f(a_n)$ et $f(\frac{a_n+b_n}{2})$ sont de signe contraire alors
+on   pose $a_{n+1}=a_n$ et $b_{n+1}=\frac{a_n+b_n}{2}$, 
+
+sinon on pose $a_{n+1}=\frac{a_n+b_n}{2}$ et $b_{n+1}=b_n$.  
+
+Dans les deux cas, il existe une solution $x_{n+1}$ de l'équation $(f(x)=0)$ dans l'intervalle $[a_{n+1},b_{n+1}]$. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On a construit une suite $(a_n)$ et une suite $(b_n)$ qui correspondent 
+aux bornes des intervalles et on a l'existence d'une suite $(x_n)$ qui sont des zéros de $f$.
+
+Et on a la double inégalité $a_n \le x_n \le b_n.$
+
+
+\change
+
+
+Comme $(a_n)$ est par construction une suite croissante, $(b_n)$ une suite décroissante, 
+et $(b_n-a_n) \to 0$ lorsque $n\to +\infty$, les suites $(a_n)$ et $(b_n)$ sont des suites 
+adjacentes et donc elles admettent une même limite. 
+
+D'après le théorème des suites adjacentes, $(a_n)$ et $(b_n)$ convergent et ont une même limite $\ell$
+
+\change
+
+en plus par le théorème des gendarmes $(x_n)$ tend aussi vers $\ell$.
+
+\change
+
+Par continuité $f(x_n)$ tend vers $f(\ell)$
+mais comme pour tout $n$, $f(x_n)=0$ alors $f(\ell)$ vaut aussi $0$.
+
+\change
+
+Donc les suites $(a_n)$ et $(b_n)$ tendent toutes les deux vers $\ell$, 
+qui est un zéro de $f$.
+
+\change
+
+Dans la pratique on arrête le processus dès que $b_n-a_n=\frac{b-a}{2^n}$ 
+est inférieur à la précision souhaitée.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons calculer une approximation de $\sqrt{10}$.
+
+
+\change
+
+Soit la fonction $f$ définie par $f(x)=x^2 - 10$, c'est une fonction continue sur $\Rr$
+qui s'annule en $\pm\sqrt{10}$. Alors $\sqrt{10}$ est l'unique solution positive de l'équation $(f(x)=0)$.
+
+
+\change
+
+Nous pouvons restreindre la fonction $f$ à l'intervalle $[3,4]$ : en effet $3^2=9\le 10$ donc 
+$3 \le \sqrt{10}$ et $4^2 = 16 \ge 10$ donc $4 \ge \sqrt{10}$. 
+En d'autre termes $f(3) \le 0$ et $f(4) \ge 0$, donc l'équation $(f(x)=0)$ 
+admet une solution dans l'intervalle $[3,4]$ 
+d'après le théorème des valeurs intermédiaires, 
+et par unicité c'est $\sqrt{10}$, donc $\sqrt{10} \in [3,4]$.
+
+Notez que l'on ne choisit pas pour $f$ la fonction $x\mapsto x-\sqrt{10}$ 
+car on ne connaît pas la valeur de $\sqrt{10}$. C'est ce que l'on cherche à calculer !
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Expliquons d'abord le processus sur le graphique.
+
+On a vu que $f(3)$ est négatif, $f(4)$ est positif.
+
+On évalue la fonction en le milieu de l'intervalle $[3;4]$ donc en $3,5$.
+
+Comme $f(3,5)$ est positif (et que $f(3)$ est toujours négatif) alors
+$f$ s'annule maintenant entre $3$ et $3,5$.
+
+
+On continue en évaluant $f$ en $3,25$ où $f$ est encore positif. Donc
+$f$ s'annule entre $3$ et $3,25$.
+
+Par contre au rang suivant $f$ est négative en $3,125$ ce qui fait que 
+$f$ s'annule entre $3,125$ et $3,25$.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\diapo
+
+Reprenons numériquement ce que l'on vient de voir graphiquement.
+
+On pose $a_0=3$ et $b_0=4$,
+
+
+On calcule $f(\frac{a_0+b_0}{2})$ qui vaut $f(3,5)=3,5^2-10 = 2,25 \ge0$. 
+
+Donc $f$ s'annule dans l'intervalle $[3 ; 3,5]$ 
+
+
+
+Pour l'itération suivante on part de $a_1 = 3$ et $b_1 = 3,5$.
+
+\change
+
+
+Au début de l'étape suivante on sait donc que $f(a_1) \le 0$ et $f(b_1) \ge0$. 
+
+On calcule $f(\frac{a_1+b_1}{2})=f(3,25)=0,5625 \ge 0$, on pose $a_2=3$ et $b_2=3,25$.
+  
+\change
+
+On calcule $f(\frac{a_2+b_2}{2})=f(3,125)=-0.23\ldots \le 0$.
+  Comme $f(b_2) \ge 0$ alors cette fois $f$ s'annule sur le second intervalle 
+  $[\frac{a_2+b_2}{2},b_2]$ 
+  
+
+\`A ce stade, on a prouvé : $3,125 \le \sqrt{10} \le 3,25$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+  
+Voici la suite des étapes :
+
+Donc en $8$ étapes on obtient l'encadrement :
+$$3,160  \le \sqrt{10} \le 3,165$$
+
+En particulier, on vient d'obtenir deux décimales exactes après la virgule :
+$\sqrt{10}=3,16\ldots$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Évidemment tout ce que l'on vient de faire pour $\sqrt{10}$,
+
+nous pouvons le faire pour $(1,10)^{1/12}$.
+
+Cette fois la fonction qui convient est 
+ $f(x) = x^{12} - 1,10$ sont seul zéro positif est bien $(1,10)^{1/12}$
+ et comme $f(1)=-0,10 \le 0$ et $f(1,1)=2,038\ldots \ge 0$
+ 
+ alors on se retreint à l'intervalle $[1; 1,1]$. 
+ 
+Voici les premières étapes de la dichotomie.
+et au bout de $8$ étapes on trouve que $(1,10)^{1/12}$ est compris entre 
+$ 1,00781$ et $1,00821$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La méthode de dichotomie a l'énorme avantage de fournir un encadrement d'une solution $\ell$ de l'équation $(f(x)=0)$. 
+Il est donc facile d'avoir une majoration de l'erreur. En effet, à chaque étape, 
+la taille l'intervalle contenant $\ell$ est divisée par $2$. 
+Au départ, on sait que $\ell \in [a,b]$ (de longueur $b-a$) ;
+puis $\ell  \in [a_1,b_1]$ (de longueur $\frac{b-a}{2}$) ; 
+puis $\ell \in [a_2,b_2]$ (de longueur $\frac{b-a}{4}$) ; ... ;
+$[a_n,b_n]$ est de longueur $\frac{b-a}{2^n}$.
+
+\change
+
+[grand $N$, petit $n$]
+
+Si, par exemple, on souhaite obtenir une approximation de $\ell$ à $10^{-N}$ près, 
+ il suffit de choisir $n$ tel que  $\frac{b-a}{2^n} \le 10^{-N}$.
+
+Nous allons utiliser le logarithme décimal pour résoudre cette inéquation :
+\begin{align*}
+\frac{b-a}{2^n} \le 10^{-N} 
+ & \iff (b-a)10^N \le 2^n  \\
+ & \iff \log(b-a) + \log(10^N)  \le \log(2^n) \\
+ & \iff \log(b-a) + N \le n \log 2 \\
+ & \iff n \ge \frac{N +  \log(b-a)}{\log 2} \\
+\end{align*}
+  
+\change
+
+Sachant $\log 2 = 0,301\ldots$, si par exemple $b-a \le 1$, 
+voici le nombre d'itérations suffisantes pour avoir une 
+précision de $10^{-N}$ 
+(ce qui correspond, à peu près, à $N$ chiffres exacts après la virgule).
+\begin{center}
+\begin{tabular}{ll}
+  $10^{-10}$ ($\sim 10$ décimales) &  $34$ itérations \\
+  $10^{-100}$ ($\sim 100$ décimales) &  $333$ itérations \\ 
+  $10^{-1000}$ ($\sim 1000$ décimales) &  $3322$ itérations \\ 
+\end{tabular}  
+\end{center}
+
+Il faut entre $3$ et $4$ itérations supplémentaires pour obtenir une nouvelle décimale.
+ 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici comment implémenter la dichotomie dans le langage Python. Tout d'abord 
+on définit une fonction $f$, ici on prend l'exemple de $f(x)=x^2-10$, pour calculer $\sqrt{10}$.
+
+
+Puis la dichotomie proprement dite : en entrée de la fonction "dicho", on a 
+pour variables $a$ et $b$ les bornes de l'intervalle initial et $n$ le nombre d'étapes voulues.
+
+Cet algorithme est constitué d'une boucle qui correspond aux $n$ étapes.
+
+Pour chaque étape on commence par calculer le milieu $c$ du segment $[a,b]$,
+
+Puis on teste les valeurs. 
+
+Si $f(a)$ et $f(c)$ sont de signe contraire alors on pose $b=c$, c'est-à-dire
+que maintenant on se restreint au premier demi-intervalle.
+
+Sinon on pose $a=c$, c'est-à-dire on se restreint au second intervalle.
+
+L'intervalle $[a,b]$ change à chaque étape, il correspond en fait 
+à l'intervalle $[a_i,b_i]$ du principe de la dichotomie.
+
+
+Une fois que les $n$ étapes sont effectuées, on renvoie les dernières valeurs de $a$ et $b$,
+c'est à dire ce que l'on avait noté $a_n$ et $b_n$ [$a$ indice $n$, et $b$ indice $n$]
+et on sait que $f$ s'annule entre ces valeurs. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici quelques exercices pratiques pour vous entraîner.
+
+
+
+\end{document}

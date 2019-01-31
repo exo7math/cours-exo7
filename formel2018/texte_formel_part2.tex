@@ -1,0 +1,509 @@
+
+\input{../preamb-texte.tex}
+
+\newcommand{\Sage}{\texttt{Sage}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Bonjour. 
+
+Dans cette partie nous allons voir les principales façons de structurer
+les instructions. 
+
+\change
+
+Si vous connaissez déjà un langage informatique et en 
+particulier le langage Python ce sera très facile !
+
+\change
+Sinon nous verrons d'abord différents types de boucles,
+
+\change
+comment manipuler les expressions logiques et mettre en place des tests,
+
+\change
+comment regrouper du code en une fonction informatique.
+
+\change
+Il faudra bien comprendre la différence entre variable locale
+et variable globale.
+
+\change
+Vous terminerez par un petit tp sur la conjecture de Syracuse.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Pour faire varier un élément dans un ensemble on utilise
+une boucle "pour".
+
+L'instruction est "\codeinline{for x in ensemble:}", elle est terminée pas deux points. 
+
+Le bloc d'instructions qui suit sera exécuté successivement 
+pour toutes les valeurs de $x$ prises une à une dans ensemble.
+
+Notez encore une fois que le bloc d'instructions exécuté 
+est délimité par les espaces en début de ligne.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Un exemple fréquent de boucle "pour" 
+est "\codeinline{for k in range(n):}" qui fait varier $k$ de $0$ à $n-1$.
+
+\change
+En fait \codeinline{range(n)} renvoie 
+la liste des $n$ premiers entiers, c'est-à-dire \codeinline{[0,1,2,...,n-1]}.
+
+Attention cela s’arrête bien à $n-1$ !
+
+\change
+Plus généralement \codeinline{range(a,b)} renvoie la liste des entiers de 
+$a$ à $b-1$.
+
+\change
+Alors que \codeinline{range(a,b,c)} renvoie la même liste mas en effectuant des sauts de longueur $c$.
+
+\change
+Par exemple \codeinline{range(0,101,5)} renvoie 
+
+la liste \codeinline{[0,5,10,15,...,100]}.
+
+\change
+Une autre façon légèrement différente de définir des listes d'entiers 
+est l'instruction \codeinline{[a..b]} qui renvoie la liste des entiers $k$ tels que $a\le k \le b$.
+
+Notez qu'ici la valeur $b$ figure bien dans la liste.
+
+\change
+La boucle "pour" permet plus généralement de parcourir n'importe quelle liste,
+par exemple cette instruction fait prendre à $x$ les $4$ valeurs
+de la liste.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+La boucle "tant que" (\codeinline{while}) exécute le bloc d'instructions situé immédiatement après
+tant que la condition est vérifiée. 
+
+Lorsque la condition n'est plus vérifiée, la boucle s'interrompt et le programme passe
+aux instructions suivantes.
+
+Attention, vérifiez toujours avant le lancer le programme que la condition passe de vrai à faux au cours des calculs, 
+cela afin que la boucle ne se répète pas indéfiniment. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons un exemple simple d'utilisation d'une boucle "tant que".
+
+Comment calculer la racine carrée entière d'un entier $n$ ?
+
+\change
+
+On part d'un entier $n$, on cherche la partie entière de sa racine carrée
+en effectuant uniquement des calculs avec les entiers.
+
+\change 
+
+On part de $k=1$.
+
+\change
+
+Voici l'entête de la boucle, la condition est ici $k^2 \le n$,
+qui est bien sûr vraie pour $k=1$ ce qui va provoquer la première exécution du bloc qui suit.
+
+\change
+
+Tant que la condition est vérifiée,
+on incrémente $k$ de $1$.
+
+Une fois $k$ augmenté on reprend la boucle : la condition est-elle encore 
+vraie ? Si oui, on incrémente $k$. Etc.
+
+Bien sûr à un certain moment $k^2$ sera strictement supérieur à $n$ et 
+la condition deviendra fausse. La boucle sera alors terminée !
+
+\change
+On passera aux instructions suivantes : ici l'affichage de $k-1$.
+
+\change
+En effet, la racine carrée entière de $n$ est $k-1$ car $k-1$ est bien le dernier entier qui vérifiait la condition.
+
+Notez qu'utiliser une boucle "tant que" comporte des risques, 
+en effet il faut toujours s'assurer que la boucle se termine.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+\change
+Passons aux tests.
+
+Si la condition est vérifiée, c'est le premier bloc d'instructions 
+qui est exécuté,
+
+si la condition n'est pas vérifiée, alors c'est seulement le second bloc. 
+
+On passe ensuite aux instructions suivantes.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous venons d'étudier des strucutres de programmation utilisant des expressions logiques ou booléens.
+
+Formalisons un peu cette notion.
+
+\change
+Une \defi{expression booléenne} est une expression
+qui peut seulement prendre les valeurs  \og Vrai  \fg\
+ou \og Faux  \fg.
+
+Avec \Sage\ un booléen vaut donc soit \codeinline{True}, soit 
+\codeinline{False}.
+
+\change
+Les expressions booléennes s'obtiennent 
+principalement comme suit :
+
+
+\change
+\codeinline{a < b} : teste l'inégalité stricte $a<b$,
+
+
+\change
+\codeinline{a > b} : teste l'inégalité stricte $a>b$,
+
+\change
+\change  
+voici les tests des inégalités larges
+
+\change
+Pour savoir si deux quantité sont égales on écrit
+\codeinline{a == b}.
+Ce test renvoie Vrai si $a$ et $b$ sont égaux, et Faux sinon.
+
+Notez bien le double symbole égal !
+ 
+\change
+On peut à contrario tester la non égalité,
+
+comme ceci ou comme cela.
+
+\change
+On peut également tester l'appartenance d'un élément à une structure, une liste par exemple, avec le mot "in" déjà évoqué pour la boucle "pour".
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+On vient de voir qu'une condition prend la valeur \codeinline{True} 
+  si elle est vraie et \codeinline{False} sinon.
+
+\change  
+Par exemple : \codeinline{x == 2} renvoie Vraie 
+si $x$ vaut $2$ et Faux sinon.
+
+La valeur de $x$ n'est pas modifiée pas le test.
+
+\change
+Il ne faut surtout pas confondre le test d'égalité
+\codeinline{x == 2} avec l'affectation \codeinline{x = 2} 
+car après cette dernière instruction $x$ vaut $2$.
+  
+  
+\change
+On peut combiner des conditions avec les opérateurs logiques classiques
+\codeinline{et}, \codeinline{ou}, \codeinline{non}. 
+
+\change
+Voici un exemple :
+l'expression   \codeinline{ (n>0) and (not (is-prime(n)) } est vraie
+si et seulement si $n$ est strictement positif et n'est pas un nombre 
+premier.
+  
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voici votre premier travail de cette séquence :
+
+tout d'abord pour deux assertions logiques, c'est-à-dire des booléens, 
+$P$, $Q$, écrire avec \Sage\ l'assertion $P\implies Q$.
+ 
+ 
+Seconde question. 
+Une assertion est appelée une \defi{tautologie} si elle est
+toujours vraie quelques soient les valeurs prises par les paramètres.
+
+Un exemple simple est l'assertion 
+$(P \text{ ou } (\text{non\;} P))$ 
+
+si $P$ est vraie l'assertion est vraie;
+
+si $P$ est fausse, alors non $P$ est vraie donc l'assertion
+$(P \text{ ou } (\text{non\;} P))$ est encore vraie.
+
+Ainsi cette assertion est toujours vraie.
+
+Maintenant à vous de montrer que cette assertion un peu compliquée est toujours
+vraie et ce quels que les valeurs Vrai ou Faux des trois paramètres $P,Q$ et $R$.
+
+\change
+
+Voyons comment faire.
+
+Pour la première question, il faut se souvenir du cours de 
+logique qui définit l'assertion
+\og$P\implies Q$ \fg\ comme étant \og$\text{non\;}(P) \text{ ou } Q$ \fg.
+Il suffit donc d'écrire : \codeinline{not(P) or Q}
+
+\change
+Pour savoir si la seconde assertion est toujours vraie, 
+on teste toutes les combinaisons possibles $P,Q$ et $R$ (il y en $8$).
+
+Pour chaque triplet possible, on demande à l'ordinateur d'afficher le statut de cette expression booléenne.
+
+Dans notre cas, c'est à chaque fois Vrai.
+
+Nous sommes donc en présence d'une tautologie.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+\change
+
+Une fonction informatique ressemble à une fonction mathématique.
+
+Elle prend en entrée des paramètres
+et renvoie un résultat.
+
+
+Voici comment définir une fonction.
+
+On utilise d'abord le mot-clé "def", 
+suivi du nom donné à la fonction. On précise enfin quelles sont la ou les variables passées en paramètre.
+
+A chaque appel de la fonction on exécute toutes les instructions, 
+qui sont bien sûr délimitées, nous y sommes maintenant habitués, par l'indentation.
+
+
+La fonction renvoie une ou plusieurs valeurs que l'on précise par le mot-clé 
+"return".
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici un petit exemple de fonction :
+nous définissons notre propre fonction valeur absolue nommée "valeur\_absolue".
+
+En entrée : une seule variable notée $x$.
+
+La fonction est constituée d'un test : 
+
+Si $x$ est positif alors on renvoie $x$.
+
+Mais si $x$ est négatif alors 
+on renvoie $-x$ qui lui est positif.
+
+\change
+
+Notre fonction s'utilise maintenant comme n'importe quelle autre fonction.
+
+Par exemple \codeinline{valeur\_absolue(-3)} renvoie $3$.
+
+\change
+
+Il est maintenant possible d'utiliser cette fonction 
+dans le reste du programme ou dans une autre fonction.
+
+Il est tuojours important de produire du code intelligible et de nommer les objets au plus près de leur définition, avec des noms évocateurs.
+
+C'est maintenant à vous de réfléchir !
+
+Que renvoie la fonction suivante qui prend en entrée deux paramètres ? 
+
+Et quel nom aurait-il été plus approprié de lui donner ?
+
+%Noter aussi que, comme ici, une fonction peut prendre plusieurs paramètres.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Avec l'introduction des fonctions, il faut dès maintenant être très prudent et faire la distinction entre des variables locales 
+et des variables globales.
+
+Une variable locale, c'est une variable qui n'existe qu'à 
+l'intérieur d'une fonction. 
+Alors qu'une variable globale existe et est accessible dans tout le corps de votre programme.
+
+Voici une petit énigme : qu'affiche ces quelques lignes de code.
+Proposez une réponse avant de vérifier si l'ordinateur est d'accord avec vous !
+
+Il faut bien comprendre que tous les \codeinline{x} de la fonction
+%\codeinline{def incremente(x):},    \codeinline{x = x+1},     \codeinline{return x}
+\codeinline{incremente}
+représentent une variable locale qui n'existe que dans 
+cette fonction et disparaît 
+en dehors. On aurait tout aussi bien pu remplacer les $x$ de ces trois lignes
+par une variable y ou truc ou zut !
+
+
+Par contre les \codeinline{x} des lignes
+\codeinline{x=2}, \codeinline{incremente(x)}, \codeinline{print(x)}
+correspondent à une variable globale.
+
+Une variable globale existe partout 
+(sauf dans les fonctions où une variable
+locale porte le même nom !).
+
+\change 
+
+En mathématique, on parle plutôt de variable muette au lieu 
+de variable locale, par exemple dans 
+$$\sum_{k=0}^n k^2$$
+$k$ est une variable muette, on aurait pu tout aussi bien la nommer $i$ ou $x$.
+Par contre il faut au préalable avoir défini $n$ 
+(comme une variable globale), par exemple \og $n=7$  \fg\ ou \og 
+fixons un entier $n$  \fg...
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Mettez immédiatement en pratique les structures de contrôle étudiées précédemment 
+avec le travail suivant.
+
+La \defi{suite de Syracuse}  est  définie par récurrence
+par un terme initial qui est un entier $u_0$
+
+et par une relation de récurrence :
+$$u_{n+1} = 
+\begin{cases}
+  \frac{u_n}{2} & \text{ si $u_n$ est pair} \\
+  3u_n + 1 & \text{ si $u_n$ est impair} \\
+  \end{cases}$$
+  
+  Vous devez écrire une fonction qui renvoie le terme $u_n$ 
+  en fonction de $u_0$ et du rang $n$.
+  
+  Ensuite vérifiez expérimentalement
+  que la suite atteint toujours la valeur $1$, 
+  
+  Modifiez ensuite votre fonction pour maintenant 
+  renvoyer le premier rang $n$ pour lequel $u_n = 1$.
+  
+
+Cette suite est très célèbre. La simplicité de sa définition permet à tous de caluler ses premiers termes.
+Mais, à ce jour, personne ne sait prouver que, pour toutes les valeurs 
+du terme initial $u_0$, la suite de Syracuse atteint toujours la valeur $1$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici le code pour calculer le $n$-ème terme de la suite.
+
+La fonction a deux paramètres : le terme initial $u_0$ et le rang $n$
+du terme que l'on souhaite calculer.
+
+
+On part du terme initial. 
+$u$ joue le rôle du terme général $u_k$.
+On l'initialise à $u_0$.
+
+
+Le boucle "pour" (\codeinline{for}) est répétée $n$ fois.
+
+On teste si le terme actel est pair (nous expliquerons plus tard cette instruction).
+
+S'il est pair alors le nouveau terme est la moitié de l'actuel.
+%$u_{k+1} = u_k/2$
+
+S'il est impair, alors il vaut trois fois l'actuel plus un.%$u_{k+1} = 3u_k+1$.
+
+On calcule ainsi $u_0, u_1, u_2,...$
+
+et à la fin on a calculé le terme $u_n$ qui est renvoyé par la fonction. 
+
+Vous pouvez maintenant faire vos expérimentations.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Revenons sur quelques points de la fonction précédente.
+
+Pour deux entiers $a$ et $n$ alors
+
+\codeinline{a\%n} est 
+le \defi{reste} de la division euclidienne de $a$ par $n$.
+
+\change
+
+Autrement dit $r \equiv a \pmod{n}$ et $0 \le r < n$.
+
+
+\change
+
+Le quotient $q$ de la division euclidienne de $a$ par $n$, s'obtient par
+ \codeinline{a//n}.
+
+\change 
+ La division euclidienne de $a$ par $n$ s'écrit maintenant
+ $a=nq+r$.
+
+\change
+Attention !
+Il ne faut pas confondre la division de nombres réels : \codeinline{a/b}
+et le quotient de la division euclidienne de deux entiers : \codeinline{a//b}.
+
+\change
+Par exemple \codeinline{7/2} est la fraction $\frac72$ dont la valeur numérique est $3,5$
+alors que \codeinline{7//2} renvoie $3$. 
+
+
+\change
+Enfin, \codeinline{u\%2 == 0} teste la parité de $u$.
+
+En effet, \codeinline{u\%2} renvoie le reste de la division euclidienne 
+de $u$ par $2$. Donc $\codeinline{u\%2}$ vaut $0$ si $u$ est pair 
+et $1$ si $u$ est impair.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici comment calculer à partir de quel rang on obtient la valeur $1$.
+
+On a modifié le code précédent en transformant la boucle "pour" en une boucle "tant que"
+
+Ces instructions sont exécutées tant que $u \neq 1$.
+
+Donc par construction et puisque tous les termes de la suite sont strictement positifs, quand la boucle se termine c'est que $u=1$ !
+
+
+\end{document}

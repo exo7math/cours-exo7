@@ -1,0 +1,305 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={205,0,0}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\title{{\bf Espaces vectoriels}}
+\subtitle{Sous-espace vectoriel (milieu)}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Combinaisons linéaires
+    \item<4-> Caractérisation d'un sous-espace vectoriel
+    \item<5-> Intersection de deux sous-espaces vectoriels    
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Combinaisons linéaires}
+
+
+
+\begin{frame}
+Soient  $v_1, v_2, \ldots, v_n$, $n$  vecteurs d'un espace vectoriel $E$
+\begin{mydefinition}
+  \begin{itemize}
+    \item Tout vecteur de la forme  
+ $$u=\lambda_1 v_1+\lambda_2v_2+ \cdots + \lambda_nv_n$$
+ est appelé \defi{combinaison linéaire} des vecteurs $v_1, v_2, \ldots, v_n$
+ 
+ \pause
+ 
+    \item Les scalaires $\lambda_1, \lambda_2, \ldots , \lambda_n \in \Kk$ sont 
+    les \defi{coefficients} de la combinaison linéaire
+  \end{itemize}
+
+\end{mydefinition}
+ 
+ \bigskip
+ \pause
+ 
+\emph{Remarque :} Si $n=1$, alors $u=\lambda_1 v_1$ et on dit que $u$ est \defi{colinéaire} à $v_1$ 
+ 
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{enumerate}
+  \item Dans le $\Rr$-espace vectoriel $\Rr^3$, $(3,3,1)$ est combinaison linéaire des vecteurs 
+ $(1,1,0)$ et $(1,1,1)$ car on a 
+ $$(3,3,1)=2(1,1,0)+(1,1,1)$$
+ \vspace*{-2ex}
+ \pause   
+  \item Dans le $\Rr$-espace vectoriel $\Rr^2$, le vecteur
+$u=(2,1)$ \emph{n'est pas} colinéaire au vecteur $v_1=(1,1)$
+ \pause  
+ 
+ \medskip 
+  \item Soit $E=\mathcal{F}(\Rr, \Rr)$ et $f_0$, $f_1$, $f_2$ et $f_3$ les fonctions définies par 
+ $$f_0(x)=1 \quad f_1(x)=x \quad f_2(x)=x^2 \quad f_3(x)=x^3$$
+ \pause
+ Alors la fonction $f$ définie par $f(x)=x^3-2x ^2-7x-4$
+ est combinaison linéaire des fonctions $f_0, f_1, f_2, f_3$ puisque l'on a 
+ $$f=f_{3}-2f_2-7f_1-4f_0$$ 
+  
+ 
+\end{enumerate}
+\end{exemple}
+\end{frame}
+
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+  \item Soient $u = \left(\begin{smallmatrix}1\\ 2\\ -1\end{smallmatrix}\right)$ et $v =
+   \left(\begin{smallmatrix}6\\4\\2\end{smallmatrix}\right)$ deux vecteurs de $\Rr^3$
+
+   \pause
+   
+  \item  Montrons que $w =
+   \left(\begin{smallmatrix}9\\ 2\\ 7\end{smallmatrix}\right)$ est combinaison linéaire de $u$ et $v$
+  
+  \pause
+  
+  \item On cherche donc $\lambda$ et $\mu$ tels que $w=\lambda u + \mu v$
+  
+  \pause
+  
+  \item $\left(\begin{matrix}9\\2\\7\end{matrix}\right) 
+ =  \lambda \left(\begin{matrix}1\cr 2\cr -1\end{matrix}\right) + \mu \left(\begin{matrix}6\\4\\2\end{matrix}\right)
+ \pause
+ =  \left(\begin{matrix}\lambda\\ 2\lambda\\ -\lambda\end{matrix}\right) 
+     + \left(\begin{matrix}6\mu\\ 4\mu\\ 2\mu\end{matrix}\right)
+ \pause
+ =  \left(\begin{matrix}\lambda + 6\mu\\ 2\lambda + 4\mu\\ -\lambda + 2\mu\end{matrix}\right)$  
+  
+  \pause
+  
+  \item \'Equivaut à $\left\{
+\begin{array}{rcl}
+9 & = & \lambda + 6\mu\\ 2 & = & 2\lambda + 4\mu\\ 7 & = & -\lambda + 2\mu 
+\end{array}\right.
+$
+  
+  \pause
+  \item Une solution de ce système est $(\lambda = -3, \mu = 2)$,
+  \pause
+  \item Ce qui implique que $w$ est combinaison linéaire de $u$ et $v$
+
+\medskip
+\pause
+\hfil $\left(\begin{smallmatrix}9\\2\\7\end{smallmatrix}\right)
+=  -3\left(\begin{smallmatrix}1\\2\\-1\end{smallmatrix}\right) 
++ 2\left(\begin{smallmatrix}6\\4\\2\end{smallmatrix}\right)$
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+  \item Soient $u = \left(\begin{smallmatrix}1\\ 2\\ -1\end{smallmatrix}\right)$ et $v =
+  \left(\begin{smallmatrix}6\\4\\2\end{smallmatrix}\right)$
+
+   \pause
+   
+  \item Montrons que $ w = \left(\begin{smallmatrix}4\\ -1\\ 8\end{smallmatrix}\right)$
+  n'est pas combinaison linéaire de $u$ et $v$
+
+   \pause
+   
+  \item $\begin{pmatrix}4\\-1\\8\end{pmatrix} 
+  = \lambda\begin{pmatrix}1\\2\\-1\end{pmatrix} + \mu\begin{pmatrix}6\\4\\2\end{pmatrix}
+   \pause  \quad \iff \quad 
+\left\{\begin{array}{rcl}
+4 & = &\lambda + 6 \mu\\ -1 & = &2\lambda + 4\mu\\ 8 & = & -\lambda + 2\mu
+\end{array}\right.$
+ 
+   \pause
+   
+  \item Or ce système n'a aucune solution.
+  Donc il n'existe pas $\lambda,\mu \in \Rr$ tels que $w=\lambda u + \mu v$
+\end{itemize}
+
+\end{exemple}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Caractérisation d'un sous-espace vectoriel}
+
+\begin{frame}
+\begin{theoreme}[Caractérisation par la notion de combinaison linéaire]
+Soient $E$ un $\Kk$-espace vectoriel et $F$ une partie non vide de $E$
+
+$F$ est un sous-espace vectoriel de $E$ si et seulement si
+$$\lambda u + \mu v \in F \qquad \text{pour tous } u,v \in F \quad \text{ et tous } \lambda, \mu \in \Kk$$
+
+\pause
+
+Autrement dit si et seulement si toute combinaison linéaire de deux éléments 
+de $F$ appartient à $F$
+\end{theoreme}  
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Intersection de deux sous-espaces vectoriels}
+
+\begin{frame}
+Soient $F,G$ deux sous-espaces vectoriels d'un $\Kk$-espace vectoriel $E$
+\begin{proposition}
+L'intersection $F \cap G$ est un sous-espace vectoriel de $E$
+\end{proposition}
+
+\pause
+   
+$F_1 \cap F_2 \cap F_3 \cap \cdots \cap F_n$ est un sous-espace vectoriel 
+
+\pause
+
+\begin{proof}
+\begin{itemize}
+  \item $0_E \in F$, $0_E\in G$ donc $0_E \in F \cap G$
+\pause  
+  \item 
+  \begin{itemize}
+    \item Soient $u,v \in F \cap G$
+    \item $F$ est un sous-espace vectoriel, alors $u,v \in F$ implique $u+v\in F$
+    \item De même $u,v \in G$ implique $u+v \in G$
+    \item Donc $u+v \in F \cap G$
+  \end{itemize}
+\pause   
+  \item 
+  \begin{itemize}
+    \item Soient $u \in F\cap G$ et $\lambda  \in \Kk$
+    \item $F$ est un sous-espace vectoriel, alors $u \in F$ implique $\lambda u \in F$
+    \item De même $u \in G$ implique $\lambda u \in G$
+    \item Donc $\lambda u \in F \cap G$
+  \end{itemize}
+\pause 
+\end{itemize}
+Conclusion : $F\cap G$ est un sous-espace vectoriel de $E$
+\end{proof}
+
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+$$\mathcal{D}= \big\{ (x,y,z) \in \Rr^3\mid x+3y+z =0 \;\; \text{ et } \;\; x-y+2z=0 \big\}$$
+
+\myfigure{0.6}{
+\tikzinput{fig_ev05} 
+}
+
+\pause
+\vspace*{-3ex}
+ \begin{itemize}
+  \item $F=\big\{ (x,y,z) \in \Rr^3\mid x+3y+z =0 \big\}$
+\pause
+  \item $G=\big\{ (x,y,z) \in \Rr^3 \mid x-y+2z =0 \big\}$
+\pause  
+  \item $F$ et $G$ sont des plans vectoriels
+\pause  
+  \item $\mathcal{D} =F \cap G$ est un sous-espace vectoriel
+\end{itemize} 
+
+
+ 
+\end{exemple}
+\end{frame}
+
+
+\begin{frame} 
+
+
+La réunion de deux sous-espaces vectoriels n'est pas en général 
+un sous-espace vectoriel
+
+\pause
+
+\begin{itemize}
+\uncover<2->{  \item $F=\big\{(x,y) \in \Rr^2 \mid x=0\big\}$ et $G=\big\{(x,y) \in \Rr^2 \mid y=0\big\}$}
+\uncover<3->{  \item $(0,1) \in F$, $(1,0) \in G$}
+\uncover<4->{  \item $(0,1)+(1,0)=(1,1) \notin F \cup G$}
+\uncover<5->{  \item $F\cup G$ \textcolor{myred}{n'est pas} un sous-espace vectoriel}
+\end{itemize}
+\uncover<2->{
+\myfigure{0.7}{
+\tikzinput{fig_ev04-2bis-pres} 
+}
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Peut-on trouver $t\in \Rr$ tel que les vecteurs 
+  $\left(\begin{smallmatrix}-2 \\ \sqrt2 \\ t \end{smallmatrix}\right)$ et
+  $\left(\begin{smallmatrix}-4\sqrt2 \\ 4t \\ 2\sqrt2 \end{smallmatrix}\right)$ soient colinéaires ?
+  
+  \vspace*{-1ex}  
+  \item Peut-on trouver $t\in \Rr$ tel que le vecteur  
+  $\left(\begin{smallmatrix}1 \\ 3t \\ t \end{smallmatrix}\right)$ soit une combinaison linéaire
+  de $\left(\begin{smallmatrix} 1 \\ 3 \\ 2 \end{smallmatrix}\right)$ et 
+  $\left(\begin{smallmatrix} -1 \\ 1 \\ -1 \end{smallmatrix}\right)$ ?
+    
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

@@ -1,0 +1,558 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Dans cette partie nous présentons les outils mathématiques
+nécessaires pour la mise en place du cryptosystème RSA.
+
+\change
+
+Nous revenons sur le petit théorème de Fermat et en donnons une version 
+améliorée.
+
+\change
+
+Même chose avec l'algorithme d'Euclide
+
+\change
+qui dans sa version étendue permet le calcul d'inverse modulo $n$
+
+\change
+On termine avec une méthode de calcul rapide de puissances modulaires.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous connaissons le petit théorème de Fermat 
+
+
+$\equiv \equiv \equiv$
+Si $p$ est un nombre premier et $a$ est un entier quelconque alors
+
+$a^p \equiv a \pmod p$
+
+\change
+
+Son corollaire est tout aussi utile :
+
+Maintenant, si le nombre premier $p$ ne divise pas l'entier $a$ alors
+
+on peut diviser l'égalité précédente par $a$ pour obtenir :
+
+$a^{p-1} \equiv 1 \pmod p$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons voir une version améliorée du petit théorème de Fermat 
+dans le cas qui nous intéresse :
+
+
+Soient maintenant $p$ et $q$ deux nombres premiers distincts et soit $n$ le produit $p q$. 
+
+Pour n'importe quel entier $a$ vérifiant $\pgcd(a,n)=1$ nous avons :
+
+$\equiv \equiv \equiv$
+$a^{(p-1)(q-1)} \equiv 1 \pmod n$
+
+%\change
+
+%On note $(p-1)(q-1)$ par $\varphi(n)=$,
+
+%$\phi$ s'appelle la fonciton fonction d'Euler.
+
+\change
+
+L'hypothèse $\pgcd(a,n)=1$ équivaut ici à ce que $a$ ne soit divisible ni par $p$, ni par $q$.
+
+\change
+
+Voyons un exemple avec $p=5$, $q=7$, 
+
+leur produit est $n=35$ 
+
+et ainsi $
+%\varphi(n)=
+(p-1)\times(q-1)=4\cdot 6 = 24$.
+
+
+Alors pour tout entier $a$ premier avec $35$, 
+
+c'est-à-dire ni divisible par $5$ ni par $7$
+
+alors on a  $a^{25} \equiv 1 \pmod{35}$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons démnontrer ce résultat.
+
+\change
+Pour cela, notons $c = a^{(p-1)(q-1)}$.
+
+\change
+Nous allons d'abord calculer $c$ modulo $p$ :
+
+$\equiv \equiv \equiv $
+$c \equiv a^{(p-1)(q-1)} \equiv (a^{(p-1)})^{q-1}$
+
+mais par le petit théorème de Fermat : $a^{p-1} \equiv 1 \pmod p$, car $p$ ne divise pas $a$
+
+donc 
+$(a^{(p-1)})^{q-1} \equiv 1^{q-1} \equiv 1 \pmod{p}$
+
+\change
+Calculons ce même $c$ mais cette fois modulo $q$ :
+
+\change
+De façon similaire, $c \equiv 1 \pmod{q}$
+
+où l'on applique cette fois le petit théorème de Fermat pour $a^{q-1} \equiv 1 \pmod q$, car $q$ ne divise pas $a$.
+
+
+|||
+Conclusion partielle : $c \equiv 1 \pmod{p}$ et $c \equiv 1 \pmod q$.
+
+
+\change
+Nous allons en déduire que $c \equiv 1 \pmod{pq}$.
+
+\change
+$\equiv \equiv \equiv $
+Comme $c \equiv 1 \pmod{p}$ alors il existe $\alpha$ tel que $c = 1 + \alpha p$ ;
+
+\change
+de même comme $c \equiv 1 \pmod{q}$ alors il existe $\beta$ tel que $c = 1 + \beta q$.
+
+\change
+Donc $c-1$ vaut à la fois $\alpha p$ et $\beta q$.
+
+De cette égalité, on obtient que $p | \beta q$.
+
+\change
+Comme $p$ et $q$ sont premiers entre eux (car ce sont des nombres premiers distincts)
+le lemme de Gauss permet d'en déduire que $p | \beta$.
+
+\change
+Il existe donc $\beta'\in \Zz$ tel que $\beta = \beta' p $.
+
+\change
+Ainsi $c = 1 + \beta q = 1 + \beta' pq$.
+
+\change
+Ce qui fait que $c \equiv 1 \pmod{pq}$,
+
+||| 
+ce qui revient à dire que $a^{(p-1)(q-1)} \equiv 1 \pmod n$. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous avons déjà étudié l'algorithme d'Euclide qui repose sur le principe
+que 
+
+$\equiv \equiv \equiv $
+$\pgcd(a,b)= \pgcd(b, a \pmod{b})$.
+
+|||
+$a \pmod{b}$ est  bien le reste de la division euclidienne de $a$ par $b$.
+
+\change
+
+
+Ce principe se transforme en algorithme de la façon suivante :
+
+$\equiv \equiv \equiv $
+On initialise une suite par $a_0=a$ et une autre par $b_0=b$.
+
+Puis à chaque étape 
+$a_{i+1}  =  b_i$ (le prochain dividende est l'actuel diviseur)
+
+et 
+$b_{i+1}  =  a_i \pmod {b_i}$ (le prochain diviseur est l'actuel reste).
+
+|||
+On s'arrête dès que $b_i$ est nul. 
+
+Le pgcd est alors le dernier reste non nul,
+
+c'est-à-dire $b_{i-1}$ qui est également $a_i$.
+
+
+\change
+
+Voici sa mise en \oe uvre informatique.
+
+$\equiv \equiv \equiv $
+On fait une boucle avec $a$ et $b$ qui varie, représentant les suites $a_i$ et $b_i$.
+
+On profite du fait que Python permet les affectations simultanées :
+
+voici les nouveaux $a$ et $b$ ,
+
+calculer à partir des anciens.
+
+La boucle tourne jusqu'à ce que le reste $b$ soit nul,
+
+|||
+et on renvoie le dernier reste non nul.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Nous avons vu aussi comment \og remonter \fg\ l'algorithme d'Euclide à la main pour
+obtenir les coefficients de Bézout $u,v$ tels que $au+bv=\pgcd(a,b)$.
+
+
+Cependant il nous faut une méthode plus automatique pour obtenir ces coefficients, il s'agit de 
+l'\defi{algorithme d'Euclide étendu}.
+
+\change
+
+$\equiv \equiv \equiv $
+On définit deux suites $(x_i)$, $(y_i)$ qui nous fourniront les coefficients de Bézout.
+
+L'initialisation est :
+$$x_0=1 \qquad  x_1=0 \qquad y_0=0 \qquad y_1 = 1$$
+
+et la formule de récurrence pour $i\geq 1$ :
+
+$$x_{i+1} = x_{i-1} - q_i x_i \qquad y_{i+1} = y_{i-1} - q_i y_i$$
+
+où $q_i$ est le quotient de la division euclidienne de $a_i$ par $b_i$ définis dans l'algorithme d'Euclide.
+ 
+ 
+|||
+Comme précédemment on itère jusqu'à ce que le reste $b_i$ soit nul.
+
+On obtient alors le pgcd mais en plus $x_i$ et $y_i$ sont les coefficients de Bézout.
+
+\change
+
+Voici l'implémentation de l'algorithme
+ 
+$\equiv \equiv \equiv $
+Vous reconnaissez la structure de l'algorithme d'Euclide classique,
+
+avec en plus les calculs des éléments des nouvelles suites x et y 
+
+Cet algorithme renvoie d'abord le pgcd, puis les coefficients $u,v$ 
+
+|||
+tels que $au+bv = \pgcd(a,b)$.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Soit $a$ un entier, 
+
+
+on dit que l'entier $x$ est un \defi{inverse de $a$ modulo $n$}
+
+$\equiv \equiv \equiv $
+si $ax \equiv 1 \pmod{n}$.
+
+
+
+Trouver un inverse de $a$ modulo $n$ est donc 
+un cas particulier de l'équation $ax \equiv b \pmod n$.
+
+Attention un tel inverse n'existe pas toujours !
+
+\change
+La proposition suivante permet justement de savoir s'il existe un inverse et va nous dire comment le calculer.
+
+Tout d'abord 
+$a$ admet un inverse modulo $n$ si et seulement si $a$ et $n$ sont premiers entre eux.
+
+
+\change
+ensuite si on est dans ce cas 
+et si on trouvé des coefficients de Bézout $u,v$ tels que 
+$au+nv=1$ alors $u$ est un inverse de $a$ modulo $n$.
+
+
+
+En d'autres termes, trouver un inverse de $a$ modulo $n$ revient à calculer les coefficients de Bézout
+associés à la paire $(a,n)$.
+
+\change
+
+Le deuxième point est immédiat.
+
+Le premier point est essentiellement une reformulation du théorème de Bézout :
+
+$\pgcd(a,n)=1$
+
+\change
+
+$\iff  \exists u,v \in \Zz \qquad au+nv=1$
+
+\change
+$\iff  \exists u \in \Zz \qquad au \equiv 1 \pmod {n}$
+
+
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \diapo
+% 
+% Voici le code :
+% 
+% \change
+% 
+% \change
+% 
+% \change
+% 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous aurons par la suite besoin de calculer rapidement des puissances modulo un entier $n$.
+Pour cela il existe une méthode beaucoup plus efficace que de calculer d'abord 
+$a^k$ puis de le réduire modulo $n$ ou bien encore de faire $k-1$ multiplications modulaires. 
+Il faut garder à l'esprit que les entiers
+que l'on va mani\-puler ont des dizaines voir des centaines de chiffres.
+
+
+\change
+Voyons la méthode sur l'exemple du calcul de $5^{11} \pmod{14}$.
+
+
+L'idée est de seulement calculer $5, 5^2, 5^4, 5^8...$ %, 5^{16},...$
+modulo $14$.
+
+
+\change
+$\equiv \equiv \equiv $
+En effet, on remarque que l'exposant $11 = 8 + 2 + 1$
+
+\change
+donc
+$$5 ^{11} = 5^8 \times 5^2 \times 5^1.$$
+
+\change
+Calculons donc les $5^{2^i} \pmod {14}$ :
+
+\change
+$5  \equiv  5 \pmod{14}$
+
+\change
+et
+$5^2  \equiv  25 \equiv 11 \pmod{14}$
+
+\change
+Pour $5^4$ 
+
+\change
+on l'écrit sous la forme $5^2 \times 5^2$
+
+et on profite du fait que l'on vient juste de calculer $5^2$.
+
+\change
+donc $5^4 \equiv 11 \times 11$
+
+\change
+ce qui donne $121$
+
+\change 
+qui est congru à $9 \pmod{14}$.
+
+\change
+Même principe pour $5^8$
+
+\change
+c'est $5^4 \times 5^4$
+
+\change
+
+ce qui est donc congru à $9 \times 9$
+
+\change
+
+soit $81$
+
+\change
+
+donc $\equiv 11 \pmod{14}$.
+
+\change
+
+On rassemble tous nos calculs :
+
+$5^{11} = 5^8 \times 5^2 \times 5^1$
+
+
+\change
+
+qui est donc congru à $11 \times 11 \times 5$
+
+\change
+
+égale à $11 \times 55$
+
+\change
+$\equiv 11 \times 13$
+
+\change
+$\equiv 143$
+
+\change
+$\equiv 3 \pmod{14}$.
+
+
+||| 
+Nous obtenons donc un calcul de $5^{11} \pmod{14}$ en $5$ opérations au lieu de $10$ 
+si on avait fait naïvement $5\times 5 \times 5 \cdots$, et plus l'exposant est 
+grand plus le gain l'est aussi.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici une formulation générale de la méthode d'exponentiation modulaire.
+
+$\equiv \equiv \equiv $
+On écrit le développement de l'exposant $k$ en base $2$ :
+$(k_\ell, \ldots, k_2, k_1, k_0)$ avec $k_i \in \{0,1\}$ de sorte que 
+$$k = \sum_{i=0}^\ell k_i 2^i.$$
+
+
+\change
+On calcule successivement les $x^{2^i}$ modulo $n$ 
+
+par récurrence en utilisant que $x^{2^{i+1}} = x^{2^i} \times x^{2^i}$
+
+et en effectuant tous les calculs modulo notre entier $n$.
+
+
+\change
+On obtient alors 
+$$x^k = x^{\sum_{i=0}^\ell k_i 2^i} = \prod_{i=0}^\ell (x^{2^i})^{k_i}.$$
+où les $k_i$ valent 0 ou 1.
+
+\change
+Revoyons cela sur l'exemple précédent :
+
+L'entier $11$ s'écrit en base $2$ :
+$({\color{red}1},{\color{red}0},{\color{red}1},{\color{red}1})$, 
+8+2+1
+
+\change
+On avait calculé $5$, $5^2$, $5^4$ et $5^8$
+
+\change
+Et maintenant
+$$5^{11} = (5^{2^3})^{{\color{red}1}} \times (5^{2^2})^{{\color{red}0}}
+\times (5^{2^1})^{{\color{red}1}} \times (5^{2^0})^{{\color{red}1}}$$
+
+|||
+et on remplace les facteurs par les valeurs obtenues.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voici un autre exemple : calculons $17^{154} \pmod {100}$.
+
+\change
+$\equiv \equiv \equiv $
+Tout d'abord on décompose l'exposant $k=154$ en base $2$ :
+$154 = 128 + 16 + 8 + 2 = 2^7 + 2^4 + 2^3 + 2^1$, 
+
+\change
+il s'écrit donc en base $2$ : $(1,0,0,1,1,0,1,0)$.
+
+\change
+Ensuite on calcule $17, 17^2, 17^4, 17^8,...,17^{128}$ modulo $100$.
+
+Voici les calculs :
+
+n'ayez pas peur, c'est en fait très simple !
+
+N'oubliez pas d'abord que tous les calculs sont modulo $100$,
+donc si on obtient un nombre à 3 chiffres ou plus alors 
+on ne retient que les deux derniers chiffres (c'est cela le reste modulo $100$).
+
+Ensuite 
+pour chaque nouvelle puissance,
+on effectue une élévation au carré, c'est-à-dire une multiplication,
+ en prenant soin d'utiliser le résultat de l'étape précédente.
+Par exemple 
+
+$17^8=17^4 \times 17^4=21\times 21=441\equiv 41 \pmod{100}$.
+
+%Il suffit donc d'utiliser le calcul de la ligne du dessus.
+
+
+\change
+Il ne reste qu'à rassembler :
+
+$17^{154}$ est égal à  $17^{128} \times 17^{16} \times 17^{8} \times 17^{2}$
+
+on remplace chaque facteur par sa valeur modulo $100$.
+
+|||
+et au final on trouve que $17^{154} \equiv 29 \pmod {100}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On en déduit un algorithme pour le calcul rapide des puissances.
+
+$\equiv \equiv \equiv $
+On souhaite calculer $x^k$ modulo $n$.
+
+L'algorithme est une boucle qui fait varier $x$ et l'exposant $k$
+
+On teste s'il faut tenir compte dans le résultat de la valeur de $x$ à la puissance $2$ à la puissance quelque chose.
+(ce test revient à vérifier si $k_i$, le $i$-ème chiffre de l'écriture de $k$ en base $2$, vaut $0$ ou $1$).
+
+si oui alors on multiplie (modulo $n$).
+
+Ensuite on passe à la puissance suivante : donc on aura successivement $x^2$, $x^4$,...
+
+et on divise (de manière entière) l'exposant par $2$ c'est-à-dire on va regarder $k_{i+1}$ (le chiffre suivant).
+
+
+A la fin on obtient $x^k$ modulo $n$. 
+
+
+\change
+En fait Python\ intègre déjà cette exponentiation rapide par la commande \codeinline{pow(x,k,n)} calcule $x^k$ modulo $n$,
+
+\change
+il faut en tout cas éviter \codeinline{(x ** k) \% n} qui n'est pas adapté.
+
+\end{document}

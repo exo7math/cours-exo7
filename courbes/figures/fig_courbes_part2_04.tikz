@@ -1,0 +1,29 @@
+\begin{tikzpicture}[scale=1.5]
+
+\begin{scope}[rotate=10]
+
+    \draw[domain=0:2.35, blue,very thick,smooth] plot (\x,{2-(\x-1)^2)});
+
+
+   \def \x{0.7}
+    \coordinate (A) at ({\x},{2-(\x-1)^2)});
+    \fill (A) circle (1.5pt) node[below=8pt] {$M(t_0)$};
+
+    \draw[->,>=latex,thick,gray,red] (A)--+(1,{1*(2-2*\x)})  node[above left] {$\overrightarrow{\dfrac{\dd M}{\dd t}}(t_0)$};
+
+   % \draw[myred,thick] (A)--+(-1.5,{-1.5*(2-2*\x)}) ;
+
+\foreach \i in {4,3,...,1}
+{
+  \def\xx{\x + 1.5-0.3*\i};
+    \coordinate (M) at ({\xx},{2-(\xx-1)^2)});
+    \fill[gray] (M) circle (1.5pt);
+    \draw[gray] (A)--(M)--+($\i*(M)-\i*(A)$)--(A)--+($\i*(A)-\i*(M)$);
+    %\draw[->,>=latex,thick,gray] (A)--(M)--+($\i*(M)-\i*(A)$)--(A)--+($\i*(A)-\i*(M)$);
+    \coordinate (P) at ({\xx},0);
+};
+
+ % \node[above right] at (M) {$M(t)$};
+\end{scope}
+
+\end{tikzpicture}

@@ -1,0 +1,27 @@
+\tikzset{node style ge/.style={circle}}
+
+\begin{tikzpicture}[baseline=(A.center),font=\normalsize]
+
+% les matrices
+\matrix (A) [matrix of math nodes, nodes = {node style ge},column sep=0.125 em,
+%row sep=-0.75 em,
+%inner sep = 0 em,%
+ left delimiter  = (, right delimiter = )]
+{ 1 & 2 & 3\\
+4 & 2 & 1\\
+0 & 1 & 1\\
+};
+
+\draw[opacity=.3,line width=1em, color=black] (A-3-1.west) to (A-3-3.east);
+\draw[opacity=.3,line width=1em, color=black] (A-1-2.north) to (A-3-2.south);
+
+\node[left,outer sep=3.5em] at (A-2-1.east) {$A_{32}=$} ;
+\node[right,outer sep=3.5em] at (A-2-3.west) {$=
+\begin{pmatrix}
+1 & 3\\
+4 & 1
+\end{pmatrix}$
+};
+
+\end{tikzpicture}
+$$C_{32} = (-1)^{3+2} \det A_{32} = (-1) \times (-11) =  11.$$

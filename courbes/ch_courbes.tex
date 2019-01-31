@@ -1,0 +1,2607 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Courbes paramétrées}
+%====================================================================
+
+
+\insertvideo{QV-567w4zBg}{partie 1. Notions de base}
+
+\insertvideo{zcZCMAaNmKc}{partie 2. Tangente à une courbe paramétrée}
+
+\insertvideo{X1N4CAVeHZI}{partie 3. Points singuliers -- Branches infinies}
+
+\insertvideo{vBWsG1XD6F4}{partie 4. Plan d'étude d'une courbe paramétrée}
+
+\insertvideo{XMIAlkOWy4o}{partie 5. Courbes en polaires : théorie}
+
+\insertvideo{rLJQQ6WeWWQ}{partie 6. Courbes en polaires : exemples}
+
+\insertfiche{fic00164.pdf}{Courbes planes}
+
+\bigskip
+
+Dans ce chapitre nous allons voir les propriétés fondamentales des courbes paramétrées.
+Commençons par présenter une courbe particulièrement intéressante.
+La \defi{cycloïde} est la courbe que parcourt un point choisi de la roue d'un vélo,
+lorsque le vélo avance. Les coordonnées $(x,y)$ de ce point $M$ varient
+en fonction du temps :
+$$\left\{\begin{array}{rcl}
+x(t) &=& r(t-\sin t) \\
+y(t) &=& r(1-\cos t)
+\end{array} \right.$$
+où $r$ est le rayon de la roue.
+
+\myfigure{0.7}{
+\tikzinput{fig_courbes_part0_01}
+}
+
+La cycloïde a des propriétés remarquables. Par exemple, la
+cycloïde renversée est une courbe \emph{brachistochrone} :
+c'est-à-dire que c'est la courbe
+qui permet à une bille d'arriver le plus vite possible d'un point $A$ à un point $B$.
+Contrairement à ce que l'on pourrait croire ce n'est pas
+une ligne droite, mais bel et bien la cycloïde.
+Sur le dessin suivant les deux billes sont lâchées en $A$ à l'instant $t_0$,
+l'une sur le segment $[AB]$ ; elle aura donc une accélération constante.
+La seconde parcourt la cycloïde renversée, ayant une tangente verticale en $A$ et passant par $B$.
+La bille accélère beaucoup au début et elle atteint $B$ bien avant l'autre bille
+(à l'instant $t_4$ sur le dessin).
+Notez que la bille passe même par des positions en-dessous de $B$ (par exemple en $t_3$).
+
+\myfigure{1}{
+\tikzinput{fig_courbes_part0_03}
+}
+
+% La cycloïde renversée est aussi une courbe \emph{tautochrone} : si on pose deux billes
+% avec des positions initiales différentes sur la courbes, elles vont
+% cependant arriver en même temps au point le plus bas.
+% En effet la bille qui part de plus loin, prend plus de vitesse au démarrage
+% car la courbe y a une pente plus forte.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Notions de base}
+
+%---------------------------------------------------------------
+\subsection{Définition d'une courbe paramétrée}
+
+
+\begin{definition}
+Une \defi{courbe paramétrée plane}\index{courbe!parametree@paramétrée} est une application
+$$\begin{array}[t]{cccc}
+f :&D\subset\Rr&\rightarrow&\Rr^2\\
+ &t&\mapsto&f(t)
+\end{array}$$ d'un sous-ensemble $D$ de $\Rr$ dans $\Rr^2$.
+\end{definition}
+
+
+
+Ainsi, une \emph{courbe paramétrée} est une application qui,
+à un réel $t$ (le \emph{paramètre}), associe \emph{un point}
+du plan. On parle aussi d'\defi{arc paramétré}.
+On peut aussi la noter
+$\begin{array}[t]{cccc}
+f :&D\subset\Rr&\rightarrow&\Rr^2\\
+ &t&\mapsto&M(t)
+\end{array}$ ou écrire en abrégé
+$t\mapsto M(t)$ ou $t\mapsto\left(
+\begin{smallmatrix}
+x(t)\\
+y(t)
+\end{smallmatrix}
+\right)$.
+Enfin en identifiant $\Cc$ avec $\Rr^2$, on note aussi
+$t\mapsto z(t)=x(t)+\ii y(t)$ avec l'identification
+usuelle entre le point $M(t)=\left(\begin{smallmatrix}
+x(t)\\
+y(t)
+\end{smallmatrix}
+\right)$ et son affixe $z(t)=x(t)+\ii y(t)$.
+
+\myfigure{0.8}{
+\tikzinput{fig_courbes_part1_00}
+}
+
+Par la suite, une courbe sera
+fréquemment décrite de manière très synthétique sous une forme du type
+$$\left\{
+\begin{array}{l}
+x(t) = 3\ln t\\
+y(t) = 2t^2+1
+\end{array}
+\right., \quad t\in]0,+\infty[ \quad \text{ ou } \quad z(t) = e^{\ii t}, \quad t\in[0,2\pi].$$
+Il faut comprendre que $x$ et $y$ désignent des fonctions de $D$ dans $\Rr$
+ou que $z$ désigne une fonction de $D$ dans $\Cc$.
+Nous connaissons déjà des exemples de paramétrisations.
+\begin{exemple}
+\sauteligne
+\begin{itemize}
+\item $t\mapsto (\cos t,\sin t)$, $t\in[0,2\pi[$ : une paramétrisation du cercle trigonométrique.
+
+\item $t\mapsto(2t-3,3t+1)$, $t\in\Rr$ : une paramétrisation de la droite
+passant par le point $A(-3,1)$ et de vecteur directeur $\vec{u}(2,3)$.
+
+\item $\lambda\mapsto\big((1-\lambda)x_A+\lambda x_B,(1-\lambda)y_A+\lambda y_B\big)$,
+$\lambda\in[0,1]$ : une paramétrisation du segment $[AB]$.
+
+\item Si $f$ est une fonction d'un domaine $D$ de
+$\Rr$ à valeurs dans $\Rr$, une paramétrisation du graphe de $f$,
+c'est-à-dire de la courbe d'équation $y=f(x)$, est $\left\{
+\begin{array}{l}
+x(t)=t\\
+y(t)=f(t)
+\end{array}
+\right.$.
+\end{itemize}
+
+
+\myfigure{0.65}{
+\tikzinput{fig_courbes_part1_01a} \qquad
+\tikzinput{fig_courbes_part1_01b}
+}
+\myfigure{0.65}{
+\tikzinput{fig_courbes_part1_01c} \qquad
+\tikzinput{fig_courbes_part1_01d} 
+}
+\end{exemple}
+
+Il est important de comprendre qu'une courbe paramétrée
+ne se réduit pas au dessin, malgré le vocabulaire utilisé,
+mais c'est bel et bien \emph{une application}.
+Le graphe de la courbe porte le nom suivant :
+\begin{definition}
+Le \defi{support d'une courbe paramétrée}\index{courbe!support} $\begin{array}[t]{cccc}
+f :&D\subset\Rr&\rightarrow&\Rr^2\\
+ &t&\mapsto&f(t)
+\end{array}$ est l'ensemble des points $M(t)$ où $t$ décrit $D$.
+\end{definition}
+
+Néanmoins par la suite, quand cela ne pose pas de problème, nous identifierons
+ces deux notions en employant le mot \emph{courbe}
+pour désigner indifféremment à la fois l'application et son graphe.
+Des courbes paramétrées différentes peuvent avoir un même support. C'est par exemple
+le cas des courbes :
+$$\begin{array}[t]{ccc}
+[0,2\pi[&\rightarrow&\Rr^2\\
+t&\mapsto&(\cos t,\sin t)
+\end{array} \qquad \text{ et } \qquad \begin{array}[t]{ccc}
+[0,4\pi[&\rightarrow&\Rr^2\\
+t&\mapsto&(\cos t,\sin t)
+\end{array}$$
+dont le support est un cercle, parcouru une seule fois pour la première paramétrisation
+et deux fois pour l'autre (figure de gauche).
+\myfigure{0.65}{
+\tikzinput{fig_courbes_part1_02} \qquad
+\tikzinput{fig_courbes_part1_03}
+}
+
+
+Plus surprenant, la courbe
+$$t\mapsto \left(\frac{1-t^2}{1+t^2},\frac{2t}{1+t^2}\right), \qquad t\in\Rr,$$
+est une paramétrisation du cercle privé du point $(-1,0)$,
+avec des coordonnées qui sont des fractions rationnelles (figure de droite).
+
+
+Ainsi, la seule donnée du support ne suffit pas à définir un arc
+paramétré, qui est donc plus qu'un simple dessin.
+C'est une \emph{courbe munie d'un mode de parcours}. Sur cette courbe, on avance
+mais on peut revenir en arrière, on peut la parcourir une ou plusieurs fois, au gré du
+paramètre, celui-ci n'étant d'ailleurs jamais visible sur le dessin.
+On \og voit \fg{} $x(t)$, $y(t)$, mais pas $t$.
+
+\bigskip
+
+\evidence{Interprétation cinématique.} La cinématique est l'étude des mouvements.
+Le paramètre $t$ s'interprète comme le \emph{temps}. On affine alors
+le vocabulaire : la courbe paramétrée s'appelle plutôt \emph{point en mouvement}
+et le support de cette courbe porte le nom de \emph{trajectoire}. Dans ce cas,
+on peut dire que $M(t)$ est la \emph{position} du point $M$ à \emph{l'instant} $t$.
+
+
+
+%---------------------------------------------------------------
+\subsection{Réduction du domaine d'étude}
+
+
+Rappelons tout d'abord l'effet de quelques transformations
+géométriques usuelles sur le point $M(x,y)$ ($x$ et $y$ désignant
+les coordonnées de $M$ dans un repère orthonormé $(O,\vec{i},\vec{j})$ donné).
+
+\begin{itemize}
+  \item Translation de vecteur $\vec{u}(a,b)$ : $t_{\vec{u}}(M)=(x+a,y+b)$.
+  \item Réflexion d'axe $(Ox)$ : $s_{(Ox)}(M)=(x,-y)$.
+  \item Réflexion d'axe $(Oy)$ : $s_{(Oy)}(M)=(-x,y)$.
+  \item Symétrie centrale de centre $O$ : $s_O(M)=(-x,-y)$.
+  \item Symétrie centrale de centre $I(a,b)$ : $s_I(M)=(2a-x,2b-y)$.
+  \item Réflexion d'axe la droite $(D)$ d'équation $y=x$ : $s_D(M)=(y,x)$.
+  \item Réflexion d'axe la droite $(D')$ d'équation $y=-x$ : $s_{D'}(M)=(-y,-x)$.
+  \item Rotation d'angle $\frac{\pi}{2}$ autour de $O$ : $\text{rot}_{O,\pi/2}(M)=(-y,x)$.
+  \item Rotation d'angle $-\frac{\pi}{2}$ autour de $O$ : $\text{rot}_{O,-\pi/2}(M)=(y,-x)$.
+\end{itemize}
+
+Voici la représentation graphique de quelques-unes de ces transformations.
+
+\myfigure{0.5}{
+\tikzinput{fig_courbes_part1_04a} \qquad
+\tikzinput{fig_courbes_part1_04b}
+} 
+\myfigure{0.5}{
+\tikzinput{fig_courbes_part1_04c} \qquad 
+\tikzinput{fig_courbes_part1_04d} 
+}
+
+On utilise ces transformations pour réduire le domaine
+d'étude d'une courbe paramétrée. Nous le ferons à travers quatre exercices.
+
+\begin{exemple}
+Déterminer un domaine d'étude le plus simple possible de la courbe 
+$$\left\{
+\begin{array}{l}
+x(t)=t-\frac32\sin t\\
+y(t)=1-\frac32\cos t
+\end{array}
+\right.$$
+
+\medskip
+\textbf{Solution.}
+
+Pour $t\in\Rr$,
+\begin{eqnarray*}
+M(t+2\pi)
+  &=& \big(t+2\pi-\tfrac32\sin(t+2\pi),1-\tfrac32\cos(t+2\pi)\big)\\
+  &=& (t-\tfrac32\sin t,1-\tfrac32\cos t)+(2\pi,0)=t_{\vec{u}} \big(M(t)\big)  
+\end{eqnarray*}
+où $\vec{u}=(2\pi,0)$. Donc, on étudie l'arc
+et on en trace le support sur un intervalle de longueur $2\pi$ au choix, comme
+$[-\pi,\pi]$ par exemple, puis on obtient la
+courbe complète par translations de vecteurs $k \cdot (2\pi,0)=(2k\pi,0)$, $k\in\Zz$.
+
+Pour $t\in[-\pi,\pi]$,
+$$M(-t)=\big(-(t-\tfrac32\sin t),1-\tfrac32\cos t \big)=s_{(Oy)}\big(M(t)\big).$$
+On étudie la courbe et on en trace le support sur
+$[0,\pi]$ (première figure), ensuite on effectue la
+réflexion d'axe $(Oy)$ (deuxième figure), puis on obtient la courbe complète
+par translations de vecteurs $k\vec{u}$, $k\in\Zz$ (troisième figure).
+
+
+\myfigure{0.8}{
+\tikzinput{fig_courbes_part1_05a} \qquad\qquad
+\tikzinput{fig_courbes_part1_05b}
+}
+\myfigure{0.8}{
+\tikzinput{fig_courbes_part1_05}
+}
+\end{exemple}
+
+
+
+\begin{exemple}
+Déterminer un domaine d'étude le plus simple possible d'une \defi{courbe de Lissajous}
+$\left\{
+\begin{array}{l}
+x(t)=\sin(2t)\\
+y(t)=\sin(3t)
+\end{array}
+\right.$
+
+\medskip
+\textbf{Solution.}
+
+\begin{itemize}
+  \item Pour $t\in\Rr$, $M(t+2\pi)=M(t)$ et on obtient la courbe
+complète quand $t$ décrit $[-\pi,\pi]$.
+
+  \item Pour $t\in[-\pi,\pi]$,
+$M(-t)= \big(-\sin(2t),-\sin(3t)\big)=s_O\big(M(t)\big)$. On étudie et on
+construit la courbe pour $t\in[0,\pi]$, puis on obtient
+la courbe complète par
+symétrie centrale de centre $O$.
+
+  \item Pour $t\in[0,\pi]$,
+$M(\pi-t)=\big(\sin(2\pi-2t),\sin(3\pi-3t)\big)=\big(\sin(-2t),\sin(\pi-3t)\big)
+=\big(-\sin(2t),\sin(3t)\big)=s_{(Oy)}\big(M(t)\big)$.
+On étudie et on construit la courbe pour
+$t\in[0,\frac{\pi}{2}]$ (première figure),
+on effectue la réflexion d'axe $(Oy)$ (deuxième figure),
+puis on obtient la courbe complète par symétrie centrale de centre $O$ (troisième figure).
+\end{itemize}
+
+\myfigure{0.85}{
+\tikzinput{fig_courbes_part1_06a} \quad
+\tikzinput{fig_courbes_part1_06b}\quad
+\tikzinput{fig_courbes_part1_06}
+}
+
+\end{exemple}
+
+
+
+
+\begin{exemple}
+Déterminer un domaine d'étude le plus simple possible de l'arc
+$\left\{
+\begin{array}{l}
+x(t)=\dfrac{t}{1+t^4}\\
+y(t)=\dfrac{t^3}{1+t^4}
+\end{array}
+\right.$
+
+Indication : on pourra, entre autres, considérer la transformation $t\mapsto 1/t$.
+
+\medskip
+\textbf{Solution.}
+
+Pour tout réel $t$, $M(t)$ est bien défini.
+
+\begin{itemize}
+  \item Pour $t\in\Rr$, $M(-t)=s_O\big(M(t)\big)$.
+On étudie et on construit l'arc quand $t$ décrit $[0,+\infty[$, puis on obtient la courbe
+complète par symétrie centrale de centre $O$.
+
+  \item Pour $t\in]0,+\infty[$,
+\begin{eqnarray*}
+M\left(\frac{1}{t}\right)
+  &=& \left(\frac{1/t}{1+1/t^4},\frac{1/t^3}{1+1/t^4}\right)=
+\left(\frac{t^3}{1+t^4},\frac{t}{1+t^4}\right) \\
+  &=& \big(y(t),x(t)\big)=s_{(y=x)}\big(M(t)\big).
+\end{eqnarray*}
+Autrement dit, $M(t_2) = s_{(y=x)}\big(M(t_1)\big)$ avec $t_2=1/t_1$,
+et si $t_1\in]0,1]$ alors $t_2\in[1,+\infty[$.
+Puisque la
+fonction $t\mapsto\frac{1}{t}$ réalise une
+bijection de $[1,+\infty[$ sur $]0,1]$, alors on étudie et on construit
+la courbe quand $t$ décrit $]0,1]$ (première figure),
+puis on effectue la réflexion d'axe
+la première bissectrice (deuxième figure)
+puis on obtient la courbe complète par symétrie centrale de centre $O$ et
+enfin en plaçant le point $M(0)=(0,0)$ (troisième figure).
+\end{itemize}
+
+\myfigure{1}{
+\tikzinput{fig_courbes_part1_07a}\quad
+\tikzinput{fig_courbes_part1_07b}\quad
+\tikzinput{fig_courbes_part1_07}
+}
+
+\end{exemple}
+
+
+\begin{exemple}
+Déterminer un domaine d'étude le plus simple possible
+de l'arc $z=\frac{1}{3}\big(2e^{\ii t}+e^{-2\ii t}\big)$. En calculant $z(t+\frac{2\pi}{3})$,
+trouver une transformation géométrique
+simple laissant la courbe globalement invariante.
+
+\medskip
+\textbf{Solution.}
+
+\begin{itemize}
+  \item Pour $t\in\Rr$,
+$z(t+2\pi)=\frac{1}{3}\left(2e^{\ii(t+2\pi)}+e^{-2\ii(t+2\pi)}\right)
+=\frac{1}{3}\left(2e^{\ii t}+e^{-2\ii t}\right)=z(t)$.
+La courbe complète est obtenue quand $t$ décrit $[-\pi,\pi]$.
+
+  \item Pour $t\in[-\pi,\pi]$,
+$z(-t)=\frac{1}{3}\left(2e^{-\ii t}+e^{2\ii t}\right)
+=\overline{\frac{1}{3}\left(2e^{\ii t}+e^{-2\ii t}\right)}=\overline{z(t)}$.
+Donc, on étudie et on construit la courbe
+quand $t$ décrit $[0,\pi]$, la courbe complète étant alors
+obtenue par réflexion d'axe $(Ox)$ (qui correspond à la conjugaison).
+
+  \item Pour $t\in\Rr$,
+\begin{eqnarray*}
+z(t+\frac{2\pi}{3})
+&=&\frac{1}{3}\left(2e^{\ii(t+2\pi/3)}+e^{-2\ii(t+2\pi/3)}\right) \\
+&=&\frac{1}{3}\left(2e^{2\ii \pi/3}e^{\ii t}+e^{-4\ii \pi/3}e^{-2\ii t}\right)=e^{2\ii \pi/3}z(t).
+\end{eqnarray*}
+Le point
+$M(t+2\pi/3)$ est donc l'image du point $M(t)$ par la rotation
+de centre $O$ et d'angle $\frac{2\pi}{3}$. La courbe complète est
+ainsi invariante par la rotation de centre $O$
+et d'angle $\frac{2\pi}{3}$.
+\end{itemize}
+
+\myfigure{1.1}{
+\tikzinput{fig_courbes_part1_08}
+}
+
+
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Points simples, points multiples}
+
+
+\begin{definition}
+Soit $f : t\mapsto M(t)$ une courbe paramétrée et soit $A$ un point du plan.
+La \defi{multiplicité}\index{courbe!multiplicte@multiplicité} du point $A$ par rapport à la courbe $f$ est le nombre
+de réels $t$ pour lesquels $M(t)=A$.
+\end{definition}
+
+En termes plus savants : la multiplicité du point $A$ par rapport à l'arc $f$
+est $\text{Card}\big(f^{-1}(A)\big)$.
+
+\myfigure{0.7}{
+\tikzinput{fig_courbes_part1_09a}\qquad\qquad
+\tikzinput{fig_courbes_part1_09b}\qquad\qquad
+\tikzinput{fig_courbes_part1_09c}
+}
+
+
+\begin{itemize}
+\item Si $A$ est atteint une et une seule fois, sa multiplicité est $1$
+et on dit que le point $A$ est un \defi{point simple} de la courbe (première figure).
+
+\item Si $A$ est atteint pour deux valeurs distinctes du paramètre et
+deux seulement, on dit que $A$ est un \defi{point double}\index{point!double} de la courbe (deuxième figure).
+
+\item On parle de même de \defi{points triples} (troisième figure), \defi{quadruples},
+\ldots, \defi{multiples} (dès que le point est atteint au moins deux fois).
+
+%\item Si $A$ n'est pas sur le support de la courbe, par convention sa multiplicité est $0$.
+
+\item Une courbe dont tous les points sont simples est une
+\defi{courbe paramétrée simple}\index{courbe!simple}. Il revient au même de dire que l'application
+$t\mapsto M(t)$ est injective.
+\end{itemize}
+
+\bigskip
+
+Comment trouve-t-on les points multiples ?
+\mybox{
+\begin{minipage}{0.7\textwidth}
+\begin{center}
+Pour trouver les points multiples d'une courbe, \\
+on cherche les couples $(t,u)\in D^2$ tels que $t>u$ et \\
+$M(t)=M(u)$.
+\end{center}
+\end{minipage}
+}
+
+On se limite au couple $(t,u)$ avec $t>u$ afin de ne
+pas compter la solution redondante $(u,t)$ en plus de $(t,u)$.
+
+
+\begin{exemple}
+Trouver les points multiples de l'arc
+$\left\{
+\begin{array}{l}
+x(t)=2t+t^2\\
+y(t)=2t-\frac{1}{t^2}
+\end{array}
+\right.$, $t\in\Rr^*$.
+
+\myfigure{0.6}{
+\tikzinput{fig_courbes_part1_10}
+}
+
+\medskip
+\textbf{Solution.}
+
+Soit $(t,u)\in(\Rr^*)^2$ tel que $t>u$.
+\begin{align*}
+M(t)=M(u)
+&\iff\left\{
+\begin{array}{l}
+2t+t^2=2u+u^2\\
+2t-\frac{1}{t^2}=2u-\frac{1}{u^2}
+\end{array}
+\right.\iff\left\{
+\begin{array}{l}
+(t^2-u^2)+2(t-u)=0\\
+2(t-u)-\big(\frac{1}{t^2}-\frac{1}{u^2}\big)=0
+\end{array}
+\right.\\
+&\iff\left\{
+\begin{array}{l}
+(t-u)(t+u+2)=0\\
+(t-u)\big(2+\frac{t+u}{t^2u^2}\big)=0
+\end{array}
+\right.\\
+&\iff\left\{
+\begin{array}{l}
+t+u+2=0\\
+2+\frac{t+u}{t^2u^2}=0
+\end{array}
+\right.\;(\text{car}\;t-u\neq0) \\
+&\iff\left\{
+\begin{array}{l}
+S+2=0\\
+2+\frac{S}{P^2}=0
+\end{array}
+\right.\;(\text{en posant}\;S=t+u\;\text{et}\;P=tu)
+\\
+ &\iff\left\{
+\begin{array}{l}
+S=-2\\
+P^2=1
+\end{array}
+\right.\iff\left\{
+\begin{array}{l}
+S=-2\\
+P=1
+\end{array}
+\right.\;\text{ou}\;\left\{
+\begin{array}{l}
+S=-2\\
+P=-1
+\end{array}
+\right.
+\\
+ &\iff t\ \text{ et }\ u\ \text{ sont les deux solutions de }
+ \left\{\begin{array}{ll}
+  & X^2+2X+1=0 \\
+  \text{ ou } & X^2+2X-1=0 \\
+\end{array}\right.
+\\
+ &\iff t=-1+\sqrt{2}\quad\text{et}\quad u=-1-\sqrt{2}\quad(\text{car}\;t>u).
+\end{align*}
+
+
+
+
+Il nous reste à déterminer où est ce point double $M(t)=M(u)$.
+Fixons $t=-1+\sqrt{2}$ et $u=-1-\sqrt{2}$.
+De plus, $x(t)=t^2+2t=1$ (puisque pour cette valeur de $t$, $t^2+2t-1=0$). Ensuite, en
+divisant les deux membres de l'égalité $t^2+2t=1$
+par $t^2$, nous déduisons  $\frac{1}{t^2}=1+\frac{2}{t}$,
+puis, en divisant les deux membres de l'égalité $t^2+2t=1$ par $t$,
+nous déduisons $\frac{1}{t}=t+2$. Par suite, $y(t)=2t-(1+2(t+2))=-5$.
+La courbe admet un point double, le point de coordonnées $(1,-5)$.
+\end{exemple}
+
+\begin{remarque*}
+Dans cet exercice, les expressions utilisées sont des fractions
+rationnelles, ou encore, une fois réduites au même dénominateur,
+puis une fois les dénominateurs éliminés, les expressions sont polynomiales.
+Or, à $u$ donné, l'équation $M(t)=M(u)$, d'inconnue $t$, admet bien sûr la
+solution $t=u$. En conséquence, on doit systématiquement pouvoir mettre en
+facteur $(t-u)$, ce que nous avons fait en regroupant les termes analogues :
+nous avons écrit tout de suite $(t^2-u^2)+2(t-u)=0$ et non pas $t^2+2t-u^2-2u=0$.
+Le facteur $t-u$ se simplifie alors car il est non nul.
+\end{remarque*}
+
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Représenter graphiquement chacune des transformations du plan
+  qui servent à réduire l'intervalle d'étude.
+
+  \item Pour la courbe de Lissajous définie par $x(t)=\sin(2t)$ et
+  $y(t)=\sin(3t)$, montrer que la courbe est symétrique par rapport à
+  l'axe $(Ox)$. Exprimer cette symétrie en fonction de celles déjà trouvées :
+  $s_O$ et $s_{(Oy)}$.
+
+
+
+  \item Trouver les symétries et les points multiples de la courbe définie par
+  $x(t) = \frac{1-t^2}{1+t^2}$ et $y(t) = t \frac{1-t^2}{1+t^2}$.
+
+  \item Trouver un intervalle d'étude pour l'astroïde définie par $x(t) = \cos^3 t$,
+  $y(t) = \sin^3 t$.
+
+  \item Trouver un intervalle d'étude pour la cycloïde définie par $x(t) = r(t-\sin t)$,
+  $y(t) = r(1-\cos t)$. Montrer que la cycloïde n'a pas de points multiples.
+
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Tangente à une courbe paramétrée}
+
+
+%---------------------------------------------------------------
+\subsection{Tangente à une courbe}
+
+Soit $f : t\mapsto M(t)$, $t\in D\subset\Rr$, une courbe.
+Soit $t_0\in D$. On veut définir la tangente en $M(t_0)$.
+
+
+\myfigure{0.7}{
+\tikzinput{fig_courbes_part2_01}\qquad
+\tikzinput{fig_courbes_part2_02}
+}
+
+On doit déjà prendre garde au fait que lorsque ce point $M(t_0)$ est un point multiple de la courbe,
+alors la courbe peut tout à fait avoir plusieurs tangentes en ce point (figure de droite).
+Pour éviter cela, on supposera que la courbe est
+\defi{localement simple en $t_0$}, c'est-à-dire qu'il existe un intervalle
+ouvert non vide $I$ de centre $t_0$ tel que l'équation $M(t)=M(t_0)$
+admette une et une seule solution dans $D\cap I$, à savoir $t=t_0$ (figure de gauche). Il
+revient au même de dire que l'application $t\mapsto M(t)$ est
+\emph{localement injective}. Dans tout ce paragraphe, nous supposerons
+systématiquement que cette condition est réalisée.
+
+
+\bigskip
+
+Soit $f : t\mapsto M(t)$, $t\in D\subset\Rr$, une courbe paramétrée et
+soit $t_0\in D$. On suppose que la courbe est localement simple en $t_0$.
+\begin{definition}[Tangente]
+On dit que la courbe admet une tangente en $M(t_0)$ si la droite $(M(t_0)M(t))$
+admet une position limite quand $t$ tend vers $t_0$. Dans ce cas,
+la droite limite est la \defi{tangente}\index{tangente}\index{courbe!tangente} en $M(t_0)$.
+\end{definition}
+
+\myfigure{1.2}{
+\tikzinput{fig_courbes_part2_03}
+}
+
+%---------------------------------------------------------------
+\subsection{Vecteur dérivé}
+
+On sait déjà que la tangente en $M(t_0)$, quand elle existe, passe
+par le point $M(t_0)$. Mais il nous manque sa direction. Pour
+$t\neq t_0$, un vecteur directeur de la droite $(M(t_0)M(t))$ est
+le vecteur $\overrightarrow{M(t_0)M(t)}
+=\left(\begin{smallmatrix}
+x(t)-x(t_0)\\
+y(t)-y(t_0)
+\end{smallmatrix}\right)$
+(rappelons que ce vecteur est supposé non nul pour $t$ proche
+de $t_0$ et distinct de $t_0$). Quand $t$ tend vers $t_0$, les coordonnées
+de ce vecteur tendent vers $0$ ; autrement dit le vecteur $\overrightarrow{M(t_0)M(t)}$
+tend (malheureusement) vers $\overrightarrow{0}$. Le vecteur nul n'indique
+aucune direction particulière et nous ne connaissons toujours pas la
+direction limite de la droite $(M(t_0)M(t))$. Profitons-en néanmoins
+pour définir la notion de limite et de continuité d'une fonction à valeurs dans $\Rr^2$.
+
+\begin{definition}
+Soit $t\mapsto M(t)=\big(x(t),y(t)\big)$, $t\in D\subset\Rr$, une courbe paramétrée
+et soit $t_0\in D$.
+La courbe est \defi{continue en $t_0$} si et seulement si les fonctions $x$ et
+$y$ sont continues en $t_0$.
+La courbe est \defi{continue sur $D$} si et seulement si elle est continue en tout point de $D$.
+\end{definition}
+
+
+En d'autres termes la courbe est continue en $t_0$ si et seulement si
+$x(t) \to x(t_0)$ \evidence{et} $y(t) \to y(t_0)$, lorsque $t\to t_0$.
+
+
+
+Revenons maintenant à notre tangente. Un autre vecteur directeur
+de la droite $(M(t_0)M(t))$ est le vecteur
+$$\frac{1}{t-t_0}\overrightarrow{M(t_0)M(t)}=\left(\begin{array}{c}
+\frac{x(t)-x(t_0)}{t-t_0}\\
+\frac{y(t)-y(t_0)}{t-t_0}
+\end{array}
+\right).$$
+
+On a multiplié le vecteur $\overrightarrow{M(t_0)M(t)}$
+par le réel $\frac{1}{t-t_0}$.
+Remarquons que chaque coordonnée de ce vecteur est un taux d'accroissement,
+dont on cherche la limite.
+D'où la définition :
+
+\begin{definition}
+Soient $t\mapsto M(t)=(x(t),y(t))$, $t\in D\subset\Rr$, une courbe paramétrée
+et $t_0\in D$. La courbe est \defi{dérivable en $t_0$} si et seulement si les fonctions
+$x$ et $y$ le sont. Dans ce cas, le \defi{vecteur dérivé}\index{vecteur derive@vecteur dérivé} de la courbe en $t_0$ est le vecteur
+$\left(
+\begin{matrix}
+x'(t_0)\\
+y'(t_0)
+\end{matrix}
+\right)$.
+Ce vecteur se note $\overrightarrow{\dfrac{\dd M}{\dd t}}(t_0)$.
+\end{definition}
+
+
+
+Cette notation se justifie car dans le vecteur
+$\frac{1}{t-t_0}\overrightarrow{M(t_0)M(t)}$,
+dont on cherche la limite, $\overrightarrow{M(t_0)M(t)}$
+peut s'écrire $M(t) - M(t_0)$ (on rappelle
+qu'une différence de deux points $B-A$ est un vecteur $\overrightarrow{AB}$).
+Ainsi :
+$$\overrightarrow{\dfrac{\dd M}{\dd t}}(t_0)
+=\text{\og}
+\overrightarrow{\dfrac{\text{\small{différence infinitésimale de}}\;M}
+{\text{\small{différence infinitésimale de}}\;t}}\;\text{en}\;t_0\text{\fg}$$
+
+\myfigure{1.3}{
+\tikzinput{fig_courbes_part2_04}
+}
+
+%---------------------------------------------------------------
+\subsection{Tangente en un point régulier}
+
+
+Si le vecteur dérivé $\overrightarrow{\frac{\dd M}{\dd t}}(t_0)$ n'est pas nul,
+celui-ci indique effectivement la direction limite de la droite
+$(M(t_0)M(t))$. Nous étudierons plus tard le cas où le
+vecteur dérivé est nul.
+
+\begin{definition}
+Soit $t\mapsto M(t)$, $t\in D\subset\Rr$, une courbe dérivable sur
+$D$ et soit $t_0$ un réel de $D$.
+\begin{itemize}
+  \item Si $\overrightarrow{\frac{\dd M}{\dd t}}(t_0)\neq\vec{0}$,
+le point $M(t_0)$ est dit \defi{régulier}.
+
+  \item Si $\overrightarrow{\frac{\dd M}{\dd t}}(t_0)=\vec{0}$,
+  le point $M(t_0)$ est dit \defi{singulier}.
+
+  \item Une courbe dont tous les points sont réguliers est
+appelée \defi{courbe régulière}\index{courbe!reguliere@régulière}.
+\end{itemize}
+\end{definition}
+
+
+
+\textbf{Interprétation cinématique.} Si $t$ est le temps,
+le vecteur dérivé $\overrightarrow{\frac{\dd M}{\dd t}}(t_0)$ est
+le \emph{vecteur vitesse} au point $M(t_0)$.
+Un point singulier, c'est-à-dire un point en lequel
+la vitesse est nulle, s’appellera alors plus volontiers
+\emph{point stationnaire}.
+D'un point de vue cinématique, il est logique
+que le vecteur vitesse en un point, quand il est non nul,
+dirige la tangente à la trajectoire en ce point.
+C'est ce qu'exprime le théorème suivant, qui découle directement
+de notre étude du vecteur dérivé :
+
+\begin{theoreme}
+En tout point régulier d'une courbe dérivable, cette courbe admet une tangente.
+La tangente en un point régulier est dirigée par le vecteur dérivé en ce point.
+\end{theoreme}
+
+\myfigure{1}{
+\tikzinput{fig_courbes_part2_05}
+}
+
+
+Si $\overrightarrow{\frac{\dd M}{\dd t}}(t_0)\neq\vec{0}$,
+une équation de la tangente $T_0$ en $M(t_0)$ est donc fournie par :
+\mybox{
+$M(x,y)\in T_0 \iff \left|
+\begin{array}{cc}
+x-x(t_0)&x'(t_0)\\
+y-y(t_0)&y'(t_0)
+\end{array}
+\right|=0 \iff y'(t_0)\big(x-x(t_0)\big)-x'(t_0)\big(y-y(t_0)\big)=0.$
+}
+
+\begin{exemple}
+Trouver les points où la tangente à la courbe de Lissajous
+$\left\{
+\begin{array}{l}
+x(t)=\sin(2t)\\
+y(t)=\sin(3t)
+\end{array}
+\right.$, $t\in [-\pi,\pi]$,
+est verticale, puis horizontale.
+
+
+\medskip
+\textbf{Solution.}
+
+Tout d'abord, par symétries, on limite notre étude sur $t\in[0,\frac\pi2]$.
+Or au point $M(t) = \left(\begin{smallmatrix} \sin(2t) \\ \sin(3t)\end{smallmatrix}\right)$,
+le vecteur dérivé est
+$$\overrightarrow{\frac{\dd M}{\dd t}}
+= \left(\begin{matrix} x'(t) \\ y'(t) \end{matrix}\right)
+= \left(\begin{matrix} 2\cos(2t) \\ 3\cos(3t)\end{matrix}\right).$$
+
+Quand est-ce que la première coordonnée de ce vecteur dérivé est nul
+(sur $t\in[0,\frac\pi2]$) ?
+$$x'(t) = 0 \iff 2\cos(2t) = 0 \iff t = \frac\pi4$$
+Et pour la seconde :
+$$y'(t) = 0 \iff 3\cos(3t) = 0 \iff t = \frac\pi6  \quad\text{ ou }\quad t=\frac\pi2$$
+
+Les deux coordonnées ne s'annulent jamais en même temps, donc
+le vecteur dérivé n'est jamais nul, ce qui prouve que tous les points sont réguliers,
+et le vecteur dérivé dirige la tangente.
+
+La tangente est verticale lorsque le vecteur dérivé est vertical,
+ce qui équivaut à $x'(t) = 0$, autrement dit en $M(\frac\pi4)$.
+La tangente est horizontale lorsque le vecteur dérivé est horizontal,
+ce qui équivaut à $y'(t) = 0$, autrement dit en $M(\frac\pi6)$
+et en $M(\frac\pi2)$.
+
+\myfigure{1}{
+\tikzinput{fig_courbes_part2_06}
+}
+
+On trouve les autres tangentes horizontales et verticales par symétrie.
+\end{exemple}
+
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+\item Une courbe peut avoir une tangente verticale, contrairement à ce
+à quoi on est habitué pour les graphes de fonctions du type $y=f(x)$.
+
+\item Par contre dans le cas d'une paramétrisation cartésienne du type $\left\{
+\begin{array}{l}
+x(t)=t\\
+y(t)=f(t)
+\end{array}
+\right.$ qui est une paramétrisation du graphe de la fonction (dérivable)
+$f$ (où cette fois-ci $f$ est à valeurs dans $\Rr$),
+le vecteur dérivé en $t_0=x_0$ est $\left(
+\begin{smallmatrix}
+1\\
+f'(x_0)
+\end{smallmatrix}
+\right)$. Celui-ci n'est jamais nul puisque sa première coordonnée
+est non nulle. Ainsi, une paramétrisation cartésienne dérivable
+est toujours régulière. De plus, pour la même raison, ce vecteur n'est jamais vertical.
+\end{itemize}
+
+\end{remarque*}
+
+
+%---------------------------------------------------------------
+\subsection{Dérivation d'expressions usuelles}
+
+On généralise un peu l'étude précédente.
+Voici comment dériver le produit scalaire de deux fonctions vectorielles ainsi
+que la norme.
+
+\begin{theoreme}
+Soient $f$ et $g$ deux applications définies sur un domaine $D$ de $\Rr$
+à valeurs dans $\Rr^2$ et soit $t_0\in D$. On suppose que $f$ et $g$ sont dérivables en $t_0$. Alors :
+\begin{enumerate}
+\item L'application
+$t\mapsto \big\langle f(t) \mid {g}(t) \big\rangle$
+est dérivable en $t_0$ et
+$$\frac{\dd \big\langle {f} \mid {g} \big\rangle}{\dd t}(t_0)
+=\big\langle {\frac{\dd {f}}{\dd t}}(t_0) \mid {g}(t_0)\big\rangle+
+\big\langle {f}(t_0) \mid {\frac{\dd {g}}{\dd t}}(t_0)\big\rangle.$$
+\item Si ${f}(t_0)\neq\vec{0}$, l'application
+$t\mapsto\|{f}(t)\|$ est dérivable en $t_0$ et, dans ce cas,
+$$\frac{\dd\|{f}\|}{\dd t}(t_0)
+=\frac{\big\langle {f}(t_0) \mid
+{\frac{\dd {f}}{\dd t}}(t_0)\big\rangle}{\|{f}(t_0)\|}.$$
+\end{enumerate}
+\end{theoreme}
+
+\begin{proof}
+Le produit scalaire et la norme sont des fonctions de $D$ dans $\Rr$.
+\begin{enumerate}
+\item Posons ${f}=(x_1,y_1)$ et ${g}=(x_2,y_2)$.
+Alors $\langle{f}\mid{g}\rangle=x_1x_2+y_1y_2$ est dérivable en $t_0$ et
+$$\big\langle{f}\mid{g}\big\rangle'(t_0)
+=(x_1'x_2+x_1x_2'+y_1'y_2+y_1y_2')(t_0)
+=\big\langle{f}'\mid{g}\big\rangle(t_0)+
+\big\langle{f}\mid{g}'\big\rangle(t_0).$$
+
+\item La fonction $\big\langle{f}\mid{f}\big\rangle$ est positive,
+strictement positive en $t_0$ et est dérivable en $t_0$. D'après
+le théorème de dérivation des fonctions composées, la fonction
+$\|{f}\|=\sqrt{\big\langle{f}\mid{f}\big\rangle}$
+est dérivable en $t_0$ et
+$$\big(\|{f}\|\big)'(t_0)
+=\frac{1}{2\sqrt{\big\langle{f}\mid{f}\big\rangle}}
+\left(\big\langle{f}'\mid{f}\big\rangle
++\big\langle{f}\mid{f}'\big\rangle\right)(t_0)
+=\frac{\big\langle{f}\mid{f}'\big\rangle}
+{\|{f}\|}(t_0).$$
+
+
+\end{enumerate}
+\end{proof}
+
+\begin{exemple}
+Soit  $t\mapsto M(t)=(\cos t,\sin t)$ une
+paramétrisation du cercle de centre $O$ et de rayon $1$. Pour tout
+réel $t$, on a $OM(t)=1$ ou encore $\|\overrightarrow{OM(t)}\|=1$.
+En dérivant cette fonction constante, on obtient : $\forall t\in\Rr$,
+$\big\langle \overrightarrow{OM(t)} \mid \overrightarrow{\frac{\dd M}{\dd t}}(t) \big\rangle =0$ et on
+retrouve le fait que la tangente au cercle au point $M(t)$ est
+orthogonale au rayon $\overrightarrow{OM(t)}$.
+
+\myfigure{1}{
+\tikzinput{fig_courbes_part2_07}
+}
+\end{exemple}
+
+\begin{theoreme}
+Soient ${f}$, ${g}$ deux applications définies sur un domaine $D$
+de $\Rr$ à valeurs dans $\Rr^2$ et $\lambda$ une application de $D$
+dans $\Rr$. Soit $t_0\in D$. On suppose que ${f}$, ${g}$ et $\lambda$ sont
+dérivables en $t_0$. Alors, ${f}+{g}$ et $\lambda {f}$ sont dérivables en $t_0$, et
+$${\frac{\dd({f}+{g})}{\dd t}}(t_0)
+={\frac{\dd {f}}{\dd t}}(t_0)+{\frac{\dd {g}}{\dd t}}(t_0)$$
+$$\text{ et } \qquad {\frac{\dd(\lambda \cdot {f})}{\dd t}}(t_0)
+=\lambda'(t_0){f}(t_0)+\lambda(t_0){\frac{\dd {f}}{\dd t}}(t_0).$$
+\end{theoreme}
+
+
+
+\begin{proof}
+Posons ${f}=(x_1,y_1)$ et ${g}=(x_2,y_2)$. Alors
+$$({f}+{g})'(t_0)=(x_1+x_2,y_1+y_2)'(t_0)
+=(x_1'+x_2',y_1'+y_2')(t_0)={f}'(t_0)+{g}'(t_0),$$
+et aussi
+\begin{multline*}
+(\lambda{f})'(t_0)=(\lambda x_1,\lambda y_1)'(t_0)
+=(\lambda'x_1+\lambda x_1',\lambda'y_1+\lambda y_1')(t_0)\\
+=\lambda'(x_1,y_1)(t_0)+\lambda(x_1',y_1')(t_0)
+=(\lambda'{f}+\lambda{f}')(t_0).
+\end{multline*}
+\end{proof}
+
+
+De même, toujours en travaillant sur les coordonnées, on établit aisément que :
+\begin{theoreme}
+Soient $t\mapsto\theta(t)$ une application dérivable sur un domaine
+$D$ de $\Rr$ à valeurs dans un domaine $D'$ de $\Rr$ et $u\mapsto {f}(u)$
+une application dérivable sur $D'$ à valeurs dans $\Rr^2$. Alors
+${f}\circ\theta$ est dérivable sur $D$ et, pour $t_0\in D$,
+$${\frac{\dd({f}\circ\theta)}{\dd t}}(t_0)
+=\theta'(t_0) \cdot {\dfrac{\dd {f}}{\dd t}}\big(\theta(t_0)\big).$$
+\end{theoreme}
+
+
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soit la courbe définie par $x(t)= t^5-4t^3$, $y(t)=t^2$.
+  Calculer le vecteur dérivé en chaque point. Déterminer le point singulier.
+  Calculer une équation de la tangente au point $(3,1)$.
+  Calculer les équations de deux tangentes au point $(0,4)$.
+
+  \item Soit $f$ une fonction dérivable de $D \subset \Rr$ dans $\Rr^2$.
+  Calculer la dérivée de l'application $t \mapsto \| f(t) \|^2$.
+
+  \item Calculer le vecteur dérivé en tout point de l'astroïde définie par $x(t) = \cos^3 t$,
+  $y(t) = \sin^3 t$. Quels sont les points singuliers ? Trouver une expression simple pour
+  la pente de tangente en un point régulier.
+
+  \item Calculer le vecteur dérivé en tout point de la cycloïde définie par
+  $x(t) = r(t-\sin t)$,  $y(t) = r(1-\cos t)$. Quels sont les points singuliers ?
+  En quels points la tangente est-elle horizontale ? En quels points la tangente est-elle
+  parallèle à la bissectrice d'équation $(y=x)$ ?
+
+\end{enumerate}
+\end{miniexercices}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Points singuliers -- Branches infinies}
+
+
+%---------------------------------------------------------------
+\subsection{Tangente en un point singulier}
+
+
+Rappelons qu'un point $M(t_0)$ d'une courbe paramétrée $M(t) = \big( x(t),y(t)\big)$
+est dit \defi{point singulier}\index{point!singulier} si le vecteur dérivé en ce point est nul,
+c'est-à-dire si $\overrightarrow{\frac{\dd M}{\dd t}}(t_0)=\vec{0}$,
+ou autrement dit si $\big( x'(t_0), y'(t_0)\big) = (0,0)$.
+Lorsque le vecteur dérivé est nul, il n'est d'aucune utilité pour
+la recherche d'une tangente.
+Pour obtenir une éventuelle tangente en un point singulier,
+le plus immédiat est de revenir à la définition en étudiant
+la direction limite de la droite $(M(t_0)M(t))$, par exemple
+en étudiant la limite du coefficient directeur de cette droite
+dans le cas où cette droite n'est pas parallèle à $(Oy)$.
+En supposant que c'est le cas :
+
+\mybox
+{
+\begin{minipage}{0.7\textwidth}
+\begin{center}
+En un point $M(t_0)$ singulier, on étudie
+$\displaystyle \lim_{t\rightarrow t_0}\frac{y(t)-y(t_0)}{x(t)-x(t_0)}$.\\
+Si cette limite est un réel $\ell$, la tangente en $M(t_0)$
+existe et a pour coefficient directeur $\ell$.\\
+Si cette limite existe mais est infinie, la tangente en $M(t_0)$
+existe et est verticale.
+\end{center}
+\end{minipage}
+}
+
+\begin{exemple}
+Trouver les points singuliers de la courbe
+$\left\{
+\begin{array}{l}
+x(t)=3t^2\\
+y(t)=2t^3\\
+\end{array}\right.$.
+Donner une équation cartésienne de la tangente en tout point de la courbe.
+
+\medskip
+\textbf{Solution.}
+
+\begin{itemize}
+  \item \textbf{Calcul du vecteur dérivé.}
+  Pour $t\in\Rr$,
+  $\overrightarrow{\frac{\dd M}{\dd t}}(t)=\left(\begin{smallmatrix}
+6t\\6t^2\end{smallmatrix}\right)$.
+Ce vecteur est nul si et seulement si $6t=6t^2=0$ ou encore $t=0$. Tous
+les points de la courbe sont réguliers, à l'exception de $M(0)$.
+
+  \item \textbf{Tangente en $M(0)$.}
+  Pour $t\neq 0$,
+$\frac{y(t)-y(0)}{x(t)-x(0)}=\frac{2t^3}{3t^2}=\frac{2t}{3}$.
+Quand $t$ tend vers $0$, cette expression tend vers $0$. L'arc
+admet une tangente en $M(0)$ et cette tangente est la droite
+passant par $M(0)=(0,0)$ et de pente $0$ : c'est l'axe $(Ox)$ (d'équation $y=0$).
+
+
+  \item \textbf{Tangente en $M(t)$, $t\neq0$.}
+  Pour $t\in\Rr^*$, la courbe admet en $M(t)$ une tangente dirigée
+  par $\overrightarrow{\frac{\dd M}{\dd t}}(t)
+=\left(\begin{smallmatrix}6t\\6t^2\end{smallmatrix}\right)$
+ou aussi par le vecteur
+$\frac{1}{6t}\left(\begin{smallmatrix}
+6t\\6t^2\end{smallmatrix}\right)
+=\left(\begin{smallmatrix}1\\t\end{smallmatrix}\right)$.
+Une équation de la tangente en $M(t)$ est donc $t(x-3t^2)-(y-2t^3)=0$
+ou encore $y=tx-t^3$ (ce qui reste valable en $t=0$).
+
+
+\end{itemize}
+
+\myfigure{1}{
+\tikzinput{fig_courbes_part3_01}
+}
+
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+\subsection{Position d'une courbe par rapport à sa tangente}
+
+
+Quand la courbe arrive en $M(t_0)$, le long de sa tangente, on a
+plusieurs possibilités :
+\begin{itemize}
+  \item la courbe continue dans le même sens, sans traverser la tangente :
+  c'est un \defi{point d'allure ordinaire}\index{point!d'allure ordinaire},
+
+  \item la courbe continue dans le même sens, en traversant la tangente :
+  c'est un \defi{point d'inflexion}\index{point!d'inflexion},
+
+  \item la courbe rebrousse chemin le long de
+cette tangente en la traversant, c'est un
+\defi{point de rebroussement de première espèce}\index{point!de rebroussement},
+
+  \item la courbe rebrousse chemin le long de
+cette tangente sans la traverser, c'est un
+\defi{point de rebroussement de seconde espèce}.
+
+\end{itemize}
+
+\myfigure{1}{
+\begin{tabular}{cc}
+\tikzinput{fig_courbes_part3_02}&
+\tikzinput{fig_courbes_part3_03}\\[3mm]
+\tikzinput{fig_courbes_part3_04}&
+\tikzinput{fig_courbes_part3_05}\\
+\end{tabular}
+}
+
+Intuitivement, on ne peut rencontrer des points de rebroussement qu'en
+un point stationnaire, car en un point où la vitesse est non nulle,
+on continue son chemin dans le même sens.
+
+\bigskip
+
+Pour déterminer de façon systématique la position de la courbe par rapport à sa tangente
+en un point singulier $M(t_0)$,
+on effectue un développement limité des coordonnées de $M(t) = \big(x(t),y(t)\big)$
+au voisinage de $t=t_0$.
+Pour simplifier l'expression on suppose $t_0=0$.
+On écrit
+$$M(t) = M(0) + t^p \vec{v} + t^q \vec{w} +t^q \vec{\epsilon}(t)$$
+où :
+\begin{itemize}
+  \item $p<q$ sont des entiers,
+  \item $\vec{v}$ et $\vec{w}$ sont des vecteurs non colinéaires,
+  \item $\vec{\epsilon}(t)$ est un vecteur, tel que $\|\vec{\epsilon}(t)\| \to 0$
+  lorsque $t\to t_0$.
+\end{itemize}
+
+En un tel point $M(0)$, la courbe $\mathcal{C}$ admet une tangente, dont un vecteur directeur est
+$\vec{v}$. La position de la courbe $\mathcal{C}$ par rapport à cette tangente
+est donnée par la parité de $p$ et $q$ :
+
+\myfigure{1}{
+\begin{tabular}{cc}
+\tikzinput{fig_courbes_part3_06}&
+\tikzinput{fig_courbes_part3_07}\\[3mm]
+\tikzinput{fig_courbes_part3_08}&
+\tikzinput{fig_courbes_part3_09}\\
+\end{tabular}
+}
+
+Prenons par exemple $M(t) = t^2 \vec{v} + t^5 \vec{w}$.
+Donc $p=2$ et $q=5$.
+Lorsque $t$ passe d'une valeur négative à positive,
+$t^2$ s'annule mais en restant positif,
+donc la courbe arrive au point le long de la tangente (dirigée par $\vec{v}$)
+et rebrousse chemin en sens inverse.
+Par contre $t^5$ change de signe, donc la courbe franchit la tangente au point singulier.
+C'est bien un point de rebroussement de première espèce.
+\myfigure{1}{
+\tikzinput{fig_courbes_part3_01bis}
+}
+
+\bigskip
+
+
+Voyons un exemple de chaque situation.
+
+\begin{exemple}
+Étudier le point singulier à l'origine de
+$\left\{\begin{array}{l} x(t) = t^5\\ y(t) = t^3\end{array}\right..$
+
+\medskip
+\textbf{Solution.}
+
+En $M(0)=(0,0)$, il y a bien un point singulier.
+On écrit
+$$M(t) = t^3 \begin{pmatrix}0\\1\end{pmatrix} + t^5
+\begin{pmatrix}1\\0\end{pmatrix}.$$
+Ainsi $p=3$, $q=5$,
+$\vec{v}=\left(\begin{smallmatrix}0\\1\end{smallmatrix}\right)$,
+$\vec{w}=\left(\begin{smallmatrix}1\\0\end{smallmatrix}\right)$.
+La tangente, dirigée par $\vec{v}$, est verticale à l'origine.
+Comme $p=3$ est impair alors $t^3$ change de signe en $0$,
+donc la courbe continue le long de la tangente, et comme $q=5$ est aussi
+impair, la courbe franchit la tangente au point singulier.
+C'est un point d'inflexion.
+
+
+\myfigure{1}{
+\tikzinput{fig_courbes_part3_10}
+}
+
+\end{exemple}
+
+
+\begin{exemple}
+Étudier le point singulier à l'origine de
+$\left\{\begin{array}{l} x(t) = 2t^2\\ y(t) = t^2 - t^3\end{array}\right..$
+
+\medskip
+\textbf{Solution.}
+
+En $M(0)=(0,0)$, il y a bien un point singulier.
+On écrit
+$$M(t) = t^2 \begin{pmatrix}2\\1\end{pmatrix} + t^3
+\begin{pmatrix}0\\-1\end{pmatrix}.$$
+Ainsi $p=2$, $q=3$,
+$\vec{v}=\left(\begin{smallmatrix}2\\1\end{smallmatrix}\right)$,
+$\vec{w}=\left(\begin{smallmatrix}0\\-1\end{smallmatrix}\right)$.
+C'est un point de rebroussement de première espèce.
+
+\myfigure{1}{
+\tikzinput{fig_courbes_part3_11}
+}
+
+\end{exemple}
+
+
+
+\begin{exemple}
+Étudier le point singulier en $(1,0)$ de
+$\left\{\begin{array}{l} x(t) = 1+t^2+\frac12t^3 \\ y(t) = t^2 + \frac12t^3 + 2t^4 \end{array}\right..$
+
+\medskip
+\textbf{Solution.}
+
+On écrit
+$$M(t) = \begin{pmatrix}1\\0\end{pmatrix}
++ t^2 \begin{pmatrix}1\\1\end{pmatrix}
++ t^3 \begin{pmatrix}\frac12\\\frac12\end{pmatrix}
++ t^4 \begin{pmatrix}0\\2\end{pmatrix}.$$
+On a donc $p=2$ avec $\vec{v}=\left(\begin{smallmatrix}1\\1\end{smallmatrix}\right)$,
+par contre le vecteur $\vec{v}'=\left(\begin{smallmatrix}\frac12\\\frac12\end{smallmatrix}\right)$
+est colinéaire à $\vec{v}$, donc $q=4$ et
+$\vec{w}=\left(\begin{smallmatrix}0\\2\end{smallmatrix}\right)$.
+C'est un point de rebroussement de seconde espèce.
+
+\myfigure{1}{
+\tikzinput{fig_courbes_part3_12}
+}
+
+\end{exemple}
+
+
+
+\begin{exemple}
+Étudier le point singulier à l'origine de
+$\left\{\begin{array}{l} x(t) = t^2\ln(1+t) \\ y(t) = t^2\left(\exp(t^2) -1\right) \end{array}\right..$
+
+\medskip
+\textbf{Solution.}
+
+On écrit
+$$x(t) = t^3 - \frac{t^4}{2} + t^4 \epsilon_1(t)
+\qquad
+y(t) = t^4 + t^4 \epsilon_2(t)$$
+et ainsi
+$$M(t) =  t^3 \begin{pmatrix}1\\0\end{pmatrix} + t^4
+\begin{pmatrix}-1/2\\1\end{pmatrix}+t^4 \vec{\epsilon}(t).$$
+On a donc $p=3$, $q=4$ et c'est un point d'allure ordinaire.
+
+\myfigure{1.2}{
+\tikzinput{fig_courbes_part3_13}
+}
+
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Branches infinies}
+
+Dans ce paragraphe, la courbe $f : t\mapsto M(t)$ est définie sur un intervalle
+$I$ de $\Rr$. On note aussi $\mathcal{C}$ la courbe
+et $t_0$ désigne l'une des bornes de $I$ et n'est pas dans $I$
+($t_0$ est soit un réel, soit $-\infty$, soit $+\infty$).
+
+
+\begin{definition}
+Il y a \defi{branche infinie}\index{branche infinie} en $t_0$ dès que l'une au moins des deux
+fonctions $|x|$ ou $|y|$ tend vers l'infini quand $t$ tend vers $t_0$.
+Il revient au même de dire que $\lim_{t \to t_0}\|f(t)\|=+\infty$.
+\end{definition}
+
+Pour chaque branche infinie, on cherche s'il existe une asymptote,
+c'est-à-dire une droite qui approxime cette branche infinie.
+La droite d'équation $y = ax+b$ est \defi{asymptote}\index{asymptote} à $\mathcal{C}$
+si $y(t) - \big( a x(t) + b \big) \to 0$, lorsque $t \to t_0$.
+
+
+Dans la pratique, on mène l'étude suivante :
+\begin{enumerate}
+\item Si, quand $t$ tend vers $t_0$, $x(t)$ tend vers $+\infty$ (ou
+$-\infty$) et $y(t)$ tend vers un réel $\ell$, la droite d'équation
+$y=\ell$ est \defi{asymptote horizontale} à $\mathcal{C}$.
+
+\item Si, quand $t$ tend vers $t_0$, $y(t)$ tend vers $+\infty$ (ou
+$-\infty$) et $x(t)$ tend vers un réel $\ell$, la droite d'équation
+$x=\ell$ est \defi{asymptote verticale} à $\mathcal{C}$.
+\end{enumerate}
+
+
+
+Si, quand $t$ tend vers $t_0$, $x(t)$ et $y(t)$ tendent vers
+$+\infty$ (ou $-\infty$), il faut affiner. Le cas le plus important est le suivant :
+\begin{definition}
+La droite d'équation
+$y=ax+b$ est \defi{asymptote oblique} à la courbe $\big(x(t),y(t) \big)$ si :
+\begin{enumerate}
+  \item $\frac{y(t)}{x(t)}$ tend vers un réel non nul $a$,
+  \item $y(t)-ax(t)$ tend vers un réel $b$ (nul ou pas).
+\end{enumerate}
+\end{definition}
+
+% \begin{enumerate}
+% \item Si $\frac{y(t)}{x(t)}$ tend vers $0$, la courbe
+% admet une \evidence{branche parabolique} de direction asymptotique
+% d'équation $y=0$ (mais il n'y a pas d'asymptote).
+%
+% \item Si $\frac{y(t)}{x(t)}$ tend vers $+\infty$
+% (ou $-\infty$), la courbe admet une \evidence{branche parabolique}
+% de direction asymptotique d'équation $x=0$ (mais il n'y a pas d'asymptote).
+%
+% \item Si $\frac{y(t)}{x(t)}$ tend vers un réel
+% \textbf{non nul} $a$, la courbe admet une \evidence{branche parabolique}
+% de direction asymptotique d'équation $y=ax$.
+%
+% Il faut encore affiner l'étude. On étudie
+% alors $\lim_{t\rightarrow t_0}\big(y(t)-ax(t)\big)$ avec les deux sous-cas :
+% \begin{itemize}
+% \item[(i)] Si $y(t)-ax(t)$ tend vers un réel $b$ (nul ou pas),
+% alors $\lim_{t \to t_0}(y(t)-(ax(t)+b))=0$ et la droite d'équation
+% $y=ax+b$ est \evidence{asymptote oblique} à la courbe.
+% \item[(ii)] Si $y(t)-ax(t)$ tend vers $+\infty$ ou $-\infty$,
+% ou n'a pas de limite, la courbe n'a qu'une direction asymptotique
+% d'équation $y=ax$, mais n'admet pas de droite asymptote.
+% \end{itemize}
+% \end{enumerate}
+
+De gauche à droite : asymptote verticale, horizontale, oblique.
+\myfigure{0.37}{
+\tikzinput{fig_courbes_part3_14}
+\tikzinput{fig_courbes_part3_15}
+\tikzinput{fig_courbes_part3_16}
+}
+
+Attention ! Une branche infinie peut ne pas admettre de droite asymptote, comme dans le cas d'une parabole :
+\myfigure{0.4}{
+\tikzinput{fig_courbes_part3_17}
+}
+
+\begin{exemple}
+Étudier les asymptotes de la courbe
+$\left\{\begin{array}{l} x(t) = \frac{t}{t-1} \\ y(t) = \frac{3t}{t^2-1} \end{array}\right..$
+Déterminer la position de la courbe par rapport à ses asymptotes.
+
+\medskip
+\textbf{Solution.}
+
+\begin{itemize}
+  \item \textbf{Branches infinies.}
+  La courbe est définie sur $\Rr \setminus \{-1,+1\}$.
+  $|x(t)| \to +\infty$ uniquement lorsque $t \to +1^-$ ou $t\to +1^+$.
+  $|y(t)| \to +\infty$ lorsque $t \to -1^-$ ou $t\to -1^+$ ou
+  $t \to +1^-$ ou $t \to +1^+$.
+  Il y a donc $4$ branches infinies, correspondant à
+  $-1^-$, $-1^+$, $+1^-$, $+1^+$.
+
+  \item \textbf{Étude en $-1^-$.}
+  Lorsque $t\to-1^-$, $x(t) \to \frac12$ et $y(t) \to -\infty$ :
+  la droite verticale $(x=\frac12)$ est donc asymptote
+  pour cette branche infinie (qui part vers le bas).
+
+
+  \item \textbf{Étude en $-1^+$.}
+  Lorsque $t\to-1^+$, $x(t) \to \frac12$ et $y(t) \to +\infty$ :
+  la même droite verticale d'équation $(x=\frac12)$ est  asymptote
+  pour cette branche infinie (qui part cette fois vers le haut).
+
+   \item \textbf{Étude en $+1^-$.}
+  Lorsque $t\to +1^-$, $x(t) \to -\infty$ et $y(t) \to -\infty$.
+  On cherche une asymptote oblique en calculant la limite de
+  $\frac{y(t)}{x(t)}$ :
+  $$\frac{y(t)}{x(t)} = \frac{\frac{3t}{t^2-1}}{\frac{t}{t-1}}
+  = \frac{3}{t+1} \longrightarrow \frac{3}{2} \quad \text{ lorsque }t\to +1^-.$$
+
+  On cherche ensuite si $y(t)-\frac32 x(t)$ admet une limite finie, lorsque $x\to +1^-$ :
+  \begin{eqnarray*}
+  y(t)-\frac32 x(t) 
+  &=& \frac{3t}{t^2-1} - \frac32 \frac{t}{t-1}
+  = \frac{3t - \frac32 t (t+1)}{t^2-1} \\
+  &=& \frac{- \frac32 t (t-1)}{(t-1)(t+1)}
+  = \frac{- \frac32 t }{t+1}
+  \longrightarrow -\frac{3}{4} \quad \text{ lorsque }t\to +1^-.
+  \end{eqnarray*}
+
+  Ainsi la droite d'équation $y = \frac32 x -\frac34$ est asymptote à cette branche infinie.
+
+  \item \textbf{Étude en $+1^+$.}  Les calculs sont similaires
+  et la même droite d'équation $y = \frac32 x -\frac34$ est asymptote
+  à cette autre branche infinie.
+
+  \item \textbf{Position par rapport à l'asymptote verticale.}
+  Il s'agit de déterminer le signe de $x(t) - \frac12$ lorsque
+  $x \to -1^-$ (puis $x \to -1^+$).
+  Une étude de signe montre que $x(t)-\frac12 > 0$ pour $t < -1$ et $t>+1$,
+  et la courbe est alors à droite de l'asymptote verticale ; par contre
+  $x(t)-\frac12 < 0$ pour $-1 < t < +1$, et la courbe est alors à gauche
+  de l'asymptote verticale.
+
+  \item \textbf{Position par rapport à l'asymptote oblique.}
+  Il s'agit de déterminer le signe de $y(t) - \big( \frac32 x(t) -\frac34 \big)$.
+  La courbe est au-dessus de l'asymptote oblique pour $-1 < t < +1$;
+  et en-dessous de l'asymptote ailleurs.
+
+  \item \textbf{Point à l'infini.} Lorsque $t\to +\infty$ (ou bien $t\to-\infty$) alors
+  $x(t) \to 1$ et $y(t) \to 0$. Le point $(1,0)$ est donc un point limite de la courbe
+  paramétrée.
+
+\end{itemize}
+
+
+\myfigure{1}{
+\tikzinput{fig_courbes_part3_18}
+}
+
+\end{exemple}
+
+On trouvera d'autres exemples d'études de branches infinies dans
+les exercices de la section suivante.
+
+
+
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Déterminer la tangente et le type de point singulier à l'origine
+  dans chacun des cas :
+  $(t^5,t^3+t^4)$, $(t^2-t^3,t^2+t^3)$, $(t^2+t^3,t^4)$, $(t^3,t^6+t^7)$.
+
+  \item Trouver les branches infinies de la courbe définie par
+  $x(t) = 1-\frac{1}{1+t^2}$, $y(t)=t$. Déterminer l'asymptote, ainsi que la position
+  de la courbe par rapport à cette asymptote.
+
+  \item Mêmes questions pour les asymptotes de la courbe définie par
+  $x(t) = \frac{1}{t}+\frac{1}{t-1}$, $y(t)=\frac{1}{t-1}$.
+
+  \item Déterminer le type de point singulier de l'astroïde définie par $x(t) = \cos^3 t$,
+  $y(t) = \sin^3 t$. Pourquoi l'astroïde n'a-t-elle pas de branche infinie ?
+
+  \item Déterminer le type de point singulier de la cycloïde définie par
+  $x(t) = r(t-\sin t)$,  $y(t) = r(1-\cos t)$. Pourquoi la cycloïde
+  n'a-t-elle pas d'asymptote ?
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Plan d'étude d'une courbe paramétrée}
+
+
+Dans la pratique, les courbes sont traitées de manière différente
+à l'écrit et à l'oral. À l'écrit, l'étude d'une courbe est souvent
+détaillée en un grand nombre de petites questions. Par contre,
+à l'oral, un énoncé peut simplement prendre la forme
+\og construire la courbe \fg.
+Dans ce cas, on peut adopter le plan d'étude qui suit. Ce plan
+n'est pas universel et n'est qu'une proposition. Aussi, pour
+deux courbes  différentes, il peut être utile d'adopter
+deux plans d'étude différents.
+
+%---------------------------------------------------------------
+\subsection{Plan d'étude}
+
+
+\begin{enumerate}
+\item \evidence{Domaine de définition de la courbe.}
+
+Le point $M(t)$ est défini si et seulement si $x(t)$ et $y(t)$ sont définis.
+Il faut ensuite déterminer un \evidence{domaine d'étude} (plus petit que le domaine de définition)
+grâce aux symétries, périodicités\ldots
+
+\item \evidence{Vecteur dérivé.}
+
+Calcul des dérivées des coordonnées de $t\mapsto M(t)$.
+Les valeurs de $t$ pour lesquelles $x'(t)=0$ (et $y'(t)\neq0$)
+fournissent les points à tangente verticale et les valeurs de
+$t$ pour lesquelles $y'(t)=0$ (et $x'(t)\neq0$) fournissent les
+points à tangente horizontale. Enfin, les valeurs de $t$ pour
+lesquelles $x'(t)=y'(t)=0$ fournissent les points singuliers,
+en lesquels on n'a encore aucun renseignement sur la tangente.
+
+
+\item \evidence{Tableau de variations conjointes.}
+
+L'étude de $x'$ et $y'$ permet de connaître les variations de $x$ et $y$.
+Reporter les résultats obtenus des \evidence{variations conjointes} des fonctions $x$ et $y$
+dans un tableau. Cela donne alors un tableau à compléter :
+
+$$\begin{array}{|c|ccccc|}
+\hline
+t&\qquad&\qquad&\qquad&\qquad&\qquad\\
+\hline
+x'(t)& & & & &\rule{5cm}{0cm}\\
+\hline
+ & & & & & \\
+x& & & & & \\
+ & & & & & \\
+\hline
+ & & & & & \\
+y& & & & & \\
+ & & & & & \\
+\hline
+y'(t)& & & & & \\
+\hline
+\end{array}
+$$
+
+Ce tableau est le tableau des variations des
+deux fonctions $x$ et $y$ \emph{ensemble}. Il nous montre
+l'évolution du point $M(t)$.
+Par suite, pour une valeur de $t$ donnée, on doit lire
+verticalement des résultats concernant et $x$, et $y$. Par
+exemple, $x$ tend vers $+\infty$, pendant que $y$ \og vaut \fg{} $3$.
+
+
+\item \evidence{Étude des points singuliers.}
+
+\item \evidence{Étude des branches infinies.}
+
+\item \evidence{Construction méticuleuse de la courbe.}
+
+On
+place dans l'ordre les deux axes et les unités. On construit
+ensuite toutes les droites asymptotes. On place ensuite les points
+importants avec leur tangente (points à tangente verticale,
+horizontale, points singuliers, points d'intersection
+avec une droite asymptote,\ldots). Tout est alors en place
+pour la construction et on peut tracer l'arc grâce aux règles suivantes :
+
+
+\mybox{
+\begin{tabular}{c}
+\textbf{Tracé de la courbe paramétrée $\big( x(t),y(t) \big)$}\\[2mm]
+Si $x$ croît et $y$ croît, on va vers la droite et vers le haut.\\
+Si $x$ croît et $y$ décroît, on va vers la droite et vers le bas.\\
+Si $x$ décroît et $y$ croît, on va vers la gauche et vers le haut.\\
+Si $x$ décroît et $y$ décroît, on va vers la gauche et vers le bas.
+\end{tabular}
+}
+
+
+
+
+\item \evidence{Points multiples.}
+
+On cherche les points multiples s'il y a lieu.
+On attend souvent de commencer la construction de la courbe pour
+voir s'il y a des points multiples et si on doit les chercher.
+\end{enumerate}
+
+%---------------------------------------------------------------
+\subsection{Une étude complète}
+
+
+\begin{exemple}
+Construire la courbe
+$$\left\{
+\begin{array}{l}
+x(t)=\dfrac{t^3}{t^2-1}\\[3mm]
+y(t)=\dfrac{t(3t-2)}{3(t-1)}
+\end{array}
+\right..$$
+
+\textbf{Solution.} On note $\mathcal{C}$ la courbe à construire.
+
+\begin{itemize}
+  \item \textbf{Domaine d'étude.}
+
+Pour $t\in\Rr$, le point
+$M(t)$ est défini si et seulement si $t\neq\pm1$. Aucune réduction intéressante
+du domaine n'apparaît clairement et on étudie donc sur $D=\Rr\setminus\{-1,1\}$.
+
+
+  \item \textbf{Variations conjointes des coordonnées.}
+
+La fonction $x$ est dérivable sur $D$ et, pour $t\in D$,
+$$x'(t)=\frac{3t^2(t^2-1)-t^3(2t)}{(t^2-1)^2}=\frac{t^2(t^2-3)}{(t^2-1)^2}.$$
+La fonction $x$ est donc strictement croissante sur $]-\infty,-\sqrt{3}]$
+et sur $[\sqrt{3},+\infty[$ et strictement décroissante sur $[-\sqrt{3},-1[$,
+sur $]-1,1[$ et sur $]1,+\sqrt{3}[$.
+
+\medskip
+
+La fonction $y$ est dérivable sur $D\cup\{-1\}$ et, pour $t\in D\cup\{-1\}$,
+$$y'(t)=\frac{(6t-2)(t-1)-(3t^2-2t)}{3(t-1)^2}=\frac{3t^2-6t+2}{3(t-1)^2}.$$
+La fonction $y$ est donc strictement croissante sur
+$]-\infty,1-\frac{1}{\sqrt{3}}]$ et sur $[1+\frac{1}{\sqrt{3}},+\infty[$,
+strictement décroissante sur
+$[1-\frac{1}{\sqrt{3}},1[$ et sur $]1,1+\frac{1}{\sqrt{3}}]$.
+
+\medskip
+
+Les fonctions $x'$ et $y'$ ne s'annulent jamais simultanément et
+la courbe est donc régulière. La tangente en un point $M(t)$ est dirigée
+par le vecteur dérivé $\left(\frac{t^2(t^2-3)}{(t^2-1)^2},\frac{3t^2-6t+2}{3(t-1)^2}\right)$ ou encore
+par le vecteur $\left(\frac{3t^2(t^2-3)}{(t+1)^2},3t^2-6t+2\right)$.
+
+
+\item \textbf{Tangentes parallèles aux axes.}
+
+$y'$ s'annule en $1-\frac{1}{\sqrt{3}}$ et $1+\frac{1}{\sqrt{3}}$.
+En les points $M(1-\frac{1}{\sqrt{3}})$ et $M(1+\frac{1}{\sqrt{3}})$, la
+courbe admet une tangente parallèle à $(Ox)$. On a
+\begin{align*}
+x\left(1-\tfrac{1}{\sqrt{3}}\right)&=\left(1-\tfrac{1}{\sqrt{3}}\right)^3/\Big(\left(1-\tfrac{1}{\sqrt{3}}\right)^2-1\Big)
+=\left(1-\tfrac{3}{\sqrt{3}}+\tfrac{3}{3}-\tfrac{1}{3\sqrt{3}}\right)/\left(-\tfrac{2}{\sqrt{3}}+\tfrac{1}{3}\right)\\
+%&=\frac{6\sqrt{3}-10}{-6+\sqrt{3}}\\
+ &=\tfrac{1}{33}\left(6\sqrt{3}-10\right)\left(-6-\sqrt{3}\right)=\frac{42-26\sqrt{3}}{33}=-0,09\ldots,
+\end{align*}
+et de même,
+\begin{align*}
+y\left(1-\tfrac{1}{\sqrt{3}}\right)
+&=\tfrac{1}{3}\left(1-\tfrac{1}{\sqrt{3}}\right)\left(3-\sqrt{3}-2\right)/\left(-\tfrac{1}{\sqrt{3}}\right)\\
+&=-\tfrac{1}{3}\left(\sqrt{3}-1\right)\left(1-\sqrt{3}\right)=\frac{4-2\sqrt{3}}{3}=0,17\ldots
+\end{align*}
+
+Puis, par un calcul conjugué (c'est-à-dire en remplaçant $\sqrt{3}$
+par $-\sqrt{3}$ au début de calcul), on a
+$x(1+\frac{1}{\sqrt{3}})=\frac{42+26\sqrt{3}}{33}
+=2,63\ldots$ et $y(1+\frac{1}{\sqrt{3}})=\frac{4+2\sqrt{3}}{3}=2,48\ldots$
+
+\medskip
+
+$x'$ s'annule en $0$, $\sqrt{3}$ et $-\sqrt{3}$. Au point
+$M(0)=(0,0)$, $M(\sqrt{3})=(\frac{3\sqrt{3}}{2},\frac{3+7\sqrt{3}}{6})
+=(2,59\ldots,2,52\ldots)$ et en
+$M(-\sqrt{3})=(-\frac{3\sqrt{3}}{2},\frac{3-7\sqrt{3}}{6})
+=(-2,59\ldots,-1,52\ldots)$, il y a une tangente parallèle à $(Oy)$.
+
+
+\item \textbf{Étude en l'infini.}
+
+Quand $t$ tend vers $+\infty$, $x(t)$ et $y(t)$ tendent
+toutes deux vers $+\infty$ et il y a donc une branche infinie.
+Même chose quand $t$ tend vers $-\infty$.
+
+Étudions $\lim_{t \to \pm\infty}\frac{y(t)}{x(t)}$.
+Pour $t\in D\setminus\{0\}$,
+$$\frac{y(t)}{x(t)}
+=\frac{t(3t-2)}{3(t-1)}\times\frac{t^2-1}{t^3}=\frac{(3t-2)(t+1)}{3t^2}.$$
+Cette expression tend vers $1$ quand $t$ tend vers $+\infty$ ou
+vers $-\infty$.
+
+Pour $t\in D$,
+$$y(t)-x(t)=\frac{t(3t-2)}{3(t-1)}-\frac{t^3}{t^2-1}
+=\frac{t(3t-2)(t+1)-3t^3}{3(t-1)(t+1)}=\frac{t^2-2t}{3(t-1)(t+1)}.$$
+Cette expression tend vers $\frac{1}{3}$
+quand $t$ tend vers $+\infty$ ou vers $-\infty$. Ainsi,
+$$\lim_{t\rightarrow\pm\infty}\big(y(t)-(x(t)+\tfrac{1}{3})\big)=0.$$
+Quand $t$ tend vers $+\infty$ ou vers $-\infty$, la droite
+$\Delta$ d'équation $y=x+\frac{1}{3}$ est donc asymptote à la courbe.
+
+Étudions la position relative de $\mathcal{C}$ et $\Delta$.
+Pour $t\in D$, $y(t)-\big(x(t)+\frac{1}{3}\big)=\frac{t^2-2t}{3(t-1)(t+1)}-\frac{1}{3}
+=\frac{-2t+1}{3(t-1)(t+1)}$.
+
+{\scriptsize
+$$\begin{array}{|c|cr||lcr|lcr||lc|}
+\hline
+t&-\infty\qquad\qquad &\multicolumn{2}{c}{-1}& &\multicolumn{2}{c}{\frac12}& &\multicolumn{2}{c}{1}& \qquad\qquad+\infty\\
+\hline
+\begin{array}{c}\text{signe de}\\\;y(t)-\big(x(t)+\frac{1}{3}\big)\end{array}& +& & &-& & &+& & &- \\
+\hline
+\text{position}& \mathcal{C}\;\text{au-dessus}& & &\mathcal{C}\;\text{en-dessous}& & &\mathcal{C}\;\text{au-dessus}& & &\mathcal{C}\;\text{en-dessous} \\
+\text{relative}& \text{de}\;\Delta& & &\text{de}\;\Delta& & &\text{de}\;\Delta& & &\text{de}\;\Delta \\
+\hline
+\end{array}
+$$
+}
+
+$\mathcal{C}$ et $\Delta$ se coupent au point $M(1/2)=(-1/6,1/6)=(-0,16\ldots,0,16\ldots)$.
+
+
+  \item \textbf{Étude en $t=-1$.}
+
+  Quand $t$ tend vers $-1$, $y(t)$ tend vers $-5/6$, et $x(t)$ tend vers $-\infty$ en $-1^-$
+et vers $+\infty$ en $-1^+$. La
+droite d'équation $y=-\frac{5}{6}$ est asymptote à $\mathcal{C}$.
+La position relative est fournie par le signe de
+$y(t)+\frac{5}{6}=\frac{6t^2+t-5}{6(t-1)} = \frac{(t+1)(6t-5)}{6(t-1)}$.
+
+
+ \item \textbf{Étude en $t=1$.}
+
+ Quand $t$ tend vers $1$, $x$ et $y$ tendent vers l'infini, $\frac{y(t)}{x(t)}
+=\frac{(3t-2)(t+1)}{3t^2}$ tend vers $\frac{2}{3}$ et
+$y(t)-\frac{2}{3}x(t)=\frac{t^3+t^2-2t}{3(t^2-1)}=\frac{t(t+2)}{3(t+1)}$
+tend vers $\frac{1}{2}$. La droite d'équation
+$y=\frac{2}{3}x+\frac{1}{2}$ est asymptote à la courbe.
+La position relative est fournie par le signe de
+$y(t)-\big(\frac{2}{3}x(t)+\frac{1}{2}\big)
+=\frac{2t^2+t-3}{6(t+1)} = \frac{(t-1)(2t+3)}{6(t+1)}$.
+
+  \item \textbf{Tableau de variations conjointes.}
+
+\myfigure{0.7}{
+\scriptsize
+\tikzinput{fig_courbes_part4_01}
+}
+
+
+
+  \item \textbf{Intersection avec les axes.}
+
+$x(t)=0$ équivaut à $t=0$.
+La courbe coupe $(Oy)$ au point $M(0)=(0,0)$. $y(t)=0$
+équivaut à $t=0$ ou $t=\frac{2}{3}$. La courbe coupe $(Ox)$ au point $M(0)=(0,0)$ et
+$M(\frac{2}{3})=(-\frac{8}{15},0)$.
+
+
+  \item \textbf{Tracé de la courbe.}
+\end{itemize}
+
+\myfigure{0.7}{
+\tikzinput{fig_courbes_part4_02}
+}
+
+Le tracé fait apparaître un \textbf{point double}. Je vous laisse le chercher (et le trouver).
+\end{exemple}
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Une courbe de Lissajous}
+
+\begin{exemple}
+Construire la courbe $\left\{
+\begin{array}{l}
+x=\sin(2t)\\
+y=\sin(3t)
+\end{array}
+\right.$ de la famille des \defi{courbes de Lissajous}.
+
+\medskip
+\textbf{Solution.}
+
+
+\begin{itemize}
+  \item \textbf{Domaine d'étude.}
+  Pour tout réel $t$, $M(t)$ existe et $M(t+2\pi)=M(t)$.
+On obtient la courbe complète quand $t$ décrit $[-\pi,\pi]$.
+
+Pour $t\in[-\pi,\pi]$, $M(-t)=s_O(M(t))$, puis pour $t\in[0,\pi]$,
+$M(\pi-t)=s_{(Oy)}(M(t))$. On étudie et on construit l'arc
+quand $t$ décrit $[0,\frac{\pi}{2}]$, puis on obtient la courbe
+complète par réflexion d'axe $(Oy)$ puis par symétrie centrale de centre
+$O$. Puisque, pour tout réel $t$, $M(t+\pi)=s_{(Ox)}(M(t))$,
+l'axe $(Ox)$ est également axe de symétrie de la courbe.
+
+  \item \textbf{Localisation.}
+  Pour tout réel $t$, $|x(t)|\leq1$ et $|y(t)|\leq1$.
+Le support de la courbe est donc contenu dans le carré
+$\big\{(x,y)\in\Rr^2 \ \  \mid \ \ |x|\leq1\ \text{et}\ |y|\leq1\big\}$.
+
+  \item \textbf{Variations conjointes.}
+  D'après les propriétés usuelles de la fonction sinus,
+la fonction $x$ est croissante sur $[0,\frac{\pi}{4}]$ et décroissante
+sur $[\frac{\pi}{4},\frac{\pi}{2}]$ ;
+et de même, la fonction $y$ croît sur $[0,\frac{\pi}{6}]$ et décroît
+sur $[\frac{\pi}{6},\frac{\pi}{2}]$.
+
+  \item \textbf{Vecteur dérivé et tangente.}
+  \begin{itemize}
+    \item Pour $t\in[0,\frac{\pi}{2}]$, $\overrightarrow{\frac{\dd M}{\dd t}}(t)
+=\big(2\cos(2t),3\cos(3t)\big)$. Par suite :
+$$\overrightarrow{\frac{\dd M}{\dd t}}(t)=\vec{0}
+\iff\cos(2t)=\cos(3t)=0
+\iff t\in\big(\tfrac{\pi}{4}+\tfrac{\pi}{2}\Zz\big)\cap\big(\tfrac{\pi}{6}+\tfrac{\pi}{3}\Zz\big)=\varnothing.$$
+
+Donc $\overrightarrow{\frac{\dd M}{\dd t}}$ ne s'annule pas et la courbe est régulière.
+La tangente en tout point est dirigée par le vecteur $\big(2\cos(2t),3\cos(3t)\big)$.
+
+    \item Cette tangente est parallèle à $(Ox)$ si et seulement si $\cos(3t)=0$ ou
+encore $t\in\frac{\pi}{6}+\frac{\pi}{3}\Zz$ ou enfin
+$t=\frac{\pi}{6}$ et $t=\frac{\pi}{2}$, et
+cette tangente est parallèle à $(Oy)$ si et seulement si $\cos(2t)=0$
+ou encore $t\in\frac{\pi}{4}+\frac{\pi}{2}\Zz$ ou enfin $t=\frac{\pi}{4}$.
+
+    \item La tangente en $M(0)$ est dirigée par le vecteur $(2,3)$
+et a donc pour coefficient directeur $3/2$.
+
+    \item Pour $t\in[0,\frac{\pi}{2}]$, $M(t)\in(Ox)$ si et
+seulement si $\sin(3t)=0$ ou encore $t\in\frac{\pi}{3}\Zz$ ou
+enfin $t=0$ ou $t=\frac{\pi}{3}$. La tangente en
+$M(\pi/3)$ est dirigée par le vecteur $(-1,-3)$ et a donc pour
+coefficient directeur $3$.
+    \end{itemize}
+  \end{itemize}
+
+
+\myfigure{1.2}{
+\tikzinput{fig_courbes_part4_03}
+}
+
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+\subsection{Le folium de Descartes}
+
+
+Il existe d'autres façons de définir une courbe, par exemple par une équation
+cartésienne du type $f(x,y)=0$.
+Par exemple, $(x^2+y^2-1=0)$ définit le cercle de rayon $1$, centré à l'origine.
+
+Pour étudier les équations $f(x,y)=0$, il nous manque un cours sur les
+fonctions de deux variables. Néanmoins, il est possible dès à présent
+de construire de telles courbes en trouvant une paramétrisation.
+Une idée (parmi tant d'autres), fréquemment utilisée en pratique,
+est de chercher \emph{l'intersection de la courbe avec toutes les droites
+passant par l'origine} comme le montre le dessin suivant. Ceci revient
+en gros à prendre comme paramètre le réel $t=\frac{y}{x}$.
+
+\myfigure{0.9}{
+\tikzinput{fig_courbes_part4_05}
+}
+
+\begin{exemple}
+Construire le \defi{folium de Descartes} $\mathcal{C}$
+d'équation $x^3+y^3-3axy=0$, $a$ étant un réel strictement positif donné.
+
+\medskip
+\textbf{Solution.}
+
+Commençons par montrer que l'intersection de la courbe avec
+l'axe des ordonnées est réduite à l'origine :
+$$M(x,y)\in\mathcal{C}\cap(Oy) \iff x^3+y^3-3axy=0
+\ \text{ et }\ x=0 \iff x=y=0.$$
+
+
+Soient $t\in\Rr$ et $D_t$ la droite d'équation $(y=tx)$.
+Cherchons l'intersection de cette droite $D_t$ avec notre courbe $\mathcal{C}$ :
+
+$$\begin{array}{l}
+M(x,y)\in D_t\cap\mathcal{C}\setminus(Oy) \\
+\iff\left\{
+\begin{array}{l}
+x\neq0\\
+y=tx\\
+x^3+t^3x^3-3atx^2=0
+\end{array}
+\right.
+\iff\left\{
+\begin{array}{l}
+x\neq0\\
+y=tx\\
+(1+t^3)x-3at=0
+\end{array}
+\right.\\
+\iff\left\{
+\begin{array}{l}
+x\neq0\\
+x=\frac{3at}{1+t^3}\\
+y=\frac{3at^2}{1+t^3}
+\end{array}
+\right.\;\text{pour}\;t\notin\{-1\}\iff\left\{
+\begin{array}{l}
+x=\frac{3at}{1+t^3}\\
+y=\frac{3at^2}{1+t^3}
+\end{array}
+\right.\;\text{pour}\;t\notin\{-1,0\}.
+\end{array}$$
+
+
+
+Ainsi $\mathcal{C}$ est la réunion
+de $\{O\}$ et de l'ensemble des points $\big(\frac{3at}{1+t^3},\frac{3at^2}{1+t^3}\big)$,
+$t\notin\{-1,0\}$.
+D'autre part les droites $D_{-1}$ et $D_0$ n'ont qu'un point commun avec $\mathcal{C}$,
+à savoir le point $O$.
+Comme $t=0$ refournit le point $O$, on a plus simplement :
+$$\mathcal{C}=\left\{\left(\frac{3at}{1+t^3},\frac{3at^2}{1+t^3}\right)\ \mid \ t\in\Rr\setminus\{-1\}\right\}.$$
+Une paramétrisation de la courbe est donc
+$$t\mapsto\left\{
+\begin{array}{l}
+x(t)=\dfrac{3at}{1+t^3}\\
+y(t)=\dfrac{3at^2}{1+t^3}
+\end{array}
+\right..$$
+
+Après étude, on obtient le graphe suivant :
+\myfigure{1.2}{
+\tikzinput{fig_courbes_part4_04}
+}
+
+\end{exemple}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item  Faire une étude complète et le tracé de la courbe définie par
+  $x(t) = \tan \left(\frac t 3\right)$,  $y(t) = \sin (t)$.
+
+  \item Faire une étude complète et le tracé de
+  l'astroïde définie par $x(t) = \cos^3 t$,  $y(t) = \sin^3 t$.
+
+
+  \item Faire une étude complète et le tracé de
+  la cycloïde définie par   $x(t) = r(t-\sin t)$,  $y(t) = r(1-\cos t)$.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Courbes en polaires : théorie}
+\index{courbe!en polaires}
+%---------------------------------------------------------------
+\subsection{Coordonnées polaires}
+
+Rappelons tout d'abord la définition précise des coordonnées polaires.
+Le plan est rapporté à un repère orthonormé
+$(O,\overrightarrow{i},\overrightarrow{j})$. Pour $\theta$ réel,
+on pose
+$$\overrightarrow{u_\theta}=\cos\theta\overrightarrow{i}+\sin\theta\overrightarrow{j}
+\quad \text{ et  } \quad
+\overrightarrow{v_\theta}=-\sin\theta\overrightarrow{i}+\cos\theta\overrightarrow{j}
+=\overrightarrow{u_{\theta+\pi/2}}.$$
+$M$ étant un point du plan, on dit que $[r:\theta]$ est un
+couple de \defi{coordonnées polaires} du point $M$ si et seulement
+si $\overrightarrow{OM}=r\overrightarrow{u_\theta}$.
+
+
+
+\mybox{
+$M = [r:\theta]
+\iff \overrightarrow{OM} =r\overrightarrow{u_\theta}
+\iff M=O+r\overrightarrow{u_\theta}.$}
+
+\myfigure{0.8}{
+\tikzinput{fig_courbes_part5_01} \ 
+\tikzinput{fig_courbes_part5_02}
+}
+
+
+%---------------------------------------------------------------
+\subsection{Courbes d'équations polaires}
+
+La courbe d'\defi{équation polaire} $r=f(\theta)$
+est l'application suivante, où les coordonnées des
+points sont données en coordonnées polaires :
+$$\begin{array}{cccc}
+F :&D&\rightarrow&\Rr^2\\
+ &\theta&\mapsto&M(\theta) = \big[r(\theta):\theta\big] = O+r(\theta)\vec{u}_\theta
+\end{array}
+$$
+ou encore, sous forme complexe, $\theta \mapsto r(\theta)e^{\ii\theta}$.
+
+
+
+
+\begin{exemple}
+Voici une spirale d'équation polaire $r = \sqrt{\theta}$,
+définie pour $\theta \in [0,+\infty[$.
+
+Par exemple pour $\theta = 0$, $r(\theta)= 0$,
+donc l'origine appartient à la courbe $\mathcal{C}$.
+Pour $\theta=\frac\pi2$, $r(\theta)=\sqrt{\frac\pi2}$, donc
+$M(\frac\pi2) = \big[\sqrt{\frac\pi2} : \frac\pi2\big]$,
+soit en coordonnées cartésiennes
+$M(\frac\pi2) = (0,\  1,25\ldots) \in \mathcal{C}$.
+Puis $M(\pi) = \big[\sqrt\pi : \pi\big] = (-1,77\ldots,0) \in \mathcal{C}$,
+$M(2\pi) = \big[\sqrt{2\pi} : 2\pi\big]= \big[\sqrt{2\pi} : 0\big]
+= (2,50\ldots,0) \in \mathcal{C}$,
+\ldots
+
+
+\myfigure{1}{
+\tikzinput{fig_courbes_part5_03}
+}
+\end{exemple}
+
+
+
+Une telle équation ($r=f(\theta)$) ressemble à une équation cartésienne
+($y=f(x)$). Mais la non unicité d'un couple de coordonnées polaires
+en fait un objet plus compliqué.
+Reprenons l'exemple de la spirale d'équation polaire $r=\sqrt\theta$.
+Le point de coordonnées polaires $[\sqrt{\pi}:\pi]$
+est sur la spirale, mais aussi le point
+$[-\sqrt{\pi}:2\pi]$ (car $[-\sqrt{\pi}:2\pi]=[\sqrt{\pi}:\pi]$).
+Ainsi, si en cartésien on peut écrire
+$M(x,y)\in\mathcal{C}_f\iff y=f(x)$,
+ce n'est pas le cas en polaires, où l'on a seulement
+$r=f(\theta) \implies M[r:\theta]\in\mathcal{C}$.
+
+Pour avoir une équivalence, avec $\mathcal{C}$
+la courbe d'équation polaire $r=f(\theta)$ et $M$ un point du plan,
+il faut écrire :
+\mybox{
+$M\in\mathcal{C}\iff$
+\begin{tabular}{c}
+il existe un couple $[r:\theta]$ de coordonnées \\
+polaires de $M$ tel que $r=f(\theta)$.
+\end{tabular}
+}
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+\item Dans cette présentation, la lettre $r$ désigne à la fois la première
+des deux coordonnées polaires du point $[r:\theta]$ et aussi la
+fonction $\theta\mapsto r(\theta)$, cette confusion des notations
+étant résumée dans l'égalité $r=r(\theta)$.
+% Cette notation unique
+% pour deux objets différents se révèle parfois pratique, pour énoncer
+% et mémoriser des formules par exemple. Mais elle est parfois source
+% d'incompréhension. Dans ce dernier cas, il faut différencier les
+% notations en notant plutôt $\theta \mapsto f(\theta)$ la fonction.
+
+\item $r(\theta)$ n'est pas nécessairement la distance $OM(\theta)$ car la
+fonction $r$ peut tout à fait prendre des valeurs strictement négatives.
+La formule générale est  $OM(\theta)=|r(\theta)|$.
+
+\item Grâce aux relations usuelles entre les coordonnées
+cartésiennes et les coordonnées polaires d'un point, on peut à
+tout moment écrire une représentation polaire sous la forme
+d'une représentation paramétrique classique :
+$$\theta\mapsto\left\{
+\begin{array}{l}
+x(\theta)=r(\theta)\cos(\theta)\\
+y(\theta)=r(\theta)\sin(\theta)
+\end{array}
+\right..$$
+\end{itemize}
+\end{remarque*}
+
+
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Calcul de la vitesse en polaires}
+
+Pour pouvoir dériver un arc en coordonnées polaires, il faut d'abord savoir
+dériver le vecteur
+$\overrightarrow{u_\theta}=\cos\theta\overrightarrow{i}+\sin\theta\overrightarrow{j}$
+en tant que fonction de $\theta$ :
+
+$$\frac{\dd\overrightarrow{u_\theta}}{\dd\theta}(\theta)
+=-\sin\theta\overrightarrow{i}+\cos\theta\overrightarrow{j}
+=\overrightarrow{v_\theta}=\overrightarrow{u_{\theta+\pi/2}}$$
+$$
+\quad\text{ et }\quad
+\frac{\dd\overrightarrow{v_\theta}}{\dd\theta}(\theta)
+=\overrightarrow{u_{\theta+\pi/2+\pi/2}}
+=\overrightarrow{u_{\theta+\pi}}=-\overrightarrow{u_\theta}.$$
+
+
+En résumé, ils s'obtiennent par rotation d'angle $+\frac \pi2$  :
+\mybox{
+$\displaystyle\frac{\dd\overrightarrow{u_\theta}}{\dd\theta}
+=\overrightarrow{v_\theta} \qquad\frac{\dd\overrightarrow{v_\theta}}{\dd\theta}
+=-\overrightarrow{u_\theta}$
+}
+
+% \bigskip
+%
+%
+% Soient maintenant $r$ et $\theta$ deux fonctions dérivables, dépendant d'un paramètre
+% $t \in D \subset \Rr$, à valeurs dans $\Rr$. Alors la fonction
+% $t\mapsto M(t)= O+r(t)\overrightarrow{u_{\theta(t)}}$
+% est dérivable sur $D$ et
+% \mybox{
+% $\displaystyle\overrightarrow{\frac{\dd M}{\dd t}}
+% =r'\overrightarrow{u_{\theta}}+r\theta'\overrightarrow{v_{\theta}}$
+% }
+
+
+%---------------------------------------------------------------
+\subsection{Tangente en un point distinct de l'origine}
+
+Soient $r$ une fonction dérivable sur un domaine $D$ de $\Rr$ à
+valeurs dans $\Rr$ et $\mathcal{C}$ la courbe d'équation polaire
+$r=r(\theta)$ ou encore de représentation polaire
+$\theta\mapsto O+r(\theta)\overrightarrow{u_\theta}$.
+
+\begin{theoreme}[Tangente en un point distinct de l'origine]
+\index{courbe!tangente}
+\sauteligne
+\begin{enumerate}
+\item Tout point de $\mathcal{C}$ distinct de l'origine $O$ est un point régulier.
+
+\item Si $M(\theta)\neq O$, la tangente en $M(\theta)$ est dirigée
+par le vecteur
+\myboxinline{$\overrightarrow{\dfrac{\dd M}{\dd \theta}}(\theta)
+=r'(\theta)\overrightarrow{u_\theta}+r(\theta)\overrightarrow{v_\theta}$}
+
+\item L'angle $\beta$ entre le vecteur $\overrightarrow{u_\theta}$ et la tangente
+en $M(\theta)$ vérifie \myboxinline{$\tan(\beta)=\frac{r}{r'}$} si $r'\neq 0$,
+et $\beta=\frac\pi2 \pmod \pi$ sinon.
+
+\end{enumerate}
+\end{theoreme}
+
+
+\myfigure{1.3}{
+\tikzinput{fig_courbes_part5_08}
+}
+
+Le repère $(M(\theta),\overrightarrow{u_\theta},\overrightarrow{v_\theta})$ est le \defi{repère polaire}
+en $M(\theta)$. Dans ce repère, les coordonnées du vecteur
+$\overrightarrow{\frac{\dd M}{\dd\theta}}$ sont donc $(r',r)$.
+On note $\beta$ l'angle $(\overrightarrow{u_\theta},\overrightarrow{\frac{\dd M}{\dd\theta}})$
+et $\alpha$ l'angle $(\overrightarrow{i},\overrightarrow{\frac{\dd M}{\dd\theta}})$ de sorte
+que $\alpha=\beta+\theta$.
+
+
+\begin{proof}
+~
+\begin{itemize}
+  \item Comme $M(\theta) = O+r(\theta) \overrightarrow{u_\theta}$, alors par la formule de dérivation d'un produit :
+$$\overrightarrow{\frac{\dd M}{\dd \theta}}(\theta)
+= \frac{\dd r(\theta)}{\dd \theta}\overrightarrow{u_\theta}
++ r(\theta)\frac{\dd \overrightarrow{u_\theta}}{\dd \theta}
+=r'(\theta)\overrightarrow{u_\theta}+r(\theta)\overrightarrow{v_\theta}$$
+
+  \item Déterminons alors les éventuels points singuliers. Puisque les
+vecteurs $\overrightarrow{u_\theta}$ et $\overrightarrow{v_\theta}$
+ne sont pas colinéaires,
+$$\overrightarrow{\frac{\dd M}{\dd\theta}}(\theta)
+=\overrightarrow{0} \iff r(\theta)=0 \text{ et } r'(\theta)=0$$
+
+Maintenant, comme $r(\theta)=0 \iff M(\theta)=O$, on en déduit que
+tout point distinct de l'origine est un point régulier.
+
+  \item Comme $\overrightarrow{\frac{\dd M}{\dd \theta}}(\theta)
+=r'(\theta)\overrightarrow{u_\theta}+r(\theta)\overrightarrow{v_\theta}$
+alors, dans le repère polaire
+$(M(\theta),\overrightarrow{u_\theta},\overrightarrow{v_\theta})$,
+les coordonnées de $\overrightarrow{\frac{\dd M}{\dd\theta}}$ sont $(r',r)$.
+On a alors
+$$\cos\beta=\frac{r'}{\sqrt{r^2+r'^2}} \quad \text{ et } \quad \sin\beta = \frac{r}{\sqrt{r^2+r'^2}}.$$
+
+Ces égalités définissent $\beta$ modulo $2\pi$. Ensuite, (puisque $r\neq0$) on a
+$\frac{1}{\tan\beta}=\frac{r'}{r}$.
+On préfère retenir que,
+si de plus $r'\neq0$, $\tan(\beta)=\frac{r}{r'}$.
+Les deux dernières égalités déterminent $\beta$ modulo $\pi$, ce qui
+est suffisant pour construire la tangente, mais
+insuffisant pour construire le vecteur $\overrightarrow{\frac{\dd M}{\dd\theta}}$.
+\end{itemize}
+
+\end{proof}
+
+
+\begin{exemple}
+Déterminer, au point $M(\frac{\pi}{2})$, la tangente à la courbe polaire :
+$$r=1-2\cos\theta.$$
+
+\medskip
+\textbf{Solution.}
+
+On note $\mathcal{C}$ la courbe.
+
+\begin{enumerate}
+  \item \textbf{Première méthode.}
+  On détermine l'angle
+  $(\overrightarrow{u_\theta},\overrightarrow{\frac{\dd M}{\dd\theta}})$
+  formé par la tangente avec la droite d'angle polaire $\theta$.
+  Comme $r'(\theta)=2\sin\theta$, alors $r'(\frac{\pi}{2})=2$.
+  De plus, $r(\frac{\pi}{2})=1\neq0$. Donc,
+  $$\tan\beta  = \frac{r(\frac{\pi}{2})}{r'(\frac{\pi}{2})} = \frac{1}{2}.$$
+  Ainsi, modulo $\pi$,
+  $$\beta = \arctan(\tfrac{1}{2})
+  = \frac\pi2-\arctan(2).$$
+
+  L'angle polaire de la tangente en $M(\frac{\pi}{2})$ est
+donc
+$$\alpha=\beta + \theta=\frac\pi2+\frac\pi2-\arctan(2) = \pi-\arctan(2).$$
+
+  \item \textbf{Seconde méthode.}
+  On calcule le vecteur dérivé, qui bien sûr dirige la tangente :
+  $$\overrightarrow{\frac{\dd M}{\dd\theta}}\left(\frac{\pi}{2}\right)
+=2\cdot\overrightarrow{u_{\pi/2}}+1\cdot\overrightarrow{v_{\pi/2}}
+=-\overrightarrow{i}+2\overrightarrow{j}.$$
+  Comme la tangente passe par le point
+  $M(\frac{\pi}{2}) = \big[1:\frac{\pi}{2}\big] = (0,1)$,
+une équation cartésienne de cette tangente est donc
+$2\cdot(x-0)+1\cdot(y-1)=0$ ou encore $y=-2x+1$.
+\end{enumerate}
+
+\myfigure{1}{
+\tikzinput{fig_courbes_part5_04}
+}
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+\subsection{Tangente à l'origine}
+
+Supposons maintenant que, pour un certain réel $\theta_0$, la courbe
+passe par l'origine $O$. On suppose comme d'habitude que l'arc est
+localement simple, ce qui revient à dire qu'au voisinage de $\theta_0$,
+la fonction $r$ ne s'annule qu'en $\theta_0$.
+\begin{theoreme}[Tangente à l'origine]
+\index{courbe!tangente}
+Si $M(\theta_0)=O$, la tangente en $M(\theta_0)$ est la droite
+d'angle polaire $\theta_0$.
+\end{theoreme}
+
+\myfigure{1}{
+\tikzinput{fig_courbes_part5_05}
+}
+Une équation cartésienne de cette
+droite dans le repère $(O,\overrightarrow{i},\overrightarrow{j})$
+est donc $y=\tan(\theta_0)x$, si $\theta_0\notin\frac{\pi}{2}+\pi\Zz$
+et $x=0$, si $\theta_0\in\frac{\pi}{2}+\pi\Zz$.
+
+
+\begin{proof}
+Pour $\theta\neq\theta_0$, le vecteur
+$$\frac{1}{r(\theta)}\overrightarrow{M(\theta_0)M(\theta)}=
+\frac{1}{r(\theta)}\overrightarrow{OM(\theta)}
+=\overrightarrow{u_\theta},$$
+dirige la droite $\big(M(\theta_0)M(\theta)\big)$. Or, quand $\theta$
+tend vers $\theta_0$, $\overrightarrow{u_\theta}$ tend vers
+$\overrightarrow{u_{\theta_0}}$. Ainsi $\overrightarrow{u_{\theta_0}}$
+est un vecteur directeur de la tangente, comme on le souhaitait.
+\end{proof}
+
+
+
+
+
+
+
+\begin{remarque*}
+En l'origine, on ne peut avoir qu'un
+\evidence{point d'allure ordinaire} ou un \evidence{rebroussement de première espèce}.
+
+\begin{itemize}
+  \item Si $r$ s'annule en changeant de signe, le point $M(\theta)$
+franchit l'origine en tournant dans le sens direct : c'est un
+point d'allure ordinaire.
+
+  \item Si $r$ s'annule sans changer de signe
+en arrivant en $O$, on rebrousse chemin en traversant la tangente
+(puisque l'on tourne toujours dans le même sens) : c'est un
+rebroussement de première espèce.
+\end{itemize}
+
+\end{remarque*}
+
+
+
+
+
+\begin{exemple}
+Étudier le point $M(\frac{\pi}{2})$ dans les deux cas suivants :
+$$r=(\theta+1)\cos \theta \qquad \text{ et } \qquad r=\cos^2(\theta).$$
+
+\medskip
+\textbf{Solution.}
+Dans les deux cas, $M(\frac{\pi}{2})=O$ et
+la tangente en $M(\frac{\pi}{2})$ est la droite passant par $O$ et
+d'angle polaire $\frac{\pi}{2}$, c'est-à-dire l'axe des ordonnées.
+
+\begin{itemize}
+  \item Dans le premier cas, $r$ change de signe en franchissant
+$\frac{\pi}{2}$, de positif à négatif. Ainsi, en tournant toujours dans le même
+sens, on se rapproche de l'origine, on la franchit et on
+s'en écarte : c'est un point d'allure ordinaire.
+
+  \item Dans le deuxième cas, $r$ ne change pas de signe.
+On ne franchit pas l'origine. On rebrousse chemin tout en tournant
+toujours dans le même sens : c'est un point de rebroussement de première espèce.
+\end{itemize}
+
+\myfigure{0.95}{
+\tikzinput{fig_courbes_part5_06}
+\tikzinput{fig_courbes_part5_07}
+}
+\end{exemple}
+
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soit la courbe d'équation polaire $r = (\cos \theta)^2$.
+  Quand est-ce que la tangente en $M(\theta)$ est perpendiculaire à $\overrightarrow{u_\theta}$ ?
+  Quelle est la tangente à l'origine ? En quels points la tangente est-elle
+  horizontale ? Tracer la courbe.
+
+  \item Montrer que la courbe polaire $r=\frac{1}{\cos \theta+2\sin\theta}$
+  est une droite, que vous déterminerez. Même problème avec
+  $r = \frac{1}{\cos \left( \theta-\frac\pi4 \right)}$.
+
+  \item Montrer que la courbe polaire $r = \cos \theta$
+  est un cercle, que vous déterminerez.
+\end{enumerate}
+\end{miniexercices}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Courbes en polaires : exemples}
+
+
+%---------------------------------------------------------------
+\subsection{Réduction du domaine d'étude}
+
+
+On doit connaître l'effet de transformations géométriques
+usuelles sur les coordonnées polaires d'un point.
+Le plan est rapporté à un repère orthonormé direct,
+$M$ étant le point de coordonnées polaires $[r:\theta]$.
+
+\begin{itemize}
+  \item Réflexion d'axe $(Ox)$. $s_{(Ox)} : [r:\theta] \mapsto [r:-\theta]$.
+
+  \item Réflexion d'axe $(Oy)$. $s_{(Oy)} : [r:\theta] \mapsto [r:\pi-\theta]$.
+
+  \item Symétrie centrale de centre $O$. $s_O : [r:\theta] \mapsto [r:\theta+\pi]=[-r:\theta]$.
+
+  \item Réflexion d'axe la droite $D$ d'équation $(y=x)$.
+$s_D(M) : [r:\theta] \mapsto [r:\frac{\pi}{2}-\theta]$.
+
+  \item Réflexion d'axe la droite $D'$ d'équation $(y=-x)$.
+$s_{D'}(M) : [r:\theta] \mapsto [-r:\frac{\pi}{2}-\theta]=[r:-\frac{\pi}{2}-\theta]$.
+
+  \item Rotation d'angle $\frac{\pi}{2}$ autour de $O$.
+$r_{O,\pi/2} : [r:\theta] \mapsto [r:\theta+\frac{\pi}{2}]$.
+
+  \item Rotation d'angle $\varphi$ autour de $O$.
+  $r_{O,\varphi} : [r:\theta] \mapsto [r:\theta+\varphi]$.
+\end{itemize}
+
+Voici quelques transformations :
+\myfigure{0.6}{
+\tikzinput{fig_courbes_part6_01a}
+\tikzinput{fig_courbes_part6_01b}
+}
+\myfigure{0.6}{
+\tikzinput{fig_courbes_part6_01c}
+\tikzinput{fig_courbes_part6_01d}
+}
+
+\begin{exemple}
+
+Déterminer un domaine d'étude le plus simple possible de la
+courbe d'équation polaire
+$$r=1+2\cos^2\theta.$$
+
+\medskip
+\textbf{Solution.}
+
+\begin{itemize}
+  \item La fonction $r$ est définie sur $\Rr$ et
+$2\pi$-périodique. Donc, pour $\theta\in\Rr$,
+$$M(\theta+2\pi)=\big[r(\theta+2\pi):\theta+2\pi\big]=\big[r(\theta):\theta\big]=M(\theta).$$
+La courbe complète est donc obtenue quand $\theta$ décrit un
+intervalle de longueur $2\pi$ comme $[-\pi,\pi]$ par exemple.
+
+  \item La fonction $r$ est paire. Donc, pour $\theta\in[-\pi,\pi]$,
+$$M(-\theta)=\big[r(-\theta):-\theta\big]=\big[r(\theta):-\theta\big]=s_{(Ox)}\big(M(\theta)\big).$$
+On étudie et construit la courbe sur $[0,\pi]$, puis on obtient
+la courbe complète par réflexion d'axe $(Ox)$.
+
+  \item $r(\pi-\theta)=r(\theta)$. Donc, pour $\theta\in[0,\pi]$,
+$$M(\pi-\theta)=\big[r(\pi-\theta):\pi-\theta\big]=\big[r(\theta):\pi-\theta\big]=s_{(Oy)}\big(M(\theta)\big).$$
+On étudie et construit la courbe sur $[0,\frac{\pi}{2}]$,
+puis on obtient la courbe complète par réflexion d'axe $(Oy)$ puis par
+réflexion d'axe $(Ox)$.
+
+
+
+  \item On obtiendrait les tracés suivants sur $[0,\frac{\pi}{2}]$,
+sur $[0,\pi]$ puis $[0,2\pi]$.
+
+\end{itemize}
+
+\myfigure{0.7}{
+\tikzinput{fig_courbes_part6_02a}\quad
+\tikzinput{fig_courbes_part6_02b}
+}
+\myfigure{1}{
+\tikzinput{fig_courbes_part6_02}
+}
+
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Plan d'étude}
+
+
+\begin{enumerate}
+  \item \evidence{Domaine de définition} et réduction du \evidence{domaine d'étude}
+en détaillant à chaque fois les transformations géométriques permettant de reconstituer la courbe.
+
+\item \evidence{Passages par l'origine.} On résout l'équation $r(\theta)=0$
+et on précise les tangentes en les points correspondants.
+
+\item \evidence{Variations} de la fonction $r$ ainsi que le \evidence{signe} de
+la fonction $r$. Ce signe aura une influence sur le tracé
+de la courbe (voir plus bas).
+Ce signe permet aussi de savoir si l'origine est un point
+de rebroussement ou un point ordinaire.
+
+\item \evidence{Tangentes parallèles aux axes.} Recherche éventuelle des points en lesquels
+la tangente est
+parallèle à un axe de coordonnées (pour une tangente en un point distinct de $O$,
+parallèle à $(Ox)$, on résout $\big(r\sin(\theta)\big)'=y'=0$).
+
+
+\item \evidence{Étude des branches infinies.} Aucun résultat spécifique
+ne sera fait ici. Le plus simple est alors de se ramener à l'étude des branches
+infinies d'une courbe paramétrée classique :
+$\left\{
+\begin{array}{l}
+x(\theta) = r(\theta)\cos(\theta)\\
+y(\theta) = r(\theta)\sin(\theta)
+\end{array}
+\right.$.
+
+\item \evidence{Construction de la courbe.}
+
+\mybox{
+\begin{tabular}{c}
+\textbf{Tracé de la courbe d'équation polaire $r=f(\theta)$}\\[3mm]
+Si $r$ est positif et croît,\\ on tourne dans le sens direct en s'écartant de l'origine.\\[1mm]
+Si $r$ est négatif et décroit,\\ on tourne dans le sens direct en s'écartant de l'origine.\\[1mm]
+Si $r$ est positif et décroît,\\ on tourne dans le sens direct en se rapprochant de l'origine.\\[1mm]
+Si $r$ est négatif et croît,\\ on tourne dans le sens direct en se rapprochant de l'origine.
+\end{tabular}
+}
+
+  \item \evidence{Points multiples.} Recherche éventuelle de points multiples si le tracé de la
+courbe le suggère (et si les calculs sont simples).
+
+\end{enumerate}
+
+
+%---------------------------------------------------------------
+\subsection{Exemples détaillés}
+
+\begin{exemple}
+Construire la \defi{cardioïde}, courbe d'équation polaire
+$$r=1-\cos\theta.$$
+
+\medskip
+\textbf{Solution.}
+
+\begin{itemize}
+  \item \textbf{Domaine d'étude.} La fonction $r$ est $2\pi$-périodique, donc on l'étudie sur $[-\pi,\pi]$,
+  mais comme $r$ est une fonction paire, on se limite à l'intervalle $[0,\pi]$, la courbe étant symétrique par
+  rapport à l'axe des abscisses.
+
+    \item \textbf{Localisation de la courbe.} Comme $0 \le r \le 2$ alors la courbe est bornée,
+    incluse dans le disque de rayon $2$, centré à l'origine. Il n'y a pas de branches infinies.
+
+  \item \textbf{Passage par l'origine.} $r=0 \iff \cos \theta  = 1 \iff \theta = 0$ (toujours avec
+  notre restriction $\theta \in [0,\pi]$). La courbe passe par l'origine uniquement pour $\theta = 0$.
+
+  \item \textbf{Variations de $r$.} La fonction $r$ est croissante sur $[0,\pi]$ avec
+  $r(0)=0$, $r(\pi) = 2$. Conséquence : $r$ est positif et croît, on tourne dans
+  le sens direct en s'écartant de l'origine.
+
+  \item \textbf{Tangentes parallèles aux axes.}
+  La représentation paramétrique de la courbe est $x(\theta) = r(\theta) \cos \theta$,
+  $y(\theta) = r(\theta) \sin \theta$. La tangente est horizontale
+  lorsque $y'(\theta)=0$ (et $x'(\theta)\neq 0$) et verticale lorsque $x'(\theta)=0$
+  (et $y'(\theta)\neq0$).
+  On calcule
+  $$x(\theta) = r(\theta) \cos \theta = \cos \theta - \cos^2\theta \qquad
+  x'(\theta) = \sin\theta ( 2\cos\theta -1)$$
+  $$x'(\theta) = 0 \iff \theta = 0, \quad \theta = \frac\pi3, \quad \theta = \pi$$
+  Puis :
+  $$y(\theta) = r(\theta) \sin \theta = \sin \theta - \cos\theta \sin\theta \qquad
+  y'(\theta) = -2\cos^2\theta+\cos\theta+1$$
+  Or $-2X^2+X+1=0 \iff X=-\frac12 \ \text{ ou } \  X = 1$ donc 
+  $$y'(\theta) = 0 \iff \theta = 0, \quad \theta = \frac{2\pi}{3}$$
+  En $\theta=0$ les deux dérivées s'annulent, donc on ne peut encore rien dire.
+  En $\theta = \frac{2\pi}{3}$ la tangente est horizontale,
+  et en $\theta = \frac\pi3$ et $\theta = \pi$ la tangente est verticale.
+
+
+  \item \textbf{Comportement à l'origine.} À l'origine
+  (pour $\theta_0=0$), une équation de la tangente est $y=\tan \theta_0 x$,
+  donc ici d'équation $y=0$. Comme $r(\theta)\ge0$,
+  il s'agit d'un point de rebroussement.
+
+  \item \textbf{Graphe.} Toutes ces informations permettent de tracer cette courbe polaire.
+
+\end{itemize}
+
+
+
+\myfigure{1}{
+\tikzinput{fig_courbes_part6_05}
+}
+
+\end{exemple}
+
+
+
+\begin{exemple}
+Le plan est rapporté à un repère orthonormé direct.
+Construire la courbe d'équation polaire
+$$r=\frac{1+2\sin\theta}{1+2\cos\theta}.$$
+
+\medskip
+\textbf{Solution.}
+
+\begin{itemize}
+  \item \textbf{Domaine d'étude.}
+
+La fonction $r$ est $2\pi$-périodique. De plus, pour $r\in[-\pi,\pi]$,
+
+$$1+2\cos\theta=0 \iff \left(\theta=-\frac{2\pi}{3}\ \text{ ou }\ \theta=\frac{2\pi}{3}\right).$$
+
+On obtient la courbe complète quand $\theta$ décrit
+$D=[-\pi,-\frac{2\pi}{3}[ \cup ]-\frac{2\pi}{3},\frac{2\pi}{3}[ \cup ]\frac{2\pi}{3},\pi]$.
+
+  \item \textbf{Passages par l'origine.}
+
+Pour $\theta\in D$,
+$$1+2\sin\theta=0\iff \left(\theta=-\frac{\pi}{6}\ \text{ ou }\ \theta=-\frac{5\pi}{6}\right).$$
+En $M(-\frac{\pi}{6})=O$, la tangente est la
+droite d'équation $y=\tan(-\frac{\pi}{6})x=-\frac{1}{\sqrt{3}}x$
+et en $M(-\frac{5\pi}{6})=O$, la tangente est la droite d'équation
+$y=\tan(-\frac{5\pi}{6})x=\frac{1}{\sqrt{3}}x$.
+
+  \item \textbf{Signe et variations de $r$.}
+
+  $r$ est strictement positive sur $]-\frac{5\pi}{6},-\frac{2\pi}{3}[ \  \cup  \ ]-\frac{\pi}{6},\frac{2\pi}{3}[$,
+  et strictement négative sur
+  $[-\pi,-\frac{5\pi}{6}[ \  \cup \  ]-\frac{2\pi}{3},-\frac{\pi}{6}[ \  \cup  \ ]\frac{2\pi}{3},\pi]$.
+Ensuite, $r$ est dérivable sur $D$ et, pour $\theta\in D$,
+\begin{eqnarray*}
+r'(\theta)
+&=&\frac{2\cos\theta(1+2\cos\theta)+2\sin\theta(1+2\sin\theta)}{(1+2\cos\theta)^2}\\
+&=&\frac{2(\cos\theta+\sin\theta+2)}{(1+2\cos\theta)^2}
+=\frac{2\sqrt{2}(\cos(\theta-\frac{\pi}{4})+\sqrt{2})}{(1+2\cos\theta)^2}>0.
+\end{eqnarray*}
+Ainsi, $r$ est strictement croissante sur $[-\pi,-\frac{2\pi}{3}[$,
+sur $]-\frac{2\pi}{3},\frac{2\pi}{3}[$ et sur $]\frac{2\pi}{3},\pi]$.
+
+  \item \textbf{Étude des branches infinies}.
+
+  Quand $\theta$ tend vers $-\frac{2\pi}{3}$, $|r(\theta)|$ tend vers $+\infty$. Plus précisément,
+  \begin{itemize}
+    \item $x(\theta)=\frac{(1+2\sin\theta)\cos\theta}{1+2\cos\theta}$
+tend vers $\pm\infty$,
+
+    \item et $y(\theta)=\frac{(1+2\sin\theta)\sin\theta}{1+2\cos\theta}$
+tend vers $\pm\infty$,
+
+    \item $\frac{y(\theta)}{x(\theta)}=\tan\theta$ tend vers $\tan(-\frac{2\pi}{3})=\sqrt{3}$.
+Donc la courbe admet une direction asymptotique d'équation $y=\sqrt{3}x$.
+  \end{itemize}
+
+
+Ensuite,
+\begin{align*}
+y(\theta)-\sqrt{3} x(\theta)
+&=\frac{(1+2\sin\theta)(\sin\theta-\sqrt{3}\cos\theta)}{1+2\cos\theta}\\
+&=\frac{(1+2\sin\theta)\big(-2\sin(\theta+\frac{2\pi}{3})\big)}{2\big(\cos\theta-\cos(\frac{2\pi}{3})\big)}\\
+&=\frac{(1+2\sin\theta)\big(-4\sin(\frac{\theta}{2}+\frac{\pi}{3})\cos(\frac{\theta}{2}+\frac{\pi}{3})\big)}
+ {-4\sin(\frac{\theta}{2}-\frac{\pi}{3})\sin(\frac{\theta}{2}+\frac{\pi}{3})}\\
+&=\frac{(1+2\sin\theta)\cos(\frac{\theta}{2}+\frac{\pi}{3})}
+ {\sin(\frac{\theta}{2}-\frac{\pi}{3})}
+\end{align*}
+Quand $\theta$ tend vers $-\frac{2\pi}{3}$, cette dernière
+expression tend vers $2(1-\frac{1}{\sqrt{3}})$ et on en déduit que la droite d'équation
+$y=\sqrt{3}x+2(1-\frac{1}{\sqrt{3}})$ est asymptote à la courbe.
+
+On trouve de même que, quand $\theta$ tend vers $\frac{2\pi}{3}$,
+la droite d'équation $y=-\sqrt{3}x+2(1+\frac{1}{\sqrt{3}})$ est asymptote à la courbe.
+
+
+  \item \textbf{Graphe.}
+
+\end{itemize}
+
+\myfigure{1}{
+\tikzinput{fig_courbes_part6_06}
+}
+
+\end{exemple}
+
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Si la fonction $\theta \mapsto r(\theta)$ est
+  $\pi$-périodique, comment limiter l'étude à un intervalle
+  de longueur $\pi$ ? Et si en plus la fonction $r$ est impaire ?
+
+  \item Soit la courbe d'équation polaire $r=\cos\theta+\sin\theta$.
+  Montrer que l'on peut se limiter à $[-\frac{\pi}{4},\frac{\pi}{4}]$
+  comme domaine d'étude.
+
+  \item Étudier la courbe d'équation polaire $r = \sin(2\theta)$.
+
+  \item Étudier la courbe d'équation polaire $r = 1+\tan \frac \theta2$ et en particulier ses
+  branches infinies.
+
+\end{enumerate}
+\end{miniexercices}
+
+
+
+\auteurs{
+
+Jean-Louis Rouget,  \texttt{\href{http://http://www.maths-france.fr/}{maths-france.fr}}
+
+Amendé par Arnaud Bodin
+
+Relu par Stéphanie Bodin et Vianney Combet
+}
+
+\finchapitre
+\end{document}
+
+

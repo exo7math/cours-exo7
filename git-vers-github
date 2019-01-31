@@ -1,0 +1,62 @@
+#!/bin/sh
+# **1** Cloner le repertoire git dans un autre repertoire
+rm -r -f ~/Exo7/cours-exo7/
+git clone ~/git/cours-exo7/ ~/Exo7/cours-exo7/
+
+# **2** Effacer les choses secretes dans le nouveau repertoire
+cd ~/Exo7/cours-exo7/
+git rm -r crypto/Non-Public
+git rm -r formel/Non-Public
+git rm -r formel2018/Non-Public
+
+# **3** Faire le grand nettoyage de l'historique et tout recommencer
+
+rm -rf .git
+rm -rf .gitignore
+git init
+git add .
+git commit -m "Commit initial"
+
+# **4** Générer les pdf 
+
+# Chapitre
+for mydir in algo arithmetique autres binaire chainette compas complexes courbes crypto derivee determinants dimension divers dl ensembles equadiff erene ev fonctions formel gps groupes ifs int intimp intpar inversion lecons logique matlin matrices polynomes reels series suites syslin usuelles work zeros
+do
+    echo "$mydir"
+    cd ~/Exo7/cours-exo7/$mydir/
+    myfile=ch_$mydir
+    echo "$myfile"
+    pdflatex --interaction=nonstopmode $myfile
+    pdflatex --interaction=nonstopmode $myfile
+    git add $myfile.pdf
+done
+
+
+# Livres
+#for myfile in livre-algebre-1 livre-analyse-1 livre-algorithmes livre-geometrie
+#do
+#    pdflatex --interaction=nonstopmode $myfile
+#    pdflatex --interaction=nonstopmode $myfile
+#    pdflatex --interaction=nonstopmode $myfile
+#    git add $myfile.pdf
+#done
+
+cp ~/git/cours-exo7/livre-algebre-1.pdf ~/Exo7/cours-exo7/
+git add ~/Exo7/cours-exo7/livre-algebre-1.pdf
+
+cp ~/git/cours-exo7/livre-analyse-1.pdf ~/Exo7/cours-exo7/
+git add ~/Exo7/cours-exo7/livre-analyse-1.pdf
+
+cp ~/git/cours-exo7/livre-algorithmes.pdf ~/Exo7/cours-exo7/
+git add ~/Exo7/cours-exo7/livre-algorithmes.pdf
+
+cp ~/git/cours-exo7/livre-geometrie.pdf ~/Exo7/cours-exo7/
+git add ~/Exo7/cours-exo7/livre-geometrie.pdf
+
+# **5** Tout envoyer sur github
+git commit -m "Commit avec pdf"
+git remote add origin https://github.com/exo7math/cours-exo7.git
+git push -u --force origin master
+
+
+

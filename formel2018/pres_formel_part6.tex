@@ -1,0 +1,381 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={192,41,0}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcommand{\Sage}{\texttt{Sage}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||,
+  breaklines=true,
+  postbreak=\raisebox{0ex}[0ex][0ex]{\qquad\ensuremath{\color{red}\hookrightarrow\space}},
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Calcul formel}}
+\subtitle{Courbes et surfaces (1)}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Courbes paramétrées
+    \item<4-> Courbes en coordonnées polaires
+    \item<5-> Courbes définies par une équation
+    \item<6-> Surfaces
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Courbes paramétrées}
+
+\begin{frame}[fragile]
+
+\begin{itemize}
+  \item \codeinline{plot(sin(x)*exp(x), (x, -3, 3))}
+  \uncover<2->{\item Courbe paramétrée plane $(f(t), g(t))$, $t \in [a,b]$}
+  \uncover<3->{\item \codeinline{parametric_plot( (f(t), g(t)), (t, a, b) )}}
+\end{itemize}
+
+\begin{center}
+ \includegraphics[scale=0.2]{figures/intro_courbes} \qquad
+ \uncover<4->{\includegraphics[scale=0.35]{figures/lemniscate_bernoulli}}
+\end{center}
+
+\pause\pause\pause
+\begin{algo}[lemniscate-bernoulli.sage]
+\begin{lstlisting}
+var('t')
+x = sqrt(2)*cos(t)/(1+sin(t)^2)
+y = sqrt(2)*cos(t)*sin(t)/(1+sin(t)^2)
+G = parametric_plot((x, y), (t, 0, 2*pi))
+G.show()
+\end{lstlisting}
+\end{algo}
+
+
+\end{frame}
+
+
+\begin{frame}
+\begin{tp}
+\begin{enumerate}
+  \item Tracer la spirale de Fermat d'équation
+  $$\left\{
+\begin{array}{l}
+x(t)=\sqrt t \cos t\\[1mm]
+y(t)=\sqrt t \sin t
+\end{array}
+\right. \qquad t \in \Rr_+.$$
+  \item Tracer la courbe du papillon
+  $$\left\{
+\begin{array}{l}
+x(t) = \sin(t)\left(\exp(\cos(t))-2\cos(4t)-\sin^5\left(\frac{t}{12}\right)\right)\\[3mm]
+y(t) = \cos(t)\left(\exp(\cos(t))-2\cos(4t)-\sin^5\left(\frac{t}{12}\right)\right)
+\end{array}
+\right. \qquad t \in \Rr.$$
+\end{enumerate} 
+\end{tp}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\begin{center}
+\includegraphics[scale=0.3]{figures/fermat_spiral}\quad
+\includegraphics[scale=0.255]{figures/butterfly_curve}  
+\end{center}
+
+\pause
+
+Options de tracé à découvrir grâce 
+à \codeinline{help(parametric_plot)} 
+
+\pause
+\begin{itemize}
+  \item Imposer un repère orthonormé : \codeinline{aspect_ratio = 1}
+\pause
+  \item Nombre de points pour le tracé : \codeinline{plot_points = 500}
+\pause    
+  \item Ne pas afficher les axes : \codeinline{axes = False}
+\pause  
+  \item Afficher une grille : \codeinline{gridlines = True}
+\pause  
+  \item Couleur du trait : \codeinline{color = 'red'}
+
+\end{itemize}
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Courbes en coordonnées polaires}
+
+\begin{frame}[fragile]
+
+\begin{itemize}
+  \item Courbe en coordonnées polaires $[r(t):t]$, $t \in [a,b]$
+  \pause
+  \item \codeinline{polar_plot(r(t), (t, a, b))}
+  \pause
+  \item Folium de Dürer d'équation 
+$r(t) = \sin \frac t 2$, $t \in \Rr$
+\end{itemize}
+
+\begin{center}
+ \includegraphics[scale=0.30]{figures/durer_folium} 
+\end{center}
+
+  \pause
+\begin{algo}[durer-folium.sage]
+\begin{lstlisting}
+var('t')
+G = polar_plot(sin(t/2), (t, 0, 4*pi))
+G.show()
+\end{lstlisting}
+\end{algo}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+
+\begin{tp}
+\begin{enumerate}
+  \item Tracer la courbe du Lituus d'équation polaire 
+  $r(t)^2 = \frac{1}{t}$, $t \in \Rr^*$.
+  \item Tracer la cochléoïde d'équation polaire 
+	  $r(t) = \frac{\sin t}{t}$, $t \in \Rr^*$.
+\end{enumerate} 
+\end{tp}
+
+\uncover<4->{
+Indication : définir deux graphes \codeinline{G1}, 
+\codeinline{G2} pour chacun des intervalles de définition. Superposer
+les par \codeinline{G = G1+G2}, puis afficher avec 
+\codeinline{G.show()}
+}
+
+\begin{center}
+\begin{minipage}{0.45\textwidth}
+\uncover<2->{\includegraphics[scale=0.49]{figures/lituus}}
+\end{minipage}\ 
+\begin{minipage}{0.49\textwidth}
+\uncover<3->{\qquad\qquad\includegraphics[scale=0.35]{figures/cochleoid} }
+\end{minipage}
+\end{center}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Courbes définies par une équation}
+
+\begin{frame}[fragile]
+
+\begin{minipage}{0.65\textwidth}
+\begin{itemize}
+  \item \'Equation implicite du cercle : $x^2+y^2 = 1$
+  \pause
+  \item \'Equation implicite : $f(x,y)=0$ 
+  \pause
+  \item Tracer l'ensemble des couples $(x,y)$ dans $[a,b]\times[c,d]$ qui sont solutions de l'équation 
+$f(x,y)=0$
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.29\textwidth}
+\begin{center}
+  \uncover<5->{\includegraphics[scale=0.25]{figures/butterfly_curve_algebraic}}
+\end{center}
+\end{minipage}
+\pause
+\begin{itemize}
+  \item \codeinline{implicit_plot(f(x,y), (x, a, b), (y, c, d))}
+\end{itemize}
+\pause\pause
+\begin{algo}[butterfly-curve-algebraic.sage]
+\begin{lstlisting}
+f(x,y) = x^6 + y^6 - x^2
+G = implicit_plot(f, (x, -1.2, 1.2), (y, -1.2, 1.2))
+G.show()
+G.save('butterfly_curve_algebraic.png')
+\end{lstlisting}
+\end{algo}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\begin{tp}
+\begin{enumerate}
+  \item Définir une fonction qui renvoie la courbe définie par
+  $$y^2-x^3+x+c = 0$$
+  en fonction du paramètre $c\in \Rr$.
+  \item \`A l'aide de la commande \codeinline{animate}, 
+  réaliser une animation qui affiche l'évolution de la courbe
+  pour $c \in[-1,1]$.
+\end{enumerate}
+\end{tp}
+
+
+\begin{center}
+\uncover<2->{\includegraphics[scale=0.23]{figures/elliptic1}\quad}
+\uncover<3->{\includegraphics[scale=0.23]{figures/elliptic2}\quad}
+\uncover<4->{\includegraphics[scale=0.23]{figures/elliptic3}}
+\end{center}
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Courbes de l'espace}
+%
+%\begin{frame}
+%La commande \codeinline{parametric_plot((x, y, z), (t, a, b))}, 
+%(ou bien \codeinline{parametric_plot3d()}) analogue à celle de la dimension $2$, 
+%trace la courbe paramétrée de 
+%l'espace donnée par les points de coordonnées $\big( x(t), y(t), z(t) \big)$ 
+%lorsque le paramètre $t$ varie dans l'intervalle $[a,b]$. 
+%
+%\begin{tp}
+%Tracer la courbe d'Archytas d'équation paramétrique :
+%$$\left\{
+%\begin{array}{l}
+%x(t) = \cos^2 t \\[1mm]
+%y(t) = \cos t \sin t \\[1mm]
+%z(t) = \pm\sqrt{ \cos t(1-\cos t) }
+%\end{array}
+%\right.\qquad  t \in \big[-\tfrac\pi2,+\tfrac\pi2\big].$$
+%\end{tp}
+%
+%%\insertcode{formel/Algos/archytas_curve.sage}{archytas-curve.sage}
+%
+%Vous obtiendrez une figure qu'il est possible d'orienter dynamiquement 
+%avec la souris. Voici quelques-unes de ces vues.
+%
+%\begin{center}
+% \includegraphics[scale=0.2]{figures/archytas_curve_new1.jpg} 
+%\includegraphics[scale=0.2]{figures/archytas_curve_new2.jpg}  
+%\end{center}
+%\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Surfaces}
+
+\begin{frame}
+
+
+\begin{tp}
+\begin{enumerate}
+  \item Tracer le graphe de la fonction $f(x,y)= x^2y^2-(x^2+y^2)^3$ définie
+  sur $(x,y) \in [-1,1]\times[-1,1]$. Utiliser la fonction \codeinline{plot3d}.
+  \pause 
+  \item Tracer la surface d'Enneper
+  définie par l'équation 
+  {
+  \small
+  $$\left( \frac{y^2-x^2}{2z}+\frac29z^2+\frac23\right)^3-
+  6\left( \frac{y^2-x^2}{4z}-\frac14\big(x^2+y^2+\frac89z^2\big)+\frac29 \right)^2=0.$$
+  }
+  Utiliser la fonction \codeinline{implicit_plot3d}.
+  \pause
+  
+  \item Tracer la nappe paramétrée définie par :
+  $$\left\{
+  \begin{array}{l}
+  x(s,t) =  t^2 \cos s\\[1mm]
+  y(s,t) =  s^2 \sin t\\[1mm]
+  z(s,t) = \cos t+ \sin t
+  \end{array}
+  \right.\qquad  s \in \big[0,1\big], \quad t \in \big[-\pi,+\pi\big].
+  $$
+  Utiliser la fonction \codeinline{parametric_plot3d}.
+  
+\end{enumerate}
+\end{tp}
+
+
+%\insertcode{formel/Algos/surface.sage}{surface.sage}
+\end{frame}
+
+\begin{frame}
+
+\begin{tp}
+\begin{enumerate}
+  \setcounter{enumi}{3}
+  \item Tracer la surface paramétrée définie en coordonnées cylindriques par :
+  $$r(\theta,z) = z^3 \cos \theta \qquad \theta \in [0,2\pi], \quad z \in [0,2].$$  
+  Utiliser la fonction \codeinline{cylindrical_plot3d}.
+ 
+  \pause 
+  \item Tracer la surface paramétrée définie en coordonnées sphériques par 
+  $$r(\theta,\phi)  = \theta \sin(2\phi) \qquad \theta \in [-1,2\pi], \quad  \phi \in [0,\pi].$$
+  Utiliser la fonction \codeinline{spherical_plot3d}.  
+\end{enumerate}
+\end{tp}
+
+
+%\insertcode{formel/Algos/surface.sage}{surface.sage}
+\end{frame}
+
+
+\begin{frame}
+\begin{center}
+\only<1>{\includegraphics[scale=0.25]{figures/surface_1.jpg}}
+\only<2>{\includegraphics[scale=0.25]{figures/surface_2.jpg}}
+\only<3>{\includegraphics[scale=0.25]{figures/surface_3.jpg}}
+\only<4>{\includegraphics[scale=0.25]{figures/surface_4.jpg}}
+\only<5>{\includegraphics[scale=0.25]{figures/surface_5.jpg}} 
+\end{center}
+\end{frame}
+
+\end{document}
+
+

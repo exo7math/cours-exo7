@@ -1,0 +1,454 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+L'algèbre linéaire est la partie des mathématiques qui 
+%s'occupe 
+traite des matrices et des structures vectorielles.
+Beaucoup de problèmes se ramènent ou se réduisent à %'approchent par 
+des problèmes linéaires, pour lesquels il existe  
+des 
+%solutions 
+méthodes de résolution efficaces.
+
+\change
+
+\change
+Nous commencerons par visiter les opérations de base sur les matrices
+
+\change
+Il y aura un tp non corrigé sur la réduction de Gauss,  et le calcul de l'inverse des matrices.
+
+\change
+Nous verrons comment manipuler les applications linéaires
+et en particulier calculer leur image et noyau.
+
+\change
+Enfin nous utiliserons l'algèbre linéaire pour résoudre des problèmes de moindres carrés.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous commençons par des opérations basiques sur les matrices.
+
+Il s'agit de définir plusieurs matrices, de voir quels sont les produits possibles,
+
+de calculer ensuite une puissance de matrice, notez déjà qu'ici $I$ désigne la matrice identité,
+
+nous verrons de plus comment extraire un coefficient.
+
+Enfin nous terminerons ce tp en calculant l'inverse de la matrice $A$ puis la trace de son inverse.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On définit une matrice ayant $n$ lignes et $p$ colonnes par cette commande
+
+où l'on décrit la matrice ligne par ligne par des listes.
+ 
+ 
+\change
+
+Par exemple voici la matrice $A$ qui est une matrice $3 \times 3$,
+sa première ligne est $(1,2,3)$ sa deuxième $(-1,0,1)$ et sa troisième $(0,1,0)$.
+
+La matrice $B$ a deux lignes et trois colonnes.
+
+$u$ est une matrices à $3$ lignes et une colonne, on peut la considérer comme un vecteur colonne,
+
+idem pour $v$.
+
+
+\change
+Le produit de matrices s'écrit tout simplement \codeinline{A * B}.
+
+\change
+Souvenons nous que le produit $A \times B$ de deux matrices 
+n'est possible que si le nombre de colonnes de $A$ est égal au nombre de lignes de $B$.
+
+\change
+  Les produits possibles seront donc ici : 
+  $B\times A$, $A \times u$, $A \times v$,  $B \times u$ et $B \times v$.
+  
+  Mais le produit $A \times B$ n'est pas défini.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On définit la matrice identité $I$ de taille $3\times 3$ par cette
+ commande \codeinline{I = identity\_matrix(3)}.
+
+
+\change
+
+Le calcul de $(A-I)^{7}$ se fait naturellement ainsi
+
+
+\change
+et renvoie cette matrice.
+
+
+\change  
+Le coefficient en position $(2,3)$ d'une matrice $M$ 
+  est celui situé sur la deuxième ligne et la troisième colonne.
+  Donc ici c'est $153$.  
+  
+Mais avec Sage les indices démarrent à $0$,
+
+on récupère donc le coefficient $153$ comme celui indexé
+par la ligne qui porte le numéro $1$ et la colonne qui porte le numéro $2$.
+ 
+Attention au décalage !
+  
+\change
+L'inverse d'une matrice   \codeinline{A} s'écrit simplement
+  \codeinline{A\^{}-1}
+  
+\change
+Cela donne ici cette matrice.
+
+\change
+La trace est par définition la somme des éléments situés sur la diagonale principale : 
+
+\change
+les éléments de la diagonale principale sont ceux d'indices $(i,i)$ pour $i$ variant de 0 à 2.
+
+
+On fait donc la somme de tous ces éléments,
+
+\change
+cela renvoie la trace qui vaut ici $-\frac14$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Revenons sur quelques points.
+
+ Une matrice $A$ se comporte en Sage comme une liste à double entrée et 
+  on accède aux coefficients par la commande \codeinline{A[i,j]} (\codeinline{i}
+  pour les lignes, \codeinline{j} pour les colonnes).
+  
+\change  
+  Attention ! Les listes étant indexées à partir du rang $0$, les
+  indices \codeinline{i}, \codeinline{j} ont pour première valeur $0$.
+
+
+\change
+On peut aussi définir des vecteurs par
+  \codeinline{vector([x1,x2,...,xn])}.
+  Un vecteur peut représenter en même temps un vecteur ligne, 
+  ou un vecteur colonne. On peut donc multiplier une matrice 
+  par un vecteur (à gauche ou à droite).
+  
+\change   
+ Si on définit un vecteur, par exemple  le vecteur $(1,2,3,4)$ alors on peut le transformer 
+
+ \change
+en sa  matrice ligne correspondante.
+ 
+ \change
+puis, en utilisant la transposition, en sa matrice colonne correspondante.   
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici un tp que nous n'allons pas corriger ici mais qui est corrigé dans le polycopié.
+
+Il s'agit de mettre en \oe uvre la méthode de Gauss.
+Cette méthode est valable pour des matrices de taille quelconque, 
+mais ici on se limite au cas des matrices carrées inversibles.
+
+Il faut d'abord implémenter les opérations élémentaires sur les lignes.
+
+Obtenir une matrice échelonnée,
+
+puis échelonnée réduite ,
+
+pour être enfin en mesure de calculer l'inverse d'une matrice.
+
+Encore une fois ce tp n'est pas corrigé, mais je vous encourage vivement à le travailler !
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Attardons nous maintenant à l'étude d'applications linéaires.
+
+Soit $f : \Rr^3 \to \Rr^4$ l'application linéaire définie par
+cette expression.
+
+On demande d'abord de l'exprimer en termes matriciels.
+
+Puis de calculer son noyau, puis son image.
+
+Nous serons alors en mesure de répondre aux questions relatives à l'injectivité et à la surjectivité de l'application linéaire $f$.
+%  $f$ est-elle injective ? est-elle surjective ?
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La matrice associée à l'application linéaire $f$ est clairement la matrice 
+  $$A = \begin{pmatrix}1&0&2\\5&2&2\\2&1&0\\1&1&-2\\\end{pmatrix}.$$
+  
+\change
+  L'application linéaire $f$ étant alors définie par $X \mapsto Y = AX$.
+
+\change 
+  Le noyau de l'application linéaire (ou ce qui qui revient au même de la matrice) 
+  s'obtient par la commande \codeinline{right\_kernel()}.
+  
+\change
+L'image se définit par la commande
+  \codeinline{column\_space()} car l'image est
+  exactement le sous-espace vectoriel engendré par les vecteurs colonnes de la matrice. 
+  
+ Attention, les méthodes \codeinline{kernel} et \codeinline{image} ne conviennent pas, car elles définissent le noyau et l'image "à gauche".  
+   
+\change
+Notons "Ker" le noyau et "Im" l'image et demandons à la machine de nous en calculer une base.
+
+\change
+Voici les résultats :
+
+Le noyau est un espace vectoriel de dimension $1$ dans $\Rr^3$,
+
+\change
+engendré par le vecteur $(2, -4, -1)$. 
+
+\change
+Le noyau n'étant pas trivial, l'application $f$ n'est pas injective.
+  
+\change
+L'image quant à elle est un espace vectoriel de dimension $2$ dans $\Rr^4$, 
+
+\change
+dont une base   
+  est formée des deux vecteurs :
+  $$ 
+  \left(1, 1, 0, -1\right)\qquad \mbox{et} \left(0,2, 1, 1\right).$$
+  
+\change
+L'image n'étant pas $\Rr^4$ tout entier, l'application $f$ n'est pas non plus surjective.
+  
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+Un système linéaire contenant plus d'équations que d'inconnues 
+
+\change
+n'a en général pas de solution.
+
+\change
+On aimerait pourtant parfois trouver 
+ce qui s'approche le plus d'une solution.
+
+\change
+Formalisons ceci : 
+soit $A \in M_{n,p}(\mathbb R)$ avec $n \ge p$ une matrice à coefficients réels, 
+
+\change
+$X$ un vecteur inconnu de taille $p$ 
+
+\change
+et $B$ un vecteur de taille $n$.
+
+\change
+Le système $AX=B$ n'a en général pas de solution, 
+
+mais on aimerait que le vecteur 
+$AX-B$ soit le plus proche du vecteur nul.
+
+\change
+On appelle \defi{solution des moindres carrés}, un vecteur $X$ 
+tel que $\| AX -B \|$ soit minimale, c'est-à-dire 
+on veut rendre minimum la somme des carrés des coordonnées de $AX-B$.
+
+\change
+Cette solution des moindres carrées est explicite et est donnée par la formule :
+\begin{equation}
+X = (A^TA)^{-1} A^T B
+\end{equation}
+\begin{center}
+L'inverse du produit de $A^T$ par $A$ \quad fois $A^T$ \quad fois $B$
+\end{center}
+
+Si la matrice $A$ est de rang maximal, ce qu'on supposera toujours, 
+alors on peut montrer que la matrice $A^TA$ de la formule est inversible.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Nous allons appliquer cette méthode des moindres carrés à deux problèmes d'interpolation.
+
+On se donne tout d'abord une liste de points.
+
+Le premier sujet consiste à déterminer une droite qui approche au mieux ces points, 
+qui bien sûr ne sont pas alignés.
+
+Le plus difficile est de bien comprendre comment on transforme ce problème en un problème linéaire.
+
+~
+
+Une fois cette étape franchie, il n'est pas plus compliqué
+ d'étendre cette question à la recherche d'une interpolation polynomiale, par exemple de trouver 
+quel est le polynôme de degré $3$ qui approche 
+au mieux ces points.
+  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voici une représentation graphique de la droite demandée, c'est celle qui minimise la distance entre les points et la droite.
+
+
+\change
+
+Et voici la courbe du polynôme de degré $3$ qui évidemment approche encore mieux les points.
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+  
+\change
+Comme les points ne sont pas alignés, il n'existe 
+  pas de droite passant par tous ces points.
+  
+\change  
+  On cherche une droite d'équation $y = a +bx$ [!! et pas ax+b!!] qui minimise la distance
+  entre les points et la droite.
+  
+\change
+Pour la trouver on pose [!!!!] $f(x) = a + bx$. 
+
+et nous devons déterminer les coefficients $a$ et $b$ qui conviennent. 
+
+
+\change
+Pour nos $n$ points $(x_i,y_i)$, on aurait souhaité, dans l'idéal, $f(x_i)=y_i$ ce qui est ici impossible. 
+
+\change
+Mais cela nous donne la liste de conditions suivante 
+
+\change
+c'est-à-dire 
+  $
+  \left\{ 
+  \begin{array}{rcl}
+  a +b x_1 &=& y_1 \\
+  a +b x_2 &=& y_2 \\
+  \vdots && \vdots\\
+  a +b x_n &=& y_n \\
+  \end{array}
+  \right.$
+
+Je vous rappelle que les $x_i$ et les $y_i$ sont des données, et que
+$a$ et $b$ sont les inconnues.
+
+\change
+Cette présentation montre clairement que ce problème peut s'écrire de manière matricielle.
+% C'est maintenant un problème linéaire, qui s'écrit sous forme matricielle
+
+$
+  \begin{pmatrix}
+  1 & x_1 \\
+  1 & x_2 \\
+  \vdots & \vdots \\
+  1 & x_n \\  
+  \end{pmatrix}
+  \begin{pmatrix}
+  a \\ b  
+  \end{pmatrix}
+  = 
+  \begin{pmatrix}
+  y_1\\
+  y_2 \\
+  \vdots \\
+  y_n
+  \end{pmatrix}
+  $
+  
+\change
+Que l'on notera $AX = B.$
+
+\change  
+Résolvons (de façon non exacte) le système $AX = B$, par la formule des moindres carrés :
+
+\change
+$X = (A^TA)^{-1} A^T B$.
+
+\change
+On obtient ainsi $a$ et $b$ qui sont les coordonnées du vecteur $X$
+et caractérisent la droite de régression linéaire d'équation [!!!!] $y=a+bx$.
+
+
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo 
+
+ 
+Passons au code :
+
+tout d'abord définissons une fonction moindres carrés qui 
+résout le problème général des moindres carrés
+par la formule $X = (A^TA)^{-1} A^T B$.
+
+
+\change
+
+Voici la liste des points, ils ne sont pas alignés.
+
+\change
+On regroupe ces données dans la matrice $A$, chaque ligne est formée de $1$ et de  
+l'abscisse du point.
+
+Le vecteur colonne $B$ est la liste des ordonnées.
+
+Il ne nous reste qu'à appliquer la formule des moindres carrés pour trouver $X$...
+
+\change
+...c'est-à-dire trouver $a$ et $b$. On obtient cette équation de droite.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour l'interpolation polynomiale,
+l'idée est la même, mais cette fois les inconnues
+sont les coefficients de la fonction
+$f(x) = a + bx +c x^2 + dx^3$.
+  
+On aimerait comme précédemment avoir $f(x_i)=y_i$ pour tout $i$.
+  
+Ce qui équivaut à ce système linéaire :
+
+en termes de matrices  
+
+on arrive à l'équation $AX=B$.
+
+On ne trouve pas de solution exacte $X$ mais une solution approchée par la méthode des moindres carrées. Ce qui nous donne les coefficients $a,b,c,d$ et l'interpolation polynomiale de degré $3$.
+
+
+
+\end{document}

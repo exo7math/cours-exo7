@@ -1,0 +1,394 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Les nombres premiers sont --en quelque sorte-- les briques élémentaires des entiers :
+tout entier s'écrit comme produit de nombre premiers.
+
+\change
+
+Après avoir défini les nombres premiers
+
+nous montrerons qu'il en existe un infinité.
+
+\change
+
+Nous verrons comment trouver des nombres premiers
+
+\change
+
+et nous énoncerons ensuite le théorème de décomposition
+en produit de facteurs premiers.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Un {nombre premier} $p$ est un entier $\ge 2$ dont les seuls diviseurs  
+positifs sont $1$ et $p$.
+
+
+\change
+Les premiers nombres premiers sont $2, 3, 5, 7, 11$,
+
+par exemple $7$ est divisible par $1$ et par $7$ et par aucun autre entier.
+
+\change
+
+
+Par contre $4$ est divisible par $1, 4$ et aussi $2$ donc n'est donc pas un nombre premier.
+
+$6$ est divisible par $1,2,3,6$ n'est pas un nombre premier. etc.
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Commençons par un résultat élémentaire :
+
+Tout entier $n \ge 2$ admet un diviseur qui est un nombre premier
+
+
+\change
+
+
+La preuve est la suivante : nous allons montrer que le plus petit diviseur $\ge 2$
+de $n$ est un nombre premier.
+
+Considérons donc l'ensemble $\mathcal{D}$ des entiers $k$ plus grands que $2$ tel que $k$ divise $n$.
+
+\change
+
+Tout d'abord $\mathcal{D}$ est non vide car $n \in \mathcal{D}$
+
+\change
+
+donc on peut définir $p$ le minimum de l'ensemble $\mathcal{D}$
+
+et comme $p$ appartient à $\mathcal{D}$, $p$ divise $n$.
+
+\change 
+
+Il nous reste à montrer que $p$ est un nombre premier,
+
+
+\change
+
+nous allons le prouver par l'absurde.
+
+Si $p$ n'est pas un nombre premier  
+alors il admet un diviseur $q$ autre que $1$ et $p$ lui-même.
+
+\change
+
+Donc $q$ est plus grand que $2$ et comme $q$ divise $p$ il divise aussi $n$.
+
+Donc $q$ est un élément de l'ensemble $\mathcal{D}$.
+
+Mais $q$ est strictement plus petit que $p$
+
+\change
+
+Nous avons trouvé une contradiction car $p$ est le plus petit élément de $\mathcal{D}$
+et l'on vient d'exhiber un autre élément $q$ de $\mathcal{D}$ strictement plus petit.
+
+Conclusion : $p$ est un bien un diviseur premier de $n$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Proposition :
+
+Il existe une infinité de nombres premiers
+
+\change
+
+La démonstration se fait par l'absurde .
+
+Nous supposons qu'il n'y a qu'un nombre fini de nombre premiers.
+
+\change
+
+Alors on peut tous les noter $p_1$, $p_2$, jusqu'à $p_n$ : on les a tous pris.
+
+\change
+
+Notons  $N=p_1\times p_2\times \cdots \times p_n+ 1$
+
+Par le lemme précédent $N$ admet un diviseur $p$ qui est un nombre premier
+
+\change
+
+Alors d'une part $p$ est l'un des entiers $p_i$
+donc $p | p_1\times \cdots \times p_n$
+
+\change 
+
+D'autre part $p|N$ 
+
+
+donc $p$ divise la différence $N-p_1\times \cdots \times p_n$
+
+mais cette différence vaut $1$ par définition de $N$, donc $p$ divise $1$.
+
+\change
+
+Cela implique que $p=1$
+
+\change
+
+Mais comme $p$ est un nombre premier alors $p$ doit être plus grand que $2$.
+
+Cette contradiction nous permet de conclure qu'il existe une infinité de nombres premiers.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Comment trouver les nombres premiers ? 
+
+Le \evidence{crible d'Eratosthène} permet de trouver les premiers nombres premiers.
+
+Pour cela on écrit les premiers entiers : pour notre exemple de $2$ à $25$
+
+\change
+
+$2$ ne peut avoir comme diviseurs que $1$ et $2$ et est donc premier.
+
+On entoure $2$. Ensuite on raye ou grise tous les multiples suivants de $2$ qui ne seront donc pas premiers
+
+
+\change
+
+Le premier nombre restant de la liste est $3$ et est nécessairement premier : 
+
+il n'est pas divisible par un diviseur
+plus petit (sinon il serait grisé). 
+
+On entoure $3$ et on grise tous les multiples de $3$
+
+\change
+
+Le premier nombre restant est $5$ et est donc premier. 
+
+On grise les multiples de $5$ (ici le seul nouveau grisé est $25$).
+
+\change 
+
+$7$ est donc premier.
+
+Ainsi de suite : $11, 13, 17, 19, 23$ sont premiers.
+
+Nous avons entourer tous les nombres premiers inférieur à $25$.
+
+\change
+
+Comment tester si un nombre $n$ est un nombre premier, sans le crible d'Eratosthène.
+
+Si un nombre $n$ n'est pas premier alors un de ses facteurs est $\le \sqrt{n}$.
+
+(Prouvez le par l'absurde.)
+
+\change
+
+Par exemple pour tester si un nombre $\le 100$ est premier
+il suffit de tester les diviseurs $\le \sqrt{100}=10$.
+
+\change
+
+Et comme s'il admet un diviseur, il admet un diviseur premier (toujours 
+grâce à notre lemme) 
+
+il suffit donc de tester la divisibilité par $2, 3, 5$ et $7$
+
+
+\change
+  Par exemple $89$ n'est divisible ni par $2,3,5,7$ c'est donc un nombre premier
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Le lemme d'Euclide est le résultat suivant : 
+
+Soit $p$ un nombre premier.
+Si $p$ divise le produit $a$ fois $b$ alors $p|a$ ou $p | b$
+
+
+\change
+
+La preuve est courte :
+
+Si $p$ ne divise pas $a$ alors $p$ et $a$ sont premiers entre eux 
+
+\change
+
+Ainsi par le lemme de Gauss $p | b$
+
+\change
+
+Appliquons ceci pour prouver le résultat suivant : 
+
+si $p$ est un nombre premier alors $\sqrt{p}$ n'est pas un nombre rationnel.
+
+\change
+
+La preuve est la même que pour montrer que $\sqrt 2$ est irrationnel.
+
+Revoyons-la rapidement. 
+
+Par l'absurde : écrivons $\sqrt p =\frac ab$
+
+avec $\pgcd(a,b)=1$
+
+\change
+
+En élevant au carré on obtient
+$p b^2 = a^2$ donc $p | a^2$ donc par le lemme d'Euclide $p | a$
+
+\change
+
+ On écrit $a = p a'$ avec $a'$ un entier donc $b^2 = p a'^2$
+
+\change
+
+ Ainsi $p | b^2$ et donc encore par le lemme d'Euclide $p|b$
+
+\change
+
+ Maintenant $p|a$ et $p|b$ donc $a$ et $b$ ne sont pas premiers entre eux. Contradiction
+
+\change 
+
+Conclusion $\sqrt p$ n'est pas rationnel
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici le théorème de décomposition des entiers en produit de facteurs premiers.
+
+Fixons $n\ge 2$ un entier.
+
+Il existe des nombres premiers $p_1$ jusqu'à $p_r$
+et des exposants entiers $\alpha_1$ jusqu'à $\alpha_r$ tels que :
+
+$n = p_1^{\alpha_1} \times p_2^{\alpha_2} \times \cdots \times p_r^{\alpha_r}$
+
+\change
+
+De plus les facteurs premiers $p_i$ et les exposants $\alpha_i$ sont uniques.
+
+
+\change
+
+Il y a donc deux résultats : l'existence et l'unicité.
+
+\change
+
+Par exemple la décomposition de $24$ en produits de facteurs premiers est $24 = 2^3 \times 3$
+
+\change 
+
+Mais $2^2 \times 9$ n'est pas la décomposition en facteurs premiers de $36$ car 
+$9$ n'est pas premier. C'est $2^2\times 3^2$.
+
+\change
+
+Répondons à une question classique.
+
+Pourquoi $1$ n'est pas un nombre premier ?
+
+\change
+
+Une des principales raison pour laquelle nous convenons de dire
+que $1$ n'est pas un nombre premier, c'est que sinon 
+il n'y aurait plus unicité de la décomposition 
+
+\change
+
+Par exemple $24$ s'écrirait $2^3 \times 3$ mais aussi $1 \times 2^3 \times 3$ 
+ou encore $1^2 \times 2^3 \times 3$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici quelques exemples :
+
+pour trouver la décomposition de $504$ en produit de nombres premiers, on divise $504$
+en $2$, cela fait $252$, que l'on redivise en $2$ etc, quand on peut plus diviser par $2$ on 
+teste la division par $3$, puis par $5$, etc.
+
+On trouve 
+$504 = 2^{\color{red}{3}} \times 3^{\color{red}{2}} \times 7$
+
+\change
+
+Même chose avec $300$ qui vaut $2^{\color{blue}{2}} \times 3 \times 5^{\color{blue}{2}}$
+
+
+Nous allons pouvoir en déduire le pgcd et le ppcm de ces deux nombres.
+
+\change
+
+On commence par réécrire $504$ et $300$ avec tous les nombres premiers, quitte
+à mettre des puissance zéros.
+
+
+\change
+
+Le pgcd s'obtient en prenant le plus petit exposant de chaque facteur premier
+
+\change
+
+L'exposant pour le facteur premier $2$ est donc $2$, l'exposant pour le facteur $3$ est $1$,
+
+l'exposant pour le facteur $5$  est zéro, celui pour le facteur $7$ est zéro également.
+
+Le pgcd est donc $2^{\color{blue}{2}} \times 3^{\color{blue}{1}} \times 
+5^{\color{red}{0}} \times 7^{\color{blue}{0}}$ 
+
+\change
+
+qui vaut $12$.
+
+\change 
+
+Pour le ppcm on prend le plus grand exposant de chaque facteur premier
+
+\change
+
+Le ppcm de $504$ et $300$ vaut donc 
+
+$2^{\color{red}{3}} \times 3^{\color{red}{2}} 
+\times 5^{\color{blue}{2}} \times 7^{\color{red}{1}} = 12\,600$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Comme d'habitude, travaillez votre cours en répondant aux questions suivantes.
+
+
+\end{document}

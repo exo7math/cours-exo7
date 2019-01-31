@@ -1,0 +1,440 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans ce chapitre, nous allons aborder la notion d'intégrale impropre. 
+Il s'agit d'intégrer une fonction sur un domaine de longueur infinie, 
+ou bien d'intégrer une fonction qui tend vers l'infini.
+
+
+\change
+
+\change
+
+ Nous commencerons par préciser la notion de  points incertains, 
+ qui sont les points où l'intégration pose problème
+
+\change
+
+ et nous définirons la convergence des intégrales impropres.
+
+\change
+
+Dans un deuxième temps, nous nous intéresserons aux propriétés de 
+l'intégrale impropre, en commençant par la relation de Chasles et la linéarité,
+
+\change 
+
+puis la positivité
+
+\change
+
+et nous donnerons un critère de convergence dû à Cauchy.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+ On considère comme exemple la fonction $f$ qui à 
+ $t$ non nul, associe $\displaystyle \frac{\sin |t|}{|t|^{3/2}}$, 
+ et dont voici le graphe. On veut donner un sens à l'intégrale de 
+ $f$ sur tout le domaine de définition.
+
+ \change
+ On commence  par identifier les \emph{points incertains} :
+ 
+ qui sont dans cet exemple $-\infty$ et $+\infty$, d'une part,
+ qui de toute façon seront toujours des points incertains, 
+ et d'autre part le point $t=0$ au voisinage duquel 
+ la fonction n'est pas bornée.
+
+
+ \change
+ On découpe ensuite chaque intervalle d'intégration 
+ (ici les deux intervalles $]-\infty,0[$ et $]0,+\infty[$) en autant 
+ d'intervalles qu'il faut pour que chacun d'eux ne contienne 
+ qu'\evidence{un seul point incertain} à une de ses bornes. 
+ On emploie pour cela la relation de Chasles.
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \diapo
+
+Après découpage, les intégrales impropres peuvent être de quatre types, 
+selon la nature (finie ou infinie) de la borne
+et selon que la fonction est étudiée à gauche ou à droite de cette borne. 
+Voici la définition complète pour deux des types.
+
+\change
+
+Dans ce cours, on considérera toujours des intégrales de fonctions continues.
+
+\change
+Par définition, on dit que l'intégrale $\int_a^{+\infty} f(t)\;\dd t$ \defi{converge} si
+la limite, lorsque $x$ tend vers $+\infty$, de la primitive 
+$\int_a^{x} f(t)\;\dd t$ existe et est finie. 
+
+\change
+
+Si c'est le cas, on pose :
+\begin{equation}
+%\label{intcv1}
+\int_a^{+\infty} f(t)\;\dd t = \lim_{x\rightarrow+\infty} 
+\int_a^x f(t)\;\dd t\;. 
+\end{equation}
+
+\change
+
+On définit de manière analogue l'intégrale d'une fonction continue 
+$f$ définie sur l'intervalle $]a,b]$ ouvert en $a$.
+
+\change
+Dans ce cas on dit que $\int_a^b f(t)\;\dd t$ \defi{converge} si
+ $\lim_{x\rightarrow *a^+*}  \int_x^b f(t)\;\dd t\;$ existe et est finie.
+ 
+\change 
+ 
+On appelle alors $\int_a^{b} f(t)\;\dd t $
+la  limite de l'intégrale de $f$ sur des intervalles fermés $[x,b]$ où la limite  
+est prise lorsque $x$ tend vers $a$ vers la droite.
+
+\change
+
+Si l'intégrale ne converge pas, on dit que l'intégrale \defi{diverge}.
+
+Les définitions analogues pour les intervalles du type 
+$]-\infty,a]$ ou $[a,b[$ s'obtiennent grâce au changement 
+de variable $t\mapsto -t$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+L'étude des intégrales impropres 
+consiste à intégrer une fonction sur un domaine où elle est définie, 
+puis à passer à la limite. Voici un premier exemple.
+
+L'intégrale
+$$
+\int_0^{+\infty} \frac{1}{1+t^2}\;\dd t\qquad \text{ converge.}
+$$
+
+\change
+
+
+En effet une primitive de $\frac{1}{1+t^2}$ est $\arctan t$, 
+
+\change
+lorsqu'on intègre sur le domaine fini $[0,x]$ 
+on obtient donc $\arctan x-\arctan 0$, 
+
+\change
+donc $\arctan x$.
+
+\change
+Puis le passage à la limite lorsque $x$ tend vers $+\infty$ 
+donne $\frac{\pi}{2}$.
+
+Comme la limite est finie alors l'intégrale est convergente.
+
+\change
+La valeur de cette intégrale impropre est donc $\frac{\pi}{2}$.
+
+\change
+Cela prouve que le domaine sous la courbe, qui n'est bien sûr pas borné,
+a cependant une aire qui est finie !
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici deux autres exemples pour développer notre intuition.
+
+\change
+
+$$
+\int_0^1 \frac{1}{t}\;\dd t
+$$
+dont le point incertain est en $0$, diverge.
+\change
+
+
+
+
+en effet une primitive de $\frac{1}{t}$ 
+
+\change
+est $\ln t$, 
+
+
+et l'intégration sur le domaine $[x,1]$ pour $x>0$ 
+
+\change 
+donne  $-\ln x$, 
+
+\change
+une quantité qui tend vers $+\infty$ lorsque $x$ tend vers $0$. 
+
+Dans le cas d'une intégrale divergente, 
+
+on ne parle pas de la valeur de l'intégrale.
+
+
+\change
+
+Par contre 
+$$
+\int_0^1 \ln t\;\dd t\qquad \text{ converge.}
+$$ 
+le point incertain est encore en $0$
+\change
+
+Une primitive de $\ln t$ 
+
+\change
+est $t\ln t -t$, 
+
+\change
+et l'intégration sur le domaine $[x,1]$ donne $x-x\ln x-1$, 
+
+\change
+qui tend vers $-1$ lorsque $x$ tend vers $0$ 
+(car $x\ln x$ tend vers $0$). 
+
+On a bien prouvé que cette intégrale converge et vaut $-1$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Lorsqu'elle converge, l'intégrale impropre vérifie les mêmes 
+propriétés que l'intégrale de Riemann usuelle.
+
+Commençons par la relation de Chasles.
+
+\change
+
+Soit $f : [a,+\infty[ \to \Rr$ une fonction continue et soit
+  $a' \in [a,+\infty[$. 
+  Alors les intégrales impropres $\int_a^{+\infty} f(t) \;\dd t$ 
+  et $\int_{a'}^{+\infty} f(t) \;\dd t $ sont de même nature. 
+
+\og{}\^Etre de même nature  \fg{}  signifie que les deux intégrales 
+sont convergentes en même temps ou bien divergentes en même temps.
+
+\change
+
+Si elles convergent, la relation de Chasles est vérifiée :
+$\int_a^{+\infty}  = \int_{a}^{a'} + \int_{a'}^{+\infty}$ 
+
+La preuve résulte de la relation de Chasles pour les intégrales 
+usuelles et d'un passage à la limite.
+
+La relation de Chasles implique donc que la convergence ne dépend
+pas du comportement de la fonction sur des intervalles bornés,
+mais seulement de son comportement au voisinage de $+\infty$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Pour ce qui est de la linéarité de l'intégrale impropre, on procède exactement 
+de la même façon en se ramenant à des intégrales usuelles grâce à un passage 
+à la limite utilisant la linéarité des limites.
+
+L'énoncé de la linéarité est le suivant :
+
+* $f$ et $g$ sont deux fonctions continues 
+ayant des intégrales convergentes.
+
+* $\lambda,\mu$ sont deux réels. 
+
+* Alors d'une part l'intégrale 
+$\int \lambda f + \mu g$ converge 
+
+* et d'autre part 
+$\int \lambda f + \mu g = \lambda\int  f  + \mu \int  g $
+
+Bien sûr, on a des résultats analogues à la relation de Chasles 
+et la linéarité 
+pour les autres types d'intervalle d'étude.
+
+Remarque : la réciprocité dans la linéarité est fausse,
+il est possible de trouver deux fonctions $f,g$ telles que
+$\int_a^{+\infty} f+g$ converge, sans que $\int_a^{+\infty} f$, ni
+$\int_a^{+\infty} g$ convergent. Trouvez un tel exemple !
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+L'intégrale impropre 
+est compatible avec la relation d'ordre sur les fonctions, 
+au sens suivant : 
+si $f\leq g$, alors l'intégrale impropre de $f$ sur $[a,+\infty[$ est 
+inférieure à l'intégrale impropre de $g$ sur $[a,+\infty[$.
+
+Attention ici on suppose que les intégrales convergent ! 
+La preuve utilise le fait que le passage à la limite est 
+compatible avec les inégalités larges.
+
+\change
+
+Voici en particulier, un résultat très utile : 
+l'intégrale impropre d'une fonction positive est positive :
+
+Si \quad $f\ge 0$ \quad alors \quad 
+$\displaystyle \int_a^{+\infty} f(t)\;\dd t \ge 0$
+
+On a de nouveau des résultats analogues pour les autres types 
+d'intervalle d'étude, 
+il faut seulement faire attention à respecter 
+l'ordre des bornes d'intégration, 
+comme pour les intégrales usuelles.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On dispose d'un critère de convergence très utile pour les intégrales impropres, mais plus technique.
+
+Rappelons d'abord le critère de Cauchy pour les limites.
+
+Une fonction $f$ admet une limite finie lorsque $x\to +\infty$ 
+
+si et seulement si la fonction $f(u)-f(v)$ tend vers $0$ lorsque $u$ et $v$ tendent tous les deux vers $+\infty$ :
+
+$$\forall \epsilon>0\quad\exists M \ge a \qquad 
+\left( u,v \ge M \implies \big|f(u)-f(v)\big|<\epsilon\right)$$
+
+
+
+\change
+
+Le critère de Cauchy pour les intégrales impropres dit de même que 
+$\int_a^{+\infty} f(t) \; \dd t$ converge si et seulement si 
+$\int_u^v f(t) \; \dd t$ tend vers $0$ lorsque $u$ et $v$ tendent 
+tous les deux vers $+\infty$. Mathématiquement :
+$$\forall \epsilon>0  \quad \exists  M \ge a \qquad
+\left( u,v \ge M \implies \Bigl|\int_u^v f(t) \;\dd t\Bigr|<\epsilon\right)$$
+
+\change
+
+Le critère de Cauchy pour les intégrales impropres 
+se prouve en utilisant le critère de Cauchy pour les fonctions, 
+appliqué à la primitive de la fonction dont on considère 
+l'intégrale impropre,
+
+\change
+
+et en utilisant l'égalité 
+$\big|F(u)-F(v)\big|=\big|\int_u^vf(t)\; \dd t\big|$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On peut considérer des intégrales qui sont doublement impropres, 
+c-à-d définies sur un intervalle dont les *deux* bornes sont des points 
+incertains. On doit d'abord découper cet 
+intervalle en deux pour se ramener à deux  intégrales ayant chacune 
+un seul point incertain. \\
+
+On considère une fonction $f$ définie et continue sur un 
+intervalle ouvert $]a,b[$, où les points $a$ et $b$ sont deux points incertains.
+
+\change
+
+On dit que l'intégrale $\int_a^b f(t)\;\dd t$ \defi{converge} 
+s'il existe
+$c \in ]a,b[$, 
+tel que les \evidence{deux} intégrales
+impropres $\int_a^c f(t)\;\dd t$ et $\int_c^b f(t)\;\dd t$ convergent.
+
+\change
+
+En cas de convergence, la valeur de cette intégrale doublement impropre 
+est alors la somme des 
+deux intégrales impropres convergentes, conformément à ce qu'on attend 
+d'après la relation de Chasles. Cette même relation implique que la nature 
+et la valeur de cette intégrale doublement impropre ne dépendent pas du 
+choix de $c$ dans l'intervalle ouvert $]a,b[$ :
+
+quelque soit $c$
+$$\int_a^b f(t)\;\dd t = \int_a^c f(t)\;\dd t+\int_c^b f(t)\;\dd t$$
+
+
+Notez que si l'une des deux intégrales $\int_a^c f(t)\;\dd t$ ou 
+$\int_c^b f(t)\;\dd t$ diverge, alors l'intégrale 
+$\int_a^b f(t)\;\dd t$ diverge par définition.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Examinons un premier exemple : 
+$\int_{-\infty}^{+\infty} \frac{1}{1+t^2}\;\dd t$ 
+converge 
+
+\change
+
+Il résulte d'un calcul précédent que 
+$ \int_0^{+\infty} \frac{1}{1+t^2}\;\dd t$ converge et vaut 
+$\frac{\pi}{2}$, 
+
+\change
+le même calcul sur l'intervalle $]-\infty,0[$, 
+ou un raisonnement de parité prouve
+que $\int_{-\infty}^{0} \frac{1}{1+t^2}\;\dd t$
+converge et vaut aussi $\frac{\pi}{2}$, 
+
+\change
+Conclusion : l'intégrale doublement impropre :
+$\int_{-\infty}^{+\infty} \frac{1}{1+t^2}\;\dd t$ converge et vaut $\pi$
+
+\change
+
+Voici un exemple qui vous oblige a bien comprendre la définition :
+$\int_{-\infty}^{+\infty}t\;\dd t$ diverge. 
+
+\change
+En effet  $\int_{0}^{x} t\;\dd t = \frac{x^2}{2}$ 
+tend vers $+\infty$ lorsque $x$ tend vers  $+\infty$. 
+
+\change
+Donc $\int_0^{+\infty}t\;\dd t$ diverge
+
+\change
+D'après la définition de l'intégrale impropre alors
+$\int_{-\infty}^{+\infty}t\;\dd t$ est une intégrale divergente.
+
+\change
+Il y a cependant un phénomène surprenant : 
+pour tout $x$ on a $\int_{-x}^{+x} t\;\dd t=0$ (par parité). 
+
+Conclusion : il ne faut jamais examiner la limite des intégrales lorsque 
+les deux bornes tendent simultanément vers des points incertains, mais bel et bien revenir à la définition.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici quelques exercices pour vous familiariser avec 
+les intégrales impropres.
+
+\end{document}

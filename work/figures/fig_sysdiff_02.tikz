@@ -1,0 +1,26 @@
+\begin{tikzpicture}[scale=0.5]
+
+     \draw[->,>=latex,thick, gray] (-6,0)--(6,0) node[below,black] {$x$};
+     \draw[->,>=latex,thick, gray] (0,-10)--(0,10) node[right,black] {$y$};
+
+   
+\begin{scope}
+    \clip(-5,-9) rectangle (5,9);
+    \foreach \k in {0.1,0.3,0.5,1,5} {
+     \draw [very thick, color=red,samples=50,smooth, domain=0.1:10] 
+            plot(\x,{\k*\x^2});
+     \draw [very thick, color=red,samples=50,smooth, domain=0.1:10] 
+            plot(\x,{-\k*\x^2});
+     \draw [very thick, color=red,samples=50,smooth, domain=0.1:10] 
+            plot(-\x,{\k*\x^2});
+     \draw [very thick, color=red,samples=50,smooth, domain=0.1:10] 
+            plot(-\x,{-\k*\x^2});
+   \draw[very thick, color=red] (-9,0)--(9,0);
+   \draw[very thick, color=red] (0,-9)--(0,9);
+
+    }
+
+\end{scope}
+
+
+\end{tikzpicture}

@@ -1,0 +1,77 @@
+% Stereographic and cylindrical map projections
+% Author: Tomasz M. Trzeciak
+% Source: LaTeX-Community.org
+%         <http://www.latex-community.org/viewtopic.php?f=4&t=2111>
+
+% Need fig_gps_3d_preamb_01.tex
+
+
+% Latitude-longitude
+\begin{tikzpicture}[scale=1]
+%% some definitions
+
+\def\R{3} % sphere radius
+\def\angEl{35} % elevation angle
+\def\angAz{-105} % azimuth angle
+\def\angPhi{0} % longitude of point P
+\def\angBeta{40} % latitude of point P
+
+%% working planes
+
+\pgfmathsetmacro\H{\R*cos(\angEl)} % distance to north pole
+\tikzset{xyplane/.style={cm={cos(\angAz),sin(\angAz)*sin(\angEl),-sin(\angAz),
+                              cos(\angAz)*sin(\angEl),(0,0)}}}
+\LongitudePlane[xzplane]{\angEl}{\angAz}
+\LongitudePlane[pzplane]{\angEl}{\angPhi}
+\LatitudePlane[equator]{\angEl}{0}
+
+%% draw xyplane and sphere
+
+%\draw[xyplane] (-2*\R,-2*\R) rectangle (2.2*\R,2.8*\R);
+\fill[ball color=white] (0,0) circle (\R); % 3D lighting effect
+\draw (0,0) circle (\R);
+
+%% characteristic points
+
+\coordinate (O) at (0,0);
+\coordinate (N) at (0,\H);
+\coordinate (S) at (0,-\H);
+\path[pzplane] (\angBeta:\R) coordinate (P);
+\path[pzplane] (\R,0) coordinate (PE);
+\path[xzplane] (\R,0) coordinate (XE);
+\path (PE) ++(0,-\H) coordinate (Paux); % to aid Phat calculation
+\coordinate (Phat) at (intersection cs: first line={(N)--(P)},
+                                        second line={(S)--(Paux)});
+
+%% draw xyz coordinate system
+
+\draw[xyplane,<->,>=latex, thick] (2.2*\R,0) node[below] {$x$} -- (0,0) -- (0,2*\R)
+    node[right] {$y$};
+\draw[->,>=latex, thick] (0,-\H) -- (0,1.6*\R) node[above] {$z$};
+
+%% draw lines and put labels
+
+%\draw[dashed] (P) -- (N) +(0.3ex,0.6ex) node[above left] {$N$};
+\fill[black!90] (N) circle (2pt) node[above left, black] {$N$};
+\fill[black!80] (S) circle (2pt) node[below right, black] {$S$};
+%\draw (P) -- (Phat) node[above right] {$\mathbf{\hat{P}}$};
+\draw[thick, red] (O) -- (P);
+\fill[red] (P) circle (2pt) node[above right] {$P$};
+\draw[dashed, thick] (XE) -- (O) -- (PE);
+\draw[pzplane,>=latex,->,very thick,blue] (0:0.5*\R) to[bend right=15]
+    node[pos=0.4,right] {$\varphi$} (\angBeta:0.5*\R);
+\draw[equator,>=latex,->,very thick,blue] (\angAz:0.4*\R) to[bend right=30]
+    node[pos=0.4,below] {$\lambda$} (\angPhi:0.4*\R);
+
+%% draw meridians and latitude circles
+
+ \DrawLatitudeCircle[\R,green!50!black, very thick]{0} % equator
+ \DrawLongitudeCircle[\R,green!50!black, very thick]{\angAz} % xzplane
+ \draw[thick, red] (O) -- (P);
+ 
+\draw[->,>=latex,thick,black] (-5,-3) node[left] {\'Equateur} 
+to [bend right=30] (-1.5,-1.6); 
+
+\draw[->,>=latex,thick,black] (-5,-2) node[below] {M\'eridien de Greenwich} 
+to [bend left=20] (-0.7,0);
+\end{tikzpicture}

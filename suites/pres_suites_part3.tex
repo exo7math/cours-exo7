@@ -1,0 +1,286 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={34,139,34}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+
+\title{{\bf Suites}}
+\subtitle{Exemples remarquables}
+
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Suite géométrique
+    \item<4-> Série géométrique
+    \item<5-> Suites telles que $\left|\frac{u_{n+1}}{u_n}\right|<\ell<1$
+    \item<6-> Approximation des réels par des décimaux
+  \end{itemize}
+\end{minipage}
+}
+\vspace*{1cm}
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+\section{Suite géométrique}
+
+\begin{frame}
+\begin{proposition}[Suite géométrique]
+\label{prop:suitegeo}
+On fixe un réel $a$. Soit $(u_n)_{n\in \Nn}$ la suite de terme général : $u_n=a^n$
+\begin{enumerate}      
+  \setlength{\itemsep}{7pt} 
+\pause
+  \item Si $a=1$, on a pour tout $n\in \Nn$ : $u_n=1$
+\pause
+  \item Si $a>1$, alors $\lim_{n\to +\infty} u_n= +\infty$
+\pause  
+  \item Si $-1<a<1$, alors $\lim_{n\to +\infty} u_n= 0$
+\pause  
+  \item Si $a\le-1$, la suite $(u_n)_{n\in \Nn}$ diverge
+\end{enumerate}
+\end{proposition}
+\pause
+\begin{proof}
+  \begin{enumerate}
+  \setcounter{enumi}{1}
+    \item 
+    
+    \begin{itemize}
+      \item Écrivons $a=1+b$ avec $b>0$
+\pause      
+      \item Alors $a^n=(1+b)^n=1+nb+\binom{n}{2}b^2+\cdots+\binom{n}{k}b^k+\cdots+b^n$
+\pause      
+      \item Donc on a : $a^n\geq 1+nb$
+\pause      
+      \item Or $\lim_{n\to +\infty}(1+nb)=+\infty$ car $b>0$
+ \pause     
+      \item D'où $\lim_{n\to +\infty} a^n=+\infty$ \qedhere
+    \end{itemize}
+\end{enumerate}
+\end{proof}
+
+
+
+\end{frame}
+
+\section{Série géométrique}
+
+\begin{frame}
+\begin{proposition}[Série géométrique]
+  Soit $a\neq 1$ 
+  \vspace*{-3ex}
+  \mybox{$\displaystyle \sum_{k=0}^na^k=\frac{1-a^{n+1}}{1-a} $}  
+\end{proposition}
+\pause
+$$1+a+a^2+\cdots+a^n=\frac{1-a^{n+1}}{1-a}$$
+\pause
+\begin{proof}
+  \[(1-a)\big(1+a+a^2+\cdots+a^n \big) 
+  \pause =   \big(1+a+a^2+\cdots+a^n \big) - \big(a+a^2+\cdots+a^{n+1} \big)
+  \pause = 1-a^{n+1} \]
+\end{proof}
+\end{frame}
+
+
+\begin{frame}
+\begin{remarque}
+\begin{itemize}  \setlength{\itemsep}{3pt} 
+  \item Soit $a\in ]-1,1[$ et la suite de terme $\displaystyle u_n= \sum_{k=0}^na^k
+  \pause = \frac{1-a^{n+1}}{1-a}$
+\pause\vspace*{-3pt}
+  \item $\displaystyle\lim_{n\to +\infty} u_n= \frac{1}{1-a}$
+\pause  
+  \item On pourrait écrire $\displaystyle1+a+a^2+a^3 +\cdots = \frac{1}{1-a}$
+\pause  
+  \item Formule $\displaystyle\sum_{k=0}^na^k=\frac{1-a^{n+1}}{1-a} $ aussi valable si $a\in \Cc\setminus\{1\}$
+\pause  
+  \item Si $a=1$, alors $1+a+a^2+\cdots+a^n=n+1$
+\end{itemize}
+\end{remarque}
+\pause
+
+
+\[a=\tfrac{1}{2} \quad \qquad {\color{red}1} + {\color{red}\frac{1}{2}} +
+{\color{red}\frac{1}{4}} + {\color{red}\frac{1}{8}} +\cdots = {\color{blue}2} \]  
+\vspace*{-2ex}
+\myfigure{1.5}{\tikzinput{fig_suites08bis}}    
+
+\end{frame}
+
+\section{Suites telles que $\left|{u_{n+1}}/{u_n}\right|<\ell<1$ }
+
+\begin{frame}
+	\begin{theoreme}
+Soit  $(u_n)_{n\in \Nn}$ une suite de réels non nuls. On suppose qu'il existe $\ell$ 
+%tel que $0< l <1$ et 
+tel que pour tout $n$  on ait :
+\[ \left | \frac{u_{n+1}}{u_n}\right |  <\ell<1
+\qquad \qquad \text{alors} \qquad \lim_{n\to +\infty} u_n= 0
+\]
+\end{theoreme}
+
+\pause
+\medskip
+Conclusion valable si $\left |\frac{u_{n+1}}{u_n}\right |  <\ell<1$ seulement à partir d'un certain rang
+
+\medskip
+\pause
+\begin{proof}
+  \[ \frac{u_n}{u_0}=\frac{u_1}{u_0} \times\frac{u_2}{u_1} \times\frac{u_3}{u_2} 
+  \times\cdots\times \frac{u_n}{u_{n-1}}\] 
+\pause
+  \[\text{donc} \quad \left\lvert\frac{u_n}{u_0}  \right\rvert 
+  <\ell\times \ell\times \ell \times \cdots \times \times \ell=\ell^n\] 
+\pause
+  \[\text{donc} \quad \lvert u_n \rvert <\lvert u_0 \rvert \ell^n \]
+\pause
+\hfill Comme $\ell<1$ on a $\lim_{n\to +\infty} \ell^n= 0$
+ainsi $\lim_{n\to +\infty} u_n= 0$
+\end{proof}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{corollaire}
+\mybox{Si $\displaystyle\lim_{n\to +\infty}\frac{u_{n+1}}{u_n}=  0$ \quad  alors \quad $\displaystyle\lim_{n\to +\infty} u_n= 0$}
+\end{corollaire}
+\pause
+\begin{exemple}
+Soit $a\in \Rr$. Alors $\displaystyle \lim_{n\to +\infty} \frac{a^n}{n!} =0$
+\end{exemple}
+\pause
+\begin{proof}
+\begin{itemize}
+  \item Si $a=0$, évident
+\pause
+  \item Supposons $a\neq 0$ et posons $u_n= \frac{a^n}{n!}$
+\pause
+  \item $\displaystyle\frac{u_{n+1}}{u_n}\pause= \frac{a^{n+1}}{(n+1)!}\cdot \frac{n!}{a^n}\pause=\frac{a}{n+1}$
+\pause
+  \item $\lim \frac{u_{n+1}}{u_n} = 0$ 
+ \pause 
+  \item $\lim u_n =0$ \qedhere
+  
+\end{itemize}
+\end{proof}
+
+\end{frame}
+
+\section{Approximation des réels par des décimaux}
+
+\begin{frame}
+\begin{proposition}
+\label{prop:ecdecim}
+  Soit $a\in \Rr$. Posons
+  \[u_n = \frac{E(10^na)}{10^n} \]
+  
+   \hfil \hfil Alors $u_n$ est une approximation décimale de $a$ à $10^{-n}$ près, 
+  
+  
+  \hfil \hfil en particulier $\lim_{n\to +\infty} u_n=a$
+\end{proposition}
+\pause
+
+\begin{proof}
+
+  \[E(10^na)\leq 10^na < E(10^na)+1\]
+\pause  
+donc
+\[ u_n \leq a < u_n+\frac{1}{10^n} \]
+\pause
+donc
+\[ 0 \leq a -u_n< \frac{1}{10^n} \]
+\pause
+Conclusion :  $\lim_{n\to +\infty} u_n=a$
+\end{proof}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple} 
+\hfil\hfil$\pi= 3,14159265\ldots$
+\pause
+\renewcommand{\arraystretch}{1.8}
+ $$ \begin{array}{l}    
+    u_0  = \frac{E(10^0\pi)}{10^0}  = E(\pi) = 3\\
+\pause
+    u_1  = \frac{E(10^1\pi)}{10^1}  = \frac{E(31,415\ldots)}{10}  = 3,1\\
+\pause    
+    u_2  = \frac{E(10^2\pi)}{10^2}  = \frac{E(314,15\ldots)}{100} = 3,14\\
+\pause    
+    u_3  = 3,141
+  \end{array}$$
+\end{exemple}
+\pause
+
+
+  \begin{enumerate}
+    \item Les $u_n$ sont des décimaux, en particulier ce sont des rationnels
+\pause
+\medskip
+    \item $\Qq$ est dense dans $\Rr$ : \\
+Pour $\epsilon >0$, et $I=]a-\epsilon,a+\epsilon[$, pour $n$ assez grand, $u_n\in I\cap \Qq$
+  \end{enumerate}
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+ \begin{miniexercice}
+ 
+ \begin{enumerate}
+  \item Déterminer la limite de la suite $(u_n)_{n\in \Nn}$ de terme général $5^n-4^n$.
+  
+  \item Soit $v_n=1+a+a^2+\cdots + a^n$. Pour quelle valeur de $a \in \Rr$ la suite 
+  $(v_n)_{n\ge 1}$ a pour limite $3$ (lorsque $n \to + \infty$) ?
+     
+  \item Calculer la limite de $\frac{1+2+2^2+\cdots + 2^n}{2^n}$.
+  
+  \item Montrer que la somme des racines $n$-ièmes de l'unité est nulle.
+  
+  \item Montrer que si $\sin(\frac \theta 2)\neq 0$ alors  
+  $\frac{1}{2}+\cos(\theta )+\cos(2\theta )+\cdots+\cos(n\theta )
+  =\frac{\sin\left( (n+ \frac{1}{2})\theta \right)}{2\sin(\frac{\theta }{2})}$ 
+  (penser à $e^{\ii\theta}$).
+
+  \item Soit $(u_n)_{n\geq 2}$ la suite de terme général 
+  % $\frac{n!}{n^n}$. [[Arnaud : trop dur !]]
+  $u_n= \ln(1+\frac12)\times\ln(1+\frac 13)\times\cdots\times\ln(1+\frac1n)$.
+Déterminer la limite de $\frac{u_{n+1}}{u_n}$. Que peut-on en déduire ? 
+  \item Déterminer la limite de $\frac{\pi^n}{1\times 3 \times 5 \times \cdots \times (2n+1)}$ 
+  (où $\pi = 3,14\ldots$).
+  
+   \item Soit $a$ un réel. Montrer que pour tout $\epsilon>0$ il existe un couple 
+   $(m,n)\in \Zz\times \Nn$ (et même une infinité) 
+tel que $\left|a-\frac{m}{2^n}\right|\leq \epsilon$.
+\end{enumerate}
+
+ \end{miniexercice}
+ \end{frame}
+
+
+
+\end{document}

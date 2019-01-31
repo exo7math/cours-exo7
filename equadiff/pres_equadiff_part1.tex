@@ -1,0 +1,377 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={51,102,51}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcommand{\alenvers}[1]{\rotatebox[origin=c]{180}{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf \'Equations différentielles}}
+\subtitle{Définition}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Motivation
+    \item<4-> Introduction
+    \item<5-> Définition
+    \item<6-> \'Equation différentielle linéaire
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Motivation}
+
+\begin{frame}
+
+\begin{minipage}{0.59\textwidth}
+\uncover<3->{Un parachutiste est soumis a deux forces }
+\begin{itemize}
+  \item \uncover<2->{Poids $\vec{P}$}
+\uncover<4->{  \begin{itemize}
+    \item force verticale 
+    \item $P = mg$
+  \end{itemize}
+}
+\uncover<3->{  \item Force de frottement $\vec{F}$}
+\uncover<5->{  \begin{itemize}
+    \item opposée à sa vitesse
+    \item $F = -f m v$
+  \end{itemize}
+}
+\end{itemize}  
+\end{minipage}
+\begin{minipage}{0.39\textwidth}
+\myfigure{0.9}{
+    \input{Fig-equadiff/fig_equadiff02.tex}
+  } 
+\end{minipage}
+
+\pause\pause\pause\pause\pause
+\vspace*{-1ex}
+\begin{itemize}[<+->]
+  \item Principe fondamental de la mécanique $\vec{P}+\vec{F} = m\vec{a}$
+  \item $mg - fmv = ma$
+  \item \myboxinline{$\frac{\dd v(t)}{\dd t} = g - fv(t)$}
+  \item C'est une relation entre la fonction vitesse $v$ et sa dérivée 
+  \item C'est une \evidence{équation différentielle}
+  \item Résoudre l'équation différentielle c'est trouver $v(t)$
+  \item Comme $v(t) = \frac{\dd x(t)}{\dd t}$ en déduire $x(t)$
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Introduction}
+
+\begin{frame}
+Une \evidence{équation différentielle} est une équation :
+\pause
+\begin{itemize}
+\item dont l'inconnue est une fonction 
+(généralement notée $y(x)$ ou simplement $y$) 
+
+\pause
+
+\item dans laquelle apparaissent certaines des dérivées de la
+  fonction (dérivée première $y'$, 
+  ou dérivées d'ordres supérieurs $y''$, $y^{(3)},\ldots$)
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}
+De tête, trouver au moins une fonction, solution des 
+équations différentielles suivantes :
+$$\begin{array}{lr}
+y' = \sin x & \qquad \qquad \uncover<2->{\alenvers{$y = -\cos x + k \quad\text{ où } k \in \Rr$}} \\
+y' = 1 + e^x & \qquad \qquad \uncover<2->{\alenvers{$y = x + e^x + k \quad\text{ où } k \in \Rr$}} \\
+y' = y & \qquad \qquad \uncover<2->{\alenvers{$y = k e^x \quad\text{ où } k \in \Rr$}} \\
+y' = 3y & \qquad \qquad \uncover<2->{\alenvers{$y = k e^{3x} \quad\text{ où } k \in \Rr$}} \\
+y'' = \cos x & \qquad \qquad \uncover<2->{\alenvers{$y = -\cos x + ax + b \quad\text{ où } a, b \in \Rr$}} \\
+y'' = y & \qquad \qquad \uncover<2->{\alenvers{$y = a e^x + b e^{-x} \quad\text{ où }  a, b \in \Rr$}}  \\  
+\end{array}$$
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}
+\begin{enumerate}
+  \item $y' = 2xy+4x$
+  
+  \pause
+  
+  Vérifier que $y(x)=k\exp(x^2)-2$ est une solution sur $\Rr$, 
+  pour tout $k\in \Rr$
+
+  \pause
+  
+  \item $x^2y''-2y+2x=0$
+  
+  \pause
+  
+  Vérifier que $y(x)=kx^2+x$ est une solution sur $\Rr$, 
+  pour tout $k \in \Rr$
+\end{enumerate}
+\end{exemple}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Définition}
+
+\begin{frame}
+
+\begin{mydefinition}
+\begin{itemize}
+  \item Une \defi{équation différentielle} d'ordre $n$ est une équation de la forme
+  \begin{equation}
+    F\left(x,y,y',\dots ,y^{(n)}\right)=0 
+    \label{eq:eqdiff}
+    \tag{$E$}
+  \end{equation}
+  où $F$ est une fonction de $(n+2)$ variables
+  
+  \pause
+  
+  \item Une \defi{solution} d'une telle équation sur un intervalle $I\subset \Rr$ 
+  est une fonction $y :I \to \Rr$ :
+  \begin{itemize}
+    \item qui est $n$ fois dérivable 
+    \item et qui vérifie l'équation (\ref{eq:eqdiff})
+  \end{itemize}
+\end{itemize}
+\end{mydefinition}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{itemize}
+  \item Notation : $y$ au lieu de $y(x)$, 
+  $y'$ au lieu $y'(x)$,\ldots
+  \pause
+  
+  Exemple : \og$y' = \sin x$\fg\ signifie \og$y'(x) = \sin x$\fg
+  
+    \pause
+  \item Changement de nom pour les fonctions et les variables 
+  
+  \pause
+  $(x'')^3+t(x')^3+(\sin t) x^4=e^t$
+  l'inconnue est une fonction $x$ qui dépend de la variable $t$ :
+  $(x''(t))^3+t(x'(t))^3+(\sin t) (x(t))^4=e^t$
+
+  \pause
+  
+  \item Rechercher une primitive c'est résoudre $y'= f(x)$
+   
+  \pause
+  
+  \item La notion d'intervalle est fondamentale : 
+  si on change d'intervalle, on peut très bien obtenir d'autres solutions
+  
+  \pause
+  
+  \begin{itemize}
+    \item Sur $I_1 = ]0, +\infty[$, $y' = 1/x$ a pour solutions $y(x) = \ln(x) + k$
+    \pause
+    \item Sur $I_2 = ]-\infty, 0[$, $y' = 1/x$ a pour solutions $y(x) = \ln(-x) + k$
+  \end{itemize} 
+  
+  \pause
+  \item Si aucune précision n'est donnée, il s'agit de $I = \Rr$
+\end{itemize}  
+\end{frame}
+
+
+\begin{frame}
+
+\evidence{\'Equation à variables séparées}
+\pause
+$$y'=g(x)/f(y) \pause\qquad \text{ ou } \qquad y'f(y)=g(x)$$
+\pause
+\vspace*{-3ex}
+\begin{itemize}
+  \item $G(x)$ primitive de $g(x)$ \pause : $G'(x)=g(x)$
+  \pause
+  \item $F(x)$ primitive de $f(x)$ \pause : $\big(F(y(x))\big)' = y'(x) F'(y(x)) \pause = y' f(y)$
+\end{itemize}
+\pause
+$$y'f(y)=g(x)
+\pause
+\iff \big(F(y(x))\big)' = G'(x)
+\pause
+\iff F(y(x))=G(x)+c$$
+
+\pause
+\vspace*{-2ex}
+
+\begin{exemple}
+
+$$x^2y' = e^{-y}$$
+\pause\vspace*{-3ex}
+\begin{itemize}
+  \item On sépare les variables $y'e^{y} = \frac{1}{x^2}$
+  \pause
+  \item On intègre des deux côtés $e^{y} = -\frac{1}{x}+c$, $c\in\Rr$
+  \pause
+  \item Solution $y(x) = \ln\left(-\frac{1}{x}+c\right)$
+  \pause
+  \item Intervalle $I$ où solution est définie et dérivable dépend de la constante $c$ :
+  il faut $x\neq0$ et $-\frac{1}{x}+c>0$
+  \pause
+  \item si $c<0$, $I=\,]\frac1c,0[$  ;  si $c=0$, $I=\,]-\infty,0[$ ;  si $c>0$, $I=\,]\frac1c,+\infty[$
+\end{itemize}
+
+\end{exemple}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{\'Equation différentielle linéaire}
+
+
+\begin{frame}
+
+\begin{itemize}
+  \item Une équation différentielle d'ordre $n$ est \defi{linéaire} si elle est de la forme
+$$a_0(x)y+a_1(x)y'+\dots +a_n(x)y^{(n)} = g(x)$$
+où les $a_i$ et $g$ sont des fonctions réelles continues sur un intervalle $I\subset \Rr$
+\pause
+  
+  \item Une équation différentielle linéaire est \defi{homogène}, ou \defi{sans second membre},
+  si la fonction $g$ est la fonction nulle :
+  $$a_0(x)y+a_1(x)y'+\dots +a_n(x)y^{(n)} = 0$$
+\pause  
+  \item Une équation différentielle linéaire est \defi{à coefficients constants} si
+  $$a_0y+a_1y'+\dots +a_ny^{(n)} = g(x)$$
+  où les $a_i$ sont des constantes réelles et $g$ une fonction continue
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{enumerate}
+  \item $y' + 5xy = e^x$ est une équation différentielle linéaire du premier ordre avec second membre
+\pause  
+  \item $y' + 5xy = 0$ est l'équation différentielle homogène associée à la précédente
+\pause  
+  \item $2y'' - 3y' + 5y = 0$ est une équation différentielle linéaire 
+  du second ordre à coefficients constants,
+  sans second membre
+\pause    
+  \item $y'^2 - y = x$ ou $y'' \cdot  y' - y = 0$ \textbf{ne sont pas} 
+  des équations différentielles linéaires 
+\end{enumerate}
+\end{exemple}
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{proposition}[Principe de linéarité]  
+Si $y_1$ et $y_2$ sont solutions de l'équation différentielle linéaire homogène
+\begin{equation}
+  a_0(x)y+a_1(x)y'+\dots +a_n(x)y^{(n)} = 0
+  \label{eq:eqdifflin}
+ \tag{$E_0$}
+\end{equation}
+alors, quels que soient $\lambda,\mu \in \Rr$, $\lambda y_1 + \mu y_2$ est aussi solution de cette équation
+\end{proposition}
+
+\end{frame}
+
+
+\begin{frame}
+
+Pour résoudre une équation différentielle linéaire avec second membre 
+\begin{equation}
+  a_0(x)y+a_1(x)y'+\dots +a_n(x)y^{(n)} = g(x)
+  \label{eq:eqdifflinscnd}
+ \tag{$E$}
+\end{equation}
+
+\pause
+\begin{enumerate}
+  \item on trouve une solution particulière $y_0$ de l'équation (\ref{eq:eqdifflinscnd})
+  \pause
+  \item on trouve l'ensemble $\mathcal{S}_h$ des solutions $y$ de l'équation homogène associée
+\begin{equation}
+  a_0(x)y+a_1(x)y'+\dots +a_n(x)y^{(n)} = 0
+  \label{eq:eqdifflin}
+ \tag{$E_0$}
+\end{equation}  
+\end{enumerate}
+
+\pause
+
+\begin{proposition}[Principe de superposition]
+L'ensemble des solutions $\mathcal{S}$ de (\ref{eq:eqdifflinscnd}) est formé 
+des 
+$$y_0 + y \quad \text{ avec } \quad  y \in \mathcal{S}_h$$
+\end{proposition}
+
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \section*{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Chercher une solution \og simple \fg\ de l'équation différentielle
+  $y'=2y$. Même question avec $y''=-y$ ; $y''+\cos(2x)=0$ ; $xy''=y'$.
+  
+  \item Résoudre l'équation différentielle à variables séparées $y'y^2=x$.
+  Même question avec $y'= y \ln x$ ; $y' = \frac{1}{y^n}$ ($n\ge1$).
+  
+  \item Soit l'équation $y' = y(1 - y)$. Montrer que si 
+  $y$ est une solution non nulle de cette équation, alors $z = 2y$
+  n'est pas solution. Que peut-on en conclure ?
+
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+
+
+\end{document}

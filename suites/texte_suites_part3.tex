@@ -1,0 +1,358 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\usepackage{mathptmx}
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Dans cette partie du chapitre sur les suites, 
+nous allons étudier des exemples classiques de suites numériques.
+
+\change
+
+Nous commençons par les suites géométriques,
+
+\change
+
+puis nous examinons les \emph{séries} géométriques, qui leur sont étroitement liées.
+
+\change
+
+Nous passons ensuite aux suites vérifiant le critère 
+$$\left|\frac{u_{n+1}}{u_n}\right|<\ell<1 \; ,$$ ce qui garantit leur convergence.
+
+\change 
+
+Puis nous conclurons par une application des suites à l'approximation 
+des nombres réels par des nombres décimaux.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous commençons par les suites géométriques, 
+dont le terme général est du type $a^n$, 
+pour un nombre réel $a$ fixé (qui s'appelle la raison).
+
+
+Cette proposition affirme que la raison détermine la convergence de la suite.
+
+\change
+
+Si $a=1$, alors la suite est constante égale à $1$, et donc converge.
+
+\change
+
+Si $a>1$, alors la suite tend vers $+\infty$.
+
+\change 
+
+Si $a$ est dans $]-1,+1[$, alors la suite tend vers $0$.
+
+\change
+
+Si $a\le-1$, alors la suite diverge.
+
+\change
+
+Donnons la preuve du deuxième point. On écrit
+$a=1+b$ avec $b>0$. 
+
+\change
+
+Alors la formule du binôme de Newton s'écrit
+
+$a^n=(1+b)^n=1+nb+\binom{n}{2}b^2+\cdots+\binom{n}{k}b^k+\cdots+b^n$. 
+
+\change
+
+Tous les termes sont positifs,  donc  $a^n\geq 1+nb$. 
+
+\change
+ 
+Or $1+nb\to+\infty$ car $b>0$. 
+
+
+\change
+
+On en déduit que 
+
+$\lim_{n\to +\infty} a^n=+\infty$. 
+
+Les troisième et quatrième points se déduisent du deuxième.
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons aux séries géométriques. Ce sont des suites dont le terme général 
+est la somme des termes d'une suite géométrique.
+
+Cette somme se calcule facilement, on va montrer que
+
+$\sum_{k=0}^na^k=\frac{1-a^{n+1}}{1-a} $
+
+si $a\neq 1$,
+
+\change
+
+
+Autrement dit $1+a+a^2+\cdots+a^n=\frac{1-a^{n+1}}{1-a} $
+
+
+
+\change
+
+
+La preuve est simple : on développe l'expression 
+\[(1-a)\big(1+a+a^2+\cdots+a^n \big)\; ,\] 
+
+\change
+
+ce qui fait apparaître la différence des deux sommes 
+
+$\big(1+a+a^2+\cdots+a^n \big)$ et 
+
+$\big(a+a^2+\cdots+a^{n+1} \big)$ qui se \og{} télescopent \fg{}:
+
+\change
+
+presque tous les termes disparaissent et il reste $1-a^{n+1}$, ce qui conclut la preuve.
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \diapo
+
+
+Lorsque $a\in ]-1,1[$, on peut déduire des deux dernières propositions 
+un résultat de convergence de la série géométrique de raison $a$, 
+
+c'est-à-dire la suite $(u_n)_{n\in \Nn}$ de terme général : 
+$u_n= \sum_{k=0}^na^k$, 
+
+
+\change
+
+Cette série vaut $\frac{1-a^{n+1}}{1-a}$ 
+
+\change
+
+elle converge donc vers $\frac{1}{1-a}$ car $a^{n+1} \to 0$. 
+
+\change
+
+On pourrait écrire ce résultat de la manière suivante :
+\[1+a+a^2+a^3 +\cdots = \frac{1}{1-a}\]
+
+\change
+
+Le nombre $a$ peut en fait être complexe, la formule de la somme d'une suite géométrique reste valable pour $a$ nombre complexe 
+$\neq 1$.
+
+\change
+
+Si $a=1$ alors la formule précédente n'est plus valable mais
+la somme
+est alors simplement $n+1$.
+
+\change
+
+Si par exemple $a=\frac{1}{2}$ on obtient
+  
+  \[1+\frac{1}{2} +\frac{1}{4} +\frac{1}{8} +\cdots = 2 .\]
+
+
+Une formule qui se comprend bien sur un dessin :
+on coupe un segment de longueur $2$ en son milieu, la moitié de gauche est de longueur $1$,
+
+on coupe la partie restante en deux, on garde la moitié gauche de longueur $1/2$ et on recoupe la partie droite,...
+Ce processus continue indéfiniment et correspond à l'égalité 
+ \[1+\frac{1}{2} +\frac{1}{4} +\frac{1}{8} +\cdots = 2 .\]
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici un critère pratique permettant d'affirmer qu'une suite tend vers $0$.
+
+S'il existe un nombre réel $\ell<1$ indépendant de $n$ tel que pour tout les $n$, on a
+\[ \left | \frac{u_{n+1}}{u_n}\right |  <\ell<1.\]
+
+
+alors la suite $(u_n)_{n\in \Nn}$ tend vers $0$.
+
+\change
+
+On peut aussi seulement supposer que l'inégalité est vraie à partir d'un certain rang
+et la conclusion reste valide.
+
+\change
+
+Pour prouver ceci, on écrit le rapport \(\frac{u_n}{u_0}\) comme un \og{} produit télescopique \fg{} :
+ \[ \frac{u_n}{u_0}=\frac{u_1}{u_0} \times\frac{u_2}{u_1} \times\frac{u_3}{u_2} \times\cdots\times \frac{u_n}{u_{n-1}}\] 
+
+\change
+
+on majore en valeur absolue,  chaque facteur étant $<\ell$.
+
+\change
+
+ce qui permet de majorer $|u_n|$, vu l'hypothèse sur la suite, par $|u_0|\ell^n$.
+
+\change 
+
+Comme la raison $\ell$ est $<1$, on sait que 
+$\lim_{n\to +\infty} \ell^n= 0$, et il s'ensuit que $\lim_{n\to +\infty} u_n= 0$.  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici un corollaire immédiat de ce critère qui est très utile .
+
+
+Si $\frac{u_{n+1}}{u_n}$ tend vers $0$,
+
+alors $\lim_{n\to +\infty} u_n= 0$.
+
+\change
+
+
+Par exemple nous allons montrer que, pour $a$ un réel fixé, alors $\frac{a^n}{n!}$ tend vers $0$.
+
+\change
+
+Tout d'abord si $a=0$, le résultat est évident. 
+
+\change
+
+Supposons donc $a\neq 0$,
+
+et définissons $u_n= \frac{a^n}{n!}$. 
+
+\change
+
+Calculons le quotient $\frac{u_{n+1}}{u_n}$
+
+$\frac{u_{n+1}}{u_n}= \frac{a^{n+1}}{(n+1)!}\cdot \frac{n!}{a^n}$
+
+\change
+
+$=\frac{a}{n+1} $
+
+\change
+
+Comme $a$ est fixe alors $\frac{u_{n+1}}{u_n} \to 0$
+
+\change 
+
+Et par ce corollaire on en déduit que $u_n \to 0$
+
+c-a-d  $\frac{a^n}{n!} \to 0$ lorsque $n\to +\infty$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous terminons cette partie sur les suites en parlant 
+de l'approximation des réels par des décimaux.
+
+
+
+Pour chaque réel $a$, on peut, à l'aide de la 
+fonction partie entière, construire une suite de rationnels tendant vers $a$.
+
+Explicitement, la suite de terme général
+
+ \[u_n = \frac{E(10^na)}{10^n} \]
+
+ convient.
+
+ Cette suite est une suite de nombres rationnels et tend vers $a$.
+ 
+ 
+\change
+
+Pour prouver que cette suite tend vers $a$, on écrit la définition de la partie entière pour $10^n a$ :
+
+  \[E(10^na)\leq 10^na < E(10^na)+1\]
+
+\change
+  
+  On en déduit en divisant par $10^n$ que 
+\( u_n \leq a < u_n+\frac{1}{10^n} \)
+
+\change
+
+ce qui revient à dire \( 0 \leq a -u_n< \frac{1}{10^n} .\)
+
+\change
+
+Comme la suite de terme général $\frac{1}{10^n}$ tend vers $0$ 
+(car c'est une suite géométrique de raison $\frac{1}{10}<1$), 
+on conclut que $\lim_{n\to +\infty} u_n=a$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voici ce que vaut cette suite de rationnels lorsque $a=\pi$.
+
+\change
+
+Tout d'abord $u_0$  vaut simplement $E(\pi)$ donc $3$.
+
+\change
+
+Puis $u_1$ vaut $\frac{E(10^1\pi)}{10^1}$ donc $\frac{E(31,415)\ldots}{10}$, soit $3,1$
+
+\change
+
+Pour $u_2$ cela donne $3,14$
+
+\change
+
+Et en général $u_n$ est la troncation du développement de $\pi$ à $n$ décimales.
+
+\change
+
+Deux remarques pour finir :
+
+d'une part, pour tout $a$, les nombres $u_n$ sont en fait décimaux, donc en particulier ce sont des nombres rationnels.
+
+\change
+
+d'autre part ceci fournit une nouvelle démonstration de la densité de $\Qq$ dans $\Rr$. 
+
+Pour un réel $a$ fixé et pour tout $\epsilon $ aussi petit que l'on veut
+alors pour $n$ assez grand les éléments de notre suite $(u_n)$
+sont des rationnels de l'intervalle $]a-\epsilon,a+\epsilon[$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici quelques exercices pour tester votre compréhension du cours.
+
+\end{document}

@@ -1,0 +1,477 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={127,0,0}]{structure}
+
+% Commande spécifique à ce chapitre
+
+\newcommand{\Python}{\texttt{Python}}
+\renewcommand{\evidence}[1]{{\color{blue}\textbf{#1}}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+
+\definecolor{coul_prive}{rgb}{0.93,0.26,0}
+\definecolor{coul_public}{rgb}{0.06,0.63,0}
+
+\newcommand{\prive}[1]{{\bf\color{coul_prive} #1}}
+\newcommand{\public}[1]{{\bf\color{coul_public} #1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Cryptographie}}
+\subtitle{Le chiffrement de César}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> César a dit...
+ %   \item<4-> Des chiffres et des lettres
+    \item<4-> Modulo
+    \item<5-> Chiffrer et déchiffrer
+    \item<6-> Espace des clés et attaque
+    \item<7-> Algorithmes
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{César a dit...}
+
+\begin{frame}
+
+Jules César a dit : \\
+\centerline{\public{DOHD \  MDFWD \ HVW}}
+
+\pause
+
+\begin{itemize}
+  \item César, pour ses communications importantes à son armée, cryptait ses messages
+\pause  
+  \item Le chiffrement de César est un décalage des lettres
+\pause  
+  \item \prive{A} devient \public{D}, \ \prive{B} devient \public{E}, \ \prive{C} devient \public{F},...
+\end{itemize}
+
+\vspace*{-3ex}
+\pause
+
+\centerline{\includegraphics[width=0.9\textwidth]{figures/Cesar_plan_3.png}}
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\centerline{\includegraphics[width=0.5\textwidth]{figures/Cesar_3.png}}
+
+\pause
+
+\begin{itemize}
+  \item \defi{Décalage circulaire} sur les lettres de l'alphabet
+\pause  
+  \item Pour déchiffrer le message de César, on décale dans l'autre sens
+\pause  
+  \item \public{D} se déchiffre en \prive{A}, \ \public{E} en \prive{B},...
+\pause
+  \item La phrase de César \\
+  \centerline{\public{DOHD \  MDFWD \ HVW}}
+  \pause
+  devient \\
+\centerline{\prive{ALEA \  JACTA \  EST}}
+\end{itemize}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Des chiffres et des lettres}
+
+\begin{frame}
+\begin{itemize}[<+->]\setlength{\itemsep}{8pt}
+  \item On associe aux lettres de $A$ à $Z$ un nombre de $0$ à $25$
+  
+  \item 
+    $$f : \left\{
+    \begin{array}{rcl}
+    \big\{ A, B, C, \ldots, Z\big\} & \longrightarrow &\big\{ 0, 1, 2, \ldots, 25\big\} \\
+    A & \longmapsto & 0\\
+    B & \longmapsto & 1\\
+    &\vdots&\\
+    Z &\longmapsto & 25
+    \end{array}
+    \right.$$  
+  
+  \item Exemple : \prive{A L E A} devient \prive{0 11 4 0}
+  
+  \item Le chiffrement de César est un \defi{chiffrement mono-alphabétique}
+  
+  \item Il correspond à une opération mathématique très simple
+\end{itemize}
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Modulo}
+
+\begin{frame}
+Fixons un entier $n \ge 2$
+\begin{mydefinition}
+ On dit que \defi{$a$ est congru à $b$ modulo $n$},
+si $n$ divise $b-a$
+
+\pause
+
+On note alors 
+\vspace*{-3ex}
+$$a \equiv b \pmod n $$ %\pause \qquad \text{ ou } \qquad a \equiv b \pod n
+\vspace*{-4ex}
+\end{mydefinition}
+
+\pause
+
+\begin{itemize}
+  \item $28 \equiv  2 \pmod {26}$\pause, car $28-2$ est bien divisible par $26$
+\pause  
+  \item $85 = 26+ 59$ donc $85 \equiv  59 \pmod {26}$
+\pause  
+  \item $85 = 3 \times 26+ 7$ donc $85 \equiv  7 \pmod {26}$
+\pause
+  \item On note $\Zz/26 \Zz$ l'ensemble de tous les éléments de $\Zz$ modulo $26$
+\pause  
+  \item Représenté par les $26$ éléments $\{0,1,2,\ldots, 25\}$
+\pause
+        \begin{itemize}         
+          \item $0,\ 1,\ 2,\ \ldots,\  25,$
+                \pause 
+                \item   puis  $26 \equiv 0,\  27 \equiv 1,  \ldots, \pause 52\equiv0,\  53\equiv1, \ldots$
+          \pause    
+            \item $-1\equiv25$, $-2\equiv24$,...
+            \end{itemize}
+\end{itemize}
+
+\pause
+\medskip
+\begin{itemize}
+  \item $\Zz / n \Zz$ contient $n$ éléments
+\pause  
+  \item Pour $a \in \Zz$, son \defi{représentant} dans $\{0,1,2,\ldots, n-1\}$ est le reste $k$
+de la division euclidienne de $a$ par $n$ : $a = bn + k$
+\pause
+  \item De sorte que $a \equiv  k \pmod n$ et $0 \le k < n$ 
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+\evidence{Addition}
+\pause
+\begin{itemize}
+  \item Pour $a,b \in \Zz/n\Zz$ on associe $a+b \in \Zz/n\Zz$
+\pause  
+  \item Dans $\Zz/26\Zz$, $15+13$ égale $2$\pause. En effet $15+13 = 28 \equiv 2 \pmod{26}$
+\pause  
+  \item Que vaut $133+64$ ? 
+\pause 
+  \begin{itemize}
+    \item $133+64 = 197=7\times 26 +15 \equiv 15 \pmod {26}$
+\pause    
+    \item 
+    \begin{itemize}
+    \item $133 = 5 \times 26 + 3 \equiv 3 \pmod {26}$
+    \pause    
+    \item $64 = 2 \times 26 + 12 \equiv 12 \pmod{26}$
+    \pause    
+    \item $133 + 64 \equiv 3 + 12 \equiv 15 \pmod{26}$
+    \end{itemize}
+  \end{itemize}
+
+\end{itemize}
+
+\bigskip
+\pause
+
+\evidence{Multiplication}
+
+\begin{itemize}
+  \item Pour $a,b \in \Zz/n\Zz$ on associe $a \times b \in \Zz/n\Zz$
+\pause 
+  \item $3\times 12 = 36 = 1 \times 26 + 10 \equiv 10 \pmod{26}$
+\pause  
+  \item Que vaut $3\times 27$ ? 
+  \begin{itemize}
+  \item $3 \times 27 = 81 = 3 \times 26 + 3 \equiv 3 \pmod{26}$
+  \pause  
+  \item $27 \equiv 1 \pmod{26}$ puis $3 \times 27 \equiv 3 \times 1 \equiv 3 \pmod{26}$ 
+  \end{itemize}
+\end{itemize}
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Chiffrer et déchiffrer}
+
+\begin{frame}
+\begin{itemize}
+ \item La \defi{fonction de chiffrement de César de décalage $k$} ($k$ entier fixé)
+\vspace*{-2ex}
+\mybox{$C_k : \left\{\begin{array}{rcl}
+    \Zz/26 \Zz  & \longrightarrow & \Zz/26 \Zz \\
+                x     & \longmapsto & x{\color{red}+k} \\
+  \end{array}\right.$}
+
+\pause
+Exemple, pour $k=3$ : $C_3(0)=3$, $C_3(1)=4$\ldots
+
+
+\pause
+\medskip
+
+ \item La \defi{fonction de déchiffrement de César de décalage $k$} est
+\mybox{$D_k : \left\{\begin{array}{rcl}
+    \Zz/26 \Zz  & \longrightarrow & \Zz/26 \Zz \\
+                x     & \longmapsto &  x{\color{red}-k} \\
+  \end{array}\right.$}
+\pause
+Exemple : si $1$ a été chiffré en $4$ alors $D_3(4)=4-3=1$
+
+\end{itemize}
+\end{frame}
+\begin{frame}
+\begin{itemize}
+
+ \item $D_k$ est la \evidence{bijection réciproque} de $C_k$
+
+\medskip 
+\pause
+
+Pour tout $x \in \Zz/26 \Zz$ \quad
+\myboxinline{$D_k \big( C_k(x) \big) = x$}
+\end{itemize}
+
+\pause
+
+\begin{center}
+\begin{tikzpicture}
+  \coordinate (A) at (-1,0);  
+  \coordinate (B) at (1,0); 
+  \node[left] at (A) {$\Zz/26\Zz$};
+  \node[right] at (B) {$\Zz/26\Zz$};
+  \draw[->, blue, very thick] ($(A)+(0,0.25)$) to[bend left, thick]node[above, midway]{$C_k$} ($(B)+(0,0.25)$);
+  \draw[->, blue, very thick] ($(B)+(0,-0.25)$) to[bend left, thick]node[below, midway]{$D_k$} ($(A)+(0,-0.25)$);  
+\end{tikzpicture}  
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\hfill\hfill\evidence{Principe du chiffrement}
+\pause
+\begin{itemize}
+  \item Alice veut envoyer des messages secrets à Bruno
+  \pause
+  \item Ils se mettent sur une clé secrète $k$, par exemple $k=11$
+  \pause
+  \item Alice veut envoyer le message \prive{COUCOU} à Bruno
+  \pause
+  \item Elle transforme \prive{COUCOU} en \prive{2 14 20 2 14 20}
+  \pause
+  \item Elle applique le chiffrement $C_{11}(x)=x+11$ : \public{13 25 5 13 25 5}
+  \pause
+  \item Mot crypté \public{NZFNZF} transmis à Bruno
+  \pause
+  \item Il applique la fonction de déchiffrement $D_{11}(x)=x-11$
+\end{itemize}
+
+\pause 
+
+\begin{center}
+{\scriptsize
+\begin{tikzpicture}[scale=0.65]
+
+  \node at (-5,1) {\bf ALICE};
+  \node at (5,1) {\bf BRUNO};
+  \node at (-7,0) {\prive{COUCOU}};
+  \node at (-7,-2) {\prive{2 14 20 2 14 20}};
+  \node at (-3,-2) {\public{13 25 5 13 25 5}}; 
+  \node at (-3,0) {\public{NZFNZF}};  
+  \node at (7,0) {\prive{COUCOU}};
+  \node at (7,-2) {\prive{2 14 20 2 14 20}};
+  \node at (3,-2) {\public{13 25 5 13 25 5}}; 
+  \node at (3,0) {\public{NZFNZF}};
+  
+  \draw[->, blue, very thick] (-7,-0.25) to (-7,-1.75);
+  \draw[<-, blue, very thick] (-3,-0.25) to (-3,-1.75);
+  \draw[<-, blue, very thick] (7,-0.25) to (7,-1.75);
+  \draw[->, blue, very thick] (3,-0.25) to (3,-1.75);  
+  
+  \draw[->, blue, very thick] (-6,-1.5) to[bend left, thick]node[above, midway]{$C_k$} (-4,-1.5);
+  \draw[<-, blue, very thick] (6,-1.5) to[bend right, thick]node[above, midway]{$D_k$} (4,-1.5);
+
+  \draw[line width=4pt,>=stealth,->,gray] (-1.5,0) to (1.5,0);
+\end{tikzpicture}  
+}
+\end{center}
+
+
+% \bigskip
+% 
+% \pause
+% 
+% \begin{exemple}[Le rot13]
+% $$C_{13}(x) = x +13 \qquad \pause D_{13}(x)=x+13$$
+% 
+% \pause
+% \vspace*{-3ex}
+% La fonction de déchiffrement est la même que la fonction de chiffrement !
+% \pause Exercice : déchiffrez \public{PRFNE} % ["CESAR"]
+% 
+% \end{exemple}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Espace des clés et attaque}
+
+\begin{frame}
+Combien existe-t-il de chiffrements possibles par la méthode de César ?
+
+\pause
+
+\begin{itemize}[<+->]
+  \item Il y a $26$ fonctions $C_k$ différentes, $k=0,1,\ldots,25$
+  \item $k$ appartient à $\Zz / 26 \Zz$
+  \item Exemple : les fonctions $C_{29}$ et $C_3$ sont identiques
+  \item Le décalage $k$ s'appelle la \defi{clé de chiffrement}
+  \item L'\defi{espace des clés} est
+$\Zz/26\Zz$
+  \item Sécurité faible
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Algorithmes}
+
+\begin{frame}[fragile]
+
+\begin{algo}[cesar.py (1)]
+\begin{lstlisting}
+def cesar_chiffre_nb(x,k):   
+    return (x+k)%26
+\end{lstlisting}  
+\end{algo}
+
+\pause
+\bigskip
+
+\begin{algo}[cesar.py (2)]
+\begin{lstlisting}
+def cesar_dechiffre_nb(x,k):   
+    return (x-k)%26
+\end{lstlisting}  
+\end{algo}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+{\footnotesize
+\begin{algo}[cesar.py (3)]
+\begin{lstlisting}
+def cesar_chiffre_mot(mot,k):
+    mot_crypte = []                                      # Liste vide
+    for lettre in mot:                           # Pour chaque lettre 
+        nb = ord(lettre)-65             # Lettre devient nb de 0 à 25
+        nb_crypte = cesar_chiffre_nb(nb,k)     # Chiffrement de César 
+        lettre_crypte = chr(nb_crypte+65)        # Retour aux lettres
+        mot_crypte.append(lettre_crypte)   # Ajoute lettre au message
+    mot_crypte = "".join(mot_crypte)    # Revient à chaine caractères
+    return(mot_crypte)
+\end{lstlisting}  
+\end{algo}
+}
+
+\end{frame}
+% 
+% \begin{frame}
+% 
+% Pour chiffrer un mot ou un phrase, il n'y a pas de problèmes théoriques, mais seulement 
+% des difficultés techniques :
+% \begin{itemize}
+%   \item Un mot ou une phrase est une chaîne de caractères, qui en fait se comporte comme une liste.
+%   Si \codeinline{mot} est une chaîne alors \codeinline{mot[0]} est la première lettre,
+%   \codeinline{mot[1]} la deuxième lettre... et
+%   la boucle \codeinline{for lettre in mot:} permet de parcourir chacune des lettres.
+%   
+%   \item Pour transformer une lettre en un nombre, on utilise le code Ascii qui à chaque caractère 
+%   associe un nombre, \codeinline{ord(A)} vaut $65$, \codeinline{ord(B)} vaut $66$... 
+%   Ainsi \codeinline{(ord(lettre) - 65)} renvoie le rang de la lettre entre $0$ et $25$ comme nous l'avons fixé dès le départ.
+%   
+%   \item La transformation inverse se fait par la fonction \codeinline{char} : \codeinline{char(65)} renvoie 
+%   le caractère \codeinline{A}, \codeinline{char(66)} renvoie \codeinline{B}...
+%   
+%   \item Pour ajouter une lettre à une liste, faites 
+%   \codeinline{maliste.append(lettre)}. Enfin pour transformer une liste de caractères 
+%   en une chaîne, faites \codeinline{"".join(maliste)}.
+% \end{itemize}
+% 
+% \end{frame}
+
+
+
+
+\end{document}

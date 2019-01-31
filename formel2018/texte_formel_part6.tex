@@ -1,0 +1,296 @@
+
+\input{../preamb-texte.tex}
+\newcommand{\Sage}{\texttt{Sage}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La visualisation est une étape importante dans l'élaboration 
+des preuves en mathématiques. 
+
+~
+
+
+L'avènement des logiciels de calcul 
+formel possédant une interface graphique évoluée a 
+rendu cette phase attrayante. 
+
+~
+
+Nous allons explorer 
+quelques possibilités graphiques offertes par \Sage.
+
+\change
+
+\change
+Nous commencerons par les courbes paramétrées
+
+\change
+puis les courbes en coordonnées polaires
+
+\change
+ensuite les courbes définies par une équation implicite
+
+\change
+et nous terminerons en décrivant brièvement plusieurs façons de tracer des surfaces.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Nous avons déjà vu comment tracer les graphes de fonctions avec la commande \codeinline{plot}.
+
+~
+
+Par exemple cette commande 
+trace le graphe de la fonction $f$ définie par $f(x)=\sin(x)\exp(x)$ sur l'intervalle $[-3,3]$.
+
+~
+
+Au delà des graphes de fonctions, \Sage\ permet le tracé de courbes et de surfaces.% définies par d'autres méthodes.
+
+\change
+
+Commençons par tracer la courbe paramétrée plane donnée par les points 
+de coordonnées $(f(t), g(t))$ pour un paramètre $t$ variant 
+dans l'intervalle $[a,b]$. 
+
+\change
+La commande est \codeinline{parametric\_plot()} 
+
+\change
+Voici le code qui permet d'afficher la lemniscate de Bernoulli :
+
+on définit tout d'abord $x$ puis $y$ en fonction du paramètre $t$, 
+
+la machine calcule dans un premier temps les éléments du graphe et enfin l'affiche.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+A votre tour de tracer la spirale de Fermat définie ainsi,%ayant cette équation
+
+
+~
+
+puis la courbe dite du papillon.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici les deux courbes que vous devriez avoir obtenues.
+
+\change
+
+Les commandes de tracé possèdent de nombreuses options, 
+que vous pouvez découvrir grâce 
+à la commande \codeinline{help(parametric\_plot)}. 
+
+\change
+Par exemple :
+
+il est possible d'imposer un repère orthonormé 
+
+\change
+il est possible de changer le nombre de points du tracé
+
+\change
+il est possible de ne pas afficher les axes
+  
+\change
+ou d'afficher une grille.
+ 
+\change
+et bien sûr changer la couleur du trait !
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Abordons maintenant le cas des courbes définies en coordonnées polaires. 
+
+~
+
+Il s'agit de l'ensemble des points de coordonnées polaires $[r(t):t]$ pour $t$ variant dans un intervalle $[a,b]$.
+
+$r(t)$ est le rayon (positif ou négatif) et $t$ est l'angle.
+
+\change
+La commande qui permet de calculer les éléments du tracé du graphe d'une courbe en coordonnées polaires est \codeinline{polar\_plot()}, 
+
+
+
+\change
+Voici par exemple la courbe du folium de Dürer d'équation polaire 
+$r(t) = \sin \frac t 2$.
+
+\change
+et le code qui permet de calculer puis d'afficher cette courbe !
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici deux courbes en coordonnées polaires, dont vous pourrez rechercher l'origine historique. 
+
+\change
+D'abord la courbe du Lituus d'équation polaire définie par la relation
+  $r(t)^2 = \frac{1}{t}$
+  
+\change  
+Puis la cochléoïde d'équation polaire 
+  $r(t) = \frac{\sin t}{t}$
+
+
+\change
+
+%[[à raccourcir ??]]
+
+Avant de vous laisser chercher, voici une petite indication : 
+
+~
+
+comme les courbes ne sont pas définies sur un intervalle mais sur l'union de deux intervalles, il est conseillé de calculer chaque tracé en deux morceaux qui seront affichés simultanément.
+%la moitié de courbe correspondant aux réels négatifs, on obtient un graphe $G_1$, puis la moitié de courbe correspondant aux réels positifs, obtient un graphe $G_2$.
+%On superpose les graphes avec \codeinline{G = G1 + G2}, et on affiche \codeinline{G}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Une courbe peut avoir plusieurs types de définitions, comme par exemple une équation implicite. %représentations, 
+Voici l'exemple bien connu du cercle d'équation $x^2+y^2=1$.
+%qui peut être défini comme l'ensemble des couples $x$, $y$ vérifiant l'équation : $x^2+y^2 = 1$.
+
+\change
+En général, l'équation $f(x,y)=0$, définit une courbe :
+
+\change
+c'est l'ensemble des couples $(x,y)$ 
+dans $[a,b]\times[c,d]$ qui vérifient l'équation $f(x,y)=0$.
+
+\change
+La commande qui permet de tracer une courbe donnée par une équation implicite est \codeinline{implicit\_plot()}.
+
+\change
+Voici une autre courbe en forme de papillon, 
+
+\change
+elle est cette fois définie par l'équation algébrique $x^6+y^6-x^2=0$. 
+
+~
+
+Noter qu'il est possible de sauvegarder cette image dans un fichier externe avec la commande {\sl save}.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Dans ce tp, nous allons construire une fonction qui renvoie le tracé de la courbe définie par
+ l'équation $y^2-x^3+x+c = 0$
+  en fonction d'un paramètre $c$ réel.%\in \Rr$.
+
+~
+
+
+Pour visualiser l'évolution de l'allure de la courbe lorsque le paramètre $c$ varie, il est possible de construire 
+une animation avec la commande  \codeinline{animate}, 
+
+
+~
+
+
+Voici par exemple trois courbes pour trois valeurs différentes de $c$. %RAF
+
+
+\change
+
+\change
+
+\change
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Nous allons maintenant découvrir, à l'aide de l'énoncé suivant, différentes méthodes 
+pour tracer des surfaces avec Sage.
+
+~
+
+Cela débute avec le tracé du graphe d'une fonction de deux variables ;
+
+~
+
+pour cela nous utiliserons la commande \codeinline{plot3d}.
+
+\change 
+
+Dans le cas d'une surface définie par une équation implicite, il suffira d'utiliser la commande
+ \codeinline{implicit\_plot3d}.
+
+\change
+
+Enfin, pour tracer une nappe dont les trois coordonnées dépendent de deux paramètres , ici $s$ et $t$.
+
+nous utiliserons la commande \codeinline{parametric\_plot3d}.
+ 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Ce n'est pas fini !
+
+~
+
+
+Voici encore deux surfaces  à tracer :
+la première est définie en coordonnées cylindriques,
+
+\change
+la seconde est définie en coordonnées sphériques.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici, sans préciser le code utilisé, une présentation des graphes demandés. 
+
+~
+
+
+1. Ici le graphe de la fonction de deux variables,
+
+\change
+
+2. la surface d'Enneper définie par une équation implicite,
+
+\change
+
+3. la nappe paramétrée,
+
+\change
+
+4. la surface paramétrée définie en coordonnées cylindriques,
+
+\change
+
+5. et enfin la surface paramétrée définie en coordonnées sphériques.
+
+\end{document}

@@ -1,0 +1,311 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={150,93,42}]{structure}
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Dimension finie}}
+\subtitle{Dimension des sous-espaces vectoriels}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Dimension d'un sous-espace
+    \item<4-> Exemples
+    \item<5-> Théorème des quatre dimensions
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Dimension d'un sous-espace}
+
+\begin{frame}
+Soit $E$ un $\Kk$-espace vectoriel de dimension finie
+\pause
+\begin{theoreme}
+\begin{enumerate}
+  \item Tout sous-espace vectoriel $F$ de $E$ est de dimension finie 
+  \pause
+  \item $\dim F \le \dim E$ 
+  \pause
+  \item $\dim F = \dim E \iff F=E$
+\end{enumerate}
+\end{theoreme}
+
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exemples}
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+\item 
+Soit $E$ un $\Kk$-espace vectoriel, $\dim E = 2$ 
+\pause
+\item
+Quels sont les sous-espaces vectoriels $F$ de $E$?
+\pause
+  \item Si $\dim F = 0$, $F = \{0\}$ 
+  \pause
+  \item Si $\dim F = 1$, $F = \Kk u = \Vect \{ u \}$, droite vectorielle  engendr\'ee par $u\neq0$, $u\in E$
+  \pause
+  \item Si $\dim F = 2$, $F = E$
+\end{itemize}
+\end{exemple}
+
+\pause
+\bigskip
+
+Dans un $\Kk$-espace vectoriel $E$ de dimension $n$ 
+\pause
+\begin{itemize}
+  \item un sous-espace vectoriel de dimension $1$ est 
+une \defi{droite vectorielle}
+\pause
+  \item un sous-espace vectoriel de dimension $2$ est appelé \defi{plan vectoriel}
+\pause
+  \item un sous-espace vectoriel de dimension $n-1$ est 
+appelé \defi{hyperplan}
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\begin{corollaire}
+Soient $F$ et $G$ sous-espaces vectoriels d'un $\Kk$-espace vectoriel $E$ \\
+avec $F$ de dimension finie et $G \subset F$
+Alors :
+$$F=G \iff \dim F = \dim G$$
+\end{corollaire}
+
+\pause
+\begin{exemple}
+\begin{itemize}
+\item
+$F=\Big\{\left(\begin{smallmatrix}x\\y\\z\end{smallmatrix}\right) \in \Rr^{3}\mid 2x-3y+z=0\Big\}$
+\pause
+\item
+$
+G = \Vect (u,v)\quad
+u=\left(\begin{smallmatrix}1\\1\\1\end{smallmatrix}\right) \quad
+v=\left(\begin{smallmatrix}2\\1\\-1\end{smallmatrix}\right)$ 
+
+\pause
+
+\item 
+Est-ce que $F=G$ ?
+
+\pause
+\begin{itemize}
+\item $\dim G = 2$ car $u$ et $v$ ne sont pas colin\'eaires
+
+\pause
+\item
+$u\in F$, $v\in F$ donc $G\subset F$
+  
+  \pause
+  \item $\dim F < \dim \Rr^3 = 3$ car  $\left(\begin{smallmatrix}1\\0\\0\end{smallmatrix}\right)\notin F$
+  
+  \pause
+  \item
+ $\dim F \ge \dim G = 2$ car $G\subset F$
+ 
+
+ 
+ \pause
+ \item  
+  $G \subset F$, $\dim G = \dim F = 2$ $\Rightarrow G=F$
+  \end{itemize}
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Théorème des quatre dimensions}
+
+\begin{frame}
+Soit $E$ un espace vectoriel de dimension finie \\
+Soient $F,G$ des sous-espaces vectoriels de $E$
+\begin{theoreme}[des quatre dimensions]
+\mybox{$\dim(F+G) = \dim F + \dim G - \dim (F\cap G)$} 
+\end{theoreme}
+
+\medskip
+\pause
+
+\begin{corollaire}
+Si $E = F \oplus G$, alors $\dim E = \dim F + \dim G$
+\end{corollaire}
+
+\medskip
+\pause
+
+\begin{corollaire}
+Tout sous-espace vectoriel $F$ d'un espace vectoriel $E$
+de dimension finie admet un supplémentaire
+\end{corollaire}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+\item
+$\dim E = 6 \quad \dim F = 3 \quad \dim G = 4$
+
+\pause
+\item
+Que peut-on dire de $F\cap G$ ? de $F+G$ ? Peut-on avoir $F\oplus G=E$ ?
+  \pause
+
+  \item $F \cap G$  inclus dans $F$  $\implies \dim (F \cap G) \le \dim F=3$
+ 
+  
+  \pause
+  \item $G \subset (F+G) \subset E$ 
+  $\implies 4=\dim G \le \dim(F+G) \le \dim E=6$
+  
+    \pause
+  \item 
+  $\dim(F\cap G) =  \dim F + \dim G - \dim(F+G) =  7-\dim(F+G)$
+
+  \pause
+  \item Conclusion : $\dim (F+G) = 4$, $5$ ou $6$ ; $\dim F \cap G = 3$, $2$ ou $1$
+  
+  \pause
+  \item $\dim F \cap G \geq 1\implies F \cap G \neq \{0\}$ et  $F$ et $G$ ne sont jamais en somme directe
+  dans $E$
+
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+
+\begin{frame}
+\begin{proof}[Preuve du théorème \ref{th:4dim}]
+\pause
+\begin{itemize}
+  \item Pour $A$ et $B$ ensembles finis
+$\Card (A\cup B) = \Card A + \Card B - \Card (A\cap B)$
+  
+  \pause 
+  \item $\{u_1,\ldots,u_p\}$ base de $F \cap G$
+  
+  \pause
+  \item
+$ \{u_1,\ldots,u_p,v_{p+1},\ldots,v_q\}$ base de $F$
+
+\pause
+\item
+$ \{u_1,\ldots,u_p,w_{p+1},\ldots,w_r\}$ base de $G$
+
+  \pause
+  \item 
+  $\{ u_1,\ldots,u_p,v_{p+1},\ldots,v_q,w_{p+1},\ldots,w_r\}$ famille g\'en\'eratrice de  $F+G$
+  
+  
+  \pause
+  \item $\{ u_1,\ldots,u_p,v_{p+1},\ldots,v_q,w_{p+1},\ldots,w_r\}$  est-elle libre ?
+  
+  \pause
+ $$
+  \sum_{i=1}^p \alpha_i u_i + \sum_{j=p+1}^q \beta_j v_j + \sum_{k=p+1}^r \gamma_k w_k = 0
+ $$
+ 
+ \pause
+ \item
+  $u=\sum_{i=1}^p \alpha_i u_i \qquad v=\sum_{j=p+1}^q \beta_j v_j \qquad w=\sum_{k=p+1}^r \gamma_k w_k$
+  
+  \pause
+  \item $u+v+w = 0\Rightarrow  u+v = -w \in F\cap G$
+  
+  
+  
+  \pause
+  \item    
+  $u\in F\cap G$ et $u+v  \in F\cap G\Rightarrow v = (u+v) - u\in F\cap G$
+$\Rightarrow \beta_j=0$ pour tout $j$
+\pause
+\item  
+ Alors 
+  $\sum_{i=1}^p \alpha_i u_i  + \sum_{k=p+1}^r \gamma_k w_k = 0\Rightarrow \alpha_i = 0 $ et  $\gamma_k = 0$
+ pour tout $i,k$
+ 
+ \pause
+ \item
+  Ainsi $ \{ u_1,\ldots,u_p,v_{p+1},\ldots,v_q,w_{p+1},\ldots,w_r\}$ est une base de $F+G$
+  \qedhere
+\end{itemize}
+\end{proof}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\vspace*{-1ex}
+\begin{enumerate}
+  \item Soient 
+  $F = \Vect \left( \left(\begin{smallmatrix}1\\2\\3\end{smallmatrix}\right),
+  \left(\begin{smallmatrix}3\\-1\\2 \end{smallmatrix}\right)\right)$
+  et $G = \Vect \left( \left(\begin{smallmatrix}-7\\7\\0\end{smallmatrix}\right),
+  \left(\begin{smallmatrix}6\\5\\11 \end{smallmatrix}\right)\right)$.
+  Montrer que $F=G$.
+  
+  \item Dans $\Rr^3$, on considère 
+  $F = \Vect \left( \left(\begin{smallmatrix}1\\t\\-1\end{smallmatrix}\right),
+  \left(\begin{smallmatrix}t\\1\\1 \end{smallmatrix}\right)\right)$, 
+  $G=\Vect \left(\begin{smallmatrix}1\\1\\1 \end{smallmatrix}\right)$. Calculer les dimensions
+  de $F,G,F\cap G,F+G$ en fonction de $t\in \Rr$.
+  
+  \item Dans un espace vectoriel de dimension $7$, on considère des sous-espaces $F$ et $G$ vérifiant
+  $\dim F=3$ et $\dim G \le 2$. Que peut-on dire pour $\dim (F\cap G)$ ? Et pour $\dim (F+G)$ ?
+
+  \item Dans un espace vectoriel $E$ de dimension finie, montrer l'équivalence entre :
+  (i) $F\oplus G = E$~; 
+  (ii) $F+G=E$ et $\dim F + \dim G = \dim E$ ;
+  (iii) $F \cap G = \{0_E\}$ et $\dim F + \dim G = \dim E$.
+  
+  \item Soit $H$ un hyperplan dans un espace vectoriel de dimension finie $E$. Soit $v\in E\setminus H$.
+  Montrer que $H$ et $\Vect(v)$ sont des sous-espaces supplémentaires dans $E$.
+
+\end{enumerate}
+\vspace*{-2ex}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

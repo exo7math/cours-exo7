@@ -1,0 +1,537 @@
+
+\input{../preamb-pres.tex}
+% Couleur à définir
+
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Séries}}
+\subtitle{Séries absolument convergentes -- Règle de d'Alembert}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Séries absolument convergentes
+    \item<4-> Règle du quotient de d'Alembert
+    \item<5-> Règle des racines de Cauchy
+%     \item<6-> D'Alembert vs Cauchy
+%     \item<7-> Règle de Raabe-Duhamel
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Séries absolument convergentes}
+
+\begin{frame}
+
+\begin{mydefinition}
+On dit qu'une série $\displaystyle\sum_{k\ge0} u_k$ est 
+\defi{absolument convergente} si la série $\displaystyle\sum_{k\ge0} |u_k|$ 
+est convergente  
+\end{mydefinition}
+
+\pause
+\begin{exemple}
+\begin{enumerate}
+  \item La série $\sum_{k\ge1} \frac{\cos k}{k^2}$ est absolument convergente
+  
+  \pause
+  En effet $\left\vert\frac{\cos k}{k^2}\right\vert \le  \frac{1}{k^2}$ et
+  $\sum_{k\ge1} \frac{1}{k^2}$ converge
+  
+  \item\pause La série harmonique alternée $\sum_{k=0}^{+\infty} \frac{(-1)^k}{k+1}$ 
+  n'est pas absolument convergente\pause , car la série $\sum_{k\ge0} \left\vert\frac{(-1)^k}{k+1}\right\vert = \sum_{k\ge0} \frac{1}{k+1}$ diverge
+\end{enumerate}
+\end{exemple}
+
+\pause
+Une série qui est convergente mais pas absolument convergente s'appelle une série \defi{semi-convergente}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{theoreme}
+Toute série absolument convergente est convergente
+\end{theoreme}
+
+\pause
+\begin{proof}
+Soit $\sum u_k$ une série absolument convergente
+\begin{itemize}
+\item\pause La série $\sum |u_k|$ est convergente
+
+\pause
+Alors la suite des restes $(R'_n)$ tend vers $0$, avec $R'_n = \displaystyle\sum_{k=n+1}^{+\infty} |u_k|$
+
+\pause
+En particulier $(R'_n)$ est une suite de Cauchy
+
+\item\pause Soit $\epsilon>0$ fixé. \pause Il existe $n_0 \in \Nn$ tel que 
+pour tout $n \ge n_0$ et tout $p \ge 0$ 
+$$|u_n|+|u_{n+1}|+\cdots+|u_{n+p}| < \epsilon$$
+\pause
+Et donc
+$$\big|u_n+u_{n+1}+\cdots+u_{n+p}\big| \le |u_n|+|u_{n+1}|+\cdots+|u_{n+p}| < \epsilon$$
+
+\item\pause D'après le critère de Cauchy $\sum u_k$ est donc convergente
+\qedhere
+\end{itemize}
+\end{proof}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Règle du quotient de d'Alembert}
+
+\begin{frame}
+
+\begin{theoreme}[Règle du quotient de d'Alembert]
+\pause
+Soit $\sum u_k$ une série de terme général non nul
+\begin{enumerate}
+\item\pause S'il existe une constante $0 < q < 1$ et un entier $k_0$ tels que pour tout
+$k \ge k_0$
+$$
+\left|\frac{u_{k+1}}{u_k}\right| \le q <1,\quad \text{ alors }\quad\sum u_k\quad \text{converge}
+$$
+\pause
+La série est même absolument convergente
+\item\pause S'il existe un entier $k_0$ tel que pour tout $k \ge k_0$
+$$
+\left|\frac{u_{k+1}}{u_k}\right| \ge 1,\quad \text{ alors }\quad\sum u_k \quad\text{diverge}
+$$
+\end{enumerate}
+\end{theoreme}
+\end{frame}
+
+\begin{frame}
+
+\begin{corollaire}[Règle du quotient de d'Alembert]
+\pause
+Soit $\sum u_k$ une série à terme strictement positif telle que 
+$\frac{u_{k+1}}{u_k}$ converge vers $\ell$
+\medskip
+\begin{enumerate}
+\item\pause Si $\ell<1$ alors $\sum u_k$ converge
+\medskip
+\item\pause Si $\ell>1$ alors $\sum u_k$ diverge
+\medskip
+\item\pause Si $\ell=1$ on ne peut pas conclure en général
+\end{enumerate}
+\end{corollaire}
+
+\end{frame}
+
+\begin{frame}
+\begin{proof}[th]
+Rappel : la série géométrique $\sum q^k$ converge si $|q|<1$
+
+\begin{enumerate}
+\item\pause Si $\left|\frac{u_{k+1}}{u_k}\right| \le q< 1$
+
+\begin{itemize}
+\item\pause Alors $|u_{k_0+1}| \le |u_{k_0}| q,$ \pause \  puis \  $|u_{k_0+2}| \le |u_{k_0}| q^2, \ldots$ 
+\item\pause Par récurrence : pour tout $k\ge k_0$ 
+$$|u_k| \le |u_{k_0}| q^{-k_0} \cdot q^k = c \cdot q^k$$
+où $c$ est une constante
+\item\pause Comme $0 < q < 1$, la série $\sum q^k$ converge
+
+\pause
+alors la série $\sum |u_k|$ converge par le théorème de comparaison
+\end{itemize}
+
+\item\pause Si $\left|\frac{u_{k+1}}{u_k}\right| \ge 1$
+\begin{itemize}
+\item\pause la suite $(|u_k|)$ est croissante\pause : elle ne
+peut donc pas tendre vers $0$
+
+\pause
+donc la série $\sum |u_k|$ diverge
+\end{itemize}  
+\end{enumerate}
+\end{proof}
+\end{frame}
+
+\begin{frame}
+
+\begin{exemple}
+\begin{enumerate}  
+  \item\pause Pour tout $x \in \Rr$ fixé, la \defi{série exponentielle}
+$\displaystyle\sum_{k=0}^{+\infty} \frac{x^k}{k!}$ converge
+
+\begin{itemize}
+\item\pause Pour $u_k = \frac{x^k}{k!}$ on a 
+\pause
+\vspace*{-1ex}
+$$
+\left|\frac{u_{k+1}}{u_k}\right|
+= \frac{\left|\frac{x^{k+1}}{(k+1)!}\right|}{\left|\frac{x^k}{k!}\right|}
+=\frac{|x|}{k+1} \to 0 
+\quad \text{lorsque } k \to +\infty
+$$
+\pause
+La limite étant $\ell = 0 < 1$ alors la série est absolument convergente
+
+\item\pause Par définition la somme est $\exp(x)$ : 
+\vspace*{-1ex}
+$$\exp(x) = \sum_{k=0}^{+\infty} \frac{x^k}{k!}$$
+\end{itemize}  
+\vspace*{-1ex}
+\item\pause $\sum_{k\ge0} \frac{k!}{1\cdot 3\,\cdots\,(2k-1)}$ converge\pause , car $\frac{u_{k+1}}{u_k}=\frac{k+1}{2k+1}$ tend vers $\frac{1}{2}<1$
+  
+\item\pause $\sum_{k\ge0} \frac{(2k)!}{(k!)^2}$ diverge\pause , car $\frac{u_{k+1}}{u_k}=\frac{(2k+1)(2k+2)}{(k+1)^2}$ tend vers $4>1$
+\end{enumerate}
+\end{exemple}
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{remarque}
+\begin{itemize}
+  \item\pause Le théorème ne peut pas s'appliquer si certains $u_k$ sont nuls
+  \item\pause Le théorème ne permet pas toujours de conclure.
+  
+L'hypothèse est $\left|\frac{u_{k+1}}{u_k}\right| \le q <1$, ce qui est plus fort que $\left|\frac{u_{k+1}}{u_k}\right| <1$
+  
+  \item\pause De même le corollaire ne permet pas de conclure lorsque $\frac{u_{k+1}}{u_k} \to 1$
+  
+  \pause
+  Par exemple pour $\sum u_k= \sum \frac{1}{k}$ et $\sum v_k = \sum \frac{1}{k^2}$
+\begin{itemize}
+\item\pause  Nous avons $\frac{u_{k+1}}{u_k} = \frac{k}{k+1} \to 1$\pause ,  de même $\frac{v_{k+1}}{v_k} = \frac{k^2}{(k+1)^2 } \to 1$
+\item\pause Cependant la série $\sum \frac{1}{k}$ diverge 
+  alors que $\sum \frac{1}{k^2}$ converge
+\end{itemize}
+\end{itemize}  
+\end{remarque}
+\end{frame}
+
+\begin{frame}
+
+\begin{exemple}
+Trouver tous les $z\in \Cc$ tels que la série 
+$\displaystyle\sum_{k\ge0} \binom{k}{3} z^k$ soit absolument convergente
+
+\begin{itemize}
+\item \pause Soit $u_k=\binom{k}{3} z^k$. \pause Alors, pour $z\neq0$,
+$$\frac{|u_{k+1}|}{|u_k|}=\frac{\binom{k+1}{3}|z|^{k+1}}{\binom{k}{3}|z|^{k}}  \pause =
+\frac{\frac{(k+1)k(k-1)}{3!}}{\frac{k(k-1)(k-2)}{3!}}|z|
+ \pause =\frac{k+1}{k-2}|z|
+  \pause \longrightarrow |z| $$ 
+lorsque $k\to+\infty$
+
+\item \pause Si $|z|<1$ alors pour $k$ assez grand $\frac{|u_{k+1}|}{|u_k|} < q <1$
+
+ \pause
+donc la série $\sum u_k$ est absolument convergente
+
+\item \pause Si $|z|\ge 1$ alors $\frac{|u_{k+1}|}{|u_k|}=\frac{k+1}{k-2}|z|  \pause \ge \frac{k+1}{k-2}> 1$
+pour tout $k$
+
+ \pause
+donc la série $\sum u_k$  diverge
+\end{itemize}  
+\end{exemple}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Règle des racines de Cauchy}
+
+\begin{frame}
+\begin{theoreme}[Règle des racines de Cauchy]
+\pause
+Soit $\sum u_k$ une série de nombres réels ou complexes
+\begin{enumerate}
+\item\pause S'il existe une constante $0<q<1$ et un entier $k_0$ tels que pour tout
+$k \ge k_0$
+$$
+\sqrt[k]{|u_k|} \le q <1,\quad \text{ alors }\quad\sum u_k\quad \text{converge}
+$$
+\pause
+La série est même absolument convergente
+\item\pause S'il existe un entier $k_0$ tel que pour tout $k \ge k_0$
+$$
+\sqrt[k]{|u_k|} \ge 1,\quad \text{ alors }\quad\sum u_k \quad\text{diverge}
+$$
+\end{enumerate}
+\end{theoreme}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{corollaire}[Règle des racines de Cauchy]
+\pause
+Soit $\sum u_k$ une série à termes positifs telle que 
+$\sqrt[k]{u_k}$ converge vers $\ell$
+\medskip
+\begin{enumerate}
+\item\pause Si $\ell<1$ alors $\sum u_k$ converge
+\medskip
+\item\pause Si $\ell>1$ alors $\sum u_k$ diverge
+\medskip
+\item\pause Si $\ell=1$ on ne peut pas conclure en général
+\end{enumerate}
+\end{corollaire}
+
+\bigskip
+
+\pause
+Dans la pratique, il faut savoir bien manipuler les racines $k$-ème : 
+$$\sqrt[k]{u_k} = (u_k)^{\frac1k} = \exp\left(\tfrac1k \ln u_k\right)$$
+\end{frame}
+
+
+
+\begin{frame}
+\begin{proof}
+\begin{enumerate}
+\item\pause Si $\sqrt[k]{|u_k|} \le q<1$
+\begin{itemize}
+\item\pause Alors $|u_k| \le q^k$
+\item\pause Comme $0<q<1$, la série $\sum q^k$ converge
+
+\pause
+donc la série converge par le théorème de comparaison
+\end{itemize}  
+\item\pause Si $\sqrt[k]{|u_k|} \ge 1$
+\begin{itemize}
+\item\pause Alors $|u_k| \ge 1$ : le terme général ne tend pas vers $0$
+
+\pause
+donc la série diverge
+\end{itemize}  
+\item\pause Pour le dernier point du corollaire :
+
+\pause
+on pose $u_k=\frac{1}{k}$, $v_k=\frac{1}{k^2}$
+\begin{itemize}
+\item\pause On a $\sqrt[k]{u_k}\to 1$ de même que $\sqrt[k]{v_k}\to 1$
+\item\pause Mais $\sum u_k$ diverge alors que $\sum v_k$ converge
+\end{itemize}  
+\end{enumerate}
+\end{proof}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{enumerate}
+  \item Par exemple
+$$\sum \left(\frac{2k+1}{3k+4}\right)^k\quad \text{ converge}$$
+\pause
+car $\sqrt[k]{u_k} = \frac{2k+1}{3k+4}$ tend vers $\frac{2}{3}<1$
+  
+  
+  \item\pause Par contre  
+  $$\sum \frac{2^k}{k^\alpha}\quad \text{ diverge}$$
+  quel que soit $\alpha >0$. \pause
+  En effet,
+  $$\sqrt[k]{u_k} = \frac{\sqrt[k]{2^k}}{\big(\sqrt[k]{k}\big)^\alpha}
+  = \frac{2}{\big(k^\frac{1}{k}\big)^\alpha}
+  = \frac{2}{\big(\exp(\frac{1}{k}\ln k)\big)^\alpha} \to 2>1$$
+\end{enumerate}
+\end{exemple}
+\end{frame}
+
+\begin{frame}
+\begin{exemple}
+Déterminer tous les $z\in \Cc$ tels que la série  
+$\sum_{k\ge1} \left( 1+\frac{1}{k}\right)^{k^2} z^k$ soit absolument convergente
+\medskip
+
+\pause
+Notons $u_k =\left( 1+\frac{1}{k}\right)^{k^2} z^k$. \pause
+On a $$\sqrt[k]{|u_k|}=\left( 1+\frac{1}{k}\right)^k |z| \to e|z|$$
+
+\pause
+Cette limite vérifie $e|z| < 1$ si et seulement si $|z|<\frac{1}{e}$
+
+\begin{itemize}
+  \item\pause Si $|z|<\frac{1}{e}$ alors la série $\sum u_k$ est absolument 
+convergente
+  
+  \item\pause Si $|z|>\frac{1}{e}$, on a pour $k$ assez grand
+  $\sqrt[k]{|u_k|}>1$, donc la série $\sum u_k$ diverge
+  
+  \item\pause Si $|z|=\frac{1}{e}$ il faut étudier le terme général à la main
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}  
+ $u_k =\left( 1+\frac{1}{k}\right)^{k^2} z^k$
+\begin{itemize}
+  \item Si $|z|=\frac{1}{e}$ \pause on obtient
+  $|u_k|=\left(  1+\frac{1}{k}\right)^{k^2}\left(\frac{1}{e}\right)^k$
+ \pause 
+  Donc
+  \begin{eqnarray*}
+  \ln|u_k| 
+  & = & k^2\ln\left(1+\tfrac{1}{k}\right)+k\ln \tfrac{1}{e} \\ \pause
+  & = & k\left[k\ln (1+\tfrac{1}{k})-1\right] \\ \pause
+  & = & k \left[ k\left(\tfrac{1}{k}-\tfrac{1}{2}\left( \tfrac{1}{k}\right)^2+
+o\big( \tfrac{1}{k^2}\big) \right)-1\right] \\ \pause
+  & = & k\left[1-\tfrac{1}{2}\tfrac{1}{k}+o\big( \tfrac{1}{k}\big) -1\right] \\
+  & = & -\tfrac{1}{2} +o(1) \\ \pause
+  & \to & -\tfrac{1}{2}
+  \end{eqnarray*}
+  \pause
+Donc $|u_k| \to e^{-\frac{1}{2}}\neq 0$. Ainsi $\sum |u_k|$ diverge
+\end{itemize}
+
+\end{exemple}
+\end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{D'Alembert vs Cauchy}
+% 
+% \begin{frame}
+% \pause
+% \begin{proposition}
+%  \pause
+% Soit $(u_k)$ une suite à termes strictement positifs  \pause
+% $$
+% \text{Si } \quad \lim_{k\to+\infty} \frac{u_{k+1}}{u_k} = \ell
+% \qquad\text{alors}\qquad
+% \lim_{k\to+\infty} \sqrt[k]{u_k} = \ell
+% $$
+% \end{proposition} 
+% 
+% \pause
+% \begin{exemple}
+% \pause
+% Définissons la suite $u_k$ par
+% $
+% u_k = \left\{
+% \begin{array}{ll}
+% \dfrac{2^n}{3^n}&\text{ si } k=2n\\[2ex]
+% \dfrac{2^n}{3^{n+1}}&\text{ si } k=2n+1
+% \end{array}
+% \right.
+% $
+% \begin{itemize}
+% \item\pause $\frac{u_{k+1}}{u_k}$ vaut $\frac{1}{3}$ si $k$ est pair, $2$ si $k$ est impair
+% 
+% \pause
+% Donc la règle du quotient de d'Alembert ne s'applique pas
+% \item\pause Pourtant $\sqrt[k]{u_k}$ converge vers $\sqrt{\frac{2}{3}}<1$
+% 
+% \pause
+% Donc la règle des racines de Cauchy s'applique et $\sum u_k$ converge
+% \end{itemize}
+% \end{exemple}
+% \end{frame}
+% 
+% 
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Règle de Raabe-Duhamel}
+% 
+% \begin{frame}
+% 
+% Les règles de d'Alembert et de Cauchy ne s'appliquent pas aux séries de Riemann  
+% $$\sum_{k\ge1} \frac{1}{k^\alpha}$$
+% \pause
+% car $\frac{k^\alpha}{(k+1)^\alpha}\to 1$ et $\sqrt[k]{u_k} \to 1$
+% 
+% \pause
+% \begin{theoreme}[Règle de Raabe-Duhamel]
+% Soit $(u_k)$ une suite de nombres réels (ou complexes) non nuls
+% \begin{enumerate}
+%   \item\pause Si $\forall k\geq k_0$ on a 
+%   $\left|\frac{u_{k+1}}{u_k}\right|\le 1-\frac{\beta}{k}$, avec $\beta>1$, \pause
+% alors la série $\sum u_k$ est absolument convergente
+%   \item\pause Si $\forall k\geq k_0$ on a 
+%   $\left|\frac{u_{k+1}}{u_k}\right|\ge 1-\frac{1}{k}$, \pause alors
+%  la série $\sum u_k$ n'est  pas absolument convergente
+% \end{enumerate}
+% \end{theoreme}
+% 
+% \pause
+% \textbf{Attention !}
+% Il existe des séries convergentes, 
+% quoique $\left|\frac{u_{k+1}}{u_k}\right|\ge 1-\frac{1}{k}$
+% 
+% \pause
+% En effet, pour $u_k=(-1)^k \frac{1}{k}$ alors $\tfrac{|u_{k+1}|}{|u_k|}= \tfrac{k}{k+1}= 1-\tfrac{1}{k+1}\ge 1-\tfrac{1}{k}$
+% 
+% \end{frame}
+% 
+% 
+% \begin{frame}
+% 
+% \begin{proposition}[Séries de Riemann]
+% Soit $\alpha>0$. Alors la série $\displaystyle\sum_{k\ge1} \frac{1}{k^\alpha}$
+% converge si et seulement si $\alpha>1$
+% \end{proposition}
+% 
+% \end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+
+  \item Ces séries sont-elles convergentes ? Absolument convergentes ?
+  
+  $\displaystyle\sum_{k\geq 2} \tfrac{(-1)^{k^3}e^{\ii k}}{k^2+k}
+  \qquad
+  \sum_{k\geq 1} \tfrac{(-1)^k}{\sqrt{k(k+1)}}
+  \qquad
+  \sum_{k\geq 1} \tfrac{\sqrt k}{(-1)^k\ln k}$
+  
+  \item \'Etudier les séries dont voici le terme général, par la règle du quotient de d'Alembert 
+  ou des racines de Cauchy :
+  
+  $\frac{k^{100}}{k!} \qquad \frac{k!}{(2k)!} \qquad 
+  \frac{\ln k}{2^k+1} \qquad \frac{2\cdot 4 \cdot 6 \cdots (2k)}{k^k}  \qquad  \big(\sin \tfrac1k\big)^k \qquad 
+  \left(\frac{7k-2}{3k+1}\right)^k \qquad \frac{2^k}{e^k-1}$
+  
+  
+  \item Appliquer la règle du quotient de d'Alembert pour $u_k = \frac{k!}{k^k}$
+  
+  En déduire la limite de $\sqrt[k]{u_k}$ lorsque $k$ tend vers $+\infty$
+  
+  \item \'Etudier les séries dont voici le terme général en 
+  fonction du paramètre $\alpha > 0$ :
+  
+  $\frac{k}{k^{\alpha}+1} \qquad \frac{\ln k}{k^\alpha} \qquad \sqrt{k}\alpha^k \qquad 
+  \frac{\alpha^k}{k^2} \qquad \ln (1 + k^\alpha) 
+  \qquad \frac{2\cdot 4 \cdot 6 \cdots (2k)}{3\cdot 5 \cdot 7 \cdots (2k+1)}
+  $
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

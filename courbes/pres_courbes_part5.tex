@@ -1,0 +1,316 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={102,102,0}]{structure}
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Courbes paramétrées}}
+\subtitle{Courbes en polaires : théorie}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Coordonnées polaires
+    \item<4-> Courbes d'équations polaires
+    \item<5-> Tangente en un point distinct de l'origine
+    \item<6-> Tangente à l'origine   
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Coordonnées polaires}
+
+\begin{frame}
+
+\begin{itemize}
+  \item $\overrightarrow{u_\theta}=\cos\theta\overrightarrow{i}+\sin\theta\overrightarrow{j}$
+  
+  \uncover<2->{\item ${v_\theta}=-\sin\theta\overrightarrow{i}+\cos\theta\overrightarrow{j}$}
+
+  \uncover<3->{\item $M$ étant un point du plan, on dit que $[r:\theta]$ est un 
+couple de \defi{coordonnées polaires} du point $M$ si et seulement 
+si $\overrightarrow{OM}=r\overrightarrow{u_\theta}$}
+  
+    
+\end{itemize}
+
+
+\myfigure{0.8}{
+\tikzinput{fig_courbes_part5_01} \quad
+\uncover<3->{\tikzinput{fig_courbes_part5_02}}
+}
+
+
+
+
+\end{frame}
+
+
+%\begin{frame}
+
+%\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Courbes d'équations polaires}
+
+\begin{frame}
+
+La courbe d'\defi{équation polaire} $r=r(\theta)$ 
+est l'application  :
+$$\begin{array}{cccc}
+F :&D&\rightarrow&\Rr^2\\
+ &\theta&\mapsto&M(\theta) = \big[r(\theta):\theta\big] = O+r(\theta)\vec{u}_\theta
+\end{array}
+$$
+
+\pause
+
+\mybox{
+$M\in\mathcal{C}\iff$ 
+\begin{tabular}{c}
+il existe un couple $[r:\theta]$ de coordonnées \\
+polaires de $M$ tel que $r=r(\theta)$
+\end{tabular}
+}
+
+\pause
+
+Représentation paramétrique classique : 
+$$\theta\mapsto\left\{
+\begin{array}{l}
+x(\theta)=r(\theta)\cos(\theta)\\
+y(\theta)=r(\theta)\sin(\theta)
+\end{array}
+\right.$$
+
+\end{frame}
+
+
+\begin{frame}
+
+\evidence{Spirale} d'équation polaire $r = \sqrt{\theta}$, \quad $\theta \in [0,+\infty[$
+
+
+
+\myfigure{0.7}{
+\tikzinput{fig_courbes_part5_03}
+} 
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Calcul de la vitesse en polaires}
+
+\begin{frame}
+
+
+
+\begin{minipage}{0.49\textwidth}
+\begin{itemize}
+  \item $\overrightarrow{u_\theta}=\cos\theta\overrightarrow{i}+\sin\theta\overrightarrow{j}$
+  \uncover<2->{
+  \item ${v_\theta}=-\sin\theta\overrightarrow{i}+\cos\theta\overrightarrow{j}$
+  }
+\end{itemize}  
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+\myfigure{0.8}{
+\tikzinput{fig_courbes_part5_01}
+}  
+\end{minipage}
+
+\pause
+\vspace*{-0.8cm}
+\pause
+En dérivant par rapport à $\theta$ :
+\begin{itemize}
+  \item $\displaystyle \frac{\dd\overrightarrow{u_\theta}}{\dd\theta}
+=-\sin\theta\overrightarrow{i}+\cos\theta\overrightarrow{j}
+=\overrightarrow{v_\theta}$
+  \item $\displaystyle \frac{\dd\overrightarrow{v_\theta}}{\dd\theta}=-\cos\theta\overrightarrow{i}+\sin\theta\overrightarrow{j}
+=-\overrightarrow{u_\theta}$ 
+\end{itemize}
+
+\pause
+\mybox{
+$\displaystyle\frac{\dd\overrightarrow{u_\theta}}{\dd\theta}
+=\overrightarrow{v_\theta} \qquad\qquad\frac{\dd\overrightarrow{v_\theta}}{\dd\theta}
+=-\overrightarrow{u_\theta}$
+}
+
+
+\end{frame}
+
+
+% \begin{frame}
+
+% \end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Tangente en un point distinct de l'origine}
+
+\begin{frame}
+\begin{theoreme}[Tangente en un point distinct de l'origine]
+\begin{enumerate}
+%\item Tout point de $\mathcal{C}$ distinct de l'origine $O$ est un point régulier.
+
+\uncover<3->{\item Si $M(\theta)\neq O$, le point $M(\theta)$ est régulier et la tangente en $M(\theta)$ est dirigée 
+par le vecteur 
+$\overrightarrow{\dfrac{\dd M}{\dd \theta}}
+=r'(\theta)\overrightarrow{u_\theta}+r(\theta)\overrightarrow{v_\theta}$
+}
+
+
+\uncover<5->{\item L'angle $\beta$ entre le vecteur $\overrightarrow{u_\theta}$ et la tangente
+en $M(\theta)$ vérifie $\tan(\beta)=\frac{r}{r'}$ si $r'\neq 0$,
+et $\beta=\frac\pi2 \pmod \pi$ sinon
+}
+
+\end{enumerate}
+\end{theoreme}
+
+\vspace*{-1ex}
+\myfigure{1}{
+\tikzinput{fig_courbes_part5_08}
+} 
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+Tangente à la courbe polaire d'équation $r=1-2\cos\theta$ au point $M(\frac{\pi}{2})$
+
+
+\begin{itemize}
+\uncover<4->{
+  \item Comme $r'(\theta)=2\sin\theta$, on a $r'(\frac{\pi}{2})=2$
+  }
+\uncover<5->{  
+  \item De plus, $r(\frac{\pi}{2})=1$
+}
+\uncover<6->{  
+  \item $\overrightarrow{\frac{\dd M}{\dd\theta}}\left(\frac{\pi}{2}\right) =2\cdot\overrightarrow{u_{\pi/2}}+1\cdot\overrightarrow{v_{\pi/2}}$}
+  \uncover<7->{ 
+  $=2\overrightarrow{j}-\overrightarrow{i}$
+}
+\end{itemize}
+\vspace*{-6ex}
+\myfigure{0.65}{
+\hfill\tikzinput{fig_courbes_part5_04}
+}
+
+\end{exemple}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Tangente à l'origine}
+
+
+\begin{frame}
+
+\begin{theoreme}[Tangente à l'origine]
+Si $M(\theta_0)=O$, la tangente en $M(\theta_0)$ est la droite 
+d'angle polaire $\theta_0$
+\end{theoreme}
+
+
+\myfigure{0.9}{
+\tikzinput{fig_courbes_part5_05}
+}
+
+\vspace*{-5ex}
+\pause
+\begin{proof}
+\vspace*{-0.5ex}
+\begin{itemize}
+  \item Pour $\theta\neq\theta_0$, le vecteur $\frac{1}{r(\theta)}\overrightarrow{M(\theta_0)M(\theta)}=
+\frac{1}{r(\theta)}\overrightarrow{OM(\theta)}
+=\overrightarrow{u_\theta}$,
+dirige la droite $\big(M(\theta_0)M(\theta)\big)$
+  \pause
+  \item De plus, $\lim_{\theta \to \theta_0}\overrightarrow{u_\theta}=\overrightarrow{u_{\theta_0}}$ \qedhere
+\end{itemize}
+\end{proof}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+Tangente au point $M(\frac{\pi}{2})$ pour les deux courbes : 
+$$r=(\theta+1)\cos \theta \qquad \text{ et } \qquad r=\cos^2(\theta)$$
+
+
+\begin{itemize}
+  \uncover<2->{\item Dans les deux cas, $M(\frac{\pi}{2})=O$}
+  
+  \uncover<3->{\item la tangente en $M(\frac{\pi}{2})$ est la droite passant par $O$ et
+d'angle polaire $\frac{\pi}{2}$, c'est-à-dire l'axe des ordonnées}
+\end{itemize}
+
+
+\myfigure{0.85}{
+\tikzinput{fig_courbes_part5_06}
+\tikzinput{fig_courbes_part5_07}
+}
+\end{exemple}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Soit la courbe d'équation polaire $r = (\cos \theta)^2$. 
+  Quand est-ce que la tangente en $M(\theta)$ est perpendiculaire à $\overrightarrow{u_\theta}$ ?
+  Quelle est la tangente à l'origine ? En quels points la tangente est-elle
+  horizontale ? Tracer la courbe.
+  
+  \item Montrer que la courbe polaire $r=\frac{1}{\cos \theta+2\sin\theta}$
+  est une droite, que vous déterminerez. Même problème avec
+  $r = \frac{1}{\cos \left( \theta-\frac\pi4 \right)}$.
+  
+  \item Montrer que la courbe polaire $r = \cos \theta$
+  est un cercle, que vous déterminerez.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

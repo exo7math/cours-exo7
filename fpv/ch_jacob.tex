@@ -1,0 +1,844 @@
+
+\documentclass[12pt, class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+
+\begin{document}
+
+%====================================================================
+\chapitre{Matrice jacobienne}
+%====================================================================
+
+
+% A garder
+%\DeclareMathOperator{\grad}{grad}  % dans le préambule
+\newcommand{\grad}{\operatorname{grad}} % dans le document
+\newcommand{\diver}{\operatorname{div}}
+\newcommand{\rot}{\operatorname{rot}}
+
+
+Pour une fonction de plusieurs variables il n'y a pas une dérivée mais plusieurs : une pour chaque variable. Si en plus la fonction est à valeur vectorielle, alors pour chaque composante et pour chaque variable, il y a une dérivée. Toute ces dérivées sont regroupées dans la matrice jacobienne.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Matrice jacobienne}
+
+%----------------------------------------------------
+\subsection{Fonctions vectorielles}
+
+
+Une fonction est dite \defi{fonction vectorielle} lorsque l'espace d'arrivée n'est pas $\Rr$ mais $\Rr^p$, avec $p\ge2$.
+
+$$\begin{array}{cccc}
+F : & \Rr^n & \longrightarrow & \Rr^p \\
+    & x=(x_1,\ldots,x_n) & \longmapsto & \big( f_1(x), \ldots, f_p(x) \big) \\
+\end{array}$$
+    
+Chaque composante $f_i$, pour $i=1,\ldots,p$, est une fonction de plusieurs variables à valeur réelle : $f_i : \Rr^n \to \Rr$. On note  $x \mapsto F(x)$ ou bien encore $(x_1,\ldots,x_n) \mapsto F(x_1,\ldots,x_n)$.
+
+
+On a déjà rencontré des fonctions à valeurs vectorielles. Quelques exemples:
+\begin{itemize}
+\item De $\Rr$ dans $\Rr^2$ : $F(t) = (t^2,t)$.
+\item De $\Rr^2$ dans $\Rr^2$ : $F(x,y) = (e^x \cos y , e^x \sin y)$.
+\item De $\Rr^2$ dans $\Rr^3$ : $F(x,y) = (x^2,y^3, x^2 + y^2)$.
+\item De $\Rr^n$ dans $\Rr^n$ : $F(x) = \displaystyle \frac{x}{\|x\|}$ où $x = (x_1,\ldots,x_n) \neq 0$.
+\end{itemize}
+
+\bigskip
+
+Une exemple important est le cas d'une application linéaire.
+\begin{itemize}
+  \item Par exemple $L(x,y,z) = (2x+3y-z,5y-7z)$ est une application linéaire $L : \Rr^3 \to \Rr^2$. Elle s'exprime aussi :
+$L(x,y,z) = A \times \left(\begin{smallmatrix} x \\ y \\ z \end{smallmatrix}\right)$ avec 
+$A = \begin{pmatrix}
+2&3&-1\\
+0&5&-7
+\end{pmatrix}$.
+
+  \item Plus généralement pour une application linéaire 
+$L : \Rr^n \to \Rr^p$, il existe une matrice $A$ avec $p$ lignes et $n$ colonnes, telle que 
+$$L(x_1,\ldots,x_n) = A \times \begin{pmatrix}x_1\\\vdots\\x_n\end{pmatrix}$$
+\end{itemize}
+
+
+
+
+%----------------------------------------------------
+\subsection{Matrice jacobienne}
+
+Soit $F : \Rr^n \to \Rr^p$ une fonction, dont les composantes sont
+$F = (f_1,\ldots,f_p)$. Soit $x \in \Rr^n$. On suppose que les dérivées partielles
+$\frac{\partial f_j}{\partial x_i}$ existent en $x$.
+
+\begin{definition}
+La \defi{matrice jacobienne} de $F$ en $x=(x_1,\ldots,x_n) \in \Rr^n$ est
+$$
+J_F(x) = 
+\begin{pmatrix}
+\dfrac{\partial f_1}{\partial x_1} (x) & \cdots & \dfrac{\partial f_1}{\partial x_n} (x) \\
+\cdots & \cdots & \cdots \\
+\dfrac{\partial f_p}{\partial x_1} (x) & \cdots & \dfrac{\partial f_p}{\partial x_n} (x)
+\end{pmatrix}
+$$
+\end{definition}
+
+
+C'est une matrice à $p$ lignes et $n$ colonnes.
+La première ligne correspond aux dérivées partielles de $f_1$, la seconde lignes aux dérivées partielles de $f_2$,\ldots
+
+\bigskip
+
+Voici ce que cela donne pour $F : \Rr^2 \to \Rr^2$ avec $F = (f_1,f_2)$, en $(x,y) \in \Rr^2$ :
+$$
+J_F(x,y) = 
+\begin{pmatrix}
+\dfrac{\partial f_1}{\partial x} (x,y) & \dfrac{\partial f_1}{\partial y} (x,y) \\
+\dfrac{\partial f_2}{\partial x} (x,y) & \dfrac{\partial f_2}{\partial y} (x,y)
+\end{pmatrix}
+$$
+
+\begin{exemple}
+Soit $F : \Rr^2 \to \Rr^2$ définie par $F(x,y) = (x^2 + y^2 , e^{x-y})$.
+Au point $(x,y)$ on a :
+$$
+J_F(x,y) = 
+\begin{pmatrix}
+\frac{\partial f_1}{\partial x} (x,y) & \frac{\partial f_1}{\partial y} (x,y) \\
+\frac{\partial f_2}{\partial x} (x,y) & \frac{\partial f_2}{\partial y} (x,y)
+\end{pmatrix}
+= 
+\begin{pmatrix}
+2x & 2y \\
+e^{x-y} & -e^{x-y} 
+\end{pmatrix}.
+$$
+
+Par exemple au point $(x_0,y_0)=(2,1)$ la matrice jacobienne est
+$$J_F(2,1) = 
+\begin{pmatrix}
+4 & 2 \\ e & -e 
+\end{pmatrix}$$
+\end{exemple}
+
+\begin{exemple}
+Les coordonnées polaires d'un point du plan définissent l'application
+$F : \Rr^+\times [0,2\pi[\to \Rr^2$, $F(r,\theta) = (r\cos \theta ,r\sin \theta )$.
+
+$$J_F (r,\theta) 
+= \begin{pmatrix}
+\cos \theta &-r\sin \theta \\
+\sin \theta &r\cos \theta 
+\end{pmatrix}.$$
+
+\end{exemple}
+
+\bigskip
+Voyons un autre cas : $F : \Rr^3 \to \Rr^2$ avec $F = (f_1,f_2)$, en $(x,y,z) \in \Rr^3$ :
+$$
+J_F(x,y,z) = 
+\begin{pmatrix}
+\dfrac{\partial f_1}{\partial x} (x,y,z) & \dfrac{\partial f_1}{\partial y} (x,y,z) & \dfrac{\partial f_1}{\partial z} (x,y,z) 
+\\
+\dfrac{\partial f_2}{\partial x} (x,y,z) & \dfrac{\partial f_2}{\partial y} (x,y,z) & \dfrac{\partial f_2}{\partial z} (x,y,z)
+\end{pmatrix}
+$$
+
+\begin{exemple}
+$F(x,y,z)=(e^{xy},z\sin x)$
+$$J _F(x,y,z)=\begin{pmatrix}
+y e^{xy}&x e^{xy}&0 \\ z\cos x &0&\sin x 
+\end{pmatrix}.$$
+\end{exemple}
+
+\begin{exemple}
+Soit $F : \Rr \to \Rr^p$ une fonction d'une seule variable, mais à valeur vectorielle, définie par 
+$F(x) = \big( f_1(x), \ldots,f_p(x) \big)$.
+Alors 
+$$J_F(x) =\begin{pmatrix}
+f_1'(x) \\ \vdots \\ f_p'(x) 
+\end{pmatrix}.$$ 
+\end{exemple}
+
+
+%----------------------------------------------------
+\subsection{Opérateurs différentiels classiques}
+ 
+\evidence{Gradient}
+
+Pour une fonction à valeurs scalaires $f : \Rr^n \to \Rr$ 
+dont les dérivées partielles existent, le vecteur \defi{gradient} est :
+$$\grad f (x) = \begin{pmatrix}
+\frac{\partial f}{\partial x_1}(x)\\
+\vdots \\
+\frac{\partial f}{\partial x_n}(x)
+\end{pmatrix}.$$
+C'est donc la transposée de la matrice jacobienne : 
+$$\grad f(x) = J_f (x)^T.$$
+On reviendra en détails sur le gradient dans le chapitre \og{}Gradient et théorème des accroissements finis\fg{}.
+
+Les physiciens notent le gradient $\nabla f (x) =
+\begin{pmatrix} 
+\frac{\partial f}{\partial x_1}(x)\\
+\vdots \\ 
+\frac{\partial f}{\partial x_n}(x)
+\end{pmatrix}$
+où $\nabla$ (qui se lit \og{}nabla\fg{}) correspond à l'opérateur
+$$\nabla = \begin{pmatrix} 
+\frac{\partial}{\partial x_1}\\
+\vdots\\
+\frac{\partial }{\partial x_n}\end{pmatrix}
+$$
+
+\bigskip
+  
+\evidence{Divergence} 
+
+Pour une fonction  $F : \Rr^n \to \Rr^n$ ($n=p$)
+de composantes $f_1,\ldots,f_n$ , dont toutes les dérivées partielles existent, on définit sa divergence par
+
+$$\diver F (x) = \tr J_F (x)
+= \sum_{i=1}^n \frac{\partial f_i}{\partial x_i}(x)$$
+où $\tr J_F(x)$ est la trace de la matrice jacobienne. 
+
+Attention : ne pas confondre les notions de gradient et de divergence : $\grad F(x)$ est un vecteur alors que $\diver F(x)$ est un nombre réel !
+
+Les physiciens notent la divergence $\diver F(x)=\nabla \cdot F(x)$, 
+(où $u \cdot v$ est le produit scalaire canonique des vecteurs $u$ et $v$ sur $\Rr^n$), ce qui fait que
+$$\diver F (x) = \nabla \cdot F(x)
+= \begin{pmatrix}
+\frac{\partial}{\partial x_1}\\
+\vdots\\
+\frac{\partial }{\partial x_n}
+\end{pmatrix}
+\cdot 
+\begin{pmatrix}
+f_1(x) \\
+\vdots \\
+f_n(x)
+\end{pmatrix}
+$$
+
+
+\begin{exemple}
+Soit $F : \Rr^3 \to \Rr^3$ définie par 
+$F(x,y,z) = \big( x^2y, \sin(yz), e^{xyz} \big)$.
+Alors $$\diver F (x,y,z) = 
+\frac{\partial f_1}{\partial x}(x,y,z)+
+\frac{\partial f_2}{\partial y}(x,y,z)+
+\frac{\partial f_3}{\partial z}(x,y,z)
+= 2xy + z\cos(yz) + xye^{xyz}
+$$
+\end{exemple}
+
+
+\bigskip
+\bigskip
+
+\evidence{Rotationnel en dimension 2}
+
+Pour une fonction  $F : \Rr^2 \to \Rr^2$ de composantes $f_1,f_2$ dont toutes les dérivées partielles existent, on définit le \defi{rotationnel} de $F$ par
+$$\rot F (x,y) = \frac{\partial f_2}{\partial x}(x,y)-\frac{\partial f_1}{\partial y}(x,y)
+$$
+
+Le rotationnel est ici un nombre réel.
+
+\begin{exemple}
+Soit $F(x,y) = \big( \frac{y}{x^3},  y\ln x \big)$ définie sur $]0,+\infty[ \times \Rr$.
+$$\rot F (x,y) = 
+\frac{\partial (y\ln x)}{\partial x} -    \frac{\partial (\frac{y}{x^3})}{\partial y}
+    = \frac{y}{x} - \frac{1}{x^3}
+$$
+\end{exemple}
+
+
+
+\bigskip
+\bigskip
+
+\evidence{Rotationnel en dimension 3}
+
+Pour une fonction  $F : \Rr^3 \to \Rr^3$ de composantes $f_1,f_2,f_3$ dont toutes les dérivées partielles existent, on d\'efinit le \defi{rotationnel} de $F$ par
+$$\rot F (x,y,z)=
+\begin{pmatrix}
+    \dfrac{\partial f_3}{\partial y}(x,y,z)-\dfrac{\partial f_2}{\partial z}(x,y,z) \\
+    \dfrac{\partial f_1}{\partial z}(x,y,z)-\dfrac{\partial f_3}{\partial x}(x,y,z) \\
+    \dfrac{\partial f_2}{\partial x}(x,y,z)-\dfrac{\partial f_1}{\partial y}(x,y,z)
+\end{pmatrix}
+$$
+Le rotationnel est donc ici un vecteur.
+Pour se souvenir de la formule, les physiciens  écrivent $\rot F (x,y,z) =  \nabla \wedge F(x,y,z)$,
+  où $u \wedge v$ désigne le produit vectoriel entre les vecteurs $u$ et $v$ :
+$$\rot F (x,y,z)=  \nabla \wedge F(x,y,z)
+= 
+\begin{pmatrix}
+\frac{\partial}{\partial x}\\
+\frac{\partial}{\partial y}\\
+\frac{\partial}{\partial z}\\
+\end{pmatrix}
+\wedge 
+\begin{pmatrix}
+f_1(x,y,z) \\
+f_2(x,y,z) \\
+f_3(x,y,z) \\
+\end{pmatrix}
+$$
+
+\begin{exemple}
+Soit $F : \Rr^3 \to \Rr^3$ définie par $F(x,y,z) = (x^3, yz^2, xyz)$ :
+$$\rot F (x,y,z) = \begin{pmatrix} xz -2yz \\ 0 - yz \\ 0 - 0 \end{pmatrix}.$$
+\end{exemple}
+
+
+
+%----------------------------------------------------
+\subsection{Différentielle}
+
+
+Le pendant théorique de la matrice jacobienne est la différentielle associée à $F : \Rr^n \to \Rr^p$ en un point $x$. Cette section est plus théorique, pour une première lecture on peut juste retenir que la différentielle $\dd_F(x)$ est une application linéaire dont la matrice (dans la base canonique) est la matrice jacobienne. Autrement dit :
+\mybox{$
+\dd_F(x) (h) = J_F(x) \times h
+$}
+où $x \in \Rr^n$ et $h\in \Rr^n$, alors que le résultat $\dd_F(x) (h)$ est un élément de $\Rr^p$.
+
+
+\bigskip
+
+Voici les explications de ces notions en détails.
+Les notions de limite et de continuité pour $F : \Rr^n \to \Rr^p$ sont similaires à celles des fonctions $f : \Rr^n \to \Rr$ : on remplace dans l'espace d'arrivée la valeur absolue de $\Rr$ par une norme sur $\Rr^p$.
+
+
+Nous allons voir ce qu'il en est pour la différentielle d'une fonction à valeur vectorielle. Soit $F : \Rr^n \to \Rr^p$ dont les composantes sont $F = (f_1,\ldots,f_p)$
+ avec chaque $f_i : \Rr^n \to \Rr$.
+ 
+
+\begin{definition}
+\sauteligne
+\begin{itemize}
+  \item $F : \Rr^n \to \Rr^p$ est \defi{différentiable} en $x \in \Rr^n$ si chacune des composantes   $f_i : \Rr^n \to \Rr$ ($i=1,\ldots,p$) est différentiable en $x$.
+  On note $\dd_{f_i} (x) : \Rr^n \to \Rr$ la différentielle de $f_i$ en $x$.
+
+  \item La \defi{différentielle} d'une application vectorielle différentiable $F : \Rr^n \to \Rr^p$ en $x \in \Rr^n$ est l'application linéaire $\dd_F(x) : \Rr^n \to \Rr^p$, définie par 
+$$\dd_F (x) = \big( \dd_{f_1} (x), \ldots, \dd_{f_p} (x) \big).$$ 
+\end{itemize}
+\end{definition}
+
+
+Attention ! La différentielle $\dd_F(x)$ de $F$ en $x \in \Rr^n$ est une application linéaire, donc c'est bien une fonction (et pas un vecteur).
+Pour travailler avec des vecteurs on écrit :
+$$\forall h \in \Rr^n \qquad \dd_f (x)(h) = \big( \dd_{f_1} (x)(h), \ldots, \dd_{f_p} (x)(h) \big).$$ 
+
+
+\begin{proposition}
+Soit $F : \Rr^n \to \R^p$ différentiable en $x \in \Rr^n$ alors
+\mybox{$
+\dd_F(x) (h) = J_F(x) \times h
+$}
+où $J_F (x)$ est la matrice jacobienne de $F$ en $x$, quel que soit $h\in\Rr^n$.
+\end{proposition}
+
+
+Autrement dit, trouver la différentielle en $x$ revient à calculer la matrice jacobienne en $x$.
+
+\begin{exemple}
+Soit $F : \Rr^2 \to \Rr^2$ définie par $F(x,y) = (ye^{x^2}, x^2-y)$.
+Calculons $\dd_F (x,y)(h,k)$ quel que soit $(x,y), (h,k) \in \Rr^2$.
+
+\begin{itemize}
+  \item La matrice jacobienne de $F$ est :
+$$J_F(x,y) = 
+\begin{pmatrix}
+\frac{\partial f_1}{\partial x} (x,y) & \frac{\partial f_1}{\partial y} (x,y) \\
+\frac{\partial f_2}{\partial x} (x,y) & \frac{\partial f_2}{\partial y} (x,y)
+\end{pmatrix}
+= 
+\begin{pmatrix}
+2xye^{x^2} & e^{x^2} \\
+2x & - 1 \\
+\end{pmatrix}
+$$  
+  
+  \item En $(x,y)$ et pour $(h,k) \in \Rr^2$ on a donc :
+$$\dd_F(x,y) (h,k) = J_F(x,y) \times \begin{pmatrix} h \\ k \end{pmatrix}$$
+donc 
+$$\dd_F(x,y) (h,k) = \begin{pmatrix}
+(2xyh +k)e^{x^2} \\
+2xh-k
+\end{pmatrix}$$
+
+  \item Par exemple, au point $(x_0,y_0) = (1,1)$, on a
+  $\dd_F (1,1) (h,k) = \big( (2h+k)e, 2h-k \big)$.
+  
+
+\end{itemize}
+\end{exemple}
+
+
+%Par exemple, pour $F : \Rr^2 \to \Rr^2$, différentiable avec $F = (f_1,f_2)$ alors
+%$\dd_F (x,y) = \big( \dd_{f_1} (x,y) , \dd_{f_2}(x)$
+%
+%[[...]]
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+
+  \item Si $F$ a des composantes de classe $\mathcal{C}^1$ (c'est-à-dire toutes les dérivées partielles existent et sont continues), alors elles sont différentiables et $F$ est également différentiable.
+  
+  \item Si $F$ est différentiable en $x$, alors $F$ est continue en $x$.
+  
+  \item  Si $L : \Rr^n \to \Rr^p$ est une application linéaire, alors en tout point, sa
+  différentielle est l'application elle-même, autrement dit  $\dd_L(x) = L$, pour tout $x \in \Rr^n$. 
+\end{itemize}
+\end{remarque*}  
+ 
+\begin{remarque*}  
+Il existe une définition équivalente des deux notions.
+
+\begin{itemize}
+
+  \item $F : \Rr^n \to \Rr^p$ est \defi{différentiable} en $x \in \Rr^n$, s'il existe une {application linéaire} $L : \Rr^n \to \Rr^p$ telle que :
+$$
+\lim_{\|h\| \to 0}  \frac{F(x + h) - F(x) - L (h)}{\|h\|} = 0 .$$
+
+ \item Dans ce cas $L$ est la \defi{différentielle} de $F$ en $x$ et on la note $\dd_F(x)$.
+\end{itemize}
+\end{remarque*}
+
+
+ 
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soient $F,G : \Rr^n \to \Rr^p$. Soient $x,y \in \Rr^n$, $\lambda \in \Rr$. Les égalités suivantes sont-elles vraies ou fausses ? 
+  $J_{F+G} (x) = J_F(x) + J_G (x)$ ;
+  $J_{F \times G} (x) = J_F(x) \times J_G (x)$ ;
+  $J_{F} (x+y) = J_F(x) + J_F (y)$ ;  
+  $J_{\lambda F} (x)= \lambda J_F (x)$.
+  
+
+  \item Calculer en tout point la matrice jacobienne de l'application $F$ définie par $F(x,y) = (x^2+y^2,e^{xy},x+y)$.
+ Même question avec $F(x,y,z) = ( x^{y+z}, z\arctan(y) )$.
+ 
+   \item Calculer la divergence et le rotationnel de $F$ définie par $F(x,y) = ( y\sh(x) , \ch(x/y))$.   
+   On rappelle que $\ch x = \frac{e^x+e^{-x}}{2}$ et $\sh x = \frac{e^x-e^{-x}}{2}$. Même question avec 
+   $F(x,y,z) = ( x+yz, \sin(y)\sin(z), \sqrt{x+z} )$.
+    
+   \item À quelle condition sur la matrice jacobienne $J_F(x)$, la différentielle $\dd_F (x)$ est-elle bijective ?
+  
+   \item Exprimer la différentielle de 
+  $F(x,y) = \big( \frac{1}{x}\ln(y-1) , \frac{e^y-x}{x^2} \big)$ 
+  en tout point $(x,y) \in \Rr^* \times ]1,+\infty[$.
+\end{enumerate}
+\end{miniexercices}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Matrice jacobienne d'une composition}
+
+
+Les dérivées partielles d'une composition de fonctions sont compliquées à obtenir. C'est l'objet de cette section.
+
+%----------------------------------------------------
+\subsection{Formule}
+
+Rappelons tout d'abord la formule de dérivée d'une composition pour les fonctions de $\Rr$ dans $\Rr$.
+
+\begin{proposition}
+Soient $f,g : \Rr \to \Rr$ des fonctions dérivables alors $g \circ f$ est dérivable et 
+\mybox{$\displaystyle
+(g \circ f)'(x) = g' \big( f(x) \big) \times f'(x)
+$}
+\end{proposition}
+
+
+\myfigure{1}{
+  \tikzinput{fig-jacob-01}
+}
+
+
+
+\begin{remarque*}
+Il peut être intéressant de nommer $x$ la variable de la fonction $f$ et $y$ la variable de la fonction $g$. La formule peut alors aussi s'écrire :
+$$
+\frac{\dd g \circ f}{\dd x}(x) = \frac{\dd g}{\dd y}(f(x)) \times \frac{\dd f}{\dd x}(x).$$
+En notant $y=f(x)$, alors on peut considérer $g$ comme une fonction de la variable $y$, mais aussi (par composition) de la variable $x$. On peut alors écrire comme les physiciens :
+$$\frac{\dd g}{\dd x} = \frac{\dd g}{\dd y} \times \frac{\dd y}{\dd x}.$$
+Formule que l'on mémorise facilement en disant que l'on simplifie la fraction en éliminant les $\dd y$ au numérateur et dénominateur.
+\end{remarque*}
+
+\bigskip
+
+Passons maintenant au cas de $F : \Rr^n \to \Rr^p$ et $G : \Rr^p \to \Rr^q$. La composition est alors $G \circ F : \Rr^n \to \Rr^q$, et est bien sûr définie par $G \circ F(x) = G \big( F(x) \big)$.
+
+\myfigure{1}{
+  \tikzinput{fig-jacob-02}
+}
+
+\begin{theoreme}
+Si $F$ et $G$ sont différentiables alors $G \circ F$ est différentiable et
+les matrices jacobiennes sont reliées par la formule suivante :
+\mybox{$\displaystyle
+J_{G \circ F} (x) = J_G \big( F(x) \big) \times J_F (x)
+$}
+\end{theoreme}
+
+
+Ici \og{}$\times$\fg{} est le produit des deux matrices jacobiennes.
+
+
+On rappelle en particulier que si les composantes de $F$ et $G$ sont de classe $\mathcal{C}^1$ (i.e. les dérivées partielles existent et sont continues) alors les fonctions sont différentiables et la formule est valable. Et en plus $G \circ F$ est de classe $\mathcal{C}^1$.
+
+\bigskip
+
+\evidence{Attention !} Noter que $J_F(x)$ et $J_{G \circ F} (x)$ sont des matrices jacobiennes calculées en $x$, mais que  dans la formule, \evidence{$J_G  \big( F(x) \big)$ est la matrice jacobienne de $G$ en $F(x)$} (et pas en $x$, ce qui pourrait même ne pas avoir de sens). C'est une source fréquente d'erreur !
+
+\begin{exemple}
+Soient $F : \Rr^2 \to \Rr^2$, $F(x,y) = (x + y, e^{2x-y})$ et 
+$G : \Rr^2 \to \Rr^3$, $G(x,y) = (xy, y\sin x, x^2)$.
+Les matrices jacobiennes de $F$ et de $G$ sont :
+$$J_F(x,y) = 
+\begin{pmatrix}
+1&1 \\ 2e^{2x-y} &-e^{2x-y}
+\end{pmatrix}
+\qquad
+J_G(x,y) = 
+\begin{pmatrix}
+y & x \\ y \cos x & \sin x \\ 2x & 0
+\end{pmatrix}$$
+Attention, nous avons besoin de $J_G (F(x,y))$. Donc dans $J_G(x,y)$, on substitue $x$ par la première composante de $F$ (c'est $x+y$) et $y$ par la seconde composante de $F$ (c'est $e^{2x-y}$). Ainsi
+$$J_G( F(x,y) ) = 
+\begin{pmatrix}
+e^{2x-y} & x+y \\ e^{2x-y} \cos(x+y) & \sin(x+y) \\ 2(x+y) & 0
+\end{pmatrix}$$
+
+
+Pour obtenir la matrice jacobienne de la composée $G \circ F : \Rr^2 \to \Rr^3$, on applique la formule donnée par le produit de matrices :
+$$J_{G \circ F} (x,y) = J_G \big( F(x,y) \big) \times J_F (x,y)$$
+On trouve
+$$J_{G \circ F} (x,y) 
+= 
+\begin{pmatrix}
+(1+2x+2y)e^{2x-y} & (1-x-y)e^{2x-y} \\
+\big( \cos(x+y) + 2\sin(x+y) \big)e^{2x-y} & \big( \cos(x+y) - \sin(x+y) \big)e^{2x-y}\\
+2x+2y & 2x+2y
+\end{pmatrix}$$
+\end{exemple}
+
+\bigskip
+
+Voici la version du théorème en termes de différentielles.
+\begin{theoreme}
+Si $F : \Rr^n \to \Rr^p$ est différentiable en $x$, et si $G: \Rr^p \to \Rr^q$ est différentiable en $F(x)$, alors $G \circ F : \Rr^n \to \Rr^q$ est différentiable en $x$ et on a : 
+$$
+\dd_{G \circ F} (x) = \dd_{G} (F(x)) \circ \dd_F (x).
+$$
+\end{theoreme}
+
+Autrement dit, l'application linéaire $\dd_{G \circ F} (x)$ est la composition de l'application linéaire $\dd_{G} (F(x))$ avec l'application linéaire $\dd_F (x)$.
+
+%----------------------------------------------------
+\subsection{Applications}
+
+
+Nous allons appliquer la formule de la matrice jacobienne d'une composition pour calculer des dérivées partielles. Le plus compliqué est de s'adapter aux noms des variables qui peuvent changer selon les situations.
+
+Les deux seules choses à retenir, c'est d'abord la formule
+$J_{G \circ F} (x) = J_G \big( F(x) \big) \times J_F (x)$
+et comment l'appliquer. Il est donc inutile d'apprendre les formules qui suivent.
+
+\bigskip
+
+\evidence{Cas $F : \Rr \to \Rr^2$, $G : \Rr^2 \to \Rr$}
+
+
+\begin{proposition}
+Soit $F : \Rr \to \Rr^2$, $t \mapsto F(t)=(x(t),y(t))$ une fonction, avec $t\mapsto x(t)$ et $t \mapsto y(t)$ dérivables, soit $G : \Rr^2 \to \Rr$, $(x,y) \mapsto G(x,y)$  une fonction différentiable.
+Alors $h = G \circ F : \Rr \to \Rr$, $t \mapsto h(t)= G( x(t), y(t))$ est dérivable et
+$$h'(t) =  
+\frac{\partial G}{\partial x}\big( x(t), y(t) \big) \cdot x'(t) +
+\frac{\partial G}{\partial y}\big( x(t), y(t) \big) \cdot y'(t) 
+$$
+\end{proposition}
+
+C'est une application directe de la formule
+$J_h (t) = J_G ( F(t) ) \times J_F (t)$, avec :
+$$J_h(t) = \frac{\dd h}{\dd t}(t) = h'(t) \qquad
+J_G(x,y) = \begin{pmatrix} \frac{\partial G}{\partial x}(x,y)
+&  \frac{\partial G}{\partial y}(x,y) \end{pmatrix} \qquad
+J_F (t) = \begin{pmatrix} \frac{\dd x}{\dd t}(t) \\  \frac{\dd y}{\dd t}(t) \end{pmatrix}
+= \begin{pmatrix} x'(t) \\ y'(t) \end{pmatrix}$$ 
+
+
+\begin{exemple}
+Soit $G(x,y)=\cos(y) e^{x}$. Calculer la dérivée de la fonction $h :t \mapsto G(t^2,\sin t)$.
+
+\bigskip
+\emph{Solution.}
+
+Une première méthode serait d'écrire $h(t) = \cos(\sin t) e^{t^2}$ puis de dériver $h$...
+
+Mais utilisons ici la formule
+$J_h (t) = J_G ( F(t) ) \times J_F (t)$, où l'on défini $F(t) = (t^2,\sin t)$.
+Sachant :
+$$J_h(t) = h'(t) \qquad
+J_G(x,y) = \begin{pmatrix} \cos y e^{x} & -\sin y e^{x}\end{pmatrix} \qquad
+J_F (t) = \begin{pmatrix} 2t \\ -\cos t \end{pmatrix}$$ 
+on calcule $J_G( F(t) )$ et on obtient 
+$$h'(t) =  2t \big( \cos (\sin t) e^{t^2}\big) -\cos(t)\big(-\sin (\sin t) e^{t^2} \big)
+= \big(2t \cos (\sin t)+\cos(t) \sin (\sin t) \big)e^{t^2}.$$ 
+\end{exemple}
+
+
+
+\begin{exemple}
+Soit $G : \Rr^2 \to \Rr$ une fonction de différentiable. 
+Soit $h : \Rr \to \Rr$ telle que $h(t)=G(2t,1+t^2)$.
+Exprimer la dérivée de $h$ en fonction des dérivées partielles de $G$.
+
+
+\bigskip
+\emph{Solution.}
+
+On pose $F: \Rr \to \Rr^2$ définie par $F(t) = (2t,1+t^2)$.
+Nous avons donc 
+$$J_h(t) = h'(t) \qquad
+J_G(x,y) = \begin{pmatrix} \frac{\partial G}{\partial x}(x,y)
+&  \frac{\partial G}{\partial y}(x,y)  \end{pmatrix} \qquad
+J_F (t) = \begin{pmatrix} 2 \\ 2t \end{pmatrix}$$ 
+Ainsi :
+$$h'(t) = J_h (t) = J_G ( F(t) ) \times J_F (t) =
+2\frac{\partial G}{\partial x}(2t,1+t^2)  +
+2t\frac{\partial G}{\partial y}(2t,1+t^2).
+$$
+\end{exemple}
+
+
+\bigskip
+
+\evidence{Cas $F : \Rr \to \Rr^n$, $G : \Rr^n \to \Rr$.}
+
+Plus généralement, on a 
+\begin{proposition}
+Soit $F : \Rr \to \Rr^n$ une fonction dont chacune des composantes est dérivable, soit $G : \Rr^n \to \Rr$ différentiable. Alors $h : \Rr \to \Rr$
+définie par $h(t) = G\big( F(t) \big)$ est dérivable et :
+$$h'(t) = \left\langle \grad G \big( F(t) \big) \mid F'(t) \right\rangle.$$
+\end{proposition}
+
+%\begin{exemple}
+%Calculer la dérivée de $G(t^2,t^3,t^4)$ pour $G(x,y,z) = e^{xyz}$.
+%
+%\bigskip
+%\emph{Solution.}
+%
+%
+%Le plus simple ici est décrire $h(t) = G(t^2,t^3,t^4) = e^{t^9}$, donc $h'(t) = 9t^8e^{t^9}$.
+%
+%Mais on retrouve ce résultat par notre formule. 
+%\begin{itemize}
+%  \item On note $F(t) =  (t^2,t^3,t^4)$ donc $F'(t) = 
+%(2t,3t^2,4t^3)$. 
+%  \item $J_G(x,y,y) = \grad G (x,y,z) = \big( yze^{xyz}, xze^{xyz}, xye^{xyz} \big)$,
+%  \item Ainsi 
+%  $$h'(t) = \left\langle \grad G \big( F(t) \big) \mid F'(t) \right\rangle 
+%  = 2t (t^7e^{t^9})+3t^2(t^6e^{t^9})+4t^3(t^5e^{t^9}) = 9t^8e^{t^9}
+%  $$  
+%\end{itemize}  
+%\end{exemple}
+
+\bigskip
+
+\evidence{Cas $F : \Rr^2 \to \Rr^2$, $G : \Rr^2 \to \Rr$}
+
+\begin{proposition}
+Soient $F : \Rr^2 \to \Rr^2$, $(x,y) \mapsto \big(f_1(x,y),f_2(x,y) \big)$, $G : \Rr^2 \to \Rr$,
+$(u,v) \mapsto G(u,v)$ des fonctions différentiables.
+La fonction $H = G \circ F : \Rr^2 \to \Rr$, $(x,y) \mapsto G \big( F(x,y) \big)$ est différentiable
+et 
+$$\left\{\begin{array}{rcl}
+\dfrac{\partial H}{\partial x}(x,y) &=& 
+\dfrac{\partial G}{\partial u}\big( F(x,y) \big) \dfrac{\partial f_1}{\partial x}(x,y)+
+\dfrac{\partial G}{\partial v}\big( F(x,y) \big) \dfrac{\partial f_2}{\partial x}(x,y) \\[3ex]
+\dfrac{\partial H}{\partial y}(x,y) &=& 
+\dfrac{\partial G}{\partial u}\big( F(x,y) \big) \dfrac{\partial f_1}{\partial y}(x,y)+
+\dfrac{\partial G}{\partial v}\big( F(x,y) \big) \dfrac{\partial f_2}{\partial y}(x,y) \\
+\end{array}\right.
+$$
+\end{proposition}
+
+C'est encore une fois la formule $J_H (x,y) = J_G ( F(x,y) ) \times J_F (x,y)$, avec :
+$$
+J_H(x,y) = \begin{pmatrix} \frac{\partial H}{\partial x}(x,y)
+&  \frac{\partial H}{\partial y}(x,y) \end{pmatrix} \qquad
+J_G(u,v) = \begin{pmatrix} \frac{\partial G}{\partial u}(u,v)
+&  \frac{\partial G}{\partial v}(u,v) \end{pmatrix}$$
+et 
+$$
+J_F(x,y) = \begin{pmatrix} 
+\frac{\partial f_1}{\partial x}(x,y) &  \frac{\partial f_1}{\partial y}(x,y) \\
+\frac{\partial f_2}{\partial x}(x,y) &  \frac{\partial f_2}{\partial y}(x,y) 
+\end{pmatrix}
+$$
+
+\begin{exemple}
+Calculer les dérivées partielles de la fonction $(x,y) \mapsto G(x-y,x+y)$ où 
+$G : \Rr^2 \to \Rr$ est une fonction différentiable.
+
+\bigskip
+\emph{Solution.}
+
+On pose $F(x,y) = (x-y,x+y)$, on note $(u,v)$ les variables de la fonctions $G$ et $H(x,y) = G \circ F(x,y)
+= G(x-y,x+y)$.
+
+On a donc 
+$$J_H(x,y) = \begin{pmatrix} \frac{\partial H}{\partial x}(x,y)
+&  \frac{\partial H}{\partial y}(x,y) \end{pmatrix} \qquad
+J_G(u,v) = \begin{pmatrix} \frac{\partial G}{\partial u}(u,v)
+&  \frac{\partial G}{\partial v}(u,v) \end{pmatrix}\qquad
+J_F(x,y) = \begin{pmatrix} 
+1 &  -1 \\
+1 &  1
+\end{pmatrix}
+$$
+Donc 
+$$
+\left\{\begin{array}{rcl}
+\dfrac{\partial H}{\partial x}(x,y) &=& 
+\dfrac{\partial G}{\partial u}(x-y,x+y) + \dfrac{\partial G}{\partial v}(x-y,x+y) \\[2ex]
+\dfrac{\partial H}{\partial y}(x,y) &=& 
+-\dfrac{\partial G}{\partial u}(x-y,x+y) + \dfrac{\partial G}{\partial v}(x-y,x+y) \\
+\end{array}\right.
+$$
+\end{exemple}
+
+\bigskip
+\evidence{Un autre exemple.}
+
+\begin{exemple}
+Prenons $F : \Rr^2 \to \Rr^3$ et $G : \Rr^3 \to \Rr$ deux fonctions définies par
+$$
+F(x,y)=(x+y^4, y-3x^2,2x^2-3y) \quad \text{ et } \quad 
+G(x,y,z) = 2xy-3(x+z).
+$$
+Calculer les dérivées partielles de la fonction  $H = G \circ F$. 
+
+\bigskip
+\emph{Solution.}
+
+\begin{itemize}
+  \item Tout d'abord $H$ est une fonction de deux variables à valeurs réelles,
+$H : \Rr^2 \to \Rr$. Pour calculer 
+$\frac{\partial H}{\partial x}$ et $\frac{\partial H}{\partial y}$, il suffit de calculer
+la matrice jacobienne de $H$.
+%On note $F = (f_1,f_2,f_3)$.
+
+  \item La formule de la matrice jacobienne d'une composition s'écrit :
+$$J_H (x,y) = J_G (F(x,y)) \times J_F (x,y).$$
+
+
+  \item On a 
+$$
+J_H (x,y) = 
+\left(
+\frac{\partial H}{\partial x}(x,y),
+\frac{\partial H}{\partial y}(x,y)
+\right)
+\qquad
+J_G (x,y,z) = 
+\left(
+2y-3 , 2x , -3
+\right) 
+\qquad
+J_F (x,y) = 
+\begin{pmatrix}
+1 & 4y^3\\
+-6x & 1 \\
+4x & -3 
+\end{pmatrix}
+$$  
+%C'est-à-dire ici :
+%$$
+%\begin{pmatrix} 
+%\frac{\partial H}{\partial x}(x,y) & 
+%\frac{\partial H}{\partial y}(x,y)
+%\end{pmatrix}
+%=
+%\begin{pmatrix} 
+%\frac{\partial G}{\partial x} (F(x,y)) & 
+%\frac{\partial G}{\partial y} (F(x,y)) & 
+%\frac{\partial G}{\partial z} (F(x,y)) 
+%\end{pmatrix} 
+%\times
+%\begin{pmatrix} 
+%\frac{\partial f_1}{\partial x}(x,y) & 
+%\frac{\partial f_1}{\partial y}(x,y) \\
+%\frac{\partial f_2}{\partial x}(x,y) & 
+%\frac{\partial f_2}{\partial y}(x,y) \\
+%\frac{\partial f_3}{\partial x}(x,y) & 
+%\frac{\partial f_3}{\partial y}(x,y) \\
+%\end{pmatrix} 
+%$$
+
+
+  \item On en déduit 
+$$J_G (F(x,y)) = 
+\left(
+2(y-3x^2)-3 , 2(x+y^4) , -3 
+\right) 
+$$
+ 
+  \item On obtient $\frac{\partial H}{\partial x}(x,y)$ comme la première composante de $J_H (x,y)$ :
+$$
+\frac{\partial H}{\partial x}(x,y)
+= 
+1 \cdot \big( 2(y-3x^2)-3 \big)
+-6x \cdot  \big( 2(x+y^4) \big)
++4x \cdot  \big( -3 \big)
+=  -6xy^4-18x^2-6x-3
+$$
+  
+  \item À vous de faire le calcul de $\frac{\partial H}{\partial y}$ !
+
+\end{itemize}
+
+\end{exemple}
+
+
+
+
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Calculer de deux façons différentes la dérivée de la fonction
+  $t \mapsto G(\sin t, e^t)$ où $G(x,y)=\frac xy$. 
+  Même question avec $t \mapsto G(t+1,t^2,\frac1t)$ et $G(x,y,z) = x^2+\sqrt{yz}$.
+  
+  \item Exprimer les dérivées partielles de $(x,y) \mapsto G(x^2-y^3,\ln(x)-y)$ en fonctions des dérivées partielles de $G : \Rr^2 \to \Rr$. Même question avec $(x,y) \mapsto G(x+y^2,2y-z,xz)$
+  et $G : \Rr^3 \to \Rr$.
+  
+  \item Soit $G : \Rr^2 \to \Rr^2$ définie par $G(x,y) = \left( \frac{x}{y}, \ln(x+y) \right)$.
+  Calculer la matrice jacobienne de la fonction définie par $(x,y) \mapsto G(ax+by,cx+dy)$.
+\end{enumerate}
+\end{miniexercices}
+
+
+
+ 
+\auteurs{
+\\
+D'après des cours de Abdellah Hanani (Lille), 
+Goulwen Fichou et Stéphane Leborgne (Rennes),
+Laurent Pujo-Menjouet (Lyon). 
+
+Revu et augmenté par Arnaud Bodin.
+
+Relu par Barbara Tumpach et [...].%Stéphanie Bodin et Vianney Combet.
+}
+
+
+\finchapitre 
+\end{document}
+
+

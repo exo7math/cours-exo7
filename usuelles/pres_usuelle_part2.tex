@@ -1,0 +1,250 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={153,51,0}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{{\bf Fonctions usuelles}}
+\subtitle{Fonctions circulaires inverses}
+
+
+
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Arccosinus
+    \item<4-> Arcsinus
+    \item<5-> Arctangente
+%    \item<6-> 
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+\setcounter{framenumber}{0}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Arccosinus}
+
+\begin{frame}
+
+\begin{itemize}
+  \item La fonction cosinus $\cos : \Rr \to [-1,1]$, $x \mapsto \cos x$
+  
+\uncover<2->{  \item Restriction de cosinus à l'intervalle $[0,\pi]$}
+  
+\uncover<3->{  \item Cette restriction est continue et strictement décroissante}
+  
+\uncover<4->{  \item $\cos_| : [0,\pi] \to [-1,1]$ est une bijection}
+  
+\uncover<5->{  \item Sa réciproque est  
+\defi{arccosinus} \myboxinline{$\arccos : [-1,1] \to [0,\pi]$}}
+\end{itemize}
+
+\myfigure{1}{
+\hspace*{-6em}
+\uncover<1->{\tikzinput{fig_usuelles05}}
+\uncover<6->{\tikzinput{fig_usuelles06}}
+}
+
+\end{frame}
+
+
+\begin{frame}
+
+\mybox{$
+\begin{array}{cl}
+\displaystyle \cos\big(\arccos(x)\big) = x &  \quad \forall x \in [-1,1]\\[3ex]
+\pause
+\displaystyle \arccos\big(\cos(x)\big) = x &  \quad \forall x \in [0,\pi] \\
+\end{array}
+\pause
+$}
+
+\pause
+\bigskip
+
+\mybox{$\text{Si } \quad x\in [0,\pi] \qquad \cos(x)=y \iff x = \arccos y$}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\mybox{$\displaystyle \arccos'(x) = \frac{-1}{\sqrt{1-x^2}} \qquad \forall x \in ]-1,1[$}
+
+\pause
+
+\begin{proof}
+\vspace*{-1.5ex}
+$$\begin{array}{cl}
+          & \displaystyle \cos(\arccos x) = x \\
+\pause
+ \implies & \displaystyle  -\arccos'(x) \times  \sin(\arccos x) = 1 \\
+\pause 
+ \implies & \displaystyle  \arccos'(x) = \frac{-1}{\sin(\arccos x)} \\
+\pause 
+ \implies & \displaystyle  \arccos'(x) = \frac{-1}{\sqrt{1-\cos^2(\arccos x)}} \qquad (*) \\
+\pause 
+ \implies & \displaystyle  \arccos'(x) = \frac{-1}{\sqrt{1-x^2}} \\  
+\end{array}$$
+
+\pause 
+
+\vspace*{-1ex}
+$(*)$ se justifie ainsi :
+\begin{itemize}
+  \item $\cos^2 y + \sin^2 y = 1$ \quad on substitue $y= \arccos x$
+\pause  
+  \item donc $\cos^2(\arccos x)+ \sin^2(\arccos x) = 1$
+\pause  
+  \item donc $x^2+ \sin^2(\arccos x) = 1$
+\pause  
+  \item ainsi $\sin(\arccos x) = + \sqrt{1-x^2}$ \qedhere
+\end{itemize}
+
+\end{proof}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Arcsinus}
+
+\begin{frame}
+
+
+\begin{itemize}
+\uncover<2->{   \item La restriction $\sin_| : [-\frac\pi2,+\frac\pi2] \to [-1,1]$ est une bijection }
+  
+\uncover<3->{ \item Sa réciproque est \defi{arcsinus} 
+\myboxinline{$\arcsin : [-1,1] \to [-\frac\pi2,+\frac\pi2]$}}
+
+\end{itemize}
+
+\myfigure{1}{
+\hspace*{-6em}
+\uncover<1->{\tikzinput{fig_usuelles07}}
+\uncover<3->{\tikzinput{fig_usuelles08}}
+}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\mybox{$
+\begin{array}{cl}
+\displaystyle \sin\big(\arcsin(x)\big) = x &  \quad \forall x \in [-1,1]\\[3ex]
+\pause
+\displaystyle \arcsin\big(\sin(x)\big) = x &  \quad \forall x \in [-\frac\pi2,+\frac\pi2] \\
+\end{array}
+$
+\pause}
+
+\pause
+\smallskip
+
+
+\mybox{$\text{Si } \quad  x\in [-\frac\pi2,+\frac\pi2] \qquad \sin(x)=y \iff x = \arcsin y$}
+
+\pause
+\smallskip
+
+
+\mybox{$\displaystyle \arcsin'(x) = \frac{1}{\sqrt{1-x^2}} \qquad \forall x \in ]-1,1[$}
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Arctangente}
+
+\begin{frame}
+
+
+\begin{itemize}
+  \item La restriction $\tan_| : ]-\frac\pi2,+\frac\pi2[ \to \Rr$
+  
+  \item Sa réciproque est \defi{arctangente} \myboxinline{$\arctan : \Rr \to ]-\frac\pi2,+\frac\pi2[$}
+\end{itemize}
+
+
+\myfigure{0.43}{
+\hspace*{-6em}
+\tikzinput{fig_usuelles09} \ 
+\tikzinput{fig_usuelles10}
+}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\mybox{$
+\begin{array}{cl}
+\displaystyle \tan\big(\arctan(x)\big) = x &  \quad \forall x \in \Rr\\\\[3ex]
+\displaystyle \arctan\big(\tan(x)\big) = x &  \quad \forall x \in ]-\frac\pi2,+\frac\pi2[ \\
+\end{array}
+$}
+
+\medskip
+
+\mybox{$\text{Si } \quad x\in ]-\frac\pi2,+\frac\pi2[ \qquad \tan(x)=y \iff x = \arctan y$}
+
+\medskip
+
+\mybox{$\displaystyle \arctan'(x) = \frac{1}{1+x^2} \qquad \forall x \in \Rr$}
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Calculer les valeurs de $\arccos$ et $\arcsin$ en
+  $0$, $1$, $\frac12$, $\frac{\sqrt2}{2}$, $\frac{\sqrt3}{2}$. Idem pour
+  $\arctan$ en $0$, $1$, $\sqrt3$ et $\frac{1}{\sqrt3}$.
+  
+  \item Calculer $\arccos(\cos \frac{7\pi}{3})$. Idem avec $\arcsin(\sin \frac{7\pi}{3})$
+  et $\arctan(\tan \frac{7\pi}{3})$ (attention aux intervalles !)
+  
+  \item Calculer $\cos(\arctan x)$, $\cos(\arcsin x)$, $\tan(\arcsin x)$.
+  
+  \item Calculer la dérivée de $f(x)=\arctan\left(\frac{x}{\sqrt{1-x^2}}\right)$. 
+  En déduire que $f(x)= \arcsin x$, pour tout $x\in]-1,1[$.
+  
+  \item Montrer que $\arccos x + \arcsin x = \frac\pi2$, pour tout $x \in[-1,1]$.
+\end{enumerate}
+\end{miniexercice}
+
+
+\end{frame}
+
+\end{document}

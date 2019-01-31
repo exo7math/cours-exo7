@@ -1,0 +1,463 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={51,102,51}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf \'Equations différentielles}}
+\subtitle{\'Equation différentielle linéaire du second ordre\\ à coefficients constants}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition
+    \item<4-> \'Equation homogène
+    \item<5-> \'Equation avec second membre
+    \item<6-> Recherche d'une solution particulière
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Définition}
+
+\begin{frame}
+\begin{itemize}
+  \item Une \defi{équation différentielle linéaire du second ordre, à
+ coefficients constants}, est une équation de la forme :
+\begin{equation}
+ay''+by'+cy=g(x) 
+\label{eq:linscd}
+\tag{$E$}
+\end{equation}
+où $a,b,c \in \Rr$, $a \neq 0$ et $g$ est une fonction continue sur
+un intervalle ouvert $I$  
+
+\pause
+
+  \item L'équation différentielle : 
+\begin{equation}
+ay''+by'+cy=0 
+\label{eq:linscdhom}
+\tag{$E_0$}
+\end{equation}
+est appelée \defi{l'équation homogène} associée à $(E)$
+  
+\end{itemize}
+
+
+\pause
+
+\begin{theoreme}
+%\label{th:eqdiffdim}
+L'ensemble des solutions de l'équation homogène 
+(\ref{eq:linscdhom}) est un $\Rr$-espace vectoriel de dimension~$2$
+\end{theoreme}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{\'Equation homogène}
+
+\begin{frame}
+\begin{itemize}
+
+  \item $ay''+by'+cy=0$ \quad (\ref{eq:linscdhom})
+  \pause
+  \item L'équation $ar^2+br+c=0$ est \defi{l'équation caractéristique}
+\pause
+  \item Soit $\Delta= b^2-4ac$, le discriminant
+\end{itemize}
+\vspace*{-1ex}\pause
+{%\small
+\begin{theoreme}
+\begin{enumerate}
+\item Si $\Delta >0$, l'équation caractéristique possède deux racines réelles distinctes 
+$r_1\neq r_2$
+\pause et les solutions de (\ref{eq:linscdhom}) sont les
+\vspace*{-0.8ex}
+\mybox{$y(x) = \lambda e^{r_1x}+ \mu e^{r_2x} \quad \text{ où } \lambda, \mu \in \Rr$}
+\vspace*{-1.5ex}\pause
+\item Si $\Delta=0$, l'équation caractéristique possède une racine double $r_0$ 
+\pause et les solutions de (\ref{eq:linscdhom}) sont les
+\vspace*{-0.8ex}
+\mybox{$y(x) = (\lambda+\mu x)e^{r_0 x} \quad \text{ où } \lambda, \mu \in \Rr$}
+\vspace*{-1.5ex}\pause
+\item Si $\Delta<0$, l'équation caractéristique possède deux racines complexes 
+$r_1=\alpha+\ii \beta$, $r_2=\alpha-\ii \beta$ 
+\pause et les solutions de (\ref{eq:linscdhom}) sont 
+\vspace*{-0.8ex}
+\mybox{$y(x) = e^{\alpha x}\big(\lambda\cos (\beta x)+\mu\sin (\beta x)\big) \quad \text{ où }
+\lambda, \mu \in \Rr$}
+
+\end{enumerate}
+\end{theoreme}
+}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{enumerate}
+  \item Résoudre $y'' - y' - 2y = 0$
+  \pause
+  \begin{itemize}
+    \item équation caractéristique : $r^2 - r - 2 = 0$   
+    \pause
+    \item $\Delta >0$, $r_1 = -1$, $r_2 = 2$
+    \pause
+    \item $y(x) = \lambda e^{-x} + \mu e^{2x}$, $\lambda,\mu \in \Rr$
+  \end{itemize}
+
+  \pause\bigskip
+  
+  \item Résoudre $y'' - 4y' + 4y = 0$
+  \pause
+  \begin{itemize}
+    \item $r^2 - 4r + 4 = 0$
+    \pause
+    \item $\Delta=0$, $r_0 = 2$
+    \pause
+    \item $y(x) = (\lambda x + \mu) e^{2x}$, $\lambda,\mu \in \Rr$.
+  \end{itemize}  
+  
+  \pause\bigskip
+  
+  \item Résoudre $y'' - 2y' + 5y = 0$
+  \pause
+   \begin{itemize}
+    \item $r^2-2r+5 = 0$
+    \pause
+    \item $\Delta<0$, $r_1 = 1 + 2\ii$, $r_2 = 1 - 2\ii$
+    \pause
+    \item $y(x) = e^x (\lambda \cos(2x) + \mu \sin(2x))$,  $\lambda, \mu \in \Rr$
+  \end{itemize} 
+\end{enumerate}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\begin{itemize}
+  \item $ay''+by'+cy=0$ \quad (\ref{eq:linscdhom})
+  \pause
+  \item On cherche une solution de (\ref{eq:linscdhom}) sous la forme 
+$y(x)=e^{rx}$
+\pause
+  \item $r \in \Cc$ est une constante à déterminer
+  \pause
+  \item $\begin{array}{rl}
+     & ay''+by'+cy=0 \\
+     \pause
+\iff & (ar^2+br+c)e^{rx}=0 \\
+\pause
+\iff & ar^2+br+c=0
+\end{array}$
+\end{itemize}
+\pause
+\begin{proof}
+\pause
+\begin{enumerate}
+  \item  $\Delta>0$
+  \pause
+  \begin{itemize}
+    \item deux racines réelles distinctes $r_1, r_2$
+    \pause
+    \item deux solutions de (\ref{eq:linscdhom}) : $y_1=e^{r_1x}, y_2=e^{r_2x}$
+    \pause
+    \item $y_1,y_2$ sont linéairement indépendantes car $r_1 \neq r_2$
+    \pause
+    \item solutions forment un espace vectoriel de dimension $2$
+    \pause
+    \item $(y_1,y_2)$ est donc une base de solutions
+    \pause
+    \item solution générale : $y(x) = \lambda e^{r_1x} + \mu e^{r_2x},$ où $\lambda,
+\mu\in\Rr$
+  \end{itemize}
+
+\end{enumerate}
+\end{proof}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{\'Equation avec second membre}
+
+\begin{frame}
+
+\begin{equation}
+ay''+by'+cy=g(x) 
+%\label{eq:linscd}
+\tag{$E$}
+\end{equation}
+
+\pause
+
+\begin{theoreme}[de Cauchy-Lipschitz]
+Pour chaque $x_0\in I$ et chaque couple $(y_0,y_1) \in \Rr^2$,  
+l'équation (\ref{eq:linscd}) admet une \evidence{unique}
+solution $y(x)$ sur $I$ satisfaisant aux conditions initiales : 
+\mybox{$y(x_0) = y_0$ \quad et \quad $y'(x_0) = y_1$}
+\end{theoreme}
+
+\pause
+
+\begin{proposition}
+Les solutions générales de l'équation (\ref{eq:linscd}) s'obtiennent en
+ajoutant les solutions générales de l'équation homogène (\ref{eq:linscdhom}) 
+à une solution particulière de (\ref{eq:linscd})
+\end{proposition}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Recherche d'une solution particulière}
+
+\begin{frame}
+
+\evidence{Solution particulière} $ay''+by'+cy=g(x)$ \quad (\ref{eq:linscd})
+
+\pause
+\medskip
+
+\evidence{Second membre du type $e^{\alpha x}P(x)$}
+
+\pause
+On cherche une solution particulière sous la forme 
+$y_0(x)=e^{\alpha x}x^{m}Q(x)$, où $Q$ est un polynôme de 
+même degré que $P$ avec :
+\pause
+\begin{itemize}
+\item $y_0(x)=e^{\alpha x}Q(x)$, si $\alpha$ n'est pas une racine de l'équation caractéristique
+\pause
+\item $y_0(x)=xe^{\alpha x}Q(x)$, si $\alpha$ est une racine simple de l'équation caractéristique
+\pause
+\item $y_0(x)=x^2e^{\alpha x}Q(x)$, si $\alpha$ est une racine double de l'équation caractéristique
+\end{itemize}
+
+\pause
+\medskip
+
+\evidence{Second membre du type $e^{\alpha x}\big(P_1(x)\cos (\beta x)+P_2(x)\sin (\beta x)\big)$}
+
+\pause
+On cherche une solution particulière sous la forme :
+\begin{itemize}
+\item $y_0(x)=e^{\alpha x} \big( Q_1(x)\cos (\beta x)+Q_2(x)\sin (\beta x) \big)$, 
+si $\alpha +\ii \beta$ n'est pas une racine de l'équation caractéristique
+\pause
+\item $y_0(x)=xe^{\alpha x}  \big( Q_1(x)\cos (\beta x)+Q_2(x)\sin (\beta x) \big)$, 
+si $\alpha +\ii \beta$ est une racine de l'équation caractéristique
+\end{itemize}
+\pause
+où $Q_1$ et $Q_2$ sont deux polynômes de degré $n=\max\{\deg P_1,\deg P_2\}$
+
+\end{frame}
+
+\begin{frame}
+\begin{exemple}
+\begin{enumerate}
+  \item Résoudre $(E_0) \quad y''-5y'+6y=0$
+  \pause
+  \begin{itemize}
+    \item $r^2-5r+6=0$
+    \pause
+    \item $r_1=2, r_2=3$
+    \pause
+    \item $\big\{\lambda e^{2x}+ \mu e^{3x} \mid \lambda, \mu \in \Rr\big\}$
+  \end{itemize}
+
+  \pause
+  \item Résoudre $(E) \quad y''-5y'+6y=4xe^x$
+  \pause
+  \begin{itemize}
+    \item solution particulière sous la forme $y_0(x)=(ax+b)e^x$
+    \pause
+    
+    \item ~ \hspace*{-2em} 
+    \begin{minipage}{0.9\textwidth}%\vspace*{-2ex} 
+    $\begin{array}{rl}
+& (ax+2a+b)e^x-5(ax+a+b)e^x+6(ax+b)e^x=4xe^x \\ 
+\pause
+\iff & (a-5a+6a)x+2a+b-5(a+b)+6b=4x \\
+\pause
+\iff & 2a=4 \text{ et } -3a+2b=0 \\
+\pause
+\iff & a=2 \text{ et } b=3
+\end{array}$  
+    \end{minipage}
+
+    
+    \pause
+    \item donc $y_0(x)=(2x+3)e^x$
+    \pause
+    \item solutions de $(E)$ : $\big\{(2x+3)e^x+\lambda e^{2x} + \mu e^{3x} \mid \lambda,\mu\in \Rr\big\}$ 
+
+  \end{itemize}
+
+  \pause
+  \item Trouver la solution de $(E)$ vérifiant $y(0)=1$ et $y'(0)=0$
+  \pause
+  \begin{itemize}
+    \item $y(0)=1 \iff 3+\lambda+\mu=1$
+    \pause
+    \item $y'(0)=0 \iff 5+2\lambda+3\mu=0$
+    \pause
+    \item $\lambda=-1, \mu=-1$
+    \pause
+    \item $y(x)=(2x+3)e^{x}-e^{2x}-e^{3x}$
+  \end{itemize}  
+  
+
+\end{enumerate}  
+\end{exemple}
+\end{frame}
+
+\begin{frame}
+\evidence{Méthode de variation des constantes} \quad $ay''+by'+cy=g(x)$
+
+
+\pause
+\begin{itemize}
+  \item Soit $\{y_1,y_2\}$ est une base de solution de l'équation homogène (\ref{eq:linscdhom})
+ \pause 
+  \item On cherche une solution particulière sous la forme 
+$y_0= \lambda y_1 + \mu y_2$, où $\lambda$ et $\mu$ sont deux fonctions 
+vérifiant :
+\mybox{
+($S$) \qquad $
+\left\{\begin{array}{ccl}  
+\lambda'y_1+\mu'y_2&=&0\\ 
+\lambda'y'_1+\mu'y'_2&=& \frac{g(x)}{a}
+\end{array}\right. 
+$
+}
+\pause  
+  \item Pourquoi cela ?
+Si $y_0= \lambda y_1 + \mu y_2$ est une telle fonction alors
+$$y_0'= \lambda' y_1 + \mu' y_2 + \lambda y_1' + \mu y_2' = \lambda y_1'+ \mu y_2'$$
+\vspace*{-2ex}
+$$y_0'' = \lambda' y_1'+ \mu' y_2' + \lambda y_1''+ \mu y_2'' = \frac{g(x)}{a} + \lambda y_1''+ \mu y_2''$$
+\pause\vspace*{-2ex}
+  \item Ainsi l'équation (\ref{eq:linscd}) est vérifiée par $y_0$ :
+$ay_0''+by_0'+cy_0= a\big(\frac{g(x)}{a} + \lambda y_1''+ \mu y_2''\big) + b\big(\lambda y_1'+ \mu y_2'\big) + c\big(\lambda y_1 + \mu y_2\big)
+= g(x) + \lambda\big(ay_1''+by_1'+cy_1\big) + \mu\big(ay_2''+by_2'+cy_2\big)= g(x)$
+\pause
+  \item On résout le système ($S$), 
+  ce qui donne $\lambda'$ et $\mu'$, 
+puis $\lambda$ et $\mu$
+\end{itemize}
+
+
+
+
+
+
+
+\end{frame}
+
+\begin{frame}
+\begin{exemple}
+Résoudre $y'' + y = \frac{1}{\cos x}$ sur $]-\frac\pi2,+\frac\pi2[$ 
+\pause
+
+\begin{itemize}
+  \item Les solutions de l'équation homogène $y'' + y =0$ sont
+$\lambda \cos x  + \mu \sin x$ où $\lambda,\mu\in\Rr$
+\pause  
+  \item Solution particulière de (\ref{eq:linscd}) sous la forme $y_0(x) =\lambda(x) \cos x  + \mu(x) \sin x$
+\pause  
+  \item $\lambda(x),\mu(x)$ sont des fonctions à trouver et qui vérifient ($S$) :
+  \vspace*{-1.5ex}  
+\pause$$
+\left\{\begin{array}{ccl}  
+\lambda'y_1+\mu'y_2&=&0\\ 
+\lambda'y'_1+\mu'y'_2&=& \frac{g(x)}{a}
+\end{array}\right. 
+\pause  \ \text{ donc } \ 
+\left\{\begin{array}{ccl}  
+\lambda' \cos x + \mu' \sin x &=&0\\ 
+-\lambda' \sin x + \mu' \cos x &=& \frac{1}{\cos x}
+\end{array}\right. 
+$$
+
+\pause\vspace*{-3ex}
+
+  
+  \item  ~ \vspace*{-4ex}
+$$
+\left\{\begin{array}{ccl}  
+\lambda' \cos x \sin x + \mu' (\sin x)^2 &=&0\\ 
+-\lambda' \cos x \sin x + \mu' (\cos x)^2 &=& 1
+\end{array}\right.  
+\pause  \  \text{ donc par somme } \ 
+\mu'=1
+$$
+
+ \pause  \vspace*{-3ex}
+ 
+  \item Ainsi $\mu(x) = x$ et $\lambda' = -\frac{\sin x}{\cos x}$ donc $\lambda(x) = \ln(\cos x)$
+ 
+ \pause  
+  \item $y_0(x) = \ln(\cos x) \cos x + x\sin x$ est une solution particulière  
+  
+  \pause  
+  \item Solutions :
+$\lambda \cos x  + \mu \sin x + \ln(\cos x) \cos x + x\sin x$
+($\forall \lambda,\mu\in \Rr$)
+\end{itemize}
+ 
+\end{exemple}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \section*{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Résoudre l'équation différentielle $y'' + \omega^2y=0$.
+  Trouver la solution vérifiant $y(0)=1$ et $y'(0)=1$. 
+  Tracer la courbe intégrale.
+  Résoudre l'équation différentielle $y'' + \omega^2y= \sin(\omega x)$.
+  
+  \item Résoudre l'équation différentielle $y'' + y' -6y=0$.
+  Trouver la solution vérifiant $y(-1)=1$ et $y'(-1)=0$. 
+  Tracer la courbe intégrale.
+  Résoudre l'équation différentielle $y'' + y' -6y= e^x$.
+  
+  \item Résoudre l'équation différentielle $2y'' -2 y' +\frac12 y=0$.
+  Trouver la solution ayant une limite finie lorsque $x\to +\infty$.
+  Résoudre $2y'' -2 y' +\frac12 y=x-1$.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+
+
+\end{document}

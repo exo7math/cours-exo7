@@ -1,0 +1,524 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={151,53,151}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{{\bf Logique et raisonnements}}
+\subtitle{Logique}
+\author{}
+
+\date{}
+
+\begin{document}
+
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Assertions
+    \item<4-> Quantificateurs
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Motivation}
+
+\begin{frame}
+
+\begin{itemize}
+  \item Ambigu\"ité de la langue française
+     \begin{itemize}
+        \item \assertion{fromage ou dessert}
+        \item \assertion{un as ou un c\oe ur}
+ 
+\pause
+
+        \item \evidence{langage rigoureux}
+     \end{itemize}
+
+        
+\pause      
+\bigskip
+
+  \item Exprimer des choses complexes
+     \begin{itemize}
+        \item \assertion{on trace le graphe sans lever le crayon}
+
+\pause
+
+        \item $f : I \to \Rr$ est continue en un point $x_0\in I$
+$$\forall \epsilon > 0 \quad \exists \delta >0 \quad \forall x \in I \quad 
+  (|x-x_0|<\delta \implies |f(x)-f(x_0)|< \epsilon)$$
+
+\pause
+
+        \item langage de la \evidence{logique}
+     \end{itemize}
+
+\pause
+\bigskip
+
+  \item Distinguer le vrai du faux
+     \begin{itemize}
+        \item \assertion{Est-ce qu'une augmentation de $20\%$, puis de $30\%$ est 
+plus intéressante qu'une augmentation de $50\%$ ?}
+
+\pause
+
+        \item démarche logique qui mène à la conclusion
+        \item vous convaincre vous-même et convaincre les autres
+
+\pause
+
+        \item \evidence{raisonnement}
+     \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Logique}
+
+%---------------------------------------------------------------
+\section{Assertions}
+
+\begin{frame}
+Une \defi{assertion} est une phrase soit vraie, soit fausse, pas les deux en même temps
+
+\pause
+\bigskip
+\begin{itemize}
+  \item<2-> \assertion{Il pleut.}
+  \item<2-> \assertion{Je suis plus grand que toi.}
+  \item<3-> \assertion{$2+2=4$}
+  \item<3-> \assertion{$2\times 3 = 7$}
+  \item<4-> \assertion{Pour tout $x \in \Rr$, on a $x^2 \ge 0$.}
+  \item<4-> \assertion{Pour tout $z\in \Cc$, on a $|z| = 1$.}
+\end{itemize}
+\end{frame}
+
+
+
+
+
+%--------------
+\section{\og et\fg}
+
+
+\begin{frame}
+L'assertion \assertion{$P$ \defi{et} $Q$} est vraie si $P$ est vraie et $Q$ est vraie,
+
+l'assertion \assertion{$P$ et $Q$} est fausse sinon
+
+\pause
+
+\bigskip
+
+Table de vérité 
+\begin{figure}[H]
+\centering
+\begin{tabular}{c|c|c}
+\textcolor{olive}{$P$} $\backslash$ \textcolor{blue}{$Q$}  & \textcolor{blue}{V} & \textcolor{blue}{F} \\ \hline
+\textcolor{olive}{V} & \uncover<3->{\textcolor{red}{V}} & \uncover<4->{\textcolor{red}{F}} \\ \hline
+\textcolor{olive}{F} & \uncover<5->{\textcolor{red}{F}} & \uncover<6->{\textcolor{red}{F}} \\ 
+\end{tabular}
+\end{figure}
+
+\pause\pause\pause\pause\pause
+
+Exemple 
+\begin{itemize}
+  \item $P$ est l'assertion \assertion{Cette carte est un as}
+  \item $Q$ l'assertion \assertion{Cette carte est c\oe ur}
+  \item \assertion{$P$ et $Q$} est vraie si la carte est l'as de c\oe ur 
+  \item  \assertion{$P$ et $Q$} est fausse pour toute autre carte
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+
+%--------------
+\section{\og ou\fg}
+
+
+\begin{frame}
+L'assertion \assertion{$P$ \defi{ou} $Q$} est vraie si l'une au moins des deux assertions $P$ ou $Q$ est vraie
+
+L'assertion \assertion{$P$ ou $Q$} est fausse si les deux assertions $P$ et $Q$ sont fausses
+
+
+\pause
+
+\bigskip
+
+\begin{figure}[H]
+\centering
+\begin{tabular}{c|c|c}
+\textcolor{olive}{$P$} $\backslash$ \textcolor{blue}{$Q$}  & \textcolor{blue}{V} & \textcolor{blue}{F} \\ \hline
+\textcolor{olive}{V} & \uncover<3->{\textcolor{red}{V}} & \uncover<4->{\textcolor{red}{V}} \\ \hline
+\textcolor{olive}{F} & \uncover<5->{\textcolor{red}{V}} & \uncover<6->{\textcolor{red}{F}} \\ 
+\end{tabular}
+\end{figure}
+
+\pause\pause\pause\pause\pause
+
+\begin{itemize}
+  \item \assertion{$P$ ou $Q$} est vraie si la carte est un as ou bien un c\oe ur
+  \item  \assertion{$P$ ou $Q$} est fausse pour toute autre carte
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+%--------------
+\section{La négation \og non\fg}
+
+\begin{frame}
+L'assertion \assertion{\defi{non} $P$} est vraie si $P$ est fausse, et fausse si $P$ est vraie
+
+\bigskip
+
+\begin{figure}[H]
+\centering
+\begin{tabular}{c|c|c}
+ \textcolor{blue}{$P$}  &  \textcolor{blue}{V} &  \textcolor{blue}{F} \\ \hline
+ \textcolor{red}{non $P$}    & \textcolor{red}{F} & \textcolor{red}{V} \\  
+\end{tabular}
+\end{figure}
+\end{frame}
+
+
+
+
+%--------------
+\section{L'implication $\implies$}
+
+\begin{frame}
+L'\defi{implication}
+\mybox{
+L'assertion \assertion{(non $P$) ou $Q$} est notée \assertion{$P \implies Q$}
+}
+
+\pause
+\bigskip
+
+\begin{figure}[H]
+\centering
+\begin{tabular}{c|c|c}
+\textcolor{olive}{$P$} $\backslash$ \textcolor{blue}{$Q$}  & \textcolor{blue}{V} & \textcolor{blue}{F} \\ \hline
+\textcolor{olive}{V} & \uncover<3->{\textcolor{red}{V}} & \uncover<4->{\textcolor{red}{F}} \\ \hline
+\textcolor{olive}{F} & \uncover<5->{\textcolor{red}{V}} & \uncover<5->{\textcolor{red}{V}} \\ 
+\end{tabular}
+\end{figure}
+
+\pause\pause\pause\pause
+\bigskip
+ 
+\begin{itemize}
+  \item \assertion{$0 \le x \le 25 \implies \sqrt x \le 5$}  est vraie  
+
+\pause
+
+  \item \assertion{$x \in ]-\infty, -4[ \implies x^2+3x-4 > 0$} est vraie 
+
+\pause
+
+  \item \assertion{$\sin(\theta)=0 \implies \theta = 0$} est fausse 
+
+
+\pause
+
+  \item si $P$ est fausse alors l'assertion \assertion{$P \implies Q$} est toujours vraie
+\end{itemize} 
+\end{frame}
+
+
+
+
+
+%--------------
+\section{L'équivalence $\iff$}
+
+\begin{frame}
+L'\defi{équivalence} 
+\mybox{
+\assertion{$P \iff Q$} est l'assertion \assertion{($P \implies Q$) \  et \  ($Q \implies P$)}
+}
+
+\pause
+\bigskip
+
+\begin{figure}[H]
+\centering
+\begin{tabular}{c|c|c}
+\textcolor{olive}{$P$} $\backslash$ \textcolor{blue}{$Q$}  & \textcolor{blue}{V} & \textcolor{blue}{F} \\ \hline
+\textcolor{olive}{V} & \textcolor{red}{V} & \textcolor{red}{F} \\ \hline
+\textcolor{olive}{F} & \textcolor{red}{F} & \textcolor{red}{V} \\ 
+\end{tabular}
+\end{figure}
+
+
+\pause
+\bigskip
+
+Pour $x,x' \in \Rr$, l'assertion est vraie :
+
+\centerline{\assertion{$x\cdot x'=0 \iff (x=0 \text{ ou } x'=0)$}} 
+
+\end{frame}
+
+
+\begin{frame}
+\begin{proposition}
+\label{prop:log}
+\begin{enumerate}
+  \item<1-> $P \iff \text{ non}(\text{non}(P))$
+  \item<2-> $(P \text{ et } Q) \iff (Q \text{ et } P)$
+  \item<3-> $(P \text{ ou } Q) \iff (Q \text{ ou } P)$
+  \item<4-> $\text{non}(P \text{ et } Q)  \iff  (\text{non } P)  \text{ ou } (\text{non }Q)$
+  \item<5-> $\text{non}(P \text{ ou } Q)  \iff  (\text{non } P)  \text{ et } (\text{non }Q)$
+  \item<6-> $\big(P \text{ et } (Q \text{ ou } R)  \big)   \iff 
+(P \text{ et } Q) \text{ ou } (P \text{ et }  R)$
+  \item<7-> $\big(P \text{ ou } (Q \text{ et } R)  \big)   \iff 
+(P \text{ ou } Q) \text{ et } (P \text{ ou }  R)$
+  \item<8->  \assertion{$P \implies Q$} $\iff$ \assertion{$\text{non}(Q) \implies \text{non}(P)$}
+\end{enumerate}
+\end{proposition}
+\end{frame}
+
+
+
+\begin{frame} 
+\begin{proof}
+
+Table de vérité de  \assertion{$\text{non}(P\text{ et }Q)$} 
+\begin{figure}[H]
+\centering
+\begin{tabular}{c|c|c}
+\textcolor{olive}{$P$} $\backslash$ \textcolor{blue}{$Q$}  & \textcolor{blue}{V} & \textcolor{blue}{F} \\ \hline
+\textcolor{olive}{V} & \uncover<2->{\textcolor{red}{F}} & \uncover<3->{\textcolor{red}{V}} \\ \hline
+\textcolor{olive}{F} & \uncover<4->{\textcolor{red}{V}} & \uncover<4->{\textcolor{red}{V}} \\ 
+\end{tabular}
+\end{figure}
+\pause
+\pause\pause\pause
+\bigskip
+
+Table de vérité \assertion{$(\text{non } P)\text{ ou }(\text{non }Q)$} 
+\begin{figure}[H]
+\centering
+\begin{tabular}{c|c|c}
+\textcolor{olive}{$P$} $\backslash$ \textcolor{blue}{$Q$}  & \textcolor{blue}{V} & \textcolor{blue}{F} \\ \hline
+\textcolor{olive}{V} & \uncover<6->{\textcolor{red}{F}} & \uncover<7->{\textcolor{red}{V}} \\ \hline
+\textcolor{olive}{F} & \uncover<8->{\textcolor{red}{V}} & \uncover<8->{\textcolor{red}{V}} \\ 
+\end{tabular}
+\end{figure}
+\pause\pause\pause
+\end{proof}
+ 
+\end{frame} 
+
+
+
+
+
+
+%--------------
+\section{$\forall$ : \og pour tout\fg}
+
+
+\begin{frame}
+Une assertion $P$ peut dépendre d'un paramètre $x$\\[0.5em]
+
+Exemple : \assertion{$x^2 \ge 1$}, \  
+$P(x)$ est vraie ou fausse selon la valeur de $x$
+
+\pause
+\bigskip
+
+L'assertion $$\forall x \in E \quad P(x)$$
+est vraie lorsque les assertions $P(x)$ sont vraies pour tous les éléments $x$
+de l'ensemble $E$
+
+\pause
+\bigskip
+
+\begin{itemize}
+  \item \assertion{$\forall x \in [1,+\infty[ \quad (x^2\ge 1)$} \  est une assertion vraie
+\pause
+
+  \item \assertion{$\forall x \in \Rr \quad (x^2\ge 1)$} \  est une assertion fausse
+\pause
+
+  \item \assertion{$\forall n \in \Nn \quad n(n+1) \text{ est divisible par } 2$} \ est vraie
+\end{itemize} 
+
+\end{frame}
+
+
+
+%--------------
+\section{$\exists$ : \og il existe\fg}
+
+\begin{frame}
+L'assertion 
+$$\exists x \in E \quad P(x)$$
+est une assertion vraie lorsque l'on peut trouver au moins un $x$ de $E$ pour lequel $P(x)$ est vraie
+
+\pause
+\bigskip
+
+\begin{itemize}
+  \item \assertion{$\exists x \in \Rr \quad (x(x-1)<0)$} \  est vraie
+  \item \assertion{$\exists n \in \Nn \quad n^2-n > n$} \  est vraie
+  \item \assertion{$\exists x \in \Rr \quad (x^2=-1)$} \ est fausse
+\end{itemize} 
+
+
+\end{frame}
+
+
+%--------------
+\section{Négation des quantificateurs}
+
+\begin{frame}
+
+\mybox{
+La négation de \assertion{$\forall x \in E \quad P(x)$} \ est \  \assertion{$\exists x \in E \quad \text{non } P(x)$}
+}
+
+\pause
+\bigskip
+
+Exemple : la négation de \assertion{$\forall x \in [1,+\infty[ \quad (x^2\ge 1)$}
+est l'assertion \assertion{$\exists x \in [1,+\infty[ \quad (x^2 < 1)$}
+
+\pause
+\bigskip
+\mybox{
+La négation de \assertion{$\exists x \in E \quad P(x)$} \ est \ \assertion{$\forall x \in E \quad \text{non } P(x)$}
+}
+
+\pause
+\bigskip
+
+{\small
+\begin{itemize}
+  \item 
+$\exists z \in \Cc \quad (z^2+z+1 = 0)$
+
+$\forall z \in \Cc \quad (z^2+z+1 \neq 0)$
+
+\pause
+
+  \item 
+$\forall x \in \Rr \quad  (x+1 \in \Zz)$
+
+$\exists x \in \Rr \quad (x+1 \notin \Zz)$
+
+\pause
+
+  \item 
+
+$\forall x \in \Rr \quad \exists y >0 \quad (x+y > 10)$ 
+
+$\exists x \in \Rr \quad \forall y > 0 \quad (x+y \le 10)$
+\end{itemize} 
+}
+
+\end{frame}
+
+
+
+%--------------
+\section{Remarques}
+
+\begin{frame}
+
+Remarques
+\begin{itemize}
+  \item<1-> 
+ L'\evidence{ordre des quantificateurs} est très important
+
+\qquad \assertion{$\forall x \in \Rr \quad  \exists y \in \Rr \quad (x+y>0)$} \quad est vraie
+
+\qquad \assertion{$\exists y \in \Rr \quad \forall x \in \Rr \quad (x+y>0)$} \quad est fausse
+
+  \item<2-> \assertion{$\exists x \in \Rr \quad (f(x)=0)$} : il existe au moins un réel
+pour lequel $f$ s'annule
+
+\assertion{$\exists \alert{\mathbf{!}}\, x \in \Rr \quad (f(x)=0)$} : \defi{il existe un unique} 
+réel pour lequel $f$ s'annule
+
+
+  \item<3-> la négation de l'inégalité stricte \assertion{$<$} 
+est l'inégalité large \assertion{$\ge$}
+
+  \item<4-> Les quantificateurs ne sont pas des abréviations 
+  \begin{itemize}
+     \item \assertion{Pour tout réel $x$, si $f(x)=1$ alors $x \ge 0$.}
+     \item \assertion{$\forall x \in \Rr \quad (f(x)=1 \implies x \ge 0)$}
+     \item N'écrivez pas \assertion{$\forall x$ réel, si $f(x)=1 \implies x$ positif ou nul}
+  \end{itemize}
+
+
+  \item<5-> Ces symboles n'existent pas $\not\!\exists$, $\not\!\!\!\implies$
+
+\end{itemize} 
+\end{frame}
+
+
+
+
+%---------------------------------------------------------------
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item \'Ecrire la table de vérité du \assertion{ou exclusif}. (C'est le \emph{ou} dans la phrase
+\assertion{fromage ou dessert}, l'un ou l'autre mais pas les deux.) 
+  \item \'Ecrire la table de vérité de \assertion{non ($P$ et $Q$)}. Que remarquez-vous ?
+  \item \'Ecrire la négation de \assertion{$P \implies Q$}.
+  \item Démontrer les assertions restantes de la proposition, page 8.
+  \item \'Ecrire la négation de \assertion{$\big(P \text{ et } (Q \text{ ou } R)  \big)$}.
+  \item \'Ecrire à l'aide des quantificateurs la phrase suivante :
+\assertion{Pour tout nombre réel, son carré est positif}. Puis écrire la négation.
+  \item Mêmes questions avec les phrases : \assertion{Pour chaque réel, je peux trouver un entier
+relatif tel que leur produit soit strictement plus grand que $1$}. Puis
+\assertion{Pour tout entier $n$, il existe un unique réel $x$ tel que $\exp(x)$ égale $n$}.
+\end{enumerate}  
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

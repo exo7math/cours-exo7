@@ -1,0 +1,342 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={0,0,102}]{structure}
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf La chaînette}}
+\subtitle{\'Equation de la chaînette}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Découpage infinitésimal de la chaînette
+    \item<4-> Principe fondamental de la mécanique
+    \item<5-> Tension horizontale
+    \item<6-> Tension verticale et poids
+    \item<7-> Calcul de l'équation
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Découpage infinitésimal de la chaînette}
+
+\begin{frame}
+
+\begin{minipage}{0.59\textwidth}
+\begin{itemize}
+  \uncover<3->{\item \evidence{Le poids $\vec P$}}
+  \begin{itemize}
+    \uncover<4->{\item Force verticale}
+    \uncover<5->{\item $\vec P = -P \vec j = - \mu\cdot d\ell \cdot g \cdot \vec j$}
+    \uncover<6->{\item $\mu$ est la masse linéique}
+    \uncover<7->{\item masse de notre petit bout est $\mu \cdot d\ell$}
+    \uncover<8->{\item $g \approx 9,81 \; m/s^2$}
+  \end{itemize}
+
+  \uncover<9->{\item \evidence{La tension à gauche $\vec T(x)$}}
+  \begin{itemize}
+    \uncover<10->{\item S'applique au point d'abscisse $x$}
+    \uncover<11->{\item Force tangente à la chaînette}
+  \end{itemize}
+
+  \uncover<12->{\item  \evidence{La tension à droite $-\vec T(x+dx)$}} 
+  \begin{itemize}
+    \uncover<13->{\item S'applique au point d'abscisse $x+dx$}
+    \uncover<14->{\item S'oppose à la tension à gauche du morceau suivant}
+    \uncover<15->{\item C'est donc $-\vec T(x+dx)$}
+  \end{itemize}
+\end{itemize}
+\end{minipage}
+\hspace*{-2.1em}
+\begin{minipage}{0.29\textwidth}
+\shorthandoff{:}
+\myfigure{1}{
+\tikzinput{fig_chainette08-pres}
+}
+\shorthandon{:}
+\end{minipage}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Principe fondamental de la mécanique}
+
+\begin{frame}
+Par le principe fondamental de la mécanique, la somme des forces est nulle
+\uncover<3->{: \myboxinline{$\vec P + \vec T(x)-\vec T(x+dx) = \vec 0$}}
+
+\uncover<2->{
+\begin{minipage}{0.49\textwidth}
+\shorthandoff{:}
+\myfigure{0.7}{
+\tikzinput{fig_chainette08}
+}
+\shorthandon{:}
+\end{minipage}
+}
+\pause\pause\pause
+\begin{minipage}{0.49\textwidth}
+\shorthandoff{:}
+\myfigure{0.9}{
+\tikzinput{fig_chainette18}
+}
+\shorthandon{:}
+\pause
+\hfil $\vec T(x) = -T_h(x)\vec i - T_v(x) \vec j$  
+\end{minipage}
+
+\bigskip
+\pause
+
+$$-P \vec j - T_h(x)\vec i - T_v(x) \vec j - \left( - T_h(x+dx)\vec i - T_v(x+dx)  \vec j \right) = \vec 0$$
+
+\pause
+\mybox{$
+\left\lbrace
+\begin{array}{rcl}
+T_h(x+dx)-T_h(x) &=& 0 \\
+\pause
+T_v(x+dx) - T_v(x) - P &=& 0 \\
+\end{array}
+\right.
+$
+\pause
+}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Tension horizontale}
+
+\begin{frame}
+
+
+\begin{lemme}
+\label{lem:Th}
+La \evidence{tension horizontale} est indépendante de $x$ :
+$$T_h(x) = T_h$$
+\end{lemme}
+\pause
+
+\begin{proof}
+\begin{itemize}
+\setlength{\itemsep}{6pt}
+  \uncover<3->{\item Principe fondamental : $T_h(x+dx)-T_h(x)=0$}
+  
+  \uncover<4->{\item $\displaystyle \frac{T_h(x+dx)-T_h(x)}{x+dx-x}=0$}
+  
+  \uncover<5->{\item Lorsque $dx$ tend vers $0$ : $\frac{T_h(x+dx)-T_h(x)}{dx}$ tend $T'_h(x)$}
+  
+  \uncover<6->{\item Bilan : $T_h'(x)=0$}
+  
+  \uncover<7->{\item $T_h(x)$ est donc une fonction constante}
+\end{itemize}
+
+\end{proof}
+\vspace*{-22ex}
+\hfill
+\begin{minipage}{0.39\textwidth}
+\shorthandoff{:}
+\myfigure{0.7}{
+\tikzinput{fig_chainette08}
+}
+\shorthandon{:}        
+\end{minipage}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Tension verticale et poids}
+
+\begin{frame}
+
+
+\begin{itemize}
+\setlength{\itemsep}{6pt}
+  \item Notons $y(x)$ l'équation de la chaînette
+  
+  \uncover<2->{\item Chaque morceau infinitésimal est considéré comme rectiligne}
+  \uncover<3->{\item Théorème de Pythagore : $d \ell^2 = dx^2 + dy^2$}
+  \uncover<4->{\item $\left(\frac{d\ell}{dx}\right)^2=1+ \left(\frac{dy}{dx}\right)^2$}
+  \uncover<5->{\item $\frac{d\ell}{dx}=\sqrt{1+ \left(\frac{dy}{dx}\right)^2}$}
+ \end{itemize} 
+\vspace*{-12ex}
+\shorthandoff{:}
+\myfigure{1.5}{
+\tikzinput{fig_chainette09}
+}
+\shorthandon{:}
+ 
+\end{frame}
+
+
+\begin{frame} 
+
+\evidence{Tension verticale}
+
+\begin{itemize}
+\setlength{\itemsep}{6pt}
+  \uncover<3->{\item Principe fondamental : $T_v(x+dx) - T_v(x) - P = 0$}
+  \uncover<4->{\item Le poids $P= \mu g d\ell$}
+  \uncover<5->{\item $T_v(x+dx)-T_v(x)= \mu g d\ell$}
+  \uncover<6->{\item $\frac{T_v(x+dx)-T_v(x)}{dx} = \mu g \frac {d\ell}{dx}$}\uncover<7->{$= \mu g \sqrt{1+ \left(\frac{dy}{dx}\right)^2}$}
+  \uncover<8->{\item $\frac{T_v(x+dx)-T_v(x)}{dx}$ vaut à la limite $T_v'(x)$}
+  \uncover<9->{\item $\frac{dy}{dx}$ vaut à la limite $y'(x)$}
+  \uncover<10->{\item $T_v'(x) = \mu g \sqrt{1+ y'(x)^2}$}
+\end{itemize}
+
+\vspace*{-18ex}
+\hfill
+\uncover<2->{
+\begin{minipage}{0.6\textwidth}
+\shorthandoff{:}
+\myfigure{1}{
+\tikzinput{fig_chainette08}
+}
+\shorthandon{:}        
+\end{minipage}
+}
+
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Calcul de l'équation}
+
+\begin{frame}
+\begin{theoreme}
+\label{th:chainette}
+Une équation de la chaînette est 
+\mybox{$\displaystyle y(x) = a \ch \left( \frac x a\right)$}
+\pause
+où $a$ est une constante qui vaut $a = \frac {T_h}{\mu g}$
+\end{theoreme}
+\end{frame}
+
+
+\begin{frame}
+\evidence{1. Lien tension verticale/tension horizontale}
+
+\pause 
+\begin{itemize}
+\setlength{\itemsep}{6pt}
+  \uncover<3->{\item $T_h(x) = T(x) \cos \alpha(x)$}
+
+  \uncover<4->{\item $T_v(x) = T(x) \sin \alpha(x)$}
+  
+  \uncover<5->{\item $T_v(x) = T_h(x) \tan \alpha(x)$}
+  
+  \uncover<7->{\item $\tan \alpha(x) = \frac{dy}{dx} = y'(x)$}
+  
+  \uncover<8->{\item $T_v(x) = T_h(x) \cdot y'(x)$}
+\end{itemize}
+\vspace*{-8ex}
+\shorthandoff{:}
+\myfigure{1}{
+\uncover<2->{
+\tikzinput{fig_chainette19}
+}
+\uncover<6->{
+\hspace*{-2em}
+\tikzinput{fig_chainette09-bis}
+}
+}
+\shorthandon{:}
+
+
+\end{frame}
+
+
+\begin{frame}
+\evidence{2. \'Equations différentielles}
+
+\pause
+\begin{itemize}
+\setlength{\itemsep}{6pt}
+  \item $T_v(x) = T_h(x) \cdot y'(x)$
+  \pause
+  \item $T_v'(x) = T_h \cdot y''(x)$
+  \pause
+  \item On a vu $T_v'(x) = \mu g \sqrt{1+ y'(x)^2}$
+  \pause
+  \item Ainsi   $\mu g \sqrt{1+ y'(x)^2} = T_h \cdot y''(x)$
+  \pause
+  \item Posons la constante $a =\frac{T_h}{\mu g}$
+  \pause
+  \item Posons $z(x)= y'(x)$
+  \pause
+  \item $\sqrt{1+ z(x)^2} = a \cdot z'(x)$
+  \pause
+  \item $\frac{z'(x)}{\sqrt{1+z(x)^2}} = \frac 1 a$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\evidence{3. Solutions de l'équation différentielle}
+
+\pause
+\begin{itemize}
+\setlength{\itemsep}{6pt}
+  \item $\frac{z'(x)}{\sqrt{1+z(x)^2}} = \frac 1 a$
+  \pause
+  \item Une primitive de $\frac{z'(x)}{\sqrt{1+z(x)^2}}$ est $\Argsh z(x)$
+  \pause
+  \item Donc $\Argsh z(x) = \frac x a + \alpha$
+  \pause
+  \item Ainsi $y'(x) = z(x) = \sh\left(\frac x a + \alpha\right)$
+  \pause
+  \item $y(x) = a \ch \left(\frac x a + \alpha\right) + \beta$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\evidence{4. Choix des constantes}
+
+\pause
+\begin{itemize}
+\setlength{\itemsep}{6pt}
+  \uncover<2->{\item $y(x) = a \ch \left(\frac x a + \alpha\right) + \beta$}
+  \uncover<4->{\item Le point le plus bas de la chaînette est $(0,a)$}
+  \uncover<5->{\item Alors $y(0)=a$ et $y'(0)=0$}
+  \uncover<6->{\item $\alpha=0$ et $\beta=0$}
+  \uncover<7->{\item L'équation est $y(x) = a \ch \left(\frac x a\right)$}
+\end{itemize}
+\uncover<3->{
+\shorthandoff{:}
+\myfigure{1}{
+\tikzinput{fig_chainette10}
+}
+\shorthandon{:}
+}
+
+\end{frame}
+
+
+
+\end{document}

@@ -1,0 +1,262 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={0,45,179}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+
+
+\title{{\bf Intégrales}}
+\subtitle{Propriétés de l'intégrale}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Relation de Chasles
+    \item<4-> Positivité de l'intégrale
+    \item<5-> Linéarité de l'intégrale
+    \item<6-> Une preuve
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%---------------------------------------------------------------
+\section*{Relation de Chasles}
+
+
+\begin{frame}
+
+\begin{proposition}[Relation de Chasles]
+Pour $a,b,c$ quelconques
+\mybox{$\displaystyle\int_a^b f(x)\;dx = \int_a^c f(x)\;dx + \int_c^b f(x)\;dx$}
+\end{proposition}
+
+
+\pause
+\bigskip
+
+\begin{itemize}
+\setlength{\itemsep}{10pt}
+  \item Soient $a<c<b$. Si $f$ est intégrable sur $[a,c]$ et $[c,b]$
+
+ alors $f$ est intégrable sur $[a,b]$
+
+\pause
+
+  \item $a<b  \quad \int_b^a f(x) \;dx= -\int_a^b f(x) \; dx$
+
+\pause
+
+  \item $\int_a^a f(x) \;dx=0$
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+%---------------------------------------------------------------
+\section*{Positivité de l'intégrale}
+
+
+\begin{frame}
+
+\begin{proposition}[Positivité de l'intégrale]
+Soit $a \le b$ deux réels et $f$ et $g$ deux fonctions intégrables sur $[a,b]$
+\mybox{Si $f\le g$ \quad alors \quad  $\displaystyle \int_a^b f(x)\;dx \le\int_a^b g(x)\;dx$}
+\end{proposition}
+
+\pause
+\bigskip
+\bigskip
+
+En particulier l'intégrale d'une fonction positive est positive :
+\mybox{Si \quad $f\ge 0$ \quad alors \quad $\displaystyle \int_a^bf(x)\;dx \ge 0$}
+
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section*{Linéarité de l'intégrale}
+
+
+\begin{frame}
+
+\begin{enumerate}
+  \item $f+g$ est intégrable et $\int_a^b (f+g)(x) \; dx= \int_a^b f(x) \; dx+ \int_a^b g(x) \; dx$
+
+\pause
+
+  \item Pour tout réel $\lambda$,  $\lambda f$ est
+intégrable et $\int_a^b \lambda f(x) \; dx= \lambda \int_a^b f(x) \; dx$
+\end{enumerate}
+
+\pause
+
+\begin{proposition}[Linéarité de l'intégrale]
+\mybox{$\displaystyle 
+\int_a^b \big(\lambda f(x)+\mu g(x)\big)\;dx= \lambda\int_a^b f(x)\;dx+\mu\int_a^b g(x)\;dx$}
+\end{proposition}
+
+\pause
+\bigskip
+
+\begin{exemple}
+$\int_0^1 \big(7x^2-e^x\big) \; dx  \pause= 7 \int_0^1 x^2\; dx \ \ - \  \int_0^1 e^x \; dx \pause= 7 \frac 13 \ - \ (e-1) \pause= \frac{10}{3}-e$
+\end{exemple}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+
+\begin{proposition}
+\raisebox{13pt}{\ $|f|$ est intégrable sur $[a,b]$ \ \ et} \pause
+\myboxinline{$\displaystyle\left\vert\int_a^b f(x) \;dx\right\vert\le\int_a^b\big\vert f(x)\big\vert \;dx$}
+\end{proposition}
+
+\pause
+\medskip
+
+$f \times g$ est intégrable \pause
+mais $\int_a^b (f g)(x)\;dx \alert{\neq}
+\big(\int_a^b f(x)\;dx\big)\big(\int_a^b g(x)\;dx\big)$
+
+\pause
+\medskip
+
+\begin{exemple}
+
+\begin{itemize}
+  \item $I_n = \int_1^n \frac{\sin(n x)}{1+x^n} \; dx$ \pause \quad  $I_n \to 0$ ?
+
+\pause
+\smallskip
+
+  \item $|I_n| = \left| \int_1^n \frac{\sin(n x)}{1+x^n} \; dx \right| \pause\le  \int_1^n  \frac{|\sin(n x)|}{1+x^n} \; dx
+\pause\le \int_1^n  \frac{1}{1+x^n} \; dx \pause\le  \int_1^n  \frac{1}{x^n} \; dx$
+
+\pause
+\smallskip
+
+  \item  $\int_1^n  \frac{1}{x^n} \; dx \pause= \int_1^n x^{-n} \; dx \pause= \left[\frac{x^{-n+1}}{-n+1}\right]_1^n 
+\pause= \frac{n^{-n+1}}{-n+1} - \frac{1}{-n+1}  \pause\xrightarrow[n\to+\infty]{} 0$
+\end{itemize}
+
+\end{exemple}
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+\section*{Une preuve}
+
+
+\begin{frame}
+
+\begin{proof}[]
+Preuve de $\int \lambda f= \lambda \int f$
+\medskip
+
+\pause
+
+Soit $f$ intégrable et $\lambda \ge 0$, soit $\epsilon >0 $
+
+\pause
+
+Il existe  $\phi^-$ et $\phi^+$ en escalier telles que $\phi^- \le f \le \phi^+$ et
+\pause
+\begin{equation*} 
+\int_a^b f(x)\; dx  \ - \epsilon\  \le \int_a^b \phi^-(x)\;dx \pause \qquad \text{ et } \qquad \int_a^b \phi^+(x)\;dx \  \le \int_a^b f(x)\; dx  \ + \epsilon\
+\end{equation*}
+
+\pause
+
+Subdivision $(x_0,x_1,\ldots,x_n)$  telle que $\phi^-=c_i^-$ et $\phi^+=c_i^+$ sur $]x_{i-1},x_i[$ 
+
+\pause
+
+\begin{itemize}
+  \item $\lambda \phi^-$ et $\lambda \phi^+$ sont en escalier et $\lambda \phi^- \le \lambda f \le \lambda\phi^+$
+
+\pause
+  \item $\int_a^b \lambda \phi^-(x)\;dx =  \sum_{i=1}^n  \lambda c_i^-(x_{i}-x_{i-1})= \lambda \sum_{i=1}^n  c_i^-(x_{i}-x_{i-1}) = \lambda\int_a^b  \phi^-(x)\;dx$
+
+\pause
+  \item $\lambda\int_a^b \phi^-(x)\;dx \le I^-(\lambda f) \le I^+(\lambda f) 
+\le \lambda\int_a^b \phi^+(x)\;dx$
+
+\pause
+  \item $\lambda \int_a^b f(x)\; dx \  -\lambda \epsilon \ \le I^-(\lambda f) \le I^+(\lambda f) \le  \lambda \int_a^b f(x)\; dx \ +\lambda \epsilon$
+
+\pause
+  \item Lorsque $\epsilon \to 0$ cela prouve $I^-(\lambda f) = I^+(\lambda f)$
+
+\pause
+  \item $\lambda f$ est intégrable
+et $\int_a^b \lambda f(x)\; dx = \lambda \int_a^b f(x)\; dx$
+
+\vspace*{-2ex}
+\end{itemize}
+
+
+\end{proof}
+
+\end{frame}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Mini-exercices}
+
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item En admettant que $\int_0^1 x^n \; dx = \frac1{n+1}$. Calculer l'intégrale
+$\int_0^1 P(x)\; dx$ où $P(x)=a_n x^n+\cdots+a_1x+a_0$. Trouver un polynôme $P(x)$ 
+non nul de degré $2$ dont l'intégrale est nulle : $\int_0^1 P(x) \; dx=0$.
+
+  \item A-t-on $\int_a^b f(x)^2 \; dx = \left( \int_a^b f(x) \; dx \right)^2$ ;
+$\int_a^b \sqrt{f(x)} \; dx = \sqrt{\int_a^b f(x) \; dx}$ ;
+$\int_a^b |f(x)| \; dx = \left| \int_a^b f(x) \; dx \right|$ ; 
+$\int |f(x)+g(x)| \; dx = \left| \int_a^b f(x) \; dx \right| + \left| \int_a^b g(x) \; dx \right|$ ?
+
+  \item Peut-on trouver $a<b$ tels que $\int_a^b x\; dx = -1$ ;
+$\int_a^b x\; dx = 0$ ; $\int_a^b x\; dx = +1$ ?
+Mêmes questions avec $\int_a^b x^2 \; dx$.
+
+  \item Montrer que $0 \le \int_1^2  \sin^2 x \; dx \le 1$ et $\left|\int_a^b \cos^3 x \; dx \right| \le |b-a|$.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+\end{document}

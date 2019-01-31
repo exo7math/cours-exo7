@@ -1,0 +1,471 @@
+
+\input{../preamb-texte.tex}
+
+\newcommand{\codeinline}[1]{\texttt{#1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+\change
+
+
+Dans cette partie nous allons manipuler les nombres réels à travers le calcul de la constante $\gamma$ d'Euler.
+
+
+C'est un nombre assez mystérieux car personne ne sait si $\gamma$ est un nombre rationnel ou irrationnel.
+
+\change
+
+Notre objectif est d'avoir le plus de décimales possibles après la virgule en un minimum d'étapes.
+
+\change
+
+Nous verrons ensuite comment les ordinateurs stockent les réels et les problèmes que cela engendre.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Considérons la \defi{suite harmonique} :
+$$H_n = \frac{1}{1}+\frac{1}{2}+\frac{1}{3}+\cdots + \frac{1}{n}$$
+
+\change
+
+et définissons
+$$u_n = H_n - \ln n.$$
+
+\change
+
+Cette suite $(u_n)$ admet une limite finie lorsque $n\to+\infty$ : c'est la \defi{constante $\gamma$ d'Euler}.
+
+\change
+Voici votre travail :
+
+nous avons une suite qui tend vers $\gamma$ cela permet d'en trouver une approximation.
+
+Ensuite on considère une suite qui tend vers $\gamma$ mais qui s'en rapproche plus rapidemment,
+
+cela permet d'obtenir plus facilement des chiffres exacts après la virgule.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La première suite qui tend vers $\gamma$ ne pose aucun problème,
+
+on calcule la suite harmonique, c'est la somme des $1/i$.
+
+Pour cela on fait une boucle.
+
+Et à la fin on retire le logarithme de $n$.
+
+
+Vous remarquez que la somme est calculée à partir de la fin. 
+
+ 
+$1/n + 1/(n-1) +$   jusqu'à $1/2 + 1/1$
+
+ Nous expliquerons pourquoi en fin de leçon.
+ 
+En effet range(n,0,-1) signifie que l'on part de $n$ et le $-1$ en troisième variable
+signifie que l'on décrémente les indices.
+
+
+\change
+
+
+Evidemment aucun pb pour la seconde suite,
+
+seul ce que l'on retire à la fin change.
+ 
+Testez ces deux fonctions et comparer le nombre de décimales exactes obtenues en fonction de $n$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Il y a deux techniques pour obtenir plus de décimales : (i) pousser plus loin les itérations,
+mais pour avoir $1000$ décimales de $\gamma$ les méthodes précédentes sont insuffisantes ; 
+(ii) trouver une méthode encore plus efficace. C'est ce que nous allons voir avec
+la méthode de Bessel modifiée.
+Soit 
+$$w_n = \frac{A_n}{B_n} - \ln n 
+\quad \text{ avec } \quad
+A_n =\sum_{k=1}^{E(\alpha n)} \left( \frac{n^k}{k!} \right)^2 H_k$$
+
+les $H_k$ sont les termes de la suite harmonique.
+
+$$
+ \quad \text{ et } \quad 
+B_n =\sum_{k=0}^{E(\alpha n)} \left( \frac{n^k}{k!} \right)^2 
+$$
+
+
+\change
+où $\alpha = 3.59...$ est la solution de l'équation $\alpha(\ln \alpha - 1)=1$ et
+$E(x)$ désigne la partie entière.
+
+
+\change
+
+Alors 
+$$|w_n - \gamma| \le \frac{C}{e^{4n}}$$
+où $C$ est une constante (non connue).
+
+Cela signifie que $w_n$ tend très très vite vers $\gamma$.
+
+Car $\frac{C}{e^{4n}}$ tend de façon exponentiellement vite vers $0$.
+
+\change
+
+A vous de programmer cette nouvelle méthode
+
+et en utilisant le module "decimal" qui gère les réels avec une précision arbitraire
+calculez les $1000$ premières décimales de $\gamma$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour obtenir $N$ décimales il suffit de résoudre l'inéquation $\frac{C}{e^{4n}} \le \frac{1}{10^{N}}$.
+
+\change
+
+
+On <<passe au log>> pour obtenir $n \ge \frac{N \ln(10)+\ln(C)}{4}$. On ne connaît pas $C$ mais 
+ce n'est pas si important.
+
+\change
+
+Moralement pour une itération de plus on obtient (à peu près) une décimale 
+de plus (c'est-à-dire un facteur $10$ sur la précision !).
+
+
+\change
+
+Voici le code qui ne présente pas de difficulté particulière,
+
+je vous laisse l'étudier !
+
+
+Pour obtenir plus de décimales que la précision standard de Python qui ne gère que $16$ chiffres après la virgule,
+
+il vous faut utiliser le module "decimal" et adapter légèrement l'écriture de 
+cet algorithme pour obtenir autant de décimales que vous souhaitez.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour $n=800$ itérations dans l'algorithme précédent on obtient $1000$ décimales exactes de la 
+constante d'Euler :
+
+$\gamma = 0,577... $
+
+Euler en 1781 avait calculer $16$ décimales ; à la main bien sûr !
+
+
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+En mathématique un réel est un élément de $\Rr$ et son écriture décimale est souvent infinie après la virgule :
+par exemple $\pi = 3,1415\ldots$
+Mais bien sûr un ordinateur ne peut pas coder une infinité d'informations. Ce qui se rapproche d'un réel est 
+un \defi{nombre flottant} dont l'écriture est la suivante :
+
+\change
+
+pour représenter le nombre 
+
+$\pm 1,234\ldots \times 10^{\pm 123}$
+
+\change
+
+Un \defi{nombre flottant} est
+composé d'une mantisse qui est un nombre décimal (positif ou négatif) appartenant à $[1,10[$.
+
+Il n'y a bien sûr qu'un nombre fini de décimales.
+En Python la mantisse à une précision de 
+$16$ chiffres après la virgule. 
+
+\change
+
+L'exposant est un entier (lui aussi positif ou négatif).
+
+\change
+
+Cette réalité informatique fait que des erreurs de calculs peuvent 
+apparaître même avec des opérations simples.
+
+
+Pour voir un exemple de problème faites cette petite manip :
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Comme Python est très précis nous allons faire une routine qui permet 
+de limiter drastiquement le nombre de chiffres et mettre en évidence les erreurs de calculs.
+
+Tout d'abord à partir d'un réel retrouver l'exposant et sa mantisse.
+
+
+Ensuite on souhaite limiter la précision à seulement $6$ chiffres,
+
+vous devez écrire une fonction qui par exemple pour le réel $123,456789$ ne retient que $6$ chiffre en tout,
+
+donc seulement $123,456$.
+
+
+\change
+
+Comme on l'a déjà vu dans une section précédente l'exposant $n$ se récupère 
+à l'aide de la partie entière du logarithme en base $10$.
+
+\change
+
+Une fois que l'on a l'exposant, on décale du bon nombre de chiffres
+afin d'avoir $6$ chiffres avant la virgule.
+et on prend la partie entière $m$ qui est l'écriture de la mantisse (sans la virgule). 
+
+\change
+
+Pour obtenir notre nombre tronqué on redécale $m$ vers la droite.
+
+\change
+
+Voyons un exemple, $x=123,456789$, sa notation est $1,23...$ fois $10^2$.
+L'exposant est $2$ que l'on trouve comme la partie entière de log de $x$.
+
+Comme on ne veut conserver que $6$ chiffres alors on décale vers la gauche, ici de $3$ chiffres,
+afin d'obtenir $6$ chiffres avant la virgule. 
+
+La partie entière permet de faire disparaître les chiffres après la virgule.
+
+On obtient donc un entier $m$ avec $6$ chiffres qui correspond à la mantisse $1,23456$.
+
+On replace la virgule au bon endroit en décalant vers 
+la droite pour obtenir notre nombre tronqué $123,456$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons étudier trois types d'erreurs qui apparaissent lors des calculs avec les nombres flottants.
+
+Tester le premier type d'erreur qui s'appelle l'absorption.
+
+
+[[pause]]
+
+\change
+
+Chacun des nombres $1234,56$ et $0,007$ est bien un nombre s'écrivant avec 
+moins de $6$ décimales
+
+\change
+
+mais leur somme $1234,567$ a besoin d'une décimale de plus,
+
+\change
+
+l'ordinateur ne retient pas la $7$-ème décimale
+et ainsi le résultat obtenu est $1234,56$. 
+
+\change
+
+Le $0,007$ n'apparaît pas dans le résultat : c'est le phénomène d'\defi{absorption}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans ce nouveau tp vous allez rencontrer un deuxième type de problème : 
+l'élimination.
+
+Utiliser la fonction "tronquer" que vous avez programmée auparavant.
+
+Méfiez vous ! Réfléchissez bien à comment l'ordinateur 
+stocke et fait les calculs !!
+
+
+\change
+
+Comme $x-y = 22,6555$ qui n'a que $6$ chiffres alors 
+on peut penser que l'ordinateur va obtenir ce résultat.
+
+\change
+
+Il n'en est rien, l'ordinateur ne stocke pas $x$ 
+mais \codeinline{tronquer(x)}, de même il ne stocke pas $y$ 
+mais \codeinline{tronquer(y)}.
+
+\change
+
+Donc l'ordinateur commence par tronquer $x$ et $y$ avant de faire la différence.
+
+Le calcul est donc 
+\codeinline{tronquer(tronquer(x)-tronquer(y))}, 
+
+\change
+
+Ce qui correspond à $1234,87-1212,22=22,6500$.
+
+\change
+
+Quel est le problème ? C'est qu'ensuite l'utilisateur considère --à tort-- que le résultat est 
+calculé avec une précision de $6$ chiffres. Donc on peut penser que le résultat est $22,6500$
+mais les $2$ derniers chiffres sont une pure invention.
+
+\change
+
+
+
+C'est un phénomène d'\defi{élimination}. Lorsque l'on calcule la différence de deux nombres proches, le résultat
+a en fait une précision moindre. Plus les nombres sont proches plus le phénomène peut être 
+dramatique.
+
+\change
+
+J'en profite pour signaler une erreur d'interprétation fréquente : 
+
+ne confondez pas la \evidence{précision} d'affichage
+(par exemple : on calcule souvent $10$ chiffres après la virgule) 
+avec l'\evidence{exactitude} du résultat 
+(savez vous vraiment combien de décimales sont exactes ?).
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Enfin voici le dernier type de problème, certainement le plus 
+troublant la première fois qu'on le rencontre.
+
+Voici une liste d'instructions à suivre qui devraient vous laissez sceptique !
+
+
+\change
+
+
+L'explication de tout cela est simple mais néanmoins troublant.
+
+Commençons par une analogie ; il est impossible de stocker dans un ordinateur l'écriture décimale
+de $1/3$  car il y a une infinité de chiffres après la virgule.
+
+
+Pour $0,1$ ou pour $0,2$ on peut croire que cela ne va pas poser de problème.
+
+\change
+
+Mais Python ne stocke pas les nombres en écriture décimale mais en écriture binaire.
+
+Malheureusement comme c'était le cas pour $1/3$ en écriture décimale 
+il ne peut pas stocker
+en binaire la valeur exacte de $0,1$ ou $0,2$.
+
+\change
+
+Il stocke donc un nombre en écriture binaire qui se 
+rapproche le plus de $0,1$ ou $0.,2$.
+
+\change
+
+Et lorsque on lui demande d'afficher
+le nombre stocké, il retourne l'écriture décimale qui se rapproche 
+le plus du nombre stocké, mais ce n'est plus
+$0,2$, mais un nombre très très proche.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons une situation concrète où ces problèmes apparaissent.
+
+Il s'agit simplement de calculer la somme de $1/i^2$
+
+mais dans les questions 2 et 3 on se limite à une écriture à $6$
+chiffres.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+[repartir de la diapo 11]
+
+Je ne parle pas de la question 1 qui
+ne pose aucun problème et utilise toute la précision de Python.
+
+\change
+
+Pour la deuxième question on doit maintenant, à chaque calcul, 
+limiter notre précision à $6$ chiffres 
+(ici $1$ avant la virgule et $5$ après).
+
+Il faut donc tronquer pour la calcul de l'inverse de $i^2$,
+
+puis tronquer pour la somme avec les termes précédents.
+
+
+\change
+
+Pour la troisième question on part des plus petits termes
+et on termine par $1/1^2$
+
+
+\change
+
+En fait avec une précision maximale et $n$ très grand 
+on doit obtenir une bonne approximation de $\frac{\pi^2}{6}$ 
+qui est la limite de $S_n$.
+
+\change
+
+Pour  $n = 100\, 000$ ce premier algorithme [montrer] avec écriture tronquée,
+et la somme dans l'ordre, retourne $1,64038$. Donc seulement deux chiffres exacts 
+après la virgule.
+
+Notez que faire grandir $n$ n'y changera rien, il bloque à $2$ décimales exactes 
+après la virgule.
+
+\change
+
+Alors qu'avec ce second l'algorithme où la somme est toujours tronquer
+mais effectuer en sens inverse on obtient un bien meilleur résultat 
+$1,64490$. 
+
+La raison est un phénomène d’absorption pour ce premier algorithme : 
+on rajoute des termes très petits devant une somme qui vaut plus de $1$.
+
+
+Alors que si l'on part des termes petits, on ajoute des termes petits 
+à une somme petite, on garde donc un maximum 
+de décimales valides avant de terminer par les plus hautes valeurs.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Il vous reste encore du travail avec ces exercices !
+
+
+
+\end{document}

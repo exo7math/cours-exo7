@@ -1,0 +1,46 @@
+% Stereographic and cylindrical map projections
+% Author: Tomasz M. Trzeciak
+% Source: LaTeX-Community.org
+%         <http://www.latex-community.org/viewtopic.php?f=4&t=2111>
+
+\newcommand\pgfmathsinandcos[3]{%
+  \pgfmathsetmacro#1{sin(#3)}%
+  \pgfmathsetmacro#2{cos(#3)}%
+}
+\newcommand\LongitudePlane[3][current plane]{%
+  \pgfmathsinandcos\sinEl\cosEl{#2} % elevation
+  \pgfmathsinandcos\sint\cost{#3} % azimuth
+  \tikzset{#1/.style={cm={\cost,\sint*\sinEl,0,\cosEl,(0,0)}}}
+}
+\newcommand\LatitudePlane[3][current plane]{%
+  \pgfmathsinandcos\sinEl\cosEl{#2} % elevation
+  \pgfmathsinandcos\sint\cost{#3} % latitude
+  \pgfmathsetmacro\yshift{\cosEl*\sint}
+  \tikzset{#1/.style={cm={\cost,0,0,\cost*\sinEl,(0,\yshift)}}} %
+}
+\newcommand\DrawLongitudeCircle[2][1]{
+  \LongitudePlane{\angEl}{#2}
+  \tikzset{current plane/.prefix style={scale=#1}}
+   % angle of "visibility"
+  \pgfmathsetmacro\angVis{atan(sin(#2)*cos(\angEl)/sin(\angEl))} %
+  \draw[current plane] (\angVis:1) arc (\angVis:\angVis+180:1);
+  \draw[current plane,dashed] (\angVis-180:1) arc (\angVis-180:\angVis:1);
+}
+\newcommand\DrawLatitudeCircle[2][1]{
+  \LatitudePlane{\angEl}{#2}
+  \tikzset{current plane/.prefix style={scale=#1}}
+  \pgfmathsetmacro\sinVis{sin(#2)/cos(#2)*sin(\angEl)/cos(\angEl)}
+  % angle of "visibility"
+  \pgfmathsetmacro\angVis{asin(min(1,max(\sinVis,-1)))}
+  \draw[current plane] (\angVis:1) arc (\angVis:-\angVis-180:1);
+  \draw[current plane,dashed] (180-\angVis:1) arc (180-\angVis:\angVis:1);
+}
+
+
+% \begin{tikzpicture} % "THE GLOBE" showcase
+% \def\R{2.5} % sphere radius
+% \def\angEl{35} % elevation angle
+% \filldraw[ball color=white] (0,0) circle (\R);
+% \foreach \t in {-80,-60,...,80} { \DrawLatitudeCircle[\R]{\t} }
+% \foreach \t in {-5,-35,...,-175} { \DrawLongitudeCircle[\R]{\t} }
+% \end{tikzpicture}

@@ -1,0 +1,362 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={153, 204, 0}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcounter{saveenumi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+
+
+\title{{\bf Arithmétique}}
+\subtitle{Congruences}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition
+    \item<4-> \'Equation de congruence $ax \equiv b \pmod n$
+    \item<5-> Petit théorème de Fermat    
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ 
+
+%---------------------------------------------------------------
+\section{Définition}
+
+\begin{frame}
+
+\begin{mydefinition}
+Fixons $n \ge 2$. $a$ est \defi{congru} à $b$ \defi{modulo} $n$ si $n$ divise $b-a$
+
+\pause
+
+On note 
+$$a \equiv b \pmod n$$ 
+\end{mydefinition}
+
+\pause
+
+\mybox{$a \equiv b \pmod n \quad \iff \quad \exists k \in \Zz \quad a = b +kn$}
+
+\pause
+\begin{itemize}
+  \item Exemples : $15 \equiv 1 \pmod 7$, \pause $72 \equiv 2 \pmod {7}$, \pause $3 \equiv -11 \pmod{7}$
+\pause
+
+  \item $a\equiv 0 \pmod n \iff n \text{ divise } a$
+\pause
+  \item Autres notations : $a=b \pmod n$ \quad ou \quad  $a \equiv b\  [n]$
+\pause  
+  \item Si la division euclidienne de $a$ par $n$ est $a = bn + r$ (et $0 \le r < n$) 
+alors $a \equiv r \pmod n$ 
+\pause
+  \item La relation <<congru modulo $n$>> est une relation d'équivalence
+\pause
+  \begin{itemize}
+    \item $a \equiv a \pmod n$
+\pause
+    \item si $a \equiv b \pmod n$ alors $b \equiv a \pmod n$
+\pause
+    \item si $a \equiv b \pmod n$ et $b \equiv c \pmod n$ alors $a \equiv c \pmod n$
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Opérations}
+
+\begin{frame}
+
+\begin{proposition}
+Soient $a,b,c,d \in \Zz$ tels que  $a \equiv b \pmod n$ et $c \equiv d \pmod n$
+\pause
+\begin{enumerate}
+  \item  $a+c \equiv b+d \pmod n$
+\pause
+  \item $a\times c \equiv b \times d \pmod n$
+\pause
+  \item $a^k \equiv b^k \pmod n$ (pour tout $k\ge 0$)
+\end{enumerate}
+\end{proposition}
+
+\pause
+
+\begin{exemple}
+\begin{itemize}
+  \item $5x+8 \equiv 3 \pmod 5$ \quad pour tout $x \in \Zz$
+\pause
+  \item $11^{2345} \equiv 1^{2345} \equiv 1 \pmod {10}$
+\end{itemize}
+\end{exemple}
+
+\pause
+
+{\footnotesize
+Montrons que si $a \equiv b \pmod n$ et $c \equiv d \pmod n$ alors $ac \equiv bd \pmod n$
+
+\pause
+
+\quad $a \equiv b \pmod n$ donc il existe $k \in \Zz$ tel que $a=b + kn$ 
+
+\pause
+
+\quad $c \equiv d \pmod n$ donc il existe $\ell \in \Zz$ tel que $c = d + \ell n$
+
+\pause
+
+\quad Alors $a\times c = (b+kn)\times(d+\ell n) = bd + (b \ell + d k + k\ell n)n = bd + mn$ 
+
+\pause
+
+\quad Ainsi $ac \equiv bd \pmod n$
+}
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Divisibilité par $9$}
+
+\begin{frame}
+
+\begin{exemple}[Critère de divisibilité par $9$]
+
+\pause
+
+\mybox{\!$N$ est divisible par $9$ \!$\iff$\! la somme de ses chiffres est divisible par $9$\!}
+
+\pause
+\vspace*{-3ex}
+\begin{itemize}
+  \item $9 | N$ équivaut à $N \equiv 0 \pmod 9$
+\pause
+  \item $10 \equiv 1 \pmod 9$, \pause $10^2 \equiv 1 \pmod 9$, \pause $10^3 \equiv 1 \pmod 9$,...
+\pause
+  \item $N = \underline{a_k \cdots a_2 a_1 a_0} 
+\pause
+= 10^k a_k + \cdots + 10^2 a_2 + 10^1 a_1 + a_0$
+\pause
+  \item 
+\vspace*{-1ex}
+$$\begin{array}{rl}
+N &=  10^k a_k + \cdots + 10^2 a_2 + 10^1 a_1 + a_0\\
+\pause
+  &\equiv  a_k + \cdots + a_2 + a_1 + a_0 \pmod 9 \\
+\end{array}$$
+\vspace*{-2ex}\pause
+  \item $N \equiv 0 \pmod 9$ $\iff$ la somme des chiffres vaut $0$ modulo $9$
+\end{itemize}
+
+\pause
+\vspace*{-1ex}
+$$\begin{array}{rcl}
+ N &=& 488\, 889 \\
+\pause
+   &=& 4 \cdot 10^5 + 8 \cdot 10^4 + 8 \cdot 10^3 + 8 \cdot 10^2 + 8 \cdot 10 + 9   \\
+\pause
+   &\equiv& 4 + 8 + 8 + 8 + 8 + 9 \pmod{9} \\
+\pause
+   &\equiv& 45 
+\pause \ \equiv \ 9 \ 
+\pause \equiv \ 0 \pmod{9}\\
+\end{array}$$
+\end{exemple}
+  
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Calculs}
+
+\begin{frame}
+  
+\begin{exemple}
+Calcul de $2^{21} \pmod {37}$
+
+\pause
+
+\begin{enumerate}
+  \item On calcule $2^{21}$, puis le reste de la division euclidienne de $2^{21}$ par $37$
+
+\pause
+
+  \item Calculs successifs des $2^k$ modulo $37$ 
+
+\pause
+
+\begin{itemize}
+  \item $2^1 \equiv 2 \pmod {37}$, \pause $2^2 \equiv 4 \pmod {37}$, \pause $2^3 \equiv 8 \pmod {37}$, \pause $2^4 \equiv 16 \pmod {37}$,
+\pause $2^5 \equiv 32 \pmod {37}$
+\pause
+  \item $2^6 \equiv 64 \pause \equiv 27 \pmod {37}$
+\pause
+  \item $2^7 \pause \equiv 2 \cdot 2^6 \pause \equiv 2 \cdot 27 \pause \equiv 54 \pause \equiv 17 \pmod {37}$
+\pause
+  \item $2^{8} \equiv 34 \pause \equiv -3 \pmod {37}$
+\pause
+  \item $2^9 \equiv 2 \cdot 2^8 \pause \equiv 2 \cdot(-3) \equiv -6 \pause \equiv 31 \pmod{37}$ \quad ...
+\end{itemize}
+
+\pause
+
+  \item Méthode efficace
+\begin{itemize}
+\pause
+  \item L'exposant $21$ écrit en base $2$ : $21 = 2^{4} + 2^{2} + 2^{0} = 16 + 4 + 1$
+\pause
+  \item $2^{21} =  2^{16} \cdot 2^{4} \cdot 2^{1}$
+\pause
+  \item $2^8 \equiv  (2^4)^2 \equiv 16^2 \equiv 256 \equiv 34 \equiv -3 \pmod {37}$
+\pause
+  \item $2^{16} \equiv  \left(2^{8}\right)^2 \pause \equiv (-3)^2 \equiv 9 \pmod{37}$
+\pause
+  \item $2^{21} \equiv  2^{16} \cdot 2^{4} \cdot 2^{1} \pause \equiv 9 \times 16 \times 2 
+\pause \equiv 288 \pause \equiv 29 \pmod {37}$
+\end{itemize}
+
+\end{enumerate}
+\end{exemple}
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{\'Equation de congruence $ax \equiv b \pmod n$}
+
+\begin{frame}
+  
+\mybox{$ax \equiv b \pmod n$}
+\pause
+\vspace*{-1ex}
+\begin{exemple}
+\vspace*{-1ex}
+$$9x \equiv 6 \pmod{24}$$
+\pause
+\vspace*{-4ex}
+{\small
+\begin{itemize}[<+->]
+  \item Il existe $x\in \Zz$ tel que $9x \equiv 6 \pmod{24}$ $\iff$ il existe $x,k \in \Zz$ tels que $9x = 6 + 24k$
+  \item L'équation $9x-24k=6$ a des solutions car $\pgcd(9,24)=3$ divise $6$
+  \item En divisant par le pgcd on obtient l'équation équivalente $3x-8k=2$
+  \item Solution particulière $(x_0=6,k_0=2)$ (à la main ou algorithme d'Euclide)
+  \item On sait trouver toutes les solutions : \myboxinline{$x=6+ 8\ell$, $\ell \in \Zz$}
+  \item On regroupe les solutions en classes modulo $24$ :
+\vspace*{-1ex}
+\mybox{$x_1 = 6 + 24 m, \quad x_2 = 14 + 24 m, \quad x_3=22+24m \quad \text{ avec } m\in\Zz$}
+\end{itemize}
+}
+
+\end{exemple}
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Petit théorème de Fermat}
+
+
+\begin{frame}
+  
+
+
+\begin{theoreme}[Petit théorème de Fermat]
+Si $p$ est un nombre premier et $a \in \Zz$ alors
+\myboxinline{$a^p \equiv a \pmod p$}
+\end{theoreme}
+
+\pause
+\bigskip
+\bigskip
+
+\begin{corollaire}
+Si $p$ ne divise pas $a$ alors
+\myboxinline{$a^{p-1} \equiv 1 \pmod p$} 
+\end{corollaire}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+
+Calcul de $14^{3141} \pmod {17}$
+
+\pause
+
+\begin{itemize}
+  \item $14^{16} \equiv 1 \pmod {17}$ car $17$ est un nombre premier
+\pause
+  \item Division euclidienne de $3141$ par $16$ : $3141 = 16\times 196 + 5$
+\pause
+$$
+\begin{array}{rl}
+14^{3141} &\equiv 14^{16 \times 196 + 5} 
+\pause
+          \equiv 14^{16\times 196}\times 14^5 \\
+\pause
+          &\equiv \left(\alert<7->{14^{16}}\right)^{196}\times 14^5 
+\pause
+\equiv \textcolor{red}{1}^{196} \times 14^5 
+\pause
+\equiv  14^5\pmod{17}
+\end{array}$$
+\pause
+  \item Calcul de $14^5 \pmod{17}$
+  \begin{itemize}
+\pause
+     \item $14 \equiv -3 \pmod {17}$ 
+\pause
+     \item $14^2\equiv (-3)^2 \equiv 9 \pmod {17}$
+\pause
+     \item $14^3 \equiv 14^2 \times 14 \equiv 9 \times (-3) \equiv -27 \equiv 7 \pmod{17}$
+\pause
+     \item $14^5 \equiv 14^2 \times 14^3 \equiv 9 \times 7 \equiv 63 \equiv 12 \pmod {17}$
+  \end{itemize}
+\pause
+  \item Conclusion $14^{3141}  \equiv 14^5 \equiv 12 \pmod {17}$
+\end{itemize}
+
+\end{exemple}
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+\section*{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Calculer les restes modulo $10$ de $122+455$, $122\times 455$, $122^{455}$.
+Mêmes calculs modulo $11$, puis modulo $12$.
+  \item Prouver qu'un entier est divisible par $3$ si et seulement 
+si la somme de ses chiffres est divisible par $3$.
+  \item Calculer $3^{10} \pmod {23}$. 
+  \item Calculer $3^{100} \pmod {23}$.
+  \item Résoudre les équations $3x\equiv 4 \pmod{7}$, $4x \equiv 14 \pmod {30}$.
+\end{enumerate} 
+\end{miniexercice}
+\end{frame}
+
+
+\end{document}

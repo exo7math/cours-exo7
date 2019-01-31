@@ -1,0 +1,9 @@
+sage: t = var('t')
+sage: x = function('x', t)
+sage: y = function('y', t)
+sage: de1 = diff(x,t) ==  x -2*y +2
+sage: de2 = diff(y,t) ==  x -y   -3
+sage: desolve_system([de1, de2], [x,y])
+[x(t) == (x(0) - 8)*cos(t) + (x(0) + 4)*sin(t) + 8, y(t) == (x(0) - 2)*sin(t) - 6*cos(t) + 5]
+sage: sol = desolve_system([de1, de2], [x,y], ics=[0,1,-1]); sol
+[x(t) == 5*sin(t) - 7*cos(t) + 8, y(t) == -sin(t) - 6*cos(t) + 5]

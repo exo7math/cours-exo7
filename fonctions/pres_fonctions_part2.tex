@@ -1,0 +1,453 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={66,15,15}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Limites et fonctions continues}}
+\subtitle{Limites}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définitions
+    \item<4-> Propriétés
+   \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+%\section{Motivation}
+%
+%
+%\begin{frame}
+%
+%\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Limite en un point} 
+
+\begin{frame}
+
+Soit $I$ un intervalle et $x_0$ un élément ou une extrémité de $I$
+
+\pause
+
+\begin{mydefinition}
+Soit $\ell\in\Rr$. On dit que $f:I\to\Rr$ a pour \defi{limite $\ell$ en $x_0$} si 
+\mybox{$
+\forall \epsilon>0 \quad \exists \delta>0 \quad \forall x\in I \quad \vert x-x_0\vert <\delta 
+\implies \vert f(x)-\ell\vert <\epsilon
+$}
+\end{mydefinition}
+
+\pause
+\myfigure{.88}{
+\tikzinput{fig_fonctions4}
+}
+
+\end{frame}
+
+
+\begin{frame}
+
+$f$ a pour limite $\ell$ en $x_0$ si 
+\mybox{$
+\forall \epsilon>0 \quad \exists \delta>0 \quad \forall x\in I \quad \vert x-x_0\vert <\delta 
+\implies \vert f(x)-\ell\vert <\epsilon
+$}
+
+\pause
+
+\begin{remarque}
+\begin{itemize}
+  \item On note \quad $\displaystyle\lim_{x\to x_0}f(x)=\ell$  \quad ou  \quad $\displaystyle\lim_{x_0} f=\ell$  
+\pause
+
+  \item $\vert x-x_0\vert <\delta \  \iff  x \in \, ]x_0 - \delta, x_0+\delta[$ 
+  \pause
+  
+ $\vert f(x)-\ell\vert <\epsilon \iff   f(x) \in \, ]\ell - \epsilon, \ell+\epsilon[$
+\pause
+ 
+  \item $\forall \epsilon>0 \quad \exists \delta>0 \quad \forall x\in I \quad \vert x-x_0\vert \le \delta 
+\implies \vert f(x)-\ell\vert \le \epsilon$
+\pause
+
+  \item Attention à l'ordre des quantificateurs ! 
+  
+  \pause $\forall \epsilon>0 \quad \exists   \delta{\color{red}(\epsilon)} >0 \quad \ldots$
+
+  \end{itemize}
+\end{remarque}
+ 
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{exemple}
+\begin{itemize}
+\item $\displaystyle\lim_{x\to x_0} \sqrt{x} = \sqrt{x_0}$ pour tout $x_0\geq0$
+\pause
+
+\item \onslide<3->la fonction partie entière $E$ n'a pas de limite aux points $x_0\in\Zz$
+\end{itemize}
+\end{exemple}
+
+\pause\pause
+\myfigure{0.7}{
+\onslide<2->\tikzinput{fig_fonctionsA08} \quad
+\onslide<4>\tikzinput{fig_fonctionsA09}
+}
+
+  
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{mydefinition}
+\defi{$f$ a pour limite $+\infty$ en $x_0$}, noté  $\displaystyle\lim_{x\to x_0}f(x)=+\infty$, si 
+\[
+\forall A>0 \quad \exists \delta>0 \quad \forall x\in I \quad \vert x-x_0\vert <\delta \implies f(x)>A
+\]
+
+\end{mydefinition}
+
+\pause
+
+ \onslide<3> \defi{$f$ a pour limite $-\infty$ en $x_0$} si 
+\[
+\forall A>0 \quad \exists \delta>0 \quad \forall x\in I \quad \vert x-x_0\vert <\delta \implies f(x)<-A
+\]
+
+
+\pause
+\onslide<2-3>\myfigure{0.65}{
+\tikzinput{fig_fonctionsA10}
+}
+  
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+\section{Limite en l'infini}
+
+\begin{frame}
+
+Soit $f:I\to \Rr$,   $I=]a,+\infty[$
+
+\pause
+
+\begin{mydefinition}
+Soit $\ell\in\Rr$. \defi{$f$ a pour limite $\ell$ en $+\infty$} si 
+\[
+\forall \epsilon>0 \quad \exists B>0 \quad \forall x\in I \quad x>B \implies \vert f(x)-\ell\vert <\epsilon
+\]
+\end{mydefinition}
+
+\myfigure{1}{
+\tikzinput{fig_fonctions5}
+}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{mydefinition}
+On dit que \defi{$f$ a pour limite $+\infty$ en $+\infty$} si 
+\[
+\forall A>0 \quad \exists B>0 \quad \forall x\in I \quad x>B \implies  f(x)>A
+\]
+\end{mydefinition}
+
+
+\bigskip
+\pause
+
+\begin{exemple}
+\begin{itemize}
+\item $\displaystyle\lim_{x\to +\infty} x^n = +\infty$ \quad \pause et \quad 
+$\displaystyle\lim_{x\to -\infty} x^n = 
+\begin{cases}
++\infty \text{ si $n$ est pair}\\
+-\infty \text{ si $n$ est impair}
+\end{cases}$
+
+\pause
+\bigskip
+
+\item $\displaystyle\lim_{x\to +\infty} \left(\frac{1}{x^n}\right) = 0$ \quad et 
+\quad $\displaystyle\lim_{x\to -\infty} \left(\frac{1}{x^n}\right) =0$
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{exemple}
+$P(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0$ 
+$Q(x)=b_mx^m+b_{m-1}x^{m-1}+\cdots+b_1x+b_0$  \ avec $a_n, \ b_m>0$
+\pause
+
+\[\lim_{x\to+\infty} \frac{P(x)}{Q(x)} = \pause
+\begin{cases}
+  +\infty & \text{ si } n > m \\
+\pause
+  \frac{a_n}{b_m} & \text{ si } n = m \\
+\pause
+  0  & \text{ si } n < m \\
+\end{cases}\]
+\end{exemple}
+ 
+\pause 
+ 
+ \medskip
+ 
+$$\frac{P(x)}{Q(x)} = \dfrac{x^n\left(a_n+\frac{a_{n-1}}{x}+\cdots\right)}{x^m\left(b_m+\frac{b_{m-1}}{x}+\cdots\right)}$$
+
+ 
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Propriétés}
+
+\begin{frame}
+\begin{proposition}
+Si une fonction admet une limite, alors cette limite est unique
+\end{proposition}
+
+\end{frame}
+
+
+\begin{frame}
+
+Soient deux fonctions $f$ et $g$ et $x_0\in\Rr$ ou $x_0=\pm\infty$
+ 
+\pause 
+
+\begin{proposition}
+Si $\displaystyle\lim_{x_0} f=\ell\in\Rr$ et $\displaystyle\lim_{x_0} g=\ell'\in\Rr$,  alors 
+\pause
+\begin{itemize}
+  \item $\displaystyle\lim_{x_0} (\lambda\cdot f)=\lambda\cdot \ell$ \quad pour tout $\lambda\in\Rr$ 
+   
+\pause 
+  \item $\displaystyle\lim_{x_0} (f+g) = \ell+\ell'$ 
+  
+\pause   
+  \item $\displaystyle\lim_{x_0} (f\times g) = \ell\times \ell'$ 
+   
+\pause 
+  \item si $\ell\neq 0$, alors $\displaystyle\lim_{x_0} \frac1f = \frac1\ell$
+\end{itemize}
+ 
+\pause 
+De plus, si $\displaystyle\lim_{x_0} f=+\infty$ (ou $-\infty$) alors $\displaystyle\lim_{x_0} \frac1f = 0$
+\end{proposition}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+
+\begin{proposition}
+Si \quad $\displaystyle\lim_{x_0} f=\ell$  \quad et  \quad $\displaystyle\lim_\ell g=\ell'$  \quad alors  \quad 
+$\displaystyle\lim_{x_0} g\circ f=\ell'$
+\end{proposition}
+ 
+\pause 
+
+\begin{exemple}
+Soit $u$ une fonction telle que $u(x) \to 2$  lorsque $x \to x_0 \in \Rr$ \pause
+
+Posons $f(x) = \sqrt{1+\frac{1}{u(x)^2}+\ln u(x)}$  \pause
+
+Si elle existe, quelle est la limite de $f$ en $x_0$ ?
+
+\pause
+\begin{itemize}
+  \item lorsque $x \to x_0$ : $u(x) \to 2 \implies u(x)^2 \to 4 \pause \implies  \frac{1}{u(x)^2} \to \frac14$
+
+\pause  
+  \item comme $u(x) \to 2>0$ alors $u(x)>0$ dans un voisinage de $x_0$, 
+  \pause donc $\ln u(x)$ est bien définie dans ce voisinage et $\ln u(x) \to \ln 2$
+ 
+\pause 
+  \item Donc  $1+\frac{1}{u(x)^2}+\ln u(x) \to 1+\frac 14 + \ln 2>0$
+  
+  \pause donc $f(x)$ est bien définie dans un voisinage de $x_0$
+  
+\pause
+  \item Par composition
+  $\lim_{x\to x_0} f(x) = \sqrt{1+\frac14 + \ln 2}$
+\end{itemize}
+\end{exemple}
+  
+\end{frame}
+
+
+\begin{frame}
+
+ \evidence{Formes indéterminées}
+\[
+ \text{si } \quad f \to +\infty \quad\text{ et }\quad g \to -\infty \quad \text{ alors } f+g \to \ \  \color{myred}{?}
+ \] 
+
+ \pause 
+ 
+ \bigskip
+ Formes indéterminées : étude au cas par cas
+ 
+ $$+\infty-\infty  \qquad \pause
+ 0\times \infty \qquad
+ \dfrac\infty\infty
+  \qquad \dfrac00   \qquad 
+1^\infty  \qquad   \infty^0$$
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{proposition}
+\begin{itemize}
+  \item Si $f\leq g$ et si $\displaystyle\lim_{x_0} f=\ell\in\Rr$ et $\displaystyle\lim_{x_0} g=\ell'\in\Rr$, alors $\ell\leq \ell'$
+  
+\pause
+  \item Si $f\leq g$ et si $\displaystyle\lim_{x_0} f=+\infty$, alors $\displaystyle\lim_{x_0} g=+\infty$
+  
+\pause
+  \item Théorème des gendarmes
+  \mybox{Si \ $f\leq g\leq h$ \ et si \ 
+  $\displaystyle\lim_{x_0} f=\displaystyle\lim_{x_0} h=\ell\in\Rr$ \  alors \  
+  $\displaystyle\lim_{x_0} g=\ell$}
+\end{itemize}
+\end{proposition}
+
+\pause
+
+\myfigure{0.95}{
+\tikzinput{fig_fonctionsA12}
+}
+  
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+\section{Une preuve}
+
+\begin{frame}
+
+\vspace*{1ex}
+\centerline{Si \quad $\displaystyle\lim_{x_0} f=\ell > 0$ \quad  alors \quad $\displaystyle\lim_{x_0} \frac1f = \frac1\ell$}
+ 
+\pause 
+
+\begin{proof} 
+
+\begin{enumerate}
+\item Montrons que $\frac 1 f$ est bien définie et bornée autour de $x_0$
+  
+\pause 
+
+  \begin{itemize}
+    \item Par hypothèse 
+$\forall \epsilon'>0 \quad \exists \delta>0  \quad x\in ]x_0-\delta,x_0+\delta [
+\implies \ell-\epsilon' < f(x) <\ell+\epsilon'$
+
+\pause  
+
+    \item Pour $\epsilon'<\ell/2$, \pause l'intervalle $J = ]x_0-\delta,x_0+\delta [$ \pause est tel que 
+    $f(x) > \frac{\ell}{2}>0$ \pause et donc 
+$\forall x\in J \quad 0< \frac{1}{f(x)} < M \ (=\frac{2}{\ell})$
+  \end{itemize}
+
+
+\pause 
+
+\item Montrons que $\displaystyle\lim_{x_0} \frac1f = \frac1\ell$ \pause 
+
+
+  \begin{itemize}
+    \item 
+$\displaystyle \forall x\in J \quad  \left\vert \frac{1}{f(x)} - \frac1\ell  \right\vert 
+= \frac{\left\vert \ell - f(x) \right\vert }{f(x)\ell} \pause < \frac{M}{\ell}\left\vert \ell - f(x) \right\vert  $
+ 
+\pause 
+\smallskip
+
+    \item Soit $\epsilon>0$. \pause On choisit $\epsilon'=\frac{\ell \epsilon}{M}$\,, 
+    \pause alors il existe $\delta>0$ tel que
+    \vspace*{-1ex}
+\[x\in ]x_0-\delta,x_0+\delta [
+\implies \left\vert \frac{1}{f(x)} - \frac1\ell  \right\vert \pause < \frac{M}{\ell}\left\vert \ell - f(x) \right\vert 
+\pause <  \frac{M}{\ell}\epsilon' \pause = \epsilon 
+\]
+\vspace*{-5ex}
+  \end{itemize}
+\end{enumerate}
+\end{proof}
+ 
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Déterminer, si elle existe, la limite de $\frac{2x^2-x-2}{3x^2+2x+2}$ en $0$. 
+  Et en $+\infty$ ?
+  
+  \item Déterminer, si elles existent, les limites de $\sin\left(\frac1x\right)$ et  $\frac{\cos x}{\sqrt{x}}$ en $+\infty$. 
+  
+  \item En utilisant la définition de la limite (avec des $\epsilon$), 
+  montrer que $\lim_{x\to2} (3x+1) = 7$.
+  
+  \item Montrer que si $f$ admet une limite finie en $x_0$ alors il existe $\delta>0$ tel que
+  $f$ soit bornée sur $]x_0-\delta,x_0+\delta[$.
+  
+  \item Déterminer, si elle existe,   $\lim_{x\to0} \frac{\sqrt{1+x}-\sqrt{1+x^2}}{x}$. 
+  
+  Et $\lim_{x\to2} \frac{x^2-4}{x^2-3x+2}$ ?
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

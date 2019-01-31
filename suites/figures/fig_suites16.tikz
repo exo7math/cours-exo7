@@ -1,0 +1,35 @@
+
+\begin{tikzpicture}
+
+      \draw[->,>=latex, gray] (-0.5,0)--(4.5,0) node[below,black] {$x$};
+      \draw[->,>=latex, gray] (0,-0.5)--(0,4.5) node[left,black] {$y$};
+
+\begin{scope}[myred]
+
+	\fill (0.5,0) circle (1.5pt);
+	\fill (4,0) circle (1.5pt);
+	\fill (0,0.5) circle (1.5pt);
+	\fill (0,4) circle (1.5pt);
+    \node[below] at (0.5,0) {$a$};
+	\node[left] at (0,4) {$b$};
+    \node[below] at (4,0) {$b$};
+	\node[left] at (0,0.5) {$a$};
+	\draw[dashed] (0.5,0) -- (0.5,4);
+	\draw[dashed] (0,0.5) -- (4,0.5);
+	\draw[dashed] (4,0) -- (4,4)--(0,4);
+   \draw[ultra thick] (0.5,0)--(4,0);
+   \draw[ultra thick] (0,0.5)--(0,4);
+\end{scope}
+
+\begin{scope}[blue]
+	\draw[ultra thick,domain=0.5:4,smooth] plot ({\x},{1+0.15*\x*\x});
+\end{scope}
+
+
+\begin{scope}[green!60!black]
+  \draw[ultra thick] (-0.2,1.03)--(-0.2,3.4) node[midway, left] {$f([a,b])$};
+  \draw[dashed] (-0.2,1.03) -- (4,1.03);
+  \draw[dashed] (-0.2,3.4) -- (4,3.4);
+\end{scope}
+
+\end{tikzpicture}

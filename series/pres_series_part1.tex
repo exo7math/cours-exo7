@@ -1,0 +1,590 @@
+
+\input{../preamb-pres.tex}
+% Couleur à définir
+
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Séries}}
+\subtitle{Définitions -- Série géométrique}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définitions
+    \item<4-> Série géométrique
+    \item<5-> Séries convergentes
+    \item<6-> Suites et séries
+    \item<7-> Le terme d'une série convergente tend vers $0$
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+\begin{frame}
+
+\begin{itemize}
+\item Nous nous intéressons à des sommes ayant une infinité de termes
+\item\pause Par exemple :
+\[1+\frac{1}{2} +\frac{1}{4} +\frac{1}{8}+\frac{1}{16} +\cdots \ \ = \ \ ? \]
+
+\item\pause C'est le \evidence{paradoxe de Zénon}
+\pause
+\myfigure{1.3}{
+\tikzinput{fig_series01} 
+}
+
+\item\pause On ajoute ainsi une infinité de durées non nulles : la flèche n'atteindrait jamais sa cible ?!
+\item\pause La somme d'une infinité de termes peut être une valeur finie
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définitions}
+
+\begin{frame}
+
+\begin{mydefinition}
+Soit $(u_k)_{k \ge 0}$ une suite de nombres réels (ou complexes). \pause
+On pose
+$$S_n=u_0+u_1+u_2+\cdots+ u_n\pause =\sum_{k=0}^n u_k$$
+
+\pause
+La suite $(S_n)_{n \ge 0}$ s'appelle la \defi{série} de terme général 
+$u_k$\pause, notée  $\displaystyle \sum_{k \ge 0} u_k $
+
+\pause
+On l'appelle aussi \defi{suite des sommes partielles}
+\end{mydefinition}
+
+\pause
+\begin{exemple}
+Pour $q\in \Cc$, considérons la suite géométrique $(u_k)$ définie par
+$u_k = q^k$
+
+\pause
+La \defi{série géométrique} $\displaystyle \sum_{k \ge 0} q^k$ est la suite des sommes partielles :
+\pause\vspace{-.2cm}
+\[
+S_0 = 1, \pause \quad S_1 = 1 + q, \pause \quad S_2 = 1+q+q^2, 
+\pause \ \ldots \ S_n = 1+q+q^2+\cdots+q^n, \ \ldots
+\]
+\vspace{-.4cm}
+\end{exemple}
+
+\end{frame}
+
+%%%%%%%%%%%%%%
+
+\begin{frame}
+
+\begin{mydefinition}
+\begin{itemize}
+  \item Si la suite $(S_n)_{n \ge 0}$ admet une limite finie dans $\Rr$ (ou $\Cc$),
+on note
+\vspace*{-2ex}
+\[
+S = \sum_{k=0}^{+\infty} u_k =\lim_{n\to+\infty} S_n
+\]
+\vspace*{-2ex}
+\pause
+  
+  \item On appelle alors $\displaystyle S= \sum_{k=0}^{+\infty} u_k$ la \defi{somme} de la série $\displaystyle \sum_{k \ge 0} u_k$ \pause 
+et on dit que la série est \defi{convergente}
+
+\pause
+  
+  \item Sinon on dit qu'elle est \defi{divergente}
+\end{itemize}
+
+
+
+\end{mydefinition}
+
+\pause
+\textbf{Notations}
+\[
+{\color<6>{red}
+\sum_{k = 0}^{+\infty} u_k \qquad\sum_{i = 0}^{+\infty} u_i
+} \qquad \qquad 
+{\color<6>{blue}
+\sum_{n \in \Nn} u_n \qquad  \sum_{k \ge 0} u_k \qquad \sum u_k
+}
+\]
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Série géométrique}
+
+\begin{frame}
+Soit $q\in \Cc$ \pause
+\begin{proposition}
+La série géométrique $\displaystyle\sum_{k \ge 0} q^k$ est convergente 
+si et seulement si $|q|<1$.
+
+\pause
+Alors
+\mybox{$\displaystyle \sum_{k=0}^{+\infty} q^k =1+q+q^2+q^3+\cdots= \frac{1}{1-q}$}
+\end{proposition}
+
+\end{frame}
+
+%%%%%%%%%%%%%%
+
+\begin{frame}
+
+\begin{proof}
+$S_n=1+q+q^2+q^3+\cdots+q^n$
+
+\begin{itemize}
+  \item \pause si $q=1$, $S_n = n+1$ \pause $\to +\infty$  \pause : la série $\sum_{k \ge 0} q^k$ diverge
+  
+  \item \pause si $q \neq 1$, multiplions $S_n$ par $1-q$ :  
+  \pause
+$$(1-q)S_n=(1+q+q^2+q^3+\cdots+q^n)-(q+q^2+q^3+\cdots+q^{n+1}) \pause =1-q^{n+1}$$
+\pause
+Donc
+\mybox{$\displaystyle S_n  = \frac{1-q^{n+1}}{1-q}$}
+
+\begin{itemize}
+  \item \pause si $|q|<1$ \pause alors $q^n \to 0$ donc $q^{n+1} \to 0$ \pause et ainsi $S_n \to \frac{1}{1-q}$
+
+\pause  
+  ainsi la série converge
+\item \pause si $|q| \ge 1$ \pause alors $(q^n)$ n'a pas de limite finie
+(elle peut tendre vers $+\infty$ ou être divergente) \pause donc $(S_n)$ n'a pas de limite finie
+
+\pause
+ainsi la série diverge \qedhere
+\end{itemize}
+\end{itemize}
+\end{proof}
+\end{frame}
+
+%%%%%%%%%%%%%%
+
+\begin{frame}
+
+\begin{exemple}
+\begin{enumerate}
+  \item\pause $q=\frac 12$ : \quad \pause
+  $\displaystyle \sum_{k=0}^{+\infty} \frac{1}{2^k} = \pause \frac{1}{1-\frac12} \pause = 2$
+  
+  \pause
+  Cela résout le paradoxe de Zénon 
+\vspace{.2cm}
+  
+  \item\pause $q=\frac 13$ avec premier terme $\frac{1}{3^3}$ : \pause
+  $\displaystyle \sum_{k=3}^{+\infty} \frac{1}{3^k} \pause = \sum_{k=0}^{+\infty} \frac{1}{3^k} \  -  1 - \frac 13-\frac 1{3^2}  \pause
+  = \frac{1}{1-\frac13} - \frac{13}{9} \pause = \frac32-\frac{13}{9} = \frac{1}{18}$
+\vspace{.2cm}
+  
+  \item\pause  \emph{Autre méthode :} \pause changement d'indice $n=k-3$
+
+$\displaystyle\sum_{k=3}^{+\infty} \frac{1}{3^k} 
+\pause= \sum_{n=0}^{+\infty} \frac{1}{3^{n+3}}
+\pause= \sum_{n=0}^{+\infty} \frac{1}{3^3}\frac{1}{3^n}
+\pause= \frac{1}{3^3}\sum_{n=0}^{+\infty} \frac{1}{3^n}
+\pause= \frac{1}{27}\frac{1}{1-\frac13}
+= \frac{1}{18}$
+\vspace{.2cm}
+
+  \item\pause $\displaystyle \sum_{k=0} ^{+\infty} (-1)^k \left(\frac{1}{2}\right)^{2k}
+  \pause =\sum_{k=0} ^{+\infty} \left(-\frac{1}{4}\right)^k \pause=\frac{1}{1-\frac{-1}{4}} \pause=\frac{4}{5}$
+ 
+\end{enumerate}
+\end{exemple}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Séries convergentes}
+
+
+\begin{frame}
+
+Le \defi{reste d'ordre~$n$} d'une série convergente $\displaystyle\sum_{k = 0}^{+\infty} u_k$ \pause est
+$$R_n = u_{n+1}+u_{n+2}+\cdots = \sum_{k=n+1}^{+\infty} u_k$$
+
+\pause
+\begin{proposition}
+Si une série est convergente, alors 
+$S=S_n+R_n$ (pour tout $n\ge0$) \pause et 
+$$\lim_{n\to+\infty} R_n=0$$
+\end{proposition}
+
+%\pause
+%\begin{proof}
+%\begin{itemize}
+%  \item $S = \displaystyle\sum_{k=0}^{+\infty} u_k \pause=\sum_{k=0}^{n} u_k+ \sum_{k=n+1}^{+\infty} u_k=S_n+R_n$
+%  \item\pause Donc $R_n = S-S_n \pause \to S-S =0$ lorsque $n\to+\infty$
+%\end{itemize} 
+%\end{proof}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Suites et séries}
+
+\begin{frame}
+
+\begin{itemize}
+\item Une série $\sum_{k \ge 0} u_k$ converge si la suite 
+$(S_n)_{n\ge0}$ des sommes partielles converge, où $S_n=\sum_{k=0}^n u_k$
+
+\item\pause Réciproquement considérons une suite $(a_k)_{k\ge0}$
+\end{itemize}
+
+\pause
+\begin{proposition}
+Une \defi{somme télescopique} est une série de la forme
+$$\sum_{k\ge0} (a_{k+1}-a_k)$$
+
+\pause
+Cette série est convergente si et seulement si $(a_k)_{k\ge0}$ est convergente
+
+\pause
+Dans ce cas on a 
+\vspace{-.2cm}
+$$\sum_{k=0}^{+\infty} (a_{k+1}-a_k) = \lim_{k\to+\infty} a_k - a_0$$
+\end{proposition}
+
+\pause
+\begin{proof}
+$
+S_n
+= \sum_{k=0}^n (a_{k+1}-a_k)
+= -a_0 +a_1-a_1+a_2-a_2+ \cdots +a_n-a_n+a_{n+1}
+= a_{n+1}-a_0 $
+\end{proof}
+\end{frame}
+
+%%%%%%%%%%%%%%
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+\item La série $$\sum_{k=0}^{+\infty} \frac{1}{(k+1)(k+2)}=\frac{1}{1\cdot 2}+\frac{1}{2\cdot 3}+
+ \frac{1}{3\cdot 4}+\cdots$$
+est convergente et sa somme vaut $1$
+
+\item\pause En effet,
+$$S_n=\sum_{k=0}^n \frac{1}{(k+1)(k+2)} = \sum_{k=0}^n \left(\frac{1}{k+1}-\frac{1}{k+2}\right)
+\pause = 1 - \frac{1}{n+2} \to 1 $$
+
+\item\pause $\displaystyle\sum_{k=1}^{+\infty} \frac{1}{k(k+1)}$ et 
+$\displaystyle\sum_{k=2}^{+\infty} \frac{1}{k(k-1)}$ sont aussi convergentes de somme $1$ (changement d'indice)
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Le terme d'une série convergente tend vers $0$}
+
+\begin{frame}
+\begin{theoreme}
+Si la série $\sum_{k\ge0} u_k$ converge, 
+alors la suite $(u_k)_{k \ge 0}$ tend vers $0$
+\end{theoreme}
+
+\pause
+Point clé : on retrouve le terme général $u_n$ à partir des sommes partielles $S_n=\sum_{k=0}^{n} u_k$ par
+\vspace{-.2cm}
+$$u_n = S_n - S_{n-1}$$
+
+\pause
+La contraposée de ce résultat est souvent utilisée : 
+\mybox{Une série dont le terme général ne tend pas vers $0$ est divergente}
+
+\begin{itemize}
+\item\pause les séries $\sum_{k \ge 1} (1+\frac{1}{k})$ et $\sum_{k \ge 1} k^2$ sont divergentes
+\item\pause Attention à l'énoncé ! Réciproque fausse
+
+% la série $\sum u_k$ de terme général 
+% $$
+% u_k = \left\{
+% \begin{array}{ll}
+% 1&\text{ si } k=2^\ell \quad \text{ pour un certain } \ell \ge 0 \\
+% 0&\text{ sinon }
+% \end{array}
+% \right.
+% $$
+% diverge
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Linéarité}
+
+\begin{frame}
+\begin{proposition}
+$\sum a_k$ et $\sum b_k$ deux séries convergentes de sommes $A$ et $B$, et $\lambda, \mu \in \Rr$
+
+\pause
+Alors la série $\sum (\lambda a_k+\mu b_k)$ est convergente et de somme
+ $\lambda A+\mu B$ :
+ \pause \vspace{-.2cm}
+ $$\sum_{k=0}^{+\infty} (\lambda a_k+\mu b_k) = 
+ \lambda \sum_{k=0}^{+\infty} a_k+ \mu \sum_{k=0}^{+\infty} b_k$$
+\end{proposition}
+
+\pause
+% Par exemple :
+ \vspace{-.2cm}
+$$
+\sum_{k=0}^{+\infty} \left(\frac{1}{2^k}+\frac{5}{3^k}\right)
+ \pause= 
+\sum_{k=0}^{+\infty} \frac{1}{2^k}+
+5\sum_{k=0}^{+\infty} \frac{1}{3^k}
+\pause=
+\frac{1}{1-\frac{1}{2}}+5\frac{1}{1-\frac{1}{3}} 
+\pause= 2+5\frac{3}{2}=\frac{19}{2}
+$$
+
+% \pause
+% \begin{proposition}
+% Soit $(u_k)_{k\ge0}$, $u_k = a_k + \ii b_k$, avec $a_k, b_k\in\Rr$. \pause La série $\sum u_k$ converge si et seulement si $\sum a_k$ et $\sum b_k$ convergent. \pause On a alors :
+%  \vspace{-.2cm}
+% $$
+% \sum_{k=0}^{+\infty} u_k = 
+% \sum_{k=0}^{+\infty} a_k + \ii \sum_{k=0}^{+\infty} b_k
+% $$
+% \end{proposition}
+\end{frame}
+
+%%%%%%%%%%%%%%
+%
+%\begin{frame}
+%\begin{exemple}
+%Considérons la série géométrique $\sum_{k\ge0} r^k$ avec $r = \rho e^{\ii\theta}$ et $\rho<1$
+%
+%\begin{itemize}
+%\item\pause Comme $\vert r \vert<1$, alors la série converge et 
+%$\sum_{k=0}^{+\infty} r^k = \frac{1}{1-r}$
+%
+%\item\pause $r^k = \rho^k e^{\ii k\theta}$ \pause $\implies$ les parties réelle et imaginaire de $r^k$ sont
+%$$
+%a_k=\rho^k\cos(k\theta)
+%\quad\text{ et }\quad 
+%b_k=\rho^k\sin(k\theta)
+%$$
+%\item\pause par la proposition précédente
+%\vspace{-.1cm}
+%$$
+%\sum_{k=0}^{+\infty} a_k  = \Re \left(\frac{1}{1-r}\right) 
+%\pause\quad\text{ et }\quad 
+%\sum_{k=0}^{+\infty} b_k  = \Im \left(\frac{1}{1-r}\right)
+%$$
+%\vspace{-.1cm}
+%\item\pause Le calcul donne : 
+%\end{itemize}
+%$$
+%\sum_{k=0}^{+\infty} \rho^k\cos(k\theta) = 
+%\tfrac{1-\rho\cos\theta}{1+\rho^2-2\rho\cos\theta} 
+%\pause\quad \text{ et }\quad
+%\sum_{k=0}^{+\infty} \rho^k\sin(k\theta) = 
+%\tfrac{\rho\sin\theta}{1+\rho^2-2\rho\cos\theta}
+%$$ 
+%\end{exemple}
+%\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Critère de Cauchy}
+
+\begin{frame}
+\textbf{Rappel.}
+Une suite numérique $(s_n)$ converge 
+si et seulement si elle est une suite de Cauchy :
+\pause
+$$\forall \epsilon>0\quad \exists n_0\in\Nn \quad \forall m,n \ge n_0 \qquad |s_n-s_m|<\epsilon$$
+
+\pause
+\begin{theoreme}[Critère de Cauchy]
+Une série  $\displaystyle\sum_{k\geq0} u_k$ converge si et seulement si  
+$$\forall \epsilon>0 \quad \exists n_0\in\Nn \quad \forall m,n\ge n_0 \qquad \big|u_{n}+\cdots +u_m\big| < \epsilon $$
+\end{theoreme}
+
+\pause
+On le formule aussi de la façon suivante :
+$$ \forall \epsilon>0 \quad \exists n_0\in\Nn \quad
+\forall m,n \ge n_0 \qquad  \left| \sum_{k=n}^m u_k\right| <\epsilon$$
+\pause
+ou encore
+$$ \forall \epsilon>0 \quad \exists n_0\in\Nn \quad
+\forall n\ge n_0 \quad \forall p\in\Nn 
+\qquad  \big|u_{n}+\cdots +u_{n+p}\big|<\epsilon$$
+
+\end{frame}
+
+%%%%%%%%%%%%%%
+
+\begin{frame}
+
+\mybox{La \defi{série harmonique} \quad $\displaystyle \sum_{k \ge 1} \frac{1}{k} = 1 + \frac12+\frac13+\frac14+\cdots$ \quad diverge}
+
+\pause
+\evidence{Attention !} La série $\sum u_k$ diverge, bien que $u_k = \frac{1}{k} \to 0$
+
+\pause
+\vspace{.2cm}
+En effet, en notant la somme partielle $S_n = \sum_{k=1}^{n} \frac{1}{k}$
+on a
+$$
+S_{2n}-S_{n} \pause= \frac{1}{n+1}+\cdots+\frac{1}{2n}\ge
+\frac{n}{2n}=\frac{1}{2} 
+$$
+\pause
+Donc la suite $\left(S_n\right)$ n'est pas de Cauchy : la série diverge
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%
+%
+%\begin{frame}
+%
+%\begin{proposition}
+%$$\text{ Pour } \displaystyle S_n = \sum_{k = 1}^n \frac{1}{k}  \;  ,  \quad  \text{ on a }\lim_{n\to+\infty} S_n=+\infty$$
+%\end{proposition}
+%
+%\pause
+%\begin{proof}
+%\begin{itemize}
+%\item Soit $M>0$ et $m\in \Nn$ tel que $m\ge 2M$. \pause
+%Alors pour $n\ge 2^m$ on a:
+%\end{itemize}
+%\vspace{-.2cm}
+%\begin{eqnarray*}
+%S_n 
+%  & = & 1+\frac{1}{2}+\frac{1}{3}+\cdots+\frac{1}{2^m}+\cdots+ \frac{1}{n}  
+%\pause
+%\quad  \ge \quad 1+\frac{1}{2}+\frac{1}{3}+\cdots+ \frac{1}{2^m}\\
+%\pause
+%  & \ge & 1 + \frac{1}{2}+ \left(\frac{1}{3}+\frac{1}{4}\right) 
+%  +\left(\frac{1}{5}+\frac{1}{6}+\frac{1}{7}+ \frac{1}{8}\right) +  \cdots
+%+\left(\frac{1}{2^{m-1}+1}+\cdots + \frac{1}{2^m}\right) \\
+%\pause \pause
+% & \ge & 1+\frac{1}{2}+2 \frac{1}{4}+ 4\;\frac{1}{8}+ \cdots +
+%2^{m-1} \frac{1}{2^m} 
+%\pause
+%\quad = \quad 1+m \frac{1}{2} \quad \ge \quad M 
+%\end{eqnarray*}
+%\vspace{-.2cm}
+%\begin{itemize}
+%\item\vspace{-.2cm}\uncover<6->{Entre les parenthèses il 
+%y a $2,4, \cdots$, $2^m-(2^{m-1}+1)+1= 
+%2^m-2^{m-1}=2^{m-1} $ termes}
+%\item\pause Ainsi $\forall M>0\quad \exists n_0 \ge 0 \quad \forall n \ge n_0 \quad S_n \ge M$
+%
+%Donc$(S_n)$ tend vers $+\infty$ \qedhere
+%\end{itemize}
+%\end{proof}
+%
+%\end{frame}
+%
+%%%%%
+\begin{frame}
+
+\begin{proposition}
+$$\text{ Pour } \displaystyle S_n = \sum_{k = 1}^n \frac{1}{k}  \;  ,  \quad  \text{ on a }\lim_{n\to+\infty} S_n=+\infty$$
+\end{proposition}
+
+\pause
+\begin{proof}
+\begin{itemize}
+\item Soit $M>0$ et $m\in \Nn$ tel que $m\ge 2M$. \pause
+Alors pour $n\ge 2^m$ on a:
+\end{itemize}
+\vspace{-.2cm}
+\begin{eqnarray*}
+S_n 
+  & = & 1+\frac{1}{2}+\frac{1}{3}+\cdots+\frac{1}{2^m}+\cdots+ \frac{1}{n}  
+\uncover<4->{
+\quad  \ge \quad 1+\frac{1}{2}+\frac{1}{3}+\cdots+ \frac{1}{2^m}}\\
+\uncover<5->{
+  & \ge & 1 + \frac{1}{2}+ \left(\frac{1}{3}+\frac{1}{4}\right) 
+  +\left(\frac{1}{5}+\frac{1}{6}+\frac{1}{7}+ \frac{1}{8}\right) +  \cdots
++\left(\frac{1}{2^{m-1}+1}+\cdots + \frac{1}{2^m}\right) \\
+}
+\uncover<9->{
+ & \ge & 1+\frac{1}{2}+2 \frac{1}{4}+ 4\;\frac{1}{8}+ \cdots +
+2^{m-1} \frac{1}{2^m} 
+}
+\uncover<10->{
+\quad = \quad 1+m \frac{1}{2} \quad \ge \quad M 
+}
+\end{eqnarray*}
+\vspace{-.2cm}
+\begin{itemize}
+\item\vspace{-.2cm}\uncover<6->{Entre les parenthèses il 
+y a $2$,} \uncover<7->{$4$,} \uncover<8->{$\cdots$, $2^m-(2^{m-1}+1)+1= 
+2^m-2^{m-1}=2^{m-1} $ termes}
+\item\uncover<11->{Ainsi $\forall M>0\quad \exists n_0 \ge 0 \quad \forall n \ge n_0 \quad S_n \ge M$
+
+Donc $(S_n)$ tend vers $+\infty$} \qedhere
+\end{itemize}
+\end{proof}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  
+  \item Calculer les sommes partielles $S_n$ de la série de terme général 
+  $\frac{1}{4^k}$, commençant à $k=1$. Cette série est-elle convergente ? 
+  Si c'est possible, calculer la somme $S$ et les restes $R_n$
+  
+  \item Mêmes questions avec :
+  
+   $ \displaystyle\sum_{k\ge0} (-1)^k$ ; $ \displaystyle\sum_{k\ge0} 3^k$ ; $ \displaystyle\sum_{k\ge1} \frac{1}{10^k}$ ; $ \displaystyle\sum_{k\ge2} \exp(-k)$
+  
+ \item Pourquoi les séries suivantes sont-elles divergentes ?
+  $ \displaystyle\sum_{k\ge1} \left( \frac1k + (-1)^k \right)$ ; $ \displaystyle\sum_{k\ge 0} \frac{k}{k+1}$ ; 
+  $ \displaystyle\sum_{k\ge1} \frac{1}{2k}$ ;
+  $ \displaystyle\sum _{k\ge1} k \cos(k)$ ; $ \displaystyle\sum_{k\ge1} \exp(\frac1k)$
+    
+   
+  \item Calculer les sommes partielles de la série 
+  $ \sum_{k\ge1} \ln\left( 1-\frac{1}{k+1} \right)$
+  
+  Cette série est-elle convergente ?
+  
+  \item Montrer que $\displaystyle \sum_{k=0}^{+\infty} k^2q^k = \frac{q^2+q}{(1-q)^3}$
+
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,1405 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+\newcommand{\GL}{\mathcal{G}\!\ell}
+\newcounter{saveenumi}
+
+%====================================================================
+\chapitre{Groupes}
+%====================================================================
+
+\insertvideo{p8gSeXA-Pls}{partie 1. Définition}
+
+\insertvideo{TKfhcZ7l9Qo}{partie 2. Sous-groupes}
+
+\insertvideo{Y7bvfX10DPs}{partie 3. Morphismes de groupes}
+
+\insertvideo{6wqgx1r1bJA}{partie 4. Le groupe $\Zz/n\Zz$}
+
+\insertvideo{aX-ARKd1aaQ}{partie 5. Le groupe des permutations}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Motivation}
+
+
+\'Evariste Galois a tout juste vingt ans lorsqu'il meurt dans un duel.
+Il restera pourtant comme l'un des plus grands mathématiciens de son temps
+pour avoir introduit la notion de groupe, alors qu'il avait à peine dix-sept
+ans.
+
+Vous savez résoudre les équations de degré $2$ du type
+$ax^2+bx+c=0$. Les solutions s'expriment en fonction de $a,b,c$
+et de la fonction racine carrée $\sqrt{\ \vphantom{2}}$.
+Pour les équations de degré $3$, $ax^3+bx^2+cx+d=0$, il existe
+aussi des formules. Par exemple une solution de $x^3+3x+1=0$
+est $x_0 = \sqrt[3]{\frac{\sqrt 5 - 1}{2}} -  \sqrt[3]{\frac{\sqrt 5 + 1}{2}}$.
+De telles formules existent aussi
+pour les équations de degré $4$.
+
+Un préoccupation majeure au début du
+\textsc{\romannumeral 19}\textsuperscript{e} siècle
+était de savoir s'il existait des formules similaires pour les équations de degré $5$ ou plus.
+La réponse fut apportée par Galois et Abel : non il n'existe pas en général une telle
+ formule. Galois parvient même à dire pour quels polynômes c'est possible
+et pour lesquels ça ne l'est pas.
+Il introduit pour sa démonstration la notion de groupe.
+
+\medskip
+
+Les groupes sont à la base d'autres notions mathématiques comme
+ les anneaux, les corps, les matrices, les espaces vectoriels,...
+Mais vous les retrouvez aussi en arithmétique, en géométrie, en cryptographie !
+
+
+\bigskip
+
+Nous allons introduire dans ce chapitre la notion de groupe,
+puis celle de sous-groupe. On étudiera ensuite les applications entre
+deux groupes : les morphismes de groupes. Finalement nous détaillerons
+deux groupes importants : le groupe $\Zz/n\Zz$ et le groupe des permutations
+$\mathcal{S}_n$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Groupe}
+%---------------------------------------------------------------
+\subsection{Définition}
+
+\begin{definition}
+Un \defi{groupe}\index{groupe} $(G,\star)$ est un ensemble $G$ auquel est associé une opération $\star$
+(la \defi{loi de composition}\index{loi de composition}) vérifiant les quatre propriétés suivantes :
+\begin{enumerate}
+  \item \label{it:groupei} pour tout $x,y \in G$, \quad $x \star y \in G$
+\quad  ($\star$ est une \defi{loi de composition interne})
+
+  \item \label{it:groupeii} pour tout $x,y,z \in G$, \quad $(x \star y) \star z = x \star (y \star z)$
+\quad (la loi est \defi{associative}\index{associativite@associativité})
+
+  \item \label{it:groupeiii} il existe $e \in G$ tel que \quad $\forall x \in G$, $x \star e = x$ \  et \  $e \star x = x$
+\quad ($e$ est l'\defi{élément neutre}\index{element neutre@élément neutre})
+
+  \item \label{it:groupeiv} pour tout $x \in G$ il existe $x' \in G$ tel que \quad  $x \star x' = x' \star x = e$
+\quad ($x'$ est l'\defi{inverse} de $x$ et est noté $x^{-1}$)
+\end{enumerate}
+\end{definition}
+
+\bigskip
+
+Si de plus l'opération vérifie
+$$ \text{pour tout } x,y \in G,\qquad x \star y = y \star x,$$
+on dit que $G$ est un groupe \defi{commutatif}\index{commutatif} (ou \defi{abélien}).
+
+\bigskip
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+  \item L'élément neutre $e$ est unique. En effet si $e'$ vérifie aussi le point (\ref{it:groupeiii}), alors
+on a $e' \star e = e$ (car $e$ est élément neutre) et $e' \star e = e'$ (car $e'$ aussi). Donc $e=e'$.
+Remarquez aussi que l'inverse de l'élément neutre est lui-même.
+S'il y a plusieurs groupes, on pourra noter $e_G$ pour l'élément neutre du groupe $G$.
+
+  \item Un élément $x \in G$ ne possède qu'un seul inverse.
+En effet si $x'$ et $x''$ vérifient tous les deux le point (\ref{it:groupeiv})
+alors on a $x\star x'' = e$ donc $x' \star (x \star x'') = x' \star e$. Par l'associativité (\ref{it:groupeii})
+et la propriété de l'élément neutre  (\ref{it:groupeiii}) alors $(x' \star x) \star x'' = x'$.
+Mais $x'\star x = e$ donc $e \star x''= x'$ et ainsi $x''=x'$.
+\end{itemize}
+\end{remarque*}
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Exemples}
+
+%Voici des ensembles et des opérations bien connus qui ont une structure de groupe.
+
+Voici des ensembles bien connus pour lesquels l'opération donnée définit une structure de groupe.
+
+\begin{itemize}
+  \item $(\Rr^*,\times)$ est un groupe commutatif, $\times$ est la multiplication habituelle.
+Vérifions chacune des propriétés :
+   \begin{enumerate}
+     \item Si $x,y \in \Rr^*$ alors $x \times y \in \Rr^*$.
+     \item Pour tout $x,y,z \in \Rr^*$ alors $x\times (y \times z) = (x \times y) \times z$, c'est l'associativité
+de la multiplication des nombres réels.
+     \item $1$ est l'élément neutre pour la multiplication, en effet $1 \times x = x$ et $x \times 1=x$, ceci
+quelque soit $x \in \Rr^*$.
+     \item L'inverse d'un élément $x \in \Rr^*$ est $x' = \frac{1}{x}$
+(car $x \times \frac{1}{x}$ est bien égal à l'élément neutre $1$). L'inverse de $x$ est donc $x^{-1} = \frac{1}{x}$.
+Notons au passage que nous avions exclu $0$ de notre groupe, car il n'a pas d'inverse.\\
+Ces propriétés font de $(\Rr^*,\times)$ un groupe.
+     \item Enfin $x \times y = y \times x$, c'est la commutativité de la multiplication des réels.
+   \end{enumerate}
+
+
+  \item $(\Qq^*,\times)$, $(\Cc^*, \times)$ sont des groupes commutatifs.
+
+  \item $(\Zz,+)$ est un groupe commutatif. Ici $+$ est l'addition habituelle.
+   \begin{enumerate}
+     \item Si $x,y \in \Zz$ alors $x + y \in \Zz$.
+     \item Pour tout $x,y,z \in \Zz$ alors $x +  (y + z) = (x + y) + z$.
+     \item $0$ est l'élément neutre pour l'addition, en effet $0 + x = x$ et $x + 0=x$, ceci
+quelque soit $x \in \Zz$.
+     \item L'inverse d'un élément $x \in \Zz$ est $x' = -x$
+car $x + (-x) = 0$ est bien l'élément neutre $0$. Quand la loi de groupe est $+$ l'inverse s'appelle
+plus couramment l'\defi{opposé}.
+     \item Enfin $x + y = y + x$, et donc $(\Zz,+)$ est un groupe commutatif.
+   \end{enumerate}
+
+  \item $(\Qq,+)$, $(\Rr,+)$, $(\Cc,+)$ sont des groupes commutatifs.
+
+  \item Soit $\mathcal{R}$ l'ensemble des rotations du plan dont le centre est à l'origine $O$.
+
+\myfigure{1.5}{
+\tikzinput{fig_groupes02}
+}
+
+
+Alors pour deux rotations $R_\theta$ et $R_{\theta'}$ la composée $R_\theta \circ R_{\theta'}$
+est encore une rotation de centre l'origine et d'angle $\theta+\theta'$. Ici $\circ$ est la composition. Ainsi $(\mathcal{R},\circ)$
+forme un groupe (qui est même commutatif). Pour cette loi l'élément neutre est la rotation d'angle $0$ :
+c'est l'identité du plan. L'inverse d'une rotation d'angle $\theta$ est la rotation d'angle $-\theta$.
+
+  \item Si $\mathcal{I}$ désigne l'ensemble des isométries du plan (ce sont les translations, rotations,
+réflexions et leurs composées) alors $(\mathcal{I},\circ)$ est un groupe. Ce groupe n'est pas un groupe commutatif.
+En effet, identifions le plan à $\Rr^2$ et soit par exemple $R$ la rotation de centre $O=(0,0)$ et d'angle $\frac \pi 2$
+et $T$ la translation de vecteur $(1,0)$. Alors les isométries $T \circ R$ et $R \circ T$ sont des applications
+distinctes. Par exemple les images du point $A=(1,1)$ par ces applications sont distinctes :  $T \circ R (1,1) = T (-1,1) = (0,1)$ alors que $R\circ T(1,1) = R(2,1) = (-1,2)$.
+
+
+\myfigure{1}{
+\tikzinput{fig_groupes04}
+\tikzinput{fig_groupes03}
+}
+
+\end{itemize}
+
+\bigskip
+
+Voici deux exemples qui \textbf{ne sont pas} des groupes :
+\begin{itemize}
+  \item $(\Zz^*,\times)$ n'est pas un groupe. Car si $2$ avait un inverse (pour la multiplication $\times$) ce serait
+$\frac 12$ qui n'est pas un entier.
+  \item $(\Nn,+)$ n'est pas un groupe. En effet l'inverse de $3$ (pour l'addition $+$) devrait être $-3$ mais $-3 \notin \Nn$.
+\end{itemize}
+
+\bigskip
+
+Nous étudierons dans les sections \ref{sec:zsurnz} et \ref{sec:sn} deux autres groupes très
+importants : les groupes cycliques $(\Zz/n\Zz,+)$ et les groupes de permutations $(\mathcal{S}_n,\circ)$.
+
+
+%---------------------------------------------------------------
+\subsection{Puissance}
+
+Revenons à un groupe $(G,\star)$. Pour $x \in G$ nous noterons $x \star x$ par $x^2$
+et $x\star x \star x$ par $x^3$. Plus généralement nous noterons :
+\begin{itemize}
+  \item $x^{n} = \underbrace{x\star x \star \cdots \star x}_{n \text{ fois}}$,
+  \item $x^0 = e$,
+  \item $x^{-n} = \underbrace{x^{-1}\star \cdots \star x^{-1}}_{n \text{ fois}}$.
+\end{itemize}
+Rappelez-vous que $x^{-1}$ désigne l'inverse de $x$ dans le groupe.
+
+\bigskip
+
+Les règles de calcul sont les mêmes que pour les puissances des nombres réels.
+Pour $x,y \in G$ et $m,n \in\Zz$ nous avons :
+\begin{itemize}
+  \item $x^m \star x^n = x^{m+n}$,
+  \item $(x^m)^n = x^{mn}$,
+  \item $(x \star y)^{-1} = y^{-1} \star x^{-1}$, \quad attention à l'ordre !
+  \item \textbf{Si} $(G,\star)$ est \textbf{commutatif} alors $(x\star y)^n = x^n \star y^n$.
+\end{itemize}
+
+%---------------------------------------------------------------
+\subsection{Exemple des matrices $2\times 2$}
+
+Une \defi{matrice}\index{matrice} $2\times 2$ est un tableau de $4$ nombres (pour nous des réels)
+noté ainsi :
+$$\begin{pmatrix} a & b \\ c & d \\ \end{pmatrix}.$$
+Nous allons définir l'opération \defi{produit} noté $\times$ de deux matrices
+$M=\left(\begin{smallmatrix} a & b \\ c & d \\ \end{smallmatrix}\right)$ et
+$M'=\left(\begin{smallmatrix} a' & b' \\ c' & d' \\ \end{smallmatrix}\right)$ :
+$$M\times M' = \left(\begin{matrix} a & b \\ c & d \\ \end{matrix}\right) \times
+\left(\begin{matrix} a' & b' \\ c' & d' \\ \end{matrix}\right)
+= \left(\begin{matrix} aa'+bc' & ab' + bd' \\ ca'+dc' & cb'+dd' \\ \end{matrix}\right).$$
+
+
+
+Voici comment présenter les calculs, on place $M$ à gauche,
+$M'$ au dessus de ce qui va être le résultat.
+On calcule un par un, chacun des termes de $M \times M'$.
+
+Pour le premier terme on prend la colonne située au dessus et la ligne
+située à gauche :
+on effectue les produits $a\times a'$ et $b\times c'$ qu'on additionne
+pour obtenir le premier terme du résultat.
+Même chose avec le second terme : on prend la colonne située au dessus, la ligne
+située à gauche, on fait les produit, on additionne : $ab' + bd'$.
+Idem pour les deux autres termes.
+
+  $$
+    \begin{tikzpicture}[node distance=4em, thick]
+       \matrix(M)[matrix of math nodes, left delimiter=(,right delimiter=), font=\small]{
+           aa'+bc' & ab' + bd' \\
+         ca'+dc' &  cb'+dd'  \\
+       };
+       \matrix(A)[left of=M,xshift=-5em,matrix of math nodes, left delimiter=(,right delimiter=)]{
+          a & b\\
+        c & d\\
+       };
+       \matrix(B)[above of=M,matrix of math nodes, left delimiter=(,right delimiter=)]{
+          a' & \qquad & b'\\
+        c' &        & d'\\
+       };
+       \draw (A-1-1.north) edge[myred,bend left=35,<->] node[fill=white,draw,circle,inner sep=0pt](X){$\times$} (B-1-1.west);
+       \draw[myred,dashed,->] (X) -- (M-1-1.155);
+       \draw (A-1-2.north) edge[myred,bend left,<->] node[fill=white,draw,circle,inner sep=0pt]{$\times$} (B-2-1.west);
+    \end{tikzpicture}
+  $$
+
+\bigskip
+
+Par exemple si $M=\left(\begin{smallmatrix} 1 & 1 \\ 0 & -1 \\ \end{smallmatrix}\right)$
+et $M' = \left(\begin{smallmatrix} 1 & 0 \\ 2 & 1 \\ \end{smallmatrix}\right)$
+alors voici comment poser les calculs ($M\times M'$ à gauche, $M'\times M$ à droite)
+$$
+\begin{array}{cc}
+  & \left(\begin{matrix} \ms 1 & \ms 0 \;\\ \ms 2 & \ms 1 \;\\ \end{matrix}\right)\\
+  \left(\begin{matrix} \ms 1 & \ms 1 \;\\ \ms 0 & -1 \;\\ \end{matrix}\right)  &
+  \pause
+  \left(\begin{matrix} \ms 3 & \ms 1 \;\\ -2 & -1 \;\\ \end{matrix}\right)
+\end{array}
+\qquad \qquad \qquad
+\begin{array}{cc}
+  & \left(\begin{matrix} \ms 1 & \ms 1 \;\\ \ms 0 & -1 \;\\ \end{matrix}\right) \\
+  \left(\begin{matrix} \ms 1 & \ms 0 \;\\ \ms 2 & \ms 1 \;\\ \end{matrix}\right) &
+  \pause
+  \left(\begin{matrix} \ms 1 & \ms 1 \;\\ \ms 2 & \ms 1 \;\\ \end{matrix}\right) \\
+\end{array}
+$$
+alors $M\times M' = \left(\begin{smallmatrix} 3 & 1 \\ -2 & -1 \\ \end{smallmatrix}\right)$
+et $M'\times M=  \left(\begin{smallmatrix} 1 & 1 \\ 2 & 1 \\ \end{smallmatrix}\right)$.
+Remarquez qu'en général $M\times M' \neq M'\times M$.
+
+\bigskip
+
+Le \defi{déterminant}\index{determinant@déterminant} d'une matrice $M=\left(\begin{smallmatrix} a & b \\ c & d \\ \end{smallmatrix}\right)$
+est par définition le nombre réel
+$$\det M = ad-bc.$$
+
+\begin{proposition}
+L'ensemble  des matrices $2\times 2$ ayant un déterminant non nul,
+muni de la multiplication des matrices $\times$, forme un groupe non-commutatif.
+\end{proposition}
+
+Ce groupe est noté $(\GL_2,\times)$.
+
+
+\bigskip
+
+Nous aurons besoin d'un résultat préliminaire :
+\begin{lemme}
+\label{lem:det}
+$\det (M\times M') = \det M \cdot \det M'$.
+\end{lemme}
+
+Pour la preuve, il suffit de vérifier le calcul :
+$\big(aa'+bc'  \big) \big( cb'+dd' \big) - \big( ab' + bd' \big) \big( ca'+dc' \big) = (ad-bc)(a'd'-b'c')$.
+
+Revenons à la preuve de la proposition.
+\begin{proof}
+~
+\begin{enumerate}
+  \item Vérifions la loi de composition interne.
+Si $M,M'$ sont des matrices $2\times 2$ alors $M\times M'$ aussi.
+Maintenant si $M$ et $M'$ sont de déterminants non nuls alors $\det (M\times M') = \det M \cdot \det M'$
+est aussi non nul. Donc si $M,M' \in \GL_2$ alors $M\times M' \in \GL_2$.
+
+  \item Pour vérifier que la loi est associative, c'est un peu fastidieux. Pour trois matrices
+$M, M', M''$ quelconques il faut montrer $(M\times M')\times M''=M \times (M'\times M'')$.
+Faites-le pour vérifier que vous maîtrisez le produit de matrices.
+
+  \item Existence de l'élément neutre. La \defi{matrice identité}
+$I = \left(\begin{smallmatrix} 1 & 0 \\ 0 & 1 \\ \end{smallmatrix}\right)$
+est l’élément neutre pour la multiplication des matrices : en effet
+$\left(\begin{smallmatrix} a & b \\ c & d \\ \end{smallmatrix}\right) \times
+\left(\begin{smallmatrix} 1 & 0 \\ 0 & 1 \\ \end{smallmatrix}\right) =
+\left(\begin{smallmatrix} a & b \\ c & d \\ \end{smallmatrix}\right)$
+et
+$\left(\begin{smallmatrix} 1 & 0 \\ 0 & 1 \\ \end{smallmatrix}\right) \times
+\left(\begin{smallmatrix} a & b \\ c & d \\ \end{smallmatrix}\right) =
+\left(\begin{smallmatrix} a & b \\ c & d \\ \end{smallmatrix}\right)$.
+
+  \item Existence de l'inverse. Soit $M=\left(\begin{smallmatrix} a & b \\ c & d \\ \end{smallmatrix}\right)$
+une matrice de déterminant non nul alors
+$M^{-1} = \frac{1}{ad-bc} \left(\begin{smallmatrix} d & -b \\ -c & a\\ \end{smallmatrix}\right)$
+ est l'inverse de $M$ : vérifiez que $M \times M^{-1} = I$ et que $M^{-1} \times M = I$.
+
+  \item Enfin nous avons déjà vu que cette multiplication n'est pas commutative.
+\end{enumerate}
+
+
+\end{proof}
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+
+ \item Montrer que $(\Rr_+^*,\times)$ est un groupe commutatif.
+
+ \item Soit $f_{a,b} : \Rr \to \Rr$ la fonction définie par $x \mapsto ax+b$.
+Montrer que l'ensemble $\mathcal{F}=\{ f_{a,b} \mid a \in \Rr^*, b\in\Rr\}$ muni
+de la composition \og $\circ$ \fg{}  est un groupe non commutatif.
+
+ \item (Plus dur) Soit $G=]-1,1[$. Pour $x,y\in G$ on définit $x\star y = \frac{x+y}{1+xy}$.
+Montrer que $(G,\star)$ forme un groupe en (a) montrant que $\star$ est une loi de composition interne :
+$x\star y \in G$ ; (b) montrant que la loi est associative ; (c) montrant que $0$ est élément neutre ;
+(d) trouvant l'inverse de $x$.
+
+ \setcounter{saveenumi}{\theenumi}
+\end{enumerate}
+
+\bigskip
+
+Soit $(G,\star)$ un groupe quelconque ; $x,y,z$ sont des éléments de $G$.
+\begin{enumerate}
+  \setcounter{enumi}{\thesaveenumi}
+  \item Montrer que si $x\star y = x \star z$ alors $y = z$.
+  \item Que vaut $\big(x^{-1}\big)^{-1}$ ?
+  \item Si $x^n=e$, quel est l'inverse de $x$ ?
+  \setcounter{saveenumi}{\theenumi}
+\end{enumerate}
+
+\bigskip
+
+Matrices :
+\begin{enumerate}
+  \setcounter{enumi}{\thesaveenumi}
+
+  \item Soient
+$M_1= \left(\begin{smallmatrix} 0 & -1 \\ 1 & 0 \\ \end{smallmatrix}\right)$,
+$M_2= \left(\begin{smallmatrix} 1 & 2 \\ 1 & 0 \\ \end{smallmatrix}\right)$,
+$M_3= \left(\begin{smallmatrix} 1 & 2 \\ 3 & 4 \\ \end{smallmatrix}\right)$.
+Vérifier que $M_1 \times (M_2 \times M_3)= (M_1 \times M_2) \times M_3$.
+
+  \item Calculer $(M_1\times M_2)^2$ et $M_1^2 \times M_2^2$. (Rappel : $M^2=M\times M$)
+
+  \item Calculer le déterminant des $M_i$ ainsi que leur inverse.
+
+  \item Montrer que l'ensemble des matrices $2\times 2$ muni de l'addition $+$ définie par
+$\left(\begin{smallmatrix} a & b \\ c & d \\ \end{smallmatrix}\right)
++ \left(\begin{smallmatrix} a' & b' \\ c' & d' \\ \end{smallmatrix}\right)
+= \left(\begin{smallmatrix} a+a' & b+b' \\ c+c' & d+d' \\ \end{smallmatrix}\right)$ forme
+un groupe commutatif.
+
+
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Sous-groupes}
+
+Montrer qu'un ensemble est un groupe à partir de la définition peut être
+assez long. Il existe une autre technique, c'est de montrer qu'un sous-ensemble
+ d'un groupe est lui-même un groupe : c'est la notion de sous-groupe.
+
+%---------------------------------------------------------------
+\subsection{Définition}
+
+
+Soit $(G,\star)$ un groupe.
+\begin{definition}
+Une partie $H \subset G$ est un  \defi{sous-groupe}\index{sous-groupe} de $G$ si :
+\begin{itemize}
+  \item $e \in H$,
+  \item pour tout $x, y \in H$, on a $x \star y \in H$,
+  \item pour tout $x \in H$, on a $x^{-1} \in H$.
+\end{itemize}
+\end{definition}
+
+Notez qu'un sous-groupe $H$ est aussi un groupe $(H,\star)$
+avec la loi induite par celle de $G$.
+
+Par exemple si $x\in H$ alors, pour tout $n\in \Zz$, nous avons
+$x^n \in H$.
+
+\begin{remarque*}
+Un critère pratique et plus rapide pour prouver que $H$ est un sous-groupe de $G$ est:
+\begin{itemize}
+  \item $H$ contient au moins un élément
+  \item pour tout $x,y \in H$, $x \star y^{-1} \in H$.
+\end{itemize}
+\end{remarque*}
+
+
+%---------------------------------------------------------------
+\subsection{Exemples}
+
+
+\begin{itemize}
+  \item $(\Rr^*_+,\times)$ est un sous-groupe de $(\Rr^*,\times)$.
+En effet :
+  \begin{itemize}
+     \item $1 \in \Rr^*_+$,
+     \item si $x,y \in \Rr^*_+$ alors $x\times y \in \Rr^*_+$,
+     \item si $x \in \Rr^*_+$ alors $x^{-1} = \frac 1 x \in \Rr^*_+$.
+   \end{itemize}
+  \item $(\mathbb{U},\times)$ est un sous-groupe de $(\Cc^*,\times)$, où
+$\mathbb{U} = \{ z \in \Cc \mid |z|=1 \}$.
+  \item $(\Zz,+)$ est un sous-groupe de $(\Rr,+)$.
+  \item $\{e\}$ et $G$ sont les \defi{sous-groupes triviaux}\index{sous-groupe!trivial} du groupe $G$.
+  \item L'ensemble $\mathcal{R}$ des rotations du plan dont le centre est à l'origine
+est un sous-groupe du groupe des isométries $\mathcal{I}$.
+  \item L'ensemble des matrices diagonales $\left(\begin{smallmatrix} a & 0 \\ 0 & d \\ \end{smallmatrix}\right)$
+avec $a\neq 0$ et $d\neq 0$ est un sous-groupe de $(\GL_2,\times)$.
+\end{itemize}
+
+
+%---------------------------------------------------------------
+\subsection{Sous-groupes de $\Zz$}
+
+\begin{proposition}
+Les sous-groupes de $(\Zz,+)$ sont les $n\Zz$, pour $n\in \Zz$.
+\end{proposition}
+
+L'ensemble $n\Zz$ désigne l'ensemble des multiples de $n$ :
+$$n\Zz = \bigg\{ k\cdot n \mid  k \in \Zz \bigg\}.$$
+Par exemple:
+\begin{itemize}
+  \item $2\Zz = \{\ldots, -4,-2,0,+2,+4,+6,\ldots\}$ est l'ensemble des entiers pairs,
+  \item $7\Zz =  \{\ldots, -14,-7,0,+7,+14,+21,\ldots\}$ est l'ensemble des multiples de $7$.
+\end{itemize}
+
+\begin{proof}
+
+Fixons $n \in \Zz$. L'ensemble $n\Zz$ est un sous-groupe de $(\Zz,+)$, en effet :
+\begin{itemize}
+ \item $n\Zz \subset \Zz$,
+ \item l'élément neutre $0$ appartient à $n\Zz$,
+ \item pour $x = kn$ et $y=k'n$ des éléments de $n\Zz$ alors $x+y = (k+k')n$ est aussi un
+élément de $n\Zz$,
+ \item enfin si $x=kn$ est un élément de $n\Zz$ alors $-x=(-k)n$ est aussi un élément de $n\Zz$.
+\end{itemize}
+
+
+\bigskip
+
+Réciproquement soit $H$ un sous-groupe de $(\Zz,+)$.
+Si $H=\{0\}$ alors $H = 0\Zz$ et c'est fini. Sinon $H$ contient au moins un élément non-nul et positif (puisque tout élément est accompagné de son opposé) et
+notons
+$$n=\min \big\{ h > 0 \mid h \in H \big\}.$$
+Alors $n>0$.
+Comme $n\in H$ alors $-n \in H$, $2n=n+n \in H$, et plus généralement pour $k \in \Zz$ alors $kn \in H$.
+Ainsi $n\Zz \subset H$. Nous allons maintenant montrer l'inclusion inverse.
+Soit $h \in H$. \'Ecrivons la division euclidienne :
+$$h = kn + r,\qquad \text{avec } k,r \in \Zz  \ \text{ et } \  0 \le r < n.$$
+Mais $h\in H$ et $kn \in H$ donc
+$r= h - kn \in H$. Nous avons un entier $r \ge 0$ qui est un élément de
+$H$ et strictement plus petit que $n$. Par la définition de $n$, nécessairement
+$r=0$. Autrement dit $h=kn$ et donc $h\in n\Zz$.
+Conclusion $H=n\Zz$.
+\end{proof}
+
+
+
+%---------------------------------------------------------------
+\subsection{Sous-groupes engendrés}
+
+
+Soit $(G,\star)$ un groupe et $E \subset G$ un sous-ensemble de $G$.
+Le \defi{sous-groupe engendré}\index{sous-groupe!engendré} par $E$ est le plus petit sous-groupe de
+$G$ contenant $E$.
+
+Par exemple si $E = \{2\}$ et le groupe est $(\Rr^*,\times)$,
+le sous-groupe engendré par $E$ est $H = \{ 2^n \mid n \in \Zz\}$.
+Pour le prouver : il faut montrer que $H$ est un sous-groupe, que
+$2 \in H$, et que si $H'$ est un autre sous-groupe contenant $2$ alors $H \subset H'$.
+
+Autre exemple avec le groupe  $(\Zz,+)$ : si $E_1= \{2\}$ alors le sous-groupe
+engendré par $E_1$ est $H_1 = 2\Zz$.
+Si $E_2 = \{8,12\}$ alors $H_2 = 4\Zz$ et plus généralement
+si $E = \{a,b\}$ alors $H = n\Zz$ où $n=\pgcd(a,b)$.
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Montrer que $\{ 2^{n} \mid n \in \Zz \}$ est un sous-groupe de $(\Rr^*,\times)$.
+  \item Montrer que si $H$ et $H'$ sont deux sous-groupes de $(G,\star)$
+alors $H\cap H'$ est aussi un sous-groupe.
+  \item Montrer que $5\Zz \cup 8\Zz$ n'est \emph{pas} un sous-groupe de $(\Zz,+)$.
+  \item Montrer que l'ensemble des matrices $2\times 2$ de déterminant $1$ ayant leurs coefficients dans $\Zz$
+est un sous-groupe de $(\GL_2,\times)$.
+  \item Trouver le sous-groupe de $(\Zz,+)$ engendré par $\{ -12, 8, 20 \}$.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Morphismes de groupes}
+
+%---------------------------------------------------------------
+\subsection{Définition}
+
+\begin{definition}
+Soient $(G,\star)$ et $(G',\diamond)$ deux groupes. Une application
+$f : G \longrightarrow G'$ est un \defi{morphisme de groupes}\index{morphisme} si :
+\mybox{$\text{pour tout } x,x' \in G  \qquad f(x \star x') = f(x) \diamond f(x')$}
+\end{definition}
+
+
+
+L'exemple que vous connaissez déjà est le suivant :
+soit $G$ le groupe $(\Rr,+)$ et $G'$ le groupe $(\Rr_+^*,\times)$.
+Soit $f : \Rr \longrightarrow \Rr_+^*$ l'application exponentielle définie par
+$f(x)= \exp(x)$. Nous avons bien
+$$f(x+x') =\exp(x+x')= \exp(x) \times \exp(x') = f(x) \times f(x').$$
+Et donc $f$ est bien un morphisme de groupes.
+
+
+%---------------------------------------------------------------
+\subsection{Propriétés}
+
+
+\begin{proposition}
+Soit $f : G \longrightarrow G'$ un morphisme de groupes alors :
+\begin{itemize}
+  \item $f(e_G) = e_{G'}$,
+  \item pour tout $x \in G$, $f(x^{-1}) = \big(f(x)\big)^{-1}$.
+\end{itemize}
+\end{proposition}
+
+
+Il faut faire attention à l'ensemble auquel appartiennent les éléments considérés :
+%où \og habitent \fg{} les objets :
+$e_G$ est l'élément neutre de $G$, $e_{G'}$ celui de $G'$.
+Il n'y a pas de raison qu'ils soient égaux (ils ne sont même pas dans le même
+ensemble).
+Aussi $x^{-1}$ est l'inverse de $x$ dans $G$, alors
+que $\big(f(x)\big)^{-1}$ est l'inverse de $f(x)$ mais dans $G'$.
+
+Reprenons l'exemple de la fonction $f : \Rr \longrightarrow \Rr_+^*$ définie par
+$f(x)= \exp(x)$. Nous avons bien $f(0)=1$ : l'élément neutre de $(\Rr,+)$
+a pour image l'élément neutre de $(\Rr_+^*,\times)$.
+Pour $x\in \Rr$ son inverse dans $(\Rr,+)$ est ici son opposé $-x$,
+alors $f(-x)= \exp(-x)= \frac{1}{\exp(x)}=\frac{1}{f(x)}$ est bien l'inverse (dans $(\Rr_+^*,\times)$)
+de $f(x)$.
+
+\begin{proof}
+~
+\begin{itemize}
+  \item $f(e_G)=f(e_G\star e_G)= f(e_G)\diamond f(e_G)$, en multipliant (à droite par exemple) par
+$f(e_G)^{-1}$ on obtient $e_{G'} = f(e_G)$.
+  \item Soit $x\in G$ alors $x\star x^{-1} = e_G$ donc
+$f(x \star x^{-1}) = f(e_G)$. Cela entraîne $f(x) \diamond f(x^{-1}) = e_{G'}$,
+en composant à gauche par  $\big(f(x)\big)^{-1}$, nous obtenons
+$f(x^{-1}) = \big(f(x)\big)^{-1}$.
+\end{itemize}
+\end{proof}
+
+
+
+\begin{proposition}
+\label{prop:morbij}
+\sauteligne
+\begin{itemize}
+  \item Soient deux morphismes de groupes $f : G \longrightarrow G'$ et $g : G'  \longrightarrow G''$.
+Alors $g \circ f : G \longrightarrow G''$ est un morphisme de groupes.
+  \item Si $f : G \longrightarrow G'$ est un morphisme bijectif alors $f^{-1} : G' \longrightarrow G$
+est aussi un morphisme de groupes.
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+La première partie est facile. Montrons la deuxième :
+Soit $y,y'\in G'$. Comme $f$ est bijective, il existe $x,x'\in G$ tels que $f(x)=y$ et $f(x')=y'$.
+Alors $f^{-1}(y\diamond y') = f^{-1}\big(f(x)\diamond f(x') \big)
+= f^{-1}\big(f(x \star x') \big) = x\star x' = f^{-1}(y)\star f^{-1}(y')$. Et donc $f^{-1}$
+est un morphisme de $G'$ vers $G$.
+\end{proof}
+
+\begin{definition}
+Un morphisme bijectif est un \defi{isomorphisme}\index{isomorphisme}. Deux groupes $G, G'$ sont \defi{isomorphes}
+s'il existe un morphisme bijectif $f : G \longrightarrow G'$.
+\end{definition}
+
+Continuons notre exemple $f(x) = \exp(x)$, $f : \Rr \longrightarrow \Rr_+^*$ est une application bijective.
+Sa bijection réciproque $f^{-1} :  \Rr_+^* \longrightarrow \Rr$ est définie par $f^{-1}(x) = \ln(x)$.
+Par la proposition \ref{prop:morbij} nous savons que $f^{-1}$ est aussi un morphisme
+(de $(\Rr_+^*,\times)$ vers $(\Rr,+)$) donc $f^{-1}(x\times x')=f^{-1}(x) + f^{-1}(x')$.
+Ce qui s'exprime ici par la formule bien connue :
+$$\ln(x \times x') = \ln(x) + \ln(x').$$
+Ainsi $f$ est un isomorphisme et les groupes $(\Rr,+)$ et $(\Rr_+^*,\times)$ sont
+isomorphes.
+
+%---------------------------------------------------------------
+\subsection{Noyau et image}
+
+Soit $f: G \longrightarrow G'$ un morphisme de groupes.
+Nous définissons deux sous-ensembles importants qui vont être des sous-groupes.
+
+
+
+\begin{definition}
+Le \defi{noyau}\index{noyau} de $f$ est
+\mybox{$\Ker f = \big\{ x \in G \mid f(x) = e_{G'} \big\}$}
+\end{definition}
+
+C'est donc un sous-ensemble de $G$.
+En terme d'image réciproque nous avons par définition $\Ker f = f^{-1}\big(\{ e_{G'} \}\big)$.
+(Attention, la notation $f^{-1}$ ici désigne l'image réciproque, et ne signifie pas que $f$ est bijective.)
+Le noyau est donc l'ensemble des éléments de $G$ qui s'envoient
+par $f$ sur l'élément neutre de $G'$.
+
+\begin{definition}
+L'\defi{image}\index{image} de $f$ est
+\mybox{$\Im f = \big\{ f(x)  \mid x \in G \big\}$}
+\end{definition}
+
+C'est donc un sous-ensemble de $G'$ et en terme d'image directe
+nous avons $\Im f = f(G)$.
+Ce sont les éléments de $G'$ qui ont (au moins) un antécédent par $f$.
+
+
+\begin{proposition}
+Soit $f: G \longrightarrow G'$ un morphisme de groupes.
+\begin{enumerate}
+  \item $\Ker f$ est un sous-groupe de $G$.
+  \item $\Im f$ est un sous-groupe de $G'$.
+  \item $f$ est injectif si et seulement si $\Ker f = \{ e_G \}$.
+  \item $f$ est surjectif si et seulement si $\Im f = G'$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+~
+\begin{enumerate}
+  \item Montrons que le noyau est un sous-groupe de $G$.
+   \begin{enumerate}
+     \item $f(e_G)=e_{G'}$ donc $e_G \in \Ker f$.
+     \item Soient $x,x' \in \Ker f$. Alors $f(x\star x') = f(x) \diamond f(x')
+= e_{G'} \diamond e_{G'} = e_{G'}$ et donc $x \star x' \in \Ker f$.
+     \item Soit $x \in \Ker f$. Alors $f(x^{-1}) = f(x)^{-1}=e_{G'}^{-1} = e_{G'}$. Et donc $x^{-1} \in \Ker f$.
+    \end{enumerate}
+
+  \item Montrons que l'image est un sous-groupe de $G'$.
+    \begin{enumerate}
+     \item $f(e_G)=e_{G'}$ donc $e_{G'} \in \Im f$.
+     \item Soient $y,y' \in \Im f$. Il existe alors $x,x' \in G$ tels que $f(x)=y$, $f(x')=y'$.
+Alors $y \diamond y' = f(x)\diamond f(x')=f(x\star x') \in \Im f$.
+     \item Soit $y \in \Im f$ et $x \in G$ tel que $y=f(x)$.
+Alors $y^{-1} = f(x)^{-1} = f(x^{-1}) \in \Im f$.
+    \end{enumerate}
+
+  \item Supposons $f$ injective. Soit $x\in \Ker f$, alors
+$f(x)=e_{G'}$ donc $f(x)=f(e_G)$ et comme $f$ est injective alors $x=e_G$. Donc $\Ker f = \{ e_G \}$.
+Réciproquement supposons $\Ker f = \{ e_G \}$. Soient $x,x' \in G$ tels que $f(x)=f(x')$
+donc $f(x)\diamond \big( f(x') \big)^{-1} = e_{G'}$, d'où $f(x)\diamond f(x'^{-1}) = e_{G'}$ et
+donc $f(x \star x'^{-1}) = e_{G'}$. Ceci implique que $x \star x'^{-1} \in \Ker f$.
+Comme $\Ker f = \{ e_G \}$ alors $x \star x'^{-1} = e_G$ et donc $x=x'$. Ainsi $f$ est injective.
+
+  \item C'est clair !
+\end{enumerate}
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Exemples}
+
+
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+  \item Soit $f : \Zz \longrightarrow \Zz$ définie par $f(k)=3k$.
+$(\Zz,+)$ est considéré comme ensemble de départ et d'arrivée de l'application.
+ Alors $f$ est un morphisme du groupe $(\Zz,+)$ dans lui-même car
+$f(k+k')= 3(k+k')= 3k + 3k'=f(k)+f(k')$. Calculons le noyau : $\Ker f = \{ k \in \Zz \mid f(k)=0\}$.
+Mais si $f(k)=0$ alors $3k=0$ donc $k=0$. Ainsi $\Ker f = \{ 0 \}$ est réduit à l'élément neutre et donc $f$ est injective.
+Calculons maintenant l'image $\Im f = \{ f(k) \mid k \in \Zz \} = \{ 3k \mid k \in\Zz\} = 3\Zz$.
+Nous retrouvons que $3\Zz$ est un sous-groupe de $(\Zz,+)$.
+
+Plus généralement si l'on fixe $n \in \Zz$, $n\neq 0$, et que $f$ est définie par $f(k)=k \cdot n$ alors
+$\Ker f = \{0\}$ et $\Im f = n\Zz$.
+
+  \item Soient les groupes $(\Rr,+)$ et $(\mathbb{U},\times)$ (où $\mathbb{U} = \{ z \in \Cc \mid |z|=1 \}$)
+et $f$ l'application $f : \Rr \longrightarrow \mathbb{U}$ définie par $f(t)=e^{\ii t}$.
+Montrons que $f$ est un morphisme : $f(t+t')=e^{\ii (t+t')}= e^{\ii t} \times e^{\ii t'} = f(t)\times f(t')$.
+Calculons le noyau $\Ker f = \{ t \in \Rr \mid f(t)=1 \}$. Mais si $f(t)=1$ alors $e^{\ii t}= 1$ donc  $t= 0
+\pmod{2\pi}$. D'où $\Ker f = \{ 2k\pi \mid k \in \Zz\} = 2\pi \Zz$. Ainsi $f$ n'est pas injective.
+L'image de $f$ est $\mathbb{U}$ car tout nombre complexe de module $1$ s'écrit sous la forme $f(t)=e^{\ii t}$.
+
+  \item Soient les groupes $(\GL_2,\times)$ et $(\Rr^*,\times)$ et $f : \GL_2 \longrightarrow \Rr^*$ définie par
+$f(M)=\det M$. Alors la formule vue plus haut (lemme \ref{lem:det}) $\det(M\times M')=\det M \times \det M'$ implique que $f$ est un morphisme de groupes.
+Ce morphisme est surjectif, car si $t \in \Rr^*$ alors $\det\left(\begin{smallmatrix} 1 & 0 \\ 0 & t \\ \end{smallmatrix}\right)
+= t$. Ce morphisme n'est pas injectif car par exemple $\det\left(\begin{smallmatrix} 1 & 0 \\ 0 & t \\ \end{smallmatrix}\right)=
+\det\left(\begin{smallmatrix} t & 0 \\ 0 & 1 \\ \end{smallmatrix}\right)$.
+
+
+\end{enumerate}
+\end{exemple}
+
+
+Attention : ne pas confondre les différentes notations avec des puissances $-1$ :
+$x^{-1}$, $f^{-1}$, $f^{-1}\big(\{ e_{G'} \}\big)$ :
+\begin{itemize}
+  \item $x^{-1}$ désigne l'inverse de $x$ dans un groupe $(G,\star)$. Cette notation est cohérente avec la notation usuelle
+si le groupe est $(\Rr^*,\times)$ alors $x^{-1}=\frac 1 x$.
+  \item Pour une application bijective $f^{-1}$ désigne la bijection réciproque.
+  \item Pour une application quelconque $f : E \longrightarrow F$, l'image réciproque d'une partie $B\subset F$ est
+$f^{-1}(B) = \big\{ x \in E \mid f(x) \in B \big\}$, c'est une partie de $E$.
+Pour un morphisme $f$, $\Ker f = f^{-1}\big(\{ e_{G'} \}\big)$ est donc l'ensemble des $x\in G$ tels que leur image
+par $f$ soit $e_{G'}$. Le noyau est défini même si $f$ n'est pas bijective.
+\end{itemize}
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soit $f : (\Zz,+) \longrightarrow (\Qq^*,\times)$ défini par $f(n)=2^n$. Montrer que
+$f$ est un morphisme de groupes. Déterminer le noyau de $f$. $f$ est-elle injective ? surjective ?
+  \item Mêmes questions pour $f : (\Rr,+) \longrightarrow (\mathcal{R},\circ)$, qui à un réel
+$\theta$ associe la rotation d'angle $\theta$ de centre l'origine.
+  \item Soit $(G,\star)$ un groupe et $f : G \longrightarrow G$ l'application définie par
+$f(x)=x^2$. (Rappel : $x^2=x\star x$.) Montrer que si $(G,\star)$ est commutatif alors $f$
+est un morphisme. Montrer ensuite la réciproque.
+  \item Montrer qu'il n'existe pas de morphisme $f : (\Zz,+) \to (\Zz,+)$ tel que $f(2)=3$.
+  \item Montrer que $f, g : (\Rr^*,\times) \to (\Rr^*,\times)$ définis par $f(x)=x^2$,
+$g(x)=x^3$ sont des morphismes de groupes. Calculer leurs images et leurs noyaux respectives.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Le groupe $\Zz/n\Zz$}
+\label{sec:zsurnz}
+
+%---------------------------------------------------------------
+\subsection{L'ensemble et le groupe $\Zz/n\Zz$}
+
+Fixons $n \ge 1$. Rappelons que $\Zz/n\Zz$
+est l'ensemble
+$$\Zz/n\Zz =\left\{ \overline{0}, \overline{1}, \overline{2},\ldots, \overline{n-1} \right\}$$
+où $\overline p$ désigne la classe d'équivalence de $p$ modulo $n$.
+
+Autrement dit
+\mybox{$\overline p = \overline q \Longleftrightarrow p \equiv q \pmod n$}
+ou encore
+$\overline p = \overline q \Longleftrightarrow \exists k \in \Zz \quad p = q + kn$.
+
+
+On définit une \defi{addition} sur $\Zz/n\Zz$ par :
+\mybox{$\overline p + \overline q = \overline{p+q}$}
+
+Par exemple dans $\Zz/60\Zz$, on a $\overline{31} + \overline{46}  = \overline{31 + 46} =\overline{77} = \overline{17}$.
+
+\bigskip
+
+Nous devons montrer que cette addition est bien définie :
+si $\overline{p'}= \overline p$ et $\overline{q'} = \overline q$ alors
+$p' \equiv p \pmod n$, $q' \equiv q \pmod n$ et donc
+$p'+q' \equiv p+q \pmod n$. Donc $\overline{p'+q'} = \overline{p+q}$.
+Donc on a aussi $\overline{p'}+\overline{q'} = \overline p + \overline q$.
+Nous avons montré que l'addition est indépendante du choix des représentants.
+
+\bigskip
+
+%L'exemple de la vie courante est le suivant 
+Voici un exemple de la vie courante : considérons seulement les minutes
+d'une montre ; ces minutes varient de $0$ à $59$. Lorsque l'aiguille passe à $60$,
+elle désigne aussi $0$ (on ne s'occupe pas des heures).
+Ainsi de suite : $61$ s'écrit aussi $1$, $62$ s'écrit aussi $2$,\ldots
+Cela correspond donc à l'ensemble $\Zz/60\Zz$.
+On peut aussi additionner des minutes : $50$ minutes plus $15$ minutes font $65$ minutes qui s'écrivent
+aussi $5$ minutes. Continuons avec l'écriture dans $\Zz/60\Zz$ par exemple :
+$\overline{135}+\overline{50} = \overline{185} = \overline{5}$.
+Remarquez que si l'on écrit d'abord $\overline{135} = \overline{15}$ alors $\overline{135}+\overline{50}
+=\overline{15} +\overline{50} = \overline{65} = \overline{5}$.
+On pourrait même écrire $\overline{50} = -\overline{10}$ et donc
+$\overline{135}+\overline{50} = \overline{15} - \overline{10} = \overline{5}$.
+C'est le fait que l'addition soit bien définie qui justifie que l'on trouve toujours le même résultat.
+
+\begin{proposition}
+$(\Zz/n\Zz,+)$ est un groupe commutatif.
+\end{proposition}
+
+C'est facile. L'élément neutre est $\overline{0}$.
+L'opposé de $\overline k$ est $-\overline{k}=\overline{-k}=\overline{n-k}$.
+L'associativité et la commutativité découlent de celles de $(\Zz,+)$.
+
+%---------------------------------------------------------------
+\subsection{Groupes cycliques de cardinal fini}
+
+\begin{definition}
+Un groupe $(G,\star)$ est un groupe \defi{cyclique}\index{groupe!cyclique} s'il existe un
+élément $a \in G$ tel que :
+$$\text{pour tout } x \in G, \text{ il existe } k \in \Zz \text{ tel que } x = a^k$$
+\end{definition}
+
+Autrement dit le groupe $G$ est engendré par un seul élément $a$.
+
+Le groupe $(\Zz/n\Zz,+)$ est un groupe cyclique. En effet il est engendré par $a=\overline 1$,
+car tout élément $\overline k$ s'écrit $\overline k =
+\underbrace{\overline 1 + \overline 1 + \cdots \overline 1}_{k \text{ fois}} = k\cdot \overline 1$.
+
+Voici un résultat intéressant : il n'existe, à isomorphisme près, qu'un seul groupe
+cyclique à $n$ éléments, c'est $\Zz/n\Zz$ :
+\begin{theoreme}
+\label{prop:cyclique}
+Si $(G,\star)$ un groupe cyclique de cardinal $n$, alors
+$(G,\star)$ est isomorphe à $(\Zz/n\Zz,+)$.
+\end{theoreme}
+
+\begin{proof}
+Comme $G$ est cyclique alors
+$G = \big\{ \ldots, a^{-2},a^{-1},e,a,a^2,a^3,\ldots \big\}$. Dans cette écriture
+il y a de nombreuses redondances (car de toute façon  $G$ n'a que $n$ éléments).
+Nous allons montrer qu'en fait
+$$G = \big\{e, a, a^2, \ldots, a^{n-1}\big\} \quad  \text{ et que } \quad a^n = e.$$
+
+Tout d'abord l'ensemble $\big\{e, a, a^2, \ldots, a^{n-1}\big\}$ est inclus dans $G$. En plus il
+a exactement $n$ éléments. En effet si $a^p=a^q$ avec $0\le q < p \le n-1$ alors
+$a^{p-q}=e$ (avec $p-q>0$) et ainsi $a^{p-q+1}=a^{p-q}\star a = a$, $a^{p-q+2}=a^2$ et alors le groupe $G$
+serait égal à  $\big\{e, a, a^2, \ldots, a^{p-q-1}\big\}$ et n'aurait pas $n$ éléments.
+Ainsi $\big\{e, a, a^2, \ldots, a^{n-1}\big\} \subset G$ et les deux ensembles ont le même
+nombre $n$ d'éléments, donc ils sont égaux.
+
+Montrons maintenant que $a^n=e$. Comme $a^n \in G$ et que $G=\big\{e, a, a^2, \ldots, a^{n-1}\big\}$
+alors il existe $0 \le p \le n-1$ tel que $a^n=a^p$. Encore une fois si $p>0$ cela entraîne  $a^{n-p}=e$
+et donc une contradiction. Ainsi $p=0$ donc $a^n=a^0=e$.
+
+\bigskip
+
+
+Nous pouvons maintenant construire l'isomorphisme entre $(\Zz/n\Zz,+)$ et $(G,\star)$.
+Soit $f : \Zz/n\Zz \longrightarrow G$ l'application définie par
+$f(\overline k) = a^k$.
+\begin{itemize}
+ \item Il faut tout d'abord montrer que $f$ est bien définie car notre définition de $f$ dépend du représentant $k$
+et pas de la classe $\overline k$ :
+ si $\overline{k}=\overline{k'}$ (une même classe définie
+par deux représentants distincts) alors $k \equiv k' \pmod n$ et donc il existe $\ell \in \Zz$
+tel que $k = k' + \ell n$. Ainsi $f(\overline{k}) = a^k = a^{k'+\ell n} = a^{k'} \star a^{\ell n}=
+a^{k'} \star (a^n)^\ell= a^{k'} \star e^\ell = a^{k'} = f(\overline{k'})$. Ainsi $f$ est bien définie.
+
+  \item $f$ est un morphisme de groupes car $f(\overline{k}+\overline{k'})
+= f(\overline{k+k'}) = a^{k+k'}=a^{k} \star a^{k'}= f(\overline k) \star f(\overline{k'})$ (pour tout $\overline{k},
+\overline{k'}$).
+
+  \item Il est clair que $f$ est surjective car tout élément de $G$ s'écrit $a^k$.
+
+  \item Comme l'ensemble de départ et celui d'arrivée ont le même nombre d'éléments
+et que $f$ est surjective alors $f$ est bijective.
+\end{itemize}
+Conclusion : $f$ est un isomorphisme entre $(\Zz/n\Zz,+)$ et $(G,\star)$.
+\end{proof}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Trouver tous les sous-groupes de $(\Zz/12\Zz,+)$.
+
+  \item Montrer que le produit défini par $\overline p \times \overline q = \overline{p\times q}$
+est bien défini sur l'ensemble $\Zz/n\Zz$.
+
+  \item Dans la preuve du théorème \ref{prop:cyclique}, montrer directement que l'application
+$f$ est injective.
+
+  \item Montrer que l'ensemble $\mathbb{U}_n = \big\{ z \in \Cc \mid z^n = 1 \big\}$ est un sous-groupe
+de $(\Cc^*,\times)$. Montrer que $\mathbb{U}_n$ est isomorphe à $\Zz/n\Zz$. Expliciter l'isomorphisme.
+
+
+  \item Montrer que l'ensemble
+$H = \big\{
+\left(\begin{smallmatrix} 1 & 0 \\ 0 & 1 \\ \end{smallmatrix}\right),
+\left(\begin{smallmatrix} 1 & 0 \\ 0 & -1 \\ \end{smallmatrix}\right),
+\left(\begin{smallmatrix} -1 & 0 \\ 0 & 1 \\ \end{smallmatrix}\right),
+\left(\begin{smallmatrix} -1 & 0 \\ 0 & -1 \\ \end{smallmatrix}\right)
+ \big\}$
+est un sous-groupe de $(\GL_2,\times)$
+ayant $4$ éléments. Montrer que $H$ \emph{n'est pas} isomorphe à $\Zz/4\Zz$.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Le groupe des permutations $\mathcal{S}_n$}
+\label{sec:sn}
+
+Fixons un entier $n\ge 2$.
+
+%---------------------------------------------------------------
+\subsection{Groupe des permutations}
+
+\begin{proposition}
+L'ensemble des bijections de $\{1,2,\ldots,n\}$ dans lui-même, muni de la composition
+des fonctions est un groupe, noté $(\mathcal{S}_n,\circ)$.
+\end{proposition}
+
+Une bijection de $\{1,2,\ldots,n\}$ (dans lui-même) s'appelle une \defi{permutation}\index{permutation}.
+Le groupe $(\mathcal{S}_n,\circ)$ s'appelle le \defi{groupe des permutations}
+(ou le \defi{groupe symétrique}).
+
+\begin{proof}
+~
+\begin{enumerate}
+  \item La composition de deux bijections de $\{1,2,\ldots,n\}$ est une bijection de $\{1,2,\ldots,n\}$.
+  \item La loi est associative (par l'associativité de la composition des fonctions).
+  \item L'élément neutre est l'identité.
+  \item L'inverse d'une bijection $f$ est sa bijection réciproque $f^{-1}$.
+\end{enumerate}
+\end{proof}
+
+
+
+Il s'agit d'un autre exemple de groupe ayant un nombre fini d'éléments :
+\begin{lemme}
+Le cardinal de $\mathcal{S}_n$ est $n!$~.
+\end{lemme}
+
+\begin{proof}
+La preuve est simple. Pour l'élément $1$, son image appartient à $\{1,2,\ldots,n\}$ donc nous avons $n$ choix.
+Pour l'image de $2$, il ne reste plus que $n-1$ choix ($1$ et $2$ ne doivent pas avoir la même image car
+notre application est une bijection).
+Ainsi de suite... Pour l'image du dernier élément $n$ il ne reste qu'une possibilité.
+Au final
+il y a $n\times(n-1)\times \cdots \times 2 \times 1 = n!$ façon de construire des bijections
+de  $\{1,2,\ldots,n\}$.
+\end{proof}
+%---------------------------------------------------------------
+\subsection{Notation et exemples}
+
+Décrire une permutation $f : \{1,2,\ldots,n\} \longrightarrow \{1,2,\ldots,n\}$ équivaut à donner
+les images de chaque $i$ allant de $1$ à $n$.
+Nous notons donc $f$ par
+$$\left[\begin{matrix}
+ 1    & 2    & \cdots & n \\
+ f(1) & f(2) & \cdots & f(n) \\
+        \end{matrix}
+ \right]
+$$
+
+Par exemple la permutation de $\mathcal{S}_7$ notée
+  $$
+    \begin{tikzpicture}[thick]
+      \matrix(M)[inner sep=0pt, nodes={inner sep=3pt},matrix of math nodes, left delimiter=[,right delimiter={]}, font=\small]{
+        1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+        3 & 7 & 5 & 4 & 6 & 1 & 2 \\
+      };
+      \draw ([shift={(.8em,.8em)}]M.east) edge[myred,bend left=45,{[scale=.7]|}->] node[right=-2pt,font=\small]{$f$}([shift={(.8em,-.8em)}]M.east);
+    \end{tikzpicture}
+  $$
+est la bijection $f : \{1,2,\ldots,7\} \longrightarrow \{1,2,\ldots,7\}$
+définie par $f(1)= 3$, $f(2)=7$, $f(3)=5$, $f(4)=4$, $f(5)=6$, $f(6)=1$, $f(7)=2$.
+C'est bien une bijection car chaque nombre de $1$ à $7$ apparaît une fois et une seule
+sur la deuxième ligne.
+
+\bigskip
+
+L'élément neutre du groupe est l'identité $\id$ ; pour $\mathcal{S}_7$ c'est donc
+$\left[\begin{smallmatrix}
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+        \end{smallmatrix} \right]
+$.
+
+Il est facile de calculer la composition de deux permutations $f$ et $g$ avec cette notation.
+Si
+$f =\left[\begin{smallmatrix}
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+ 3 & 7 & 5 & 4 & 6 & 1 & 2 \\
+        \end{smallmatrix} \right]
+$
+et
+$g = \left[\begin{smallmatrix}
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+ 4 & 3 & 2 & 1 & 7 & 5 & 6 \\
+        \end{smallmatrix} \right]
+$
+alors $g\circ f$ s'obtient en superposant la permutation $f$ puis $g$
+$$g\circ f
+= \begin{tikzpicture}[thick,baseline={([yshift=-.3em]M.center)}]
+    \matrix(M)[inner sep=0pt, nodes={inner sep=3pt},matrix of math nodes, left delimiter=[,right delimiter={]}, font=\small]{
+      1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+      3 & 7 & 5 & 4 & 6 & 1 & 2 \\
+      2 & 6 & 7 & 1 & 5 & 4 & 3 \\
+    };
+    \draw[myred] (M.east) -- (M.west);
+    \draw ([shift={(1em,1.6em)}]M.east) edge[myred,{[scale=.7]|}->] node[right=-2pt,font=\small]{$f$}([shift={(1em,0em)}]M.east);
+    \draw ([shift={(1em,0em)}]M.east) edge[myred,{[scale=.7]|}->] node[right=-2pt,font=\small]{$g$}([shift={(1em,-1.6em)}]M.east);
+    \draw ([shift={(1.7em,1.6em)}]M.east) edge[myred,bend left=45,{[scale=.7]|}->] node[right=-2pt,font=\small]{$f\circ g$}([shift={(1.7em,-1.6em)}]M.east);
+  \end{tikzpicture}
+ = \left[\begin{matrix}
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+ 2 & 6 & 7 & 1 & 5 & 4 & 3
+        \end{matrix} \right]
+$$
+ensuite on élimine la ligne intermédiaire du milieu et donc $g\circ f$ se note
+$\left[\begin{smallmatrix}
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+ 2 & 6 & 7 & 1 & 5 & 4 & 3
+        \end{smallmatrix} \right]
+$.
+
+Il est tout aussi facile de calculer l'inverse d'une permutation :
+il suffit d'échanger les lignes du haut et du bas et de réordonner le tableau.
+Par exemple l'inverse de
+$$
+  f=
+    \begin{tikzpicture}[thick,baseline=(M.center)]
+      \matrix(M)[inner sep=0pt, nodes={inner sep=3pt},matrix of math nodes, left delimiter=[,right delimiter={]}, font=\small]{
+        1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+        3 & 7 & 5 & 4 & 6 & 1 & 2 \\
+      };
+      \draw ([shift={(.8em,.8em)}]M.east) edge[myred,bend left=45,<-{[scale=.7]|}] node[right=-2pt,font=\small]{$f^{-1}$}([shift={(.8em,-.8em)}]M.east);
+    \end{tikzpicture}
+$$
+se note
+ $f^{-1} = \left[ \begin{smallmatrix}
+ 3 & 7 & 5 & 4 & 6 & 1 & 2 \\
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+        \end{smallmatrix} \right]
+$
+ou plutôt après réordonnement
+ $\left[\begin{smallmatrix}
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+ 6 & 7 & 1 & 4 & 3 & 5 & 2 \\
+        \end{smallmatrix} \right]
+$.
+
+
+%---------------------------------------------------------------
+\subsection{Le groupe $\mathcal{S}_3$}
+
+Nous allons étudier en détails le groupe $\mathcal{S}_3$ des permutations de $\{1,2,3\}$.
+Nous savons que $\mathcal{S}_3$ possède $3!=6$ éléments que nous énumérons :
+\begin{itemize}
+ \item $\id = \left[\begin{smallmatrix}
+ 1 & 2 & 3 \\
+ 1 & 2 & 3 \\
+        \end{smallmatrix} \right]
+$ l'identité,
+
+ \item $\tau_1 = \left[\begin{smallmatrix}
+ 1 & 2 & 3 \\
+ 1 & 3 & 2 \\
+        \end{smallmatrix} \right]
+$ une transposition,
+
+ \item $\tau_2 = \left[\begin{smallmatrix}
+ 1 & 2 & 3 \\
+ 3 & 2 & 1 \\
+        \end{smallmatrix} \right]
+$ une deuxième transposition,
+
+ \item $\tau_3 = \left[\begin{smallmatrix}
+ 1 & 2 & 3 \\
+ 2 & 1 & 3 \\
+        \end{smallmatrix} \right]
+$ une troisième transposition,
+
+ \item $\sigma = \left[\begin{smallmatrix}
+ 1 & 2 & 3 \\
+ 2 & 3 & 1 \\
+        \end{smallmatrix} \right]
+$ un cycle,
+
+
+ \item $\sigma^{-1} = \left[\begin{smallmatrix}
+ 1 & 2 & 3 \\
+ 3 & 1 & 2 \\
+        \end{smallmatrix} \right]
+$ l'inverse du cycle précédent.
+\end{itemize}
+
+Donc $\mathcal{S}_3 = \big\{\id,\tau_1,\tau_2,\tau_3,\sigma,\sigma^{-1}\big\}$.
+
+
+\bigskip
+
+Calculons $\tau_1 \circ \sigma$ et $\sigma \circ \tau_1$ :
+$$\tau_1 \circ \sigma
+=\left[\begin{smallmatrix}
+ 1 & 2 & 3 \\
+ 2 & 3 & 1 \\
+ 3 & 2 & 1 \\
+        \end{smallmatrix} \right]
+= \left[\begin{smallmatrix}
+ 1 & 2 & 3 \\
+ 3 & 2 & 1 \\
+        \end{smallmatrix} \right]
+= \tau_2
+\quad \text{et} \quad
+\sigma \circ \tau_1
+= \left[\begin{smallmatrix}
+ 1 & 2 & 3 \\
+ 1 & 3 & 2 \\
+ 2 & 1 & 3 \\
+        \end{smallmatrix} \right]
+= \left[\begin{smallmatrix}
+ 1 & 2 & 3 \\
+ 2 & 1 & 3 \\
+        \end{smallmatrix} \right]
+= \tau_3.
+ $$
+
+Ainsi $\tau_1 \circ \sigma = \tau_2$ est différent de $\sigma \circ \tau_1=\tau_3$,
+ainsi le groupe $\mathcal{S}_3$ n'est pas commutatif. Et plus généralement :
+\begin{lemme}
+Pour $n\ge 3$, le groupe $\mathcal{S}_n$ n'est pas commutatif.
+\end{lemme}
+
+
+
+\bigskip
+
+Nous pouvons calculer la table du groupe $\mathcal{S}_3$
+\begin{figure}[H]
+\centering
+\begin{tabular}{c||c|c|c|c|c|c}
+\textcolor{green}{$g$} $\circ$ \textcolor{blue}{$f$}  & \textcolor{blue}{$\id$} & \textcolor{blue}{$\tau_1$}
+ & \textcolor{blue}{$\tau_2$} & \textcolor{blue}{$\tau_3$}
+&  \textcolor{blue}{$\sigma$} & \textcolor{blue}{$\sigma^{-1}$} \\ \hline\hline
+
+\textcolor{green}{$\id$} & $\id$ & $\tau_1$ & $\tau_2$ & $\tau_3$ & $\sigma$ & $\sigma^{-1}$ \\ \hline
+
+\textcolor{green}{$\tau_1$} & $\tau_1$ & $\id$ & $\sigma$ & $\sigma^{-1}$ & \textcolor{red}{$\tau_1 \circ \sigma = \tau_2$} & $\tau_3$ \\ \hline
+
+\textcolor{green}{$\tau_2$} & $\tau_2$  & $\sigma^{-1}$ & $\id$ & $\sigma$ & $\tau_3$ & $\tau_1$ \\ \hline
+
+\textcolor{green}{$\tau_3$} & $\tau_3$ & $\sigma$ & $\sigma^{-1}$ & $\id$ & $\tau_1$ & $\tau_2$ \\ \hline
+
+\textcolor{green}{$\sigma$} & $\sigma$ & \textcolor{orange}{$\sigma \circ \tau_1=\tau_3$} & $\tau_1$ & $\tau_2$ & $\sigma^{-1}$ & $\id$ \\ \hline
+
+\textcolor{green}{$\sigma^{-1}$} & $\sigma^{-1}$ & $\tau_2$ & $\tau_3$ & $\tau_1$ & id & $\sigma$ \\
+\end{tabular}
+\caption{Table du groupe $\mathcal{S}_3$}
+\end{figure}
+
+Comment avons-nous rempli cette table ? Nous avons déjà calculé
+\textcolor{red}{$\tau_1 \circ \sigma = \tau_2$} et
+\textcolor{orange}{$\sigma \circ \tau_1=\tau_3$}.
+Comme $f\circ \id = f$ et $\id \circ f = f$ il est facile de remplir la première colonne noire
+ainsi que la première ligne noire. Ensuite il faut faire les calculs !
+
+On retrouve ainsi que $\mathcal{S}_3 = \big\{\id,\tau_1,\tau_2,\tau_3,\sigma,\sigma^{-1}\big\}$ est un groupe :
+en particulier la composition de deux permutations de la liste reste une permutation de la liste.
+On lit aussi sur la table l'inverse de chaque élément, par exemple sur la ligne de $\tau_2$
+on cherche à quelle colonne on trouve l'identité, c'est la colonne de $\tau_2$. Donc l'inverse de $\tau_2$
+est lui-même.
+
+
+%---------------------------------------------------------------
+\subsection{Groupe des isométries du triangle}
+
+Soit $(ABC)$ un triangle équilatéral.
+Considérons l'ensemble des isométries du plan qui préservent le triangle, c'est-à-dire
+que l'on cherche toutes les isométries $f$ telles que $f(A) \in \{A,B,C\}$,
+$f(B) \in \{A,B,C\}$, $f(C) \in \{A,B,C\}$.
+On trouve les isométries suivantes :
+l'identité $\id$, les réflexions $t_1, t_2, t_3$ d'axes $\mathcal{D}_1, \mathcal{D}_2,\mathcal{D}_3$,
+la rotation $s$ d'angle $\frac{2\pi}{3}$ et la rotation $s^{-1}$ d'angle $-\frac{2\pi}{3}$
+(de centre $O$).
+
+
+\myfigure{1.5}{
+\tikzinput{fig_groupes01}
+}
+
+\begin{proposition}
+L'ensemble des  isométries d'un triangle équilatéral, muni de la composition, forme un groupe.
+Ce groupe est isomorphe à $(\mathcal{S}_3,\circ)$.
+\end{proposition}
+
+L'isomorphisme est juste l'application qui à $t_i$ associe $\tau_i$,
+à $s$ associe $\sigma$ et à $s^{-1}$ associe $\sigma^{-1}$.
+
+
+%---------------------------------------------------------------
+\subsection{Décomposition en cycles}
+
+\begin{itemize}
+  \item Nous allons définir ce qu'est un \defi{cycle}\index{cycle} :
+c'est une permutation $\sigma$ qui fixe un certain nombre d'éléments ($\sigma(i)=i$)
+et dont les éléments non fixés sont obtenus par itération : $j, \sigma(j),\sigma^2(j),\ldots$
+C'est plus facile à comprendre sur un exemple :
+$$
+\sigma = \left[\begin{matrix}
+ 1 & \mathbf{2} & 3 & \mathbf{4} & \mathbf{5} & 6 & 7 & \mathbf{8} \\
+ 1 & \mathbf{8} & 3 & \mathbf{5} & \mathbf{2} & 6 & 7 & \mathbf{4} \\
+ \end{matrix} \right]
+$$
+est un cycle : les éléments $1, 3, 6, 7$ sont fixes,
+les autres s'obtiennent comme itération de $2$ :
+$2 \mapsto \sigma(2)=8 \mapsto \sigma(8)=\sigma^2(2)=4 \mapsto \sigma(4)=\sigma^3(2) =  5$,
+ensuite on retrouve $\sigma^4(2)=\sigma(5)=2$.
+
+
+  \item Nous noterons ce cycle par
+    $$
+      \begin{tikzpicture}
+        \matrix(M)[matrix of math nodes, left delimiter=(,right delimiter=), inner sep=1pt, column sep=1em]
+          {2 & 8 & 4 & 5\\};
+        \path[thick,myred]
+          foreach \i [evaluate={\j=int(\i+1)}] in {1,2,3}{
+            (M-1-\i.280) edge[bend right,->] (M-1-\j.255)}
+          (M-1-4.north west) edge[bend right=20,->] (M-1-1.north east);
+      \end{tikzpicture}
+    $$
+
+Il faut comprendre cette notation ainsi : l'image de $2$ est $8$,
+l'image de $8$ est $4$, l'image de $4$ est $5$, l'image de $5$ est $2$.
+Les éléments qui n'apparaissent pas (ici $1, 3, 6, 7$) sont fixes.
+On aurait pu aussi noter ce même cycle par : $(8\ 4\ 5\ 2)$, $(4\ 5\ 2\ 8)$ ou $(5\ 2\ 8\ 4)$.
+
+  \item Pour calculer l'inverse on renverse les nombres : l'inverse de $\sigma = (2\ 8\ 4\ 5)$ est
+$\sigma^{-1}=(5\ 4\ 8\ 2)$.
+
+  \item Le \defi{support}\index{support} d'un cycle sont les éléments qui ne sont pas fixes : le support de $\sigma$ est $\{2, 4, 5, 8\}$.
+La \defi{longueur} (ou l'\defi{ordre}) d'un cycle est le nombre d'éléments qui ne sont pas fixes
+(c'est donc le cardinal du support).
+Par exemple $(2\ 8\ 4\ 5)$ est un cycle de longueur $4$.
+
+  \item Autres exemples :
+$
+\sigma = \left[\begin{smallmatrix}
+ 1 & 2 & 3 \\
+ 2 & 3 & 1 \\
+        \end{smallmatrix} \right]
+= (1\ 2\ 3)$ est un cycle de longueur $3$ ;
+$
+\tau = \left[\begin{smallmatrix}
+ 1 & 2 & 3 & 4 \\
+ 1 & 4 & 3 & 2 \\
+        \end{smallmatrix} \right]
+= (2\ 4)$ est un cycle de longueur $2$, aussi appelé une \defi{transposition}\index{transposition}.
+
+  \item Par contre
+$f =\left[\begin{smallmatrix}
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+ 7 & 2 & 5 & 4 & 6 & 3 & 1 \\
+        \end{smallmatrix} \right]
+$ n'est pas un cycle ; il s'écrit comme la composition de deux cycles
+$f = (1\ 7) \circ (3\ 5\ 6)$. Comme les supports de $(1\ 7)$ et $(3\ 5\ 6)$ sont disjoints
+alors on a aussi $f = (3\ 5\ 6) \circ (1\ 7)$.
+
+\end{itemize}
+
+
+\medskip
+
+Ce dernier point fait partie d'un résultat plus général que nous admettons :
+\begin{theoreme}
+Toute permutation de $\mathcal{S}_n$ se décompose en composition
+de cycles à supports disjoints.
+De plus cette décomposition est unique.
+\end{theoreme}
+
+Pour l'unicité il faut comprendre : unique à l'écriture de chaque cycle près
+(exemple : $(3\ 5\ 6)$ et $(5\ 6\ 3)$ sont le même cycle)
+et à l'ordre près (exemple : $(1\ 7) \circ (3\ 5\ 6)= (3\ 5\ 6) \circ (1\ 7)$).
+
+
+Exemple :
+la décomposition de $
+f = \left[\begin{smallmatrix}
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+ 5 & 2 & 1 & 8 & 3 & 7 & 6 & 4 \\
+        \end{smallmatrix} \right]
+$
+en composition de cycle à supports
+disjoints est $(1\ 5\ 3) \circ (4\ 8) \circ (6\ 7)$.
+
+\bigskip
+
+Attention, si les supports ne sont pas disjoints alors cela ne commute plus :
+par exemple $g = (1\ 2)\circ(2\ 3\ 4)$ n'est pas égale à $h=(2\ 3\ 4)\circ(1\ 2)$.
+En effet l'écriture de $g$ en produit de cycle à support disjoint est
+$g = (1\ 2)\circ(2\ 3\ 4) =
+\left[\begin{smallmatrix}
+ 1 & 2 & 3 & 4 \\
+ 1 & 3 & 4 & 2 \\
+ 2 & 3 & 4 & 1 \\
+\end{smallmatrix} \right] =
+\left[\begin{smallmatrix}
+ 1 & 2 & 3 & 4 \\
+ 2 & 3 & 4 & 1 \\
+\end{smallmatrix} \right] =
+(1\ 2\ 3\ 4)$
+alors que celle de $h$ est
+$h = (2\ 3\ 4)\circ(1\ 2) =
+\left[\begin{smallmatrix}
+ 1 & 2 & 3 & 4 \\
+ 3 & 1 & 4 & 2 \\
+\end{smallmatrix} \right]
+= (1\ 3\ 4\ 2)$.
+
+
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soient $f$ définie par $f(1)=2$, $f(2)=3$, $f(3)=4$, $f(4)=5$, $f(5)=1$
+et $g$ définie par $g(1)=2$, $g(2)=1$, $g(3)=4$, $g(4)=3$, $g(5)=5$. \'Ecrire les permutations
+$f$, $g$, $f^{-1}$, $g^{-1}$, $g\circ f$, $f\circ g$, $f^2$, $g^2$, $(g\circ f)^2$.
+  \item \'Enumérer toutes les permutations de $\mathcal{S}_4$ qui n'ont pas d'éléments fixes.
+Les écrire ensuite sous forme de compositions de cycles à supports disjoints.
+  \item Trouver les isométries directes préservant un carré. Dresser la table des compositions
+et montrer qu'elles forment un groupe. Montrer que ce groupe est isomorphe à $\Zz/4\Zz$.
+  \item Montrer qu'il existe un sous-groupe de $\mathcal{S}_3$ isomorphe à $\Zz/2\Zz$.
+Même question avec $\Zz/3\Zz$. Est-ce que $\mathcal{S}_3$ et $\Zz/6\Zz$ sont isomorphes ?
+  \item Décomposer la permutation suivante en produit de cycles à supports disjoints :
+$f=
+\left[\begin{smallmatrix}
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+ 5 & 7 & 2 & 6 & 1 & 4 & 3 \\
+\end{smallmatrix} \right]
+$.
+Calculer $f^2$, $f^3$, $f^4$ puis $f^{20xx}$ où $20xx$ est l'année en cours. Mêmes questions avec
+$g=
+\left[\begin{smallmatrix}
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
+ 3 & 8 & 9 & 6 & 5 & 2 & 4 & 7 & 1\\
+\end{smallmatrix} \right]$ et
+$h = (2 5)(1 2 4 3)(1 2)$.
+\end{enumerate}
+\end{miniexercices}
+
+
+\auteurs{
+Arnaud Bodin,
+Benjamin Boutin,
+Pascal Romon
+}
+
+
+\finchapitre
+\end{document}
+
+

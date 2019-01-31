@@ -1,0 +1,344 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={0,45,179}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+
+
+\title{{\bf Intégrales}}
+\subtitle{Primitive d'une fonction}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition
+    \item<4-> Primitives des fonctions usuelles
+    \item<5-> Relation primitive-intégrale
+    \item<6-> Sommes de Riemann
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+%---------------------------------------------------------------
+\section*{Définition}
+
+
+\begin{frame}
+
+\begin{mydefinition}
+Soit $f:I \to \Rr$ une fonction définie sur un intervalle $I$ \\
+$F : I \to \Rr$ est une \defi{primitive} de $f$ si \\
+$F$ est dérivable et $F'(x)=f(x)$ pour tout $x \in I$  
+\end{mydefinition}
+
+\pause
+
+\begin{exemple}
+\begin{enumerate}
+\item 
+   \begin{itemize}
+     \item Soit $f: \Rr \to \Rr$, $f(x) = x^2$
+\pause
+     \item Alors $F: \Rr \to \Rr$ définie par $F(x) = \frac{x^3}{3}$ est une primitive de $f$
+\pause
+     \item Et $F(x)= \frac{x^3}{3}+1$ est aussi une primitive de $f$
+   \end{itemize}
+\pause
+\item 
+   \begin{itemize}
+     \item Soit $g : [0,+\infty[ \to \Rr$, $g(x)=\sqrt x$
+\pause
+     \item $G : [0,+\infty[ \to\Rr$ définie par $G(x)=\frac{2}{3} x^{\frac{3}{2}}$
+est une primitive de $g$
+\pause
+     \item Pour tout $c\in \Rr$, la fonction $G+c$ est aussi une primitive de $g$
+   \end{itemize}
+\end{enumerate}  
+\end{exemple}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+
+\begin{proposition}
+Si $F$ est une primitive de $f$ alors
+toute primitive de $f$ s'écrit \\
+\hfil\hfil $G=F+c$ \quad où $c\in \Rr$
+\end{proposition}
+
+\pause
+
+\begin{proof}
+\begin{itemize}
+  \item Si $G(x)=F(x)+c$ alors $G'(x)=F'(x)$, \pause donc $G'(x)=f(x)$\\ \pause
+ainsi $G$ est bien une primitive de $f$
+\pause
+  \item Si $G$ est une primitive quelconque de $f$ alors  \\
+\hfil \hfil $(G-F)'(x)\pause=G'(x)-F'(x)\pause=f(x)-f(x)=0$ \\
+\pause donc $G-F$ est une fonction constante. \pause Il existe $c\in \Rr$ tel que $(G-F)(x)=c$.
+Ainsi $G(x)=F(x)+c$
+\end{itemize}
+\vspace*{-2ex}
+\end{proof}
+
+\pause
+\textbf{Notations} $\int f(t) \; dt$ désigne une primitive
+
+\pause
+\begin{itemize}
+  \item Autres notations : $\int f(x) \; dx$,  $\int f(u) \; du$, $\int f$
+\pause
+  \item Si $F$ est une primitive de $f$ alors $F=\int f(t) \; dt + c$
+\pause
+  \item $\int f(t)\;dt$ est une fonction de $I$ dans $\Rr$
+\pause
+  \item $\int_a^b f(t) \; dt$ désigne un nombre réel
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\begin{proposition}
+Soient $F$ une primitive de $f$ et $G$ une primitive de $g$ et $\lambda \in \Rr$
+\begin{itemize}
+  \item $F+G$ est une primitive de $f+g$
+\pause
+  \item $\lambda F$ est une primitive de $\lambda f$
+\end{itemize}
+\end{proposition}
+  
+\bigskip
+\pause
+
+
+\mybox{$\displaystyle\int\big(\lambda f(t)+ \mu g(t)\big) \; dt=\lambda \int f(t) \; dt+\mu \int g(t)\; dt$}
+\end{frame}
+
+
+
+
+
+%---------------------------------------------------------------
+\section*{Primitives des fonctions usuelles}
+
+
+\begin{frame}
+\begin{center}
+%\noindent
+\setlength{\arrayrulewidth}{0.05mm}
+\begin{tabular}{c@{\vrule depth 3ex height 4ex width 0mm \ }}  
+\hline
+   $\int e^x \; dx  = e^x + c$  \quad sur $\Rr$ \\ \hline
+\pause
+   $\int \cos x \; dx  = \sin x  + c$  \quad sur $\Rr$ \\ \hline
+\pause
+   $\int \sin x \; dx  = -\cos x  + c$  \quad sur $\Rr$ \\ \hline
+\pause
+   $\int x^n \; dx = \frac{x^{n+1}}{n+1} + c$  \quad ($n \in \Nn$)  \quad sur $\Rr$ \\ \hline
+\pause
+   $\int x^\alpha \; dx = \frac{x^{\alpha+1}}{\alpha+1} + c$  \quad ($\alpha \in \Rr\setminus\{-1\}$)  sur $]0,+\infty[$\\ \hline
+\pause
+   $\int \frac 1x \; dx  = \ln |x|  + c$  \quad sur $]0,+\infty[$ ou $]-\infty,0[$ \\ \hline
+\end{tabular} 
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{center}
+\begin{tabular}{c@{\vrule depth 3ex height 4ex width 0mm \ }} 
+\hline
+ $\int\sh x \; dx=\ch x+c$ \quad  $\int \ch x \; dx=\sh x+c$ \quad sur $\Rr$ \\ \hline
+\pause
+   $\int \frac{dx}{1+x^2}= \arctan x+c$ \quad sur $\Rr$ \\ \hline
+\pause
+   $\int\frac{dx}{\sqrt{1-x^2}} = \left\{ \begin{array}{l}
+   \arcsin x + c \\ \frac\pi2-\arccos x +c \end{array} \right.$ \quad  sur $]-1,1[$ \\ \hline
+\pause
+   $\int \frac{dx}{\sqrt {x^2+1}}=  \left\{ \begin{array}{l} \mbox{argsh} x+c \\
+   \ln\big(x+\sqrt{x^2+1}\big)+c  \end{array} \right.$ \quad sur $\Rr$ \\ \hline
+\pause
+   $\int \frac{dx}{\sqrt {x^2-1}} = \left\{ \begin{array}{l} \mbox{argch} x+c \\ 
+   \ln\big(x+\sqrt{x^2-1}\big)+c \end{array} \right.$ \quad sur $x\in ]1,+ \infty[$\\ \hline
+\end{tabular} 
+\end{center}
+
+\end{frame}
+
+
+
+
+%---------------------------------------------------------------
+\section*{Relation primitive-intégrale}
+
+
+\begin{frame}
+\begin{theoreme}
+Soit $f : [a,b] \to \Rr$ continue. Alors $F:I \to \Rr$ définie par
+\vspace*{-0.7ex}
+\mybox{$\displaystyle F(x)=\int_a^x f(t) \; dt$}
+\vspace*{-0.7ex}
+est une primitive de $f$, c'est-à-dire $F$ est dérivable et $F'(x)=f(x)$
+
+\pause
+
+Ainsi pour une primitive $F$ quelconque de $f$ :
+\vspace*{-0.7ex}
+\mybox{$\displaystyle \int_a^b f(t) \; dt = F(b)-F(a)$}
+\end{theoreme}
+
+\pause
+
+\textbf{Notation.}  $\big[F(x)\big]_a^b=F(b)-F(a)$
+
+\pause
+
+\begin{itemize}
+  \item $F(x)=\int_a^x f(t) \; dt$ est \evidence{l'unique primitive de $f$ qui s'annule en $a$}
+
+\pause
+
+  \item Si $F$ est de classe $\mathcal{C}^1$ alors \myboxinline{$\int_a^b F'(t) \; dt = F(b)-F(a)$}
+\end{itemize}  
+\end{frame}
+
+
+
+\begin{frame}
+\begin{exemple}
+
+\begin{enumerate}
+  \item $f(x)=e^x$,\quad \pause $F(x)=e^x$,\quad \pause $\int_0^1 e^x \; dx =  \big[e^x\big]_0^1=e^1-e^0=e-1$
+\pause
+\medskip
+
+  \item $g(x)=x^2$,\quad \pause $G(x)=\frac{x^3}{3}$,\quad \pause $\int_0^1 x^2 \; dx =  \big[\tfrac{x^3}{3}\big]_0^1=\tfrac{1}{3}$
+\pause
+\medskip
+
+  \item $\int_a^x \cos t \; dt \pause= \big[ \sin t\big]_{t=a}^{t=x} = \sin x - \sin a$
+\pause
+\medskip
+
+  \item Si $f$ est impaire alors ses primitives sont paires. \pause Et $\int_{-a}^a f(t)  \; dt = 0$
+\end{enumerate}
+\end{exemple}
+
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section*{Sommes de Riemann}
+
+
+\begin{frame}
+
+\begin{theoreme}[Somme de Riemann]
+\ 
+\mybox{$\displaystyle S_n = \tfrac{b-a}{n} \sum_{k=1}^{n} f\big(a+k\tfrac{b-a}{n} \big) 
+\qquad \xrightarrow[n\to+\infty]{} \qquad \int_a^b f(x) \; dx$}
+\end{theoreme}
+
+
+\pause
+\bigskip 
+
+\begin{minipage}{0.6\textwidth}
+\vspace*{0.8cm}
+Cas fréquent :  $a=0$, $b=1$ 
+$$S_n = \tfrac{1}{n} \sum_{k=1}^{n} f\big(\tfrac kn \big) 
+\quad \xrightarrow[n\to+\infty]{} \quad \int_0^1 f(x) \; dx$$  
+
+\end{minipage}
+\begin{minipage}{0.39\textwidth}
+\myfigure{0.9}{
+\tikzinput{fig_int10} 
+}   
+\end{minipage}
+
+ 
+\end{frame}
+
+
+
+\begin{frame}
+\begin{exemple}
+Calculer la limite de $S_n= \sum_{k=1}^{n} \frac1{n+k}$
+
+\pause
+\begin{itemize}
+  \item $S_1=\frac12$, \pause $S_2=\frac13+\frac14$, \pause  $S_3=\frac14+\frac15+\frac16$, \pause
+$S_4=\frac15+\frac16+\frac17+\frac18$, \ldots
+\pause
+\smallskip
+  \item $S_n = \frac{1}{n}  \sum_{k=1}^{n} \frac1{1+\frac kn}$
+\pause
+\smallskip
+  \item  $S_n$ est une somme de Riemann pour $f(x)=\frac{1}{1+x}$, $a=0$ et $b=1$
+\pause
+\smallskip
+  \item $\displaystyle S_n=\tfrac{1}{n} \sum_{k=1}^{n} \frac1{1+\frac kn}=\tfrac{1}{n} \sum_{k=1}^{n} f\big(\tfrac kn\big)\pause
+\xrightarrow[n\to+\infty]{} \int_a^b f(x) \; dx $
+\pause
+\smallskip
+  \item $\int_a^b f(x) \; dx =\int_0^1 \frac{1}{1+x} \; dx \pause =\big[\ln|1+x|\big]_0^1 = \ln 2-\ln 1 = \ln 2$
+\pause
+\smallskip
+  \item $S_n\xrightarrow[n\to+\infty]{} \ln 2$
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Mini-exercices}
+
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Trouver les primitives des fonctions : $x^3-x^7$, $\cos x+\exp x$, $\sin(2x)$, $1+\sqrt{x}+x$, 
+$\frac{1}{\sqrt x}$, $\sqrt[3]{x}$, $\frac{1}{x+1}$.
+  \item Trouver les primitives des fonctions : $\ch (x)-\sh (\frac{x}{2})$, $\frac{1}{1+4x^2}$,
+$\frac{1}{\sqrt {1+x^2}} - \frac{1}{\sqrt {1-x^2}}$.
+  \item Trouver une primitive de $x^2e^x$ sous la forme $(a x^2+b x+c)e^x$.
+  \item Trouver toutes les primitives de $x\mapsto \frac{1}{x^2}$ (préciser les intervalles et les constantes).
+  \item Calculer les intégrales $\int_0^1 x^n \; dx$, $\int_0^{\frac\pi4} \frac{dx}{1+x^2}$, 
+$\int_1^e \frac{1-x}{x^2}\; dx$, $\int_0^{\frac12} \frac{dx}{x^2-1}$.
+  \item Calculer la limite (lorsque $n\to+\infty$) de la somme
+$S_n = \sum_{k=0}^n \frac{e^{k/n}}{n}$. Idem avec $S'_n = \sum_{k=0}^n \frac{n}{(n+k)^2}$.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+\end{document}

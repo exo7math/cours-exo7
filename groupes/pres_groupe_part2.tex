@@ -1,0 +1,248 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={0,153,0}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcommand{\GL}{\mathcal{G}\ell}
+\newcounter{saveenumi}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+
+
+\title{{\bf Groupes}}
+\subtitle{Sous-groupes}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition
+    \item<4-> Exemples
+    \item<5-> Sous-groupes de $\Zz$
+    \item<6-> Sous-groupes engendrés
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%---------------------------------------------------------------
+\section{Définition}
+
+\begin{frame}
+
+
+Soit $(G,\star)$ un groupe
+\begin{mydefinition}
+Une partie $H \subset G$ est un  \defi{sous-groupe} de $G$ si 
+\begin{itemize}
+
+\pause
+  \item $e \in H$
+\pause
+  \item pour tout $x, y \in H$, on a $x \star y \in H$ 
+\pause
+  \item pour tout $x \in H$, on a $x^{-1} \in H$
+\end{itemize}
+\end{mydefinition}
+
+\pause
+\bigskip
+
+\begin{remarque}
+Le sous-groupe $H$ est aussi un groupe $(H,\star)$ 
+\end{remarque}
+
+
+\end{frame}
+
+
+
+
+%---------------------------------------------------------------
+\section{Exemples}
+
+\begin{frame}
+\begin{itemize}
+  \item $(\Rr^*_+,\times)$ est un sous-groupe de $(\Rr^*,\times)$
+\pause
+  \begin{itemize}
+     \item $1 \in \Rr^*_+$ \pause
+     \item si $x,y \in \Rr^*_+$ alors $x\times y \in \Rr^*_+$ \pause
+     \item si $x \in \Rr^*_+$ alors $x^{-1} = \frac 1 x \in \Rr^*_+$
+   \end{itemize}
+\pause
+  \item $(\mathbb{U},\times)$ est un sous-groupe de $(\Cc^*,\times)$ où 
+$\mathbb{U} = \{ z \in \Cc \mid |z|=1 \}$
+\pause
+  \item $(\Zz,+)$ est un sous-groupe de $(\Rr,+)$
+\pause
+  \item $\{e\}$ et $G$ sont les \defi{sous-groupes triviaux} du groupe $G$
+\pause
+  \item L'ensemble $\mathcal{R}$ des rotations du plan dont le centre est à l'origine 
+est un sous-groupe du groupe des isométries $\mathcal{I}$
+\pause
+  \item L'ensemble des matrices diagonales $\left(\begin{smallmatrix} a & 0 \\ 0 & d \\ \end{smallmatrix}\right)$
+avec $a\neq 0$ et $d\neq 0$ est un sous-groupe de $(\GL_2,\times)$
+
+\end{itemize}  
+\end{frame}
+
+
+
+
+%---------------------------------------------------------------
+\section{Sous-groupes de $\Zz$}
+
+\begin{frame}
+
+\begin{proposition}
+Les sous-groupes de $(\Zz,+)$ sont les $n\Zz$, pour $n\in \Zz$
+\end{proposition}
+
+\pause
+
+$n\Zz$ désigne l'ensemble des multiples de $n$ : $n\Zz = \big\{ k\cdot n \mid  k \in \Zz \big\}$
+
+{\small
+\pause
+$2\Zz = \{\ldots, -2,0,+2,+4,+6,\ldots\}$
+\pause \hfill
+$7\Zz =  \{\ldots, -7,0,+7,+14,+21,\ldots\}$
+}
+
+\pause
+
+\begin{proof}
+
+Sens facile : $n\Zz$ est un sous-groupe de $(\Zz,+)$
+
+\pause
+\medskip
+ 
+Réciproque : soit $H$ un sous-groupe de $(\Zz,+)$
+
+Notons $n=\min \{ h > 0 \mid h \in H \}$
+
+\pause
+
+Comme $n\in H$ alors $kn \in H$ pour tout $k \in \Zz$. Ainsi $n\Zz \subset H$
+
+\pause
+\medskip
+
+Montrons $H \subset n\Zz$
+
+Soit $h \in H$. La division euclidienne de $h$ par $n$ donne :
+
+\centerline{$h = kn + r,\quad \text{avec } k,r \in \Zz  \text{ et } 0 \le r < n$}
+
+Mais $h\in H$ et $kn \in H$ donc $r= h - kn \in H$
+
+$r \ge 0$, $r \in H$ et $r <n$ donc $r=0$
+
+Ainsi $h=kn$ et donc $h\in n\Zz$
+
+\pause
+\medskip
+
+Conclusion $H=n\Zz$
+\end{proof}  
+\end{frame}
+
+
+
+
+
+%---------------------------------------------------------------
+\section*{Sous-groupes engendrés}
+
+\begin{frame}
+Soit $(G,\star)$ un groupe et un ensemble $E \subset G$ 
+
+
+Le \defi{sous-groupe engendré} par $E$ est le plus petit sous-groupe de
+$G$ contenant $E$
+
+
+\pause
+
+\begin{exemple}
+Groupe $(\Rr^*,\times)$ et  $E = \{2\}$ 
+
+le sous-groupe engendré par $E$ est $H = \{ 2^n \mid n \in \Zz\}$
+
+\pause
+
+il faut montrer que $H$ est un sous-groupe, que $2 \in H$, et que si $H'$ est un autre sous-groupe 
+contenant $2$ alors $H \subset H'$
+\end{exemple}
+
+\pause
+
+\begin{exemple}
+Groupe  $(\Zz,+)$
+
+le sous-groupe engendré par $E_1= \{2\}$ est $H_1 = 2\Zz$
+
+\pause
+
+le sous-groupe engendré par $E_2 = \{8,12\}$ est $H_2 = 4\Zz$
+
+\pause
+
+le sous-groupe engendré par $E = \{a,b\}$ est $H = n\Zz$ où $n=\mathsf{pgcd}(a,b)$
+\end{exemple}
+ 
+\end{frame}
+
+
+
+
+
+
+
+%---------------------------------------------------------------
+\section*{Mini-exercices}
+
+
+\begin{frame}
+
+\begin{miniexercice}
+
+\begin{enumerate}
+  \item Montrer que $\{ 2^{n} \mid n \in \Zz \}$ est un sous-groupe de $(\Rr^*,\times)$.
+  \item Montrer que si $H$ et $H'$ sont deux sous-groupes de $(G,\star)$ 
+alors $H\cap H'$ est aussi un sous-groupe. 
+  \item Montrer que $5\Zz \cup 8\Zz$ n'est pas un sous-groupe de $(\Zz,+)$.
+  \item Montrer que l'ensemble des matrices $2\times 2$ de déterminant $1$ ayant leurs coefficients dans $\Zz$ 
+est un sous-groupe de $(\GL_2,\times)$.
+  \item Trouver le sous-groupe de $(\Zz,+)$ engendré par $\{ -12, 8, 20 \}$.
+\end{enumerate}
+
+\end{miniexercice}
+\end{frame}
+
+
+
+\end{document}

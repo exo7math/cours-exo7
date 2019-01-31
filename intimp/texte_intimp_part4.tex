@@ -1,0 +1,259 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans cette section, nous allons nous intéresser aux intégrales 
+impropres dont le domaine d'intégration est un intervalle borné.
+
+  \change
+
+  \change
+
+Nous commencerons par préciser le problème de la 
+convergence dans le cas des fonctions de signe constant
+
+  \change
+
+nous énoncerons le théorème de comparaison
+ 
+\change
+
+et le théorème des équivalents.
+
+\change
+ 
+Nous conclurons par l'étude des fonctions oscillantes.
+
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \diapo
+
+Nous commençons par le cas d'une fonction positive qui tend vers
+l'infini en l'une des bornes de l'intervalle d'intégration. 
+Le traitement est tout à fait analogue au cas d'une fonction positive 
+sur un intervalle non borné et l'on omettra les démonstrations.
+
+Nous supposerons que la fonction  tend vers $+\infty$ en $a$.  
+
+\change
+
+Rappelons que, par définition,
+$$\int_a^b f(t)\;\dd t = \lim_{x\rightarrow a^+} \int_x^b f(t)\;\dd t\;.$$
+
+Observons que si la fonction $f$ est positive, alors,
+% $\int_x^b f(t)\;\dd t$ est décroissante sur $]a,b]$, donc 
+soit $\int_x^b f(t)\;\dd t$ est bornée, et l'intégrale $\int_a^b
+f(t)\;\dd t$ est convergente, soit $\int_x^b f(t)\;\dd t$ tend vers
+$+\infty$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Énonçons le théorème de comparaison : soient $f$ et $g$ 
+deux fonctions positives et continues sur $]a,b]$, 
+telles que $f$ soit majorée par $g$ au 
+voisinage de $a$ :
+
+c-à-d : $\exists \epsilon>0 \quad \forall t\in ]a,a+\epsilon] \qquad f(t)\le g(t)$
+
+d'une part, si $\int_a^b g(t)\;\dd t$ \  converge 
+alors \  $\int_a^b f(t)\;\dd t$ \  converge aussi. 
+
+et d'autre part, la contraposée dit que :
+Si \  $\int_a^{b} f(t)\;\dd t$ \  diverge 
+alors \  $\int_a^{b} g(t)\;\dd t$ \  diverge aussi.
+
+
+
+\change
+Voici un exemple d'application :
+
+Étant donné un réel $\alpha$, étudions la convergence de 
+
+$$\int_0^1 \frac{(-\ln t)^\alpha}{\sqrt{t}}\;\dd t$$
+
+\change
+On commence par comparer notre fonction à une fonction plus 
+simple en écrivant 
+
+$$\frac{(-\ln t)^\alpha}{\sqrt{t}} 
+= \big((-\ln t)^\alpha t^{1/4}\big)\,t^{-3/4}\;. $$
+
+Le choix de décomposé $1/\sqrt{t}$  en $t^{1/4}*t^{-3/4}$
+est un peu arbitraire mais pas trop comme on le verra !
+
+\change
+On sait que $\lim_{t\rightarrow 0^+}  (-\ln t)^\alpha t^{1/4}=0$
+
+ pour tout $\alpha$, car les puissances 
+ l'emportent sur le logarithme.
+ 
+
+ \change 
+ en particulier il existe $\epsilon>0$ tel que :
+sur $]0,\epsilon]$ on ait $(-\ln t)^\alpha t^{1/4}\le 1\;.$ 
+
+ \change 
+En multipliant les deux membres de l'inégalité 
+par $t^{-3/4}$ on obtient :
+$\frac{(-\ln t)^\alpha}{\sqrt{t}} \le t^{-3/4}$
+sur $]0,\epsilon]$.
+
+
+\change
+Or une primitive de $t^{-3/4}$ est $t^{1/4}$, donc
+l'intégrale du type Riemann $\int_0^1 t^{-3/4}\;\dd t$ 
+vaut la limite du crochet $[t^{1/4}]_\epsilon^1$ 
+qui vaut $1$ et donc converge.
+
+C'est ici où il était important d'avoir bien 
+choisi notre découpage, afin d'avoir
+une intégrale convergente.
+
+\change
+On peut donc appliquer le théorème comparaison ci-dessus : 
+puisque $\int_0^1 t^{-3/4}\;\dd t$ converge, 
+alors $\int_0^1 \frac{(-\ln t)^\alpha}{\sqrt{t}}\;\dd t$ 
+converge aussi, quelle que soit la valeur de $\alpha$.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Gr\^ace au théorème des équivalents, 
+on peut remplacer la fonction à intégrer 
+par un équivalent au voisinage de $a$ pour
+étudier la convergence d'une intégrale. Énonçons le :
+
+Si $f$ et $g$ sont deux fonctions continues et strictement positives sur
+$]a,b]$ qui sont équivalentes au voisinage de $a$, 
+alors l'intégrale $\int_a^b f(t)\;\dd t$ 
+converge si et seulement si  $\int_a^b g(t)\;\dd t$ converge. \\
+
+On rappelle que deux fonctions sont équivalentes 
+en un point si leur rapport tend vers $1$ en ce point.
+Le théorème dit donc que, lorsque c'est le cas, les deux intégrales sont de même nature.
+
+Attention : il est important dans le théorème 
+que $f$ et $g$ soient positives.
+
+\change
+Voici un exemple :
+
+$$\int_0^1 \sqrt{\frac{-\ln t+1}{\sin t}}\;\dd t\qquad\text{ converge.}$$
+
+\change
+En effet on montre que 
+$\sqrt{\frac{-\ln t+1}{\sin t}} \quad\mathop{\sim}_{0^+}\quad
+\frac{(-\ln t)^{1/2}}{\sqrt{t}}\;,$ 
+et on vient de voir dans l'exemple précédent avec ici $\alpha=1/2$,
+que 
+$\int_0^1 \frac{(-\ln t)^{1/2}}{\sqrt{t}}\;\dd t$ converge.   
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+L'utilisation des équivalents permet ainsi d'étudier la convergence d'une intégrale 
+pour laquelle on n'a pas de primitive en la comparant à un catalogue d'intégrales 
+dont la convergence est connue. Les plus classiques sont les intégrales de Riemann 
+du type $\int_0^1 \frac{1}{t^\alpha}\;\dd t$, 
+
+$$\text{Si } *\alpha < 1* \quad \text{ alors } \quad \int_0^1 \frac{1}{t^\alpha}\;\dd t
+\quad\text{ converge.}$$
+$$\text{Si } *\alpha \ge 1* \quad \text{ alors } \quad \int_0^1 \frac{1}{t^\alpha}\;\dd t
+\quad\text{ diverge.}$$  
+
+\change
+Faites bien attention, la convergence en fonction du paramètre $\alpha$ est
+*inversée* par rapport aux intégrales de Riemann entre $1$ et $+\infty$ :
+Ici, si $\alpha < 1$ l'intégrale converge,
+si $\alpha \ge 1$ l'intégrale diverge.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le dernier cas à traiter est celui où la fonction à intégrer
+oscille au voisinage d'une des bornes, prenant des valeurs
+arbitrairement proches de $+\infty$ ou $-\infty$, lorsque $x$ tend $a$.  
+
+\change
+Rappelons que, la définition de l'intégrale impropre reste inchangée :
+$$\int_a^b f(t)\;\dd t = \lim_{x\rightarrow a^+} \int_x^b f(t)\;\dd t\;.$$
+
+\change
+
+Le changement de variable $u=\frac{1}{t-a}$ permet de se ramener au cas,
+vu dans une autre section, d'une fonction oscillante sur un intervalle non borné, 
+ce qui nous dispensera de donner autant de détails.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La notion importante est toujours la convergence absolue.
+
+Comme dans le cas d'une fonction sur un intervalle non borné, 
+on dit que $\int f$  est \defi{absolument convergente} 
+si $\int \big|f\big|$ est convergente.
+
+\change
+
+Si l'intégrale $\int_a^b f(t)\;\dd t$ est absolument convergente,
+alors elle est convergente : on dit que la convergence absolue 
+implique la convergence.
+
+La preuve est la même qu'auparavant, c'est-à-dire utilise 
+le critère de Cauchy pour les fonctions.
+
+\change
+
+Voici deux exemples.
+
+L'intégrale $\int_0^1 \frac{\sin\frac1t}{\sqrt{t}}\;\dd t
+\quad\text{ est absolument convergente,}$. 
+
+\change
+En effet, on peut majorer $\frac{\big|\sin\frac1t\big|}{\sqrt{t}}$ 
+par $\frac{1}{\sqrt{t}}$, 
+
+\change
+et on a vu que l'intégrale $\int_0^1 \frac{1}{\sqrt{t}}\;\dd t$ 
+converge.
+
+\change
+
+Deuxième exemple : $\int_0^1 \frac{\sin\frac1t}{t}\;\dd t$ 
+n'est pas absolument convergente mais elle est convergente.
+
+\change
+En effet  le changement de variable $t\mapsto \frac1u$ donne transforme 
+$\int_x^1 \frac{\sin\frac1t}{t}\;\dd t$
+
+en ceci, qui n'est autre que $\int_1^{1/x} \frac{\sin u}{u}\;\dd u$
+
+Quand $x \to 0^+$, $\frac1x \to +\infty$, 
+on est donc ramené au cas de l'intégrale 
+$\int_1^{\infty} \frac{\sin u}{u}\;\dd u$ dont 
+on a vu qu'elle converge, mais pas absolument.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici quelques exercices sur les intégrales 
+impropres sur un intervalle borné.
+
+\end{document}

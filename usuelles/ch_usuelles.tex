@@ -1,0 +1,539 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Fonctions usuelles}
+%====================================================================
+
+\insertvideo{l8ZaQUjM5h8}{partie 1. Logarithme et exponentielle}
+
+\insertvideo{lGfC0R_FGaM}{partie 2. Fonctions circulaires inverses}
+
+\insertvideo{tsN8Wn8j-1U}{partie 3. Fonctions hyperboliques et hyperboliques inverses}
+
+\insertfiche{fic00014.pdf}{Fonctions circulaires et hyperboliques inverses}
+
+\bigskip
+
+Vous connaissez déjà des fonctions classiques : 
+$\exp$, $\ln$, $\cos$, $\sin$, $\tan$.
+Dans ce chapitre il s'agit d'ajouter à notre catalogue de nouvelles fonctions :
+$\ch$, $\sh$, $\tanh$, $\arccos$, $\arcsin$, $\arctan$, $\Argch$, $\Argsh$, 
+$\Argth$.
+
+Ces fonctions apparaissent naturellement dans la résolution de problèmes simples,
+en particulier issus de la physique.
+Par exemple lorsqu'un fil est suspendu entre deux poteaux (ou un collier tenu entre deux mains)
+alors la courbe dessinée est une \defi{chaînette} dont l'équation fait intervenir le cosinus hyperbolique
+et un paramètre $a$ (qui dépend de la longueur du fil et de l'écartement des poteaux) :
+$$y = a\ch \left( \frac x a \right)$$
+
+\myfigure{0.6}{
+\tikzinput{fig_usuelles01}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Logarithme et exponentielle}
+
+%---------------------------------------------------------------
+\subsection{Logarithme}
+\index{logarithme}
+
+
+\begin{proposition}
+Il existe une unique fonction, notée $\ln : ]0,+\infty[ \to \Rr$ telle que :
+$$\ln'(x) = \frac 1x \quad (\text{pour tout } x>0) \qquad \text { et } \qquad \ln(1) = 0.$$
+De plus cette fonction vérifie (pour tout $a,b >0$) :
+\begin{enumerate}
+  \item $\ln (a \times b) = \ln a + \ln b$,
+  \item $\ln(\frac 1 a) = - \ln a$,
+  \item $\ln(a^n) = n \ln a$, (pour tout $n \in \Nn$)
+  \item $\ln$ est une fonction continue, strictement croissante et définit une bijection de
+$]0,+\infty[$ sur $\Rr$,
+  \item $\lim_{x\to0}\frac{\ln(1+x)}{x} = 1$,
+  \item la fonction $\ln$ est concave et $\ln x \le x-1$ (pour tout $x>0$).
+\end{enumerate}
+\end{proposition}
+
+\myfigure{1}{
+\tikzinput{fig_usuelles02}
+}
+
+\begin{remarque*}
+$\ln x$ s'appelle le \defi{logarithme naturel} ou aussi \defi{logarithme  néperien}\index{logarithme!neperien@néperien}.
+Il est caractérisé par $\ln(e)=1$.
+On définit le \defi{logarithme en base $a$}\index{logarithme!en base quelconque} par
+$$\log_a(x) = \frac{\ln(x)}{\ln(a)}$$
+De sorte que $\log_a(a)=1$.
+
+Pour $a=10$ on obtient le \defi{logarithme décimal}\index{logarithme!decimal@décimal} $\log_{10}$ qui vérifie
+$\log_{10} (10)=1$ (et donc $\log_{10}(10^n)=n$).
+Dans la pratique on utilise l'équivalence : 
+\mybox{$x=10^y \iff y = \log_{10}(x)$}
+En informatique intervient aussi le logarithme en base $2$ : $\log_2(2^n)=n$.
+\end{remarque*}
+
+\begin{proof}
+L'existence et l'unicité viennent de la théorie de l'intégrale :
+  $\ln(x) = \int_1^x \frac1t \, dt$.
+Passons aux propriétés.
+\begin{enumerate}
+  \item Posons $f(x)=\ln(xy)-\ln(x)$ où $y>0$ est fixé.
+  Alors $f'(x)=y\ln'(xy)-\ln'(x)=\frac{y}{xy}-\frac1x = 0$.
+  Donc $x \mapsto f(x)$ a une dérivée nulle,
+  donc est constante et vaut $f(1)=\ln(y)-\ln(1)=\ln(y)$. Donc
+  $\ln(xy)-\ln(x)=\ln(y)$.
+
+  \item D'une part $\ln (a \times \frac 1a) = \ln a + \ln \frac 1a$, mais d'autre part
+  $\ln (a \times \frac 1a) = \ln(1) = 0$. Donc $\ln a + \ln \frac 1a=0$.
+
+  \item Similaire ou récurrence.
+
+  \item $\ln$ est dérivable donc continue, $\ln'(x)=\frac 1x >0$
+  donc la fonction est strictement croissante.
+  Comme $\ln(2)>\ln(1)=0$ alors $\ln(2^n)=n\ln(2) \to +\infty$ (lorsque $n\to+\infty$).
+  Donc $\lim_{x\to+\infty} \ln x = +\infty$. De $\ln x= -\ln \frac{1}{x} $
+   on déduit $\lim_{x\to 0} \ln x = -\infty$.
+  Par le théorème sur les fonctions continues et strictement croissantes,
+  $\ln : ]0,+\infty[ \to \Rr$ est une bijection.
+
+  \item $\lim_{x\to0}\frac{\ln(1+x)}{x}$ est la dérivée de $\ln$ au point $x_0=1$,
+  donc cette limite existe et vaut $\ln'(1)=1$.
+
+  \item $\ln'(x)=\frac1x$ est décroissante, donc la fonction $\ln$ est concave.
+  Posons $f(x) =  x-1 - \ln x$ ; $f'(x)= 1 -\frac1x$. Par une étude de fonction $f$ atteint son minimum en $x_0=1$.
+  Donc $f(x)\ge f(1)=0$. Donc $\ln x \le x-1$.
+
+\end{enumerate}
+
+
+\end{proof}
+
+
+
+%---------------------------------------------------------------
+\subsection{Exponentielle}
+
+\begin{definition}
+La bijection réciproque de $\ln : ]0,+\infty[ \to \Rr$ s'appelle la
+fonction \defi{exponentielle}\index{exponentielle}, notée $\exp : \Rr \to   ]0,+\infty[$.
+\end{definition}
+
+
+\myfigure{1}{
+\tikzinput{fig_usuelles03}
+}
+
+
+Pour $x \in \Rr$ on note aussi $e^x$ pour $\exp x$.
+
+\begin{proposition}
+La fonction exponentielle vérifie les propriétés suivantes :
+\begin{itemize}
+  \item \myboxinline{$\exp(\ln x) = x$ pour tout $x >0$} et
+  \myboxinline{$\ln(\exp x) = x$ pour tout $x \in \Rr$}
+
+  \item $\exp(a+b) = \exp(a) \times \exp(b)$
+
+  \item $\exp(nx) = (\exp x)^n$
+
+  \item $\exp : \Rr \to   ]0,+ \infty[$ est une fonction continue, strictement croissante vérifiant
+$\lim_{x\to-\infty} \exp x = 0$ et $\lim_{x\to +\infty} \exp = +\infty$.
+
+  \item La fonction exponentielle est dérivable et $\exp' x = \exp x$, pour tout $x\in \Rr$. 
+  Elle est convexe et $\exp x \ge 1+x$.
+\end{itemize}
+
+\end{proposition}
+
+\begin{remarque*}
+La fonction exponentielle est l'unique fonction qui vérifie
+$\exp'(x) = \exp(x)$ (pour tout $x\in \Rr$)
+et $\exp(1) = e$. Où $e \simeq 2,718\ldots$ est le nombre qui vérifie $\ln e = 1$.
+\end{remarque*}
+
+
+
+\begin{proof}
+Ce sont les propriétés du logarithme retranscrites pour sa bijection réciproque.
+
+Par exemple pour la dérivée : on part de l'égalité $\ln(\exp x)=x$ que l'on dérive.
+Cela donne $\exp'(x) \times \ln'(\exp x) = 1$ donc $\exp'(x) \times \frac{1}{\exp x} = 1$
+et ainsi $\exp'(x) = \exp x$.
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Puissance et comparaison}
+
+Par définition, pour $a>0$ et $b\in \Rr$,
+\mybox{$\displaystyle a^b = \exp\big(b \ln a\big)$}
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+  \item $\sqrt a = a^\frac12 = \exp\big( \frac12 \ln a\big)$
+  \item $\sqrt[n] a = a^\frac1n = \exp\big( \frac1n \ln a\big)$ (la \defi{racine $n$-ème}\index{racine@racine $n$-ème} de $a$)
+  \item On note aussi $\exp x$ par $e^x$ ce qui se justifie par le calcul :
+$e^x =  \exp\big(x \ln e \big) = \exp(x)$.
+  \item Les fonctions $x \mapsto a^x$ s'appellent aussi des fonctions exponentielles et
+se ramènent systématiquement à la fonction exponentielle classique
+par l'égalité $a^x = \exp(x \ln a)$. Il ne faut surtout pas les confondre avec les fonctions puissances
+$x \mapsto x^a$.
+\end{itemize}
+\end{remarque*}
+
+
+\begin{proposition}
+Soit $x,y >0$ et $a,b\in \Rr$.
+\begin{itemize}
+  \item \myboxinline{$x^{a+b} = x^ax^b$}
+  \item \myboxinline{$x^{-a}=\frac{1}{x^a}$}
+  \item \myboxinline{$(xy)^a  = x^ay^a$}
+  \item \myboxinline{$(x^a)^b = x^{ab}$}
+  \item \myboxinline{$\ln(x^a) = a \ln x$}  
+\end{itemize}
+
+\end{proposition}
+
+
+Comparons les fonctions $\ln x$, $\exp x$ avec $x$ :
+\begin{proposition}
+$$\lim_{x\to +\infty} \frac{\ln x}{x} = 0 \qquad \text{ et }  \qquad
+\lim_{x\to +\infty} \frac{\exp x}{x} = +\infty.$$
+\end{proposition}
+
+
+\myfigure{0.9}{
+\tikzinput{fig_usuelles04}
+}
+
+
+\begin{proof}~
+\begin{enumerate}
+  \item On a vu $\ln x \le x-1$ (pour tout $x>0$).
+  Donc $\ln x \le x$ donc $\frac{\ln \sqrt x}{\sqrt x} \le 1$. Cela donne
+  $$0 \le \frac{\ln x}{x} = \frac{\ln \left(\sqrt{x}^2\right)}{x} = 2 \frac{\ln \sqrt x}{x}
+  = 2 \frac{\ln \sqrt x}{\sqrt x} \frac{1}{\sqrt x} \le \frac{2}{\sqrt x}$$
+  Cette double inégalité entraîne $\lim_{x\to +\infty} \frac{\ln x}{x} = 0$.
+
+  \item On a vu $\exp x \ge 1+x$ (pour tout $x\in\Rr$).
+  Donc $\exp x \to +\infty$ (lorsque $x\to+\infty$).
+  $$\frac{x}{\exp x} = \frac{\ln(\exp x)}{\exp x} = \frac{\ln u}{u}$$
+  Lorsque $x\to +\infty$ alors $u=\exp x \to +\infty$ et donc par le premier point
+  $\frac{\ln u}{u} \to 0$. Donc $\frac{x}{\exp x} \to 0$ et reste positive, ainsi
+  $\lim_{x\to +\infty} \frac{\exp x}{x} = +\infty$.
+\end{enumerate}
+\end{proof}
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Montrer que $\ln(1+e^x) = x + \ln(1+e^{-x})$, pour tout $x \in \Rr$.
+
+  \item \'Etudier la fonction $f(x)=\ln(x^2+1)-\ln(x)-1$. Tracer son graphe. Résoudre l'équation
+  $(f(x)=0)$. Idem avec $g(x)=\frac{1+\ln x}{x}$. Idem avec $h(x)=x^x$.
+
+  \item Expliquer comment $\log_{10}$ permet de calculer le nombre de chiffres d'un entier $n$.
+
+  \item Montrer $\ln(1+x) \ge x-\frac{x^2}{2}$ pour $x\ge0$ (faire une étude de fonction). Idem avec
+  $e^x \ge 1+x+\frac{x^2}{2}$ pour tout $x \ge 0$.
+
+  \item Calculer la limite de la suite définie par $u_n=\left(1+\frac1n\right)^n$ lorsque $n\to +\infty$.
+  Idem avec $v_n=\left(\frac1n\right)^n$ et $w_n=n^{\frac1n}$.
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Fonctions circulaires inverses}
+
+%---------------------------------------------------------------
+\subsection{Arccosinus}
+
+Considérons la fonction cosinus\index{cosinus} $\cos : \Rr \to [-1,1]$, $x \mapsto \cos x$.
+Pour obtenir une bijection à partir de cette fonction, il faut considérer la restriction
+de cosinus à l'intervalle $[0,\pi]$. Sur cet intervalle la fonction cosinus est continue
+et strictement décroissante, donc la restriction
+$$\cos_| : [0,\pi] \to [-1,1]$$
+est une bijection.
+Sa bijection réciproque est la fonction \defi{arccosinus}\index{arccosinus} :
+$$\arccos : [-1,1] \to [0,\pi]$$
+
+\myfigure{1}{
+\tikzinput{fig_usuelles05}
+}
+\myfigure{1}{
+\tikzinput{fig_usuelles06}
+}
+
+
+On a donc, par définition de la bijection réciproque :
+\mybox{$
+\begin{array}{cl}
+\displaystyle \cos\big(\arccos(x)\big) = x &  \forall x \in [-1,1]\\
+\displaystyle \arccos\big(\cos(x)\big) = x &  \forall x \in [0,\pi] \\
+\end{array}
+$}
+
+Autrement dit :
+\mybox{$\text{Si } \quad x\in [0,\pi] \qquad \cos(x)=y \iff x = \arccos y$}
+
+Terminons avec la dérivée de $\arccos$ :
+\mybox{$\displaystyle \arccos'(x) = \frac{-1}{\sqrt{1-x^2}} \qquad \forall x \in ]-1,1[$}
+
+\begin{proof}
+On démarre de l'égalité $\cos(\arccos x) = x$ que l'on dérive :
+\begin{align*}
+          & \cos(\arccos x) = x \\
+ \implies &  -\arccos'(x) \times  \sin(\arccos x) = 1 \\
+ \implies &  \arccos'(x) = \frac{-1}{\sin(\arccos x)} \\
+ \implies &  \arccos'(x) = \frac{-1}{\sqrt{1-\cos^2(\arccos x)}} \qquad (*) \\
+ \implies &  \arccos'(x) = \frac{-1}{\sqrt{1-x^2}} \\
+\end{align*}
+
+Le point crucial $(*)$ se justifie ainsi :
+on démarre de l'égalité $\cos^2 y + \sin^2 y = 1$,  en substituant $y= \arccos x$ on obtient $\cos^2(\arccos x)+ \sin^2(\arccos x) = 1$
+donc $x^2+ \sin^2(\arccos x) = 1$. On en déduit : $\sin(\arccos x) = + \sqrt{1-x^2}$ (avec le signe $+$ car $\arccos x \in [0,\pi]$, et donc on a $\sin(\arccos x)\geq 0$).
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Arcsinus}
+
+La restriction
+$$\sin_| : [-\tfrac\pi2,+\tfrac\pi2] \to [-1,1]$$
+est une bijection\index{sinus}.
+Sa bijection réciproque est la fonction \defi{arcsinus}\index{arcsinus} :
+$$\arcsin : [-1,1] \to [-\tfrac\pi2,+\tfrac\pi2]$$
+
+\myfigure{1}{
+\tikzinput{fig_usuelles07}
+\tikzinput{fig_usuelles08}
+}
+
+
+\mybox{$
+\begin{array}{cl}
+\displaystyle \sin\big(\arcsin(x)\big) = x &  \forall x \in [-1,1]\\
+\displaystyle \arcsin\big(\sin(x)\big) = x &  \forall x \in [-\frac\pi2,+\frac\pi2] \\
+\end{array}
+$}
+
+\mybox{$\text{Si } \quad  x\in [-\frac\pi2,+\frac\pi2] \qquad \sin(x)=y \iff x = \arcsin y$}
+
+
+\mybox{$\displaystyle \arcsin'(x) = \frac{1}{\sqrt{1-x^2}} \qquad \forall x \in ]-1,1[$}
+
+
+%---------------------------------------------------------------
+\subsection{Arctangente}
+
+La restriction
+$$\tan_| : ]-\tfrac\pi2,+\tfrac\pi2[ \to \Rr$$
+est une bijection\index{tangente}.
+Sa bijection réciproque est la fonction \defi{arctangente}\index{arctangente} :
+$$\arctan : \Rr \to ]-\tfrac\pi2,+\tfrac\pi2[$$
+
+
+\myfigure{0.6}{
+\tikzinput{fig_usuelles09} \
+\tikzinput{fig_usuelles10}
+}
+
+
+\mybox{$
+\begin{array}{cl}
+\displaystyle \tan\big(\arctan(x)\big) = x &  \forall x \in \Rr\\
+\displaystyle \arctan\big(\tan(x)\big) = x &  \forall x \in ]-\frac\pi2,+\frac\pi2[ \\
+\end{array}
+$}
+
+\mybox{$\text{Si } \quad x\in ]-\frac\pi2,+\frac\pi2[ \qquad \tan(x)=y \iff x = \arctan y$}
+
+
+\mybox{$\displaystyle \arctan'(x) = \frac{1}{1+x^2} \qquad \forall x \in \Rr$}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Calculer les valeurs de $\arccos$ et $\arcsin$ en
+  $0$, $1$, $\frac12$, $\frac{\sqrt2}{2}$, $\frac{\sqrt3}{2}$. Idem pour
+  $\arctan$ en $0$, $1$, $\sqrt3$ et $\frac{1}{\sqrt3}$.
+
+  \item Calculer $\arccos(\cos \frac{7\pi}{3})$. Idem avec $\arcsin(\sin \frac{7\pi}{3})$
+  et $\arctan(\tan \frac{7\pi}{3})$ (attention aux intervalles !)
+
+  \item Calculer $\cos(\arctan x)$, $\cos(\arcsin x)$, $\tan(\arcsin x)$.
+
+  \item Calculer la dérivée de $f(x)=\arctan\left(\frac{x}{\sqrt{1-x^2}}\right)$.
+  En déduire que $f(x)= \arcsin x$, pour tout $x\in]-1,1[$.
+
+  \item Montrer que $\arccos x + \arcsin x = \frac\pi2$, pour tout $x \in[-1,1]$.
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Fonctions hyperboliques et hyperboliques inverses}
+
+
+
+%---------------------------------------------------------------
+\subsection{Cosinus hyperbolique et son inverse}
+
+Pour $x\in \Rr$, le \defi{cosinus hyperbolique}\index{cosinus hyperbolique} est :
+\mybox{$\displaystyle \ch x = \frac{e^x+e^{-x}}{2}$}
+
+La restriction $\ch_| : [0,+\infty[ \to [1,+\infty[$ est une bijection.
+Sa bijection réciproque est $\Argch : [1,+\infty[ \to [0,+\infty[$.
+
+
+\myfigure{0.9}{
+\tikzinput{fig_usuelles11}
+\tikzinput{fig_usuelles12}}
+
+
+
+%---------------------------------------------------------------
+\subsection{Sinus hyperbolique et son inverse}
+
+Pour $x\in \Rr$, le \defi{sinus hyperbolique}\index{sinus hyperbolique} est :
+\mybox{$\displaystyle \sh x = \frac{e^x-e^{-x}}{2}$}
+
+$\sh : \Rr \to \Rr$ est une fonction continue, dérivable, strictement
+croissante vérifiant $\lim_{x\to -\infty} \sh x = -\infty$
+et $\lim_{x\to +\infty} \sh x = +\infty$, c'est donc une bijection.
+Sa bijection réciproque est $\Argsh : \Rr \to \Rr$.
+
+\begin{proposition}
+\sauteligne
+\begin{itemize}
+  \item $\ch^2 x - \sh^2 x =1$
+  \item $\ch' x = \sh x$, $\sh'x = \ch x$
+  \item $\Argsh : \Rr \to \Rr$ est strictement croissante et continue.
+  \item $\Argsh$ est dérivable  et $\Argsh'x=\frac{1}{\sqrt{x^2+1}}$.
+  \item $\Argsh x = \ln\big(x+ \sqrt{x^2+1}\big)$
+\end{itemize}
+\end{proposition}
+
+
+
+
+\begin{proof}~
+\begin{itemize}
+  \item $\ch^2 x- \sh^2 x = \frac14 \big[ (e^x+e^{-x})^2 - (e^x-e^{-x})^2 \big] =
+ \frac14 \big[ (e^{2x}+2+e^{-2x}) - (e^{2x}-2+e^{-2x})  \big] = 1$.
+
+  \item $\frac{d}{dx}(\ch x) = \frac{d}{dx} \frac{e^x+e^{-x}}{2} = \frac{e^x-e^{-x}}{2}  = \sh x$.
+Idem pour la dérivée de $\sh x$.
+
+  \item Car c'est la réciproque de $\sh$.
+
+  \item Comme la fonction $x \mapsto \sh'x$  ne s'annule pas sur $\Rr$
+alors la fonction $\Argsh$ est dérivable sur $\Rr$.
+On calcule la dérivée par dérivation de l'égalité $\sh(\Argsh x) = x$ :
+$$\Argsh' x = \frac{1}{\ch(\Argsh x)} = \frac{1}{\sqrt{\sh^2(\Argsh x)+1}}
+= \frac{1}{\sqrt{x^2+1}}$$
+
+  \item Notons $f(x)=\ln\big(x+ \sqrt{x^2+1}\big)$ alors
+   $$f'(x) = \frac{1+\frac{x}{\sqrt{x^2+1}}}{x+ \sqrt{x^2+1}} = \frac{1}{\sqrt{x^2+1}} = \Argsh' x$$
+  Comme de plus $f(0)=\ln(1)=0$ et $\Argsh 0 = 0$ (car $\sh 0 = 0$), on en déduit que pour tout
+  $x\in \Rr$, $f(x) = \Argsh x$.
+ \end{itemize}
+
+
+\end{proof}
+
+
+
+%---------------------------------------------------------------
+\subsection{Tangente hyperbolique et son inverse}
+
+
+Par définition la \defi{tangente hyperbolique}\index{tangente hyperbolique} est :
+\mybox{$\displaystyle \tanh x = \frac{\sh x}{\ch x}$}
+
+La fonction $\tanh : \Rr \to ]-1,1[$ est une bijection, on note
+$\Argth : ]-1,1[\to\Rr$ sa bijection réciproque.
+
+
+\myfigure{0.9}{
+\tikzinput{fig_usuelles13}
+\tikzinput{fig_usuelles14}
+}
+
+
+%---------------------------------------------------------------
+\subsection{Trigonométrie hyperbolique}
+
+$$\ch^2 x - \sh^2 x = 1$$
+\begin{align*}
+\ch(a+b)&=\ch a\cdot\ch b + \sh a\cdot\sh b\\
+\ch(2a) &=\ch^2a+\sh^2a = 2\,\ch^2a-1 = 1+2\,\sh^2a\\  \\
+\sh(a+b)&=\sh a\cdot\ch b  +  \sh b\cdot\ch a\\
+\sh(2a) &= 2\,\sh a\cdot\ch a\\ \\
+\tanh (a+b)&=\frac{\tanh a + \tanh b}{1+\tanh a\cdot\tanh b}\\
+\end{align*}
+\begin{align*}
+\ch'x&= \sh x\\
+\sh'x&=\ch x\\
+\tanh' x &= 1-\tanh^2x=\frac{1}{\ch^2x}\\
+\end{align*}
+\begin{align*}
+\Argch'x&=\frac{1}{\sqrt{x^2-1}} \quad (x>1)\\
+\Argsh'x&=\frac{1}{\sqrt{x^2+1}} \\
+\Argth'x&=\frac{1}{1-x^2} \quad (|x|<1)\\
+\end{align*}
+\begin{align*}
+\Argch x&= \ln\big(x+ \sqrt{x^2-1}\big) \quad (x\ge1)\\
+\Argsh x&= \ln\big(x+ \sqrt{x^2+1}\big)  \quad (x \in \Rr) \\
+\Argth x&= \frac12\ln\left(\frac{1+x}{1-x}\right) \quad (-1<x<1) \\
+\end{align*}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Dessiner les courbes paramétrées $t \mapsto (\cos t, \sin t)$ et $t \mapsto (\ch t, \sh t)$.
+Pourquoi $\cos$ et $\sin$ s'appellent des fonctions trigonométriques \emph{circulaires} alors que
+$\ch$ et $\sh$ sont des fonctions trigonométriques \emph{hyperboliques} ?
+  \item Prouver par le calcul la formule $\ch(a+b)=\ldots$ En utilisant que $\cos x = \frac{e^{\ii x}+e^{-\ii x}}{2}$
+retrouver la formule pour $\cos(a+b)$.
+  \item Résoudre l'équation $\sh x = 3$.
+  \item Montrer que $\frac{\sh(2x)}{1+\ch(2x)} = \tanh x$.
+  \item Calculer les dérivées des fonctions définies par :
+  $\tanh(1+x^2)$, $\ln(\ch x)$, $\Argch(\exp x)$, $\Argth(\cos x)$.
+\end{enumerate}
+\end{miniexercices}
+
+
+\bigskip
+\bigskip
+
+\auteurs{
+Arnaud Bodin, 
+Niels Borne, 
+Laura Desideri
+}
+
+\finchapitre
+\end{document}

@@ -1,0 +1,36 @@
+\begin{tikzpicture}
+
+      \draw[->,>=latex, gray] (-0.5,0)--(4.5,0) node[below,black] {$x$};
+      \draw[->,>=latex, gray] (0,-1)--(0,4) node[right,black] {$y$};
+
+\begin{scope}[myred]
+
+	\fill (0.5,0) circle (1pt);
+	\fill (4,0) circle (1pt);
+    \node[above] at (0.5,0) {$a$};
+    \node[above left] at (4,0) {$b$};
+
+    \draw[dashed] (0.5,0) -- (0.5,-0.68) node[below] {$A$};
+    \draw[dashed] (4,0) -- (4,3.25) node[above] {$B$};
+
+	\draw (0.5,-0.68) -- (4,3.25);
+
+	\node[above] at (1.10,0) {$a'$};
+    \draw[dotted] (1.10,0) -- (1.10,-0.45) node[below] {$A'$};
+
+	\draw (1.10,-0.45)--(4,3.25);
+
+	\node[above] at (1.45,0) {$a''$};
+    \draw[dotted] (1.45,0) -- (1.45,-0.22) node[below] {$A''$};
+
+    \draw (1.45,-0.22)--(4,3.25);
+
+\end{scope}
+
+\begin{scope}[blue]
+	\draw[ultra thick,domain=0.5:4,smooth] plot (\x,{-0.75+0.25*\x*\x});
+\end{scope}
+
+\fill[myred] (1.73,0) circle (1pt);
+
+\end{tikzpicture}

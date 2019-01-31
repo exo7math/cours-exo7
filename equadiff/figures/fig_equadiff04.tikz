@@ -1,0 +1,39 @@
+\begin{tikzpicture}
+
+  \draw[->,>=latex,thick,gray] (-3.5,0) -- (6.5,0) node[below,black] {$x$};
+  \draw[->,>=latex,thick,gray] (0,-3.5) -- (0,5) node[left,black] {$y$};
+\begin{scope}
+    \clip (-3,-3) rectangle (6,4.5);
+\begin{scope}[xscale=1.5]
+
+\foreach \k in {-1,-.75,...,4} {
+  \draw[thick, color=myred,domain=-2:4, smooth,samples=10] plot (\x,{\x-1+\k*exp(-0.33*\x)});
+}
+\foreach \k in {4,4.25,...,7} {
+  \draw[thick, color=myred,domain=-1.57:4, smooth,samples=10] plot (\x,{\x-1+\k*exp(-0.33*\x)});
+}
+\foreach \k in {-1.25,-1.5,...,-4} {
+  \draw[thick, color=myred,domain=-1:4, smooth,samples=10] plot (\x,{\x-1+\k*exp(-0.33*\x)});
+}
+\foreach \k in {-4.25,-4.5,...,-8} {
+  \draw[thick, color=myred,domain=1:4, smooth,samples=10] plot (\x,{\x-1+\k*exp(-0.33*\x)});
+}
+\foreach \k in {-8.25,-8.5,...,-12} {
+  \draw[thick, color=myred,domain=2:4, smooth,samples=10] plot (\x,{\x-1+\k*exp(-0.33*\x)});
+}
+\foreach \k in {-12.25,-12.5,...,-20} {
+  \draw[thick, color=myred,domain=2.5:4, smooth,samples=8] plot (\x,{\x-1+\k*exp(-0.33*\x)});
+}
+\foreach \k in {-20.25,-20.5,...,-23} {
+  \draw[thick, color=myred,domain=3.7:4, smooth,samples=5] plot (\x,{\x-1+\k*exp(-0.33*\x)});
+}
+
+\def\k{3}
+   \beameronly{\uncover<5->}{\draw[ultra thick, color=myred,domain=-2:4, smooth,samples=10] plot (\x,{\x-1+\k*exp(-0.33*\x)});}
+\end{scope}
+\end{scope}
+
+ \beameronly{\uncover<4->}{\fill[blue] (-1,2.07)  circle (2pt) node [below] {$(x_0,y_0)$}; }
+
+\draw (-3,-3) rectangle (6,4.5);
+\end{tikzpicture}

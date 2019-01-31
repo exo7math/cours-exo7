@@ -1,0 +1,466 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={150,93,42}]{structure}
+
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Dimension finie}}
+\subtitle{Famille libre}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Combinaison linéaire
+    \item<4-> Définition
+    \item<5-> Exemples
+    \item<6-> Famille liée
+    \item<7-> Interprétation géométrique
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Combinaison linéaire (rappel)}
+
+\begin{frame}
+%Soit $E$ un $\Kk$-espace vectoriel
+\begin{itemize}
+  \item Soient   {\color<2>{red}$v_1, v_2, \ldots, v_p$} 
+ des  vecteurs d'un $\Kk$-espace vectoriel $E$ ({\color<3>{red}$p \geq 1$})
+  \item Soient {\color<4>{red}$\lambda_1, \lambda_2, \ldots,  \lambda_p$} des éléments de $\Kk$
+\end{itemize}
+\pause\pause\pause\pause
+\begin{mydefinition}
+\begin{itemize}
+  \item Le vecteur
+ {\color<5>{red}$$u={\color<6>{red}\lambda_1} v_1+{\color<6>{red}\lambda_2}v_2+ \cdots + {\color<6>{red}\lambda_p}v_p$$}
+est une \defi{combinaison linéaire} des vecteurs $v_1, v_2, \ldots, v_p$
+ \pause
+  \item Les scalaires $\lambda_1, \lambda_2, \ldots , \lambda_p$ 
+ sont les \defi{coefficients} de la combinaison linéaire
+\end{itemize}
+
+\end{mydefinition}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définitions}
+
+
+\begin{frame}
+\begin{mydefinition}
+
+Une famille {\color<2>{red}$\{ v_1, v_2,\ldots, v_p \}$} de $E$ est une \defi{famille libre} (ou 
+\defi{linéairement indépendante}) si toute combinaison linéaire nulle
+{\color<3>{red}$$\lambda_1 v_1+\lambda_2 v_2+\cdots+\lambda_p v_p=0$$}est telle que tous ses coefficients sont nuls, c'est-à-dire 
+{\color<4>{red}$$\lambda_1=0 \quad \lambda_2=0 \quad \ldots \quad \lambda_p=0$$}
+\vspace*{-3ex}
+\end{mydefinition}
+
+\pause\pause\pause\pause
+
+\begin{remarque}
+\begin{itemize}
+\item
+Si la famille $\{ v_1, v_2,\ldots, v_p \}$ de $E$ n'est pas libre, on dit que la famille est \defi{liée} ou \defi{linéairement dépendante}
+\pause
+\item 
+Dans ce cas, il existe une combinaison lin\'eaire nulle de $\{ v_1, v_2,\ldots, v_p \}$ avec {\color<6>{red}au moins un coefficient non nul}
+\end{itemize}
+\end{remarque}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Premiers exemples}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+\item Dans $\Rr^3$, soit
+$$
+\left\{
+{\color<4>{red}\begin{pmatrix}
+1\\2\\3
+\end{pmatrix}
+}, 
+{\color<5>{red}
+\begin{pmatrix}
+4\\5\\6
+\end{pmatrix}
+}, 
+{\color<6>{red}
+\begin{pmatrix}
+2\\1\\0
+\end{pmatrix}
+}
+\right\}$$
+\pause
+\item
+Est-ce une famille libre ou liée?
+\pause
+\item
+Posons
+$${\color<8,9,10>{red}\lambda_1}{\color<4>{red}\left(\begin{smallmatrix}
+{\color<8>{red}1}\\{\color<9>{red}2}\\{\color<10>{red}3}
+\end{smallmatrix}\right)}
++{\color<8,9,10>{red}\lambda_2} {\color<5>{red}\left(\begin{smallmatrix}
+{\color<8>{red}4}\\{\color<9>{red}5}\\{\color<10>{red}6}
+\end{smallmatrix}\right)}
++{\color<8,9,10>{red}\lambda_3} {\color<6>{red}\left(\begin{smallmatrix}
+{\color<8>{red}2}\\{\color<9>{red}1}\\{\color<10>{red}0}
+\end{smallmatrix}\right)} = 
+\left(\begin{smallmatrix}
+{\color<8>{red}0}\\{\color<9>{red}0}\\{\color<10>{red}0}
+\end{smallmatrix}\right)$$
+\pause\pause\pause\pause
+$$\iff \left \{ \begin{matrix}
+{\color<8>{red}\lambda_1}&{\color<8>{red}+}&{\color<8>{red}4\lambda_2}&{\color<8>{red}+}&{\color<8>{red}2 \lambda_{3}}&{\color<8>{red}=}&{\color<8>{red}0 }\cr
+{\color<9>{red}2\lambda_1}&{\color<9>{red}+}&{\color<9>{red}5\lambda_2}&{\color<9>{red}+}&{\color<9>{red}\lambda_{3}}&{\color<9>{red}=}&{\color<9>{red}0}\cr
+{\color<10>{red}3\lambda_1}&{\color<10>{red}+}&{\color<10>{red}6\lambda_2}&&&{\color<10>{red}=}&{\color<10>{red}0}\cr
+\end{matrix}\right .$$
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+\setlength{\itemsep}{9pt}
+\item
+Apr\`es r\'eduction de Gauss
+$$\hspace*{-2em}\lambda_1\left(\begin{smallmatrix}
+1\\2\\3
+\end{smallmatrix}\right)
++\lambda_2\left(\begin{smallmatrix}
+4\\5\\6
+\end{smallmatrix}\right) 
++\lambda_3\left(\begin{smallmatrix}
+2\\1\\0
+\end{smallmatrix}\right) = 
+\left(\begin{smallmatrix}
+0\\0\\0
+\end{smallmatrix}\right)
+\iff \left \{ \begin{matrix}
+\lambda_1&& &-&2 \lambda_{3}&=&0 \cr
+&&\lambda_2&+&\lambda_{3}&=&0\cr
+\end{matrix}\right .$$
+le syst\`eme a une infinité de solutions
+\pause
+\item
+Par exemple $\lambda_3=1 \Rightarrow \lambda_1=2$, $ \lambda_2=-1$
+
+\pause
+\item $2\left(\begin{smallmatrix}
+1\\2\\3
+\end{smallmatrix}\right)
+-\left(\begin{smallmatrix}
+4\\5\\6
+\end{smallmatrix}\right) 
++\left(\begin{smallmatrix}
+2\\1\\0
+\end{smallmatrix}\right) = 
+\left(\begin{smallmatrix}
+0\\0\\0
+\end{smallmatrix}\right)$
+\pause
+\item La famille 
+$\left\{\left(\begin{smallmatrix}
+1\\2\\3
+\end{smallmatrix}\right),
+\left(\begin{smallmatrix}
+4\\5\\6
+\end{smallmatrix}\right),
+\left(\begin{smallmatrix}
+2\\1\\0
+\end{smallmatrix}\right)\right\}$ est donc une famille liée  
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+\item
+$v_1=\left(\begin{smallmatrix}  1\\1\\1 \end{smallmatrix}\right)\quad
+v_2 = \left(\begin{smallmatrix} 2\\-1\\0 \end{smallmatrix}\right)\quad
+v_3 = \left(\begin{smallmatrix} 2\\1\\1  \end{smallmatrix}\right)$
+\pause
+\item
+La famille $\{v_1, v_2, v_3\}$ est-elle libre ou liée ?
+\pause
+\item $\lambda_1 v_1+ \lambda_2 v_2 + \lambda_3 v_3 = 0
+\pause
+\iff \left \{ \begin{matrix}
+\lambda_1&+&2\lambda_2&+& 2\lambda_{3}&=&0 \cr
+\lambda_1&-&\lambda_2&+&\lambda_{3}&=&0\cr
+\lambda_1&&&+&\lambda_{3}&=&0\cr
+\end{matrix}\right.$
+\pause
+\item
+On résout ce système et on trouve comme unique solution
+$\lambda_1=0, \quad\lambda_2=0,\quad\lambda_{3}=0$
+\pause
+\item
+La famille $\{v_1, v_2, v_3\}$ est donc une famille libre
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+% 
+% \begin{frame}
+% \begin{exemple}
+% \begin{itemize}
+% \item
+%  $v_1=\left(\begin{matrix}2\\ -1\\ 0\\3\end{matrix}\right)\quad
+% v_2=\left(\begin{matrix}1\\2\\5\\ -1\end{matrix}\right)\quad
+% v_3 = \left(\begin{matrix}7\\ -1\\     5\\8\end{matrix}\right)$
+% \pause
+% \item
+% $3v_1 + v_2 - v_3 = 0$
+% \pause
+% \item
+% Donc $\{v_1, v_2, v_3\}$ forme une famille liée
+% \end{itemize}
+% 
+% \end{exemple}
+% \end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Autres exemples}
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+\item
+Dans le $\Rr$-espace vectoriel $\Rr[X]$
+$$
+\begin{matrix}
+P_1(X)&=&1&-&X & &\\
+P_2(X)&=&5&+&3X&-&2X^2\\
+P_3(X)&=&1&+&3X&-&X^2
+\end{matrix}
+$$
+\pause
+\item $3P_1(X) - P_2(X) + 2P_3(X) = 0$
+\pause
+\item
+$\{P_1, P_2, P_3\}$ forme une famille liée 
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+%\begin{frame}
+%\begin{exemple}
+%\begin{itemize}
+%\item
+%Dans le $\Rr$-espace vectoriel des fonctions de $\Rr$
+%dans $\Rr$, soit
+% $$\{\cos, \sin\}$$
+% \pause
+% \item
+%Est-ce une famille libre?
+%\pause
+%\item
+%Posons  $\qquad\lambda \cos+\mu \sin =0$\\
+%$\Leftrightarrow \forall x \in \Rr, ~~\lambda \cos(x) + \mu \sin(x)=0.  $\\
+%\pause
+%\item
+%Pour $x=0$, cette égalité donne $\lambda =0$. \\
+%Pour 
+%$x=\frac{\pi}2$, elle donne $\mu=0$. 
+%\pause
+%\item
+%Donc la famille 
+%$\{\cos , \sin\}$ est libre. 
+%\pause
+%\item
+%En revanche $\{\cos^2, \sin^2,1\}$ est liée car $$\cos ^2 + \sin^2 -1 =0.$$
+%%Les coefficients de dépendance linéaire sont $\lambda_1=1, \lambda_2=1, \lambda_3=-1$.
+%\end{itemize}
+%\end{exemple}
+%\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Famille liée}
+
+\begin{frame}
+%Soit $E$ un $\Kk$-espace vectoriel.
+%Si $v\neq  0$, la famille à un seul vecteur $\{v\}$ est libre (et liée si $v= 0$).
+%Considérons le cas particulier d'une famille de deux vecteurs.
+\begin{proposition}
+La famille $\{ v_1, v_2\}$ est liée si
+et seulement si $v_1$ est un multiple de $v_2$ ou bien
+$v_2$ est un multiple de $v_1$
+\end{proposition}
+\pause
+\begin{proof}
+\begin{itemize}
+  \item Si $\{ v_1, v_2\}$ est liée\begin{itemize}
+  \item
+    il existe une combinaison lin\'eaire nulle 
+$\lambda_1 v_1+\lambda_2 v_2= 0$ avec au moins un coefficient non nul 
+\pause
+\item
+Si $\lambda_1\neq0$,
+%on peut diviser par $\lambda_1$, ce qui donne 
+\ $ v_1=-\frac{\lambda_2}{\lambda_1} v_2$ \ et $ v_1$ est un multiple de $v_2$
+\item
+\pause
+Si \ $\lambda_2\neq 0$, $ v_2=-\frac{\lambda_1}{\lambda_2} v_1$ \ et $v_2$ est un multiple de $ v_1$  
+\end{itemize}
+  \pause
+  \item Réciproquement 
+  \begin{itemize}
+  \item si $ v_1$ est un multiple de $ v_2$, il
+existe   $\mu$ tel que $ v_1=\mu  v_2$
+\pause
+ \item donc $1 v_1+(-\mu) v_2= 0$
+\pause 
+\item la famille $\{ v_1, v_2\}$ est liée
+\pause
+\item
+Même conclusion si c'est $v_2$ qui est un multiple de $ v_1$
+\end{itemize}
+\end{itemize}
+\end{proof}
+\end{frame}
+
+
+\begin{frame}
+Soit $E$ un $\Kk$-espace vectoriel 
+\begin{theoreme}
+\label{carac liee}
+Une famille $\mathcal{F}=\{v_1, v_2,\ldots, v_p\}$ de $p\ge 2$ 
+vecteurs de $E$ est une famille liée si et seulement si 
+au moins un des vecteurs de $\mathcal{F}$ est combinaison linéaire 
+des autres vecteurs de $\mathcal{F}$
+\end{theoreme}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Interprétation géométrique}
+%
+%\begin{frame}
+% %Dans $\Rr^n$, deux vecteurs sont linéairement dépendants si et seulement s'ils sont colinéaires.
+%%Ils sont donc sur une même droite vectorielle.
+%\myfigure{.5}{
+%\input{Fig-dimension/fig_dimension04.tex} 
+%}
+%
+%\pause
+%\myfigure{.9}{
+%\input{Fig-dimension/fig_dimension05.tex} 
+%}
+%\end{frame}
+
+\begin{frame}
+\myfigure{.4}{
+\tikzinput{fig_dimension04} 
+}
+\pause
+
+\only<2>{
+\myfigure{.8}{
+\tikzinput{fig_dimension05} 
+}
+}
+
+
+\only<3,4>{
+\myfigure{.8}{
+\tikzinput{fig_dimension05bis} 
+}
+}
+
+\pause\pause
+
+
+
+\begin{proposition}
+  Soit $\mathcal{F}=\{ v_1, v_2,\ldots ,v_p\}$ une famille de vecteurs de $\Rr^n$. Si
+  $\mathcal{F}$ contient plus de $n$ éléments (c'est-à-dire $p > n$), alors 
+  $\mathcal{F}$ est une famille liée
+\end{proposition}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Pour quelles valeurs de $t\in\Rr$, 
+  $\left\{ 
+  \left(\begin{smallmatrix} -1 \\ t \end{smallmatrix}\right),
+  \left(\begin{smallmatrix} t^2 \\ -t \end{smallmatrix}\right)
+  \right\}$ 
+  est une famille libre de $\Rr^2$ ?
+  Même question avec la famille 
+  $\left\{ 
+  \left(\begin{smallmatrix} 1 \\ t \\ t^2 \end{smallmatrix}\right) 
+  \left(\begin{smallmatrix} t^2 \\ 1 \\ 1 \end{smallmatrix}\right) 
+  \left(\begin{smallmatrix} 1 \\ t \\ 1 \end{smallmatrix}\right) 
+  \right\}$ de $\Rr^3$.
+  
+  
+  \item Montrer que toute famille contenant une famille liée est liée.
+
+  \item Montrer que toute famille inclue dans une famille libre est libre.
+  
+  \item Montrer que si $f : E \to F$ est une application linéaire et que 
+  $\{ v_1, \ldots, v_p \}$ est une famille liée de $E$, alors 
+  $\{ f(v_1), \ldots, f(v_p) \}$ est une famille liée de $F$.
+  
+  \item Montrer que si $f : E \to F$ est une application linéaire \emph{injective}
+  et que $\{ v_1, \ldots, v_p \}$ est une famille libre de $E$, alors 
+  $\{ f(v_1), \ldots, f(v_p) \}$ est une famille libre de $F$.  
+
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,461 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={205,0,0}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\title{{\bf Espaces vectoriels}}
+\subtitle{Application linéaire (fin)}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Image d'une application linéaire
+    \item<4-> Noyau d'une application linéaire
+    \item<5-> L'espace vectoriel $\mathcal{L}(E,F)$
+    \item<6-> Composition et inverse d'applications linéaires    
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Image d'une application linéaire}
+
+\begin{frame}
+
+
+\defi{Image directe} $f : E \longrightarrow F$ et $A \subset E$
+$$f(A)=\big\{ f(x)  \mid x\in A \big\}$$
+
+\pause
+\bigskip
+
+\begin{itemize}
+  \item $E$ et $F$ des $\Kk$-espaces vectoriels
+  \item $f : E \to F$ une application linéaire
+  \item $f(E)$ est l'\defi{image} de l'application linéaire $f$ et est notée \defi{$\Im f$}
+\end{itemize}
+
+\pause
+
+\begin{proposition}
+\begin{enumerate}
+  \item Si $E'$ est un sous-espace vectoriel de $E$, 
+  alors $f(E')$ est un sous-espace vectoriel de $F$
+
+  \pause
+  
+  \item En particulier, $\Im f$ est un sous-espace vectoriel de $F$
+\end{enumerate}
+ \end{proposition}
+
+\pause
+ 
+\centerline{$f$ est surjective si et seulement si $\Im f =F$}
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{proposition}
+\begin{enumerate}
+  \item Si $E'$ est un sous-espace vectoriel de $E$, 
+  alors $f(E')$ est un sous-espace vectoriel de $F$
+  
+  \item En particulier, $\Im f$ est un sous-espace vectoriel de $F$
+\end{enumerate}
+ \end{proposition}
+ 
+\begin{proof}
+
+\pause
+
+\begin{itemize}
+  \item Tout d'abord, comme $0_{E} \in E'$ alors $0_{F} = f(0_{E}) \in f(E')$
+
+\pause  
+  \item Montrons que pour tous $y_1,y_2 \in f(E')$ et tous $\lambda,\mu \in \Kk$, 
+  l'élément $\lambda y_1 + \mu y_2$ appartient à $f(E')$
+\pause  
+  \begin{itemize}
+    \item il existe $x_1\in E'$ tel que $f(x_1)=y_1$
+\pause     
+    \item il existe $x_2\in E'$ tel que $f(x_2)=y_2$
+\pause     
+    \item $\lambda x_1 + \mu x_2 \in E'$, car $E'$ est un sous-espace vectoriel
+\pause 
+    \item comme $f$ est linéaire $f(\lambda x_1+ \mu x_2)=\lambda f(x_1)+ \mu f(x_2) =\lambda y_1 + \mu y_2$
+\pause    
+    \item donc $\lambda y_1 + \mu y_2 \in f(E')$ \qedhere
+  \end{itemize}
+\end{itemize}
+
+
+\end{proof}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Noyau d'une application linéaire}
+
+\begin{frame}
+\centerline{$E,F$ espaces vectoriels, $f : E \longrightarrow F$ application linéaire}
+\begin{mydefinition}
+Le \defi{noyau} de $f$, noté  $\Ker(f)$, est l'ensemble des 
+éléments de $E$ dont l'image est $0_{F}$ :
+\myboxinline{$\Ker (f)=\big\{x \in E \mid f(x)=0_{F}\big\}$}
+\end{mydefinition}
+\pause
+\centerline{$\Ker(f) = f^{-1} \{0_F\}$}
+
+\pause
+\begin{proposition}
+Le noyau de $f$ est un sous-espace vectoriel de $E$
+\end{proposition}
+
+\pause
+\begin{proof} 
+\begin{itemize}
+  \item $f(0_E)=0_F$ donc $0_{E} \in \Ker (f)$
+\pause  
+  \item Soient $x_1,x_2 \in \Ker (f)$ 
+et $\lambda,\mu \in \Kk$, montrons que 
+$\lambda x_1+\mu x_2$ est un élément de $\Ker (f)$ : \\
+\pause
+\hfil $f(\lambda x_1+\mu x_2)\pause=\lambda f(x_1)+\mu f(x_2)\pause= \lambda 0_{F} + \mu 0_{F}\pause=0_{F}$
+\qedhere
+\end{itemize}
+\end{proof}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+$$\begin{array}{rcl}
+f : \quad \Rr^3 & \to & \Rr^2\\
+(x,y,z) & \mapsto & (-2x,y+3z)
+ \end{array}$$
+ \pause
+\vspace*{-4ex}
+\begin{itemize}
+  
+  \item \evidence{Noyau $\Ker(f)$}
+  \vspace*{-2ex}
+ \pause  
+$$
+\begin{array}{l}
+(x,y,z) \in \Ker(f)    \pause \iff f(x,y,z)=(0,0) \\
+ \pause
+\iff (-2x,y+3z)=(0,0)  \pause \iff \left\{\begin{array}{rcl}
+                               -2x  & = & 0 \\
+                               y+3z & = & 0 \\
+                               \end{array}\right. \\
+ \pause  \iff  (x,y,z) = (0,-3z,z), \quad z \in \Rr \\   
+\end{array}
+$$ 
+\pause
+Donc $\Ker(f) = \big\{ (0,-3z,z) \mid  z \in \Rr \big\} \pause = \Vect\big\{ (0,-3,1) \big\}$ 
+
+ \pause
+  \item \evidence{Image de $f$}  \pause \qquad Fixons $(x',y')\in \Rr^2$
+\vspace*{-2ex}  
+ \pause
+$$
+(x',y')= f(x,y,z) \pause
+  \Leftrightarrow  (-2x,y+3z)=(x',y') 
+ \pause  \Leftrightarrow  \left\{\begin{array}{rcl}
+             -2x  & \!=\! & x' \\
+             y+3z & \!=\! & y' \\
+          \end{array}\right.    
+$$
+\vspace*{-2ex}
+ \pause
+  \begin{itemize}
+    \item On peut prendre par exemple $x = -\frac{x'}{2}$, $y'=y$, $z=0$
+ \pause    
+    \item Donc pour tout $(x',y') \in \Rr^2$, on a $f(-\frac{x'}{2},y',0) = (x',y')$
+  \pause   
+    \item Donc $\Im(f)= \Rr^2$, et $f$ est surjective
+  \end{itemize}
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}
+\begin{itemize}
+  \item Soit $A \in M_{n,p}(\Rr)$
+  \pause
+  \item Soit $f: \Rr^p \longrightarrow \Rr^n$ l'application linéaire définie par $f(X) = AX$
+  \pause
+  \item Alors $\Ker(f) = \big\{ X \in \Rr^p \mid AX=0 \big\}$ : c'est l'ensemble des $X \in \Rr^p$
+solutions du système linéaire homogène $AX=0$
+  \pause
+  \item On verra plus tard que $\Im(f)$ est l'espace engendré 
+par les colonnes de la matrice $A$
+\end{itemize}
+\end{exemple}
+
+\bigskip
+\pause
+
+\begin{exemple}
+\begin{itemize}
+  \item Soit $f : \Rr^3 \to \Rr$ l'application linéaire, $f(x,y,z)=ax+by+cz$
+  \pause
+  \item $\Ker f = \big\{ (x,y,z) \in \Rr^3 \mid ax+by+cz=0 \big\}$
+  \pause
+  \item $\Ker f = \mathcal{P}$ : le plan d'équation $(ax+by+cz=0)$
+  \pause
+  \item On retrouve : un plan passant par l'origine est un sous-espace vectoriel
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+
+
+\begin{frame}
+$f : E \longrightarrow F$ application linéaire entre espaces vectoriels
+\begin{theoreme}
+\mybox{$f$ injective \quad $\iff \quad \Ker(f) = \big\{0_E\big\}$}
+\end{theoreme} 
+\pause
+Pour montrer que $f$ est injective, il suffit de vérifier que : \\
+\centerline{si $f(x)=0_F$ alors $x=0_E$}
+
+\pause
+
+\begin{proof}\pause
+\vspace*{-1ex}
+\begin{itemize}
+  \item Supposons que $f$ soit injective et montrons que $\Ker(f)=\{0_E\}$
+  \pause
+  \begin{itemize}
+    \item Soit $x$ un élément de $\Ker(f)$, on a $f(x)=0_{F}$
+    \pause
+    \item Comme $f$ est linéaire, on a aussi $f(0_{E})=0_{F}$
+    \pause
+    \item Comme $f$ est injective et $f(x)=f(0_{E})$, on déduit $x=0_{E}$
+%    \item Donc $\Ker (f)=\{0_{E}\}$
+  \end{itemize}
+\vspace*{-1ex}
+\pause
+  \item Réciproquement, supposons maintenant que $\Ker (f)=\{0_E\}$
+  \pause
+\vspace*{-1ex} 
+  \begin{itemize}
+    \item Soient $x, y \in E$ tels que $f(x)=f(y)$, on a donc $f(x)-f(y)=0_{F}$
+    \pause
+    \item Comme $f$ est linéaire, on en déduit $f(x-y)=0_{F}$
+    \pause
+    \item C'est-à-dire $x-y \in \Ker (f)$
+    \pause
+    \item Donc $x-y=0_{E}$, soit $x=y$   \qedhere
+  \end{itemize}
+\end{itemize}
+\vspace*{-2.5ex} 
+\end{proof}
+\end{frame}
+
+
+
+\begin{frame}
+\begin{exemple}
+$$\begin{array}{rcl}
+f : \Rr_n[X] & \longrightarrow & \Rr_{n+1}[X]\\
+P(X)  & \longmapsto & X \cdot P(X)
+\end{array}$$
+\pause
+\begin{itemize}\setlength{\itemsep}{6pt}
+  \item $f$ est une application linéaire
+  \pause
+  \item \evidence{Noyau de $f$}
+  \pause
+  \begin{itemize}
+    \item $P(X) = a_n X^n + \cdots +a_1 X + a_0 \in \Rr_n[X]$ tel que $X \cdot P(X) = 0$
+    \pause
+    \item Alors $a_n X^{n+1} + \cdots+ a_1 X^2 + a_0 X = 0$
+    \pause
+    \item Ainsi, $a_i = 0$ pour tout $i \in \{0,\ldots, n\}$ et donc $P(X) = 0$
+    \pause
+    \item $\Ker(f) = \{0\}$ \pause et $f$ est injective
+  \end{itemize}
+  \pause  
+  \item \evidence{Image de $f$}
+  \pause
+  \begin{itemize}
+    \item {\footnotesize $\Im(f)$ est l'ensemble des polynômes de $\Rr_{n+1}[X]$ sans terme constant}
+    \pause
+    \item $\Im(f) = \Vect \big\{X, X^2,\dots, X^{n+1}\big\}$
+    \pause
+    \item $f$ n'est pas surjective
+  \end{itemize}
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L'espace vectoriel $\mathcal{L}(E,F)$}
+
+\begin{frame}
+
+\begin{proposition}
+L'ensemble des applications linéaires entre deux $\Kk$-espaces vectoriels $E$ et $F$, 
+noté $\mathcal{L}(E,F)$, est un $\Kk$-espace vectoriel
+\end{proposition}
+
+\pause
+
+   $$(f+g)(u)=f(u)+g(u)\quad \text{ et } \quad (\lambda \cdot f)(u)=\lambda f(u)$$
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Composition et inverse d'applications linéaires}
+
+\begin{frame}
+Soient $E, F, G$  trois $\Kk$-espaces vectoriels, $f$ une application linéaire de $E$ dans $F$ et 
+$g$ une application linéaire de $F$ dans $G$
+\begin{proposition}
+$g \circ f$ est une application linéaire de $E$ dans $G$
+\end{proposition}
+
+\pause
+
+En particulier, le composé de deux endomorphismes de $E$ est un endomorphisme de $E$.
+Autrement dit, $\circ$ est une loi de composition interne sur $\mathcal{L}(E)$
+
+\pause
+\bigskip
+
+\begin{itemize}
+  \item $g \circ (f_1+f_2)=g \circ f_1+ g \circ f_2$
+  
+  \item $(g_1+g_2) \circ f =g_1 \circ f + g_2 \circ f$
+  
+  \item $(\lambda g) \circ f =g \circ (\lambda f) =\lambda (g \circ f)$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\textbf{Vocabulaire}
+
+Soient $E$ et $F$ deux $\Kk$-espaces vectoriels
+
+\begin{itemize}   
+  \item Une application linéaire \evidence{bijective} de $E$ sur $F$ est appelée 
+  \defi{isomorphisme} d'espaces vectoriels
+  \pause
+  \item Proposition : $f^{-1}$ est une application linéaire
+  \pause
+  \item Les espaces vectoriels $E$ et $F$ 
+  sont alors dits \defi{isomorphes}
+  
+  \bigskip
+  \pause
+   
+  \item Un endomorphisme bijectif de $E$ (c'est-à-dire une application linéaire bijective de $E$ dans $E$)
+  est appelé \defi{automorphisme} de $E$
+  \pause
+  \item L'ensemble des automorphismes de $E$ est noté $GL(E)$
+\end{itemize}
+\end{frame}
+
+% 
+% \begin{frame}
+% Soient $E$ et $F$ deux $\Kk$-espaces vectoriels
+% \begin{proposition}
+% Si $f$ est un isomorphisme de $E$ sur $F$, alors  
+% $f^{-1}$ est un isomorphisme de $F$ sur $E$
+% \end{proposition}
+% \end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+  \item Soit $f : \Rr^2 \to \Rr^2$ définie par $f(x,y)=(2x+3y,x+y)$
+\pause  
+  \item $f$ est linéaire
+  \pause
+  \item Pour prouver que $f$ est bijective, on pourrait calculer son noyau et son image
+  \pause
+  \item Calcul direct de l'inverse
+  \begin{itemize}
+  \pause
+    \item Résoudre $f(x,y)=(x',y')$ : système linéaire 
+    \pause
+    \item On trouve $(x,y) = (-x'+3y',x'-2y')$
+    \pause
+    \item $f^{-1}(x',y')= (-x'+3y',x'-2y')$
+    \pause
+    \item $f^{-1}$ est l'inverse de $f$  \pause et  $f^{-1}$ est une application linéaire
+  \end{itemize} 
+\end{itemize}
+\end{exemple}
+
+\pause
+\begin{itemize}
+  \item $f : \Rr^n \to \Rr^n$ définie par $f(X)=AX$ \quad ($A \in M_n(\Rr)$)
+  \pause
+  \item $A$ est inversible $\iff$ $f$ bijective
+  \pause
+  \item $f^{-1}(X)= A^{-1} X$
+  \pause
+  \item Exemple : $X = \begin{pmatrix} x \\ y \end{pmatrix} \qquad 
+A = \begin{pmatrix} 2 & 3 \\ 1 & 1 \end{pmatrix} \qquad 
+A^{-1} = \begin{pmatrix} -1 & 3 \\ 1 & -2 \end{pmatrix}$
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Soit $f : \Rr^3 \to \Rr^3$ définie par $f(x,y,z)=(-x,y+z,2z)$.
+  Montrer que $f$ est une application linéaire. Calculer $\Ker(f)$ et $\Im(f)$.
+  $f$ admet-elle un inverse ? Même question avec $f(x,y,z) = (x-y,x+y,y)$.
+   
+  \item Soient $E$ un espace vectoriel, et $F,G$ deux sous-espaces tels que $E= F \oplus G$.
+  Chaque $u\in E$ se décompose de manière unique $u=v+w$ avec $v \in F$, $w\in G$.
+  La \defi{symétrie} par rapport à $F$ parallèlement à $G$ est l'application $s : E \to E$
+  définie par $s(u)=v-w$. Faire un dessin. Montrer que $s$ est une application linéaire.
+  Montrer que $s^2 = \id_E$. Calculer $\Ker(s)$ et $\Im(s)$. $s$ admet-elle un inverse ?
+
+  \item Soit $f : \Rr_n[X] \to \Rr_n[X]$ définie par $P(X) \mapsto P''(X)$ (où $P''$ désigne la dérivée seconde). 
+  Montrer que $f$ est une application linéaire. Calculer $\Ker(f)$ et $\Im(f)$. $f$ admet-elle un inverse ?
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

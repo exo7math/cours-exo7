@@ -1,0 +1,532 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={192,41,0}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcommand{\Sage}{\texttt{Sage}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||,
+  breaklines=true,
+  postbreak=\raisebox{0ex}[0ex][0ex]{\qquad\ensuremath{\color{red}\hookrightarrow\space}},
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Calcul formel}}
+\subtitle{Structures de contrôle avec \Sage}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Boucles
+    \item<4-> Booléens et conditions
+    \item<5-> Fonctions informatiques
+    \item<6-> Variable locale/variable globale 
+    \item<7-> Conjecture de Syracuse     
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Boucles}
+
+\begin{frame}[fragile]
+%--------------------
+\evidence{Boucle \codeinline{for} (pour)} 
+
+\medskip
+\pause
+
+%\insertcode{formel/Algos/structures-tex1.sage}{structures.sage (1)}
+\begin{algo}[structures.sage (1)]
+\begin{lstlisting}
+for x in ensemble:
+    première ligne de la boucle
+    deuxième ligne de la boucle
+    ...
+    dernière ligne de la boucle
+instructions suivantes  
+\end{lstlisting}
+\end{algo}
+
+\end{frame}
+
+
+\begin{frame}
+%--------------------
+\evidence{Liste \codeinline{range} (intervalle)}
+
+\pause
+\medskip
+\begin{itemize}
+  \item \codeinline{for k in range(n):} 
+
+    qui fait varier $k$ de $0$ à $n-1$
+  \smallskip\pause
+  \item \codeinline{range(n)} renvoie \codeinline{[0,1,2,...,n-1]}
+   \smallskip\pause
+  \item \codeinline{range(a,b)} renvoie \codeinline{[a,a+1,...,b-1]}
+   \smallskip\pause
+  \item \codeinline{range(a,b,c)} effectue une saut de $c$ termes
+  
+   \smallskip\pause
+  Exemple : \codeinline{range(0,101,5)} renvoie \codeinline{[0,5,10,15,...,100]}
+   \smallskip\pause
+  \item \codeinline{[a..b]} : liste des entiers $k$ tels que $a\le k \le b$
+  
+   \smallskip\pause
+  \item \codeinline{for x in [0.13,0.31,0.53,0.98]:} 
+  
+  fait prendre à $x$ les $4$ valeurs
+de $\{0.13 , 0.31, 0.53, 0.98\}$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+%--------------------
+\evidence{Boucle \codeinline{while} (tant que)}
+
+\medskip
+\pause
+
+%\insertcode{formel/Algos/structures-tex2.sage}{structures.sage (2)}
+\begin{algo}[structures.sage (2)]
+\begin{lstlisting}
+while condition:
+    première ligne de la boucle
+    deuxième ligne de la boucle
+    ...
+    dernière ligne de la boucle
+instructions suivantes
+\end{lstlisting}
+\end{algo}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+Voici le calcul de la racine carrée entière d'un entier $n$ 
+\medskip
+\pause
+
+%\insertcode{formel/Algos/structures-tex3.sage}{structures.sage (3)}
+\begin{algo}[structures.sage (3)]
+\begin{lstlisting}
+n = 123456789     # l'entier, on veut la racine carrée|\pause|
+k = 1             # le premier candidat|\pause|
+while k*k <= n:   # tant que k^2 ne dépasse pas n|\pause|
+    k = k+1       # on passe au candidat suivant|\pause|
+print(k-1)        # la racine cherchée    
+\end{lstlisting}
+\end{algo}
+
+\medskip
+\pause
+\`A la fin, la racine carrée entière de $n$ est $k-1$
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+%--------------------
+\evidence{Test \codeinline{if... else} (si... sinon)} 
+ 
+ \medskip
+ \pause
+ 
+%\insertcode{formel/Algos/structures-tex4.sage}{structures.sage (4)}
+\begin{algo}[structures.sage (4)]
+\begin{lstlisting}
+if condition:
+    première ligne d'instruction
+    ...
+    dernière ligne d'instruction
+else:
+    première ligne d'instruction
+    ...
+    dernière ligne d'instruction
+autres instructions
+\end{lstlisting}
+\end{algo}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Booléens et conditions}
+
+\begin{frame}
+
+%--------------------
+\evidence{Booléens}
+
+\medskip
+\pause
+
+Une \defi{expression booléenne} prend 
+les valeurs  \og Vrai \fg\ (\codeinline{True})
+ou \og Faux \fg\ (\codeinline{False})
+
+
+\bigskip
+\pause
+
+%--------------------
+\evidence{Quelques conditions}
+
+\pause
+
+\begin{itemize}[<+->]
+  \item \codeinline{a < b} : teste l'inégalité stricte $a<b$
+  \item \codeinline{a > b} : teste l'inégalité stricte $a>b$
+  \item \codeinline{a <= b} : teste l'inégalité large $a\le b$
+  \item \codeinline{a >= b} : teste l'inégalité large $a\ge b$
+  \item \codeinline{a == b} : teste l'égalité $a=b$
+  \item \codeinline{a <> b} (ou \codeinline{a != b}) : teste la non égalité $a\neq b$
+  \item \codeinline{a in B} : teste si l'élément $a$ appartient à $B$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{remarque}  
+\pause 
+\begin{itemize}
+  \item Une condition prend la valeur \codeinline{True} 
+  si elle est vraie et \codeinline{False} sinon
+
+  \pause  
+\smallskip
+
+Exemple : \codeinline{x == 2} renvoie \codeinline{True} si $x$ vaut $2$ et \codeinline{False} sinon
+
+\medskip
+\pause
+
+  \item Ne pas confondre le test d'égalité
+\codeinline{x == 2} avec l'affectation \codeinline{x = 2} 
+
+\pause
+\medskip
+
+
+  \item Combiner des conditions avec les opérateurs \codeinline{and},
+  \codeinline{or}, \codeinline{not} 
+  
+\smallskip
+\pause
+
+  Exemple :
+  $$\mbox{\codeinline{ (n>0) and (not (is_prime(n))) }}$$
+ est vraie
+  si et seulement si $n$ est strictement positif et non premier
+  
+\end{itemize}  
+\end{remarque}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\begin{tp}~
+\begin{enumerate}
+  \item Pour deux assertions logiques $P$, $Q$ écrire l'assertion $P\implies Q$.
+  
+  \item Une \defi{tautologie} est une assertion vraie quelles que soient les valeurs des paramètres,
+  par exemple $(P \text{ ou } (\text{non\;} P))$ est vraie que l'assertion $P$ soit vraie ou fausse.
+  Montrer que l'assertion suivante est une tautologie :
+  
+  \vspace*{-2ex}
+  $$\text{non\;} \bigg( \big[\text{non\;}(P \text{ et } Q)  \text{ et } (Q \text{ ou } R) \big] 
+  \text{ et } \big[P \text{ et } (\text{non\;} R)\big] \bigg)$$
+\end{enumerate}
+  
+\end{tp}
+
+\pause
+\smallskip
+
+\og$P\implies Q$\fg\ : \codeinline{not(P) or Q}
+
+\pause
+
+%\insertcode{formel/Algos/structures-tex10.sage}{structures.sage (10)}
+{\footnotesize
+\begin{algo}[structures.sage (5)]
+\begin{lstlisting}
+for P in {True, False}:
+  for Q in {True, False}:
+    for R in {True, False}:
+      print(not( (not(P and Q) and (Q or R)) and ( P and (not R) ) ))
+\end{lstlisting}
+\end{algo}
+}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Fonctions}
+
+
+\begin{frame}[fragile]
+
+
+\evidence{Fonctions informatiques}
+
+\medskip
+\pause
+
+
+%\insertcode{formel/Algos/structures-tex5.sage}{structures.sage (5)}
+\begin{algo}[structures.sage (6)]
+\begin{lstlisting}
+def mafonction (mesvariables):
+    première ligne d'instruction
+    ...
+    dernière ligne d'instruction    
+    return monresultat
+\end{lstlisting}
+\end{algo}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+%\insertcode{formel/Algos/structures-tex6.sage}{structures.sage (6)}
+\begin{algo}[structures.sage (7)]
+\begin{lstlisting}
+def valeur_absolue(x):
+    if x >= 0:
+        return x
+    else: 
+        return -x
+\end{lstlisting}
+\end{algo}
+
+\pause
+\codeinline{valeur_absolue(-3)} renvoie $+3$
+
+\bigskip
+\pause
+
+Que fait la fonction suivante ? Quel nom aurait été plus approprié ?
+
+%\insertcode{formel/Algos/structures-tex7.sage}{structures.sage (7)}
+\begin{algo}[structures.sage (8)]
+\begin{lstlisting}
+def ma_fonction(x,y):
+    resultat = (x+y+valeur_absolue(x-y))/2
+    return resultat
+\end{lstlisting}
+\end{algo}
+\end{frame}
+
+
+% \begin{frame}[fragile]
+% \begin{tp}~
+% On considère trois réels distincts $a,b,c$ et on définit le polynôme
+% $$P(X) = \frac{(X-a)(X-b)}{(c-a)(c-b)}+\frac{(X-b)(X-c)}{(a-b)(a-c)}
+% +  \frac{(X-a)(X-c)}{(b-a)(b-c)}-1$$
+% \begin{enumerate}
+%   \item Définir trois variables  \codeinline{var('a,b,c')}.
+%   Définir une fonction \codeinline{polynome(x)} qui renvoie $P(x)$.
+%   
+%   \item Calculer $P(a)$, $P(b)$, $P(c)$.
+%   
+%   \item Comment un polynôme de degré $2$ pourrait avoir $3$ racines distinctes ?
+%   Expliquez ! Vous pourrez utiliser la méthode \codeinline{full_simplify()} à votre fonction.
+% \end{enumerate}
+%   
+% \end{tp}
+% \end{frame}
+
+
+\begin{frame}[fragile]
+
+Qu'affiche l'instruction \codeinline{print(x)} dans ce petit programme ?
+
+\medskip
+
+%\insertcode{formel/Algos/structures-tex9.sage}{structures.sage (9)}
+\begin{algo}[structures.sage (9)]
+\begin{lstlisting}
+x = 2
+def incremente(x):
+    x = x+1
+    return x
+incremente(x)
+print(x)
+\end{lstlisting}
+\end{algo}
+
+\pause
+\bigskip
+
+$$\sum_{k=0}^n k^2$$
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conjecture de Syracuse}
+
+\begin{frame}
+\begin{tp}
+La \defi{suite de Syracuse} de terme initial $u_0 \in \Nn^*$ est définie par récurrence
+pour $n\ge0$ par :
+$$u_{n+1} = 
+\begin{cases}
+  \frac{u_n}{2} & \text{ si $u_n$ est pair} \\
+  3u_n + 1 & \text{ si $u_n$ est impair} \\
+  \end{cases}$$
+\begin{enumerate}
+  \item \'Ecrire une fonction qui, à partir de $u_0$ et de $n$, calcule le terme $u_n$ de la suite de Syracuse.
+  \item Vérifier pour différentes valeurs du terme initial $u_0$, que la suite de Syracuse
+  atteint la valeur $1$ au bout d'un certain rang (puis devient périodique : 
+  $...,1,4,2,1,4,2,...$). \'Ecrire une fonction qui pour un certain choix de $u_0$ 
+  renvoie le premier rang $n$ tel que $u_n=1$.
+\end{enumerate}
+
+\end{tp}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+%\insertcode{formel/Algos/suite-syracuse-tex1.sage}{suite-syracuse.sage (1)}
+\begin{algo}[suite-syracuse.sage (1)]
+\begin{lstlisting}
+def syracuse(u0,n):
+    u = u0
+    for k in range(n):
+        if u%2 == 0:
+            u = u//2
+        else:
+            u = 3*u+1
+    return u
+\end{lstlisting}
+\end{algo}
+\end{frame}
+
+
+\begin{frame}
+
+
+Si $a \in \Zz$ et $n\in\Nn^*$ alors
+\begin{itemize}
+  \item \codeinline{a\%n} est le \defi{reste} de la division euclidienne de $a$ par $n$.
+ 
+\pause
+C'est donc l'entier $r$ tel que $r \equiv a \pmod{n}$ et $0 \le r < n$
+
+ 
+\pause  
+
+  \item \codeinline{a//n} est le \defi{quotient} de la division euclidienne de $a$ par $n$.
+ 
+\pause  
+  C'est donc l'entier $q$ tel que $a=nq+r$ et $0\leq r <n$
+  
+  
+\end{itemize}
+
+ 
+\pause
+\bigskip
+\begin{itemize}
+  \item Ne pas confondre \codeinline{a/b} (division de nombres réels)
+  et \\
+  \codeinline{a//b} (quotient de la division euclidienne de deux entiers)  
+\pause
+  \begin{itemize}
+    \item \codeinline{7/2} vaut $\frac72 = 3,5$
+    \smallskip
+    \item \codeinline{7//2} vaut $3$
+  \end{itemize}
+ 
+\pause  
+  \item \codeinline{u\%2 == 0} teste si $u$ est pair
+  
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+%\insertcode{formel/Algos/suite-syracuse-tex2.sage}{suite-syracuse.sage (2)}
+\begin{algo}[suite-syracuse.sage (2)]
+\begin{lstlisting}
+def vol_syracuse(u0):
+    u = u0
+    n = 0
+    while u <> 1:
+        n = n+1
+        if u%2 == 0:
+            u = u//2
+        else:
+            u = 3*u+1
+    return n
+\end{lstlisting}
+\end{algo}
+
+\end{frame}
+
+
+
+\end{document}

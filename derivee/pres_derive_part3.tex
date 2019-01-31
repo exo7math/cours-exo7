@@ -1,0 +1,400 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={0,199,174}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{{\bf Dérivée d'une fonction}}
+\subtitle{Extremum local, théorème de Rolle}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Extremum local
+    \item<4-> Théorème de Rolle
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section*{Extremum local}
+
+
+\begin{frame}
+Soit $f : I \to \Rr$
+\begin{mydefinition}
+\begin{itemize}
+  \item $x_0$ est un \defi{point critique} de $f$ si $f'(x_0)=0$
+
+\uncover<2->{  
+  \item $f$ admet un \defi{maximum local en $x_0$} 
+s'il existe un intervalle ouvert $J$ contenant $x_0$  tel que 
+$\text{pour tout } x\in I \cap J \quad f(x) \le f(x_0)$
+}
+
+\uncover<4->{ 
+  \item ... un \defi{minimum local en $x_0$} ... $f(x) \ge f(x_0)$
+}
+
+\uncover<6->{ 
+  \item $f$ admet un \defi{extremum local en $x_0$} si $f$ admet un maximum 
+local ou un minimum local en $x_0$
+}
+
+\uncover<7->{ 
+  \item $x_0$ est un \defi{maximum global} si pour tout $x\in I \quad f(x) \le f(x_0)$
+}
+
+\end{itemize}
+\end{mydefinition}
+\vspace*{-2ex}
+\myfigure{0.8}{
+\tikzinput{fig_derive04pres} 
+} 
+\end{frame}
+
+\begin{frame}
+\begin{theoreme}
+\label{th:extremum}
+Soit $I$ un intervalle ouvert et $f : I \to \Rr$ une fonction
+dérivable
+
+
+ Si $f$ admet un maximum local (ou un minimum local)
+en $x_0$ alors 
+\centerline{$f'(x_0)=0$}
+\end{theoreme}
+\pause
+\myfigure{1.5}{
+\tikzinput{fig_derive05} 
+}  
+
+\end{frame}
+
+\begin{frame}
+\begin{exemple}[Extremums de $f_\lambda(x)= x^3+\lambda x$, $\lambda \in \Rr$]
+
+\pause
+
+$f_\lambda'(x) = 3x^2+\lambda$ \pause \qquad Si $x_0$ est un extremum local alors $f'_\lambda(x_0)=0$
+
+ \pause
+\begin{itemize}
+  \item
+  \begin{itemize}
+     \item Si $\lambda>0$ alors $f'_\lambda(x)>0$
+\pause
+     \item Pas de points critiques donc pas non plus d'extremums
+  \end{itemize}
+\uncover<7->{
+  \item
+  \begin{itemize}
+     \item Si $\lambda = 0$ alors $f_\lambda'(x)=3x^2$
+}
+\uncover<8->{
+     \item Le seul point critique est $x_0=0$
+}
+\uncover<9->{
+     \item Mais ce n'est ni un maximum local, ni un minimum local
+}
+\uncover<10->{
+     \item En effet si $x<0$, $f_0(x)<0=f_0(0)$ et si $x>0$, $f_0(x)>0=f_0(0)$
+}
+  \end{itemize}
+\end{itemize}
+\pause
+\vspace*{-4ex}
+
+\myfigure{1.1}{
+\uncover<6->{
+\tikzinput{fig_derive12a}
+}
+\pause
+\qquad \qquad 
+\uncover<11->{
+\tikzinput{fig_derive12b} 
+}
+}  
+\vspace*{-2ex}
+\end{exemple}
+\end{frame}
+
+\begin{frame}
+\begin{exemple}[Extremums de $f_\lambda(x)= x^3+\lambda x$, $\lambda \in \Rr$]
+
+\pause
+
+\begin{itemize}
+  \item
+  \begin{itemize}
+     \item Si $\lambda <0$ \pause alors $f'_\lambda(x)= 3x^2-|\lambda| \pause
+= 3\big(x+\sqrt{\frac{|\lambda|}{3}}\big)\big(x-\sqrt{\frac{|\lambda|}{3}}\big)$
+\pause
+     \item Deux points critiques $x_1= -\sqrt{\frac{|\lambda|}{3}}$ et $x_2=+\sqrt{\frac{|\lambda|}{3}}$
+\pause
+     \item $f_\lambda'(x) > 0$ sur $]-\infty,x_1[$ et $]x_2,+\infty[$ et $f_\lambda'(x) < 0$ sur $]x_1,x_2[$
+\pause
+     \item $f_\lambda$ est croissante sur $]-\infty,x_1[$, puis décroissante sur $]x_1,x_2[$
+\pause
+     \item donc $x_1$ est un maximum local
+\pause
+     \item $f_\lambda$ est décroissante sur $]x_1,x_2[$ 
+puis croissante sur $]x_2,+\infty[$ 
+\pause
+     \item donc $x_2$ est un minimum local
+  \end{itemize}
+\end{itemize}
+\pause
+\vspace*{-6ex}
+\myfigure{1.1}{
+\qquad \qquad \qquad \qquad \tikzinput{fig_derive12c} 
+}  
+\vspace*{-2ex}
+\end{exemple}
+\end{frame}
+
+\begin{frame}
+\begin{proof}
+\centerline{\emph{Un extremum est un point critique}}
+
+\pause
+
+Supposons que $x_0$ soit un maximum local de $f$
+
+\pause
+
+soit $J$ l'intervalle ouvert contenant $x_0$  tel que 
+$\text{pour tout } x\in I \cap J \quad f(x) \le f(x_0)$
+\pause
+\begin{itemize}
+  \item Pour $x \in I\cap J$ tel que $x < x_0$ 
+\pause
+  \begin{itemize}
+    \item $f(x)-f(x_0) \le 0$ et $x-x_0<0$
+\pause
+    \item donc $\frac{f(x)-f(x_0)}{x-x_0} \ge 0$
+\pause
+    \item donc $\lim_{x \to x_0^-} \frac{f(x)-f(x_0)}{x-x_0} \ge 0$
+  \end{itemize}
+\pause
+  \item $x \in I\cap J$ tel que $x > x_0$
+\pause
+  \begin{itemize}
+    \item $f(x)-f(x_0) \le 0$ et $x-x_0>0$
+\pause
+    \item donc $\frac{f(x)-f(x_0)}{x-x_0} \le 0$
+\pause
+    \item donc $\lim_{x \to x_0^+} \frac{f(x)-f(x_0)}{x-x_0} \le 0$
+  \end{itemize}
+\pause
+  \item $\lim_{x \to x_0^-} \frac{f(x)-f(x_0)}{x-x_0} = f'(x_0)$ donc $f'(x_0) \ge 0$ 
+\pause
+  \item $\lim_{x \to x_0^+} \frac{f(x)-f(x_0)}{x-x_0} = f'(x_0)$ donc $f'(x_0) \le 0$ 
+\pause
+  \item Bilan $f'(x_0)=0$
+\end{itemize}
+\vspace*{-2ex}
+\end{proof}
+\end{frame}
+
+
+
+\begin{frame}
+\begin{enumerate}
+  \item La réciproque du théorème est fausse
+\pause
+
+Exemple : $f : \Rr \to \Rr$, $f(x)= x^3$, $f'(0)=0$ 
+\pause
+
+mais $x_0=0$ n'est ni un maximum local ni un minimum local
+
+\pause
+
+  \item Cas d'un intervalle fermé : attention aux extrémités
+
+\pause
+
+Exemple : $f : [a,b] \to \Rr$  dérivable avec un extremum en $x_0$
+\begin{itemize}
+  \item $x_0= a$
+  \item $x_0 =b$
+  \item $x_0 \in ]a,b[$, dans ce cas $f'(x_0)=0$
+\end{itemize}
+
+\pause
+
+  \item Pour déterminer $\max_{[a,b]} f$ et $\min_{[a,b]} f$ 
+ il faut comparer les valeurs de $f$ aux différents points critiques et en $a$ et en $b$
+
+\pause
+\myfigure{0.8}{
+\tikzinput{fig_derive06} \quad
+\pause
+\tikzinput{fig_derive07} \quad
+\pause
+\tikzinput{fig_derive08} 
+}  
+
+\end{enumerate}
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section*{Théorème de Rolle}
+
+
+\begin{frame}
+\begin{theoreme}[de Rolle]
+\label{th:rolle}
+Soit $f:[a,b] \to \Rr$ telle que 
+
+\begin{itemize}
+  \item $f$ est continue sur $[a,b]$
+
+  \item $f$ est dérivable sur $]a,b[$
+
+  \item $f(a)=f(b)$
+\end{itemize}
+
+Alors il existe $c \in ]a,b[$  tel que $f'(c)=0$
+\end{theoreme}
+\pause
+\myfigure{1.4}{
+\tikzinput{fig_derive09} 
+}  
+
+\end{frame}
+
+\begin{frame}
+\begin{exemple}
+Soit $P(X) = (X-\alpha_1)(X-\alpha_2)\cdots(X-\alpha_n)$
+avec $\alpha_1< \alpha_2 < \cdots < \alpha_n$
+\pause
+\begin{enumerate}
+  \item \emph{Montrons que $P'$ a $n-1$ racines distinctes}
+\pause
+  \begin{itemize}
+    \item $P$ est une fonction continue et dérivable
+\pause
+    \item $P(\alpha_1)=0=P(\alpha_2)$ alors par le théorème de Rolle 
+il existe $c_1 \in ]\alpha_1,\alpha_2[$ tel que $P'(c_1)=0$
+\pause
+    \item  pour $1 \le k \le n-1$, comme $P(\alpha_k)=0=P(\alpha_{k+1})$ alors
+il existe $c_k \in ]\alpha_k,\alpha_{k+1}[$ tel que $P'(c_k)=0$
+\pause
+    \item $n-1$ racines de $P'$ : $c_1< c_2 < \cdots < c_{n-1}$
+  \end{itemize}
+\pause
+  \item \emph{Montrons que $P+P'$ a $n-1$ racines distinctes}
+  \begin{itemize}
+\pause
+    \item fonction auxiliaire $f(x)=P(x)\exp x$
+\pause
+    \item $f$ s'annule comme $P$ en $\alpha_1,\ldots,\alpha_n$
+\pause
+    \item $f'(x)=\big(P(x)+P'(x)\big) \exp x$
+\pause
+    \item Théorème de Rolle :  comme $f(\alpha_k)=0=f(\alpha_{k+1})$ alors
+il existe $\gamma_k \in ]\alpha_k,\alpha_{k+1}[$ tel que $f'(\gamma_k)=0$ ($1 \le k \le n-1$)
+\pause
+    \item $n-1$ racines distinctes de $P+P'$ : $\gamma_1 < \gamma_2 < \cdots < \gamma_{n-1}$
+  \end{itemize}
+\end{enumerate}
+\end{exemple}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{theoreme}[de Rolle]
+\label{th:rolle}
+
+\begin{minipage}{0.47\textwidth}
+\begin{itemize}
+  \item $f$ est continue sur $[a,b]$
+
+  \item $f$ est dérivable sur $]a,b[$
+
+  \item $f(a)=f(b)$
+\end{itemize}  
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+Il existe $c \in ]a,b[$  tel que $f'(c)=0$  
+\end{minipage}
+\end{theoreme}
+
+
+\begin{proof}
+\pause
+\begin{itemize}
+  \item Si $f$ est constante sur $[a,b]$ alors n'importe quel $c\in]a,b[$ convient
+\pause
+  \item Sinon il existe $x_0 \in [a,b]$ tel que $f(x_0) \neq f(a)$
+\pause
+  \item Supposons par exemple $f(x_0) > f(a)$
+\pause
+  \item $f$ est continue sur $[a,b]$, donc elle admet un maximum en un point $c\in[a,b]$
+\pause
+  \item  $f(c) \ge f(x_0) > f(a)$ donc $c \neq a$
+
+\pause 
+De même comme $f(a)=f(b)$ alors  $c\neq b$
+
+\pause 
+Ainsi $c\in ]a,b[$
+
+\pause 
+  \item En $c$, $f$ est dérivable et admet un maximum (local) donc $f'(c)=0$
+\end{itemize}
+\end{proof}
+\end{frame}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Mini-exercices}
+
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Dessiner le graphe de fonctions vérifiant :  $f_1$ admet deux minimums locaux et un maximum local ;
+$f_2$ admet un minimum local qui n'est pas global et un maximum local qui est global ; 
+$f_3$ admet une infinité d'extremum locaux ; $f_4$ n'admet aucun extremum local.
+  \item Calculer en quel point la fonction $f(x)=ax^2+bx+c$ admet un extremum local.
+  \item Soit $f : [0,2] \to \Rr$ une fonction deux fois dérivable telle que $f(0)=f(1)=f(2)=0$.
+Montrer qu'il existe $c_1,c_2$ tels que $f'(c_1)=0$ et $f'(c_2)=0$. Montrer qu'il existe
+$c_3$ tel que $f''(c_3)=0$.
+  \item Montrer que chacune des trois hypothèses du théorème de Rolle est nécessaire.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+\end{document}

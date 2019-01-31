@@ -1,0 +1,184 @@
+
+\input{../preamb-pres.tex}
+% Couleur à définir
+
+% Commande spécifique à ce chapitre
+\usepackage{mathtools}
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Séries}}
+\subtitle{Sommation d'Abel}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Théorème de sommation d'Abel
+    \item<4-> Séries de Fourier
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Théorème de sommation d'Abel}
+
+\begin{frame}
+Séries de la forme $\sum a_kb_k$
+
+\pause
+\begin{theoreme}[de sommation d'Abel]
+Soient $(a_k)_{k\ge0}$ et $(b_k)_{k\ge0}$ deux suites telles que 
+\begin{enumerate}
+\item\pause $(a_k)_{k\ge0}$ est une suite décroissante de réels positifs qui tend vers $0$
+\item\pause Les sommes partielles de la série $\displaystyle\sum_{k\ge0} b_k$ sont bornées :
+$$\exists M\quad\forall n\in \Nn\qquad
+\big|b_0+\cdots+b_n\big|\le M$$
+\end{enumerate}
+\pause
+Alors la série $\displaystyle\sum_{k\ge0} a_kb_k$ converge
+\end{theoreme}
+\end{frame}
+
+
+\begin{frame}
+Le critère de Leibniz pour les séries alternées est un cas particulier :
+\begin{itemize}
+\item\pause soit $(a_k)$ une suite positive, décroissante, qui tend vers $0$
+\item\pause si $b_k=(-1)^k$ alors $\big|\sum_{k=0}^n b_k\big|\le 1$
+\item\pause alors $\sum a_k b_k$ converge
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\begin{proof}
+\pause
+Pour tout $n\ge0$, posons $B_n=b_0+\cdots+b_n$
+\begin{itemize}
+\item\pause Récrivons les sommes partielles de la série $\sum a_k b_k$ :
+$$
+\begin{array}{rcl}
+S_n & = & a_0b_0+a_1b_1+\cdots+a_{n-1}b_{n-1}+a_nb_n \\ \pause
+&=& a_0B_0+a_1(B_1-B_0)+\cdots +a_{n-1}(B_{n-1}-B_{n-2}) + a_n(B_n-B_{n-1})\\ \pause
+&=& B_0(a_0-a_1)+B_1(a_1-a_2)+\cdots+B_{n-1}(a_{n-1}-a_n)+B_na_n
+\end{array}
+$$
+\item\pause Comme $(B_n)$ est bornée et $a_n$ tend vers $0$, $B_na_n$ tend vers $0$
+\item\pause Montrons que la série $\sum B_k(a_k-a_{k+1})$ est absolument convergente
+\begin{itemize}
+\item\pause Comme $(a_k)$ est une suite de réels positifs,
+décroissante, et $|B_k|$ est borné par $M$, \pause on a
+$$
+\big|B_k(a_k-a_{k+1})\big| = \big|B_k\big|(a_k-a_{k+1})\le M(a_k-a_{k+1})
+$$
+\item\pause Or
+$
+M(a_0-a_1)+\cdots+M(a_n-a_{n+1}) = M(a_0-a_{n+1}) \pause \longrightarrow Ma_0
+$
+\item\pause La série $\sum M(a_k-a_{k+1})$ converge, donc $\sum\big|B_k(a_k-a_{k+1})\big|$ aussi
+\end{itemize}
+\item\pause La suite $(S_n)$ est donc convergente : la série $\sum a_k b_k$ converge \qedhere
+\end{itemize}
+\end{proof}
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Séries de Fourier}
+
+\begin{frame}
+Cas  d'application le plus fréquent :
+$b_k=e^{\ii k\theta}$
+
+\pause
+\begin{corollaire}
+Soit $\theta$ un réel tel que $\theta \neq 2n\pi$ (pour tout $n \in\Zz$)
+
+\pause
+Soit $(a_k)$ une suite de réels positifs, décroissante,
+tendant vers $0$
+
+\pause
+Alors les \defi{séries de Fourier} 
+\mybox{$\displaystyle 
+\sum a_k e^{\ii k\theta} \qquad 
+\sum a_k\cos(k\theta) \qquad 
+\sum a_k\sin(k \theta)
+\quad \text{ convergent}
+$} 
+\end{corollaire}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{proof}
+\begin{itemize}
+\item Pour appliquer le théorème de sommation d'Abel avec 
+$b_k=e^{\ii k\theta}$, nous devons
+vérifier que les sommes partielles de la suite $(e^{\ii k\theta})$ sont
+bornées : 
+\begin{itemize}
+\item\pause $e^{\ii k\theta}=(e^{\ii \theta})^k$ et par hypothèse 
+$e^{\ii \theta}\neq1$
+\item\pause On a donc la somme d'une suite géométrique :
+$$
+\big|1+e^{\ii \theta}+\cdots+e^{\ii k\theta}\big| =
+ \left|\frac{1-e^{\ii (k+1)\theta}}{1-e^{\ii \theta}}\right|
+\pause \le
+\left|\frac{2}{1-e^{\ii \theta}}\right|$$
+\item\pause Donc $\displaystyle \sum a_k e^{\ii k\theta}$ converge
+\end{itemize}
+\item\pause Comme $\sum a_k e^{\ii k\theta} = \sum a_k\cos(k\theta) + \ii \sum a_k\sin(k \theta)$, 
+\pause 
+on en déduit la convergence des séries $\sum a_k\cos(k\theta)$ et $\sum a_k\sin(k \theta)$
+\end{itemize}
+\end{proof}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Justifier que les sommes 
+  $$
+  \sum_{k=0}^n (-1)^k \qquad \sum_{k=0}^n \cos(k\theta) \qquad \sum_{k=0}^n \sin(k\theta)
+  $$
+  sont bornées pour $\theta \neq 0 \pmod{2\pi}$
+ 
+  \item Montrer que les séries suivantes convergent par le critère de sommation d'Abel :
+  $$\sum \frac{(-1)^k \cos k}{k} \qquad \sum \frac{\sqrt{k+1}}{k} \sin (k\theta)
+  \qquad \frac{1}{e^{\ii k \theta}\ln k}$$
+  pour $\theta \neq 0 \pmod{2\pi}$
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,315 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={0,153,0}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcommand{\GL}{\mathcal{G}\ell}
+\newcounter{saveenumi}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+
+
+\title{{\bf Groupes}}
+\subtitle{Le groupe $\Zz/n\Zz$}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> L'ensemble et le groupe $\Zz/n\Zz$
+    \item<4-> Groupes cycliques de cardinal fini
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%---------------------------------------------------------------
+\section{L'ensemble et le groupe $\Zz/n\Zz$}
+
+\begin{frame}
+Fixons $n \ge 1$
+
+$$\Zz/n\Zz =\left\{ \overline{0}, \overline{1}, \overline{2},\ldots, \overline{n-1} \right\}$$
+
+\pause
+
+
+$\overline p$ désigne la classe d'équivalence de $p$ modulo $n$
+
+\mybox{$\overline p = \overline q \Longleftrightarrow p \equiv q \pmod n$}
+
+\pause
+
+\centerline{$\overline p = \overline q \Longleftrightarrow \exists k \in \Zz \quad p = q + kn$}
+
+
+\pause
+\bigskip
+
+On définit une \defi{addition} sur $\Zz/n\Zz$
+\mybox{$\overline p + \overline q = \overline{p+q}$}
+
+
+
+\end{frame}
+
+\begin{frame}
+
+\begin{exemple}
+Fixons $n=60$
+\begin{itemize}
+  \item $\overline{60}=\overline{0}$, $\overline{61}=\overline{1}$,...
+\pause
+  \item $\overline{135} = \overline{15}$
+\pause
+  \item $\Zz/60\Zz= \big\{\overline{0},\overline{1},
+\overline{2},\ldots,\overline{59}\big\}$
+\pause
+  \item $\overline{31} + \overline{46}  = \overline{31 + 46} =\overline{77} = \overline{17}$
+\pause
+  \item $\overline{15} + \overline{50}  = \overline{15 + 50} =\overline{65} = \overline{5}$
+\pause
+  \item $\overline{135}+\overline{50} = \overline{185} = \overline{5}$
+\pause
+  \item $\overline{135}+\overline{50} = \overline{15} - \overline{10} = \overline{5}$
+\end{itemize}
+\end{exemple}
+
+\pause
+\medskip
+
+L'addition est bien définie : elle est indépendante du choix des représentants
+
+\pause
+
+$\begin{array}{rcl}
+ \overline{p'}= \overline p \ \text{ et } \ \overline{q'} = \overline q 
+    & \Rightarrow & p' \equiv p \pmod n \text{ et } q' \equiv q \pmod n \\
+    & \Rightarrow & p'+q' \equiv p+q \pmod n \\
+    & \Rightarrow & \overline{p'+q'} = \overline{p+q} \\
+    & \Rightarrow & \overline{p'}+\overline{q'} = \overline p + \overline q \\
+\end{array}
+$
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{proposition}
+$(\Zz/n\Zz,+)$ est un groupe commutatif 
+\end{proposition}
+
+\pause
+
+\begin{itemize}
+  \item L'élément neutre est $\overline{0}$
+\pause
+  \item L'opposé de $\overline p$, noté $-\overline{p}$, est $\overline{-p}=\overline{n-p}$
+\pause
+  \item L'associativité et la commutativité découlent de celles de $(\Zz,+)$
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+
+%---------------------------------------------------------------
+\section{Groupes cycliques de cardinal fini}
+
+\begin{frame}
+
+\begin{mydefinition}
+$(G,\star)$ est un groupe \defi{cyclique} s'il existe un
+élément $a \in G$ tel que 
+
+$\text{pour tout } x \in G, \text{ il existe } k \in \Zz \text{ tel que } x = a^k$
+\end{mydefinition}
+
+
+\pause
+\bigskip
+
+Autrement dit : $G$ est engendré par un seul élément $a$
+
+\pause
+\bigskip
+
+Le groupe $(\Zz/n\Zz,+)$ est un groupe cyclique, il est engendré par $a=\overline 1$
+
+\centerline{$\overline k =  
+\underbrace{\overline 1 + \overline 1 + \cdots + \overline 1}_{k \text{ fois}} = k\cdot \overline 1$}
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{theoreme}
+\label{prop:cyclique}
+Si $(G,\star)$ est un groupe cyclique de cardinal $n$, alors  
+$(G,\star)$ est isomorphe à $(\Zz/n\Zz,+)$
+\end{theoreme}
+
+\pause
+\bigskip
+
+Il n'existe, à isomorphisme près, qu'un seul groupe 
+cyclique à $n$ éléments, c'est $\Zz/n\Zz$
+\end{frame}
+
+\begin{frame}
+\begin{proof}
+$G$ est cyclique donc $G = \big\{ \ldots, a^{-2},a^{-1},e,a,a^2,a^3,\ldots \big\}$
+
+\pause
+
+Montrons $G = \big\{e, a, a^2, \ldots, a^{n-1}\big\} \quad  \text{ et que } \quad a^n = e$
+
+\pause
+
+\begin{itemize}
+  \item $\big\{e, a, a^2, \ldots, a^{n-1}\big\}$ est inclus dans $G$
+
+\pause
+
+  \item si $a^p=a^q$ (avec $0\le q < p \le n-1$) alors $a^{p-q}=e$ 
+
+$G$ serait égal à  $\big\{e, a, a^2, \ldots, a^{p-q-1}\big\}$ et donc n'aurait pas $n$ éléments
+
+\pause
+
+  \item donc $G = \big\{e, a, a^2, \ldots, a^{n-1}\big\}$
+
+\pause
+
+  \item $a^n \in G$ donc il existe $0 \le p \le n-1$ tel que $a^n=a^p$
+
+Encore une fois si $p>0$ alors  $a^{n-p}=e$ et donc contradiction
+
+\pause
+
+  \item  Ainsi $p=0$ donc $a^n=a^0=e$
+\end{itemize}
+\end{proof}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{proof}
+$$G = \big\{e, a, a^2, \ldots, a^{n-1}\big\} \quad  \text{ et } \quad a^n = e$$
+
+
+Construction de l'isomorphisme entre $(\Zz/n\Zz,+)$ et $(G,\star)$
+
+\pause
+\medskip
+
+\hfil 
+$
+\begin{array}{rccl}
+f : & \Zz/n\Zz & \longrightarrow & G \\
+    &  \overline k & \longmapsto & a^k  \\
+\end{array}
+$
+\pause
+
+\begin{itemize}
+ \item  $f$ est bien définie :
+
+$\begin{array}{rcl}
+ \overline{k}=\overline{k'} 
+    & \Rightarrow & k \equiv k' \pmod n \\
+    & \Rightarrow & k = k' + \ell n \\
+    & \Rightarrow & f(\overline{k}) = a^k = a^{k'+\ell n}  \\
+    & \Rightarrow & f(\overline{k}) = a^{k'} \star a^{\ell n}=
+a^{k'} \star (a^n)^\ell= a^{k'} \star e^\ell = a^{k'} = f(\overline{k'}) \\
+\end{array}$
+
+\pause
+  \item $f$ est un morphisme de groupe :
+
+ $f(\overline{k}+\overline{k'})
+= f(\overline{k+k'}) = a^{k+k'}=a^{k} \star a^{k'}= f(\overline k) \star f(\overline{k'})$ 
+
+\pause
+  \item $f$ est surjective car tout élément de $G$ s'écrit $a^k$
+
+\pause
+  \item $G$ et $\Zz/n\Zz$ ont le même nombre d'éléments donc $f$ est bijective
+\end{itemize}
+
+\medskip
+\pause
+
+Conclusion : $f$ est un isomorphisme entre $(\Zz/n\Zz,+)$ et $(G,\star)$
+\end{proof}
+
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Trouver tous les sous-groupes de $(\Zz/12\Zz,+)$.
+
+  \item Montrer que le produit défini par $\overline p \times \overline q = \overline{p\times q}$
+est bien défini sur l'ensemble $\Zz/n\Zz$.
+
+  \item Dans la preuve du théorème (page 5), montrer directement que l'application
+$f$ est injective.
+
+  \item Montrer que l'ensemble $\mathbb{U}_n = \big\{ z \in \Cc \mid z^n = 1 \big\}$ est un sous-groupe 
+  de $(\Cc^*,\times)$. Montrer que $\mathbb{U}_n$ est isomorphe à $\Zz/n\Zz$. Expliciter l'isomorphisme.
+
+  \item Montrer que l'ensemble 
+$H = \big\{
+\left(\begin{smallmatrix} 1 & 0 \\ 0 & 1 \\ \end{smallmatrix}\right),
+\left(\begin{smallmatrix} 1 & 0 \\ 0 & -1 \\ \end{smallmatrix}\right),
+\left(\begin{smallmatrix} -1 & 0 \\ 0 & 1 \\ \end{smallmatrix}\right),
+\left(\begin{smallmatrix} -1 & 0 \\ 0 & -1 \\ \end{smallmatrix}\right)
+ \big\}$ 
+est un sous-groupe de $(\GL_2,\times)$
+ayant $4$ éléments. Montrer que $H$ \emph{n'est pas} isomorphe à $\Zz/4\Zz$.
+\end{enumerate}
+
+\end{miniexercice}
+\end{frame}
+
+
+
+
+\end{document}

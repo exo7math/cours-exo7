@@ -1,0 +1,50 @@
+\makeatletter
+\newcommand{\rectangleexp}[1]{
+ % calcul de dx=1/n
+  \pgfmathparse{divide(1,#1)}
+  \let\dx\pgfmathresult
+
+  % tracÃÂ© de la courbe et des axes
+  \draw[ultra thick, color=myred,domain=-0.5:0.05] plot (\x,{\x*\x});
+  \draw[ultra thick, color=myred,domain=0.95:1.1] plot (\x,{\x*\x)}) node[right] {$y=x^2$};
+  \draw[gray,->] (-0.5,0) -- (1.5,0) node[below,black] {$x$};
+  \draw[gray,->] (0,-0.05) -- (0,1.3) node[right,black] {$y$};
+
+ % dessin des rectangles "supÃÂ©rieurs"
+  \pgfmathparse{#1-1}
+  \let\nm\pgfmathresult
+  \foreach \i in {0,...,\nm}
+  {
+  \pgfmathparse{divide(\i,#1)}
+  \let\x\pgfmathresult
+  \pgfmathparse{(\x+\dx)^2}
+  \let\y\pgfmathresult
+  \filldraw[orange!20,draw=gray] (\x,0) rectangle ($(\x,\y)+(\dx,0)$);
+ \draw (0,0);
+  }
+
+ % dessin des rectangles "infÃÂ©rieurs"
+  \foreach \i in {0,...,\nm}
+  {
+  \pgfmathparse{divide(\i,#1)}
+  \let\x\pgfmathresult
+  \pgfmathparse{\x*\x}
+  \let\y\pgfmathresult
+  \filldraw[green!20,draw=gray] (\x,0) rectangle ($(\x,\y)+(\dx,0)$);
+  }
+
+% du texte
+  \draw (1pt,1cm) -- (-1pt,1cm) node[anchor=east] {$1$};
+   \foreach \x/\xtext in {0/0, 1/1}
+  \draw (\x cm,2pt) -- (\x cm,-2pt) node[anchor=north] {$\xtext$};
+
+  \node[below, inner sep=10pt] at (0.5,0) {$n=#1$};
+
+  % tracÃÂ© de la courbe par-dessus les rectangles
+  \draw[color=myred!50,domain=0:1] plot (\x,{\x*\x});
+}
+\makeatother
+
+\begin{tikzpicture}[scale=3]
+\rectangleexp{5};
+\end{tikzpicture}

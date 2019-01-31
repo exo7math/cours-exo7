@@ -1,0 +1,282 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+Dans cette partie, nous présentons quelques types de matrices particulièrement intéressants, 
+et les opérations qui leurs sont associées. Les définitions sont visuellement très simples, 
+et nous verrons leurs propriétés mathématiques.
+
+\change
+Tout d'abord les matrices triangulaires, avec un cas particulier très important:
+les matrices diagonales.
+
+\change
+Ensuite, l'opération de transposition, qui échange ce qui est au-dessus de la diagonale avec ce qui 
+en-dessous.
+
+\change
+La trace d'une matrice, un nombre qui mesure certaines propriétés d'une matrice,
+
+\change
+et deux autres classes de matrices: les matrices \emph{symétriques}, qui sont symétriques 
+de part et d'autre de la diagonale, ...
+
+\change
+... et les antisymétriques, dont les deux côtés de la diagonale sont opposés.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On considère pour le moment uniquement des matrices \emph{carrées}, c-à-d ayant un même nombre 
+$n$ de colonnes et de lignes. On peut alors parler de \defi{diagonale}, 
+qui est la ligne partant de l'élément $11$ à l'élément $n n$.
+
+\change
+Une matrice carrée $A$ est dite \defi{triangulaire inférieure} si ses éléments strictement 
+\emph{au-dessus} de la diagonale sont nuls, ce qui se traduit par: chaque fois que $i < j$
+on a $a_{ij} = 0$. 
+
+\change
+Voici la forme générale d'une matrice triangulaire inférieure: les coefficients strcitement au-dessus de la diagonale sont nuls,
+
+sur la diagonale et en-dessous les coefficients sont quelconques. 
+Notons que ces coefficients peuvent 
+être nuls ou non, mais a priori on n'en sait rien.
+
+\change
+De la même manière, on dit que $A$ est \defi{triangulaire supérieure} si ses éléments strictement 
+\emph{en-dessous} de la diagonale sont nuls, ce qui se traduit par: $i > j \implies a_{ij} = 0$. 
+
+\change
+Voici la forme générale d'une matrice triangulaire supérieure.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici des exemples concrets de matrices triangulaires.
+Les deux premières matrices sont triangulaires inférieures, et la 3ème est triangulaire supérieure.
+
+\change
+Les matrices triangulaires se rencontrent notamment dans la résolution de certains systèmes linéaires.
+Comme elles sont plus simples, elles ont des propriétés spécifiques comme celle-ci: 
+
+\emph{Une matrice triangulaire est inversible 
+si et seulement si ses éléments diagonaux sont tous non nuls}.
+
+C'est donc très simple de dire si une telle matrice est ou non inversible.
+
+[Sur exemple] Toutes ces matrices sont triangulaires, les coefficients sur la diagonale sont non nuls, donc elles sont toutes trois inversibles.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Une matrice peut être \emph{à la fois} triangulaire inférieure et supérieure, elle est dite alors
+\defi{diagonale}. Dans ce cas tous les éléments au-dessus et en-dessous de la diagonale
+sont nuls: $i\neq j \ \Longrightarrow \ a_{ij} = 0$
+
+\change
+Voici deux exemples. Remarquez que la première matrice possède aussi un zéro \emph{sur}
+la diagonale, ce qui est évidemment autorisé.
+
+\change
+Les matrices diagonales jouent un rôle particulier et ont aussi des propriétés particulières.
+Par exemple, il est très facile de calculer la puissance $p$ d'une matrice diagonale: 
+il suffit d'élever chaque élément de la diagonale à la puissance $p$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Revenons au cas général d'une matrice $A$ de taille $n \times p$.
+
+\change
+La matrice \defi{transposée} de $A$, notée $A^T$, est une matrice de taille $p \times n$ dont les 
+indices $i$ et $j$ des coefficients ont été échangés.
+
+
+Le coefficient $a_{21}$ de $A$ se retrouve ici,
+le coefficient $a_{n1}$ de $A$ se retrouve ici,
+le coefficient $a_{2p}$ de $A$ se retrouve là.
+
+Les coefficients de la diagonale restent sur la diagonale.
+
+\change
+De façon générale le coefficient $a_{ij}$ se retrouve à la place $(j,i)$ dans la matrice transposée.
+
+
+La transposée de $A$ est en quelque sorte l'image miroir de $A$, par rapport à sa diagonale.
+
+\change
+On peut aussi dire que la $i$-ème ligne de $A$ devient la $i$-ème colonne de $A^{T}$ 
+(ou réciproquement la $j$-ème colonne de $A$ devient la $j$-ème ligne de $A^{T}$).
+On dit que la transposition échange lignes et colonnes.
+
+\change
+Attention, il existe diverses notations pour la transposée, avec $t$ majuscule ou minuscule,
+à gauche ou à droite (mais toujours en exposant).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici 3 exemples de calcul de transposée. 
+
+On notera que la transposée d'une matrice carrée 
+est encore carrée, 
+
+la transposée d'un matrice $3\times 2$ est un matrice $2\times 3$,
+
+la transposée d'un vecteur-ligne est un vecteur-colonne. 
+
+\change
+La transposée est donc une fonction qui à une matrice associe une autre matrice. 
+Ses propriétés notables sont que: $(A + B)^T = A^T + B^T$ :
+la transposée d'une somme est la somme des transposées.
+
+\change
+$(\alpha \, A)^T = \alpha \, A^T $
+%Par conséquent on voit que la fonction transposée est une application \defi{linéaire};
+
+\change
+Si on fait deux fois l'opération de transposition alors on retombe sur la matrice de départ 
+
+
+\change
+$(AB)^T = B^T A^T$ 
+La transposée d'un produit est le produit des transposée : mais notez bien
+que l'ordre est inverse (comme pour l'inverse d'un produit de matrice).
+
+
+\change
+Si $A$ est inversible, alors $A^T$ l'est aussi et l'inverse de la transposée est
+la transposée de l'inverse.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Revenons au cas d'une matrice carrée, de taille $n \times n$.
+
+\change
+Les éléments situés sur sa diagonale (c-à-d $i=j$) sont appelées éléments diagonaux,
+et il y en exactement $n$.
+
+\change
+Ils forment un sous-ensemble de la matrice appelé \defi{diagonale principale}
+
+\change
+On définit alors une fonction, appelée \defi{trace} qui à la matrice carrée $A$ 
+associe la somme de ses éléments diagonaux.
+
+$\tr A = a_{11} + a_{22} + \cdots +a_{nn}$
+
+\change
+Voici un exemple: les éléments diagonaux sont $2$ et $5$, et la trace vaut donc $7$.
+
+\change
+Ici les éléments diagonaux sont $1$, $2$ et $-10$, et la trace vaut $-7$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici quelques propriétés importantes de la fonction trace.
+\begin{enumerate}
+\item $\tr(A + B)$ = $\tr A$ + $\tr B$
+\item $\tr(\alpha A)$ = $\alpha$ $\tr A$ pour tout $\alpha \in \Kk$
+\item $\tr(A^T)$ = $\tr A $
+\end{enumerate}
+
+La dernière propriété est la plus importante :
+$\tr(AB)$ = $\tr(BA)$
+
+Les démonstrations de ces 3 propriétés sont simples,
+par contre je vous encourage à travailler la démonstration
+de la formule $\tr(AB)$ = $\tr(BA)$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Étudions maintenant les matrices carrées et leurs transposées.
+Une matrice est dite \defi{symétrique} si elle est égale à sa transposée:
+$A^T = A$.
+
+\change
+Autrement dit, le coefficient $a_{ij}$ est égal au coefficient $a_{ji}$
+situé symétriquement par rapport à la diagonale.
+
+\change
+Voici deux exemples de matrices symétriques. 
+
+Par exemple ici et là $0$,
+
+ici et là $5$,
+
+ici et là $-1$.
+
+On remarque qu'il n'y a aucune contrainte sur les coefficients diagonaux.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On peut construire une matrice symétrique à partir d'une matrice $B$ quelconque
+(même pas forcément carrée), en multipliant $B$ par sa transposée, à gauche ou à droite :
+
+les matrices $B \cdot B^T$ et $B^T \cdot B$ sont symétriques. 
+
+Attention ces deux matrices sont en général différentes, mais toutes deux symétriques.
+
+
+\change
+La preuve est très simple, et utilise le théorème précédent sur la transposition.
+\[
+(BB^T)^T = (B^T)^T B^T = BB^T 
+\]
+C'est le même raisonnement pour l'autre produit.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Une matrice est dite \defi{antisymétrique} si elle est l'opposée de sa transposée:
+$A^T = - A$.
+
+\change
+Autrement dit, le coefficient $a_{ij}$ est égal à $-a_{ji}$
+situé symétriquement par rapport à la diagonale.
+
+\change
+Voici deux exemples.
+
+
+
+$-4$ ici, $+4$ là.
+
+$-2$ ici, $+2$ là.
+
+$+5$ ici, $-5$ là.
+
+\change
+On remarquera que les éléments diagonaux d'une matrice antisymétrique sont 
+toujours tous nuls. En effet, si $i=j$, on a $a_{ii} = - a_{ii}$)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Entraînez-vous avec ces exercices pour vérifier que vous avez bien compris le cours.
+
+\end{document}

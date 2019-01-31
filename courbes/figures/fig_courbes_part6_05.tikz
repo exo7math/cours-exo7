@@ -1,0 +1,48 @@
+\begin{tikzpicture}[scale=2]
+
+% Axes
+     \draw[->,>=latex,thick, gray] (-2.5,0)--(1,0) node[below,black] {$x$};
+     \draw[->,>=latex,thick, gray] (0,-1.5)--(0,1.5) node[right,black] {$y$};
+
+ % Ticks
+%     	\foreach \x in {1,...,3}
+%      		\draw (\x,2pt) -- (\x,-2pt)
+% 			node[anchor=north] {\x};
+    	\foreach \x in {-1,...,-2}
+     		\draw (\x,2pt) -- (\x,-2pt)
+			node[anchor=north east] {\x};
+    	\foreach \x in {1}
+     		\draw (2pt,\x) -- (-2pt,\x)
+			node[pos=0,anchor=west] {\x};
+    	\foreach \x in {-1}
+     		\draw (2pt,\x) -- (-2pt,\x)
+			node[pos=0,anchor=west] {\x};
+
+% Courbe
+ \beameronly{\uncover<8->}{
+\draw [thick, color=red, domain=0:pi, samples=200, smooth]
+  plot (xy polar cs:angle=\x r, radius={1-cos(\x r)});
+}
+ \beameronly{\uncover<9->}{
+\draw [thick, color=red, domain=0:2*pi, samples=200, smooth]
+  plot (xy polar cs:angle=\x r, radius={1-cos(\x r)});
+}
+
+% Tangentes
+ \beameronly{\uncover<7->}{
+  \draw[->,>=latex,very thick, blue] (0,0)--+(0.5,0);
+  \draw[->,>=latex,thick, blue] (180:2)--+(0,0.5);
+  \draw[->,>=latex,thick, blue] (180:2)--+(0,-0.5);
+  \draw[->,>=latex,thick, blue] (60:0.5)--+(0,0.5);
+  \draw[->,>=latex,thick, blue] (60:0.5)--+(0,-0.5);
+  \draw[->,>=latex,thick, blue] (120:1.5)--+(0.5,0);
+  \draw[->,>=latex,thick, blue] (120:1.5)--+(-0.5,0);
+}
+
+ \beameronly{\uncover<6->}{
+   \fill (180:2) circle (1pt) node[above left] {$\theta=\pi$};
+   \fill (60:0.5) circle (1pt) node[right] {$\theta=\frac\pi3$};
+   \fill (120:1.5) circle (1pt) node[above] {$\theta=\frac{2\pi}{3}$};
+   \fill (0:0) circle (1pt) node[below left] {$\theta=0$};
+}
+\end{tikzpicture}

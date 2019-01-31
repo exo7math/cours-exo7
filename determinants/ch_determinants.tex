@@ -1,0 +1,2335 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+%\usepackage{subdepth}
+
+%\newcommand\sign{{\operatorname{sign}}}
+%\newcommand\diag{{\operatorname{diag}}}
+
+% \renewcommand{\Mat}{\mathop{\mathrm{Mat}}\nolimits}
+% \newcommand{\Pass}{\mathop{\mathrm{P}}\nolimits}
+
+%\pgfplotsset{compat=1.8}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Déterminants}
+%====================================================================
+
+\insertvideo{llMn-67irWo}{partie 1. Déterminant en dimension $2$ et $3$}
+
+\insertvideo{oB5ExBjkeeA}{partie 2. Définition du déterminant}
+
+\insertvideo{LyWTA-4M424}{partie 3. Propriétés du déterminant}
+
+\insertvideo{_ViUXoXaxRM}{partie 4. Calculs de déterminants}
+
+\insertvideo{OWxKjHf5HgU}{partie 5. Applications des déterminants}
+
+\insertfiche{fic00161.pdf}{Calculs de déterminants}
+
+\bigskip
+
+
+Le déterminant est un nombre que l'on associe à $n$ vecteurs $(v_1,\ldots,v_n)$ de $\Rr^n$.
+Il correspond au volume du parallélépipède engendré par ces $n$ vecteurs.
+On peut aussi définir le déterminant d'une matrice $A$. Le déterminant permet de savoir
+si une matrice est inversible ou pas, et de façon plus générale,
+joue un rôle important dans le calcul matriciel et la résolution de systèmes linéaires.
+
+\medskip
+
+Dans tout ce qui suit, nous considérons des matrices à coefficients
+dans un corps commutatif~$\Kk$, les principaux exemples étant $\Kk=\Rr$ ou $\Kk=\Cc$.
+Nous commençons par donner l'expression du déterminant d'une matrice en petites dimensions.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Déterminant en dimension $2$ et $3$}
+\index{determinant@déterminant}
+
+%-------------------------------------------------------
+\subsection{Matrice $2 \times 2$}
+
+En dimension $2$, le déterminant est très simple à calculer:
+$$\det \begin{pmatrix}a&b\\c&d\end{pmatrix} = ad-bc.$$
+
+
+C'est donc le produit des éléments sur la diagonale principale
+(\couleurnb{en bleu}{en gris foncé}) moins le produit des éléments sur l'autre diagonale 
+(\couleurnb{en orange}{en gris clair}).
+
+\myfigure{2}{
+\tikzinput{fig_determinants01}
+}
+%
+%[[Ici Fig 01]]
+%
+%[[old figure :]]
+%$$
+%\left(
+%\begin{array}{lcl}
+%{\begin{picture}(5,2)\thicklines
+% \put(5,9){\vector(3,-2){70}}\end{picture}}a_{11} &   & a_{12}\\
+%& &\\
+%{\begin{picture}(5,3)\thicklines
+% \put(-1,-3){\vector(3,2){70}}\end{picture}}a_{21} && a_{22}\end{array}\right)
+%\begin{array}{l}
+%-\\
+%\\
+%\\
+%\\
+%+\end{array}
+%$$
+
+
+%-------------------------------------------------------
+\subsection{Matrice $3 \times 3$}
+
+Soit $A \in M_3(\Kk)$ une matrice $3 \times 3$:
+$$A = \begin{pmatrix}
+      a_{11} & a_{12} & a_{13} \\
+      a_{21} & a_{22} & a_{23} \\
+      a_{31} & a_{32} & a_{33} \\
+      \end{pmatrix}.$$
+
+Voici la formule pour le déterminant:
+$$\det A =
+a_{11} a_{22} a_{33}
++ a_{12} a_{23} a_{31}
++ a_{13} a_{21} a_{32}
+- a_{31} a_{22} a_{13}
+- a_{32} a_{23} a_{11}
+- a_{33} a_{21} a_{12}\; .$$
+
+Il existe un moyen facile de retenir cette formule, c'est la 
+\defi{règle de Sarrus}\index{regle@règle!de Sarrus} :
+on recopie les deux premières colonnes à droite de la matrice (colonnes grisées),
+puis on additionne les produits de trois termes en les regroupant selon la direction
+de la diagonale descendante (à gauche), et on soustrait ensuite les produits de trois termes
+regroupés selon la direction de la diagonale montante (à droite).
+
+
+\myfigure{2}{
+\tikzinput{fig_determinants02bis}
+}
+%[[Fig 02]]
+%
+%
+%[[old figure :]]
+%$$
+%\left(
+%\begin{array}{lrl}
+%{\begin{picture}(5,2)\thicklines
+% \put(9,12){\vector(3,-2){68}}\end{picture}}a_{11} &{\begin{picture}(5,2)\thicklines
+% \put(9,12){\vector(3,-2){68}}\end{picture}}a_{12}   & {\begin{picture}(5,2)\thicklines
+% \put(9,12){\vector(3,-2){68}}\end{picture}}a_{13}\\
+%\,\,a_{21}&a_{22} &\,\,a_{23}\\
+%{\begin{picture}(5,3)\thicklines
+% \put(15,-4){\vector(3,2){60}}\end{picture}}a_{31} &{\begin{picture}(5,3)\thicklines
+% \put(15,-4){\vector(3,2){60}}\end{picture}}a_{32}& {\begin{picture}(5,3)\thicklines
+% \put(15,-4){\vector(3,2){60}}\end{picture}}a_{33}\end{array}\right)
+%\!\!\!\!\!\!\!\!\!\begin{array}{lll}
+%\,\,-&\,\, \,\,- & \,\,\,\,-\\
+%&\!\!\! a_{11} &\!\!\! a_{12} \\
+%& \!\!\! a_{21} & \!\!\! a_{22}\\
+%& \!\!\! a_{31} &\!\!\!  a_{32}\\
+%\,\,+& \,\,\,\,+ & \,\,\,\,+\end{array}
+%$$
+
+
+
+
+\begin{exemple}
+Calculons le déterminant de la matrice
+$A =
+\begin{pmatrix}
+ 2 & 1  & 0\\
+ 1 & -1 & 3\\
+ 3 & 2  & 1
+\end{pmatrix}
+$.
+
+Par la règle de Sarrus:
+\begin{align*}
+\det A 
+&= {\color{blue!100} 2\times (-1) \times 1 }
++{\color{blue!70} 1\times 3 \times  3 }
++{\color{blue!50} 0\times 1 \times 2 }\\
+&\qquad -{\color{orange!100} 3\times (-1) \times 0 }
+-{\color{orange!70} 2\times 3 \times 2 }
+-{\color{orange!50} 1\times 1 \times 1 }
+= -6.  
+\end{align*}
+
+
+
+\myfigure{2}{
+\tikzinput{fig_determinants03bis}
+}
+
+\end{exemple}
+
+Attention : cette méthode ne s'applique pas pour
+les matrices de taille supérieure à $3$.
+Nous verrons d'autres méthodes qui s'appliquent aux matrices carrées de toute taille
+et donc aussi aux matrices $3\times3$.
+
+
+
+%-------------------------------------------------------
+\subsection{Interprétation géométrique du déterminant}
+
+
+On va voir qu'en dimension $2$, les déterminants correspondent à des aires et
+en dimension $3$ à des volumes.
+
+Donnons nous deux vecteurs
+$v_1= \left(\begin{smallmatrix}a\\c\end{smallmatrix}\right)$ et
+$v_2= \left(\begin{smallmatrix}b\\d\end{smallmatrix}\right)$
+du plan $\Rr^2$.
+Ces deux vecteurs $v_1,v_2$ déterminent un parallélogramme.
+
+\myfigure{1}{
+\tikzinput{fig_determinants04}
+}
+
+\begin{proposition}\label{prop:aire}
+L'aire du parallélogramme est donnée par la valeur absolue du déterminant:
+$$\mathcal{A}
+= \Big|\det(v_1,v_2)\Big|
+= \Big|\det
+\begin{pmatrix}
+a & b \\
+c & d
+\end{pmatrix}\Big|
+.$$
+\end{proposition}
+
+\bigskip
+
+De manière similaire, trois vecteurs de l'espace $\Rr^3$:
+$$
+v_1=\begin{pmatrix}a_{11}\\a_{21}\\a_{31}\end{pmatrix} \qquad
+v_2=\begin{pmatrix}a_{12}\\a_{22}\\a_{32}\end{pmatrix} \qquad
+v_3=\begin{pmatrix}a_{13}\\a_{23}\\a_{33}\end{pmatrix}$$
+définissent un parallélépipède.
+
+
+\myfigure{1}{
+\tikzinput{fig_determinants05}
+}
+
+\`A partir de ces trois vecteurs on définit, en juxtaposant les colonnes,
+une matrice et un déterminant:
+\[
+\det(v_1,v_2,v_3)=\det
+\begin{pmatrix}
+a_{11}&a_{12}&a_{13}\\
+a_{21}&a_{22}&a_{23}\\
+a_{31}&a_{32}&a_{33}
+\end{pmatrix}.
+\]
+
+\begin{proposition}\label{prop:volume}
+Le volume du parallélépipède est donné par la valeur absolue du déterminant:
+$$\mathcal{V} = \Big|\det(v_1,v_2,v_3)\Big|.$$
+\end{proposition}
+
+
+On prendra comme unité d'aire dans $\Rr^2$ l'aire du carré unité dont
+les côtés sont les vecteurs de la base canonique
+$\left(\left(\begin{smallmatrix} 1 \\ 0 \end{smallmatrix} \right),
+\left(\begin{smallmatrix} 0 \\ 1 \end{smallmatrix} \right)\right)$,
+et comme unité de volume dans $\Rr^3$,
+le volume du cube unité.
+
+
+\begin{proof}
+Traitons le cas de la dimension $2$. Le résultat est vrai si
+$v_1=\left(\begin{smallmatrix}a\\0\end{smallmatrix}\right)$ et
+$v_2=\left(\begin{smallmatrix}0\\d\end{smallmatrix}\right)$.
+En effet, dans ce cas on a affaire à un rectangle de côtés $|a|$ et $|d|$, donc d'aire
+$|ad|$, alors que le déterminant de la matrice
+$\begin{pmatrix}
+	a&0\\0&d
+\end{pmatrix}$
+vaut $ad$.
+
+\myfigure{1}{
+\tikzinput{fig_determinants06}
+}
+
+\bigskip
+Si les vecteurs $v_1$ et $v_2$ sont colinéaires alors
+le parallélogramme est aplati, donc d'aire nulle ; on calcule facilement
+que lorsque deux vecteurs sont colinéaires, leur déterminant est nul.
+
+\medskip
+Dans la suite on suppose que les vecteurs ne sont pas colinéaires.
+Notons $v_1= \left(\begin{smallmatrix}a\\c\end{smallmatrix}\right)$ et
+$v_2= \left(\begin{smallmatrix}b\\d\end{smallmatrix}\right)$.
+Si $a\neq0$, alors $v'_2=v_2-\frac{b}{a}v_1$ est un vecteur vertical:
+$v_2'=\left(\begin{smallmatrix}0\\d-\frac{b}{a}c\end{smallmatrix}\right)$.
+
+
+L'opération  de remplacer $v_2$ par $v_2'$ ne change
+pas l'aire du parallélogramme (c'est comme si on avait coupé le triangle \couleurnb{vert}{gris clair}
+et on l'avait collé à la place le triangle \couleurnb{bleu}{gris foncé}).
+
+\myfigure{1}{
+\tikzinput{fig_determinants06b}
+}
+
+
+Cette opération ne change pas non plus le déterminant car on a toujours:
+$$\det (v_1,v_2')=
+\det \begin{pmatrix}
+a & 0 \\ b & d-\frac{b}{a}c
+\end{pmatrix}
+=ad-bc=\det(v_1,v_2)\, .$$
+
+\bigskip
+
+
+On pose alors
+$v'_1= \left(\begin{smallmatrix}a\\0\end{smallmatrix}\right)$: c'est un vecteur horizontal.
+Encore une fois l'opération de remplacer $v_1$ par $v_1'$ ne change
+ni l'aire des parallélogrammes
+ni le déterminant car
+$$\det(v_1',v_2')=
+\det \begin{pmatrix}
+a&0\\
+0&d-\frac{b}{a}c
+\end{pmatrix}
+=ad-bc=\det(v_1,v_2)\, .$$
+
+\myfigure{1}{
+\tikzinput{fig_determinants06c}
+}
+
+On s'est donc ramené au premier cas d'un rectangle
+aux côtés parallèles aux axes, pour lequel le résultat est déjà acquis.
+
+\bigskip
+
+Le cas tridimensionnel se traite de façon analogue.
+\end{proof}
+
+
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Pour $A = \begin{pmatrix}1&2\\5&3\end{pmatrix}$
+  et $B = \begin{pmatrix}-7&8\\-9&5\end{pmatrix}$
+  calculer les déterminants de $A$, $B$, $A \times B$, $A+B$, $A^{-1}$,
+  $\lambda A$, $A^T$.
+
+  \item Mêmes questions pour $A = \begin{pmatrix}a&b\\c&d\end{pmatrix}$
+  et $B = \begin{pmatrix}a'&0\\c'&d'\end{pmatrix}$.
+
+  \item Mêmes questions pour
+  $A = \begin{pmatrix}2&0&1\\2&-1&2\\3&1&0\end{pmatrix}$
+  et $B = \begin{pmatrix}1&2&3\\0&2&2\\0&0&3\end{pmatrix}$.
+
+  \item Calculer l'aire du parallélogramme défini par les vecteurs
+  $\left(\begin{smallmatrix}7\\3\end{smallmatrix}\right)$
+  et $\left(\begin{smallmatrix}1\\4\end{smallmatrix}\right)$.
+
+  \item Calculer le volume du parallélépipède défini
+  par les vecteurs
+  $\left(\begin{smallmatrix}2\\1\\1\end{smallmatrix}\right)$,
+  $\left(\begin{smallmatrix}1\\1\\4\end{smallmatrix}\right)$,
+  $\left(\begin{smallmatrix}1\\3\\1\end{smallmatrix}\right)$.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définition du déterminant}
+
+Cette partie est consacrée à la définition du déterminant.
+La définition du déterminant est assez abstraite et il faudra attendre encore un peu
+pour pouvoir vraiment calculer des déterminants.
+
+%-------------------------------------------------------
+\subsection{Définition et premières propriétés}
+
+
+Nous allons caractériser le déterminant comme une application,
+qui à une matrice carrée associe un scalaire:
+$$\det : M_n(\Kk) \longrightarrow \Kk$$
+
+\begin{theoreme}[Existence et d'unicité du déterminant]
+\label{th:def:determinant}
+Il existe une unique application de $M_n(\Kk)$ dans $\Kk$,
+appelée \defi{déterminant}\index{determinant@déterminant}, telle que
+\begin{itemize}
+  \item[(i)] le déterminant est linéaire par rapport à chaque
+vecteur colonne, les autres étant fixés ;
+  \item[(ii)] si une matrice $A$ a deux colonnes identiques,
+alors son déterminant est nul ;
+  \item[(iii)] le déterminant de la matrice identité $I_n$ vaut $1$.
+\end{itemize}
+\end{theoreme}
+
+Une preuve de l'existence du déterminant sera donnée plus bas en section~\ref{sec:preuve-existence}.
+
+On note le  déterminant d'une matrice $A = (a_{ij})$ par :
+$$
+\det A \qquad \text{ ou } \qquad
+\left|\begin{array}{cccc}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots &  & \vdots \\
+a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{array}\right|.$$
+
+Si on note $C_{i}$ la $i$-ème colonne de $A$, alors
+$$\det A=\left|\begin{matrix}
+C_1&C_2&\cdots&C_n
+\end{matrix}\right|
+ = \det (C_1,C_2,\ldots,C_n) \,.
+$$
+Avec cette notation, la propriété (i) de linéarité par rapport à la colonne $j$ s'écrit:
+pour tout $\lambda,\mu \in \Kk$,
+$\det (C_1,\ldots,\lambda C_j + \mu C'_j,\ldots, C_n)
+= \lambda  \det (C_1,\ldots,C_j,\ldots, C_n)+ \mu \det (C_1,\ldots,C_j',\ldots, C_n)$, soit
+\begin{align*}
+\begin{vmatrix}
+a_{11} & \cdots & \lambda a_{1j}+\mu a_{1j}' & \cdots & a_{1n} \\
+\vdots &        &       \vdots                &        & \vdots\\
+a_{i1} & \cdots & \lambda a_{ij}+\mu a_{ij}' & \cdots & a_{in} \\
+\vdots &        &       \vdots                &        & \vdots\\
+a_{n1} & \cdots & \lambda a_{nj}+\mu a_{nj}' & \cdots & a_{nn} \\
+\end{vmatrix}&\\
+= 
+\lambda \begin{vmatrix}
+a_{11} & \cdots &  a_{1j} & \cdots & a_{1n} \\
+\vdots &        &       \vdots                &        & \vdots\\
+a_{i1} & \cdots & a_{ij} & \cdots & a_{in} \\
+\vdots &        &       \vdots                &        & \vdots\\
+a_{n1} & \cdots & a_{nj} & \cdots & a_{nn} \\
+\end{vmatrix}
+& +
+\mu \begin{vmatrix}
+a_{11} & \cdots & a_{1j}' & \cdots & a_{1n} \\
+\vdots &        &       \vdots                &        & \vdots\\
+a_{i1} & \cdots & a_{ij}' & \cdots & a_{in} \\
+\vdots &        &       \vdots                &        & \vdots\\
+a_{n1} & \cdots & a_{nj}' & \cdots & a_{nn} \\
+\end{vmatrix}.
+\end{align*}
+
+\begin{exemple}
+$$\begin{vmatrix}
+6&5&4\\7&-10&-3\\12&25&-1
+  \end{vmatrix}
+=
+5\times\begin{vmatrix}
+6&1&4\\7&-2&-3\\12&5&-1
+  \end{vmatrix} $$
+Car la seconde colonne est un multiple de $5$.
+
+\bigskip
+
+$$\begin{vmatrix}
+3&2&4-3\\7&-5&3-2\\9&2&10-4\\
+  \end{vmatrix}
+=
+\begin{vmatrix}
+3&2&4\\7&-5&3\\9&2&10\\
+  \end{vmatrix}
+  - \begin{vmatrix}
+3&2&3\\7&-5&2\\9&2&4\\
+  \end{vmatrix}
+$$
+Par linéarité sur la troisième colonne.
+
+\end{exemple}
+
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+  \item Une application de $M_n(\Kk)$ dans $\Kk$ qui satisfait la propriété
+(i) est appelée \defi{forme multilinéaire}.
+
+  \item Si elle satisfait (ii), on dit qu'elle est \defi{alternée}.
+\end{itemize}
+
+Le déterminant est donc la seule forme multilinéaire alternée qui prend comme valeur $1$ sur la matrice
+$I_n$. Les autres formes multilinéaires alternées sont les
+multiples scalaires du déterminant. On verra plus loin comment on
+peut calculer en pratique les déterminants.
+\end{remarque*}
+
+
+
+%-------------------------------------------------------
+\subsection{Premières propriétés}	\label{sec:premieres-proprietes}
+
+
+Nous connaissons déjà le déterminant de deux matrices:
+\begin{itemize}
+  \item le déterminant de la matrice nulle $0_n$ vaut $0$ (par la propriété (ii)),
+  \item le déterminant de la matrice identité $I_n$ vaut $1$ (par la propriété (iii)).
+\end{itemize}
+
+\bigskip
+
+Donnons maintenant quelques propriétés importantes du déterminant: comment se comporte le déterminant
+face aux opérations élémentaires sur les colonnes ?
+
+\begin{proposition}
+\label{prop:detoperation}
+Soit $A \in M_n(\Kk)$ une matrice
+ayant les colonnes $C_1, C_2, \ldots, C_n$.
+On note $A'$ la matrice obtenue par une des opérations élémentaires sur les colonnes, qui sont :
+\begin{enumerate}
+  \item $C_i \leftarrow \lambda C_i$ avec $\lambda \neq 0$:
+  $A'$ est obtenue en multipliant une colonne de $A$ par un scalaire non nul.
+  Alors $\det A' = \lambda \det A$.
+
+  \item $C_i \leftarrow C_i+\lambda C_j$ avec $\lambda \in \Kk$ (et $j\neq i$):
+  $A'$ est obtenue en ajoutant à une colonne de $A$ un multiple d'une autre colonne de $A$.
+  Alors $\det A' = \det A$.
+
+  \item $C_i \leftrightarrow C_j$: $A'$ est obtenue en échangeant
+  deux colonnes distinctes de $A$. Alors \myboxinline{$\det A' = - \det A$}.
+\end{enumerate}
+\end{proposition}
+
+Plus généralement pour (2): l'opération $C_i \leftarrow C_i+\sum_{\substack{j=1 \\ j\neq i}}^n\lambda_j C_j$ d'ajouter
+une combinaison linéaire des autres colonnes conserve le déterminant.
+
+Attention ! \'Echanger deux colonnes change le signe du déterminant.
+
+
+
+\begin{proof}
+~
+\begin{enumerate}
+  \item La première propriété découle de la partie (i) de la définition du déterminant.
+
+  \item Soit $A=\begin{pmatrix}
+C_1&\cdots&C_i&\cdots&C_j&\cdots&C_n
+\end{pmatrix}$ une matrice représentée par ses vecteurs colonnes $C_k$.
+L'opération $C_i \leftarrow C_i+\lambda C_j$ transforme la matrice $A$ en la matrice
+$A'=\begin{pmatrix}
+C_1&\cdots&\displaystyle C_i+\lambda C_j&\cdots&C_j&\cdots&C_n\end{pmatrix}$.
+Par linéarité par rapport à la colonne $i$, on sait que
+$$\det A'=\det A+\lambda \det \begin{pmatrix} C_1&\cdots&C_j&\cdots&C_j&\cdots&C_n
+\end{pmatrix}.$$
+Or les colonnes $i$ et $j$ de la matrice
+$\begin{pmatrix} C_1&\cdots&C_j&\cdots&C_j&\cdots&C_n\end{pmatrix}$
+sont identiques, donc son déterminant est nul.
+
+
+  \item Si on échange les colonnes $i$ et $j$ de $A=\begin{pmatrix}
+C_1&\cdots&C_i&\cdots&C_j&\cdots&C_n\end{pmatrix}$ on obtient la matrice
+$A'=\begin{pmatrix}
+C_1&\cdots&C_i&\cdots&C_j&\cdots&C_n\end{pmatrix}$,
+où le vecteur $C_j$ se retrouve en colonne $i$ et le vecteur $C_i$ en colonne $j$.
+Introduisons alors une troisième matrice
+$B=\begin{pmatrix}C_1&\cdots&C_i+C_j&\cdots&C_j+C_i&\cdots&C_n\end{pmatrix}$.
+Cette matrice a deux colonnes distinctes égales, donc d'après (ii), $\det B=0$.
+
+D'un autre côté, nous pouvons développer ce déterminant en utilisant
+la propriété (i) de multilinéarité, c'est-à-dire linéarité par rapport à chaque colonne.
+Ceci donne
+\[
+\begin{array}{rcl}
+0 \ = \ \det B
+  & = & \det \begin{pmatrix}C_1&\cdots&C_i+C_j&\cdots&C_j+C_i&\cdots&C_n\end{pmatrix} \\
+  & = & \det \begin{pmatrix}C_1&\cdots&C_i&\cdots&C_j+C_i&\cdots&C_n\end{pmatrix} \\
+      && +\det\begin{pmatrix}C_1&\cdots&C_j&\cdots&C_j+C_i&\cdots&C_n\end{pmatrix} \\
+  &  = & \det \begin{pmatrix}C_1&\cdots&C_i&\cdots&C_j&\cdots&C_n\end{pmatrix} \\
+       &&  +\det\begin{pmatrix}C_1&\cdots&C_i&\cdots&C_i&\cdots&C_n\end{pmatrix} \\
+  &  & +\det \begin{pmatrix}C_1&\cdots&C_j&\cdots&C_j&\cdots&C_n\end{pmatrix} \\
+     &&  +\det\begin{pmatrix}C_1&\cdots&C_j&\cdots&C_i&\cdots&C_n\end{pmatrix} \\
+&=&\det A+0+0+\det A',
+\end{array}
+\]
+encore grâce à (i) pour les deux déterminants nuls du milieu.
+
+
+\end{enumerate}
+\end{proof}
+
+
+\begin{corollaire} \label{coro:colonnes-liees}
+Si une colonne $C_i$ de la matrice $A$ est combinaison linéaire
+des autres colonnes, alors $\det A=0$.
+\end{corollaire}
+
+
+
+%-------------------------------------------------------
+\subsection{Déterminants de matrices particulières}
+
+Calculer des déterminants n'est pas toujours facile.
+Cependant il est facile de calculer le déterminant de matrices triangulaires.
+
+\begin{proposition}
+\label{prop:dettriang}
+Le déterminant d'une matrice triangulaire supérieure (ou inférieure)
+est égal au produit des termes diagonaux.
+
+\end{proposition}
+
+Autrement dit, pour une matrice triangulaire $A = (a_{ij})$  on a
+$$\det A = \begin{vmatrix}
+{\color{myred}a_{11}} & a_{12} &\dots&\dots&\dots & a_{1n}\\
+0&{\color{myred}a_{22}}&\dots&\dots&\dots&a_{2n}\\
+\vdots&\ddots&{\color{myred}\ddots}&&&\vdots\\
+\vdots&&\ddots&{\color{myred}\ddots}&&\vdots\\
+\vdots & &&\ddots&{\color{myred}\ddots}&\vdots\\
+0&\dots&\dots&\dots&0&{\color{myred}a_{nn}}
+  \end{vmatrix} = a_{11}\cdot a_{22} \ \cdots\  a_{nn}.
+$$
+
+Comme cas particulièrement important on obtient:
+\begin{corollaire}
+Le déterminant d'une matrice diagonale est égal au produit des termes diagonaux.
+\end{corollaire}
+
+
+\begin{proof}
+On traite le cas des matrices triangulaires supérieures
+(le cas des matrices triangulaires inférieures est identique). Soit donc
+$$A=\begin{pmatrix}
+{a_{11}}&a_{12}&a_{13}&\cdots&a_{1n}\\
+0&{a_{22}}&a_{23}&\cdots&a_{2n}\\
+0&0&{a_{33}}&\cdots&a_{3n}\\
+\vdots&\vdots&\vdots&\ddots&\vdots\\
+0&0&0&\cdots&{a_{nn}}
+\end{pmatrix}.
+$$
+
+La façon de procéder utilise l'algorithme du pivot de Gauss (sur les colonnes, alors qu'il est en général défini sur les lignes).
+%C'est en fait le même argument mais avec des opérations élémentaires sur les colonnes.
+Par linéarité par rapport à la première colonne, on a
+$$\det A=a_{11}\left|\begin{matrix}
+1&a_{12}&a_{13}&\cdots&a_{1n}\\
+0&{a_{22}}&a_{23}&\cdots&a_{2n}\\
+0&0&{a_{33}}&\cdots&a_{3n}\\
+\vdots&\vdots&\vdots&\ddots&\vdots\\
+0&0&0&\cdots&{a_{nn}}
+\end{matrix}\right|.$$
+On soustrait maintenant de chaque colonne $C_j$, pour $j\ge 2$, la colonne $C_1$ multipliée
+par $-a_{1j}$.
+C'est l'opération élémentaire $C_j \leftarrow C_j - a_{1j}C_1$. Ceci ne modifie pas le
+déterminant d'après la section précédente. Il vient donc
+$$\det A=a_{11}\left|\begin{matrix}
+1&0&0&\cdots&0\\
+0&{a_{22}}&a_{23}&\cdots&a_{2n}\\
+0&0&{a_{33}}&\cdots&a_{3n}\\
+\vdots&\vdots&\vdots&\ddots&\vdots\\
+0&0&0&\cdots&{a_{nn}}
+\end{matrix}\right|.$$
+Par linéarité par rapport à la deuxième colonne, on en déduit
+$$\det A=a_{11} \cdot a_{22}\left|\begin{matrix}
+1&0&0&\cdots&0\\
+0&1&a_{23}&\cdots&a_{2n}\\
+0&0&{a_{33}}&\cdots&a_{3n}\\
+\vdots&\vdots&\vdots&\ddots&\vdots\\
+0&0&0&\cdots&{a_{nn}}
+\end{matrix}\right|,$$
+et l'on continue ainsi jusqu'à avoir parcouru toutes les colonnes de la matrice. Au bout de $n$ étapes, on a obtenu
+$$\det A=a_{11} \cdot a_{22} \cdot a_{33}\cdots{a_{nn}}\left|\begin{matrix}
+1&0&0&\cdots&0\\
+0&1&0&\cdots&0\\
+0&0&1&\cdots&0\\
+\vdots&\vdots&\vdots&\ddots&\vdots\\
+0&0&0&\cdots&1
+\end{matrix}\right|=
+a_{11} \cdot a_{22} \cdot a_{33}\cdots{a_{nn}} \cdot \det I_n,$$
+d'où le résultat, car $\det I_n = 1$, par (iii).
+\end{proof}
+
+
+
+
+
+%-------------------------------------------------------
+\subsection{Démonstration de l'existence du déterminant} \label{sec:preuve-existence}
+
+La démonstration du théorème d'existence du déterminant, exposée ci-dessous, est ardue et pourra
+être gardée pour une seconde lecture. Par ailleurs, l'unicité du déterminant, plus difficile, est admise.
+% Nous allons démontrer d'abord l'existence du déterminant (en notant que celle-ci peut
+% aussi se déduire du calcul exposé à la section précédente). L'unicité est plus difficile à prouver,
+% et découle du théorème~\ref{thm:det-permutation} à la fin de ce chapitre
+% (voir le corollaire~\ref{coro:unicite}). \\
+
+Pour démontrer l'existence d'une application satisfaisant aux
+conditions (i), (ii), (iii) du théorème-définition \ref{th:def:determinant},
+on donne une formule qui, de plus, nous offre une autre méthode de calcul pratique
+du déterminant d'une matrice, et on vérifie que les propriétés caractéristiques des déterminants
+sont satisfaites. On retrouvera cette formule, dite de développement par rapport à une ligne,
+en section~\ref{sec:developpement-ligne-colonne}.
+
+\textbf{Notation.}
+Soit $A \in M_n(\Kk)$ une matrice carrée de taille $n \times n$.
+Il est évident que si l'on supprime une ligne et une colonne dans $A$,
+la matrice obtenue a $n-1$ lignes et $n-1$ colonnes.
+On note $A_{i,j}$ ou $A_{ij}$ la matrice obtenue en supprimant la $i$-ème ligne et la $j$-ème
+colonne de $A$. Le théorème d'existence peut s'énoncer de la façon suivante:
+
+\begin{theoreme}[Existence du déterminant]
+Les formules suivantes définissent par récurrence, pour $n\ge 1$,
+une application de $M_n(\Kk)$ dans $\Kk$ qui satisfait aux propriétés
+(i), (ii), (iii) caractérisant le déterminant :
+\begin{itemize}
+  \item \textbf{Déterminant d'une matrice $1\times 1$.}
+  Si $a \in \Kk$ et $A=(a)$, $\det A = a$.
+
+  \item \textbf{Formule de récurrence.}
+  Si $A=(a_{i,j})$ est une matrice carrée de taille $n \times n$, alors pour tout $i$ fixé
+$$\det A = (-1)^{i+1}a_{i,1}\det A_{i,1}+(-1)^{i+2}a_{i,2}\det A_{i,2} +\dots
++ (-1)^{i+n}a_{i,n}\det A_{i,n}.$$
+\end{itemize}
+
+\end{theoreme}
+
+\begin{proof}
+La preuve se fait par récurrence sur l'ordre des matrices.
+
+\medskip
+
+\textbf{Initialisation.}
+Dans le cas $n=1$, il est évident que toutes les propriétés
+souhaitées sont satisfaites.
+
+\medskip
+
+\textbf{Hérédité.}
+Supposons maintenant que l'application
+$\det: M_{n-1}(\Kk) \to \Kk$ soit définie et satisfasse les propriétés
+(i), (ii) et (iii). Pour faciliter l'exposition, la preuve va être
+faite pour $i=n$. Soit $A=(a_{i,j})$ notée aussi $A=(C_1 \, \cdots \, C_n)$
+où $C_j = \left( \begin{smallmatrix} a_{1,j} \\ \vdots \\ a_{n,j} \end{smallmatrix}
+\right)$ est la $j$-ème colonne de $A$. On notera aussi
+$\bar{C}_j = \left( \begin{smallmatrix} a_{1,j} \\ \vdots \\ a_{n-1,j} \end{smallmatrix}
+\right)$ la colonne à $(n-1)$ éléments, égale à $C_j$ privée de son dernier coefficient.
+
+\begin{itemize}
+  \item \textbf{Propriété (i).}
+
+Il s'agit de vérifier que l'application
+\[
+A \mapsto \det A = (-1)^{n+1}a_{n,1}\det A_{n,1}+(-1)^{n+2} a_{n,2}\det A_{n,2}
++ \dots + (-1)^{n+n}a_{n,n}\det A_{n,n}
+\]
+est linéaire par rapport à chaque colonne. Nous allons le prouver pour la dernière colonne,
+c'est-à-dire que :
+\[
+\det (C_1,\ldots,C_{n-1},\lambda C'_n + \mu C''_n)
+ =  \lambda \det (C_1,\ldots, C_{n-1},C'_n) + \mu \det (C_1,\ldots,C_{n-1},C''_n) \, .
+\]
+Notons $A,A',A''$ les matrices $(C_1 \cdots C_{n-1} \cdots \lambda C'_n + \mu C''_n)$,
+$(C_1 \cdots C_{n-1} \cdots C'_n)$ et $(C_1 \cdots C_{n-1} \cdots C''_n)$, et
+$A_{n,j}$, $A'_{n,j}$, $A''_{n,j}$ les sous-matrices extraites en enlevant $n$-ème ligne
+et la $j$-ème colonne. En comparant les différentes matrices, on constate que
+$a'_{n,j} = a''_{n,j} = a_{n,j}$ si $j < n$ tandis que $a_{n,n} = \lambda a'_{n,n} + \mu a''_{n,n}$.
+Similairement, $A'_{n,n} = A''_{n,n} = A_{n,n} = (\bar{C}_1 \cdots \bar{C}_{n-1})$
+puisque la $n$-ème colonne est enlevée.
+Par contre, pour $j < n$, $A_{n,j}, A'_{n,j}, A''_{n,j}$ ont leurs $(n-2)$ premières colonnes
+identiques, et diffèrent par la dernière. Comme ce sont des déterminants de taille $n-1$, on peut utiliser l'hypothèse de récurrence:
+\begin{eqnarray*}
+\det A_{n,j} &=&
+\det (\bar{C}_1, \ldots, \bar{C}_{j-1}, \bar{C}_{j+1}, \ldots, \bar{C}_{n-1},
+\lambda \bar{C}'_n + \mu \bar{C}''_n)
+\\
+&=& \lambda \det (\bar{C}_1, \ldots, \bar{C}_{j-1}, \bar{C}_{j+1}, \ldots, \bar{C}_{n-1}, \bar{C}'_n) \\
+&& \quad + \mu \det (\bar{C}_1, \ldots, \bar{C}_{j-1}, \bar{C}_{j+1}, \ldots, \bar{C}_{n-1}, \bar{C}''_n)
+\\
+&=& \lambda \det A'_{n,j} + \mu \det A''_{n,j}
+\end{eqnarray*}
+Finalement, en mettant de côté dans la somme le $n$-ème terme:
+{\small
+\begin{eqnarray*}
+\det A &=& (-1)^{n+1} a_{n,1}\det A_{n,1}+(-1)^{n+2} a_{n,2}\det A_{1,2}
++ \dots + (-1)^{n+n} a_{n,n}\det A_{n,n}
+\\
+&=& \left( \sum_{j=1}^{n-1} (-1)^{n+j} a_{n,j} \det A_{n,j} \right) + (-1)^{2 n} a_{n,n}\det A_{n,n}
+\\
+&=& \left( \sum_{j=1}^{n-1} (-1)^{n+j} a_{n,j} (\lambda \det A'_{n,j} + \mu \det A''_{n,j}) \right)
++ (-1)^{2 n} (\lambda a'_{n,n} + \mu a''_{n,n}) \det A_{n,n}
+\\
+&=& \lambda \sum_{j=1}^n (-1)^{n+j} a_{n,j}' \det A'_{n,j}
++ \mu \sum_{j=1}^n (-1)^{n+j} a_{n,j}'' \det A''_{n,j}
+\\
+&=& \lambda \det A' + \mu \det A''
+\end{eqnarray*}
+}
+La démonstration est similaire pour les autres colonnes
+(on peut aussi utiliser la propriété (ii) ci-dessous).
+%Cela revient donc à montrer que l'application
+%\[
+%C_j \mapsto \det A = (-1)^{2}a_{1,1}\det A_{1,1}+(-1)^{3}a_{1,2}\det
+%A_{1,2}+\dots + (-1)^{1+n}a_{1,n}\det A_{1,n}
+%\]
+%est linéaire. Si $C_j = \lambda D_j + \mu E_j$, le coefficient $a_{1,j}$ peut s'écrire
+%$a_{1,j}= \lambda d_{1,j} + \mu e_{1,j}$.
+%et les matrices $A_{1,k}$ avec $k \neq j$ puisque dans ces matrices la
+%$j$-ème colonne reste).
+%Cela donne
+%$$\begin{array}{rcl}
+%\det A & = & (-1)^{1+j}a_{1,j}\det M_{1,j} +
+%{\displaystyle \sum_{1\leq k \leq n , k\neq j}}
+%(-1)^{1+k}a_{1,k}\det M_{1,k}\\
+%& = & (-1)^{1+j}(\lambda d_{1,j}+\mu e_{1,j})\det M_{1,j}\\
+%&+&
+%{\displaystyle \sum_{1\leq k \leq n , k\neq j}}
+%(-1)^{1+k}a_{1,k}\det \left ( (\hat{C}_1, \dots,
+%\lambda \hat{D}_j+ \mu \hat{E}_j, \dots ,
+%\hat{C_n})_{k}\right )
+%\end{array}$$
+%où $\hat{C}_j$ désigne la $j$-ème colonne de $A$
+%dont on a supprimé la première ligne et
+%$(\hat{C}_1, \dots ,\hat{C}_j,\dots  \hat{C_n})_k$
+%la matrice déduite de $(C_1,C_2, \dots ,C_n)$ en supprimant la
+%$k$-ième colonne et la première ligne. Par conséquent les
+%matrices
+%$(\hat{C}_1, \dots, \lambda \hat{D}_j+ \mu \hat{E}_j, \dots ,
+%\hat{C_n})_k$ qui interviennent dans la somme précédente
+%possèdent $n-1$ lignes et $n-1$ colonnes et on peut donc leur
+%appliquer l'hypothèse de récurrence. D'où
+%$$\begin{array}{rcl}
+%\det A &=& \lambda\left [ (-1)^{1+j} d_{1,j}\det M_{1,j}+
+%{\displaystyle \sum_{1\leq k \leq n , k\neq j}}
+%(-1)^{1+k}a_{1,k}\det \left ( (\hat{C}_1, \dots,
+% \hat{D}_j, \dots ,\hat{C_n}\right )_{k}\right ]\\
+%&+& \mu \left [ (-1)^{1+j}e_{1,j}\det M_{1,j}+
+%{\displaystyle \sum_{1\leq k \leq n , k\neq j}}
+%(-1)^{1+k}a_{1,k}\det \left ( (\hat{C}_1, \dots,
+%\hat{E}_j, \dots ,\hat{C_n}\right )_{k}\right ]\\
+%&=& \lambda \det (C_1, \dots ,D_j, \dots ,C_n)+
+%\mu \det (C_1, \dots, E_j, \dots , C_n)
+%\end{array}$$
+%Ce qui achève la démonstration de la propriété (i).
+%
+%  \item \textbf{Propriété (ii).}
+%
+%Si la matrice $A$ a deux colonnes égales, par exemple $C_r$ et
+%$C_s$ avec $r<s$, il est clair que les colonnes $\hat{C}_s$ et $\hat{C}_r$,
+%obtenues en supprimant la première ligne, sont encore égales. Donc toutes les matrices de taille
+%$(n-1)\times(n-1)$, $( \hat{C}_1, \dots , \hat{C}_r, \dots, \hat{C}_s, \dots ,\hat{C}_n)_{k}$ avec $k \neq r,s$,
+%ont deux colonnes égales. D'où, par hypothèse de récurrence,
+%$$\forall k \in \{1,2, \dots, n\} \setminus \{r,s\} \qquad
+%\det \big( \hat{C}_{1}, \dots , \hat{C}_{r}, \dots, \hat{C}_{s}, \dots ,
+%\hat{C}_{n}\big)_{k}=0.$$
+%Donc
+%$$\begin{array}{rcl}
+%\det (M) &=& {\displaystyle \sum_{1 \leq k \leq n}}(-1)^{1+k}a_{1k}
+%\det \left ( ( \hat{C}_{1}, \dots , \hat{C}_{j}, , \dots ,
+%  \hat{C}_{n})_{k}\right )\\
+%&=&(-1)^{1+r}a_{1,r}
+%\det \left ( ( \hat{C}_{1}, \dots , \hat{C}_{s}, , \dots ,
+%  \hat{C}_{n})_{r}\right )
+%+ (-1)^{1+s}a_{1,s}\det \left ( ( \hat{C}_{1}, \dots , \hat{C}_{r}, , \dots ,
+%  \hat{C}_{n})_{s}\right )
+%\end{array}$$
+%où $\hat{C}_{r}^{1}$ et $\hat{C}_{s}^{1}$ sont égales. Il faut faire $s-r-1$
+%échanges de colonnes pour amener la $s$-ième colonne à la
+%$r$-ième place. Compte tenu de l'hypothèse de récurrence, on en
+%déduit
+%$$ \det \left ( ( \hat{C}_{1}, \dots , \hat{C}_{s}, , \dots ,
+%  \hat{C}_{n})_{r}\right )=(-1)^{s-r-1}
+%\det \left ( ( \hat{C}_{1}, \dots , \hat{C}_{r}, , \dots ,
+%  \hat{C}_{n})_{s}\right ).$$
+%d'où
+%$$\begin{array}{rcl}
+%\det A &=&(-1)^{1+r}(-1)^{s-r-1}a_{1,r}
+%\det \left ( ( \hat{C}_{1}, \dots , \hat{C}_{r}, , \dots ,
+%  \hat{C}_{n})_{s}\right )\\
+%&&+(-1)^{1+s}a_{1,s}\det
+%\left ( ( \hat{C}_{1}, \dots , \hat{C}_{r}, , \dots ,
+%  \hat{C}_{n})_{s}\right ).
+%\end{array}$$
+%Puisque $a_{1,r}=a_{1,s}$ ( les colonnes de rang $r$ et de rang $s$
+%sont égales), on en déduit $\det A=0$.
+
+	\item \textbf{Propriété (ii).}
+
+%Il est plus utile de commencer par (ii).
+Supposons que $C_r = C_s$ pour
+$r<s$. Si $k$ est différent de $r$ et de $s$,
+la matrice $A_{n,k}$ possède encore deux colonnes identiques $\bar{C}_r$ et $\bar{C}_s$.
+Par hypothèse de récurrence, $\det A_{n,k}=0$. Par conséquent,
+\[
+\det A = (-1)^{n+r} \det A_{n,r} + (-1)^{n+s} \det A_{n,s}
+\]
+Or $A_{n,r}$ et $A_{n,s}$ possèdent toutes les deux les mêmes colonnes:
+$A_{n,r} = (\bar{C}_1 \cdots \bar{C}_{r-1} \bar{C}_{r+1} \cdots \bar{C}_{s} \cdots \bar{C}_n)$
+et
+$A_{n,s} = (\bar{C}_1 \cdots \bar{C}_r \cdots \bar{C}_{s-1}  \bar{C}_{s+1} \cdots \bar{C}_n)$,
+car $\bar{C}_r = \bar{C}_s$. Pour passer de $A_{n,s}$ à $A_{n,r}$, il faut faire $s-r-1$ échanges
+de colonnes $\bar{C}_j \leftrightarrow \bar{C}_{j+1}$ successifs, qui par hypothèse de récurrence
+ changent le signe par $(-1)^{s-r-1}$: $\det A_{n,s} = (-1)^{s-r-1} \det A_{n,r}$.
+On conclut immédiatement que
+\[
+\det A = \big((-1)^{n+r} + (-1)^{n+2 s-r-1}\big) \det A_{n,r} = 0 \, .
+\]
+
+
+
+  \item \textbf{Propriété (iii).}
+Si l'on considère pour $A$ la matrice identité $I_n$, ses coefficients $a_{i,j}$ sont tels que:
+$$\begin{array}{l}
+i=j \Longrightarrow a_{i,j}=1\\
+i \neq j \Longrightarrow a_{i,j}=0.
+\end{array}$$
+Donc $\det I_n = (-1)^{n+n}\det A_{n,n} $. Or, la matrice $A_{n,n}$ obtenue
+à partir de la matrice identité en supprimant la dernière ligne et
+la dernière colonne est la matrice identité de taille $(n-1)\times(n-1)$.
+Par hypothèse de récurrence, on a $\det I_{n-1} = 1$. On en déduit $\det I_n = 1$.
+
+\end{itemize}
+
+\medskip
+
+\textbf{Conclusion.}
+Le principe de récurrence termine la preuve du théorème d'existence
+du déterminant.
+\end{proof}
+
+\begin{remarque*}
+La définition donnée ci-dessus suppose le choix d'un indice $i$ de ligne
+($i=n$ dans la démonstration) et peut paraître arbitraire. Alors se pose naturellement
+la question: que se passe-t-il si l'on prend une autre valeur de $i$ ?
+L'unicité du déterminant d'une matrice permet de répondre: quelle que
+soit la ligne choisie, le résultat est le même.
+\end{remarque*}
+
+
+
+
+%-------------------------------------------------------
+%\subsection{}
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item En utilisant la linéarité du déterminant, calculer $\det \, (-I_n)$.
+
+  \item Pour $A \in M_n(\Kk)$, calculer $\det (\lambda A)$
+  en fonction de $\det A$.
+
+  \item Montrer que le déterminant reste invariant par l'opération
+  $C_i \leftarrow C_i+\sum_{{\substack{j=1..n \\ j\neq i}}}\lambda_j C_j$
+  (on ajoute à une colonne de $A$ une combinaison linéaire des autres colonnes de $A$).
+
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Propriétés du déterminant}
+
+Nous allons voir trois propriétés importantes du déterminant:
+le déterminant d'un produit de matrices, le déterminant de l'inverse d'une matrice,
+le déterminant de la transposée d'une matrice.
+Pour prouver ces propriétés, nous aurons besoin
+des matrices élémentaires.
+
+%-------------------------------------------------------
+
+\subsection{Déterminant et matrices élémentaires}
+
+Pour chacune des opérations élémentaires sur les colonnes d'une matrice $A$,
+on associe une matrice élémentaire $E$, telle que la matrice
+obtenue par l'opération élémentaire sur $A$ soit $A'=A\times E$.
+
+\begin{enumerate}
+  \item $C_i \leftarrow \lambda C_i$ avec $\lambda \neq 0$:
+  $E_{C_i \leftarrow \lambda C_i} = \text{diag}(1,\ldots,1,\lambda,1,\ldots,1)$ est la matrice diagonale
+  ne comportant que des $1$, sauf en position $(i,i)$;
+%   \begin{itemize}
+%     \item
+%     \item $\det E_{C_i \leftarrow \lambda C_i} = \lambda$,
+% %     \item $A' = A \times E_{C_i \leftarrow \lambda C_i}$ est obtenue en
+% %     multipliant la $i$-ème colonne de $A$ par $\lambda$,
+%     \item Alors $\det A' = \det (A \times E_{C_i \leftarrow \lambda C_i}) = \lambda\det A$.
+
+
+
+  \item $C_i \leftarrow C_i+\lambda C_j$ avec $\lambda \in \Kk$ (et $j\neq i$):
+  $E_{C_i \leftarrow C_i+\lambda C_j}$ est comme la matrice identité,
+  sauf en position $(j,i)$ où son coefficient vaut $\lambda$;
+%   \begin{itemize}
+%     \item
+%     \item $\det E_{C_i \leftarrow C_i+\lambda C_j} = +1$,
+% %     \item $A' = A \times E_{C_i \leftarrow C_i+\lambda C_j}$ est obtenue en
+% %     ajoutant $\lambda$ fois la $j$-ème colonne de $I_n$ à la $i$-ème colonne de $A$,
+%     \item Alors $\det A' = \det (A \times E_{C_i \leftarrow C_i+\lambda C_j}) = \det A$.
+%   \end{itemize}
+
+
+
+  \item $C_i \leftrightarrow C_j$: $E_{C_i \leftrightarrow C_j}$ est comme la matrice identité,
+  sauf que ses coefficients $(i,i)$ et $(j,j)$ s'annulent, tandis que les coefficients
+  $(i,j)$ et $(j,i)$ valent $1$.
+%   \begin{itemize}
+%     \item
+%     \item $\det E_{C_i \leftrightarrow C_j} = -1$,
+% %     \item $A' = A \times E_{C_i \leftrightarrow C_j}$ est obtenue en
+% %      échangeant la $i$-ème colonne avec la $j$-ème colonne de $A$,
+%     \item Alors $\det A' = \det (A \times E_{C_i \leftrightarrow C_j}) = -\det A$.
+%   \end{itemize}
+\[
+E_{C_i \leftarrow C_i+\lambda C_j} = \left( \begin{smallmatrix}
+1 \\ & \ddots \\ &&& 1 &&&& \lambda \\ &&&&& \ddots \\&&&&&& \ddots \\
+&&&&&&& 1 \\ &&&&&&&& \ddots \\ &&&&&&&&& 1
+\end{smallmatrix} \right) \quad
+E_{C_i \leftrightarrow C_j} = \left( \begin{smallmatrix}
+1 \\ & \ddots \\ && 1 \\ &&& 0 &&&& 1 \\ &&&& 1 \\ &&&&& \ddots \\&&&&&& 1 \\ &&& 1 &&&& 0 \\
+&&&&&&&& 1 \\ &&&&&&&&& \ddots \\ &&&&&&&&&& 1
+\end{smallmatrix} \right)
+\]
+\end{enumerate}
+
+Nous allons détailler le cas de chaque opération et son effet sur le déterminant:
+\begin{proposition}
+\label{prop: detelementaire}
+\sauteligne
+\begin{enumerate}
+  \item $\det E_{C_i \leftarrow \lambda C_i} = \lambda$
+  \item $\det E_{C_i \leftarrow C_i+\lambda C_j} = +1$
+  \item $\det E_{C_i \leftrightarrow C_j} = -1$
+  \item Si $E$ est une des matrices élémentaires ci-dessus, $\det \left( A \times E \right) = \det A \times \det E$
+\end{enumerate}
+\end{proposition}
+
+
+\begin{proof}
+Nous utilisons les propositions \ref{prop:detoperation} et \ref{prop:dettriang}.
+
+\begin{enumerate}
+  \item La matrice $E_{C_i \leftarrow \lambda C_i}$ est une matrice diagonale,
+  tous les éléments diagonaux valent $1$, sauf un qui vaut $\lambda$. Donc son déterminant
+  vaut $\lambda$.
+
+  \item La matrice $E_{C_i \leftarrow C_i+\lambda C_j}$ est triangulaire inférieure
+  ou supérieure avec des $1$ sur la diagonale. Donc son déterminant
+  vaut $1$.
+
+  \item La matrice $E_{C_i \leftrightarrow C_j}$ est aussi obtenue en échangeant
+les colonnes $i$ et $j$ de la matrice $I_n$. Donc son déterminant
+  vaut $-1$.
+
+  \item La formule $\det A \times E = \det A \times \det E$ est une conséquence
+  immédiate de la proposition \ref{prop:detoperation}.
+\end{enumerate}
+\end{proof}
+
+
+
+Cette proposition nous permet de calculer le déterminant d'une matrice $A$ de façon
+relativement simple, en utilisant l'algorithme de Gauss. En effet, si en multipliant successivement
+$A$ par des matrices élémentaires $E_1,\ldots,E_r$ on obtient une matrice $T$
+échelonnée, donc triangulaire
+\[
+T = A  \cdot E_1 \cdots E_r
+\]
+alors, en appliquant $r$-fois la proposition précédente, on obtient:
+$$
+\begin{array}{rcl}
+\det T
+  &=& \det (A \cdot E_1 \cdots E_r) \\
+  &=& \det (A \cdot E_1 \cdots E_{r-1})\cdot \det E_r \\
+  &=& \cdots \\
+  &=& \det A \cdot \det E_1\cdot \det E_2 \cdots \det E_r
+\end{array}
+$$
+Comme on sait calculer le déterminant de la matrice triangulaire $T$ et les déterminants des matrices élémentaires
+$E_i$, on en déduit le déterminant de $A$.
+
+
+En pratique cela ce passe comme sur l'exemple suivant.
+\begin{exemple}
+Calculer $\det A$, où
+$A  = \begin{pmatrix}
+        0 & 3 & 2\\
+        1 & -6 & 6\\
+        5 & 9 & 1
+       \end{pmatrix}$
+
+$$\begin{array}{rcl}
+\det A
+  & = & \det \begin{pmatrix}
+        0 & 3 & 2\\
+        1 & -6 & 6\\
+        5 & 9 & 1
+       \end{pmatrix} \\
+  && \text{(opération $C_1 \leftrightarrow C_2$ pour avoir un pivot en haut à gauche)} \\    
+  & = &  (-1)\times \det \begin{pmatrix}
+        3 & 0 & 2\\
+        -6& 1 & 6\\
+        9 & 5 & 1
+       \end{pmatrix} \\
+  && \text{($C_1 \leftarrow \frac{1}{3} C_1$, linéarité par rapport à la première colonne)}\\     
+  & = &  (-1)\times 3 \times \det \begin{pmatrix}
+        1 & 0 & 2\\
+        -2& 1 & 6\\
+        3 & 5 & 1
+       \end{pmatrix}  \\
+  & = &  (-1)\times 3 \times \det \begin{pmatrix}
+        1 & 0 & 0\\
+        -2& 1 & 10\\
+        3 & 5 & -5
+       \end{pmatrix}  \qquad \text{$C_3 \leftarrow C_3-2C_1$} \\
+  & = &  (-1)\times 3 \times \det \begin{pmatrix}
+        1 & 0 & 0\\
+        -2& 1 & 0\\
+        3 & 5 & -55
+       \end{pmatrix}  \qquad \text{$C_3 \leftarrow C_3-10C_2$} \\
+  & = &  (-1)\times 3 \times (-55)  \qquad \text{ car la matrice est triangulaire} \\
+  & = & 165
+\end{array}$$
+\end{exemple}
+
+
+
+
+%-------------------------------------------------------
+\subsection{Déterminant d'un produit}
+
+
+\begin{theoreme}~
+\mybox{$\det (AB)=\det A \cdot \det B$}
+\end{theoreme}
+
+%Cette démonstration est hors programme.
+\begin{proof}
+La preuve utilise les matrices élémentaires; en effet, par
+la proposition \ref{prop: detelementaire}, pour $A$
+une matrice quelconque et $E$ une matrice d'une opération élémentaire alors:
+$$\det (A \times E) = \det A \times \det E.$$
+
+\medskip
+
+Passons maintenant à la démonstration du théorème. On a vu dans le chapitre \og Matrices \fg{}
+qu'une matrice $B$ est inversible si et seulement si sa forme échelonnée réduite
+par le pivot de Gauss est égale à $I_n$, c'est-à-dire qu'il existe des matrices élémentaires
+$E_i$ telles que
+\[
+B E_1\cdots E_r = I_{n} \, .
+\]
+D'après la remarque préliminaire appliquée $r$ fois, on a
+$$\det (B  \cdot E_1 E_2 \cdots E_r)
+=\det B  \cdot \det E_1  \cdot \det E_2 \cdots \det E_r = \det I_n = 1$$
+On en déduit
+\[
+\det B=\frac1{\det E_1 \cdots \det E_r}\, \cdotp
+\]
+Pour la matrice $AB$, il vient
+\[
+(AB) \cdot (E_1\cdots E_r) = A \cdot I_n =A \, .
+\]
+Ainsi
+\[
+\det(A B E_1 \cdots E_r) = \det(A B) \cdot \det E_1  \cdots \det E_r = \det A \, .
+\]
+
+Donc :
+$$\det(AB) = \det A \times \frac1{\det E_1 \cdots \det E_r} = \det A \times \det B.$$
+D'où le résultat dans ce cas.
+
+\medskip
+
+Si $B$ n'est pas inversible, $\rg B<n$, il existe donc une relation de dépendance linéaire
+entre les colonnes de $B$, ce qui revient à dire qu'il existe un vecteur colonne $X$
+tel que $BX=0$. Donc  $\det B=0$, d'après le corollaire~\ref{coro:colonnes-liees}.
+Or $BX=0$ implique $(AB)X=0$. Ainsi $AB$ n'est pas inversible non plus, d'où
+$\det (AB)=0=\det A\det B$ dans ce cas également.
+
+\end{proof}
+
+
+%-------------------------------------------------------
+\subsection{Déterminant des matrices inversibles}
+
+Comment savoir si une matrice est inversible ? Il suffit de calculer son déterminant !
+
+\begin{corollaire}
+Une matrice carrée $A$ est inversible si et seulement si son
+déterminant est non nul. De plus si $A$ est inversible,
+alors:
+\mybox{$\displaystyle \det \big(A^{-1}\big)=\frac1{\det A}$}
+\end{corollaire}
+
+\begin{proof}
+~
+\begin{itemize}
+  \item Si $A$ est inversible, il existe une matrice $A^{-1}$ telle que
+ $AA^{-1}=I_n$, donc $\det (A)\det (A^{-1})=\det I_n=1$. On en
+ déduit que $\det A$ est non nul et $\det (A^{-1})=\frac1{\det A}$.
+
+  \item Si $A$ n'est pas inversible, alors elle est de rang strictement
+inférieur à $n$. Il existe donc une relation de dépendance
+linéaire entre ses colonnes, c'est-à-dire qu'au moins l'une de ses
+colonnes est combinaison linéaire des autres. On en déduit $\det A = 0$.
+\end{itemize}
+
+
+
+
+\end{proof}
+
+
+\begin{exemple}
+Deux  matrices semblables ont même déterminant.
+
+En effet: soit $B=P^{-1}AP$ avec $P\in GL_n(\Kk)$ une matrice inversible.
+Par multiplicativité du déterminant,
+on en déduit que:
+$$\det B=\det (P^{-1}AP)=\det P^{-1}\det A\det P=\det A,$$
+puisque $\det P^{-1}=\frac{1}{\det P}$.
+\end{exemple}
+
+
+%-------------------------------------------------------
+\subsection{Déterminant de la transposée}
+
+\begin{corollaire}~
+\mybox{$\det \big(A^T\big)=\det A$}
+\end{corollaire}
+
+%Cette démonstration est hors programme.
+\begin{proof}
+Commençons par remarquer que la matrice $E$ d'une opération élémentaire est
+soit triangulaire (substitution), soit symétrique c'est-à-dire égale
+à sa transposée (échange de lignes et homothétie).
+On vérifie facilement que $\det E^T =\det E$.
+
+
+Supposons d'abord que $A$ soit inversible. On peut alors l'écrire
+comme produit de matrices élémentaires, $A=E_1 \cdots E_r$.
+On a alors
+$$A^T = E_r^T \cdots E_1^T\,$$
+et
+$$\det(A^T)= \det(E_r^T)\cdots \det(E_1^T) = \det(E_r)\cdots \det (E_1)= \det (A).$$
+
+D'autre part, si $A$ n'est pas inversible, alors $A^T$ n'est pas
+  inversible non plus, et $\det A = 0 = \det A^T$.
+
+
+\end{proof}
+
+
+\begin{remarque*}
+Une conséquence du dernier résultat, est que par transposition, tout ce que l'on a
+dit des déterminants à propos des colonnes est
+vrai pour les lignes. Ainsi, le déterminant est multilinéaire
+par rapport aux lignes, si une matrice a deux lignes égales,
+son déterminant est nul, on ne modifie pas un déterminant en
+ajoutant à une ligne une combinaison linéaire des autres lignes, etc.
+
+\bigskip
+
+Voici le détail pour les opérations élémentaires sur les lignes :
+\begin{enumerate}
+  \item $L_i \leftarrow \lambda L_i$ avec $\lambda \neq 0$: le déterminant est
+  multiplié par $\lambda$.
+
+  \item $L_i \leftarrow L_i+\lambda L_j$ avec $\lambda \in \Kk$ (et $j\neq i$) :
+  le déterminant ne change pas.
+
+  \item $L_i \leftrightarrow L_j$ : le déterminant change de signe.
+\end{enumerate}
+\end{remarque*}
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soient $A = \begin{pmatrix}a&1&3\\0&b&2\\0&0&c\end{pmatrix}$
+  et $B = \begin{pmatrix}1&0&2\\0&d&0\\-2&0&1\end{pmatrix}$.
+  Calculer, lorsque c'est possible, les déterminants des matrices $A$, $B$,
+  $A^{-1}$, $B^{-1}$, $A^T$, $B^T$, $AB$, $BA$.
+
+  \item Calculer le déterminant de chacune des matrices suivantes en se
+  ramenant par des opérations élémentaires à une matrice triangulaire.
+  $$\begin{pmatrix}a&b\\c&d\end{pmatrix}
+  \quad
+  \begin{pmatrix}1&0&6\\3&4&15\\5&6&21\end{pmatrix}
+  \quad
+  \begin{pmatrix}1&1&1\\1&j&j^2\\1&j^2&j\end{pmatrix} \text{ avec } j=e^{\frac{2\ii\pi}{3}}\quad
+  \begin{pmatrix}1&2&4&8\\1&3&9&27\\1&4&16&64\\1&5&25&125\end{pmatrix}$$
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Calculs de déterminants}
+
+Une des techniques les plus utiles pour calculer un déterminant est
+le \og développement par rapport à une ligne (ou une colonne)\fg.
+
+%-------------------------------------------------------
+\subsection{Cofacteur}
+
+\begin{definition}
+Soit $A = \big( a_{ij}\big) \in M_n(\Kk)$ une matrice carrée.
+
+\begin{itemize}
+  \item On note $A_{ij}$ la matrice extraite, obtenue en effaçant la ligne~$i$ et la colonne $j$ de $A$.
+  \item Le nombre $\det A_{ij}$ est un \defi{mineur d'ordre $n-1$}\index{mineur} de la matrice $A$.
+  \item Le nombre $C_{ij} = (-1)^{i+j}\det A_{ij}$ est le \defi{cofacteur}\index{cofacteur} de $A$
+  relatif au coefficient $a_{ij}$.
+\end{itemize}
+\end{definition}
+
+\myfigure{2}{
+\tikzinput{fig_determinants07}
+}
+\[
+A_{ij} = \begin{pmatrix}
+a_{1,1} & \dots & a_{1,j-1} & a_{1,j+1} &\dots & a_{1,n}\\
+\vdots &&\vdots &\vdots &&\vdots \\
+a_{i-1,1} & \dots & a_{i-1,j-1} & a_{i-1,j+1} &\dots & a_{i-1,n}\\
+a_{i+1,1} & \dots & a_{i+1,j-1} & a_{i+1,j+1} &\dots & a_{i+1,n}\\
+\vdots &&\vdots &&&\vdots \\
+a_{n,1} & \dots & a_{n,j-1} & a_{n,j+1}& \dots & a_{n,n}
+\end{pmatrix}
+\]
+
+
+\begin{exemple}
+Soit $ A =
+\begin{pmatrix}
+1 & 2 & 3\\
+4 & 2 & 1\\
+0 & 1 & 1
+\end{pmatrix}$.
+Calculons $A_{11}, C_{11}, A_{32}, C_{32}$.
+
+
+\myfigure{1}{
+%\tikzinput{fig_determinants07b}
+}
+
+\myfigure{1}{
+\tikzinput{fig_determinants07c}
+}
+%
+%$$
+%A_{11} =
+%\begin{pmatrix}
+%1 & 2 &3\\
+%4 & 2 & 1\\
+%0 & 1 & 1\\
+%\end{pmatrix}
+%=
+%\begin{pmatrix}
+%2 & 1\\
+%1 & 1
+%\end{pmatrix}
+%\qquad
+%C_{11} = (-1)^{1+1} \det A_{11} = +1.
+%$$
+%
+%
+%$$
+%A_{32} =
+%\begin{pmatrix}
+%1 & 2 & 3\\
+%4 & 2 & 1\\
+%0 & 1 & 1
+%\end{pmatrix}
+%=
+%\begin{pmatrix}
+%1 & 3\\
+%4 & 1
+%\end{pmatrix}
+%\qquad
+%C_{32} = (-1)^{3+2} \det A_{32} = (-1) \times (-11) =  11.$$
+\end{exemple}
+
+Pour déterminer si $C_{ij} = +\det A_{ij} $ ou $C_{ij} = -\det A_{ij}$, on peut se souvenir
+que l'on associe des signes en suivant le schéma d'un échiquier:
+$$  A =
+\begin{pmatrix}
++ & - & + & - &\dots\\
+- & + & - & + &\dots \\
++ & - & + & - &\dots\\
+\vdots & \vdots & \vdots & \vdots &
+\end{pmatrix}
+$$
+Donc $C_{11} = +\det A_{11}$, $C_{12} = - \det A_{12}$,  $C_{21} = - \det A_{21}$...
+
+
+%-------------------------------------------------------
+\subsection{Développement suivant une ligne ou une colonne}
+\label{sec:developpement-ligne-colonne}
+
+
+\begin{theoreme}[Développement suivant une ligne ou une colonne]
+Formule de développement par rapport à la ligne $i$:
+$$\det A
+= \sum_{j=1}^n (-1)^{i+j} a_{ij} \det A_{ij}
+= \sum_{j=1}^n a_{ij} C_{ij}$$
+
+Formule de développement par rapport à la colonne $j$:
+$$\det A
+= \sum_{i=1}^n (-1)^{i+j} a_{ij} \det A_{ij}
+= \sum_{i=1}^n a_{ij}C_{ij}$$
+\end{theoreme}
+
+\begin{proof}
+Nous avons déjà démontré la formule de  développement suivant une
+ligne lors de la démonstration du théorème \ref{th:def:determinant}
+d'existence et d'unicité du déterminant.
+Comme $\det A=\det A^T$, on en déduit la formule de  développement par
+rapport à une  colonne.
+\end{proof}
+
+
+\begin{exemple}
+Retrouvons la formule des déterminants $3\times 3$, déjà présentée
+par la règle de Sarrus, en développement par rapport à la première ligne.
+
+$$\begin{array}{rcl}
+\left|\begin{matrix}
+a_{11}&a_{12}&a_{13}\\
+a_{21}&a_{22}&a_{23}\\
+a_{31}&a_{32}&a_{33}
+\end{matrix}\right|&=&a_{11}C_{11}+a_{12}C_{12}+a_{13}C_{13}\\
+&=&a_{11}\left|\begin{matrix}
+a_{22}&a_{23}\\
+a_{32}&a_{33}
+\end{matrix}\right|-a_{12}\left|\begin{matrix}
+a_{21}&a_{23}\\
+a_{31}&a_{33}
+\end{matrix}\right|+a_{13}\left|\begin{matrix}
+a_{21}&a_{22}\\
+a_{31}&a_{32}
+\end{matrix}\right|\\
+&=&a_{11}(a_{22}a_{33}-a_{32}a_{23})-a_{12}(a_{21}a_{33}-a_{31}a_{23})\\
+&&{}+a_{13}(a_{21}a_{32}-a_{31}a_{22})\\
+&=&a_{11}a_{22}a_{33}-a_{11}a_{32}a_{23}+a_{12}a_{31}a_{23}-a_{12}a_{21}a_{33}\\
+&&{}+a_{13}a_{21}a_{32}-a_{13}a_{31}a_{22}.
+\end{array}$$
+\end{exemple}
+
+
+%-------------------------------------------------------
+\subsection{Exemple}
+
+
+\begin{exemple}
+$$A = \begin{pmatrix}
+4 & 0 & 3 & 1\\
+4 & 2 & 1 & 0\\
+0 & 3 & 1 & -1\\
+1 & 0 & 2 & 3
+\end{pmatrix}
+$$
+
+On choisit de développer par rapport à la seconde colonne
+(car c'est là qu'il y a le plus de zéros) :
+$$\begin{array}{rcl}
+\det A
+  & = & 0 C_{12} + 2 C_{22} + 3 C_{32}+0 C_{42}\\[5pt]
+   && \quad\text{(développement par rapport à la deuxième colonne)} \\[5pt]
+  & = & +2 \begin{vmatrix}4&3&1\\0&1&-1\\1&2&3 \end{vmatrix}
+        -3 \begin{vmatrix}4&3&1\\4&1&0\\1&2&3\\ \end{vmatrix} \\[5pt]
+       && \quad \text{on n'oublie pas les signes des cofacteurs et on recommence} \\[5pt]
+  & & \text{en développant chacun de ces deux déterminants $3\times 3$} \\[5pt]
+  & = & +2 \left(+4\begin{vmatrix}1&-1\\2&3\end{vmatrix}-0\begin{vmatrix}3&1\\2&3\end{vmatrix}
+  +1\begin{vmatrix}3&1\\1&-1\end{vmatrix}\right)\\[5pt]
+  &&\quad \text{(par rapport à la première colonne)}\\[5pt]
+  &   & -3\left(-4\begin{vmatrix}3&1\\2&3\end{vmatrix}+1\begin{vmatrix}4&1\\1&3\end{vmatrix}
+  -0\begin{vmatrix}4&3\\1&2\end{vmatrix}\right) \\[5pt]
+  &&\quad\text{(par rapport à la deuxième ligne)}\\[5pt]
+ & = & +2 \big(+4\times 5-0 +1\times(-4)\big)
+ 		-3\big(-4\times7 +1\times11 - 0 \big)\\[5pt]
+  & = & 83\\
+\end{array}$$
+
+
+\end{exemple}
+
+\begin{remarque*}
+Le développement par rapport à une ligne permet de ramener
+le calcul d'un déterminant $n\times n$ à celui de $n$ déterminants
+$(n-1)\times(n-1)$. Par récurrence descendante, on se ramène
+ainsi au calcul de $n!$ sous-déterminants, ce qui devient vite fastidieux.
+C'est pourquoi le développement par rapport à une ligne ou une
+colonne  n'est utile pour calculer explicitement un déterminant que
+si la matrice de départ a beaucoup de zéros.
+On commence donc souvent par faire apparaître
+un maximum de zéros par des opérations élémentaires sur les lignes et/ou les colonnes
+qui ne modifient pas le déterminant,
+avant de développer le déterminant suivant la ligne ou la colonne qui a le plus de zéros.
+\end{remarque*}
+
+%-------------------------------------------------------
+\subsection{Inverse d'une matrice}
+
+Soit $A \in M_n(\Kk)$ une matrice carrée.
+
+Nous lui associons la matrice $C$ des cofacteurs, appelée \defi{comatrice}\index{comatrice}, et notée
+$\mathrm{Com}(A)$:
+$$C = (C_{ij}) = \left(
+\begin{array}{cccc}
+C_{11} & C_{12} & \cdots & C_{1n}\\
+C_{21} & C_{22} & \cdots & C_{2n}\\
+\vdots & \vdots & & \vdots\\
+C_{n1} & C_{n2} & \cdots & C_{nn}
+\end{array}\right)
+$$
+
+\begin{theoreme}
+Soient $A$ une matrice inversible, et $C$ sa comatrice.
+On a alors
+\mybox{$\displaystyle A^{-1} = \frac{1}{\det A} \, C^T$}
+\end{theoreme}
+
+\begin{exemple}
+Soit $\displaystyle A = \left(
+\begin{array}{ccc}
+1 & 1 & 0\\
+0 & 1 & 1\\
+1 & 0 & 1
+\end{array}\right)$.
+Le calcul donne que $\det A = 2$. La comatrice $C$
+s'obtient en calculant $9$~déterminants
+$2\times 2$ (sans oublier les signes $+/-$). On trouve :
+$$C = \begin{pmatrix}
+1 & 1 & -1\\
+-1 & 1 & 1\\
+1 & -1 & 1
+      \end{pmatrix}
+\quad \text{ et donc } \quad
+A^{-1} = \frac{1}{\det A} \cdot C^T = \frac{1}{2}
+\begin{pmatrix}
+1 & -1 & 1\\
+1 & 1 & -1\\
+-1 & 1 & 1
+\end{pmatrix}
+$$
+\end{exemple}
+
+La démonstration se déduit directement du lemme suivant.
+\begin{lemme}
+Soit $A$ une matrice (inversible ou pas) et $C$ sa comatrice.
+Alors $A C^T = (\det A) I_n$, autrement dit
+\[
+\sum_k a_{ik} C_{jk} =
+\left\{ \begin{array}{ll} \det A & \text{si } i=j \\ 0 & \text{sinon}\end{array} \right.
+\]
+\end{lemme}
+
+
+\begin{proof}
+Le terme de position $(i,j)$ dans $A C^T$ est $\sum_k a_{ik} C_{jk}$, et
+donc si $i=j$, le résultat découle de la formule de développement par rapport à la ligne $i$.
+
+Pour le cas $i \neq j$, imaginons que l'on remplace $A$ par une matrice $A'=(a'_{ij})$ identique,
+si ce n'est que la ligne $L_j$ est remplacée par la ligne $L_i$, autrement dit $a'_{jk} = a_{ik}$
+pour tout $k$. De plus, comme $A'$ possède deux lignes identiques, son déterminant est nul.
+On appelle $C'$ la comatrice de $A'$, et la formule de développement
+pour la ligne $j$ de $A'$ donne
+\[
+0 = \det A' = \sum_k a'_{jk} C'_{jk} = \sum_k a_{ik} C'_{jk}
+\]
+Or, $C'_{jk}$ se calcule à partir de la matrice extraite $A'_{jk}$, qui ne contient que les éléments
+de $A'$ sur les lignes différentes de $j$ et colonnes différents de $k$. Mais sur les lignes
+différentes de $j$, $A'$ est identique à $A$, donc $C'_{jk} = C_{jk}$. On conclut que
+$\sum_k a_{ik} C_{jk} = 0$.
+
+Finalement,
+\[
+ AC^T = \left(
+\begin{array}{cccc}
+\det A & 0 & \dots & 0\\
+0 & \det A &&\vdots\\
+\vdots &&\ddots & 0\\
+0&\dots &0 & \det A
+\end{array}\right) = \det A\cdot  I
+\]
+et en particulier, si $\det A \neq 0$, c'est-à-dire si $A$ est inversible, alors on a
+$$
+A^{-1} = \frac{1}{\det A} C^T\, .
+$$
+
+
+\end{proof}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soient $A=\begin{pmatrix}2&0&-2\\0&1&-1\\2&0&0\end{pmatrix}$
+  et $B = \begin{pmatrix}t&0&t\\0&t&0\\-t&0&t\end{pmatrix}$.
+  Calculer les matrices extraites, les mineurs d'ordre $2$ et les cofacteurs de chacune
+  des matrices $A$ et $B$. En déduire le déterminant de $A$ et de $B$. En déduire
+  l'inverse de $A$ et de $B$ lorsque c'est possible.
+
+  \item Par développement suivant une ligne (ou une colonne) bien choisie, calculer les déterminants :
+  $$\begin{vmatrix}1&0&1&2\\0&0&0&1\\1&1&1&0\\0&0&0&-1\end{vmatrix}
+  \qquad\qquad
+  \begin{vmatrix}t&0&1&0\\1&t&0&0\\0&1&t&0\\0&0&0&t\end{vmatrix}$$
+
+  \item En utilisant la formule de développement par rapport à une ligne,
+  recalculer le déterminant d'une matrice triangulaire.
+\end{enumerate}
+\end{miniexercices}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Applications des déterminants}
+
+
+Nous allons voir plusieurs applications des déterminants.
+
+
+%-------------------------------------------------------
+\subsection{Méthode de Cramer}
+
+
+Le théorème suivant, appelé \defi{règle de Cramer}\index{regle@règle!de Cramer}, donne une formule explicite pour la
+solution de certains systèmes d'équations linéaires ayant autant d'équations que d'inconnues.
+Considérons le système d'équations linéaires à $n$ équations et $n$ inconnues suivant:
+\[
+\left\{
+\begin{array}{ccc}
+a_{11} x_1 + a_{12} x_2 + \dots + a_{1n} x_{n} & = & b_1\\
+a_{21} x_1 + a_{22} x_2 + \dots + a_{2n} x_n & = & b_2\\
+\qquad\qquad \dots \qquad\qquad &  &\\
+a_{n1} x_1 + a_{n2} x_2 + \dots + a_{nn} x_n & = & b_n
+\end{array}
+\right.
+\]
+Ce système peut aussi s'écrire sous forme matricielle $AX=B$ où
+$$
+A = \left(
+\begin{array}{cccc}
+a_{11} & a_{12} & \cdots & a_{1n}\\
+a_{21} & a_{22} & \cdots & a_{2n}\\
+\vdots & \vdots && \vdots\\
+a_{n1} & a_{n2}& \cdots &a_{nn}
+\end{array}\right) \in M_{n}(\Kk), \qquad X= \left( \begin{array}{c}x_1\\x_2 \\\vdots \\x_n \end{array} \right) \quad \mbox{et} \quad B=\left( \begin{array}{c}b_1\\b_2 \\\vdots \\b_n \end{array} \right).
+$$
+
+
+Définissons la matrice $A_j \in M_{n}(\Kk)$ par
+%[Fig XX: modifier cette désignation de la j-ème colonne]
+$$
+A_j = \left(
+\begin{array}{ccccccc}
+a_{11} &  \dots & a_{1,j-1} & {\color{myred}b_1} & a_{1,j+1} & \dots & a_{1n}\\
+a_{21} & \dots & a_{2,j-1}& {\color{myred}b_2} & a_{2,j+1}& \dots & a_{2n}\\
+\vdots &  & \vdots & {\color{myred}\vdots} & \vdots& &\vdots\\
+a_{n1} &\dots & a_{n,j-1}& {\color{myred}b_n}& a_{n,j+1}& \dots & a_{nn}
+\end{array}\right)
+$$
+%$$\,\,\,\,\,\,\,\,\,\,\,\,\,  \uparrow$$
+%\begin{center}
+%\,\,\, $j$ème colonne
+%\end{center}
+
+Autrement dit, $A_j$ est la matrice obtenue en remplaçant la $j$-ème
+colonne de $A$ par le second membre $B$. La règle de Cramer va nous
+permettre de calculer la solution du système dans le cas où
+$\det A \neq 0$ en fonction des déterminants des matrices $A$ et
+$A_j$.
+
+\begin{theoreme}[Règle de Cramer] Soit $$
+AX = B
+$$
+un système de $n$ équations  à $n$ inconnues. Supposons que $\det A \neq 0$.
+Alors l'unique solution $(x_1,x_2,\ldots,x_n)$ du système est donnée par:
+$$
+x_1 = \frac{\det A_1}{\det A} \qquad x_2 = \frac{\det A_2}{\det A} \qquad \ldots \qquad x_n = \frac{\det A_n}{\det A}.
+$$
+\end{theoreme}
+
+\begin{proof}
+Nous avons supposé que $\det A \neq 0$. Donc $A$ est inversible. Alors
+$X = A^{-1} B$ est l'unique solution du système. D'autre part, nous avons vu que
+$A^{-1} = \frac{1}{\det A} C^T$ où $C$ est la comatrice.
+Donc $X = \frac{1}{\det A} C^T B$.
+En développant,
+\[
+X =
+\begin{pmatrix}
+x_1\\
+\vdots\\
+x_n
+\end{pmatrix}
+= \frac{1}{\det A}
+\begin{pmatrix}
+C_{11} & \dots & C_{n1}\\
+\vdots && \vdots\\
+C_{1n} &\dots & C_{nn}
+\end{pmatrix}
+\
+\begin{pmatrix}
+b_1\\
+\vdots\\
+b_n
+\end{pmatrix}
+=  \frac{1}{\det A}
+\begin{pmatrix}
+C_{11} b_1 + C_{21} b_2 + \dots + C_{n1} b_n\\
+\vdots\\
+C_{1n}b_1 + C_{2n} b_2 + \dots + C_{nn} b_n
+\end{pmatrix}
+\]
+C'est-à-dire
+\[
+x_1  =  \frac{C_{11} b_1 + \dots + C_{n1} b_n}{\det A}
+,\ 
+x_i  =  \frac{C_{1i}b_1 + \dots + C_{ni} b_n}{\det A}
+,\ 
+x_n = \frac{C_{1n}b_1 + \dots + C_{nn} b_n}{\det A}
+\]
+Mais $b_1 C_{1i} + \dots + b_n C_{ni}$
+est le développement en cofacteurs de
+$\det A_i$ par rapport à sa $i$-ème colonne.  Donc
+\[
+x_i = \frac{\det A_i}{\det A}\, \cdotp
+\]
+\end{proof}
+%
+\begin{exemple} Résolvons le système suivant:
+\[\left\{
+\begin{array}{ccccccc}
+x_1 & && + &2x_3 & = &6\\
+ -3x_1 &+ &4x_2 &+ &6x_3 & = & 30\\
+ -x_1 &- &2x_2 &+ &3 x_3 & = & 8. \end{array}
+\right. \]
+On a
+\[
+A = \left(
+\begin{array}{rrc}
+1 & 0 & 2\\
+-3 & 4 & 6\\
+-1 & -2 & 3
+\end{array}\right)
+\qquad
+B = \left(
+\begin{array}{c} 6 \\ 30 \\ 8 \end{array}\right)
+\]\[
+A_1 = \left(
+\begin{array}{crc}
+6 & 0 & 2\\
+30 & 4 & 6\\
+8 & -2 & 3
+\end{array}\right)
+\qquad  A_2 = \left(
+\begin{array}{rcc}
+1 & 6 & 2\\
+-3 & 30 & 6\\
+-1 & 8 & 3
+\end{array}\right)
+\qquad  A_3 = \left(
+\begin{array}{rrc}
+1 & 0 & 6\\
+-3 & 4 & 30\\
+-1 & -2 & 8
+\end{array}\right)
+\]
+et
+$$\det A  =  44 \qquad \det A_1  =  -40 \qquad
+\det A_2  =  72 \qquad \det A_3  =  152.$$
+La solution est alors
+\[
+x_1 = \frac{\det A_1}{\det A} = -\frac{40}{44} = -\frac{10}{11}\quad
+x_2 = \frac{\det A_2}{\det A} = \frac{72}{44}  = \frac{18}{11}\quad
+x_3 = \frac{\det A_3}{\det A} = \frac{152}{44} = \frac{38}{11} \, \cdotp
+\]
+\end{exemple}
+
+La méthode de Cramer n'est pas la méthode la plus efficace pour résoudre un système,
+mais est utile si le système contient des paramètres.
+
+
+%-------------------------------------------------------
+\subsection{Déterminant et base}
+
+Soit $E$ un $\Kk$-espace vectoriel de dimension $n$.
+Fixons une base $\mathcal{B}$ de $E$.
+On veut décider si $n$ vecteurs $v_1,v_2,\ldots,v_n$ forment aussi une base de $E$.
+Pour cela, on écrit la matrice $A \in M_n(\Kk)$ dont la $j$-ème colonne est formée
+des coordonnées du vecteur $v_j$ par rapport à la base $\mathcal{B}$
+(comme pour la matrice de passage).
+Le calcul de déterminant apporte la réponse à notre problème.
+
+\begin{theoreme}
+\label{th:detbase}
+Soit $E$ un $\Kk$ espace vectoriel de dimension $n$, et $v_1,v_2,\ldots,v_n$,
+$n$ vecteurs de $E$. Soit $A$ la matrice obtenue en juxtaposant les coordonnées des vecteurs
+par rapport à une base $\mathcal{B}$ de $E$.
+Les vecteurs $(v_1,v_2,\ldots,v_n)$ forment une base de $E$
+si et seulement si $\det A \neq 0.$
+\end{theoreme}
+
+
+\begin{corollaire}
+Une famille de $n$ vecteurs de $\Rr^n$
+$$\begin{pmatrix}a_{11}\\a_{21}\\\vdots\\a_{n1}\end{pmatrix}
+\quad
+\begin{pmatrix}a_{12}\\a_{22}\\\vdots\\a_{n2}\end{pmatrix}
+\quad \cdots
+\quad
+\begin{pmatrix}a_{1n}\\a_{2n}\\\vdots\\a_{nn}\end{pmatrix}$$
+forme une base si et seulement si
+$\det \ (a_{ij}) \neq 0$.
+\end{corollaire}
+
+\begin{exemple}
+Pour quelles valeurs de $a,b \in \Rr$ les vecteurs
+$$
+\begin{pmatrix}0\\a\\b\end{pmatrix} \quad
+\begin{pmatrix}a\\b\\0\end{pmatrix} \quad
+\begin{pmatrix}b\\0\\a\end{pmatrix}$$
+forment une base de $\Rr^3$ ? Pour répondre, il suffit de calculer le déterminant
+\[
+\begin{vmatrix}
+  0 & a & b\\a & b & 0\\b & 0 & a
+  \end{vmatrix}
+= - a^3 - b^3 \,.
+\]
+Conclusion: si $a^3 \neq - b^3$ alors les trois vecteurs forment une base de $\Rr^3$.
+Si $a^3 = - b^3$ alors les trois vecteurs sont liés.
+(Exercice: montrer que $a^3+b^3=0$ si et seulement si $a=-b$.)
+\end{exemple}
+
+
+\begin{proof}
+La preuve fait appel à des résultats du chapitre \og Matrices et applications linéaires \fg{}
+(section \og Rang d'une famille de vecteurs \fg):
+\[
+\begin{array}{rcl}
+(v_1,v_2,\ldots,v_n) \text{ forment une base}
+&\iff& \rg(v_1,v_2,\ldots,v_n) = n \\
+&\iff& \rg A = n \\
+&\iff& A \text{ est inversible} \\
+&\iff& \det A \neq 0
+\end{array}
+\]
+\end{proof}
+
+
+%-------------------------------------------------------
+\subsection{Mineurs d'une matrice}
+
+\begin{definition}
+Soit $A=(a_{ij}) \in M_{n,p}(\Kk)$ une matrice à $n$ lignes
+et $p$ colonnes à coefficients dans $\Kk$.
+Soit $k$ un entier inférieur à $n$ et à $p$.
+On appelle \defi{mineur d'ordre $k$}\index{mineur}
+le déterminant d'une matrice carrée de taille $k$ obtenue à partir
+de $A$ en supprimant $n-k$ lignes et $p-k$ colonnes.
+\end{definition}
+
+Noter que $A$ n'a pas besoin d'être une matrice carrée. \\
+
+\begin{exemple}
+Soit la matrice
+$$A =
+\begin{pmatrix}
+1&2&3&4\\
+1&0&1&7\\
+0&1&6&5
+\end{pmatrix}$$
+
+\begin{itemize}
+  \item Un mineur d'ordre $1$ est simplement un coefficient de la matrice $A$.
+
+  \item Un mineur d'ordre $2$ est le déterminant d'une matrice $2\times 2$ extraite de $A$.
+  Par exemple en ne retenant que la ligne $1$ et $3$ et la colonne $2$ et $4$,
+  on obtient la matrice extraite
+  $\begin{pmatrix}2&4\\1&5\end{pmatrix}$.
+  Donc un des mineurs d'ordre $2$ de $A$ est $\begin{vmatrix}2&4\\1&5\end{vmatrix} = 6$.
+
+  \item Un mineur d'ordre $3$ est le déterminant d'une matrice $3\times 3$ extraite de $A$.
+  Par exemple, en ne retenant que les colonnes $1$, $3$ et $4$ on obtient
+  le mineur
+  \[
+  \begin{vmatrix}
+1&3&4\\
+1&1&7\\
+0&6&5
+\end{vmatrix} = -28
+\]
+
+  \item Il n'y a pas de mineur d'ordre $4$ (car la matrice n'a que $3$ lignes).
+
+\end{itemize}
+\end{exemple}
+
+
+%-------------------------------------------------------
+\subsection{Calcul du rang d'une matrice}
+
+
+
+Rappelons la définition du rang d'une matrice.
+
+\begin{definition}
+Le \defi{rang}\index{rang!d une matrice@d'une matrice} d'une matrice est la dimension de l'espace vectoriel
+engendré par les vecteurs
+colonnes. C'est donc le nombre maximum de vecteurs colonnes
+linéairement indépendants.
+\end{definition}
+
+
+\begin{theoreme}
+\label{th:mineur}
+Le rang d'une matrice $A \in M_{n,p}(\Kk)$ est le plus grand entier $r$
+tel qu'il existe un mineur d'ordre~$r$ extrait de $A$ non nul.
+\end{theoreme}
+
+La preuve sera vue en section \ref{sec:independence-et-det}.
+
+\medskip
+
+\begin{exemple}
+\label{exemple:calcul-rang}
+Soit $\alpha$ un paramètre réel. Calculons le rang
+de la matrice $A \in M_{3,4}(\Rr)$:
+$$A= \begin{pmatrix}
+1 & 1& 2&1\cr
+1&2&3&1\cr
+1&1&\alpha & 1 \cr
+\end{pmatrix}$$
+
+\begin{itemize}
+  \item Clairement, le rang ne peut pas être égal à $4$, puisque $4$ vecteurs de $\Rr^3$ ne sauraient être indépendants.
+
+  \item On obtient les mineurs d'ordre $3$ de $A$ en supprimant une colonne.
+  Calculons le mineur d'ordre $3$ obtenu en supprimant la première
+  colonne, en le développant par rapport à \emph{sa} première colonne:
+$$\left | \begin{matrix}
+1 & 2 & 1 \cr
+2 & 3& 1 \cr
+1& \alpha & 1 \cr
+\end{matrix} \right |
+=\left |\begin{matrix}3&1 \cr
+\alpha & 1 \cr
+\end{matrix}\right |
+-2 \left | \begin{matrix}
+2&1 \cr
+\alpha & 1 \cr
+\end{matrix}\right |
++\left | \begin{matrix}
+2&1 \cr
+3 & 1 \cr
+\end{matrix}\right | = \alpha -2 \,.$$
+Par conséquent, si $\alpha \neq 2$, le mineur précédent est non nul
+et le rang de la matrice $A$ est $3$.
+
+  \item Si $\alpha =2$, on vérifie que les $4$ mineurs d'ordre $3$ de $A$ sont nuls:
+  \[
+  \begin{vmatrix} 1& 2&1 \\ 2&3&1 \\ 1& 2 & 1 \end{vmatrix}
+  = \begin{vmatrix} 1 & 2&1 \\ 1&3&1 \\ 1& 2 & 1 \end{vmatrix}
+  = \begin{vmatrix} 1 & 1& 1 \\ 1&2&1 \\ 1&1& 1 \end{vmatrix}
+  = \begin{vmatrix} 1 & 1& 2 \\ 1&2&3 \\ 1&1& 2 \end{vmatrix}
+  = 0
+  \] Donc dans ce cas,  $A$ est de rang inférieur ou égal à $2$.
+Or
+$\Bigg| \begin{matrix}
+1 & 1 \cr
+1 & 2 \cr
+\end{matrix} \Bigg| = 1$ (lignes $1,2$, colonnes $1,2$ de $A$)
+est un mineur d'ordre $2$ non nul. Donc si $\alpha = 2$ , le rang de $A$ est $2$.
+\end{itemize}
+\end{exemple}
+
+%-------------------------------------------------------
+
+\subsection{Rang d'une matrice transposée}
+
+\begin{proposition}
+Le rang de $A$ est égal au rang de sa transposée $A^T$.
+\end{proposition}
+
+\begin{proof}
+Les mineurs de $A^{T}$ sont obtenus à partir des mineurs de $A$ par
+transposition. Comme les déterminants d'une matrice et de sa
+transposée sont égaux, la proposition découle de la
+caractérisation du rang d'une matrice à l'aide des mineurs
+(théorème \ref{th:mineur}).
+\end{proof}
+
+%-------------------------------------------------------
+
+\subsection{Indépendance et déterminant} 	\label{sec:independence-et-det}
+
+Revenons sur le théorème \ref{th:mineur}
+et sa preuve avec une version améliorée.
+
+\begin{theoreme}[Caractérisation de l'indépendance linéaire de $p$ vecteurs]
+Soit $E$ un $\Kk$-espace vectoriel de dimension $n$ et $\mathcal{B} = (e_1, \dots ,e_n)$
+une base de $E$. Soient $v_{1}, \dots ,v_{p}$ des vecteurs de $E$ avec $p \le n$.
+Posons $v_j=\sum_{i=1}^{n} a_{i,j}e_i$ pour $1 \le j \le n$. Alors les
+vecteurs $\{ v_1, \ldots, v_p \}$ forment une famille libre si
+et seulement s'il existe un mineur d'ordre $p$ non nul extrait de la
+matrice $A = \big(a_{i,j}\big) \in M_{n,p}(\Kk)$.
+\end{theoreme}
+
+%Cette démonstration est hors programme.
+
+\begin{proof}
+Supposons d'abord que la famille  $\mathcal{F} = \{ v_1,\ldots ,v_p \}$ soit libre.
+\begin{itemize}
+\item Si $p=n$, le résultat est une conséquence du théorème \ref{th:detbase}.
+
+\item Si $p<n$, on peut appliquer le théorème de la base incomplète à la famille $\mathcal{F}$
+et à la base $\mathcal{B} = \{e_1,\ldots,e_n \}$; et quitte à renuméroter les vecteurs de $\mathcal{B}$,
+on peut supposer que $\mathcal{B}' = (v_1, \ldots ,v_p,e_{p+1},\ldots ,e_{n})$ est une base de $E$.
+(Note : cette renumérotation change l'ordre de $e_i$, autrement dit échange les lignes de
+la matrice $A$, ce qui n'a pas d'impact sur ses mineurs; on appellera encore $\mathcal{B}$ la base
+renumérotée.)
+La matrice $P$ de passage de $\mathcal{B}$ vers $\mathcal{B}'$ contient
+les composantes des vecteurs $(v_1, \ldots ,v_p,e_{p+1},\ldots ,e_{n})$ par rapport à
+la base (renumérotée) $\mathcal{B} = (e_1,\ldots,e_n)$ c'est-à-dire
+\[
+P = \begin{pmatrix}
+a_{1,1}& \dots & a_{1,p}& 0 & \dots & 0 \cr
+\vdots & \ddots& \vdots & \vdots & \ddots & \vdots   \cr
+\vdots & \ddots& \vdots & \vdots & \ddots & \vdots   \cr
+a_{p,1}& \dots & a_{p,p}& 0& \dots & 0 \cr
+a_{p+1,1}& \dots & a_{p+1,p}& 1& \dots & 0 \cr
+\vdots & \ddots & \vdots & \vdots & \ddots & \vdots \cr
+a_{n,1}& \dots &a_{n,p}& 0 & \dots & 1\cr
+\end{pmatrix}
+\]
+Le déterminant $\det P$ est non nul puisque les vecteurs
+$(v_1, \ldots ,v_p,e_{p+1},\ldots ,e_{n})$ forment une base
+de $E$. Or ce déterminant se calcule en développant par
+rapport aux dernières colonnes autant de fois que nécessaire (soit $n-p$ fois).
+Et l'on trouve que
+\[
+\det P = \begin{vmatrix}
+a_{1,1}& \dots & a_{1,p}\\
+\vdots & \ddots& \vdots  \\
+a_{p,1}& \dots & a_{p,p}
+\end{vmatrix}
+\]
+Le mineur $\begin{vmatrix}
+a_{1,1}& \dots & a_{1,p}\\
+\vdots & \ddots& \vdots  \\
+a_{p,1}& \dots & a_{p,p}
+\end{vmatrix}$ est donc non nul.
+
+\end{itemize}
+
+\bigskip
+
+Montrons maintenant la réciproque. Supposons que le mineur correspondant aux lignes
+$i_1,i_2,\ldots,i_p$ soit non nul. Autrement dit, la matrice
+\[
+B=\begin{pmatrix}
+a_{i_{1},1}& \dots & a_{i_{1},p} \cr
+\vdots & \ddots& \vdots    \cr
+a_{i_{p},1}& \dots & a_{i_{p},p} \cr
+\end{pmatrix}
+\]
+satisfait $\det B \neq 0$. Supposons aussi
+$$\lambda_1 v_1+ \cdots + \lambda_p v_p = 0$$
+En exprimant chaque $v_i$ dans la base $(e_1, \ldots, e_n)$, on
+voit aisément que cette relation équivaut au système suivant à $n$ lignes et
+$p$ inconnues:
+$$\left \{\begin{matrix}
+a_{1,1}\lambda_{1}&+& \dots&+ & a_{1,p}\lambda_{p}& = & 0 \cr
+a_{2,1}\lambda_{1}&+& \dots &+ & a_{2,p}\lambda_{p}& = & 0 \cr
+\vdots &\vdots & \vdots & \vdots & \vdots& \vdots   & \vdots    \cr
+a_{n,1}\lambda_{1}&+& \dots &+& a_{n,p}\lambda_{p}& =&0 \cr
+\end{matrix}\right .$$
+Ce qui implique, en ne retenant que les lignes $i_1,\ldots,i_p$:
+$$\left \{\begin{matrix}
+a_{i_{1},1}\lambda_{1}&+& \dots &+& a_{i_{1},p}\lambda_{p}& = & 0 \cr
+a_{i_{2},1}\lambda_{1}&+& \dots &+& a_{i_{2},p}\lambda_{p}& = & 0 \cr
+\vdots & \vdots &\vdots & \vdots & \vdots  & \vdots &\vdots    \cr
+a_{i_{p},1}\lambda_{1}&+& \dots &+& a_{i_{p},p}\lambda_{p}& =&0 \cr
+\end{matrix}\right .$$
+ce qui s'écrit matriciellement
+$$B\begin{pmatrix}
+\lambda_{1}\cr
+\vdots \cr
+\lambda_{p}\cr
+\end{pmatrix}=0.$$
+Comme $B$ est inversible (car $\det B \neq 0$), cela implique $\lambda_{1}=\dots
+=\lambda_{p}=0$. Ce qui montre l'indépendance des $v_i$.
+\end{proof}
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Résoudre ce système linéaire, en fonction du paramètre $t\in\Rr$ :
+  $\left\{\begin{array}{rcl}ty+z&=&1\\2x+ty&=&2\\-y+tz&=&3\end{array} \right.$
+
+  \item Pour quelles valeurs de $a,b \in \Rr$, les vecteurs suivants
+  forment-ils une base de $\Rr^3$ ?
+  $$\begin{pmatrix}a\\1\\b\end{pmatrix}, \begin{pmatrix}2a\\1\\b\end{pmatrix},
+  \begin{pmatrix}3a\\1\\-2b\end{pmatrix}$$
+
+  \item Calculer le rang de la matrice suivante selon les paramètres $a,b\in\Rr$.
+  $$\begin{pmatrix}1&2&b\\0&a&1\\1&0&2\\1&2&1\end{pmatrix}$$
+
+\end{enumerate}
+\end{miniexercices}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\bigskip
+
+
+\auteurs{
+\begin{itemize}
+  \item D'après un cours de Sophie Chemla de l'université Pierre et Marie Curie,
+  reprenant des parties d'un cours de H. Ledret et d'une équipe de
+  l'université de Bordeaux animée par J.~Queyrut,
+
+   \item et un cours de Eva Bayer-Fluckiger, Philippe Chabloz, Lara Thomas
+  de l'École Polytechnique Fédérale de Lausanne,
+
+  \item réécrit et complété par Arnaud Bodin, Niels Borne. Relu par Laura Desideri et Pascal Romon.
+
+\end{itemize}
+}
+
+\finchapitre
+\end{document}
+
+% %--------------------------------------------------------------
+%
+% \subsection{Déterminant d'un endomorphisme}
+%
+% On aborde ici la définition du déterminant dans le cadre plus abstrait d'une espace vectoriel $E$
+% de dimension $n$. Soit $f$ un endomorphisme de $E$. À chaque choix de base $\mathcal{B}$ de $E$
+% correspond une matrice $A = \text{Mat}_\mathcal{B} f$. Cette matrice varie avec le choix de la base,
+% mais pas son déterminant, ce qui permet de définir correctement le
+% \defi{déterminant de l'endomorphisme $f$}, comme étant égal à $\det \text{Mat}_\mathcal{B} f$.
+%
+% \begin{theoreme}
+% Soit $f \in \mathcal{L}(E)$. Alors le déterminant de $\text{Mat}_\mathcal{B} f$ ne dépend pas
+% du choix de la base $\mathcal{B}$, et est noté $\det f$.
+% \end{theoreme}
+%
+% \begin{proof}
+% Si $\mathcal{B}'$ est une autre base, et $P$ est la matrice de changement de base
+% de $\mathcal{B}$ à $\mathcal{B}'$, alors on sait que
+% \[
+% \text{Mat}_{\mathcal{B}'} f = P^{-1} \, \text{Mat}_\mathcal{B} f \, P
+% \]
+% donc
+% \[
+% \det \text{Mat}_{\mathcal{B}'} f = \det P^{-1} \, \det \text{Mat}_\mathcal{B} f \, \det P
+% = \det \text{Mat}_\mathcal{B} f
+% \]
+% puisque $\det P^{-1} \det P = (\det P)^{-1} \det P = 1$.
+% \end{proof}
+%
+% L'interprétation géométrique de $\det f$ est la suivante: le déterminant mesure la dilatation
+% des volumes dans $\Rr^n$. Si $\mathcal{B} = (e_1,\ldots,e_n)$ est une base orthonormée,
+% et que $\mathcal{P}$ est le parallélépipède rectangle engendré par les vecteurs $e_i$,
+% alors $f(\mathcal{P})$ est un parallélépipède engendré par les $f(e_i)$, dont le volume
+% sera $\det f$. Plus généralement, on peut montrer que si un sous-ensemble $U \subset \Rr^n$
+% est de volume $V$, alors son image par $f$ sera de volume $(\det f) \, V$.
+%
+% Exemple: une homothétie de rapport $\lambda$ multiplie les volumes par $\lambda^n$,
+% ce qui est exactement son déterminant.
+%
+% Enfin, l'image par une application non injective (donc de déterminant nul) sera de volume nul,
+% et en effet, cette image est «aplatie», car contenue dans un sous-espace vectoriel de $\Rr^n$,
+% à savoir $\Im f$.
+%
+%
+% %--------------------------------------------------------------
+%
+% \subsection{Déterminants et permutations}
+%
+% Cette section nécessite une connaissance du groupe $\mathcal{S}_n$ des permutations
+% de $\{1,\ldots,n\}$, notamment qu'il est engendré par les transpositions, et que
+% chaque permutation $\sigma$ possède une signature $\epsilon(\sigma) \in \{-1,+1\}$.
+%
+% \begin{lemme}\label{lem:permutation}
+% Soient $v_1,\ldots,v_n$ des vecteurs de $\Rr^n$, et $\sigma$ une permutation de
+% $\{ 1,\ldots,n \}$.
+% \[
+% \det (v_{\sigma(1)}, v_{\sigma(2)}, \ldots, v_{\sigma(n)})
+% = \epsilon(\sigma) \det(v_1,\ldots,v_n)
+% \]
+% \end{lemme}
+%
+% \begin{proof}
+% Montrons-le d'abord quand $\sigma  = \tau$ est une transposition. Alors,
+% $(v_{\tau(1)}, v_{\tau(2)}, \ldots, v_{\tau(n)})$ est la même liste de vecteurs, dont seulement
+% deux ont été interchangés. On sait que le déterminant change de signe, autrement dit est multiplié
+% par $\epsilon(\tau) = -1$.
+%
+% Les transpositions engendrant $\mathcal{S}_n$, toute permutation $\sigma$ peut s'écrire comme un produit de
+% $k$ transposition pour un certain $k$ (dépendant de $\sigma$):
+% $\sigma = \tau_1 \circ \tau_2 \circ \cdots \circ \tau_k$, et alors $\epsilon(\sigma) = (-1)^k$.
+% En itérant la remarque ci-dessus, il vient
+% \[
+% \det (v_{\sigma(1)}, v_{\sigma(2)}, \ldots, v_{\sigma(n)}) = (-1)^k \det(v_1,\ldots,v_n)
+% = \epsilon(\sigma) \det(v_1,\ldots,v_n)
+% \]
+% \end{proof}
+%
+% \begin{theoreme}	\label{thm:det-permutation}
+% Le déterminant de la matrice $A = (a_{ij})$ de taille $n \times n$ est donné par:
+% \[
+% \det A = \sum_{\sigma \in \mathcal{S}_n} \epsilon(\sigma) \prod_{j=1}^n a_{\sigma(j),j}
+% = \sum_{\sigma' \in \mathcal{S}_n} \epsilon(\sigma') \prod_{i=1}^n a_{i,\sigma'(i)}
+% \]
+% \end{theoreme}
+
+%\begin{proof}
+%Montrons d'abord que les deux formules proposées sont équivalentes. Si l'on fait
+%le changement de variable $\sigma' = \sigma^{-1}$, alors $\sigma'$ décrit $\mathcal{S}_n$ quand
+%$\sigma$ décrit $\mathcal{S}_n$; de plus $\epsilon(\sigma') = \epsilon(\sigma)$. Enfin, en rangeant
+%par ordre croissant sur le deuxième indice,
+%\[
+%\prod_{j=1}^n a_{\sigma(j),j}
+%= \prod_{ \begin{smallmatrix} i,j \\ i=\sigma(j) \end{smallmatrix} } a_{i,j}
+%= \prod_{ \begin{smallmatrix} i,j \\ j=\sigma^{-1}(i) \end{smallmatrix} } a_{i,j}
+%= \prod_{i=1}^n a_{i,\sigma^{-1}(i)}
+%\]
+%d'où le résultat.
+%\\
+%
+%Montrons maintenant les trois propriétés requises définissant le déterminant:
+%\begin{description}
+%\item[\textbf{Multilinéarité.}]
+%
+%Si l'on multiplie la $k$-ème colonne de $A$ par $\lambda$, alors le terme
+%$\prod_{j=1}^n a_{\sigma'(j),j}$, qui comporte un élément de cette colonne et un seul,
+%sera multiplié par $\lambda$, donc la somme aussi. De même, si pour cette colonne on a
+%$a_{ik} = a'_{ik} + a''_{ik}$ pour tout $i$, que $A'=(a'_{ij})$ dénote la matrice dont toutes
+%les colonnes sont les mêmes que celles de $A$ sauf la $k$-ième qui est
+%$\left( \begin{smallmatrix} a'_{1k} \\ \vdots \\ a'_{nk} \end{smallmatrix} \right)$,
+%idem pour $A''$, alors
+%\begin{eqnarray*}
+%\prod_{j=1}^n a_{\sigma(j),j}
+%&=& a_{\sigma(k),k} \prod_{j=1,j \neq k}^n a_{\sigma(j),j}
+%= (a'_{\sigma(k),k} + a''_{\sigma(k),k}) \prod_{j=1,j \neq k}^n a_{\sigma(j),j}
+%\\
+%&=& a'_{\sigma(k),k} \prod_{j=1,j \neq k}^n a'_{\sigma(j),j}
+%  +  a''_{\sigma(k),k} \prod_{j=1,j \neq k}^n a''_{\sigma(j),j}
+%= \prod_{j=1}^n a'_{\sigma(j),j} + \prod_{j=1}^n a''_{\sigma(j),j}
+%\end{eqnarray*}
+%
+%\item[Alternance.]
+%
+%Si $A$ possède deux colonnes identiques par exemple $C_r$ et $C_s$, notons $\tau$ la transposition
+%qui échange $r$ et $s$; alors, pour tout $i$, $a_{i,r} = a_{i,s}$, ou encore,
+%$a_{i,\tau(j)} = a_{i,j}$. En faisant le changement de variable $\sigma' = \sigma \circ \tau$, on a:
+%\[
+%\prod_{j=1}^n a_{\sigma(j),j}
+%= \prod_{j=1}^n a_{\sigma'(\tau(j)),j}
+%= \prod_{j=1}^n a_{\sigma'(j),\tau(j)}
+%= \prod_{j=1}^n a_{\sigma'(j),j}
+%\]
+%où l'on s'est servi de ce que $\tau^{-1} = \tau$. Finalement,
+%\[
+%\sum_{\sigma \in \mathcal{S}_n} \epsilon(\sigma) \prod_{j=1}^n a_{\sigma(j),j}
+%= \sum_{\sigma' \in \mathcal{S}_n} \epsilon(\sigma \circ \tau) \prod_{j=1}^n a_{\sigma'(j),j}
+%= \sum_{\sigma' \in \mathcal{S}_n} (- \epsilon(\sigma)) \prod_{j=1}^n a_{\sigma'(j),j}
+%= - \sum_{\sigma' \in \mathcal{S}_n} \epsilon(\sigma) \prod_{j=1}^n a_{\sigma'(j),j}
+%\]
+%la somme est donc nulle.
+%
+%\item[Valeur sur la base canonique.]
+%Si $A = I_n$, $a_{\sigma(j),j} = 1$ si $\sigma(j)=j$, et $0$ sinon. Or le produit
+%$\prod_{j=1}^n a_{\sigma(j),j}$ est nul dès que l'un de ses termes est nul; pour qu'il ne soit pas
+%nul, il faut que $\sigma(j) = j$ pour tout $j$ entre $1$ et $n$. Une seule permutation
+%donne une contribution non nulle à la somme: $\sigma = \mathit{id}$, et sa signature est $+1$.
+%Par conséquent,
+%\[
+%\sum_{\sigma \in \mathcal{S}_n} \epsilon(\sigma) \prod_{j=1}^n a_{\sigma(j),j}
+%= \prod_{j=1}^n a_{j,j} = 1 \times \cdots \times 1 = 1 \, .
+%\]
+%\end{description}
+%Comme le déterminant est la seule application vérifiant ces trois propriétés
+%(théorème~\ref{th:def:determinant}), les deux fonctions coïncident.
+%\end{proof}
+%
+% \begin{proof}
+% Soit $(e_1,\ldots,e_n)$ la base canonique, et $v_1,\ldots,v_n$ les $n$ vecteurs colonnes de $A$:
+% $v_j = \sum_{i=1}^n a_{ij} e_i$. En utilisant la multilinéarité, il vient:
+% \begin{eqnarray*}
+% \det A = \det(v_1,\ldots,v_n)
+% &=& \det \left( \sum_{i_1=1}^n a_{i_1,1} e_{i_1}, \sum_{i_2=1}^n a_{i_2,2} e_{i_2}, \ldots,
+% \sum_{i_n=1}^n a_{i_n,n} e_{i_n} \right)
+% \\
+% &=& \sum_{i_1=1}^n \sum_{i_2=1}^n \cdots \sum_{i_n=1}^n a_{i_1,1} a_{i_2,2} \cdots a_{i_n,n}
+% \det (e_{i_1}, e_{i_2},\ldots, e_{i_n})
+% \end{eqnarray*}
+% Or $\det (e_{i_1}, e_{i_2},\ldots, e_{i_n})$ est nul si un indice est répété. Pour que ce terme
+% soit non nul, il faut donc que les $i_1,\ldots,i_n$ soient tous distincts, autrement dit que
+% $j \mapsto i_j$ soit une permutation $\sigma$. Dans ce cas, d'après le lemme~\ref{lem:permutation},
+% \[
+% \det (e_{\sigma(1)},e_{\sigma(2)},\ldots, e_{\sigma(n)})
+% = \epsilon(\sigma) \det (e_1,e_2,\ldots,e_n) = \epsilon(\sigma)
+% \]
+% puisque par hypothèse $\det (e_1,\ldots,e_n)=+1$ pour la base canonique.
+% La somme multi-indicée $\sum_{i_1=1}^n \sum_{i_2=1}^n \cdots \sum_{i_n=1}^n$ se réduit donc
+% à une somme sur toutes les permutations $\sigma \in \mathcal{S}_n$, et on conclut que
+% \[
+% \det A = \sum_{\sigma \in \mathcal{S}_n} \epsilon(\sigma) \prod_{j=1}^n a_{\sigma(j),j}
+% \]
+%
+% Montrons enfin que les deux formules proposées sont équivalentes. Si l'on fait
+% le changement de variable $\sigma' = \sigma^{-1}$, alors $\sigma'$ décrit $\mathcal{S}_n$ quand
+% $\sigma$ décrit $\mathcal{S}_n$; de plus $\epsilon(\sigma') = \epsilon(\sigma)$. Enfin, en rangeant
+% par ordre croissant sur le deuxième indice,
+% \[
+% \prod_{j=1}^n a_{\sigma(j),j}
+% = \prod_{ \begin{smallmatrix} i,j \\ i=\sigma(j) \end{smallmatrix} } a_{i,j}
+% = \prod_{ \begin{smallmatrix} i,j \\ j=\sigma^{-1}(i) \end{smallmatrix} } a_{i,j}
+% = \prod_{i=1}^n a_{i,\sigma^{-1}(i)}
+% \]
+% d'où le résultat.
+% \end{proof}
+%
+% \begin{corollaire}   \label{coro:unicite}
+% Il existe une unique application de $\Rr^n \times \cdots \times \Rr^n \to \Rr$ qui soit
+% multilinéaire, alternée et prenne la valeur $1$ sur la base canonique. Cette application
+% est donnée par la formule du théorème~\ref{thm:det-permutation}.
+% \end{corollaire}
+%
+%
+%
+% \begin{remarque*}
+% Cette expression du déterminant a de nombreuses applications théoriques, mais est peu pratique
+% pour faire des calculs. Elle requiert d'énumérer toutes les permutations, qui sont nombreuses ($n!$).
+% Il y a néanmoins quelques cas de calculs où elle s'avère efficace, notamment quand la matrice
+% possède beaucoup de zéros (voir exercice ci-dessous).
+% \end{remarque*}
+
+
+
+
+
+

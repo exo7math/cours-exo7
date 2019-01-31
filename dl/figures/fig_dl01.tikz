@@ -1,0 +1,29 @@
+\begin{tikzpicture}
+
+      \draw[gray!50] (-3.25,-0.25) grid (3.25,5.25);
+      \draw[->,>=latex, gray] (-3.5,0)--(3.5,0) node[below,black] {$x$};
+       \draw[->,>=latex, gray] (0,-0.5)--(0,5.5) node[right,black] {$y$};
+
+       \fill (0,1) circle (1pt);
+       \fill (0,0) circle (1pt);
+       \fill (1,0) circle (1pt);
+
+       \node at (0,1) [left] {$1$};
+       \node at (0,0) [below left] {$0$};
+       \node at (1,0) [below right] {$1$};
+
+
+      \draw[ultra thick, color=myred,domain=-3:1.7] plot (\x,{exp(\x)}) node[left] {$y=e^x$};
+
+\beameronly{\uncover<2,3,4,10>}{
+\draw[thick, color=myorange,domain=-2:3] plot (\x,{1+\x})  node[above] {$\beameronly{\uncover<10>}{\ y=1+x}$};
+}
+
+\beameronly{\uncover<5-8,10>}{
+      \draw[thick, color=green!60!black,domain=2.15:-3,samples=50,densely dashed] plot (\x,{1+\x+\x*\x/2}) node[above] {$\beameronly{\uncover<10>}{y=1+x+\tfrac{x^2}{2}}$};
+}
+
+\beameronly{\uncover<9,10>}{
+      \draw[very thick, color=blue!90!black,domain=1.82:-2,samples=50,densely dotted] plot (\x,{1+\x+\x*\x/2+\x*\x*\x/6}) node[left] {$\beameronly{\uncover<10>}{y=1+x+\tfrac{x^2}{2}+ \tfrac{x^3}{6}}$};
+}
+\end{tikzpicture}

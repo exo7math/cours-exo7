@@ -1,0 +1,302 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={102,51,102}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Intégrales impropres}}
+\subtitle{Fonctions positives}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Théorème de comparaison
+    \item<4-> Théorème des équivalents
+    \item<5-> Intégrales de Riemann
+    \item<6-> Intégrales de Bertrand    
+      \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Théorème de comparaison}
+
+\begin{frame}
+
+\begin{theoreme}[de comparaison]
+\label{th:comparaisonintegrales1}
+\pause
+Soient $f$ et $g$ deux fonctions continues et \evidence{positives} sur
+$[a,+\infty[$. Supposons que $f$ soit majorée par $g$ au voisinage de
+$+\infty$ : c'est-à-dire \\
+\centerline{$\exists A\ge a \quad \forall t>A \qquad f(t)\le g(t)$}
+\pause
+\begin{enumerate}
+  \item Si \  $\int_a^{+\infty} g(t)\;\dd t$ \ converge alors \  $\int_a^{+\infty} f(t)\;\dd t$ \  converge
+\pause
+  \item Si \  $\int_a^{+\infty} f(t)\;\dd t$ \  diverge alors \  $\int_a^{+\infty} g(t)\;\dd t$ \  diverge
+\end{enumerate}
+\end{theoreme}
+
+\pause
+\medskip
+
+\begin{proof}
+\begin{itemize}
+  \item Par positivité de l'intégrale, pour tout $x \ge A$,
+$\int_A^x f(t)\;\dd t \le \int_A^x g(t)\;\dd t$
+\pause
+  \item Si $\int_A^{+\infty} g(t)\;\dd t$ converge, alors $\int_A^x f(t)\;\dd t$ est
+une fonction croissante et majorée par $\int_A^{+\infty} g(t)\;\dd t$,
+donc convergente
+\pause
+  \item Inversement, si $\int_A^{x} f(t)\;\dd t$ tend vers
+$+\infty$, alors $\int_A^{x} g(t)\;\dd t$ tend vers $+\infty$
+\qedhere
+\end{itemize}
+\end{proof}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+
+$\int_1^{+\infty} t^\alpha e^{-t}\;\dd t$ converge quel que soit le réel $\alpha$ 
+
+
+\begin{itemize}
+  \item \pause $t^\alpha e^{-t} = t^\alpha e^{-t/2}\,e^{-t/2}$
+  \item \pause $\lim_{t\rightarrow+\infty} t^\alpha e^{-t/2} =0$
+  \item \pause En particulier, il existe un réel $A>0$ tel que 
+$$\forall t>A\qquad t^\alpha e^{-t/2}\le 1$$  
+  \item \pause $\forall t>A\qquad t^\alpha e^{-t}\le e^{-t/2}$ 
+  \item \pause $\displaystyle 
+\int_1^x e^{-t/2}\;\dd t 
+\pause = \left[-2 e^{-t/2}\right]_1^x 
+\pause = 2e^{-1/2} -2e^{-x/2}
+\pause \xrightarrow{x\rightarrow+\infty}2e^{-1/2}$ 
+  \item \pause $\int_1^{+\infty} e^{-t/2}\;\dd t$ converge
+  \item \pause Théorème de comparaison : $\int_1^{+\infty} t^\alpha e^{-t}\;\dd t$ converge
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Théorème des équivalents}
+
+\begin{frame}
+
+\begin{theoreme}[des équivalents]
+%\label{th:equivalentintegrales1}
+Soient $f$ et $g$ deux fonctions continues et \evidence{strictement positives} sur
+$[a,+\infty[$. Supposons qu'elles soient équivalentes au voisinage de $+\infty$, c'est-à-dire :
+$\lim_{t\rightarrow+\infty}\frac{f(t)}{g(t)} = 1\;.$
+\pause
+Alors l'intégrale $\int_a^{+\infty} f(t)\;\dd t$ converge si et seulement si 
+$\int_a^{+\infty} g(t)\;\dd t$ converge
+\end{theoreme}
+\pause
+\begin{proof}
+\vspace*{-2ex}
+\begin{itemize}
+  \item $\frac{f(t)}{g(t)} \to 1$ 
+\pause  
+  \item Donc $\forall \epsilon>0 \quad \exists A>a \quad \forall t>A \qquad (1-\epsilon)g(t)<f(t)<(1+\epsilon)g(t)$
+\pause
+  \item Théorème de comparaison avec $\epsilon<1$
+  \qedhere
+
+\end{itemize}
+
+\end{proof}
+\pause
+\begin{exemple}
+\begin{itemize}
+  \item $\frac{t^5+3t+1}{t^3+4}e^{-t} \pause\underset{+\infty}{\sim}\ t^2e^{-t}$
+  \pause
+  \item $\int_1^{+\infty} t^2e^{-t}\;\dd t$ converge
+  \pause
+  \item Donc $\int_1^{+\infty} \frac{t^5+3t+1}{t^3+4}e^{-t}\;\dd t$ converge
+\end{itemize}
+
+\end{exemple}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Intégrales de Riemann}
+
+\begin{frame}
+
+\smallskip
+ 
+\defi{Intégrale de Riemann} \qquad $\displaystyle
+\int_1^{+\infty} \frac{1}{t^{\alpha}}\;\dd t\qquad \alpha>0$
+
+\pause
+\mybox{
+
+\begin{minipage}{0.7\textwidth}\vspace*{-2ex}
+$$\text{Si } \quad \alpha > 1\quad \text{ alors }\quad 
+\int_1^{+\infty} \frac{1}{t^{\alpha}}\;\dd t \quad\text{ converge}$$
+\pause
+$$\text{Si } \quad \alpha\le 1\quad \text{ alors }\quad 
+\int_1^{+\infty} \frac{1}{t^{\alpha}}\;\dd t \quad\text{ diverge}$$
+\end{minipage}
+\pause
+}
+
+\pause
+Preuve :
+$$
+\int_1^{+\infty} \frac{1}{t^{\alpha}}\;\dd t 
+\pause = 
+\left\{
+\begin{array}{lcl}
+\displaystyle{\lim_{x\rightarrow+\infty} 
+\left[\frac{1}{-\alpha+1}\frac{1}{t^{\alpha-1}}\right]_1^x}
+&\quad\text{si}&\alpha\neq 1\\[2ex]
+\pause
+\displaystyle{\lim_{x\rightarrow+\infty} 
+\Big[\ln t\Big]_1^x}
+&\quad\text{si}&\alpha= 1
+\end{array}
+\right.
+$$
+
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Intégrales de Bertrand}
+
+\begin{frame}
+
+\smallskip
+
+\defi{Intégrale de Bertrand}\qquad
+$\displaystyle \int_2^{+\infty} \frac{1}{t\;(\ln t)^{\beta}}\;\dd t \qquad \beta \in \Rr$
+
+\pause
+\mybox{
+\begin{minipage}{0.7\textwidth}\vspace*{-2ex}
+$$\text{Si } \beta > 1\quad \text{ alors }\quad
+\int_2^{+\infty}\frac{1}{t\;(\ln t)^{\beta}}\;\dd t
+\quad\text{ converge}
+$$
+\pause
+$$
+\text{Si } \beta\le 1\quad \text{ alors }\quad
+\int_2^{+\infty}\frac{1}{t\;(\ln t)^{\beta}}\;\dd t \quad\text{ diverge}
+$$
+
+\end{minipage}
+\pause
+}
+\pause
+Preuve :
+$$
+\int_2^{+\infty} \frac{1}{t\;(\ln t)^{\beta}}\;\dd t 
+\pause= 
+\left\{
+\begin{array}{lcl}
+\displaystyle{\lim_{x\rightarrow+\infty} 
+\Big[\tfrac{1}{-\beta+1}(\ln t)^{-\beta+1}\Big]_2^x}
+&\quad\text{si}&\beta\neq 1\\[2ex]
+\pause
+\displaystyle{\lim_{x\rightarrow+\infty} 
+\Big[\ln(\ln t)\Big]_2^x}
+&\quad\text{si}&\beta= 1
+\end{array}
+\right.
+$$
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{exemple}
+$$
+\int_2^{+\infty} 
+\sqrt{t^2+3t}\,\ln\left(\cos\frac{1}{t}\right)
+\,\sin^2\left(\frac{1}{\ln t}\right)\;\dd t\qquad\text{ converge-t-elle \  ?}
+$$
+\pause
+\begin{itemize}
+  \item $\sqrt{t^2+3t} \pause= t\sqrt{1+\frac{3}{t}} \pause\quad  \underset{+\infty}{\sim}\quad   t$
+ \pause  
+  \item $\ln\left(\cos\frac{1}{t}\right) \pause= 
+\ln\left(1-\frac{1}{2t^2}+o\left(\frac{1}{t^2}\right)\right)
+\pause\quad \underset{+\infty}{\sim}\quad  -\frac{1}{2t^2}$
+ \pause  
+  \item $\sin^2\left(\frac{1}{\ln t}\right) 
+\pause\quad\underset{+\infty}{\sim}\quad \left(\frac{1}{\ln t}\right)^2$
+ \pause
+  \item $\text{D'où }\sqrt{t^2+3t}\,\ln\left(\cos\frac{1}{t}\right)\,
+\,\sin^2\left(\frac{1}{\ln t}\right)
+\quad \underset{+\infty}{\sim}\quad  -\frac{1}{2t\;(\ln t)^2}$
+ \pause
+  \item Intégrale de Bertrand avec $\beta=2$, donc converge
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \section*{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item \'Etudier la convergence des intégrales suivantes :  
+  $\int_{1}^{+\infty} \frac{1}{t}\sin\left(\frac{1}{t}\right)\dd t \ ,\ 
+  \int_{\frac{3}{\pi}}^{+\infty}\ln\left(\cos\frac{1}{t}\right)\dd t \ ,\ 
+  \int_{-\infty}^{+\infty} te^{-|t|}\dd t \ ,\ 
+  \int_{-\infty}^{\ln 2} \frac{e^{-t}}{t^2+1}\dd t$
+  
+  \item Montrer que $\int_1^{+\infty} (\ln t)^\alpha e^{-t}\;\dd t$ converge,
+quel que soit le réel $\alpha$. 
+
+  \item \'Etudier la convergence des intégrales suivantes, en fonction du paramètre $\alpha>0$ :
+  $\int_{1}^{+\infty} \left(1-\sqrt[3]{1+\frac{1}{t^\alpha}}\right)\dd t , \quad
+  \int_{\frac{1}{\pi}}^{+\infty} \left(\frac{1}{t^\alpha}-\sin\frac{1}{t^\alpha}\right)\dd t , \quad
+  \int_{-\infty}^{\pi} \alpha^t \dd t$
+  
+  \item Discuter selon $\alpha>0$ et $\beta \in \Rr$ la nature de l'intégrale 
+  de Bertrand généralisée
+  $$\int_2^{+\infty} \frac{1}{t^\alpha(\ln t)^{\beta}}\;\dd t.$$
+  
+  \item Si $f : [a,+\infty[ \to \Rr$ est une fonction continue et positive telle que
+  $\int_a^{+\infty} f(t)\;\dd t = 0$, montrer alors que $f$ est identiquement nulle.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+
+
+\end{document}
+

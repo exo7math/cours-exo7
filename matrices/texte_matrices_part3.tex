@@ -1,0 +1,281 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+Nous poursuivons cette leçon sur les matrices par un chapitre consacré à la définition de l'inverse.
+
+\change
+Nous commencerons par définir ce qu'est l'inverse d'une matrice,
+
+\change
+puis nous en verrons des exemples de calculs,
+
+\change
+et enfin, nous établirons les propriétés essentielles de l'inverse d'une matrice.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Commençons par définir ce qu'est l'inverse d'une matrice, quand il existe.
+
+Soit $A$ une matrice  carrée de taille $n \times n$. 
+
+\change
+S'il existe une matrice carrée $B$ de même taille $n \times n$ telle que les produits
+ $AB$ et $ BA$ soient égaux à la matrice identité,
+ alors on dit que $A$ est \defi{inversible}. 
+ 
+ 
+\change
+On appelle $B$ la matrice inverse de $A$ et on note cette matrice $B$ par $A^{-1}$.
+
+\change
+On verra plus tard qu'il suffit en fait de vérifier une seule des conditions $AB=I$ ou bien $BA=I$.
+
+\change
+Plus généralement, quand $A$ est inversible, pour tout entier $p$, on note : 
+$A^{-p}=(A^{-1})^p =A^{-1} A^{-1} \cdots$ $ p$ fois.
+
+\change
+Terminons avec avec une notation : l'ensemble des matrices inversibles de $M_{n}(\Kk)$ est noté  $GL_{n}(\Kk)$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Soit $A$ la matrice de coefficients $\left(\begin{smallmatrix}
+1 & 2 \cr
+0 & 3 \cr
+\end{smallmatrix}\right)$. \'Etudier si $A$ est inversible...
+
+\change
+... c'est étudier l'existence d'une matrice 
+$B$ à coefficients $a, b, c, d$ dans $\Kk$, telle que $AB=$ identité et $BA=$ identité.
+
+\change
+Or le produit $AB$ est égal, après calcul, à la matrice  $\begin{pmatrix}
+a+2c & b+2d \cr
+3c & 3d\cr
+\end{pmatrix}$
+
+\change
+Et donc $AB=I$ si et seulement si cette matrice vaut 
+$\begin{pmatrix}
+1 & 0 \cr
+0 & 1\cr
+\end{pmatrix}
+$
+
+\change
+Cette égalité équivaut au système  : 
+$$\left \{ \begin{array}{l}
+a+2c=1\\
+b+2d=0\\
+3c=0\\
+3d=1\\
+\end{array} \right .$$
+
+Sa résolution est immédiate : $d=\frac13$ , $c=0$, $b=-\frac23$, $a=1$.
+
+\change
+
+Il n'y a donc qu'une seule matrice possible, à savoir 
+$B=\left(\begin{smallmatrix}
+1 & -\frac23 \cr
+0 & \frac13\cr
+\end{smallmatrix}\right)$.
+
+\change
+Pour prouver qu'elle convient, il faudrait aussi montrer l'égalité $BA=I$,
+dont la vérification est laissée au lecteur.
+
+\change
+
+En conclusion la matrice $A$ est donc inversible et $A^{-1}= \begin{pmatrix}
+1 & -\frac23 \cr
+0 & \frac13\cr
+\end{pmatrix}$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Toutes les matrices ne sont pas inversibles.
+Voyons l'exemple de la matrice 
+$ A = \left(\begin{smallmatrix}
+3 & 0\\
+5 & 0\end{smallmatrix}\right)$
+qui n'est pas inversible. 
+
+\change
+En effet, soit
+$B= \begin{pmatrix}
+a & b \cr
+c & d\cr
+\end{pmatrix}$ une matrice quelconque. 
+Alors le produit $ BA$ vaut  $
+\begin{pmatrix}
+3a+5b & 0\\
+3c+5d      & 0
+\end{pmatrix}$
+
+\change
+qui ne peut jamais être égal à la matrice identité,
+
+car ici le coefficient nul ne pourra jamais être $1$.
+
+\change
+
+Par contre $I_{n}$, la matrice carrée identité de taille $n\times n$,
+est toujours une matrice inversible. Son inverse est elle-même par l'égalité $I_{n}I_{n}=I_{n}$.
+ 
+\change
+A l'opposé, la matrice nulle $0$ de taille $n \times n$ n'est jamais inversible. 
+En effet on sait que, pour toute matrice $B$ de $M_{n}(\Kk)$, on a $B0=0$, qui ne peut jamais être la matrice identité.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons à présent à une propriété  :  l'unicité de l'inverse.
+
+"Si $A$ est inversible, alors son inverse est unique."
+
+\change
+La méthode classique pour mener à bien une telle démonstration est de 
+supposer l'existence de deux matrices $B_{1}$ et $B_{2}$ 
+satisfaisant aux conditions imposées et de démontrer que l'on a nécessairement $B_{1}=B_{2}$.
+
+Soient donc $B_{1}$ une matrice telle que $AB_{1}=B_{1}A=I_{n}$ et $B_{2}$ une matrice telle que 
+$AB_{2}=B_{2}A=I_{n}$.
+
+\change
+Calculons le produit $B_{2}(AB_{1})$ de deux façons différentes.
+
+\change
+D'une part, comme $AB_{1}=I_{n}$, 
+
+on a  $B_{2}(AB_{1})=B_{2}\times I_n$
+
+\change
+$=B_2.$
+
+\change
+D'autre part, comme le produit des matrices est associatif, on a 
+$B_{2}(AB_{1})=(B_{2}A)B_{1}$
+
+\change
+qui vaut donc $I_{n}B_{1}=B_{1}$.
+
+\change
+Donc $B_{1}=B_{2}$. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Une autre propriété de l'inverse.
+
+Soit $A$ une matrice inversible. Alors $A^{-1}$ est aussi inversible 
+
+\change
+et son inverse est $A$, c'est-à-dire que $(A^{-1})^{-1}=A$
+
+En d'autres termes l'inverse de l'inverse est la matrice elle même.
+% 
+% \change
+% Ce résultat est cohérent avec la notion puissance $-1$ pour l'inverse, puisqu'on a bien $(A^{-1})^{-1}=A^{(-1)\times(-1)}=A$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons à présent comment s'exprime l'inverse d'un produit.
+
+Soient $A$ et $B$ deux matrices carrées ayant la même taille et toutes deux inversibles. 
+Alors leur produit $AB$ est également inversible 
+
+\change
+et on a la formule $\displaystyle (AB)^{-1} = B^{-1} A^{-1}$.
+
+\change
+Il faut bien faire attention à l'inversion de l'ordre !
+
+\change
+Il suffit de montrer que les deux produits $(B^{-1}A^{-1}) (AB) $ et $(AB) (B^{-1} A^{-1}) $ sont égaux à l'identité. 
+
+Commençons par montrer que $(B^{-1}A^{-1}) (AB) =I$.
+
+\change
+Par associativité, ce produit vaut $B^{-1}(AA^{-1})B$
+
+\change
+et par définition de l'inverse de $A$, on obtient donc $ B^{-1}IB$
+
+\change
+c'est-à-dire $B^{-1}B$,
+
+\change
+ce qui, encore une fois par définition de l'inverse, fait l'identité.
+
+\change
+On montre exactement de la même manière que  $ (AB)(B^{-1} A^{-1})  =I$.
+ 
+\change
+De façon analogue, si on a plusieurs matrices $A_1, \dots , A_m$ toutes inversibles, alors l'inverse du produit
+$A_1 A_2 \cdots A_m$ est le produit $A_m^{-1} A_{m-1}^{-1} \cdots A^{-1}_1$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Si $C$ est une matrice quelconque, nous savons que la relation  $AC=BC$
+ n'entraîne *pas* forcément l'égalité $A=B$.
+
+En revanche, si $C$ est une matrice *inversible*, nous allons voir que c'est vérifié.
+
+\change
+Proposition. Soient $A$ et $B$ deux matrices de taille $n\times n$ et $C$ une matrice
+*inversible* de taille $n\times n$.
+
+\change
+Alors l'égalité $AC=BC$ implique l'égalité $A=B$.
+
+\change
+La preuve est immédiate : si on multiplie à droite l'égalité $AC=BC$ par l'inverse de $C$, 
+
+\change
+on obtient l'égalité : $(AC)C^{-1}=(BC)C^{-1}$. 
+
+\change
+En utilisant l'associativité on a $A(CC^{-1})=B(CC^{-1})$,
+
+\change
+ce qui donne $AI=BI$, 
+
+\change
+d'où $A=B$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Quelques petits calculs d'inverse pour terminer !
+
+
+\end{document}

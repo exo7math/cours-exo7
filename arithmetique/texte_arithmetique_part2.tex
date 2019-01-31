@@ -1,0 +1,558 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\debuttexte
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Nous continuons l'arithmétique avec une leçon sur le théorème de Bézout et
+ses conséquences.
+
+\change
+
+Nous énonçons d'abord le théorème de Bézout
+
+\change
+
+nous continuons avec plusieurs applications importantes
+
+\change 
+
+nous résolvons ensuite les équations d'entiers du type
+$ax+by=c$
+
+\change
+
+Nous terminons par la notion de ppcm.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici le théorème de Bézout. Fixons deux entiers $a$ et $b$ quelconques.
+
+Alors il existe deux entiers $u,v$  tels que 
+$au+bv=\pgcd(a,b)$
+
+\change
+
+Ces entiers $u$ et $v$ s'appellent *des* coefficients de Bézout.
+
+La preuve de ce théorème est une conséquence de l'algorithme d'Euclide.
+
+En effet $u$ et $v$ s'obtiennent en ``remontant'' les équations obtenues
+lors de l'algorithme d'Euclide.
+
+Enfin, nous le verrons plus tard, il existe une infinité de couples $(u,v)$ qui conviennent.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons comment trouver une solution $(u,v)$ en nous aidant de l'algorithme d'Euclide.
+
+Prenons $a=600$ et $b=124$.
+
+\change
+
+Nous avons déjà vu comment l'algorithme d'Euclide nous permettait de calculer le pgcd.
+
+Reprenons très rapidement. 
+
+On écrit la division euclidienne de $600$ par $124$, le reste est $104$.
+
+
+Puis on effectue la division euclidienne de $124$ par le reste $104$,
+le nouveau reste est $20$.
+
+La division de $104$ par $20$ donne un reste de $4$.
+
+Et enfin la division de $20$ par $4$ a un reste nul.
+
+Le pgcd est le dernier reste non nul c'est donc $4$.
+
+\change
+
+Nous cherchons donc $u$ et $v$ tel que $au+bv=\pgcd(a,b)$
+donc ici on cherche des entiers $u,v$ tels que $600u+124v=4$.
+
+
+Pour cela nous allons partir de la ligne ou figure le pgcd et
+substituer des coefficients en remontant ligne par ligne.
+
+\change
+
+Partons de la ligne ou figure le pgcd
+$104 = 20 \times 5 + 4$
+
+cela permet d'écrire le pgcd $4$ sous la forme
+$4 = 104 - 20\times 5$.
+
+\change
+
+Le $20$ qui apparaît ici était le reste de la ligne au-dessus
+on peut donc le remplacer par $124-104\times 1$.
+
+\change
+
+On récrit proprement $4$ en fonction $124$ et $104$.
+$4=124\times (-5) + 104\times 6$.
+
+\change
+
+Ce n'est pas fini : $104$ était le reste encore au-dessus, ce qui permet
+de remplacer $104$ par $600-124 \times 4$.
+
+
+
+\change
+
+Pour voir que $4$ s'écrit maintenant en fonction de $600$ et $124$, 
+on regroupe les termes et on obtient :
+
+$4=600 \times 6 + 124 \times (-29)$.
+
+
+\change
+
+
+On a bien trouver les coefficients de Bézout $u=6$ et $v=-29$ qui vérifient  
+$600 u+124v=4$.
+
+
+Pour assurer vos calculs prenez quelques secondes pour vérifier 
+que  $600 \times 6 + 124 \times (-29)$ vaut bien $4$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons un deuxième exemple.
+
+Dans la leçons précédente nous avons vue comment calculer
+le pgcd de $9945$ et $3003$ avec l'algorithme d'Euclide et nous avons calculé que ce pgcd valait $39$.
+
+L'équation $9945u+3003v=39$ a donc des solutions.
+
+\change
+
+Pour trouver $u$ et $v$ on reprend les calculs effectués avec l'algorithme d'Euclide
+pour calculer le pgcd. 
+
+Le pgcd est le dernier reste non nul, c'est bien $39$.
+
+
+\change
+
+Maintenant cherchons $u$ et $v$ en remontant ces calculs.
+
+\change
+
+On part de l'égalité $39   =  195- 156$ donnée par l'avant-dernière ligne.
+
+\change
+
+A l'aide de la ligne du dessus on remplace $156$ par $936 - 4\times 195$ 
+
+\change 
+
+
+Jusqu'à écrire $39$ à l'aide de nos deux nombres $9945$ et $3003$.
+
+Complétez les calculs manquants.
+
+\change
+
+Vous devez obtenir 
+
+$9945 \times (-16) +  3003\times 53 = 39$
+
+Et prenez quelques instants pour vérifier qu'effectivement ceci
+est bien égal à $39$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici une première conséquence du théorème.
+
+$a,b$ sont premiers entre eux 
+si et seulement si il existe $u,v$ tels que
+$au+bv=1$
+
+On appelle souvent aussi ce résultat le théorème de Bézout.
+
+C'est cette forme qui est la plus utile dans la pratique.
+
+Une grande différence par rapport à l'énoncé du théorème de Bézout précédent,
+c'est qu'ici nous avons l'équivalence.
+
+Si $pgcd(a,b)=1$ alors on peut trouver des coefficients $u$, $v$ tels que $au+bv$ égal le pgcd donc $1$.
+
+Réciproquement s'il existe des entiers $u,v$ tel que $au+bv=1$ alors le pgcd de $a$, $b$ vaut $1$.
+
+
+\change
+
+Passons à la preuve : le sens direct est le théorème de Bézout car
+$a$ et $b$ premiers entre eux signifie $\pgcd(a,b)=1$.
+
+\change
+
+Montrons la réciproque. On suppose qu'il existe $u,v$ tels que $au+bv=1$
+
+Mais le  $\pgcd(a,b)|a$ donc $\pgcd(a,b)$ divise aussi $au$
+
+De même $\pgcd(a,b)|bv$
+
+Donc $\pgcd(a,b)$ divise la somme $au+bv$ qui vaut $1$. Mais si  $\pgcd(a,b)|1$
+c'est que $\pgcd(a,b)=1$. Comme nous le souhaitions.
+
+\change
+
+Dans ce corollaire nous avons une équivalence mais pas dans le théorème de Bézout 
+vu auparavant. 
+
+Si on trouve $u',v'$ tels que $au'+bv'=d$, 
+alors on ne peut pas dire que le $\pgcd(a,b)$ égal $d$ 
+
+on peut juste affirmer $\pgcd(a,b)$ divise $d$.
+
+\change 
+
+Retenez cet exemple si : $a=12$, $b=8$
+on peut écrire par exemple  $12 \times 1 + 8 \times 3 = 36$ 
+
+mais bien sûr ce n'est pas $36$ le $\pgcd(12,8)$.
+
+Par contre le pgcd qui vaut $4$ divise bien $36$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici encore deux corollaires importants,
+je vous encourage à chercher leur démonstration.
+
+
+Tout d'abord si un entier  $d$ divise $a$ et divise aussi $b$ alors $d$ divise le pgcd de $a$ et $b$.
+
+\change
+
+Par exemple $4|16$ et $4|24$ donc $4$ doit diviser $pgcd(16,24)$ qui effectivement vaut $8$.
+
+
+\change
+
+Deuxième corollaire, qui s'appelle le lemme de Gauss.
+
+Si $a$ divise le produit $b\times c$ et que $a$ et $b$ sont premiers entre eux alors
+nécessairement $a$ divise $c$.
+
+\change
+
+Exemple : si $4 | 7\times c$, alors comme $4$ et $7$ sont premiers entre eux on a que $4|c$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons maintenant pouvoir résoudre toutes les équations diophantiennes
+du type $ax+by=c$. 
+
+Les nombres $a,b, c$ sont donnés ce sont trois entiers.
+
+Les inconnues sont $x,y$, et elles aussi sont des entiers.
+
+\change
+
+Tout d'abord le premier point nous fournit un critère simple pour savoir s'il y a des solutions
+ ou s'il n'y en a pas.
+
+Cette équation possède des solutions $x,y$ entières si et seulement si
+le $\pgcd(a,b)$ divise $c$.
+
+\change
+
+Deuxième point : si $\pgcd(a,b)$ divise $c$ alors il y a des solutions et il y en même une infinité
+que l'on sait calculer. 
+
+Les $x$ sont de la forme $x_0+\alpha k$,
+
+les  $y$ de la forme $y_0+\beta k$ 
+
+avec $k$ parcourant l'ensemble des entiers 
+
+et  $x_0,y_0,\alpha,\beta$ sont des entiers que l'on va calculer en fonction de $a,b,c$.
+
+
+Nous n'allons pas démontrer cette proposition ici, mais plutôt détailler
+comment résoudre complètement chaque équation particulière.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voyons sur un exemple comment résoudre les équation du type 
+$ax+by=c$.
+
+Nous cherchons tous les couple $(x,y)$ solution de l'équation $161 x + 368 y=115$
+
+Bien sûr nous cherchons $x$ et $y$ entiers. 
+
+Nous allons résoudre ce problème en trois étapes :
+
+  -1- y-a-t'il des solutions ?
+
+  -2- si oui alors on trouve une solution particulière.
+
+  -3- on en déduit toutes les solutions.
+  
+
+\change
+
+Commençons par déterminer s'il existe des solutions.
+
+\change
+
+C'est le théorème de Bézout qui apporte la réponse :
+si le pgcd de $a$ et $b$ divise $c$ alors il existe des solutions.
+
+Nous allons donc calculer le pgcd de $161$ et $368$ avec l'algorithme d'Euclide.
+
+\change
+
+On écrit les divisions euclidiennes :
+ 
+$368  =  161  \times  2  +  46$
+
+\change
+
+$161  =  46  \times  3  +  23$
+
+\change
+
+$46   =  23    \times  2$
+
+\change
+
+Le pgcd de $161$ et $368$ est donc $23$.
+
+\change
+
+Est-ce que le pgcd  divise $c$. Oui car $115=5 \times 23$.
+
+\change 
+
+Donc par le théorème de Bézout, il existe des solutions entières à
+l'équation $161 x + 368 y=115$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Jusqu'ici nous savons qu'il existe des solutions de
+notre équation, 
+
+nous allons en expliciter une : 
+
+ cette solution particulière correspond aux coefficients de Bézout 
+que l'on obtient en remontant l'algorithme d'Euclide.
+
+\change
+
+Reprenons les calculs qui ont conduit au pgcd.
+
+\change
+
+L'égalité
+$161  =  46  \times  3  +  23$
+
+permet d'écrire le pgcd $23$ sous la forme
+
+$23=161+46\times(-3)$.
+
+\change
+
+Ensuite on remplace $46$ 
+par $368 - 2\times 161$.
+
+\change 
+
+On simplifie
+
+\change
+
+et nous obtenons $161\times7 + 368\times(-3)=23$.
+
+Mais ceci n'est pas tout à fait une solution de notre équation,
+
+Car nous voulons trouver $x$ et $y$ tels que 
+$161 x + 368 y=115$ et pas $=23$.
+
+\change
+
+Mais $115 = 5\times 23$ donc en multipliant par $5$ nous obtenons
+
+\change
+
+$$161\times35 + 368\times(-15)=115$$
+
+\change
+
+Voilà une solution particulière de notre équation  :
+le couple $(x_0,y_0) = (35,-15)$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous savons qu'il existe des solutions,
+nous avons même trouver une solution particulière $(x_0,y_0)$, nous allons pouvoir en
+déduire toutes les solutions.
+
+\change
+
+Supposons que le couple  $(x,y)$ soit une solutions de notre équation.
+
+\change
+
+Nous avons donc l'égalité $161 x + 368 y=115$
+
+Nous allons déterminer la forme de $x$ et $y$.
+
+\change
+
+Nous avons aussi déterminer une solution particulière $(x_0,y_0)$.
+
+\change
+
+Donc nous avons l'égalité  $161x_0+368y_0=115$
+
+Même si nous savons que $x_0=35$ et $y_0=-15$ nous 
+n'avons aucun intérêt à substituer ces valeurs dès maintenant.
+
+\change 
+
+Soustrayons ces deux égalités,
+cela nous conduit à 
+
+ $161 \times (x-x_0) + 368 \times (y-y_0) = 0$ (la constante $115$ a disparu)
+
+\change
+
+Rappelons nous que $161$ et $368$ sont des multiples de $23$ 
+(qui est leur pgcd).
+
+\change
+
+Donc en divisant par $23$ on obtient une égalité plus simple
+
+ $7(x-x_0) = -16 (y-y_0)$
+
+\change
+
+Premièrement cela implique que $7$ divise $16(y-y_0)$
+
+\change
+
+mais $7$ et $16$ sont premier entre eux donc 
+par le lemme de Gauss $7|y-y_0$.
+
+\change
+
+En d'autre terme il existe un entier $k$ tel que 
+$y-y_0 = 7 \times k$.
+
+\change
+
+Voilà pour $y$. Cherchons la forme de $x$.
+
+Nous repartons de l'égalité $7(x-x_0) = -16 (y-y_0)$
+
+\change
+
+où l'en remplace $y-y_0$ par $7\times k$.
+
+\change
+
+Et ainsi on trouve $x-x_0 = -16k$, 
+
+\change
+
+C'est bien le même entier $k$ pour $x$ et pour $y$,
+
+donc notre couple solution est de la forme
+$x=x_0-16k$ et $y=y_0+7k$.
+
+Il n'est pas dur de voir que tout couple de cette forme est solution de notre l'équation.
+
+\change
+
+  On se rappelle maintenant des valeurs de $x_0$ et $y_0$.
+
+\change
+
+Nous obtenons toutes les solutions de l'équation $161 x + 368 y=115$
+ce sont les couples d'entiers $(x,y)$
+tel que 
+$x=35-16k$ et $y=-15+7k$, avec $k$ parcourant l'ensemble des entiers $\Zz$.
+
+Attention c'est bien le même $k$ pour $x$ et $y$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Terminons avec la notion de ppcm.
+
+Le ppcm de deux entiers $a$, $b$ est le plus petit entier divisible à la fois par $a$ et
+par $b$.
+
+\change
+
+Par exemple le ppcm de $12$ et $9$ est $36$ car $36$ est divisible par $12$ et par $9$
+et tout autre entier divisible par $12$ et $9$ est plus grand que $36$.
+
+\change
+
+Le pgcd et le ppcm sont liés par la formule suivante :
+
+$\pgcd(a,b) \times \text{ppcm}(a,b) = |ab|$
+
+Sur notre exemple précédent le pgcd de $12$ et $9$ est $3$.
+Et l'on bien $3\times 36=12\times9$
+
+\change
+
+Une autre propriété est que 
+si $a|c$ et $b|c$ alors $\text{ppcm}(a,b)|c$
+
+\change 
+
+Par exemple : $6|36$, $9|36$ et  $\text{ppcm}(6,9)=18$ divise bien $36$
+
+\change 
+
+Attention ne commettez pas l'erreur suivante 
+il n'est pas vrai que $ab|c$ : 
+
+cela se voit avec notre exemple : $6\times 9$ ne divise pas $36$
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Ces mini-exercices sont indispensables pour s'entraîner et progresser.
+
+
+\end{document}

@@ -1,0 +1,299 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici une leçon consacrée aux produits de deux séries.
+
+\change
+\change
+Nous commencerons par motiver la nécessité de définir un tel produit.
+
+\change
+Puis nous définirons le produit de Cauchy,
+
+\change
+et nous en donnerons un exemple
+
+\change
+ainsi qu'un contre-exemple.
+
+Cette leçon consacrée au produit de deux séries peut être éludée si c'est votre 
+première approche du chapitre sur les séries.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour un produit de sommes, il y a plusieurs façons d'ordonner les termes 
+une fois le produit développé. 
+
+\change
+Ici par exemple, dans le produit $\big(a_0+a_1\big)\big(b_0+b_1\big)$, il y a plusieurs façons d'ordonner les termes $a_0b_0, a_0b_1, a_1b_0$ et $a_1b_1$.
+
+Dans le cas d'une somme finie, comme dans ces deux exemples, l'ordre des termes n'a pas d'importance, mais dans le cas d'une série c'est essentiel.
+
+\change
+On choisit de regrouper les termes en fonction des indices, 
+et plus précisemment de la somme des deux indices.
+
+\change
+Cela se passe de la façon suivante :
+
+pour ce terme, la somme des indices est $0+0=0$, 
+pour ces termes, 
+la sommes des indices est $0+1=1+0=1$, et enfin pour celui-là, la somme est $2$.
+
+\change
+De même pour ce produit : par exemple ces trois termes sont ceux dans la somme des indices est $0+2=1+1=2+0=2$.
+
+\change
+Plus généralement, voici différentes façons d'écrire un produit de deux sommes :
+$$\left(\sum_{i=0}^n a_i\right)\; \left(\sum_{j=0}^n b_j\right)$$
+
+\change
+est égal à
+$$
+\sum_{i=0}^n \sum_{j=0}^n a_ib_j$$
+
+\change
+$$= \sum_{0 \le k \le 2n} \sum_{i+j=k} a_ib_j$$
+
+\change
+$$= \sum_{0 \le k \le 2n} \sum_{0 \le i \le k} a_ib_{k-i}.$$
+
+Les deux dernières formes correspondent exactement à notre décomposition 
+en fonction de la somme des indices.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Soient $\sum_{i \ge 0} a_i$ et $\sum_{j \ge 0} b_j$ deux séries.
+
+\change
+On appelle \defi{série produit} ou \defi{produit de Cauchy}
+la série $\sum_{k \ge 0} c_k$
+o\`u le terme de la série produit est lui-même un somme :
+
+$$\displaystyle c_k=\sum_{i=0}^k a_i b_{k-i}$$ 
+
+\change
+Une autre façon d'écrire le coefficient $c_k$ est :
+$$\displaystyle c_k=\sum_{i+j=k} a_i b_j$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Théorème.
+
+Si les séries $\displaystyle\sum_{i=0}^{+\infty} a_i$ et $\displaystyle\sum_{j=0}^{+\infty} b_j$ de nombres réels (ou complexes)
+sont absolument convergentes, 
+
+\change
+alors la série produit 
+$$\sum_{k=0}^{+\infty} c_k = \sum_{k=0}^{+\infty} \left(\sum_{i=0}^k a_ib_{k-i}\right)$$
+est absolument convergente 
+
+\change
+et l'on a surtout que la série produit est le produit des sommes :
+$$\sum_{k=0}^{+\infty} c_k = \left(\sum_{i=0}^{+\infty} a_i\right)\ \times\ \left(\sum_{j=0}^{+\infty} b_j\right).$$
+
+\change
+La démonstration du théorème est assez technique.
+On commence par introduire les notations suivantes.
+
+\change
+Soit $S_n=a_0+\dots+a_n$ la somme partielle de la première série. Alors $S_n$ tend vers un nombre $S$.
+
+\change
+De même on note  
+$T_n=b_0+\dots +b_n$ la somme partielle de la seconde série, et $T_n\to T$,
+  
+\change
+et enfin $P_n= c_0+\dots+c_n$ la somme partielle de la produit.
+
+\change
+On doit donc montrer que $P_n$ tend vers le produit $S\cdot T$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On va distinguer deux cas.
+
+Premier cas : les termes généraux $a_k$ et $b_k $ sont tous positifs ou nuls. 
+
+\change
+Dans ce cas $c_k\ge 0$ et on a 
+$$P_n \le S_n \cdot T_n\le S \cdot T.$$ 
+
+
+L'inégalité de droite vient du fait que $S_n$ et $T_n$ sont des suites croissantes convergentes.
+
+L'inégalité de gauche s'explique en développant le produit $S_n \times T_n$ qui contient, entre autres,
+tous les termes $c_0$ jusqu'à $c_n$.
+
+\change
+La suite $(P_n)$ est croissante et majorée, elle converge donc vers un réel $P$.
+
+\change
+Or on a aussi 
+$$P_n \le S_n \cdot T_n \le P_{2n}.$$
+
+\change
+Cette inégalité se retrouve facilement sur le dessin suivant.
+
+Le dessin représente le point correspondant aux indices $(i,j)$.
+
+Le triangle rouge représente  $P_n$ (avec le regroupement des termes correspondant aux diagonales qui ont pour équations $i+j=k$ avec $k$ variant de $0$ à $n$). 
+
+Le carré vert correspond aux termes du produit $S_n \cdot T_n$, 
+le triangle bleu représente  $P_{2n}$. 
+
+Le fait que le carré soit compris entre les deux triangles traduit la double inégalité $P_n \le S_n \cdot T_n \le P_{2n}$.
+
+\change
+Donc en faisant $n\to+\infty$, on a: $P\le S \cdot T\le P$. 
+
+\change
+Donc $P_n\to S \cdot T$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Considérons à présent le cas général, où les termes généraux $a_k$ et $b_k$ sont des nombres complexes.
+
+\change
+On pose alors :
+$S_n'=|a_0|+\dots+|a_n|$,. Comme la série $\sum  a_i$ est absolument convergente, alors $S_n'\to S'$.
+
+\change  
+De même on pose $T_n'=|b_0|+\dots+|b_n|$, et $T_n'\to T'$.
+
+\change  
+Enfin $P_n'= c_0'+\dots+ c_n'$ o\`u $c_k'=\sum_{i=0}^k|a_ib_{k-i}|$.
+
+\change
+Ces séries étant à termes généraux positifs, d'après le premier cas, on a $P_n'\to P'$ avec $P'=S' \cdot T'$. 
+
+\change
+Ainsi $|S_n \cdot T_n - P_n|$
+qui vaut 
+$$\bigl|\sum_{\stackrel{0\le i,j\le n}{i+j>n}} a_ib_j\bigr|$$
+
+\change
+est inférieur ou égal à la somme sur les mêmes indices des $|a_ib_j| $
+
+\change
+qui est égal à
+$
+ S_n' \cdot T_n'-P_n' 
+$
+
+\change
+qui tend vers $S' \cdot T'-P'$, c'est-à-dire vers $0$.
+
+\change
+Ainsi $P_n$ qui est égal à $S_n \cdot T_n-(S_n \cdot T_n-P_n)$ tend vers $ S \cdot T-0=S \cdot T$.
+
+\change
+Donc la série $\sum c_k$ est convergente et sa somme est $S \cdot T$. 
+
+\change
+De plus, $|c_k|\le c_k'$. 
+
+\change
+La convergence de $\sum c_k'$ implique 
+donc la convergence absolue de $\sum c_k$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Soit $\displaystyle\sum_{i=0}^{+\infty} a_i$ une série absolument convergente
+
+\change
+Soit $\displaystyle\sum_{j=0}^{+\infty} b_j$ la série définie par $b_j = \frac{1}{2^j}$.
+
+C'est une série géométrique absolument convergente.
+
+\change
+Notons
+$$c_k = \sum_{i=0}^k a_ib_{k-i} = \sum_{i=0}^k a_i \times \frac{1}{2^{k-i}}.$$
+
+\change
+Alors le produit de Cauchy $\sum c_k$ converge absolument et
+$$\sum_{k=0}^{+\infty} c_k 
+= \left(\sum_{i=0}^{+\infty} a_i\right)\ \times\ \left(\sum_{j=0}^{+\infty} b_j\right)$$
+
+\change
+ce qui donne $ 2 \displaystyle\sum_{i=0}^{+\infty} a_i.$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Si les séries $\sum a_i$ et $\sum b_j$ ne sont pas absolument 
+convergentes, mais seulement convergentes,
+alors la série de Cauchy peut être divergente.
+
+\change
+Soient $a_i=b_i=\frac{(-1)^{i}}{\sqrt {i+1}}, i\ge 0$.
+
+\change
+Alors $\sum a_i$ et $\sum b_j$ sont convergentes par le critère de Leibniz, 
+mais ne sont pas absolument convergentes. 
+
+\change
+Le terme général de leur produit de Cauchy est
+$$c_k = \sum_{i=0}^k a_i b_{k-i} $$
+
+\change
+c'est-à-dire
+$$
+ \sum_{i=0}^k \frac{(-1)^{i}}{\sqrt {i+1}} \frac{(-1)^{k-i}}{\sqrt{k-i+1}} 
+ $$
+ 
+ \change
+ce qui donne
+$$  (-1)^{k} \sum_{i=0}^k \frac{1}{\sqrt{(i+1)(k-i+1)}}.$$
+
+\change
+Or, pour $x\in\Rr$, $(x+1)(k-x+1)=-x^2+kx+(k+1) \le \frac{(k+2)^2}{4}$ (valeur au sommet de la parabole). 
+
+\change
+On obtient $\sqrt{(i+1)(k-i+1)} \le \frac{(k+2)}{2}$.`
+
+\change
+Ainsi $|c_k|$ qui est égal à $\displaystyle\sum_{i=0}^k\dfrac{1}{\sqrt{(i+1)(k-i+1)}} $
+
+\change
+est supérieure ou égale à 
+$\displaystyle\sum_{i=0}^k \dfrac{2}{k+2}$
+
+\change
+qui vaut
+$ \dfrac{2(k+1)}{k+2} \to 2.$
+
+\change
+Donc le terme général $c_k$ ne peut pas tendre $0$, 
+
+\change
+donc la série $\sum c_k$ diverge.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Entrainez-vous avec ces exercices pour vérifier que vous avez bien compris le cours.
+
+
+\end{document}

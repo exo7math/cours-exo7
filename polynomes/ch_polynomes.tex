@@ -1,0 +1,978 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Polynômes}
+%====================================================================
+
+\insertvideo{dDKI3jkMjfw}{partie 1. Définitions}
+
+\insertvideo{CnMrf9aW-LU}{partie 2. Arithmétique des polynômes}
+
+\insertvideo{qCMnvqc2t8A}{partie 3. Racine d'un polynôme, factorisation}
+
+\insertvideo{wf-eEQPBX0Y}{partie 4. Fractions rationnelles}
+
+\insertfiche{fic00007.pdf}{Polynômes}
+
+\insertfiche{fic00008.pdf}{Fractions rationnelles}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Motivation}
+
+
+
+Les polynômes sont des objets très simples mais aux propriétés extrêmement riches.
+Vous savez déjà résoudre les équations de degré $2$ : $aX^2+bX+c=0$.
+Savez-vous que la résolution des équations de degré $3$,
+$aX^3+bX^2+cX+d=0$, a fait l'objet de luttes acharnées dans l'Italie
+du \textsc{\romannumeral 16}\textsuperscript{e} siècle ?
+Un concours était organisé avec un prix pour chacune de trente équations
+de degré $3$ à résoudre. Un jeune italien, Tartaglia, trouve la formule générale des solutions
+et résout les trente équations en une seule nuit ! Cette méthode que Tartaglia voulait garder secrète
+sera quand même publiée quelques années plus tard comme la \og méthode de Cardan\fg.
+
+Dans ce chapitre, après quelques définitions des concepts de base,
+nous allons étudier l'arithmétique des polynômes. Il y a une grande analogie
+entre l'arithmétique des polynômes et celles des entiers.
+On continue avec un théorème fondamental de l'algèbre :
+\og Tout polynôme de degré $n$ admet $n$ racines complexes. \fg{}
+On termine avec les fractions rationnelles : une fraction rationnelle
+est le quotient de deux polynômes.
+
+\medskip
+
+\noindent{\bf Dans ce chapitre $\Kk$ désignera l'un des corps $\Qq$, $\Rr$ ou $\Cc$.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définitions}
+
+%---------------------------------------------------------------
+\subsection{Définitions}
+
+
+\begin{definition}
+Un \defi{polynôme}\index{polynome@polynôme} à coefficients dans $\Kk$
+est une expression de la forme
+$$P(X) = a_n X^n + a_{n-1} X^{n-1} + \cdots + a_2 X^2 + a_1 X + a_0,$$
+avec $n\in \Nn$ et $a_0,a_1,\ldots,a_n \in \Kk$.
+
+L'ensemble des polynômes est noté $\Kk[X]$.
+
+\begin{itemize}
+\item Les $a_i$ sont appelés les \defi{coefficients} du polynôme.
+
+\item Si tous les coefficients $a_i$ sont nuls, $P$ est appelé le \defi{polynôme nul}, il est noté $0$.
+
+\item  On appelle le \defi{degré}\index{degre@degré} de $P$ le plus grand entier $i$ tel que $a_i\neq0$ ;
+on le note $\deg P$. Pour le degré du polynôme nul on pose par convention $\deg(0)=-\infty$.
+
+\item Un polynôme de la forme $P=a_0$ avec $a_0\in\Kk$ est appelé un
+  \defi{polynôme constant}. Si $a_0\neq0$, son degré est $0$.
+\end{itemize}
+\end{definition}
+
+\begin{exemple}
+\sauteligne
+\begin{itemize}
+  \item $X^3-5X+\frac 34$ est un polynôme de degré $3$.
+  \item $X^n+1$ est un polynôme de degré $n$.
+  \item $2$ est un polynôme constant, de degré $0$.
+\end{itemize}
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Opérations sur les polynômes}
+
+\begin{itemize}
+  \item \textbf{\'Egalité.}
+Soient $P=a_nX^n+a_{n-1}X^{n-1}+\cdots + a_1X+a_0$ et
+$Q=b_nX^n+b_{n-1}X^{n-1}+\cdots+b_1X+b_0$
+deux polynômes à coefficients dans $\Kk$.
+$$P=Q \quad \iff \quad   \forall i \quad a_i=b_i$$
+et on dit que $P$ et $Q$ sont égaux.
+
+  \item \textbf{Addition.} Soient  $P=a_nX^n+a_{n-1}X^{n-1}+\cdots + a_1X+a_0$ et
+$Q=b_nX^n+b_{n-1}X^{n-1}+\cdots+b_1X+b_0$.
+
+On définit :
+$$P+Q = (a_n+b_n)X^n+(a_{n-1}+b_{n-1})X^{n-1}+\cdots
++(a_1+b_1)X+(a_0+b_0)$$
+
+  \item \textbf{Multiplication.}
+Soient  $P=a_nX^n+a_{n-1}X^{n-1}+\cdots + a_1X+a_0$ et
+$Q=b_mX^m+b_{m-1}X^{m-1}+\cdots+b_1X+b_0$. On définit
+$$P \times Q= c_rX^r+c_{r-1}X^{r-1}+\cdots
++c_1X+c_0$$
+$$\text{  avec } r=n+m \text{ et } c_k=\sum_{i+j=k}a_ib_j  \text{ pour }k\in \{0,\ldots, r\}.$$
+
+  \item \textbf{Multiplication par un scalaire.}
+Si $\lambda \in \Kk$ alors $\lambda \cdot P$ est le polynôme dont le $i$-ème coefficient
+est $\lambda a_i$.
+\end{itemize}
+
+
+\begin{exemple}
+\sauteligne
+\begin{itemize}
+  \item Soient $P=aX^3+bX^2+cX+d$ et $Q=\alpha X^2+\beta X + \gamma$.
+Alors $P+Q =  aX^3+(b+\alpha)X^2+(c+\beta)X+(d+\gamma)$,
+$P\times Q = (a\alpha)X^5+(a\beta+b\alpha)X^4+(a\gamma+b\beta+c\alpha)X^3
++(b\gamma+c\beta+d\alpha)X^2+(c\gamma+d\beta)X + d\gamma$.
+Enfin $P=Q$ si et seulement si $a=0$, $b=\alpha$, $c=\beta$ et $d=\gamma$.
+
+  \item La multiplication par un scalaire $\lambda \cdot P$ équivaut à multiplier
+le polynôme constant $\lambda$ par le polynôme $P$.
+\end{itemize}
+
+\end{exemple}
+
+
+
+
+L'addition et la multiplication se comportent sans problème :
+\begin{proposition}
+Pour $P,Q,R \in \Kk[X]$ alors
+\begin{itemize}
+  \item $0+P=P$, \quad $P+Q=Q+P$, \quad $(P+Q)+R=P+(Q+R)$ ;
+  \item $1\cdot P = P$, \quad $P\times Q=Q \times P$, \quad $(P \times Q) \times R=P \times (Q \times R)$ ;
+  \item $P\times (Q+R)=P\times Q + P \times R$.
+\end{itemize}
+\end{proposition}
+
+
+Pour le degré il faut faire attention :
+\begin{proposition}
+Soient $P$ et $Q$ deux polynômes à coefficients dans $\Kk$.
+
+\mybox{$\deg(P\times Q)=\deg P + \deg Q$}
+
+\mybox{$\deg(P+Q) \le \max(\deg P, \deg Q)$}
+\end{proposition}
+
+
+On note $\Rr_n[X]= \big\{P \in \Rr[X] \mid \deg P \le n\big\}$.
+Si $P,Q \in \Rr_n[X]$ alors $P+Q \in \Rr_n[X]$.
+
+
+%---------------------------------------------------------------
+\subsection{Vocabulaire}
+
+Complétons les définitions sur les polynômes.
+
+\begin{definition}
+\sauteligne
+\begin{itemize}
+\item Les polynômes comportant un seul terme non nul (du type $a_kX^k$) sont
+appelés \defi{monômes}\index{monome@monôme}.
+
+\item Soit $P=a_nX^n+a_{n-1}X^{n-1}+\cdots + a_1X+a_0,$ un polynôme avec
+$a_n\neq0$. On appelle \defi{terme dominant} le monôme $a_nX^n$. Le coefficient
+$a_n$ est appelé le \defi{coefficient dominant} de $P$.
+
+\item Si le coefficient dominant est $1$, on dit que $P$ est un \defi{polynôme
+unitaire}.
+\end{itemize}
+\end{definition}
+
+\begin{exemple}
+$P(X)=(X-1)(X^n+X^{n-1}+\cdots + X+1)$.
+On développe cette expression :
+$P(X)= \big(X^{n+1}+X^{n}+\cdots + X^2+X\big) - \big(X^n+X^{n-1}+\cdots + X+1\big) = X^{n+1} - 1$.
+$P(X)$ est donc un polynôme de degré $n+1$, il est unitaire et
+est somme de deux monômes : $X^{n+1}$ et $-1$.
+\end{exemple}
+
+
+\begin{remarque*}
+Tout polynôme est donc une somme finie de monômes.
+\end{remarque*}
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soit $P(X)=3X^3-2$, $Q(X)=X^2+X-1$, $R(X)=aX+b$.
+Calculer $P+Q$, $P\times Q$, $(P+Q)\times R$ et $P\times Q \times R$.
+Trouver $a$ et $b$ afin que le degré de $P-QR$ soit le plus petit possible.
+
+  \item Calculer $(X+1)^5-(X-1)^5$.
+
+  \item Déterminer le degré de $(X^2+X+1)^n - aX^{2n}-bX^{2n-1}$ en fonction de $a,b$.
+
+  \item Montrer que si $\deg P \neq \deg Q$ alors $\deg (P+Q)= \max(\deg P,\deg Q)$.
+Donner un contre-exemple dans le cas où $\deg P = \deg Q$.
+
+  \item Montrer que si $P(X)=X^n+a_{n-1}X^{n-1}+ \cdots$ alors le coefficient devant $X^{n-1}$ de
+$P(X-\frac{a_{n-1}}{n})$ est nul.
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Arithmétique des polynômes}
+
+Il existe de grandes similitudes entre l'arithmétique dans $\Zz$ et
+l'arithmétique dans $\Kk[X]$. Cela nous permet d'aller assez vite
+et d'omettre certaines preuves.
+
+%---------------------------------------------------------------
+\subsection{Division euclidienne}
+
+\begin{definition}
+Soient $A,B \in\Kk[X]$, on dit que $B$ \defi{divise}\index{divisibilite@divisibilité} $A$ s'il existe  $Q\in\Kk[X]$ tel que $A=BQ$.
+On note alors $B|A$.
+\end{definition}
+
+On dit aussi que $A$ est multiple de $B$ ou que $A$ est divisible par $B$.
+
+Outre les propriétés évidentes comme $A|A$, $1|A$ et $A|0$ nous avons :
+\begin{proposition}
+Soient $A,B, C\in\Kk[X]$.
+\begin{enumerate}
+\item Si $A|B$ et $B|A$, alors il existe $\lambda \in\Kk^*$ tel que
+  $A=\lambda B$.
+\item Si $A|B$ et $B|C$ alors $A|C$.
+\item Si $C|A$ et $C|B$ alors  $C|(AU+BV)$, pour tout $U,V \in\Kk[X]$.
+\end{enumerate}
+\end{proposition}
+
+
+
+
+\begin{theoreme}[Division euclidienne des polynômes]
+Soient $A,B \in\Kk[X]$, avec $B \neq 0$, alors il existe un
+unique polynôme $Q$ et il existe un unique polynôme $R$ tels que :
+\mybox{$A=BQ+R \quad \text{ et } \quad \deg R < \deg B$.}
+\end{theoreme}
+
+$Q$ est appelé le \defi{quotient}\index{quotient} et $R$ le \defi{reste}\index{reste} et cette écriture
+est la \defi{division euclidienne}\index{division euclidienne} de $A$ par $B$.
+
+Notez que la condition $\deg R < \deg B$ signifie $R=0$
+ou bien $0 \le \deg R < \deg B$.
+
+Enfin $R=0$ si et seulement si $B|A$.
+
+\begin{proof}
+~\\
+\textbf{Unicité.}
+ Si $A=BQ+R$ et $A=BQ'+R'$, alors $B(Q-Q')=R'-R$. Or $\deg(R'-R) < \deg B$.
+Donc $Q'-Q=0$. Ainsi $Q=Q'$, d'où aussi $R=R'$.
+
+
+\textbf{Existence.}
+On montre l'existence par récurrence sur le degré de $A$.
+\begin{itemize}
+  \item Si $\deg A=0$ et $\deg B>0$, alors $A$ est une constante, on pose $Q=0$ et $R=A$.
+  Si $\deg A=0$ et $\deg B=0$, on pose $Q=A/B$ et $R=0$.
+  \item On suppose l'existence vraie lorsque $\deg A \le n-1$.
+Soit $A=a_nX^n+\cdots+a_0$ un polynôme de degré $n$ ($a_n \neq 0$).
+Soit $B =b_mX^m+\cdots+b_0$ avec $b_m \neq 0$.
+Si $n<m$ on pose $Q=0$ et $R=A$.
+
+Si $n \ge m$ on écrit $A=B \cdot \frac{a_n}{b_m}X^{n-m} + A_1$
+avec $\deg A_1 \le n-1$. On applique l'hypothèse de récurrence à $A_1$ :
+il existe $Q_1,R_1 \in \Kk[X]$ tels que $A_1=BQ_1+R_1$ et $\deg R_1 < \deg B$.
+Il vient :
+$$A= B \left( \frac{a_n}{b_m}X^{n-m} + Q_1 \right) + R_1.$$
+Donc $Q=\frac{a_n}{b_m}X^{n-m} + Q_1$ et $R=R_1$ conviennent.
+\end{itemize}
+\end{proof}
+
+
+
+\begin{exemple}
+On pose une division de polynômes comme on pose une division euclidienne de deux entiers.
+Par exemple si $A=2X^4-X^3-2X^2+3X-1$ et $B=X^2-X+1$.
+Alors on trouve $Q= 2X^2+X-3$ et $R=-X+2$.
+On n'oublie pas de vérifier qu'effectivement $A=BQ+R$.
+
+\myfigure{1.2}{
+\tikzinput{fig_polynome01}
+}
+
+\end{exemple}
+
+\begin{exemple}
+Pour $X^4-3X^3+X+1$ divisé par $X^2+2$ on trouve un quotient égal à $X^2-3X-2$ et
+un reste égale à $7X+5$.
+
+\myfigure{1.2}{
+\tikzinput{fig_polynome02}
+}
+\end{exemple}
+
+
+
+
+%---------------------------------------------------------------
+\subsection{pgcd}
+
+\begin{proposition}
+\label{prop_pgcd1}
+Soient  $A,B \in\Kk[X]$, avec $A \neq 0$ ou $B \neq 0$.
+Il existe un unique polynôme unitaire de plus grand degré qui
+divise à la fois $A$ et $B$.
+\end{proposition}
+
+Cet unique polynôme est appelé le \defi{pgcd}\index{pgcd} (plus grand commun diviseur) de $A$ et $B$
+que l'on note $\pgcd(A,B)$.
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+  \item $\pgcd(A,B)$ est un polynôme unitaire.
+  \item Si $A|B$ et $A \neq 0$, $\pgcd(A,B)=\frac{1}{\lambda}A, $ où $\lambda$
+est le coefficient dominant de $A$.
+  \item Pour tout $\lambda \in K^*$, $\pgcd( \lambda A,B)= \pgcd(A,B)$.
+  \item Comme pour les entiers : si $A=BQ+R$ alors $\pgcd(A,B) = \pgcd(B,R)$.
+  C'est ce qui justifie l'algorithme d'Euclide.
+\end{itemize}
+\end{remarque*}
+
+
+\textbf{Algorithme d'Euclide.}
+\index{algorithme d'Euclide}
+
+Soient $A$ et $B$ des polynômes, $B \neq 0$.
+
+On calcule les divisions euclidiennes successives,
+
+$$\begin{array}{ll}
+A = B Q_1+R_1 \quad \quad & \deg R_1 < \deg B \\
+B = R_1 Q_2 + R_2  & \deg R_2 < \deg R_1 \\
+R_1=R_2Q_3+R_3 & \deg R_3 < \deg R_2 \\
+\vdots & \\
+R_{k-2}=R_{k-1}Q_{k}+R_k  & \deg R_k < \deg R_{k-1} \\
+R_{k-1}=R_kQ_{k+1} & \\
+\end{array}$$
+
+Le degré du reste diminue à chaque division.
+On arrête l'algorithme lorsque le reste est nul.
+Le pgcd est le dernier reste non nul $R_k$ (rendu unitaire).
+
+
+\begin{exemple}
+Calculons le pgcd de  $A=X^4-1$ et $B=X^3-1$.
+On applique l'algorithme d'Euclide :
+$$\begin{array}{rcl}
+X^4-1 & = & (X^3-1) \times X + X-1 \\
+X^3-1 & = & (X-1)\times (X^2+X+1) + 0 \\
+\end{array}$$
+Le pgcd est le dernier reste non nul, donc $\pgcd(X^4-1, X^3-1)=X-1$.
+\end{exemple}
+
+
+\begin{exemple}
+Calculons le pgcd de  $A=X^5+X^4+2X^3+X^2+X+2$ et $B=X^4+2X^3+X^2-4$.
+{\small
+$$\begin{array}{rcl}
+X^5+X^4+2X^3+X^2+X+2 & = & (X^4+2X^3+X^2-4) \times (X-1)  + 3X^3+2X^2+5X-2\\
+X^4+2X^3+X^2-4 & = & (3X^3+2X^2+5X-2)\times \frac19(3X+4) - \frac{14}{9}(X^2+X+2) \\
+3X^3+2X^2+5X-2 & = & (X^2+X+2) \times (3X-1) + 0 \\
+\end{array}$$
+}
+Ainsi $\pgcd(A,B)=X^2+X+2$.
+\end{exemple}
+
+
+
+
+\begin{definition}
+Soient  $A,B \in\Kk[X]$. On dit que $A$ et $ B$ sont \defi{premiers entre eux}\index{polynome@polynôme!premiers entre eux} si  $\pgcd(A,B)=1$.
+\end{definition}
+
+Pour $A,B$ quelconques on peut se ramener à des polynômes premiers entre eux :
+si  $\pgcd(A,B)=D$ alors $A$ et $B$ s'écrivent : $A=DA'$, $B=DB'$ avec $\pgcd(A',B')=1$.
+
+
+
+%---------------------------------------------------------------
+\subsection{Théorème de Bézout}
+
+\begin{theoreme}[Théorème de Bézout]
+\index{theoreme@théorème!de Bézout}
+\label{thm_Bezout}
+Soient $A, B\in \Kk[X]$ des polynômes avec $A\neq 0$ ou $B\neq 0$.
+On note $D=\pgcd(A,B)$.
+Il existe deux polynômes $U, V\in \Kk[X]$ tels que $AU+BV=D$.
+\end{theoreme}
+
+Ce théorème découle de l'algorithme d'Euclide et plus spécialement de sa remontée
+comme on le voit sur l'exemple suivant.
+
+\begin{exemple}
+Nous avons calculé $\pgcd(X^4-1, X^3-1) = X-1$.
+Nous remontons l'algorithme d'Euclide, ici il n'y avait qu'une ligne :
+$X^4-1  =  (X^3-1) \times X + X-1$, pour en déduire
+$X-1 = (X^4-1)\times 1 + (X^3-1) \times (-X)$.
+Donc $U=1$ et $V=-X$ conviennent.
+\end{exemple}
+
+\begin{exemple}
+Pour $A=X^5+X^4+2X^3+X^2+X+2$ et $B=X^4+2X^3+X^2-4$ nous avions trouvé $D= \pgcd(A,B)=X^2+X+2$.
+En partant de l'avant dernière ligne de l'algorithme d'Euclide on a d'abord :
+ $B  =  (3X^3+2X^2+5X-2)\times \frac19(3X+4) - \frac{14}{9} D$
+donc
+$$- \frac{14}{9} D = B - (3X^3+2X^2+5X-2)\times \frac19(3X+4).$$
+La ligne au-dessus dans l'algorithme d'Euclide était :
+$A = B \times (X-1)  + 3X^3+2X^2+5X-2$.
+On substitue le reste pour obtenir :
+$$- \frac{14}{9} D = B - \big(A-B\times(X-1)\big)\times \frac19(3X+4).$$
+On en déduit
+$$- \frac{14}{9}D = -A\times \frac19(3X+4) + B\big(1+(X-1)\times \frac19(3X+4)\big)$$
+Donc en posant $U=\frac{1}{14}(3X+4)$ et $V= -\frac{1}{14}\big(9+(X-1)(3X+4)\big)=-\frac{1}{14}(3X^2+X+5)$
+on a $AU+BV=D$.
+\end{exemple}
+
+
+Le corollaire suivant s'appelle aussi le théorème de Bézout.
+\begin{corollaire}
+Soient $A$ et $B$ deux polynômes. $A$ et $B$ sont premiers entre eux si
+et seulement s'il existe deux polynômes $U$ et $V$ tels que $AU+BV=1$.
+\end{corollaire}
+
+\begin{corollaire}
+Soient $A, B, C\in \Kk[X]$ avec $A\neq 0$ ou $B\neq 0$.
+Si $C|A$ et $C|B$ alors $C|\pgcd(A,B)$.
+\end{corollaire}
+
+\begin{corollaire}[Lemme de Gauss]
+\index{lemme!de Gauss}
+Soient $A, B, C\in \Kk[X]$.
+Si $A|BC$ et $\pgcd(A,B)=1$ alors $A|C$.
+\end{corollaire}
+
+
+
+%---------------------------------------------------------------
+\subsection{ppcm}
+
+\begin{proposition}
+Soient $A, B\in \Kk[X]$ des polynômes non nuls, alors il existe un unique
+polynôme unitaire $M$ de plus petit degré tel que $A|M$ et $B|M$.
+\end{proposition}
+
+Cet unique polynôme est appelé le \defi{ppcm}\index{ppcm}
+(plus petit commun multiple) de $A$ et $B$
+qu'on note $\ppcm(A,B)$.
+
+\begin{exemple}
+$\ppcm \big( X(X-2)^2(X^2+1)^4, (X+1)(X-2)^3(X^2+1)^3 \big) = X(X+1)(X-2)^3(X^2+1)^4$.
+\end{exemple}
+
+
+De plus le ppcm est aussi le plus petit au sens de la divisibilité :
+\begin{proposition}
+Soient $A, B\in\Kk[X]$ des polynômes non nuls et
+$M=\ppcm(A,B)$. Si $C\in\Kk[X]$ est un polynôme tel que $A|C$ et $B|C$, alors $M|C$.
+\end{proposition}
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Trouver les diviseurs de $X^4+2X^2+1$ dans $\Rr[X]$, puis dans $\Cc[X]$.
+
+  \item Montrer que $X-1|X^n-1$ (pour $n\ge 1$).
+
+  \item Calculer les divisions euclidiennes de $A$ par $B$ avec $A=X^4-1$, $B=X^3-1$.
+Puis $A = 4X^3+2X^2-X-5$ et $B = X^2+X$ ; $A= 2X^4-9X^3+18X^2-21X+2$ et $B=X^2-3X+1$ ;
+$A=X^ 5-2X^4+6X^3$ et $B=2X^3+1$.
+
+  \item Déterminer le pgcd de $A=X^5+X^3+X^2+1$ et $B=2X^3+3X^2+2X+3$.
+Trouver les coefficients de Bézout $U,V$.
+Mêmes questions avec $A=X^5-1$ et $B=X^4+X+1$.
+
+  \item Montrer que si $AU+BV=1$ avec $\deg U < \deg B$ et $\deg V < \deg A$
+  alors les polynômes $U,V$ sont uniques.
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Racine d'un polynôme, factorisation}
+
+%---------------------------------------------------------------
+\subsection{Racines d'un polynôme}
+
+\begin{definition}
+Soit $P=a_nX^n+a_{n-1}X^{n-1}+\cdots+a_1X+a_0\in\Kk[X]$.
+Pour un élément $x \in \Kk$, on note $P(x)=a_nx^n+\cdots+a_1x+ a_0$.
+On associe ainsi au polynôme $P$ une \defi{fonction polynôme}
+(que l'on note encore $P$)
+$$P: \Kk\to \Kk, \quad x \mapsto P(x)=a_nx^n+\cdots+a_1x+ a_0.$$
+\end{definition}
+
+
+
+\begin{definition}
+Soit $P\in\Kk[X]$ et $\alpha\in\Kk$. On dit que
+$\alpha$ est une \defi{racine}\index{racine} (ou un \defi{zéro}) de $P$ si $P(\alpha)=0$.
+\end{definition}
+
+\begin{proposition}
+$$P(\alpha)=0 \quad \iff \quad X-\alpha \text{ divise } P$$
+\end{proposition}
+
+\begin{proof}
+Lorsque l'on écrit la division euclidienne de $P$ par $X-\alpha$ on obtient
+$P=Q\cdot(X-\alpha)+R$ où $R$ est une constante car $\deg R < \deg (X-\alpha) =1$.
+Donc $P(\alpha)=0 \iff R(\alpha) =0 \iff R=0 \iff X-\alpha | P$.
+\end{proof}
+
+\begin{definition}
+  Soit $k\in \Nn^*$. On dit que $\alpha$ est une \defi{racine de multiplicité $k$}\index{multiplicite@multiplicité}
+ de $P$ si $(X-\alpha )^k$ divise $P$ alors que $(X- \alpha )^{k+1}$ ne divise pas $P$.
+Lorsque $k=1$ on parle d'une \defi{racine simple}, lorsque $k=2$ d'une \defi{racine double}, etc.
+\end{definition}
+
+On dit aussi que $\alpha$ est une \defi{racine d'ordre $k$}.
+
+\begin{proposition}
+\label{prop:racmul}
+Il y a équivalence entre :
+\begin{itemize}
+  \item[(i)] $\alpha$ est une racine de multiplicité $k$ de $P$.
+
+  \item[(ii)] Il existe  $Q \in\Kk[X]$ tel que $P=(X-\alpha)^kQ,$ avec $Q(\alpha) \neq 0$.
+
+  \item[(iii)] $P(\alpha)= P'(\alpha)=\cdots=P^{(k-1)}(\alpha)=0$ et $P^{(k)}(\alpha) \neq 0$.
+\end{itemize}
+\end{proposition}
+La preuve est laissée en exercice.
+
+\begin{remarque*}
+Par analogie avec la dérivée d'une fonction,
+si $P(X) = a_0+a_1X+\cdots+a_nX^n\in\Kk[X]$ alors le polynôme
+$P'(X) = a_1+2a_2X+\cdots+na_nX^{n-1}$ est le \defi{polynôme dérivé}
+de $P$.
+\end{remarque*}
+
+%---------------------------------------------------------------
+\subsection{Théorème de d'Alembert-Gauss}
+
+Passons à un résultat essentiel de ce chapitre :
+
+\begin{theoreme}[Théorème de d'Alembert-Gauss]
+Tout polynôme à coefficients complexes de degré $n \ge 1$
+a au moins une racine dans $\Cc$.
+Il admet exactement $n$ racines si on compte chaque racine
+avec multiplicité.
+\end{theoreme}
+
+Nous admettons ce théorème.
+
+\begin{exemple}
+Soit $P(X)=aX^2+bX+c$ un polynôme de degré $2$ à coefficients réels : $a,b,c \in \Rr$ et $a\neq 0$.
+\begin{itemize}
+  \item Si $\Delta = b^2-4ac > 0$ alors $P$ admet $2$ racines réelles distinctes $\frac{-b+\sqrt{\Delta}}{2a}$
+et $\frac{-b-\sqrt{\Delta}}{2a}$.
+  \item Si $\Delta < 0$ alors $P$ admet $2$ racines complexes distinctes $\frac{-b+\ii\sqrt{|\Delta|}}{2a}$
+et $\frac{-b-\ii\sqrt{|\Delta|}}{2a}$.
+  \item Si $\Delta = 0$ alors $P$ admet une racine réelle double $\frac{-b}{2a}$.
+\end{itemize}
+En tenant compte des multiplicités on a donc toujours exactement $2$ racines.
+\end{exemple}
+
+\begin{exemple}
+$P(X)=X^n-1$ admet $n$ racines distinctes.
+
+Sachant que $P$ est de degré $n$ alors par le théorème de d'Alembert-Gauss
+on sait qu'il admet $n$ racines comptées avec multiplicité.
+Il s'agit donc maintenant de montrer que ce sont des racines simples.
+Supposons --par l'absurde-- que $\alpha \in \Cc$ soit une racine de multiplicité $\ge 2$.
+Alors $P(\alpha)=0$ et $P'(\alpha)=0$.
+Donc $\alpha^n-1=0$ et $n\alpha^{n-1}=0$. De la seconde égalité on déduit $\alpha=0$,
+contradictoire avec la première égalité. Donc toutes les racines sont simples.
+Ainsi les $n$ racines sont distinctes.
+(Remarque : sur cet exemple particulier on aurait aussi pu calculer les racines
+qui sont ici les racines $n$-ième de l'unité.)
+\end{exemple}
+
+
+Pour les autres corps que les nombres complexes nous avons le résultat
+plus faible suivant :
+\begin{theoreme}
+Soit $P\in\Kk[X]$ de degré $n\ge 1$. Alors
+$P$ admet au plus $n$ racines dans $\Kk$.
+\end{theoreme}
+
+\begin{exemple}
+$P(X)=3X^3-2X^2+6X-4$.
+Considéré comme un polynôme à coefficients dans $\Qq$ ou $\Rr$,
+$P$ n'a qu'une seule racine (qui est simple) $\alpha = \frac23$ et il se décompose en
+$P(X)=3(X-\frac23)(X^2+2)$.
+Si on considère maintenant $P$ comme un polynôme à coefficients dans $\Cc$ alors
+$P(X)=3(X-\frac23)(X-\ii\sqrt2)(X+\ii\sqrt2)$ et admet $3$ racines simples.
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Polynômes irréductibles}
+
+
+
+\begin{definition}
+Soit  $P \in\Kk[X]$ un polynôme de degré $\ge 1$, on dit que $P$ est 
+\defi{irréductible}\index{irreductibilite@irréductibilité} si
+pour tout $Q \in\Kk[X]$ divisant $P$, alors, soit $Q \in\Kk^*$, soit il existe $\lambda \in\Kk^*$ tel
+que $Q=\lambda P$.
+\end{definition}
+
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+  \item Un polynôme irréductible  $P$ est donc un polynôme non constant
+dont les seuls diviseurs de $P$ sont les constantes ou $P$ lui-même
+(à une constante multiplicative près).
+
+  \item La notion de polynôme irréductible pour l'arithmétique de $\Kk[X]$
+correspond à la notion de nombre premier pour l'arithmétique de $\Zz$.
+
+  \item Dans le cas contraire, on dit que $P$ est \defi{réductible}\index{reductibilite@réductibilité} ;
+il existe alors des polynômes $A, B$ de $\Kk[X]$ tels que $P=AB$, avec
+ $\deg A \ge 1$ et  $\deg B \ge 1$.
+\end{itemize}
+\end{remarque*}
+
+\begin{exemple}
+\sauteligne
+\begin{itemize}
+  \item Tous les polynômes de degré 1 sont irréductibles. Par conséquent il y a
+  une infinité de polynômes irréductibles.
+
+  \item $X^2-1=(X-1)(X+1)\in\Rr[X]$ est réductible.
+
+  \item $X^2+1=(X-\ii)(X+\ii)$ est réductible dans $\Cc[X]$ mais est irréductible dans $\Rr[X]$.
+
+  \item $X^2-2=(X-\sqrt2)(X+\sqrt2)$ est réductible dans $\Rr[X]$ mais est irréductible dans $\Qq[X]$.
+\end{itemize}
+\end{exemple}
+
+
+
+
+Nous avons l'équivalent du lemme d'Euclide de $\Zz$ pour les polynômes :
+\begin{proposition}[Lemme d'Euclide]
+\index{lemme!d'Euclide}
+Soit $P\in\Kk[X]$ un polynôme irréductible et soient $A, B\in\Kk[X]$.
+Si $P|AB$ alors $P|A$ ou $P|B$.
+\end{proposition}
+
+\begin{proof}
+Si $P$ ne divise pas $A$ alors $\pgcd(P,A)=1$ car $P$ est irréductible.
+Donc, par le lemme de Gauss, $P$ divise $B$.
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Théorème de factorisation}
+
+
+\begin{theoreme}
+Tout polynôme non constant $A\in\Kk[X]$ s'écrit comme un produit de polynômes
+irréductibles unitaires :
+$$A= \lambda  P_1^{k_1}P_2^{k_2} \cdots P_r^{k_r}$$
+ où $\lambda\in\Kk^*$, $r \in \Nn^*$, $k_i \in \Nn^*$
+et les $P_i$ sont des polynômes irréductibles distincts.
+
+De plus cette décomposition est unique à l'ordre près des facteurs.
+\end{theoreme}
+
+Il s'agit bien sûr de l'analogue de la décomposition d'un nombre en facteurs premiers.
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Factorisation dans $\Cc[X]$ et $\Rr[X]$}
+
+
+
+\begin{theoreme}
+Les polynômes irréductibles de $\Cc[X]$ sont les polynômes de degré $1$.
+
+Donc pour $P\in\Cc[X]$ de degré $n\ge1$ la factorisation s'écrit
+$P=\lambda (X-\alpha_1)^{k_1}(X- \alpha_2)^{k_2}\cdots(X- \alpha_r)^{k_r},$
+où $\alpha_1,...,\alpha_r$ sont les racines distinctes de $P$ et
+$k_1,...,k_r$ sont leurs multiplicités.
+\end{theoreme}
+
+\begin{proof}
+Ce théorème résulte du théorème de d'Alembert-Gauss.
+\end{proof}
+
+
+
+
+\begin{theoreme}
+Les polynômes irréductibles de $\Rr[X]$
+sont les polynômes de degré $1$ ainsi que les polynômes de degré $2$ ayant
+un discriminant $\Delta<0$.
+
+Soit $P\in\Rr[X]$ de degré $n\ge1$. Alors
+la factorisation s'écrit
+$P=\lambda(X-\alpha_1)^{k_1}(X-\alpha_2)^{k_2}\cdots(X-\alpha_r)^{k_r}
+Q_1^{\ell_1}\cdots Q_s^{\ell_s},$
+où  les $\alpha_i$ sont exactement les racines réelles distinctes
+de multiplicité $k_i$ et les $Q_i$ sont des polynômes irréductibles de degré $2$ :
+$Q_i=X^2+\beta_iX+\gamma_i$ avec $\Delta = \beta_i^2-4\gamma_i<0$.
+\end{theoreme}
+
+\begin{exemple}
+$P(X)=2X^4(X-1)^3(X^2+1)^2(X^2+X+1)$ est déjà décomposé en facteurs irréductibles dans $\Rr[X]$
+alors que sa décomposition dans $\Cc[X]$
+est $P(X)=2X^4(X-1)^3(X-\ii)^2(X+\ii)^2(X-j)(X-j^2)$
+où $j=e^{\frac{2\ii\pi}{3}}=\frac{-1+\ii\sqrt3}{2}$.
+\end{exemple}
+
+\begin{exemple}
+Soit $P(X)=X^4+1$.
+\begin{itemize}
+  \item Sur $\Cc$. On peut d'abord décomposer $P(X)=(X^2+\ii)(X^2-\ii)$.
+Les racines de $P$ sont donc les racines carrées complexes de $\ii$ et $-\ii$.
+Ainsi $P$ se factorise dans $\Cc[X]$ :
+$$P(X)=\big(X-\tfrac{\sqrt2}{2}(1+\ii)\big)\big(X+\tfrac{\sqrt2}{2}(1+\ii)\big)\big(X-\tfrac{\sqrt2}{2}(1-\ii)\big)
+\big(X+\tfrac{\sqrt2}{2}(1-\ii)\big).$$
+
+  \item Sur $\Rr$. Pour un polynôme à coefficient réels, si $\alpha$ est une racine
+alors $\bar \alpha$ aussi. Dans la décomposition ci-dessus on regroupe les facteurs ayant des racines conjuguées,
+cela doit conduire à un polynôme réel :
+\begin{align*}
+P(X)&=\left[\big(X-\tfrac{\sqrt2}{2}(1+\ii)\big)\big(X-\tfrac{\sqrt2}{2}(1-\ii)\big)\right]
+\left[\big(X+\tfrac{\sqrt2}{2}(1+\ii)\big)\big(X+\tfrac{\sqrt2}{2}(1-\ii)\big)\right]\\
+&= \big[X^2+\sqrt2X+1\big]\big[X^2-\sqrt2X+1\big],  
+\end{align*}
+qui est la factorisation dans $\Rr[X]$.
+\end{itemize}
+\end{exemple}
+
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Trouver un polynôme $P(X) \in \Zz[X]$ de degré minimal tel que : $\frac 12$ soit une racine simple,
+$\sqrt 2$ soit une racine double et $\ii$ soit une racine triple.
+
+  \item Montrer cette partie de la proposition \ref{prop:racmul} :
+\og$P(\alpha)=0$ et $P'(\alpha)=0$  $\iff$ $\alpha$ est une racine de multiplicité $\ge 2$\fg.
+
+  \item Montrer que pour $P\in\Cc [X]$ :
+\og$P$ admet une racine de multiplicité $\ge 2$ $\iff$ $P$ et $P'$ ne sont pas premiers entre eux\fg.
+
+  \item Factoriser $P(X) = (2X^2+X-2)^2(X^4-1)^3$ et $Q(X)=3(X^2-1)^2(X^2-X+\frac14)$ dans $\Cc[X]$.
+En déduire leur pgcd et leur ppcm. Mêmes questions dans $\Rr[X]$.
+
+  \item Si $\pgcd(A,B)=1$ montrer que $\pgcd(A+B,A\times B)=1$.
+
+  \item Soit $P\in \Rr[X]$ et $\alpha \in \Cc\setminus\Rr$ tel que $P(\alpha)=0$.
+Vérifier que $P(\bar \alpha)=0$. Montrer que $(X-\alpha)(X-\bar\alpha)$ est un polynôme irréductible de $\Rr[X]$
+et qu'il divise $P$ dans $\Rr[X]$.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Fractions rationnelles}
+
+\begin{definition}
+Une \defi{fraction rationnelle}\index{fraction rationnelle} à coefficients dans $\Kk$ est une expression
+de la forme
+$$F=\frac{P}{Q}$$
+où $P,Q \in \Kk[X]$ sont deux polynômes et $Q \neq 0$.
+\end{definition}
+
+
+Toute fraction rationnelle se décompose comme une somme de fractions rationnelles
+élémentaires que l'on appelle des \og éléments simples \fg. Mais les éléments simples
+sont différents sur $\Cc$ ou sur $\Rr$.
+
+%---------------------------------------------------------------
+\subsection{Décomposition en éléments simples sur $\Cc$}
+
+
+\begin{theoreme}[Décomposition en éléments simples sur $\Cc$]
+Soit $P/Q$ une fraction rationnelle avec $P,Q \in \Cc[X]$, $\pgcd(P,Q)=1$ et
+$Q=(X-\alpha_1)^{k_1}\cdots(X-\alpha_r)^{k_r}$.
+Alors il existe une et une seule écriture :
+$$\begin{array}{rl}
+\displaystyle \frac{P}{Q} \  =  \ \  E  & + \
+ \displaystyle  \frac{a_{1,1}}{(X-\alpha_1)^{k_1}}+\frac{a_{1,2}}{(X-\alpha_1)^{k_1-1}}+\cdots
++\ \frac{a_{1,k_1}}{(X-\alpha_1)} \\[4mm]
+  & \displaystyle+ \frac{a_{2,1}}{(X-\alpha_2)^{k_2}}+\cdots
++\ \frac{a_{2,k_2}}{(X-\alpha_2)} \\[3mm]
+ & + \ \cdots
+\end{array}$$
+\end{theoreme}
+
+Le polynôme $E$ s'appelle la \defi{partie polynomiale}\index{partie polynomiale} 
+(ou \defi{partie entière}).
+Les termes $\frac{a}{(X-\alpha)^i}$ sont les \defi{éléments simples}\index{element simple@élément simple} sur $\Cc$.
+
+
+\begin{exemple}
+\sauteligne
+\begin{itemize}
+  \item Vérifier que $\frac{1}{X^2+1} = \frac{a}{X+\ii} + \frac{b}{X-\ii}$ avec $a=\frac12 \ii$, $b=-\frac12\ii$.
+  \item Vérifier que  $\frac{X^4-8X^2+9X-7}{(X-2)^2(X+3)}= X+1 + \frac{-1}{(X-2)^2} + \frac{2}{X-2} + \frac{-1}{X+3}$.
+\end{itemize}
+\end{exemple}
+
+
+Comment se calcule cette décomposition ?
+En général on commence par déterminer la partie polynomiale.
+Tout d'abord si $\deg Q > \deg P$ alors $E(X)=0$.
+Si $\deg P \le \deg Q$ alors effectuons la division euclidienne de $P$ par $Q$ :
+$P=QE+R$ donc $\frac{P}{Q} = E + \frac{R}{Q}$
+où $\deg R < \deg Q$.
+La partie polynomiale est donc le quotient de cette division.
+Et on s'est ramené au cas d'une fraction $\frac{R}{Q}$ avec $\deg R < \deg Q$.
+Voyons en détails comment continuer sur un exemple.
+
+\begin{exemple}
+Décomposons la fraction $\displaystyle\frac{P}{Q}= \frac{X^5-2X^3+4X^2-8X+11}{X^3-3X+2}$.
+
+\begin{itemize}
+  \item \textbf{Première étape : partie polynomiale.}
+On calcule la division euclidienne de $P$ par $Q$ :
+$P(X) = (X^2+1)Q(X)+ 2X^2-5X+9$.
+Donc la partie polynomiale est $E(X)=X^2+1$ et la fraction s'écrit
+$\frac{P(X)}{Q(X)} =X^2+1 + \frac{2X^2-5X+9}{Q(X)}$.
+Notons que pour la fraction $\frac{2X^2-5X+9}{Q(X)}$ le degré du numérateur
+est strictement plus petit que le degré du dénominateur.
+
+  \item \textbf{Deuxième étape : factorisation du dénominateur.}
+$Q$ a pour racine évidente $+1$ (racine double) et $-2$ (racine simple) et se factorise donc ainsi
+$Q(X)= (X-1)^2(X+2)$.
+
+  \item \textbf{Troisième étape : décomposition théorique en éléments simples.}
+Le théorème de décomposition en éléments simples nous dit qu'il existe une unique décomposition :
+$\frac{P(X)}{Q(X)}= E(X)+ \frac{a}{(X-1)^2} + \frac{b}{X-1} + \frac{c}{X+2}$.
+Nous savons déjà que $E(X)=X^2+1$, il reste à trouver les nombres $a,b,c$.
+
+  \item \textbf{Quatrième étape : détermination des coefficients.}
+Voici une première façon de déterminer $a,b,c$.
+On récrit la fraction $\frac{a}{(X-1)^2} + \frac{b}{X-1} + \frac{c}{X+2}$
+au même dénominateur et on l'identifie avec $\frac{2X^2-5X+9}{Q(X)}$ :
+$$\frac{a}{(X-1)^2} + \frac{b}{X-1} + \frac{c}{X+2} =
+\frac{(b+c)X^2+(a+b-2c)X+2a-2b+c}{(X-1)^2(X+2)}$$
+qui doit être égale à
+$$\frac{2X^2-5X+9}{(X-1)^2(X+2)}.$$
+On en déduit $b+c=2$, $a+b-2c=-5$ et $2a-2b+c=9$.
+Cela conduit à l'unique solution $a=2$, $b=-1$, $c=3$.
+Donc
+$$\frac{P}{Q} = \frac{X^5-2X^3+4X^2-8X+11}{X^3-3X+2} = X^2+1 + \frac{2}{(X-1)^2} + \frac{-1}{X-1} + \frac{3}{X+2}.$$
+Cette méthode est souvent la plus longue.
+
+  \item \textbf{Quatrième étape (bis) : détermination des coefficients.}
+Voici une autre méthode plus efficace.
+
+Notons $\frac{P'(X)}{Q(X)} =  \frac{2X^2-5X+9}{(X-1)^2(X+2)}$ dont la décomposition théorique est :
+$\frac{a}{(X-1)^2} + \frac{b}{X-1} + \frac{c}{X+2}$
+
+Pour déterminer $a$ on multiplie la fraction $\frac{P'}{Q}$ par $(X-1)^2$ et on évalue en $x=1$.
+
+Tout d'abord en partant de la décomposition théorique on a :
+$$F_1(X)= (X-1)^2 \frac{P'(X)}{Q(X)} = a + b(X-1) + c\frac{(X-1)^2}{X+2} \quad
+\text{ donc } \quad F_1(1)=a$$
+
+D'autre part
+$$F_1(X)=(X-1)^2 \frac{P'(X)}{Q(X)}= (X-1)^2\frac{2X^2-5X+9}{(X-1)^2 (X+2)}
+= \frac{2X^2-5X+9}{X+2}$$
+donc $F_1(1)=2.$
+On en déduit $a=2$.
+
+On fait le même processus pour déterminer $c$ : on
+multiplie par $(X+2)$ et on évalue en $-2$. On calcule
+$F_2(X) = (X+2)\frac{P'(X)}{Q(X)} = \frac{2X^2-5X+9}{(X-1)^2} = a\frac{X+2}{(X-1)^2} + b\frac{X+2}{X-1} + c$
+de deux façons et lorsque l'on évalue $x=-2$ on obtient d'une part $F_2(-2) = c$ et
+d'autre part $F_2(-2) = 3$. Ainsi $c=3$.
+
+Comme les coefficients sont uniques tous les moyens sont bons pour les déterminer.
+Par exemple lorsque l'on évalue la décomposition théorique
+$\frac{P'(X)}{Q(X)}= \frac{a}{(X-1)^2} + \frac{b}{X-1} + \frac{c}{X+2}$
+en $x=0$, on obtient :
+$$\frac{P'(0)}{Q(0)} = a - b + \frac c2$$
+Donc $\frac{9}{2} = a - b + \frac c2$. Donc $b=a + \frac c2 - \frac{9}{2}=-1$.
+\end{itemize}
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Décomposition en éléments simples sur $\Rr$}
+
+\begin{theoreme}[Décomposition en éléments simples sur $\Rr$]
+Soit $P/Q$ une fraction rationnelle avec $P,Q \in \Rr[X]$, $\pgcd(P,Q)=1$.
+Alors $P/Q$ s'écrit de manière unique comme somme :
+\begin{itemize}
+  \item d'une partie polynomiale $E(X)$,
+  \item d'éléments simples du type $\frac{a}{(X-\alpha)^i}$,
+  \item d'éléments simples du type $\frac{aX+b}{(X^2+\alpha X + \beta)^i}$.
+\end{itemize}
+Où les $X-\alpha$ et $X^2+\alpha X + \beta$ sont les facteurs irréductibles de $Q(X)$
+et les exposants $i$ sont inférieurs ou égaux à la puissance correspondante dans cette factorisation.
+\end{theoreme}
+
+\begin{exemple}
+Décomposition en éléments simples de
+$\frac{P(X)}{Q(X)}=\frac{3X^4+5X^3+11X^2+5X+3}{(X^2+X+1)^2(X-1)}$.
+Comme $\deg P < \deg Q$ alors $E(X)=0$.
+Le dénominateur est déjà factorisé sur $\Rr$ car $X^2+X+1$ est irréductible.
+La décomposition théorique est donc :
+$$\frac{P(X)}{Q(X)} = \frac{aX+b}{(X^2+X+1)^2}+\frac{cX+d}{X^2+X+1}+\frac{e}{X-1}.$$
+
+Il faut ensuite mener au mieux les calculs pour déterminer les coefficients afin d'obtenir :
+$$\frac{P(X)}{Q(X)} = \frac{2X+1}{(X^2+X+1)^2}+\frac{-1}{X^2+X+1}+\frac{3}{X-1}.$$
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soit $Q(X)=(X-2)^2(X^2-1)^3(X^2+1)^4$. Pour $P \in \Rr[X]$ quelle est la forme théorique
+de la décomposition en éléments simples sur $\Cc$ de $\frac PQ$ ? Et sur $\Rr$ ?
+
+  \item Décomposer les fractions suivantes en éléments simples sur $\Rr$ et $\Cc$ :
+$\frac{1}{X^2-1}$ ; $\frac{X^2+1}{(X-1)^2}$ ; $\frac{X}{X^3-1}$.
+
+  \item Décomposer les fractions suivantes en éléments simples sur $\Rr$ :
+$\frac{X^2+X+1}{(X-1)(X+2)^2}$ ; $\frac{2X^2-X}{(X^2+2)^2}$ ; $\frac{X^6}{(X^2+1)^2}$.
+
+  \item Soit $F(X) = \frac{2X^2+7X-20}{X+2}$.
+  Déterminer l'équation de l'asymptote oblique en $\pm \infty$.
+  \'Etudier la position du graphe de $F$ par rapport à cette droite.
+
+\end{enumerate}
+\end{miniexercices}
+
+
+\auteurs{
+\begin{itemize}
+  \item Rédaction : Arnaud Bodin ; relecture : Stéphanie Bodin
+  \item Basé sur des cours de Guoting Chen et Marc Bourdon
+\end{itemize}
+}
+
+\finchapitre
+\end{document}

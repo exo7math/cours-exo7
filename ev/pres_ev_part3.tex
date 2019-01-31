@@ -1,0 +1,320 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={205,0,0}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Espaces vectoriels}}
+\subtitle{Sous-espace vectoriel (début)}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition d'un sous-espace vectoriel
+    \item<4-> Un sous-espace vectoriel \\ est un espace vectoriel  
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définition d'un sous-espace vectoriel}
+
+\begin{frame}
+Soit $E$ un $\Kk$-espace vectoriel
+\begin{mydefinition} 
+Une partie  $F$ de $E$ est appelée un \defi{sous-espace vectoriel} si  
+ \begin{itemize}
+   \item $0_E \in F$
+   
+   \item $u+v \in F$ \  pour tous $u,v \in F$
+   
+   \item $\lambda \cdot u \in F$ pour tout $\lambda \in \Kk$ et tout $u \in F$ 
+ \end{itemize}
+\end{mydefinition}
+
+\end{frame}
+
+\begin{frame}
+\begin{exemple}
+$F=\big\{(x,y)\in \Rr^2\mid x+y=0\big\}$  est un sous-espace 
+  vectoriel de $\Rr^2$
+  
+\hfill\hfill\begin{minipage}{0.3\textwidth}
+\myfigure{0.7}{
+\tikzinput{fig_ev03} 
+}   
+\end{minipage}
+\vspace*{-13ex}
+\pause
+  \begin{enumerate}
+    \item $(0,0) \in F$
+
+    \pause
+    
+    \item 
+    \begin{itemize}
+      \item si $u=(x_1,y_1)$ et $v=(x_2,y_2)$ appartiennent à $F$
+      \pause
+      \item alors $x_1+y_1=0$ et $x_2+y_2=0$
+      \pause
+      \item donc $(x_1+x_2)+(y_1+y_2)=0$
+      \pause
+      \item et ainsi $u+v=(x_1+x_2,y_1+y_2)$ appartient à $F$
+    \end{itemize}
+
+       
+    
+    \pause
+    
+    \item
+    \begin{itemize}
+      \item si $u=(x,y) \in F$ et $\lambda \in \Rr$
+      \item alors $x+y=0$ donc $\lambda x + \lambda y = 0$
+      \item d'où $\lambda u \in F$
+    \end{itemize}
+
+  \end{enumerate}
+
+  
+
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+  \item L'ensemble des fonctions continues sur $\Rr$ est un sous-espace vectoriel 
+  de l'espace vectoriel des fonctions de $\Rr$ dans $\Rr$
+  
+
+  \pause
+  
+  \begin{itemize}
+    \item la fonction nulle est continue
+    \pause
+    
+    \item la somme de deux fonctions continues est continue
+    \pause
+    
+    \item une constante fois une fonction continue est une fonction continue 
+  \end{itemize}    
+
+  \pause
+  
+  \item L'ensemble des suites réelles convergentes est un 
+  sous-espace vectoriel de l'espace vectoriel des suites réelles
+  
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+Voici des sous-ensembles qui \evidence{ne sont pas} des sous-espaces vectoriels
+
+\pause
+\begin{enumerate}
+
+\uncover<2->{  \item $F_1=\big\{(x,y)\in \Rr^2\mid x+y=2\big\}$ n'est pas un s.e.v. de $\Rr^2$}
+
+\uncover<3->{  En effet le vecteur nul $(0,0)$ n'appartient pas à $F_1$}
+  
+\uncover<4->{   \item $F_2=\big\{(x,y)\in \Rr^2\mid x=0 \text{ ou } y=0 \big\}$ n'est pas un s.e.v. de $\Rr^2$}
+  
+\uncover<5->{  En effet $u=(1,0),v=(0,1) \in F_2$, mais $u+v=(1,1) \notin F_2$} 
+  
+\uncover<6->{   \item $F_3=\big\{(x,y)\in \Rr^2\mid x \ge 0 \text{ et } y\ge 0\big\}$ n'est pas un s.e.v. de $\Rr^2$}   
+  
+\uncover<7->{  En effet $u=(1,1) \in F_3$ mais, pour $\lambda = -1$,  $-u = (-1,-1) \notin F_3$}
+\end{enumerate}  
+
+\myfigure{0.9}{
+\uncover<2->{\tikzinput{fig_ev04-1}} 
+\quad
+\uncover<4->{\tikzinput{fig_ev04-2}} 
+\quad
+\uncover<6->{\tikzinput{fig_ev04-3}} 
+}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Un sous-espace vectoriel est un espace vectoriel}
+
+\begin{frame}
+
+\begin{theoreme}
+\label{th:sevisev}
+Soient $E$ un $\Kk$-espace vectoriel et $F$ un sous-espace vectoriel de $E$. 
+Alors $F$ est lui-même un $\Kk$-espace vectoriel pour les lois
+induites par $E$ 
+\end{theoreme}
+
+\pause
+
+\bigskip
+\bigskip
+
+\textbf{Méthodologie} 
+\hfil \og L'ensemble $F$ est-il un espace vectoriel ? \fg
+\begin{itemize}
+  \item trouver un espace vectoriel $E$ qui contient $F$
+  \item prouver que $F$ est un sous-espace vectoriel de $E$
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\begin{exemple}
+\begin{enumerate}
+  \item Est-ce que l'ensemble $\mathcal{P}$ des fonctions paires  forme un espace vectoriel ?
+
+  \pause
+  
+  \begin{itemize}
+    \item $\mathcal{P}$ sous-ensemble de l'espace vectoriel $\mathcal{F}(\Rr,\Rr)$
+  \pause
+    \item $\mathcal{P}=\big\{ f \in \mathcal{F}(\Rr, \Rr ) \mid \forall x \in \Rr , f(-x)=f(x) \big\}$
+  \end{itemize}
+\pause
+ $\mathcal{P}$ est un sous-espace vectoriel de $\mathcal{F}(\Rr,\Rr)$
+    \pause 
+  \begin{enumerate}
+    \item la fonction nulle est une fonction paire 
+    \pause
+    \item si $f,g \in \mathcal{P}$ alors $f+g \in\mathcal{P}$
+    \pause
+    \item si $f\in\mathcal{P}$ et si $\lambda \in \Rr$ alors $\lambda f\in\mathcal{P}$
+  \end{enumerate} 
+  \pause
+  Par le théorème $\mathcal{P}$ est un espace vectoriel
+\pause  
+  \item L'ensemble des fonctions impaires \\
+  \hfil $\mathcal{I}=\big\{ f \in \mathcal{F}(\Rr, \Rr ) \mid \forall x \in \Rr , f(-x)=-f(x) \big\}$ \\
+  est un espace vectoriel
+\pause  
+  \item L'ensemble $\mathcal{S}_n$ des matrices symétriques est un espace vectoriel
+  
+\end{enumerate}
+\end{exemple} 
+\end{frame}
+
+
+\begin{frame}
+
+\begin{itemize}
+  \item $A \in M_{n,p}(\Rr)$
+  \item $AX = 0$ un système de $n$ équations à $p$ inconnues
+  \item $  \left(
+\begin{array}{lcl}
+a_{11} & \dots & a_{1p}\\
+\vdots &&\vdots\\
+a_{n1} & \dots & a_{np}
+\end{array}\right)
+  \left(
+\begin{array}{c}
+x_1 \\ \vdots\\x_p
+\end{array}\right) =   \left(
+\begin{array}{c}
+0\\ \vdots \\ 0
+\end{array}\right)
+$
+\end{itemize}
+
+\pause
+
+\begin{theoreme}
+\label{th:axsev}
+L'ensemble des vecteurs $X$ solutions de $AX=0$ est un sous-espace vectoriel de $\Rr^p$
+\end{theoreme}
+
+\pause
+
+\begin{proof}
+Soit $F$ l'ensemble des vecteurs $X \in \Rr^p$ solutions de l'équation $AX=0$
+\begin{itemize}
+  \item $0 \in F$
+  \item $F$ est stable par addition : si $AX = 0$ et $AX' = 0$ alors $A(X + X') = AX + AX' = 0$
+  \item  $F$ est stable par multiplication par un scalaire : si $AX=0$ alors $A (\lambda X) = 0$ \qedhere
+\end{itemize}
+\end{proof}
+ 
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+ $$\left(
+\begin{array}{crc}
+1 & -2 & 3\\ 2 & -4 & 6\\ 3 & -6 & 9
+\end{array}\right) 
+\left(\begin{array}{c}
+x \\ y\\ z
+\end{array}\right) = 
+\left(\begin{array}{c}
+0\\ 0\\0
+\end{array}\right)$$
+
+\pause
+
+\begin{itemize}
+  \item Solutions de ce système \\ \hfil $F = \big\{ (x =  2s - 3t, y  =  s, z  =  t) \mid s,t \in \Rr \big\}$
+  \pause  
+  \item $F$ est un sous-espace vectoriel de $\Rr^3$
+  \pause
+  \item $F$ est un espace vectoriel
+  \pause
+  \item Autre vision : $F$ d'équation $(x = 2y - 3z)$, c'est un plan passant par l'origine
+\end{itemize}
+\end{exemple} 
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+Parmi les ensembles suivants, reconnaître ceux qui sont des sous-espaces
+vectoriels :
+  \begin{enumerate}
+    \item $\big\{(x,y,z)\in \Rr^3 \mid  x+y=0\big\}$
+    \item $\big\{(x,y,z,t)\in \Rr^4 \mid  x=t \text{ et } y=z\big\}$
+    \item $\big\{(x,y,z)\in \Rr^3 \mid z=1\big\}$
+    \item $\big\{(x,y)\in \Rr^2 \mid x^2+xy\ge 0\big\}$
+    \item $\big\{(x,y)\in \Rr^2 \mid x^2+y^2 \ge 1\big\}$
+    \item $\big\{f \in \mathcal{F}(\Rr,\Rr) \mid f(0)=1\big\}$
+    \item $\big\{f \in \mathcal{F}(\Rr,\Rr) \mid f(1)=0\big\}$
+    \item $\big\{f \in \mathcal{F}(\Rr,\Rr) \mid f \text{ est croissante }\big\}$  
+    \item $\big\{ (u_n)_{n\in\Nn} \mid (u_n) \text{ tend vers } 0 \big\}$  
+  \end{enumerate}
+
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

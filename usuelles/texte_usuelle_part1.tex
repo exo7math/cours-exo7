@@ -1,0 +1,466 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Nous consacrons cette partie sur les fonctions usuelles 
+
+\change
+
+tout d'abord à la fonction logarithme, et ses variantes.
+
+\change
+
+Puis à la fonction exponentielle et ses variantes.
+
+\change
+
+Puis nous comparerons le comportement de ces fonctions.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Il existe une unique fonction, le logarithme naturel,
+
+que l'on note $\ln$ telle que :
+
+$$\ln'(x) = \frac 1x \quad (\text{pour tout } x>0) \qquad \text { et } \qquad \ln(1) = 0.$$
+
+[[Sur le graphe]]
+
+
+La fonction logarithme tend vers $-\infty$ quand $x$ tend vers $0$.
+
+Elle tend vers $+\infty$ très lentement lorsque $x\to +\infty$.
+
+Elle s'annule en $x=1$.
+
+Et on appelle $e$ le réel tel que $ln(e)=1$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici les propriétés les plus remarquables de la fonction logarithme :
+
+tout d'abord pour n'importe quel $a,b>0$
+on a : $\ln (a \times b) = \ln a + \ln b$,
+
+C'est l'une des raisons d'être du logarithme :
+
+"Le logarithme d'un produit est la somme des logarithmes."
+
+
+\change
+
+On en déduit facilement que
+$\ln(\frac 1 a) = - \ln a$.
+
+
+\change
+
+Et aussi pour tout entier $n$ que
+$\ln(a^n) = n \ln a$,
+
+
+\change
+
+Maintenant on s'intéresse à la fonction qui à $x>0$ associe $\ln(x)$.
+
+Cette fonction logarithme est une fonction continue, 
+
+elle est strictement croissante et en plus définit une bijection de
+l'intervalle $]0,+\infty[$ (ouvert en $0$) sur $\Rr$,
+
+% La limite lorsque $x \to 0$ est $-\infty$ et la limite lorsque  $x\to +\infty$
+% est $+\infty$.
+
+\change
+
+Une autre limite importante est la limite 
+ de $\frac{\ln(1+x)}{x}$ qui vaut  $1$ lorsque $x\to0$.
+ 
+ 
+\change
+
+Enfin la fonction logarithme est une fonction concave 
+
+ce qui géométriquement signifie que le segment qui joint deux point du graphe de la fonction reste entièrement *sous* le graphe.
+
+Enfin par une étude de fonction, on prouve que pour tout $x>0$ :
+ $\ln x \le x-1$.
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+$\ln x$ s'appelle le \defi{logarithme naturel} ou aussi \defi{logarithme  néperien} de $x$
+
+\change
+
+Ce logarithme est caractérisé par l'égalité $\ln(e)=1$.
+
+\change
+
+On définit d'autres fonctions logarithmes.
+
+Plus précisément on appelle le \defi{logarithme en base $a$} de $x$
+le réel défini par 
+$$\log_a(x) = \frac{\ln(x)}{\ln(a)}$$
+
+\change
+
+
+Ce logarithme est défini de sorte que $\log_a(a)=1$.
+
+\change
+
+Le plus connu est  le \defi{logarithme décimal},
+
+pour le quel la base est $a=10$ 
+
+il vérifie $\log_{10} (10)=1$ 
+
+et plus généralement $\log_{10}(10^n)=n$.
+
+
+Dans la pratique on utilise l'équivalence : $x=10^y \iff y = \log_{10}(x)$.
+
+\change
+
+En informatique, dans l'écriture des nombres binaires, intervient aussi fréquemment 
+le logarithme en base $2$ qui vérifie lui que $\log_2(2^n)=n$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Passons à quelques démonstration sur la fonction $\ln$.
+
+L'existence et l'unicité viennent de la théorie de l'intégration :  
+
+par définition $\ln(x) = \int_1^x \frac1t \, dt$.
+
+En tant que primitive c'est donc une fonction continue, dérivable et bien sûr 
+sa dérivée est $1/x$.
+
+
+  
+\change
+
+Passons aux démonstrations de quelques propriétés.
+
+Tout d'abord montrons que $\ln(x \times y)=\ln x + \ln y$.
+
+\change
+
+Pour cela on introduit une fonction auxiliaire
+$f(x)=\ln(xy)-\ln(x)$, où $y$ est ici un réel fixé. 
+
+\change
+
+Calculons la dérivée de $f$ :
+
+   $f'(x)=y\ln'(xy)-\ln'(x)=$ et donc par définition du $\ln$ cela vaut $\frac{y}{xy}-\frac1x$ ce qui fait $0$.
+   
+\change
+
+
+  Donc $f$ a une dérivée nulle,  ce qui implique que $f$ est une fonction constante 
+ 
+\change
+
+Ainsi, par exemple, pour tout $x$, $f(x)$ est égal à $f(1)$
+ 
+ Mais $f(1) = \ln(y)-\ln(1)=\ln(y)$. 
+ 
+ 
+ \change 
+ 
+ Conclusion $f(x)=\ln y$, ce qui entraine bien   $\ln(xy)=\ln(x)+\ln(y)$.
+ 
+ 
+\change
+
+Montrons aussi que pour tout $x>0$ : $\ln x \le x-1$
+
+\change
+
+On étudie cette fois la fonction définie par 
+$f(x)=x-1-\ln(x)$. 
+
+\change
+
+Sa dérivée est $f'(x)= 1 -\frac1x$.
+
+La dérivée est négative avant $1$ et positive après.
+
+\change
+
+Donc la fonction $f$ est décroissante, puis croissante et 
+atteint son minimum en $x_0=1$.
+
+\change
+
+  Donc $f(x)\ge f(1)$ qui vaut $0$. Ce qui implique l'inégalité $\ln x \le x-1$.
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Par définition la bijection réciproque du logarithme s'appelle la 
+fonction \defi{exponentielle}, c'est une fonction qui est définie pour tout réel et à valeurs dans l'intervalle $]0,+\infty[$. 
+
+On note $exp(x)$ ou $e^x$ pour l'exponentielle évaluée en $x$.
+
+Voici le graphe de l'exponentielle,
+
+la fonction tend vers $0$ lorsque $x\to -\infty$
+
+et croît très rapidement vers $+\infty$ lorsque $x\to+\infty$.
+
+Comme $\ln(1)=0$ alors $\exp(0)=1$.
+
+Et comme $\ln(e)=1$ alors $\exp(1)=e$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Comme l'exponentielle est par définition la bijection réciproque du logarithme alors
+
+d'une part 
+$\exp(\ln x) = x$, ceci pour tout $x >0$,
+
+\change
+
+et d'autre part $\ln(\exp x) = x$, ceci pour tout $x$ réel.
+
+\change
+
+Comme l'exponentielle est la bijection réciproque du logarithme, on transcrit les propriétés du log
+en des propriétés pour l'exponentielle.
+
+
+Tout d'abord $\exp(a+b) = \exp(a) \times \exp(b)$
+
+\change
+
+Ensuite $(\exp x)^n$ vaut $\exp(nx)$.
+
+\change
+
+L'exponentielle $\exp$ est une fonction continue et strictement croissante
+
+\change
+
+ La fonction exponentielle est aussi dérivable et $\exp' x = \exp x$, pour tout réel
+ 
+c'est-à-dire sa dérivée est elle-même 
+
+\change
+
+C'est une fonction convexe 
+
+
+donc géométriquement le segment qui joint deux points du graphe de la fonction reste entièrement *au-dessus* du graphe.
+
+Enfin $\exp x \ge 1+x$.
+
+Ce sont toutes des propriétés fondamentales qu'il faut connaître.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Encore une fois les propriétés précédentes sont celles du logarithme retranscrites pour sa bijection réciproque.
+
+Par exemple vérifions  que la dérivée de l'exponentielle est elle-même :
+
+\change
+
+on part de l'égalité $\ln(\exp x)=x$ que l'on dérive.
+
+\change
+
+Il s'agit donc de dériver une composition et cela donne 
+$\exp'(x) \times \ln'(\exp x) = 1$ 
+
+\change
+
+donc $\exp'(x) \times \frac{1}{\exp x} = 1$
+
+\change
+
+et ainsi $\exp'(x) = \exp x$.
+
+
+\change
+
+On caractérise la fonction exponentielle de la façon suivante :
+
+"La fonction exponentielle est l'unique fonction
+telle que sa dérivée est elle même, c-à-d: $\exp'(x) = \exp(x)$ 
+
+*et* telle que $\exp(1) = e$. "
+
+\change
+
+
+Où $e$ est le nombre d'Euler qui vérifie $\ln e = 1$.
+
+$e$ vaut environ $2,718$
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour $a$ un réel strictement positif et pour tout réel $b$,
+
+on pose par définition :
+$\displaystyle a^b = \exp\big(b \ln a\big)$
+
+
+\change
+
+Voici quelques exemples :
+
+$\sqrt a = a^\frac12 = \exp\big( \frac12 \ln a\big)$
+
+
+\change
+
+$\sqrt[n] a = a^\frac1n = \exp\big( \frac1n \ln a\big)$
+
+\change
+
+On note aussi $\exp x$ par $e^x$ ce qui se justifie par le calcul : 
+$e^x =  \exp\big(x \ln e \big) = \exp(x)$.
+
+
+\change
+
+Les fonctions $x \mapsto a^x$ s'appellent aussi des fonctions exponentielles 
+
+\change
+
+elles se ramènent *systématiquement* à la fonction exponentielle classique 
+par l'égalité $a^x = \exp(x \ln a)$. 
+
+
+\change
+
+Attention ! Il ne faut surtout pas les confondre avec les fonctions puissances 
+$x \mapsto x^a$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Comparons les fonctions $\ln x$, $\exp x$ avec $x$ :
+
+Tout d'abord 
+$$\lim_{x\to +\infty} \frac{\ln x}{x} = 0$$
+
+
+\change
+
+et d'autre part 
+
+$$\lim_{x\to +\infty} \frac{\exp x}{x} = +\infty.$$
+
+\change
+
+
+Sur les graphes cela se traduit ainsi :
+
+la fonction $\ln$ tend vers $+ \infty$ mais beaucoup lentement
+que la fonction $x$.
+
+L'exponentielle croît aussi vers $+\infty$ mais beaucoup plus rapidement que $x$
+
+On en profite pour dessiner les graphes de quelques fonctions puissances.
+
+Par exemple $x \mapsto x^a$, avec $a <1$, comme $\sqrt x$ ou $\sqrt[3]x$.
+
+Cette fonction croît moins vite que $x$ mais plus vite que $\ln x$.
+
+
+Si $a > 1$, par exemple $x^2$ ou $x^3$,
+
+alors cette fonction croît plus vite que $x$ mais moins vite que $\exp x$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons prouver que la limite de $\frac{\ln x}{x}$
+lorsque $x\to +\infty$ est nulle.
+
+\change
+
+On a vu précédemment que pour tout $x>0$ : $\ln x \le x-1$. 
+
+En particulier cela entraîne que $\ln x \le x$
+
+
+\change
+
+En appliquant cette inégalité à $\sqrt x$ au lieu de $x$ on obtient 
+
+$\frac{\ln \sqrt x}{\sqrt x} \le 1$
+
+\change
+
+Partons de $\frac{\ln x}{x}$
+
+on réécrit le numérateur sous la forme $\ln \left(\sqrt{x}^2\right)$
+
+Par la propriété $\ln u^2 = 2\ln u$ on obtient
+$2 \frac{\ln \sqrt x}{x} $
+
+On écrit cette fois le dénominateur sous la forme 
+$\sqrt x \times \sqrt x$.
+
+On utilise maintenant la majoration obtenue juste au-dessus :
+$\frac{\ln \sqrt x}{\sqrt x} \le 1$
+
+ce qui conduit à l'encadrement 
+
+$0 \le \frac{\ln x}{x} \le \frac{2}{\sqrt x}$
+
+\change
+
+Bien sûr $\frac{2}{\sqrt x}$ tend vers $0$,
+
+ainsi lorsque $x\to +\infty$ on a $\frac{\ln x}{x} \to 0$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Les fonctions logarithmes et exponentielles sont omniprésentes
+en mathématiques, aussi cela vaut le coup de bien s'entraîner !
+
+\end{document}

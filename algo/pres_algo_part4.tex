@@ -1,0 +1,476 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={192,41,0}]{structure}
+
+% Commande spécifique à ce chapitre
+
+\newcommand{\Python}{\texttt{Python}}
+\renewcommand{\evidence}[1]{{\color{blue}\textbf{#1}}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Algorithmes et mathématiques}}
+\subtitle{Les réels}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Constante $\gamma$ d'Euler
+    \item<4-> $1000$ décimales de la constante d'Euler
+    \item<5-> Un peu de réalité
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{}
+
+\subsection{Constante $\gamma$ d'Euler}
+
+
+
+
+
+ 
+\begin{frame}
+La \defi{suite harmonique}
+$$H_n = 1+\frac{1}{2}+\frac{1}{3}+\cdots + \frac{1}{n}$$
+\pause
+\vspace*{-2ex}
+$$u_n = H_n - \ln n$$
+\pause
+\centerline{$(u_n)$ admet une limite lorsque $n\to+\infty$}
+
+\centerline{la \defi{constante $\gamma$ d'Euler}}
+
+\bigskip
+
+\pause
+
+\begin{tp}
+\begin{enumerate}
+  \item Calculer les premières décimales de $\gamma$. Sachant que $u_n - \gamma \sim \frac{1}{2n}$, combien de
+  décimales exactes peut-on espérer avoir obtenues ?
+  
+  \item On considère $v_n = H_n -\ln\big(n+\frac 12 + \frac{1}{24n} \big)$. Sachant $v_n - \gamma \sim -\frac{1}{48n^3}$, calculer davantage
+  de décimales.
+\end{enumerate}  
+\end{tp}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{algo}[euler.py (1)]
+\begin{lstlisting}
+def euler1(n):
+    somme = 0
+    for i in range(n,0,-1):
+        somme = somme + 1/i
+    return somme - log(n)
+\end{lstlisting}  
+\end{algo}
+
+\pause
+
+\begin{algo}[euler.py (2)]
+\begin{lstlisting}
+def euler2(n):
+    somme = 0
+    for i in range(n,0,-1):
+        somme = somme + 1/i
+    return somme - log(n+1/2+1/(24*n))
+\end{lstlisting}  
+\end{algo}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{$1000$ décimales de la constante d'Euler}
+
+\begin{frame}
+
+\hfill\hfill\textbf{Méthode de Bessel modifiée}
+
+$$w_n = \frac{A_n}{B_n} - \ln n 
+\qquad 
+A_n =\sum_{k=1}^{E(\alpha n)} \left( \frac{n^k}{k!} \right)^2 H_k
+ \qquad 
+B_n =\sum_{k=0}^{E(\alpha n)} \left( \frac{n^k}{k!} \right)^2 
+$$
+
+\pause
+\centerline{où $\alpha = 3.59112147...$ est la solution de $\alpha(\ln \alpha - 1)=1$}
+
+\pause
+
+$$|w_n - \gamma| \le \frac{C}{e^{4n}}$$
+
+\pause
+
+\begin{tp}
+\begin{enumerate}
+  \item Programmer cette méthode.
+  \item Combien d'itérations faut-il pour obtenir $1000$ décimales ?
+  \item Utiliser le module \codeinline{decimal} pour les calculer.
+\end{enumerate}
+\end{tp}
+\end{frame}
+
+\begin{frame}[fragile]
+
+\begin{itemize}
+  \item $N$ décimales si $\frac{C}{e^{4n}} \le \frac{1}{10^{N}}$
+\pause
+  \item Donc si $n \ge \frac{N \ln(10)+\ln(C)}{4}$
+\pause
+  \item Une itération de plus donne (à peu près) une décimale de plus
+\end{itemize}
+
+\pause
+
+\begin{algo}[euler.py (3)]
+\begin{lstlisting}
+def euler3(n):
+    alpha = 3.59112147
+    N = floor(alpha*n)                # Borne des sommes
+    A = 0 ; B = 0
+    H = 0
+    for k in range(1,N+1):
+        c = ( (n**k)/factorial(k) ) ** 2   # Coefficient 
+        H = H + 1/k                   # Somme harmonique
+        A = A + c*H
+        B = B + c
+    return A/B - log(n)
+\end{lstlisting}  
+\end{algo}
+
+\end{frame}
+
+\begin{frame}
+\begin{center}
+{\footnotesize
+\qquad \  $\gamma$ = 0,\hfill \hfill\  \\
+  57721566490153286060651209008240243104215933593992 \ 35988057672348848677267776646709369470632917467495 \\
+  14631447249807082480960504014486542836224173997644 \ 92353625350033374293733773767394279259525824709491 \\
+  60087352039481656708532331517766115286211995015079 \ 84793745085705740029921354786146694029604325421519 \\
+  05877553526733139925401296742051375413954911168510 \ 28079842348775872050384310939973613725530608893312 \\
+  67600172479537836759271351577226102734929139407984 \ 30103417771778088154957066107501016191663340152278 \\
+  93586796549725203621287922655595366962817638879272 \ 68013243101047650596370394739495763890657296792960 \\
+  10090151251959509222435014093498712282479497471956 \ 46976318506676129063811051824197444867836380861749 \\
+  45516989279230187739107294578155431600500218284409 \ 60537724342032854783670151773943987003023703395183 \\
+  28690001558193988042707411542227819716523011073565 \ 83396734871765049194181230004065469314299929777956 \\
+  93031005030863034185698032310836916400258929708909 \ 85486825777364288253954925873629596133298574739302\ \\
+  }  
+\end{center}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Un peu de réalité}
+
+
+
+%--------------------------------------------------------
+\begin{frame}
+Un \defi{nombre flottant} s'écrit
+$$\underbrace{\pm 1,234567890123456789}_{\text{mantisse}} \ e\underbrace{\pm 123}_{\text{exposant}}$$
+\pause
+$$\pm 1,234\ldots \times 10^{\pm 123}$$
+
+\pause
+
+\begin{itemize}
+  \item La \defi{mantisse} est un nombre décimal (positif ou négatif) appartenant à $[1,10[$
+\pause
+  \item L'exposant est un entier (positif ou négatif)
+\end{itemize}
+
+\pause
+
+\begin{tp}
+Poser $x=10^{-16}$, $y=x+1$, $z=y-1$. Que vaut $z$ pour \Python \ ?
+\end{tp}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{tp}
+\begin{enumerate}
+  \item Calculer l'exposant d'un nombre réel. Calculer la mantisse.
+  \item Faire une fonction qui ne conserve que $6$ chiffres d'un nombre 
+  ($6$ chiffres en tout : avant + après la virgule, exemple
+  $123,456789$ devient $123,456$).
+\end{enumerate}  
+\end{tp}
+
+\pause
+
+\begin{algo}[reels.py (1)]
+\begin{lstlisting}
+precision = 6            # Nombre de décimales conservées
+def tronquer(x):
+    n = floor(log(x,10))                       # Exposant |\pause|
+    m = floor( x * 10 ** (precision-1 - n))    # Mantisse |\pause|
+    return m * 10 ** (-precision+1+n)    # Nombre tronqué
+\end{lstlisting}  
+\end{algo}
+
+\pause
+
+Exemple : $x = 123,456789 = 1,23... \times 10^2$ alors l'exposant est $n=2$
+
+On décale vers la gauche $123\, 456,789$,
+la partie entière  est $m=123\, 456$
+
+On redécale vers la droite : $123,456$
+
+
+\end{frame}
+
+
+%--------------------------------------------------------
+\begin{frame}
+
+\hfill\hfill\textbf{Absorption}
+
+\begin{tp}
+\begin{enumerate}
+  \item Calculer \codeinline{tronquer(1234.56 + 0.007)}.
+  \item Expliquer.
+\end{enumerate}  
+\end{tp}
+
+\pause
+\bigskip
+
+\begin{itemize}
+  \item $1234,56$ et $0,007$ s'écrivent avec moins de $6$ décimales
+\pause
+  \item La somme $1234,567$ a besoin de $7$ décimales
+\pause
+  \item L'ordinateur ne retient que $1234,56$
+\pause
+  \item Le $0,007$ disparaît : il a été victime d'une \defi{absorption}
+\end{itemize}
+
+\end{frame}
+
+%--------------------------------------------------------
+\begin{frame}
+  
+\hfill\hfill\textbf{\'Elimination}
+
+\begin{tp}
+\begin{enumerate}
+  \item Soient $x = 1234,8777$, $y = 1212,2222$. Calculer $x-y$ à la main.
+  Comment se calcule la différence $x-y$ avec notre précision
+  de $6$ chiffres ?
+  \item Expliquer la différence.
+\end{enumerate}  
+\end{tp}
+
+\pause
+
+\begin{itemize}
+  \item $x-y = 22,6555$ qui n'a que $6$ chiffres
+\pause
+  \item Mais l'ordinateur ne stocke pas $x$ mais \codeinline{tronquer(x)}, idem pour $y$
+\pause
+  \item Le calcul est \codeinline{tronquer(tronquer(x)-tronquer(y))}
+\pause
+  \item Il calcule donc $1234,87-1212,22=22,65$ et retourne $22,6500$
+\pause
+  \item Les $2$ derniers chiffres sont une pure invention
+\pause
+  \item Phénomène d'\defi{élimination}
+\end{itemize}
+
+\pause
+\vspace*{-1ex}
+
+\begin{center}
+Ne pas confondre la \evidence{précision} d'affichage
+
+(exemple : on calcule avec $10$ chiffres après la virgule) 
+
+avec l'\evidence{exactitude} du résultat
+
+(combien de décimales sont vraiment exactes ?)
+\end{center}
+\end{frame}
+
+%--------------------------------------------------------
+\begin{frame}
+
+\hfill\hfill\textbf{Conversion binaire -- décimale}
+
+\begin{tp}
+Effectuer les commandes suivantes et constater !
+\begin{enumerate}
+  \item \codeinline{sum = 0} puis \codeinline{for i in range(10): sum = sum + 0.1}. Que vaut \codeinline{sum} ?
+  \item \codeinline{0.1 + 0.1 == 0.2} \quad et \quad  \codeinline{0.1 + 0.1 + 0.1 == 0.3} 
+  \item \codeinline{x = 0.2 ; print("0.2 en Python = \%.25f" \%x)}
+\end{enumerate}  
+\end{tp}
+
+\pause
+
+\begin{itemize}
+
+  \item En écriture décimale, il est impossible de coder $1/3 = 0,3333\ldots$ avec un nombre fini
+de chiffres après la virgule
+\pause
+  \item L'ordinateur ne stocke pas $0,1$ ni $0,2$ en mémoire
+\pause
+  \item Il stocke un nombre en écriture binaire qui s'en rapproche le plus
+\pause  
+  \item Il retourne l'écriture décimale qui se rapproche le plus
+ \centerline{\codeinline{0.2000000000000000111022302}\ldots}
+\end{itemize}
+
+\end{frame}
+ 
+%--------------------------------------------------------
+\begin{frame}
+
+\hfill\hfill\textbf{Somme des inverses des carrés}
+
+\begin{tp}
+\begin{enumerate}
+  \item Faire une fonction qui calcule la somme $S_n = \frac{1}{1^2} + \frac{1}{2^2}+\frac{1}{3^2}+\cdots + \frac{1}{n^2}$.
+
+  \item Faire une fonction qui calcule cette somme mais en utilisant seulement une écriture décimale à $6$ chiffres 
+  (à l'aide de la fonction \codeinline{tronquer()} vue au-dessus).
+  
+  \item Reprendre cette dernière fonction, mais en commençant la somme par les plus petits termes.
+  
+  \item Comparez le deux dernières méthodes, justifier et conclure.
+\end{enumerate}  
+\end{tp}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+
+\begin{algo}[reels.py (2)]
+\begin{lstlisting}
+def somme_inverse_carres_tronq(n):
+  somme = 0
+  for i in range(1,n+1):
+      somme = tronquer(somme + tronquer(1/(i*i)))
+  return somme
+\end{lstlisting}  
+\end{algo}
+
+\pause
+
+\begin{algo}[reels.py (3)]
+\begin{lstlisting}
+def somme_inverse_carres_tronq_inv(n):
+  somme = 0
+  for i in range(n,0,-1):
+      somme = tronquer(somme + tronquer(1/(i*i)))
+  return somme
+\end{lstlisting}  
+\end{algo}
+
+\pause
+
+Le vrai résultat est $\frac{\pi^2}{6}=1,64493\ldots$ 
+
+\pause
+
+Pour $n = 100\, 000$, le premier retourne $1,64038$ 
+
+\pause
+
+Pour $n = 100\, 000$, le second retourne $1,64490$
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\small
+\begin{miniexercice}
+\vspace*{-1ex}
+\begin{enumerate}
+\setlength{\itemsep}{0pt}
+  \item \'Ecrire une fonction qui approxime la constante $\alpha$ qui vérifie $\alpha (\ln \alpha -1)=1$.
+  Pour cela poser $f(x) = x(\ln x - 1)-1$ et appliquer la méthode de Newton : fixer $u_0$ (par exemple ici $u_0=4$)
+  et $u_{n+1} = u_n - \frac{f(u_n)}{f'(u_n)}$.
+  
+  \item Pour chacune des trois méthodes, calculer le nombre approximatif d'itérations nécessaires
+  pour obtenir $100$ décimales de la constante $\gamma$ d'Euler.
+  
+  \item Notons $C_n = \frac{1}{4n} \sum_{k=0}^{2n} \frac{[(2k)!]^3}{(k!)^4(16n)^2k}$.
+  La formule de Brent-McMillan affirme $\gamma = \frac{A_n}{B_n} - \frac{C_n}{B_n^2} - \ln n + O(\frac{1}{e^{8n}})$
+  où cette fois les sommations pour $A_n$ et $B_n$ vont jusqu'à $E(\beta n)$ avec
+  $\beta = 4,970625759\ldots$ la solution de $\beta(\ln \beta - 1)=3$. La notation $O(\frac{1}{e^{8n}})$ 
+  indique que l'erreur est $\le \frac{C}{e^{8n}}$ pour une certaine constante $C$.
+  Mettre en \oe uvre cette formule. En 1999 cette formule a permis de calculer $100$ millions de décimales.
+  Combien a-t-il fallu d'itérations ?
+ 
+  \item Faire une fonction qui renvoie le terme $u_n$ de la suite définie par $u_0 = \frac 13$
+  et $u_{n+1} = 4 u_n -1$. Que vaut $u_{100}$ ? Faire l'étude mathématique et commenter.
+
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

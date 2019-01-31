@@ -1,0 +1,690 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Dans cette première partie du chapitre sur les intégrales nous n'allons pas en calculer beaucoup !
+Nous allons bien comprendre comment est définie l'intégrale, plus précisément l'intégrale de Riemann.
+
+
+\change
+
+Nous allons d'abord définir l'intégrale pour des fonctions très simples : les fonctions en escalier.
+
+\change
+
+Cela nous permettra ensuite de définir l'intégrale de fonctions beaucoup plus générales
+
+\change
+
+Puis nous verrons quelques propriétés élémentaires
+
+\change
+
+Le théorème principal de cette leçon sera que les fonctions continues admettent des intégrales
+
+\change
+
+Et nous en donneront la preuve.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+
+Nous allons introduire l'intégrale à l'aide d'un exemple.
+
+Considérons la fonction exponentielle $f(x)=e^x$. 
+
+
+\change
+
+
+On souhaite calculer
+l'aire $\mathcal{A}$ en-dessous du graphe de $f$ et 
+entre les droites d'équation $(x=0)$, $(x=1)$ et l'axe $(O x)$.
+
+
+\change
+
+
+Nous approchons cette aire par des sommes d'aires de rectangles situés sous la courbe. 
+
+
+Plus précisément découpons notre intervalle $[0,1]$ en $n$ morceaux.
+
+Sur ce dessin $n=4$.
+
+
+On considère les <<rectangles inférieurs>> $\mathcal{R}_i^-$, 
+chacun ayant pour base le segment $\big[\frac{i-1}{n},\frac{i}{n}\big]$ de longueur $1/n$.
+
+On choisit la hauteur de chacun des rectangles pour qu'il soit juste en dessous de la courbe.
+Ici la hauteur est donc la valeur prise sur la gauche de l'intervalle qui vaut ici $e^{(i-1)/n}$
+
+
+\change
+
+Calculons l'aire verte de nos rectangles inférieurs.
+
+L'aire d'un rectangle est <<base $\times$ hauteur>> : 
+donc l'aire vaut $\frac1n \times e^{(i-1)/n}$
+
+Et il faut faire la somme sur tous les rectangles, c'est-à-dire pour $i$ variant de $1$
+à $n$.
+
+\change
+
+On récrit cette somme ainsi
+
+Et on reconnaît la somme d'une suite géométrique
+
+dont la raison est $e^{\frac 1n}$.
+
+\change
+
+On calcule donc cette somme 
+
+\change
+
+Et on la réécrit ainsi.
+
+$\frac{\frac{1}{n}}{e^{\frac 1n}-1}\big(e-1\big) $
+
+
+Que se passe-t-il lorsque $n$ tend vers $+\infty$ ?
+
+On sait que $\frac{e^x-1}{x} \to 1$ lorsque $x$ tend vers $0$,
+
+donc $\frac{\frac{1}{n}}{e^{\frac 1n}-1}$ tend aussi vers $1$ lorsque $n$ tend vers $+\infty$.
+
+\change
+
+Notre somme tend donc vers $e-1$.
+
+\bigskip
+
+[split]
+
+\change
+
+
+
+
+
+Regardons maintenant les <<rectangles supérieurs>> 
+
+ils ont la même base mais sont au-dessus de la courbe. Pour notre fonction
+ils ont donc la hauteur qui correspond à la valeur à la droite du segment de base.
+
+
+Un calcul tout à fait similaire montre que lorsque $n$ tend vers $+\infty$ la somme des aires rouges des rectangles supérieurs
+tend aussi vers $e-1$.
+
+\change
+
+
+L'aire $\mathcal{A}$ de notre région est plus grande que l'aire verte des rectangles inférieurs  ;
+et plus petite que l'aire rouge des rectangles supérieurs. 
+
+
+Lorsque l'on considère des subdivisions de plus en plus petites
+(c'est-à-dire lorsque l'on fait tendre $n$ vers $+\infty$) 
+
+alors on obtient à la limite que l'aire $\mathcal{A}$
+de notre région est encadrée par deux aires qui tendent vers $e-1$. 
+
+\change
+
+Donc l'aire de notre région est $\mathcal{A} = e-1$.
+
+
+\bigskip
+
+[split]
+
+
+Résumons tout cela : nous avons encadrer l'aire sous la courbe 
+par des rectangles en vert qui restent en dessous et des rectangles
+rouge qui sont au-dessus. 
+
+Cela nous donne un encadrement de notre aire sous la courbe.
+
+Notre intervalle de départ est coupé en $n$ morceaux, donc chaque rectangle
+à une base de longueur $1/n$.
+
+Sur ce dessin $n=4$,
+
+\change
+
+lorsque $n$ grandit [n=5]
+
+\change
+
+[n=6]
+
+\change
+
+[n=7]
+
+\change
+
+[n=10]
+
+\change
+
+[n=15]
+
+\change
+
+[n=20]
+
+Alors la base de nos rectangles diminue et ils approchent de mieux en mieux 
+l'aire sous la courbe.
+
+
+Si l'on arrive à justifier que l'aire verte s'approche de l'aire rouge (comme on la fait ici par un calcul)
+alors à la limite cet encadrement nous donne l'aire sous la courbe
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons reprendre la construction que l'on vient de faire mais cette fois pour une fonction $f$ quelconque.
+
+
+\change
+
+Ce qui va remplacer les rectangles seront des \evidence{fonctions en escalier}.
+
+\change
+
+Si la limite des aires en-dessous égale la limite des aires au-dessus on appelle cette limite commune 
+\evidence{l'intégrale} de $f$ 
+
+\change
+
+Que l'on note $\int_a^b f(x) \; dx$. 
+
+\change
+
+Cependant il n'est pas toujours vrai que ces limites soient égales, l'intégrale n'est donc 
+définie que pour les fonctions \evidence{intégrables}.
+
+\change
+
+Heureusement nous verrons 
+que si la fonction $f$ est continue alors elle est intégrable.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Soit $[a,b]$ un intervalle de $\Rr$.
+
+On appelle une subdivision de $[a,b]$ une suite finie,
+strictement croissante, de nombres $x_i$ tels que :
+$a=x_0< x_1<\ldots< x_n=b$.
+
+
+\change
+
+Une fonction $f$ d'un intervalle $[a,b]$ dans $\Rr$ 
+s'appelle  une fonction en escalier
+
+s'il existe  une subdivision de l'intervalle $[a,b]$ 
+et des valeurs $c_1,\ldots,c_n$ tels que $f(x)=c_i$
+pour tous les $x$ dans le sous-intervalle $]x_{i-1},x_i[$.
+
+\change
+
+Autrement dit $f$ est une fonction constante sur chacun des sous-intervalles de la subdivision.
+
+\change
+
+Nous allons définir l'intégrale pour ces fonctions très spéciales :
+
+Pour une fonction en escalier comme ci-dessus, son intégrale
+est le réel $\sum_{i=1}^n c_i(x_i-x_{i-1})$
+
+que l'on note $\int_a^b f(x) \; dx$.
+
+
+(pause)
+
+\change
+
+Notez que chaque terme $c_i(x_i-x_{i-1})$ est l'aire du rectangle compris entre les abscisses
+$x_{i-1}$ et $x_i$ et de hauteur $c_i$. Il faut juste prendre garde que l'on compte l'aire 
+avec un signe <<$+$>> si $c_i>0$ et un signe <<$-$>> si $c_i<0$.
+
+
+L'intégrale d'une fonction en escalier est l'aire  de la partie -en rouge- située au-dessus
+de l'axe des abscisses  moins l'aire de la partie -en bleu-
+située en-dessous.
+
+
+L'intégrale d'une fonction en escalier est bien un nombre réel qui mesure l'aire algébrique 
+(c'est-à-dire avec signe) entre la courbe de $f$ et l'axe des abscisses.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Avant de définir l'intégrale pour une fonction quelconque rappelons qu'une fonction
+ $f : [a,b] \to \Rr$ est \defi{bornée} s'il existe un réel $M\ge0$ tel que :
+$-M \le f(x) \le M$ pour tout $x$ de $[a,b]$
+
+\change
+
+Rappelons aussi que si l'on a deux fonctions $f,g : [a,b] \to \Rr$, alors on dira 
+$f$ est inférieur à $g$ si et seulement si $ f(x) \le g(x)$ pour tout $x\in [a,b]$.
+
+\change
+
+On suppose à présent que $f : [a,b] \to \Rr$ est une fonction bornée quelconque.
+
+\change
+
+Pour définir l'intégrale nous aurons besoin de deux nombres.
+
+Le premier $I^-(f)$ est défini ainsi : (pointer du doigt).
+
+On prend toute les fonctions $\phi$ en escalier qui sont inférieures à $f$.
+On calcule à chaque fois l'intégrale de $\phi$, c'est-à-dire l'aire sous la fonction en escalier.
+
+On prend l'aire la plus grande parmi toutes ces fonctions en escalier,
+mais comme on n'est pas sûr que ce maximum existe on prend la borne supérieure.
+
+
+\change
+
+De même on définit un second réel $I^+(f)$ :
+
+c'est le même principe mais les fonctions $\phi$ en escalier sont supérieures à $f$
+et on cherche l'aire la plus petite possible.
+
+
+\change
+
+Il est intuitif que l'on a $I^-(f) \le I^+(f)$
+
+
+\change
+
+Nous dirons d'une fonction bornée $f :[a,b] \to \Rr$ qu'elle est \defi{intégrable}
+si les deux nombres $I^-(f)$ et $I^+(f)$ sont égaux.
+
+\change
+
+Si c'est le cas alors cette valeur commune s'appelle l'intégrale de $f$ sur $[a,b]$ 
+
+et on la note $\int_a^b f(x)\; dx$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La définition de l'intégrale repose donc sur la même idée qu'avec les rectangles :
+on a des fonctions en escalier sous la courbe et on cherche l'aire la plus grande possible, pour cela on s'autorise 
+à prendre des bases de rectangles aussi petites que l'on veut.
+
+On a aussi des fonctions en escalier au-dessus de la courbe, et on cherche l'aire la plus petite possible.
+
+\change
+
+Au lieu de s'autoriser seulement un découpage régulier de l'intervalle avec des hauteurs correspondant
+aux valeurs aux extrémités on considères toutes les subdivisions possibles, avec toutes les valeurs possibles
+du moment que l'on reste en dessous pour les rectangles verts et au dessus pour les rectangles rouges.
+
+\change
+
+Évidemment c'est lorsque les subdivisions sont de plus en plus fines 
+
+\change
+
+que l'on peut trouver des fonctions en escaliers
+qui approchent très bien le graphe de notre fonction.
+
+Si les aires vertes et les aires rouge sont aussi aussi proche que l'on veut alors 
+on dit que la fonction $f$ est intégrable et la limite
+s'appelle l'intégrale de $f$ sur $[a,b]$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons quelques exemples.
+
+Tout d'abord les fonctions en escalier sont intégrables ! En effet si $f$ est une fonction en escalier
+alors la borne inférieure $I^-(f)$ et la borne supérieure $I^+(f)$ sont atteintes avec la fonction 
+$\phi=f$. 
+
+
+\change
+
+Nous verrons bientôt que toutes les fonctions continues sont des fonctions intégrables.
+
+
+\change
+
+
+Attention cependant, il existe des fonctions qui ne sont pas intégrables, par exemple celle-ci.
+
+\change
+
+Si $x$ est rationnel alors la fonction vaut $1$, sinon la fonction vaut $0$.
+
+\change
+
+C'est un bon exercice d'écrire proprement que $f$ n'est pas intégrable :
+par la densité des rationnels si une fonction en escalier est supérieure à $f$ alors elle est supérieure à $1$.
+Et par densité des irrationnels une fonction en escalier inférieure à $f$ est toujours négative.
+
+Sur cet exemple $I^-(f)=0$ et $I^+(f)=1$, ce sont des valeurs distinctes et donc $f$ n'est pas intégrable.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Mettons en pratique la définition de l'intégrale.
+
+Regardons la fonction $f$ qui a $x$ associe $x^2$.
+
+\change
+
+$f$ est-elle intégrable ? 
+
+\change
+
+Et si oui que vaut son intégrale entre $0$ et $1$ ?
+
+
+\change
+
+On prend la subdivision régulière de $[0,1]$ suivante
+$(0,\frac1n,\frac2n,\ldots,\frac in,\ldots, \frac{n-1}{n},1)$.
+
+
+\change
+
+
+Alors sur chaque intervalle $\big[\frac{i-1}{n},\frac in\big]$ nous avons
+$\big(\tfrac{i-1}{n}\big)^2 \le x^2 \le \big(\tfrac in\big)^2$.
+
+
+\change
+
+Nous construisons une fonction en escalier $\phi^-$ en-dessous de $f$  par 
+$\phi^-(x) = \frac{(i-1)^2}{n^2}$ si $x \in \big[\frac{i-1}{n},\frac in\big[$
+
+\change
+
+De même nous construisons une fonction en escalier $\phi^+$ au-dessus de $f$ définie
+par $\phi^+(x) = \frac{i^2}{n^2}$ si $x \in \big[\frac{i-1}{n},\frac in\big[$
+
+\change 
+
+Ici nous avons découpé notre intervalle en $5$, 
+
+\change
+
+voici les dessins pour $n=6$ 
+
+\change
+
+et $n=7$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Nous allons maintenant calculer chacune des aires vertes et rouges
+et faire tendre $n$ vers $+\infty$.
+
+[n=7]
+
+\change
+
+[n=10]
+
+\change
+
+[n=20]
+
+\change
+
+
+\change
+
+
+$\phi^-$ et $\phi^+$ sont des fonctions en escalier et l'on a $\phi^- \le f \le \phi^+$.
+
+\change
+
+L'intégrale de la fonction en escalier $\phi^+$ est par définition
+
+ la somme de aires calculées par la formule 
+base fois hauteur.
+
+Ce qui se récrit :
+$ \frac{1}{n^3} \sum_{i=1}^n i^2.$
+
+\change
+
+On se souvient de la formule pour la somme $\sum_{i=1}^n i^2$
+
+\change
+
+Et donc l'intégrale de la fonction en escalier $\phi^+(x)$ vaut 
+$\frac{(n + 1)(2n + 1)}{6n^2}$
+
+
+\change
+
+On calcule de même l'intégrale de la fonction en escalier $\phi^-(x)$
+
+\change
+
+Maintenant $I^-(f)$ est la borne supérieure sur toutes les fonctions en escalier inférieures à $f$
+donc en particulier $I^-(f) \ge \int_0^1 \phi^-(x)\; dx$.
+
+\change
+
+De même $I^+(f) \le \int_0^1 \phi^+(x)\; dx$.
+
+\change
+
+On connaît donc chacune des extrémités et elles tendent 
+toutes les deux vers $1/3$ lorsque $n$ tend vers $+\infty$.
+
+Par le théorème des gendarmes alors d'une part cela implique que $I^-(f)= I^+(f)$
+et en plus cette valeur vaut $1/3$.
+
+\change
+
+Donc $f$ est bien intégrable et $\int_0^1 x^2\; dx = \frac13$.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici deux résultats qui découlent de la définition :
+
+Premièrement si $f : [a,b] \to \Rr$ est intégrable et si l'on change les valeurs de $f$
+en un nombre fini de points alors la fonction $f$ est 
+toujours intégrable et la valeur de $\int_a^b f(x)\; dx$ ne change pas.
+
+\change
+
+Deuxièmement si $f  : [a,b] \to \Rr$ est intégrable alors la restriction de $f$
+
+à tout intervalle $[a',b'] \subset [a,b]$ est encore intégrable.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici le résultat théorique le plus important de cette leçon :
+
+Théorème : Si $f : [a,b] \to \Rr$ est une fonction continue alors $f$ est une fonction intégrable.  
+
+
+\change
+
+Ce résultat s'étend à une classe de fonction plus générale.
+
+Une fonction $f : [a,b] \to \Rr$ est dite \defi{continue par morceaux} s'il existe 
+une subdivision $(x_0,\ldots,x_n)$ telle que la restriction de $f$ soit continue sur chacun des sous-intervalles.
+
+\change
+
+Une conséquence du théorème est que les fonctions continues par morceaux sont intégrables.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici une preuve du théorème principale, preuve que vous pouvez passer lors d'une première lecture.
+
+Nous allons prouver une version un peu plus faible du théorème.  
+
+Rappelons qu'une fonction $f$ est dite de 
+classe $\mathcal{C}^1$ si $f$ est continue, dérivable et que $f'$ est aussi continue.
+
+\change
+
+Nous allons montrer le théorème suivant :
+
+Si $f$ est de classe $\mathcal{C}^1$ alors $f$ est intégrable. 
+
+
+L'idée est que les fonctions continues (ou ici de classe $\mathcal{C}^1$) 
+peuvent être approchées d'aussi près que l'on veut par des fonctions en escalier, 
+tout en gardant un contrôle d'erreur uniforme sur l'intervalle
+
+\change
+
+Comme $f$ est de classe  $\mathcal{C}^1$ alors $f'$ est une fonction continue sur l'intervalle fermé et borné $[a,b]$ ;
+$f'$ est donc une fonction bornée : il existe $M\ge 0$ tel que pour tout $x \in [a,b]$ on ait $|f'(x)|\le M$.
+
+
+\change
+
+L'inégalité des accroissements finis nous dit alors que 
+$\forall x,y \in [a,b] \quad |f(x)-f(y)| \le M |x-y|$
+
+
+\change
+
+Fixons un $\epsilon>0$ et considérons une subdivision $(x_0,x_1,\ldots,x_n)$ de l'intervalle 
+$[a,b]$ suffisamment fine pour que $x_i-x_{i-1} \le \epsilon$
+
+
+\change
+
+
+Nous allons construire deux fonctions
+en escalier $\phi^-, \phi^+ : [a,b] \to \Rr$.
+
+$\phi^-$ est définie de la façon suivante 
+sur l'intervalle $[x_{i-1},x_i[$,
+$\phi^-(x)$ est la fonction constante $c_i$ 
+où $c_i=\inf_{t\in [x_{i-1},x_i[} f(t)$.
+
+\change
+
+Voici la valeur $c_i$ pour ce sous-intervalle.
+
+\change
+
+
+De même pour $\phi^+(x)$ est constante sur chaque intervalle $[x_{i-1},x_i[$,
+où elle prend la valeur $d_i = \sup_{t\in [x_{i-1},x_i[} f(t)$
+
+
+$\phi^-$ et $\phi^+$ sont bien deux fonctions en escalier
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+On a donc construit deux fonctions en escalier telles que $\phi^-\le f \le \phi^+$
+
+
+\change
+
+$\int_a^b \phi^-(x)\;dx \le I^-(f) \le I^+(f) \le \int_a^b \phi^+(x)\;dx$
+
+\change
+
+En utilisant la continuité de $f$ sur l'intervalle $[x_{i - 1} - x_i]$, 
+alors le maximum et le minimum sont atteint sur cet intervalle,
+
+c-a-d il existe
+de $a_i,b_i \in [x_{i -1},x_i]$ tels que $f(a_i)=c_i$ et $f(b_i)=d_i$.
+
+\change
+
+Mais nous avons vu que grâce au théorème des accroissements finis 
+
+$d_i-c_i$ qui vaut $ f(b_i) - f(a_i)$ est plus petit que $M |b_i - c_i|$
+
+donc plus petit que $M (x_i-x_{i-1})$ et par le choix de notre subdivision $ \le M\epsilon$ 
+
+\change
+
+On va utiliser ces inégalités pour majorer la différence 
+$\int_a^b \phi^+(x)\;dx - \int_a^b \phi^-(x)\;dx$
+
+sur chaque intervalle  l'écart est inférieur à $M\epsilon(x_i-x_{i-1})$ 
+(on a majorer la différence de hauteur par $M\epsilon$ et on multiplie par la base).
+
+Lorsque l'on somme pour $i$ allant de $1$ à $n$ cela vaut 
+$M\epsilon(b-a)$
+car les $x_i$ forment un subdivision de $[a,b]$.
+
+\change
+
+Cela implique l'inégalité $I^+(f) - I^-(f) \le M\epsilon(b-a)$ 
+
+
+\change
+
+$M$ et $b-a$ sont des constantes fixées
+
+lorsque l'on fait tendre $\epsilon \to 0$
+
+on obtient que $I^+(f) = I^-(f)$, 
+
+\change
+
+ce qui prouve que $f$ est intégrable.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+C'est le moment de vérifier votre compréhension du cours !
+
+
+\end{document}

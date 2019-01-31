@@ -1,0 +1,426 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={150,93,42}]{structure}
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Dimension finie}}
+\subtitle{Base}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition
+    \item<4-> Exemples
+    \item<5-> Existence d'une base
+    \item<6-> Théorème de la base incomplète
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définition}
+
+\begin{frame}
+Soit $E$ un $\Kk$-espace vectoriel
+\begin{mydefinition} 
+Une famille $\mathcal{B}= (v_1, v_2, \dots , v_n)$ de vecteurs de $E$ 
+est une \defi{base} de $E$
+si $\mathcal{B}$ est une famille libre \evidence{et} génératrice
+\end{mydefinition}
+
+
+\pause
+
+\begin{theoreme}
+\label{th:coordonnees}
+Soit $\mathcal{B} = (v_1, v_2, \dots , v_n)$ une base de l'espace vectoriel $E$.
+Tout vecteur $v \in E$ s'exprime de façon unique comme combinaison 
+linéaire d'éléments de $\mathcal{B}$.
+Autrement dit, il \evidence{existe} des scalaires $\lambda_1,\ldots,\lambda_n \in \Kk$ 
+\evidence{uniques} tels que :
+$$v = {\color<4>{red}{\color<3>{red}\lambda_1}} v_1 + {\color<5>{red}{\color<3>{red}\lambda_2}} v_2 + \dots + {\color<3>{red}\lambda_n} v_n$$
+\end{theoreme}
+
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exemples}
+
+\begin{frame}
+\begin{exemple}
+\begin{enumerate}
+  \item 
+  $e_1=\left(\begin{smallmatrix}1\\0\end{smallmatrix}\right)\qquad
+  e_2 = \left(\begin{smallmatrix}0\\1\end{smallmatrix}\right)\qquad$ forment la
+ \defi{base canonique} de $\Rr^2$
+ 
+\only<1>{
+ \myfigure{.8}{
+\tikzinput{fig_dimension06} }
+}
+\only<2->{
+\myfigure{.8}{
+\tikzinput{fig_dimension06bis} }
+}
+
+
+  \pause
+  \item $v_1=\left(\begin{smallmatrix}3\\1\end{smallmatrix}\right)\qquad 
+  v_2=\left(\begin{smallmatrix}1\\2\end{smallmatrix}\right)\qquad$
+forment aussi une base de $\Rr^2$
+
+
+  \pause
+  \item 
+$e_1 = \left(\begin{smallmatrix}1\\0\\0\end{smallmatrix}\right)~
+  e_2 = \left(\begin{smallmatrix}0\\1\\0\end{smallmatrix}\right)~
+  e_3 = \left(\begin{smallmatrix}0\\0\\1\end{smallmatrix}\right)~$
+   forment la \defi{base canonique} de $\Rr^3$  
+   \pause
+$\qquad\quad v = \left(\begin{smallmatrix}a_1\\ a_2\\ a_3\end{smallmatrix}\right)
+= a_1 \left(\begin{smallmatrix}1\\0\\0\end{smallmatrix}\right) 
++ a_2 \left(\begin{smallmatrix}0\\1\\0\end{smallmatrix}\right)
++ a_3 \left(\begin{smallmatrix}0\\0\\1\end{smallmatrix}\right)$
+\end{enumerate}
+\end{exemple}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\begin{exemple}
+
+$v_1 = \left(\begin{smallmatrix}1\\2\\1\end{smallmatrix}\right)~ 
+  v_2 = \left(\begin{smallmatrix}2\\9\\0\end{smallmatrix}\right)~
+  v_3 = \left(\begin{smallmatrix}3\\3\\4\end{smallmatrix}\right)$
+  forment-ils une base de $\Rr^3$ ?
+
+   
+\pause
+\begin{enumerate}
+  \item $\mathcal{B} = (v_1, v_2, v_3)$ est-elle une famille génératrice de $\Rr^3$ ?
+\pause  
+  \item $\mathcal{B} = (v_1, v_2, v_3)$ est-elle une famille libre de $\Rr^3$ ? 
+\end{enumerate}
+
+\pause
+\begin{enumerate}
+  \item $\mathcal{B} = (v_1, v_2, v_3)$ est-elle une famille génératrice de $\Rr^3$ ?
+
+\pause  
+   $v = \left(\begin{smallmatrix}a_1\\ a_2\\ a_3\end{smallmatrix}\right)\in\Rr^3$\pause,
+   on cherche $\lambda_1, \lambda_2, \lambda_3 \in \Rr$ tels que 
+   
+$ v = \left( \begin{smallmatrix}a_1\\ a_2\\ a_3\end{smallmatrix}\right) = \lambda_1 \left(\begin{smallmatrix}1\\2\\1\end{smallmatrix} \right) + \lambda_2
+      \left(\begin{smallmatrix}2\\9\\0\end{smallmatrix} \right)+ \lambda_3 \left(\begin{smallmatrix}3\\3\\4\end{smallmatrix}\right)
+     \pause
+      = \left(\begin{smallmatrix}\lambda_1 + 2\lambda_2 + 3\lambda_3\\ 2\lambda_1 + 9
+      \lambda_2 + 3\lambda_3\\ \lambda_1 + 4\lambda_3\end{smallmatrix}\right)
+$\pause
+$$ \iff
+   \left\{
+\begin{array}{ccccccc}
+\lambda_1 &+ &2\lambda_2 &+ &3\lambda_3 & = & a_1\\
+2\lambda_1 &+ &9\lambda_2 &+ &3\lambda_3 & = & a_2\\
+\lambda_1 &&& + &4\lambda_3 & = & a_3\\
+\end{array} \right.
+$$ 
+\end{enumerate}
+\end{exemple}
+\end{frame}
+
+
+
+\begin{frame}
+\begin{exemple}
+
+$v_1 = \left(\begin{smallmatrix}1\\2\\1\end{smallmatrix}\right)~ 
+  v_2 = \left(\begin{smallmatrix}2\\9\\0\end{smallmatrix}\right)~
+  v_3 = \left(\begin{smallmatrix}3\\3\\4\end{smallmatrix}\right)$
+  forment-ils une base de $\Rr^3$ ?
+
+\begin{enumerate}
+  \setcounter{enumi}{1}
+  \item $\mathcal{B} = (v_1, v_2, v_3)$ est-elle une famille libre de $\Rr^3$ ? 
+\vspace*{-1ex}\pause  
+      $$ \lambda_1 v_1+ \lambda_2 v_2 + \lambda_3 v_3= 0 \pause \iff 
+\left\{
+\begin{array}{ccccccc}
+\lambda_1 &+ &2\lambda_2 &+ &3\lambda_3 & = & 0\\
+2\lambda_1 &+ &9\lambda_2 &+ &3\lambda_3 & = & 0\\
+\lambda_1 &&& + &4\lambda_3 & = & 0\\
+\end{array} \right.      
+$$
+\vspace*{-2ex}
+\end{enumerate}
+\pause
+\begin{itemize}
+  \item Les deux systèmes ont la même matrice $A = \left(\begin{smallmatrix}
+1 & 2 & 3\\
+2 & 9 & 3\\
+1 &0 & 4\end{smallmatrix}\right)$
+\pause
+  \item $A$ est inversible
+\pause  
+  \item Le premier système admet une solution $(\lambda_1,\lambda_2,\lambda_3)$ 
+  quel que soit $(a_1,a_2,a_3)$
+\pause  
+  \item Le second système admet pour seule solution $(0,0,0)$
+\pause  
+  \item Conclusion : $\mathcal{B}$ est une famille génératrice et libre : c'est une base
+  
+\end{itemize}
+
+\end{exemple}
+\end{frame}
+% \uncover<4,5,6,7,8,9,10,11>{
+% {\color<4,5,6,7,8,9,10,11>{red}
+%    }\\
+% }
+%    
+%    
+%    \only<6,7,8>{\small
+% 
+% }
+%     
+% \uncover<9,10,11>{ 
+% $$
+%    \left\{
+% \begin{array}{ccccccc}
+% \lambda_1 &+ &2\lambda_2 &+ &3\lambda_3 & = & a_1\\
+% 2\lambda_1 &+ &9\lambda_2 &+ &3\lambda_3 & = & a_2\\
+% \lambda_1 &&& + &4\lambda_3 & = & a_3\\
+% \end{array} \right.
+% $$ 
+%  }   
+%  
+% \uncover<4,9,10,11>{{\color<4,9,10,11>{red}
+%  }
+%  }
+%    
+%    \only<10>{
+%      }
+% %     \only<>{
+% %  $$ \lambda_1 v_1+ \lambda_2 v_2 + \lambda_3 v_3= 0 \pause \Leftrightarrow \left(\begin{smallmatrix}\lambda_1 + 2\lambda_2 + 3\lambda_3\\ 2\lambda_1 + 9
+% %      \lambda_2 + 3\lambda_3\\ \lambda_1 + 4\lambda_3\end{smallmatrix}\right) = \left(\begin{smallmatrix} 0\\0\\0\end{smallmatrix}\right)$$
+% %  }
+% 
+% \uncover<11>{
+% $$\left\{
+% \begin{array}{ccccccc}
+% \lambda_1 &+ &2\lambda_2 &+ &3\lambda_3 & = & 0\\
+% 2\lambda_1 &+ &9\lambda_2 &+ &3\lambda_3 & = & 0\\
+% \lambda_1 && &+ &4\lambda_3 & = & 0
+% \end{array}
+% \right.
+% $$
+% }
+% 
+% \end{exemple}
+% \end{frame}
+
+\begin{frame}
+\begin{exemple}
+\begin{enumerate}
+\item
+$
+e_1 = \left(\begin{smallmatrix}1\\0\\\vdots\\0\end{smallmatrix} \right)\, 
+e_2 = \left(\begin{smallmatrix}0\\1\\\vdots\\0\end{smallmatrix}\right) \, \ldots  \,
+e_n = \left(\begin{smallmatrix}0\\\vdots\\0\\1\end{smallmatrix}\right)$
+ \defi{base canonique} de $\Kk^n$
+
+ \medskip
+\pause
+\item $v_1 = \left(\begin{smallmatrix}1\\0\\0\\\vdots\\0\end{smallmatrix}\right) \,
+v_2 = \left(\begin{smallmatrix}1\\2\\0\\\vdots\\0\end{smallmatrix}\right) \, \ldots \, 
+v_n = \left(\begin{smallmatrix}1\\2\\3\\\vdots\\n\end{smallmatrix}\right)$ \quad base de $\Kk^n$
+
+\end{enumerate}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}{\small
+\begin{enumerate}
+\item  $(1,X,X^2, \ldots , X^n)$ \defi{base canonique} de $\Rr_n[X]$ 
+
+\pause
+\medskip
+\item
+  $ (1,1+X,1+X+X^2,\ldots,1+X+X^2+\cdots+X^n)$ autre base de $\Rr_n[X]$
+  
+
+\end{enumerate}}
+\end{exemple}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Existence d'une base}
+
+\begin{frame}
+
+\begin{theoreme}[d'existence d'une base]
+Tout espace vectoriel admettant une famille finie génératrice
+admet une base
+\end{theoreme}
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Théorème de la base incomplète}
+
+\begin{frame}
+\begin{theoreme}[de la base incomplète]
+Soit $E$ un $\Kk$-espace vectoriel admettant une famille génératrice finie
+
+\pause
+\begin{enumerate}
+  \item \emph{Toute famille libre $\mathcal{L}$ peut être complétée en une base.}
+  C'est-à-dire qu'il existe une famille $\mathcal{F}$ telle que 
+  $\mathcal{L} \cup \mathcal{F}$ soit une famille libre et génératrice de $E$
+  
+  \pause
+  \item \emph{De toute famille génératrice $\mathcal{G}$ on peut extraire une base de $E$.}
+  C'est-à-dire qu'il existe une famille $\mathcal{B} \subset \mathcal{G}$ telle que 
+  $\mathcal{B}$ soit une famille libre et génératrice de $E$
+\end{enumerate}
+\end{theoreme}
+
+
+
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Preuves}
+
+\begin{frame}
+\begin{theoreme}
+\label{th:superbaseincomplete}
+Soit $\mathcal{G}$ une famille génératrice finie de $E$ 
+et $\mathcal{L}$ une famille libre de $E$. 
+Alors il existe un sous-ensemble $\mathcal{F}$ de $\mathcal{G}$ telle que
+$\mathcal{L} \cup \mathcal{F}$ soit une base de $E$
+\end{theoreme}
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\begin{exemple}
+
+$
+\begin{array}{ll}
+P_1(X)=1  &\uncover<2->{\qquad E = \text{Vect}\big(P_1, P_2, P_3, P_4, P_5\big)}
+\\ P_2(X)=X &\uncover<3->{\qquad \mathcal{G} = \{P_1, P_2, P_3, P_4, P_5\}}
+\\ P_3(X)=X+1 &\uncover<4->{\qquad \mathcal{L} = \varnothing}
+\\P_4(X)=1+X^3&\\ P_5(X)=X-X^3&
+\end{array}
+$
+\\
+\pause\pause\pause\pause
+\medskip
+{\color<5>{red}Cherchons
+$\mathcal{F} \subset \mathcal{G}$ telle que $\mathcal{F}$ soit une base de $E$}
+
+\pause
+\begin{itemize} 
+  \item \'Etape 0.  $\mathcal{L}$ n'est pas génératrice, 
+  on passe à l'étape suivante
+
+  \pause
+  \item \'Etape 1. $ \mathcal{L} \cup \{ P_1 \} = \{ P_1 \}$ famille libre mais pas génératrice  
+  \pause
+  \item \'Etape 2. 
+ $\{ P_1, P_2 \}$ est une famille libre mais pas génératrice 
+  
+  \pause
+  \item \'Etape 3. \begin{itemize}
+  \item
+  $\{P_1, P_2, P_3 \}$ est une famille liée car $P_3 =  P_1 + P_2$. $P_3$ est exclu
+  
+  \pause
+  \item
+   $\{P_1, P_2, P_4\}$ 
+  est une famille libre \pause
+  et
+  aussi une famille génératrice car   $P_5 = P_1+P_2-P_4$
+  \pause
+  \item l'algorithme s'arr\^ete et $\mathcal{F} = \{P_1, P_2, P_4\}$ est une base de $E$
+  \end{itemize}
+\end{itemize}  
+\end{exemple}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Trouver toutes les façons d'obtenir une base de $\Rr^2$ 
+  avec les vecteurs suivants :
+  $v_1=\left(\begin{smallmatrix}-1\\-3\end{smallmatrix}\right)$, 
+  $v_2=\left(\begin{smallmatrix}3\\3\end{smallmatrix}\right)$, 
+  $v_3=\left(\begin{smallmatrix}0\\0\end{smallmatrix}\right)$, 
+  $v_4=\left(\begin{smallmatrix}2\\0\end{smallmatrix}\right)$, 
+  $v_5=\left(\begin{smallmatrix}2\\6\end{smallmatrix}\right)$.
+          
+  
+  \item Montrer que la famille $\{ v_1, v_2, v_3, v_4\}$ des vecteurs
+  $v_1=\left(\begin{smallmatrix}2\\1\\-3\end{smallmatrix}\right)$,
+  $v_2=\left(\begin{smallmatrix}2\\3\\-1\end{smallmatrix}\right)$,
+  $v_3=\left(\begin{smallmatrix}-1\\2\\4\end{smallmatrix}\right)$,
+  $v_4=\left(\begin{smallmatrix}1\\1\\-1\end{smallmatrix}\right)$ 
+  est une famille génératrice du sous-espace vectoriel d'équation $2x-y+z=0$ de $\Rr^3$.
+  En extraire une base.
+
+  \item Déterminer une base du sous-espace vectoriel $E_1$ de $\Rr^3$ d'équation
+  $x+3y-2z=0$. Compléter cette base en une base de $\Rr^3$. 
+  Idem avec $E_2$ vérifiant les deux équations $x+3y-2z=0$ et $y=z$.
+  
+  \item Donner une base de l'espace vectoriel des matrices $3\times 3$ ayant une diagonale
+  nulle. Idem avec l'espace vectoriel des polynômes $P \in \Rr_n[X]$ vérifiant 
+  $P(0)=0$, $P'(0)=0$. 
+  
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

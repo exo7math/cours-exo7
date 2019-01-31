@@ -1,0 +1,714 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={191,146,10}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Matrices}}
+\subtitle{Inverse d'une matrice : systèmes linéaires et matrices élémentaires}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Matrices et systèmes linéaires
+    \item<4-> Matrices inversibles et systèmes linéaires
+    \item<5-> Les matrices élémentaires
+    \item<6-> \'Equivalence à une matrice échelonnée
+    \item<7-> Matrices élémentaires et inverse d'une matrice   
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Matrices et systèmes linéaires}
+
+\begin{frame}
+Le système linéaire à $n$ lignes et $p$ inconnues
+\[ \left\{ 
+\begin{array}{ccccccccc}
+a_{11} \  x_1 &+& a_{12}\  x_2 &+& \cdots &+& a_{1p}\  x_p & = & b_1\\
+a_{21}\  x_1 &+& a_{22}\  x_2 &+& \cdots &+& a_{2p}\  x_p & = & b_2\\
+&&\dots  && &&\\
+a_{n1}\  x_1 &+& a_{n2}\  x_2 &+& \cdots &+& a_{np}\  x_p & = & b_n
+\end{array} \right.
+\]
+\pause
+s'écrit aussi
+\begin{equation*}\begin{array}{cccc}
+\underbrace{
+\left(
+\begin{array}{ccc}
+a_{11} & \dots & a_{1p}\\
+a_{21} & \dots & a_{2p}\\
+\vdots &&\vdots\\
+a_{n1} &\dots & a_{np}
+\end{array}
+\right)
+}
+&
+\underbrace{
+\left(
+\begin{array}{c}
+x_1\\
+x_2\\
+\vdots\\
+x_p
+\end{array}
+\right)
+}
+& = &
+\underbrace{
+\left(
+\begin{array}{c}
+b_1\\
+b_2\\
+\vdots\\
+b_n
+\end{array}
+\right)
+}
+\\
+A & X & &B
+\end{array}\end{equation*}
+
+\pause
+
+\begin{theoreme}
+Un système d'équations linéaires n'a soit aucune solution, 
+soit une seule solution, soit une infinité de solutions
+\end{theoreme}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Matrices inversibles et systèmes linéaires}
+
+
+\begin{frame}
+
+Cas où le nombre d'équations égale le nombre d'inconnues:
+
+\begin{equation*}\begin{array}{cccc}
+\underbrace{
+\left(
+\begin{array}{ccc}
+a_{11} & \dots & a_{1n}\\
+a_{21} & \dots & a_{2n}\\
+\vdots &&\vdots\\
+a_{n1} &\dots & a_{nn}
+\end{array}
+\right)
+}
+&
+\underbrace{
+\left(
+\begin{array}{c}
+x_1\\
+x_2\\
+\vdots\\
+x_n
+\end{array}
+\right)
+}
+& = &
+\underbrace{
+\left(
+\begin{array}{c}
+b_1\\
+b_2\\
+\vdots\\
+b_n
+\end{array}
+\right)
+} 
+\\
+A & X & & B
+\end{array}\end{equation*}
+
+\pause
+
+\begin{proposition}
+Si la matrice $A$ est inversible, alors
+la solution du système $AX=B$ est unique et est :
+\mybox{$X = A^{-1}B$}
+\end{proposition}
+
+\pause
+
+%Preuve : 
+$AX= B \iff A^{-1}AX = A^{-1}B \iff \Id X = A^{-1}B\iff X = A^{-1}B$
+
+%\iff \big(A^{-1}A\big)X = A^{-1}B  
+%$X = A^{-1}B \iff AX = A\big(A^{-1}B\big) = \big(AA^{-1}\big)B = I \cdot B=B$
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Les matrices élémentaires}
+
+\begin{frame}
+
+Pour calculer l'inverse d'une matrice $A$, nous avons utilisé trois opérations
+ élémentaires sur les lignes
+\pause
+\begin{enumerate}
+  \item $L_i \leftarrow \lambda L_i$ avec $\lambda \neq 0$
+   
+  \item $L_i \leftarrow L_i+\lambda L_j$ avec $\lambda \in \Kk$ (et $j\neq i$)
+
+  \item $L_i \leftrightarrow L_j$
+\end{enumerate}
+
+\bigskip
+\pause
+
+\begin{itemize}
+  \item Trois matrices élémentaires 
+$E_{L_i \leftarrow \lambda L_i}$, $E_{L_i \leftarrow L_i+\lambda L_j}$, 
+$E_{L_i \leftrightarrow L_j}$ 
+
+\pause
+
+  \item Le produit $E\times A$ correspondra à l'opération élémentaire sur $A$
+  
+\pause  
+
+  \item Les opérations élémentaires sur les lignes sont réversibles,
+ce qui entraîne que les matrices élémentaires sont inversibles 
+%   
+%   \item Le résultat de la multiplication d'un matrice élémentaire $E$ par $A$ 
+% est la matrice obtenue en effectuant l'opération élémentaire correspondante sur $A$. 
+%   
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{itemize}\setlength{\itemsep}{8pt}
+  \item $L_i \leftarrow \lambda L_i$ avec $\lambda \neq 0$ : 
+  \evidence{multiplier une ligne par un réel non nul}
+\pause
+  \item La matrice $E_{L_i \leftarrow \lambda L_i}$ est la matrice obtenue en 
+    multipliant par $\lambda$ la $i$-ème ligne de la matrice identité $\Id$     
+\pause
+  \item  $ E_{L_2 \leftarrow 5 L_2}=
+    \begin{pmatrix}
+    1 & 0 & 0 & 0\\
+    0 & \mathinsist{5} & 0 & 0\\
+    0 & 0 & 1 & 0\\
+    0 & 0 & 0 & 1\end{pmatrix}$
+\pause    
+  \item La matrice $E_{L_i \leftarrow \lambda L_i} \times A$ est la matrice obtenue en 
+    multipliant par $\lambda$ la $i$-ème ligne de $A$
+\pause  
+  \item $E_{L_2 \leftarrow \frac13 L_2}  \times A
+  \pause
+= \begin{pmatrix}
+  1&0&0\\0&\frac13&0\\0&0&1  
+  \end{pmatrix}
+  \times
+  \begin{pmatrix}
+  x_1&x_2&x_3\\y_1&y_2&y_3\\z_1&z_2&z_3  
+  \end{pmatrix}
+  \pause
+  =   \begin{pmatrix}
+  x_1&x_2&x_3\\ \frac13y_1&\frac13y_2&\frac13y_3\\z_1&z_2&z_3  
+  \end{pmatrix}
+$
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+\begin{itemize}\setlength{\itemsep}{8pt}
+  \item $L_i \leftarrow L_i+\lambda L_j$ avec $\lambda \in \Kk$ (et $j\neq i$) :
+  \evidence{ajouter à la ligne $L_i$ un multiple d'une autre ligne $L_j$}
+\pause  
+  \item  La matrice $E_{L_i \leftarrow L_i+\lambda L_j}$ est la  matrice
+obtenue en ajoutant $\lambda$ fois la $j$-ème ligne de $\Id$ à la $i$-ème ligne de $\Id$
+\pause
+
+  \item $  E_{L_2 \leftarrow L_2 -3 L_1}=
+    \begin{pmatrix}
+    1 & 0 & 0 & 0\\
+    \mathinsist{-3} & 1 & 0 & 0\\
+    0 & 0 & 1 & 0\\
+    0 & 0 & 0 & 1
+    \end{pmatrix}$
+    
+\pause    
+  \item La matrice $E_{L_i \leftarrow L_i+\lambda L_j} \times A$ est la  matrice obtenue 
+  en ajoutant $\lambda$ fois la $j$-ème ligne de $A$ à la $i$-ème ligne de $A$
+\pause  
+  
+  \item {\small $E_{L_1 \leftarrow L_1-7 L_3}  \times A
+  \pause
+\arraycolsep=1.6pt
+= \begin{pmatrix}
+  1&0&-7\\0&1&0\\0&0&1  
+  \end{pmatrix}
+  \!\!\times\!\!
+  \begin{pmatrix}
+  x_1&x_2&x_3\\y_1&y_2&y_3\\z_1&z_2&z_3  
+  \end{pmatrix}
+\pause
+    =   \begin{pmatrix}
+  x_1\!-\!7z_1&x_2\!-\!7z_2&x_3\!-\!7z_3\\ y_1&y_2&y_3\\z_1&z_2&z_3  
+  \end{pmatrix}
+$
+%  
+%  \pause
+%  \hfill\hfill$ \arraycolsep=1.4pt
+%  =   \begin{pmatrix}
+%  x_1\!-\!7z_1&x_2\!-\!7z_2&x_3\!-\!7z_3\\ y_1&y_2&y_3\\z_1&z_2&z_3  
+%  \end{pmatrix}
+%$
+}
+\end{itemize}
+
+ 
+\end{frame}
+
+
+\begin{frame}
+\begin{itemize}\setlength{\itemsep}{8pt}
+  \item $L_i \leftrightarrow L_j$ : \evidence{échanger deux lignes}
+\pause 
+  \item La matrice  $E_{L_i \leftrightarrow L_j}$ est la matrice obtenue 
+   en permutant les $i$-ème et $j$-ème lignes de $\Id$
+\pause
+  \item $ E_{L_2 \leftrightarrow L_4} = E_{L_4 \leftrightarrow L_2} = 
+   \begin{pmatrix}
+    1 & 0 & 0 & 0\\
+    0 & 0 & 0 & \mathinsist{1}\\
+    0 & 0 & 1 & 0\\
+    0 & \mathinsist{1} & 0 & 0
+    \end{pmatrix}$  
+\pause
+  \item La matrice  $E_{L_i \leftrightarrow L_j} \times A$ est la matrice obtenue 
+   en permutant les $i$-ème et $j$-ème lignes de $A$
+\pause   
+   
+  \item $E_{L_2 \leftrightarrow L_3}  \times A
+  \pause
+= \begin{pmatrix}
+  1&0&0\\0&0&1\\0&1&0  
+  \end{pmatrix}
+  \times
+  \begin{pmatrix}
+  x_1&x_2&x_3\\y_1&y_2&y_3\\z_1&z_2&z_3  
+  \end{pmatrix}
+  \pause
+  =   \begin{pmatrix}
+  x_1&x_2&x_3\\z_1&z_2&z_3\\ y_1&y_2&y_3  
+  \end{pmatrix}
+$ 
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\'Equivalence à une matrice échelonnée}
+
+\begin{frame}
+\vspace*{-1ex}
+\begin{mydefinition} 
+Deux matrices $A$ et $B$ sont dites \defi{équivalentes par lignes} si l'une 
+peut être obtenue à partir de l'autre par une suite d'opérations 
+élémentaires sur les lignes. On note $A \sim B$
+\end{mydefinition} 
+\pause\vspace*{-1ex}
+\begin{mydefinition}
+Une matrice est \defi{échelonnée} si :
+\begin{itemize}
+  \item le nombre de zéros commençant une ligne croît strictement ligne par ligne 
+  (et s'arrête s'il n'y a plus que des zéros)
+\end{itemize}  
+\uncover<4->{
+Elle est \defi{échelonnée réduite} si en plus : 
+\begin{itemize}
+\setcounter{enumi}{1} 
+  \item le premier coefficient non nul d'une ligne vaut $1$
+
+  \item et c'est le seul élément non nul de sa colonne
+\end{itemize}
+}
+\end{mydefinition}
+\vspace*{-2ex}
+{\footnotesize
+$$\uncover<3->{
+\begin{pmatrix}
++ & * & * & * & * & * & * \\
+0 & 0 & + & * & * & * & * \\
+0 & 0 & 0 & + & * & * & * \\
+0 & 0 & 0 & 0 & 0 & 0 & + \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\end{pmatrix}
+}
+\qquad \qquad
+\uncover<5->{
+\begin{pmatrix}
+1 & * & 0 & 0 & * & * & 0 \\
+0 & 0 & 1 & 0 & * & * & 0 \\
+0 & 0 & 0 & 1 & * & * & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\end{pmatrix}
+}
+$$
+}
+\end{frame}
+
+
+\begin{frame}
+\begin{theoreme}\label{Gauss} 
+\'Etant donnée une matrice $A\in M_{n,p}(\Kk)$, il existe une unique  
+matrice échelonnée réduite $U$ obtenue à partir de $A$ 
+par des opérations élémentaires sur les lignes 
+\end{theoreme}
+
+
+% L'existence se démontre grâce à 
+% l'algorithme de Gauss. L'idée générale consiste à utiliser des substitutions de
+% lignes pour placer des zéros là où il faut de façon à 
+% créer d'abord une forme échelonnée, puis une forme
+% échelonnée réduite. 
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Matrices élémentaires et inverse d'une matrice}
+
+
+\begin{frame}
+
+Soit $A\in M_{n}(\Kk)$
+\begin{theoreme} 
+\label{th:invequi}
+La matrice $A$ est inversible si et seulement si sa forme échelonnée réduite 
+est la matrice identité $\Id$
+\end{theoreme}
+
+\pause
+
+\begin{corollaire}
+Les assertions suivantes sont équivalentes :
+\begin{itemize}
+  \item[(i)] La matrice $A$ est inversible
+  
+  \item[(ii)] Le système linéaire $AX=\left(\begin{smallmatrix} 0 \\ \vdots \\ 0\end{smallmatrix}\right)$ a une unique solution 
+  $X=\left(\begin{smallmatrix} 0 \\ \vdots \\ 0\end{smallmatrix}\right)$
+             
+  \item[(iii)] Pour tout second membre $B$, le système linéaire $AX=B$
+  a une unique solution $X$
+\end{itemize}
+\end{corollaire}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\'Equivalence à une matrice échelonnée}
+
+\begin{frame}
+\begin{theoreme}
+\'Etant donnée une matrice $A \in M_{n,p}(\Kk)$, il existe une unique  
+matrice échelonnée réduite $U$ obtenue à partir de $A$ 
+par des opérations élémentaires sur les lignes 
+\end{theoreme}
+\end{frame}
+
+
+
+\begin{frame}
+
+\textbf{Partie A. Passage à une forme échelonnée}
+
+\pause
+\textbf{\'Etape A.1.}  \evidence{Choix du pivot}
+
+\pause
+\begin{itemize}
+  \item Soit la première colonne ne contient que des zéros $\mapsto$ A.3
+  \pause
+  \item Un terme $a_{i1} \neq 0$ est un \defi{pivot}
+%   
+%   \item Si c'est le terme $a_{11}$, on passe directement à l'étape A.2
+  \pause
+  \item On échange les lignes $1$ 
+et $i$ ($L_1 \leftrightarrow L_i$) $\mapsto$ A.2
+\end{itemize}
+
+\pause
+\vspace*{-2ex}
+{\small$$
+\arraycolsep=1.4mm
+%\hspace*{-2em}  
+A\sim \begin{pmatrix}
+\mathinsist{a'_{11}}&a'_{12}&\cdots&a'_{1j}&\cdots&a'_{1p}\\
+a'_{21}&a'_{22}&\cdots&a'_{2j}&\cdots&a'_{2p}\\
+\vdots&\vdots&&\vdots&&\vdots\\
+a'_{i1}&a'_{i2}&\cdots&a'_{ij}&\cdots&a'_{ip}\\
+\vdots&\vdots&&\vdots&&\vdots\\
+a'_{n1}&a'_{n2}&\cdots&a'_{nj}&\cdots&a'_{np}\\
+\end{pmatrix}
+\quad
+\uncover<11->{
+A\sim\begin{pmatrix}
+\mathinsist{a'_{11}}&a'_{12}&\cdots&a'_{1j}&\cdots&a'_{1p}\\
+0&a''_{22}&\cdots&a''_{2j}&\cdots&a''_{2p}\\
+\vdots&\vdots&&\vdots&&\vdots\\
+0&a''_{i2}&\cdots&a''_{ij}&\cdots&a''_{ip}\\
+\vdots&\vdots&&\vdots&&\vdots\\
+0&a''_{n2}&\cdots&a''_{nj}&\cdots&a''_{np}\\
+\end{pmatrix}}
+$$}
+
+\pause
+\textbf{\'Etape A.2.}  \evidence{\'Elimination}
+
+\pause
+\begin{itemize}
+  \item On ne touche plus à la ligne $1$
+  \pause
+  \item On élimine tous les termes $a'_{i1}$ ($i\ge 2$) sous le pivot
+  \pause
+  \item $L_2 \leftarrow L_2 - \frac{a'_{21}}{a'_{11}}L_1$ \, ,\quad 
+$L_3 \leftarrow L_3 - \frac{a'_{31}}{a'_{11}}L_1$ \ \ \ldots 
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\textbf{\'Etape A.3.}  \evidence{Boucle}
+
+\pause
+{\small
+$$
+%\hspace*{-2em}
+\arraycolsep=1.4mm
+A \sim \begin{pmatrix}
+\mathinsist{a^1_{11}}&a^1_{12}&\cdots&a^1_{1j}&\cdots&a^1_{1p}\\
+0&a^1_{22}&\cdots&a^1_{2j}&\cdots&a^1_{2p}\\
+\vdots&\vdots&&\vdots&&\vdots\\
+0&a^1_{i2}&\cdots&a^1_{ij}&\cdots&a^1_{ip}\\
+\vdots&\vdots&&\vdots&&\vdots\\
+0&a^1_{n2}&\cdots&a^1_{nj}&\cdots&a^1_{np}\\
+\end{pmatrix}
+\quad 
+\uncover<6->{
+A \sim 
+\begin{pmatrix}
+a^1_{11}&a^1_{12}&\cdots&a^1_{1j}&\cdots&a^1_{1p}\\
+0&\mathinsist{a^2_{22}}&\cdots&a^2_{2j}&\cdots&a^2_{2p}\\
+\vdots&\vdots&&\vdots&&\vdots\\
+0&0&\cdots&a^2_{ij}&\cdots&a^2_{ip}\\
+\vdots&\vdots&&\vdots&&\vdots\\
+0&0&\cdots&a^2_{nj}&\cdots&a^2_{np}\\
+\end{pmatrix}}
+$$}
+
+\pause
+\begin{itemize}
+  \item La première colonne est celle d'une matrice échelonnée
+  \pause
+  \item Si $a^1_{11}\neq0$ on conserve aussi la première ligne, $\mapsto$ A.1
+  appliquée à la sous-matrice $(n-1)\times(p-1)$
+  \pause
+  \item Si $a^1_{11}=0$, $\mapsto$ A.1 à la sous-matrice 
+$n\times(p-1)$
+  \pause\pause
+  \item Chaque itération de la boucle s'applique à une matrice qui a 
+une colonne de moins que la précédente
+  \pause 
+  \item Au bout d'au 
+plus $p-1$ itérations de la boucle, on aura obtenu une 
+matrice échelonnée
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\textbf{Partie B. Passage à une forme échelonnée réduite}  
+
+\pause
+\medskip
+
+\textbf{\'Etape B.1.}  \evidence{Homothéties}
+
+\pause
+\begin{itemize}
+  \item On repère le premier élément non nul de chaque ligne non nulle
+  \pause
+  \item On multiplie cette ligne par l'inverse de cet élément
+  \pause
+  \item Exemple : si le premier élément non nul de la ligne $i$ est $\alpha\neq0$, alors
+on effectue $L_i \leftarrow \frac1\alpha L_i$
+  \pause
+  \item Ceci crée une matrice échelonnée avec des $1$ en position de pivot
+  
+\end{itemize}
+
+\pause
+\medskip
+\textbf{\'Etape B.2.}  \evidence{\'Elimination}
+
+\pause
+\begin{itemize}
+  \item On élimine les termes situés au-dessus des positions de pivot 
+en procédant à partir du bas à droite de la matrice
+  \pause
+  \item Ceci crée une matrice échelonnée et réduite
+\end{itemize}
+
+\end{frame}
+
+%--------------------------------------------------------------
+
+\begin{frame}
+\evidence{Exemple}
+\vspace*{-3ex}
+$$A=\begin{pmatrix}
+\mathinsist<3->{1}&2&3&4\\
+0&2&4&6\\
+-1&0&1&0
+\end{pmatrix}$$
+
+\pause
+\textbf{A. Passage à une forme échelonnée}
+
+\pause
+
+\begin{itemize}[<+->]
+  \item \'Etape A.1. Choix du pivot $a_{11}^1=1$
+  
+  \item \'Etape A.2. $L_3 \leftarrow L_3 + L_1$
+  \hfil
+$A\sim\begin{pmatrix}1&2&3&4\\
+0& \mathinsist<5->{2} &4&6\\
+0&2&4&4
+\end{pmatrix}$
+
+  \item \'Etape A.1. Choix du pivot $a^2_{22}=2$
+  
+  \item \'Etape A.2. $L_3 \leftarrow L_3 - L_2$
+\hfil   $A\sim\begin{pmatrix}1&2&3&4\\
+0&2&4&6\\
+0&0&0&-2
+\end{pmatrix}$
+
+  \item Cette matrice est échelonnée
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\evidence{Exemple}
+\vspace*{-3ex}
+$$A\sim\begin{pmatrix}1&2&3&4\\
+0&2&4&6\\
+0&0&0&-2
+\end{pmatrix}$$
+
+\pause
+
+\textbf{B. Passage à une forme échelonnée réduite}
+
+\pause
+
+\begin{itemize}[<+->]
+  \item \'Etape B.1. $L_2 \leftarrow \frac12 L_2$ et $L_3 \leftarrow -\frac12 L_3$ 
+    \hfil
+$A\sim\begin{pmatrix}1&2&3&4\\
+0&1&2&3\\
+0&0&0&1
+\end{pmatrix}$  
+  
+  \item \'Etape B.2. $L_2 \leftarrow L_2-3L_3$ et $L_1 \leftarrow L_1 - 4L_3$
+  \hfill\hfill
+$A\sim\begin{pmatrix}1&2&3&0\\
+0&1&2&0\\
+0&0&0&1
+\end{pmatrix}$ 
+
+  \item \'Etape B.2. $L_1 \leftarrow L_1-2L_2$
+  \hfil
+  $A\sim\begin{pmatrix}1&0&-1&0\\
+0&1&2&0\\
+0&0&0&1
+\end{pmatrix}$
+
+  \item Cette matrice est échelonnée et réduite
+\end{itemize}
+\end{frame}
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Exprimer les systèmes linéaires suivants sous forme matricielle 
+  et les résoudre en inversant la matrice :
+  $\left\{\begin{array}{l}2x+4y=7\\-2x+3y=-14\end{array} \right.$,\quad 
+  $\left\{\begin{array}{l}x+z=1\\-2y+3z=1\\x+z=1\end{array} \right.$,\quad 
+  $\left\{\begin{array}{l}x+t=\alpha\\x-2y=\beta\\x+y+t=2\\y+t=4\end{array} \right.$.
+  
+  
+  \item \'Ecrire les matrices $4\times 4$ correspondant aux opérations élémentaires :
+  $L_2 \leftarrow \frac13 L_2$, $L_3 \leftarrow L_3-\frac14 L_2$, $L_1 \leftrightarrow L_4$.
+  Sans calculs, écrire leurs inverses. \'Ecrire la matrice $4\times 4$ 
+  de l'opération $L_1 \leftarrow L_1-2L_3+3L_4$.
+  
+  \item \'Ecrire les matrices suivantes sous forme échelonnée, puis échelonnée réduite :
+  $\left(\begin{smallmatrix}1&2&3\\1&4&0\\-2&-2&-3\end{smallmatrix}\right)$, 
+  $\left(\begin{smallmatrix}1&0&2\\1&-1&1\\2&-2&3\end{smallmatrix}\right)$, 
+  $\left(\begin{smallmatrix}2&0&-2&0\\0&-1&1&0\\1&-2&1&4\\-1&2&-1&-2\end{smallmatrix}\right)$.
+
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

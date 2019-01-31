@@ -1,0 +1,417 @@
+
+\input{../preamb-texte.tex}
+\newcommand{\vect}{\overrightarrow}
+\newcommand{\Sage}{\texttt{Sage}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons maintenant utiliser le calcul formel non seulement pour visualiser
+des courbes et des surfaces mais aussi pour les étudier.
+
+\change
+
+
+\change
+Nous allons commencer par nous intéresser à une courbe paramétrée particulière
+
+\change
+puis nous aborderons l'étude de la projection stéréographique.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous nous donnons une courbe paramétrée définie par 
+$  x(t) =  t^3-2t$
+et $y(t) =  t^2-t$
+
+Nous commencerons bien sûr par tracer la courbe
+
+~
+
+avant de calculer les points d'intersection de la courbe avec l'axe des ordonnées.
+
+~
+
+Puis nous calculerons les points en lesquels la tangente est verticale, puis horizontale.
+
+~
+  
+Enfin nous chercherons les éventuels points doubles.
+%cette courbe se recoupe elle-même en un point que vous déterminerez.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici la courbe qui a l'allure d'une boucle. 
+
+~
+
+Ce graphique nous permet déjà de proposer, avant de les démontrer, des réponses aux questions posées. 
+
+~
+
+
+La courbe recoupe l'axe des ordonnées en trois points.
+
+~
+
+
+Il y a deux points où la tangente est verticale et un point où la tangente est horizontale.
+
+~
+
+Enfin, voici le point double.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons maintenant à l'étude de cette courbe paramétrée définie par $x = t^3-2*t$ et $y = t^2-t$.
+
+
+\change
+L'équation $x(t)=0$ caractérise les valeurs du paramètre $t$ des points d'intersection de la courbe
+avec l'axe des ordonnées.
+
+\change
+On résout cette équation par 
+\codeinline{solve(x==0,t)}.
+
+\change
+On obtient trois solutions $t \in \{-\sqrt2,0,+\sqrt2\}$.
+
+\change
+On reporte ces valurs dans les coordonnées $x$ et $y$ et on trouve les trois points
+$\{(0,2+\sqrt2)),(0,0),(0,2-\sqrt2)\}$.
+
+\change
+Pour les tangentes, on définit les fonctions dérivées $x'(t)$ et $y'(t)$.
+
+\change
+Les valeurs du paramètre $t$ des points en lesquels la tangente à la courbe est verticale 
+
+\change
+s'obtiennent en résolvant l'équation $x'(t)=0$, 
+
+
+%\change
+On trouve ici deux valeurs de $t$ (qui ne sont pas détaillées ici), ce qui correspond à deux points de la courbe.
+
+\change
+
+On fait de même pour le cas des tangentes horizontales.
+
+~
+
+Au passage, on s'assurera bien qu'il n'y a pas de points singuliers (c'est-à-dire que $x'$ et $y'$ ne s'annulent pas en même temps).
+  
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Trouver les points doubles est souvent un calcul délicat.
+
+
+Il s'agit en effet ici de résoudre le système d'équations -- ici polynomiales :
+   $$\left\{
+  \begin{array}{l}
+  x(s) =  x(t)\\[1mm]
+  y(s) =  y(t)
+  \end{array}
+  \right.\qquad  s,t \in \Rr.$$ 
+  
+  
+\change
+
+Il faut tout d'abord exclure la solution évidente $t=s$. 
+
+\change
+
+Algébriquement, cela signifie
+  que $(s-t)$ divise les polynômes en deux variables $x(s)-x(t)$ et
+  $y(s)-y(t)$. 
+
+\change
+
+Autrement dit, il s'agit maintenant de résoudre :
+   $$\left\{
+  \begin{array}{l}
+  \dfrac{x(s)-x(t)}{s-t} = 0  \\[1mm]
+  \dfrac{y(s)-y(t)}{s-t} = 0
+  \end{array}
+  \right.\qquad  s,t \in \Rr.$$   
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+  Le code suivant calcule les éventuels points doubles :
+  
+  Voici la définition de la courbe paramétrée $x$ et $y$ en fonction de $t$.
+
+\change
+
+  
+  Voici l'équation $x(s)-x(t)$,
+
+\change
+  
+  que l'on divise par $s-t$ (et au passage on simplifie).
+
+\change
+  
+  On fait de même pour $y(s)-y(t)$
+  
+\change
+
+  Et on cherche les solutions $(s,t)$ qui vérifient simultanément les deux équations  !
+ 
+\change   
+  On trouve une unique solution pour les paramètres 
+  $(s,t) = \big(\frac{1-\sqrt5}{2}, \frac{1+\sqrt5}{2}\big)$, 
+  
+
+~
+
+Il existe donc un unique point double dont on calcule les coordonnées : $(1,1)$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+%Voici un tp un peu long mais intéressant.
+Voici un tp avec un contenu assez riche, qui, je pense, va vous intéresser.
+
+~
+
+
+On considère la sphère $\mathcal{S}$ centrée à l'origine et de rayon $1$.
+
+~
+
+
+Le pôle Nord est le point $N$ de coordonnées $(0,0,1)$. 
+
+~
+
+On appelle $\mathcal{P}$ le plan équatorial d'équation $(z=0)$.
+
+
+~
+
+Pour un point $S$ de la sphère, on trace la droite passant par le pôle Nord
+et ce point $S$. 
+
+On appelle alors $P$ le point d'intersection de cette droite avec le plan équatorial.
+
+~
+
+La \defi{projection stéréographique}
+est l'application qui à un point $S$ associe le point $P$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le premier travail consiste à donner une définition algébrique de la projection stéréographique.
+
+~
+
+Il s'agit de montrer que la formule est donnée par : 
+  $$  \Phi(x,y,z) = \left( \frac{x}{1-z}, \frac{y}{1-z} \right)$$
+
+
+Pour cela nous écrirons une relation de colinéarité entre les vecteurs
+$NP$ et $NS$ et nous calculerons à la main ou avec Sage le coefficient $k$ de colinéarité.
+
+La projection stéréographique est bijective, pour le prouver,
+
+
+l'inverse $\Psi$ étant proposée par l'énoncé, il nous suffira de vérifier que $\Phi \circ \Psi$ est l'identité.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Imaginons maintenant qu'une courbe $\mathcal{C}'$ soit tracée dans le plan de projection.
+
+~
+
+Quel est le tracé de son image inverse $\mathcal{C}$ qui est une courbe de la sphère ?
+
+ 
+~
+
+La projection stéréographique est une transformation surprenante :
+
+Nous vérifierons graphiquement que
+\begin{itemize}
+\item  \og La projection stéréographique envoie les cercles de la sphère sur des cercles ou des droites du plan.\fg
+ 
+ 
+\item et que \og La projection stéréographique préserve les angles.\fg\ 
+
+
+En particulier, deux courbes qui se coupent  à angle droit, s'envoient sur deux courbes qui se coupent à angle droit.
+ 
+\end{itemize} 
+
+
+Nous étudierons le cas particulier intéressant où la courbe projetée est la spirale logarithmique.
+
+~
+
+La courbe inverse (sur la sphère) porte le nom de loxodromie.
+
+~
+
+Enfin, un autre cas particulier que nous ne corrigerons pas ici.
+%[On ne corrigera pas ici la dernière question.]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le vecteur $\vect{NP}$ est colinéaire au vecteur $\vect{NS}$, donc il existe
+$k\in \Rr$ tel que  $\vect{NP} = k \vect{NS}$.
+
+
+\change
+Mais nous voulons de plus que le point $P$ appartienne au plan $\mathcal{P}$ de l'équateur, qui a pour équation $z_P = 0$.
+
+
+\change
+Ce qui nous permettra de trouver $k = \frac{1}{1-z}$,
+
+\change
+et donc si $S=(x,y,z)$, alors le point $P$ défini par $N + k\vect{NS}$ aura pour coordonnées 
+$$\left( \frac{x}{1-z}, \frac{y}{1-z}, 0 \right).$$
+   
+\change
+
+On laisse Sage\ faire les calculs :
+
+On déclare toutes les variables en jeu, y compris le coefficient $k$ à déterminer.
+
+On définit le pôle Nord $N$ ou plus exactement la variable $N$ comme le vecteur $\vect{ON}$,
+
+Un point $S$ de la sphère,
+
+Et le projeté $P$ sur le plan de l'équateur.
+
+On définit enfin le vecteur $V$ qui correspond en fait à la relation de colinéarité souhaitée.
+
+~
+
+Ce vecteur $V$ étant censé être nul, examinons sa troisième coordonnée appelée ici $eq$ et demandons à \Sage\ de résoudre l'équation en $k$.
+
+La machine nous fournit une seule solution que l'on extrait et qui est bien celle annoncée plus haut : $1/(1-z)$.
+
+On en déduit alors l'expression du point $P$ en fonction de [petits] $x,y,z$.   
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+[[grand X,Y, petit x,y,z]]
+
+Aucun problème pour implémenter la projection stéréographique : 
+
+on note petit $x$, petit $y$, petit $z$ les coordonnées du point $S$ de la sphère,
+
+on calcule $X = \frac{x}{1-z}$, $Y = \frac{y}{1-z}$
+
+et on renvoie les coordonnées $(X,Y)$ de ce point. La troisième coordonnée n'est pas nécessaire puisque $P$ se situe dans le plan de l'équateur.
+
+%(on est dans le plan équatorial, on ne considère pas la troisième coordonnée qui est toujours nulle).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+[[grand X,Y, petit x,y,z]]
+
+
+L'énoncé propose une expression de l'inverse $\Psi$ :
+
+On définit donc $r=1+X^2+Y^2$, puis $\displaystyle x=\frac{2X}{r}$, $\displaystyle y=\frac{2Y}{r}$ et $\displaystyle z=1-\frac{2}{r}$.
+
+
+\change
+Nous allons vérifier formellement que $\Psi$ est la bijection réciproque de la projection stéréographique, c'est-à-dire que 
+$\Phi\big( \Psi(X,Y) \big) = (X,Y)$ pour tout $(X,Y) \in \Rr^2$.
+  
+  
+\change
+Pour cela, considérons des variables $X,Y$ et calculons l'image de $X,Y$ par $\Psi$.
+  
+Puis calculons l'image de cette image par la projection stéréographique,
+
+\change  
+Comme nous obtenons les variables $X$, $Y$ de départ, cela prouve 
+que $\Psi$ est bien la bijection réciproque de $\Phi$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+[grand X/petit x]
+
+ Voici le code qui permet de tracer la courbes inverse d'une courbe donnée.
+ 
+~
+ 
+La courbe du plan paramétrée par $(X(t),Y(t))$ est considérée ici comme une ligne polygonale avec un pas assez petit.
+
+
+~
+
+C'est-à-dire que l'on calcule le point de paramètre $t=a$,
+puis pour le point de paramètre $t+\epsilon$, puis $t+2\epsilon$, jusqu'à $t=b$. Ici le pas $\epsilon$ vaut $0,1$. 
+  
+  
+~
+
+ On calcule, point par point, l'image inverse par la projection stéréographique des points précédents.
+ 
+  
+ On trace enfin la sphère et les lignes polygonales du plan et de la sphère.
+
+\change
+ Par exemple \codeinline{G = courbes(t\^{}3,t\^{}2,-2,2)}, trace la courbe
+ du plan d'équation paramétrique $\big(t^3,t^2\big)$, $t\in[-2,2]$, ainsi
+ que son image par la projection stéréographique inverse.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici deux cercles, en rouge, tracés sur la sphère, et leurs images par projection stéréographique : 
+un cercle et une droite.
+ 
+En fait un cercle de la sphère s'envoie toujours sur un cercle du plan,
+sauf pour les cercles passant par le pôle Nord qui eux s'envoient sur une droite.
+ 
+ 
+Remarquez que les cercles rouge s'intersectent ici à angles droits,
+et que c'est aussi le cas pour le cercle et la droite en vert.
+C'est une propriété générale : la projection stéréographique préserve les angles.
+
+
+\change
+On termine par une loxodromie de la sphère ici en rouge, 
+qui est l'image inverse de la spirale logarithmique du plan ici en vert.
+
+La loxodromie est bien connue des navigateurs, car elle
+correspond à une navigation à cap constant.
+
+
+\end{document}

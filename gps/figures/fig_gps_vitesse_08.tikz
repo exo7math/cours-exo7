@@ -1,0 +1,39 @@
+\begin{tikzpicture}[scale=1]
+
+% Centre
+\coordinate (P)  at (-10,0);
+\fill[blue] (P) circle (3pt)node[below left]{$P$};
+
+% Centre
+\coordinate (S)  at (0,0);
+\fill[red] (S) circle (3pt) node[below left]{$S$};
+
+
+
+\draw[->,>=latex,ultra thick] (0,0.5)--+(0.7,0) node[midway, above] {$v_S$};
+
+\def\v{0.5}
+
+\coordinate (SS)  at (0.5,0);
+\fill[red] (SS) circle (3pt) node[below left]{$S$};
+\fill[red!70] (1,0) circle (3pt);
+
+\begin{scope}
+    \clip (-10.5,-1) rectangle (-0.5,1);
+% Les arcs
+\foreach \r in {10.65,...,1} {
+  \draw[red,thick] ({-(1+\v)*\r},0) arc (0:30-\r:-\r cm);
+  \draw[red,thick] ({-(1+\v)*\r},0) arc (0:-30+\r:-\r cm);
+}
+\end{scope}
+
+\node[above] at (-10,1.1)  {$1^{\text{er}}$ bip};
+\node[above] at (-8.4,1.1)  {$2^{\text{nd}}$ bip};
+
+\node[below] at (0,-0.5)  {$t=0$};
+\node[below] at (\v,-1)  {$t=T_S$};
+
+\draw [dashed] (0,-0.1)--(0,-0.5);
+\draw [dashed] (\v,-0.1)--(\v,-1);
+
+\end{tikzpicture}

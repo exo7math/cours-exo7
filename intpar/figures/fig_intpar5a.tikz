@@ -1,0 +1,30 @@
+\begin{tikzpicture}[scale=4]
+      
+      \draw[->,>=latex, gray] (-0.25,0)--(1.25,0) node[below,black] {$x$};
+      \draw[->,>=latex, gray] (0,-0.25)--(0,1.25) node[right,black] {$y$};  
+ 
+	  \draw[ultra thick, color=blue, domain=0:1, smooth, samples=200] plot (\x,{sqrt(\x)}); 
+
+      \node[below] at (0.5,0) {$x$};
+      \draw[dashed] (0.5,0) -- (0.5,0.707);
+      \draw[dashed]  (0,0.707) -- (0.5,0.707);
+      \node[left] at (0,0.707) {$\sqrt{x}$};
+            
+      \draw[dashed,myred] (0.310,0) -- (0.310,0.557);
+      \draw[dashed,myred] (0,0.557) -- (0.310,0.557);
+      \draw[dashed,myred] (0.735,0) -- (0.735,0.857);
+      \draw[dashed,myred] (0,0.857) -- (0.735,0.857);
+	  \draw[thick] (-0.025,0.557) node[left] {$\sqrt{x}-\epsilon$} --+ (0.05,0) ;
+	  \draw[thick] (-0.025,0.857) node[left] {$\sqrt{x}+\epsilon$} --+ (0.05,0);
+
+	  \draw[thick] (0.310,0) -- (0.310,-0.05) node[below] {$(\sqrt{x}-\epsilon)^2$};
+	  \draw[thick] (0.735,0) -- (0.735,-0.05) node[below] {$(\sqrt{x}+\epsilon)^2$};
+	  
+	  \draw[very thick,myred] (0.310,0) -- (0.735,0);
+	  \draw[very thick,myred] (0,0.557) -- (0,0.857);
+
+      \fill (0.5,0.707) circle (0.5pt);
+      \fill[myred] (0.310,0.557) circle (0.5pt);
+      \fill[myred] (0.735,0.857) circle (0.5pt);  
+          
+\end{tikzpicture}

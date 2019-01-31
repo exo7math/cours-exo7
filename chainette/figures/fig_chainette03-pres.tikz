@@ -1,0 +1,42 @@
+\begin{tikzpicture}
+  \def\xmin{-3}; 
+ \def\xmax{+3}; 
+ \def\ymin{0}; 
+ \def\ymax{+7};
+ \draw[help lines] (\xmin,\ymin) grid (\xmax,\ymax);
+ \clip (\xmin,\ymin-0.1) rectangle (\xmax,\ymax);
+ \draw[->,>=latex,thick,gray] (\xmin,0)--(\xmax,0);
+ \draw[->,>=latex,thick,gray] (0,\ymin)--(0,\ymax);
+% \def\a{+1};
+% \draw [thick, domain=\xmin:\xmax] plot(\x,{exp(\x)});
+
+%\beameronly{\uncover<1->}{
+\def\a{1.0}; \def\macoul{100};
+    \draw [very thick, color=red!\macoul,samples=20,smooth] plot(\x,{\a*(exp(\x/\a)+exp(-\x/\a))/2});
+ %}; 
+
+\beameronly{\uncover<3->}{
+\def\a{1.5}; \def\macoul{80};
+    \draw [very thick, color=red!\macoul,samples=20,smooth] plot(\x,{\a*(exp(\x/\a)+exp(-\x/\a))/2});
+ }; 
+
+\beameronly{\uncover<4->}{
+\def\a{2.0}; \def\macoul{60};
+    \draw [very thick, color=red!\macoul,samples=20,smooth] plot(\x,{\a*(exp(\x/\a)+exp(-\x/\a))/2});
+ }; 
+
+\beameronly{\uncover<5->}{
+\def\a{2.5}; \def\macoul{40};
+    \draw [very thick, color=red!\macoul,samples=20,smooth] plot(\x,{\a*(exp(\x/\a)+exp(-\x/\a))/2});
+ }; 
+
+\beameronly{\uncover<6->}{
+\def\a{3.0}; \def\macoul{20};
+    \draw [very thick, color=red!\macoul,samples=20,smooth] plot(\x,{\a*(exp(\x/\a)+exp(-\x/\a))/2});
+ }; 
+
+% \foreach \a/\macoul in {3.0/20,2.5/40,2.0/60,1.5/80,1.0/100}{
+
+
+% \draw [thick, color=blue] plot(\x,{(exp(\x)-exp(-\x))/2});
+\end{tikzpicture}

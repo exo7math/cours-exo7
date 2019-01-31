@@ -1,0 +1,51 @@
+\usetikzlibrary{calc}
+\begin{tikzpicture}
+
+% Courbes de Watt
+% Pour les formules voir mathcurve.com
+
+\def\a{4};
+\def\b{3};
+\def\c{5};
+\def\d{\a^2+\b^2-\c^2};
+
+
+\coordinate (A) at (\a,0);
+\coordinate (B) at (-\a,0);
+\fill (A) circle (2pt);
+\fill (B) circle (2pt);
+\draw (A) circle (\b);
+\draw (B) circle (\b);
+
+% \def\myrho{\b*cos(\x)};
+% \def\sintheta{ (\d^2-\b^2*(cos(\x))^2) / (2*\a*\b*sin(\x)) };
+% \def\myy{\myrho*\sintheta};
+% \def\myx{\myrho*cos(asin(\sintheta))};
+
+\def\myrho{sqrt( \b^2-\a^2-\c^2 + 2*\a*sin(\x)*sqrt(\c^2-\a^2*(cos(\x))^2) )};
+\def\myx{\myrho*cos(\x)};
+\def\myy{\myrho*sin(\x)};
+\draw [blue, thick,  domain=61:119, samples=50] plot ({\myx}, {\myy});
+\draw [blue, thick,  domain=61:119, samples=50] plot ({\myx}, {-\myy});
+\draw [blue, thick] (61:0.55)--(61:-0.55);
+\draw [blue, thick] (180-61:0.55)--(180-61:-0.55);
+
+
+% Un linkage a la main
+\coordinate (Q) at ($(B)+(68:\b)$);
+\coordinate (P) at ($(A)+(142:\b)$);
+\coordinate (M) at ($ (P) !.5! (Q) $);
+\draw[very thick, red] (A)--(P)--(Q)--(B);
+\fill (P) circle (2pt);
+\fill (Q) circle (2pt);
+\fill[blue] (M) circle (2pt);
+\node[below] at (A) {$A$};
+\node[below] at (B) {$B$}; 
+\node[above] at (P) {$P$};
+\node[above=5pt] at (Q) {$Q$}; 
+\node[above left] at (M) {$M$}; 
+
+  \draw[->,>=latex,thick, green!80!black] ($(A)+(145:1.5)$) arc (145:200:1.5);
+  \draw[<->,>=latex,thick, green!80!black] ($(B)+(55:3.2)$) arc (55:85:3.2);
+  \draw[->,>=latex,thick, green!80!black] (-0.8,2.2) to[bend right=15] +(0.1,-1.2) ;
+\end{tikzpicture}

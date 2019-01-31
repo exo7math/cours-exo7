@@ -1,0 +1,34 @@
+% Stereographic and cylindrical map projections
+% Author: Tomasz M. Trzeciak
+% Source: LaTeX-Community.org
+%         <http://www.latex-community.org/viewtopic.php?f=4&t=2111>
+
+% Need fig_gps_3d_preamb_01.tex
+
+\begin{tikzpicture}[scale=1*\myscale]
+\def\R{2.5} % sphere radius
+\def\angEl{35} % elevation angle
+\filldraw[ball color=white] (0,0) circle (\R);
+\foreach \t in {-80,-60,...,80} { \DrawLatitudeCircle[\R]{\t} }
+\foreach \t in {-5,-35,...,-175} { \DrawLongitudeCircle[\R]{\t} }
+
+
+\begin{scope}[scale=1, xshift=0.7cm, yshift=0.7cm, rotate=-35]
+  
+  \draw[thick,green!60!black] (-2.5,0)--++(3,-2)--++(2,2)--++(-3,2)--cycle; 
+  \fill[opacity=0.5,green!60!black] (-2.5,0)--++(3,-2)--++(2,2)--++(-3,2)--cycle; 
+
+  \fill[blue] (0,0) circle (2pt) node[below=3pt] {$P$}; 
+
+  \draw (0,0)--++(1.5,-1); % node [below right, blue] {$S$};
+  \draw (0,0)--+(-1.5,1); % node [above left, blue] {$N$};
+
+  \draw (0,0)--++(1,1); % node [above right, blue] {$E$};
+  \draw (0,0)--+(-1,-1); % node [below left, blue] {$W$};
+
+  \draw[->,>=latex,ultra thick, red] (0,0)--+(-0.75,0.5) node [below] {$\vec n$};
+  \draw[->,>=latex,ultra thick, red] (0,0)--+(-0.25,1) node [right] {$\vec v$};
+
+  \draw[double] (-0.125,0.5) arc (100:145:0.5) node[midway, above] {$\alpha$};
+\end{scope}
+\end{tikzpicture}

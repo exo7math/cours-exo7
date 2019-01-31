@@ -1,0 +1,871 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+\newcommand*{\longhookrightarrow}{\ensuremath{\lhook\joinrel%
+\relbar\joinrel\relbar\joinrel\relbar\joinrel\relbar%
+\joinrel\relbar\joinrel\rightarrow}}
+    
+%====================================================================
+\chapitre{Nombres complexes}
+%====================================================================
+
+\insertvideo{utABzdEXLuE}{partie 1. Les nombres complexes, définitions et opérations}
+
+\insertvideo{KmPyB3Twjio}{partie 2. Racines carrées, équation du second degré}
+
+\insertvideo{k9eqlVv535o}{partie 3. Argument et trigonométrie}
+
+\insertvideo{ej9zpQYsQs8}{partie 4. Nombres complexes et géométrie}
+
+\insertfiche{fic00001.pdf}{Nombres complexes}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Préambule}
+
+L'équation $x+5 = 2$ a ses coefficients dans $\Nn$ mais pourtant sa solution
+$x=-3$ n'est pas un entier naturel. Il faut ici considérer l'ensemble plus grand $\Zz$
+des entiers relatifs.
+{\large
+$$\Nn \stackrel{x+5=2}{\longhookrightarrow} \Zz \stackrel{2x=-3}\longhookrightarrow \Qq
+\stackrel{x^2=\frac12}\longhookrightarrow \Rr \stackrel{x^2=-\sqrt2}\longhookrightarrow \Cc$$
+}
+
+
+De même l'équation $2x=-3$ a ses coefficients dans $\Zz$ mais sa solution
+$x = - \frac{3}{2}$ est dans l'ensemble plus grand des rationnels $\Qq$.
+Continuons ainsi, l'équation $x^2=\frac12$ à coefficients dans $\Qq$, a ses solutions
+$x_1=+1/\sqrt 2$ et $x_2=-1/\sqrt 2$ dans l'ensemble des réels $\Rr$.
+Ensuite l'équation $x^2 = -\sqrt{2}$ à ses coefficients dans $\Rr$ et ses solutions
+ $x_1 = +\ii\sqrt{\sqrt{2}}$ et $x_2 = -\ii\sqrt{\sqrt{2}}$ dans l'ensemble
+des nombres complexes $\Cc$. Ce processus est-il sans fin ?
+Non ! Les nombres complexes sont en quelque sorte le bout de la chaîne car nous
+avons le théorème de d'Alembert-Gauss suivant  :
+\emph{\og Pour n'importe quelle équation polynomiale
+$a_nx^n+a_{n-1}x^{n-1}+\cdots + a_2 x^2 + a_1x+a_0 = 0$
+où les coefficients $a_i$ sont des complexes (ou bien des réels),
+alors les solutions $x_1,\ldots,x_n$ sont dans l'ensemble des nombres complexes \fg.}
+
+\bigskip
+
+
+Outre la résolution d'équations, les nombres complexes s'appliquent
+à la trigonométrie, à la géométrie (comme nous le verrons dans ce chapitre)
+ mais aussi à l'électronique, à la mécanique quantique, etc.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Les nombres complexes}
+
+%--------------------------------------------------------------
+\subsection{Définition}
+
+\begin{definition}
+  Un \defi{nombre complexe}\index{nombre complexe} est un couple $(a, b) \in \Rr^2$ que l'on notera $a + \ii b$
+\vspace{-0.5em}
+\end{definition}
+\myfigure{1}{
+  \tikzinput{fig_complexes03}
+}
+Cela revient à identifier $1$ avec le vecteur $(1,0)$ de $\Rr^2$, et $\ii$ avec le vecteur $(0,1)$.
+On note $\Cc$ l'ensemble des nombres complexes. Si $b = 0$, alors $z = a$ est situé sur l'axe des abscisses,
+que l'on identifie à $\Rr$.
+Dans ce cas on dira que $z$ est \defi{réel},
+et $\Rr$ apparaît comme un sous-ensemble de $\Cc$, appelé \defi{axe réel}.
+Si $b\neq 0$, $z$ est dit \defi{imaginaire}\index{nombre!imaginaire} et si $b \neq 0$ et $a=0$, $z$ est dit \defi{imaginaire pur}.
+
+
+%--------------------------------------------------------------
+\subsection{Opérations}
+
+Si $z = a + \ii b$ et $z' = a' + \ii b'$ sont deux nombres
+complexes, alors on définit les opérations suivantes :
+\begin{itemize}
+  \item \evidence{addition} : $(a + \ii b) + (a' + \ii b') =
+(a + a') + \ii  (b + b')$
+\myfigure{1}{
+\tikzinput{fig_complexes05}
+}
+  \item \evidence{multiplication} : $(a + \ii b) \times (a' + \ii b')
+  = (aa' - bb') + \ii  (ab' + ba')$. On développe en suivant les règles de la multiplication usuelle 
+  avec la convention suivante : \mybox{$\ii ^2 = - 1$}
+\end{itemize}
+
+
+%--------------------------------------------------------------
+\subsection{Partie réelle et imaginaire}
+
+Soit $z = a + \ii b$ un nombre complexe, sa \defi{partie réelle}\index{partie reelle@partie réelle} est le réel $a$ et on
+la note $\Re(z)$ ;
+sa \defi{partie imaginaire}\index{partie imaginaire} est le réel $b$ et on la note $\Im(z)$.
+\myfigure{1}{
+\tikzinput{fig_complexes04}
+}
+Par identification de $\Cc$ \`a $\Rr^2$,
+l'écriture $z = \Re(z) + \ii  \Im(z)$
+est unique :
+\[ z = z' \quad \Longleftrightarrow \quad \left\{ \begin{array}{c}
+     \Re (z) = \Re (z')\\
+     \text{et}\\
+     \Im (z) = \Im (z')
+   \end{array} \right. \]
+
+En particulier un nombre complexe est réel si et seulement si sa partie imaginaire
+est nulle. Un nombre complexe est nul si et et seulement si sa partie réelle et sa partie imaginaire sont nuls.
+
+%--------------------------------------------------------------
+\subsection{Calculs}
+
+Quelques définitions et calculs sur les nombres complexes.
+\myfigure{1}{\tikzinput{fig_complexes06} }
+
+\begin{itemize}
+  \item L'\defi{\,opposé} de $z = a + \ii b$ est $- z = (- a) + \ii (-b) = - a - \ii b$.
+
+  \item La \defi{multiplication par un scalaire} $\lambda \in \Rr$ : $\lambda \cdot
+  z = (\lambda a) + \ii(\lambda b)$.
+
+  \item L'\defi{\,inverse}: si $z \neq 0$, il existe un unique $z' \in \Cc$ tel
+  que $zz' = 1$ (o\`u $1 = 1 + \ii  \times 0$).
+
+Pour la preuve et le calcul on écrit $z=a+\ii b$ puis on cherche $z'=a'+\ii b'$ tel que $zz'=1$.
+Autrement dit $(a+ \ii b)(a'+\ii b') =1$. En développant et identifiant les parties
+réelles et imaginaires on obtient les \'equations
+  \[ \left\{ \begin{array}{ll}
+       aa' - bb' = 1 & (L_1)\\
+       ab' + ba' = 0 & (L_2)
+     \end{array} \right. \]
+En écrivant $a L_1 + b L_2$ (on multiplie la ligne ($L_1$) par $a$, la ligne ($L_2$) par $b$ et on additionne)
+ et $- bL_1 + aL_2$ on en d\'eduit
+  \[ \left\{ \begin{array}{l}
+       a'  \left( a^2 + b^2 \right) = a\\
+       b'  \left( a^2 + b^2 \right) = - b
+     \end{array} \right. \quad \text{ donc }\quad \left\{ \begin{array}{l}
+       a' = \frac{a}{a^2 + b^2}\\
+       b' = - \frac{b}{a^2 + b^2}
+     \end{array} \right. \]
+  L'inverse de $z$, noté $\frac1z$, est donc
+  \[ z' = \frac{1}{z} = \frac{a}{a^2 + b^2} + \ii  \frac{- b}{a^2 + b^2} =
+     \frac{a - \ii b}{a^2 + b^2} . \]
+
+  \item La \defi{division} : $\frac{z}{z'}$ est le nombre complexe $z \times \frac{1}{z'}$.
+
+  \item Propriété d'intégrité : si $zz' = 0$ alors $z = 0$ ou $z' = 0$.
+
+  \item Puissances : $z^2 = z \times z$, $z^n = z \times \cdots \times z$ ($n$
+  fois, $n\in \Nn$). Par convention $z^0 = 1$ et $z^{- n} = \left( \frac{1}{z} \right)^n = \frac{1}{z^n}$.
+\end{itemize}
+
+
+\begin{proposition}
+\label{prop:somme}
+Pour tout $z \in \Cc$ différent de $1$
+\mybox{$1 + z + z^2 + \cdots + z^n = \dfrac{1 - z^{n + 1}}{1 - z} .$}
+\vspace{-0.5em}
+\end{proposition}
+
+La preuve est simple : notons $S=1 + z + z^2 + \cdots + z^n$, alors en développant
+$S \cdot (1 - z)$ presque tous les termes se télescopent et l'on trouve $S \cdot (1 - z) = 1 - z^{n + 1}$.
+
+
+\begin{remarque*}
+  Il n'y pas d'ordre naturel sur $\Cc$, il ne faut donc
+  jamais écrire $z \geqslant 0$ ou $z \leqslant z'$.
+\end{remarque*}
+
+
+%------------------------------------------------------------------
+\subsection{Conjugué, module}
+
+  Le \defi{conjugué}\index{conjugue@conjugué} de $z = a + \ii b$ est $\bar{z} = a - \ii b$, autrement dit
+  $\Re(\bar{z}) = \Re(z)$ et
+  $\Im(\bar{z}) = - \Im (z)$.
+  Le point $\bar{z}$ est le symétrique du point $z$ par rapport à l'axe réel.
+
+  Le \defi{module}\index{module} de $z = a + \ii b$ est le réel positif $|z| = \sqrt{a^2 + b^2}$.
+Comme $z \times \bar z = (a+\ii b)(a-\ii b) = a^2+b^2$ alors  le module vaut aussi $|z| = \sqrt{z\bar z}$.
+\myfigure{1}{
+\tikzinput{fig_complexes07} \qquad
+\tikzinput{fig_complexes08}
+}
+
+Quelques formules :
+\begin{itemize}
+  \item $\overline{z + z'} = \bar{z} + \overline{z'}$,\quad $\overline{\bar{z}} =
+  z$,\quad $\overline{zz'} = \bar{z}  \overline{z'}$
+
+  \item $z = \bar{z} \Longleftrightarrow z \in \Rr$
+
+  \item $\left| z \right|^2 = z \times \bar{z}$,\quad $\left| \bar{z} \right| =
+  \left| z \right|$,\quad $\left| zz' \right| = |z| |z'|$
+
+  \item $\left| z \right| = 0 \Longleftrightarrow z = 0$
+\end{itemize}
+
+\begin{proposition}[L'inégalité triangulaire]\index{inegalite triangulaire@inégalité triangulaire}\ 
+\mybox{$\left| z + z' \right| \leqslant \left| z  \right| + \left| z' \right|$}
+\end{proposition}
+\myfigure{1}{
+\tikzinput{fig_complexes10bis}
+}
+Avant de faire la preuve voici deux remarques utiles. Soit $z = a +\ii b \in \Cc$ avec $a,b\in\Rr$ :
+\begin{itemize}
+  \item $|\Re(z)| \le |z|$ (et aussi $|\Im(z)| \le |z|$). Cela vient du fait que
+  $|a| \le \sqrt{a^2+b^2}$. Noter que pour un réel $|a|$ est à la fois le module et la valeur absolue. 
+  \item \myboxinline{$z+\bar{z} = 2\Re(z)$} et $z-\bar{z} = 2\ii\Im(z)$. Preuve :
+  $z+\bar{z} = (a+\ii b)+ (a-\ii b) = 2a = 2\Re(z)$.
+\end{itemize}
+
+\begin{proof}
+Pour la preuve on calcule $|z+z'|^2$ :
+\begin{eqnarray*}
+|z+z'|^2 
+ &=& \left( z + z'\right)  \overline{\left( z + z' \right)} \\
+ &=& z \bar{z} + z'  \overline{z'} + z \overline{z'} + z'  \bar{z}  \\
+ &=& |z|^2 + |z'|^2 + 2\Re(z'  \bar{z}) \\
+ &\le& |z|^2 + |z'|^2 + 2|z'\bar{z}| \\
+ &\le& |z|^2 + |z'|^2 + 2|zz'| \\ 
+ &\le& (|z| + |z'|)^2 \\  
+\end{eqnarray*}
+\end{proof}
+
+
+\begin{exemple}
+  Dans un parallélogramme, la somme des carrés des diagonales égale la
+  somme des carrés des c\^otés.
+\end{exemple}
+
+
+Si les longueurs des côtés sont notées $L$ et $\ell$ et les longueurs des diagonales sont $D$ et $d$
+alors il s'agit de montrer l'\'egalit\'e
+$$D^2+d^2 = 2\ell^2+2L^2.$$
+\myfigure{1}{
+\tikzinput{fig_complexes10} \qquad
+\tikzinput{fig_complexes09}
+}
+
+\begin{proof}
+Cela devient simple si l'on considère que notre parallélogramme a pour sommets
+$0$, $z$, $z'$ et le dernier sommet est donc $z+z'$.
+La longueur du grand côté est ici $|z|$, celle du petit côté est $|z'|$.
+La longueur de la grande diagonale est $|z+z'|$. Enfin il faut se convaincre que
+la longueur de la petite diagonale est $|z-z'|$.
+
+
+
+  \begin{eqnarray*}
+    D^2 + d^2 = \left| z + z' \right|^2 + \left| z - z' \right|^2 & = & \left( z + z'
+    \right)  \overline{\left( z + z' \right)} + \left( z - z' \right)
+    \overline{\left( z - z' \right)}\\
+    & = & z \bar{z} + z \overline{z'} + z'  \bar{z} + z'  \overline{z'} + z
+    \bar{z} - z \overline{z'} - z'  \bar{z} + z'  \overline{z'}\\
+    & = & 2 z \bar{z} + 2 z'  \overline{z'} = 2 \left| z \right|^2 + 2 \left|    z' \right|^2 \\
+    & = & 2\ell^2+2L^2 \\
+  \end{eqnarray*}
+\end{proof}
+
+
+%------------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Calculer $1 - 2\ii + \frac{\ii}{1 - 2\ii}$.
+  \item \'Ecrire sous la forme $a+\ii b$ les nombres complexes $(1+\ii)^2$,
+$(1+\ii)^3$, $(1+\ii)^4$, $(1+\ii)^8$.
+  \item En déduire $1+(1+\ii)+(1+\ii)^2+\cdots +(1+\ii)^7$.
+  \item Soit $z\in \Cc$ tel que $|1+ \ii z| = |1-\ii z|$, montrer que $z \in \Rr$.
+  \item Montrer que si $|\Re z| \le |\Re z'|$ et $|\Im z| \le |\Im z'|$ alors
+$|z| \le |z'|$, mais que la réciproque est fausse.
+  \item Montrer que $1 / \bar{z} = z/\left| z \right|^2$ (pour $z\neq 0$).
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Racines carrées, équation du second degré}
+
+%---------------------------------------------------------------
+\subsection{Racines carrées d'un nombre complexe}
+
+Pour $z \in \Cc$, une \defi{racine carrée} est un nombre complexe $\omega$
+tel que $\omega^2 = z$.
+
+Par exemple si $x \in \Rr_+$, on connaît
+deux racines carrées : $\sqrt{x}, - \sqrt{x}$. Autre exemple : les racines carrées de
+$-1$ sont $\ii $ et $-\ii$.
+
+\begin{proposition}
+Soit $z$ un nombre complexe, alors $z$ admet deux racines carrées, $\omega$ et $-\omega$.
+\end{proposition}
+
+Attention ! Contrairement au cas réel, il n'y a pas de façon privilégiée de choisir une racine plutôt
+que l'autre, donc pas de fonction racine. On ne dira donc jamais « soit $\omega$ la racine de $z$ ». 
+
+Si $z\neq 0$ ces deux racines carrées sont distinctes.
+Si $z=0$ alors $\omega=0$ est une racine double.
+
+Pour $z=a + \ii b$ nous allons calculer $\omega$ et $-\omega$ en fonction de $a$ et $b$.
+
+
+\begin{proof}
+Nous écrivons $\omega= x + \ii y$, nous cherchons $x,y$ tels que $\omega^2=z$.
+
+\begin{eqnarray*}
+  \omega^2 = z & \Longleftrightarrow & \left( x + \ii y \right)^2 = a + \ii b\\
+  & \Longleftrightarrow & \left\{ \begin{array}{lcc}
+    x^2 - y^2 = a&\quad&\text{en identifiant parties}\\
+    2 xy = b     &\quad&\text{et parties imaginaires.}
+  \end{array} \right.
+\end{eqnarray*}
+
+Petite astuce ici : nous rajoutons l'équation $\left| \omega \right|^2 = \left| z \right|$ (qui se
+déduit bien sûr de $\omega^2=z$) qui s'écrit aussi $x^2+y^2 = \sqrt{a^2+b^2}$.
+Nous obtenons des systèmes équivalents aux précédents :
+{\small
+\[ \left\{ \begin{array}{l}
+     x^2 - y^2 = a\\
+     2 xy = b\\
+     x^2 + y^2 = \sqrt{a^2 + b^2}
+   \end{array} \right. \Longleftrightarrow \left\{ \begin{array}{l}
+     2 x^2 = \sqrt{a^2 + b^2} + a\\
+     2 y^2 = \sqrt{a^2 + b^2} - a\\
+     2 xy = b
+   \end{array} \right. \Longleftrightarrow \left\{ \begin{array}{l}
+     x = \pm \frac{1}{\sqrt{2}}  \sqrt{\sqrt{a^2 + b^2} + a}\\
+     y = \pm \frac{1}{\sqrt{2}}  \sqrt{\sqrt{a^2 + b^2} - a}\\
+     2 xy = b
+   \end{array} \right. \]
+   }
+Discutons suivant le signe du r\'eel $b$. Si $b \geqslant 0$, $x$ et $y$ sont de
+m\^eme signe ou nuls (car $2xy=b \ge 0$) donc
+\[ \omega = \pm \frac{1}{\sqrt{2}}  \left( \sqrt{\sqrt{a^2 + b^2} + a} + \ii
+   \sqrt{\sqrt{a^2 + b^2} - a} \right), \]
+et si $b \leqslant 0$
+\[ \omega = \pm \frac{1}{\sqrt{2}}  \left( \sqrt{\sqrt{a^2 + b^2} + a} - \ii
+   \sqrt{\sqrt{a^2 + b^2} - a} \right). \]
+En particulier si $b = 0$ le résultat dépend du signe de $a$, si $a
+\geqslant 0$, $\sqrt{a^2} = a$ et par conséquent $\omega = \pm \sqrt{a}$,
+tandis que si $a < 0$, $\sqrt{a^2} = - a$ et donc $\omega = \pm \ii  \sqrt{- a} =
+\pm \ii  \sqrt{\left| a \right|}$.
+\end{proof}
+
+Il n'est pas nécessaire d'apprendre ces formules mais il est indispensable
+de savoir refaire les calculs.
+\begin{exemple}
+Les racines carrées de $\ii $ sont $+\frac{\sqrt{2}}{2}(1 + \ii)$ et $-\frac{\sqrt{2}}{2}(1 + \ii)$.
+
+En effet :
+\begin{eqnarray*}
+  \omega^2 = \ii & \Longleftrightarrow & \left( x + \ii y \right)^2 = \ii \\
+  & \Longleftrightarrow & \left\{ \begin{array}{l}
+    x^2 - y^2 = 0\\
+    2 xy = 1
+  \end{array} \right.
+\end{eqnarray*}
+Rajoutons la conditions $|\omega|^2 = | \ii |$ pour obtenir le système équivalent au précédent :
+\[ \left\{ \begin{array}{l}
+     x^2 - y^2 = 0\\
+     2 xy = 1\\
+     x^2 + y^2 = 1
+   \end{array} \right. \Longleftrightarrow \left\{ \begin{array}{l}
+     2 x^2 = 1\\
+     2 y^2 = 1\\
+     2 xy = 1
+   \end{array} \right. \Longleftrightarrow \left\{ \begin{array}{l}
+     x = \pm \frac{1}{\sqrt{2}} \\
+     y = \pm \frac{1}{\sqrt{2}} \\
+     2 xy = 1
+   \end{array} \right. \]
+
+Les réels $x$ et $y$ sont donc de même signe, nous trouvons bien deux solutions :
+$$x+\ii y = \frac{1}{\sqrt{2}} + \ii\frac{1}{\sqrt{2}}
+\quad \text{ ou } \quad x+\ii y = -\frac{1}{\sqrt{2}} - \ii\frac{1}{\sqrt{2}}$$
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{\'Equation du second degré}
+
+\begin{proposition}
+  L'équation du second degré $az^2 + bz + c = 0$, o\`u $a, b, c \in
+  \Cc$ et $a \neq 0$, possède deux solutions $z_1, z_2 \in \Cc$
+  éventuellement confondues.
+
+  Soit $\Delta = b^2 - 4 ac$ le discriminant et
+  $\delta \in \Cc$ une racine carrée de $\Delta$. Alors les
+  solutions sont
+ \mybox{
+  $ z_1 = \dfrac{- b + \delta}{2 a} \quad \text{ et } \quad z_2 = \dfrac{- b - \delta}{2
+     a} . $
+}
+\vspace{-0.5em}
+\end{proposition}
+
+Et si $\Delta = 0$ alors la solution $z = z_1 = z_2 = - b / 2 a$ est unique (elle est dite double).
+Si on s'autorisait à écrire $\delta = \sqrt{\Delta}$, on obtiendrait
+la même formule que celle que vous connaissez lorsque $a,b,c$ sont réels.
+
+\begin{exemple}
+\sauteligne
+  \begin{itemize}
+    \item $z^2 + z + 1 = 0$, $\Delta = - 3$, $\delta = \ii  \sqrt{3}$,
+    les solutions sont $z = \dfrac{- 1 \pm \ii  \sqrt{3}}{2}$.
+
+    \item $z^2 + z + \frac{1 - \ii }{4}=0$, $\Delta = \ii $, $\delta = \frac{\sqrt2}{2}(1 +
+    \ii)$, les solutions sont $z = \dfrac{- 1 \pm \frac{\sqrt2}{2}(1 +
+    \ii)}{2} = -\frac12 \pm \frac{\sqrt2}{4}(1 +
+    \ii)$.
+  \end{itemize}
+\end{exemple}
+
+On retrouve aussi le résultat bien connu pour le cas des équations à coefficients réels:
+\begin{corollaire}
+  Si les coefficients $a, b, c$ sont réels alors $\Delta \in \Rr$ et les solutions sont de
+  trois types :
+  \begin{itemize}
+    \item si $\Delta = 0$, la racine double est réelle et vaut $-\dfrac{b}{2 a}$,
+
+    \item si $\Delta > 0$, on a deux solutions réelles $\dfrac{- b \pm\sqrt{\Delta}}{2 a}$,
+
+    \item si $\Delta < 0$, on a deux solutions complexes, mais non réelles, $\dfrac{- b \pm \ii  \sqrt{- \Delta}}{2 a}$.
+  \end{itemize}
+\end{corollaire}
+
+\begin{proof}
+  On écrit la factorisation
+  \begin{eqnarray*}
+    az^2 + bz + c & = & a \left( z^2 + \frac{b}{a} z + \frac{c}{a} \right) = a
+    \left( \left( z + \frac{b}{2 a} \right)^2 - \frac{b^2}{4 a^2} +
+    \frac{c}{a} \right) \\
+    & = & a \left( \left( z + \frac{b}{2 a} \right)^2 -
+    \frac{\Delta}{4 a^2} \right)
+    = a \left( \left( z + \frac{b}{2 a} \right)^2 - \frac{\delta^2}{4
+    a^2} \right) \\
+    & = & a \left( \left( z + \frac{b}{2 a} \right) - \frac{\delta}{2
+    a^{}} \right)  \left( \left( z + \frac{b}{2 a} \right) + \frac{\delta}{2
+    a^{}} \right)\\
+    & = & a \left( z - \frac{- b + \delta}{2 a} \right)  \left( z - \frac{- b
+    - \delta}{2 a} \right) = a \left( z - z_1 \right)  \left( z - z_2 \right)
+  \end{eqnarray*}
+Donc le binôme s'annule si et seulement si $z=z_1$ ou $z=z_2$.
+\end{proof}
+
+
+
+%---------------------------------------------------------------
+\subsection{Théorème fondamental de l'algèbre}
+
+\begin{theoreme}[d'Alembert--Gauss]
+\index{theoreme@théorème!de d'Alembert--Gauss}
+Soit $P (z) = a_n z^n + a_{n - 1} z^{n - 1}
+  + \cdots + a_1 z + a_0$ un polyn\^ome \`a coefficients complexes
+  et de degré $n$. Alors l'équation $P(z) = 0$ admet exactement $n$
+  solutions complexes comptées avec leur multiplicité.
+
+  En d'autres termes il existe des nombres complexes $z_1, \ldots, z_n$ (dont certains sont
+  éventuellement confondus) tels que
+  \[ P (z) = a_n  \left( z - z_1 \right) \left( z - z_2 \right)
+     \cdots \left( z - z_n \right) . \]
+\end{theoreme}
+
+Nous admettons ce théorème.
+
+
+%------------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Calculer les racines carrées de $-\ii$, $3-4\ii$.
+  \item Résoudre les équations : $z^2+z-1=0$, $2z^2 + (-10-10\ii)z+24-10\ii = 0$.
+  \item Résoudre l'équation $z^2+(\ii-\sqrt 2)z-\ii\sqrt 2$, puis l'équation $Z^4+(\ii-\sqrt 2)Z^2-\ii\sqrt 2$.
+  \item Montrer que si $P(z)=z^2+bz+c$ possède pour racines $z_1, z_2 \in \Cc$ alors
+$z_1+z_2=-b$ et $z_1 \cdot z_2 = c$.
+  \item Trouver les paires de nombres dont la somme vaut $\ii$ et le produit $1$.
+  \item Soit $P (z) = a_n z^n + a_{n - 1} z^{n - 1} + \cdots  + a_0$ avec $a_i \in \Rr$ pour tout $i$.
+Montrer que si $z$ est racine de $P$ alors $\bar z$ aussi.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Argument et trigonométrie}
+
+%------------------------------------------------------------------
+\subsection{Argument}
+
+Si $z=x+iy$ est de module $1$, alors $x^2+y^2=|z|^2=1$. Par conséquent le point $(x,y)$ est sur le cercle unité du plan,
+et son abscisse $x$ est notée $\cos \theta$, son ordonnée $y$ est $\sin \theta$, où $\theta$ est
+(une mesure de) l'angle entre l'axe réel et $z$. Plus généralement, si $z\neq 0$, $z/|z|$ est de module $1$, et cela amène à :
+
+\begin{definition}
+  Pour tout $z \in \Cc^{\ast} =\Cc \setminus \left\{ 0 \right\}$,
+  un nombre $\theta \in \Rr$ tel que $z = \left| z
+  \right|  \left( \cos \theta + \ii  \sin \theta \right)$ est appelé un \defi{argument}\index{argument}
+  de $z$ et noté $\theta = \arg (z)$.
+\end{definition}
+
+\myfigure{1}{
+\tikzinput{fig_complexes11}
+}
+
+
+Cet argument est défini modulo $2\pi$. On peut imposer à cet argument d'être unique si on
+rajoute la condition $\theta \in]-\pi,+\pi]$.
+
+\begin{remarque*}
+  \[ \theta \equiv \theta' \pmod {2\pi}\quad  \Longleftrightarrow \quad  \exists k \in
+     \Zz, \, \theta = \theta' + 2 k \pi \quad  \Longleftrightarrow \quad
+     \left\{ \begin{array}{l}
+       \cos \theta = \cos \theta'\\
+       \sin \theta = \sin \theta'
+     \end{array} \right. \]
+\end{remarque*}
+
+
+\begin{proposition}
+  L'argument satisfait les propriétés suivantes :
+  \begin{itemize}
+    \item $\arg \left( zz' \right) \equiv \arg (z) + \arg \left(
+    z' \right) \pmod {2\pi}$
+
+    \item $\arg \left( z^n \right) \equiv n \arg (z) \pmod {2\pi}$
+
+    \item $\arg \left( 1 / z \right) \equiv - \arg (z) \pmod {2\pi}$
+
+    \item $\arg (\bar{z}) \equiv - \arg z \pmod{2 \pi}$
+  \end{itemize}
+\end{proposition}
+
+
+\begin{proof}
+  \begin{eqnarray*}
+    zz' & = & \left| z \right|  \left( \cos \theta + \ii  \sin \theta \right)
+    \left| z' \right|  \left( \cos \theta' + \ii  \sin \theta' \right)\\
+    & = & \left| zz' \right|  \left( \cos \theta \cos \theta' - \sin \theta
+    \sin \theta' + \ii  \left( \cos \theta \sin \theta' + \sin \theta \cos
+    \theta' \right) \right)\\
+    & = & \left| zz' \right|  \left( \cos \left( \theta + \theta' \right) + \ii
+    \sin \left( \theta + \theta' \right) \right)
+  \end{eqnarray*}
+  donc $\arg \left( zz' \right) \equiv \arg (z) + \arg \left( z'
+  \right) \pmod {2\pi}$. On en déduit les deux autres propriétés,
+  dont la deuxième par récurrence.
+\end{proof}
+
+%------------------------------------------------------------------
+\subsection{Formule de Moivre, notation exponentielle}
+
+
+La \defi{formule de Moivre}\index{formule!de Moivre} est :
+\mybox{$
+  \left( \cos \theta + \ii \sin \theta \right)^n = \cos \left( n \theta \right)
+  + \ii  \sin \left( n \theta \right)$}
+
+\begin{proof}
+  Par récurrence, on montre que
+  \begin{eqnarray*}
+    \left( \cos \theta + \ii  \sin \theta \right)^n & = & ( \cos \theta + \ii \sin \theta)^{n-1}
+ \times \left( \cos \theta + \ii  \sin \theta \right)
+    \\
+  & = & \left( \cos \left(
+    \left( n - 1 \right) \theta \right) + \ii  \sin \left( \left( n - 1 \right)
+    \theta \right) \right) \times \left( \cos \theta + \ii  \sin \theta \right)
+    \\
+    & = & \left( \cos \left( \left( n - 1 \right) \theta \right) \cos \theta
+    - \sin \left( \left( n - 1 \right) \theta \right) \sin \theta \right)
+    \\
+    && + \ii
+    \left( \cos \left( \left( n - 1 \right) \theta \right) \sin \theta + \sin
+    \left( \left( n - 1 \right) \theta \right) \cos \theta \right)
+    \\
+    & = & \cos n \theta + \ii  \sin n \theta
+  \end{eqnarray*}
+\end{proof}
+
+
+Nous définissons la \defi{notation exponentielle}\index{exponentielle complexe} par
+\mybox{$e^{\ii  \theta} = \cos \theta + \ii  \sin \theta$}
+ et donc tout nombre complexe s'écrit
+\mybox{$z = \rho e^{\ii  \theta}$}
+o\`u $\rho = \left| z \right|$ est le module et $\theta = \arg (z)$ est un argument.
+
+\bigskip
+
+Avec la notation exponentielle, on peut écrire pour $z = \rho e^{\ii  \theta}$
+et $z' = \rho' e^{\ii  \theta'}$
+\[ \left\{ \begin{array}{l}
+     zz' = \rho \rho' e^{\ii  \theta} e^{\ii  \theta'} = \rho \rho' e^{\ii  (\theta + \theta')}\\
+     z^n = \left( \rho e^{\ii  \theta} \right)^n = \rho^n  \left( e^{\ii  \theta}
+     \right)^n = \rho^n e^{\ii n \theta}\\
+     1 / z = 1 / \left( \rho e^{\ii  \theta} \right) = \frac{1}{\rho} e^{- \ii
+     \theta} \\
+     \bar{z} = \rho e^{-\ii \theta}
+   \end{array} \right. \]
+
+La formule de Moivre se r\'eduit \`a l'égalité : \myboxinline{$\left(e^{\ii\theta}\right)^n = e^{\ii n \theta}$}.
+
+Et nous avons aussi : $\rho e^{\ii \theta} = \rho' e^{\ii \theta'}$ (avec $\rho, \rho' > 0$)
+si et seulement si $\rho = \rho'$ et $\theta \equiv \theta' \pmod{2\pi}$.
+
+
+%------------------------------------------------------------------
+\subsection{Racines $n$-ième}
+
+\begin{definition}
+  Pour $z \in \Cc$ et $n \in \Nn$, une \defi{racine $n$-ième} est
+  un nombre $\omega \in \Cc$ tel que $\omega^n = z$.
+\end{definition}
+
+\begin{proposition}
+Il y a $n$ racines $n$-ièmes $\omega_0, \omega_1, \ldots, \omega_{n - 1}$ de $z=\rho e^{\ii  \theta}$, ce sont :
+\mybox{$\omega_k = \rho^{1 / n} e^{\frac{\ii\theta + 2 \ii k \pi}{n}} \ , \quad k = 0,1,\ldots, n - 1$}
+     \vspace{-0.5em}
+\end{proposition}
+
+\begin{proof}
+\'Ecrivons $z= \rho e^{\ii \theta}$ et cherchons $\omega$ sous la forme
+$\omega=re^{\ii t}$ tel que $z=\omega^n$.
+Nous obtenons donc $ \rho e^{\ii \theta} =\omega ^n = \left(re^{\ii t}\right)^n
+= r^n e^{\ii nt}$.
+Prenons tout d'abord le module : $ \rho = \left|\rho e^{\ii \theta} \right|
+=  \left|r^n e^{\ii nt}\right| = r^n$ et donc $r = \rho^{1/n}$ (il s'agit ici de nombres réels).
+Pour les arguments nous avons $e^{\ii nt} = e^{\ii \theta}$ et donc
+$nt \equiv \theta \pmod {2\pi}$ (n'oubliez surtout pas le modulo $2\pi$ !).
+Ainsi on résout $nt = \theta + 2k\pi$ (pour $k\in\Zz$) et donc $t = \frac{\theta}{n} + \frac{2k\pi}{n}$.
+Les solutions de l'équation $\omega^n=z$ sont donc les $\omega_k = \rho^{1/n} e^{\frac{\ii\theta + 2\ii k\pi}{n}}$.
+Mais en fait il n'y a que $n$ solutions distinctes car $\omega_n=\omega_0$, $\omega_{n+1}=\omega_1$, \ldots
+Ainsi les $n$ solutions sont $\omega_0,\omega_1,\ldots,\omega_{n-1}$.
+
+\end{proof}
+
+
+Par exemple pour $z = 1$, on obtient les $n$ \defi{racines $n$-ièmes de l'unité}\index{racine de l unite@racine de l'unité}
+$e^{2 \ii k \pi / n}$, $k=0,\ldots,n-1$ qui forment un groupe multiplicatif.
+
+\begin{minipage}{0.5\textwidth}
+\myfigure{0.65}{
+\tikzinput{fig_complexes14}
+}
+\vspace*{-2ex}
+\centerline{Racine $3$-ième de l'unité ($z=1$, $n=3$)}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\myfigure{0.65}{
+\tikzinput{fig_complexes15}
+}
+\vspace*{-2ex}
+\centerline{Racine $3$-ième de $-1$ ($z=-1$, $n=3$)}
+\end{minipage}
+
+\bigskip
+Les racines $5$-ième de l'unité ($z=1$, $n=5$)
+forment un pentagone régulier :
+\myfigure{0.8}{
+\tikzinput{fig_complexes12}
+}
+
+
+%------------------------------------------------------------------
+\subsection{Applications à la trigonométrie}
+
+Voici les \defi{formules d'Euler}\index{formule!d'Euler}, pour $\theta \in \Rr$ :
+\mybox{$ \cos \theta = \dfrac{e^{\ii  \theta} + e^{- \ii  \theta}}{2} \quad , \quad
+   \sin \theta = \dfrac{e^{\ii  \theta} - e^{- \ii  \theta}}{2 \ii }$}
+Ces formules s'obtiennent facilement en utilisant la définition de la notation exponentielle.
+Nous les appliquons dans la suite à deux problèmes : le développement et la linéarisation.
+
+\bigskip
+
+
+
+
+\defi{Développement.}\index{developpement@développement} On exprime $\sin n \theta$ ou $\cos n \theta$ en
+fonction des puissances de $\cos \theta$ et $\sin \theta$.
+
+\medskip
+
+\emph{Méthode :} on utilise la formule de Moivre pour écrire $\cos \left( n
+\theta \right) + \ii  \sin \left( n \theta \right) = \left( \cos \theta + \ii  \sin
+\theta \right)^n$ que l'on développe avec la formule du bin\^ome de Newton.
+
+\begin{exemple}
+\begin{eqnarray*}
+  \cos 3 \theta + \ii  \sin 3 \theta & = & \left( \cos \theta + \ii  \sin \theta
+  \right)^3\\
+  & = & \cos^3 \theta + 3 \ii  \cos^2 \theta \sin \theta - 3 \cos \theta \sin^2
+  \theta - \ii  \sin^3 \theta\\
+  & = & \left( \cos^3 \theta - 3 \cos \theta \sin^2 \theta \right) + \ii  \left(
+  3 \cos^2 \theta \sin \theta - \sin^3 \theta \right)
+\end{eqnarray*}
+En identifiant les parties réelles et imaginaires, on déduit que
+\[ \cos 3 \theta = \cos^3 \theta - 3 \cos \theta \sin^2 \theta \quad \text{ et } \quad
+   \sin 3 \theta = 3 \cos^2 \theta \sin \theta - \sin^3 \theta . \]
+\end{exemple}
+
+\bigskip
+
+\defi{Linéarisation.}\index{linearisation@linéarisation}  On exprime
+$\cos^n \theta$ ou $\sin^n \theta$ en fonction des $\cos k \theta$ et $\sin k
+\theta$ pour $k$ allant de $0$ \`a~$n$.
+
+\medskip
+
+\emph{Méthode :} avec la formule d'Euler on écrit $\sin^n \theta = \left( \frac{e^{\ii
+\theta} - e^{- \ii  \theta}}{2 \ii } \right)^n$. On développe à l'aide du binôme de Newton
+puis on regroupe les termes par paires conjugu\'ees.
+
+\begin{exemple}
+\begin{eqnarray*}
+  \sin^3 \theta & = & \left( \frac{e^{\ii  \theta} - e^{- \ii  \theta}}{2 \ii }
+  \right)^3 \\
+ & = & \frac{1}{- 8 \ii }  \left( (e^{\ii  \theta})^3 - 3 (e^{\ii  \theta})^2e^{- \ii  \theta}
++ 3 e^{\ii  \theta}(e^{-\ii  \theta})^2 - (e^{- \ii  \theta})^3 \right)\\
+& = & \frac{1}{- 8 \ii }  \left( e^{3 \ii  \theta} - 3 e^{\ii  \theta} + 3 e^{-
+  \ii  \theta} - e^{- 3 \ii  \theta} \right)\\
+  & = & - \frac{1}{4} \left( \frac{e^{3 \ii  \theta} -  e^{-3 \ii \theta}}{2 \ii } - 3
+  \frac{e^{\ii  \theta} - e^{-\ii  \theta}}{2 \ii } \right) \\
+& = & - \frac{\sin 3 \theta}{4}
+  + \frac{3 \sin \theta}{4}
+\end{eqnarray*}
+\end{exemple}
+
+%------------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Mettre les nombres suivants sont la forme module-argument (avec la notation exponentielle) :
+$1$, $\ii$, $-1$, $-\ii$, $3\ii$, $1+\ii$, $\sqrt{3}-\ii$, $\overline{\sqrt{3}-\ii}$, $\frac{1}{\sqrt{3}-\ii}$, $(\sqrt{3}-\ii)^{20xx}$
+où $20xx$ est l'année en cours.
+  \item Calculer les racines $5$-ième de $\ii$.
+  \item Calculer les racines carrées de $\frac{\sqrt{3}}{2}+\frac{\ii}{2}$ de deux façons différentes.
+En déduire les valeurs de $\cos \frac{\pi}{12}$ et $\sin \frac{\pi}{12}$.
+  \item Donner sans calcul la valeur de $\omega_0 + \omega_1 + \cdots + \omega_{n-1}$,
+où les $\omega_i$ sont les racines $n$-ième de $1$.
+  \item Développer $\cos (4\theta)$ ; linéariser $\cos^4 \theta$ ; calculer une primitive de $\theta\mapsto\cos^4 \theta$.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Nombres complexes et géométrie}
+
+On associe bijectivement à tout point $M$ du plan affine $\Rr^2$
+%ou à un vecteur $\vec{u}$ du plan vectoriel $\Rr^2$
+de coordonnées $(x,y)$, le nombre complexe $z=x+\ii y$ appelé son \defi{affixe}\index{affixe}.
+% et parfois noté $z_M$.
+% ou $z_{\vec{u}}$.
+
+%---------------------------------------------------------------
+\subsection{\'Equation complexe d'une droite}
+
+Soit
+$$ax+by=c$$
+l'équation réelle d'une droite $\mathcal{D}$ : $a,b,c$ sont des nombres réels
+($a$ et $b$ n'étant pas tous les deux nuls) d'inconnues $(x,y) \in \Rr^2$.
+
+
+
+\'Ecrivons $z=x+\ii  y \in \Cc$, alors
+$$x = \frac{z+\bar z}{2}, \quad y = \frac{z - \bar z}{2 \ii },$$
+donc $\mathcal{D}$ a aussi pour équation
+$a(z+\bar z) -\ii  b(z-\bar z)=2c$ ou encore $(a-\ii  b)z+(a+\ii  b)\bar z = 2c$.
+Posons $\omega = a+\ii  b \in \Cc^*$ et $k=2c \in \Rr$ alors
+l'équation complexe d'une droite est :
+\mybox{$\bar \omega z + \omega \bar z = k$}
+où $\omega \in \Cc^*$ et $k\in \Rr$.
+
+\myfigure{1}{
+\tikzinput{fig_complexes01} \qquad
+\tikzinput{fig_complexes02}
+}
+
+%---------------------------------------------------------------
+\subsection{\'Equation complexe d'un cercle}
+
+Soit $\mathcal{C}(\Omega,r)$ le cercle de centre $\Omega$ et de rayon $r$.
+C'est l'ensemble des points $M$ tel que $\mathrm{dist}(\Omega,M)=r$. Si l'on note $\omega$ l'affixe
+de $\Omega$ et $z$ l'affixe de $M$. Nous obtenons:
+$$\mathrm{dist}(\Omega,M) = r \iff  |z-\omega|=r \iff |z-\omega|^2=r^2 \iff (z-\omega)\overline{(z-\omega)}=r^2$$
+et en développant nous trouvons que l'équation complexe du cercle centré en un point d'affixe $\omega$
+et de rayon $r$ est :
+\mybox{$z\bar z - \bar \omega z - \omega \bar z = r^2-|\omega|^2$}
+où  $\omega \in \Cc$ et $r\in \Rr$.
+
+
+%---------------------------------------------------------------
+\subsection{\'Equation $\frac{|z-a|}{|z-b|}=k$}
+
+\begin{proposition}
+Soit $A,B$ deux points du plan et $k\in \Rr_+$.
+L'ensemble des points $M$ tel que $\frac{MA}{MB}=k$
+est
+\begin{itemize}
+  \item une droite qui est la médiatrice de $[AB]$, si $k=1$,
+  \item un cercle, sinon.
+\end{itemize}
+\end{proposition}
+
+\begin{exemple}
+Prenons $A$ le point d'affixe $+1$,$B$ le point d'affixe $-1$.
+Voici les figures pour plusieurs valeurs de $k$.
+
+Par exemple pour $k=2$ le point $M$ dessiné vérifie bien $MA=2MB$.
+
+\myfigure{1.3}{
+\tikzinput{fig_complexes13bis}
+}
+\end{exemple}
+
+
+
+
+\begin{proof}
+Si les affixes de $A,B,M$
+sont respectivement $a,b,z$, cela revient
+à résoudre l'équation $\frac{|z-a|}{|z-b|}=k$.
+\begin{align*}
+\frac{|z-a|}{|z-b|}=k
+  & \Longleftrightarrow |z-a|^2 = k^2 |z-b|^2 \\
+  & \Longleftrightarrow (z-a)\overline{(z-a)} = k^2 (z-b)\overline{(z-b)} \\
+  & \Longleftrightarrow (1-k^2) z \bar z -z(\bar a - k^2 \bar b) - \bar z(a-k^2b) + |a|^2-k^2|b|^2=0
+\end{align*}
+Donc si $k=1$, on pose $\omega = a-k^2b$ et  l'équation obtenue
+$z\bar \omega  + \bar z \omega = |a|^2-k^2|b|^2$ est bien celle d'une droite.
+Et bien sûr l'ensemble des points qui vérifient $MA=MB$ est la médiatrice de $[AB]$.
+Si $k\neq 1$ on pose $\omega = \frac{a-k^2b}{1-k^2}$ alors l'équation obtenue est
+$z \bar z -z \bar \omega - \bar z \omega = \frac{-|a|^2+k^2|b|^2}{1-k^2}$.
+C'est l'équation d'un cercle de centre $\omega$ et de rayon $r$ satisfaisant
+$r^2-|\omega|^2= \frac{-|a|^2+k^2|b|^2}{1-k^2}$,
+soit $r^2 = \frac{|a-k^2b|^2}{(1-k^2)^2}+\frac{-|a|^2+k^2|b|^2}{1-k^2}$.
+\end{proof}
+
+Ces calculs se refont au cas par cas, il n'est pas nécessaire d'apprendre les formules.
+
+%------------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Calculer l'équation complexe de la droite passant par $1$ et $\ii$.
+  \item Calculer l'équation complexe du cercle de centre $1+2\ii$ passant par $\ii$.
+  \item Calculer l'équation complexe des solutions de $\dfrac{|z-\ii|}{|z-1|}=1$, puis dessiner les solutions.
+  \item Même question avec $\dfrac{|z-\ii|}{|z-1|}=2$.
+\end{enumerate}
+\end{miniexercices}
+
+\auteurs{
+Arnaud Bodin,
+Benjamin Boutin,
+Pascal Romon
+}
+
+\finchapitre
+\end{document}

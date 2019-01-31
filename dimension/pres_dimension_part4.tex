@@ -1,0 +1,281 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={150,93,42}]{structure}
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Dimension finie}}
+\subtitle{Dimension d'un espace vectoriel}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition
+    \item<4-> Exemples
+    \item<5-> Compléments
+    %\item<6-> Preuve (??)
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définition}
+
+\begin{frame}
+\begin{mydefinition}
+Un $\Kk$-espace vectoriel $E$ admettant une base ayant un nombre fini
+d'éléments est dit de \defi{dimension finie}
+\end{mydefinition}
+\pause
+\begin{theoreme}[de la dimension]
+Toutes les bases d'un espace vectoriel $E$ de dimension 
+finie ont le même nombre d'éléments 
+\end{theoreme}
+
+\pause
+\begin{mydefinition}
+La \defi{dimension} d'un espace vectoriel de dimension finie $E$, 
+notée \defi{$\dim E$}, est par définition le nombre d'éléments d'une base de $E$
+\end{mydefinition}
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exemples}
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+\setlength{\itemsep}{7pt}
+  \item La base canonique de $\Rr^2$ est 
+$\left( 
+\left(\begin{smallmatrix} 1\\0 \end{smallmatrix}\right),
+\left(\begin{smallmatrix} 0\\1 \end{smallmatrix}\right)
+\right)$ : dim$\Rr^2=2$
+  
+  
+  \pause
+  \item Les vecteurs $\left(
+  \left(\begin{smallmatrix}2\\1\end{smallmatrix}\right),
+  \left(\begin{smallmatrix}1\\1\end{smallmatrix}\right) \right)$
+  forment aussi une base de $\Rr^2$  
+  
+  
+  \pause
+  \item $\dim \Kk^n = n$
+  
+    \pause 
+  \item $\dim \Rr_n[X] = n+1\quad$ car $\quad\Card \{1,X,X^2,\ldots,X^n\} = n+1$
+  
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}[Système homogène]
+\[ \left\{
+\begin{array}{ccccccccccc}
+2x_1 &+ &2x_2 &- &x_3 &&&+ &x_5 & = & 0\\
+-x_1 &- &x_2 &+ &2x_3 &- &3x_4 &+ &x_5 & = &0\\
+x_1 &+ &x_2 &- &2x_3 &&&- &x_5 & = & 0\\
+&&&&x_3 &+ &x_4 &+ &x_5 & = & 0
+\end{array} \right.
+\]
+\pause
+
+$$ x_1 = -s-t\qquad x_2 = s\qquad x_3 = -t\qquad x_4 = 0\qquad x_5 = t\, $$ 
+
+\pause
+
+$$ \left( \begin{smallmatrix} x_1\\x_2\\x_3\\x_4\\x_5\end{smallmatrix}\right) 
+=  \left( \begin{smallmatrix} -s-t\\s\\-t\\ 0\\t\end{smallmatrix}\right) 
+\pause
+=  \left( \begin{smallmatrix} -s\\s\\0\\0\\0\end{smallmatrix}\right) 
++  \left( \begin{smallmatrix} -t\\0\\-t\\0\\t\end{smallmatrix}\right)
+\pause
+= s  \left( \begin{smallmatrix} -1\\1\\0\\0\\0\end{smallmatrix}\right) 
++ t \left( \begin{smallmatrix} -1\\0\\-1\\0\\1\end{smallmatrix}\right)\, $$
+\pause
+$$ v_1 = \left( \begin{smallmatrix} -1\\1\\0\\0\\0\end{smallmatrix}\right) 
+\quad \text{ et } \quad 
+v_2 =  \left( \begin{smallmatrix} -1\\0\\-1\\0\\1\end{smallmatrix}\right)$$ 
+\end{exemple}
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Compléments}
+
+\begin{frame}
+Soit $E$ un espace vectoriel de dimension finie
+\begin{lemme}
+Soit $\mathcal{L}$ une famille libre et soit
+$\mathcal{G}$ une famille génératrice $E$. Alors \\
+\centerline{$\Card \mathcal{L} \le \Card \mathcal{G}$}
+\end{lemme}
+
+\bigskip
+\pause
+
+\begin{proposition}
+Soit $E$ un $\Kk$-espace vectoriel de dimension $n$. Alors :
+\pause
+\begin{enumerate}
+  \item Toute famille libre de $E$ a au plus $n$ éléments
+\pause  
+  \item Toute famille génératrice de $E$ a au moins $n$ éléments
+\end{enumerate}
+\end{proposition}
+\end{frame}
+
+\begin{frame}
+Soit $E$ un $\Kk$-espace vectoriel de dimension \evidence{$n$}
+\begin{theoreme}
+$\mathcal{F}=(v_1,\ldots,v_n)$ une famille de \evidence{$n$} vecteurs de $E$ \\
+Il y a équivalence entre :
+\begin{itemize}
+  \item[(i)] $\mathcal{F}$ est une base de $E$
+  
+  \item[(ii)] $\mathcal{F}$ est une famille libre de $E$
+  
+  \item[(iii)] $\mathcal{F}$ est une famille génératrice de $E$
+\end{itemize}
+\end{theoreme}
+\pause
+\begin{proof}
+\begin{itemize}  
+  \item (ii) $\implies$ (i) Soit $\mathcal{F}$ une famille libre à $n$ éléments.
+  Il existe une famille $\mathcal{F}'$ telle que
+$\mathcal{F} \cup \mathcal{F}'$  base de $E$ (th\'eor\`eme de la base incompl\`ete). Alors
+ $\Card \big(\mathcal{F} \cup \mathcal{F}'\big)=n$. Or
+$\Card \mathcal{F}=n$. Donc $\Card \mathcal{F}'=0$, ce qui implique que  $\mathcal{F}'=\varnothing$ et donc que 
+$\mathcal{F}$ est déjà une base de $E$
+  \pause
+  \item (iii) $\implies$ (i) Soit $\mathcal{F}$ une famille génératrice \`a $n$ \'el\'ements.
+On peut extraire de $\mathcal{F}$ une base $\mathcal{B} \subset \mathcal{F}$ (th\'eor\`eme de la base incompl\`ete).
+Alors  $\Card \mathcal{B}=n$ (th\'eor\`eme de la dimension), donc
+$n = \Card \mathcal{B} \le \Card \mathcal{F}=n$. Donc $\mathcal{B} = \mathcal{F}$ et 
+$\mathcal{F}$ est bien une base \qedhere
+\end{itemize}
+\end{proof}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}
+\begin{itemize}
+\item
+$v_1 = \begin{pmatrix}1\\1\\4\end{pmatrix} \qquad
+v_2 = \begin{pmatrix}1\\3\\t\end{pmatrix} \qquad
+v_3 = \begin{pmatrix}1\\1\\t\end{pmatrix}$
+
+\pause
+\item
+Pour quelles valeurs de $t\in\Rr$, $(v_1,v_2,v_3)$ est  une base de $\Rr^3$ ?
+
+\pause
+  \item $\dim \Rr^3 = 3$ et $\Card \{v_1,v_2,v_3\} = 3$  
+  \pause
+  \item \`A quelle condition la famille $\{ v_1,v_2,v_3 \}$ est libre ?
+  \pause
+  \item 
+  Soient $\lambda_1,\lambda_2,\lambda_3 \in \Rr$ tels que $\lambda_1 v_1 + \lambda_2 v_2 + \lambda_3 v_3 = 0$
+  \pause
+  $\Leftrightarrow\left\{ \begin{array}{rcl}
+  \lambda_1 + \lambda_2 + \lambda_3 &=& 0 \\
+  \lambda_1 + 3 \lambda_2 + \lambda_3 &=& 0 \\
+  4\lambda_1 + t\lambda_2 + t \lambda_3 &=& 0
+  \end{array}  \right.$
+  \pause  $\Leftrightarrow\left\{ \begin{array}{rcl}
+  \lambda_1 + \lambda_2 + \lambda_3 &=& 0 \\
+  2 \lambda_2 &=& 0 \\
+  (t-4)\lambda_2 + (t-4) \lambda_3 &=& 0
+  \end{array} \right.$
+  \pause
+  $
+  \Leftrightarrow  \left\{ \begin{array}{rcl}
+  \lambda_1 + \lambda_3 &=& 0 \\
+  \lambda_2 &=& 0 \\
+  (t-4) \lambda_3 &=& 0
+  \end{array} \right.$
+  
+  \pause
+  \item $\{ v_1,v_2,v_3 \}$ est une base si et seulement si $t\neq 4$  
+\end{itemize}
+
+\end{exemple}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Preuve (??)}
+%
+%\begin{frame}
+%
+%\pause
+%
+%\end{frame}
+%
+%
+%\begin{frame}
+%
+%\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+Dire si les assertions suivantes sont vraies ou fausses.
+Justifier votre réponse par un résultat du cours ou un contre-exemple :
+\begin{enumerate}
+  \item Une famille de $p \ge n$ vecteurs dans un espace vectoriel 
+  de dimension $n$ est génératrice.
+  
+  \item Une famille de $p > n$ vecteurs dans un espace vectoriel 
+  de dimension $n$ est liée.  
+  
+  \item Une famille de $p < n$ vecteurs dans un espace vectoriel 
+  de dimension $n$ est libre.   
+  
+  \item Une famille génératrice de $p \le n$ vecteurs dans un espace vectoriel 
+  de dimension $n$ est libre.
+   
+  \item Une famille de $p \neq n$ vecteurs dans un espace vectoriel 
+  de dimension $n$ n'est pas une base.
+  
+  \item Toute famille libre à $p$ éléments d'un espace vectoriel de dimension $n$
+  se complète par une famille ayant exactement $n-p$ éléments en une base de $E$.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

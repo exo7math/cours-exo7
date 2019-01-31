@@ -1,0 +1,626 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={56,98,238}]{structure}
+ 
+% Commande spécifique à ce chapitre
+\newcommand{\Pass}{\mathop{\text{P}}\nolimits}
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Matrices et applications linéaires}}
+\subtitle{Changement de bases}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Application linéaire, matrice, vecteur
+    \item<4-> Matrice de passage d'une base à une autre
+    \item<5-> Formule de changement de base
+    \item<6-> Matrices semblables
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Application linéaire, matrice, vecteur}
+
+\begin{frame}
+
+\begin{itemize}
+  \item Soit $\mathcal{B} = (e_1,e_2, \dots ,e_p )$ une base d'un espace vectoriel $E$
+  \pause
+  \item Pour  $x \in E$, $x=x_1e_1+x_2e_2+\dots +x_p e_p$
+\pause
+  \item La matrice de $x$ dans $\mathcal{B}$ est $\Mat_\mathcal{B} (x) = 
+  \left(\begin{smallmatrix}x_1\cr x_2\cr \vdots \cr x_p\end{smallmatrix}\right)_\mathcal{B}$
+\end{itemize}
+
+\pause
+\vspace*{-1ex}
+\begin{proposition}
+\label{prop:matetapplin}
+$f : E \to F$ \pause\quad  $y=f (x)$ \quad \pause$\mathcal{B}$ base de $E$ \quad\pause $\mathcal{B}'$ base de $F$
+\vspace*{-2ex}
+\pause
+$$A = \Mat_{\mathcal{B},\mathcal{B}'} (f) 
+\quad 
+\pause
+X = \Mat_{\mathcal{B}} (x) = 
+\left(\begin{smallmatrix}x_1\cr x_2\cr \vdots \cr x_p\end{smallmatrix}\right)_\mathcal{B}
+\quad 
+\pause
+Y = \Mat_{\mathcal{B}'} (y) = 
+  \left(\begin{smallmatrix}y_1\cr y_2\cr \vdots \cr y_n\end{smallmatrix}\right)_{\mathcal{B}'}
+$$
+\vspace*{-2ex}
+\pause
+Alors, si $y = f(x)$, on a 
+\vspace*{-1ex}
+\mybox{$Y = AX$}
+\vspace*{-3ex}
+\pause
+\mybox{$\Mat_{\mathcal{B}'} \big( f(x) \big) 
+= \Mat_{\mathcal{B},\mathcal{B}'} (f) \times \Mat_{\mathcal{B}} (x)$}
+\end{proposition}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+  \item $E$ un espace vectoriel de dimension $3$ de base $\mathcal{B}=(e_1,e_2,e_3)$
+  \pause
+  \item Soit $f : E \to E$ avec $A = \Mat_{\mathcal{B}} (f) =
+\begin{pmatrix}
+1&2&1\cr
+2&3&1\cr
+1&1&0\cr
+\end{pmatrix}$
+\end{itemize}
+\pause\evidence{Quel est le noyau de $f$ ?}
+\vspace*{-2ex}
+\small
+\pause
+$$
+x  \in \Ker f  \pause\iff 
+f(x)= 0_E \pause\iff  \Mat_{\mathcal{B}} \big(f (x) \big) =
+\begin{pmatrix}
+0\cr
+0\cr
+0\end{pmatrix} 
+\pause\iff 
+A X =
+\begin{pmatrix}
+0\cr
+0\cr
+0\end{pmatrix}
+$$
+$$
+\pause\iff
+A
+\begin{pmatrix}
+x_1\cr
+x_2\cr
+x_3\end{pmatrix} =
+ \begin{pmatrix}
+0\cr
+0\cr
+0\end{pmatrix}
+\pause\iff  \left \{
+\begin{matrix}
+x_1& +&2x_2&+&x_3&=&0\cr
+2x_1& +&3x_2&+&x_3&=&0\cr
+x_1&+&x_2&&&=&0\end{matrix}\right .
+$$
+\pause
+$$\Ker f\pause\!=\!\left\{x \in E \mid 
+\begin{array}{c}
+x_1 + 2x_2+x_3 = 0 \\
+\text{ et } x_2+x_3=0  
+\end{array}
+\!\right\}
+\pause\!\!=\!\left\{ \left(\begin{smallmatrix}t\\-t\\t\end{smallmatrix}\right)_{\mathcal{B}} \mid t \in \Kk \right\} 
+\pause= \Vect\left( \left(\begin{smallmatrix}1\\-1\\1\end{smallmatrix}\right)_{\mathcal{B}}\right)$$
+
+\end{exemple}
+\end{frame}
+
+\begin{frame}
+
+\begin{exemple}
+
+\begin{itemize}
+  \item Soit $E$ un espace vectoriel de dimension $3$ ayant une base $\mathcal{B}=(e_1,e_2,e_3)$
+  \item Soit $f : E \to E$ avec $A = \Mat_{\mathcal{B}} (f) =
+\begin{pmatrix}
+1&2&1\cr
+2&3&1\cr
+1&1&0\cr
+\end{pmatrix}$
+\end{itemize}
+
+\evidence{Quelle est l'image de $f$ ?}
+
+\pause
+
+\begin{itemize}
+  \item $\Ker f$ est de dimension $1$
+  \pause
+  \item Théorème du rang : $\dim \Im f = \dim E - \dim \Ker f = 2$
+  \pause
+  \item Les deux premiers vecteurs de la matrice $A$ étant linéairement indépendants, ils engendrent
+$\Im f$
+\end{itemize}
+
+\pause
+
+$$\Im f = \Vect \left(
+\left(\begin{smallmatrix}1\\2\\1\end{smallmatrix}\right)_{\mathcal{B}},
+\left(\begin{smallmatrix}2\\3\\1\end{smallmatrix}\right)_{\mathcal{B}}
+\right)$$
+\end{exemple}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Matrice de passage d'une base à une autre}
+
+\begin{frame}
+
+\begin{itemize}
+  \item Soit $E$ un espace vectoriel de dimension $n$
+  
+\pause
+
+  \item Soient $\mathcal{B}$ et $\mathcal{B}'$ deux bases de $E$
+\end{itemize}
+
+\pause
+
+\begin{mydefinition}
+La \defi{matrice de passage}  de la base $\mathcal{B}$ vers la base 
+$\mathcal{B}'$, notée $\Pass_{\mathcal{B},\mathcal{B'}}$,
+est la matrice dont la $j$-ème colonne est formée des coordonnées du $j$-ème 
+vecteur de la base $\mathcal{B}'$, 
+par rapport à la base $\mathcal{B}$
+\end{mydefinition}
+
+\pause
+
+\mybox{
+\begin{minipage}{0.8\textwidth}
+\center
+La matrice de passage $\Pass_{\mathcal{B},\mathcal{B'}}$ est constituée -\,en colonne\;- des
+coordonnées des vecteurs de la nouvelle base $\mathcal{B}'$
+exprimés dans l’ancienne base $\mathcal{B}$ 
+\end{minipage}
+}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+Dans $\Rr^2$ on considère :
+\vspace*{-1ex}
+$$
+e_1 = \begin{pmatrix}1\\0\end{pmatrix} \qquad
+e_2 = \begin{pmatrix}1\\1\end{pmatrix} \qquad\qquad
+\pause
+\epsilon_1 = \begin{pmatrix}1\\2\end{pmatrix} \qquad
+\epsilon_2 = \begin{pmatrix}5\\4\end{pmatrix}$$
+\vspace*{-2ex}
+\pause
+\begin{itemize}
+  \item $\mathcal{B} = (e_1,e_2)$ est une base
+  \pause
+  \item $\mathcal{B}'=(\epsilon_1,\epsilon_2)$ est une base
+\end{itemize}
+
+\pause
+
+Quelle est la matrice de passage de la base $\mathcal{B}$ vers 
+la base $\mathcal{B}'$ ?
+
+\pause
+\evidence{Méthode} Il faut exprimer $\epsilon_1$ et $\epsilon_2$ en fonction de $(e_1,e_2)$
+
+\pause
+
+$$\epsilon_1 = -e_1+2e_2 \pause =  \begin{pmatrix}-1\\2\end{pmatrix}_{\mathcal{B}}
+\qquad
+\pause
+\epsilon_2 = e_1+4e_2 \pause =  \begin{pmatrix}1\\4\end{pmatrix}_{\mathcal{B}}$$
+\pause
+La matrice de passage est donc :
+\vspace*{-2ex}
+$$\Pass_{\mathcal{B},\mathcal{B'}} = 
+\begin{pmatrix}-1&1\\2&4\end{pmatrix}$$
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\begin{proposition}
+La matrice de passage $\Pass_{\mathcal{B},\mathcal{B}'}$
+est la matrice associée à l'identité $\id_E :  (E, \mathcal{B}') \to (E,\mathcal{B})$
+
+\mybox{$\Pass_{\mathcal{B},\mathcal{B'}} = \Mat_{\mathcal{B}',\mathcal{B}} (\id_E) $}
+\end{proposition}
+
+\pause
+
+\begin{proposition}
+\label{prop:chgtbase}
+\begin{enumerate}
+  \item Une matrice de passage est inversible et
+  \myboxinline{ $\Pass_{\mathcal{B}',\mathcal{B}} = \big( \Pass_{\mathcal{B},\mathcal{B}'} \big)^{-1}$}
+  
+ \bigskip
+ \pause
+ 
+  \item Si $\mathcal{B}$, $\mathcal{B}'$ et $\mathcal{B}''$ sont trois bases
+  \myboxinline{ $\Pass_{\mathcal{B},\mathcal{B}''} = \Pass_{\mathcal{B},\mathcal{B}'}
+  \times \Pass_{\mathcal{B}',\mathcal{B}''}$}
+\end{enumerate}
+\end{proposition}
+
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\label{ex:matpassag}
+Soit $E = \Rr^3$ avec sa base canonique $\mathcal{B}$
+\pause
+$$\mathcal{B}_1 = 
+\left(
+\begin{pmatrix} 1\\1\\0\end{pmatrix},
+\begin{pmatrix} 0 \\ -1 \\ 0\end{pmatrix},
+\begin{pmatrix} 3\\2\\-1\end{pmatrix}
+\right)
+\pause\quad \text{et} \quad
+\mathcal{B}_2 = 
+\left(
+\begin{pmatrix} 1\\-1\\0\end{pmatrix},
+\begin{pmatrix} 0 \\ 1 \\ 0\end{pmatrix},
+\begin{pmatrix} 0\\0\\-1\end{pmatrix}
+\right)$$
+\pause
+Quelle est la matrice de passage de $\mathcal{B}_1$ vers $\mathcal{B}_2$ ?
+
+\pause
+\begin{itemize}
+
+  \item $\Pass_{\mathcal{B}, \mathcal{B}_1} = 
+\begin{pmatrix}
+1 & 0 & 3\\
+1 & -1 & 2\\
+0 & 0 &-1
+\end{pmatrix}
+\pause
+\quad \text{ et } \quad 
+\Pass_{\mathcal{B}, \mathcal{B}_2} = 
+\begin{pmatrix}
+1 & 0 & 0\\
+-1 & 1 & 0\\
+0 & 0 &-1
+\end{pmatrix}$
+
+\pause
+  \item $\Pass_{\mathcal{B}, \mathcal{B}_2} 
+  = \Pass_{\mathcal{B}, \mathcal{B}_1} \times \Pass_{\mathcal{B}_1, \mathcal{B}_2}$
+  \pause
+  \quad donc \quad
+  $\Pass_{\mathcal{B}_1, \mathcal{B}_2} 
+  =  \Pass_{\mathcal{B}, \mathcal{B}_1}^{-1} \times \Pass_{\mathcal{B}, \mathcal{B}_2}$
+
+\pause
+  \item  $\Pass_{\mathcal{B}_1, \mathcal{B}_2} =
+\begin{pmatrix}
+1 & 0 & 3\\
+1 & -1 & 2\\
+0 & 0 &-1
+\end{pmatrix}^{-1}
+\times 
+\begin{pmatrix}
+1 & 0 & 0\\
+-1 & 1 & 0\\
+0 & 0 &-1
+\end{pmatrix}
+\pause
+=  \begin{pmatrix}
+1 & 0 & -3\\
+2 & -1 & -1\\
+0 & 0 & 1
+\end{pmatrix}$
+  
+\end{itemize}
+
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{itemize}
+
+
+  \item $\mathcal{B}=(e_1, e_2, \ldots ,e_n)$ et 
+$\mathcal{B}' = (e'_1, e'_2, \ldots ,e'_n)$ deux bases de $E$
+
+\pause
+
+  \item $\Pass_{\mathcal{B},\mathcal{B}'}$ la matrice de passage de 
+la base $\mathcal{B}$ vers la base $\mathcal{B}'$
+
+\pause
+  
+  \item Pour $x \in E$, $x=\displaystyle\sum_{i=1}^n x_ie_i$\pause, on note $X \!=\! \Mat_\mathcal{B} (x) = \!
+\left(\begin{smallmatrix}x_1\cr x_2\cr \vdots \cr x_n
+\end{smallmatrix}\right)_{\!\!\!\mathcal{B}}$
+
+\pause
+
+  \item Il s'écrit aussi $x=\displaystyle\sum_{i=1}^n x'_ie'_i$ \ \pause et on note $X' = \Mat_{\mathcal{B}'} (x) = 
+\left(\begin{smallmatrix}x'_1\cr x'_2\cr \vdots \cr x'_n
+\end{smallmatrix}\right)_{\!\!\!\mathcal{B}'}$
+\end{itemize}
+\vspace*{-1ex}
+\pause
+\begin{proposition}
+\mybox{$X = \Pass_{\mathcal{B},\mathcal{B}'} \times X'$}
+\end{proposition}
+\vspace*{-1ex}
+\pause
+\begin{proof}
+$\Pass_{\mathcal{B},\mathcal{B}'}$ est la matrice de $\id_E : (E,\mathcal{B}')\to (E,\mathcal{B})$ 
+
+\pause
+\smallskip
+
+\centerline{$X 
+\pause
+= \Mat_\mathcal{B} (x) 
+\pause
+= \Mat_{\mathcal{B}} \big( \id_E(x) \big)
+\pause
+= \Mat_{\mathcal{B}',\mathcal{B}} (\id_E) \times \Mat_{\mathcal{B}'} (x)
+\pause
+= \Pass_{\mathcal{B},\mathcal{B}'} \times X'$}
+
+\end{proof}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Formule de changement de base}
+
+% \begin{frame}
+% 
+% \evidence{Formule de changement de base}
+% 
+% \begin{itemize}
+%   \item Soient $E$ et $F$ deux $\Kk$-espaces vectoriels de dimension finie
+%   
+%   \item Soit $f : E \to F$ une application linéaire  
+%   
+%   \item Soient $\mathcal{B}_E$, $\mathcal{B}'_E$ deux bases de $E$
+%   
+%   \item Soient $\mathcal{B}_F$, $\mathcal{B}'_F$ deux bases de $F$
+%   
+%   \item Soit $P = \Pass_{\mathcal{B}_E,\mathcal{B}'_E}$ la matrice de passage de $\mathcal{B}_E$
+%   à $\mathcal{B}'_E$
+%   
+%   \item Soit $Q = \Pass_{\mathcal{B}_F,\mathcal{B}'_F}$ la matrice de passage de $\mathcal{B}_F$
+%   à $\mathcal{B}_F'$
+%   
+%   \item Soit $A = \Mat_{\mathcal{B}_E,\mathcal{B}_F} (f)$ la matrice de l'application linéaire $f$ de la base
+%   $\mathcal{B}_E$ vers la base $\mathcal{B}_F$
+%   
+%   \item Soit $B = \Mat_{\mathcal{B}'_E,\mathcal{B}'_F} (f)$ la matrice de l'application linéaire $f$ de la base
+%   $\mathcal{B}'_E$ vers la base $\mathcal{B}'_F$
+% \end{itemize}
+% 
+% 
+% \begin{theoreme}
+% \label{th:changementbase}
+% \mybox{$B = Q^{-1} A P$}
+% \end{theoreme}
+% 
+% \end{frame}
+
+
+\begin{frame}
+
+\evidence{Formule de changement de base}
+\pause
+\begin{itemize} 
+  \item Soit $f : E \to E$ une application linéaire
+  \pause
+  \item Soient $\mathcal{B}$, $\mathcal{B}'$ deux bases de $E$
+  \pause
+  \item Soit $A = \Mat_{\mathcal{B}} (f)$ 
+  la matrice de l'application $f$ dans la base 
+  $\mathcal{B}$
+  \pause
+  \item Soit $B = \Mat_{\mathcal{B}'} (f)$ 
+  la matrice de l'application $f$ dans
+  la base $\mathcal{B}'$ 
+  \pause
+  \item Soit $P = \Pass_{\mathcal{B},\mathcal{B}'}$ 
+  la matrice de passage de $\mathcal{B}$ à $\mathcal{B}'$
+\end{itemize}
+
+\pause
+
+\begin{theoreme}
+\label{cor:changementbase}
+\mybox{$B = P^{-1} A P$}
+\end{theoreme}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+$$\mathcal{B}_1 = 
+\left(
+\left(\begin{smallmatrix} 1\\1\\0\end{smallmatrix}\right),
+\left(\begin{smallmatrix} 0 \\ -1 \\ 0\end{smallmatrix}\right),
+\left(\begin{smallmatrix} 3\\2\\-1\end{smallmatrix}\right)
+\right)
+\quad \text{ et } \quad
+\mathcal{B}_2 = 
+\left(
+\left(\begin{smallmatrix} 1\\-1\\0\end{smallmatrix}\right),
+\left(\begin{smallmatrix} 0 \\ 1 \\ 0\end{smallmatrix}\right),
+\left(\begin{smallmatrix} 0\\0\\-1\end{smallmatrix}\right)
+\right)
+$$
+
+\bigskip
+\pause
+
+Soit $f \!:\! \Rr^3 \to \Rr^3$ l'endomorphisme dont
+la matrice dans la base $\mathcal{B}_1$ est $A$
+$$A = \Mat_{\mathcal{B}_1}(f)
+=\begin{pmatrix}
+1 & 0 & -6\\
+-2 & 2 & -7\\
+0 & 0 & 3
+\end{pmatrix}
+\qquad
+\pause
+\uncover<4->{P = \Pass_{\mathcal{B}_1, \mathcal{B}_2} = 
+\begin{pmatrix}
+1 & 0 & -3\\
+2 & -1 & -1\\
+0 & 0 & 1
+\end{pmatrix}}$$
+
+\medskip
+
+
+Que vaut la matrice de $f$ dans la base $\mathcal{B}_2$, $B=\Mat_{\mathcal{B}_2}(f)$ ?
+\pause\pause
+\small
+  $$B \pause\!=\! P^{-1} A P \pause\!=\! 
+\begin{pmatrix}
+1 & 0 & 3\\
+2 & -1 & 5\\
+0 & 0 & 1
+\end{pmatrix} \!\times\!
+\begin{pmatrix}
+1 & 0 & -6\\
+-2 & 2 & -7\\
+0 & 0 & 3
+\end{pmatrix}
+\!\times \!
+\begin{pmatrix}
+1 & 0 & -3\\
+2 & -1 & -1\\
+0 & 0 & 1
+\end{pmatrix}
+\pause\!=\!
+\begin{pmatrix}
+1 & 0 & 0\\
+0 & 2 & 0\\
+0 & 0 & 3
+\end{pmatrix}$$ 
+\end{exemple}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Matrices semblables}
+
+\begin{frame}
+Soient $A$ et $B$ deux matrices de $M_n(\Kk)$
+\begin{mydefinition}
+$B$ est \defi{semblable} à la matrice $A$ s'il existe une
+matrice inversible $P \in M_n(\Kk)$ telle que
+$B=P^{-1}AP$
+\end{mydefinition}
+
+\pause
+
+La relation << être semblable >> est une relation d'équivalence \pause:
+\begin{proposition}
+\begin{itemize}
+  \item \evidence{réflexivité} : une matrice $A$ est semblable à elle-même
+  \pause
+  \item \evidence{symétrie} : si $A$ est semblable à $B$, 
+  alors $B$ est semblable à $A$
+  \pause
+  \item \evidence{transitivité} : si $A$ est semblable à $B$, 
+  et $B$ est semblable à $C$, alors $A$ est semblable à $C$
+\end{itemize}
+\end{proposition}
+
+\pause
+
+\begin{corollaire}
+Deux matrices semblables représentent le même endomorphisme, mais exprimé dans
+des bases différentes
+\end{corollaire}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+Soit $f : \Rr^2 \to \Rr^2$ définie par $f(x,y) = (2x+y,3x-2y)$,
+Soit $v = \left(\begin{smallmatrix}3\\-4\end{smallmatrix}\right) \in \Rr^2$
+avec ses coordonnées dans la base canonique $\mathcal{B}_0$ de $\Rr^2$.
+Soit $\mathcal{B}_1 = \left( 
+\left(\begin{smallmatrix}3\\2\end{smallmatrix}\right),
+\left(\begin{smallmatrix}2\\2\end{smallmatrix}\right)
+\right)$ une autre base de $\Rr^2$.
+\begin{enumerate}
+  \item Calculer la matrice de $f$ dans la base canonique.
+
+  \item Calculer les coordonnées de $f(v)$ dans la base canonique.
+  
+  \item Calculer la matrice de passage de $\mathcal{B}_0$ à $\mathcal{B}_1$.
+  
+  \item En déduire les coordonnées de $v$ dans la base $\mathcal{B}_1$,
+  et de $f(v)$ dans la base $\mathcal{B}_1$. 
+  
+  \item Calculer la matrice de $f$ dans la base $\mathcal{B}_1$.
+\end{enumerate}
+  
+
+Même exercice dans $\Rr^3$ avec $f : \Rr^3 \to \Rr^3$, $f(x,y,z) = (x-2y,y-2z,z-2x)$,
+$v = \left(\begin{smallmatrix}3\\-2\\1\end{smallmatrix}\right) \in \Rr^3$
+et $\mathcal{B}_1 = \left( 
+\left(\begin{smallmatrix}0\\1\\2\end{smallmatrix}\right),
+\left(\begin{smallmatrix}2\\0\\1\end{smallmatrix}\right),
+\left(\begin{smallmatrix}1\\2\\0\end{smallmatrix}\right)
+\right)$.
+  
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

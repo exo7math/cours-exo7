@@ -1,0 +1,1351 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Ensembles et applications}
+%====================================================================
+
+\insertvideo{bPT6-g3B5wQ}{partie 1. Ensembles}
+
+\insertvideo{Y8cV0zcFijs}{partie 2. Applications}
+
+\insertvideo{1qax9qMxz4c}{partie 3. Injection, surjection, bijection}
+
+\insertvideo{NElSI5_NIsk}{partie 4. Ensembles finis}
+
+\insertvideo{WuJyP_7VIu8}{partie 5. Relation d'équivalence}
+
+\insertfiche{fic00002.pdf}{Logique, ensembles, raisonnements}
+
+\insertfiche{fic00003.pdf}{Injection, surjection, bijection}
+
+\insertfiche{fic00005.pdf}{Dénombrement}
+
+\insertfiche{fic00004.pdf}{Relation d'équivalence, relation d'ordre}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Motivations}
+
+
+Au début du \textsc{\romannumeral 20}\textsuperscript{e} siècle le professeur Frege peaufinait la rédaction
+du second tome d'un ouvrage qui souhaitait refonder les mathématiques sur des bases logiques.
+Il reçut une lettre d'un tout jeune mathématicien :
+\emph{\og J'ai bien lu votre premier livre. Malheureusement vous supposez qu'il existe un ensemble
+qui contient tous les ensembles. Un tel ensemble ne peut exister. \fg{}}
+S'ensuit une démonstration de deux lignes. Tout le travail de Frege s'écroulait et
+il ne s'en remettra jamais.
+Le jeune Russell deviendra l'un des plus grands logiciens et philosophes de son temps.
+Il obtient le prix Nobel de littérature en 1950.
+
+Voici le \og paradoxe de Russell \fg{} pour montrer que l'ensemble de tous les ensembles ne peut exister.
+C'est très bref, mais difficile à appréhender.
+Par l'absurde, supposons qu'un tel ensemble $\mathcal{E}$ contenant tous les ensembles existe.
+Considérons
+$$F = \Big\lbrace E \in \mathcal{E} \mid E \notin E \Big\rbrace.$$
+Expliquons l'écriture $E \notin E$ :
+le $E$ de gauche est considéré comme un élément, en effet l'ensemble $\mathcal{E}$
+est l'ensemble de tous les ensembles et $E$ est un élément de cet ensemble ;
+le $E$ de droite est considéré comme un ensemble, en effet les élément de $\mathcal{E}$
+sont des ensembles ! On peut donc s'interroger si l'élément $E$ appartient à l'ensemble $E$.
+Si non, alors par définition on met $E$ dans l'ensemble $F$.
+
+La contradiction arrive lorsque l'on se pose la question suivante : a-t-on $F \in F$ ou $F \notin F$ ?
+L'une des deux affirmation doit être vraie. Et pourtant :
+\begin{itemize}
+  \item Si $F \in F$ alors par définition de $F$, $F$ est l'un des ensembles $E$ tel que $F \notin F$. Ce qui est contradictoire.
+  \item Si $F \notin F$ alors $F$ vérifie bien la propriété définissant $F$ donc $F \in F$ ! Encore contradictoire.
+\end{itemize}
+Aucun des cas n'est possible. On en déduit qu'il ne peut exister un tel ensemble $\mathcal{E}$
+contenant tous les ensembles.
+
+Ce paradoxe a été popularisé par l’énigme suivante :
+\emph{\og Dans une ville, le barbier rase tous ceux qui ne se rasent pas eux-mêmes.
+Qui rase le barbier ? \fg{}}
+La seule réponse valable est qu'une telle situation ne peut exister.
+
+\bigskip
+
+
+Ne vous inquiétez pas, Russell et d'autres ont fondé la logique et les ensembles sur des bases
+solides. Cependant il n'est pas possible dans ce cours de tout redéfinir.
+Heureusement, vous connaissez déjà quelques ensembles :
+\begin{itemize}
+  \item l'ensemble des entiers naturels $\Nn =\{0,1,2,3,\ldots\}$.
+  \item l'ensemble des entiers relatifs $\Zz = \{\ldots, -2,-1,0,1,2,\ldots\}$.
+  \item l'ensemble des rationnels $\Qq = \big\{ \frac{p}{q} \mid p \in \Zz, q \in \Nn\setminus \{ 0\} \big\}.$
+  \item l'ensemble des réels $\Rr$, par exemple $1, \sqrt 2$, $\pi$, $\ln(2)$,\ldots
+  \item l'ensemble des nombres complexes $\Cc$.
+\end{itemize}
+
+\bigskip
+
+Nous allons essayer de voir les propriétés des ensembles, sans s'attacher à un exemple particulier.
+Vous vous apercevrez assez rapidement que ce qui est au moins aussi important que les
+ensembles, ce sont les relations entre ensembles : ce sera la notion d'application (ou fonction)
+entre deux ensembles.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Ensembles}
+
+%---------------------------------------------------------------
+\subsection{Définir des ensembles}
+
+\begin{itemize}
+  \item On va définir informellement ce qu'est un ensemble :
+un \defi{ensemble}\index{ensemble} est une collection d'éléments.
+  \item Exemples :
+$$\{ 0, 1 \},\quad
+\{ \text{rouge}, \text{noir} \}, \quad
+\{0, 1, 2, 3,\ldots\} = \Nn.$$
+  \item Un ensemble particulier est l'\defi{ensemble vide}\index{ensemble vide}, noté $\varnothing$\index{$\varnothing$}
+qui est l'ensemble ne contenant aucun élément.
+  \item On note
+\mybox{$x \in E$}
+\index{$\in$}
+si $x$ est un élément de $E$, et $x \notin E$\index{$\notin$} dans le cas contraire.
+  \item Voici une autre façon de définir des ensembles : une collection d'éléments qui vérifient
+une propriété.
+  \item Exemples :
+$$\big\{ x \in \Rr \mid  |x-2| < 1 \big\}, \quad \big\{ z \in \Cc \mid z^5=1 \big\}, \quad
+\big\{ x \in \Rr \mid 0 \le x \le 1 \big\}=[0,1].$$
+\end{itemize}
+
+
+
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Inclusion, union, intersection, complémentaire}
+
+\begin{itemize}
+
+  \item L'\defi{inclusion}\index{inclusion}. $E \subset F$\index{$\subset$} si tout élément de $E$ est aussi un élément de $F$.
+Autrement dit: $\forall x \in E \; (x \in F)$. On dit alors que $E$ est un \defi{sous-ensemble}\index{sous-ensemble} de $F$
+ou une \defi{partie}\index{partie} de $F$.
+
+  \item L'\defi{égalité}. $E = F$ si et seulement si $E \subset F$ et $F \subset E$.
+
+  \item \defi{Ensemble des parties} de $E$. On note $\mathcal{P}(E)$\index{$\mathcal{P}(E)$} l'ensemble des parties de $E$.
+Par exemple si $E= \{1,2,3\}$ :
+$$\mathcal{P}(\{1,2,3\}) =
+\big\{ \varnothing, \{1\}, \{2\}, \{3\}, \{1,2\}, \{1,3\}, \{2,3\}, \{1,2,3\} \big\}.$$
+
+  \item \defi{Complémentaire}\index{complementaire@complémentaire}. Si $A \subset E$,
+\mybox{$\complement_E A = \big\{ x \in E \mid x \notin A \big\}$}
+On le note aussi $E \setminus A$\index{$E \setminus A$} et juste $\complement A$\index{$\complement$}
+s'il n'y a pas d'ambigu\"ité (et parfois aussi $A^c$ ou $\overline{A}$).
+
+\myfigure{1}{
+\tikzinput{fig_ensembles01}
+}
+
+  \item \defi{Union}\index{union}\index{$\cup$}. Pour $A, B \subset E$,
+\mybox{$A \cup B = \big\{ x \in E \mid x \in A \text{ ou } x \in B \big\}$}
+Le \emph{\og ou \fg} n'est pas exclusif : $x$ peut appartenir à $A$ et à $B$ en même temps.
+\medskip
+\myfigure{1}{
+\tikzinput{fig_ensembles02}
+}
+
+  \item \defi{Intersection}\index{intersection}\index{$\cap$}.
+\mybox{$A \cap B = \big\{ x \in E \mid x \in A \text{ et } x \in B \big\}$}
+\medskip
+\myfigure{1}{
+\tikzinput{fig_ensembles03}
+}
+
+\end{itemize}
+
+
+%---------------------------------------------------------------
+\subsection{Règles de calculs}
+
+Soient $A, B, C$ des parties d'un ensemble $E$.
+
+\begin{itemize}
+  \item $A\cap B = B \cap A$
+  \item $A \cap (B \cap C) = (A \cap B) \cap C$
+  \qquad (on peut donc écrire $A\cap B \cap C$ sans ambigüité)
+  \item $A \cap \varnothing = \varnothing$, \quad $A \cap A= A$,  \quad $A \subset B \Longleftrightarrow A\cap B = A$
+\end{itemize}
+
+\medskip
+
+\begin{itemize}
+  \item $A\cup B = B \cup A$
+  \item $A \cup (B \cup C) = (A \cup B) \cup C$
+  \qquad (on peut donc écrire $A\cup B \cup C$ sans ambiguïté)
+  \item $A \cup \varnothing = A$, \quad  $A \cup A= A$, \quad  $A \subset B \Longleftrightarrow A\cup B = B$
+\end{itemize}
+
+\medskip
+
+\begin{itemize}
+  \item \myboxinline{$A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$}
+  \item \myboxinline{$A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$}
+\end{itemize}
+
+\medskip
+
+\begin{itemize}
+  \item $\complement \left( \complement A \right) = A$ \quad et donc
+  \quad $A \subset B \Longleftrightarrow \complement B \subset \complement A$
+  \item $\complement \left( A \cap B \right) = \complement A \cup \complement B$
+  \item $\complement \left( A \cup B \right) = \complement A \cap \complement B$
+\end{itemize}
+
+\medskip
+Voici les dessins pour les deux dernières assertions.
+
+\myfigure{1}{
+\tikzinput{fig_ensembles04a}
+\qquad
+\tikzinput{fig_ensembles04b}
+}
+
+\myfigure{1}{
+\tikzinput{fig_ensembles04c}
+\qquad
+\tikzinput{fig_ensembles04d}
+}
+
+Les preuves sont pour l'essentiel une reformulation des opérateurs logiques, en voici quelques-unes :
+\begin{itemize}
+  \item Preuve de $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$:
+$x \in A \cap (B \cup C)
+\iff x \in A \text{ et } x \in (B \cup C)
+\iff  x \in A \text{ et } (x \in B \text{ ou } x \in C)
+\iff (x \in A \text{ et } x\in B) \text{ ou } (x \in A \text{ et } x \in C)
+\iff (x \in A \cap B) \text{ ou } (x \in A \cap C)
+\iff x \in (A\cap B) \cup (A\cap C)$.
+
+  \item Preuve de $\complement \left( A \cap B \right) = \complement A \cup \complement B$:
+$x \in \complement \left( A \cap B \right)
+\iff x \notin \left( A \cap B \right)
+\iff \text{non} \big(x \in A \cap B\big)
+\iff \text{non} \big(x \in A \text{ et } x \in B\big)
+\iff \text{non} (x \in A) \text{ ou } \text{non} (x \in B)
+\iff x \notin A \text{ ou } x\notin B
+\iff x \in \complement A \cup \complement B$.
+\end{itemize}
+Remarquez que l'on repasse aux éléments pour les preuves.
+
+%---------------------------------------------------------------
+\subsection{Produit cartésien}
+
+Soient $E$ et $F$ deux ensembles.
+Le \defi{produit cartésien}\index{produit cartesien@produit cartésien}, noté $E \times F$, est l'ensemble des couples $(x,y)$ où $x \in E$ et $y \in F$.
+
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+  \item Vous connaissez $\Rr^2 = \Rr \times \Rr= \big\{ (x,y) \mid x,y \in \Rr \big\}.$
+  \item Autre exemple $[0,1] \times \Rr = \big\{ (x,y) \mid 0 \le x \le 1, y \in \Rr \big\}$
+
+\myfigure{1}{
+\tikzinput{fig_ensembles05}
+}
+
+  \item $[0,1] \times [0,1] \times [0,1] = \big\{ (x,y,z) \mid 0 \le x,y,z \le 1 \big\}$
+
+\myfigure{1}{
+\tikzinput{fig_ensembles06}
+}
+\end{enumerate}
+
+\end{exemple}
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item En utilisant les définitions, montrer : $A \neq B$ si et seulement s'il existe $a \in A \setminus B$ ou
+$b \in B \setminus A$.
+  \item Énumérer $\mathcal{P}(\{1,2,3,4\})$.
+
+  \item Montrer $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$ et
+$\complement \left( A \cup B \right) = \complement A \cap \complement B$.
+
+  \item Énumérer $\{1,2,3\} \times \{1,2,3,4\}$.
+  \item Représenter les sous-ensembles de $\Rr^2$ suivants :
+$\big(]0,1[ \cup [2,3[\big) \times [-1,1]$,
+$\big( \Rr \setminus (]0,1[ \cup [2,3[)\big) \times \big( (\Rr \setminus[-1,1]) \cap [0,2]  \big)$.
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Applications}
+
+%---------------------------------------------------------------
+\subsection{Définitions}
+
+\begin{itemize}
+  \item Une \defi{application}\index{application} (ou une \defi{fonction}\index{fonction}) $f : E \to F$,
+c'est la donnée pour chaque élément $x \in E$ d'un unique élément de $F$ noté $f(x)$.
+
+
+Nous représenterons les applications par deux types d'illustrations :
+les ensembles \og patates \fg{}, l'ensemble de départ (et celui d'arrivée) est
+schématisé par un ovale ses éléments par des points. L'association $x \mapsto f(x)$ est représentée par une flèche.
+
+\myfigure{1}{
+\tikzinput{fig_ensembles07a}
+}
+
+
+L'autre représentation est celle des fonctions continues de $\Rr$ dans $\Rr$ (ou des sous-ensembles de $\Rr$).
+L'ensemble de départ $\Rr$ est représenté par l'axe des abscisses et celui d'arrivée par l'axe des ordonnées.
+L'association $x \mapsto f(x)$ est représentée par le point $(x,f(x))$.
+
+\myfigure{1}{
+\tikzinput{fig_ensembles07b}
+}
+
+  \item \defi{Égalité}. Deux applications $f,g : E \to F$ sont égales si et seulement
+si pour tout $x \in E$, $f(x)=g(x)$. On note alors $f=g$.
+
+  \item Le \defi{graphe}\index{graphe} de $f : E \to F$ est
+\mybox{$\Gamma_f = \Big\{ \big(x,f(x)\big) \in E \times F  \mid x \in E \Big\}$}
+\myfigure{1}{
+\tikzinput{fig_ensembles08}
+}
+  \item \defi{Composition}\index{composition}. Soient $f : E \to F$ et $g : F \to G$ alors $g \circ f : E \to G$ est l'application définie par $g \circ f (x) = g\big( f(x) \big)$.
+    $$
+      \begin{tikzpicture}[node distance=2cm, every edge/.style={draw,thick,->}]
+         \node(E){$E$};
+         \node[right of=E](F){$F$};
+         \node[right of=F](G){$G$};
+         \draw (E) edge (F);\draw (E) edge[myred, bend left=45] node[above]{$f$} (F);
+         \draw (F) edge (G);\draw (F) edge[myred, bend left=45] node[above]{$g$} (G);
+         \draw (E) edge[myred, bend right] node[below]{$g\circ f$} (G);
+      \end{tikzpicture}
+    $$
+\end{itemize}
+
+
+
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+  \item L'\defi{identité}\index{identite@identité}, $\id_E : E \to E$ est simplement définie par $x \mapsto x$ et sera très utile dans la suite.
+  \item Définissons  $f,g$ ainsi
+$$\begin {array}{rccc}
+f \ : \ & ]0,+\infty[ &\longrightarrow& ]0,+\infty[ \\
+        &x & \longmapsto & \frac 1x \\
+\end{array}, \quad
+\begin {array}{rccc}
+g \ : \ & ]0,+\infty[ &\longrightarrow& \Rr \\
+        & x & \longmapsto & \frac{x-1}{x+1} \\
+\end{array}.
+$$
+Alors $g \circ f  : \ ]0,+\infty[ \to \Rr$ vérifie pour tout $x \in ]0,+\infty[$ :
+$$g\circ f(x) = g \big(f(x)\big) = g \left(\frac 1x \right) = \frac{\frac 1x - 1}{\frac 1x + 1} = \frac{1-x}{1+x} = - g(x).$$
+\end{enumerate}
+\end{exemple}
+
+%---------------------------------------------------------------
+
+\subsection{Image directe, image réciproque}
+
+Soient $E, F$ deux ensembles.
+
+\begin{definition}
+ Soit $A \subset E$ et $f : E \to F$, l'\defi{image directe}\index{image directe} de $A$ par $f$ est l'ensemble
+\mybox{$f(A) = \big\{ f(x) \mid x \in A \big\}$}
+\end{definition}
+\myfigure{1}{
+\tikzinput{fig_ensembles09a}
+\qquad \qquad
+\tikzinput{fig_ensembles09b}
+}
+
+\begin{definition}
+Soit $B \subset F$ et $f : E \to F$, l'\defi{image réciproque}\index{image reciproque@image réciproque} de $B$ par $f$ est l'ensemble
+\mybox{$f^{-1}(B) = \big\{ x \in E \mid f(x) \in B \big\}$}
+\end{definition}
+
+\myfigure{1}{
+\tikzinput{fig_ensembles10a}
+\qquad \qquad
+\tikzinput{fig_ensembles10b}
+}
+
+
+\begin{remarque*}
+Ces notions sont plus difficiles à maîtriser qu'il n'y paraît !
+\begin{itemize}
+  \item $f(A)$ est un sous-ensemble de $F$, $f^{-1}(B)$ est un sous-ensemble de $E$.
+
+  \item La notation \og $f^{-1}(B)$ \fg{} est un tout, rien ne dit que $f$
+est un fonction bijective (voir plus loin). L'image réciproque existe
+quelque soit la fonction.
+
+  \item L'image directe d'un singleton $f(\{x\}) = \big\{ f(x) \big\}$ est un singleton.
+Par contre l'image réciproque d'un singleton $f^{-1}\big( \{ y \} \big)$ dépend de $f$.
+Cela peut être un singleton, un ensemble à plusieurs éléments ; mais cela peut-être
+$E$ tout entier (si $f$ est une fonction constante) ou même l'ensemble vide
+(si aucune image par $f$ ne vaut $y$).
+
+\end{itemize}
+\end{remarque*}
+
+%---------------------------------------------------------------
+\subsection{Antécédents}
+
+
+Fixons $y \in F$. Tout élément $x\in E$ tel que $f(x)=y$ est un \defi{antécédent}\index{antecedent@antécédent}
+de $y$.
+
+En termes d'image réciproque l'ensemble des antécédents de $y$ est $f^{-1}(\{y\})$.
+
+\bigskip
+
+Sur les dessins suivants, l'élément $y$ admet $3$ antécédents par $f$. Ce sont $x_1$, $x_2$, $x_3$.
+
+\myfigure{1}{
+\tikzinput{fig_ensembles12a}
+\qquad \qquad
+\tikzinput{fig_ensembles12b}
+}
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Pour deux applications $f,g : E \to F$, quelle est la négation de $f=g$ ?
+  \item Représenter le graphe de $f : \Nn \to \Rr$ définie par $n \mapsto \frac{4}{n+1}$.
+  \item Soient $f,g,h : \Rr \to \Rr$ définies par $f(x)=x^2$, $g(x)=2x+1$, $h(x)=x^3-1$. Calculer $f\circ (g \circ h)$ et
+$(f \circ g ) \circ h$.
+  \item Pour la fonction $f : \Rr \to \Rr$ définie par $x \mapsto x^2$ représenter et calculer les ensembles suivants :
+$f([0,1[)$, $f(\Rr)$, $f(]-1,2[)$,  $f^{-1}([1,2[)$, $f^{-1}([-1,1])$, $f^{-1}(\{3\})$, $f^{-1}(\Rr \setminus \Nn)$.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Injection, surjection, bijection}
+
+%---------------------------------------------------------------
+\subsection{Injection, surjection}
+
+Soit $E, F$ deux ensembles et $f : E \to F$ une application.
+
+\begin{definition}
+$f$ est \defi{injective}\index{injection} si pour tout $x,x' \in E$ avec $f(x)=f(x')$ alors $x=x'$.
+Autrement dit :
+\mybox{$\forall x, x' \in E \quad \big( f(x)=f(x') \implies x=x'\big)$}
+\end{definition}
+
+\begin{definition}
+$f$ est \defi{surjective}\index{surjection} si pour tout $y \in F$, il existe $x \in E$ tel que $y=f(x)$.
+Autrement dit :
+\mybox{$\forall y \in F \quad \exists x \in E \quad \big( y = f(x) \big)$}
+\end{definition}
+
+Une autre formulation : $f$ est surjective si et seulement si $f(E)=F$.
+
+Les applications $f$ représentées sont injectives :
+\myfigure{1}{
+\tikzinput{fig_ensembles11a}
+\qquad \qquad
+\tikzinput{fig_ensembles11b}
+}
+
+Les applications $f$ représentées sont surjectives :
+\myfigure{1}{
+\tikzinput{fig_ensembles11c}
+\qquad
+\tikzinput{fig_ensembles11d}
+}
+
+
+
+
+\begin{remarque*}
+Encore une fois ce sont des notions difficiles à appréhender.
+Une autre façon de formuler l'injectivité et la surjectivité est d'utiliser les antécédents.
+\begin{itemize}
+  \item $f$ est injective si et seulement si tout élément $y$ de $F$ a \emph{au plus} un antécédent (et éventuellement aucun).
+  \item $f$ est surjective si et seulement si tout élément $y$ de $F$ a \emph{au moins} un antécédent.
+\end{itemize}
+\end{remarque*}
+
+
+\begin{remarque*}
+Voici deux fonctions non injectives :
+
+\myfigure{1}{
+\tikzinput{fig_ensembles12c}
+\qquad
+\tikzinput{fig_ensembles12d}
+}
+
+\bigskip
+
+Ainsi que deux fonctions non surjectives :
+\myfigure{1}{
+\tikzinput{fig_ensembles11e}
+ \qquad \qquad
+\tikzinput{fig_ensembles11f}
+}
+\end{remarque*}
+
+
+
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+  \item Soit $f_1 : \Nn \to \Qq$ définie par $f_1(x)= \frac{1}{1+x}$.
+Montrons que $f_1$ est injective : soit $x,x'\in \Nn$ tels que $f_1(x)=f_1(x')$.
+Alors $\frac{1}{1+x}=\frac{1}{1+x'}$, donc $1+x=1+x'$ et donc $x=x'$.
+Ainsi $f_1$ est injective.
+
+Par contre $f_1$ n'est pas surjective. Il s'agit de trouver un élément $y$
+qui n'a pas d'antécédent par $f_1$. Ici il est facile de voir que l'on a toujours
+$f_1(x) \le 1$ et donc par exemple $y=2$ n'a pas d'antécédent.
+Ainsi $f_1$ n'est pas surjective.
+
+  \item Soit $f_2 : \Zz \to \Nn$ définie par $f_2(x)=x^2$. Alors $f_2$ n'est pas injective.
+En effet on peut trouver deux éléments $x,x' \in \Zz$ différents tels que $f_2(x)=f_2(x')$.
+Il suffit de prendre par exemple $x=2$, $x'=-2$.
+
+$f_2$ n'est pas non plus surjective,
+en effet il existe des éléments $y \in \Nn$ qui n'ont aucun antécédent. Par exemple
+$y=3$ : si $y=3$ avait un antécédent $x$ par $f_2$, nous aurions $f_2(x)=y$, c'est-à-dire
+$x^2=3$, d'où $x = \pm \sqrt 3$. Mais alors $x$ n'est pas un entier de $\Zz$.
+Donc $y=3$ n'a pas d'antécédent et $f_2$ n'est pas surjective.
+\end{enumerate}
+
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Bijection}
+
+\begin{definition}
+$f$ est \defi{bijective}\index{bijection} si elle injective et surjective. Cela équivaut à :
+pour tout $y \in F$ il existe un unique $x \in E$ tel que $y=f(x)$.
+Autrement dit :
+\mybox{$\forall y \in F \quad \exists! x \in E \quad \big( y = f(x) \big)$}
+\end{definition}
+
+L'existence du $x$ vient de la surjectivité et l'unicité de l'injectivité.
+Autrement dit, tout élément de $F$ a un unique antécédent par $f$.
+
+\myfigure{1}{
+\tikzinput{fig_ensembles13a}
+\qquad \qquad
+\tikzinput{fig_ensembles13b}
+}
+\begin{proposition}
+\label{prop:bij1}
+Soit $E, F$ des ensembles et $f : E \to F$ une application.
+\begin{enumerate}
+  \item L'application $f$ est bijective si et seulement si il existe une application $g : F \to E$
+telle que $f \circ g = \id_F$ et $g \circ f = \id_E$.
+  \item Si $f$ est bijective alors l'application $g$ est unique et elle aussi est bijective.
+L'application $g$ s'appelle la \defi{bijection réciproque}\index{bijection reciproque@bijection réciproque} de $f$ et est notée $f^{-1}$.
+De plus $\left( f^{-1} \right)^{-1} = f$.
+\end{enumerate}
+\end{proposition}
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+  \item  $f \circ g = \id_F$ se reformule ainsi
+$$\forall y \in F\quad  f\big(g(y)\big) = y.$$
+  \item Alors que $g \circ f = \id_E$ s'écrit :
+$$\forall x \in E\quad  g\big(f(x)\big) = x.$$
+  \item Par exemple $f : \Rr \to ]0,+\infty[$
+définie par $f(x)=\exp(x)$ est bijective, sa bijection réciproque
+est $g : ]0,+\infty[ \to \Rr$ définie par $g(y)=\ln(y)$.
+Nous avons bien $\exp\big( \ln(y) \big) = y$, pour tout $y \in ]0,+\infty[$
+et $\ln\big( \exp(x) \big) = x$, pour tout $x\in \Rr$.
+\end{itemize}
+
+\end{remarque*}
+
+
+
+
+\begin{proof}
+\leavevmode
+\begin{enumerate}
+  \item
+  \begin{itemize}
+    \item Sens $\Rightarrow$. Supposons $f$ bijective.
+Nous allons construire une application $g : F \to E$. Comme $f$ est surjective alors pour chaque $y \in F$, il existe un $x \in E$ tel que $y=f(x)$ et on pose $g(y)=x$.
+On a $f\big( g(y) \big) = f(x)=y$, ceci pour tout $y \in F$ et donc $f \circ g = \id_F$.
+On compose à droite avec $f$ donc $f \circ g \circ f = \id_F \circ f$.
+Alors pour tout $x \in E$ on a $f\big( g\circ f(x) \big) = f(x)$ or $f$ est injective et donc
+$g\circ f(x)=x$. Ainsi $g\circ f =\id_E$. Bilan: $f \circ g = \id_F$ et $g\circ f =\id_E$.
+
+    \item Sens $\Leftarrow$. Supposons que $g$ existe et montrons que $f$ est bijective.
+    \begin{itemize}
+       \item $f$ est surjective : en effet soit $y \in F$ alors on note $x = g(y) \in E$ ; on a bien :
+$f(x) = f\big( g(y) \big) = f \circ g(y) = \id_F(y)=y$, donc $f$ est bien surjective.
+       \item $f$ est injective : soient $x,x' \in E$ tels que $f(x)=f(x')$. On compose par $g$ (à gauche)
+alors $g\circ f(x)=g\circ f(x')$ donc $\id_E(x)=\id_E(x')$ donc $x=x'$ ; $f$ est bien injective.
+    \end{itemize}
+  \end{itemize}
+
+   \item
+   \begin{itemize}
+     \item Si $f$ est bijective alors $g$ est aussi bijective car $g \circ f = \id_E$ et $f \circ g = \id_F$
+et on applique ce que l'on vient de démontrer avec $g$ à la place de $f$. Ainsi $g^{-1}=f$.
+     \item Si $f$ est bijective, $g$ est unique : en effet soit $h : F \to E$ une autre application
+telle que $h \circ f = \id_E$ et $f \circ h = \id_F$ ; en particulier $f \circ h = \id_F = f \circ g$,
+donc pour tout $y\in F$, $f\big( h(y) \big) = f\big( g(y) \big)$ or $f$ est injective alors $h(y)=g(y)$,
+ceci pour tout $y\in F$ ; d'où $h=g$.
+   \end{itemize}
+\end{enumerate}
+
+\end{proof}
+
+\begin{proposition}
+\label{prop:bij2}
+Soient $f : E \to F$ et $g : F \to G$ des applications bijectives.
+L'application $g \circ f$ est bijective et sa bijection réciproque est
+\mybox{$(g\circ f)^{-1} = f^{-1} \circ g^{-1}$}
+\end{proposition}
+
+\begin{proof}
+D'après la proposition \ref{prop:bij1}, il existe $u : F \to E$ tel que $u\circ f = \id_E$ et $f\circ u = \id_F$.
+Il existe aussi $v : G \to F$ tel que $v \circ g = \id_F$ et $g \circ v = \id_G$. On a alors
+$(g\circ f)\circ (u \circ v) = g \circ (f \circ u) \circ v = g \circ \id_F \circ v = g \circ v = \id_E$.
+Et $(u \circ v) \circ (g\circ f) = u \circ (v \circ g) \circ f = u \circ \id_F \circ f = u \circ f = \id_E$.
+Donc $g\circ f$ est bijective et son inverse est $u\circ v$.
+Comme $u$ est la bijection réciproque de $f$ et $v$ celle de $g$ alors :
+$u\circ v = f^{-1} \circ g^{-1}$.
+\end{proof}
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Les fonctions suivantes sont-elles injectives, surjectives, bijectives ?
+\begin{itemize}
+  \item $f_1 : \Rr \to [0,+\infty[$, $x \mapsto x^2$.
+  \item $f_2 : [0,+\infty[ \to [0,+\infty[$, $x \mapsto x^2$.
+  \item $f_3 : \Nn \to \Nn$, $x \mapsto x^2$.
+  \item $f_4 : \Zz \to \Zz$, $x \mapsto x-7$.
+  \item $f_5 : \Rr \to [0, +\infty[$, $x \mapsto |x|$.
+\end{itemize}
+  \item Montrer que la fonction $f : \, ]1,+\infty[ \to ]0,+\infty[$ définie par $f(x)=\frac{1}{x-1}$ est bijective.
+Calculer sa bijection réciproque.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Ensembles finis}
+
+%---------------------------------------------------------------
+\subsection{Cardinal}
+
+\begin{definition}
+Un ensemble $E$ est \defi{fini} s'il existe un entier $n\in \Nn$ et
+une bijection de $E$ vers $\{1,2,\ldots,n\}$.
+Cet entier $n$ est unique et s'appelle le \defi{cardinal}\index{cardinal} de $E$ (ou le \defi{nombre d'éléments})
+et est noté $\Card E$.
+\end{definition}
+
+Quelques exemples :
+\begin{enumerate}
+  \item $E=\{\text{rouge},\text{noir}\}$ est en bijection avec $\{1,2\}$ et donc est de cardinal $2$.
+  \item $\Nn$ n'est pas un ensemble fini.
+  \item Par définition le cardinal de l'ensemble vide est $0$.
+\end{enumerate}
+
+Enfin quelques propriétés :
+\begin{enumerate}
+  \item Si $A$ est un ensemble fini et $B \subset A$ alors $B$ est aussi un ensemble fini et $\Card B \le \Card A$.
+  \item Si $A, B$ sont des ensembles finis disjoints (c'est-à-dire $A \cap B = \varnothing$) alors
+$\Card (A \cup B) = \Card A + \Card B$.
+  \item Si $A$ est un ensemble fini et $B \subset A$ alors $\Card (A \setminus B) = \Card A - \Card B$.
+  En particulier si $B \subset A$ et  $\Card A = \Card B$ alors $A=B$.
+  \item Enfin pour $A,B$ deux ensembles finis quelconques :
+\mybox{$\Card (A \cup B) = \Card A + \Card B - \Card (A\cap B)$}
+\end{enumerate}
+
+\medskip
+
+Voici une situation où s'applique la dernière propriété :
+\myfigure{1.3}{
+\tikzinput{fig_ensembles14}
+}
+La preuve de la dernière propriété utilise la décomposition
+$$A \cup B = A \cup \big( B\setminus(A \cap B) \big)$$
+Les ensembles $A$ et $B\setminus(A \cap B)$ sont disjoints,
+donc
+$$\Card (A \cup B) = \Card A + \Card \big( B\setminus(A \cap B) \big)
+= \Card A + \Card B - \Card (A\cap B)$$
+par la propriété 2, puis la propriété 3.
+
+%---------------------------------------------------------------
+\subsection{Injection, surjection, bijection et ensembles finis}
+
+\begin{proposition}
+Soit $E,F$ deux ensembles finis et $f : E \to F$ une application.
+\begin{enumerate}
+  \item \label{it:bij1} Si $f$ est injective alors $\Card E \le \Card F$.
+  \item \label{it:bij2} Si $f$ est surjective alors $\Card E \ge \Card F$.
+  \item \label{it:bij3} Si $f$ est bijective alors $\Card E = \Card F$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\leavevmode
+\begin{enumerate}
+  \item Supposons $f$ injective. Notons $F'=f(E) \subset F$ alors
+la restriction $f_| : E \to F'$ (définie par $f_|(x) = f(x)$) est une
+bijection. Donc pour chaque $y \in F'$ est associé un unique $x \in E$ tel que
+$y = f(x)$. Donc $E$ et $F'$ ont le même nombre d'éléments. Donc $\Card F'= \Card E$.
+Or $F' \subset F$, ainsi $\Card E = \Card F' \le \Card F$.
+
+  \item Supposons $f$ surjective. Pour tout élément $y \in F$, il existe au moins un élément $x$ de $E$
+tel que $y=f(x)$ et donc $\Card E \ge \Card F$.
+
+  \item Cela découle de (\ref{it:bij1}) et (\ref{it:bij2}) (ou aussi de la preuve du (\ref{it:bij1})).
+\end{enumerate}
+
+\end{proof}
+
+
+\begin{proposition}
+Soit $E,F$ deux ensembles finis et $f : E \to F$ une application.
+Si
+$$\Card E = \Card F$$
+alors les assertions suivantes sont équivalentes :
+\begin{enumerate}
+  \item[i.] $f$ est injective,
+  \item[ii.] $f$ est surjective,
+  \item[iii.] $f$ est bijective.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Le schéma de la preuve est le suivant : nous allons montrer successivement les implications :
+$$ (i) \implies (ii) \implies (iii) \implies (i) $$
+ce qui prouvera bien toutes les équivalences.
+
+\begin{itemize}
+  \item $(i) \implies (ii) $. Supposons $f$ injective. Alors $\Card f(E)= \Card E = \Card F$.
+Ainsi $f(E)$ est un sous-ensemble de $F$ ayant le même cardinal que $F$ ; cela entraîne $f(E)=F$ et
+donc $f$ est surjective.
+
+  \item $(ii) \implies (iii)$. Supposons $f$ surjective. Pour montrer que $f$ est bijective,
+il reste à montrer que $f$ est injective. Raisonnons par l'absurde et supposons $f$ non injective.
+Alors $\Card f(E) < \Card E$ (car au moins $2$ éléments ont la même image). Or $f(E)=F$ car $f$ surjective,
+donc $\Card F  < \Card E$. C'est une  contradiction, donc $f$ doit être injective et ainsi
+$f$ est bijective.
+
+  \item $(iii) \implies (i)$. C'est clair : une fonction bijective est en particulier injective.
+\end{itemize}
+
+\end{proof}
+
+Appliquez ceci pour montrer le \defi{principe des tiroirs}\index{principe des tiroirs} :
+\begin{proposition}
+Si l'on range dans $k$ tiroirs, $n > k$ paires de chaussettes
+alors il existe (au moins) un tiroir contenant (au moins) deux paires
+de chaussettes.
+\end{proposition}
+
+Malgré sa formulation amusante, c'est une proposition souvent utile.
+Exemple : dans un amphi de $400$ étudiants, il y a au moins
+deux étudiants nés le même jour !
+
+
+
+%---------------------------------------------------------------
+\subsection{Nombres d'applications}
+
+Soient $E,F$ des ensembles finis, non vides. On note $\Card E=n$ et $\Card F=p$.
+
+\begin{proposition}
+Le nombre d'applications différentes de $E$ dans $F$ est :
+\mybox{$p^n$}
+\end{proposition}
+
+Autrement dit c'est \myboxinline{$(\Card F)^{\Card E}$}.
+
+\begin{exemple}
+En particulier le nombre  d'applications de $E$ dans lui-même
+est $n^n$.
+Par exemple si $E=\{1,2,3,4,5\}$ alors ce nombre est $5^5 = 3125$.
+\end{exemple}
+
+\begin{proof}
+Fixons $F$ et $p=\Card F$.
+Nous allons effectuer une récurrence sur $n = \Card E$.
+Soit $(P_n)$ l'assertion suivante : le nombre d'applications d'un ensemble à $n$ éléments
+vers un ensemble à $p$ éléments est $p^n$.
+\begin{itemize}
+  \item \emph{Initialisation.} Pour $n=1$, une application de $E$ dans $F$ est définie par l'image de l'unique élément de $E$.
+Il y a $p = \Card F$ choix possibles et donc $p^1$ applications distinctes. Ainsi $P_1$ est vraie.
+
+  \item \emph{Hérédité.} Fixons $n \ge 1$ et supposons que $P_n$ est vraie.
+Soit $E$ un ensemble à $n+1$ éléments. On choisit et fixe $a \in E$ ; soit alors $E' = E \setminus \{a\}$
+qui a bien $n$ éléments. Le nombre d'applications de $E'$ vers $F$ est $p^n$, par l’hypothèse de récurrence $(P_n)$.
+Pour chaque application $f : E' \to F$ on peut la prolonger en une application $f : E \to F$
+en choisissant l'image de $a$. On a $p$ choix pour l'image de $a$ et donc $p^n \times p$ choix
+pour les applications de $E$ vers $F$. Ainsi $P_{n+1}$ est vérifiée.
+
+  \item \emph{Conclusion.} Par le principe de récurrence $P_n$ est vraie, pour tout $n \ge 1$.
+\end{itemize}
+
+\end{proof}
+
+\begin{proposition}
+\label{prop:nbinj}
+Le nombre d'injections de $E$ dans $F$ est :
+$$p\times(p-1)\times\cdots\times(p-(n-1)).$$
+\end{proposition}
+
+\begin{proof}
+Supposons $E=\{a_1,a_2,\ldots,a_n\}$ ; pour l'image de $a_1$ nous avons
+$p$ choix. Une fois ce choix fait, pour l'image de $a_2$ il reste $p-1$ choix (car $a_2$ ne doit pas avoir la même
+image que $a_1$). Pour l'image de $a_3$ il y a $p-2$ possibilités. Ainsi de suite : pour l'image de $a_k$ il y a $p-(k-1)$ choix...
+Il y a au final $p\times(p-1)\times\cdots\times(p-(n-1))$ applications injectives.
+\end{proof}
+
+Notation \defi{factorielle}\index{factorielle}\index{$n"!"$} : $n! = 1\times 2 \times 3 \times \cdots \times n$.
+Avec $1!=1$ et par convention $0!=1$.
+
+\begin{proposition}
+Le nombre de bijections d'un ensemble $E$ de cardinal $n$ dans lui-même est :
+\mybox{$n!$}
+\end{proposition}
+
+
+
+\begin{exemple}
+Parmi les $3125$ applications de $\{1,2,3,4,5\}$ dans lui-même il y en a
+$5! = 120$ qui sont bijectives.
+\end{exemple}
+
+\begin{proof}
+Nous allons le prouver par récurrence sur $n$.
+Soit $(P_n)$ l'assertion suivante : le nombre de bijections d'un ensemble à $n$ éléments
+dans un ensemble à $n$ éléments est $n!$
+\begin{itemize}
+  \item $P_1$ est vraie. Il n'y a qu'une bijection d'un ensemble à $1$ élément
+dans un ensemble à $1$ élément.
+
+  \item Fixons $n \ge 1$ et supposons que $P_n$ est vraie.
+Soit $E$ un ensemble à $n+1$ éléments. On fixe $a \in E$.
+Pour chaque $b \in E$ il y a --par l'hypothèse de récurrence-- exactement
+$n!$ applications bijectives de $E\setminus\{a\} \to E \setminus \{b\}$.
+Chaque application se prolonge en une bijection de $E \to F$ en posant $a \mapsto b$.
+Comme il y a $n+1$ choix de $b \in E$ alors nous obtenons $n! \times (n+1)$ bijections
+de $E$ dans lui-même. Ainsi $P_{n+1}$ est vraie.
+
+
+  \item Par le principe de récurrence le nombre de bijections d'un ensemble à $n$ éléments
+est $n!$
+\end{itemize}
+
+On aurait aussi pu directement utiliser la proposition \ref{prop:nbinj} avec $n=p$
+(sachant qu'alors les injections sont aussi des bijections).
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Nombres de sous-ensembles}
+
+Soit $E$ un ensemble fini de cardinal $n$.
+
+\begin{proposition}
+Il y a $2^{\Card E}$ sous-ensembles de $E$ :
+\mybox{$\Card \mathcal{P}(E) = 2^n$}
+\end{proposition}
+
+\begin{exemple}
+Si $E= \{1,2,3,4,5\}$ alors
+$\mathcal{P}(E)$ a $2^5 = 32$ parties.
+C'est un bon exercice de les énumérer :
+\begin{itemize}
+  \item l'ensemble vide : $\varnothing$,
+  \item $5$ singletons: $\{1\}, \{2\},\ldots$,
+  \item $10$ paires: $\{1,2\}, \{1,3\}, \ldots, \{2,3\}, \ldots$,
+  \item $10$ triplets: $\{1,2,3\},\ldots$,
+  \item $5$ ensembles à $4$ éléments: $\{1,2,3,4\}, \{1,2,3,5\},\ldots$,
+  \item et $E$ tout entier:  $\{1,2,3,4,5\}$.
+\end{itemize}
+\end{exemple}
+
+
+\begin{proof}
+Encore une récurrence sur $n = \Card E$.
+\begin{itemize}
+  \item Si $n=1$, $E = \{a\}$ est un singleton, les deux sous-ensembles sont : $\varnothing$ et $E$.
+
+  \item Supposons que la proposition soit vraie pour $n\ge 1$ fixé. Soit $E$ un ensemble à $n+1$ éléments.
+On fixe $a \in E$. Il y a deux sortes de sous-ensembles de $E$ :
+  \begin{itemize}
+     \item les sous-ensembles $A$ qui ne contiennent pas $a$ : ce sont les sous-ensembles  $A \subset E\setminus\{a\}$.
+Par l'hypothèse de récurrence il y en a $2^{n}$.
+     \item les sous-ensembles $A$ qui contiennent $a$ : ils sont de la forme $A = \{a\} \cup A'$ avec
+$A' \subset E\setminus\{a\}$. Par l'hypothèse de récurrence il y a $2^n$ sous-ensembles $A'$ possibles et donc aussi $2^n$
+sous-ensembles $A$.
+  \end{itemize}
+Le bilan : $2^n+2^n=2^{n+1}$ parties $A \subset E$.
+
+  \item Par le principe de récurrence, nous avons prouvé que si $\Card E = n$ alors on a $\Card \mathcal{P}(E)=2^n$.
+
+\end{itemize}
+
+\end{proof}
+
+%---------------------------------------------------------------
+\subsection{Coefficients du binôme de Newton}
+
+\begin{definition}
+Le nombre de parties à $k$ éléments d'un ensemble à $n$ éléments est
+noté $\binom{n}{k}$ ou $C_n^k$.\index{$\binom{n}{k}$}\index{$C_n^k$}
+\end{definition}
+
+\begin{exemple}
+Les parties à deux éléments de $\{1,2,3\}$ sont $\{1,2\}$, $\{1,3\}$ et $\{2,3\}$ et
+donc $\binom{3}{2} = 3$.
+Nous avons déjà classé les parties de $\{1,2,3,4,5\}$ par nombre d'éléments et donc
+\begin{itemize}
+  \item $\binom{5}{0} = 1$ (la seule partie n'ayant aucun élément est l'ensemble vide),
+  \item $\binom{5}{1} = 5$ (il y a $5$ singletons),
+  \item $\binom{5}{2} = 10$ (il y a $10$ paires),
+  \item $\binom{5}{3} = 10$,
+  \item $\binom{5}{4} = 5$,
+  \item $\binom{5}{5} = 1$ (la seule partie ayant $5$ éléments est l'ensemble tout entier).
+\end{itemize}
+\end{exemple}
+
+Sans calculs on peut déjà remarquer les faits suivants :
+\begin{proposition}
+\sauteligne
+\begin{itemize}
+  \item $\binom{n}{0}=1$, $\binom{n}{1}=n$, $\binom{n}{n}=1$. \\
+  \item \myboxinline{$\binom{n}{n-k} = \binom{n}{k}$} \\
+  \item \myboxinline{$\binom{n}{0}+\binom{n}{1}+\cdots+\binom{n}{k}+\cdots+\binom{n}{n} = 2^n$}
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+\leavevmode
+\begin{enumerate}
+  \item Par exemple : $\binom{n}{1}=n$ car il y a $n$ singletons.
+  \item Compter le nombre de parties $A \subset E$ ayant $k$ éléments revient aussi à compter
+le nombre de parties de la forme $\complement A$ (qui ont donc $n-k$ éléments), ainsi $\binom{n}{n-k} = \binom{n}{k}$.
+  \item La formule $\binom{n}{0}+\binom{n}{1}+\cdots+\binom{n}{k}+\cdots+\binom{n}{n} = 2^n$ exprime que
+faire la somme du nombre de parties à $k$ éléments, pour $k=0,\ldots,n$, revient à compter toutes les parties de $E$.
+\end{enumerate}
+\end{proof}
+
+
+\begin{proposition}\ \\[-2em]
+\label{prop:bin}
+\mybox{$\displaystyle \binom n k = \binom{n-1}{k} + \binom{n-1}{k-1} \qquad (0<k<n)$}
+\end{proposition}
+
+\begin{proof}
+Soit $E$ un ensemble à $n$ éléments, $a \in E$ et $E' = E \setminus \{ a \}$.
+Il y a deux sortes de parties $A \subset E$ ayant $k$ éléments:
+\begin{itemize}
+  \item celles qui ne contiennent pas $a$:
+  ce sont donc des parties à $k$ éléments dans $E'$ qui a $n-1$ éléments. Il y a en a donc $\binom{n-1}{k}$,
+
+  \item celles qui contiennent $a$ : elles sont de la forme $A = \{a\} \cup A'$
+  avec $A'$ une partie à $k-1$ éléments dans $E'$ qui a $n-1$ éléments. Il y en a $\binom{n-1}{k-1} $.
+\end{itemize}
+Bilan : $\binom n k = \binom{n-1}{k-1} + \binom{n-1}{k}$.
+\end{proof}
+
+
+Le triangle de Pascal\index{triangle de Pascal} est un algorithme pour calculer ces coefficients $\binom{n}{k}$.
+La ligne du haut correspond à $\binom 00$, la ligne suivante  à $\binom 10$ et $\binom 11$,
+la ligne d'après à $\binom 20$, $\binom21$ et $\binom 22$.
+
+La dernière ligne du triangle de gauche aux coefficients $\binom40$, $\binom41$, \ldots, $\binom44$.
+
+Comment continuer ce triangle pour obtenir le triangle de droite ?
+Chaque élément de la nouvelle ligne est obtenu en ajoutant les deux nombres qui lui sont
+au-dessus à droite et au-dessus à gauche.
+
+\myfigure{1}{
+\tikzinput{fig_ensembles17}
+}
+
+Ce qui fait que cela fonctionne c'est bien sûr la proposition \ref{prop:bin}
+qui se représente ainsi :
+\myfigure{1}{
+\tikzinput{fig_ensembles17b}
+}
+
+\bigskip
+
+
+Une autre façon de calculer le coefficient du binôme de Newton repose sur la formule suivante :
+\begin{proposition}\
+\mybox{$\displaystyle \binom n k = \frac{n!}{k!(n-k)!}$}
+\end{proposition}
+
+
+\begin{proof}
+Cela se fait par récurrence sur $n$.
+C'est clair pour $n=1$.
+Si c'est vrai au rang $n-1$ alors  écrivons $\binom n k = \binom{n-1}{k-1} + \binom{n-1}{k}$
+et utilisons l'hypothèse de récurrence pour $\binom{n-1}{k-1}$ et $\binom{n-1}{k}$.
+Ainsi
+\begin{align*}
+\binom n k & = \binom{n-1}{k-1} + \binom{n-1}{k} = \frac{(n-1)!}{(k-1)!(n-1-(k-1))!} + \frac{(n-1)!}{k!(n-1-k)!} \\
+& = \frac{(n-1)!}{(k-1)!(n-k-1)!} \times \left( \frac{1}{n-k} + \frac{1}{k} \right) = \frac{(n-1)!}{(k-1)!(n-k-1)!} \times  \frac{n}{k(n-k)}\\
+& = \frac{n!}{k!(n-k)!}
+\end{align*}
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Formule du binôme de Newton}
+\index{formule!du binôme de Newton}
+
+\begin{theoreme}
+Soient $a,b \in\Rr$ et $n$ un entier positif alors:
+\mybox{$\displaystyle (a+b)^n = \sum_{k=0}^n \binom{n}{k} \ a^{n-k} \cdot b^{k}$}
+\end{theoreme}
+
+Autrement dit :
+{\small
+$$(a+b)^n = \binom{n}{0}\ a^n\cdot b^0 + \binom{n}{1}\ a^{n-1}\cdot b^{1}
++ \cdots + \binom{n}{k} \ a^{n-k} \cdot b^{k}+\cdots + \binom{n}{n}\ a^0\cdot b^n$$
+}
+
+Le théorème est aussi vrai si $a$ et $b$ sont des nombres complexes.
+
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+  \item Pour $n=2$ on retrouve la formule archi-connue : $(a+b)^2= a^2 + 2ab + b^2$.
+  \item Il est aussi bon de connaître $(a+b)^3 = a^3 + 3a^2b + 3ab^2 + b^3$.
+  \item Si $a=1$ et $b=1$ on retrouve la formule : $\sum_{k=0}^n \binom{n}{k} = 2^n$.
+\end{enumerate}
+\end{exemple}
+
+\begin{proof}
+Nous allons effectuer une récurrence sur $n$.
+Soit $(P_n)$ l'assertion : $(a+b)^n = \sum_{k=0}^n \binom{n}{k} \ a^{n-k} \cdot b^{k}$.
+\begin{itemize}
+  \item \emph{Initialisation.} Pour $n=1$, $(a+b)^1 = \binom{1}{0} a^1b^0 + \binom{1}{1}a^0b^1$.
+Ainsi $P_1$ est vraie.
+
+  \item \emph{Hérédité.} Fixons $n \ge 2$ et supposons que $P_{n-1}$ est vraie.
+\begin{eqnarray*}
+(a+b)^{n}
+  &=& (a+b)\cdot(a+b)^{n-1} \\
+   & = & a\left(a^{n-1} +  \cdots + \binom{n-1}{k} a^{n-1-k}b^{k} +\cdots + b^{n-1} \right)  \\
+   && +  b \left(a^{n-1} +  \cdots + \binom{n-1}{k-1} a^{n-1-(k-1)}b^{k-1} +\cdots + b^{n-1} \right)  \\
+   &=& \cdots + \left(\binom{n-1}{k} + \binom{n-1}{k-1}\right) a^{n-k} b^{k} + \cdots \\
+   &=& \cdots +\binom{n}{k} a^{n-k} b^{k} + \cdots \\
+   &=&  \sum_{k=0}^n \binom{n}{k} \ a^{n-k} \cdot b^{k}
+\end{eqnarray*}
+ Ainsi $P_{n+1}$ est vérifiée.
+
+  \item \emph{Conclusion.} Par le principe de récurrence $P_n$ est vraie, pour tout $n \ge 1$.
+\end{itemize}
+\end{proof}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Combien y a-t-il d'applications injectives d'un ensemble à $n$ éléments dans un ensemble à $n+1$ éléments ?
+  \item Combien y a-t-il d'applications surjectives d'un ensemble à $n+1$ éléments dans un ensemble à $n$ éléments ?
+  \item Calculer le nombre de façons de choisir $5$ cartes dans un jeux de $32$ cartes.
+  \item Calculer le nombre de listes à $k$ éléments dans un ensemble à $n$ éléments (les listes sont ordonnées :
+par exemple $(1,2,3) \neq (1,3,2)$).
+  \item Développer $(a-b)^4$, $(a+b)^5$.
+  \item Que donne la formule du binôme pour $a=-1$, $b=+1$ ? En déduire que dans un ensemble à $n$ éléments il y a
+autant de parties de cardinal pair que de cardinal impair.
+\end{enumerate}
+\end{miniexercices}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Relation d'équivalence}
+
+
+%---------------------------------------------------------------
+\subsection{Définition}
+
+Une \defi{relation} sur un ensemble $E$, c'est la donnée pour tout couple
+$(x,y)\in E \times E$ de \og Vrai \fg{} (s'ils sont en relation), ou de \og Faux \fg{} sinon.
+
+Nous schématisons une relation ainsi : les éléments de $E$ sont des points,
+une flèche de $x$ vers $y$ signifie que $x$ est en relation avec $y$, c'est-à-dire que l'on associe
+\og Vrai\fg{} au couple $(x,y)$.
+\myfigure{0.9}{
+\tikzinput{fig_ensembles18}
+}
+
+
+\begin{definition}
+Soit $E$ un ensemble et $\mathcal{R}$ une relation, c'est une
+\defi{relation d'équivalence}\index{relation d equivalence@relation d'équivalence} si :
+\begin{itemize}
+  \item $\forall x \in E$, $x \mathcal{R}x$, \quad  (\defi{réflexivité}\index{reflexivite@réflexivité})
+\myfigure{1}{
+\tikzinput{fig_ensembles19a}
+}
+  \item $\forall x,y \in E$, $x \mathcal{R}y \implies y\mathcal{R}x$, \quad  (\defi{symétrie}\index{symetrie@symétrie})
+\myfigure{1}{
+\tikzinput{fig_ensembles19b}
+}
+  \item $\forall x,y,z \in E$, $x \mathcal{R}y \text{ et }  y\mathcal{R}z \implies x\mathcal{R}z$, \quad
+  (\defi{transitivité}\index{transitivite@transitivité})
+\myfigure{1}{
+\tikzinput{fig_ensembles19c}
+}
+\end{itemize}
+\end{definition}
+
+Exemple de relation d'équivalence :
+\myfigure{0.9}{
+\tikzinput{fig_ensembles19}
+}
+
+%---------------------------------------------------------------
+\subsection{Exemples}
+
+
+\begin{exemple}
+Voici des exemples basiques.
+\begin{enumerate}
+  \item La relation $\mathcal{R}$ \og être parallèle \fg{} est une relation d'équivalence
+pour l'ensemble $E$ des droites affines du plan :
+  \begin{itemize}
+    \item réflexivité : une droite est parallèle à elle-même,
+    \item symétrie : si $D$ est parallèle à $D'$ alors $D'$ est parallèle à $D$,
+    \item transitivité : si $D$ parallèle à $D'$ et $D'$ parallèle à $D''$ alors $D$ est parallèle à $D''$.
+  \end{itemize}
+  \item La relation \og être du même âge \fg{} est une relation d'équivalence.
+  \item La relation \og être perpendiculaire \fg{} n'est pas une relation d'équivalence
+(ni la réflexivité, ni la transitivité ne sont vérifiées).
+  \item La relation $\le$ (sur $E=\Rr$ par exemple) n'est pas une relation d'équivalence
+(la symétrie n'est pas vérifiée).
+\end{enumerate}
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Classes d'équivalence}
+
+\begin{definition}
+Soit $\mathcal{R}$ une relation d'équivalence sur un ensemble $E$.
+Soit $x\in E$, la \defi{classe d'équivalence}\index{classe d equivalence@classe d'équivalence} de $x$ est
+\mybox{$\text{cl}(x) = \big\{ y  \in E \mid y\mathcal{R}x \big\}$}
+\end{definition}
+
+
+
+\myfigure{1}{
+\tikzinput{fig_ensembles20}
+}
+
+
+
+$\text{cl}(x)$ est donc un sous-ensemble de $E$, on le note aussi $\overline{x}$.
+Si $y \in \text{cl}(x)$, on dit que $y$ un \defi{représentant}\index{representant@représentant} de $\text{cl}(x)$.
+
+\medskip
+
+Soit $E$ un ensemble et $\mathcal{R}$ une relation d'équivalence.
+\begin{proposition}
+On a les propriétés suivantes :
+\begin{enumerate}
+  \item $\text{cl}(x)=\text{cl}(y) \Longleftrightarrow x\mathcal{R}y$.
+  \item Pour tout $x,y \in E$, $\text{cl}(x)=\text{cl}(y)$ ou $\text{cl}(x) \cap \text{cl}(y) = \varnothing$.
+  \item Soit $C$ un ensemble de représentants de toutes les classes alors $\big\{ \text{cl}(x) \mid x \in C \big\}$
+constitue une partition de $E$.
+\end{enumerate}
+\end{proposition}
+
+Une \defi{partition}\index{partition} de $E$ est un ensemble $\{E_i\}$ de parties de $E$ tel que
+$E = \bigcup_i E_i$ et $E_i\cap E_j = \varnothing$ (si $i\neq j$).
+\myfigure{1}{
+\tikzinput{fig_ensembles21}
+}
+
+Exemples :
+\begin{enumerate}
+  \item Pour la relation \og être du même âge \fg{}, la classe d'équivalence d'une personne est l'ensemble
+des personnes ayant le même âge. Il y a donc une classe d'équivalence formée des personnes
+de $19$ ans, une autre formée des personnes de $20$ ans,...
+Les trois assertions de la proposition se lisent ainsi :
+  \begin{itemize}
+    \item On est dans la même classe d'équivalence si et seulement si on est du même âge.
+    \item Deux personnes appartiennent soit à la même classe, soit à des classes disjointes.
+    \item Si on choisit une personne de chaque âge possible, cela forme un ensemble de représentants $C$.
+Maintenant une personne quelconque appartient à une et une seule classe d'un des représentants.
+  \end{itemize}
+
+  \item Pour la relation \og être parallèle \fg{}, la classe d'équivalence d'une droite
+  est l'ensemble des droites parallèles à cette droite.
+\`A chaque classe d'équivalence correspond une et une seule direction.
+\end{enumerate}
+
+
+Voici un exemple que vous connaissez depuis longtemps :
+\begin{exemple}
+Définissons sur $E= \Zz \times \Nn^*$ la relation $\mathcal{R}$ par
+$$(p,q) \mathcal{R} (p',q') \Longleftrightarrow pq'=p'q.$$
+
+Tout d'abord $\mathcal{R}$ est une relation d'équivalence :
+\begin{itemize}
+  \item $\mathcal{R}$ est réflexive : pour tout $(p,q)$ on a bien $pq=pq$ et donc $(p,q) \mathcal{R} (p,q)$.
+  \item $\mathcal{R}$ est symétrique : pour tout $(p,q)$, $(p',q')$ tels que $(p,q) \mathcal{R} (p',q')$
+on a donc $pq'=p'q$ et donc $p'q=pq'$ d'où $(p',q') \mathcal{R} (p,q)$.
+  \item $\mathcal{R}$ est transitive : pour tout $(p,q)$, $(p',q')$, $(p'',q'')$ tels que $(p,q) \mathcal{R} (p',q')$
+et $(p',q') \mathcal{R} (p'',q'')$ on a donc $pq'=p'q$ et $p'q''=p''q'$.
+Alors $(pq')q'' = (p'q)q'' = q(p'q'')=q(p''q')$. En divisant par $q' \neq 0$ on obtient
+$pq'' = qp''$ et donc $(p,q) \mathcal{R} (p'',q'')$.
+\end{itemize}
+
+
+Nous allons noter $\frac pq=\text{cl}(p,q)$ la classe d'équivalence
+d'un élément $(p,q) \in \Zz\times \Nn^*$.
+Par exemple, comme $(2,3)\mathcal{R}(4,6)$ (car $2\times 6 = 3\times 4$) alors les classes de
+$(2,3)$ et $(4,6)$ sont égales : avec notre notation cela s'écrit : $\frac 23=\frac 46$.
+
+C'est ainsi que l'on définit les rationnels :
+l'ensemble $\Qq$ des rationnels est l'ensemble de classes
+d'équivalence de la relation $\mathcal{R}$.
+
+Les nombres $\frac 23=\frac 46$ sont bien égaux (ce sont les mêmes classes)
+mais les écritures sont différentes (les représentants sont distincts).
+\end{exemple}
+
+
+
+
+%---------------------------------------------------------------
+\subsection{L'ensemble $\Zz/n\Zz$}
+
+Soit $n\ge 2$ un entier fixé.
+Définissons la relation suivante sur l'ensemble $E = \Zz$ :
+\mybox{$a \equiv b \pmod n \quad \Longleftrightarrow \quad a-b \text{ est un multiple de } n$}
+
+\bigskip
+
+Exemples pour $n=7$ : $10 \equiv 3 \pmod 7$,
+$19 \equiv 5 \pmod 7$, $77 \equiv 0 \pmod 7$,
+$-1 \equiv 20 \pmod 7$.
+
+\medskip
+
+Cette relation est bien une relation d'équivalence :
+\begin{itemize}
+  \item Pour tout $a \in \Zz$, $a-a=0 = 0\cdot n$ est un multiple de $n$ donc $a\equiv a \pmod n$.
+  \item Pour $a,b \in \Zz$ tels que $a \equiv b \pmod n$ alors
+$a-b$ est un multiple de $n$, autrement dit il existe $k\in \Zz$ tel que
+$a-b=kn$ et donc $b-a = (-k)n$ et ainsi $b\equiv a \pmod n$.
+  \item Si $a \equiv b \pmod n$ et $b \equiv c \pmod n$ alors il existe $k,k'\in \Zz$
+tels que $a-b=kn$ et $b-c=k'n$. Alors $a-c = (a-b) + (b-c) = (k+k')n$ et donc $a \equiv c \pmod n$.
+\end{itemize}
+
+\medskip
+
+La classe d'équivalence de $a\in\Zz$ est notée $\overline a$.
+Par définition nous avons donc
+$$\overline a = \text{cl}(a) = \big\{ b \in \Zz \mid b \equiv a \pmod n \big\}.$$
+Comme un tel $b$ s'écrit $b=a+kn$ pour un certain $k\in \Zz$ alors
+c'est aussi exactement
+$$\overline a = a + n\Zz = \big\{ a+kn \mid k\in \Zz \big\}.$$
+
+Comme $n \equiv 0 \pmod n$, $n+1 \equiv 1  \pmod n$, \ldots alors
+$$\overline n = \overline 0, \quad \overline {n+1} = \overline 1,  \quad \overline {n+2} = \overline 2, \ldots$$
+et donc l'ensemble des classes d'équivalence est l'ensemble
+\mybox{$\Zz/n\Zz = \big\{ \overline 0, \overline 1, \overline 2, \ldots, \overline{n-1} \big\}$}
+qui contient exactement $n$ éléments.
+
+Par exemple, pour $n=7$ :
+\begin{itemize}
+  \item $\overline 0 = \{\ldots,-14,-7,0,7,14,21,\ldots\} = 7\Zz$
+
+  \item $\overline 1 = \{\ldots, -13,-6, 1, 8, 15, \ldots \} = 1+ 7\Zz$
+
+  \item \ldots
+
+  \item $\overline 6 = \{\ldots, -8, -1, 6, 13, 20, \ldots \} = 6+7\Zz$
+\end{itemize}
+Mais ensuite
+$\overline 7 = \{ \ldots -7, 0, 7, 14, 21, \ldots \} = \overline 0 = 7\Zz$.
+Ainsi $\Zz/7\Zz = \big\{  \overline 0, \overline 1, \overline 2,\ldots, \overline{6} \big\}$
+possède $7$ éléments.
+
+
+
+
+
+\begin{remarque*}
+Dans beaucoup de situations de la vie courante, nous raisonnons avec les modulos.
+Par exemple pour l'heure : les minutes et les secondes sont modulo $60$ (après
+59 minutes on repart à zéro), les heures modulo $24$ (ou modulo $12$ sur le cadran à aiguilles). Les jours de la semaine sont
+modulo $7$, les mois modulo $12$,...
+\end{remarque*}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Montrer que la relation définie sur $\Nn$ par $x \mathcal{R} y \iff \frac{2x+y}{3} \in \Nn$ est une relation d'équivalence.
+Montrer qu'il y a $3$ classes d'équivalence.
+
+  \item Dans $\Rr^2$ montrer que la relation définie par $(x,y) \mathcal{R} (x',y') \iff x+y'=x'+y$ est une relation d'équivalence.
+Montrer que deux points $(x,y)$ et $(x',y')$ sont dans une même classe si et seulement s'ils appartiennent à une même droite
+dont vous déterminerez la direction.
+
+  \item On définit une addition sur $\Zz/n\Zz$ par $\overline{p} + \overline{q}= \overline{p + q}$.
+Calculer la table d'addition dans $\Zz/6\Zz$ (c'est-à-dire toutes les sommes $\overline{p} + \overline{q}$
+pour $\overline{p},\overline{q} \in \Zz/6\Zz$). Même chose avec la multiplication $\overline{p}\times \overline{q}= \overline{p\times q}$.
+Mêmes questions avec $\Zz/5\Zz$, puis $\Zz/8\Zz$.
+
+\end{enumerate}
+\end{miniexercices}
+
+
+\auteurs{
+Arnaud Bodin,
+Benjamin Boutin,
+Pascal Romon
+}
+
+
+\finchapitre
+\end{document}

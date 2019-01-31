@@ -1,0 +1,24 @@
+\begin{tikzpicture}[scale=0.5]
+ \def\xmin{-4}; 
+ \def\xmax{+4}; 
+ \def\ymin{-0.5}; 
+ \def\ymax{+7};
+% \draw[help lines] (\xmin,\ymin) grid (\xmax,\ymax);
+  \draw[->,>=latex,thick,gray] (\xmin,0)--(\xmax,0);
+  \draw[->,>=latex,thick,gray] (0,\ymin)--(0,\ymax);
+ %\clip (\xmin,\ymin) rectangle (\xmax,\ymax);
+% \def\a{+1};
+% \draw [thick, domain=\xmin:\xmax] plot(\x,{exp(\x)});
+   \def\a{+2}
+
+  \draw [<->,>=latex,very thick, color=blue] (-2,\a)--(+2,\a);
+
+   \draw [very thick, color=red, domain=-3.5:3.5] plot(\x,{\a*(exp(\x/\a)+exp(-\x/\a))/2});
+
+
+
+  \coordinate (A) at (0,{\a});      
+  \fill (A) circle (3pt);
+  \node at (A)[below right] {$(0,a)$};
+% \draw [thick, color=blue] plot(\x,{(exp(\x)-exp(-\x))/2});
+\end{tikzpicture}

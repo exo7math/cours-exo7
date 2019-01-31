@@ -1,0 +1,440 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={0,0,102}]{structure}
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf La chaînette}}
+\subtitle{Longueur d'une chaînette}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Longueur d'une chaînette
+    \item<4-> Calcul du paramètre
+    \item<5-> \'Equation paramétrique
+    \item<6-> Calcul de la tension
+    \item<7-> Exercices
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Longueur d'une chaînette}
+
+\begin{frame}
+\begin{proposition}
+\label{prop:long}
+La longueur de la portion de la chaînette de paramètre $a$ entre le point le plus 
+bas $(0,a)$ et le point d'abscisse $x_0$ est :
+$$\ell = a \sh \frac{x_0}{a}$$
+\end{proposition}
+\shorthandoff{:}
+\myfigure{1}{
+\tikzinput{fig_chainette17}
+}
+\shorthandon{:}
+\end{frame}
+
+
+\begin{frame}
+\begin{proof}
+\begin{itemize}
+
+  \uncover<2->{\item L'équation de la chaînette : $y(x) =a \ch \frac x a$}
+  \uncover<3->{\item La longueur vaut $\ell = \int_0^{x_0} \sqrt{1+y'(x)^2} dx$}
+\end{itemize}
+\vspace*{-1ex}
+$$\begin{array}{rcl}
+ \uncover<4->{\ell 
+   &=& \int_0^{x_0} \sqrt{1+\sh^2 \tfrac x a} dx \quad \text{ car } \ch' \tfrac x a = \frac 1 a \sh \tfrac x a \\[2mm]}
+   \uncover<5->{&=& \int_0^{x_0} \sqrt{\ch^2 \tfrac x a} dx   \quad \text{ car } 1+\sh^2 u = \ch^2 u \\[2mm]}
+   \uncover<6->{&=& \int_0^{x_0} \ch \tfrac x a dx \\[2mm]}
+   \uncover<7->{&=&  \left[ a \sh \tfrac x a \right]_0^{x_0} \\[2mm]}
+   \uncover<8->{&=& a \sh \tfrac{x_0}{a}}
+\end{array}$$
+
+\vspace*{-1ex}
+\end{proof}
+\shorthandoff{:}
+\myfigure{0.8}{
+\tikzinput{fig_chainette17}
+}
+\shorthandon{:}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Calcul du paramètre}
+
+\begin{frame}
+
+\begin{itemize}
+  \uncover<2->{\item La chaînette ne dépend que du seul paramètre $a$}
+  
+  \uncover<3->{\item $a = \frac{T_h}{\mu g}$}
+  
+  \uncover<4->{\item Prenons une chaînette de longueur $2\ell$ fixée}
+  
+  \uncover<5->{\item La \defi{flèche} est la hauteur $h$ entre les deux points d'accroche
+et le point le plus bas de la chaînette}
+\end{itemize}
+
+\shorthandoff{:}
+\myfigure{1.3}{
+\tikzinput{fig_chainette11}
+}
+\shorthandon{:}
+\end{frame}
+
+
+\begin{frame}
+\begin{proposition}
+\label{prop:param}
+\begin{minipage}{0.5\textwidth}
+Pour une chaînette de longueur $2\ell$ et de flèche $h$ alors
+$$a=\frac{\ell^2-h^2}{2h}$$
+\end{minipage}\quad
+\begin{minipage}{0.29\textwidth}
+\shorthandoff{:}
+\myfigure{0.8}{
+\tikzinput{fig_chainette11}
+}
+\shorthandon{:}  
+\end{minipage}\vspace*{-1ex}
+\end{proposition}
+\pause
+\begin{proof}\vspace*{-1ex}
+\begin{itemize}
+  \item $(\pm x_0, y_0)$ les coordonnées des points d'accroche
+  \pause
+  \item $y_0 = a \ch \frac{x_0}{a} = a + h$ \pause \ donc $h = a \ch \frac{x_0}{a} -a$
+  \pause
+  \item $\ell =  a \sh \left( \frac{x_0}{a} \right)$
+\end{itemize}
+\vspace*{-2ex}
+\pause
+$$\begin{array}{rcl}
+\ell^2 - h^2 
+  \pause &=& a^2 \sh^2 \tfrac{x_0}{a} - \left( a \ch \tfrac{x_0}{a} - a \right)^2 \\
+  \pause &=& a^2 \sh^2 \tfrac{x_0}{a} - a^2 \ch^2  \tfrac{x_0}{a} -a^2 +2 a^2 \ch \tfrac{x_0}{a} \\
+  \pause &=& 2a\left(-a+a \ch \tfrac{x_0}{a} \right) \qquad \text{ car } \ch^2 u - \sh^2 u = 1 \\
+  \pause &=& 2ah \\
+\end{array}$$
+\vspace*{-2ex}
+
+\pause
+Ainsi \ \ $a = \displaystyle\frac{\ell^2-h^2}{2h}$
+\end{proof}
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\'Equation paramétrique}
+
+\begin{frame}
+\begin{proposition}
+Une équation paramétrique de la chaînette est :
+$$\left\{
+\begin{array}{rcl}
+x(t) &=& a \ln t \\
+y(t) &=& \frac a 2 \left(t+\frac 1 t\right)
+\end{array}
+\right.
+$$
+pour $t>0$
+\end{proposition}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Calcul de la tension}
+
+\begin{frame}
+\begin{proposition}
+\label{prop:tens}
+\begin{itemize}
+\setlength{\itemsep}{5pt}
+  \uncover<2->{\item La \evidence{tension horizontale} $T_h$ est constante 
+  $\displaystyle T_h = a \mu g = \frac{\ell^2-h^2}{2h} \mu g$}
+  
+  \uncover<3->{\item Le \evidence{tension verticale} 
+  $\displaystyle T_v= T_h \cdot \sh \frac{x_0}{a} = T_h \cdot \frac \ell a$}
+  
+  \uncover<4->{\item La \evidence{tension totale} 
+  $\displaystyle T = \sqrt{T_h^2+T_v^2} = T_h \cdot \ch \frac{x_0}{a} = T_h \cdot \frac{a+h}{a}$}
+\end{itemize}
+\shorthandoff{:}
+\myfigure{0.8}{
+\tikzinput{fig_chainette12}
+}
+\shorthandon{:}
+\vspace*{-2ex}
+
+\end{proposition}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{proof}
+\hfill \begin{minipage}{0.40\textwidth}
+\shorthandoff{:}
+\myfigure{0.65}{
+\tikzinput{fig_chainette12}
+}
+\shorthandon{:}  
+\end{minipage}
+
+\pause
+\vspace*{-20ex}
+\begin{itemize}
+  \item \evidence{Tension horizontale}
+  \pause
+  \begin{itemize}
+    \item La tension horizontale est constante
+    \pause
+    \item $T_h = a \mu g$ par définition de $a$
+    \pause
+    \item $T_h = \frac{\ell^2-h^2}{2h} \mu g$
+  \end{itemize}
+  
+  \pause
+  \item \evidence{Tension verticale}
+  \pause
+   \begin{itemize}
+     \item $T_v(x_0) = T_h \cdot y'(x_0) =
+  T_h \cdot \sh \frac{x_0}{a} = T_h \cdot \frac \ell a$
+  \end{itemize}
+ 
+ \pause
+  \item \evidence{Tension totale}
+  \begin{itemize} 
+  \pause
+    \item $\vec T(x) = -T_h(x)\vec i - T_v(x) \vec j$
+    \pause
+    \item $T(x_0) = \|\vec T(x_0) \|   = \sqrt{T_h^2+T_v^2(x_0)}$
+  \pause
+   \item $T(x_0) = T_h \sqrt{1+\sh^2 \frac{x_0}{a}}
+  = T_h \cdot \ch \frac{x_0}{a} = T_h \cdot \frac{a+h}{a}$
+   
+  \end{itemize}
+\end{itemize}
+
+\end{proof}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exercices}
+
+\begin{frame}
+
+
+\begin{minipage}{0.49\textwidth}
+\evidence{Tension minimale}
+\begin{center}
+   \includegraphics[width=\textwidth]{figures/Pylones_by_Graham_Sivills.jpg} 
+ \end{center}  
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+\shorthandoff{:}
+\myfigure{0.7}{
+\tikzinput{fig_chainette13}
+}
+\shorthandon{:}  
+\end{minipage}
+
+  \pause
+ \begin{itemize}
+   \item Deux poteaux distants d'une longueur $2x_0$ fixée
+   \pause
+   \item On cherche la chaînette ayant les forces de tensions minimales
+   \pause
+   \item La tension totale est 
+   \vspace*{-2ex}
+$$T_x(a) = a \mu g \cdot \ch \frac{x}{a}$$
+ \vspace*{-4ex}
+ \pause
+  \item Tension maximale au point d'accroche (en $x=x_0$)
+  \pause
+  \item Pour un $a$ fixé, la tension maximale est donc $T_{x_0}(a)$
+  \pause
+  \item Problème : pour $x_0$ fixé, trouver le $a$ qui minimise $T_{x_0}(a)$
+ \end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exercicecours}[Tension minimale]
+\begin{enumerate}
+ \item Considérations physiques : Que vaut la tension si la chaînette est rectiligne (la longueur de la chaînette
+est celle de l'écartement) ? Que vaut la tension si la longueur de la chaînette est infinie ?
+%% Dans les deux cas la tension est infinie, cela peut se montrer aussi par les calculs.
+
+ \item Montrer que l'équation $\ch t = t \sh t$ est équivalente à l'équation 
+$(t-1)e^{2t}=t+1$. Montrer que, sur $[0,+\infty[$, cette équation a une unique solution $\tau$.
+Une valeur approchée de $\tau$ est $\tau = 1,19968\ldots$
+
+%% $f(t) = (t-1)e^{2t}-t-1$, $f'(t) = (2t-1)e^{2t}-1$, $f''(t) = 4te^{2t}$.
+% Poutr $t>0$, $f''(t)>0$ donc $f'$ strictement croissante.
+% Or $f'(0)=-2$ le limite de $f'$ est $+\infty$ est $+\infty$. 
+% Donc $f'$ s'annule en une seule valeur $\tau'$.
+% Sur $[0,\tau']$, $f$ est décroissante, sur $[\tau', +\infty[$, $f$ est croissante.
+% Comme $f(0) = -2 <0$ il n'y a pas de solution $f(t)=0$ sur $[0,\tau']$.
+% Par le théorème des valeurs intermédiaires il existe un unique $\tau \in [\tau', +\infty[$
+% tel que $f(\tau)=0$.
+
+ \item Montrer que la tension $T_{x_0}(a)$ est minimale en $a= \frac{x_0}{\tau}$.
+
+% $T'(a) = \mu g \left( \ch\frac{x_0}{a} - \frac{x_0}{a}\sh\frac{x_0}{a} \right)$
+% S'annule en $\frac{x_0}{a} = \tau$ uniquement.
+% Par les considérations physiques ce point est le minimum !
+
+ \item Calculer la longueur correspondante, ainsi que la flèche.
+\shorthandoff{:}
+\myfigure{0.8}{
+\tikzinput{fig_chainette14}
+}
+\shorthandon{:}
+% $\ell = a \sh\frac{x_0}{a}  = \frac{x_0}{\tau} \sh \tau$
+% $h = a \ch\frac{x_0}{a}  - a = \frac{x_0}{\tau} \ch \tau  - \frac{x_0}{\tau}$
+
+\end{enumerate}
+
+\end{exercicecours}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\evidence{Pont suspendu}
+
+\begin{itemize}
+  \uncover<2->{\item La courbe du câble d'un pont suspendu
+est une parabole}
+
+  \uncover<3->{\item Le tablier d'un pont a une longueur $L$ et une masse totale $M$}
+  
+  \uncover<4->{\item Un gros câble est accroché entre deux pylônes}
+  
+  \uncover<5->{\item Ce câble est relié au tablier par des petits câbles de suspension}
+  
+  \uncover<6->{\item But : calculer l'équation du gros câble}
+\end{itemize}
+
+
+\shorthandoff{:}
+\myfigure{1}{
+\tikzinput{fig_chainette15}
+}
+\shorthandon{:}
+\end{frame}
+
+
+
+\begin{frame}
+\begin{exercicecours}[Pont suspendu]
+\begin{enumerate}
+
+ \item Quelles sont les forces qui s'appliquent à une portion de câble dont l'abscisse est entre
+ $x$ et $x+dx$ ?
+
+% Quatre forces : $T(x)$, $-T(x+dx)$, $P(x)$, et la charge $C = Mg/L.dx$ dirigée vers le bas.
+
+ \item \'Ecrire l'équation du principe fondamental de la mécanique, appliqué à cette portion.
+
+% idem chainette + charge 
+
+ \item Montrer que la tension horizontale est indépendante de $x$.
+
+% idem chainette
+
+ \item Montrer que la tension verticale vérifie l'équation différentielle :
+$T'_v(x)=-T_h \cdot y''(x)$.
+
+% idem chainette
+
+ \item Dans toute la suite nous supposerons que la masse du câble est négligeable devant
+celle du tablier. Cela revient à supposer que le poids $P(x)$ du câble est négligeable devant
+la charge $C(x)$ du tablier. Nous posons donc $P(x)=0$.
+Montrer que le principe fondamental de la mécanique s'écrit alors :
+\vspace*{-2ex}
+$$T_h \cdot y''(x) = \frac{M}{L} g.$$
+\vspace*{-4ex}
+% facile, ressemble chainette
+
+ \item Quelle est l'équation $y(x)$ du câble ?
+
+% Parabole
+\end{enumerate}
+
+\end{exercicecours}
+\end{frame}
+
+
+\begin{frame}
+
+
+
+\begin{exercicecours}[Pont suspendu]
+
+\begin{enumerate}
+ \setcounter{enumi}{6}
+
+
+ \item Calculer une équation du câble du \emph{Golden Bridge} (San Francisco).
+Le tablier mesure $1280$ mètres de long, les pylônes ont une hauteur de $160$ mètres (au-dessus
+du tablier) et le câble descend jusqu'au tablier (au milieu du pont).
+
+\vspace*{-1ex}
+\shorthandoff{:}
+\myfigure{0.8}{
+\tikzinput{fig_chainette16}
+}
+\shorthandon{:}
+
+
+% Repère adapté : unité le mètre, (O,i,j) : O milieu du pont, i horizontal, j vertical.
+% y = ax^2+bx + c
+% y(0)=0 donc c=0, 
+% par symetrie (principe physique) y(-x)=y(x) donc b=0
+% y = ax^2 avec a = 160 / (1280/2)^2.
+\end{enumerate}
+
+\end{exercicecours}
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{figures/Golden_Gate_Bridge_by_Mark_Gunn.jpg} 
+\end{center}
+\end{frame}
+
+
+
+
+\end{document}

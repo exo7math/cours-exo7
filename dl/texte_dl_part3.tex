@@ -1,0 +1,695 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons au coeur de ce chapitre : comment calculer des développements limités ?
+
+\change
+
+Maintenant que l'on connaît les DL des fonctions usuelles, nous allons voir
+comment les manipuler.
+
+
+\change
+
+On comme par la somme et le produit de deux DL
+
+\change
+
+Puis la composition
+ 
+\change 
+
+la division
+
+\change
+
+et enfin l'intégration.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Partons de deux fonctions  $f$ et $g$ qui admettent des DL en $0$ à l'ordre $n$ 
+
+
+\change
+
+ Alors la somme $f+g$ admet aussi un DL en $0$ l'ordre $n$ 
+
+\change
+
+et ce DL est :
+$(c_0+d_0)+(c_1+d_1)x+\cdots+(c_n+d_n)x^n$ + un reste.
+
+Chaque coefficient est tout simplement la somme du coefficient de $f$ +
+le coefficient de $g$, et le reste est la somme des restes.
+
+\change
+
+De même le produit $f\times g$ admet un DL en $0$ l'ordre $n$
+
+\change
+
+Et voici comme on calcule le  DL du produit
+
+
+ 
+on effectue le produit de la partie polynomiale de $f$
+par la partie polynomiale  de $g$
+
+Mais il va y avoir des monômes dont le degré  dépasse $n$.
+
+
+On ne retient que les termes de degré $\le n$.
+
+
+
+En résumé 
+$T_n$ est le produit des parties polynomiales 
+tronqué à l'ordre $n$
+
+\change
+
+Et \defi{Tronquer} un polynôme à l'ordre $n$ signifie que l'on conserve seulement 
+les monômes de degré $\le n$. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons un exemple. Nous souhaitons calculer le DL de 
+$\cos x \times \sqrt{1+x}$ en $0$  à l'ordre $2$.  
+
+\change
+
+On connaît le DL de $\cos x$ en $0$ c'est 
+$1-\frac{1}{2}x^2$ + le reste
+
+
+\change
+
+et celui 
+$\sqrt{1+x}$ est $1+\frac{1}{2}x-\frac{1}{8}x^2$ + le reste
+
+\change
+
+On développe cette expression,
+
+on multiplie d'abord tout le second membre par $1$
+
+\change
+
+puis par $-\frac{1}{2}x^2$
+
+\change
+
+puis par le premier reste.
+
+
+\change
+
+On reprend
+
+
+\change 
+
+en développant chacune des lignes
+
+\change
+
+
+\change
+
+On va maintenant regrouper les termes par degré,
+
+on rassemble d'abord les termes constants : il n'y a que $1$
+
+puis les termes de degré $1$ : il n'y a que $\frac12 x$
+
+et ensuite les termes de degré $2$ : il y a $-\frac{1}{8}x^2$ et $-\frac{1}{2}x^2$.
+
+\change
+
+Que va t-on faire de tous les autres termes ?
+
+Remarquez que les autres termes sont
+
+$x^2\epsilon_2(x)$ $-\frac{1}{4}x^3$+$\frac{1}{16}x^4$ et des $x^4 \epsilon(x)$
+
+ils sont plus grand que l'ordre $2$.
+
+Plus précisément ils sont bien de la forme $x^2$ fois une fonction qui tend vers $0$.
+On va donc tous les rassembler dans un seul reste.
+
+\change
+
+C'est presque fini :
+
+la partie polynomiale du DL est donc $1+\frac{1}{2}x-\frac{5}{8}x^2$
+
+\change
+
+et on note $x^2\epsilon(x)$ tous les termes d'ordre strictement plus grand que $2$,
+où $\epsilon(x)$ tend vers $0$ lorsque $x$ tend vers $0$.
+
+Voici donc le DL $\cos x \times \sqrt{1+x}$ en $0$  à l'ordre $2$,
+c'est $1+\frac{1}{2}x-\frac{5}{8}x^2$ + un reste.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Les calculs de l'exemple précédent semblent à première vue plutôt pénibles et longuets.
+Il n'en n'est rien. On a en fait écrit beaucoup de choses superflues, 
+qui à la fin sont dans le reste et n'avaient pas besoin d'être explicitées !
+
+
+Avec l'habitude les calculs se font très vite car on n'écrit plus les termes inutiles. 
+Voici le même calcul avec cette fois la notation <<petit o>>.
+
+
+\change
+
+On commence comme avant en écrivant chacun des DL à l'ordre $2$.
+
+\change
+
+on développe ligne par ligne
+
+\change
+
+et dès qu'apparaît un terme $x^3$, $x^4$ ou $x^2\epsilon_1(x)$ on écrit juste $o(x^2)$
+
+il reste juste $-\frac{1}{2}x^2 + o(x^2)$
+
+\change
+ Et pour le dernier produit développé tous les termes sont d'ordre plus grand que $x^2$
+donc on écrit seulement $o(x^2)$.
+
+\change
+
+Il ne reste plus qu'à regrouper les termes et c'est terminé !
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons à une opération plus délicate : la composition.
+
+On reprend nos deux fonctions $f$ et $g$ ayant des DL à l'ordre $n$.
+
+\change
+
+On note $C(x)$ la partie polynomiale de $f$ 
+
+\change 
+
+et $D(x)$ celle de $g$ 
+
+\change 
+
+Nous supposons que $g(0)=0$, autrement dit le terme constant $d_0$ du $DL$ de $g$ est nul.
+
+Alors la composition $f\circ g$ admet un DL en $0$ à l'ordre $n$
+
+\change
+
+Comment se calcule ce DL ?
+
+la partie polynomiale de $f\circ g$ est
+le polynôme tronqué à l'ordre $n$ de la composition $C(D(x))$
+
+Donc on prend la partie polynomiale de $f$, on prend celle de $g$, on compose ces deux polynômes
+et on oublie tous les termes de degré plus grand que $n$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons décortiquer un premier exemple en détaillant pas à pas les étapes.
+
+On souhaite calculer le DL de $\sin\big(\ln(1+x)\big)$ en $0$ à l'ordre $3$
+
+\change
+
+On pose ici $f(u)=\sin u$ et $g(x)=\ln(1+x)$ 
+
+(pour plus de clarté il est préférable de donner des noms différents aux variables de deux fonctions,
+ ici $x$ et $u$).
+
+\change 
+
+On a bien $f\circ g(x) = \sin\big(\ln(1+x)\big)$ 
+
+\change
+
+et $g(0)=0$.
+
+\change 
+
+On écrit le DL à l'ordre 3 de $f(u)=\sin u = u-\frac{u^3}{3!}+u^3\epsilon_1(u)$ pour $u$ proche de $0$.
+
+\change 
+
+Puis le DL de $g$ : $g(x)=\ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}+x^3\epsilon_2(x)$ pour $x$ proche de $0$. 
+
+Et nous allons noter $u=g(x)$.
+
+\change
+
+On aura besoin de calculer un DL à l'ordre 3 de $u^2$ 
+(que l'on obtient bien sûr comme le DL du produit
+ $u\times u$):
+
+$u^2 = \big(x-\frac{x^2}{2}+\frac{x^3}{3}+x^3\epsilon_2(x)\big)^2$
+
+\change
+
+$ = x^2-x^3+x^3\epsilon_3(x)$
+
+\change 
+
+et aussi $u^3$ qui est $u \times u^2$, 
+
+\change 
+
+on trouve $u^3=x^3+x^3\epsilon_4(x)$. 
+
+\change
+
+Rassemblons tout cela pour conclure 
+
+$=f\circ g(x)$
+
+\change
+
+c'est donc
+
+$f(u)$
+
+\change
+
+qui vaut $u-\frac{u^3}{3!}+u^3\epsilon_1(u)$
+
+\change
+
+et on remplace $u$ et $u^3$
+par les expressions obtenues 
+
+$\big(x-\frac{1}{2}x^{2}+\frac{1}{3}x^3\big) -\frac16 x^3  +x^3\epsilon(x)$
+
+\change
+
+On regroupe les termes et obtient le DL de $\sin\big(\ln(1+x)\big)$
+
+$x-\frac{1}{2}x^{2}+\frac16 x^3  +x^3\epsilon(x)$. 
+
+Ne vous inquiétez pas avec un peu entraînement vous écrirez directement les calculs 
+à partir de l'étape $6$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+On passe à un autre exemple de composition pour calculer le
+DL $\sqrt{\cos x}$ en $0$ à l'ordre $4$. 
+
+\change
+
+Pour la racine carrée, le DL que l'on connaît qui s'en rapproche le plus 
+est celui $\sqrt{1+u}$.
+
+Ecrivons le DL de $f(u)=\sqrt{1+u}$ en $u=0$ à l'ordre $2$ :
+
+\change
+
+On utilise cette fois la notation <<petit o>>.
+$\sqrt{1+u}=1+\frac{1}{2}u-\frac{1}{8}u^2 + o(u^2)$.
+
+On verra plus tard pourquoi l'ordre $2$ suffit alors que l'on souhaite un DL de notre fonction à l'ordre $4$.
+
+
+\change
+
+On pose $u(x)=\cos x-1$ 
+
+\change
+
+alors on a $h(x)= f\big(u(x)\big)$ et aussi $u(0)=0$. 
+
+\change
+
+On connaît le DL de $\cos x$ donc celui de $u=\cos x -1$ en $x=0$ à l'ordre $4$ est :
+
+$-\frac{1}{2}x^2+\frac{1}{24}x^4+o(x^4)$.
+
+\change
+
+On en déduit celui de $u^2$ : $\frac{1}{4}x^4 + o(x^4)$.
+
+\change
+
+Passons au calcul du DL de $h(x)=\sqrt{\cos x}$ 
+
+\change
+
+nous avons écrit la fonction $h(x)$
+sous la forme $f\big(u\big)$ 
+
+\change
+
+dont le DL $1+\frac{1}{2}u-\frac{1}{8}u^2 + o(u^2)$
+
+\change 
+
+on remplace $u$ et $u^2$ par leurs expressions.
+
+\change
+
+et on regroupe les termes par degré.
+
+
+\change
+
+En conclusion le DL $\sqrt{\cos x}$
+est $1-\frac{1}{4}x^2-\frac{1}{96}x^4+o(x^4)$
+
+
+Remarquez que le DL de $u=cos x -1$ commence par $x^2$.
+Donc un DL de $f$ à l'ordre $2$ en $u$ donne en fait 
+un DL de $f$ à l'ordre $4$.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Après la multiplication et la composition voici la division.
+On souhaite calculer le DL de $f/g$.
+En fait calculer le quotient c'est trouver le DL de l'inverse $1/g$ et multiplier par $f$.
+
+\change
+
+La méthode proposée ici repose sur le développement limité de 
+de $\frac{1}{1+u}$ qui est $1-u+u^2-u^3+\cdots$
+
+\change
+
+Dans un premier cas si le terme constant du DL de $g$ est $1$ alors on note $u$
+les termes suivants et $g$ s'écrit alors $1+u$.
+
+\change
+
+Le quotient $f/g$ n'est autre $f \times \frac{1}{1+u}$.
+
+On calcule le DL de $\frac{1}{1+u}$ par cette formule et on multiplie par le DL de $f$.
+
+\change
+
+Si le DL de $g$ commence par une constante $d_0$ qui n'est pas $1$ et qui n'est non plus pas zéro.
+
+Alors on divise par $d_0$ pour obtenir à une expression $1$ + qq chose.
+
+Ce qui nous ramène au premier cas.
+
+\change 
+
+Si $d_0=0$ alors on peut factoriser le DL de $g$ par $x$ ou $x^2$ ou $x^3$,...
+
+On factorise par la plus grande puissance possible
+et cela nous ramène au premier ou second cas.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons voir un exemple pour chacune des $3$ situations précédentes.
+
+Commençons par le DL de $\tan x$ comme quotient de $\sin x$ par $\cos x$.
+
+\change
+
+Tout d'abord le DL de $\sin x$ en $0$ à l'ordre $5$ est $x-\frac{x^3}{6}+\frac{x^5}{120}+x^5\epsilon(x)$.
+
+\change
+
+Et celui de $\cos x$ est  $\cos  x=1-\frac{x^2}{2}+\frac{x^4}{24} +x^5\epsilon(x)$
+(le terme d'ordre $5$ est nul).
+
+\change
+
+Nous posons $u= -\frac{x^2}{2}+\frac{x^4}{24} +x^5\epsilon(x)$
+
+de sorte que le dénominateur $\cos x$ s'écrive $1+u$.
+
+\change
+
+Nous aurons besoin de connaître le DL de $u^2$ :
+
+\change
+
+après calculs on trouve :
+$ \frac{x^4}{4}+x^5\epsilon(x)$
+
+\change
+
+et pour $u^3$, il est en fait déjà d'ordre supérieur à $5$.
+
+(J'ai abusivement noté $\epsilon(x)$ pour les différents restes.)
+
+
+\change
+
+Passons au calcul de $1/\cos x$.
+
+Nous avons écrit $\frac{1}{\cos x}$ sous la forme $1/(1+u)$
+
+\change
+
+qui se développe sous la forme 
+ $1-u+u^2-u^3+u^3\epsilon(u)$
+
+\change
+
+On remplace $u$, $u^2$ et $u^3$ par ce que l'on a déjà calculé.
+
+\change
+
+et on regroupe.
+
+\change
+
+
+Ce n'est pas fini :
+$\tan x= \sin x \times \frac1{\cos x} $
+
+\change
+
+On connaît maintenant le DL de chacun des facteurs.
+
+\change
+
+Que l'on multiplie pour obtenir après calculs
+que le DL de $\tan x$
+à l'ordre $5$ est 
+$x +\frac{x^3}{3}+\frac{2}{15}x^5+x^5\epsilon(x)$.
+
+Il est indispensable de savoir refaire cet exemple
+et il est bon d'apprendre que jusqu'à l'ordre $3$
+le DL de $\tan x$ est $x +\frac{x^3}{3}$.
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Continuons nos exemples.
+avec le DL de $\frac{1+x}{2+x}$.
+
+Ici le dénominateur commence par $2$.
+
+\change
+
+On le factorise par $2$ afin de faire apparaître l'expression
+$\frac{1}{1+u}$
+
+\change
+
+Que l'on développe en $1-u+u^2-u^3+u^4$
+
+\change
+
+On calcule ensuite le produit et on regroupe les termes pour trouver :
+
+$\frac12+\frac{x}{4}-\frac{x^2}{8}+\frac{x^3}{16}-\frac{x^4}{32} + o(x^4)$.
+
+
+(pause)
+ 
+\change 
+
+On termine avec le quotient de $\frac{\sin x}{\sh x}$.
+
+
+\change
+
+On écrit les deux DL à l'ordre $5$ en faisant bien attention aux signes.
+
+Notez que c'est une forme indéterminée en $x=0$ car les deux fonctions s'annulent.
+
+\change
+
+On factorise chacune d'elle par une puissance de $x$ ici seulement par $x$.
+
+\change
+
+La fraction se simplifie et le dénominateur à maintenant une constante égale à $1$.
+
+On retombe en terrain connu : on développe le quotient puis on multiplie par le numérateur
+
+\change
+
+\change
+
+pour trouver que 
+$\frac{\sin x}{\sh x}= 1-\frac{x^2}{2}+\frac{x^4}{18} + o(x^4)$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+[petit f, grand F]
+
+Terminons par l'intégration des développements limités.
+
+Soit $f : I\to \Rr$ une fonction de classe $\mathcal{C}^n$ dont le DL 
+en $0$ à l'ordre $n$ est le suivant :
+
+\change
+
+On note $F$ est une primitive de $f$.
+
+Alors premièrement $F$ admet un DL en $0$ à l'ordre $n+1$ 
+
+\change
+
+et deuxièmement ce DL s'écrit 
+$$c_0x+c_1\frac{x^2}{2}+ c_2\frac{x^3}{3}+\cdots+c_n\frac{x^{n+1}}{n+1} 
++x^{n+1}\eta(x)$$  
+
+\change
+
+Comme une primitive est déterminée à une constante près,
+alors le terme constant du DL est ici  $F(0)$
+
+\change
+
+Cela signifie que l'on intègre la partie polynomiale terme à terme pour obtenir le DL de $F(x)$ :
+le monôme $c_k x^k$ du DL de $f$ devient
+$c_k\frac{x^{k+1}}{k+1}$.
+
+Et l'on n'oublie pas d'ajouter le terme constant $F(0)$
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons aux exemples.
+
+Tout d'abord comment calculer le DL de $\arctan x$ ?
+
+La fonction $\arctan x$ a le bon goût d'avoir une dérivée d'expression simple.
+
+\change
+
+en effet $\arctan' x=\frac{1}{1+x^2}$. 
+
+\change
+
+C'est donc une expression de la forme $\frac{1}{1+u}$ -où $u=x^2$-
+dont on connaît le DL.
+
+On trouve donc le DL de $\arctan' x=1-x^2+x^4-x^6...$.
+
+\change
+
+On intègre terme à terme pour obtenir 
+le DL de $\arctan x$
+
+Le terme $(-1)^kx^{2k}$ une fois intégré devient $\frac{(-1)^k}{2k+1}x^{2k+1}$
+
+\change
+
+Et comme $\arctan(0)=0$ alors le terme constant est nul
+
+\change
+
+Voici donc le DL de $\arctan x$ :
+$x-\frac{x^3}{3}+\frac{x^5}{5}-\frac{x^7}{7} +\cdots$
+
+(pause)
+
+\change
+
+La méthode est la même pour obtenir un DL de $\arcsin x$ en $0$ à l'ordre $5$.
+
+\change
+
+On sait que la dérivée d'arcsin est $\frac{1}{\sqrt{1-x^2}}$
+que l'on écrit ici $(1-x^2)^{-\frac{1}{2}}$
+
+\change
+
+Nous sommes devant une fonction de la forme $(1+u)^{-\frac12}$ avec $u=-x^2$
+
+On trouve ceci
+
+$1-\frac{1}{2}(-x^2)
++\frac{-\frac{1}{2}(-\frac{1}{2}-1)}{2}(-x^2)^2+x^4\epsilon(x) $
+
+\change
+
+et après regroupement cela donne
+
+$1+\frac{1}{2}x^2 + \frac{3}{8}x^4$ + le reste.
+
+\change
+
+Il ne reste plus qu'à intégrer
+pour obtenir le DL de $\arcsin x$
+
+$x+\frac{1}{6}x^3+\frac{3}{40}x^5$ + le reste. 
+
+Comme $\arcsin(0)=0$ alors le terme constant est nul.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Il est vraiment important de savoir calculer des développements limités.
+Il n'y a qu'une seule méthode pour cela : s’exercer encore et encore !
+
+Avec l’entraînement vous saurez poser proprement les calculs,
+vous calculerez plus vite et vous saurez d'avance jusque 
+qu'à quel ordre on doit écrire les DL intermédiaires.
+
+
+
+
+\end{document}

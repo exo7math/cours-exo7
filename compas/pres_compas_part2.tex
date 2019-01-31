@@ -1,0 +1,288 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={102,102,255}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcommand{\construc}{\mathcal{C}}
+\newcommand{\plan}{\mathcal{P}}
+\newcommand{\cercle}{\mathcal{C}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf La règle et le compas}}
+\subtitle{Les nombres constructibles}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définitions
+    \item<4-> Premières constructions algébriques
+    \item<5-> Les trois problèmes grecs
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définitions}
+
+\begin{frame}
+\begin{minipage}{0.49\textwidth}
+On définit des ensembles de points $\construc_i \subset \plan$ par récurrence  
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+\myfigure{0.5}{
+\tikzinput{fig_compas27}
+}  
+\end{minipage}
+
+\pause
+
+\begin{itemize}[<+->]
+  \item Au départ $\construc_0 = \{ O, I\}$ où $O=(0,0)$ et $I=(1,0)$
+  
+  \item Supposons qu'un certain nombre de points $\construc_i$
+  soient déjà construits
+  
+  \item On définit $\construc_{i+1}$ comme l'ensemble des \defi{points élémentairement constructibles}
+  à partir de $\construc_i$
+  
+  \item C'est-à-dire $P \in \construc_{i+1}$ si et seulement si
+  \begin{enumerate}[<+->]
+    \setcounter{enumi}{-1}
+    \item $P \in \construc_i$
+    
+    \item ou $P \in (AB) \cap (A'B')$ avec $A, B, A', B' \in \construc_i$
+    
+    \item ou $P \in (AB) \cap \cercle(A',A'B')$ avec $A, B, A', B' \in \construc_i$
+    
+    \item ou $P \in \cercle(A,AB) \cap \cercle(A',A'B')$ avec $A, B, A', B' \in \construc_i$
+  \end{enumerate}
+\end{itemize}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\myfigure{0.85}{
+\tikzinput{fig_compas28-pres}\qquad\pause
+\tikzinput{fig_compas29-pres}
+
+\medskip\pause
+
+\tikzinput{fig_compas30-pres}\hspace*{6em}
+}
+\end{frame}
+
+
+\begin{frame}
+
+\myfigure{1.1}{
+%\tikzinput{fig_compas31}
+%\tikzinput{fig_compas32}
+\tikzinput{fig_compas33-pres}
+}
+
+
+\end{frame}
+
+\begin{frame}
+\begin{mydefinition}
+\begin{itemize}
+  \item $\construc = \construc_0 \cup \construc_1 \cup \construc_2 \cup \ldots$ 
+  est l'ensemble des \defi{points constructibles}.
+
+  \uncover<2->{  
+ De plus $P \in \construc$ si et seulement s'il existe $i\ge 0$ tel que $P \in \construc_i$
+  }
+  
+  \uncover<3->{
+  \item $\construc_\Rr \subset \Rr$ est l'ensemble des abscisses des points constructibles :
+  ce sont les \defi{nombres constructibles} 
+  }
+  
+\end{itemize}
+\end{mydefinition}
+
+\myfigure{1.1}{
+\tikzinput{fig_compas34-pres}
+} 
+\uncover<8->{
+\vspace*{-4ex}
+\begin{center}
+\quad Déterminer les points constructibles du plan $\construc$ \\
+$\iff$ \quad déterminer les nombres constructibles $\construc_\Rr$  
+\end{center}
+}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Premières constructions algébriques}
+
+\begin{frame}
+\begin{proposition}
+\label{prop:cons}
+Si $x, x'$ sont des réels constructibles alors :
+\begin{enumerate}
+ \pause
+ \item $x+x'$ est constructible
+ \pause 
+ \item $-x$ est constructible
+ \pause 
+ \item $x \cdot x'$ est constructible
+ \pause
+ \item Si $x' \neq 0$, alors $x/x'$ est constructible
+\end{enumerate}
+\end{proposition}
+
+ \pause
+
+\begin{corollaire}
+$$\Nn \subset \construc_\Rr \qquad\qquad \Zz \subset \construc_\Rr \qquad\qquad \Qq \subset \construc_\Rr$$
+\end{corollaire}
+
+
+\end{frame}
+
+
+\begin{frame}
+\begin{proof}
+\begin{enumerate}
+  \item Construction de $x+x'$ : on reporte la longueur $x'$ à partir de $x$
+   
+  \uncover<3->{\item Construction de $-x$  : c'est le symétrique par rapport à l'origine}
+\end{enumerate}
+\vspace*{-3ex}  
+\myfigure{0.8}{
+\tikzinput{fig_compas35-pres}\qquad
+\uncover<3->
+{
+\tikzinput{fig_compas36-pres}
+} 
+}
+\noqed
+\end{proof}
+\end{frame}
+
+
+\begin{frame}
+\begin{proof}
+\begin{enumerate}
+  \setcounter{enumi}{2}
+  \item Construction de $x\cdot x'$
+  
+  \begin{itemize}
+    \uncover<2->{\item on suppose construits les points $(x,0)$ et $(0,x')$}
+    \uncover<3->{\item on trace la droite  $\mathcal{D}$ passant par $(x,0)$ et $(0,1)$}
+    \uncover<4->{\item on construit la droite $\mathcal{D}'$ parallèle à $\mathcal{D}$ et passant par $(0,x')$}
+    \uncover<5->{\item le théorème de Thalès prouve que $\mathcal{D}'$ recoupe l'axe des abscisses en $(x\cdot x',0)$}
+  \end{itemize}
+
+\myfigure{0.7}{
+\tikzinput{fig_compas37}
+\uncover<6->{
+\tikzinput{fig_compas38}
+}
+}
+
+  \uncover<6->{\item Pour le quotient la méthode est similaire \qedhere}
+
+
+\end{enumerate}
+\end{proof}
+\end{frame}
+
+
+
+
+\begin{frame}
+\begin{proposition}
+\label{prop:rac}
+Si $x\ge 0$ est un nombre constructible, alors $\sqrt x$ est constructible
+\end{proposition}
+
+\uncover<2->{
+\begin{proof}
+\myfigure{0.7}{
+  \tikzinput{fig_compas41-pres}
+  \uncover<7->{\tikzinput{fig_compas42-pres}}
+} 
+\vspace*{-2ex}
+$$\uncover<8->{\left\{\begin{array}{rcl} 
+a^2+b^2 &=&(1+x)^2 \\
+\uncover<9->{1+y^2   &=& a^2 \\}
+\uncover<10->{x^2+y^2 &=& b^2}
+\end{array}\right.}
+\uncover<11->{ \text{ donc } 
+\left\{\begin{array}{l} 
+a^2+b^2 = (1+x)^2 = 1 + x^2 + 2x   \\
+\uncover<12->{a^2+b^2 = 1 + x^2 + 2y^2}
+\end{array}\right.}$$
+\uncover<13->{\hfill Ainsi \  $1 + x^2 + 2y^2 = 1 + x^2 + 2x$}
+\uncover<14->{\  donc \  $y^2=x$}
+\uncover<15->{\  donc \  $y=\sqrt x$ \qedhere}
+\end{proof}
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Les trois problèmes grecs}
+
+\begin{frame}
+\begin{itemize}  
+  \item \evidence{La duplication du cube} 
+  
+  \uncover<2->{Est-ce que $\sqrt[3]{2}$ est un nombre constructible ?}
+  
+  \item \evidence{La quadrature du cercle} 
+  
+  \uncover<3->{Est-ce que $\pi$ est un nombre constructible ?}
+  
+  \item \evidence{La trisection des angles} 
+  
+  \uncover<4->{\'Etant donné un réel constructible $\cos \theta$, \\
+  est-ce que $\cos \frac\theta3$ est aussi constructible ?}
+
+\end{itemize}
+
+\myfigure{0.85}{
+\uncover<5->{\tikzinput{fig_compas24}\qquad
+\tikzinput{fig_compas25} \qquad\qquad}
+\uncover<6->{
+\tikzinput{fig_compas26}}
+}
+\end{frame}  
+  
+\begin{frame}
+
+\myfigure{0.8}{
+  \tikzinput{fig_compas43}\quad
+  \pause
+  \tikzinput{fig_compas44}
+}  
+\end{frame}
+
+
+\end{document}

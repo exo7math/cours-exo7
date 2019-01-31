@@ -1,0 +1,310 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={205,0,0}]{structure}
+
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Espaces vectoriels}}
+\subtitle{Espace vectoriel (début)}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition d'un espace vectoriel
+    \item<4-> Premiers exemples
+    \item<5-> Terminologie et notations
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Motivation}
+
+\begin{frame}
+
+\begin{itemize}[<+->]
+  \item La notion d'espace vectoriel est une structure fondamentale des mathématiques modernes
+  
+  \item Propriétés communes que partagent des ensembles pourtant très différents
+  
+  \item On peut additionner deux vecteurs du plan, et aussi multiplier un vecteur par un réel
+  
+  \item On peut aussi additionner deux fonctions, ou multiplier une fonction par un réel
+  
+  \item Même chose avec les polynômes, les matrices,...
+  
+  \item But : obtenir des théorèmes généraux
+\end{itemize}
+
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définition d'un espace vectoriel}
+
+\begin{frame}
+
+\begin{center}
+\begin{minipage}{0.75\textwidth}
+\textit{Un espace vectoriel est un ensemble formé de vecteurs, de sorte que l'on puisse
+additionner (et soustraire) deux vecteurs $u,v$ pour en former un troisième $u+v$ (ou $u-v$)
+et aussi afin que l'on puisse multiplier chaque vecteur $u$ d'un facteur $\lambda$ pour obtenir 
+un vecteur $\lambda \cdot u$}
+\end{minipage}
+\end{center}
+
+
+
+\pause
+
+Un \defi{$\Kk$-espace vectoriel} est un ensemble non vide $E$ muni :
+\begin{itemize}
+  \item d'une loi de composition interne, c'est-à-dire 
+  d'une application de $E \times E$ dans $E$ :
+$$\begin{array}{rcl}
+E \times E & \to & E\\
+(u, v) & \mapsto & u+v
+\end{array}$$
+
+
+\pause
+
+  \item d'une loi de composition externe, 
+  c'est-à-dire d'une application de $\Kk \times E$ dans $E$ : 
+$$\begin{array}{rcl}
+\Kk \times E & \to & E\\
+(\lambda, u ) & \mapsto & \lambda \cdot u 
+\end{array}$$
+
+\end{itemize}
+
+\pause
+
+$\Kk$ est un corps (souvent $\Kk=\Rr$)
+\end{frame}
+
+
+\begin{frame}
+ \setbeamercovered{transparent=60}
+ \begin{enumerate}[<+->] \setlength{\itemsep}{6pt}
+ \item $u + v = v + u$ \quad (pour tous $u,v \in E$)
+ \item $u + (v+w) = (u+v) +w$ \quad (pour tous $u,v,w \in E$)
+ \item Il existe un \defi{élément neutre} $0_E \in E$ tel que $u + 0_E = u$ \ ($\forall u \in E$)
+ \item Tout $u \in E$ admet un \defi{symétrique} $u'$ tel que $u + u' = 0_E$
+ 
+ Cet élément $u'$ est noté $-u$
+ \item $1 \cdot u = u$ \quad (pour tout $u \in E$)
+ \item $\lambda \cdot (\mu \cdot u) = (\lambda\mu )\cdot u$ \quad (pour tous $\lambda, \mu \in \Kk$, $u \in E$)
+ \item $\lambda \cdot (u+v) = \lambda \cdot u + \lambda \cdot v$ \quad (pour tous $\lambda \in \Kk$, $u,v \in E$)
+ \item $(\lambda + \mu ) \cdot u = \lambda \cdot u + \mu \cdot u$ \quad (pour tous $\lambda,\mu \in \Kk$, $u \in E$)
+ \end{enumerate} 
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Premiers exemples}
+
+\begin{frame}
+\centerline{\evidence{Le $\Rr$-espace vectoriel $\Rr^2$}}
+
+\begin{itemize}[<+->] 
+  \item Posons $\Kk=\Rr$ et $E=\Rr^2$
+  
+  \item Un élément $u\in E$ est donc un
+  couple $(x,y)$ avec $x$ élément de $\Rr$ et $y$ élément de $\Rr$
+  
+  \item $\Rr^2=\big\{(x,y)\mid x \in \Rr, y \in \Rr\big\}$
+ 
+
+  \item \emph{Définition de la loi interne}
+    
+    Si $(x,y)$ et $(x',y')$ sont deux éléments de $\Rr^2$, alors :
+  $$(x,y)+(x',y')=(x+x',y+y')$$
+    
+  \item \emph{Définition  de la loi externe}
+    
+    Si $\lambda$ est un réel et $(x,y)$ est un élément de $\Rr^2$, alors :
+  $$\lambda \cdot (x,y)=(\lambda x, \lambda y)$$
+
+  \item L'élément neutre de la loi interne est le vecteur nul $(0,0)$
+  
+  \item Le symétrique de $(x,y)$ est $(-x,-y)$, que l'on note aussi $-(x,y)$
+  
+\end{itemize} 
+\end{frame}
+
+
+\begin{frame}
+\myfigure{1}{
+\tikzinput{fig_ev01} 
+}
+ 
+\end{frame}
+
+
+\begin{frame}
+\centerline{\evidence{Le $\Rr$-espace vectoriel $\Rr^n$}}
+
+\begin{itemize}[<+->]
+  \item $\Kk=\Rr$, $E=\Rr^n$ ($n\ge1$) 
+  
+  \item $u\in E$ est donc un $n$-uplet $(x_1,x_2, \ldots , x_n)$
+
+  \item \emph{Définition de la loi interne} 
+  
+  Si $(x_1, \dots , x_n)$ et $(x'_1, \dots , x'_n)$ sont deux éléments de $\Rr^n$, alors :
+  $$(x_1, \dots , x_n)+(x'_1, \dots , x'_n) =  (x_1+x'_1, \dots , x_n+x'_n)$$    
+  
+  
+  \item \emph{Définition  de la loi externe}
+  
+      Si $\lambda$ est un réel et $(x_1, \dots , x_n)$ est un élément de $\Rr^n$, alors :
+  $$\lambda \cdot (x_1, \dots , x_n)=(\lambda x_1,\dots ,  \lambda x_n)$$
+    
+  \item L'élément neutre de la loi interne est le vecteur nul $(0,0, \dots, 0)$
+  
+  \item Le symétrique de    $(x_1, \dots , x_n)$ est $(-x_1, \dots , -x_n)$, que l'on note 
+$-(x_1, \dots , x_n)$
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\centerline{\evidence{Tout plan passant par l'origine dans $\Rr^3$ est un espace vectoriel}}
+\pause
+\hfill\hfill\begin{minipage}{0.3\textwidth}
+\myfigure{0.7}{
+\tikzinput{fig_ev02} 
+}  
+\end{minipage}
+\vspace*{-5ex} 
+\begin{itemize}
+  \item Soient $\Kk=\Rr$ et $E$ un plan passant par l'origine
+ 
+\pause  
+  \item \'Equation $ax + by + cz = 0$
+ 
+\pause
+  \item Un élément $u$ de $E$ est un triplet 
+  $\left(\begin{smallmatrix}x\\ y\\ z\end{smallmatrix}\right)$ tel que
+$ax + by + cz = 0$
+\pause  
+  \item 
+  \begin{itemize}
+     \item Soient $u=\left(\begin{smallmatrix}x\\ y\\ z\end{smallmatrix}\right)$ et 
+$v=\left(\begin{smallmatrix}x'\\ y'\\ z'\end{smallmatrix}\right)$ deux éléments de $E$
+\pause
+     \item $a x + b y + c z  =  0$  \ \  et \ \  $a x' + b y' + c z' = 0$  
+\pause     
+     \item Donc $a (x + x') + b(y + y') + c (z + z') = 0$
+\pause     
+     \item Ainsi $u+v=\left(\begin{smallmatrix}x + x'\\ y + y'\\ z + z'\end{smallmatrix}\right)$ 
+appartient à $E$
+  \end{itemize}
+\pause  
+  \item L'élément neutre est $\left(\begin{smallmatrix}0\\ 0\\ 0\end{smallmatrix}\right) \in E$
+  
+\pause  
+  \item Le symétrique est $-\left(\begin{smallmatrix}x\\ y\\ z\end{smallmatrix}\right) \in E$
+\end{itemize}
+
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Terminologie et notations}
+
+\begin{frame}
+ 
+\begin{itemize}[<+->]\setlength{\itemsep}{6pt}
+  \item Les éléments de $E$ sont des \defi{vecteurs}
+
+  \item Les éléments de $\Kk$ seront des \defi{scalaires}
+  
+  \item L'\,\defi{élément neutre} $0_E$ s'appelle aussi le \defi{vecteur nul}
+   
+  \item Le \defi{symétrique} $-u$ d'un vecteur $u \in E$ s'appelle aussi l'\defi{opposé}
+  
+  \item La loi de composition interne sur $E$, notée $+$, est l'\defi{addition}
+
+  \item La loi de composition externe sur $E$ est la \defi{multiplication par un scalaire}
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}\setlength{\itemsep}{6pt}
+\defi{Somme de $n$ vecteurs}
+
+\pause
+
+\begin{itemize}
+  \item Somme de $2$ vecteurs :  $v_1+v_2$
+
+\pause
+
+  \item Somme de $n$ vecteurs $ v_1,v_2, \ldots, v_n$
+$$v_1+v_2+\cdots+v_n=(v_1+v_2+\cdots+v_{n-1})+v_n$$  
+
+\pause
+
+  \item $v_1+v_2+\cdots+v_n={\displaystyle \sum_{i=1}^nv_{i}}$
+
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Vérifier les $8$ axiomes qui font de $\Rr^3$ un $\Rr$-espace vectoriel.
+
+  \item Idem pour une droite $\mathcal{D}$ de $\Rr^3$ passant par l'origine définie par 
+  $\left\{\begin{array}{rcl}ax+by+cz & = & 0 \\a'x+b'y+c'z & = & 0   \end{array}\right.$.
+  
+  \item Justifier que les ensembles suivants \emph{ne sont pas} des espaces vectoriels :
+  $\big\{ (x,y) \in \Rr^2 \mid xy=0\big\}$ ;
+  $\big\{ (x,y) \in \Rr^2 \mid x=1\big\}$ ;
+  $\big\{ (x,y) \in \Rr^2 \mid x\ge0 \text{ et } y\ge0 \big\}$ ;  
+  $\big\{ (x,y) \in \Rr^2 \mid -1 \le x \le 1 \text{ et } -1 \le y \le 1 \big\}$.
+  
+  \item Montrer par récurrence que si les $v_i$ sont des éléments d'un $\Kk$-espace vectoriel
+  $E$, alors pour tous $\lambda_i\in \Kk$ : $\lambda_1 v_1+\lambda_2v_2+\cdots + \lambda_n v_n \in E$.
+\end{enumerate} 
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

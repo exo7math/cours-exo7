@@ -1,0 +1,533 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={0,45,179}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcounter{saveenumi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+
+
+\title{{\bf Intégrales}}
+\subtitle{L'intégrale de Riemann}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Intégrale d'une fonction en escalier
+    \item<4-> Fonction intégrable
+    \item<5-> Premières propriétés
+    \item<6-> Les fonctions continues sont intégrables
+    \item<7-> Une preuve
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section*{Motivation}
+
+
+\begin{frame}
+
+\begin{minipage}{0.6\textwidth}
+\begin{itemize}
+\uncover<1->{  \item $f(x)=e^x$ }
+
+\uncover<2->{   \item Calculer l'aire $\mathcal{A}$ }
+
+\uncover<3->{    \item Rectangles inférieurs : base $\big[\frac{i-1}{n},\frac{i}{n}\big]$,
+hauteur : $f\big(\frac{i-1}{n}\big)=e^{(i-1)/n}$ }
+
+\uncover<4->{    \item $\sum_{i=1}^{n} \frac1n \times e^{\frac{i-1}{n}}
+\uncover<5->{  = \frac{1}{n} \sum_{i=1}^{n} \big(e^{\frac 1n}\big)^{i-1}}
+\uncover<6->{= \frac{1}{n} \frac{1-\big(e^{\frac 1n}\big)^{n}}{1-e^{\frac 1n}}}
+\uncover<7->{= \frac{\frac{1}{n}}{e^{\frac 1n}-1}\big(e-1\big) }
+\uncover<8->{\xrightarrow[n\to+\infty]{} e-1$ }
+}
+
+\uncover<9->{  \item Rectangles supérieurs $\sum_{i=1}^{n} \frac{e^{\frac{i}{n}}}{n} \to e-1$ }
+
+\uncover<10->{   \item Subdivision de plus en plus petites ($n\to +\infty$) }
+
+\uncover<11->{   \item $\mathcal{A} = e-1$ }
+\end{itemize} 
+\end{minipage}
+\begin{minipage}{0.39\textwidth}
+\myfigure{0.9}{
+\only<1,2>{\tikzinput{fig_int01a}}
+\only<3-8>{\tikzinput{fig_int01b1}} 
+\only<9>{\tikzinput{fig_int01b2}} 
+\only<10->{\tikzinput{fig_int01cpres}}
+}  
+\end{minipage}
+ 
+
+\end{frame}
+
+
+
+
+%---------------------------------------------------------------
+\section*{Intégrale d'une fonction en escalier}
+
+
+\begin{frame}
+
+
+\myfigure{0.7}{
+\tikzinput{fig_int02} 
+} 
+
+\pause
+
+\begin{itemize}
+  \item On remplace les rectangles par les \evidence{fonctions en escalier}
+
+\pause
+
+  \item Si la limite des aires en-dessous égale la limite des aires au-dessus on appelle cette limite commune 
+\evidence{l'intégrale} de $f$
+
+\pause
+
+  \item  $\int_a^b f(x) \; dx$
+
+\pause
+
+  \item Notion de fonction \evidence{intégrable}
+
+\pause
+
+  \item Les fonctions continues sont intégrables
+\end{itemize}
+
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\vfil
+\hspace*{-2em}
+\begin{minipage}{0.39\textwidth}
+\uncover<1->{\myfigure{0.75}{\tikzinput{fig_int03}}}
+\uncover<3->{\myfigure{0.75}{\tikzinput{fig_int04}}}  
+\end{minipage}
+\hfill
+\begin{minipage}{0.6\textwidth}
+\begin{mydefinition}
+\begin{enumerate}
+\uncover<1->{  
+\item Une \defi{subdivision} de $[a,b]$ $\mathcal{S}=(x_0,x_1,\ldots,x_n)$
+telle que \\
+\hfil\hfil $a=x_0< x_1<\ldots< x_n=b$
+}
+
+\uncover<2->{ 
+\item $f : [a,b] \to \Rr$ est une \defi{fonction en escalier}
+s'il existe  une subdivision $(x_0,x_1,\ldots,x_n)$ et des réels
+$c_1,\ldots,c_n$ tels que pour tout $i\in \{1,\ldots,n\}$ on ait
+$\forall x \in ]x_{i-1},x_i[ \quad f(x)=c_i$
+}
+
+\uncover<4->{
+\item L'\defi{intégrale} d'une fonction en escalier : 
+\myboxinline{$\int_a^b f(x) \; dx = \sum_{i=1}^n c_i(x_i-x_{i-1})$}  
+}
+\end{enumerate}
+\end{mydefinition}  
+\end{minipage}
+
+\end{frame}
+
+
+
+
+
+%---------------------------------------------------------------
+\section*{Fonction intégrable}
+
+
+\begin{frame}
+
+\begin{itemize}
+  \item $f : [a,b] \to \Rr$ est \defi{bornée} s'il existe $M\ge0$ tel que : \\ \hfil\hfil $\forall x \in [a,b] \quad -M \le f(x) \le M$
+
+\pause
+  \item $f \le g  \quad \iff \quad \forall x \in [a,b] \quad f(x) \le g(x)$
+\end{itemize}
+
+
+\pause
+Soit $f : [a,b] \to \Rr$ est une fonction bornée quelconque
+\begin{itemize}
+
+\pause
+  \item $I^-(f) = \sup \left\{ \int_a^b \phi(x) \; dx \mid \phi \text{ en escalier et } \phi \le f \right\}$
+
+\pause
+  \item $I^+(f) = \inf \left\{ \int_a^b \phi(x) \; dx \mid \phi \text{ en escalier et } \phi \ge f \right\}$
+
+\pause
+  \item Proposition : $I^-(f) \le I^+(f)$
+\end{itemize}
+
+ 
+
+\pause
+
+\begin{mydefinition}
+Une fonction bornée $f :[a,b] \to \Rr$ est dite \defi{intégrable} (\defi{au sens de Riemann})
+si $I^-(f) = I^+(f)$ 
+
+\pause
+
+Ce nombre s'appelle alors \defi{l'intégrale de Riemann} de $f$ sur $[a,b]$
+
+\hfil\hfil\myboxinline{$\displaystyle\quad\int_a^b f(x)\; dx\quad$}
+\end{mydefinition}
+\end{frame}
+
+\begin{frame}
+\myfigure{1}{
+\tikzinput{fig_int05pres} 
+}   
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{exemple}
+\begin{itemize}
+\item Les fonctions en escalier sont intégrables ! 
+
+\pause
+
+\item Les fonctions continues sont intégrables 
+
+\pause
+
+\item Il existe des fonctions non intégrables 
+
+\pause
+
+\begin{minipage}{0.39\textwidth}
+$$\begin{array}{rcl} 
+f : [0,1] & \to & \Rr    \\
+ x & \mapsto & \begin{cases}
+               1 & \text{ si } x \in \Qq \\
+               0 & \text{ sinon }    
+             \end{cases}
+  \end{array}$$  
+\end{minipage}
+\pause
+\begin{minipage}{0.39\textwidth}
+\myfigure{0.8}{
+\tikzinput{fig_int06}
+}  
+\end{minipage}
+
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}
+
+\begin{minipage}{0.49\textwidth}
+Soit $f:[0,1] \to \Rr$, $f(x)=x^2$  
+
+\uncover<2->{Est-elle intégrable ?}
+
+\uncover<3->{Que vaut $\int_0^1f(x) \; dx$ ?}
+\end{minipage}
+\hfill
+\begin{minipage}{0.44\textwidth}
+\myfigure{0.75}{
+\only<1-3>{\tikzinput{fig_int11presbis}}
+\only<4->{\tikzinput{fig_int11pres}}
+}  
+\end{minipage}
+
+
+
+\pause
+\pause 
+\pause
+
+\vspace*{-10mm}
+
+\begin{itemize}
+  \item Subdivision régulière de $[0,1]$ suivante 
+$\mathcal{S}=\big(0,\frac1n,\frac2n,\ldots,\frac in,\ldots, \frac{n-1}{n},1\big)$
+\pause
+
+  \item Sur $\big[\frac{i-1}{n},\frac in\big]$ $\big(\tfrac{i-1}{n}\big)^2 \le x^2 \le \big(\tfrac in\big)^2$
+\pause
+
+  \item Fonction en escalier $\phi^-$ définie par $\phi^-(x) = \frac{(i-1)^2}{n^2}$ si $x \in \big[\frac{i-1}{n},\frac in\big[$
+\pause
+
+  \item Fonction en escalier $\phi^+$ définie par  $\phi^+(x) = \frac{i^2}{n^2}$ si $x \in \big[\frac{i-1}{n},\frac in\big[$
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}[$\int_0^1 x^2 \; dx$]
+
+\hfill
+\begin{minipage}{0.40\textwidth}
+\myfigure{0.75}{
+\tikzinput{fig_int11prester}
+}  
+\end{minipage}
+
+
+
+\pause
+\pause
+\pause
+\pause
+\vspace*{-30mm}
+\begin{itemize}
+  \item $\phi^- \le f \le \phi^+$
+\pause
+
+  \item 
+  \begin{itemize}
+     \item $\int_0^1 \phi^+(x)\; dx = \sum_{i=1}^n  \frac{i^2}{n^2} \left(\frac in - \frac{i-1}{n}\right) $
+
+\qquad $= \sum_{i=1}^n  \frac{i^2}{n^2} \frac 1n  = \frac{1}{n^3} \sum_{i=1}^n i^2$
+\pause
+
+     \item $\sum_{i=1}^n i^2=\tfrac{n(n + 1)(2n + 1)}{6}$
+\pause
+
+     \item $\int_0^1 \phi^+(x)\; dx = \frac{n(n + 1)(2n + 1)}{6n^3} =  \frac{(n + 1)(2n + 1)}{6n^2}$
+  \end{itemize}
+\pause
+
+  \item $\int_0^1 \phi^-(x)\; dx = \sum_{i=1}^n  \frac{(i-1)^2}{n^2} \frac 1n 
+=   \frac{(n - 1)(2n - 1)}{6n^2}$
+\pause
+
+  \item {\footnotesize $\frac{(n - 1)(2n - 1)}{6n^2}=\int_0^1 \phi^-(x)\; dx \le I^-(f) 
+\pause
+\le I^+(f) \le \int_0^1 \phi^+(x)\; dx =\frac{(n + 1)(2n + 1)}{6n^2}$}
+
+\pause
+
+  \item $n \to +\infty$ $\implies$ $I^-(f)= I^+(f)=\frac13$
+\pause
+
+  \item $f$ est intégrable et $\int_0^1 x^2\; dx = \frac13$
+\end{itemize}
+
+\end{exemple}
+\end{frame}
+
+
+
+
+
+%---------------------------------------------------------------
+\section*{Premières propriétés}
+
+
+\begin{frame}
+\begin{proposition}
+\label{prop:intprop}
+\begin{enumerate}
+  \item Si $f : [a,b] \to \Rr$ est intégrable et si l'on change les valeurs de $f$
+en un nombre fini de points de $[a,b]$ alors la fonction $f$ est 
+toujours intégrable et la valeur de $\int_a^b f(x)\; dx$ ne change pas
+
+\pause
+
+  \item Si $f  : [a,b] \to \Rr$ est intégrable alors la restriction de $f$
+à tout intervalle $[a',b'] \subset [a,b]$ est encore intégrable
+\end{enumerate}
+\end{proposition}
+\end{frame}
+
+
+
+
+%---------------------------------------------------------------
+\section*{Les fonctions continues sont intégrables}
+
+
+\begin{frame}
+
+\begin{theoreme}
+\label{th:continueintegrable}
+Si $f : [a,b] \to \Rr$ est continue alors $f$ est intégrable
+\end{theoreme}
+
+\pause
+\medskip
+
+$f : [a,b] \to \Rr$ est \defi{continue par morceaux} s'il existe 
+une subdivision $(x_0,\ldots,x_n)$ telle que $f_{|]x_{i-1},x_i[}$ soit continue pour tout 
+$i \in \{ 1,\ldots,n \}$
+
+
+\myfigure{0.6}{
+\tikzinput{fig_int12}
+}
+\pause
+\vspace*{-5mm}
+\begin{corollaire}
+Les fonctions continues par morceaux sont intégrables
+\end{corollaire}
+
+\end{frame}
+
+
+
+
+%---------------------------------------------------------------
+\section*{Une preuve}
+
+
+\begin{frame}
+$f$ est de \defi{classe $\mathcal{C}^1$} si $f$ est continue, dérivable et $f'$ est continue
+
+\pause
+
+\begin{theoreme}[(version faible)]
+\label{th:c1integrable}
+Si $f : [a,b] \to \Rr$ est de classe $\mathcal{C}^1$ alors $f$ est intégrable 
+\end{theoreme}
+
+\pause
+
+\begin{proof}
+\begin{itemize}
+  \item Il existe $M\ge 0$ tel que pour tout $x \in [a,b]$ on ait $|f'(x)|\le M$
+\pause
+  \item Inégalité des accroissements finis : $\forall x,y \in [a,b] \quad |f(x)-f(y)| \le M |x-y|$
+\pause
+  \item Fixons $\epsilon>0$ et une subdivision $(x_0,x_1,\ldots,x_n)$ telle que $0 < x_i-x_{i-1} \le \epsilon$
+\pause
+  \item Fonction en escalier $\phi^-$ : 
+
+pour  $x\in[x_{i-1},x_i[$ on pose 
+
+$c_i = \phi^-(x)= \inf_{t\in [x_{i-1},x_i[} f(t)$
+
+\uncover<8->{
+  \item  $\phi^+$ : $d_i = \phi^+(x)= \sup_{t\in [x_{i-1},x_i[} f(t)$
+}
+\end{itemize}
+
+\vspace*{-22mm}
+\hfill
+\begin{minipage}{0.4\textwidth}
+\uncover<7->{
+\myfigure{0.85}{
+\tikzinput{fig_int13} 
+}   
+}
+\end{minipage}
+\vspace*{-5mm}
+
+\end{proof}
+
+\end{frame}
+
+
+
+\begin{frame}
+\begin{proof}
+
+\hfill
+\begin{minipage}{0.4\textwidth}
+\myfigure{0.85}{
+\tikzinput{fig_int13} 
+}  
+\end{minipage}
+
+\vspace*{-20mm}
+\begin{itemize}
+ \item $\phi^-\le f \le \phi^+$
+\pause
+  \item $\int_a^b \phi^-(x)\;dx \le I^-(f) \le I^+(f) \le \int_a^b \phi^+(x)\;dx$
+\pause
+  \item $f$ continue sur l'intervalle $[x_{i - 1}, x_i]$ 
+
+donc il existe $a_i,b_i \in [x_{i -1},x_i]$ 
+
+tels que $f(a_i)=c_i$ et $f(b_i)=d_i$
+\pause
+  \item $d_i-c_i = f(b_i) - f(a_i) \le M |b_i - a_i| \le M (x_i-x_{i-1}) \le M\epsilon$
+\pause
+  \item  $\int_a^b \phi^+(x)\;dx - \int_a^b \phi^-(x)\;dx \le \sum_{i=1}^n M\epsilon(x_i-x_{i-1})=M\epsilon(b-a)$
+\pause
+   \item $0 \le I^+(f) - I^-(f) \le M\epsilon(b-a)$
+\pause
+  \item lorsque $\epsilon \to 0$ : $I^+(f) = I^-(f)$
+\pause
+  \item  $f$ est intégrable 
+\end{itemize}
+\end{proof}
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Mini-exercices}
+
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Soit $f : [1,4] \to \Rr$ définie par $f(x)=1$ si $x\in[1,2[$, $f(x)=3$ si $x\in [2,3[$
+et $f(x)=-1$ si $x \in [3,4]$. Calculer $\int_1^2 f(x) \;dx$, $\int_1^3 f(x)\;dx$, $\int_1^4 f(x)\;dx$,
+$\int_1^{\frac32} f(x) \;dx$, $\int_{\frac32}^{\frac72} f(x) \;dx$.
+  \item Montrer que $\int_0^1 x \; dx =1$ (prendre une subdivision régulière 
+et utiliser $\sum_{i=1}^n i = \frac{n(n+1)}{2}$).
+  \item Montrer que si $f$ est une fonction intégrable et \emph{paire} sur l'intervalle $[-a,a]$ alors
+$\int_{-a}^a f(x)\;dx = 2 \int_0^a f(x)\; dx$ (on prendra une subdivision symétrique par rapport à l'origine).
+  \item Montrer que si $f$ est une fonction intégrable et \emph{impaire} sur l'intervalle $[-a,a]$ alors
+  $\int_{-a}^a f(x)\;dx = 0$.
+  \item Montrer que tout fonction monotone est intégrable en s'inspirant des preuves du cours.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+\end{document}

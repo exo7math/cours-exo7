@@ -1,0 +1,326 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={0,199,174}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+
+
+\title{{\bf Dérivée d'une fonction}}
+\subtitle{Dérivée en un point}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition
+    \item<4-> Tangente
+    \item<5-> Autres écritures de la dérivée
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section*{Motivation}
+
+
+\begin{frame}
+
+\begin{itemize}
+\setlength{\itemsep}{5pt} 
+\uncover<1->{  \item Calcul de $\sqrt{1,01}$}
+\uncover<2->{    \item $1,01 \approx 1$ donc $\sqrt{1,01} \approx \sqrt 1$ }
+\uncover<3->{    \item $f(x)=\sqrt{x}$ continue  }
+\uncover<4->{    \item $x$ proche de $x_0$ $\implies$ $f(x)$  proche de $f(x_0)$ }
+\uncover<5->{    \item Peut-on être plus précis ? }
+\uncover<6->{    \item Une autre droite : la tangente }
+\uncover<7->{    \item $y = (x-x_0) f'(x_0) + f(x_0)$ }
+\uncover<8->{    \item $f'(x)=\frac{1}{2\sqrt x}$ }
+\uncover<9->{    \item $y=(x-1)\frac12+1$ } 
+\uncover<10->{    \item $x$ proche de $1$ on a $f(x) \approx (x-1)\frac12+1$ }
+\uncover<11->{    \item $x=1,01$ $\implies$ $f(x) \approx 1+\frac12(x-1) = 1 + \frac{0,01}{2}=1,005$ }
+\uncover<12->{    \item $\sqrt{1,01}=1,00498\ldots$ }
+\end{itemize}
+
+\vspace*{-60mm}\hfill
+\begin{minipage}{0.5\textwidth}
+\uncover<3->{
+\myfigure{1}{
+\tikzinput{fig_derive01pres} 
+}   
+}
+\bigskip
+\bigskip
+
+\end{minipage}
+
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section*{Dérivée en un point}
+
+
+\begin{frame}
+
+Soit $I$ un intervalle ouvert de $\Rr$ et $f : I \to \Rr$ une fonction. Soit $x_0 \in I$
+
+\pause
+
+\begin{mydefinition}
+\begin{itemize}
+  \item $f$ est \defi{dérivable en $x_0$} si le \evidence{taux d'accroissement} $\frac{f(x)-f(x_0)}{x-x_0}$ 
+a une limite finie lorsque $x$ tend vers $x_0$
+\pause
+  \item La limite s'appelle alors le \defi{nombre dérivé} de $f$ en $x_0$ et est noté $f'(x_0)$
+
+\end{itemize}
+\pause
+\mybox{$\displaystyle f'(x_0)= \lim_{x\to x_0} \frac{f(x)-f(x_0)}{x-x_0}$} 
+\end{mydefinition}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{mydefinition}
+\begin{itemize}
+  \item $f$ est \defi{dérivable sur $I$} si $f$ est dérivable en tout point $x_0 \in I$
+\pause
+  \item $x \mapsto f'(x)$ est la \defi{fonction dérivée} de $f$
+\pause
+  \item Elle se note $f'$ ou $\frac{df}{dx}$
+\end{itemize}
+\end{mydefinition}
+
+\pause
+\bigskip
+
+\begin{exemple}
+\begin{itemize}
+  \item La fonction définie par $f(x)=x^2$  est dérivable en tout point $x_0 \in \Rr$
+\pause
+\medskip
+
+  \item $\displaystyle \frac{f(x)-f(x_0)}{x-x_0} \pause= \frac{x^2-x_0^2}{x-x_0} 
+  \pause= \frac{(x-x_0)(x+x_0)}{x-x_0}\pause=x+x_0 \pause\xrightarrow[x \to x_0]{} 2x_0$
+\pause
+\medskip
+
+  \item Le nombre dérivé de $f$ en $x_0$ est $2x_0$, autrement dit : $f'(x)=2x$
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+Soit $f(x)=\sin x$. Montrons $f'(x)=\cos x$
+
+\pause
+
+\begin{enumerate}  
+
+  \item En $x_0=0$
+\pause
+  \begin{itemize} \setlength{\itemsep}{5pt} 
+    \item $\frac{\sin x}{x} \xrightarrow[x\to 0]{} 1$
+\pause
+    \item $\frac{f(x)-f(0)}{x-0} = \frac{\sin x}{x} \to 1$
+\pause
+    \item $f$ est dérivable en $x_0=0$ et $f'(0)=1$
+  \end{itemize}
+
+\pause
+  \item En $x_0$ quelconque
+\pause
+  \begin{itemize} \setlength{\itemsep}{5pt}
+    \item $\sin p-\sin q = 2\sin \frac{p-q}{2}\cdot\cos\frac{p+q}{2}$
+\pause
+    \item $\frac{f(x)-f(x_0)}{x-x_0} = \frac{\sin x - \sin x_0}{x-x_0} 
+= \frac{\sin \frac{x-x_0}{2}}{\frac{x-x_0}{2}} \cdot \cos \frac{x+x_0}{2}$
+\pause
+    \item $\cos \frac{x+x_0}{2}\to \cos x_0$ lorsque $x\to x_0$
+\pause
+    \item $u=\frac{x-x_0}{2}$ alors  $\frac {\sin u}u \to 1$ lorsque $u\to 0$
+\pause
+    \item $\frac{f(x)-f(x_0)}{x-x_0} \to \cos x_0$
+\pause
+    \item $f'(x)=\cos x$
+  \end{itemize}
+\end{enumerate}
+\end{exemple}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section*{Tangente}
+
+
+\begin{frame}
+
+
+La \defi{tangente} au point $(x_0,f(x_0))$ est la droite d'équation 
+\mybox{$y = (x-x_0) f'(x_0) + f(x_0)$}
+
+\pause
+
+La droite passant par $(x_0,f(x_0))$ et $(x,f(x))$
+
+a pour coefficient directeur $\frac{f(x)-f(x_0)}{x-x_0}$
+
+\pause
+
+\myfigure{1.6}{
+\tikzinput{/fig_derive02pres} 
+}  
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section*{Autres écritures de la dérivée}
+
+
+\begin{frame}
+\begin{proposition}
+\label{prop:ecrideriv}
+\ 
+\begin{itemize}
+  \item $f$ est dérivable en $x_0$\!
+$\iff$ \!$\displaystyle \lim_{h\to 0} \frac{f(x_0+h)-f(x_0)}{h}$ existe et est finie
+
+\pause
+\medskip
+
+  \item $f$ est dérivable en $x_0$ 
+$\iff$ il existe $\ell \in \Rr$ (qui sera $f'(x_0)$)
+
+et une fonction $\epsilon : I \to \Rr$ telle que $\epsilon(x) \xrightarrow[x\to x_0]{} 0$ avec
+$$f(x)=f(x_0)+(x-x_0) \ell + (x-x_0) \epsilon(x)$$
+\end{itemize}
+\end{proposition}
+
+
+\pause
+
+\begin{proof}
+$$\frac{f(x)-f(x_0)}{x-x_0} = \ell + \epsilon(x)$$
+\end{proof}
+\end{frame}
+
+
+
+\begin{frame}
+\begin{proposition}
+Soit $I$ un intervalle ouvert, $x_0 \in I$ et soit $f : I \to \Rr$ une fonction
+\pause
+\begin{itemize}
+  \item Si $f$ est dérivable en $x_0$ alors $f$ est continue en $x_0$
+\pause
+  \item Si $f$ est dérivable sur $I$ alors $f$ est continue sur $I$
+\end{itemize}
+\end{proposition}
+
+\pause
+\bigskip
+
+\begin{proof}
+\begin{itemize}
+  \item Supposons $f$ dérivable en $x_0$
+\pause
+  \item $f(x)= f(x_0)+\alt<5>{(x-x_0) \ell\vphantom{\underbrace{(x-x_0) \ell}_{\to 0}}}{\underbrace{(x-x_0) \ell}_{\to 0}} + \alt<5>{(x-x_0) \epsilon(x)}{\underbrace{(x-x_0) \epsilon(x)}_{\to 0}}$
+\pause \pause
+  \item $f(x) \to f(x_0)$ lorsque $x \to x_0$
+\pause
+  \item Ainsi $f$ est continue en $x_0$
+\end{itemize}
+\vspace*{-2ex}
+\end{proof}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\centerline{La réciproque est \alert{fausse}}
+
+\pause
+
+\begin{exemple}
+\centerline{La fonction valeur absolue est continue en $0$}
+
+\centerline{\textbf{mais n'est pas dérivable en $0$}}
+  
+\pause
+
+\myfigure{1}{
+\tikzinput{fig_derive03} 
+} 
+
+\pause
+
+Taux d'accroissement de $f(x)=|x|$ en $x_0=0$ 
+$$\frac{f(x)-f(0)}{x-0} \pause= \frac{|x|}{x} \pause
+=
+\begin{cases}
+
++1 & \text{ si } x>0 \\
+\pause
+-1 & \text{ si } x < 0 \\
+\end{cases}
+$$
+\vspace*{-2ex}
+\end{exemple}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Mini-exercices}
+
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Montrer que la fonction $f(x)=x^3$ est dérivable en tout point $x_0\in \Rr$ et que $f'(x_0)=3x_0^2$.
+  \item Montrer que la fonction $f(x)=\sqrt x$ est dérivable en tout point $x_0 >0$ et que $f'(x_0)=\frac{1}{2\sqrt{x_0}}$.
+  \item Montrer que la fonction $f(x)=\sqrt x$ (qui est continue en $x_0=0$) n'est pas dérivable en $x_0=0$.
+  \item Calculer l'équation de la tangente $(T_0)$ à la courbe d'équation $y=x^3-x^2-x$ au point d'abscisse $x_0=2$.
+Calculer $x_1$ afin que la tangente $(T_1)$ au point d'abscisse $x_1$ soit parallèle à $(T_0)$.
+  \item Montrer que si une fonction $f$ est paire et dérivable, alors $f'$ est une fonction impaire.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+\end{document}

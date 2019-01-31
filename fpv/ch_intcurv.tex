@@ -1,0 +1,331 @@
+
+\documentclass[12pt, class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+
+\begin{document}
+
+%====================================================================
+\chapitre{Intégrales curvilignes}
+%====================================================================
+
+% Commandes à virer
+\newcommand{\ou}{\mathscr{O}}
+\newcommand{\f}{\mathscr{F}}
+\newcommand{\mat}{\mathscr{M}}
+\newcommand{\co}{\mathscr{C}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Longueur d'une courbe paramétrée}
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+ 
+ 
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item 
+\end{enumerate}
+\end{miniexercices}
+
+\subsection{Fichou : Courbes paramétrées}
+
+[[juste longueur : à raccourcir]]
+
+\subsection{Introduction: courbes dans le plan}
+\subsubsection{Définition, exemples}
+On appelle courbe dans le plan une application de $\Rr$ dans $\Rr^2$ ou d'un intervalle de $\Rr$ dans $\Rr^2$. Une telle courbe est définie par ses applications coordonnées dans le rep\`ere $((1,0), (0,1))$:
+$$
+f\ :\ \Rr\rightarrow \Rr^2,\ t\mapsto (x(t),y(t)).
+$$
+Si on change de rep\`ere l'écriture de la courbe change. Nous ne voulons pas étudier en détail la notion de courbes et leurs différentes représentations. Nous supposons donc qu'une courbe est donnée par ses coordonnées dans la base précédente. 
+
+Remarque : on appelle généralement courbe l'image de l'application plut\^ot que l'application elle-m\^eme.
+ 
+\subsubsection{Longueur de courbes}
+Supposons que les deux applications $x$ et $y$ soit $C^1$ et définie sur $[0,1]$. On appelle longueur de la courbe définie par $x$ et $y$ la quantité
+$$
+l({\cal C})=\int_0^1\sqrt{x'(t)^2+y'(t)^2} dt.
+$$
+Lorsque les fonctions ne sont pas dérivables il n'est pas toujours possible de définir la longueur de la courbe. Elle peut tr\`es bien \^etre infinie. 
+\subsubsection{La courbe de Peano, la courbe de Koch}
+Peano a ainsi montré que l'on peut tr\`es bien voir le carré unité comme une courbe. Il existe une application continue surjective de $[0,1]$ dans $[0,1]^2$. 
+%\begin{center}
+%\includegraphics[scale=.5]{peano.pdf}
+%\end{center}
+Mais il existe aussi des courbes de longueur infinie mais d'aire nulle. Les plus cél\`ebre de ces courbes présentent des propriétés d'autosimilarité. Ce sont ce qu'on appelle des courbes fractales.
+%\begin{center}
+%\includegraphics[scale=.6]{Koch.pdf}
+%\end{center}
+Ce type de courbe a été longtemps considéré comme des objets étranges et peu naturels. Ce n'est plus le cas aujourd'hui. Les trajectoires de ce qu'on appelle le mouvement brownien, par exemple, sont des courbes sans tangente, de longueur infinie. 
+
+Les objets fractales font l'objet de nombreuses recherches.
+%\begin{center}
+%\includegraphics[scale=.8]{Julia.pdf}
+%\end{center}
+
+Remarquons que si la courbe est $C^1$ alors elle est négligeable dans le plan. Autrement dit son aire est nulle ou encore pour tout $\epsilon>0$ on peut la recouvrir par une réunion finie de petits disques dont la somme des aires est inférieure \`a $\epsilon$. Montrons-le.
+Donnons-nous une fonction $C^1$
+$$
+f\ :\ [0,1]\rightarrow \Rr^2,\ t\mapsto (x(t),y(t)).
+$$
+Comme les dérivées $x'$ et $y'$ sont continues sur le segment $[0,1]$ elles sont toutes les deux bornées. Soit $M$ tel que $|x'(t)|$ et $|y'(t)|$ soient toutes deux inférieures \`a $M$ pour tout $t$ dans $[0,1]$. 
+Le théor\`eme des accroissements finis assure alors que pour tous $t,t'\in[0,1]$ on a  
+$$
+|x(t)-x(t')|\leq M|t-t'|,\ \ |y(t)-y(t')|\leq M|t-t'|.
+$$
+La distance entre l'image de $t$ et celle de $t'$ est donc inférieure \`a $\sqrt{2}M|t-t'|$. 
+
+Soit $\epsilon>0$.
+
+Prenons  $k=E(\sqrt{2}M)/\epsilon+1$ points sur $[0,1]$ espacés de moins de $\epsilon/\sqrt{2}M$ : $t_0,...,t_k$.
+Alors pour tout $t$ dans $[0,1]$ le point $f(t)$ appartient \`a la réunion des disques de rayons $M.\epsilon/\sqrt{2}M=\epsilon/\sqrt{2}$ centrés en les points $f(t_i)$. Cette réunion a une aire inférieure \`a $k.\pi\epsilon^2/2\leq (\sqrt{2}M/\epsilon+1)\pi\epsilon^2/2\leq \pi M\epsilon$. 
+
+L'exemple de la courbe de Peano montre que si $f$ est supposée seulement continue ce résultat n'est plus vrai. 
+
+\subsection{Courbes paramétrées}
+\subsubsection{Définitions}
+\begin{definition}
+Une fonction $F : \mathbb{R} \rightarrow \mathbb{R}^d$ s'appelle fonction vectorielle ou courbe paramétrée.\\
+On exprime $F(t)$ \`a l'aide des fonctions coordonnées $F(t) = (f_{1}(t) \,,\, \dots \,,\, f_{d}(t))$.
+\end{definition}
+
+\noindent{\bf Exemples}
+\begin{enumerate}
+\item[(1)] Soit $F$ la fonction définie par $F(t) = (x_{0} + ta\,,\,y_{0} + tb\,,\,z_{0} + tc)$ avec $t\in \mathbb R$. La droite passant par  $(x_0,y_0,z_0)$ et dirigée par $(a,b,c)$.
+\item[(2)] Soit $F$ la fonction définie par $F(t) = (R \cos t\,,\,R \sin t)$ avec $t\in [0,2\pi]$. Un cercle.
+\item[(3)] Soit $F$ la fonction définie par $F(t) = ( \cos t, \sin t, t)$ avec $t\in \mathbb R$. Une hélice.
+\end{enumerate}
+
+
+
+
+
+\begin{definition}
+Soit $F : \mathbb{R} \rightarrow \mathbb{R}^d$.
+\begin{enumerate}
+\item[(1)] $\displaystyle \lim_{t \rightarrow p} \;F(t) = \left( \lim_{t \rightarrow p} \,f_{1}(t) \,,\, \dots \,,\, \lim_{t \rightarrow p} \,f_{d}(t) \right)$
+\item[(2)] $F'(t) = (f'_{1}(t) \,,\, \dots \,,\, f'_{d}(t))$
+\item[(3)] $\displaystyle \int_{a}^b F(t)\, dt = \left(  \int_{a}^b\, f_{1}(t)\, dt \,,\, \dots \,,\, \int_{a}^b\, f_{d}(t)\, dt \right)$
+\end{enumerate}
+\end{definition}
+
+\begin{theoreme}
+Si $F\,,\, G :  \mathbb{R} \rightarrow \mathbb{R}^d$ et $u : \mathbb{R} \rightarrow \mathbb{R}$ sont dérivables alors :
+\begin{enumerate}
+\item[(i)] $(F + G)' (t) = F'(t) + G'(t)$
+\item[(ii)] $(uF)' (t) = u'(t) F(t) + u(t) F'(t)$
+\item[(iii)] $(<F , G>)' (t) = <F'(t), G(t)> + <F(t), G'(t)>$\item[(iv)] $(F \land G)' (t) = F'(t) \land G(t) + F(t) \land G'(t)$ \ si $d = 3$
+\item[(v)] $F(u(t))' = u'(t) F'(u(t)) $
+\end{enumerate}
+\end{theoreme}
+
+
+
+\begin{corollaire}
+Si une courbe paramétrée $F(t)$ est dérivable et si $\|F(t)\|$ est constante alors $<F(t) , F'(t)> = 0$. 
+(Autrement dit, si la courbe~$F(t)$ est sur une sph\`ere centrée en 0, alors $F(t)$ et $F'(t)$ sont orthogonaux).
+\end{corollaire}
+
+
+\noindent{\bf Exemple}\\
+$F(t) = (\cos t \,,\, \sin t)$ 
+
+
+
+
+
+
+Si $F(t) = (x_{1}(t) \,,\, \dots \,,\,  x_{n}(t))$ est dérivable et $F'(t) \neq 0$, on voit que $F'(t) = \displaystyle \lim_{h\to 0}\;\; \frac{F(t + h) - F(t)}{h}$\;. Interprétation graphique du vecteur dérivée.
+
+
+\begin{definition}
+Soit $C$ la courbe tracée par $F$. %\\
+Si $F'(t_{0}) \neq 0$ alors\\ la droite passant par $F(t_{0})$ de vecteur directeur $F'(t_{0})$ est appelée {\bf droite tangente} \`a $C$ en $F(t_{0})$.\\
+ $F'(t_{0})$ est un vecteur tangent \`a $C$ en $F(t_{0})$.                      Le point $F(t_0)$ est dit régulier.
+\end{definition}
+
+Lorsque $F'(t_{0}) = 0$, le point est dit stationnaire et il nécessite une étude plus poussée (via la formule de Taylor).
+
+
+
+Nous voulons maintenant définir la longueur d'un arc de courbe réguli\`ere. 
+
+Le cas d'un segment.
+
+Le cas du cercle.
+
+Le cas des courbes planes.
+Soit $F$ une fonction $C^1$ définie sur $[a,b]$ \`a valeurs dans $\Rr^2$. On cherche \`a approcher l'arc par une ligne brisée comportant de plus en plus de segments. Soit $n$ un entier naturel. Pour $i$ variant de 0 \`a $n$ posons : $t_i=a+i(b-a)/n$, $x_i=F(t_i)$.
+
+
+Calculons la longueur de la courbe brisée dont les sommets sont les points $x_i$.
+Gr\^ace \`a la définition de la dérivée on a :
+\begin{eqnarray*}
+x_{i+1}-x_i&=&F(t_i+(b-a)/n)-F(t_i)\\
+&=&F'(t_i)(b-a)/n+\epsilon(1/n)/n
+\end{eqnarray*}
+o\`u $\epsilon(1/n)$ tend vers $0$ quand $n$ tend vers l'infini. En utilisant l'inégalité triangulaire, on obtient que lLa longueur du segment $[x_i,x_{i+1}]$ est donc tr\`es proche de $\|F'(t_i)(b-a)/n\|$ :
+$$
+\big|~~\|x_{i+1}-x_i\|-\|F'(t_i)(b-a)/n\|~~\big|\leq \|\epsilon(1/n)\|/n.
+$$
+On obtient donc une estimation de la longueur de la courbe brisée :
+\begin{eqnarray*}
+\sum_{i=0}^{n-1}\|x_{i+1}-x_i\|-\sum_{i=0}^{n-1}\|F'(t_i)(b-a)/n\||&\leq&\sum_{i=0}^{n-1}|\|x_{i+1}-x_i\|-\|F'(t_i)(b-a)/n\||\\
+&\leq&\sum_{i=0}^{n-1} \|\epsilon(1/n)\|/n\\
+&\leq&\|\epsilon(1/n)\|.
+\end{eqnarray*}
+La différence entre la longueur de la courbe brisée et la somme $\sum_{i=0}^{n-1}\|F'(t_i)(b-a)/n\|$ tend donc vers 0 quand $n$ tend vers l'infini.
+Mais lorsque $n$ tend vers l'infini la somme $\sum_{i=0}^{n-1}\|F'(t_i)(b-a)/n\|$ converge vers l'intégrale $\int_a^b\|F'(t)\|dt$. C'est donc cette quantité qu'on appelle longueur de l'arc de courbe défini par $F$.
+
+Le cas général.
+\begin{definition}
+La {\bf longueur de l'arc} de la courbe $F(t)$ entre $t = a$ et $t = b$ est donnée par $\displaystyle \int_{a}^b \|F'(t)\|\, dt$.
+\end{definition}
+
+\noindent{\bf Exemple}\\
+La longueur du graphe d'une fonction $f$ de classe $C^1$ définie sur un intervalle $[a,b]$ est donnée par
+$$l=\int_a^b \sqrt{1+(f'(x))^2}dx$$
+
+
+\vskip 5mm
+
+
+
+
+Soit $F : \mathbb{R} \rightarrow \mathbb{R}^d$ une courbe paramétrée. \\
+On suppose $F$ de classe $C^1$ et que $F'(t) \neq 0$ pour tout $t$.
+On dit que $F$ est {\bf réguli\`ere}. \\
+Alors :
+\begin{enumerate}
+\item[(i)] $l(t) = \displaystyle \int_{t_{0}}^t\; \|F' (u)\|\, du$ est la longueur de l'arc entre $t_{0}$ et $t$\,.
+\item[(ii)] $\displaystyle \frac{dl}{dt} = \|F'(t)\| > 0$
+\end{enumerate}
+
+
+
+Ainsi, la fonction $l$ est de classe $C^1$ et de dérivée positive strictement: elle admet une fonction réciproque $s \rightarrow t(s)$ dont la dérivée est donnée par $t'(s) = \displaystyle \frac{1}{\|F'(t(s))\|}$\,.\\
+On note $G(s)$ la fonction $G(s) = F(t(s))$. Elle définit la m\^eme courbe, mais avec un paramétrage différent. On l'appelle {\bf paramétrisation unitaire} de $F$ car on a $\|G'(s)\| = 1$.
+
+
+\begin{definition}
+La courbure de $G (s)$ est donnée par $\rho(s) = \|G''(s)\|$.
+\end{definition}
+
+\begin{proposition} Si $F$ n'est pas une paramétrisation unitaire alors la {\bf courbure} est donnée par $\displaystyle \rho(t) = \frac{\|F'(t) \land F''(t)\|}{\|F'(t)\|^3}$\,.
+\end{proposition}
+
+
+
+
+
+\subsubsection{Quelques exemples}
+\'Etude détaillée de la courbe de Lissajous définie par $t\mapsto (\cos (3t),\sin (2t))$ avec réduction de l'intervalle \`a $[0,\pi/2]$ via la périodicité et les ymétries, étude des variations, tangentes et tracer de la courbe.
+
+
+
+
+
+
+
+
+
+Nous n'avons malheureusement pas plus de temps \`a consacrer \`a l'étude des courbes paramétrées. Pour voir d'autres exemples:\\
+\url{http://fr.wikipedia.org/wiki/Clothoïde}\\
+\url{http://fr.wikipedia.org/wiki/Cycloïde}\\
+\url{http://www.mathcurve.com}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Integrales curvilignes}
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+ 
+ 
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item 
+\end{enumerate}
+\end{miniexercices}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Formule de Green-Riemann}
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+ 
+ 
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item 
+\end{enumerate}
+\end{miniexercices}
+
+
+
+\auteurs{
+\\
+D'après un cours de ...
+
+Revu et augmenté par Arnaud Bodin.
+
+Relu par Stéphanie Bodin et Vianney Combet.
+}
+
+
+\finchapitre 
+\end{document}
+
+

@@ -1,0 +1,5 @@
+AA = A.transpose()
+Ker = AA.kernel()
+Ker.basis()
+Im = AA.image()
+Im.basis()

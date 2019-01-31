@@ -1,0 +1,348 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Les systèmes linéaires interviennent dans de nombreux contextes 
+d'applications car ils forment la base calculatoire 
+de l'algèbre linéaire. Ils permettent également de traiter 
+une bonne partie de la théorie de l'algèbre linéaire en dimension finie.
+
+\change
+
+Le plan de cette première partie sur les systèmes linéaires est le suivant :
+
+\change
+
+nous commençons par l'exemple du système donnant l'ensemble intersection de  deux droites dans le plan,
+
+\change
+
+puis nous passerons à la méthode de résolution par substitution,
+
+\change
+
+nous examinerons ensuite l'exemple du système donnant l'ensemble intersection de deux plans dans l'espace,
+
+\change
+
+avant d'expliquer la méthode de résolution dite de Cramer,
+
+\change
+
+pour terminer par le lien entre résolution de systèmes linéaires et inversion de matrices. 
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Commençons par le système le plus simple, celui à deux équations et à deux inconnues. Ce type de système apparaît lorsque l'on étudie l'intersection de deux droites dans le plan. On rappelle que l'équation d'une droite est de la forme
+$$a x + b y = e$$
+
+où $a, b$ et $e$ sont des constantes.
+
+\change
+
+On dit que cette équation est *linéaire* en les variables \(x\) et \(y\) : 
+Il n y a pas de de carrés ou de cubes, par exemple.
+
+\change
+
+On fixe à présent deux droites \(D_1\) et \(D_2\) et on cherche à déterminer leur intersection. 
+
+\change
+
+Un point de coordonnées \((x,y)\) appartient à cette intersection précisément 
+lorsqu'il vérifie simultanément les deux équations des deux droites, 
+ce qui se traduit par le système suivant :
+
+
+[[dire *et* entre les deux équations]]
+
+\begin{equation}
+\left\{\begin{array}{rcl} 
+a x + b y & = & e\\
+c x + d y & = & f 
+\end{array}\right.  
+\tag{$S$}  
+\label{eq:syslin1}  
+\end{equation}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Il y a différentes configurations possibles.
+
+Dans un premier cas, 
+les droites $D_1$ et $D_2$ se coupent en un seul point. 
+Dans ce cas le système à deux inconnues et deux équations a une seule solution.
+
+
+\change
+
+Dans le deuxième cas, les droites $D_1$ et $D_2$ sont parallèles et distinctes. 
+Alors le système linéaire n'a pas de solution. 
+
+
+\change
+
+Enfin dans le dernier cas, les droites $D_1$ et $D_2$ sont confondues. 
+Alors le système linéaire a une infinité de solutions.  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour savoir s'il existe une ou plusieurs solutions à un système linéaire, 
+et les calculer, une première méthode est la substitution.
+Nous allons illustrer cette méthode sur le système suivant :
+\begin{equation}
+\left\{\begin{array}{rcl} 
+3 x + 2 y & = & 1\\
+2 x - 7 y & = & -2 
+\end{array}\right.   
+\end{equation}
+
+
+\change
+
+On exprime la variable \(y\) en fonction de \(x\) grâce à la première équation, 
+puis on remplace \(y\) par son expression \(\frac{1}{2}- \frac{3}{2}x \) 
+dans la deuxième équation :
+
+\change
+
+La deuxième équation ne contient plus que la variable \(x\) et peut donc être résolue, ce qui donne dans un premier temps :
+
+$(2+7\times\frac32)x   =  -2 +\frac72$
+
+\change
+
+Un calcul direct donne finalement \(x=\frac{3}{25} \) 
+
+
+\change
+
+Il suffit de remplacer \(x\) par sa valeur \(\frac{3}{25} \) dans la première équation 
+pour obtenir celle de \(y\), qui est \(\frac{8}{25} \): 
+
+
+\change
+
+On a finalement obtenu l'ensemble des solutions du système, qui est un singleton, c'est-à-dire un ensemble qui possède un unique élément, ici le couple \(\left(\frac{3}{25},\frac{8}{25}\right)\) .
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On rappelle que dans l'espace $(Oxyz)$, une équation linéaire du type
+$$a x + b y  + c z = d$$
+où $(a,b,c)$ sont des constantes non toutes nulles, est l'équation d'un plan.
+
+\change
+
+Un système à deux équations et à trois inconnues représente donc l'ensemble des coordonnées des points dans l'intersection de deux plans dans l'espace.
+
+\change
+
+Géométriquement, on voit qu'il y a trois possibilités :
+
+\begin{itemize}
+	\item premier cas : les deux plans sont strictement parallèles et il n'y a aucune solution au système,
+	\item deuxième cas : les deux plans sont confondus et il y a une infinité de solutions au système,
+	\item enfin, troisième cas : les deux plans se coupent en une droite et il y a aussi une infinité de solutions au système.
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Regardons brièvement trois exemples.
+
+\begin{itemize}
+	\item Ce premier système n'a pas de solution, car en divisant par $2$ la seconde équation, 
+	on obtient deux équations  incompatibles, vu que $7 \neq -\frac{1}{2}$. 
+	Géométriquement, nous sommes dans le cas de deux plans strictement parallèles.
+		
+	\change
+	
+	\item Dans le deuxième système, les deux équations sont équivalentes : 
+	on passe de la première à la deuxième en multipliant par  \(2\). 
+	En résolvant la première équation en $z$ par rapport à $x$ et $y$, 
+	on obtient un ensemble de solutions dépendant de deux paramètres. 
+	Nous sommes ici dans la situation de deux plans confondus.
+		
+	\change
+	
+\item On peut résoudre le troisième système en prenant 	\(x\) 
+comme paramètre et en résolvant le système correspondant à deux 
+équations et aux deux inconnues \(y\) et \(z\), par exemple par substitution.  
+On obtient un ensemble de solutions dépendant du paramètre \(x\). 
+Il s'agit d'une description paramétrique de la droite intersection des deux plans dont on est parti.
+\end{itemize}
+
+Il faut enfin remarquer qu'on pourrait faire une analyse tout à fait similaire pour les systèmes à *trois* équations et trois inconnues \(x\), \(y\) et \(z\). Le cas le plus fréquent est celui où les trois plans correspondants ont pour intersection un point, ce qui donne un ensemble de solutions à un élément. Faites la liste des cas possibles, c'est un bon exercice !
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On va à présent expliquer la méthode de résolution dite de Cramer, dans le cas des systèmes à deux équations et à deux inconnues.
+
+\change
+
+On adopte la notation suivante pour le déterminant $ad-bc$ du système : les colonnes sont celles des coefficients du système, les barres latérales signifient que l'on prend le déterminant.
+
+\change
+
+Si le déterminant du système est non nul, le système a une solution unique, donnée par les formules suivantes, 
+qui sont des fractions de déterminants.
+
+$$x=\frac{ed-bf}{ad-bc} \qquad y=\frac{af-ec}{ad-bc}$$
+
+Notez que le dénominateur égale le déterminant du système pour les deux coordonnées et est donc non nul.
+Pour le numérateur de la première coordonnée $x$, on remplace la première colonne par le second membre ;
+pour la deuxième coordonnée $y$, c'est la deuxième colonne que l'on remplace par le second membre.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La méthode de Cramer est bien adaptée à la résolution de systèmes avec un (ou plusieurs) paramètre(s), voici un exemple,
+avec un paramètre réel $t$.
+
+\change
+
+Le déterminant du système vaut $t^2+6$, qui est strictement positif si $t$ est réel, et donc ne s'annule pas.
+
+\change
+
+En appliquant la méthode de Cramer, on obtient immédiatement les valeurs de $x$ et $y$. 
+Dans les deux cas, le dénominateur est le déterminant du système $t^2+6$. 
+Pour la première coordonnée $x$, on calcule le dénominateur en remplaçant dans le 
+déterminant du système la première colonne par la colonne formée par le second membre $(1,1)$. Pour la deuxième coordonnée $y$, on procède de même avec la deuxième colonne.
+
+\change
+
+En résumé, pour un $t$ fixé, l'ensemble des solutions est un singleton.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Expliquons une méthode de résolution reposant sur l'inversion des matrices. Tout système linéaire admet une traduction matricielle. Voici comme cela s'exprime pour des systèmes à deux équations et à deux inconnues. Le système suivant : 
+
+$$
+\left\{\begin{array}{rcl} 
+a x + b y & = & e\\
+c x + d y & = & f 
+\end{array}\right.  
+$$
+
+
+\change
+
+est équivalent à l'égalité matricielle $AX=Y$, où $A$ est la matrice $(a,b,c,d)$
+des coefficients du système, $X$ est le vecteur colonne des inconnues 
+$(x,y)$, $AX$ est le produit matriciel de $A$ et de $X$, donc un 
+vecteur à une colonne et deux lignes, enfin $Y$ est le vecteur colonne 
+donné par le second membre. Résoudre le système revient à résoudre cette 
+équation matricielle avec comme inconnue le vecteur colonne $X$.
+
+
+\change
+
+Pour résoudre cette équation matricielle, on peut utiliser l'inverse de la matrice $A$, 
+qui existe si son déterminant est non nul, et qui prend la forme suivante. 
+$$A^{-1} = \frac{1}{ad-bc} \begin{pmatrix} d & -b \\ -c & a \end{pmatrix}$$
+La matrice inverse d'une matrice $2x2$ est donc $1$ sur le déterminant fois la matrice 
+obtenue en échangeant les coefficients sur la diagonale principale, ici $a$ et $d$, 
+et en changeant les signes les coefficients sur l'autre diagonale, ici \(b\) et \(c\).
+
+
+\change
+
+Alors la solution de l'équation matricielle, et donc celle du système de départ, 
+est donnée par l'égalité : $X = A^{-1} Y$ : le produit matriciel de $A^{-1}$ 
+par le second membre $Y$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On va illustrer la méthode de résolution par inversion de matrice sur le système à paramètre suivant.
+
+\change
+
+Le déterminant du système se calcule immédiatement, c'est $t^2-1$.
+
+\change
+
+Dans le premier cas, on suppose que ce déterminant est non nul. 
+
+\change
+
+Alors la matrice $A$ des coefficients du système est inversible et son inverse est donnée par la formule que nous venons de voir : $1$ sur le déterminant fois la matrice obtenue en échangeant les coefficients sur la diagonale principale $1$ et $t^2$, et en changeant le signe des coefficients sur l'autre diagonale $1$ et $1$.
+
+\change
+
+On obtient le vecteur colonne solution $X$ en multipliant l'inverse de $A$ 
+par le vecteur colonne $Y$ correspondant au second membre. 
+Un calcul direct (lorsqu'on connait le produit matriciel !) 
+donne que $X$ vaut $\frac{1}{t^2-1}\begin{pmatrix} t^2-t\\ t-1 \end{pmatrix}$
+qui se simplifie ainsi.
+
+\change
+
+On a donc déterminé l'ensemble solution, qui est donc le singleton formé par le couple $\left(\frac{t}{t+1},\frac{1}{t+1}\right)$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Examinons un deuxième cas où $t=+1$. 
+
+\change
+Alors le système se réduit à deux fois la même équation $x+y=1$, 
+
+\change
+et l'ensemble solution, 
+
+\change
+exprimé en fonction du paramètre $x$, est l'ensemble des couples $(x,1-x)$.
+
+\change
+
+Enfin, dans le troisième et dernier cas $t=-1$, 
+
+\change
+le système est constitué 
+
+\change
+des deux équations contradictoires $x+y=1$ et $x+y=-1$, 
+
+\change
+donc n'a pas de solution.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici quelques exercices sur les systèmes linéaires pour vous entrainer sur les méthodes que nous venons de voir !
+
+
+\end{document}

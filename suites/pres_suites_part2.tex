@@ -1,0 +1,442 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={34,139,34}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+
+\title{{\bf Suites}}
+\subtitle{Limites}
+
+
+\begin{frame}
+ \setcounter{framenumber}{0}
+ 
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Limite finie, limite infinie
+    \item<4-> Propriétés des limites
+    \item<5-> Des preuves !
+    \item<6-> Limites et inégalités
+  \end{itemize}
+\end{minipage}
+}
+\vspace*{1cm}
+\end{frame}
+% 
+% \section{Introduction}
+% \begin{frame}
+% 
+% Pour un trajet au prix normal de $20$ euros, on achète un abonnement de train 
+% à $50$ euros et on obtient chaque billet au prix réduit de $10$ euros
+% 
+% \pause
+% \bigskip
+% 
+% 
+%   $$\left\{\begin{array}{ccr}
+%   u_n&=20n    & \qquad \text{tarif plein} \\
+%   \pause
+%   v_n&=10n+50 & \qquad \text{tarif réduit}
+% \end{array}\right.$$
+% 
+% \pause
+% \bigskip
+% 
+% La réduction est donc, en pourcentage :
+% $$1-\frac{v_n}{u_n}=
+% \pause
+% \frac{u_n-v_n}{u_n}=
+% \pause
+% \frac{10n-50}{20n}=
+% \pause 
+% 0,5 -\frac{5}{2n}
+% \pause
+% \xrightarrow[n\to +\infty]{}0,5$$
+%   
+% 
+% \pause
+% 
+% [[ Figure 4]]
+%  
+%  \end{frame}
+
+
+\section{Limite finie, limite infinie}
+
+\begin{frame}
+
+\begin{mydefinition}
+\label{def_lim}
+  La suite $(u_n)_{n\in \Nn}$ a pour \defi{limite} $\ell\in \Rr$ si : 
+pour tout $\epsilon >0$, il existe un entier $N$ tel que si $n\geq N$ alors 
+$\lvert u_n-\ell\rvert\leq\epsilon$
+\pause
+\mybox{$\forall \epsilon >0 \quad \exists N \in \Nn \quad 
+    \forall n \in \Nn \qquad 
+    \left( n\geq N \implies \lvert u_n-\ell\rvert\leq\epsilon \right)$}
+\end{mydefinition}
+
+\pause
+\bigskip
+ \begin{itemize}
+    \item On note \quad $\displaystyle \lim_{n\to +\infty}u_n=\ell$ \quad ou \quad $u_n\xrightarrow[n\to +\infty]{} \ell$
+\pause
+\medskip
+    \item $|u_n-\ell| \le \epsilon \iff \ell-\epsilon \le u_n \le \ell +\epsilon$
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+
+\mybox{$\forall \epsilon >0 \quad \exists N \in \Nn \quad 
+    \forall n \in \Nn \qquad 
+    \left( n\geq N \implies \lvert u_n-\ell\rvert\leq\epsilon \right)$}
+
+\pause    
+    
+\myfigure{1.2}{\tikzinput{fig_suites05}}
+
+
+\end{frame}
+
+
+\begin{frame}
+\begin{mydefinition}  
+ La suite $(u_n)_{n\in \Nn}$ \defi{tend vers $+\infty$} si :
+\mybox{$\forall A >0 \quad \exists N \in \Nn \quad 
+    \forall n \in \Nn \qquad \left( n\geq N \implies u_n\geq A \right)$}
+
+
+    
+\uncover<3->{La suite $(u_n)_{n\in \Nn}$ \defi{tend vers $-\infty$} 
+si la suite $(-u_n)_{n\in \Nn}$ tend vers $+\infty$}
+\end{mydefinition}
+
+
+
+\pause
+
+\uncover<2->{
+\myfigure{0.9}{\tikzinput{fig_suites05bis}}
+}
+
+\end{frame}
+
+
+
+\begin{frame}
+\begin{mydefinition}
+Une suite $(u_n)_{n\in \Nn}$ est \defi{convergente} si elle admet une limite \evidence{finie}
+
+Elle est \defi{divergente} sinon (y compris donc lorsqu'elle tend vers $\pm \infty$)
+\end{mydefinition}
+
+\pause
+\bigskip
+
+\begin{proposition}
+  Si une suite est convergente, sa limite est unique
+\end{proposition}
+
+\end{frame}
+
+
+\section{Propriétés des limites}
+
+\begin{frame}
+
+\begin{proposition}[Opérations sur les limites]
+\label{prop:suitelimite}
+%Soient $(u_n)_{n\in \Nn}$ et $(v_n)_{n\in \Nn}$ deux suites convergentes.
+\begin{enumerate}
+\setlength{\itemsep}{9pt} 
+ \item Si $\displaystyle \lim_{n\to +\infty}u_n=\ell$, où $\ell\in \Rr$ et $\lambda \in \Rr$ 
+ on a $\displaystyle \lim_{n\to +\infty}\lambda u_n=\lambda \ell$
+ 
+ \pause
+ 
+  \item Si $\displaystyle \lim_{n\to +\infty}u_n=\ell$ et $\displaystyle \lim_{n\to +\infty}v_n=\ell'$, où $\ell,\ell'\in \Rr$, alors
+\mybox{$\displaystyle  \lim_{n\to +\infty}\left(u_n+v_n\right)=\ell+\ell' \pause
+\;\; \text{ et } \; \lim_{n\to +\infty}\left(u_n\times v_n\right)=\ell\times \ell'$\pause}
+    % \begin{align*}
+      % \lim_{n\to +\infty}\left(u_n+v_n\right)&=\ell+\ell'&\\
+      % \lim_{n\to +\infty}\left(u_n\times v_n\right)&=\ell\times \ell'
+    % \end{align*}
+    
+\pause    
+    
+  \item Si $\displaystyle \lim_{n\to +\infty}u_n=\ell$ où $\ell\in \Rr^*$ 
+alors $u_n\neq 0 $ pour $n$ assez grand et \\
+\hfil \hfil $\displaystyle \lim_{n\to +\infty}\frac{1}{u_n}=\frac{1}{\ell}$
+\end{enumerate}
+\end{proposition}
+
+\medskip
+\pause
+
+Exemple : Si $u_n \to \ell$ avec $\ell \neq \pm 1$, alors 
+\vspace*{-2ex}
+$$u_n(1-3u_n)-\frac{1}{u_n^2-1} \xrightarrow[n\to +\infty]{} \ell(1-3\ell) - \frac{1}{\ell^2-1}$$
+
+\end{frame}
+
+
+\begin{frame}
+\begin{proposition}[Opérations sur les limites infinies]
+\label{prop:suiteinfty}
+\small
+  \begin{enumerate}
+    \setlength{\itemsep}{9pt} 
+    \item Si $\displaystyle \lim_{n\to +\infty}u_n=+\infty$ alors $\displaystyle \lim_{n\to +\infty}\frac{1}{u_n}=0$
+    \pause
+    \item Si $\displaystyle \lim_{n\to +\infty}u_n= 0$ et $u_n>0$ pour $n$ assez grand 
+    alors $\displaystyle \lim_{n\to +\infty}\frac{1}{u_n}=+\infty$
+    \pause    
+    
+    \item Si $\displaystyle \lim_{n\to +\infty}u_n=+\infty$ et $(v_n)_{n\in \Nn}$ est minorée alors 
+    $\displaystyle \lim_{n\to +\infty}\left(u_n+v_n\right)=+\infty$
+    \pause    
+    \item Si  $\displaystyle \lim_{n\to +\infty}u_n=+\infty$ et $(v_n)_{n\in \Nn}$ est minorée par un nombre $\lambda>0$ 
+alors \\ \hfil  \hfil $\displaystyle \lim_{n\to +\infty}\left(u_n\times v_n\right)=+\infty$
+    
+  \end{enumerate}
+\end{proposition}
+
+\end{frame}
+
+\section{Des preuves !}
+
+\begin{frame}
+
+\begin{proposition}
+Toute suite convergente est bornée
+\end{proposition}
+\pause
+\begin{proof}
+\begin{itemize}
+  \item Soit $(u_n)$ une suite convergeant vers $\ell \in \Rr$
+\pause  
+  \item Définition de limite avec $\epsilon=1$ : 
+  \uncover<4->{ il existe $N$ t.q. pour $n\geq N$ on a 
+$\lvert u_n-\ell \rvert \leq 1$}
+\uncover<5->{  
+  \item Pour $n\geq N$ on a 
+\[\lvert u_n \rvert 
+\uncover<6->{=  \lvert \ell+(u_n-\ell) \rvert }
+\uncover<7->{\leq \lvert \ell \rvert + \lvert u_n-\ell  \rvert }
+\uncover<8->{\leq \lvert \ell \rvert +1 \] }
+}
+\vspace*{-3ex}
+\uncover<9->{  
+  \item On pose $M= \max(\lvert u_0 \rvert,\lvert u_1\rvert, \cdots , \lvert u_{N-1}\rvert , \lvert \ell \rvert +1)$
+  }
+\uncover<10->{    
+  \item $\forall n \in \Nn \quad \lvert u_n \rvert \leq M$
+  }
+\end{itemize}
+\vspace*{-8ex}
+\uncover<3->{ \myfigure{0.6}{\hspace*{8em}\tikzinput{fig_suites09}}}
+\vspace*{-5ex}
+\end{proof}
+\end{frame}
+
+\begin{frame}
+\begin{proposition}
+\label{prop:suitebornezero}
+Si la suite $(u_n)_{n\in \Nn}$ est bornée et $\lim_{n\to +\infty}v_n=0$ 
+alors \\
+\hfil \hfil $\lim_{n\to +\infty}\left(u_n\times v_n\right)=0$
+\end{proposition}
+\pause
+Exemple : $u_n=\cos n$ et $v_n=\frac{1}{\sqrt{n}}$, alors $u_nv_n \to 0$
+
+\pause
+\begin{proof}
+\begin{itemize}
+  \item $(u_n)$ est bornée, il existe $M>0$ tel que  $\lvert u_n \rvert\leq M$
+  
+\pause  
+  \item Fixons $\epsilon >0$
+\pause
+  \begin{itemize}
+    \item Définition de limite à la suite $(v_n)_{n\in \Nn}$
+\pause     
+    \item Pour $\epsilon'=\frac{\epsilon}{M}$
+\pause     
+    \item Il existe  $N$ tel que $n\geq N$ implique $ \lvert v_n  \rvert\leq  \epsilon'$
+  \end{itemize}
+    
+  
+\pause 
+
+  \item Pour $n\geq N$ on a :
+\[ \lvert u_nv_n \rvert= \lvert u_n \rvert \lvert v_n \rvert \leq M\times \epsilon'=
+M\times\frac{\epsilon}{M} =\epsilon\]
+  
+\pause  
+  \item Ce qui montre $u_n\times v_n \to 0$ \qedhere
+\end{itemize}
+
+\end{proof}
+
+\end{frame}
+
+\begin{frame}
+%\centerline{\og{}\emph{Si \quad $\lim u_n = \ell$ \quad et \quad $\lim v_n = \ell'$ \quad alors \quad $\lim u_n v_n = \ell \ell'$.}\fg{}}
+
+\begin{proposition}
+	Si \quad $\lim u_n = \ell$ \quad et \quad $\lim v_n = \ell'$ \quad alors \quad $\lim u_n v_n = \ell \ell'$
+\end{proposition}
+\pause
+\begin{proof}
+
+\begin{itemize}
+  \item $u_nv_n-\ell\ell'=(u_n-\ell)v_n+\ell(v_n-\ell')$
+\pause  
+  \item $\ell(v_n-\ell') \to 0$
+\pause  
+  \item $(u_n-\ell)v_n \to 0$ 
+\pause      
+  \begin{itemize} 
+    \item $u_n-\ell \to 0$
+\pause      
+    \item $v_n \to \ell'$ donc $(v_n)$ est bornée
+\pause      
+    \item par la proposition précédente : $(u_n-\ell)v_n \to 0$
+  \end{itemize}
+\pause  
+  \item Conclusion : $u_nv_n-\ell\ell' \to 0$
+\end{itemize}
+
+
+\end{proof}
+
+\end{frame}
+
+\section{Formes indéterminées} 
+
+\begin{frame}
+
+\hfill\evidence{Formes indéterminées}
+
+\pause  
+
+  \begin{enumerate}
+    \item \og{}$+\infty-\infty$\fg{} 
+    \pause 
+\vspace*{-2ex}  
+   $$  \begin{array}{rl}
+\displaystyle   \lim_{n\to +\infty}\left(e^n-\ln n\right)&=+\infty\\[3mm]
+ \pause                
+\displaystyle         \lim_{n\to +\infty}\left(n-n^2\right)&=-\infty \\[4mm]       
+\pause           
+\displaystyle         \lim_{n\to +\infty}\left(\left(n+\frac{1}{n}\right)-n\right)&=0
+      \end{array}$$
+\pause      
+\vspace*{-2ex}        
+    \item \og{} $0\times \infty$\fg{} 
+\pause
+    $$  \begin{array}{rc}
+\displaystyle        \lim_{n\to +\infty} \frac{1}{\ln n} \times e^n &=+\infty\\ [4mm]
+\displaystyle        \lim_{n\to +\infty} \frac{1}{n} \times \ln n &=0 \\[4mm] 
+\displaystyle        \lim_{n\to +\infty} \frac{1}{n} \times (n+1) &=1
+      \end{array}$$
+
+      \medskip
+
+\pause                         
+    \item \og{} $\frac{\infty}{\infty}$\fg{}, \og{} $\frac{0}{0}$\fg{}, \og{} $1^\infty$\fg{}, ...
+  \end{enumerate}
+%\end{exemple}
+
+\end{frame}
+
+\section{Limite et inégalités}
+
+\begin{frame}
+	\begin{proposition}
+\label{prop:lim_ineg}
+  \begin{enumerate}
+    \item Soient $(u_n)_{n\in \Nn}$ et $(v_n)_{n\in \Nn}$ deux suites convergentes 
+telles que : $\forall n \in \Nn$, $u_n\leq v_n$. Alors
+      \[\lim_{n\to +\infty} u_n \leq \lim_{n\to +\infty} v_n\]
+      
+\bigskip
+\pause
+
+    \item  Soient $(u_n)_{n\in \Nn}$ et $(v_n)_{n\in \Nn}$ deux suites telles que 
+$\lim_{n\to +\infty} u_n=+\infty$ et  $\forall n \in \Nn$, $v_n \geq u_n$. 
+Alors $$\lim_{n\to +\infty} v_n=+\infty$$
+  \end{enumerate}
+\end{proposition}
+\end{frame}
+
+\begin{frame}
+
+\begin{theoreme}[des  \og{}gendarmes\fg{}]   
+Si $(u_n)_{n\in \Nn}$, $(v_n)_{n\in \Nn}$ et $(w_n)_{n\in \Nn}$ sont trois suites telles que pour tout $n$ :
+\[ u_n\leq v_n\leq w_n \qquad \text{ et } \qquad \lim_{n\to +\infty}u_n=\ell=\lim_{n\to +\infty}w_n\]
+alors \ la suite $(v_n)_{n\in \Nn}$ est convergente \ \ et \ \ $\lim_{n\to +\infty} v_n=\ell$  
+  
+\end{theoreme}
+
+\pause
+
+\myfigure{1}{\tikzinput{fig_suites06}}  
+  
+\pause
+
+
+Exemple : Trouver la limite de $\displaystyle u_n =2 +\frac{(-1)^n}{1+n+n^2}$
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+ \begin{frame}
+ \begin{miniexercice}
+	 \begin{enumerate}
+  \item Soit $(u_n)_{n\in \Nn}$ la suite définie par $u_n = \frac{2n+1}{n+2}$. 
+En utilisant la définition de la limite montrer que $\lim_{n\to+\infty} u_n = 2$. 
+Trouver explicitement un rang à partir duquel $1,999 \le u_n \le 2,001$. 
+
+    \item  Déterminer la limite $\ell$ de la suite $(u_n)_{n\in \Nn}$ de terme général : 
+$\frac{n+\cos n}{n-\sin n}$ et trouver un entier $N$ 
+tel que si $n\geq N$, on ait $|u_n-\ell|\leq 10^{-2}$. 
+
+  \item La suite $(u_n)_{n\in \Nn}$ de terme général $(-1)^ne^{n}$ admet-elle une limite ? 
+Et la suite de terme général $\frac{1}{u_n}$ ? 
+
+  \item  Déterminer la limite de la suite $(u_n)_{n\geq 1}$ de terme général $\sqrt{n+1}-\sqrt{n}$.  
+   Idem avec $v_n = \frac{\cos n}{\sin n + \ln n}$. Idem avec $w_n=\frac{n!}{n^n}$.
+  
+%  \item \ [[???]] 
+  
+  %La suite $(u_n)_{n\geq 1}$ de terme général $n^{-2+(-1)^n}$ admet-elle une limite ?
+%   \item  Déterminer la limite de la suite $(u_n)_{n\geq 1}$ de terme général 
+% $\frac{E(\pi)+E(2\pi)+\cdots+E(n\pi)}{n^2}$. 
+  \end{enumerate}
+
+ \end{miniexercice}
+ \end{frame}
+
+
+
+\end{document}

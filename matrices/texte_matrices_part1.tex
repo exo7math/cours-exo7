@@ -1,0 +1,207 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+Cette leçon est la première d'une série de leçons consacrées aux matrices. Les matrices sont des tableaux de nombres. La résolution d'un
+certain nombre de problèmes d'algèbre linéaire se ramène
+à des manipulations sur les matrices. Ceci est vrai en particulier 
+pour la résolution des systèmes linéaires.  
+
+\change
+Dans cette leçon, nous allons tout d'abord donner la définition de matrice,
+
+\change
+puis nous verrons quelques exemples particuliers de matrices,
+
+\change
+et enfin, nous définirons une première opération sur les matrices, à savoir l'addition.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans tout ce chapitre, $\Kk$ désigne un corps. On peut penser à $\Qq$, $\Rr$ ou $\Cc$.
+Mais pour les exemples ce sera souvent $\Rr$ le corps des nombres réels.
+
+\change
+Une matrice $A$ est un tableau rectangulaire  d'éléments de $\Kk$.
+
+\change
+Un tel tableau est représenté de la manière suivante.
+
+\change
+La matrice $A$ est dite de \defi{taille} $n \times p$ si le tableau 
+possède $n$ lignes et $p$ colonnes. 
+
+\change
+Les nombres du tableau sont appelés les \defi{coefficients} de $A$. 
+
+\change
+Le coefficient situé à  la $i$-ème ligne et à la $j$-ème colonne est noté $a_{i,j}$,
+
+\change
+et on note aussi $A= \big(a_{i,j}\big)_{\substack{1\leq i \leq n \\ 1\leq j \leq p}}$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici un exemple de matrice.
+
+\change
+
+$A$ est une matrice de taille $2\times 3$ 
+
+\change
+avec, par exemple, $a_{1,1}$ c'est-à-dire l'élément situé en ligne 1 colonne 1, qui vaut 1,
+
+\change
+ et $a_{2,3}=7$. 
+ 
+\change
+Encore quelques définitions.
+
+Deux matrices sont \defi{égales} lorsqu'elles ont la même taille et que les coefficients correspondants sont égaux. 
+  
+\change
+L'ensemble des matrices à $n$ lignes et $p$ colonnes à coefficients dans $\Kk$ est noté $M_{n,p}(\Kk)$. 
+
+Lorsque le corps $\Kk$ est le corps des réels, les éléments de $M_{n,p}(\mathbb{R})$ sont appelés matrices réelles.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici à présent quelques types de matrices intéressantes.
+
+Tout d'abord, si $n=p$, c'est-à-dire si le nombre de lignes est le même que le nombre de colonnes, la matrice est dite matrice carrée.
+
+On note $M_{n}(\Kk)$ au lieu de $M_{n,n}(\Kk)$.
+
+\change
+ Les éléments $a_{1,1}, a_{2,2}, \ldots, a_{n,n}$ forment la diagonale principale de la matrice.
+
+\change
+Une matrice qui n'a qu'une seule ligne, c'est-à-dire avec $n=1$, est appelée \defi{matrice ligne} ou \defi{vecteur ligne}. On la note 
+$$A=\begin{pmatrix} 
+a_{1,1}& a_{1,2}&  \ldots & a_{1,p}\cr
+\end{pmatrix}.$$
+
+\change
+De même, une matrice qui n'a qu'une seule colonne ($p=1$) est appelée \defi{matrice
+colonne} ou \defi{vecteur colonne}. On la note ainsi.
+
+\change
+La matrice (de taille $n\times p$) dont tous les coefficients sont des zéros 
+est appelée la \defi{matrice nulle} et est notée $0_{n,p}$ ou plus simplement $0$. 
+Dans le calcul matriciel, la matrice nulle joue le rôle du nombre $0$ pour les réels.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Voyons à présent comment on peut additionner deux matrices entre elles.
+
+Soient $A$ et $B$ deux matrices ayant la même taille $n\times p$. Leur \defi{somme} $C=A+B$ est la matrice de taille $n\times p$ définie par 
+\[c_{ij}=a_{ij}+b_{ij}.\]
+
+En d'autres termes, on somme coefficients par coefficients.
+
+\change
+Considérons par exemple les deux matrices $A$ et $B$ de taille $2\times2$ suivantes, et calculons leur somme. 
+
+\change
+
+$3+0=3$, \quad $-2+5=3$, 
+
+$1+2=3$, \quad $7-1=6$.
+
+\change
+Par contre, si on considère à présent cette matrice $B'$ de taille $2\times1$, alors la somme de $A$ et $B'$ n'est pas définie, puisque les deux matrices n'ont pas la même taille.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le produit d'une matrice $A=\big(a_{ij}\big)$ de $M_{n,p}(\Kk)$ 
+par un scalaire $\alpha \in \Kk$ est la matrice
+$\big(\alpha a_{ij}\big)$ formée en 
+multipliant chaque coefficient de $A$ par $\alpha$. Elle est notée $\alpha \cdot A$ .
+
+\change
+$$
+\text{Si} \qquad 
+A  = \begin{pmatrix} 
+1& 2 & 3\cr 
+0& 1& 0\cr
+\end{pmatrix}
+\qquad \text{et} \qquad \alpha = 2
+$$
+alors la matrice $\alpha A$ est obtenue en multipliant tous les coefficients de $A$ par 2. Elle vaut donc
+$$
+\begin{pmatrix} 
+2& 4 & 6\cr 
+0& 2& 0\cr
+\end{pmatrix}.$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La matrice $(-1)A$ est l'\defi{opposée} de $A$ et est notée $-A$.
+
+\change
+La \defi{différence} $A-B$ est définie par $A+$ l'opposé de $B$, c'est-à-dire $A + (-B)$.
+
+\change
+Considérons les deux matrices $A$ et $B$ de taille $2\times3$ suivantes. 
+Alors leur différence $A-B$ est obtenue en soustrayant coefficients par coefficients. 
+Par exemple $2-(-1)=3$, $-1-4=-5$ ou encore $2-3=-1$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+L'addition et la multiplication par un scalaire se comportent sans surprises. 
+
+Donnons nous des matrices $A$, $B$ et $C$ de même taille, et deux scalaires $\alpha$ et $\beta$ dans $\Kk$
+
+\change
+alors $A + B = B + A$ : la somme est commutative,
+
+\change
+ $A + (B+C) = (A + B) + C$ : la somme est associative,
+
+\change
+ $A + 0 = A$ : la matrice nulle est l'élément neutre de l'addition,
+
+\change
+ $(\alpha + \beta )A =\alpha A + \beta A$,
+    
+\change 
+$\alpha (A+B)=\alpha A + \alpha B$.
+
+\change
+Démontrons par exemple le quatrième point. Le terme général de la matrice $(\alpha + \beta ) A $ est égal à 
+$(\alpha + \beta)a_{ij}$. 
+
+\change
+D'après les règles de calcul dans $\Kk$,  $(\alpha + \beta)a_{ij}$ est égal à  $\alpha a_{ij}+ \beta a_{ij}$
+
+\change
+qui est bien le terme général de la matrice $\alpha A + \beta A$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Entrainez-vous avec ces exercice pour vérifier que vous avez bien compris le cours.
+
+\end{document}

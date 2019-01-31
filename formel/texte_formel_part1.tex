@@ -1,0 +1,473 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Bonjour.
+
+Nous allons faire une courte introduction au calcul formel et commencer à nous familiariser avec le logiciel Sage.
+
+\change
+
+\change
+
+Nous commencerons par des exemples élémentaires,
+
+\change
+
+puis nous décrirons brièvement ce qu'est le calcul formel,
+
+\change
+
+et nous le comparerons au calcul numérique.
+
+\change
+
+Nous verrons ensuite quelques possibilités graphiques de Sage,
+
+\change
+
+puis nous tenterons de cerner les limites du calcul formel.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans un premier temps, servons nous de Sage comme d'une calculatrice. 
+
+Effectuez les trois calculs élémentaires suivants.
+
+Arrêtez ici la vidéo, lancez le logiciel Sage et faites ces calculs.
+
+Ensuite continuer la vidéo.
+
+PAUSE 3s
+
+\change
+
+Nous pouvons taper les formules mathématiques presque telles quelles à 
+l'invite de commande de Sage. 
+
+\change
+La machine renvoie le résultat.
+
+La multiplication se note par une étoile, 
+
+la puissance avec un accent circonflexe ou deux étoiles successives.
+
+
+\change
+
+\change
+Sage fait des calculs exacts, 
+il simplifie $\frac{22}{33}$ en 
+  $\frac{2}{3}$, contrairement à ce que faisait les anciennes calculatrices 
+  qui auraient affiché $0.6666\ldots$
+ 
+\change 
+
+\change
+Sage manipule les fonctions et les constantes usuelles. 
+ 
+Afin d'alléger ls présentations à venir, nous ommetrons d'afficher l'invite de commande Sage.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+L'utilisation d'un système de calcul symbolique 
+conduit le mathématicien que vous êtes à un type nouveau type 
+de démarche  : 
+
+l'expérimentation !
+
+Nous pouvons décrire cette démarche comme suit : 
+
+\change
+
+J'ai une question, un énoncé, un problème mathématique.
+  
+\change
+Je le traduis dans le langage de la machine et j'écris un algorithme afin de pouvoir faire des expériences.
+
+\change
+Les résultats permettent de valider la question si celle-ci est close ou bien si elle est ouverte de proposer une conjecture.
+%Je valide ma question. C'est à dire que j'énonce
+%une conjecture sur la base des résultats de mes expériences.
+
+\change
+Et bien sûr je prouve la conjecture ou démontre le résultat soit seul soit aidé de nouveau par la machine.
+
+Notez bien que le calcul formel va nous être utile pour la partie
+expérimentale, mais aussi pour la partie preuve !
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Appliquons cette démarche %à une nouveau tp.
+aux deux questions suivantes.
+
+Que vaut le nombre complexe $(1-\ii)^k$, en fonction 
+de l'entier $k\ge 0$ ?
+
+Les nombres de Fermat qui sont de la forme 
+$F_n = 2^{(2^n)}+1$ sont-ils tous premiers ?
+
+
+Encore une fois arrêtez ici la vidéo et appliquez vous-même la démarche.
+
+
+PAUSE 3s
+
+\change
+
+Pour la première, nous pouvons faire des calculs avec les nombres complexes.
+En posant $z= 1 - \ii$, on calcule pour $k=0,1,2$ jusqu'à $9$...
+
+\change 
+...$z^k$, sa partie réelle, sa partie imaginaire.
+
+\change
+On peut aussi calculer son module et son argument
+
+Pour l'instant nous ne nous attardons pas sur la syntaxe, nous la reverrons en détail. 
+
+Cependant, la lecture du code est ici suffisamment intelligible.
+
+\change
+Les résultats expérimentaux suggèrent que
+$z_k = \sqrt{2}^k e^{-\frac{k\ii\pi}{4}}$. 
+
+\change
+Ici la preuve est très facile. Une fois que l'on a écrit $z$
+sous la forme trigonométrique 
+$z = \sqrt{2} e^{-\frac{\ii\pi}{4}}$ le résultat est immédiat.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+En ce qui concerne la seconde question. 
+
+Pierre de Fermat pensait que tous les nombres de la forme 
+$F_n = 2^{2^n}+1$ étaient des nombres premiers.
+
+\change
+Cent ans plus tard, Euler a calculé $F_5$ et a montré qu'il n'est pas un 
+nombre premier. De nos jours, ce résultat s'obtient instantanément
+avec deux lignes de code.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Même si Sage est conçu pour le calcul symbolique, 
+il offre également la possibilité d'effectuer des calculs numériques. 
+Bien que non exact, le calcul numérique possède plusieurs avantages :
+il est plus rapide, souvent suffisant pour les applications 
+pratiques et peut aussi être plus lisible.  
+Voyons ceci sur un exemple de calcul de limite 
+d'une suite définie par récurrence.
+
+
+\change
+
+On écrit un algorithme pour calculer les termes un par un.
+$u_0 = 1$.
+
+\change
+On initialise une variable $u$ à $1$.
+
+\change
+Puis on calcule successivement les termes.
+
+\change
+On remplace $u$ par $\sqrt{u+1}$.
+
+C'est la formule de récurrence $u_{n+1} = \sqrt{1+u_n}$.
+
+Et à chaque étape on affiche $u$.
+
+Voyons le résultat de l'éxécution.
+
+\change
+
+\change
+
+\change
+
+\change
+
+On trouve 
+$$u_1 = \sqrt{2} \qquad u_2 = \sqrt{1+\sqrt{2}}
+$$
+$$ u_3 = \sqrt{1+\sqrt{1+\sqrt{2}}} \qquad 
+u_4 = \sqrt{1+\sqrt{1+\sqrt{1+\sqrt{2}}}}$$
+
+Ceci ne nous n'éclaire pas vraiment sur le comportement de la suite.
+
+\change
+Demandons maintenant à Sage de calculer, en plus de l'expression formelle, une approximation numérique de chacun des termes.
+
+Ce qui donne les résultats suivants.
+
+\change
+
+\change
+
+\change
+
+\change
+
+On peut alors émettre plusieurs conjectures : 
+
+la suite est croissante, 
+
+elle est majorée par $2$ 
+
+et donc converge. 
+
+
+\change
+
+En poussant les calculs un peu plus loin, une approximation de la limite est
+$1.618033\ldots$. 
+
+\change
+Les plus observateurs auront reconnu une approximation 
+du nombre d'or $\phi = \frac{1+\sqrt{5}}{2}$. 
+
+Nous renvoyons au cours d'analyse pour la preuve que 
+cette suite $(u_n)$ converge effectivement vers $\phi$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Continuons notre tour d'horizon et l'étude des fonctions. 
+
+Nous souhiatons préciser le comportement en $0$ de la fonction 
+$f$ qui à $x$ associe $\sin(x) \cdot \exp(x)$ puis tracer son graphe, 
+ainsi que celui de ses approximations en $0$.
+
+\change
+Commençons par définir la fonction $f$ à l'aide de 
+la commande 
+
+\codeinline{f = sin(x)*exp(x)}
+
+
+\change
+On utilise ensuite un outil de Sage
+
+\codeinline{taylor(f,x,0,n)} 
+
+qui permet d'obtenir le développement limité de  $f$ en $x=0$ à l'ordre $n$, 
+
+\change
+ce qui donne par exemple ici pour l'ordre $3$ :
+
+  $$f(x) = x + x^2 + \frac13 x^3+ \epsilon(x) x^3$$
+
+\change
+Voici donc les trois premiers polynômes de Taylor.
+
+\change
+La commande \codeinline{plot(f,(a,b))} permet de 
+tracer le graphe de $f$ sur l'intervalle $[a,b]$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici le tracé des graphes.
+
+Ici le graphe de $f$ est en noir.
+
+On note que 
+\begin{itemize}
+  \item Les polynômes de Taylor sont une bonne approximation de la fonction 
+  au voisinage d'un point. 
+  
+  \item Plus l'ordre du développement limité est élevé, meilleure est l'approximation. 
+
+  L'approximation linéaire en rouge est améliorée par 
+
+  l'approximation de degré $2$ en vert, 
+
+  elle même améliorée par l'approximation de degré $3$ en bleu.
+
+  \item Enfin, l'approximation est uniquement \emph{locale} : 
+  loin du point considéré (ici l'origine)
+  les polynômes de Taylor n'approximent plus du tout la fonction.
+\end{itemize}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+
+Il est facile de tracer une grande variété de graphiques.
+
+
+On peut par exemple tracer une courbe de Lissajous
+d'équation paramétrique $\big(\cos(3t),\sin(3t)\big)$
+
+\change
+La commande est \codeinline{parametric\_plot}
+
+\change
+
+\change
+On peut visualiser des surfaces en dimension $3$
+
+Comme ici la surface qui est le graphe 
+de la fonction de deux variables $cos(x*y)$
+
+\change
+Attention ! Il faut, au préalable, avoir défini les variables utilisées comme de vraies variables : \codeinline{var('t')}
+et \codeinline{var('x,y')}. (En fait seule la variable $x$ est définie par défaut dans Sage.)
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Abordons maintenant les limites de ce qu'on peut faire 
+avec un logiciel de calcul formel. 
+
+
+Tentons d'une part de calculer les solutions réelles de 
+l'équation $x^k-x-1=0$, 
+
+et d'autre part de montrer que les trois expressions 
+ci-dessous sont nulles.
+
+\change
+
+Le logiciel n'est pas responsable de la première limitation, celle-ci est propre aux mathématiques : 
+il est impossible d'écrire explicitement les solutions de toutes les équations.
+
+Pour $x^2-x-1=0$, la commande
+\codeinline{solve(x2-x-1==0,x)} renvoie les deux solutions
+$\frac{1+\sqrt5}{2}$ et $\frac{1-\sqrt5}{2}$.
+
+\change
+Par contre la commande \codeinline{solve(x5-x-1==0,x)} 
+ne renvoie pas les solutions, 
+mais renvoie l'équation de départ.
+
+Ce n'est pas ici un problème dû à Sage.
+En effet, il n'est mathématiquement pas possible d'exprimer 
+la solution réelle de $x^5-x-1=0$ 
+à l'aide de radicaux. 
+C'est seulement possible jusqu'au degré $4$.
+
+Par contre Sage pourrait nous fournir une approximation 
+de la ou des solutions réelles.
+
+\change
+En ce qui concerne les expressions, Sage simplifie la première sans problème. 
+
+Pour les deux autres, par contre, il faut l'aider un peu.
+
+En effet, chaque fois qu'un utilisateur interroge une machine, 
+il doit être très attentif à la définition des objets, 
+être informé de leur représentation interne ainsi que 
+de leur contexte d'utilisation. 
+
+De plus, la demande doit être la plus précise et la plus explicite.
+
+\change
+
+C'est à l'aide de la commande \codeinline{expand} 
+que la deuxième expression peut être développé ;
+ce qui permet de vérifier l'identité.
+
+\change
+
+Enfin, après avoir défini l'expression $\sin^2 x+\cos^2 x-1$, 
+il est nécessaure de demander explicitement à Sage de 
+simplifier l'expression trigonométrique pour obtenir $0$.
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \diapo
+% 
+%  Il n'est pas du tout évident pour un ordinateur de reconnaître les identités formelles  comme $(a+b)^2 = a^2+2ab+b^2$.
+% 
+%  Lorsqu'il y a plusieurs écritures d'une même expression,  il n'est pas non plus évident pour l'ordinateur de savoir quelle forme est la plus adaptée à l'utilisateur.
+% 
+%   Pour représenter  la difficulté à identifier deux expressions, voici 
+% une image de la façon dont les expressions $(a+b)^2$ et $a^2+2ab+b^2$ sont stockées  dans le logiciel.
+% 
+
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \diapo
+% 
+% Concluons cette première partie par des remarques générales.
+% 
+% D'abord, il est possible de consulter la documentation de Sage en faisant suivre une commande d'un point d'interrogation ou bien en utilisant la commande \codeinline{help}.
+% 
+% \change
+% 
+% Ensuite, on peut utiliser Sage d'au moins deux manières : soit en ligne de commande,
+% 
+% \change soit dans un navigateur grâce à la commande \codeinline{notebook()}.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Avant de terminer, quelques premières précisions sur le langage et la syntaxe de Sage.
+
+La syntaxe de Sage est celle de Python,
+
+mais il n'est pas nécessaire de connaître le langage Python.
+
+
+\change
+
+Reprenons le code utilisé pour l'étude des nombres de Fermat.
+
+\change
+
+
+Voici les éléments à retenir : 
+
+ La boucle \codeinline{for n in range(N):} 
+ signifie que l'indice $n$ parcourt les entiers de $0$ à  $N-1$.
+ 
+  
+\change
+
+Le bloc d'instructions suivant, c'est-à-dire la ligne commençant par  
+\codeinline{print} n,
+  est donc exécuté successivement pour $n=0,1,\ldots,N-1$.
+  
+\change
+
+Les espaces en début de ligne, (autrement dit \emph{l'indentation}) 
+sont essentiels car ils permettent de caractériser le bloc d'instructions sui sera évalué à plusieurs reprise pour les différentes valeurs de $n$.
+
+Même "invisibles", ces espaces font en quelque sorte partie du code.
+
+\end{document}

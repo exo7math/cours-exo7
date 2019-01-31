@@ -1,0 +1,411 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+Nous poursuivons ce chapitre sur les limites et les fonctions continues par 
+une deuxième leçon consacrée à la notion de limites de fonctions.
+
+\change
+Nous allons tout d'abord donner la définition de limite, c'est-à-dire préciser ce que signifie qu'une fonction admette une limite en un point, que ce point soit réel ou infini, et que la limite soit elle-même finie ou infinie.
+
+\change
+Nous verrons ensuite les propriétés importantes sur les limites, par exemple comment additionner ou multiplier des limites. Ceci nous fournira des méthodes de calcul.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Définissons tout d'abord la limite d'une fonction en un point. 
+On considère un intervalle $I$ de $\Rr$, et un réel $x_0$ qui est soit dans 
+$I$, soit une extrémité de $I$.
+
+\change
+Nous dirons qu'une fonction $f$ définie sur $I$ a pour limite le réel $\ell$ en $x_0$ si on peut rendre $f(x)$ arbitrairement proche de $\ell$ pour tous les $x$ suffisamment proches de $x_0$, c'est-à-dire, en langage mathématique,  si l'assertion suivante est vérifiée
+
+$
+\forall \epsilon>0 \quad \exists \delta>0 \quad \forall x\in I \quad \vert x-x_0\vert <\delta 
+\implies \vert f(x)-\ell\vert <\epsilon
+$
+
+\change
+Voici le graphe d'une fonction ayant une limite $\ell$ en un point $x_0$. 
+Chaque fois que l'on nous donne un $\epsilon>0$, on voit que l'on peut trouver un $\delta>0$ tel que tous les $x$ situés à une distance au plus $\delta$ de $x_0$ ont une image $f(x)$ située à une distance au plus $\epsilon$ de $\ell$. C'est-à-dire que pour tout intervalle centré en $\ell$, ici en noir, on peut trouver un intervalle centré en $x_0$, ici en vert, qui est envoyé par $f$ dans l'intervalle noir. On voit en particulier que la valeur de $\delta$ dépend de $\epsilon$ : plus $\epsilon$ est petit, plus $\delta$ doit être petit.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Revenons sur la définition d'une limite finie en un point.
+
+\change
+Tout d'abord, lorsqu'elle existe, on note la limite comme ceci ou cela.
+
+\change
+Il est important de comprendre que l'inégalité $\vert x-x_0\vert <\delta$ signifie
+$x \in ]x_0 - \delta, x_0+\delta[$.
+
+\change
+De même l'inégalité $\vert f(x)-\ell\vert <\epsilon$ équivaut à $f(x) \in ]\ell - \epsilon, \ell+\epsilon[$.
+
+\change
+Dans la définition, on peut remplacer certaines inégalités strictes par des inégalités larges. Mais pas toutes !
+
+\change
+N'oubliez pas que l'ordre des quantificateurs est important, on ne peut pas échanger le $\forall \epsilon$ avec le $\exists \delta$ : comme on l'a vu, $\delta$ dépend en général de $\epsilon$. 
+
+\change
+Pour marquer cette dépendance on peut écrire :
+$\forall \epsilon>0 \quad \exists \delta(\epsilon) >0 \ldots$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voyons quelques exemples. La fonction $\sqrt x$ admet une limite en tout point $x_0$ positif, qui vaut bien sûr $\sqrt{x_0}$,
+
+\change
+comme on le voit sur son graphe.
+
+\change
+La fonction partie entière $E$ elle n'a pas de limite aux points $x_0$ qui sont des entiers.
+
+\change
+Ceci se traduit sur son graphe par un saut au point $x_0$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Donnons à présent la définition d'une limite infinie en un point. On dit qu'une fonction a pour limite $+\infty$ au point $x_0$ si on peut rendre $f(x)$ arbitrairement grand pour tous les $x$ suffisamment proches de $x_0$, ce qui s'écrit en langage mathématique : $\forall A>0 \quad \exists \delta>0 \quad \forall x\in I \quad \vert x-x_0\vert <\delta \implies f(x)>A.$
+
+\change
+Voici un exemple. On voit que pour tout réel positif $A$ on peut trouver un intervalle centré en $x_0$ (en vert) tel que pour tout $x$ dans cet intervalle $f(x)$ est plus grand que $A$.
+
+\change
+On définit de la même manière une limite qui vaut $-\infty$ en un point $x_0$ en remplaçant $ f(x)>A$ par $ f(x)<-A$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On va à présent définir une limite, non plus en un point réel $x_0$, mais en $+\infty$. On considère pour cela une fonction définie sur un intervalle du type $]a,+\infty[$.
+
+\change
+On dit que $f$ a pour limite le réel $\ell$ en $+\infty$ si 
+
+$
+\forall \epsilon>0 \quad \exists B>0 \quad \forall x\in I \quad x>B \implies \vert f(x)-\ell\vert <\epsilon
+$
+
+On voit ici un exemple de fonction ayant une limite finie en $+\infty$. Remarquons qu'on procèderait de la même manière pour définir une limite en $-\infty$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On dit de même que $f$ a pour limite $+\infty$ en $+\infty$ si on peut rendre $f(x)$ arbitrairement grand pour tous les $x$ suffisamment grands.
+
+\change
+Voici à présent quelques exemples très classiques de limite en l'infini. $x^n$ tend vers $+\infty$ en $+\infty$. 
+
+\change
+Par contre, sa limite en $-\infty$ dépend de la parité de $n$ :
+$+\infty$ si $n$ est pair, $-\infty$ sinon.
+
+\change
+Son inverse $\frac{1}{x^n}$ tend vers $0$ en $+\infty$ et en $-\infty$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Un autre exemple. Considérons deux polynômes $P$ et $Q$ de degrés respectifs $n$ et $m$, et dont les coefficients des termes de plus haut degré, c'est-à-dire $a_n$ et $b_m$, sont strictement positifs.
+
+\change
+Alors la limite en $+\infty$ de la fraction rationnelle $P/Q$ est donnée par les termes de plus haut degré de $P$ et $Q$ :
+
+\change
+elle vaut $+\infty$ si $n>m$
+
+\change
+$a_n/b_m$ si $P$ et $Q$ sont de même degré
+
+\change
+et enfin $0$ si $n<m$.
+
+\change
+Ceci se vérifie aisément en factorisant le numérateur et le 
+dénominateur par le terme qui l'emporte en $+\infty$, 
+c'est-à-dire respectivement par $x^n$ et $x^m$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici la première des propriétés que nous allons voir sur les limites. Si une fonction admet une limite, alors cette limite est unique.
+
+On ne donne pas ici la démonstration de cette proposition, qui est très similaire à celle de 
+l'unicité de la limite pour les suites. 
+Elle est obtenue par un raisonnement par l'absurde, en supposant qu'une fonction a deux limites distinctes en un même point.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Nous allons voir à présent comment les limites se comportent vis à vis 
+des opérations usuelles d'addition, de multiplication, 
+de passage à l'inverse, etc...  
+Soient deux fonctions $f$ et $g$. 
+On suppose que $x_0$ est ou bien un réel, ou bien $+\infty$ ou $-\infty$.
+
+\change
+On suppose que $f$ et $g$ ont des limites finies en $x_0$, que l'on note respectivement $\ell$ et $\ell'$.
+
+\change
+Alors pour tout réel $\lambda$, la fonction $\lambda\cdot f$ aura pour limite en $x_0$ le réel $\lambda\cdot \ell$
+
+\change
+de même la somme $f+g$ aura pour limite la somme des limites $\ell+\ell'$
+
+\change
+et la limite du produit est le produit des limites.
+
+\change
+Si de plus $\ell\neq 0$, alors l'inverse $1/f$ est bien défini au voisinage de $x_0$ et tend vers $1/\ell$.
+
+\change
+Enfin, si $f$ tend vers $\pm\infty$, alors $1/f$ tend vers $0$.
+
+
+Ce sont des propriétés que l'on utilise sans s'en apercevoir !
+
+Elles se montrent de manière similaire à celles sur les limites de suites. 
+Nous donnerons à la fin de cette leçon un exemple de démonstration.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici à présent une proposition concernant la limite d'une composée de fonctions. 
+Si $f$ tend vers $\ell$ en $x_0$ et si $g$ tend vers $\ell'$ en **$\ell$**, 
+alors la composée $g\circ f$ est bien définie au voisinage de $x_0$ et 
+tend vers $\ell'$.
+
+
+Voyons un exemple de calcul de limite. 
+
+Considérons une fonction $u$ qui tend vers $2$ en $x_0$.
+
+\change
+Posons $f(x) = \sqrt{1+\frac{1}{u(x)^2}+\ln u(x)}$ 
+
+\change
+et cherchons la limite éventuelle de $f$ en $x_0$.
+
+\change
+Tout d'abord comme $u(x) \to 2$ alors, par produit de limite, $u(x)^2 \to 4$ 
+  
+\change
+donc $\frac{1}{u(x)^2} \to \frac14$.
+  
+\change
+Par ailleurs comme $u(x) \to 2$ qui est strictement positif, alors $u(x)$ reste strictement positive dans un voisinage de $x_0$,
+  
+\change
+et donc $\ln u(x)$ est bien définie dans ce voisinage et de plus, par composition des limites, $\ln u(x) \to \ln 2$.
+  
+\change
+Cela entraîne que  $1+\frac{1}{u(x)^2}+\ln u(x)$ tend lorsque $x \to x_0$ vers $ 1+\frac 14 + \ln 2$. 
+  
+\change
+Cette limite étant strictement positive, on en déduit que $f(x)$ est bien définie dans un voisinage de $x_0$.
+  
+\change
+Et par composition avec la racine carrée alors $f(x)$ a bien une limite en 
+$x_0$ qui vaut $\sqrt{1+\frac14 + \ln 2}$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Il y a des situations où l'on ne peut rien dire sur les limites.
+Par exemple si $\lim_{x_0} f = +\infty$ et $\lim_{x_0} g = -\infty$ alors on ne peut 
+a priori rien dire sur la limite de $f+g$ ; 
+cela dépend vraiment de $f$ et de $g$.
+
+\change
+
+On exprime cela en disant que $+\infty-\infty$ est une forme indéterminée.
+
+Pour trouver la limite -si elle existe!- il faut étudier la situation au cas par cas.
+
+\change
+
+
+Les formes indéterminées sont du même type que pour les suites en voici
+un petite liste : $0\times \infty$ ; 
+$\dfrac\infty\infty$ ; $\dfrac00$ ; $1^\infty$ ; $\infty^0$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Enfin voici une proposition très importante qui lie le comportement 
+d'une limite avec les inégalités.
+
+Si $f\leq g$ et si $\displaystyle\lim_{x_0} f=\ell\in\Rr$ et 
+$\displaystyle\lim_{x_0} g=\ell'\in\Rr$, alors $\ell\leq \ell'$.
+
+Je vous rappelle que $f\le g$ signifie que pour tout $x$,
+$f(x) \le g(x)$. 
+
+\change
+
+On a un résultat similaire si la limite est infinie :
+
+Si $f\leq g$ et si $\displaystyle\lim_{x_0} f=+\infty$, 
+alors  $\displaystyle\lim_{x_0} g=+\infty$.
+
+\change
+
+Enfin voici le célèbre "Théorème des gendarmes"
+
+Si $f\leq g\leq h$ et si 
+$\displaystyle\lim_{x_0} f=\displaystyle\lim_{x_0} h=\ell\in\Rr$, 
+alors $g$ a une limite en $x_0$ et $\displaystyle\lim_{x_0} g=\ell$.
+
+
+\change
+
+Ce dernier point est vraiment très utile.
+
+Sur ce dessin, cela se lit ainsi : on suppose que $f$ tend vers une limite $\ell$
+en $x_0$, on  suppose que $h$ tant aussi vers cette même limite $\ell$ en $x_0$.
+
+Et on suppose aussi que $f(x) \le g(x) \le h(x)$ pour tout $x$.
+
+La conclusion est double :
+
+(1) $g$ admet une limite en $x_0$ ;
+
+et
+
+(2) cette limite est bien sûr la même que pour $f$ et $h$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Il y a beaucoup de résultats dans cette leçon et je vous encourage à lire et travailler
+les démonstrations dans le livre. Nous allons voir un exemple démonstration
+en prouvant que 
+si $f$ tend vers une limite $\ell$ non nulle en $x_0$, 
+alors $\frac 1 f$ est bien définie dans un voisinage de $x_0$ et tend vers $\frac 1\ell$.
+
+On va même supposer que $\ell$ est positif, le cas négatif se montrerait de la même manière.
+
+\change
+
+
+Montrons tout d'abord que $\frac 1 f$ est bien définie et est bornée dans un voisinage de $x_0$.
+
+\change
+
+Par hypothèse $f(x)$ tend vers $\ell$, c'est-à-dire 
+\[
+\forall \epsilon'>0 \quad \exists \delta>0 \quad  x\in ] x_0-\delta,x_0+\delta[ 
+\implies \ell-\epsilon' < f(x) <\ell+\epsilon'.
+\]
+
+
+\change
+
+Pour n'importe quel  $\epsilon'$ tel que $0<\epsilon'<\ell/2$,
+
+
+\change
+
+
+on obtient un $\delta$ correspondant à ce $\epsilon'$ 
+
+Maintenant sur l'intervalle $]x_0-\delta,x_0+\delta [$ 
+
+\change
+
+alors  cette inégalité [montrer celle de gauche] implique d'une part
+que $f(x)> \frac{\ell}{2}>0$ donc on peut bien parler de $1/f(x)$
+
+\change
+
+et d'autre part en passant à l'inverse nous obtenons pour $1/f$ l'inégalité
+$\frac{1}{f(x)} < M$ où $M=2/\ell$.
+
+On vient de montrer que $1/f$ est bien définie et est bornée.
+
+\change
+
+Montrons que la limite $1/f$ est $1/\ell$.
+
+
+\change
+
+Pour $x$ dans l'intervalle $]x_0-\delta,x_0+\delta [$ on a
+
+$$
+\left\vert \frac{1}{f(x)} - \frac1\ell  \right\vert = \frac{\left\vert \ell - f(x) \right\vert }{f(x)\ell} $$
+
+\change
+
+que l'on majore par $$\frac{M}{\ell}\left\vert \ell - f(x) \right\vert$$ 
+
+où $M$ est la borne obtenue au-dessus.
+
+\change
+
+Etant donné $\epsilon>0$. On choisit $\epsilon'=(\ell \epsilon)/M$, 
+alors il existe $\delta>0$ tel que
+
+sur l'intervalle $]x_0-\delta,x_0+\delta [$
+
+
+$$\left\vert \frac{1}{f(x)} - \frac1\ell  \right\vert$$
+
+\change
+
+est inférieur à 
+$\frac{M}{\ell}\left\vert \ell - f(x) \right\vert $
+
+\change
+
+Mais $\left\vert \ell - f(x) \right\vert < \epsilon'$
+
+\change
+
+qui vaut exactement $\epsilon$.
+
+Pour $\epsilon >0$ on a trouvé $\delta$ tel que
+
+$\left\vert \frac{1}{f(x)} - \frac1\ell  \right\vert <\epsilon$.
+
+Ce qui est exactement dire que $1/f$ tend vers $1/\ell$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Il y a beaucoup de choses dans cette leçon, vérifier maintenant 
+que vous avez bien compris le cours.
+
+\end{document}

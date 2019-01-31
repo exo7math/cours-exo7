@@ -1,0 +1,225 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={66,0,245}]{structure}
+
+
+% Commande spécifique à ce chapitre
+\newcommand{\mytext}[1]{{\color{black}{#1}}}
+\newcommand{\myverb}[1]{\verb#1}
+%\newcommand{\myverb}[1]{$#1$}
+\newcommand{\mylatex}[1]{{\color{myred}{#1}}}
+
+\setbeamercolor{normal text}{fg=gray}
+
+\newcounter{saveenumi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\title{{\bf Leçons de choses}}
+\subtitle{\'Ecrire des mathématiques : \LaTeX\ en cinq minutes}
+
+\begin{frame}
+  
+  \debutmontitre
+
+%   \pause
+% 
+% {\footnotesize
+% \hfill
+% \setbeamercovered{transparent=50}
+% \begin{minipage}{0.6\textwidth}
+%   \begin{itemize}
+%     \item<3-> Définition
+%     \item<4-> Exemples
+%     \item<5-> Puissance
+%     \item<6-> Matrices $2\times 2$
+%   \end{itemize}
+% \end{minipage}
+% }
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Les bases}
+
+\begin{frame}[fragile]
+
+
+\mytext{Une formule s'écrit entre deux dollars} \myverb|$\pi^2$|  \quad  \mylatex{$\pi^2$}
+
+\pause
+\medskip
+
+\mytext{Ou entre double dollars} \myverb|$$\lim u_n = +\infty$$|
+\mylatex{$$\lim u_n = + \infty$$}
+
+%\begin{semiverbatim}$$\lim u_n = + \infty$$\end{semiverbatim}
+
+\pause
+
+\begin{itemize}
+  \item \mytext{Les exposants s'obtiennent avec l'accent circonflexe} \myverb|^|  
+\pause
+  \item \mytext{Les indices avec} \myverb|_| 
+\pause
+  \item 
+  \begin{itemize}
+     \item \mylatex{$a^2$} \mytext{s'écrit} \myverb|a^2| 
+\pause
+     \item \mylatex{$u_n$} \mytext{s'écrit} \myverb|u_n|
+\pause
+     \item \mylatex{$\alpha_i^2$} \mytext{s'écrit} \myverb|\alpha_i^2|
+  \end{itemize}
+\pause
+  \item \mytext{Les accolades} \myverb|{ }| \mytext{permettent de grouper du texte}
+
+\pause
+  \begin{itemize}
+     \item \myverb|2^{10}| \mytext{pour} \mylatex{$2^{10}$} 
+ 
+     \item \myverb|a_{i,j}|  \mytext{pour} \mylatex{$a_{i,j}$}
+  \end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+
+
+\section{Premières commandes}
+
+\begin{frame}[fragile]
+
+\begin{tabular}{cccc@{\vrule depth 1.2ex height 5ex width 0mm \ }}
+\myverb|\sqrt| & \mytext{racine} & 
+   \mylatex{$\sqrt{a}$} & \myverb|\sqrt{a}| \\
+&& \mylatex{$\sqrt{1+\sqrt{2}}$} & \myverb|\sqrt{1+\sqrt{2}}|  \\
+&&  \mylatex{$\sqrt[3]{x}$} & \myverb|\sqrt[3]{x}|  \\
+
+\pause
+
+\myverb|\frac| & \mytext{fraction} & \mylatex{$\dfrac{a}{b}$} & \myverb|\frac{a}{b}| \\
+&& \mylatex{$\dfrac{\pi^3}{12}$} & \myverb|\frac{\pi^3}{12}|   \\
+&& \mylatex{$\dfrac{1}{2+ \frac{3}{4}}$} & \myverb|\frac{1}{2 + \frac{3}{4}}|  \\
+&& \mylatex{$\gamma^{\frac{1}{n}}$} & \myverb|\gamma^{\frac{1}{n}}| \\
+
+\end{tabular}
+\end{frame}
+
+\begin{frame}[fragile]
+\hspace*{-1cm}
+\begin{tabular}{cccc@{\vrule depth 1.2ex height 6ex width 0mm \ }}
+\myverb|\lim| & \mytext{limite} & 
+  \mylatex{$\lim_{n \to + \infty} u_n = 0$} & \myverb|\lim_{n \to +\infty} u_n = 0|  \\
+&& \mylatex{$\lim_{x \to 0^+} f(x) < \epsilon$} & \myverb|\lim_{x \to 0^+} f(x)<\epsilon|  \\
+
+\pause
+
+\myverb|\sum| & \mytext{somme} & 
+   \mylatex{$\displaystyle \sum_{i=1}^n \frac{1}{i}$} & \myverb|\sum_{i=1}^n \frac{1}{i}| \\
+&& \mylatex{$\displaystyle \sum_{i \ge 0} a_i$} & \myverb|\sum_{i \ge 0} a_i|  \\
+
+\pause
+
+\myverb|\int| & \mytext{intégrale} & 
+  \mylatex{$\displaystyle \int_a^b \phi(t) \, dt$} & \myverb|\int_a^b \phi(t) dt|  \\
+
+\end{tabular}
+\end{frame}
+
+
+
+
+\section{D'autres commandes}
+
+\begin{frame}[fragile]
+
+\begin{center}
+\hspace*{-1cm}
+\begin{tabular}{cc@{\vrule depth 1.2ex height 2ex width 0mm \ }}
+\mylatex{$f : E \to F$} & \myverb|f : E \to F|  \\ 
+\mylatex{$+\infty$} & \myverb|+\infty| \\ 
+\mylatex{$a \le 0$} & \myverb|a \le 0| \\
+\mylatex{$a > 0$} & \myverb|a > 0|  \\
+\mylatex{$a \ge 1$} & \myverb|a \ge 1| \\
+\mylatex{$\delta$} & \myverb|\delta| \\
+\mylatex{$\Delta$} & \myverb|\Delta| \\
+\end{tabular}
+\pause\hspace*{1cm}
+\begin{tabular}{cc@{\vrule depth 1.2ex height 2ex width 0mm \ }}
+\mylatex{$a \in E$} & \myverb|a \in E| \\
+\mylatex{$A \subset E$} & \myverb|A \subset E| \\
+\mylatex{$P \implies Q$} & \myverb|P \implies Q| \\
+\mylatex{$P \iff Q$} & \myverb|P \iff Q| \\
+\mylatex{$\forall$} & \myverb|\forall| \\ 
+\mylatex{$\exists$} & \myverb|\exists| \\ 
+\mylatex{$\cup$} & \myverb|\cup| \\ 
+\mylatex{$\cap$} & \myverb|\cap|  \\ 
+\end{tabular}\hspace*{-1cm}
+\end{center}
+
+
+\pause
+
+
+
+\begin{itemize}
+  \item \mytext{définir} \myverb|\Rr| \mytext{qui exécutera}
+\myverb|\mathbb{R}| \mytext{et affichera donc} \mylatex{$\Rr$}
+
+\hfil \myverb|\newcommand{\Rr}{\mathbb{R}}| 
+
+
+
+\pause
+
+   \item \mytext{pour une commande} \myverb|\monintegrale| \mytext{qui affiche} \mylatex{$\int_0^{+\infty} \frac{\sin t}{t} dt$}
+
+\hspace*{-2cm} \myverb|\newcommand{\monintegrale}{\int_0^{+\infty} \frac{\sin t}{t} dt}|
+
+
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Mini-exercices}
+
+
+
+\begin{frame}
+
+\begin{miniexercice}
+\'Ecrire en \LaTeX\ toutes ces formules (qui par ailleurs sont vraies !).
+\begin{enumerate}
+  \setlength{\itemsep}{1em}
+% %   \vspace{1em}
+
+  \item $\displaystyle \sqrt{a}-\sqrt{b} = \frac{a-b}{\sqrt a + \sqrt b}$
+  \item $\displaystyle \sum_{n=1}^{+\infty}{\frac{1}{n^2}} = \frac{\pi^2}{6}$
+  \item $\displaystyle \lim_{R\to+\infty} \int_{-R}^{+R} e^{-t^2} \, dt = \sqrt{\pi}$
+  \item $\displaystyle \forall \epsilon>0 \quad \exists \delta \ge 0 \quad (|x-x_0|<\delta \implies |\ln(x)-\ln(x_0)|<\epsilon)$
+  \item $\displaystyle \sum_{k=0}^{+\infty} \ \frac{1}{16^k} \left(\frac{4}{8k+1}-\frac{2}{8k+4}-\frac{1}{8k+5}-\frac{1}{8k+6} \right) = \pi$
+
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+
+
+\end{document}

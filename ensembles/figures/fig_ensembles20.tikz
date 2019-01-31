@@ -1,0 +1,53 @@
+\shorthandoff{:!}
+\begin{tikzpicture}[scale=1.6,>=latex]
+
+	\node (x) at (0,0) {};
+	\node (y) at (0.3,0.8) {};
+	\node (z) at (1.6,0.5) {};
+	\node (a) at (0.8,-0.5) {};
+	\node (v) at (0.2,1.7) {};
+	\node (w) at (1.8,-0.3) {};
+
+	\node[below left] at (x) {$x$};
+	\node[left=4pt] at (v) {$x'$};
+
+	\fill[myorange] (x) circle (1.25pt);
+	\fill (y) circle (1.25pt);
+	\fill (z) circle (1.25pt);
+	\fill (a) circle (1.25pt);
+
+	\fill[red] (v) circle (1.25pt);
+	\fill (w) circle (1.25pt);
+
+	\begin{scope}[very thin]
+	\path[<->] (x) edge (z);
+	\path[<->] (y) edge (z);
+	\path[<->] (y) edge (x);
+	\path[<->] (a) edge (y);
+	\path[<->] (a) edge (x);
+	\path[<->] (a) edge (z);
+
+	\path[->] (x) edge[loop left] (x);
+	\path[->] (y) edge[loop above] (y);
+	\path[->] (z) edge[loop right] (z);
+	\path[->] (a) edge[loop below] (a);
+
+	\path[->] (v) edge[loop above] (v);
+	\path[->] (w) edge[loop below] (w);
+	\path[<->] (v) edge (w);
+	\end{scope}
+
+   \beameronly{\uncover<3->}{
+	\draw[very thick,myorange,rotate=19] ($(x)!0.4!(z)$) ellipse (40pt and 23pt);
+	\node[myorange] at ($(z)+(0.8,0)$) {$\text{cl}(x)$};
+   }
+
+   \beameronly{\uncover<4->}{
+	\draw[very thick,red,rotate=38] ($(v)!0.5!(w)$) ellipse (5pt and 50pt);
+	\node[red] at ($(w)+(0.6,0)$) {$\text{cl}(x')$};
+   }
+
+
+
+\end{tikzpicture}
+\shorthandon{:!}

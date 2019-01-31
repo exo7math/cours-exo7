@@ -1,0 +1,37 @@
+\definecolor{cneg}{rgb}{0,0.4,0.97}
+\definecolor{cpos}{rgb}{0.93,0.26,0}
+
+\shorthandoff{?;:!}
+\begin{tikzpicture}[scale=3,xscale=2]
+
+ % tracÃÂ© de la courbe et des axes
+  \draw[gray,->] (-0.30,0) -- (1.25,0) node[below,black] {$x$};
+  \draw[gray,->] (-0.25,-0.9) -- (-0.25,0.9) node[right,black] {$y$};
+  \node[above left] at (-0.25,0) {$0$};
+
+\pgfmathparse{0}
+\let\j\pgfmathresult
+\pgfmathparse{0}
+\let\xold\pgfmathresult
+\
+  \foreach \x/\y/\c in {0.15/0.5/cpos,0.22/0.2/cpos,0.5/-0.8/cneg,0.6/-0.3/cneg,0.72/0.6/cpos,0.87/-0.7/cneg,1/ /cpos}
+  {
+  \beameronly{\uncover<5->}{
+  \filldraw[fill=\c!40,draw=gray] (\xold,0) rectangle (\x,\y);
+  }
+  \draw (\xold,1pt) -- (\xold,-1pt) node[anchor=north] {$x_\j$};
+  \pgfmathparse{\j+1.}
+  \let\j\pgfmathresult
+  \pgfmathint{\j}
+  \global\let\j\pgfmathresult
+    \draw[very thick, myred] (\xold,\y) -- (\x,\y) node[midway,above] {$c_\j$};
+  \pgfmathparse{\x}
+  \global\let\xold\pgfmathresult
+  }
+
+% du texte
+  %\draw (0 cm,1pt) -- (0 cm,-1pt) node[below] {$a=x_0$};
+  \draw (1 cm,1pt) -- (1 cm,-1pt) node[anchor=north] {$x_7$};
+
+\end{tikzpicture}
+\shorthandoff{?;:!}

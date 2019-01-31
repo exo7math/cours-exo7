@@ -1,0 +1,338 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Poursuivons l'étude des séries par un autre type de série facile à étudier : les séries alternées.
+Ce sont celles où le signe du terme général change à chaque rang.
+
+\change
+\change
+Le résultat principal concernant les suites alternées est le critère de Leibniz.
+
+\change
+Nous en verrons ensuite un corollaire utile portant sur le reste de ces séries.
+
+\change
+Enfin, l'étude de deux contre-exemples nous permettra de vérifier que les hypothèses du critère de Leibniz sont indispensables.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Commençons par définir ce que sont les séries alternées.
+
+Soit $(u_k)_{k\ge0}$ une suite à termes positifs.
+
+\change
+La série $\sum_{k \ge 0} (-1)^k u_k$ s'appelle une \defi{série alternée}.
+
+Comme les $u_k$ sont $\ge0$ alors le signe de $(-1)^k u_k$ est alternativement $+$,$-$$+$$-$...
+
+
+\change
+Pour ce type de séries, on dispose d'un critère de convergence, extrêmement facile à vérifier : le critère de Leibniz.
+
+\change
+Considérons une suite $(u_k)_{k\ge0}$ qui vérifie trois conditions.
+
+\change
+Tout d'abord, $u_k  \ge 0$ pour tout $k$.
+
+\change
+La suite $(u_k)$ est une suite décroissante.
+
+\change
+Enfin $\lim_{k\to+\infty} u_k=0$.
+
+\change
+Alors la série alternée $\displaystyle \sum_{k=0}^{+\infty} (-1)^k u_k$ converge.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour montrer que la suite $(S_n)$ des sommes partielles converge, nous allons montrer que les deux suites extraites $(S_{2n+1})$ et $(S_{2n})$ sont adjacentes. En effet :
+
+\change
+La suite $(S_{2n+1})$ est croissante 
+
+\change
+puisque $S_{2n+1}-S_{2n-1}=u_{2n}-u_{2n+1}$ quantité qui est positive par décroissance de la suite $(u_n)$.
+  
+\change
+De même, la suite $(S_{2n})$ est décroissante
+
+\change
+vu que  $S_{2n}-S_{2n-2}= u_{2n}-u_{2n-1}\le 0$.
+  
+\change 
+$S_{2n} \ge S_{2n+1}$ 
+
+\change
+car $S_{2n+1} - S_{2n} = -u_{2n+1} $ et car la suite $(u_n)$ est positive.
+  
+\change
+Enfin $S_{2n+1} - S_{2n}$ tend vers $0$
+  
+\change
+car $S_{2n+1} - S_{2n} = -u_{2n+1} \to 0$ (lorsque $n\to+\infty$).
+
+\change
+En conséquence $(S_{2n+1})$ et $(S_{2n})$ sont des suites adjacentes 
+et donc convergent
+et en plus convergent vers la même limite $S$.
+
+\change
+On conclut que $(S_n)$ converge vers $S$.
+
+\change
+Mais on a montré plus ! En effet, on a également que $S_{2n+1} \le S \le S_{2n}$ pour tout $n$.
+
+\change
+Et donc le reste de rang pair, $R_{2n}$, qui vaut par définition $S-S_{2n}$, ...
+
+\change
+est négatif.
+
+\change
+Il est également supérieur ou égal à $ S_{2n+1}-S_{2n}$ 
+
+\change
+qui vaut $-u_{2n+1}$.
+
+\change
+De même, le reste de rang impair est compris entre $0$ et $u_{2n+2}.$
+
+\change
+Ainsi, quelle que soit la parité de $n$, on a $|R_n|=|S-S_n|\le  u_{n+1}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Appliquons le critère de Leibniz sur un exemple, et montrons que la série harmonique alternée
+$$\sum_{k=0}^{+\infty} (-1)^{k} \frac{1}{k+1} = 1-\frac{1}{2}+\frac{1}{3}-\frac{1}{4} + \cdots $$
+converge.
+
+\change
+En effet, en posant $u_k = \frac{1}{k+1}$, on a
+
+\change
+premièrement : $u_k\ge0$,
+
+\change
+deuxièmement : $(u_k)$ est une suite décroissante,
+
+\change
+troisièmement : la suite $(u_k)$ tend vers $0$.
+
+\change
+Par le critère de Leibniz, la série alternée $\sum_{k=0}^{+\infty} (-1)^{k} \frac{1}{k+1}$ converge.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Non seulement le critère de Leibniz prouve la convergence de la série 
+$\sum_{k=0}^{+\infty} (-1)^k u_k$, mais sa démonstration nous fournit deux résultats importants supplémentaires : un encadrement de la somme et une majoration du reste.
+
+Soit une série alternée $\displaystyle \sum_{k=0}^{+\infty} (-1)^k u_k$ vérifiant 
+les hypothèses du critère de Leibniz.
+
+\change
+Soit $S$ la somme de cette série et soit $(S_n)$ la suite des sommes partielles.
+
+\change
+La somme $S$ vérifie les encadrements :
+  $$ S_1\le S_3\le S_5\le \cdots \le S_{2n+1} \le \cdots \le S 
+  \le  \cdots\le S_{2n} \le \cdots\le S_4\le S_2\le S_0.$$
+  
+\change
+De plus, pour le reste d'ordre $n$, $\displaystyle R_n=S-S_n =\sum_{k=n+1}^{+\infty} (-1)^k u_k$, on  a
+$$\big|R_n\big|\le u_{n+1}.$$  
+
+\change
+Pour une série alternée, la vitesse de convergence est donc
+dictée par la décroissance vers $0$ de la suite $(u_k)$. Celle-ci
+peut être assez lente.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Par exemple, on a vu que la série harmonique alternée 
+$\sum_{k=0}^{+\infty} \frac{(-1)^{k}}{k+1}$ converge. Notons $S$ sa somme.
+
+\change
+Les sommes partielles sont
+$S_0 = 1$, 
+
+\change
+$S_1 = 1-\frac{1}{2}$,
+
+\change
+$S_2 = 1-\frac{1}{2}+\frac{1}{3}$,
+
+\change
+$S_3 = 1-\frac{1}{2}+\frac{1}{3}-\frac{1}{4}$,
+$S_4 = 1-\frac{1}{2}+\frac{1}{3}-\frac{1}{4}+\frac{1}{5}$,\ldots
+
+\change
+L'encadrement du corollaire s'écrit 
+$$1-\frac{1}{2} \le 1-\frac{1}{2}+\frac{1}{3}-\frac{1}{4} \le \cdots \le S_{2n+1} \le \cdots \le S 
+  \le  \cdots\le S_{2n} \le \cdots 
+  \le 1-\frac{1}{2}+\frac{1}{3}-\frac{1}{4}+\frac{1}{5}
+  \le 1-\frac{1}{2}+\frac{1}{3} \le 1$$
+  
+\change
+On en déduit que $S$ est compris entre 
+
+$S_3 = \dfrac{35}{60} \simeq 0,58333$
+
+et $S_4 = \dfrac{47}{60} \simeq 0,78333\ldots$
+
+Poursuivons cet exemple pour obtenir un encadrement plus fin de $S$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Considérons toujours la série harmonique alternée.
+
+\change  
+Si on pousse les calculs plus loin, alors pour $n=200$ on obtient que $S$ est compris entre 
+
+$S_{201} \simeq 0,69067$
+
+et $S_{200} \simeq 0,69562\ldots$
+
+\change  
+Ce qui nous donne les deux premières décimales de $S \simeq 0,69\ldots$
+
+\change  
+De plus nous avons une majoration de l'erreur commise, en utilisant le deuxième résultat du corollaire, c'est-à-dire l'inégalité $|R_n|\le u_{n+1}$.
+On trouve que l'erreur commise en approchant $S$ par $S_{200}$ est :
+
+\change  
+$|S-S_{200}| = |R_{200}| \le u_{201} = \frac{1}{202} < 5 \cdot 10^{-3}$.
+
+En fait, vous verrez plus tard que $S=\ln 2 \simeq 0,69314\ldots$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Terminons par deux mises en garde : dans le critère
+de Leibniz
+
+\change
+1) on ne peut pas laisser tomber la condition de décroissance de la suite $(u_k)$ .
+
+\change 
+2) il n'est pas possible de remplacer $u_k$ par un équivalent à l'infini, car la décroissance n'est pas conservée par équivalence.   
+
+Nous allons voir des contre-exemples qui démontrent ces deux affirmations.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Voici deux séries alternées. Nous allons montrer que 
+$$
+\sum_{k \ge 2}  \frac{(-1)^k}{\sqrt{k}}
+\quad \text{ converge,}$$
+alors que
+$$
+\sum_{k \ge 2}  \frac{(-1)^k}{\sqrt{k}+(-1)^k}
+\quad \text{ diverge.}
+$$ 
+
+\change
+Le critère de Leibniz s'applique à la première de ces séries :
+
+\change
+la suite $u_k = \frac{1}{\sqrt k}$ est une suite 
+
+\change
+positive, 
+
+\change
+décroissante, 
+
+\change
+qui tend vers $0$. 
+
+\change
+Conséquence, on a bien montré que la série alternée  $\sum_{k \ge 2}  \frac{(-1)^k}{\sqrt{k}}$ converge.
+
+\change
+Par contre le critère de Leibniz ne s'applique pas à la seconde, 
+
+\change
+car si la suite $v_k = \frac{1}{\sqrt{k}+(-1)^k}$ est bien
+positive (pour $k \ge 2$) et tend vers $0$, 
+
+\change
+elle n'est pas décroissante. 
+
+\change
+Cependant, on a bien que les suites $u_k$ et $v_k$ sont équivalentes.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Montrons à présent que $\sum_{k \ge 2} \frac{(-1)^k}{\sqrt{k}+(-1)^k}$ diverge.
+
+\change
+Pour cela, calculons la différence $w_k = (-1)^ku_k-(-1)^kv_k$. 
+
+\change
+Par définition,  
+
+$w_k= \dfrac{(-1)^k}{\sqrt{k}}-\dfrac{(-1)^k}{\sqrt{k}+(-1)^k}$
+
+\change
+en réduisant au même dénominateur, on trouve
+
+$ (-1)^k\dfrac{\sqrt{k}+(-1)^k-\sqrt{k}}{k+(-1)^k\sqrt{k}}  $
+
+\change
+ce qui se simplifie en 
+
+$ \dfrac{1}{k+(-1)^k\sqrt{k}} $
+
+\change
+la suite $w_k $ est donc équivalent à $ \frac{1}{k} $, qui est le terme général de la suite harmonique
+
+\change
+Ainsi la série de terme général $w_k = (-1)^ku_k-(-1)^kv_k$
+diverge, car la série harmonique $\sum \frac{1}{k}$ diverge.
+
+\change
+On sait que la série $\sum_{k \ge 2} (-1)^k u_k$
+est convergente.
+
+\change
+Supposons maintenant par l'absurde que la série
+$\sum_{k \ge 2}(-1)^k v_k$ soit également convergente.
+
+\change
+Alors par linéarité la série
+$\sum_{k \ge 2} w_k = \sum_{k \ge 2} (-1)^k u_k - \sum_{k \ge 2} (-1)^k v_k$
+serait convergente, comme somme de deux séries convergente.
+
+\change
+Ce qui est une contradiction.
+
+\change
+Conclusion : la série $\sum \frac{(-1)^k}{\sqrt{k}+(-1)^k}$ diverge.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici des exercices qui vous permettront de vous familiariser avec les séries alternées.
+
+\end{document}

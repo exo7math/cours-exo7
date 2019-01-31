@@ -1,0 +1,2037 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Intégrales dépendant d'un paramètre}
+%====================================================================
+
+%\insertvideo{}{partie 1. }
+
+
+
+Très souvent, la solution d'une équation différentielle aboutit
+au calcul d'une primitive :
+$$F(x) = \int_a^b f(x,t)\;\dd t\;.$$
+Dans de nombreux cas, il n'y a pas de forme explicite pour cette 
+primitive et il faut donc étudier la fonction $F(x)$ telle qu'elle nous est donnée, 
+c'est-à-dire sous la forme d'une intégrale, qui dépend du paramètre $x$.
+Dans ce chapitre nous donnons des conditions afin que cette fonction $F(x)$ soit continue
+et dérivable. Le point-clé des démonstrations sera la continuité uniforme.
+Nous appliquons ces méthodes à la transformation de Laplace et à celle de Fourier.
+Ne vous lancez pas dans ce chapitre sans de solides bases d'analyse :
+révisez les chapitres sur les limites, la continuité, la dérivabilité, 
+et l'intégration.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Continuité et dérivabilité d'une intégrale dépendant d'un paramètre}
+
+
+%---------------------------------------------------------------
+\subsection{Fonction définie par une intégrale}
+
+Soit $f : (x,t)\longmapsto f(x,t)$ une fonction de deux variables, 
+$x$ et $t$. Nous considérons $x$ comme un paramètre et $t\in
+[a,b]$ comme une variable d'intégration. Cela nous permet de définir
+$$
+F(x) = \int_a^b f(x,t)\;\dd t\;.
+$$
+Un $x$ étant fixé, pour que $F(x)$ existe, il suffit que l'application
+partielle $t\mapsto f(x,t)$ soit continue sur $[a,b]$. Mais ceci ne
+garantit pas la continuité de la fonction $F$. Nous donnons des
+conditions suffisantes pour que $F$ soit continue, puis dérivable.
+
+%---------------------------------------------------------------
+\subsection{Continuité}
+
+\begin{theoreme}
+\label{th:integralecontinue}
+Soient $I$ un intervalle de $\Rr$ et $J=[a,b]$ un intervalle fermé borné. 
+Soit $f$ une fonction continue sur $I\times J$ à valeurs dans $\Rr$ (ou $\Cc$). 
+Alors la fonction $F$ définie pour tout $x\in I$ par
+$$
+F(x) = \int_a^b f(x,t)\;\dd t
+$$ 
+est continue sur $I$.
+
+\end{theoreme}
+
+
+\begin{exemple}
+Soit 
+$$F(x) = \int_0^{\pi} \sin (x+t) \cdot e^{xt^2} \; \dd t,$$ 
+définie pour $x\in I = \Rr$.
+La fonction $(x,t) \mapsto f(x,t) = \sin (x+t) \cdot e^{xt^2}$
+est continue sur $\Rr \times [0,\pi]$, donc la fonction
+$x \mapsto F(x)$ est continue sur $\Rr$.
+
+\medskip
+
+On calcule que $F(0) = \int_0^{\pi} \sin (t) \cdot 1 \; \dd t 
+= \Big[-\cos(t)\Big]_0^{\pi}= 2$. Même si on n'a pas de formule
+pour $F(x)$ en général, on déduit de la continuité que $F(x)\to F(0)=2$
+lorsque $x\to0$.
+\end{exemple}
+
+
+Les démonstrations de cette section utilisent la continuité uniforme, qui fait l'objet
+de la section suivante.
+
+\begin{proof}
+Soit $x_0$ un point de $I$. 
+Quitte à restreindre l'intervalle en considérant $I \cap [x_0-\alpha,x_0+\alpha]$, 
+on suppose que $I$ est un intervalle fermé borné.
+Le théorème de Heine (théorème \ref{th:heine2}) s'applique alors à la fonction $f$
+sur $I\times J$ : elle est donc uniformément
+continue. En particulier, pour tout $\epsilon>0$, il existe $\delta>0$ tel
+que, \emph{pour tout} $t\in J$,
+$$|x-x_0|<\delta \implies \big|f(x,t)-f(x_0,t)\big| \le \frac{\epsilon}{b-a}\;.$$
+Dans ce cas,
+\begin{eqnarray*}
+\big|F(x)-F(x_0)\big|&=&\displaystyle{\left|\,
+\int_a^b \big(f(x,t)-f(x_0,t)\big)\;\dd t\,\right|}\\[1.5ex]
+&\le& 
+\displaystyle{
+\int_a^b \big|f(x,t)-f(x_0,t)\big|\;\dd t}\\[1.5ex]
+&\le&\displaystyle{ (b-a)\frac{\epsilon}{b-a} = \epsilon\;.}
+\end{eqnarray*}
+Donc $F$ est continue en $x_0$.
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Dérivabilité}
+
+\begin{theoreme}
+\label{th:integralederivable}
+Soient $I$ un intervalle de $\Rr$ et $J=[a,b]$ un intervalle fermé borné.
+On suppose que :
+\begin{itemize}
+  \item $(x,t) \longmapsto f(x,t)$ est une fonction continue sur $I\times J$
+  (à valeurs dans $\Rr$ ou $\Cc$),
+  
+  \item la dérivée partielle $(x,t) \longmapsto \frac{\partial f}{\partial x}(x,t)$
+  existe et est continue sur $I\times J$.
+  
+\end{itemize}
+Alors la fonction $F$ définie pour
+tout $x\in I$ par $\displaystyle F(x) = \int_a^b f(x,t)\;\dd t$ 
+est de classe $\mathcal{C}^1$ sur $I$ et :
+\mybox{$\displaystyle F'(x) = \int_a^b \frac{\partial f}{\partial x}(x,t)\;\dd t\;.$}
+
+\end{theoreme}
+
+On peut retenir l’abréviation mnémotechnique d'interversion dérivée/intégrale: 
+$$\frac{\dd}{\dd x}\int_a^b =\int_a^b \frac{\partial }{\partial x}$$
+
+
+
+\begin{exemple}
+\'Etudions $F(x)=\int_0^1 \frac{\dd t}{x^2+t^2}$ pour $x\in ]0,+\infty[$.
+Posons $f(x,t)= \frac{1}{x^2+t^2}$.
+Alors :
+\begin{itemize}
+  \item $f$ est continue sur $]0,+\infty[\times[0,1]$,
+  \item $\frac{\partial f}{\partial x}(x,t)=
+\frac{-2x}{(x^2+t^2)^2}$ est continue sur $]0,+\infty[\times[0,1]$.
+\end{itemize}
+
+On aura donc
+$$F'(x)=\int_0^1 \frac{-2x}{(x^2+t^2)^2} \dd t.$$
+
+Pour cet exemple on peut calculer explicitement $F(x)$ :
+\begin{itemize}
+  \item $\displaystyle F(x)=\frac{1}{x^2}\int_0^1 \frac{\dd t}{1+\big(\frac{t}{x}\big)^2}=
+\frac{1}{x} \left[  \arctan \frac{t}{x}  \right]^{t=1}_{t=0}=
+\frac{1}{x}\arctan \frac{1}{x}$.
+
+  \item $\displaystyle F'(x)=\frac{\dd}{\dd x} \left(\frac{1}{x} \arctan \frac{1}{x}\right)= -\frac{1}{x^2}\arctan \frac{1}{x}
+-\frac{1}{x^3} \frac{1}{1+x^{-2}}$.
+
+  \item Ce qui prouve $\displaystyle \int_0^1 \frac{-2x}{(x^2+t^2)^2} \dd t= -\frac{1}{x^2}\arctan \frac{1}{x}
+-\frac{1}{x(1+x^2)}$.
+\end{itemize}
+\end{exemple}
+
+
+\begin{proof}
+Soit $x_0\in I$. Pour simplifier l'écriture nous supposerons que $x_0$ n'est pas une extrémité de $I$.
+Nous devons démontrer que, pour tout $\epsilon>0$, il
+existe $\delta>0$ tel que, pour tout $x\in [x_0-\delta,x_0+\delta]$ et $x\neq x_0$ :
+$$\left|\frac{F(x)-F(x_0)}{x-x_0} - \int_a^b \frac{\partial f}{\partial x}(x_0,t)\;\dd t\,\right| \le \epsilon\;.
+$$
+\'Ecrivons :
+\begin{eqnarray*}
+\displaystyle{\left|\,F(x)-F(x_0)-(x-x_0)\int_a^b 
+\frac{\partial f}{\partial x}(x_0,t)\;\dd t\,\right|}
+&=& \displaystyle{\left|\,\int_a^b \left(f(x,t)-f(x_0,t)-
+(x-x_0)\frac{\partial f}{\partial x}(x_0,t)\right)\;\dd t\,\right|}\\[1.5ex]
+&\le& \displaystyle{\int_a^b \left|
+f(x,t)-f(x_0,t) - (x-x_0)\frac{\partial f}{\partial
+  x}(x_0,t)\right|\;\dd t\;.}
+\end{eqnarray*}
+Par le théorème des accroissements finis, pour tout $t\in[a,b]$, il existe 
+$x_1$ strictement compris entre $x_0$ et $x$ tel que 
+$$
+f(x,t)-f(x_0,t) = (x-x_0)\frac{\partial f}{\partial x}(x_1,t)\;.
+$$
+Fixons $\alpha>0$ tel que
+$[x_0-\alpha,x_0+\alpha]$ soit inclus dans $I$ : la dérivée
+partielle $\partial f/\partial x$ est uniformément continue sur
+$[x_0-\alpha, x_0+\alpha]\times [a,b]$, d'après le théorème de
+Heine (théorème \ref{th:heine2}). Il existe donc $\delta>0$ tel que, pour tout $x$ 
+vérifiant $|x-x_0|<\delta$ \emph{et pour tout} $t\in [a,b]$, 
+$$
+\left|\frac{\partial f}{\partial x}(x,t)-
+\frac{\partial f}{\partial x}(x_0,t)\right|< \frac{\epsilon}{b-a}\;.
+$$
+Si $|x-x_0|<\delta$, alors tout $x_1$ strictement compris entre $x_0$ et
+$x$ est encore tel que $|x_1-x_0|<\delta$, donc :
+$$
+\left|\frac{\partial f}{\partial x}(x_1,t)-
+\frac{\partial f}{\partial x}(x_0,t)\right|< \frac{\epsilon}{b-a}\;.
+$$
+En reportant dans l'expression ci-dessus, on obtient :
+\begin{eqnarray*}
+\displaystyle{
+\left|f(x,t)-f(x_0,t)- (x-x_0)\frac{\partial f}{\partial
+    x}(x_0,t)\right|}
+&=&
+\displaystyle{
+\left|(x-x_0)\frac{\partial f}{\partial
+    x}(x_1,t)- (x-x_0)\frac{\partial f}{\partial
+    x}(x_0,t)\right|}\\[1.5ex]
+&\le&
+|x-x_0|\frac{\epsilon}{b-a}\;.
+\end{eqnarray*}
+Il reste à intégrer par rapport à $t$ entre $a$ et $b$ :
+$$
+\left|F(x)-F(x_0)-(x-x_0)\int_a^b 
+\frac{\partial f}{\partial x}(x_0,t)\;\dd t\right|
+\le \int_a^b |x-x_0|\frac{\epsilon}{b-a}\;\dd t
+=|x-x_0|\epsilon\;,
+$$
+d'où le résultat en divisant par $|x-x_0|$.
+\end{proof}
+
+
+
+\begin{exemple}
+\label{ex:intgauss}
+Calculons \defi{l'intégrale de Gauss} :
+
+\begin{minipage}{0.5\textwidth}
+\mybox{$\displaystyle \int_0^{+\infty} e^{-t^2}\;\dd t = \frac{\sqrt \pi}{2}$}  
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+\myfigure{0.7}{
+\tikzinput{fig_intpar01}
+}  
+\end{minipage}
+
+
+Posons, pour $x \in I = [0,+\infty[$:
+$$F(x) = \int_0^1 \frac{e^{-x^2(t^2+1)}}{t^2+1}\;\dd t \qquad\qquad 
+G(x) = \left(\int_0^x e^{-t^2}\;\dd t\right)^2 \qquad\qquad
+H(x) = F(x)+G(x)$$
+
+\begin{enumerate}
+  \item \textbf{\'Etude de $F(x)$.}\\
+  En posant $f(x,t)=\frac{e^{-x^2(t^2+1)}}{t^2+1}$, on note que :
+  \begin{itemize}
+    \item $f$ est une fonction continue sur $[0,+\infty[\times [0,1]$, 
+    \item $\frac{\partial f}{\partial x}(x,t)= -2xe^{-x^2(t^2+1)}$ est aussi continue.
+  \end{itemize}
+  Donc, par le théorème \ref{th:integralederivable}, $F$ est continue, dérivable et
+  $$F'(x)  
+  = \int_0^1 \frac{\partial f}{\partial x}(x,t)\;\dd t
+  = -2\int_0^1 xe^{-x^2(t^2+1)}\;\dd t
+  = -2xe^{-x^2} \int_0^1 e^{-x^2t^2}\;\dd t.$$
+
+   
+  \item \textbf{\'Etude de $G(x)$.}\\
+  $G$ n'est pas à proprement parler une intégrale dépendant d'un paramètre.
+  Si on note $G_0(x) = \int_0^x e^{-t^2}\;\dd t$, $G_0$ est simplement une primitive
+  de $x \mapsto e^{-x^2}$ et $G(x) = G_0(x)^2$. Comme $G_0'(x) = e^{-x^2}$ 
+  (la dérivée d'une primitive est la fonction elle-même), on a :
+  $$G'(x)
+  = \frac{\dd }{\dd x}\left( G_0(x)^2 \right) 
+  = 2G_0'(x)G_0(x) 
+  = 2e^{-x^2}\int_0^x e^{-t^2}\;\dd t
+  = 2 x e^{-x^2}\int_0^1 e^{-x^2u^2}\;\dd u
+  $$
+  Pour la dernière égalité, on a posé le changement de variable $t=xu$
+  (et donc $\dd t = x\dd u$, $u=\frac tx$ et $u$ varie de $0$ à $1$ 
+  lorsque $t$ varie de $0$ à $x$).
+  
+  \item \textbf{\'Etude de $H(x)$.}\\
+  Par nos calculs précédents, on trouve $H'(x)= F'(x)+G'(x)=0$, pour tout $x\in[0,+\infty[$.
+  Cela veut dire que la fonction $H$ est une fonction constante.
+  Or 
+  $$H(0)= F(0)+G(0) 
+  = \int_0^1 \frac{1}{t^2+1}\;\dd t \  + \  0
+  = \Big[ \arctan t \Big]_0^1 = \frac\pi4.$$
+  
+  Donc $H$ est la fonction constante égale à $\frac\pi4$.
+  
+  \item \textbf{Limite de $H(x)$ en $+\infty$.}  
+  \begin{itemize}
+    \item Lorsque $x\to+\infty$, alors $G(x) \to \left(\int_0^{+\infty} e^{-t^2}\;\dd t\right)^2$.
+    
+    \item Et $F(x) \to 0$ car 
+    $$\big| F(x) \big|  = 
+    \left|\int_0^1 \frac{e^{-x^2(t^2+1)}}{t^2+1}\;\dd t\right|
+    \le \int_0^1 e^{-x^2} \;\dd t
+    =  e^{-x^2} \int_0^1 1 \cdot \;\dd t 
+    = e^{-x^2} \to 0.$$
+    
+    \item Donc $H(x) = F(x) + G(x) \to  \left(\int_0^{+\infty} e^{-t^2}\;\dd t\right)^2$.
+  \end{itemize}
+  
+  \item \textbf{Conclusion.}
+   
+   $H$ est une fonction constante : $H(x) = \frac\pi4$, sa limite en $+\infty$ est donc aussi 
+   $\frac\pi4$. Mais on a calculé cette limite d'une autre façon, ce qui prouve :
+   $$\int_0^{+\infty} e^{-t^2}\;\dd t = \sqrt{\frac{\pi}{4}} = \frac{\sqrt \pi}{2}$$
+   
+\end{enumerate}
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+\subsection{Théorème de Fubini}
+
+
+\begin{theoreme}[Théorème de Fubini]
+\label{th:fubini}
+Soient $I=[\alpha,\beta]$ et $J=[a,b]$ deux intervalles fermés bornés.
+Soit $f$ une fonction continue sur $I\times J$,
+à valeurs dans $\Rr$ (ou $\Cc$). Alors la fonction $F$ définie pour
+tout $x\in I$ par
+$$F(x) = \int_a^b f(x,t)\;\dd t$$ 
+est intégrable sur $I$ et
+$$\int_\alpha^\beta F(x)\;\dd x =
+\int_\alpha^\beta\left(\int_a^b
+  f(x,t)\;\dd t\right)\;\dd x = \int_a^b\left(\int_\alpha^\beta
+  f(x,t)\;\dd x\right)\;\dd t\;.$$
+\end{theoreme}
+On retient que l'on peut intervertir l'ordre d'intégration :
+$$\int_\alpha^\beta\int_a^b=\int_a^b\int_\alpha^\beta$$
+
+
+
+Géométriquement, on se souvient que calculer une intégrale $\int_a^b f(t)\;\dd t$
+revient à déterminer l'aire sous le graphe, comme somme de segments de hauteur $f(t)$.
+Ces segments sont en fait des rectangles de largeur infinitésimale $\dd t$.
+
+\myfigure{1}{
+\tikzinput{fig_intpar2b}\hspace{1em}
+\tikzinput{fig_intpar2a}
+}
+
+
+
+Ici, pour nos fonctions de deux variables, on calcule d'abord l'aire d'une 
+tranche parallèle à l'axe des $t$ (en vert sur la figure), 
+puis on fait la somme (c'est-à-dire on effectue une seconde intégration) 
+des aires de toutes les tranches (qui ont en fait une épaisseur infinitésimale).
+On pourrait faire la même opération en commençant par les tranches parallèles 
+à l'axe des $x$ (en rouge sur la figure).
+Le théorème de Fubini affirme que ces deux méthodes conduisent à la même valeur.
+Ce nombre correspond au volume sous la portion de surface.
+
+
+
+
+\begin{exemple}
+Calculons :
+$$I = \int_0^\pi \left( \int_0^1 (t\sin x + 2x)\, \dd t\right)\dd x$$
+
+\textbf{Première méthode.} On intègre d'abord par rapport à $t$, puis à $x$ :
+\begin{align*}
+I 
+& = \int_{x=0}^{x=\pi} \left( \int_{t=0}^{t=1} (t\sin x +2x)\, \dd t\right)\dd x  
+ = \int_{x=0}^{x=\pi} \Big[ \frac{t^2}{2}\sin x + 2xt  \Big]_{t=0}^{t=1} \dd x  \\
+& = \int_{x=0}^{x=\pi} \left( \frac{\sin x}{2} + 2x \right) \dd x  
+ = \Big[ \frac{-\cos x}{2} + x^2  \Big]_{x=0}^{x=\pi} 
+ = \pi^2+1 
+\end{align*}
+
+\medskip
+\textbf{Seconde méthode.} On utilise le théorème de Fubini qui affirme que l'on peut 
+d'abord intégrer par rapport à $x$, puis par rapport à $t$ :
+\begin{align*}
+I 
+& = \int_{x=0}^{x=\pi} \left( \int_{t=0}^{t=1} (t\sin x +2x)\, \dd t\right)\dd x  
+ = \int_{t=0}^{t=1} \left(\int_{x=0}^{x=\pi}  (t\sin x +2x)\, \dd x\right)\dd t \qquad \text{par Fubini} \\
+& = \int_{t=0}^{t=1} \Big[-t\cos x + x^2\Big]_{x=0}^{x=\pi} \dd t 
+ = \int_{t=0}^{t=1} (2t+\pi^2)\; \dd t 
+ = \Big[ t^2 + \pi^2 t\Big]_{t=0}^{t=1} 
+ = \pi^2+1 
+\end{align*}
+\end{exemple}
+
+
+\begin{proof}
+Par le théorème \ref{th:integralecontinue}, la fonction $F$ est continue sur $I$, donc intégrable.
+Pour $x\in I$, considérons la fonction :
+$$\varphi(x,t)= \int_{\alpha}^x f(y,t)\;\dd y\;.$$
+C'est une fonction continue sur $I\times J$.
+(Pour le prouver considérer 
+$\varphi(x,t) - \varphi(x_0,t_0) =
+\int_{x_0}^x f(y,t)\;\dd y + \int_a^{x_0} \big( f(y,t) - f(y,t_0) \big)\;\dd y$.
+Le premier terme est petit pour $x$ proche de $x_0$ car $f$ est bornée ;
+le second est petit par continuité uniforme de $f$, exactement comme dans 
+la preuve théorème du \ref{th:integralecontinue}.)
+
+La dérivée partielle par rapport à $x$ de $\varphi(x,t)$ est $\frac{\partial \varphi}{\partial x}(x,t) = f(x,t)$, qui est
+elle aussi continue sur $I\times J$. 
+On peut donc lui appliquer le théorème \ref{th:integralederivable}. 
+La fonction qui à $x$ associe 
+$$\Phi(x) = \int_a^b \varphi(x,t)\;\dd t=
+\int_a^b\left(\int_{\alpha}^x f(y,t)\;\dd y\right)\;\dd t
+$$
+est dérivable et sa dérivée est :
+$$\Phi'(x) = \int_a^b \frac{\partial \varphi}{\partial x}(x,t)\;\dd t = \int_a^bf(x,t)\;\dd t\;.$$
+On obtient donc, pour tout $x\in I$ :
+$$\int_a^b\left(\int_{\alpha}^x f(y,t)\;\dd y\right)\;\dd t
+=\Phi(x)
+= \int_\alpha^x \Phi'(y)\;\dd y
+= \int_\alpha^x\left(\int_a^b f(y,t)\;\dd t\right)\;\dd y\;.$$
+D'où le résultat en prenant $x=\beta$.
+\end{proof}
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Bornes qui varient}
+
+Une catégorie un peu différente d'intégrales est lorsque ce sont les bornes 
+qui sont les paramètres de la fonction :
+$$G(x) = \int_{u(x)}^{v(x)} f(t)\;\dd t$$
+où $u,v$ sont des fonctions de $x$.
+
+
+\begin{theoreme}
+\label{th:intbornes}
+Soit $f$ une fonction continue sur un intervalle $[a,b]$ à valeurs dans $\Rr$ (ou $\Cc$).
+Soient $I$ un intervalle de $\Rr$ et $u,v : I \to [a,b]$ deux fonctions de classe 
+$\mathcal{C}^1$. Alors la fonction $G$ définie sur l'intervalle $I$ par
+$$G(x) = \int_{u(x)}^{v(x)} f(t)\;\dd t$$
+est de classe $\mathcal{C}^1$ et
+$$G'(x) = v'(x)f\big(v(x)\big )  - u'(x)f\big(u(x)\big ).$$
+\end{theoreme}
+
+
+
+\begin{exemple}
+Calculons la dérivée de 
+$$G(x) = \int_x^{x^2} \frac{\dd t}{\ln t}$$
+pour $x > 1$.
+ Pour appliquer le théorème
+\ref{th:intbornes}, on se restreint à un intervalle $[a,b]$ tel que, pour $x$ fixé, 
+$x \in [a,b] \subset ]1,+\infty[$.
+Avec $f(t) = \frac{1}{\ln t}$, $u(x)=x$, $v(x)= x^2$,  on a :
+$$G'(x) 
+=  v'(x) \cdot f\big(v(x)\big )  - u'(x) \cdot f\big(u(x)\big )
+= 2x \frac{1}{\ln (x^2)} - 1 \frac{1}{\ln x}
+= \frac{x-1}{\ln x}$$
+\end{exemple}
+
+
+Le plus simple n'est pas d'apprendre la formule mais de refaire le calcul à chaque fois,
+car ce calcul est juste la dérivée d'une composition.
+
+\begin{proof}
+Considérons d'abord la fonction $H$ définie par
+$$H(x) = \int_{a}^{v(x)} f(t)\;\dd t.$$
+Cette fonction $H$ est la composée de deux fonctions :
+$$H(x) = F \big( v(x) \big) = (F \circ v) (x) $$
+où $F$ est la primitive 
+$$F(x) = \int_{a}^{x} f(t)\;\dd t.$$
+Comme $F$ et $v$ sont de classe $\mathcal{C}^1$ alors $H$ est de classe $\mathcal{C}^1$ et
+par la formule de dérivée d'une composition :
+$$H'(x) = v'(x) \cdot F' \big( v(x) \big).$$
+Mais comme $F'(x) = f(x)$ alors 
+$$H'(x) = v'(x) f \big( v(x) \big).$$
+
+
+Si on fait le même calcul pour $K(x)= \int_{a}^{u(x)} f(t)\;\dd t$,
+on trouve $K'(x) = u'(x) f \big( u(x) \big)$.
+
+Finalement 
+$$G(x) = \int_{u(x)}^{v(x)} f(t)\;\dd t = \int_{u(x)}^a f(t)\;\dd t + \int_{a}^{v(x)} f(t)\;\dd t
+= -K(x)+H(x),$$
+donc 
+$$G'(x) = -K'(x)+H'(x) = -u'(x) f \big( u(x) \big)+v'(x) f \big( v(x) \big).$$
+\end{proof}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+
+\begin{enumerate}
+  \item Soit $F(x) = \int_0^1 \cos(x-\pi t) \; \dd t$ définie pour $x \in [0,\pi]$.
+  $F$ est-elle continue ? Dérivable ? Si oui, que vaut sa dérivée ? Calculer 
+  $\int_0^{\pi} F(x)\;\dd x$ de deux façons différentes.
+  
+  \item Soit $F(x) = \int_0^1 e^{t\sin x} \; \dd t$ définie pour $x \in \Rr$.
+  $F$ est-elle continue ? Dérivable ? Si oui, que vaut sa dérivée ? 
+  Que valent les limites $\lim_{x \to 0} F(x)$ et $\lim_{x \to 0} F'(x)$ ?
+  Retrouver ces résultats en calculant une expression explicite de $F(x)$.
+  
+  \item Calculer le volume sous la portion de surface sous le graphe de 
+  $f(x,y) = \sqrt{x+xy} + \frac{y}{x+1}$ pour $(x,y) \in [0,1] \times [2,3]$.
+  
+  \item Soit $f(t) = \frac{\sin t}{t}$. Justifier que $f$ peut être prolongée en une fonction continue
+  en $0$. Soit $F(x) = \int_{x^2}^{x^3} \frac{\sin t}{t}\dd t$ définie pour $x\in[0,+\infty[$. 
+  Calculer $F(0)$ et $F'(x)$. En déduire le signe de $F(x)$ pour $x$ proche de $0$.
+\end{enumerate}
+\end{miniexercices}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Continuité uniforme}
+
+Cette section a pour but de détailler les outils qui ont servi
+aux preuves de la section précédente et peut être éludée lors d'une première lecture.
+Le résultat principal est le théorème de Heine qui affirme que toute fonction continue 
+sur un intervalle fermé borné est uniformément continue.
+
+
+
+%---------------------------------------------------------------
+\subsection{Fonctions d'une variable}
+
+La continuité uniforme est une notion plus forte que la continuité.
+On peut dire que la continuité uniforme est à la continuité ce que la convergence
+uniforme est à la convergence simple.
+
+
+\begin{definition}
+\label{def:contunif}
+Soient $I$ un intervalle de $\Rr$ et $f$ une fonction définie sur $I$,
+à valeurs dans $\Rr$ (ou $\Cc$).
+\begin{enumerate}
+\item
+On dit que $f$ est \defi{continue} sur $I$ si
+$${\color{blue}\underline{\forall x_0\in I}}\quad\forall \epsilon>0\quad\exists \delta>0
+\quad\forall x\in I\qquad |x-x_0| \le \delta \implies \big|f(x)-f(x_0)\big|\le \epsilon.$$
+
+\item
+On dit que $f$ est \defi{uniformément continue} sur $I$ si
+$$\forall \epsilon>0\quad\exists \delta>0\quad{\color{blue}\underline{\forall x_0\in I}}
+\quad\forall x\in I\qquad |x-x_0| \le \delta \implies \big|f(x)-f(x_0)\big|\le \epsilon.$$
+
+\end{enumerate}
+\end{definition}
+
+
+\myfigure{1}{
+\tikzinput{fig_intpar3}
+}
+
+Rappelons que $|x-x_0| \le \delta$ équivaut à $x \in [x_0-\delta,x_0+\delta]$.
+
+\'Evidemment, la continuité uniforme implique la continuité, mais la 
+réciproque est fausse en général. 
+La différence entre les deux est subtile. Dans
+la continuité simple, la valeur de $\delta$ peut dépendre non seulement de
+$\epsilon$ mais aussi de $x_0$. 
+Dans la continuité uniforme, elle ne peut dépendre
+que de $\epsilon$ : pour un $\epsilon$ donné, on peut choisir le même
+$\delta$ pour tous les points de l'intervalle. 
+
+%---------------------------------------------------------------
+\subsection{Théorème de Heine}
+
+\begin{theoreme}[Théorème de Heine]
+\label{th:heine}
+Toute fonction continue sur un intervalle fermé borné est
+uniformément continue.
+\end{theoreme}
+
+La démonstration est reportée en fin de section.
+
+\medskip
+
+Comme applications immédiates :
+\begin{itemize}
+  \item La fonction $x\mapsto \sqrt{x}$ est uniformément continue sur
+$[0,1]$.
+  
+  \item La fonction $x\mapsto 1/x$ est uniformément continue sur tout intervalle
+  du type $[\epsilon,1]$ (avec $0<\epsilon<1$).
+\end{itemize}
+
+
+Pour bien comprendre la subtilité de la continuité uniforme, nous allons reprendre ces deux exemples à la main.
+Nous allons vérifier que $x\mapsto \sqrt{x}$ est uniformément continue sur
+$[0,1]$, mais nous commençons par prouver que sur l'intervalle $]0,1]$ (qui n'est \emph{pas} fermé borné)
+la fonction $x\mapsto 1/x$ n'est \emph{pas} uniformément continue.
+
+
+\begin{exemple}
+Examinons la fonction inverse sur $I=]0,1]$ :
+$$
+\begin{array}{rcl}
+f \quad : \quad ]0,1]&\longrightarrow&\Rr\\
+x&\longmapsto&f(x)=\frac1x
+\end{array}
+$$
+Soit $x \in ]0,1]$ ($x$ joue ici le rôle de $x_0$ dans la définition de la continuité uniforme)
+et soit $0<\epsilon<1$. 
+L'image réciproque par $f$ de l'intervalle $\big[f(x)-\epsilon,f(x)+\epsilon\big]$ est l'intervalle :
+$$f^{-1}\Big(\big[f(x)-\epsilon,f(x)+\epsilon\big]\Big)= 
+\left[\frac{1}{f(x)+\epsilon},\frac{1}{f(x)-\epsilon}\right]
+= \big[x-\delta_x,x+\mu_x \big]$$
+
+\myfigure{1}{
+  \tikzinput{fig_intpar4}
+}
+
+où l'on a posé
+$$\delta_x = x-\frac{1}{f(x)+\epsilon} = x-\frac{1}{\frac1x+\epsilon} 
+= \frac{\epsilon x^2}{1+\epsilon x}
+\qquad\text{ et }\qquad
+\mu_x = \frac{1}{f(x)-\epsilon}-x = \frac{1}{\frac1x-\epsilon} - x 
+= \frac{\epsilon x^2}{1-\epsilon x}.$$
+
+Notons que $\delta_x < \mu_x$.
+Ainsi $[x-\delta_x,x+\delta_x]$ est le plus grand intervalle symétrique
+dont l'image par $f$ est contenu dans $[f(x)-\epsilon,f(x)+\epsilon]$. 
+Observons que, pour $\epsilon>0$ fixé, $\delta_x$ tend
+vers $0$ lorsque $x$ tend vers $0$.  
+Bien sûr, pour n'importe quel
+$\delta'<\delta_x$, l'implication
+$$|x'-x|\le \delta' \quad\Longrightarrow\quad \big|f(x')-f(x)\big| \le \epsilon$$
+reste vraie. 
+Mais il n'est pas possible de choisir un même $\delta'>0$
+tel que cette implication reste vraie pour \emph{tous} les $x$ de $]0,1]$.
+En effet un tel $\delta'$ devrait être inférieur à tous les $\delta_x$,
+mais ceux-ci tendent vers $0$.
+Conclusion : la fonction $f$ n'est pas uniformément continue sur $]0,1]$.  
+\end{exemple}
+
+
+
+
+
+
+
+\begin{exemple}
+Examinons maintenant la fonction racine carrée sur l'intervalle $I=[0,1]$ :
+$$
+\begin{array}{rcl}
+f \quad : \quad
+[0,1]&\longrightarrow&\Rr\\
+x&\longmapsto&f(x)=\sqrt{x}
+\end{array}
+$$
+Soient $x \in [0,1]$ et $0<\epsilon<1$. 
+\begin{itemize}
+  \item Cas $\epsilon<f(x)$. \\
+  L'image réciproque par $f$ de l'intervalle $\big[f(x)-\epsilon,f(x)+\epsilon\big]$ 
+  est l'intervalle :
+$$f^{-1}\Big(\big[f(x)-\epsilon,f(x)+\epsilon\big]\Big)
+=\left[(\sqrt{x}-\epsilon)^2,(\sqrt{x}+\epsilon)^2\right]
+=\left[x-(2\epsilon\sqrt{x}-\epsilon^2),x+(2\epsilon\sqrt{x}+\epsilon^2)\right]$$
+  
+  
+  \item Cas $\epsilon \ge f(x)$. On a :\\ 
+$$ f^{-1}\Big(\big[f(x)-\epsilon,f(x)+\epsilon\big]\Big)=
+\left[0,(\sqrt{x}+\epsilon)^2\right]=\left[0,x+(2\epsilon\sqrt{x}+\epsilon^2)\right]$$
+\end{itemize}
+
+La longueur de ces intervalles dépend de $x$ à priori.
+Posons $\delta=\epsilon^2$. Nous allons cependant démontrer 
+que, pour tous $x,x'\in
+[0,1]$, si $|x'-x|<\delta$, alors $|f(x')-f(x)|\le\epsilon$, 
+ce qui entraînera que $f$ est uniformément continue sur $I$. 
+
+\begin{itemize}
+  \item Supposons d'abord $\epsilon<\sqrt x$.
+  Alors $2\epsilon\sqrt{x}+\epsilon^2>2\epsilon\sqrt{x}-\epsilon^2>\epsilon^2=\delta$. Donc
+l'intervalle $f^{-1}\big(\big[f(x)-\epsilon,f(x)+\epsilon\big]\big)$ contient l'intervalle
+$[x-\delta,x+\delta]$ : si $x'$ vérifie $|x'-x|<\delta$, alors
+$|f(x')-f(x)|\le\epsilon$. 
+  
+  \item Supposons maintenant $\epsilon\ge \sqrt x$. 
+  %Si $x'\le x$,   alors $|\sqrt{x'}-\sqrt{x}|\le \sqrt{x}\le \epsilon$. 
+  Si $0 \le x' \le x+\delta$, 
+  alors $0\le x'\le x+(2\epsilon\sqrt{x}+\epsilon^2)$, donc $|\sqrt{x'}-\sqrt{x}|\le \epsilon$ :
+  si $|x'-x|<\delta$, alors $|f(x')-f(x)|\le\epsilon$.
+\end{itemize}
+
+Conclusion : la fonction $f$ est  uniformément continue sur $[0,1]$.
+Bien sûr, c'est aussi une conséquence immédiate du théorème de Heine ; ce que l'on 
+gagné en plus ici, c'est une valeur explicite pour $\delta$: $\delta=\epsilon^2$,
+qui dépend du choix de $\epsilon$, mais, comme on le souhaitait, pas du point $x\in[0,1]$.
+ 
+\end{exemple}
+
+
+\myfigure{1}{
+\tikzinput{fig_intpar5a}
+\tikzinput{fig_intpar5b}
+}
+
+
+%---------------------------------------------------------------
+\subsection{Fonctions de plusieurs variables}
+
+La continuité uniforme est une notion générale. Vous aurez noté que nous
+en avons eu besoin dans la section précédente pour des fonctions de deux variables.
+
+\begin{definition}
+\label{def:contunif2}
+Soient $I$ et $J$ deux intervalles de $\Rr$ et $f : (x,t)\longmapsto
+f(x,t)$ une fonction définie sur $I\times J$,
+à valeurs dans $\Rr$ (ou $\Cc$).
+\begin{enumerate}
+\item
+On dit que $f$ est \defi{continue} sur $I\times J$ si
+$$\begin{array}{l}
+{\color{blue}\underline{\forall (x_0,t_0)\in I\times J}}\quad
+\forall \epsilon>0\quad
+\exists \delta>0\quad
+\forall (x,t) \in I\times J \\
+\qquad 
+(x,t) \in [x_0-\delta,x_0+\delta]\times [t_0-\delta,t_0+\delta] 
+\implies \big|f(x,t)-f(x_0,t_0)\big|\le \epsilon.
+\end{array}$$
+
+\item
+On dit que $f$ est \defi{uniformément continue} sur $I\times J$ si
+$$\begin{array}{l}
+\forall \epsilon>0\quad
+\exists \delta>0\quad
+{\color{blue}\underline{\forall (x_0,t_0)\in I\times J}}\quad
+\forall (x,t) \in I\times J \\
+\qquad 
+(x,t) \in [x_0-\delta,x_0+\delta]\times [t_0-\delta,t_0+\delta] 
+\implies \big|f(x,t)-f(x_0,t_0)\big|\le \epsilon.
+\end{array}$$
+\end{enumerate}
+\end{definition}
+
+
+\myfigure{1}{
+\tikzinput{fig_intpar6}
+}
+
+Attention, il ne suffit pas que les applications partielles 
+$x \mapsto f(x,t)$ et $t \mapsto f(x,t)$ soient
+continues sur $I$ et $J$ respectivement pour 
+que $f$ soit continue sur $I\times J$.
+
+
+
+\begin{theoreme}
+\label{th:heine2}
+Soient $I$ et $J$ deux intervalles fermés bornés de $\Rr$ et 
+$f : (x,t)\longmapsto f(x,t)$ une fonction continue sur $I\times J$,
+à valeurs dans $\Rr$ (ou $\Cc$). 
+Alors $f$ est uniformément continue sur $I\times J$.
+\end{theoreme}
+
+
+%---------------------------------------------------------------
+\subsection{Démonstration du théorème de Heine}
+
+Nous commençons par rappeler le théorème de Bolzano-Weierstrass (voir le chapitre <<~Suites~>>), 
+dont une variante est le lemme de Borel-Lebesgue. Les deux sont des cas particuliers de 
+résultats de topologie beaucoup plus généraux que vous apprendrez plus tard.
+\begin{theoreme}[Théorème de Bolzano-Weierstrass]
+\label{th:BW}
+Toute suite bornée de réels admet une sous-suite convergente.
+\end{theoreme}
+
+
+Le lemme de Borel-Lebesgue affirme que, de tout recouvrement d'un
+intervalle $[a,b]$ fermé borné par des intervalles ouverts, on peut extraire un
+sous-recouvrement fini. 
+\begin{lemme}[Lemme de Borel-Lebesgue]
+\label{lem:borellebesgue}
+Soit $[a,b]$ un intervalle fermé borné de $\Rr$. 
+\'Etant donné pour chaque $x\in[a,b]$ un intervalle ouvert $I_x$ tel que $x\in I_x$,
+il existe un nombre \evidence{fini} de points $x_1,\ldots,x_m \in [a,b]$ tels que
+$$[a,b] \subset \bigcup_{i=1}^m I_{x_i}\;.$$ 
+\end{lemme}
+
+
+\myfigure{1}{
+\tikzinput{fig_intpar7}
+}
+
+
+\begin{proof}
+\begin{itemize}
+  \item La première étape consiste à montrer que, pour un
+certain entier $n$, tout intervalle de la forme $\big]y-\tfrac1n,y+\tfrac1n\big[$ est
+inclus dans au moins l'un des $I_x$ :
+$$\exists n\in\Nn\quad\forall y\in [a,b]\quad\exists x\in[a,b]\qquad
+\big]y-\tfrac1n,y+\tfrac1n\big[\subset I_x $$
+Supposons par l'absurde que cette affirmation soit fausse. C'est-à-dire, supposons que sa négation soit
+vraie :
+$$\forall n\in\Nn\quad\exists y\in [a,b]\quad\forall x\in[a,b]\qquad
+\big]y-\tfrac1n,y+\tfrac1n\big[\not\subset I_x$$
+Pour chaque $n$, soit $y_n \in [a,b]$ l'un des $y$ dont l'existence est affirmée
+ci-dessus. Par le théorème de Bolzano-Weierstrass, on peut
+extraire de la suite $(y_n)$ une sous-suite $(y_{\phi(k)})$, qui
+converge vers $c\in[a,b]$. En particulier, aucun des intervalles
+$\big]y_{\phi(k)}-\frac{1}{\phi(k)},y_{\phi(k)}+\frac{1}{\phi(k)}\big[$ n'est inclus dans
+$I_c$, ce qui est impossible, car $c$ est la limite de $(y_{\phi(k)})$.
+
+  
+  \item En utilisant la première étape, nous allons démontrer
+le lemme par l'absurde : nous supposons donc qu'aucune réunion
+finie des intervalles $I_x$ ne recouvre $[a,b]$. 
+Fixons un entier $n$ dont l'existence est affirmée ci-dessus.
+Soit $y_1$ un point de $[a,b]$. Il
+existe $x_1$ tel que $\big]y_1-\tfrac1n,y_1+\tfrac1n\big[\subset I_{x_1}$. Comme
+$I_{x_1}$ ne recouvre pas $[a,b]$, il existe un point $y_2$ de $[a,b]$
+qui n'appartient pas à $I_{x_1}$. Ce point est à distance au moins
+$\tfrac1n$ de $y_1$. Il existe un point $x_2$ tel que
+$\big]y_2-\tfrac1n,y_2+\tfrac1n\big[\subset I_{x_2}$. La réunion $I_{x_1}\cup
+I_{x_2}$ ne recouvre pas $[a,b]$. Donc il existe $y_3$ en dehors de
+cette réunion : $y_3$ est à distance au moins $\tfrac1n$ de $y_1$ et 
+de $y_2$. Par récurrence, on construit ainsi une suite $(y_k)$
+de points de $[a,b]$ telle que deux quelconques de ses éléments sont
+à distance au moins $\tfrac1n$. En appliquant une fois de plus le
+théorème de Bolzano-Weierstrass, une sous-suite de $(y_k)$ devrait
+converger, ce qui n'est pas possible. D'où la contradiction.
+\end{itemize}
+\end{proof} 
+
+
+
+\begin{proof}[du théorème \ref{th:heine}]
+Soient $[a,b]$ un intervalle fermé borné et $f$ une fonction
+continue sur $[a,b]$. Soit $\epsilon>0$. Puisque $f$ est continue, 
+pour tout $x\in[a,b]$, il existe un
+réel strictement positif, que nous noterons $\delta_x$, tel que, pour
+tout $x'\in [a,b]$,
+$$|x'-x|\le \delta_x \implies \big|f(x')-f(x)\big|\le \frac{\epsilon}{2}.$$
+Pour chaque $x$, considérons
+l'intervalle ouvert $I_x = \big]x-\frac{\delta_x}{2},x+\frac{\delta_x}{2}\big[$. 
+Par le lemme de Borel-Lebesgue, on peut extraire de cette famille
+d'intervalles ouverts un sous-recouvrement fini de $[a,b]$ :
+$$\exists x_1,\ldots,x_m\in[a,b]\qquad [a,b]\subset \bigcup_{i=1}^m I_{x_i}
+$$
+On note $\delta = \min_{i=1,\ldots,m} \frac{\delta_{x_i}}{2}$.
+Si $|x'-x|\le \delta$, alors 
+d'une part il existe $i \in \{1,\ldots,m\}$ tel que 
+$x \in I_{x_i}$ ; donc $|x-x_i| < \frac{\delta_{x_i}}{2} \le \delta_{x_i}$.
+D'autre part $|x'-x_i| \le |x'-x|+|x-x_i| \le \delta + \frac{\delta_{x_i}}{2}
+\le \delta_{x_i}$.
+Ainsi lorsque $|x'-x| \le \delta$,
+$$\big|f(x')-f(x)\big|\le \big|f(x')-f(x_i)\big|+\big|f(x_i)-f(x)\big|\le \frac{\epsilon}{2}
++\frac{\epsilon}{2}=\epsilon\;,$$
+par définition de $\delta_{x_i}$.
+Ce qui prouve la continuité uniforme de $f$.
+\end{proof}
+
+Nous omettons la démonstration du théorème \ref{th:heine2}, 
+qui repose sur le théorème \ref{th:heine}.
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\begin{enumerate}
+  \item Trouver une constante explicite $\delta$ (en fonction de $\epsilon$) 
+  qui assure l'uniforme continuité
+  de la fonction $x \mapsto x$ sur l'intervalle $[0,1]$.
+  
+  \item Même question avec $x \mapsto x^2$ sur l'intervalle $[0,1]$.
+  
+  \item Montrer que l'application $x \mapsto \frac{\sin x}{x}$ est uniformément continue sur $]0,\pi]$.
+  
+  \item Montrer que si $f : I \to \Rr$ est $k$-lipschitzienne (il existe $k$ tel que 
+  $\big| f(x)-f(y) \big| \le k |x-y|$ pour tous $x,y \in I$) alors $f$
+  est uniformément continue sur $I$.
+  
+  \item Montrer que la fonction $x \mapsto \sin x$ est uniformément continue sur $\Rr$.
+  (On pourra utiliser le théorème des accroissements finis.)
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Intégrales impropres dépendant d'un paramètre}
+
+%---------------------------------------------------------------
+\subsection{Fonction définie par une intégrale impropre}
+
+Comme si cela ne suffisait pas, nous avons encore une difficulté à
+ajouter : que se passe-t-il si l'intégrale définissant une
+fonction est prise sur un intervalle infini, ou bien si la fonction
+à intégrer tend vers l'infini en un point ? 
+La convergence d'une intégrale s'étudie en isolant les problèmes. 
+Chaque type de problème peut ensuite se ramener par un changement de variable au cas d'une
+intégrale sur $[0,+\infty[$. Afin de ne pas alourdir les notations,
+nous nous limiterons à ce dernier cas. Soit $f : (x,t)\longmapsto f(x,t)$ 
+une fonction définie sur $I\times [0,+\infty[$, où $I$ est un intervalle de $\Rr$. 
+Supposons que l'intégrale de l'application partielle $t\longmapsto f(x,t)$ soit
+convergente sur $[0,+\infty[$. Nous souhaitons
+étudier la fonction qui à $x\in I$ associe
+$$F(x)=\int_0^{+\infty} f(x,t)\;\dd t\;.$$
+
+
+Comme vous le savez, une intégrale convergente est définie comme
+une limite d'intégrales sur des intervalles bornés. Posons
+$$F_A(x)= \int_0^A f(x,t)\;\dd t\;,\qquad\text{ d'où }\quad F(x)=\lim_{A\to+\infty} F_A(x)\;.$$
+
+Les résultats des sections précédentes donnent des conditions
+sous lesquelles $F_A(x)$ est continue et dérivable \emph{pour $A$ fixé}. Pour passer à la limite quand $A$ tend vers
+l'infini, nous allons ajouter une hypothèse dite de \emph{convergence dominée}.
+
+%---------------------------------------------------------------
+\subsection{Convergence dominée}
+
+
+\begin{definition}
+Soit $f :  I \times [0,+\infty[$ une fonction continue à valeurs dans $\Rr$ (ou $\Cc$).
+On dit que $(x,t) \longmapsto f(x,t)$ vérifie l'hypothèse de \defi{convergence dominée} 
+s'il existe $g : [0,+\infty[ \to \Rr$ telle que :
+\begin{enumerate}
+  \item l'intégrale $\int_0^{+\infty} g(t)\;\dd t$ soit convergente,
+  
+  \item et telle que 
+$$\forall t\in [0,+\infty[\quad\forall x\in I\qquad\big|f(x,t)\big|\le g(t)\;.$$
+\end{enumerate}
+\end{definition}
+
+
+\begin{remarque*}
+\begin{enumerate}
+  \item Noter que $g$ est nécessairement à valeurs positives, 
+  donc $\int_0^{+\infty} g(t)\;\dd t$ est en fait absolument convergente.
+
+  \item Dans le cas de convergence dominée, pour chaque $x\in I$, l'intégrale
+  $F(x)=\int_0^{+\infty} f(x,t)\;\dd t$ est donc aussi absolument convergente.
+  
+  \item Il existe une hypothèse plus faible qui implique la convergence dominée et
+  permet aussi d'énoncer les résultats suivants : c'est la convergence uniforme 
+  de $(F_A)$ vers $F$, mais nous n'en parlerons pas ici.  
+\end{enumerate}
+\end{remarque*}
+
+
+\begin{exemple}
+Soit $f(x,t)=\frac{\sin x +\sin t}{1+x^2+t^2}$. Alors 
+$f$ vérifie l'hypothèse de convergence dominée sur $I=\Rr$ car 
+$$\big| f(x,t) \big| = \left| \frac{\sin x +\sin t}{1+x^2+t^2} \right| \le \frac{2}{1+t^2}=g(t)$$
+avec $\int_0^{+\infty} g(t) \;\dd t$ qui converge.
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+\subsection{Continuité}
+
+
+Sous l'hypothèse de convergence dominée, les résultats sont bien
+ceux que vous attendez.
+
+\begin{theoreme}
+\label{th:integraleimpcontinue}
+Soient $I$ un intervalle de $\Rr$ et $J=[0,+\infty[$. 
+Soit $f$ une fonction continue sur $I\times J$ à valeurs dans $\Rr$ (ou $\Cc$)
+et qui vérifie l'hypothèse de \emph{convergence dominée}.
+Alors la fonction $F$ définie pour tout $x\in I$ par
+$$
+F(x) = \int_0^{+\infty} f(x,t)\;\dd t
+$$ 
+est continue sur $I$.
+\end{theoreme}
+
+\begin{proof}
+Fixons $\epsilon>0$. Comme l'intégrale $\int_0^{+\infty} g(t)\;\dd t$ converge, alors
+il existe $A>0$ tel que $\int_A^{+\infty} g(t)\;\dd t \le \epsilon$. Fixons un tel $A$.
+Cela implique que, \emph{pour tout} $x \in I$ :
+$$\big| F(x)-F_A(x)\big| 
+= \left|\int_A^{+\infty} f(x,t)\;\dd t \right|
+\le \int_A^{+\infty} \big| f(x,t) \big|\;\dd t 
+\le \int_A^{+\infty} g(t)\;\dd t
+\le \epsilon$$
+
+La fonction $F_A(x) = \int_0^A f(x,t)\;\dd t$ est une fonction définie par une intégrale 
+sur l'intervalle fermé borné $[0,A]$, donc par le théorème \ref{th:integralecontinue}, 
+la fonction $x \mapsto F_A(x)$ est continue.
+Fixons $x_0$. Il existe donc $\delta>0$ tel que pour $|x-x_0| \le \delta$ on ait
+$\big|F_A(x)-F_A(x_0)\big| \le \epsilon$.
+
+
+Pour conclure :
+$$\big|F(x) -F(x_0)\big| 
+\le \big|F(x) -F_A(x)\big|+\big|F_A(x)-F_A(x_0)\big|+\big|F_A(x_0)-F(x_0)\big|
+\le 3\epsilon$$
+
+Ce qui prouve la continuité de $F$.
+\end{proof}
+
+
+
+%---------------------------------------------------------------
+\subsection{Dérivabilité}
+
+\begin{theoreme}
+\label{th:integraleimpderivable}
+Soient $I$ un intervalle de $\Rr$ et $J=[0,+\infty[$.
+On suppose que :
+\begin{itemize}
+  \item $(x,t) \longmapsto f(x,t)$ est une fonction continue sur $I\times J$
+  (à valeurs dans $\Rr$ ou $\Cc$).
+  
+  \item la dérivée partielle $(x,t) \longmapsto \frac{\partial f}{\partial x}(x,t)$
+  existe, est continue sur $I\times J$ et vérifie l'hypothèse de \emph{convergence dominée}.
+  
+\end{itemize}
+Alors la fonction $F$, définie pour
+tout $x\in I$ par $\displaystyle F(x) = \int_0^{+\infty} f(x,t)\;\dd t\;,$ 
+est de classe $\mathcal{C}^1$ sur $I$ et :
+$$F'(x) = \int_0^{+\infty} \frac{\partial f}{\partial x}(x,t)\;\dd t\;.$$
+\end{theoreme}
+
+
+La preuve est similaire à celle du théorème \ref{th:integralederivable},
+en la modifiant comme pour le théorème \ref{th:integraleimpcontinue}.
+
+\begin{exemple}
+Calculons, pour $x\in \Rr$,
+$$F(x) = \int_0^{+\infty} \cos(2xt)e^{-t^2} \; \dd t.$$
+
+\begin{enumerate}
+  \item \textbf{$F$ est continue.}\\
+  Soit $f(x,t) = \cos(2xt)e^{-t^2}$ définie et continue sur $I \times J = \Rr \times [0,+\infty[$.
+  On a $\big| f(x,t) \big| \le e^{-t^2}$. Or $\int_0^{+\infty} e^{-t^2} \; \dd t$ converge.
+  Donc, avec $g(t) = e^{-t^2}$, on vient de prouver que $f$ vérifie 
+  l'hypothèse de convergence dominée. Ainsi, par le théorème \ref{th:integraleimpcontinue},
+  la fonction $x\mapsto F(x)$ est continue sur $\Rr$.
+  
+  
+  \item \textbf{Dérivée de $F$.}\\
+  On a 
+  $$\frac{\partial f}{\partial x}(x,t) = -2t\sin(2tx)e^{-t^2}.$$
+  Avec cette fois $g(t) = 2te^{-t^2}$ (dont l'intégrale $\int_0^{+\infty} g(t)\;\dd t$ converge),
+  on sait que $\frac{\partial f}{\partial x}$ est continue et vérifie l'hypothèse de convergence dominée.
+  Par le théorème \ref{th:integraleimpderivable}, on obtient que $x\mapsto F(x)$ est dérivable
+  sur $\Rr$, de dérivée continue, et surtout :
+  $$F'(x) 
+  = \frac{\dd}{\dd x}  \int_0^{+\infty} \cos(2xt)e^{-t^2} \; \dd t
+  = \int_0^{+\infty} \frac{\partial }{\partial x} \big[\cos(2xt)e^{-t^2}\big] \; \dd t
+  = -2\int_0^{+\infty}\sin(2tx)\;te^{-t^2}\; \dd t$$
+  
+  \item \textbf{Calcul de $F'(x)$ en fonction de $F(x)$.}\\
+  On fait une intégration par parties avec $u(t) = \sin(2xt)$
+  et $v'(t) = te^{-t^2}$ (donc $u'(t) = 2x\cos(2xt)$ et 
+  $v(t) =\frac{-e^{-t^2}}{2}$) :
+  $$F'(x)
+  = -2\int_0^{+\infty}\sin(2tx) \cdot te^{-t^2}\; \dd t
+  = -2 \Big[ \sin(2xt) \cdot \frac{-e^{-t^2}}{2}\Big]_{0}^{+\infty} 
+  +2 \int_0^{+\infty} 2x\cos(2xt) \cdot \frac{-e^{-t^2}}{2}\; \dd t$$
+  Le crochet vaut $0$ et ainsi :
+  $$F'(x) = -2x F(x)$$
+  
+  \item \textbf{Calcul de $F(x)$.}\\ 
+  Ainsi $F$ vérifie l'équation différentielle élémentaire $F'(x) = -2x F(x)$.
+  En écrivant
+  $\frac{F'(x)}{F(x)} = -2x$ et en intégrant, on obtient $\ln \big|F(x)\big| = -x^2 + c$,
+  d'où
+  $$F(x) = F(0)e^{-x^2}.$$
+  Or, on a vu que $F(0) = \int_0^{+\infty}e^{-t^2}\; \dd t = \frac{\sqrt \pi}{2}$ (voir l'exemple
+  \ref{ex:intgauss}), d'où 
+  $$F(x) =  \frac{\sqrt \pi}{2}e^{-x^2}.$$ 
+  
+\end{enumerate}
+\end{exemple}
+
+Sans l'hypothèse de convergence dominée, les théorèmes \ref{th:integraleimpcontinue} et 
+\ref{th:integraleimpderivable} ne sont plus valides.
+
+\begin{exemple}
+Soit $f(x,t)=\displaystyle\frac{x}{1+(xt)^2}$. 
+Alors $f$ est continue sur $\Rr\times [0,+\infty[$ et
+\begin{align*}
+F_A(x) 
+& = \int_0^A f(x,t)\;\dd t  
+ = \int_0^A \frac{x\;\dd t}{1+(xt)^2} 
+ = \int_0^{xA} \frac{\dd u}{1+u^2} \qquad\text{ avec } u=xt \\
+& = \Big[\arctan(u)\Big]_0^{xA}
+= \arctan(xA).
+\end{align*}
+Donc :
+$$F(x)=\int_0^{+\infty} f(x,t)\;\dd t
+= \lim_{A \to +\infty} F_A(x)
+= \lim_{A \to +\infty}\arctan(xA)
+= 
+\begin{cases} 
+ +\pi/2 & \text{ si $x>0$}\\
+ -\pi/2 & \text{ si $x<0$}\\
+ 0      & \text{ si $x=0$}\\
+\end{cases}$$
+Ainsi $F$ est discontinue.
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Théorème de Fubini}
+
+
+\begin{theoreme}[Théorème de Fubini]
+\label{th:fubiniimp}
+Soient $I=[\alpha,\beta]$ un intervalle fermé borné 
+et $J=[0,+\infty[$.
+Soit $f$ une fonction continue sur $I\times J$,
+à valeurs dans $\Rr$ (ou $\Cc$) et qui vérifie l'hypothèse 
+de \emph{convergence dominée}. Alors la fonction $F$ est intégrable sur $I$ et
+$$\int_\alpha^\beta F(x)\;\dd x =
+\int_\alpha^\beta\left(\int_0^{+\infty}
+  f(x,t)\;\dd t\right)\;\dd x = \int_0^{+\infty}\left(\int_\alpha^\beta
+  f(x,t)\;\dd x\right)\;\dd t\;.$$
+\end{theoreme}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\begin{enumerate}
+  \item Soit $f(x,t) = \frac{\ln t}{x^2+t^2}$ définie pour $x\in[0,1]$ et $t\in[1,+\infty[$.
+  Montrer que $F(x) = \int_1^{+\infty} f(x,t)\;\dd t$ est une fonction continue, dérivable, 
+  de dérivée continue. Calculer $F'(x)$.
+  
+  \item Même exercice avec $f(x,t) = t^x e^{-t}$ définie sur $[1,10]\times [1,+\infty[$.
+  
+  \item Soit $f(x,t) = \phi(x)\cdot\psi(t)$ avec $\phi : [a,b] \to \Rr$ une fonction  $\mathcal{C}^1$,
+  et $\psi : [0,+\infty[ \to \Rr$ une fonction d'intégrale absolument convergente.
+  Montrer que $F(x) = \int_0^{+\infty} f(x,t)\;\dd t$ est une fonction continue, dérivable.
+  Trouver une formule simple pour $\int_a^b F(x) \;\dd x$.
+  
+  \item Soit $F(x) = \int_0^1 \frac{\dd t}{x+\sqrt{t}}$.
+  Montrer que $F$ est définie en $x=0$. \`A l'aide d'un changement de variable sur $t$, montrer 
+  que la fonction $F$ est continue sur $[0,+\infty[$. Calculer la limite de $F$ en $0$.
+  Que peut-on dire pour la dérivée ?
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Transformée de Laplace}
+
+Cette section est une introduction à la transformée de Laplace, 
+qui est une opération mathématique très utilisée en électronique,
+où elle correspond à changer une fonction qui dépend du temps $t$ en une fonction
+qui dépend de la fréquence $s$. Elle est aussi  utile
+pour résoudre les équations différentielles, car la transformée de Laplace 
+permet de transformer des opérations d'analyse (dérivation/intégration) en des 
+opérations algébriques (multiplication/division).
+
+%---------------------------------------------------------------
+\subsection{Définition}
+
+\begin{definition}
+Soit $f$ une fonction continue sur l'intervalle $[0,+\infty[$, à valeurs dans $\Rr$ (ou $\Cc$).
+La \defi{transformée de Laplace} de $f$ est la fonction $F$ définie par :
+$$F(s) = \int_0^{+\infty} f(t) e^{-st}\;\dd t$$
+\end{definition}
+
+Si l'on veut insister sur la dépendance vis-à-vis de la fonction $f$ 
+(plutôt que du paramètre $s$), alors on note plutôt cette même intégrale par :
+$$\mathcal{L}(f) = \int_0^{+\infty} f(t) e^{-st}\;\dd t$$
+
+\begin{remarque*}
+Dans ce cours :
+\begin{itemize}
+  \item Nous supposerons que $s$ est un paramètre réel. (Alors qu'en toute généralité $s \in \Cc$.)
+  \item Nous supposerons les fonctions continues. (Alors qu'en électronique les fonctions
+  sautent souvent d'une valeur à une autre.)
+  \item Lorsque l'on écrit $F(s)$, cela signifiera par convention 
+  que l'intégrale converge.   
+\end{itemize}
+\end{remarque*}
+
+
+\begin{exemple}
+\begin{enumerate}
+  \item Soit $f(t)=1$, la fonction constante égale à $1$.
+  Alors, pour $s>0$,
+  $$F(s) = \int_0^{+\infty} 1 \cdot e^{-st}\;\dd t 
+  = \Big[ \frac{-e^{-st}}{s} \Big]_0^{+\infty} 
+  = \lim_{t\to+\infty}\left( \frac{-e^{-st}}{s} \right)- \left( \frac{-e^{0}}{s} \right) 
+  = \frac1s.$$
+  
+  \item Soit $f(t) = e^t$.
+  Alors, pour $s>1$,
+  $$F(s) = \int_0^{+\infty} e^te^{-st}\;\dd t 
+  = \int_0^{+\infty} e^{(1-s)t}\;\dd t
+  = \Big[ \frac{e^{(1-s)t}}{1-s} \Big]_0^{+\infty} 
+  = \frac1{s-1}.$$
+  
+  \item Soit $f(t) = t$.
+  On effectue une intégration par parties avec $u(t)=t$, $v'(t) = e^{-st}$. Alors pour $s>0$ :
+  $$F(s) = \int_0^{+\infty} t \cdot e^{-st}\;\dd t
+  = \Big[ t \cdot \frac{-e^{-st}}{s} \Big]_0^{+\infty} - \int_0^{+\infty} 1 \cdot \frac{-e^{-st}}{s}\;\dd t
+  = 0 + \frac1s\Big[ \frac{-e^{-st}}{s} \Big]_0^{+\infty}
+  = \frac{1}{s^2}$$
+\end{enumerate}  
+\end{exemple}
+
+Voici un critère simple qui garantit l'existence 
+et de bonnes propriétés pour la transformée de Laplace.
+\begin{proposition}
+\label{prop:laplace1}
+Supposons qu'il existe $n \ge 0$ tel que
+$$\lim_{t\to+\infty} \frac{f(t)}{t^n} = 0.$$
+\begin{enumerate}
+  \item Alors, pour tout $s>0$, l'intégrale $F(s)$ existe. 
+  
+  \item La fonction $s \mapsto F(s)$ est continue sur $]0,+\infty[$.
+  
+  \item $\lim_{s\to+\infty} F(s) = 0$.
+  
+  \item La fonction $s \mapsto F(s)$ est dérivable sur $]0,+\infty[$
+  et 
+  $$F'(s) = -\int_0^{+\infty} tf(t) e^{-st}\;\dd t\;.$$
+\end{enumerate}
+
+\end{proposition}
+
+Remarque : on pourrait raffiner la condition. En effet, s'il existe
+$\alpha > 0$ tel que $\frac{f(t)}{e^{\alpha t}} \to 0$ (lorsque $t\to +\infty$),
+alors les mêmes conclusions sont valides, mais seulement pour $s>\alpha$.
+
+
+\begin{proof}
+Nous allons d'abord montrer que l'application 
+$(s,t) \mapsto \varphi(s,t) = f(t) e^{-st}$ vérifie l'hypothèse de 
+convergence dominée sur $[s_0,+\infty[\times [0,+\infty[$, quel que soit $s_0>0$. 
+Nous avons supposé $f$ continue en $0$, donc 
+le seul point incertain est $+\infty$. 
+Fixons $s_0>0$. Pour $s \ge s_0$, on écrit simplement que 
+$|\varphi(s,t)| \le |f(t)| e^{-s_0t}$.
+Il nous reste à montrer que $\int_0^{+\infty} |f(t)|e^{-s_0t}\;\dd t$ est absolument
+convergente. Comme $f(t)/t^n \to 0$ lorsque $t\to+\infty$, alors il existe
+$A>0$, tel que pour $t \ge A$, $|f(t)|/t^n \le 1$. Ainsi
+$$\int_A^{+\infty} |f(t)|e^{-s_0t}\;\dd t 
+= \int_A^{+\infty} \frac{|f(t)|}{t^n} t^n e^{-s_0t}\;\dd t 
+\le \int_A^{+\infty} t^n e^{-s_0t}\;\dd t.$$
+Cette dernière intégrale est convergente. Donc $\varphi$ 
+vérifie l'hypothèse de convergence dominée.
+
+\begin{enumerate}
+  \item $\varphi(s,t)$ vérifiant l'hypothèse de convergence dominée, alors,
+  pour chaque $s>0$, l'intégrale $F(s)$ est absolument convergente.
+  
+  \item Par le théorème \ref{th:integraleimpcontinue}, la fonction $s \mapsto F(s)$ est continue.
+  
+  \item Comme ci-dessus, pour $t\ge A$,
+  $|f(t)| \le t^n \le e^{\alpha t}$ pour un certain $\alpha > 0$.
+  \begin{itemize}
+    \item Sur $[0,A]$, $f$ est continue donc majorée par un certain $M>0$.
+    Aussi :
+    $$\int_0^A |f(t)|e^{-st}\;\dd t \le M\int_0^A e^{-st}\;\dd t
+    = M\Big[ -\frac{e^{-st}}{s} \Big]_0^A = M\frac{1-e^{-sA}}{s} \to 0 \quad \text{lorsque } s \to +\infty$$
+    
+    \item Sur $[A,+\infty[$, on peut écrire pour $s>\alpha$ :
+    $$\int_A^{+\infty} |f(t)|e^{-st}\;\dd t \le \int_A^{+\infty} e^{\alpha t}e^{-st}\;\dd t
+    = \Big[ \frac{e^{(\alpha-s)t}}{\alpha-s} \Big]_A^{+\infty} = \frac{-e^{(\alpha-s)A}}{\alpha-s} \to 0\quad \text{lorsque } s \to +\infty$$
+  \end{itemize}
+
+ Conclusion : $\big| F(s) \big| \le \int_0^{+\infty} \big|f(t)\big|e^{-st}\;\dd t \to 0$ lorsque $s\to+\infty$.
+  
+  \item La dérivée partielle 
+  $(s,t) \longmapsto \frac{\partial \varphi}{\partial s}(s,t) = -tf(t) e^{-st}$
+  vérifie l'hypothèse de convergence dominée (car $tf(t)/t^{n+1} \to 0$).
+  Donc par le théorème \ref{th:integraleimpderivable}, $s \mapsto F(s)$ est dérivable
+  et sa dérivée est celle attendue.
+\end{enumerate}
+\end{proof}
+
+  
+
+
+
+%---------------------------------------------------------------
+\subsection{Propriétés}
+
+\begin{proposition}
+\label{prop:laplace2}
+\begin{enumerate}
+  \item \textbf{Linéarité.} $\mathcal{L}(\lambda f +\mu g) = \lambda\mathcal{L}(f)+\mu \mathcal{L}(g)$.
+  
+  \item \textbf{Dérivation.} \myboxinline{$\mathcal{L}(f') = s \mathcal{L}(f)-f(0)$}
+  
+  \item \textbf{Intégration.} $\mathcal{L}(\int f) = \frac1s \mathcal{L}(f)$ 
+  où $\int f$ est la primitive de $f$ s'annulant en $s=0$.
+  
+  \item \textbf{Théorème du retard.} $\mathcal{L}\big(f(t-\tau)\big) = e^{-s\tau}\mathcal{L}\big(f(t)\big)$.
+
+  \item \textbf{Théorème de la valeur initiale.} $\lim_{s\to+\infty} sF(s) =  f(0)$.
+  
+  \item \textbf{Théorème de la valeur finale.} 
+  Si la limite de $f(t)$ existe et est finie lorsque $t$ tend vers $+\infty$,
+  alors $\lim_{s\to 0} sF(s) = \lim_{t\to+\infty} f(t)$.
+  
+\end{enumerate}
+\end{proposition}
+
+Nous prouvons ces résultats sous les hypothèses suivantes :
+\begin{itemize}
+  \item $f$ est continue sur $[0,+\infty[$.
+
+  \item Il existe $n \ge 0$ tel que $\lim_{t\to+\infty} \frac{f(t)}{t^n} = 0$.
+  
+  \item Il en est de même pour $f'$.
+\end{itemize}
+
+\begin{proof}
+\begin{enumerate}
+  \item C'est la linéarité de l'intégrale.
+  
+  \item On effectue une intégration par parties, pour $s>0$ :
+  $$\int_0^{+\infty} f'(t) \cdot e^{-st}\;\dd t
+  = \Big[ f(t) \cdot e^{-st} \Big]_0^{+\infty} 
+  - \int_0^{+\infty} f(t) \cdot \big( -se^{-st} \big) \;\dd t$$
+  Le crochet vaut $-f(0)$ car $\lim_{t\to +\infty} f(t)e^{-st} = 0$, 
+  ce qui donne la formule :
+  $$\mathcal{L}(f') = -f(0) + s \mathcal{L}(f)$$
+  
+  \item C'est le résultat précédent appliqué à la primitive de $f$ (au lieu de $f$),
+  en remarquant que $\int f$ vérifie les mêmes hypothèses que $f$ et donc 
+  $\mathcal{L}(\int f)$ est bien définie.
+  
+  \item La fonction retard $g(t)=f(t-\tau)$ est définie par 
+  $g(t) = 
+  \begin{cases} 
+    0         & \text{ si } t < \tau \\
+    f(t-\tau) & \text{ si } t \ge \tau \\ 
+  \end{cases}
+  $. C'est une fonction continue par morceaux, mais il est facile de montrer que sa
+  transformée de Laplace est bien définie.
+  En effet, en posant $u=t-\tau$ :
+  $$\mathcal{L}(g)
+  = \int_0^{+\infty} g(t) \cdot e^{-st}\;\dd t
+  = \int_\tau^{+\infty} f(t-\tau) \cdot e^{-st}\;\dd t
+  = \int_0^{+\infty} f(u) \cdot e^{-s(u+\tau)}\;\dd u
+  = e^{-s\tau}\mathcal{L}(f)$$
+  
+  
+  \item On note $F(s) = \mathcal{L}(f)$ et $G(s) = \mathcal{L}(f')$.
+  On part de la formule de dérivation 
+  $G(s) = s F(s)-f(0)$.
+  Par la proposition \ref{prop:laplace1}, on sait que 
+  $\lim_{s\to+\infty} G(s) = 0$, lorsque $s\to+\infty$.
+  Ce qui donne $\lim_{s\to+\infty} \big(s F(s)-f(0)\big) = 0$.
+  
+  \item Notons que $G$ est définie en $0$ car 
+  $G(0) = \int_0^{+\infty} f'(t) \;\dd t = \Big[ f(t) \Big]_0^{+\infty}
+  = \lim_{t\to+\infty} f(t) - f(0)$ est une valeur finie
+  (l'existence de cette dernière limite est une hypothèse de l'énoncé).
+  D'autre part la continuité de $G$ 
+  (voir proposition \ref{prop:laplace1}, mais ici sur $[0,+\infty[$)
+  implique $G(s) \to G(0)$. 
+  
+  
+  On repart maintenant de la formule de dérivation $G(s) = s F(s)-f(0)$. 
+  Ainsi $G(0) = \lim_{s\to0} G(s) = \lim_{s\to0} \big(s F(s)-f(0)\big)$.
+  Conclusion : $ \lim_{t\to+\infty} f(t) - f(0) = \lim_{s\to0} \big(s F(s)-f(0)\big)$, 
+  d'où le résultat.
+\end{enumerate}
+ 
+\end{proof}
+
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Transformées de Laplace usuelles}
+
+Voici quelques transformées de Laplace classiques.
+
+\begin{center}
+\setlength{\arrayrulewidth}{0.05mm}
+%\begin{tabular}{|l|l|l|} \hline
+\begin{tabular}[t]{ccc@{\vrule depth 2.5ex height 3.5ex width 0mm \ }} 
+  \quad $f(t)$ \qquad  & $F(s)$                        & validité \\ \hline\hline
+   $c$                  & $\frac{c}{s}$                 & $s>0$ \\ \hline
+   $t^n$                & $\frac{n!}{s^{n+1}}$          & $s>0$ \\ \hline
+   $e^{\alpha t}$       & $\frac{1}{s-\alpha}$          & $s>\alpha$ \\ \hline
+   $t^ne^{\alpha t}$    & $\frac{n!}{(s-\alpha)^{n+1}}$ & $s>\alpha$ \\ \hline 
+   $\sin(\omega t)$     & $\frac{\omega}{s^2+\omega^2}$ & $s>0$ \\ \hline
+   $\cos(\omega t)$     & $\frac{s}{s^2+\omega^2}$      & $s>0$ \\ \hline   
+   $\sqrt t$            & $\frac12\sqrt{\frac{\pi}{s^3}}$ & $s>0$ \\ \hline
+   $\frac{1}{\sqrt t}$  & $\sqrt{\frac{\pi}{s}}$        & $s>0$ \\    
+\end{tabular} 
+\end{center}
+
+Voici quelques preuves :
+\begin{enumerate}
+  \item \textbf{Transformée de Laplace de $t^n$.}\\
+  On effectue une intégration par parties afin de trouver une formule de récurrence, 
+  pour $n\ge1$ :
+  $$F_{n}(s) = \int_0^{+\infty} t^{n} \cdot e^{-st}\;\dd t
+  = \Big[ t^{n} \cdot \frac{-e^{-st}}{s} \Big]_0^{+\infty} 
+  +\frac{n}{s} \int_0^{+\infty}  t^{n-1}  \cdot e^{-st}\;\dd t
+  = \frac{n}{s}F_{n-1}(s)$$
+  On a déjà calculé $F_0(s) = \frac1s$, d'où par récurrence
+  $F_{n}(s)=\frac{n!}{s^{n+1}}$.
+  
+  \item \textbf{Transformée de Laplace de $\sin(\omega t)$.}\\  
+  Par la formule d'Euler, $\sin(\omega t) = \frac{e^{\ii\omega t}-e^{-\ii\omega t}} {2\ii}$.
+  Or 
+  $$\int_0^{+\infty} e^{\ii\omega t}e^{-st}\;\dd t
+  = \int_0^{+\infty} e^{(-s+\ii\omega)t}\;\dd t
+  = \Big[ \frac1{-s+\ii\omega}e^{-st}e^{\ii\omega t} \Big]_0^{+\infty} 
+  = \frac1{s-\ii\omega}.$$
+  De même, la transformée de Laplace de $e^{-\ii\omega t}$
+  est $\frac1{s+\ii\omega}$.
+  Par linéarité, 
+  $$F(s)
+  = \int_0^{+\infty} \sin(\omega t)e^{-st}\;\dd t
+  = \frac{1}{2\ii} \left(\frac1{s-\ii\omega}-\frac1{s+\ii\omega} \right) 
+  = \frac{1}{2\ii} \frac{2\ii\omega}{|s-\ii \omega|^2}
+  = \frac{\omega}{s^2+\omega^2}.$$
+  
+  \item \textbf{Transformée de Laplace de $\frac{1}{\sqrt t}$.}\\ 
+  Notons que $t\mapsto \frac{1}{\sqrt t}$ est définie sur $]0,+\infty[$ seulement.
+  
+  On effectue le changement de variable $u= \sqrt{st}$, donc 
+  $\dd u = \frac{\sqrt{s}}{2} \frac{\dd t}{\sqrt{t}}$ :
+  $$F(s) 
+  = \int_0^{+\infty} e^{-st}\frac{\dd t}{\sqrt t}
+  = \frac{2}{\sqrt{s}}\int_0^{+\infty} e^{-u^2}\;\dd u
+  = \frac{2}{\sqrt{s}}\frac{\sqrt{\pi}}{2}
+  = \sqrt{\frac{\pi}{s}}$$
+  On a calculé $\int_0^{+\infty} e^{-u^2}\;\dd u = \frac{\sqrt{\pi}}{2}$
+  dans l'exemple \ref{ex:intgauss}.
+\end{enumerate}
+
+\begin{exemple}
+Calculons la transformée de Laplace de $f(t) = \frac{\sin t}{t}$ :
+$F(s) = \int_{0}^{+\infty} \frac{\sin t}{t} e^{-st}\;\dd t$.
+Par la formule de dérivée (proposition \ref{prop:laplace1}), 
+on sait en utilisant les tables que :
+$$F'(s) 
+= - \int_{0}^{+\infty} t \frac{\sin t}{t} e^{-st}\;\dd t
+= - \int_{0}^{+\infty} \sin t \cdot e^{-st}\;\dd t
+= - \frac{1}{s^2+1}$$
+On intègre pour obtenir $F(s) = -\arctan s + c$, où $c \in \Rr$.
+Comme on sait que $F(s) \to 0$ (lorsque $s\to +\infty$, 
+toujours par la proposition \ref{prop:laplace1}) alors $c=+\frac\pi2$.
+Donc 
+$$F(s) = \frac\pi2 - \arctan s = \arctan \frac 1s.$$
+
+En admettant que la formule reste valable en $s=0$, on trouve :
+$$F(0) = \int_{0}^{+\infty} \frac{\sin t}{t} \;\dd t = \frac\pi2.$$
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Transformée de Laplace inverse}
+
+Il existe un théorème qui prouve que la transformée de Laplace $F(s)$ 
+détermine la fonction $f(t)$. 
+
+\begin{theoreme}
+\label{th:laplaceunique}
+Soient $f,g : [0,+\infty[ \to \Rr$ deux fonctions continues et soient
+$F$ et $G$ leurs transformées de Laplace.
+Si pour tout $s>0$, $F(s)=G(s)$,
+alors pour tout $t \ge 0$, $f(t) = g(t)$.
+\end{theoreme}
+
+
+Ce théorème permet de parler de la transformation de Laplace inverse,
+c'est-à-dire passer de $F(s)$ à $f(t)$.
+Il n'existe pas de formule à notre portée pour rendre ce passage explicite.
+C'est donc l'intérêt des tables des transformées de Laplace : connaissant $F(s)$,
+on cherche à la main à quel $f(t)$ cela correspond.
+
+\begin{exemple}
+\`A quelle fonction $f(t)$ correspond la transformée de Laplace 
+$$F(s) = \frac{2s-1}{s^2+1}-\frac{3}{(s-2)^2} \ \text{ ?}$$
+
+On décompose $F(s)$ en 
+$$F(s) = 2\frac{s}{s^2+1}-\frac{1}{s^2+1}-3\frac{1}{(s-2)^2}.$$
+Par la table et par linéarité, la fonction est :
+$$f(t) = 2 \cos t - \sin t -3t e^{2t}$$
+\end{exemple}
+
+La preuve est très jolie, mais peut être passée lors d'une première lecture.
+On commence par rappeler le théorème d'approximation de Weierstrass :
+\begin{theoreme}[Théorème d'approximation de Weierstrass]
+Toute fonction continue $f : [a,b] \to \Rr$ peut être approchée 
+uniformément par des polynômes.
+Autrement dit, pour tout $\epsilon>0$, il existe un polynôme $P\in\Rr[t]$ tel que :
+$$\| f -P \|_{\infty} < \epsilon$$ 
+\end{theoreme}
+On a noté $\| f -P \|_{\infty} = \max_{t\in [a,b]} \big| f(t) -P(t) \big|$.
+Le théorème d'approximation de Weierstrass se reformule aussi :
+<<~Toute fonction continue sur un intervalle fermé borné 
+est limite uniforme d'une suite de polynômes.~>>
+
+
+\begin{corollaire}
+\label{cor:approxweirstrass}
+Si pour tout $n\ge 0$, $\int_a^b t^n f(t) \;\dd t = 0$, alors
+$f$ est la fonction nulle sur $[a,b]$.
+\end{corollaire}
+% C'est aussi vrai si l'hypothèse est valide seulement pour $n \ge n_0$,
+% il suffit d'appliquer le corollaire à $t^{n-n_0}f(t)$ au lieu de $f(t)$.
+
+\begin{proof}[du corollaire \ref{cor:approxweirstrass}]
+Par linéarité, l'hypothèse implique que, pour tout polynôme $P(t)$,
+$\int_a^b P(t) f(t) \;\dd t = 0$.
+Comme $f$ est continue sur $[a,b]$ donc bornée, notons $M$ un majorant de $|f|$.
+Fixons $\epsilon>0$. Soit $P$ un polynôme approchant $f$ à $\epsilon$ près. Alors :
+\begin{align*}
+\left|\int_a^b f(t)^2 \;\dd t \right|
+& = \left|\int_a^b f(t)^2 \;\dd t - \int_a^b P(t)f(t) \;\dd t \right|  \text{ car la seconde intégrale est nulle.} \\
+& = \left|\int_a^b \big(f(t) - P(t)\big) f(t) \;\dd t \right|
+ \le \int_a^b \left|\big(f(t) - P(t)\big) f(t)\right| \;\dd t \\
+ & \le \int_a^b\| f - P \|_{\infty} M \;\dd t 
+ \le \| f - P \|_{\infty} M (b-a) 
+ \le \epsilon M(b-a)
+\end{align*}
+Donc $t \mapsto f(t)^2$ est une fonction positive, continue, et son intégrale est aussi petite que l'on veut, donc nulle.
+Ainsi $t \mapsto f(t)^2$ est la fonction nulle. Ainsi $f(t)=0$, pour tout $t\in [a,b]$.
+\end{proof}
+
+
+\begin{proof}[du théorème \ref{th:laplaceunique}]
+\begin{itemize}
+  \item Nous allons faire la preuve dans le cas où les fonctions vérifient
+  $f(t)/t^{n_0} \to 0$ et $g(t)/t^{n_0} \to 0$ (lorsque $t\to+\infty$) 
+  pour un certain $n_0\ge0$.
+
+  \item Soient $f$ et $g$ deux fonctions ayant la même transformée de Laplace :
+  $F(s)=G(s)$ pour tout $s>0$, c'est-à-dire 
+  $\int_0^{+\infty} \big( f(t)-g(t) \big) e^{-st}\;\dd t=0$. Il s'agit de montrer 
+  que $f-g = 0$.
+  
+  \item On suppose donc que l'on a une fonction $h=f-g$ telle que sa transformée de Laplace
+  $\int_0^{+\infty} h(t) e^{-st}\;\dd t=0$ et on va montrer que $h$ est la fonction nulle.
+  On effectue le changement de variable $u=e^{-t}$ (donc $t=-\ln u$, 
+  $\dd t = -\frac{\dd u}{u}$ et $u$ varie de $1$ à $0$ lorsque 
+  $t$ varie de $0$ à $+\infty$), et l'intégrale devient :
+  $$\int_0^1 h(-\ln u) u^{s-1} \; \dd u = 0.$$
+  
+  \item La dernière égalité est vraie pour tout $s>0$, donc en particulier pour les 
+  $s$ de la forme $s=n+2$. Autrement dit, si on pose 
+  $k(u) = uh(-\ln u)$, on a pour tout $n\ge0$ :
+  $$\int_0^1 u^n k(u)  \; \dd u = 0.$$
+  Comme $\frac{h(t)}{t^{n_0}} \to 0$ (lorsque $t\to+\infty$) alors
+  $k(u) = u(-\ln u)^{n_0} \times \frac{h(-\ln u)}{(-\ln u)^{n_0}}\to 0$ (lorsque $u\to0$).
+  Ainsi la fonction $k$
+  peut être prolongée par continuité en $0$.
+  Par le corollaire \ref{cor:approxweirstrass}, la fonction $k$ est nulle : $k(u)=0$ pour tout $u$.
+  Donc $h(t)=0$ pour tout $t$, et ainsi $f(t)=g(t)$, pour tout $t\in[0,+\infty[$.
+  
+\end{itemize}
+ 
+  
+\end{proof}
+
+
+
+%---------------------------------------------------------------
+\subsection{\'Equations différentielles}
+
+Si $F(s)$ est la transformée de Laplace d'une fonction $f(t)$,
+alors $sF(s)-f(0)$ est la transformée de Laplace de $f'(t)$.
+La transformée de Laplace remplace donc l'opération de dérivation sur
+$f(t)$ par une opération de multiplication par $s$ sur $F(s)$.
+
+Voici comment on peut résoudre des équations différentielles :
+
+
+\myfigure{1}{
+\tikzinput{fig_intpar8}
+}
+
+On transforme un problème différentiel en problème algébrique,
+on résout le problème algébrique, puis on transforme la solution algébrique
+en une solution différentielle.
+Afin de respecter les usages, dans la suite on note $y(t)$ les fonctions, 
+au lieu de $f(t)$.
+
+\begin{exemple}
+Quelle est la solution de l'équation différentielle :
+$$y'(t) + y(t) = t \qquad \text{ avec }\qquad y(0) = 3 \quad \text{ ?}$$
+
+\begin{enumerate}
+  \item \textbf{Transformées de Laplace.}\\
+  On calcule les transformées de Laplace des objets qui apparaissent :
+  \begin{itemize}
+    \item notons $F(s) = \mathcal{L}(y)$,
+    \item alors on sait que $\mathcal{L}(y') = sF(s)-y(0)$,
+    \item enfin $\mathcal{L}(t) = \frac{1}{s^2}$.
+  \end{itemize}
+  
+  \item \textbf{De l'équation différentielle à l'équation algébrique.}\\ 
+  Comme $y'(t) + y(t) = t$ alors
+  $\mathcal{L}(y') + \mathcal{L}(y) = \mathcal{L}(t)$.
+  Ce qui donne $sF(s)-y(0) + F(s) = \frac{1}{s^2}$.
+  Et comme par hypothèse $y(0)= 3$ alors 
+  $$(s+1)F(s) = 3 + \frac{1}{s^2}.$$
+  
+  \item \textbf{Résolution de l'équation algébrique.}\\  
+  Il s'agit simplement de 
+  $$F(s) = \frac{3}{s+1} + \frac{1}{s^2(s+1)}.$$
+  Mais nous aurons besoin de la décomposition en éléments simples :
+  $$F(s) = \frac{3}{s+1} + \left(-\frac{1}{s}+\frac{1}{s^2}+\frac{1}{s+1} \right)
+   =  -\frac{1}{s}+\frac{1}{s^2}+\frac{4}{s+1}.$$
+
+  \item \textbf{Retour à la solution différentielle.}\\
+  Il reste à trouver à quelle fonction $y(t)$ correspond notre solution algébrique $F(s)$.
+  C'est là où les tables sont utiles :
+  \begin{itemize}
+    \item pour $F_1(s) = \frac{1}{s}$, c'est $y_1(t) = 1$,
+    
+    \item pour $F_2(s) = \frac{1}{s^2}$, c'est $y_2(t) = t$,
+    
+    \item pour $F_3(s) = \frac{1}{s+1}$, c'est $y_3(t) = e^{-t}$.
+  \end{itemize}
+  
+  Donc par linéarité la solution est $y(t) = -y_1(t)+y_2(t)+4y_3(t)$,
+  et ainsi :
+  $$y(t) = -1 + t + 4e^{-t}$$
+  
+  On se rassure en vérifiant que cette fonction vérifie 
+  $y'(t) + y(t) = t$ et $y(0) = 3$.  
+  \end{enumerate}
+\end{exemple}
+
+On reprend rapidement un autre exemple :
+\begin{exemple}
+Résolvons :
+$$y''(t) - 4y(t) = 3e^{-t} \qquad \text{ avec }\qquad y(0) = 0 \quad \text{ et } \quad y'(0) = 1$$
+
+\begin{enumerate}
+  \item Notons $F(s) = \mathcal{L}(y)$. On a $\mathcal{L}(y') = sF(s)-y(0)$,
+  et donc $\mathcal{L}(y'') = s\mathcal{L}(y')-y'(0) = s^2F(s)-sy(0)-y'(0)$.
+  Vues nos conditions initiales, on a ici $\mathcal{L}(y'') 
+  = s^2F(s)-1$.
+  Enfin $\mathcal{L}(e^{-t}) = \frac{1}{s+1}$.
+  
+  \item L'équation $y''(t) - 4y(t) = 3e^{-t}$ devient
+  $s^2F(s)-1-4F(s) = \frac{3}{s+1}$.
+  Donc $(s^2-4)F(s) = 1 +\frac{3}{s+1}$.
+  
+  \item Ainsi après décomposition en éléments simples :
+  $$F(s) = \frac{1}{s^2-4} + \frac{3}{(s+1)(s^2-4)}
+  = \frac{\frac12}{s+2} + \frac{\frac12}{s-2} - \frac{1}{s+1}$$
+  
+  \item Avec les tables, on reconnaît la solution : 
+  $$y(t) = \frac12 e^{-2t} + \frac12 e^{2t} - e^{-t}$$
+  \end{enumerate}
+\end{exemple}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\begin{enumerate}
+  \item Montrer que, si pour un certain $s_0>0$, l'intégrale 
+  $F(s_0) = \int_0^{+\infty} f(t) e^{-s_0t}\;\dd t$ converge, alors c'est aussi vrai pour tout
+  $s \ge s_0$.
+  
+  \item Calculer la transformée de Laplace de $f_1(t) = e^{\alpha t}$.
+  Puis $f_2(t) = t^2$, $f_3(t)=\sh t$, $f_4(t)=\ch (3t)$.
+  
+  \item Montrer que si $F(s)$ est la transformée de Laplace de $f(t)$, alors
+  la transformée de Laplace de $f(kt)$ (avec $k>0$) est
+  $\frac1kF(\frac s k)$.
+  
+  \item Résoudre l'équation différentielle $y'(t)-y(t) = e^t-t+1$ avec $y(0)=0$ 
+  en utilisant la transformée de Laplace.
+  
+  \item Résoudre l'équation différentielle $y''(t) = 3y'(t) -2y(t) + e^t$ avec $y(0)=1$ 
+  et $y'(0)=0$  en utilisant la transformée de Laplace. 
+  
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Transformée de Fourier}
+
+Cette section est une introduction à la transformée de Fourier.
+Comme la transformée de Laplace, la transformée de Fourier change une fonction qui dépend
+du temps en une fonction qui dépend de la fréquence et est très utilisée en théorie du signal.
+La transformée de Fourier s'applique à des fonctions non périodiques, 
+contrairement aux séries de Fourier.
+
+
+%---------------------------------------------------------------
+\subsection{Définition}
+
+\begin{definition}
+Soit $f$ une fonction continue par morceaux sur $\Rr$, à valeurs dans $\Rr$ (ou $\Cc$).
+La \defi{transformée de Fourier} de $f$ est la fonction $F$ définie par :
+$$F(s) = \int_{-\infty}^{+\infty} f(t) e^{-\ii st}\;\dd t$$
+\end{definition}
+
+On la note aussi $\mathcal{F}(f)$.
+
+
+
+
+\begin{exemple}
+\label{ex:fourier1}
+\begin{enumerate}
+  \item Soit $f$ la fonction définie par $f(t) = 1$ si $t\in[-1,+1]$ et $f(t)=0$ sinon.
+  Alors
+  $$F(s) = \int_{-\infty}^{+\infty} f(t) e^{-\ii st}\;\dd t
+  = \int_{-1}^{1} e^{-\ii st}\;\dd t
+  = \Big[\frac{e^{-\ii st}}{-\ii s}\Big]_{-1}^{1}
+  = -\frac{2}{s}\frac{e^{-\ii s} - e^{+\ii s}}{2\ii}
+  = +\frac{2\sin s}{s}.$$
+  
+  
+  \item Quelle est la transformée de Fourier $F(s)$ de la fonction définie par
+$f(t) = e^{-\alpha |t|}$, avec $\alpha>0$ ? 
+\begin{align*}
+F(s) & = \int_{-\infty}^0 e^{-\alpha (-t)}e^{-\ii st}\;\dd t
++\int_0^{+\infty} e^{-\alpha t}e^{-\ii st}\;\dd t \\
+& = \Big[ \frac{e^{(\alpha -\ii s)t}}{\alpha -\ii s} \Big]_{-\infty}^0 
++ \Big[ \frac{e^{(-\alpha -\ii s)t}}{-\alpha -\ii s} \Big]_0^{+\infty}\\
+& = \frac{1}{\alpha -\ii s}
+- \lim_{t\to-\infty} \frac{e^{(\alpha -\ii s)t}}{\alpha -\ii s}
++ \lim_{t\to+\infty}\frac{e^{(-\alpha -\ii s)t}}{-\alpha -\ii s}
+- \frac{1}{-\alpha -\ii s} \\
+& = \frac{1}{\alpha -\ii s} + 0+ 0 + \frac{1}{\alpha +\ii s}\\
+& = \frac{2\alpha}{\alpha^2+s^2} \\
+\end{align*}
+
+
+\end{enumerate}
+
+
+\end{exemple}
+
+\myfigure{1}{
+\tikzinput{fig_intpar9a}
+\hspace{2em}
+\tikzinput{fig_intpar9b}
+}
+
+
+\begin{remarque*}
+\begin{itemize}
+  \item On trouve dans la littérature d'autres définitions, 
+  avec des constantes différentes. Pour les formules, il faut 
+  donc bien faire attention à la définition que l'on choisit.
+  
+  \item L'intégrale impropre a deux points incertains $-\infty$ et $+\infty$.
+  On rappelle que par définition une intégrale
+  $\int_{-\infty}^{+\infty} g(t)\;\dd t$ converge si et seulement si
+  l'intégrale $\int_{-\infty}^0 g(t)\;\dd t$ converge \evidence{et} l'intégrale
+  $\int_0^{+\infty} g(t)\;\dd t$ converge aussi.
+  
+  \item Contrairement à la transformée de Laplace, la transformée de Fourier 
+  est souvent à valeurs dans $\Cc$, même si l'ensemble de départ est $\Rr$.
+  
+\end{itemize}
+\end{remarque*}
+
+
+Nous donnons une condition simple pour que la transformée de Fourier existe.
+
+\begin{proposition}
+\label{prop:fourier1}
+Supposons que $f$ soit continue et que l'intégrale de $f$ soit absolument convergente, c'est-à-dire
+$$\int_{-\infty}^{+\infty} \big| f(t) \big| \;\dd t \quad \text{ converge.}$$
+Alors :
+\begin{enumerate}
+  \item Pour tout $s \in \Rr$, l'intégrale $F(s)$ existe. 
+  
+  \item La fonction $s \mapsto F(s)$ est continue sur $\Rr$.
+  
+  \item La fonction $s \mapsto F(s)$ est dérivable sur $\Rr$
+  et 
+  $$F'(s) = -\ii\int_{-\infty}^{+\infty} tf(t) e^{-\ii st}\;\dd t.$$
+\end{enumerate}
+\end{proposition}
+
+En fait, pour la continuité de $F$, on pourrait montrer qu'il suffit 
+que $f$ soit continue par morceaux (au lieu de continue partout).
+
+Pour la démonstration dans le cas où $f$ est continue, il s'agit juste de remarquer que le module
+de $\phi(s,t) = f(t) e^{-\ii st}$ est égal au module de $f(t)$,
+donc $\phi(s,t)$ vérifie l'hypothèse de convergence dominée.
+On applique alors les théorèmes \ref{th:integraleimpcontinue} et 
+\ref{th:integraleimpderivable}, comme nous 
+l'avons fait avec la transformée de Laplace.
+
+
+
+%---------------------------------------------------------------
+\subsection{Propriétés}
+
+\begin{lemme}[Lemme de Riemann-Lebesgue]
+Soit $f$ une fonction continue par morceaux 
+telle que  $\int_{-\infty}^{+\infty} \big| f(t) \big| \;\dd t$
+soit convergente.
+Alors 
+$$\lim_{s\to+\infty} \int_{-\infty}^{+\infty} f(t) e^{-\ii st}\;\dd t = 0.$$
+\end{lemme}
+
+Le même résultat est vrai lorsque $s\to-\infty$.
+Autrement dit :
+$$\lim_{s\to-\infty} F(s) = 0 \qquad \text{ et } \qquad \lim_{s\to+\infty} F(s) = 0$$
+Comme $s\mapsto F(s)$ est continue, on en déduit que la transformée de Fourier
+est une fonction bornée.
+
+Nous donnons la preuve uniquement lorsque $f$ est 
+une fonction de classe $\mathcal{C}^1$.
+\begin{proof}
+On commence par prouver le lemme de Riemann-Lebesgue
+sur un intervalle fermé borné $[a,b]$ :
+$$\lim_{s\to+\infty} \int_{a}^{b} f(t) e^{-\ii st}\;\dd t = 0$$
+On effectue une intégration par parties :
+$$\int_{a}^{b} f(t) e^{-\ii st}\;\dd t 
+= \Big[f(t)\frac{e^{-\ii st}}{-\ii s}\Big]_{a}^{b} 
+- \int_{a}^{b} f'(t) \frac{e^{-\ii st}}{-\ii s}\;\dd t
+= \frac{1}{-\ii s} \left( f(b) e^{-\ii sb} - f(a) e^{-\ii sa} 
+- \int_{a}^{b} f'(t)e^{-\ii st}\;\dd t \right)$$
+On en déduit la majoration :
+$$\left| \int_{a}^{b} f(t) e^{-\ii st}\;\dd t \right|
+\le \frac{1}{|s|} \left( \big|f(b)\big| + \big|f(a)\big| 
++ \int_{a}^{b} \big|f'(t)\big| \;\dd t \right)$$
+Sur l'intervalle fermé borné $[a,b]$, la fonction $f'$ est continue
+donc bornée : notons $M=\sup_{t\in[a,b]} \big| f'(t) \big|$.
+On a donc
+$$\left| \int_{a}^{b} f(t) e^{-\ii st}\;\dd t \right|
+\le \frac{1}{|s|} \left( \big|f(b)\big| + \big|f(a)\big| 
++ M(b-a) \right).$$
+Ainsi lorsque $|s| \to +\infty$ alors 
+$\int_{a}^{b} f(t) e^{-\ii st}\;\dd t  \to 0$.
+
+\bigskip
+Pour l'intégrale impropre, fixons $\epsilon>0$. 
+On reprend le raisonnement précédent en fixant
+d'abord $a$ et $b$ tels que 
+$\int_{-\infty}^{a} \big| f(t) \big| \;\dd t < \epsilon$
+et $\int_{b}^{+\infty} \big| f(t) \big| \;\dd t < \epsilon$, ce qui 
+possible car les intégrales impropres convergent.
+Ainsi :
+$$\left| \int_{-\infty}^{+\infty} f(t) e^{-\ii st}\;\dd t \right|
+\le \int_{-\infty}^{a} \big| f(t) \big| \;\dd t
++ \left| \int_{a}^{b} f(t) e^{-\ii st}\;\dd t \right|
++ \int_{b}^{+\infty} \big| f(t) \big| \;\dd t$$
+Or pour $|s|$ assez grand, $\left| \int_{a}^{b} f(t) e^{-\ii st}\;\dd t \right| < \epsilon$
+d'après le point précédent.
+Donc $\left| \int_{-\infty}^{+\infty} f(t) e^{-\ii st}\;\dd t \right| < 3\epsilon$
+pour $|s|$ assez grand, ce qui termine la preuve.
+\end{proof}
+
+Voici quelques assertions parmi les nombreuses propriétés que 
+vérifie la transformée de Fourier.
+\begin{proposition}
+\label{prop:fourier2}
+\begin{enumerate}
+  \item \textbf{Linéarité.} $\mathcal{F}(\lambda f +\mu g) = \lambda\mathcal{F}(f)+\mu \mathcal{F}(g)$.
+  
+  \item \textbf{Parité.} Si $f$ est une fonction paire, alors
+  $F(s) = 2 \int_0^{+\infty} f(t) \cos(st) \;\dd t$. Si $f$ est impaire,
+  alors $F(s) = -2\ii \int_0^{+\infty} f(t) \sin(st) \;\dd t$.
+    
+  \item \textbf{Dérivation.} $\mathcal{F}(f') = \ii s \mathcal{F}(f)$.
+  
+  \item \textbf{Théorème du retard.} $\mathcal{F}\big(f(t-\tau)\big) 
+  = e^{-\ii s\tau}\mathcal{F}\big(f(t)\big)$.
+
+\end{enumerate}  
+\end{proposition}
+
+Les preuves sont similaires à celles pour la transformée de Laplace (voir
+la proposition \ref{prop:laplace2}).
+Pour la formule de dérivation, on suppose que l'intégrale de $f'$ est absolument convergente.
+Cette dernière hypothèse implique en particulier que $f$ admet une limite finie en $-\infty$ et 
+$+\infty$, limite qui est forcément nulle puisque $\int |f|$ est supposée convergente.
+
+Voici la preuve pour la formule de la parité. On suppose donc que 
+$f$ est une fonction paire. Alors :
+\begin{align*}
+F(s) & = \int_{-\infty}^0 f(t)e^{-\ii st}\;\dd t
++\int_0^{+\infty} f(t)e^{-\ii st}\;\dd t \\
+& = \int_0^{+\infty} f(-u)e^{\ii s u}\;\dd u
++\int_0^{+\infty} f(t)e^{-\ii st}\;\dd t \qquad \text{ avec } u=-t \\
+& = \int_0^{+\infty} f(t)\left( e^{\ii st} + e^{-\ii st}\right) \;\dd t \qquad \text{ car } f(-u)=f(u)\\
+& = 2 \int_0^{+\infty} f(t)\cos(st) \;\dd t\\
+\end{align*}
+
+
+\begin{exemple}
+Quelle est la transformée de Fourier de $f(t) = e^{-t^2}$ ?
+Nous allons la calculer en utilisant 
+les propriétés énoncées plus haut.
+Nous notons $F(s)$ la transformée de Fourier de $f(t)$ et $G(s)$ celle de $f'(t)$.
+\begin{itemize}
+  \item D'une part, par la formule de dérivation de la 
+  proposition \ref{prop:fourier2}, on sait que $G(s) = \ii s F(s)$.
+  
+  \item Mais d'autre part $f'(t) = -2tf(t)$, donc
+  $$G(s) = \int_{-\infty}^{+\infty} f'(t) e^{-\ii st}\;\dd t
+  = -2 \int_{-\infty}^{+\infty} tf(t) e^{-\ii st}\;\dd t
+  = -2i F'(s).$$
+  La dernière égalité vient de la formule de dérivation de $F(s)$ de la 
+  proposition \ref{prop:fourier1}.
+  
+  \item On en déduit donc l'équation différentielle 
+  $s F(s) = -2 F'(s)$. En écrivant $\frac{F'(s)}{F(s)} = -\frac{s}{2}$,
+  on trouve $\ln \big| F(s) \big| = -\frac{s^2}{4} + c$, donc
+  $F(s) = F(0)e^{-s^2/4}$.
+  Et $F(0) = \int_{-\infty}^{+\infty} e^{-t^2}\;\dd t= \sqrt{\pi}$.
+  Conclusion : $F(s) =\sqrt{\pi}e^{-s^2/4}$.
+  
+\end{itemize}
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Transformée de Fourier inverse}
+
+La transformée de Fourier transforme $f(t)$ en $F(s)$.
+Il existe une transformée de Fourier inverse qui permet de revenir de
+$F(s)$ à $f(t)$.
+\begin{theoreme}
+\label{th:invfourier}
+Si $$F(s) = \int_{-\infty}^{+\infty} f(t) e^{-\ii st}\;\dd t$$ 
+est d'intégrale $\int_{-\infty}^{+\infty} F(s)\;\dd s$ absolument convergente,
+alors 
+$$f(t) = \frac{1}{2\pi} \int_{-\infty}^{+\infty} F(s) e^{+\ii st}\;\dd s.$$
+\end{theoreme}
+
+Il faut bien faire attention à la constante $\frac{1}{2\pi}$ et au signe $+$
+dans $e^{+\ii st}$. Nous admettons ce théorème.
+
+En d'autres termes, si l'on note 
+$$\mathcal{F}^{-1}(f) = \frac{1}{2\pi} \int_{-\infty}^{+\infty} f(t) e^{+\ii st}\;\dd t,$$
+alors $\mathcal{F}^{-1}$ est l'opération de \defi{transformée de Fourier inverse} :
+$$\mathcal{F}^{-1} \big( \mathcal{F}(f) \big) = f \qquad \text{ et } \qquad
+\mathcal{F} \big( \mathcal{F}^{-1}(f) \big) = f$$
+
+Il est remarquable que la transformée inverse ait 
+une forme très proche de la transformée directe.
+Nous allons l'utiliser dans l'exemple suivant.
+\begin{exemple}
+Quelle est la transformée de Fourier de $g(t) = \frac{1}{1+t^2}$ ?  
+
+On a vu dans l'exemple \ref{ex:fourier1} que la transformée de Fourier de 
+$f(t) = e^{-|t|}$ est $F(s) = \frac{2}{1+s^2}$, qui est d'intégrale absolument convergente.
+Ce qui veut dire que, d'après le théorème \ref{th:invfourier}, la transformée de Fourier inverse de 
+$g(t) = \frac{1}{1+t^2}$ est $G(s) = \frac{e^{-|s|}}{2}$.
+
+
+On vient exactement de dire 
+$$\frac{1}{2\pi} \int_{-\infty}^{+\infty} g(t) e^{+\ii st}\;\dd t
+=G(s),$$
+donc en évaluant cette expression en $-s$ :
+$$\frac{1}{2\pi} \int_{-\infty}^{+\infty} g(t) e^{-\ii st}\;\dd t
+=G(-s).$$
+Autrement dit :
+$$\frac{1}{2\pi} \int_{-\infty}^{+\infty} \frac{1}{1+t^2} e^{-\ii st}\;\dd t
+= \frac{e^{-|-s|}}{2}= \frac{e^{-|s|}}{2}$$
+Ce qui permet de conclure que la transformée de Fourier de $g(t)=\frac{1}{1+t^2}$ est :
+$$\mathcal{F}(g) = \int_{-\infty}^{+\infty} \frac{1}{1+t^2} e^{-\ii st}\;\dd t=\pi e^{-|s|}$$
+
+\medskip
+
+En particulier, lorsque l'on prend la partie réelle de cette dernière égalité, on obtient
+que 
+$$ \int_{-\infty}^{+\infty} \frac{\cos (st)}{1+t^2} \;\dd t= \pi e^{-|s|},$$
+ce qui donne pour $s=1$ :
+$$ \int_{-\infty}^{+\infty} \frac{\cos t}{1+t^2} \;\dd t= \frac{\pi}{e}.$$
+\end{exemple}
+
+La correspondance est donc la suivante :
+
+\myfigure{1}{
+\tikzinput{fig_intpar10}
+}
+
+%---------------------------------------------------------------
+\subsection{Lien avec la transformée de Laplace}
+
+Les transformées de Fourier et de Laplace, lorsqu'elles sont bien définies, 
+sont liées par la relation suivante :
+$$\mathcal{F}(f)(s) = \mathcal{L}(f_+)(+\ii s) + \mathcal{L}(f_-)(-\ii s)$$
+où l'on a défini $f_+$ et $f_-$ sur $[0,+\infty[$ par :
+$f_+(t) = f(t)$ et $f_-(t) = f(-t)$ pour $t\ge0$. 
+         
+            
+\begin{exemple}
+Calculons la transformée de Fourier de $f(t) = t^2 e^{-|t|}$.
+On note $f_+(t)$ et $f_-(t)$ comme ci-dessus. Comme la fonction 
+$f$ est paire alors $f_+=f_-$. 
+
+Par les tables de la transformée de Laplace on sait que, pour
+$f_+(t) = t^2e^{-t}$ (avec $t\ge 0$) qui est du type $t^ne^{\alpha t}$, on a 
+$\mathcal{L}(f_+) = \frac{2}{(s+1)^3}$.
+On en déduit que 
+$$\mathcal{F}(f)(s) = \mathcal{L}(f_+)(+\ii s) + \mathcal{L}(f_-)(-\ii s)
+= \frac{2}{(\ii s+1)^3} + \frac{2}{(-\ii s+1)^3}
+= \frac{4-12s^2}{(1+s^2)^3}.$$
+\end{exemple}
+      
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\begin{enumerate}
+
+  \item Montrer que si $f$ est une fonction positive, alors sa transformée de Fourier vérifie
+  $\big| F(s) \big| \le F(0)$ pour tout $s \in \Rr$.
+  
+  \item Calculer la transformée de Fourier de la fonction <<~triangle~>> définie
+  par $f(t) = 1-|t|$ si $|t| \le 1$ et $f(t) = 0$ sinon.
+  
+  \item Calculer la transformée de Fourier de $f(kt)$ (avec $k>0$)
+  en fonction de la transformée de Fourier de $f(t)$.
+  
+  \item Trouver une formule pour la transformée de Fourier de $f^{(k)}(t)$,
+  la dérivée $k$-ième de $f(t)$.
+  
+  \item Montrer que $f(t) = e^{-t^2+t}$ est une fonction dont l'intégrale est 
+  absolument convergente. Calculer sa transformée de Fourier. (On pourra d'abord montrer que la transformée
+  de Fourier vérifie une équation différentielle.)
+\end{enumerate}
+\end{miniexercices}
+
+
+
+\auteurs{
+\begin{itemize}
+  \item[$\bullet$] D'après un cours de Luc Rozoy et Bernard Ycart de l'université de Grenoble
+  pour le site \texttt{\href{http://ljk.imag.fr/membres/Bernard.Ycart/mel/}{M\at ths en Ligne}}.
+ 
+  \item[$\bullet$] et un cours de Raymond Mortini, de l'université de Lorraine,
+
+  \item[$\bullet$] complété, mixé et révisé par Arnaud Bodin. Figures de Benjamin Boutin. 
+  Relu par Stéphanie Bodin et Vianney Combet.
+\end{itemize}
+}
+
+\finchapitre
+
+\end{document}

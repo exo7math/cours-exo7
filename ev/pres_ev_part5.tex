@@ -1,0 +1,443 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={205,0,0}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\title{{\bf Espaces vectoriels}}
+\subtitle{Sous-espace vectoriel (fin)}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Somme de deux sous-espaces vectoriels
+    \item<4-> Sous-espaces vectoriels supplémentaires
+    \item<5-> Sous-espace engendré  
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Somme de deux sous-espaces vectoriels}
+
+\begin{frame}
+Soient $F$ et $G$ deux sous-espaces vectoriels d'un $\Kk$-espace vectoriel $E$
+\begin{mydefinition}
+L'ensemble de tous les éléments $u+v$, où $u$ est un élément de 
+$F$ et $v$ un élément de $G$, est appelé \defi{somme} des sous-espaces vectoriels 
+$F$ et $G$
+\end{mydefinition}
+
+\pause
+
+%\vspace*{-1ex}
+
+\begin{minipage}{0.6\textwidth}
+\mybox{$F+G=\big\{u+v \mid u \in F, v \in G \big\}$}  
+\end{minipage}
+\pause
+\begin{minipage}{0.39\textwidth}
+\myfigure{0.7}{
+\tikzinput{fig_ev06} 
+}
+\end{minipage}
+
+\pause
+
+\begin{proposition}
+\begin{enumerate}
+  \item $F+G$ est un sous-espace vectoriel de $E$
+  \pause
+  \item $F+G$ est le plus petit sous-espace vectoriel contenant $F$ et $G$
+\end{enumerate}
+\end{proposition}
+\end{frame}
+
+
+\begin{frame}
+ 
+
+\begin{exemple}
+
+$$F=\big\{(x,y,z) \in \Rr^3\mid y=z=0\big\} 
+\ \ \text{et} \ \  
+G=\big\{(x,y,z) \in \Rr^3 \mid x=z=0\big\}$$
+\pause
+\begin{minipage}{0.39\textwidth}
+\myfigure{0.7}{
+\tikzinput{fig_ev07} 
+} 
+\end{minipage}
+\pause
+\begin{minipage}{0.6\textwidth}
+\begin{itemize}
+  \item Un élément $w$ de $F+G$ s'écrit $w=u+v$ où $u \in F$ et $v \in G$
+  \pause
+  \item Comme $u\in F$, $u=(x,0,0)$
+  \pause
+  \item Comme $v \in G$, $v=(0,y,0)$
+  \pause
+  \item Donc $w=(x,y,0)$
+  \pause
+  \item $F+G=\big\{(x,y,z) \in \Rr^3\mid z=0\big\}$
+\end{itemize}  
+\end{minipage}
+
+
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+
+
+$$F=\big\{(x,y,z) \in \Rr^3\mid x=0\big\}
+\quad \text{ et } \quad 
+G=\big\{(x,y,z) \in \Rr^3 \mid y=0\big\}$$
+
+
+\hfill\hfill\begin{minipage}{0.3\textwidth}
+\myfigure{0.7}{
+\tikzinput{fig_ev08} 
+}              
+\end{minipage}
+\vspace*{-12ex}
+
+\pause
+
+\begin{itemize}\setlength{\itemsep}{7pt}
+  \item Montrons que $F+G=\Rr^3$
+\pause  
+  \item Soit  $w=(x,y,z) \in \Rr^3$
+\pause  
+  \item $w=(x,y,z)=(0,y,z)+(x,0,0)$, avec
+$(0,y,z) \in F$ et $(x,0,0) \in G$
+\pause  
+  \item Donc $w \in F+G$
+\pause  
+  \item Pas unicité : $(1,2,3)=(0,2,3)+ (1,0,0)= (0,2,0)+(1,0,3)$
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Sous-espaces vectoriels supplémentaires}
+
+\begin{frame}
+Soient $F$ et $G$ deux sous-espaces vectoriels de $E$
+\begin{mydefinition}
+$F$ et $G$ sont en \defi{somme directe} dans $E$ si 
+\begin{itemize}
+  \item $F \cap G = \{ 0_E \}$
+  \item $F+G=E$
+\end{itemize}
+\end{mydefinition}
+\pause
+On note alors $F \oplus G=E$
+
+\pause
+$F$ et $G$ sont des sous-espaces vectoriels \defi{supplémentaires} dans $E$
+
+\pause
+\begin{proposition}
+\label{prop:directeunique}
+$F$ et $G$ sont supplémentaires dans $E$ si et seulement si tout 
+élément de $E$ s'écrit d'une manière \evidence{unique} 
+comme la somme d'un élément de $F$ et d'un élément de $G$
+\end{proposition}
+
+\pause
+\medskip
+
+{\small \'Ecriture unique : si $\left\{\begin{array}{l}w=u+v\\w=u'+v' \end{array}\right.$  avec 
+$\left\{\begin{array}{l}u\in F, v\in G\\ u'\in F, v'\in G\end{array}\right.$
+alors $\left\{\begin{array}{l}u=u'\\v=v'\end{array}\right.$}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{enumerate}
+  \item $F = \big\{ (x,0) \in \Rr^2 \mid x \in \Rr \big\}$
+et $G = \big\{ (0,y) \in \Rr^2 \mid y \in \Rr \big\}$
+
+\hfill\hfill\begin{minipage}{0.3\textwidth}
+\myfigure{0.8}{
+\tikzinput{fig_ev09} 
+}   
+\end{minipage}
+\vspace*{-8ex}
+\pause
+  \begin{itemize}
+    \item $F \oplus G = \Rr^2$ ?
+\pause    
+    \item $F\cap G = \{ (0,0) \}$
+\pause    
+    \item $F+G = \Rr^2$ car $(x,y)=(x,0)+(0,y)$
+\pause    
+    \item Conclusion : $F \oplus G = \Rr^2$
+ \pause   
+    \item Autre méthode : la décomposition $(x,y)=(x,0)+(0,y)$ est unique
+  \end{itemize}
+
+
+ 
+\pause
+
+  \item Gardons $F$ et notons $G' = \big\{ (x,x) \in \Rr^2 \mid x \in \Rr \big\}$.
+Montrons que l'on a aussi $F\oplus G'=\Rr^2$ 
+\pause
+  \begin{itemize}
+    \item $F \cap G' =\{(0,0)\}$   
+\pause    
+    \item $F+G' = \Rr^2$ : $(x,y) = (x-y,0) + (y,y)$
+  \end{itemize} 
+  
+\pause  
+  \item Deux droites distinctes du plan 
+  passant par l'origine forment des sous-espaces supplémentaires
+\end{enumerate}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{minipage}{0.6\textwidth}
+$F=\big\{ (x,y,z) \in \Rr^3\mid x-y-z=0\big\}$ et  
+$G=\big\{(x,y,z) \in \Rr^3 \mid y=z=0\big\}$  
+\end{minipage}
+\begin{minipage}{0.39\textwidth}
+\myfigure{0.7}{
+\tikzinput{fig_ev10} 
+}  
+\end{minipage}
+
+
+
+
+\pause
+
+
+\begin{itemize}
+  \item $F\cap G=\{0\}$ \pause
+  :  si $u=(x,y,z) \in F \cap G$ 
+alors  $x-y-z=0$ (car $u \in F$) et  $y=z=0$ (car $u \in G$), donc  $u=(0,0,0)$
+
+\pause
+  \item Montrons $F+G=\Rr^3$
+\pause  
+  \begin{itemize}
+    \item Soit $u=(x,y,z) \in \Rr^3$
+    \pause
+    \item On cherche $v \in F$ et $w \in G$ tels que $u=v+w$
+    \pause
+    \item $v=(y_1+z_1, y_1, z_1)$ et $w=(x_2,0,0)$
+    \pause
+    \item Donc $(x,y,z)= (y_1+z_1+x_2,y_1,z_1)$
+    \pause
+    \item Ainsi $y_1=y$, $z_1=z$, $x_2=x-y-z$
+    \pause
+    \item $(x,y,z)=(y+z,y,z)+ (x-y-z, 0,0) \in F + G$
+  \end{itemize}
+\pause
+\end{itemize}
+Conclusion : $F \oplus G=\Rr^3$
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+  
+\begin{exemple}
+\label{ex:evsomme} 
+$E = \mathcal{F}(\Rr,\Rr)$, $\mathcal{P}$ fonctions paires,  $\mathcal{I}$ fonctions impaires 
+
+Montrons $\mathcal{P}\oplus\mathcal{I}=\mathcal{F}(\Rr,\Rr)$
+
+\pause
+
+\begin{enumerate}
+  \item Montrons $\mathcal{P} \cap \mathcal{I} = \{ 0_{\mathcal{F}(\Rr,\Rr)} \}$
+  \pause
+  \begin{itemize}\setlength{\itemsep}{4pt}
+    \item Soit $f \in \mathcal{P} \cap \mathcal{I}$
+    \pause
+    \item Soit $x \in \Rr$. $f(-x)=f(x)$ et $f(-x)=-f(x)$ alors $f(x)=-f(x)$, ce qui implique $f(x)=0$
+    \pause
+    \item $f$ est la fonction nulle
+  \end{itemize}
+ 
+   \medskip
+  \pause 
+  \item Montrons $\mathcal{P}+\mathcal{I}=\mathcal{F}(\Rr,\Rr)$
+  \pause
+  \begin{itemize}\setlength{\itemsep}{4pt}
+    \item Soit $f \in \mathcal{F}(\Rr,\Rr)$
+    \pause
+    \item $g(x)=\frac{f(x)+f(-x)}2$, $g$ est paire
+    \pause
+    \item $h(x)=\frac{f(x)-f(-x)}2$, $h$ est impaire
+    \pause
+    \item $f(x)=g(x)+h(x)$ 
+  \end{itemize}
+ 
+\end{enumerate}
+
+\end{exemple}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Sous-espace engendré}
+
+\begin{frame}
+Soit  $\{v_1, \dots , v_n\}$  des vecteurs d'un 
+$\Kk$-espace vectoriel $E$
+\begin{theoreme}
+\begin{itemize}
+  \item L'ensemble des combinaisons linéaires des vecteurs 
+  $\{v_1, \dots , v_n\}$ est un sous-espace vectoriel de $E$
+  \pause  
+  \item C'est le plus petit sous-espace vectoriel de $E$ 
+  contenant les vecteurs  $v_1, \ldots , v_n$ 
+\end{itemize}
+ 
+\end{theoreme}
+
+\medskip
+\pause
+
+C'est le \defi{sous-espace engendré par $v_1, \ldots , v_n$}, noté $\Vect (v_1, \ldots , v_n )$
+
+\pause
+
+ \mybox{$u \in \Vect( v_1, \dots , v_n )\iff
+ \exists \ \lambda_1, \dots , \lambda_n \in \Kk \ \ 
+ u=\lambda_1v_1+ \dots+\lambda_nv_n$}
+
+
+\end{frame}
+
+
+\begin{frame} 
+
+\small
+\begin{enumerate}\setlength{\itemsep}{4pt}
+  \item \defi{Droite vectorielle} $\Vect (u) =\{ \lambda u \mid \lambda \in \Kk \} = \Kk u$ \quad ($u\neq 0_E$)
+
+\myfigure{0.5}{
+\tikzinput{fig_ev11-1}
+\pause
+\qquad \qquad
+\tikzinput{fig_ev11-2} 
+}
+
+
+\vspace*{-4ex} 
+  \item $\Vect (u,v) = \big\{ \lambda u + \mu v \mid \lambda, \mu \in \Kk \big\}$
+  
+  Si $u$ et $v$ ne sont pas colinéaires, c'est un \defi{plan vectoriel}
+ 
+  \pause
+ 
+  \item $u = \left(\begin{smallmatrix}1 \\ 1 \\ 1 \end{smallmatrix}\right)$,
+  $v = \left(\begin{smallmatrix}1 \\ 2 \\ 3 \end{smallmatrix}\right) \in \Rr^3$.  
+  Déterminons $\mathcal{P} = \Vect (u,v)$ 
+  \pause
+%\vspace*{-2ex}
+$$ \begin{array}{l}
+ \left(\begin{smallmatrix}x \\ y \\ z \end{smallmatrix}\right) \in \Vect (u,v)
+ \pause
+ \iff  \left(\begin{smallmatrix}x \\ y \\ z \end{smallmatrix}\right) 
+ = \lambda u + \mu v  \quad \text{pour certains $\lambda,\mu \in \Rr$} \\
+  \pause
+  \iff  \left(\begin{smallmatrix}x \\ y \\ z \end{smallmatrix}\right) = 
+ \lambda\left(\begin{smallmatrix}1 \\ 1 \\ 1 \end{smallmatrix}\right) + \mu \left(\begin{smallmatrix}1 \\ 2 \\ 3 \end{smallmatrix}\right)
+  \pause
+  \iff  
+ \left\{
+ \begin{array}{rcl}
+   x & = & \lambda + \mu \\
+   y & = & \lambda + 2 \mu \\
+   z & = & \lambda + 3 \mu \\
+ \end{array}\right. \\
+ \end{array} $$
+ \pause
+\'Equation cartésienne : $(x-2y+z=0)$
+
+  \pause
+ 
+\item $E = \mathcal{F}(\Rr,\Rr)$, $f_0(x)=1$, $f_1(x)=x$ et $f_2(x)=x^2$
+
+ \pause
+$\Vect (f_0, f_1, f_2) =\big\{ f \mid f(x) = ax^2+bx+c \big\} = \Rr_2[x]$
+
+\end{enumerate}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Trouver des sous-espaces vectoriels distincts $F$ et $G$ de $\Rr^3$
+  tels que
+  \begin{enumerate}
+    \item $F+G = \Rr^3$ et $F\cap G \neq \{0\}$ ; 
+    \item $F+G \neq \Rr^3$ et $F\cap G = \{0\}$ ;
+    \item $F+G = \Rr^3$ et $F\cap G = \{0\}$ ;
+    \item $F+G \neq \Rr^3$ et $F\cap G \neq \{0\}$.
+  \end{enumerate}
+
+  \item Soient $F = \big\{ (x,y,z) \in \Rr^3 \mid x+y+z = 0\big\}$ et 
+  $G = \Vect \big\{ (1,1,1) \big\} \subset \Rr^3$.
+  \begin{enumerate}
+    \item Montrer que $F$ est un espace vectoriel. Trouver deux vecteurs $u,v$ 
+    tels que $F = \Vect(u,v)$.
+    \item Calculer $F \cap G$ et montrer que $F+G = \Rr^3$. Que conclure ? 
+  \end{enumerate}
+  
+
+  \item Soient $A=\left(\begin{smallmatrix}1 & 0 \\ 0 & 0 \end{smallmatrix}\right)$,
+  $B=\left(\begin{smallmatrix}0 & 0 \\ 0 & 1\end{smallmatrix}\right)$,
+  $C=\left(\begin{smallmatrix}0 & 1 \\ 0 & 0\end{smallmatrix}\right)$,
+  $D=\left(\begin{smallmatrix}0 & 0 \\ 1 & 0\end{smallmatrix}\right)$ des matrices de $M_2(\Rr)$.
+  \begin{enumerate}
+    \item Quel est l'espace vectoriel $F$ engendré par $A$ et $B$ ? Idem avec $G$ engendré par $C$ et $D$.
+    \item Calculer $F\cap G$. Montrer que $F+G = M_2(\Rr)$. Conclure.
+  \end{enumerate}
+
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

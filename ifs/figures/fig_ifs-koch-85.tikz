@@ -1,0 +1,67 @@
+
+
+% Les similitudes : shift=translation, scale = homothÃÂÃÂÃÂÃÂ©tie, rotate = angle (en degrÃÂÃÂÃÂÃÂ©)
+\newcommand\simone{\begin{scope}[shift={(0,0)}, scale=0.46, rotate=0]}
+\newcommand\simtwo{\begin{scope}[shift={(0.46,0)}, scale=0.46, rotate=85]}                   
+\newcommand\simthree{\begin{scope}[shift={({1/2},0.46)}, scale=0.46, rotate=-85]}                     
+\newcommand\simfour{\begin{scope}[shift={(0.54,0)}, scale=0.46, rotate=0]} 
+
+% La figure initiale
+%\newcommand\initfigure{\fill (0,0)--++(0:1)--++(120:1)--cycle;}
+%\newcommand\initfigure{\fill (0.5,0.433) circle (1.3cm);}
+\newcommand\initfigure{\draw (0,0)--++(0,.01)--++(1,0)--++(0,-.01)--cycle;
+%\fill[red] (0.25,0)--+(0.1,0)--+(0.05,0.1)--cycle;
+}
+%\newcommand\initfigure{\fill (0,0)--++(0,0.5)--++(0.5,0)--++(0,-0.5)--cycle;}
+
+% Le programme rÃÂÃÂÃÂÃÂ©cursif
+\newcommand{\ifs}[2]{% #1 the counter, #2 the instructions
+                          \ifnum #1 < 0% stop now
+                          #2%
+                          %\relax% Relax, max, on ne fait rien, c'est terminÃÂÃÂÃÂÃÂ©.
+                          \else%
+                          \count255=#1%
+                          \advance\count255 by -1%
+                          \simone
+                             \ifs{\number\count255}{#2};                          
+                          \end{scope};
+
+                          \simtwo
+                             \ifs{\number\count255}{#2};                          
+                          \end{scope};
+
+                          \simthree
+                             \ifs{\number\count255}{#2};                          
+                          \end{scope};
+
+                          \simfour
+                             \ifs{\number\count255}{#2};                          
+                          \end{scope};
+                          \fi%
+}
+
+\begin{tikzpicture}[scale=6]
+%  \fill (0,0)--++(0,.01)--++(1,0)--++(0,-.01)--cycle;
+%  %\fill[red] (0.25,0)--+(0.1,0)--+(0.05,0.1)--cycle;
+%  %\node[right] at (1.1,0) {$K_0$};
+%
+%  \begin{scope}[yshift=-10]
+%    \ifs{0}{\initfigure};
+%  \end{scope}
+%
+%
+%
+%    \begin{scope}[yshift=-20]
+%    \ifs{1}{\initfigure};
+%    \end{scope}
+%
+%    \begin{scope}[yshift=-30]
+%    \ifs{2}{\initfigure};
+%    \end{scope}
+%
+%    \begin{scope}[yshift=-40]
+%    \ifs{3}{\initfigure};
+%    \end{scope}
+ 
+  \ifs{5}{\initfigure}
+\end{tikzpicture}

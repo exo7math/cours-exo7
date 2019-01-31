@@ -1,0 +1,435 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={153,0,0}]{structure}
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{{\bf Ensembles et applications}}
+\subtitle{Injection, surjection, bijection}
+
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Injection, surjection
+    \item<4-> Bijection
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+%---------------------------------------------------------------
+
+\section{Injection, surjection}
+
+
+\begin{frame}
+
+Soit $f : E \to F$
+\begin{mydefinition}
+$f$ est \defi{injective} si pour tout $x,x' \in E$ avec $f(x)=f(x')$ alors $x=x'$
+\end{mydefinition}
+
+\pause
+
+Autrement dit:
+\myboxinline{$\forall x, x' \in E \quad \big( f(x)=f(x') \implies x=x'\big)$}
+
+\bigskip
+\pause
+
+\myfigure{1}{
+\tikzinput{fig_ensembles11a} 
+\qquad
+\pause
+\tikzinput{fig_ensembles11b} 
+}
+
+\end{frame} 
+
+
+%---------------------------------------------------------------
+
+\begin{frame}
+Soit $f : E \to F$ 
+\begin{mydefinition}
+$f$ est \defi{surjective} si pour tout $y \in F$ il existe $x \in E$ tel que $y=f(x)$
+\end{mydefinition}
+
+\medskip
+\pause
+
+Autrement dit :
+\myboxinline{$\forall y \in F \quad \exists x \in E \quad \big( y = f(x) \big)$}
+
+\medskip
+\pause
+
+ Une autre formulation : $f$ est surjective si et seulement si $f(E)=F$
+
+\pause
+
+\myfigure{1}{
+\tikzinput{fig_ensembles11c} 
+\qquad \pause
+\tikzinput{fig_ensembles11d} 
+}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{remarque}
+
+\myfigure{1}{
+\tikzinput{fig_ensembles12a} 
+\quad
+\tikzinput{fig_ensembles12b} 
+}
+
+%Reformulation :
+\begin{itemize}
+
+
+
+\pause
+
+  \item $f$ est \emph{injective} si et seulement si tout élément $y$ de $F$ a \emph{au plus} $1$ antécédent (éventuellement aucun)
+
+\pause
+
+  \item $f$ est \emph{surjective} si et seulement si tout élément $y$ de $F$ a \emph{au moins} $1$ antécédent
+\end{itemize}
+\end{remarque}
+\end{frame}
+
+\begin{frame}
+
+\myfigure{1}{
+\tikzinput{fig_ensembles12c} 
+\qquad 
+\uncover<2->{\tikzinput{fig_ensembles12d}}
+}
+
+\centerline{Fonctions non injectives}
+
+\end{frame} 
+
+
+\begin{frame}
+\myfigure{1}{
+\tikzinput{fig_ensembles11e} 
+ \qquad \qquad
+\uncover<2->{\tikzinput{fig_ensembles11f}} 
+}
+
+\centerline{Fonctions non surjectives}
+\end{frame}
+
+%---------------------------------------------------------------
+
+
+\begin{frame}
+\begin{exemple}
+Soit $f_1 : \Nn \to \Qq$, \quad $f_1(x)= \frac{1}{1+x}$ \pause
+  \begin{itemize}
+     \item $f_1$ est injective: \pause
+     soit $x,x'\in \Nn$ tels que $f_1(x)=f_1(x')$. \pause Alors $\frac{1}{1+x}=\frac{1}{1+x'}$\pause,
+     donc $1+x=1+x'$ \pause et donc $x=x'$ \pause
+     \item $f_1$ n'est pas surjective. \pause Comme on a toujours  $f_1(x) \le 1$ alors par exemple $y=2$ n'a pas d'antécédent 
+  \end{itemize}
+\end{exemple}
+
+\pause
+
+\begin{exemple}
+ Soit $f_2 : \Zz \to \Nn$, \quad $f_2(x)=x^2$ 
+ \pause
+  \begin{itemize}
+     \item $f_2$ n'est pas injective. \pause
+En effet on peut trouver deux éléments $x,x' \in \Zz$ différents tels que $f_2(x)=f_2(x')$.
+\pause
+Par exemple $x=2$, $x'=-2$ 
+\pause
+     \item $f_2$ n'est pas non plus surjective, car il existe des éléments $y \in \Nn$ sans aucun antécédent. 
+\pause
+Par exemple $y=3$ : un antécédent $x$ de $y=3$ satisfait
+%si $y=3$ avait un antécédent $x$ par $f_2$, nous aurions $f_2(x)=y$, c'est-à-dire
+$f_2(x)=x^2=3$, d'où $x = \pm \sqrt 3$. Mais alors $x \notin \Zz$ 
+  \end{itemize}
+\end{exemple}
+\end{frame}
+
+%---------------------------------------------------------------
+
+\section{Bijection}
+
+\begin{frame}
+\begin{mydefinition}
+$f$ est \defi{bijective} si elle injective \emph{et} surjective
+
+\pause
+
+Cela équivaut à :
+
+pour tout $y \in F$ il existe un unique $x \in E$ tel que $y=f(x)$
+\end{mydefinition}
+
+\pause
+
+Autres formulations équivalentes :
+\begin{itemize}
+  \item \myboxinline{$\forall y \in F \quad \exists! x \in E \quad \big( y = f(x) \big)$}
+\pause
+  \item tout élément de $F$ a un unique antécédent par $f$
+\end{itemize}
+
+\pause
+
+\myfigure{1}{
+\tikzinput{fig_ensembles13a} 
+\qquad \pause
+\tikzinput{fig_ensembles13b} 
+}
+
+\end{frame}
+
+%---------------------------------------------------------------
+
+\begin{frame}
+\begin{proposition}
+\label{prop:bij1}
+\begin{enumerate}
+  \item L'application $f : E \to F$ est bijective si et seulement si il existe $g : F \to E$
+telle que $f \circ g = \id_F$ et $g \circ f = \id_E$
+
+\pause
+
+  \item Si $f$ est bijective alors $g$ est unique et est bijective,
+c'est la \defi{bijection réciproque} de $f$ et est notée $f^{-1}$
+
+\pause
+
+De plus $\left( f^{-1} \right)^{-1} = f$
+\end{enumerate}
+\end{proposition}
+% Preuve repoussée à la fin 
+
+\pause
+\bigskip
+
+\begin{remarque}
+\begin{itemize}
+  \item $f \circ g = \id_F$ \qquad signifie \qquad  $\forall y \in F  \quad f\big(g(y)\big) = y$ \pause
+  \item $g \circ f = \id_E$ \qquad signifie \qquad $\forall x \in E \quad g\big(f(x)\big) = x$ \pause
+\end{itemize}
+
+\end{remarque}
+\end{frame}
+
+\begin{frame}
+
+\myfigure{0.8}{
+\tikzinput{fig_ensembles13c} 
+\qquad \pause
+\tikzinput{fig_ensembles13d} 
+}
+
+\pause
+
+\vspace*{-5mm}
+\begin{exemple}
+\vspace*{-0mm}
+\begin{minipage}{0.65\textwidth}
+\vspace*{-20mm}
+\center
+$f : \Rr \to ]0,+\infty[$, $f(x)=\exp(x)$ est bijective
+
+\pause
+
+sa bijection réciproque est 
+
+$g : ]0,+\infty[ \to \Rr$, $g(y)=\ln(y)$
+
+\pause
+\bigskip
+
+$\exp\big(\ln(y) \big) = y$ \quad et \quad   $\ln\big(\exp(x)\big) = x$
+  
+\end{minipage}
+\pause
+\begin{minipage}{0.29\textwidth}
+\myfigure{0.8}{\hspace*{-5mm}
+\tikzinput{fig_ensembles13e} 
+}  
+\end{minipage}
+
+
+\end{exemple}
+
+
+
+
+\end{frame}
+
+
+%---------------------------------------------------------------
+
+\begin{frame}
+
+\begin{proposition}
+\label{prop:bij2}
+Soient $f : E \to F$ et $g : F \to G$ des applications bijectives
+
+L'application $g \circ f$ est bijective 
+\pause
+et
+\mybox{$(g\circ f)^{-1} = f^{-1} \circ g^{-1}$}
+\end{proposition}
+
+\end{frame}
+%---------------------------------------------------------------
+
+\begin{frame}
+
+\begin{proposition}
+\begin{enumerate}
+  \item L'application $f : E \to F$ est bijective si et seulement si il existe $g : F \to E$
+telle que $f \circ g = \id_F$ et $g \circ f = \id_E$
+\end{enumerate}
+\end{proposition}
+
+\medskip
+\pause
+
+\begin{proof} 
+Preuve du sens $\Rightarrow$ 
+
+\pause
+\medskip
+
+Supposons $f$ bijective et construisons $g : F \to E$ 
+
+\pause
+
+$f$ est surjective: pour $y \in F$, il existe un $x \in E$ tel que $y=f(x)$
+
+\pause
+
+On pose $g(y)=x$ et on a $f\big( g(y) \big) = f(x) =y$
+
+\pause
+
+En répétant pour tous les $y\in F$, on obtient $f \circ g = \id_F$
+
+\pause
+
+On en déduit aussi que $f \circ g \circ f = \id_F \circ f$,
+\pause
+c'est-à-dire $f\big( g\circ f(x) \big) = f(x)$
+
+\pause
+
+Or $f$ est injective donc $g\circ f(x)=x$
+
+\pause
+
+C'est vrai pour tout $x\in E$, donc $g\circ f =\id_E$
+
+\end{proof}
+\end{frame}
+
+
+
+
+\begin{frame}
+\begin{proposition}
+\begin{enumerate}
+  \item L'application $f : E \to F$ est bijective si et seulement si il existe $g : F \to E$
+telle que $f \circ g = \id_F$ et $g \circ f = \id_E$
+\end{enumerate}
+\end{proposition}
+
+\medskip
+
+
+\begin{proof}
+Preuve du sens $\Leftarrow$ 
+
+\pause
+\medskip
+
+Supposons qu'un tel $g$ existe et montrons $f$ bijective
+
+\pause
+
+\begin{itemize}
+  \item surjectivité: soit $y \in F$, notons $x = g(y) \in E$
+
+\pause
+
+$f(x) = f\big( g(y) \big) = f \circ g(y) = \id_F(y)=y$
+
+\pause
+
+On peut trouver un antécédent à tout $y\in F$, donc $f$ est surjective
+
+\pause
+
+  \item injectivité: soient $x,x' \in E$ tels que $f(x)=f(x')$
+
+\pause
+
+Alors $g\circ f(x)=g\circ f(x')$ donc $\id_E(x)=\id_E(x')$
+
+
+\pause
+Par conséquent $x=x'$ et $f$ est bien injective
+    \end{itemize}
+\end{proof}
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+
+\section{Mini-exercices}
+
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Les fonctions suivantes sont-elles injectives, surjectives, bijectives ? 
+\begin{itemize}
+  \item $f_1 : \Rr \to [0,+\infty[$, $x \mapsto x^2$.
+  \item $f_2 : [0,+\infty[ \to [0,+\infty[$, $x \mapsto x^2$.
+  \item $f_3 : \Nn \to \Nn$, $x \mapsto x^2$.
+  \item $f_4 : \Zz \to \Zz$, $x \mapsto x-7$.
+  \item $f_5 : \Rr \to [0, +\infty[$, $x \mapsto |x|$.
+\end{itemize}
+
+  \item Montrer que la fonction $f : \  ]1,+\infty[ \to \ ]0,+\infty[$ définie par $f(x)=\frac{1}{x-1}$ 
+  est bijective. Calculer sa bijection réciproque.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+
+
+\end{document}

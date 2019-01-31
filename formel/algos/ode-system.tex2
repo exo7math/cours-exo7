@@ -1,0 +1,8 @@
+x = var('x'); y1 = function('y1', x); y2 = function('y2', x)
+y = vector([y1,y2])
+system = [diff(y[i], x) - (A * y)[i] for i in range(2)]
+x_inf = -1
+x_sup = 2
+for [x0,y10,y20] in [[0,2,1], [0,1,2], [0,-2, -1], [0,-1,-2]]:
+    sol = desolve_system(system, [y1, y2], ics=[x0,y10,y20])
+    q += parametric_plot((sol[0].rhs(),sol[1].rhs()), (x,x_inf,x_sup), xmin=-r, xmax=r, ymin=-r, ymax=r) 

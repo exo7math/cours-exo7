@@ -1,0 +1,587 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous poursuivons le chapitre sur les séries par une leçon consacrée aux séries absolument convergentes et à la règle de d'Alembert.
+
+\change
+
+\change
+Nous commencerons par définir ce qu'est une série absolument convergente.
+
+\change
+Puis nous établirons et nous appliquerons la règle du quotient de d'Alembert, 
+
+\change
+ainsi que la règle des racines de Cauchy.
+
+% \change
+% Nous comparerons ensuite ces deux méthode
+% 
+% \change
+% et enfin nous terminerons avec la règle de Raabe-Duhamel.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On dit qu'une série $\sum u_k$ de nombres réels (ou complexes) est 
+\defi{absolument convergente} si la série $\sum |u_k|$ 
+est convergente.  
+
+\change
+Par exemple la série $\sum_{k\ge1} \frac{\cos k}{k^2}$ est absolument convergente.
+
+\change
+Car $\left\vert\frac{\cos k}{k^2}\right\vert \le  \frac{1}{k^2}$. Comme la série $\sum_{k\ge1} \frac{1}{k^2}$ converge alors $\sum_{k\ge1} \left\vert\frac{\cos k}{k^2}\right\vert$ converge aussi.
+
+\change
+La série harmonique alternée $\sum_{k=0}^{+\infty} \frac{(-1)^k}{k+1}$  n'est pas absolument convergente. 
+
+\change
+Car la série $\sum_{k\ge0}  \left\vert\frac{(-1)^k}{k+1}\right\vert = \sum_{k\ge0} \frac{1}{k+1}$ diverge.
+
+\change
+Une série, telle que la série harmonique alternée, qui est convergente, 
+mais qui n'est pas absolument convergente, s'appelle une série \defi{semi-convergente}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\^Etre absolument convergent est plus fort qu'être convergent. En effet, on a le théorème suivant :
+
+Toute série absolument convergente est convergente.
+
+\change
+Démontrons ce résultat en utilisant le critère de Cauchy. 
+
+Soit $\sum u_k$ une série absolument convergente.
+
+\change
+Par définition, la série $\sum |u_k|$ est convergente.
+
+\change
+Donc la suite des restes $(R'_n)$ avec $R'_n = \displaystyle\sum_{k=n+1}^{+\infty} |u_k|$ est une suite qui tend vers $0$.
+
+\change
+En particulier c'est donc une suite de Cauchy.
+
+\change
+Ce qui se traduit ainsi.
+
+Soit $\epsilon>0$ fixé. 
+
+\change
+Il existe $n_0 \in \Nn$ tel que pour tout $n \ge n_0$ et pour tout $p \ge 0$ :
+$$|u_n|+|u_{n+1}|+\cdots+|u_{n+p}| < \epsilon.$$
+
+\change
+Par suite, pour $n \ge n_0$ et  $p \ge 0$ on a :
+$$\big|u_n+u_{n+1}+\cdots+u_{n+p}\big| \le |u_n|+|u_{n+1}|+\cdots+|u_{n+p}| < \epsilon.$$
+
+\change
+Donc, d'après le critère de Cauchy, la série $\sum u_k$ est convergente.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La règle du quotient de d'Alembert est un moyen efficace pour montrer 
+si une série de nombres réels ou complexes converge ou pas.
+
+\change
+Soit $\sum u_k$ une série dont les termes généraux sont des nombres réels (ou complexes) non nuls.
+
+\change
+1) S'il existe une constante $0<q<1$ et un entier $k_0$ tels que, pour tout
+$k \ge k_0$,  
+$$
+\left|\frac{u_{k+1}}{u_k}\right| \le q $$
+alors $\sum u_k$ converge.
+
+\change
+La série est même absolument convergente.
+
+\change
+2) S'il existe un entier $k_0$ tel que, pour tout $k \ge k_0$, 
+$$
+\left|\frac{u_{k+1}}{u_k}\right| \ge 1
+$$
+alors $\sum u_k$ diverge.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le plus souvent, la situation que l'on étudie est lorsque 
+la suite $\frac{u_{k+1}}{u_k}$ converge ; la position
+de la limite par rapport à $1$ détermine alors la nature de la série.
+
+\change
+Voici une application directe et la plus utilisée, 
+pour les séries de nombres réels, strictement positifs :
+
+Soit $\sum u_k$ une série à termes strictement positifs, telle que 
+$\frac{u_{k+1}}{u_k}$ converge vers $\ell$.
+
+\change
+Si $\ell<1$ alors $\sum u_k$ converge.
+
+\change
+Si $\ell>1$ alors $\sum u_k$ diverge.
+
+\change
+Si $\ell=1$ on ne peut pas conclure en général.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Démontrons le théorème de la règle du quotient de d'Alembert, et rappelons tout d'abord que la série géométrique $\sum q^k$ converge si $|q|<1$.
+
+\change
+Dans le premier cas du théorème, l'hypothèse $\left|\frac{u_{k+1}}{u_k}\right| \le q$ ...
+
+\change
+implique $|u_{k_0+1}| \le |u_{k_0}| q$, 
+
+\change
+puis $|u_{k_0+2}| \le |u_{k_0}| q^2$, et ainsi de suite.
+
+\change
+On vérifie par récurrence que, pour tout $k\ge k_0$ :
+$$|u_k| \le |u_{k_0}| q^{-k_0} \cdot q^k = c \cdot q^k,$$
+où $c$ est une constante.
+
+\change
+Comme $0 < q < 1$, la série $\sum q^k$ converge, 
+
+\change
+d'où le résultat par le théorème de comparaison : la série $\sum |u_k|$ converge.
+
+\change
+Si $\left|\frac{u_{k+1}}{u_k}\right| \ge 1$, 
+
+\change
+la suite $(|u_k|)$ est croissante : 
+
+\change
+elle ne peut donc pas tendre vers $0$ 
+
+\change
+et la série diverge.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Appliquons la règle du quotient de d'Alembert pour déterminer la nature de quelques séries.
+
+\change
+Tout d'abord, pour tout $x \in \Rr$ fixé, la \defi{série exponentielle}
+$$\sum_{k=0}^{+\infty} \frac{x^k}{k!}\quad \text{ converge.}$$
+
+\change
+En effet pour $u_k = \frac{x^k}{k!}$ on a 
+
+\change
+$$\left|\frac{u_{k+1}}{u_k}\right|
+= \frac{\left|\frac{x^{k+1}}{(k+1)!}\right|}{\left|\frac{x^k}{k!}\right|}
+=\frac{|x|}{k+1} \to 0 
+\quad \text{lorsque } k \to +\infty.$$
+
+\change
+La limite étant $\ell = 0 < 1$ alors par la règle du quotient de d'Alembert,
+la série est absolument convergente, donc convergente.
+
+\change
+Par définition la somme est $\exp(x)$ : 
+$$\exp(x) = \sum_{k=0}^{+\infty} \frac{x^k}{k!}.$$
+
+\change
+Autre exemple, la série $\displaystyle\sum_{k\ge0} \frac{k!}{1\cdot 3\,\cdots\,(2k-1)}$ converge,
+
+\change
+car $\frac{u_{k+1}}{u_k}=\frac{k+1}{2k+1}$ tend vers $\frac{1}{2}<1$.
+  
+\change
+La série $\displaystyle\sum_{k\ge0} \frac{(2k)!}{(k!)^2}$ diverge, 
+
+\change
+car $\frac{u_{k+1}}{u_k}=\frac{(2k+1)(2k+2)}{(k+1)^2}$ tend vers $4>1$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Quelques remarques sur la règle du quotient de d'Alembert.
+
+\change
+Tout d'abord, le théorème ne peut pas s'appliquer si certains $u_k$ sont nuls, contrairement à la règle des racines de Cauchy que l'on verra après.
+  
+\change
+Notez bien que le théorème ne permet pas toujours de conclure. En particulier, faites aussi bien attention que l'hypothèse est  $\left|\frac{u_{k+1}}{u_k}\right| \le q <1$, ce qui est plus fort que $\left|\frac{u_{k+1}}{u_k}\right| <1$.
+  
+\change
+De même le corollaire ne permet pas de conclure lorsque $\frac{u_{k+1}}{u_k} \to 1$.
+
+\change
+Par exemple pour les séries $\sum u_k= \sum \frac{1}{k}$ et $\sum v_k = \sum \frac{1}{k^2}$ 
+
+\change
+nous avons $\frac{u_{k+1}}{u_k} = \frac{k}{k+1} \to 1$,
+
+\change
+de même que $\frac{v_{k+1}}{v_k} = \frac{k^2}{(k+1)^2 } \to 1$.
+
+\change
+Cependant la série $\sum \frac{1}{k}$ diverge alors que $\sum \frac{1}{k^2}$ converge.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Terminons par un exemple plus compliqué.
+
+Trouver tous les $z\in \Cc$ tels que la série 
+$\sum_{k\ge0} \binom{k}{3} z^k$ soit absolument convergente.
+\medskip
+
+\change
+Soit $u_k=\binom{k}{3} z^k$. 
+
+\change
+Alors, pour $z\neq0$,
+$$\dfrac{|u_{k+1}|}{|u_k|}=\dfrac{\binom{k+1}{3}|z|^{k+1}}{\binom{k}{3}|z|^{k}}$$
+
+\change
+qui vaut
+$$
+\dfrac{\dfrac{(k+1)k(k-1)}{3!}}{\dfrac{k(k-1)(k-2)}{3!}}|z|$$
+
+\change
+c-à-d après simplification :
+$$
+\frac{k+1}{k-2}|z|.$$
+
+\change
+Ce qui tend vers $ |z| $ lorsque $k\to+\infty.$
+
+\change
+Si $|z|<1$ alors pour $k$ assez grand $\frac{|u_{k+1}|}{|u_k|} < q <1$.
+
+\change
+Donc la série $\sum u_k$ est alors absolument convergente.
+
+\change
+Si $|z|\ge 1$ alors le quotient $\frac{|u_{k+1}|}{|u_k|}$, qui vaut $\frac{k+1}{k-2}|z|$
+
+\change
+est supérieur ou égal à $\frac{k+1}{k-2}$ qui est strictement supérieur à $ 1$ pour tout $k$. 
+
+\change
+Donc la série $\sum u_k$  diverge.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons à présent à la règle des racines de Cauchy.
+
+\change
+Théorème.
+
+Soit $\sum u_k$ une série de nombres réels ou complexes.
+
+\change
+S'il existe une constante $0<q<1$ et un entier $k_0$ tels que, pour tout
+$k \ge k_0$,  
+$$
+\sqrt[k]{|u_k|} \le q ,\quad \text{ alors }\quad\sum u_k\quad \text{converge.}
+$$
+
+\change
+La série est même absolument convergente.
+
+\change
+Si par contre il existe un entier $k_0$ tel que, pour tout $k \ge k_0$, 
+$$
+\sqrt[k]{|u_k|} \ge 1,\quad \text{ alors }\quad\sum u_k \quad\text{diverge.}
+$$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le plus souvent vous l'appliquerez avec un terme général strictement positif.
+
+\change
+Soit $\sum u_k$ une série à termes positifs, telle que 
+$\sqrt[k]{u_k}$ converge vers $\ell$.
+
+\change
+Si $\ell<1$ alors $\sum u_k$ converge.
+
+\change
+Si $\ell>1$ alors $\sum u_k$ diverge.
+
+\change
+Si $\ell=1$ on ne peut pas conclure en général.
+
+\change
+Dans la pratique, il faut savoir bien manipuler les racines $k$-ème : 
+$\sqrt[k]{u_k} $ qui se note aussi $ (u_k)^{\frac1k}$ est égal par définition à $\exp\left(\tfrac1k \ln u_k\right)$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Rappelons que la nature de la série ne dépend pas de ses premiers
+termes. 
+
+\change
+Dans le premier cas du théorème, 
+
+\change
+$\sqrt[k]{|u_k|} \le q$ implique  $|u_k| \le q^k$. 
+
+\change
+Comme $0<q<1$, la série $\sum q^k$ converge. 
+
+\change
+D'où le résultat par le théorème de comparaison.  
+
+\change
+Dans le second cas, $\sqrt[k]{|u_k|} \ge 1$, 
+
+\change
+on a $|u_k| \ge 1$. Le terme général ne tend pas vers $0$, 
+
+\change
+donc la série diverge.  
+
+\change
+Enfin pour le dernier point du corollaire, 
+
+\change
+on pose $u_k=\frac{1}{k}$, $v_k=\frac{1}{k^2}$.
+
+\change
+On a $\sqrt[k]{u_k}\to 1$ de même que $\sqrt[k]{v_k}\to 1$.
+
+\change
+Mais $\sum u_k$ diverge alors que $\sum v_k$ converge.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Par exemple, 
+$$\sum \left(\frac{2k+1}{3k+4}\right)^k\quad \text{ converge,}$$
+
+\change
+car $\sqrt[k]{u_k} = \frac{2k+1}{3k+4}$ tend vers $\frac{2}{3}<1$.
+
+\change
+Par contre  
+$$\sum \frac{2^k}{k^\alpha}\quad \text{ diverge,}$$
+quel que soit $\alpha >0$.
+  
+\change
+En effet,
+$$\sqrt[k]{u_k} = \frac{\sqrt[k]{2^k}}{\big(\sqrt[k]{k}\big)^\alpha}
+  = \frac{2}{\big(k^\frac{1}{k}\big)^\alpha}
+  = \frac{2}{\big(\exp(\frac{1}{k}\ln k)\big)^\alpha} \to 2>1.$$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Regardons en détail un exemple plus élaboré.
+
+Déterminer tous les $z\in \Cc$ tels que la série  
+$\sum_{k\ge1} \left( 1+\frac{1}{k}\right)^{k^2} z^k$ soit absolument convergente.
+
+\change
+Notons $u_k =\left( 1+\frac{1}{k}\right)^{k^2} z^k$.
+
+\change
+On a alors $$\sqrt[k]{|u_k|}=\left( 1+\frac{1}{k}\right)^k |z| $$
+qui tend vers $e  \times |z|.$
+
+\change
+Cette limite vérifie $e|z| < 1$ si et seulement si $|z|<\frac{1}{e}$.
+
+On a alors la discussion suivante.
+
+\change
+Si $|z|<\frac{1}{e}$ alors la série $\sum u_k$ est absolument 
+convergente.
+  
+\change
+Si $|z|>\frac{1}{e}$, on a pour $k$ assez grand $\sqrt[k]{|u_k|}>1$, donc la série $\sum u_k$ diverge.
+  
+\change
+Si $|z|=\frac{1}{e}$ la règle des racines de Cauchy ne permet pas de conclure : il faut étudier le terme général à la main. C'est l'objet de la diapo suivante.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Poursuivons l'étude de  la série $\sum \left( 1+\frac{1}{k}\right)^{k^2} z^k$ lorsque $|z|=\frac{1}{e}$.
+
+\change
+On obtient dans ce cas 
+  $$|u_k|=\left(  1+\frac{1}{k}\right)^{k^2}\left(\frac{1}{e}\right)^k$$
+  
+\change
+Donc
+$$
+\ln|u_k| = k^2\ln\left(1+\tfrac{1}{k}\right)+k\ln \tfrac{1}{e} 
+$$
+
+\change
+c'est-à-dire
+$$
+ k\left[k\ln (1+\tfrac{1}{k})-1\right] 
+$$
+
+\change
+ce qui donne en effectuant un DL
+$$
+k \left[ k\left(\tfrac{1}{k}-\tfrac{1}{2}\left( \tfrac{1}{k}\right)^2+
+o\big( \tfrac{1}{k^2}\big) \right)-1\right]
+$$
+
+\change
+Après développement et simplification, on obtient
+$$
+-\tfrac{1}{2} +o(1)
+$$
+
+\change
+et donc $\ln|u_k| $ tend vers $-\tfrac{1}{2}$.
+
+\change
+Donc $|u_k| \to e^{-\frac{1}{2}}\neq 0$. Ainsi $\sum |u_k|$ diverge. 
+
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \diapo
+% 
+% Cette section peut être passée lors d'une première lecture.
+% 
+% Nous allons comparer la règle du quotient de d'Alembert avec la règle des racines de Cauchy.
+% 
+% \change
+% Nous allons voir que la règle des racines de Cauchy est plus puissante que la règle du quotient de d'Alembert. Cependant dans la pratique la règle du quotient de d'Alembert reste la plus utilisée.
+% 
+% 
+% \change 
+% Proposition.
+% 
+% Soit $(u_k)$ une suite à termes strictement positifs.
+% 
+% \change
+% $$
+% \text{Si } \quad \lim_{k\to+\infty} \frac{u_{k+1}}{u_k} = \ell
+% \qquad\text{alors}\qquad
+% \lim_{k\to+\infty} \sqrt[k]{u_k} = \ell\;.
+% $$
+% 
+% Autrement dit, si on peut appliquer la règle du quotient de d'Alembert, alors on peut aussi appliquer 
+% la règle des racines de Cauchy.
+% 
+% \change
+% Voici un exemple où la règle des racines de Cauchy permet de conclure, mais pas la règle du quotient de d'Alembert.
+% 
+% \change
+% Définissons la suite $u_k$ par :
+% $$
+% u_k = \left\{
+% \begin{array}{ll}
+% \frac{2^n}{3^n}&\text{ si } k=2n\\[2ex]
+% \frac{2^n}{3^{n+1}}&\text{ si } k=2n+1
+% \end{array}
+% \right.
+% $$
+% 
+% \change
+% Le rapport $\frac{u_{k+1}}{u_k}$ vaut $\frac{1}{3}$ si $k$ est pair,
+% $2$ si $k$ est impair. 
+% 
+% \change
+% La règle du quotient de d'Alembert ne s'applique donc pas.
+% 
+% \change 
+% Pourtant, $\sqrt[k]{u_k}$ converge vers $\sqrt{\frac{2}{3}}<1$.
+% 
+% \change
+% Donc la règle des racines de Cauchy s'applique et la série $\sum u_k$ converge.  
+% 
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \diapo
+% 
+% Cette section peut être passée lors d'une première lecture.
+% 
+% La règle du quotient de d'Alembert et la règle des racines de Cauchy 
+% ne s'appliquent pas aux séries de Riemann  
+% $$\sum_{k\ge1} \frac{1}{k^\alpha}$$
+% 
+% \change
+% car $\frac{k^\alpha}{(k+1)^\alpha}\to 1$
+% et $\sqrt[k]{u_k} \to 1$.
+% 
+% Il nous faut raffiner la règle de d'Alembert
+% pour pouvoir conclure. Cependant nous reviendrons 
+% sur la convergence des séries de Riemann par d'autres techniques.
+% 
+% \change
+% Théorème. Règle de Raabe-Duhamel
+% 
+% Soit $(u_k)$ une suite de nombres réels (ou complexes) non nuls.
+% 
+% \change
+% Si $\forall k\geq k_0$ on a $\left|\frac{u_{k+1}}{u_k}\right|\le 1-\frac{\beta}{k}$, avec $\beta>1$,
+% 
+% \change
+% alors la série $\sum u_k$ est absolument convergente.
+% 
+% \change
+% Si $\forall k\geq k_0$ on a $\left|\frac{u_{k+1}}{u_k}\right|\ge 1-\frac{1}{k}$, 
+% 
+% \change
+% alors la série $\sum u_k$ n'est  pas absolument convergente.
+% 
+% \change
+% \textbf{Attention !} Il existe des séries convergentes, 
+% quoique $\left|\frac{u_{k+1}}{u_k}\right|\ge 1-\frac{1}{k}$.
+% 
+% Par le deuxième point une telle série ne peut pas être absolument convergente.
+% 
+% \change
+% En effet, prenons $u_k=(-1)^k \frac{1}{k}$. Alors :
+% $$\frac{|u_{k+1}|}{|u_k|}= \frac{k}{k+1}= 1-\frac{1}{k+1}\ge 1-\frac{1}{k}.$$
+% 
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \diapo
+% 
+% Nous pouvons maintenant savoir quelles sont les séries de Riemann
+% qui convergent.
+% 
+% Proposition.
+% 
+% Soit $\alpha>0$. Alors la série $\sum_{k\ge1} \frac{1}{k^\alpha}$
+% converge si et seulement si $\alpha>1$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici quelques exercices pour vous familiariser avec les séries absolument convergentes, et appliquer les règles de d'Alembert et de Cauchy.
+
+\end{document}

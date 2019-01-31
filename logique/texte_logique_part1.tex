@@ -1,0 +1,669 @@
+
+\input{../preamb-texte.tex}
+
+\renewcommand{\implies}{\; \Rightarrow\; } %\implies apparait mal (de meme que Longrightarrow)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Ce chapitre est consacré aux rudiments de la logique
+
+\change
+
+Nous allons définir ce que sont des <<assertions>>
+et voir quelles sont les relations entre plusieurs assertions.
+
+\change
+
+Nous construirons ensuite des assertions plus sophistiquées à l'aide
+des quantificateurs <<pour tout>> et <<il existe>>.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La langue française n'est pas toujours suffisamment claire :
+par exemple au restaurant dans la phrase <<fromage ou dessert>>,
+il s'agit soit du fromage, soit du dessert mais pas des deux !
+
+Par contre si dans un jeu de carte on cherche <<un as ou un coeur>>
+alors il ne faut pas exclure l'as de coeur.
+
+\change
+
+Nous avons donc besoin d'un langage plus rigoureux.
+
+\change
+
+On dit souvent  qu'une fonction est continue si on peut tracer
+son graphe sans lever le crayon.
+
+Il est clair que ce n'est pas satisfaisant.
+
+\change
+
+Voici comment on définit qu'une fonction $f$ est continue en un point
+$x_0$.
+
+C'est beaucoup plus aride de prime abord...
+
+\change 
+
+... mais c'est le but de chapitre 
+de rendre cette ligne plus claire
+en introduisant la langage de la logique.
+
+
+\change
+
+Un autre objectif est de distinguer précisément ce qui est vrai de ce qui est faux.
+\og Est-ce qu'une augmentation
+de $20\%$, puis de $30\%$ est plus intéressante qu'une augmentation de $50\%$ ?\fg 
+
+\change
+
+Il ne s'agit pas seulement d'avoir une opinion
+mais d'être capable d'effectuer une démarche logique,
+ceci afin d'en être convaincu et de pouvoir convaincre d'autres personnes.
+
+\change 
+
+Cette démarche s'appelle le raisonnement et sera étudiée
+dans la leçon suivante.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Par définition une \defi{assertion} est une phrase soit vraie, 
+soit fausse, pas les deux en même temps
+
+\change
+
+Voici quelques exemples :
+
+\og Il pleut \fg
+
+\og Je suis plus grand que toi \fg
+
+qui peuvent être vraie ou fausse selon la situation.
+
+\change
+
+Mais aussi $2+2=4$ qui est une assertion vraie.
+
+Alors que \og$2\times 3 = 7$\fg{} est une assertion fausse.
+
+
+\change
+
+On complique les choses avec 
+
+Pour tout $x \in \Rr$, on a $x^2 \ge 0$
+
+qui est une phrase vraie.
+
+Alors que 
+
+Pour tout $z\in \Cc$, on a $|z| = 1$
+
+est une assertion fausse, car ce n'est pas vrai pour tous les complexes.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+A partir d'une assertion $P$ et d'une assertion $Q$
+on définit maintenant l'assertion <<$P$ et $Q$>>.
+
+L'assertion <<$P$ et $Q$>> est vraie si $P$ est vraie et $Q$ est vraie.
+
+L'assertion <<$P$ et $Q$>> est fausse sinon.
+
+
+\change
+
+Une autre façon de définir l'assertion <<$P$ et $Q$>> est de dire
+si cette assertion est vraie ou fausse en fonction de $P$ et de $Q$ :
+
+c'est la table de vérité de <<$P$ et $Q$>> :
+
+\change
+
+- si $P$ est vraie et $Q$ est vraie alors <<$P$ et $Q$>> est vraie ;
+
+\change
+
+- si $P$ est vraie et $Q$ est fausse alors <<$P$ et $Q$>> est fausse ;
+
+\change
+
+De même 
+
+- si $P$ est fausse et $Q$ est vraie alors <<$P$ et $Q$>> est fausse ;
+
+\change
+
+Enfin 
+
+- si $P$ est fausse et $Q$ est fausse alors <<$P$ et $Q$>> est fausse.
+
+\change
+
+Par exemple si $P$ est l'assertion \og Cette carte est un as\fg
+
+et $Q$ l'assertion \og Cette carte est c\oe ur\fg
+
+Alors si la carte est l'as de c\oe ur \og $P$ et $Q$\fg\ est vraie 
+
+Pour toutes les autres cartes l'assertion \og $P$ et $Q$\fg\ est fausse.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On fait la même chose avec le <<ou>> logique.
+
+L'assertion \og $P$ \defi{ou} $Q$\fg\ est vraie si l'une au moins des deux assertions $P$ ou $Q$ est vraie
+
+L'assertion \og $P$ ou $Q$\fg\ est fausse si les deux assertions $P$ et $Q$ sont fausses
+
+
+\change
+
+La table de vérité de cette assertion est donc la suivante :
+
+\change
+
+- si $P$ est vraie et $Q$ est vraie alors <<$P$ ou $Q$>> est vraie ;
+
+\change
+
+- si $P$ est vraie et $Q$ est fausse alors <<$P$ ou $Q$>> est vraie ;
+
+\change
+
+De même 
+
+- si $P$ est fausse et $Q$ est vraie alors <<$P$ ou $Q$>> est vraie ;
+
+\change
+
+Enfin 
+
+- si $P$ est fausse et $Q$ est fausse alors <<$P$ ou $Q$>> est fausse.
+
+
+
+
+\change
+
+Pour notre exemple, l'assertion  \og $P$ ou $Q$\fg\ est vraie si la carte est un as ou bien un c\oe ur
+
+pour toutes les autres cartes l'assertion \og $P$ ou $Q$\fg\ est fausse.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La négation d'une assertion $P$ se définit ainsi :
+
+\og \defi{non} $P$\fg\ est vraie si $P$ est fausse, 
+
+\og \defi{non} $P$\fg\ fausse si $P$ est vraie
+
+La table de vérité s'écrit tout simplement comme cela.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici une notion plus difficile : l'implication.
+
+Si $P$ et $Q$ sont deux assertions alors l'assertion
+
+\og (non $P$) ou $Q$\fg\ s'appelle par définition \og $P \implies Q$\fg
+
+
+Cette assertion <<$P \implies Q$>>  se lit aussi 
+<<si $P$ est vraie alors $Q$ est vraie>>
+
+\change
+
+A partir de cette définition nous pouvons remplir la table de vérité
+de \og $P \implies Q$\fg
+
+
+\change
+
+- si $P$ est vraie et $Q$ est vraie alors \og (non $P$) ou $Q$\fg \ est vraie donc <<$P \implies Q$>> est vraie ;
+
+\change
+
+Par contre si
+  $P$ est vraie et $Q$ est fausse alors \og (non $P$) ou $Q$\fg \ est fausse 
+donc <<$P \implies Q$>> est fausse.
+
+\change
+
+- si $P$ est fausse alors (non $P$) est vraie donc <<$P \implies Q$>> est encore vraie ;
+
+
+
+\change
+
+
+Par exemple 
+ L'assertion  \og $0 \le x \le 25 \implies \sqrt x \le 5$\fg\  est vraie 
+En effet si $x$ est compris entre $0$ et $25$ alors l'assertion $P$ est vraie
+mais on sait aussi alors que $\sqrt x$ est plus petit que $5$ donc l'assertion $Q$ est vraie.
+<<$P \implies Q$>>  est donc vraie dans ce cas
+
+Si maintenant $x$ n'est pas compris entre $0$ et $25$ l'assertion $P$ est donc fausse
+et alors l'assertion <<$P \implies Q$>> est encore vraie (sans même avoir besoin de 
+discuter de l'assertion $Q$).
+
+On résume ainsi : si $x$ est compris entre $0$ et $25$ alors $\sqrt x$ est plus petit que $5$.
+
+\change
+
+De même l'assertion \og $x \in ]-\infty, -4[ \implies x^2+3x-4 > 0$\fg est vraie 
+
+car si on prend un $x$ dans cet intervalle alors par une étude de fonction
+nous avons  bien $x^2+3x-4 > 0$.
+
+\change
+
+Par contre 
+l'assertion \og $\sin(\theta)=0 \implies \theta = 0$\fg est fausse 
+
+en effet prenons $\theta=\pi$ alors 
+comme $\sin \pi = 0$ l'assertion $P$ est vraie.
+
+Par contre l'assertion $Q$ est fausse car $\theta \neq 0$.
+
+$P$ est vraie, $Q$ est fausse l'implication est donc fausse.
+
+Les implications fausses ne nous intéressent pas.
+
+
+En dehors de ce chapitre on n'écrira plus que des implications vraies.
+
+
+\change 
+
+Il y a une autre situation peu intéressante :
+
+ si $P$ est fausse alors l'assertion \og $P \implies Q$\fg est toujours vraie
+
+Cela découle de la définition comme nous l'avons déjà remarqué
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+L'équivalence << $P$ équivaut à $Q$ >>
+est l'assertion \og ($P \implies Q$) \  et \  ($Q \implies P$)\fg
+
+On dira \og $P$ est équivalent à $Q$\fg  ou \og $P$ équivaut à $Q$\fg 
+ou \og $P$ si et seulement si $Q$\fg.
+
+
+\change
+
+Cette assertion est vraie
+lorsque $P$ et $Q$ sont vraies en même temps ou lorsque $P$ et $Q$ sont fausses en même temps.
+
+\change
+
+Par exemple
+
+\og $x\cdot x'=0 \iff (x=0 \text{ ou } x'=0)$\fg est une assertion vraie.
+
+On dira qu'un produit est nul si et seulement si l'un des facteurs est nul.
+
+
+
+Dans toute la suite lorsque l'on écrira une équivalence
+\og $P$ équivaut à $Q$\fg cela signifiera en fait :
+
+l'assertion \og $P$ équivaut à $Q$\fg est vraie.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons voir plusieurs assertions équivalentes.
+
+Tout d'abord les assertions $P$ et $\text{ non}(\text{non}(P))$
+sont équivalentes.
+
+Autrement dit la négation d'une négation de $P$ est $P$ elle même !
+
+
+\change
+
+L'assertion $(P \text{ et } Q)$ est équivalente à l'assertion $(Q \text{ et } P)$
+
+\change
+
+De même pour l'assertion $(P \text{ ou } Q)$ avec $(Q \text{ ou } P)$
+
+
+\change
+
+La négation de l'assertion <<$P$ et $Q$>> est l'assertion 
+$(\text{non } P)  \text{ ou } (\text{non }Q)$
+
+\change
+
+De façon symétrique la négation de <<$P$ ou $Q$>>
+est l'assertion $(\text{non } P)  \text{ et } (\text{non }Q)$
+
+\change
+
+ $\big(P \text{ et } (Q \text{ ou } R)  \big)$
+
+équivaut à  
+$(P \text{ et } Q) \text{ ou } (P \text{ et }  R)$
+
+\change
+
+Et  $\big(P \text{ ou } (Q \text{ et } R)  \big)$ équivaut à
+$(P \text{ ou } Q) \text{ et } (P \text{ ou }  R)$
+
+\change
+
+Et enfin retenez que
+l'assertion
+ \og $P \implies Q$\fg 
+équivaut à l'assertion 
+ \og $\text{non}(Q) \implies \text{non}(P)$\fg
+
+
+On appelle cette dernière assertion la contraposée de \og $P \implies Q$\fg.
+
+Une implication et sa contraposée sont des assertions équivalentes.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voyons comment se prouvent ces équivalences.
+
+Par exemple remplissons la table de vérité de \og $\text{non}(P \text{ et } Q)$\fg 
+
+\change
+
+- si $P$ est vrai et $Q$ est vrai alors <<$P$ et $Q$>> est vrai
+donc \og $\text{non}(P \text{ et } Q)$\fg  est faux.
+
+\change
+
+
+ - si $P$ est vrai et $Q$ est faux alors <<$P$ et $Q$>> est faux
+donc \og $\text{non}(P \text{ et } Q)$\fg  est vrai.
+
+\change
+
+c'est la même chose pour les deux dernières cases.
+
+\change
+
+
+
+Maintenant dressons la table de vérité de l'assertion \og $(\text{non } P)  \text{ ou } (\text{non }Q)$\fg 
+
+\change
+
+- si $P$ est vrai et $Q$ est vrai alors $(\text{non } P)$ est faux, $(\text{non } Q)$ est faux
+donc \og $(\text{non } P)  \text{ ou } (\text{non }Q)$\fg  est faux.
+
+\change
+
+ - si $P$ est vrai et $Q$ est faux alors $(\text{non } P)$ est faux, mais $(\text{non } Q)$ est vrai
+donc  \og $(\text{non } P)  \text{ ou } (\text{non }Q)$\fg  est vrai
+
+\change
+
+on fait pareil pour les autres cases.
+
+
+
+Les tables de vérités des deux assertions sont identiques.
+
+Les assertions sont donc vraies en même temps et fausses
+en mêmes temps, elles sont donc équivalentes.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Une assertion peut dépendre d'une variable $x$
+
+
+Par exemple si on note $P(x)$ l'assertion \og $x^2 \ge 1$\fg
+
+Alors selon la valeur de $x$, $P(x)$ est soit vraie soit fausse.
+
+\change
+
+L'assertion 
+$$\forall x \in E \quad P(x)$$
+est vraie lorsque les assertions $P(x)$ sont vraies pour tous les $x$
+appartenant à l'ensemble $E$
+
+\change
+
+Voici quelques exemples 
+$\forall x \in [1,+\infty[ \quad (x^2\ge 1)$\fg\ est une assertion vraie.
+
+En effet pour tous les $x\ge1$ on bien $x^2 \ge 1$.
+
+
+\change
+
+Par contre l'assertion
+ \og $\forall x \in \Rr \quad (x^2\ge 1)$\fg\
+n'est pas vraie. 
+
+En effet $x^2\ge 1$ n'est pas vraie pour tous les réels $x$.
+
+Par exemple pour $x=0$, $0$ au carré n'est pas plus grand que $1$.
+
+
+
+\change
+
+Dernier exemple :
+il est vrai que pour tout entier 
+$n$ alors $n(n+1)$ est divisible par $2$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La phrase logique 
+$$\exists x \in E \quad P(x)$$
+est une assertion vraie si l'on peut trouver un $x$ de l'ensemble $E$ pour lequel $P(x)$ est vraie
+
+
+\change
+
+Voici des exemples 
+
+\begin{itemize}
+  \item \og $\exists x \in \Rr \quad (x(x-1)<0)$\fg\ est vraie
+par exemple $x=\frac 12$ vérifie bien la propriété.
+
+
+  \item \og $\exists n \in \Nn \quad n^2-n > n$\fg\ est vraie
+
+Il y a plein de choix, par exemple $n=3$ convient, mais aussi $n=10$ ou même
+$n=100$, en trouver un seul suffit pour dire que l'assertion est vraie.
+
+  \item Par contre \og $\exists x \in \Rr \quad (x^2=-1)$\fg\ est fausse
+
+En effet aucun réel au carré ne donnera un nombre négatif.
+\end{itemize} 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons nier les phrases contenant des quantificateur <<pour tout>>
+ou <<il existe>>.
+
+La négation de la phrase logique \og $\forall x \in E \quad P(x)$\fg  
+
+est \ \og $\exists x \in E \quad \text{non } P(x)$\fg
+
+\change
+
+Par exemple : la négation de \og $\forall x \in [1,+\infty[ \quad (x^2\ge 1)$\fg
+
+est  \og $\exists x \in [1,+\infty[ \quad (x^2 < 1)$\fg
+
+\change
+
+
+La négation de \og $\exists x \in E \quad P(x)$\fg \ est 
+
+  \og $\forall x \in E \quad \text{non } P(x)$\fg
+
+
+\change
+
+Voici des exemples :
+
+
+La négation de 
+$\exists z \in \Cc \quad (z^2+z+1 = 0)$
+
+est
+$\forall z \in \Cc \quad (z^2+z+1 \neq 0)$
+
+\change
+
+La négation de 
+$\forall x \in \Rr \quad  (x+1 \in \Zz)$
+
+
+est
+$\exists x \in \Rr \quad (x+1 \notin \Zz)$
+
+
+Remarquez que l'on n'a pas besoin de savoir si une phrase logique est vraie ou fausse
+pour écrire sa négation.
+
+\change
+
+Enfin la négation de 
+$\forall x \in \Rr \quad \exists y >0 \quad (x+y > 10)$ 
+
+est
+$\exists x \in \Rr \quad \forall y > 0 \quad (x+y \le 10)$
+
+En effet la négation de $x+y$ strictement plus grand que $10$
+c'est $x+y$ n'est pas strictement plus grand que $10$.
+Autrement dit $x+y$ est inférieur ou égal à $10$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Terminons avec quelques remarques.
+
+Tout d'abord une remarque essentielle :
+
+les phrases logique se lisent de gauche à droite
+
+et donc l'ordre des quantificateurs est très important.
+
+
+
+Par exemple la phrase
+
+$\forall x \in \Rr \quad  \exists y \in \Rr \quad (x+y>0)$ \quad est vraie
+
+alors que si l'on change l'ordre de $\forall$ et $\exists$ 
+la phrase 
+
+$\exists y \in \Rr \quad \forall x \in \Rr \quad (x+y>0)$ devient fausse.
+
+Réfléchissez bien à la différence entre ces deux phrases.
+
+Dans la première phrase, le $y$ qui existe dépend du $x$ 
+
+Alors que dans la seconde phrase le $y$ devrait être le même pour tous les $x$,
+ce qui n'est pas possible.
+
+\change
+
+
+Quand on écrit \og $\exists x \in \Rr \quad (f(x)=0)$\fg\  cela 
+signifie juste qu'il existe un réel pour lequel $f$ s'annule. Il peut y avoir 
+plusieurs $x$ qui conviennent.
+
+Si vous voulez préciser que $f$ s'annule en une unique valeur, on rajoute un point d'exclamation 
+
+$\exists \mathbf{!}\, x \in \Rr \quad (f(x)=0)$
+
+
+\change
+
+Il faut être précis : la négation de l'inégalité <<strictement inférieur>>
+est <<supérieur ou égal>>.
+
+Inversement la négation d'une inégalité large est une inégalité stricte.
+
+
+\change
+
+Rédiger vos assertions soit par une phrase en français, soit entièrement
+avec des symboles.
+
+Par exemple la phrase 
+
+\og Pour tout réel $x$, si $f(x)=1$ alors $x\ge0$.\fg
+
+est correcte.
+
+Elle s'écrit aussi convenablement à l'aide de quantificateurs  :\\
+$\forall x \in \Rr \quad (f(x)=1 \implies x \ge 0).$
+
+Mais surtout ne mélanger pas les deux !
+
+Les quantificateurs ne sont pas des abréviations.
+
+
+\change
+
+Dans le même genre d'idées n'écrivez pas $\not\!\exists$, $\not\!\!\!\implies$
+qui sont des symboles qui n'existent pas !
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Pour conclure entraînez-vous avec cette série d'exercices.
+
+
+
+\end{document}

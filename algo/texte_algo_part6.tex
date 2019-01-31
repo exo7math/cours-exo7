@@ -1,0 +1,747 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Dans cette leçon nous allons discuter de la notion de complexité des algorithmes.
+
+\change
+
+
+On va tout d'abord se poser la question : Qu'est-ce qu'un algorithme ?
+
+
+\change
+
+
+Nous allons ensuite étudier la complexité des algorithmes à travers l'exemple 
+de l'addition et de la multiplication  des polynômes.
+
+
+\change
+
+Nous terminons avec un algorithme remarquable pour multiplier rapidement deux polynômes.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Mais commençons par une question toute simple : Qu'est ce qu'un algorithme ?
+
+
+\change
+
+La réponse n'est pas si aisée.
+
+Un algorithme est une succession d'instructions qui renvoie un résultat. 
+
+\change
+
+Pour être vraiment un algorithme on doit 
+justifier que le résultat retourné est \evidence{exact} 
+(le programme fait bien ce que l'on souhaite)
+
+\change
+
+
+
+et ceci en un \evidence{nombre fini d'étapes} (cela renvoie le résultat en temps fini).
+
+\change
+
+
+Maintenant certains algorithmes peuvent être plus rapides que d'autres. 
+
+
+\change
+
+
+C'est souvent le temps de calcul qui est le
+principal critère
+
+\change
+
+
+
+Pour certains algorithmes la vitesse d’exécution n'est pas le seul paramètre mais aussi la taille 
+de la mémoire occupée.
+
+
+\change
+
+Le problème avec le temps de calculs c'est qu'il va dépendre 
+du langage et de la machine utilisée. 
+
+\change
+
+Il existe une manière plus mathématique de faire : 
+la \defi{complexité} d'un algorithme
+
+
+\change
+
+c'est le nombre d'opérations élémentaires à effectuer.
+
+\change
+
+Ces opérations peuvent être le nombre d'opérations au niveau du processeur, 
+
+mais pour nous ce sera le nombre d'additions ou le nombre de multiplications
+à effectuer.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voici votre premier travail sur les polynômes,
+
+tout d'abord on représente le polynômes $a_0+a_1X+\cdots + a_n X^n$ 
+sous la forme d'une liste $[a_0,a_1,\ldots,a_n]$.
+
+
+Votre travail consiste ensuite à écrire une fonction qui calcule la somme 
+de deux polynômes.
+
+Ensuite vous devez calculer la complexité de cet algorithme, c'est à dire combien d'additions
+de coefficients sont nécessaires pour additionner deux polynômes de degré $\le n$.
+
+Vous devez faire la même chose pour la multiplication : écrire un algorithme et calculer la complexité :
+cette fois il s'agit surtout de compter combien de multiplications  on effectue sur les coefficients.
+
+Idem pour la division.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour la somme la seule difficulté est de gérer les indices, en particulier on ne peut
+  appeler un élément d'une liste en dehors des indices où elle est définie.
+  
+  Voici le code dans le cas plus simple où $\deg A = \deg B$ :  
+
+  il s'agit juste du calcul des coefficients $a_i+b_i$.
+  
+  \change 
+ 
+ 
+  Une bonne idée consiste à commencer par définir une fonction "degre(poly)"
+  qui renvoie le degré du polynôme (attention aux $0$ non significatifs).
+
+
+\change
+
+ Calculons la complexité de l'algorithme de la somme,
+ 
+ \change
+ 
+ on suppose que $\deg A$ et $\deg B$ sont $ \le n$ 
+ 
+\change
+
+ il faut faire l'addition des coefficients $a_i+b_i$,
+ 
+\change
+
+ ceci  pour $i$ variant de $0$ à $n$ 
+ 
+ 
+\change
+
+On a donc à effectuer $n+1$ additions (sur les entiers ou sur les réels)
+
+et donc la complexité est de $n+1$ additions.
+
+La complexité est ici une fonction qui dépend linéairement du degré des polynômes à additionner.
+
+
+  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour le produit il faut se rappeler que si on note 
+
+$A(X) = \sum a_i X^i$,
+
+et $B(X) = \sum b_j X^j$ 
+
+\change
+
+Alors le produit $C = A \times B$ s'écrit $= \sum_{k=0}^{m+n} c_k X^k$
+
+\change
+
+ le $k$-ème coefficient de $C$ est $c_k = \sum a_i \times b_j$ pour tous les indices $i$ et $j$ 
+ vérifiant $i+j=k$.
+ 
+\change
+
+Voici donc l'algorithme de la multiplication de deux polynômes.
+
+
+Il y a deux boucles :
+
+une première boucle pour faire varier l'indice $k$ du coefficients $c_k$.
+
+Et une deuxième boucle pour mettre en oeuvre la formule du calcul de chaque $c_k$.
+
+
+Dans la pratique on fait attention de ne pas accéder à des coefficients qui n'ont pas été définis.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+ Pour la complexité on commence par compter le nombre de multiplications (dans $\Zz$ ou $\Rr$).
+ 
+\change
+
+ Notons $m = \deg A$ et $n = \deg B$.
+ 
+\change
+
+Chaque coefficient de $A$ va être multiplier une et une seule fois par chaque coefficient de $B$.
+
+ Ainsi il faut multiplier les $m+1$ coefficients de $A$ par les $n+1$ coefficients de $B$ :
+ 
+\change
+
+ il y a donc $(m+1)(n+1)$ multiplications.
+ 
+\change
+
+  
+  Comptons maintenant les additions : 
+  
+ 
+\change
+
+  les coefficients de $A\times B$ sont : 
+  $c_0 = a_0 b_0$, $c_1 = a_0b_1+a_1b_0$, $c_2=a_2b_0+a_1b_1+a_2b_0$,...
+   
+   
+\change
+
+
+  Nous utilisons l'astuce suivante : nous savons que le produit $A\times B$ est de degré $m+n$
+  donc a au plus $m+n+1$ coefficients.
+  
+\change
+
+  chaque addition regroupe deux termes, 
+  
+\change
+  
+Et partant de $(m+1)(n+1)$ produits, 
+  
+nous devons arriver à $m+n+1$ coefficients.
+
+ \change 
+ 
+  Il y a donc $(m+1)(n+1)-(m+n+1) = mn$ additions.
+  
+La complexité de l'algorithme de la multiplication de deux polynômes de degré $m$ et $n$
+est donc de $(m+1) \times (n+1)$ multiplication de coefficients
+
+et de $m \times n$ additions de coefficients.
+
+\change
+
+Par exemple si $A$ et $B$ sont tous les deux de degré $n$ alors le nombre de multiplications sur les coefficients
+vaut $(n+1)^2$ : cela dépend cette fois ci du *carré* des degrés des polynômes.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Je vous rappelle d'abord sur un exemple comment on calcule la division euclidienne de deux polynômes.
+
+On souhaite diviser $A$ par $B$.
+
+\change
+
+On pose une division de polynôme comme une division d'entier.
+
+Ici on va obtenir le quotient et ici le reste.
+
+\change
+
+On les obtient ainsi : 
+
+on cherche quel monôme $P_1$ fait diminuer le degré de $A-P_1B$, 
+
+c'est $2X^2$ 
+
+  (le coefficient $2$ est le coefficient dominant de $A$
+  
+  et le degré $X^2$ correspond à degré de $A$ moins degré de $B$.)
+  
+  
+  On calcule $2X^2$ fois $B$
+  
+\change
+
+
+Et on le soustrait à $A$.
+
+On obtient un reste intermédiaire $R_1=X^3-4X^2+3X-1$.
+
+et un quotient intermédiaire $Q_1 = 2X^2$.
+
+\change
+
+ on recommence avec $R_1$ diviser par $B$,
+ 
+ Il faut multiplier $B$ par $X$ pour faire baisser le degré de $R_1$.
+ 
+
+  
+ 
+\change
+
+  On pose ensuite  $R_2 = R_1-P_2B$ avec $P_2 = X$, $Q_2= Q_1+P_2$,... 
+  
+  
+  Le monôme qui convient est $-3$
+  (le coefficient $-3$ est le coefficient dominant de $R_2$
+  
+  et le degré $X$ est ici $0$ et correspond à degré de $R_2$ moins degré de $B$.) 
+  
+  
+  Et on itérerait ainsi les calculs.
+  
+\change
+
+Quand est-ce que l'on s'arrête ?
+
+C'est terminé lorsque le degré du reste est strictement plus petit que le degré de $B$.
+
+Comme le degré des restes intermédiaires diminue à chaque étape, nous sommes sûr 
+qu'au bout d'un nombre fini d'itération  notre procédure se termine.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici l'algorithme qui traduit notre calcul de la division euclidienne.
+
+En entrée nous avons le polynôme $A$ que l'on souhaite diviser par le polynôme $B$.
+
+On initialise notre quotient intermédiaire au polynôme nul.
+
+Et notre reste intermédiaire est $A$ au départ.
+  
+\change
+
+Nous allons itérer chaque étape tant que le degré du reste est supérieur ou égal au degré de $B$.
+
+  
+\change
+
+A chaque étape nous calculons le monôme qui apparait dans le quotient :
+
+si ce monôme est $c_k X^k$ alors le coefficient $c_k$ est le  coefficient dominant du reste intermédiaire, 
+
+et le degré $k$ correspond au degré du reste intermédiaire moins le degré de $B$.
+
+Ici "monome" est une fonction toute simple qui à partir de $c_k$ et du degré $k$ renvoie le monôme
+$c_k X^k$.
+
+
+\change
+
+On calcule alors le nouveau reste intermédiaire c'est l'ancien reste auquel on soustrait $B$ fois notre monome $P$.
+
+C'est une version un peu simplifiée du code : car il faudrait remplacer  $-P$  par la liste correspondante.
+  
+\change
+
+Le nouveau quotient intermédiaire est la somme de l'ancien quotient avec notre monôme $P$.
+
+\change
+
+Et c'est fini !
+
+Lorsque le degré du reste intermédiaire est strictement inférieur au degré de $B$ alors la condition
+de notre boucle n'est plus vérifiée. Et on renvoie à la fois le quotient et le reste..
+
+%   
+% Pour simplifier l'écriture de cette algorithme nous avons supposer que 
+% 
+% $B$ est un polynôme unitaire (c-a-d son coefficient de plus haut degré est $1$)
+% 
+% Par exemple si $A$ et $B$ ont des coefficients entiers et que $B$ est unitaire
+% alors cela entraine que $Q$ et $R$ ont aussi des coefficients entiers.
+% 
+% Nous l'avons implicitement prouver par cet algorithme car nous n'avons jamais fait de division : 
+% seulement des addition et multiplications.
+
+Je vous laisse calculer la complexité la division euclidienne, qui se calcule comme successions de
+sommes et de produits de polynômes.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous avons vu qu'avec la façon classique de multiplier deux polynômes la complexité 
+est de l'ordre du carré des degrés.
+
+\change
+
+Pour diminuer la complexité de la multiplication de polynômes, 
+on va utiliser un paradigme très classique de programmation :
+\og diviser pour régner \fg. 
+
+\change
+
+Que l'on illustre ici avec l'algorithme de Karatsuba.
+
+\change
+
+Pour cela, on suppose que les deux polynômes  $P$ et $Q$  à multiplier
+sont de degrés strictement inférieurs à $2n$.
+
+\change
+
+On va décomposer chacun d'eux en deux polynômes de degré strictement inférieur à $n$ ainsi.
+
+$P = P_1 + P_2 \cdot X^n$
+
+et 
+
+$Q = Q_1 + Q_2 \cdot X^n$
+
+\change
+
+avec les degrés de $P_1$, $P_2$, $Q_1$ et $Q_2$ strictement inférieurs à $n$.
+
+\change
+
+Voici votre travail :
+
+Première question : réduire la multiplication de $P$ et $Q$ à plusieurs 
+multiplications de polynômes mais qui sont tous strictement inférieurs à $n$.
+
+Vous vous aiderez bien sûr de cette décomposition.
+
+Deuxième question que je vous laisse traiter tout seul : mettre en oeuvre cette idée 
+dans un algorithme récursif.
+
+On peut calculer la complexité de cet algorithme mais, pas de chance, il est aussi
+d'ordre le carré des degrés comme la multiplication classique.
+
+L'idée lumineuse de Karatsuba est que les quatre multiplications 
+que l'on a trouvé dans la formule de la question $1$ se ramène à seulement $3$,
+
+par la remarque suivante 
+
+$P_1 \cdot Q_2 + P_2 \cdot Q_1 = (P_1 + P_2 ) \cdot (Q_1 + Q_2 ) - P_1 Q_1 - P_2 Q_2$
+
+
+Comme on a déjà eu besoin de calculer $P_1Q_1$ et $P_2Q_2$,
+
+on échange deux multiplications et une addition
+
+contre une multiplication et quatre additions.
+
+A vous d'écrire une fonction récursive qui met en oeuvre cette nouvelle façon de multiplier.
+
+Pour conclure essayer de calculer la complexité de l'algorithme de Karatsuba.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+On part d'un polynôme $P$ de degré strictement inférieurs à $2n$,
+
+il existe une unique écriture de $P$ sous la forme $P = P_1 + P_2 X^n $
+
+avec $P_1$ et $P_2$ deux polynômes de degré strictement inférieurs à $n$.
+
+On fait la même chose pour $Q$.
+
+\change
+
+Nous souhaitons calculer le produit $P\times Q$. Nous utilisons cette décomposition  
+et nous développons.
+
+\change
+
+On obtient $P\times Q= P_1 Q_1 + X^n \cdot (P_1 Q_2 + P_2 Q_1 ) + X^{2n} \cdot P_2 Q_2$
+
+\change
+
+On se ramène ainsi aux quatre multiplications $P_1 Q_1$ , $P_1 Q_2$ , $P_2 Q_1$ et $P_2 Q_2$ 
+mais entre polynômes de degrés strictement inférieurs à $n$,
+
+
+\change
+
+
+
+il y a aussi deux multiplications par $X^n$ et $X^{2n}$ qui ne  compte pas comme des vraies multiplications.
+
+Ce ne sont que des décalage dans l'écriture d'un polynôme par des ajouts de zéros en tête de liste.
+
+\change
+
+On pourrait programmer un algorithme récursif à l'aide de cette formule :
+
+multiplier deux polynômes d'un certain degré revient à faire $4$ multiplications avec des degrés moitiés.
+
+La complexité vérifie donc $C(n) = 4C(n/2)$ + des termes négligeables. La solution de cette formule de récurrence
+serait  $C(n) = O(n^2)$ c'est-à-dire du même ordre que la multiplication classique, une fonction en 
+le carré du degré.
+ 
+ 
+
+\change
+
+Reprenons alors l'astuce de Karatsuba :
+
+\change
+
+le terme intermédiaire dans le produit développé $P \cdot Q$ se réécrit 
+$$P_1 \cdot Q_2 + P_2 \cdot Q_1 = (P_1 + P_2 ) \cdot (Q_1 + Q_2 ) - P_1 Q_1 - P_2 Q_2$$
+
+\change
+
+On calcule donc d'abord $P_1Q_1$ et aussi $P_2Q_2$ ce qui nous fait deux multiplications.
+
+Au lieu de calculer $P_1 \cdot Q_2 + P_2 \cdot Q_1$ ce qui ferait deux autres multiplications,
+
+On fait une troisième multiplication qui est $(P_1 + P_2 ) \cdot (Q_1 + Q_2 )$
+
+et on soustrait les deux produits déjà calculés.
+
+
+
+On est passé des $4$ multiplications à seulement $3$ multiplication entre polynômes de degré $<n$, 
+ce qui est un gain très appréciable.
+
+\change
+
+Pour écrire l'algorithme nous aurons besoin d'écrire une fonction de découpage
+qui pour un entier $n$ et un polynôme $P$ de degré strictement inférieur à $2n$ 
+renvoie $P_1$ et $P_2$ de sorte que $P = P_1 + X^n P_2 $
+
+\change
+  
+   On a aussi besoin d'une fonction "produit-par-un-monome(P,n)" qui renvoie
+ le polynôme $X^n \cdot P$ par un décalage dans la liste représentant $P$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici l'algorithme de Karatsuba.
+
+Nous allons écrire une fonction "produit-rapide"
+qui en entrée prend les deux polynômes $P$ et $Q$ et 
+en sortie renvoie leur produit.
+
+On va noter petit $p$ le degré du polynôme  $P$ et petit $q$ celui de $Q$.
+
+\change
+
+Ce sera un algorithme récursif,
+
+et voici la condition d'initialisation (qui en en fait est celle qui termine l'algorithme).
+
+Si le degré de $P$ est zéro, c'est-à-dire $P$ est un polynôme cst
+alors le produit $P$ fois $Q$ est juste la constante $P$ fois le polynôme $Q$.
+
+Même chose si c'est $Q$ qui est le polynôme cst.
+
+
+\change
+
+On découpe maintenant nos deux polynômes $P$ et $Q$. On choisit d'abord $n$ de sorte 
+$P$ et $Q$ soient de degré strictement inférieur à $2n$.
+
+Puis on utilise une fonction "decoupe" que l'on programmé auparavant. 
+On obtient $P_1, P_2$ et aussi $Q_1,Q_2$ de degré strictement inférieur à $n$.
+
+\change
+
+Nous avons maintenant des produits à calculer : 
+
+
+tout d'abord le produit de $P_1 \times Q_1$.
+
+Pour cela nous effectuons un appel récursif à notre propre fonction sachant que les degrés
+des polynômes à multiplier sont maintenant plus petits.
+
+Idem pour $P_2 \times Q_2$.
+
+\change
+
+
+Il nous reste le troisième et dernier produit qui est $(P_1 + P_2 ) \cdot (Q_1 + Q_2 )$
+
+
+\change
+
+Le gros du travail est fini il ne reste plus qu'à 
+appliquer la formule qui donne le produit $P \times Q$.
+
+On note $R_1$ le polynôme $(P_1 + P_2 ) \cdot (Q_1 + Q_2 ) - P_1 Q_1 - P_2 Q_2$
+
+(ici j'ai encore triché car on n'a pas le droit d'écrire directement l'opposé d'un polynôme.)
+
+\change
+
+On multiplie $R_1$ par $X^n$ (c'est juste un décalage par ajout de $0$ dans la liste).
+
+\change
+
+On multiplie aussi $P_2Q_2$ par $X^{2n}$ (encore un décalage).
+
+\change
+
+Le produit $P\times Q$ est alors la somme de $P_1\times Q_1 + R_1 + R_2$.
+
+Et c'est terminé.
+
+Il y a donc trois appels récursifs qui correspondent aux trois multiplications de Karatsuba.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons calculer la complexité de l'algorithme de Karatsuba et 
+voir qu'elle est meilleure que la multiplication habituelle.
+
+
+
+Notons $C(n)$ la complexité de la multiplication par l'algorithme de Karatsuba de 
+deux polynômes de degrés strictement inférieurs à $n$. 
+
+\change
+
+ Il y a tout d'abord trois appels récursifs qui font intervenir des polynômes en degré moitié.
+ 
+\change
+
+Il y a aussi des opérations rapides : qui ont une complexité qui varie linéairement avec le degré :
+
+c'est le cas du calcul du degré d'un polynôme, de l'opération de découpage,
+
+et des différentes additions.
+
+\change
+
+Pour la complexité cela signifie que la complexité $C(n)$ vaut $3$ fois la complexité
+en degré moitié + des termes petits. 
+
+On pourrait omettre les termes petits mais ici on va les converser : $\gamma$; 
+est une constante qui vaut en fait ici
+$15/2$ et englobe toutes ces opérations.
+
+
+Nous avons un sorte de formule de récurrence entre $C(n)$ et $C(n/2)$.
+
+
+\change
+
+
+Pour en déduire la valeur de $C(n)$ nous allons introduire une suite intermédiaire $\alpha_\ell$ en posant
+
+$\alpha_\ell= \frac{C(2^\ell)}{3^\ell}$
+
+\change
+
+et par définition $\alpha_0 = C(1)=1$.
+
+\change
+
+Que donne notre relation de récurrence pour $\alpha_\ell$ :
+
+$\alpha_\ell$ c'est  $\frac{C(2^\ell)}{3^\ell}$ et donc par la relation de récurrence c'est 
+$= \frac{3 C(2^{\ell}/2)}{3^\ell} + \frac{\gamma 2^\ell}{3^\ell}$
+
+\change
+
+Ce qui donne exactement $ \alpha_{\ell-1} + \gamma \left( \frac23  \right)^\ell$
+
+\change
+
+Il est maintenant très facile de calculer $\alpha_\ell$ :
+
+ $\alpha_\ell = \gamma \sum_{k=1}^\ell \left( \frac23  \right)^{k}+\alpha_0 $
+ 
+ \change
+ 
+ et comme $\alpha_0=1$ on reconnait la somme d'une suite géométrique de raison $2/3$ qui vaut  : 
+ $3\gamma\left( 1 -  \left( \frac23  \right)^{\ell+1} \right) +1-\gamma$
+ 
+\change
+
+Revenons à $C(n)$,
+
+\change
+
+en posant $n=2^\ell$
+
+\change
+
+$C(n)=C(2^\ell)$ qui vaut $3^\ell \alpha_\ell$
+
+\change
+
+et par ce que nous venons de calculer cela donne :
+
+$C(2^\ell) = \gamma (3^{\ell+1}-2^{\ell+1}) +(1-\gamma)3^\ell$
+
+
+\change
+
+Et donc $C(n)$ est de l'ordre de $3^\ell$, 
+
+$O(3^\ell)$ représente une suite qui est plus petit qu'une constante fois $3^\ell$.
+
+\change
+
+
+Mais $3^\ell$ c'est $\exp (\ell \ln 3)$ que l'on récrit $\exp (\ell \ln 2 \times \ln 3 / \ln 2)$
+
+qui est donc $2^{\ell \frac{\ln 3}{\ln 2}}$ 
+
+\change
+
+mais comme $2^\ell=n$ 
+
+la complexité $C(n)$ est un $O(n^\frac{\ln 3}{\ln 2})$.
+
+\change
+
+En conclusion la complexité de la multiplication de Karatsuba est 
+$O(n^\frac{\ln 3}{\ln 2})$ 
+
+c'est à dire que pour multiplier deux polynômes de degré $n$
+
+la complexité est de l'ordre de $n^{1.585}$ ce qui est beaucoup mieux que $n^2$ !
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici des exercices pour continuer à progresser !
+
+
+\end{document}

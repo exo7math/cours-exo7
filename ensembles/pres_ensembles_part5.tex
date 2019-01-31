@@ -1,0 +1,342 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={153,0,0}]{structure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{{\bf Ensembles et applications}}
+\subtitle{Relation d'équivalence}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition
+    \item<4-> Exemples
+    \item<5-> Classes d'équivalence
+    \item<6-> L’ensemble $\Zz/n\Zz$
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+\setcounter{framenumber}{0}
+
+%---------------------------------------------------------------
+\section{Relation d'équivalence}
+
+\begin{frame}
+
+
+
+Une \defi{relation} $\mathcal{R}$ sur un ensemble $E$, c'est associer à tout couple 
+$(x,y)\in E \times E$ la valeur <<Vrai>> (s'ils sont en relation) et la valeur <<Faux>> sinon
+
+\pause
+
+On note $x\mathcal{R}y$ si $x$ et $y$ sont en relation 
+
+\pause
+
+\myfigure{1.5}{
+\tikzinput{fig_ensembles18} 
+}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{mydefinition}
+$\mathcal{R}$ est une \defi{relation d'équivalence} si
+\begin{itemize}
+  \item $\forall x \in E$, $x \mathcal{R}x$ \qquad  (\defi{réflexivité})
+
+ 
+
+\uncover<3->{
+  \item $\forall x,y \in E$, $x \mathcal{R}y \implies y\mathcal{R}x$ \qquad  (\defi{symétrie})
+}
+
+
+
+\uncover<5->{
+  \item $\forall x,y,z \in E$, $x \mathcal{R}y \text{ et }  y\mathcal{R}z \implies x\mathcal{R}z$ \qquad  (\defi{transitivité}) 
+}
+\end{itemize}
+\end{mydefinition}
+
+\bigskip
+
+\begin{minipage}{0.5\textwidth}
+\myfigure{1.3}{
+\uncover<2->{\tikzinput{fig_ensembles19a} \;}
+\uncover<4->{\tikzinput{fig_ensembles19b} \;}
+\uncover<6->{\tikzinput{fig_ensembles19c} }
+}  
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+\myfigure{1}{
+\uncover<7->{\tikzinput{fig_ensembles19} }
+}  
+\end{minipage}
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Exemples}
+
+\begin{frame}
+
+\begin{exemple}
+La relation $\mathcal{R}$ <<\emph{être parallèle}>> est une relation d'équivalence 
+pour l'ensemble $E$ des droites du plan
+
+\pause
+
+  \begin{itemize}
+    \item réflexivité : une droite est parallèle à elle-même
+\pause
+    \item symétrie : si $D$ est parallèle à $D'$ alors $D'$ est parallèle à $D$
+\pause
+    \item transitivité : si $D$ parallèle à $D'$ et $D'$ parallèle à $D''$ 
+alors $D$ est parallèle à $D''$
+  \end{itemize}
+\end{exemple}
+
+\pause
+
+\begin{exemple}
+\begin{enumerate}
+  \item La relation <<\emph{être du même âge}>> est une relation d'équivalence
+
+\pause
+  
+  \item La relation <<\emph{être perpendiculaire}>> n'est pas une relation d'équivalence 
+ 
+\pause
+
+  \item La relation $\le$ (sur $E=\Rr$ par exemple) n'est pas une relation d'équivalence
+
+\end{enumerate}
+\end{exemple}
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Classes d'équivalence}
+
+\begin{frame}
+
+Soit $E$ un ensemble et $\mathcal{R}$ une relation d'équivalence sur $E$
+
+\begin{mydefinition}
+La \defi{classe d'équivalence} de $x \in E$ est 
+\myboxinline{$\text{cl}(x) = \big\{ y  \in E \mid y\mathcal{R}x \big\}$}
+\end{mydefinition}
+
+\pause
+
+\myfigure{1}{
+\tikzinput{fig_ensembles20} 
+}
+
+\pause
+
+\end{frame}
+
+%---------------------------------------------------------------
+
+\begin{frame}
+
+L’ensemble $\text{cl}(x)$ est un sous-ensemble de $E$, on le note aussi $\overline{x}$
+
+\pause
+\medskip
+
+Si $y\in\text{cl}(x)$, $y$ est un \defi{représentant} de $\text{cl}(x)$
+
+\pause
+\medskip
+
+\begin{proposition}
+\begin{enumerate}
+  \item $x\mathcal{R}y  \Longleftrightarrow  \text{cl}(x)=\text{cl}(y)$
+
+\pause
+
+  \item Pour tout $x,y \in E$, $\text{cl}(x)=\text{cl}(y)$ ou 
+$\text{cl}(x) \cap \text{cl}(y) = \varnothing$
+
+\pause
+
+  \item Soit $C$ un ensemble de représentants de toutes les classes 
+alors $\big\{ \text{cl}(x) \mid x \in C \big\}$
+forme une partition de $E$
+\end{enumerate} 
+\end{proposition}
+
+
+\pause
+\bigskip
+
+\begin{minipage}{0.5\textwidth}
+Une \defi{partition} de $E$ est un ensemble $\{E_i\}$ de parties de $E$ tel que \\
+$E = \bigcup_i E_i$ et $E_i\cap E_j = \varnothing$ (si $i\neq j$)  
+\end{minipage}\quad\quad
+\begin{minipage}{0.39\textwidth}
+\myfigure{1}{
+\tikzinput{fig_ensembles21} 
+}  
+\end{minipage}
+
+
+
+\end{frame}
+
+%---------------------------------------------------------------
+
+\begin{frame}
+
+\begin{exemple}
+Pour la relation <<\emph{être du même âge}>>, la classe d'équivalence d'une personne est l'ensemble
+des personnes ayant le même âge 
+\pause
+  \begin{itemize}
+    \item On est dans la même classe d'équivalence si et seulement si on est du même âge
+
+\pause
+    \item Deux personnes appartiennent soit à la même classe, soit à des classes disjointes
+
+\pause
+    \item Si on choisit une personne de chaque âge possible, cela forme un ensemble de représentants $C$
+
+Une personne quelconque appartient à une et une seule classe d'un des représentants
+  \end{itemize}
+
+\end{exemple}
+
+\pause
+
+\begin{exemple}
+Pour la relation <<\emph{être parallèle}>>, la classe d'équivalence d'une droite est l'ensemble des droites parallèles.
+À chaque classe d'équivalence correspond une et une seule direction
+\end{exemple}
+
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{L'ensemble $\Zz/n\Zz$}
+
+\begin{frame}
+Soit $E = \Zz$, fixons $n\ge 2$. On définit la relation :
+\mybox{$a \equiv b \pmod n \quad \Longleftrightarrow \quad a-b \text{ est un multiple de } n$}
+
+\pause
+\bigskip
+
+Exemple ($n=7$) \quad
+\begin{tabular}{ll}
+$10 \equiv 3 \pmod 7$ & \pause $19 \equiv 5 \pmod 7$ \\ \pause
+$77 \equiv 0 \pmod 7$ & \pause $-1 \equiv 20 \pmod 7$ \\
+\end{tabular}
+
+\pause
+\bigskip
+
+C'est une relation d'équivalence
+
+\pause
+
+\begin{itemize}
+  \item $a\equiv a \pmod n$
+
+\pause
+
+  \item Si $a \equiv b \pmod n$ alors il existe $k\in \Zz$ tel que
+$a-b=kn$ donc $b-a = (-k)n$ et ainsi $b\equiv a \pmod n$
+
+\pause
+
+  \item Si $a \equiv b \pmod n$ et $b \equiv c \pmod n$ 
+
+on écrit $a-b=kn$ et $b-c=k'n$
+
+D'où $a-c = (a-b) + (b-c) = (k+k')n$ donc $a \equiv c \pmod n$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+$$\text{cl}(a)=\overline a = \big\{ b \in \Zz \mid b \equiv a \pmod n \big\}$$
+\pause
+\vspace*{-3ex}
+\mybox{$\overline a = \big\{ a+kn \mid k\in \Zz \big\}= a + n\Zz $}
+
+\pause
+
+$$\overline n = \overline 0,\quad  \overline {n+1} = \overline 1, \quad \overline {n+2} = \overline 2, \ldots$$
+
+\pause
+
+Il y a $n$ classes d'équivalence
+\mybox{$\Zz/n\Zz = \big\{ \overline 0, \overline 1, \overline 2, \ldots, \overline{n-1} \big\}$}
+
+\pause
+
+Exemple $\Zz/7\Zz = \big\{  \overline 0, \overline 1, \overline 2,\ldots, \overline{6} \big\}$
+
+\pause
+
+\qquad $\overline 0 = \{\ldots,-7,0,7,14,21,\ldots\} = 7\Zz$ \only<9->{$= \overline 7$}
+
+\pause
+
+\qquad $\overline 1 = \{\ldots, -6, 1, 8, 15, \ldots \} = 1+ 7\Zz$
+
+\pause
+
+\qquad \ldots 
+
+\qquad $\overline 6 = \{\ldots,-8, -1, 6, 13, \ldots \} = 6+7\Zz$
+
+\pause % pour \only<5->
+
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Montrer que la relation définie sur $\Nn$ par $x \mathcal{R} y \iff \frac{2x+y}{3} \in \Nn$ est une relation d'équivalence.
+Montrer qu'il y a $3$ classes d'équivalence.
+
+  \item Dans $\Rr^2$ montrer que la relation définie par $(x,y) \mathcal{R} (x',y') \iff x+y'=x'+y$ est une relation d'équivalence.
+Montrer que deux points $(x,y)$ et $(x',y')$ sont dans une même classe si et seulement s'ils appartiennent à une même droite 
+dont vous déterminerez la direction.
+
+  \item On définit une addition sur $\Zz/n\Zz$ par $\overline{p} + \overline{q}= \overline{p + q}$.
+Calculer la table d'addition dans $\Zz/6\Zz$ (c'est-à-dire toutes les sommes $\overline{p} + \overline{q}$
+pour $\overline{p},\overline{q} \in \Zz/6\Zz$). Même chose avec la multiplication $\overline{p}\times \overline{q}= \overline{p\times q}$.
+Mêmes questions avec $\Zz/5\Zz$, puis $\Zz/8\Zz$.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+
+\end{document}

@@ -1,0 +1,339 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={153,51,0}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{{\bf Fonctions usuelles}}
+\subtitle{Logarithme et exponentielle}
+
+
+
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Logarithme
+    \item<4-> Exponentielle
+    \item<5-> Puissance et comparaison
+%    \item<6-> 
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+\setcounter{framenumber}{0}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Logarithme}
+
+\begin{frame}
+
+
+\begin{proposition}
+Il existe une unique fonction, le \defi{logarithme} $\ln : ]0,+\infty[ \to \Rr$ tel que :
+$$\ln'(x) = \frac 1x \quad (\text{pour tout } x>0) \qquad \text { et } \qquad \ln(1) = 0$$
+\end{proposition}
+
+\myfigure{0.9}{
+\tikzinput{fig_usuelles02}
+}
+\end{frame}
+
+
+\begin{frame}
+\begin{proposition}
+\begin{enumerate}
+  \item $\ln (a \times b) = \ln a + \ln b$
+\uncover<2-> {  \item  $\ln(\frac 1 a) = - \ln a$}
+\uncover<3-> {  \item $\ln(a^n) = n \ln a$}
+\uncover<4-> {   \item $\ln$ est continue, strictement croissante et définit une bijection de
+$]0,+\infty[$ sur $\Rr$ }
+\uncover<5-> {  \item $\lim_{x\to0}\frac{\ln(1+x)}{x} = 1$}
+\uncover<6-> {  \item la fonction $\ln$ est concave et $\ln x \le x-1$ (pour tout $x>0$)}
+\end{enumerate}
+\end{proposition} 
+
+\myfigure{0.5}{
+\tikzinput{fig_usuelles02}
+}
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{itemize}
+  \item $\ln x$ s'appelle le \defi{logarithme naturel} ou \defi{logarithme  néperien} \\
+\pause
+  Il est caractérisé par $\ln(e)=1$
+\pause  
+  \item On définit le \defi{logarithme en base $a$} par 
+\mybox{$\displaystyle \log_a(x) = \frac{\ln(x)}{\ln(a)}$}
+\pause  
+De sorte que $\log_a(a)=1$
+\pause  
+  \item Pour $a=10$, le \defi{logarithme décimal} $\log_{10}$ 
+$$\log_{10} (10)=1 \quad \text{ et } \quad  \log_{10}(10^n)=n$$
+\pause  
+\vspace*{-3ex}
+\mybox{$x=10^y \iff y = \log_{10}(x)$}
+\pause    
+  \item Le logarithme en base $2$ : $\log_2(2^n)=n$
+  
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\begin{proof}  
+\begin{enumerate}
+\setcounter{enumi}{-1}
+  \item 
+
+L'existence et l'unicité viennent de la théorie de l'intégrale :  
+  $\ln(x) = \int_1^x \frac1t \, dt$
+  
+\pause
+
+
+  \item Montrons $\ln(xy)=\ln(x)+\ln(y)$
+  \begin{itemize}
+  
+\pause  
+  
+    \item Posons $f(x)=\ln(xy)-\ln(x)$ où $y>0$ est fixé
+  
+\pause    
+    
+    \item Alors $f'(x)=y\ln'(xy)-\ln'(x)=\frac{y}{xy}-\frac1x = 0$
+   
+\pause   
+    \item $x \mapsto f(x)$ a une dérivée nulle, 
+  donc est constante 
+  
+\pause  
+  
+    \item Ainsi $f(x)=f(1) =\ln(y)-\ln(1)=\ln(y)$
+  
+\pause    
+    
+    \item Donc $\ln(xy)-\ln(x)=\ln(y)$
+  \end{itemize}
+\pause  
+  
+\setcounter{enumi}{5}  
+
+ 
+  \item Montrons $\ln x \le x-1$
+  
+\pause  
+    \begin{itemize}
+      \item $f(x) =  x-1 - \ln x$
+  
+\pause      
+      \item $f'(x)= 1 -\frac1x$
+  
+\pause      
+      \item \'Etude de fonction : $f$ atteint son minimum en $x_0=1$
+   
+\pause     
+      \item Donc $f(x) \ge f(1)=0$ et ainsi $\ln x \le x-1$
+    \end{itemize}
+\qedhere
+  
+\end{enumerate}
+
+  
+\end{proof}  
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exponentielle}
+
+\begin{frame}
+
+\begin{mydefinition}
+La bijection réciproque de $\ln : ]0,+\infty[ \to \Rr$ est l'\defi{exponentielle}  
+$$\exp : \Rr \to   ]0,+\infty[$$
+\end{mydefinition}
+
+On note aussi $e^x$ pour $\exp x$
+
+\myfigure{0.9}{
+\tikzinput{fig_usuelles03}
+}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{proposition}
+
+\begin{itemize}
+  \item \myboxinline{$\exp(\ln x) = x$ \quad $\forall x >0$} 
+\uncover<2->{  et \myboxinline{$\ln(\exp x) = x$ \quad $\forall x \in \Rr$} }
+
+\uncover<3->{   \item $\exp(a+b) = \exp(a) \times \exp(b)$}
+
+\uncover<4->{   \item $(\exp x)^n = \exp(nx)$}
+
+\uncover<5->{   \item $\exp : \Rr \to   ]0,+ \infty[$ est continue, strictement croissante}
+
+\uncover<6->{   \item L'exponentielle est dérivable \quad et \quad $\exp' x = \exp x$}
+
+\uncover<7->{   \item Elle est convexe \quad et \quad $\exp x \ge 1+x$ }
+\end{itemize}
+\end{proposition}
+\vspace*{-1ex}
+\myfigure{0.5}{
+\tikzinput{fig_usuelles03}
+}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{proof}
+$$\exp'(x) = \exp x$$\pause
+$$\ln(\exp x)=x 
+\pause \quad \implies\quad  \exp'(x) \times \ln'(\exp x) = 1 
+\pause \quad \implies\quad  \exp'(x) \times \frac{1}{\exp x} = 1$$
+\pause$$\implies \exp'(x) = \exp x$$
+\end{proof}
+
+\medskip
+
+\begin{minipage}{0.6\textwidth}
+\begin{itemize}
+\uncover<6->{    \item La fonction exponentielle est l'unique fonction qui vérifie 
+$\exp'(x) = \exp(x)$ (pour tout $x\in \Rr$) et $\exp(1) = e$ }
+  
+\uncover<7->{   \item $e \simeq 2,718\ldots$ est le nombre qui vérifie $\ln e = 1$ }
+\end{itemize}  
+\end{minipage}
+\begin{minipage}{0.29\textwidth}
+\uncover<6->{  \myfigure{0.5}{
+\tikzinput{fig_usuelles03}
+}  }
+\end{minipage}
+
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Puissance et comparaison}
+
+\begin{frame}
+
+
+Par définition, pour $a>0$ et $b\in \Rr$,
+\mybox{$\displaystyle a^b = \exp\big(b \ln a\big)$}
+
+\pause
+
+\begin{remarque}
+\begin{itemize}\setlength{\itemsep}{7pt} 
+  \item $\sqrt a = a^\frac12 = \exp\big( \frac12 \ln a\big)$
+\pause
+  \item $\sqrt[n] a = a^\frac1n = \exp\big( \frac1n \ln a\big)$ : la \defi{racine $n$-ième} de $a$
+\pause  
+  \item Notation $e^x = \exp x$ se justifie par : $e^x =  \exp\big(x \ln e \big) = \exp(x)$
+\pause
+  \item 
+  \begin{itemize}
+    \item Les fonctions $x \mapsto a^x$ s'appellent aussi des fonctions exponentielles
+\pause    
+    \item On se ramène à l'exponentielle par $a^x = \exp(x \ln a)$
+\pause    
+    \item Ne pas les confondre avec les fonctions puissances $x \mapsto x^a$
+  \end{itemize}
+\end{itemize}
+\end{remarque}
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{proposition}
+$$\lim_{x\to +\infty} \frac{\ln x}{x} = 0 
+\pause \qquad \text{ et }  \qquad 
+\lim_{x\to +\infty} \frac{\exp x}{x} = +\infty$$
+\end{proposition}
+
+\pause
+
+\myfigure{0.65}{
+\tikzinput{fig_usuelles04}
+}
+\end{frame}
+
+
+\begin{frame}
+
+
+$$\lim_{x\to +\infty} \frac{\ln x}{x} = 0$$
+\pause
+\begin{proof}
+\begin{itemize}
+  \item On a vu $\ln x \le x-1$ donc $\ln x \le x$
+\pause  
+  \item Donc $\frac{\ln \sqrt x}{\sqrt x} \le 1$
+\pause  
+  \item 
+  $$0 \le \frac{\ln x}{x} = \frac{\ln \left(\sqrt{x}^2\right)}{x} = 2 \frac{\ln \sqrt x}{x} 
+  = 2 \frac{\ln \sqrt x}{\sqrt x} \frac{1}{\sqrt x} \le \frac{2}{\sqrt x}$$
+\pause  
+  \item Ainsi $\displaystyle \lim_{x\to +\infty} \frac{\ln x}{x} = 0$
+\end{itemize}
+\end{proof}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Mini-exercices}
+
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Montrer que $\ln(1+e^x) = x + \ln(1+e^{-x})$, pour tout $x \in \Rr$.
+  
+  \item \'Etudier la fonction $f(x)=\ln(x^2+1)-\ln(x)-1$. Tracer son graphe. Résoudre l'équation 
+  $(f(x)=0)$. Idem avec $g(x)=\frac{1+\ln x}{x}$. Idem avec $h(x)=x^x$.
+  
+  \item Expliquer comment $\log_{10}$ permet de calculer le nombre de chiffres d'un entier $n$.
+  
+  \item Montrer $\ln(1+x) \ge x-\frac{x^2}{2}$ pour $x\ge0$ (faire une étude de fonction). Idem avec
+  $e^x \ge 1+x+\frac{x^2}{2}$ pour tout $x \ge 0$.
+  
+  \item Calculer la limite de la suite définie par $u_n=\left(1+\frac1n\right)^n$ lorsque $n\to +\infty$. 
+  Idem avec $v_n=\left(\frac1n\right)^n$ et $w_n=n^{\frac1n}$.
+\end{enumerate}
+\end{miniexercice}
+
+
+\end{frame}
+
+\end{document}

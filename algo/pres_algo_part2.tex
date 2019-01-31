@@ -1,0 +1,587 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={192,41,0}]{structure}
+
+% Commande spécifique à ce chapitre
+
+\newcommand{\Python}{\texttt{Python}}
+\renewcommand{\evidence}[1]{{\color{blue}\textbf{#1}}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+\newcounter{myi}
+\newcounter{myx}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Algorithmes et mathématiques}}
+\subtitle{\'Ecriture des entiers}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Division euclidienne, calculs avec les modulo
+    \item<4-> \'Ecriture des nombres en base $10$
+    \item<5-> Module \codeinline{math}
+    \item<6-> \'Ecriture des nombres en base $2$ 
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Division euclidienne et reste, calcul avec les modulo}
+
+\begin{frame}
+
+La division euclidienne de $a$ par $b$ ($a \in \Zz$, $b \in \Zz^*$) est 
+\mybox{$a = bq+r \quad \text{ et } \quad 0 \le r < b$}
+
+\pause
+
+\begin{itemize}
+  \item $q \in \Zz$ est le \defi{quotient} \pause  \qquad \codeinline{a // b}
+\pause
+  \item $r \in \Nn$ est le \defi{reste} \pause \qquad \codeinline{a \% b}
+\pause
+  \item Exemple
+  \begin{itemize}
+    \item \codeinline{14 // 3} retourne $4$
+\pause
+    \item \codeinline{14 \% 3} retourne $2$
+\pause
+    \item $14 = 3 \times 4 + 2$
+\pause
+    \item Test de pair/impair \codeinline{if (n\%2 == 0): ... else: ...}
+\pause
+    \item Discussion $\cos( n\frac\pi2)$ suivant \codeinline{n\%4}
+  \end{itemize}  
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{tp}
+Combien y-a-t-il d’occurrences du chiffre $1$ dans les nombres de $1$ à $999$ ?   
+Par exemple le chiffre $1$ apparaît une fois dans $51$ mais deux fois dans $131$.
+\end{tp}
+
+\pause
+
+\begin{algo}[nb-un.py]
+\small
+\begin{lstlisting}
+NbDeUn = 0
+for N in range(1,999+1):
+    ChiffreUnite = N % 10              |\pause|
+    ChiffreDizaine = (N // 10) % 10    |\pause|
+    ChiffreCentaine = (N // 100) % 10  |\pause| 
+    if (ChiffreUnite == 1):
+        NbDeUn = NbDeUn + 1            |\pause|  
+    if (ChiffreDizaine == 1):
+        NbDeUn = NbDeUn + 1            |\pause|   
+    if (ChiffreCentaine == 1):
+        NbDeUn = NbDeUn + 1            |\pause|  
+print("Nombre d'occurences du chiffre '1' :", NbDeUn)
+\end{lstlisting}  
+\end{algo}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\'Ecriture des nombres en base $10$}
+
+\begin{frame}
+\begin{itemize}
+  \item \'Ecriture décimale : associer à un entier $N$ la suite de ses chiffres $[a_0,a_1,\ldots,a_n]$
+\pause  
+  \item $N= a_n 10^n+ a_{n-1}10^{n-1}+\cdots + a_2 10^2 + a_1 10 + a_0, \ a_i \in \{0,1,\ldots,9\}$
+\pause  
+  \item $a_0$ est le chiffre des unités, $a_1$ celui des dizaines,...
+\end{itemize}
+
+\pause
+
+\begin{tp}
+\begin{enumerate}
+  \item \'Ecrire une fonction qui à partir d'une liste $[a_0,a_1,\ldots,a_n]$ calcule l'entier $N$ correspondant.
+  \item Pour un entier $N$ fixé, combien a-t-il de chiffres ? 
+  On pourra s'aider d'une inégalité du type $10^n \le N < 10^{n+1}$.
+  \item \'Ecrire une fonction qui à partir de $N$ calcule son écriture décimale $[a_0,a_1,\ldots,a_n]$.
+\end{enumerate}
+\end{tp}
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{algo}[decimale.py (1)]
+\begin{lstlisting}
+def chiffres_vers_entier(tab):
+    N = 0
+    for i in range(len(tab)):
+        N = N + tab[i] * (10 ** i)
+    return N
+\end{lstlisting}  
+\end{algo}
+
+\pause
+\bigskip
+
+\centerline{$N= a_n 10^n+ a_{n-1}10^{n-1}+\cdots + a_2 10^2 + a_1 10 + a_0$}
+
+\pause
+\bigskip
+
+\centerline{\codeinline{chiffres_vers_entier([4,3,2,1])} renvoie $1234$}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{itemize}
+  \item Une \evidence{liste} est présentée entre des crochets
+\pause
+  \begin{itemize}
+    \item Exemple : \codeinline{tab = [4,3,2,1]}
+\pause
+    \item On accède aux valeurs par \codeinline{tab[i]}
+\pause
+    \item \codeinline{tab[0]} vaut $4$,  \codeinline{tab[1]} vaut $3$,   \codeinline{tab[2]} vaut $2$,  \codeinline{tab[3]} vaut $1$
+  \end{itemize}
+\pause
+
+  \item Pour parcourir les éléments d'une liste \codeinline{for x in tab}
+\pause  
+  \item Longueur d'une liste  \codeinline{len(tab)} (\codeinline{len([4,3,2,1])} vaut $4$)
+\pause
+  \item Parcourir toutes les valeurs d'une liste 
+  \begin{itemize}
+    \item \codeinline{for i in range(len(tab))}
+    \item puis utiliser \codeinline{tab[i]} (ici $i$ variant ici de $0$ à $3$)
+  \end{itemize}
+
+\pause  
+  \item La liste vide  \codeinline{[]}
+\pause  
+  \item Ajouter un élément à une liste
+  \begin{itemize}
+    \item Exemple : \codeinline{tab=[]}
+\pause
+    \item  \codeinline{tab.append(4)} \quad  la liste \codeinline{tab} devient $[4]$
+\pause
+    \item \codeinline{tab.append(3)}  \quad  la liste \codeinline{tab} devient $[4,3]$
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{algo}[decimale.py (2)]
+\small
+\begin{lstlisting}
+def entier_vers_chiffres(N):
+    tab = []
+    n = floor(log(N,10))    # le nombre de chiffres est n+1 
+    for i in range(0,n+1):
+        tab.append((N // 10 ** i) % 10)
+    return tab
+\end{lstlisting}  
+\end{algo}
+
+\pause
+
+\begin{itemize}
+  \item Exemple : \codeinline{entier_vers_chiffres(1234)} renvoie $[4,3,2,1]$
+\pause
+  \item 
+  \begin{itemize}
+    \item $\Nn^* =  [1,10[  \ \cup  \ [10,100[ \ \cup \  [100,1000[ \  \cup \  [1\,000,10\, 000[ \ \cup \cdots$ 
+\pause
+    \item Chaque intervalle est du type $[10^n,10^{n+1}[$
+\pause
+    \item Pour $N \in \Nn^*$ il existe donc $n\in\Nn$ tel que $10^n \le N < 10^{n+1}$
+\pause
+    \item Le nombre de chiffres de $N$ est $n+1$
+\pause
+    \item Ex : $N=1234$ donc $1 \, 000 = 10^3 \le N < 10^4 = 10\, 000$ ainsi $n=3$
+  \end{itemize}
+\pause
+  \item Comment calculer $n$ à partir de $N$ ? 
+  \begin{itemize}
+\pause
+    \item Logarithme décimal $\log_{10}$ :  $\log_{10}(10) = 1$ et $\log_{10}(10^i) = i$
+\pause
+    \item $10^n \le N < 10^{n+1}$ implique $\log_{10}(10^n) \le \log_{10}(N) < \log_{10}(10^{n+1})$
+\pause
+    \item $n \le \log_{10}(N) < n+1$ donc \myboxinline{$n = E(\log_{10}(N))$}
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Module \codeinline{math}}
+
+\begin{frame}
+\begin{itemize}
+  \item \codeinline{import math} : \codeinline{math.cos(3.14)}
+\pause
+  \item \codeinline{from math import *} : \codeinline{cos(3.14)}
+\end{itemize}
+
+\pause
+\vspace*{-3ex}
+\small
+\begin{center}
+\setlength{\arrayrulewidth}{0.05mm}
+%\begin{tabular}{|l|l|l|} \hline
+\begin{tabular}[t]{cc@{\vrule depth 1.2ex height 3ex width 0mm \ }} 
+\hline \hline 
+   \codeinline{abs(x)}     &   $|x|$      \\ \hline
+   \codeinline{x ** n}     &   $x^n$      \\ \hline
+   \codeinline{sqrt(x)}    &  $\sqrt{x}$ \\ \hline   
+   \codeinline{exp(x)}     & $\exp x$    \\ \hline   
+   \codeinline{log(x)}     & $\ln x$ logarithme népérien \\ \hline
+   \codeinline{log(x,10)}  & $\log x$ logarithme décimal \\ \hline
+   \codeinline{cos(x), sin(x), tan(x)}  & $\cos x$, $\sin x$, $\tan x$\\ \hline
+   \codeinline{acos(x), asin(x), atan(x)}  & $\arccos x$, $\arcsin x$, $\arctan x$\\ \hline      
+   \codeinline{floor(x)}  & partie entière $E(x)$ \\ \hline
+   \codeinline{ceil(x)}   & plus petit entier $n \ge x$  \\ \hline \hline     
+\end{tabular} 
+\end{center}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\'Ecriture des nombres en base $2$}
+
+\begin{frame}
+
+\myfigure{1}{
+\tikzinput{fig_algo_pres01} 
+}
+
+\pause\pause\pause\pause\pause\pause\pause\pause\pause\pause
+
+\vspace*{-1ex}
+\pause
+
+\begin{itemize}
+  \item L'\defi{écriture binaire} d'un nombre c'est son écriture en base $2$
+\pause
+  \item 
+  \begin{itemize}
+    \item Le chiffre des ``dizaines'' correspond à $2$ (au lieu de $10$)
+    \item Le chiffre des ``centaines'' à $4=2^2$ (au lieu de $100=10^2$)
+    \item Le chiffres des ``milliers'' à $8=2^3$ (au lieu de $1000=10^3$)
+    \item Pour le chiffre des unités cela correspond à $2^0 = 1$  
+  \end{itemize}
+
+\pause  
+
+  \item ${\color{blue}10011}_b 
+  \pause 
+  = {\color{blue}1} \cdot 2^4 + {\color{blue}0} \cdot 2^3 + 
+  {\color{blue}0} \cdot 2^2 + {\color{blue}1}\cdot 2^1 + {\color{blue}1}\cdot 2^0 
+  \pause
+  = 16+2+1
+  \pause
+  =19$
+ 
+\pause
+  \item Tout entier $N\in \Nn$ s'écrit de manière unique 
+$N= a_n 2^n+ a_{n-1}2^{n-1}+\cdots + a_2 2^2 + a_1 2 + a_0 \quad \text{ et } \quad a_i \in \{0,1\}$
+\pause
+  \item $N= a_n a_{n-1}\ldots a_1 a_0 \ _b$
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\begin{tp}
+\begin{enumerate}
+  \item \'Ecrire une fonction qui à partir d'une liste $[a_0,a_1,\ldots,a_n]$ calcule l'entier $N$ correspondant à l'écriture binaire 
+  $a_n a_{n-1}\ldots a_1 a_0 \ _b$.
+  \item \'Ecrire une fonction qui à partir de $N$ calcule son écriture binaire sous la forme $[a_0,a_1,\ldots,a_n]$.
+\end{enumerate}
+\end{tp}
+
+\pause
+\small
+
+\begin{algo}[binaire.py (1) \& (2)]
+\vspace*{-1ex}
+\begin{lstlisting}
+def binaire_vers_entier(tab):
+    N = 0
+    for i in range(len(tab)):
+        N = N + tab[i] * (2 ** i)
+    return N   |\pause\vspace*{0.5ex}|
+def entier_vers_binaire(N):
+    tab = []
+    n = floor(log(N,2))       # le nombre de chiffres est n+1
+    for i in range(0,n+1):
+        tab.append((N // 2 ** i) % 2)
+    return tab
+\end{lstlisting} 
+\vspace*{-1ex}
+\end{algo}
+
+\end{frame}
+
+
+\begin{frame}
+
+\myfigure{0.8}{
+\tikzinput{fig_algo02} 
+}
+
+\pause
+
+\vspace*{-2ex}
+\centerline{Codage  $[1,0,0,1,0,1,1,1]$ \pause  nombre binaire $11101001_b = 233$}
+
+\pause
+
+\footnotesize
+\begin{tp}
+
+\begin{enumerate}
+\setlength{\itemsep}{0pt}
+  \item Faire une boucle qui affiche toutes les combinaisons possibles (pour une taille de rampe donnée).
+  
+  \item Quelle opération mathématique élémentaire transforme un nombre binaire 
+ $a_n \ldots a_1 a_0 \ _b$ en $a_n \ldots a_1 a_0 0\ _b$ (décalage vers la gauche et ajout d'un $0$ à la fin) ?
+
+ \item Soit $N' = a_n a_{n-1} \ldots a_1 a_0 0 \ _b$ (une écriture avec $n+2$ chiffres). 
+ Quelle est l'écriture binaire de $N' \pmod {2^{n+1}}$ ? (C'est une écriture avec $n+1$ chiffres.)
+ 
+ \item En déduire un algorithme qui pour une configuration donnée de la rampe, fait permuter cycliquement 
+ (vers la droite) cette configuration. Par exemple $[1,0,1,0,1,1,1,0]$ devient $[0,1,0,1,0,1,1,1]$.
+ 
+ \item Quelle opération mathématique élémentaire permet de passer d'une configuration à son opposée (une lampe éteinte s'allume,
+ et réciproquement). Par exemple si la configuration était $[1,0,1,0,1,1,1,0]$ alors on veut $[0,1,0,1,0,0,0,1]$.
+ (Indication : sur cet exemple calculer les deux nombres correspondants et trouver la relation qui les lie.)
+\end{enumerate}
+\end{tp}  
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{itemize}
+  \item Avec $4$ lampes les configurations sont $[0,0,0,0]$, $[1,0,0,0]$, $[0,1,0,0]$, $[1,1,0,0]$,\ldots, $[1,1,1,1]$
+
+\pause
+
+  \item 
+  \begin{itemize}
+    \item Pour chaque lampe nous avons deux choix (allumé ou éteint)
+
+\pause
+
+    \item Il y a $n+1$ lampes donc $2^{n+1}$ configurations
+
+\pause
+
+    \item Correspond à l'énumération $0,1,2,3,\ldots, 2^{n+1}-1$
+  \end{itemize}
+\end{itemize}
+
+\pause
+
+\begin{algo}[binaire.py (3)]
+\begin{lstlisting}
+def configurations(n):
+    for N in range(2**(n+1)):
+        print(entier_vers_binaire_bis(N,n))
+\end{lstlisting}  
+\end{algo}
+
+\pause
+
+\begin{itemize}
+  \item \codeinline{entier_vers_binaire_bis(N,n)} est similaire à \codeinline{entier_vers_binaire(N)},
+mais affiche les zéros non significatifs
+
+\pause
+
+  \item Exemple $7$ en binaire s'écrit $111_b$ mais sur $8$ chiffres c'est $00000111_b$
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+
+\begin{itemize}
+  \item En écriture décimale, multiplier par $10$ revient à décaler le nombre initial et rajouter un zéro.
+Par exemple $10\times{\color{blue}19} = {\color{blue}19}{\color{red}0}$
+
+\pause
+
+  \item Multiplier un nombre par $2$ revient sur l'écriture à un décalage 
+vers la gauche et ajout d'un zéro sur le chiffre des unités
+
+\pause
+
+Exemple : $19 = 10011_b$, $2 \times{\color{blue}10011}_b  = {\color{blue}10011}{\color{red}0}_b$ : $2 \times 19 = 38$ 
+
+\pause
+
+  \item 
+  \begin{itemize}
+    \item $N=a_n  a_{n-1}\ldots a_1 a_0 \ _b$
+\pause      
+    \item $N'=2N$ s'écrit $N' = a_n  a_{n-1}\ldots a_1 a_0 0 \ _b$
+ \pause  
+    \item $N' \pmod {2^{n+1}}$ s'écrit exactement $a_{n-1} a_{n-2} \ldots a_1 a_0 0 \ _b$
+\pause
+    \item  on ajoute $a_n$ qui est le quotient de $N'$ par $2^{n+1}$
+\pause
+    \item {\footnotesize $N'\pmod{2^{n+1}}+a_n = a_{n-1} \cdot 2^n+\cdots + a_0 \cdot 2 +a_n 
+    \pause
+    =a_{n-1} a_{n-2} \ldots a_1 a_0 a_n \ _b$}
+  \end{itemize}
+
+\end{itemize}
+
+\pause
+
+\begin{algo}[binaire.py (4)]
+\begin{lstlisting}
+def decalage(tab):
+    N = binaire_vers_entier(tab)
+    n = len(tab)-1   # le nombre de chiffres est n+1
+    NN = 2*N % 2**(n+1) + 2*N // 2**(n+1)
+    return entier_vers_binaire_bis(NN,n)
+\end{lstlisting}  
+\end{algo}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+
+\begin{itemize}
+  \item Si l'on a deux configurations opposées alors leur somme vaut $2^{n+1}-1$
+
+\pause
+
+  \item 
+  \begin{itemize}
+    \item Exemple : $[1,0,0,1,0,1,1,1]$ et $[0,1,1,0,1,0,0,0]$
+\pause    
+    \item $N = 11101001_b$ et $N' = 00010110_b$
+\pause    
+    \item $N + N' = 11101001_b + 00010110_b = 11111111_b \pause = 2^{8}-1$
+  \end{itemize}
+
+\pause
+  \item $N' = 2^{n+1}-1 - N$
+\end{itemize}
+\pause 
+\begin{algo}[binaire.py (5)]
+\begin{lstlisting}
+def inversion(tab):
+    N = binaire_vers_entier(tab)
+    n = len(tab)-1   # le nombre de chiffres est n+1
+    NN = 2**(n+1)-1 - N
+    return entier_vers_binaire_bis(NN,n)
+\end{lstlisting}  
+\end{algo}
+
+\end{frame}
+
+  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\footnotesize
+\vspace*{-1ex}
+\begin{miniexercice}
+\vspace*{-1ex}
+\begin{enumerate}
+\setlength{\itemsep}{-1pt}
+  \item Pour un entier $n$ fixé, combien y-a-t-il d'occurrences du chiffre $1$ dans
+  l'écriture des nombres de $1$ à $n$ ?
+  
+  \item \'Ecrire une fonction qui calcule l'écriture décimale d'un entier, sans recourir au $\log$
+  (une boucle \codeinline{while} est la bienvenue).
+  
+  \item \'Ecrire un algorithme qui permute une configuration de rampe vers la droite.
+  
+  \item On dispose de $n+1$ lampes, chaque lampe peut s'éclairer de trois couleurs : vert, orange, rouge (dans cet ordre).
+  Trouver toutes les combinaisons possibles. Comment passer toutes les lampes à la couleur suivante ?
+  
+  \item Générer toutes les matrices $4\times 4$ n'ayant que des $0$ et des $1$ comme coefficients. 
+  On codera une matrice sous la forme de lignes $[ [1,1,0,1], [0,0,1,0], [1,1,1,1], [0,1,0,1] ]$.
+
+  \item On part du point $(0,0) \in \Zz^2$. A chaque pas on choisit au hasard un direction Nord, Sud, Est, Ouest.
+  Si on va au Nord alors on ajoute $(0,1)$ à sa position (pour Sud on ajoute $(0,-1)$ ; pour Est $(1,0)$ ; pour Ouest $(-1,0)$).
+  Pour un chemin d'une longueur fixée de $n$ pas, coder tous les chemins possibles. Caractériser les chemins qui repassent par l'origine.
+  Calculer la probabilité $p_n$ de repasser par l'origine. Que se passe-t-il lorsque $n \to +\infty$ ?
+  
+  \item \'Ecrire une fonction, qui pour un entier $N$, affiche son écriture en chiffres romains :
+  $M = 1000$, $D=500$, $C=100$, $X=10$, $V=5$, $I=1$. Il ne peut y avoir plus de trois symboles identiques à suivre.
+ 
+\end{enumerate}
+\vspace*{-2ex}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

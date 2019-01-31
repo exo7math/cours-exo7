@@ -1,0 +1,340 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+\change
+
+La méthode de Newton consiste à remplacer 
+la droite de la méthode de la sécante par la tangente.
+Elle est d'une redoutable efficacité.
+
+\change
+
+Nous l'appliquerons au calcul d'une approximation de $\sqrt{10}$
+
+\change
+
+et de $(1,10)^{1/12}$
+
+\change
+
+Nous énoncerons les résultats de majoration de l'erreur pour $\sqrt{10}$.
+
+\change
+
+Et on termine par un algorithme et les 1000 premières décimales de $\sqrt{10}$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+
+Partons d'une fonction dérivable $f:[a,b] \to \Rr$ et d'un point $u_0 \in[a,b]$.
+
+\change
+Voici un exemple de fonction 
+
+\change
+et une valeur $u_0$.
+
+On souhaite bien sûr trouver une approximation de ce zéro.
+
+\change
+On considère le point du graphe dont l'abscisse est $u_0$
+
+
+
+
+\change
+et on considère la tangente au graphe de $f$ en ce point.
+
+
+\change
+Voici la tangente.
+
+\change
+Cette tangente recoupe l'axe des abscisses en un point que l'on appelle $(u_1,0)$.
+
+\change
+
+$u_1$ est donc cette valeur.
+
+\change
+
+Si $u_1$ est dans l'intervalle de définition $[a,b]$ de notre fonction
+alors on recommence l'opération avec cette fois la tangente au point d'abscisse $u_1$.
+
+\change
+
+On prend le point d'abscisse $u_1$,
+
+\change
+
+on trace la tangente au graphe en ce point,
+
+cette tangente recoupe l'axe des abscisses pour donner la valeur $u_2$.
+etc.
+
+\change
+
+Ce processus conduit à la définition d'une suite récurrente :
+$u_0$ est le terme initial
+
+et pour $n \ge 0$, $u_{n+1} = u_n - \frac{f(u_n)}{f'(u_n)}.$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Justifions la formule de récurrence $u_{n+1} = u_n - \frac{f(u_n)}{f'(u_n)}.$
+
+\change
+
+Comment s'effectue une étape de la construction.
+
+On part d'une abscisse $u_n$, qui correspond à un point du graphe d'ordonnée $f(u_n)$.
+
+\change
+
+On trace la tangente au graphe en ce point.
+
+\change
+
+Cette tangente recoupe l'axe des abscisses en un point dont on appelle l'abscisse $u_{n+1}$.
+
+\change
+
+Passons aux calculs.
+
+\change
+
+La tangente au point d'abscisse $u_n$ a pour équation :
+$y = f'(u_n)(x-u_n)+f(u_n)$. 
+
+\change
+
+Donc cette tangente recoupe l'axe des abscisses en un point $(x,0)$ 
+qui vérifie $0=f'(u_n)(x-u_n)+f(u_n)$. 
+
+\change
+
+Donc $x=u_n - \frac{f(u_n)}{f'(u_n)}.$
+
+Et c'est ce $x$ que l'on appelle $u_{n+1}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour calculer $\sqrt{a}$, on pose $f(x)=x^2-a$, avec $f'(x)=2x$. 
+
+La suite issue de la méthode de Newton est déterminée par $u_0>0$ 
+et la relation de récurrence $u_{n+1} = u_n - \frac{u_n^2-a}{2u_n}$.
+
+\change
+
+
+Suite qui pour cet exemple s'appelle \defi{suite de Héron} et que l'on récrit souvent
+$u_{n+1} = \frac12 \left(u_n+\frac{a}{u_n}\right).$
+
+
+\change
+
+Voici le principal résultat théorique de cette leçon. :
+
+Proposition : 
+Cette suite de Héron $(u_n)$ converge vers $\sqrt{a}$. 
+
+\change
+
+
+Pour le calcul de $\sqrt{10}$, on pose par exemple $u_0=4$, et on peut même commencer les calculs à la main :
+
+\change
+
+$u_1 = \frac12 \left(u_0+\frac{10}{u_0}\right) = \frac12\left(4+\frac{10}{4}\right) = \frac{13}{4} = 3,25 $
+
+\change
+
+$u_2 = \frac12 \left(u_1+\frac{10}{u_1}\right) = \frac12\left(\tfrac{13}{4}+\frac{10}{\tfrac{13}{4}}\right) 
+  = \frac{329}{104} = 3,1634\ldots$
+ 
+\change 
+
+$u_3 = \frac12 \left(u_2+\frac{10}{u_2}\right) = \frac{216\,401}{68\,432} = 3,16227788 \ldots$
+
+\change
+
+$u_4 = 3,1622776601683\ldots  $
+
+
+Pour $u_4$ les $13$ décimales affichées après la virgule  sont déjà exactes !
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voici la preuve de la convergence de la suite de Héron $(u_n)$ vers $\sqrt{a}$.
+
+\change
+
+Première étape, montrons que $u_n \ge \sqrt{a}$ ceci à partir des rangs $n\ge1$.
+  
+  Tout d'abord 
+  $u_{n+1}^2-a = \frac14 \left(\frac{u_n^2 + a}{u_n}\right)^2 - a $
+  
+  on développe, on simplifie et on trouve que 
+  $u_{n+1}^2-a=\frac14 \frac{(u_n^2-a)^2}{u_n^2}$.
+  
+  Donc $u_{n+1}^2 - a \ge 0$. Comme il est clair que la suite est positive 
+  on en déduit que $u_{n+1} \ge \sqrt{a}$. 
+  %(Notez que $u_0$ lui est quelconque.)
+  
+
+\change  
+
+Montrons maintenant que $(u_n)_{n\ge1}$ est une suite décroissante qui converge.
+
+  Pour  montrer que $(u_n)$ est décroissante on calcule le rapport 
+$\frac{u_{n+1}}{u_n}$ qui par la formule de récurrence vaut :
+$\frac12 \left(1+\frac{a}{u_n^2}\right)$
+
+mais on vient de voir que pour $n\ge 1$,  $u_n^2 \ge a$,
+donc $\frac{a}{u_n^2}\le 1$, et alors $\frac{u_{n+1}}{u_n} \le 1$, pour tout $n\ge 1$.
+  
+  Conséquence : la suite $(u_n)_{n\ge1}$ est une suite décroissante.
+  
+  Comme la suite est une suite positive alors elle est bien sûr minorée par $0$,
+  
+  la suite est décroissante et minorée donc elle converge.
+  
+  \change
+  
+Il nous reste à montrer que la limite est bien  $\sqrt{a}$.
+
+
+  
+  Notons pour l'instant $\ell$ la limite de $(u_n)$. 
+  
+  D'une part $u_n \to \ell$, mais aussi $u_{n+1} \to \ell$.
+  
+  
+  Lorsque l'on fait tendre $n\to +\infty$ dans la relation $u_{n+1} = \frac12 \left(u_n+\frac{a}{u_n}\right)$, 
+  alors par continuité on obtient à la limite 
+  $\ell = \frac12 \left(\ell+\frac{a}{\ell}\right)$. 
+  
+  Ce qui conduit à la relation $\ell^2=a$ et par positivité de la suite, $\ell = \sqrt{a}$.  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour calculer $(1,10)^{1/12}$, 
+
+\change
+
+on pose $f(x)=x^{12}-a$ avec $a=1,10$. 
+
+
+\change
+
+La dérivée est $f'(x)=12x^{11}$. 
+
+\change
+
+Et la formule de récurrence est  $u_{n+1} = u_n - \frac{u_n^{12}-a}{12u_n^{11}}$. 
+Ce que l'on reformule ainsi :
+$ u_{n+1} = \frac1{12} \left(11u_n+\frac{a}{u_n^{11}}\right)$.
+
+\change
+
+
+
+Voici les résultats numériques pour $(1,10)^{1/12}$ en partant de $u_0=1$.
+
+
+Toutes les décimales affichées pour $u_4$ sont exactes
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici une proposition un peu technique pour le calcul de l'erreur, 
+je vous encourage à travailler la démonstration par vous même.
+
+On note $k$ un majorant de la différence : $u_1-\sqrt a\le k$
+
+Alors l'erreur $u_n - \sqrt{a}$ commise en approchant
+$\sqrt{a}$ par la suite $(u_n)$ est 
+
+  $\le 2\sqrt{a} \left( \frac{k}{2\sqrt{a}} \right)^{2^{n-1}}$
+  
+  \change
+  
+  Pour notre exemple d'approximation de $\sqrt{10}$,
+  on part de $u_0=4$.
+  
+  On calcule $u_1=3,25$, et $u_1-\sqrt{10} \le \frac14$, on pose donc $k=\frac14$.
+  
+  Alors l'erreur au rang $n$ vérifie 
+  $u_n - \sqrt{10} \le 8 \left(\frac{1}{24} \right)^{2^{n-1}}$
+  
+  Notez l'exposant $2^{n-1}$ qui fait que l'erreur tend doublement exponentiellement vers $0$.
+  
+\change
+
+Admirez la puissance de la méthode de Newton :
+
+$4$ itérations, donnent $10$ décimales exactes après la virgule;
+
+$8$ itérations, donnent déjà $100$ décimales
+
+et $11$ itérations donnent $1000$ décimales !
+
+Cette rapidité de convergence se justifie grâce
+au calcul de l'erreur : *l'exposant* dans la majoration de l'erreur est 
+multiplié par $2$ à chaque étape, 
+
+donc à chaque itération le nombre de décimales exactes double !
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici l'algorithme pour le calcul de $\sqrt{a}$. 
+On précise en entrée le réel $a\ge0$ dont on veut calculer 
+la racine et le nombre $n$ d'itérations.
+
+C'est simplement l'application de la formule :
+$u_{n+1} = \frac12 \left(u_n+\frac{a}{u_n}\right).$
+,
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+En utilisant le module \texttt{decimal}, et avec seulement $11$
+itérations, voici les $1000$ premières décimales exactes de $\sqrt{10}$ :
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici quelques exercices, pour assimiler la méthode de Newton.
+
+
+\end{document}

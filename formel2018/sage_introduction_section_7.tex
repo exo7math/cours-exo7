@@ -1,0 +1,301 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+% Commande ponctuelle
+\newcommand{\alenvers}[1]{\rotatebox[origin=c]{180}{#1}}
+\newcommand{\vect}{\overrightarrow}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Calcul formel}
+%====================================================================
+
+%\insertvideo{IPPCChtUNuU}{partie 7. Calculs d'intégrales}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{section}{6}
+\section{Calculs d'intégrales}
+
+%--------------------------------------------------------
+\subsection{\Sage\ comme une super-calculatrice}
+
+
+
+\begin{tp}
+Calculer à la main les primitives des fonctions suivantes. 
+Vérifier vos résultats à l'ordinateur.
+\begin{enumerate}
+  \item $f_1(x) = x^4 + \frac{1}{x^2} + \exp(x)+ \cos(x)$
+  \item $f_2(x) = x \sin(x^2)$ 
+  \item $f_3(x) = \frac{\alpha}{\sqrt{1-x^2}} + \frac{\beta}{1+x^2} + \frac{\gamma}{1+x}$
+  \item $f_4(x) = \frac{x^4}{x^2-1}$ 
+  \item $f_5(x) = x^n \ln x$ pour tout $n\ge0$
+\end{enumerate}
+\end{tp}
+
+Pour une fonction $f$, par exemple \codeinline{f(x) = x*sin(x^2)} donnée, la commande
+\codeinline{integral(f(x),x)} renvoie une primitive de $f$.
+Le résultat obtenu ici est \codeinline{-1/2*cos(x^2)}.
+
+Quelques remarques :
+\begin{itemize}
+  \item La machine renvoie une primitive. Pour avoir l'ensemble des primitives, il faut
+  bien entendu ajouter une constante.
+
+  \item La fonction \codeinline{log} est la fonction logarithme népérien usuel, habituellement
+  notée $\ln$.
+  
+  \item \codeinline{integral(1/x,x)} renvoie \codeinline{log(x)} alors
+  que $\int \frac{\dd x}{x} = \ln |x|$. \Sage\ omet les valeurs absolues, ce qui ne l'empêche pas de faire
+  des calculs exacts même pour les valeurs négatives (en fait \Sage\ travaille avec le logarithme complexe).
+  
+  \item Souvent, pour intégrer des fractions rationnelles, on commence par écrire 
+  la décomposition en éléments simples. C'est possible avec
+  la commande \codeinline{partial_fraction}. Par exemple, pour
+  \codeinline{f = x^4/(x^2-1)} la commande \codeinline{f.partial_fraction(x)} 
+  renvoie la décomposition : %sur $\Qq$ : 
+  $f(x) = x^2  + 1 - \frac12\frac{1}{x + 1} + \frac12\frac{1}{x - 1}$.
+  
+\end{itemize}
+
+
+
+\begin{tp}
+Calculer à la main et à l'ordinateur les intégrales suivantes.
+\begin{enumerate}
+  \item $\displaystyle I_1 = \int_1^3 x^2 + \sqrt{x} + \frac1x + \sqrt[3]{x} \; \dd x$
+  \item $\displaystyle I_2 = \int_0^\frac{\pi}{2} \sin x (1+\cos x)^4 \; \dd x$
+  \item $\displaystyle I_3 = \int_0^{\frac\pi6} \sin^3 x \; \dd x$
+  \item $\displaystyle I_4 = \int_0^{\sqrt3} \frac{3x^3 - 2x^2 - 5x - 6}{(x + 1)^2(x^2 + 1)} \; \dd x$
+\end{enumerate}
+\end{tp}
+
+Par exemple \codeinline{integral(sin(x)^3,x,0,pi/6)} renvoie 
+$\frac23 - \frac{3\sqrt{3}}{8}$.
+
+
+
+%--------------------------------------------------------
+\subsection{Intégration par parties}
+
+\begin{tp}
+Pour $n$ entier positif ou nul, nous allons déterminer une primitive de la fonction 
+$$f_n(x) = x^n \exp(x).$$
+
+\begin{enumerate}
+  \item \Sage\ sait-il répondre à cette question ?
+  
+  \item Calculer une primitive $F_n$ de $f_n$ pour les premières valeurs de $n$.
+  
+  \item 
+  \begin{enumerate}
+    \item \'Emettre une conjecture reliant $F_n$ et $F_{n-1}$.
+    \item Prouver cette conjecture.
+    \item En déduire une fonction récursive qui calcule $F_n$.
+  \end{enumerate}
+  
+  \item 
+  \begin{enumerate}
+    \item \'Emettre une conjecture pour une formule directe de $F_n$.
+    \item Prouver cette conjecture.
+    \item En déduire une expression qui calcule $F_n$.
+  \end{enumerate}  
+\end{enumerate} 
+\end{tp}
+
+\begin{enumerate}
+  \item La commande \codeinline{integral(x^n*exp(x),x)}
+  renvoie le résultat \codeinline{(-1)^n*gamma(n + 1, -x)}. 
+  Nous ne sommes pas tellement avancés ! \Sage\ renvoie une \emph{fonction spéciale} $\Gamma$ 
+  que l'on ne connaît pas.  
+  De plus, %(à l'heure actuelle, pour la version 7.6), 
+  dériver cette primitive avec \Sage\ (pour la version courante) ne 
+  redonne pas la même expression que $f_n$.
+  
+  \item Par contre, il n'y a aucun problème pour calculer les primitives $F_n$ 
+  pour les premières valeurs de $n$. On obtient :
+  $$\begin{array}{rcl}
+    F_0(x) &=& \exp(x) \\
+    F_1(x) &=& (x - 1)\exp(x) \\
+    F_2(x) &=& (x^2 - 2x + 2)\exp(x) \\
+    F_3(x) &=& (x^3 - 3x^2 + 6x - 6)\exp(x) \\
+    F_4(x) &=& (x^4 - 4x^3 + 12x^2 - 24x + 24)\exp(x) \\
+    F_5(x) &=& (x^5 - 5x^4 + 20x^3 - 60x^2 + 120x - 120)\exp(x) \\
+  \end{array}$$  
+   
+    
+  \item
+  \begin{enumerate}
+    \item Au vu des premiers termes, on conjecture $F_n(x) = x^n \exp(x) - nF_{n-1}(x)$.
+    On vérifie facilement sur les premiers termes que cette conjecture est vraie.
+    
+     \Sage\ ne sait pas (encore) vérifier formellement cette identité 
+     (avec $n$ une variable formelle). La commande suivante échoue à trouver $0$  : \\
+    % Les versions récentes de \Sage\ peuvent vérifier formellement cette identité : la commande suivante retourne $0$ : \\
+    \centerline{\codeinline{integral(x^n*exp(x),x) - x^n*exp(x) + n*integral(x^(n-1)*exp(x),x)}}
+    
+    \item Nous prouverons la validité de cette formule en faisant 
+    une intégration par parties
+    (on pose par exemple $u=x^n$, $v'=\exp(x)$ et donc $u'=nx^{n-1}$, $v = \exp(x)$) :
+    
+    $$F_n(x) 
+    = \int x^n \exp(x)\; \dd x 
+    = \big[x^n\exp(x)\big] - \int nx^{n-1}\exp(x)\; \dd x
+    = x^n\exp(x) - n F_{n-1}(x).$$
+    
+    \item Voici l'algorithme récursif pour le calcul de $F_n$ utilisant 
+    la relation trouvée ci-dessus.
+    
+    \insertcode{algos/integrales-ipp-tex1.sage}{integrales-ipp (1)}
+    
+  \end{enumerate} 
+  
+  \item Avec un peu de réflexion, on conjecture la formule 
+  $$F_n(x) = \exp x \sum_{k=0}^n (-1)^{n-k} \frac{n!}{k!} x^k$$
+  où $\frac{n!}{k!} =  n(n-1)(n-2)\cdots (k+1)$.
+  
+  Pour la preuve, on pose $G_n(x) = \exp(x)\sum_{k=0}^n (-1)^{n-k} \frac{n!}{k!} x^k$.
+  On a 
+  $$G_n(x) = \exp(x)\sum_{k=0}^{n-1} (-1)^{n-k} \frac{n!}{k!} x^k  + \exp(x)x^n
+  = -n G_{n-1}(x)+ \exp(x)x^n.$$ 
+  Ainsi 
+  $G_n$ vérifie la même relation de récurrence que $F_n$.
+  De plus $G_0(x)=\exp x = F_0(x)$. Donc pour tout $n$, $G_n=F_n$.
+  
+  On peut donc ainsi calculer directement notre intégrale par la formule : \\  
+  \centerline{\codeinline{exp(x)*sum((-1)^(n-k)*x^k*factorial(n)/factorial(k),k,0,n)}}
+ 
+\end{enumerate}
+
+
+
+%--------------------------------------------------------
+\subsection{Changement de variable}
+
+Soit $f$ une fonction définie sur un intervalle $I$ et $\varphi : J \to I$ 
+une bijection de classe $\mathcal{C}^1$.
+La formule de changement de variable pour les primitives est :
+$$\int f(x) \; \dd x = \int f\big(\varphi(u)\big)\cdot\varphi'(u) \; \dd u.$$
+
+La formule de changement de variable pour les intégrales, pour tout $a,b\in I$, est :
+$$\int_a^b f(x) \; \dd x 
+= \int_{\varphi^{-1}(a)}^{\varphi^{-1}(b)} f\big(\varphi(u)\big)\cdot\varphi'(u) \; \dd u.$$
+
+\begin{tp}
+\sauteligne
+\begin{enumerate}
+  \item Calcul de la primitive $\displaystyle\int \sqrt{1-x^2} \; \dd x$.
+  \begin{enumerate}
+    \item Poser $f(x) = \sqrt{1-x^2}$ et le changement de variable $x = \sin u$, c'est-à-dire poser 
+    $\varphi(u) = \sin u$.
+    \item Calculer $f\big( \varphi(u) \big)$ et $\varphi'(u)$.
+    \item Calculer la primitive de $g(u) = f\big(\varphi(u)\big)\cdot\varphi'(u)$.
+    \item En déduire une primitive de $f(x) = \sqrt{1-x^2}$.
+  \end{enumerate}
+  
+  \item Calcul de la primitive $\displaystyle\int \frac{\dd x}{1+\left(\frac{x+1}{x}\right)^{1/3}}$.
+  \begin{enumerate}  
+    \item Poser le changement de variable défini par l'équation $u^3 = \frac{x+1}{x}$.
+    
+    \item En déduire le changement de variable $\varphi(u)$ et $\varphi^{-1}(x)$.
+  \end{enumerate}
+  
+  
+  \item \'Ecrire une fonction \codeinline{integrale_chgtvar(f,eqn)} qui calcule
+  une primitive de $f$ par le changement de variable défini par l'équation 
+  \codeinline{eqn} reliant $u$ et $x$.
+  
+  En déduire $\displaystyle\int (\cos x + 1)^n \cdot \sin x \; \dd x$ (pour $n>0$) en posant $u= \cos x + 1$.
+  
+  \item Même travail avec \codeinline{integrale_chgtvar_bornes(f,a,b,eqn)}
+  qui calcule l'intégrale de $f$ entre $a$ et $b$ par changement de variable.
+  
+  En déduire $\displaystyle\int_0^{\frac\pi4} \frac{\dd x}{2+\sin^2 x}$ en posant $u = \tan x$.
+\end{enumerate}
+\end{tp}
+
+
+\begin{enumerate}
+  \item 
+  \begin{enumerate}
+    \item La fonction est $f(x) = \sqrt{1-x^2}$ et 
+    on pose $\varphi(u) = \sin u$, c'est-à-dire que l'on 
+    espère que le changement de variable $x = \sin u$ va simplifier le calcul de l'intégrale :
+    
+    \centerline{\codeinline{f = sqrt(1-x^2)} \qquad \codeinline{phi = sin(u)}}
+    
+    \item 
+    On obtient $f\big( \varphi(u) \big)$ en substituant la variable $x$ par $\sin u$ :
+    cela donne $f\big( \varphi(u) \big) = \sqrt{1-\sin^2 u} = \sqrt{\cos^2 u} = |\cos u|$.
+    Ce qui s'obtient par la commande \codeinline{frondphi = f(x=phi)} (puis en simplifiant).    
+    Noter que \Sage\ \og oublie \fg{} les valeurs absolues, car il calcule en fait la 
+    racine carrée complexe et non réelle.
+    Ce sera heureusement sans conséquence pour la suite.
+    En effet pour que $f(x)$ soit définie, il faut $x \in [-1,1]$, comme $x = \sin u$
+    alors $u \in [-\frac\pi2,\frac\pi2]$ et donc $\cos u \ge 0$.    
+    Enfin $\varphi'(u) = \cos u$ s'obtient par \codeinline{dphi = diff(phi,u)}.
+    
+    \item On pose $g(u) = f\big(\varphi(u)\big)\cdot\varphi'(u) = \cos^2 u = \frac{1+\cos(2u)}{2}$.
+    Donc $\int g(u)\; \dd u = \frac{u}{2} + \frac{\sin(2u)}{4}$.
+    
+    \item Pour obtenir une primitive de $f$, on utilise la formule de changement de variable :
+    $$\int \sqrt{1-x^2} \; \dd x = \int f(x)\; \dd x = \int g(u) \; \dd u =  \frac{u}{2} + \frac{\sin(2u)}{4}.$$
+    Mais il ne faut pas oublier de revenir à la variable $x$. 
+    Comme $x = \sin u$ alors $u = \arcsin x$, donc 
+    $$\int \sqrt{1-x^2} \; \dd x = \frac{\arcsin x}{2} + \frac{\sin(2\arcsin x)}{4}.$$
+    
+    Les commandes sont donc \codeinline{G = integral(g,u)} puis
+    \codeinline{F = G(u = arcsin(x))} pour obtenir la primitive recherchée.
+    Après simplification de $\sin(2\arcsin x)$, on obtient :
+    $$\int \sqrt{1-x^2} \; \dd x = \frac{\arcsin x}{2} + \frac x2 \sqrt{1-x^2}.$$
+    
+  \end{enumerate}
+  
+  \item Pour calculer la primitive $\int \frac{\dd x}{1+\left(\frac{x+1}{x}\right)^{1/3}}$, l'énoncé
+    nous recommande le changement de variable $u^3 = \frac{x+1}{x}$.
+  La seule difficulté supplémentaire est qu'il faut exprimer $x$ en fonction de $u$
+  et aussi $u$ en fonction de $x$.
+  Pour cela, on définit l'équation \codeinline{u^3 == (x+1)/x} reliant $u$ et $x$ : 
+  \codeinline{eqn = u^3 == (x+1)/x}. On peut maintenant résoudre l'équation afin d'obtenir
+  $\varphi(u)$ ($x$ en fonction de $u$) :  \codeinline{phi = solve(eqn,x)[0].rhs()} et $\varphi^{-1}(x)$ ($u$ en fonction de $x$) : \codeinline{phi_inv = solve(eqn,u)[0].rhs()}.
+  Le reste se déroule comme précédemment.
+ 
+  
+  \item On automatise la méthode précédente :
+  \insertcode{algos/integrales-chgtvar-tex1.sage}{integrales-chgtvar (1)}
+  Ce qui s'utilise ainsi :
+  \insertcode{algos/integrales-chgtvar-tex3.sage}{integrales-chgtvar (2)} 
+  et montre que 
+  $$\int (\cos x + 1)^n \cdot \sin x \; \dd x =  -\frac{1}{n + 1}(\cos x + 1)^{n + 1}.$$
+ 
+  \item Pour la formule de changement de variable des intégrales, on adapte la procédure précédente
+  en calculant l'intégrale $\int_{\varphi^{-1}(a)}^{\varphi^{-1}(b)} g(u) \; \dd u$.
+  
+  Pour cela, on calcule 
+  $\varphi^{-1}(a)$ par  \codeinline{a_inv = phi_inv(x=a)} et 
+  $\varphi^{-1}(b)$ par  \codeinline{b_inv = phi_inv(x=b)}.
+ 
+  Pour calculer $\int_0^{\frac\pi4} \frac{\dd x}{2+\sin^2 x}$,
+  on pose  $u = \tan x$.
+  Donc $x = \varphi(u) = \arctan u$ et $u = \varphi^{-1}(x) = \tan x$.
+  Nous avons $\varphi'(u)= \frac{1}{1+u^2}$. D'autre part,
+  comme $a=0$ on a $\varphi^{-1}(a) = \tan 0 = 0$
+  et comme $b = \frac\pi4$ on a $\varphi^{-1}(b) = \tan \frac\pi4 = 1$.
+  Ainsi la formule de changement de variable :
+  $$\int_a^b f(x) \;\dd x =
+  \int_{\varphi^{-1}(a)}^{\varphi^{-1}(b)} f\big(\varphi(u)\big)\cdot\varphi'(u) \; \dd u$$
+  devient 
+  $$I = \int_0^{\frac\pi4} \frac{1}{2+\sin^2 x} \; \dd x = 
+  \int_0^1 \frac{1}{2+\sin^2 (\arctan u)} \frac{1}{1+u^2}  \; \dd u.$$
+  Mais $\sin^2(\arctan u ) = \frac{u^2}{1+u^2}$ donc
+  $$I = \int_0^1 \frac{1}{2+\frac{u^2}{1+u^2}} \frac{1}{1+u^2}  \; \dd u
+  = \int_0^1 \frac{\dd u}{2+3u^2}  \; \dd u = \left[\frac{1}{\sqrt6}\arctan\left(\frac{\sqrt6 u}{2}\right)\right]_0^1
+  = \frac{1}{\sqrt6}\arctan\left(\frac{\sqrt6}{2}\right).$$
+  Ce que l'ordinateur confirme !
+\end{enumerate}
+
+\finchapitre
+
+\end{document}
+

@@ -1,0 +1,470 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={192,41,0}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcommand{\Sage}{\texttt{Sage}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||,
+  breaklines=true,
+  postbreak=\raisebox{0ex}[0ex][0ex]{\qquad\ensuremath{\color{red}\hookrightarrow\space}},
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\renewcommand*{\theenumii}{\alph{enumii}}
+
+\title{{\bf Calcul formel}}
+\subtitle{Polynômes}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Manipuler les polynômes
+    \item<4-> Algorithme de Horner
+    \item<5-> Interpolation de Lagrange
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Manipuler les polynômes}
+
+\begin{frame}[fragile]
+\begin{tp}
+Soient  $P(X) = X^4-3X^2-1$ et $Q(X) = (X+1)^4$ des polynômes de $\Qq[X]$.
+Après avoir déclaré l'anneau des polynômes $\Qq[X]$ par \codeinline{R.<X> = QQ[]} 
+(où \codeinline{QQ} désigne le corps des rationnels), répondre aux questions suivantes : \pause
+\begin{enumerate}
+  \item Est-ce que $\deg(P \cdot Q) = \deg P + \deg Q$ ?\pause
+  \item Est-ce que $\deg(P - Q) = \max( \deg P, \deg Q )$ ?\pause
+  \item Développer $Q(X)$. Quel est le coefficient devant $X^3$ ? \pause
+  \item Quel est le quotient de la division euclidienne de $P(X)$ par $(X+1)^2$ ?
+  Et le reste ?\pause
+  \item Quelles sont les racines de $Q$ ? Et celles de $P$ ?
+\end{enumerate}
+\end{tp}
+
+
+
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{enumerate}
+  \setcounter{enumi}{-1}
+  \item Création de l'anneau de polynômes
+  
+  \pause
+  
+  \codeinline{R.<X> = QQ[]}
+  
+  \pause  
+  \codeinline{P = X^4-3*X^2-1}
+  
+  \pause  
+  \codeinline{Q = (X+1)^4}
+  
+  \pause  
+  \item Degré : \codeinline{P.degree()}
+  
+  \pause  
+  \codeinline{(P*Q).degree() == P.degree() + Q.degree()}  
+  
+  \pause    
+  \item  \codeinline{(P-Q).degree() == max(P.degree(),Q.degree())}
+\end{enumerate}
+  
+\pause
+\begin{minipage}{0.49\textwidth}
+\begin{enumerate}  
+  \setcounter{enumi}{2}
+  \item Développements : \codeinline{expand(Q)}
+  
+\pause      
+  Coefficients : \codeinline{Q[3]}
+\end{enumerate}
+\end{minipage}  
+\pause
+\begin{minipage}{0.49\textwidth}
+\begin{enumerate}  
+  \setcounter{enumi}{3}
+  \item Division euclidienne
+  
+\pause  
+  \codeinline{P // (X+1)^2}
+  
+\pause  
+  \codeinline{P \% (X+1)^2}
+\end{enumerate}   
+\end{minipage}
+
+\medskip
+  
+\pause
+\begin{minipage}{0.49\textwidth}
+\begin{enumerate}  
+  \setcounter{enumi}{4}     
+  \item Racines exactes
+ 
+  \smallskip
+  
+\pause  
+  \codeinline{P.roots()}
+
+\pause       
+  \codeinline{Q.roots()}
+  
+\pause    
+  \codeinline{P.roots(QQbar)}
+  
+  \end{enumerate}
+  \end{minipage}  
+\pause
+  \begin{minipage}{0.49\textwidth} 
+  Racines approchées
+  
+  \smallskip
+  
+  \codeinline{P.roots(RR)}
+  
+\pause    
+  \codeinline{P.roots(CC)}      
+  \end{minipage} 
+
+\end{frame}
+
+
+\begin{frame}
+\begin{tp}
+\begin{itemize}
+  \item Pour un polynôme $P \in \Cc[X]$ et un réel $r>0$, tracer l'image par $P$ du cercle centré à l'origine de $\Cc$ et de rayon $r$.\pause
+
+  
+  \item 
+	  Faites varier $r$ (ou mieux faites une animation). 
+  En quoi cela illustre-t-il le théorème de d'Alembert-Gauss ?\pause
+
+
+  
+  \item Application à $P(X) = X^4-X^3+X^2-\ii X+1 \in \Cc[X]$.
+\end{itemize}
+\end{tp}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\only<1>{\includegraphics[scale=0.5]{figures/polynome1.png}\\$r_0 = 0.5$}
+\only<2>{\includegraphics[scale=0.5]{figures/polynome2.png}\\$r_1 = 0.6176\ldots$}
+\only<3>{\includegraphics[scale=0.5]{figures/polynome3.png}\\$r_2 = 0.9534\ldots$}
+\only<4>{\includegraphics[scale=0.5]{figures/polynome4.png}\\$r_3 = 1.2082\ldots$}
+\only<5>{\includegraphics[scale=0.5]{figures/polynome5.png}\\$r_4 = 1.4055\ldots$}
+\only<6>{\includegraphics[scale=0.5]{figures/polynome6.png}\\$r_5 = 1.5$} 
+\end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{algo}[intro-polynome.sage]
+\begin{lstlisting}
+R.<X> = CC[]
+P = X^4-X^3+X^2-I*X+1|\pause|
+
+def plot_image_cercle(P,r):
+    var('t')
+    zreal = P(r*exp(I*t)).real()
+    zimag = P(r*exp(I*t)).imag()
+    G = parametric_plot( (zreal,zimag), (t,0,2*pi) ) 
+    return G|\pause|
+    
+A = animate( [plot_image_cercle(P,r) for r in srange(0.5,1.5,0.05)] )
+A.show()
+
+\end{lstlisting}
+\end{algo}
+\end{frame}
+
+% for modz in [0.5,0.61...,0.95...,1.20...,1.40...,1.5]:
+    % G = plot_image_cercle(P,modz)
+    % G.show(xmin=-6, ymin=-6, xmax=6, ymax=6, axes=True) 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Algorithme de Horner}
+
+\begin{frame}
+
+\evidence{Algorithme de Horner} pour le calcul de $P(\alpha)$
+
+\medskip
+\pause
+
+$P(X) = X^5 + X^4 - 5X^3 - 3X - 2$ \qquad $\alpha = 2$
+\vspace*{-2ex}
+\pause
+
+\myfigure{0.8}{
+\tikzinput{fig_formel_polynome01-diapo}
+}
+
+\pause\pause\pause\pause\pause
+\pause\pause\pause\pause\pause
+\pause\pause
+\vspace*{-2ex}
+$P(2)=0$
+
+\pause
+\medskip
+\medskip
+
+$P(X) = X^5 + X^4 - 5X^3 - 3X - 2$ \qquad $\alpha=-1$
+\vspace*{-2ex}
+
+\pause
+\myfigure{0.8}{
+\tikzinput{fig_formel_polynome02}
+}
+
+\pause
+\vspace*{-2ex}
+$P(-1)=6$
+\end{frame}
+
+
+\begin{frame}
+\begin{tp}
+On fixe un corps $K$ et un élément $\alpha$ de $K$. Soit $P(X) = a_nX^n+a_{n-1}X^{n-1}+\cdots +a_kX^k+\cdots+ a_1X+a_0 \in K[X]$.
+%Fixons $\alpha \in K$. 
+
+%Faire les applications avec 
+%On pourra prendre pour les applications 
+%$P(X) = X^5 + X^4 - 5X^3 - 3X - 2$ et $\alpha = 2$, puis $\alpha = -1$.
+
+
+\begin{enumerate}
+  \item Compter et comparer le nombre de multiplications nécessaires dans $K$ pour calculer 
+  $P(\alpha)$, par :
+ \begin{enumerate}
+    \item le calcul direct :
+    $$P(\alpha) = a_n \alpha^n+a_{n-1} \alpha^{n-1}+\cdots +a_k \alpha^k+\cdots+ a_1 \alpha +a_0,$$
+    
+    
+    \item l'algorithme de Horner :
+    $$P(\alpha) =  \Big(\big((a_n \alpha+a_{n-1})\alpha +a_{n-2} \big) \alpha + \cdots +a_1\Big) \alpha +a_0.$$
+    \end{enumerate}
+
+    \item \'Ecrire une fonction qui calcule $P(\alpha)$ par l'algorithme de Horner.
+  \end{enumerate}
+  \end{tp}
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\begin{enumerate}
+  \item 
+  \begin{enumerate}
+    \item $P(\alpha) = a_n\alpha^n+a_{n-1}\alpha^{n-1}+\cdots +a_k\alpha^k+\cdots+a_1\alpha+a_0$
+    
+    \begin{itemize}
+      \item monôme $a_k\cdot \alpha^ k$ :  $k$ multiplications
+      \item $n+(n-1)+\cdots+k+\cdots+1+0 = \frac{n(n+1)}{2}$ multiplications (et $n$ additions)
+    \end{itemize}
+	
+	 \pause
+    
+    \item $P(\alpha) =  \Big(\big((a_n \alpha+a_{n-1})\alpha +a_{n-2} \big) \alpha + \cdots + a_1\Big) \alpha +a_0$
+    \begin{itemize}
+      \item $n$ multiplications (et $n$ additions)
+	
+	 \pause      
+      \item $b_{n} = a_n$ puis $b_{k} = \alpha b_{k+1}  + a_k$ pour $n-1\ge k \ge 0$
+    \end{itemize}
+     \pause
+  \end{enumerate}    
+    \item
+\end{enumerate} 
+
+%Pour l'implémentation, on note que la formule de récurrence 
+ %   se fait pour des indices $k$ allant en décroissant.
+  \begin{algo}[horner.sage]
+\begin{lstlisting}
+def eval_horner(P,alpha):
+    n = P.degree()
+    val = P[n]
+    for k in range(n-1,-1,-1):
+        val = alpha*val + P[k]
+    return val
+\end{lstlisting}
+\end{algo}
+
+\end{frame}
+ 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Interpolation de Lagrange}
+
+\begin{frame}
+\begin{theoreme}[Interpolation de Lagrange]
+Soient $(x_i,y_i)$, $i=0,\ldots,n$, une suite de $n+1$ points, d'abscisses deux à deux distinctes. 
+Il existe un unique polynôme $P$ de degré inférieur ou égal à $n$ tel que
+$$P(x_i)=y_i \quad \text{ pour } i=0,\ldots,n.$$
+\end{theoreme}
+
+\pause
+\bigskip
+
+Application : 
+pour une $f$ fonction continue sur un intervalle contenant $x_0,\ldots,x_n$, 
+il existe un unique polynôme $P$ de degré inférieur à $n$ tel que
+$$P(x_i)=f(x_i) \quad \text{ pour } i=0,\ldots,n.$$
+
+\end{frame}
+
+
+\begin{frame}
+\begin{tp}
+\begin{enumerate}
+  \item Montrer l'unicité du polynôme $P$ dans le théorème d'interpolation de Lagrange. \pause 
+  
+  \item Pour l'existence, étant donnés $x_0,\ldots, x_n$, on définit les polynômes de Lagrange $L_0,L_1,\ldots,L_n$:
+  $$L_i(X) = \prod_{j \neq i} \frac{X-x_j}{x_i-x_j}.$$
+  Montrer que le polynôme :
+  $P(X) = \sum_{i=0}^{n} y_i L_i(X)$
+  répond au problème, c'est-à-dire que $P(x_i)=y_i$ ($i=0,\ldots,n$) et $\deg P \le n$.
+  \pause
+  \item \'Ecrire une fonction qui, étant donnée une liste de points, renvoie le polynôme
+  d'interpolation $P$. Application à $f(x) = \sin(2\pi x)e^{-x}$
+  sur l'intervalle $[0,2]$ avec une subdivision régulière de $n+1$ points.
+  Tracer les graphes de la fonction $f$ et des polynômes d'interpolation
+  correspondant à différentes valeurs de $n$.
+  
+  % \item Faire le même travail avec la fonction définie par $f(x) = \frac{1}{1+8x^2}$
+  % sur l'intervalle $[-1,1]$, avec une subdivision régulière de $n+1$ points.
+  % Quel problème apparaît ? C'est le \emph{phénomène de Runge}.
+\end{enumerate}
+\end{tp}
+\end{frame}
+
+ \begin{frame}
+\begin{enumerate}
+  \item Soient $P$ et $Q$ deux polynômes de degré inférieur à $n$ vérifiant
+   $P(x_i)=Q(x_i)=y_i$
+   \pause
+   \begin{itemize}
+     \item alors $P-Q$ vérifie $(P-Q)(x_i)=0$, $i=0,\ldots,n$ 
+     \pause
+     \item $\deg(P-Q)\leq n$ et $P-Q$ a $n+1$ racines distinctes 
+     \pause
+     \item ainsi $P-Q=0$, donc $P=Q$
+   \end{itemize}
+  
+  \bigskip
+  \pause
+  \item $L_i(X) = \displaystyle \prod_{j \neq i} \frac{X-x_j}{x_i-x_j}$
+  \pause
+  \begin{itemize}
+    \item $\deg(L_i)=n$ 
+    \pause  
+    \item $L_i(x_i) = 1$  et $L_i(x_j)=0$ pour $j\neq i$ 
+    \pause  
+    \item donc $P(X) = \sum_{j=0}^{n} y_j L_j(X)$ vérifie $\deg P \leq n$ 
+    \pause
+    \item et $P(x_i)= \sum_{j=0}^{n} y_j L_j(x_i) = y_iL_i(x_i) = y_i$ ($i=0,\ldots,n$)
+  \end{itemize}  
+  
+  \bigskip   
+  \pause 
+   
+  \item 
+  \begin{itemize}
+    \item \codeinline{R.<X> = RR[]}
+    \pause   
+    \item \codeinline{f = sin(2*pi*x)*exp(-x)}
+    \pause
+    \item \codeinline{liste_points =[(2*i/n,f(x=2*i/n)) for i in range(n+1)]} 
+  \end{itemize}
+  \end{enumerate}
+ \end{frame}
+
+
+\begin{frame}[fragile]
+\begin{algo}[interpolation.sage]
+\begin{lstlisting}
+def interpolation_lagrange(liste_points):
+    n = len(liste_points)-1
+    allx = [p[0] for p in liste_points]
+    ally = [p[1] for p in liste_points]|\pause|
+    liste_lagrange = []    
+    for i in range(n+1):
+       A = prod(X-x for x in allx if x != allx[i])        
+       B = prod(allx[i]-x for x in allx if x != allx[i])
+       L = A/B
+       liste_lagrange.append(L)|\pause|   
+    lagrange = sum( liste_lagrange[i]*ally[i] for i in range(n+1) )
+    return lagrange
+\end{lstlisting}
+\end{algo}
+
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\only<1>{\includegraphics[scale=0.5]{figures/lagrange1.png}\\$n=3$}
+\only<2>{\includegraphics[scale=0.5]{figures/lagrange2.png}\\$n=4$}
+\only<3>{\includegraphics[scale=0.5]{figures/lagrange3.png}\\$n=5$}
+\only<4>{\includegraphics[scale=0.5]{figures/lagrange4.png}\\$n=6$}
+\only<5>{\includegraphics[scale=0.5]{figures/lagrange5.png}\\$n=7$}
+\only<6>{\includegraphics[scale=0.5]{figures/lagrange6.png}\\$n=8$}
+\end{center}
+\end{frame}
+
+
+\end{document}

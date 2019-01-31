@@ -1,0 +1,270 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={153,0,0}]{structure}
+
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{{\bf Ensembles et applications}}
+\subtitle{Applications}
+
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définitions
+    \item<4-> Image directe, image réciproque 
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Applications}
+
+\begin{frame}
+\begin{itemize}
+  \item Une \defi{application} (ou une \defi{fonction}) $f : E \to F$,
+c'est définir pour chaque élément $x \in E$, un unique élément de $F$ noté $f(x)$
+\pause
+\begin{columns}
+\column{3cm} %marge
+\column{5cm}
+\myfigure{1}{
+\tikzinput{fig_ensembles07a}
+}
+\pause
+\column{5cm}
+\myfigure{1}{
+\tikzinput{fig_ensembles07b} 
+}
+\end{columns}
+  
+\pause
+
+  \item \defi{\'Egalité} $f=g$  
+
+$f,g : E \to F$ sont égales si et seulement si 
+
+\qquad $\text{pour tout } x \in E,\ \  f(x)=g(x)$
+\end{itemize}
+
+\end{frame}
+
+%---------------------------------------------------------------------------------
+
+\begin{frame}
+
+\begin{minipage}{0.60\textwidth}
+\begin{itemize}
+  \item \defi{Graphe} de $f : E \to F$
+
+\smallskip
+
+\hspace*{-8mm}\myboxinline{$\Gamma_f = \Big\{ \big(x,f(x)\big) \in E \times F  \mid x \in E \Big\}$}
+\end{itemize} 
+\end{minipage}
+\pause
+\begin{minipage}{0.29\textwidth}
+
+\myfigure{1}{\tikzinput{fig_ensembles08}}  
+\end{minipage}
+
+
+
+
+\bigskip
+\bigskip
+\pause
+
+
+\begin{minipage}{0.6\textwidth}
+\begin{itemize}
+  \item \defi{Composition}
+
+ pour $f : E \to F$, \quad $g : F \to G$
+
+\uncover<4->{
+
+\hfil $g \circ f : E \to G$
+
+
+définie par $g \circ f (x) = g\big( f(x) \big)$
+}
+\end{itemize}  
+\end{minipage}
+\begin{minipage}{0.29\textwidth}
+\uncover<3->{
+$$E\tikz[remember picture]\coordinate(ense); \relbar\joinrel\relbar\joinrel\relbar\joinrel\relbar\joinrel\rightarrow F\tikz[remember picture]\coordinate(ensf); 
+\relbar\joinrel\relbar\joinrel\relbar\joinrel\relbar\joinrel\rightarrow G\tikz[remember picture]\coordinate(ensg);$$
+}
+
+\begin{tikzpicture}[x=1mm,y=1mm, remember picture, overlay]
+   \coordinate (myense) at ($(ense)+(-1,+3)$);
+   \coordinate (myensebis) at ($(ense)+(-1,-1)$);
+   \coordinate (myensf) at ($(ensf)+(-2,+3)$);
+   \coordinate (myensfbis) at ($(ensf)+(-1,+3)$);
+   \coordinate (myensg) at ($(ensg)+(-2,-1)$);
+   \coordinate (myensgbis) at ($(ensg)+(-2,+3)$);
+
+\uncover<3->{
+   \draw[->, myred, very thick] (myense) to[bend left, thick]node[above, midway]{$f$} (myensf);
+   \draw[->, myred, very thick] (myensfbis) to[bend left, thick]node[above, midway]{$g$} (myensgbis);
+}
+\uncover<4->{
+   \draw[->, myred, very thick] (myensebis) to[bend right, thick]node[below, midway]{$g\circ f$} (myensg);
+}
+\end{tikzpicture}
+ 
+\end{minipage}
+
+
+\end{frame}
+
+%---------------------------------------------------------------------------------
+
+\begin{frame}
+
+\begin{exemple}
+\begin{enumerate}
+  \item L'\defi{identité} $\id_E : E \to E$ définie par 
+$x \mapsto x$
+
+\pause
+\bigskip
+
+  \item 
+$ \begin {array}{rccc} 
+f \ : \ & ]0,+\infty[ &\longrightarrow& ]0,+\infty[ \\ 
+        & x & \longmapsto & \frac 1x \\ 
+\end{array}  \qquad 
+\begin {array}{rccc} 
+g \ : \ & ]0,+\infty[ &\longrightarrow& \Rr \\ 
+        & x & \longmapsto & \frac{x-1}{x+1} \\ 
+\end{array}
+$
+
+\pause
+\bigskip
+
+Alors $g \circ f : \ ]0,+\infty[ \to \Rr$ vérifie 
+$$g\circ f(x) 
+\pause
+= g \big(f(x)\big) 
+\pause
+= g \left(\frac 1x \right) 
+\pause
+= \frac{\frac 1x - 1}{\frac 1x + 1} 
+\pause
+= \frac{1-x}{1+x} 
+\pause
+= - g(x)$$
+
+\end{enumerate}
+\end{exemple}
+
+\end{frame}
+
+%---------------------------------------------------------------
+
+\section{Image directe, image réciproque}
+
+\begin{frame}
+Soit $f : E \to F$  et  $A \subset E$ 
+\begin{mydefinition}
+L'\defi{image directe} de $A$ par $f$ est l'ensemble
+
+\vspace*{-3mm}
+\mybox{$f(A) = \big\{ f(x) \mid x \in A \big\}$}
+\end{mydefinition}
+\pause
+\hspace*{-10mm}
+\vspace*{-6mm}
+\myfigure{1.1}{
+\tikzinput{fig_ensembles09a} 
+\pause
+\tikzinput{fig_ensembles09b} 
+}
+
+\end{frame}
+
+%---------------------------------------------------------------
+
+
+\begin{frame}
+Soit $f : E \to F$ et $B \subset F$
+\begin{mydefinition}
+L'\defi{image réciproque} de $B$ par $f$ est l'ensemble
+
+\vspace*{-3mm}
+\mybox{$f^{-1}(B) = \big\{ x \in E \mid f(x) \in B \big\}$}
+\end{mydefinition}
+\pause
+\hspace*{-10mm}
+\vspace*{-6mm}
+\myfigure{1.1}{
+\tikzinput{fig_ensembles10a} 
+\pause
+\tikzinput{fig_ensembles10b} 
+}
+
+\end{frame}
+
+
+\begin{frame}
+Fixons $y \in F$. Tout élément $x\in E$ tel que $f(x)=y$ est un \defi{antécédent}
+de $y$
+
+\myfigure{1}{
+\tikzinput{fig_ensembles12a} 
+\quad
+\tikzinput{fig_ensembles12b} 
+} 
+\end{frame}
+
+
+
+
+%---------------------------------------------------------------
+
+\section{Mini-exercices}
+
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+
+  \item Pour deux applications $f,g : E \to F$, quelle est la négation de $f=g$ ?
+
+  \item Représenter le graphe de $f : \Nn \to \Rr$ définie par $n \mapsto \frac{4}{n+1}$.
+
+  \item Soient $f,g,h : \Rr \to \Rr$ définies par $f(x)=x^2$, $g(x)=2x+1$, $h(x)=x^3-1$. Calculer $f\circ (g \circ h)$ et
+$(f \circ g ) \circ h$.
+
+  \item Pour la fonction $f : \Rr \to \Rr$ définie par $x \mapsto x^2$. Représenter et calculer les ensembles suivants :
+$f([0,1[)$, $f(\Rr)$, $f(]-1,2[)$,  $f^{-1}([1,2[)$, $f^{-1}([-1,1])$, $f^{-1}(\{3\})$, $f^{-1}(\Rr \setminus \Nn)$.
+
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+
+
+\end{document}

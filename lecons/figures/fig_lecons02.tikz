@@ -1,0 +1,49 @@
+\begin{tikzpicture}[scale=3]
+
+	\draw[->,>=latex, black, thin] (-1.2,0) -- (1.4,0) node[above] {$x$};
+	\draw[->,>=latex, black, thin] (0,-1.2) -- (0,1.5) node[left] {$y$};
+
+        % draw the unit circle
+        \draw[very thick] (0,0) circle(1);
+
+      \def\x{50};
+       \coordinate (M) at ({\x}:1);
+       \coordinate (Cos) at ({cos(\x)},0);
+       \coordinate (Sin) at (0,{sin(\x)},0);
+       \coordinate (Tan) at (1,{sin(\x)/cos(\x)});
+
+       \draw[blue, thick] (M)--(Cos);
+       \draw[red, thick] (M)--(Sin);
+
+       	\fill (M) circle (0.02) node[above] {$M$};
+
+        \draw (0,0)--(M);
+
+
+
+	\fill (Cos) circle (0.02) node[below, blue] {$\cos x$};
+	\fill (Sin) circle (0.02) node[left, red] {$\sin x$};
+
+
+     \draw[very thick, ->] (0.3,0) arc(0:{\x}:0.3) ;
+      \node[right] at ({\x/2}:0.3) {$x$};
+
+	\fill (0,0) circle (0.02) node[below left] {$O$};
+
+     \fill (1,0) circle (0.02) node[below right] {$1$};
+     \fill (0,1) circle (0.02) node[above left] {$1$};
+
+% Tangente
+ \beameronly{\uncover<2->}
+{
+    \draw (1,-1.2)--(1,1.5);
+    \draw (0,0)--(Tan)  node[above right] {$T$};
+	\fill (Tan) circle (0.02) ;
+
+
+\begin{scope}[orange, xshift=0.1cm]
+   \draw[<->,>=latex,thick] (1,0)--(1,{sin(\x)/cos(\x)}) node[midway, right] {$\tan x$};
+\end{scope}
+}
+
+\end{tikzpicture}

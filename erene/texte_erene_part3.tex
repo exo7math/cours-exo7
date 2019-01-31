@@ -1,0 +1,412 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Commande spécifique à ce chapitre
+%\newcommand{\Mat}{\mathop{\text{Mat}}\nolimits}
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+Pour cette dernière partie consacrée à $\Rr^n$ nous approfondissons
+notre étude des applications linéaires.
+
+\change
+On commence par le lien entre composition d'applications linéaires 
+et produit de matrices,
+
+\change
+On continue avec le lien entre la bijection réciproque d'une application linéaire 
+et l'inverse de matrice,
+
+\change
+On termine avec une caractérisation importante des applications linéaires :
+les applications linéaires préservent la somme et la multiplication par un scalaire.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Considérons deux applications linéaires :
+$$f : \Rr^p \longrightarrow \Rr^n \qquad \text{ et } \qquad g : \Rr^q \longrightarrow \Rr^p$$
+
+\change
+Comme $\Rr^p$ est l'ensemble d'arrivée de $g$ et aussi l'ensemble de départ de $f$,
+on peut donc regarder leur composition :
+$$
+f \circ g :  \Rr^q \longrightarrow \Rr^n.
+$$
+
+\change
+Un premier résultat est que $f \circ g$ est une application linéaire.
+Mais nous allons faire mieux, nous allons calculer la matrice de l'application linéaire
+$f\circ g$ en fonction de celle de $f$ et de $g$.
+
+\change
+Pour cela notons : 
+$A$ la matrice associée à $f$,
+
+\change
+$B$ la matrice associée à $g$,
+
+\change
+Et on cherche que vaut $C$ la matrice associée à $f \circ g$.
+
+\change
+Le résultat important est que la matrice associée à $f\circ g$ est $C=AB$.
+
+\change
+Autrement dit, la matrice associée à la composition de deux applications linéaires est 
+égale au produit de leurs matrices :
+
+$\Mat(f \circ g) = \Mat (f) \times \Mat (g)$
+
+\change
+La preuve est toute simple :
+Pour n'importe quel vecteur $X \in \Rr^q$ :
+$(f \circ g)(X)$ c'est $f \big(g(X)\big)$
+
+Par définition de l'application linéaire $g$ et de sa matrice associée $B$ on a
+$g(X)=BX$
+
+Donc $(f \circ g)(X)=f\big( BX \big)$.
+
+Aussi par définition de l'application linéaire $f$ et de sa matrice associée $A$
+
+on a $f$ qq chose = $B$ fois ce qq chose.
+
+Donc $f\big( BX \big)= A(BX)$
+
+ce qui donne au final que
+
+$(f \circ g)(X)= (AB)X.$
+
+Ainsi la matrice de $f \circ g$ est bien le produit des matrices $AB$.
+
+
+En fait le produit de matrices, qui au premier abord peut sembler 
+bizarre et artificiel, est défini exactement pour vérifier cette relation.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voyons un exemple de composition.
+
+Soit $f: \Rr^2 \longrightarrow \Rr^2$ la réflexion par rapport à la droite 
+$(y = x)$ 
+
+\change
+La matrice de cette réflexion est
+$$ A = \Mat(f) = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$$
+
+\change
+Soit maintenant $g: \Rr^2 \longrightarrow \Rr^2$ 
+la rotation d'angle $\theta=\frac\pi3$ (centrée à l'origine).
+
+\change
+La matrice de cette rotation est
+$$B = \Mat(g) =  
+\begin{pmatrix}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{pmatrix}
+=
+\begin{pmatrix} 
+\frac12 & -\frac{\sqrt3}{2} \\  
+\frac{\sqrt3}{2} & \frac12
+\end{pmatrix}.
+$$
+
+
+\change
+Calculons la matrice de la composition $f\circ g$.
+Notons $C$ cette matrice 
+$\Mat (f\circ g)$.
+
+Alors par la propriété précédente $\Mat (f\circ g) = \Mat (f) \times \Mat (g)$
+
+Donc $C=$ matrice de $f$ fois matrice de $g$.
+
+Ce qui après calcul donne la matrice de $f\circ g$ :
+$$\begin{pmatrix} \frac{\sqrt3}{2} & \frac12  \\ \frac12 & -\frac{\sqrt3}{2}\end{pmatrix}.
+$$
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Fixons $X=\left(\begin{smallmatrix}1\\0\end{smallmatrix} \right)$ et calculons l'image de $X$ par $f\circ g$.
+
+On calcul d'abord $g(X)$, qui est ici, qui s'obtient par la rotation d'angle $\pi/3$.
+
+Puis on applique $f$ c-à-d la réflexion par rapport à la droite $(y=x)$.
+
+Et on obtient $f\circ g(X)$.
+
+
+Attention l'ordre de la composition est important :
+$g\circ f(X)$ donne un autre résultat.
+
+En effet $f(X)$ est ici : on fait d'abord la réflexion, 
+puis on applique la rotation $g$ pour obtenir $g\circ f(X)$ là.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On peut poursuivre l'exemple en calculant maintenant la composition $g\circ f$.
+
+Sa matrice est $D = \Mat (g \circ f)$ ce qui vaut *$\Mat (g) \times \Mat (f)$*
+
+\change
+Les calculs donnent 
+$$
+\begin{pmatrix}-\frac{\sqrt3}{2} & \frac12 \\  \frac12 & \frac{\sqrt3}{2} \end{pmatrix}.
+$$
+
+\change
+Les matrices $C=AB$ et $D=BA$ sont distinctes, 
+
+\change
+ce qui illustre que la 
+composition d'applications linéaires, comme la multiplication des matrices, 
+n'est pas commutative en général. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons vu le lien entre composition d'applications linéaires et produit de matrice,
+
+passons maintenant au lien entre bijection d'application et inverse de matrice.
+
+Théorème : "Une application linéaire $f : \Rr^n \to *\Rr^n*$ est bijective
+si et seulement si sa matrice associée $A$ 
+ est inversible."
+ 
+\change
+Et la formule à retenir est que si $f$ est bijective, alors 
+$\Mat(f^{-1}) = \big(\Mat (f) \big)^{-1}$ :
+
+la matrice de l'inverse est l'inverse de la matrice.
+
+\change
+Justifions cette dernière formule :
+L'application $f$ est définie par $f(X) = AX$.
+
+\change
+Donc si $f$ est bijective, 
+
+\change
+alors d'une part $f(X)=Y \iff X = f^{-1}(Y)$,
+
+\change
+mais d'autre part $AX=Y \iff X = A^{-1}Y$.
+
+\change
+Donc $f^{-1}(Y)=A^{-1}Y$
+
+\change
+Et la matrice de $f^{-1}$ est bien $A^{-1}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Si $f: \Rr^2 \longrightarrow \Rr^2$ est la rotation d'angle $\theta$. 
+
+\change
+Alors nous savons que 
+$$\Mat(f) = 
+\begin{pmatrix}
+\cos\, \theta & & -\sin \theta\\
+\sin\, \theta &&\cos\, \theta  
+\end{pmatrix}$$
+
+\change
+On sait aussi que  $f^{-1}: \Rr^2 \longrightarrow \Rr^2$ est la rotation d'angle $-\theta$.
+
+\change
+On peut le reprouver de la façon suivante :
+
+Vu que la $\Mat(f^{-1}) = \big(\Mat (f) \big)^{-1}$.
+
+\change
+Alors 
+$\Mat(f^{-1})$ = 1/déterminant fois $
+= \begin{pmatrix}
+\cos\, \theta &&\sin \,\theta\\
+-\sin\, \theta && \cos\,\theta    
+\end{pmatrix}$ obtenu en échangeant les termes de la diagonales principale,
+mais ce sont tous les deux de $\cos \theta$. Et en changeant le signe des autres coefficients.
+
+De plus le déterminant vaut $\cos^2 + \sin^2$ donc $1$.
+
+Donc l'inverse de la matrice vaut ceci, ce que l'on peut récrire :
+$\begin{pmatrix}
+\cos\, (-\theta ) && -\sin\, (-\theta )\\
+\sin\, (-\theta ) && \cos (-\theta )    
+  \end{pmatrix}.
+$.
+
+On retrouve la matrice de la rotation d'angle $-\theta$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici les deux propriétés fondamentales qui caractérise une application linéaire.
+
+
+Une application $f: \Rr^p \longrightarrow \Rr^n$ sera linéaire
+est équivalent à ce que 
+pour tous les vecteurs $u$, $v$ de $\Rr^p$ et pour tout scalaire $\lambda \in \Rr$,
+on a
+\begin{enumerate}
+  \item[(i)]  $f(u+v) = f(u) + f(v)$,
+  \item[(ii)] $ f(\lambda u) = \lambda f(u)\, .$
+\end{enumerate} 
+
+
+Reprenons : si $f$ est une application linéaire alors
+\begin{enumerate}
+  \item[(i)]  $f(u+v) = f(u) + f(v)$,
+  \item[(ii)] $ f(\lambda u) = \lambda f(u)\, .$
+\end{enumerate} 
+
+Et réciproquement si une application $f$ vérifie les deux points
+\begin{enumerate}
+  \item[(i)]  $f(u+v) = f(u) + f(v)$,
+  \item[(ii)] $ f(\lambda u) = \lambda f(u)\, .$
+\end{enumerate} 
+alors c'est une application linéaire.
+
+
+Dans le cadre général des espaces vectoriels, ce sont ces deux propriétés 
+qui définissent une application linéaire.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Les $p$ vecteurs
+$$
+e_1 = \begin{pmatrix} 1\\0\\\vdots\\0\end{pmatrix}\qquad 
+e_2 = \begin{pmatrix} 0\\1\\0\\\vdots\\0\end{pmatrix}\qquad\cdots\qquad
+e_p = \begin{pmatrix} 0\\\vdots\\0\\1\end{pmatrix}
+$$
+sont ce que l'on appelle les \defi{vecteurs de la base canonique} de $\Rr^p$.
+
+\change
+
+Le théorème précédent permet maintenant de calculer facilement la matrice d'une application linéaire
+dans les bases canoniques de $\Rr^p$ et $\Rr^n$.
+
+Soit $f: \Rr^p \longrightarrow \Rr^n$ une application linéaire, 
+et notons $e_1, \ldots , e_p$ 
+les vecteurs de base canonique de l'espace de départ c-à-d $\Rr^p$. 
+
+Alors la matrice de $f$ est la matrice construite par les vecteurs colonnes :
+$\begin{pmatrix} f(e_1)&f(e_2)& \cdots& f(e_p)\end{pmatrix}$.
+
+
+Autrement dit les vecteurs colonnes de la $\Mat(f)$
+sont les images par $f$ des vecteurs de la base canonique $(e_1, \ldots , e_p)$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Considérons l'application linéaire $f : \Rr^3 \to \Rr^4$ définie 
+par ces formules :
+
+\change
+Voici les vecteurs de la base canonique de l'espace de départ $\Rr^3$.
+
+\change
+
+  Calculons les images par $f$ de ces vecteurs :
+  
+  On trouve facilement :
+  
+$$f\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 2 \\ -1 \\ 5 \\ 0 \end{pmatrix}\qquad 
+  f\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 1 \\ -4 \\ 1 \\ 3 \end{pmatrix}\qquad
+  f\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} -1 \\ 0 \\ 1 \\ 2 \end{pmatrix}.
+  $$
+
+\change
+Donc la matrice de $f$ entre les bases canoniques est :
+$$\Mat(f) = 
+\begin{pmatrix}
+2 & 1 & -1 \\
+-1& -4& 0  \\
+ 5& 1 & 1 \\
+ 0 & 3 & 2 \\              
+\end{pmatrix}.$$
+On retrouve bien sûr la matrice associée à la définition de $f$ !
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On termine en reprenant un exemple déjà vu précédemment :
+
+$f : \Rr^2 \to \Rr^2$ est la réflexion par rapport à la droite $(y=x)$
+
+\change
+$g$ est la rotation du plan d'angle $\frac\pi3$ centrée à l'origine.
+
+\change
+Et on souhaite retrouver la matrice de l'application $f\circ g$.
+
+\change
+La base canonique de $\Rr^2$ est bien sûr formée des vecteurs
+$\left(\begin{smallmatrix} 1 \\ 0 \end{smallmatrix} \right)$ 
+et $\left(\begin{smallmatrix} 0 \\ 1 \end{smallmatrix} \right)$.
+
+\change
+Il nous faut calculer les images de ces 2 vecteurs par $f\circ g$.
+
+Rien de compliquer : 
+$\begin{pmatrix} 1 \\ 0 \end{pmatrix}$
+s'envoie sur $\begin{pmatrix} \frac12 \\ \frac{\sqrt{3}}{2} \end{pmatrix}$
+par la rotation d'angle $\pi/3$.
+
+Donc 
+$$f\circ g \begin{pmatrix} 1 \\ 0 \end{pmatrix}
+= f \begin{pmatrix} \frac12 \\ \frac{\sqrt{3}}{2} \end{pmatrix}$$
+
+puis par la réflexion donne 
+$\begin{pmatrix} \frac{\sqrt{3}}{2} \\ \frac12  \end{pmatrix}$.
+
+\change
+Même chose pour
+$f\circ g \begin{pmatrix} 0 \\ 1 \end{pmatrix}
+= f \begin{pmatrix} - \frac12 \\ \frac{\sqrt{3}}{2}  \end{pmatrix}
+= \begin{pmatrix} \frac{\sqrt{3}}{2} \\ -\frac12  \end{pmatrix}$
+
+\change
+La matrice de $f \circ g$ est :
+donc composé du premier vecteur colonne :
+$f\circ g \begin{pmatrix} 1 \\ 0 \end{pmatrix}$ et du second vecteur colonne :
+$f\circ g \begin{pmatrix} 0 \\ 1 \end{pmatrix}$.
+
+On retrouve bien la même matrice que précédemment.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici les derniers exercices pour ce chapitre sur l'espace vectoriel $\Rr^n$.
+
+
+\end{document}

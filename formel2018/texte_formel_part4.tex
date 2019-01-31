@@ -1,0 +1,530 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Bonjour,
+
+Dans cette séquence, nous allons voir comment utiliser 
+le logiciel Sage pour visualiser et étudier des suites récurrentes.
+
+\change
+Voici les étapes de notre étude.
+
+\change
+Nous allons commencer par expliquer comment représenter et visualiser une telle suite,
+
+\change
+nous en profiterons pour préciser la notion informatique de liste, 
+
+\change
+puis nous conclurons par l'étude d'une suite chaotique.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Une suite récurrente est une suite définie par son premier terme et par une relation du type  $u_{n+1} = f(u_n)$, 
+où $f$ est une fonction. 
+
+Nous allons nous intéresser ici au cas particulier suivant : la fonction $f$ est définie par $f(x)=\exp(-x)$
+
+et le premier terme constant vaut $a$.
+
+\change
+
+Dans un premier temps, on demande de calculer 
+ les premiers termes de la suite lorsque le terme initial vaut $-1$, 
+ et d'en constituer une liste.
+
+\change
+
+Le but de la deuxième question est de tracer le graphe de la fonction $\exp(-x)$, 
+celui de la première bissectrice, et la ligne brisée qui représente les valeurs de la suite récurrente 
+comme vous l'avez certainement déjà tracée à la main.
+
+\change
+
+Ensuite, on demande, à l'aide du graphique de la question précédente, 
+d'émettre des conjectures quant au comportement et à la nature de la suite,
+
+\change
+
+et de les prouver.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici le résultat que l'on cherche à obtenir.
+
+On trace le graphe de la fonction $f$ et la première bissectrice $(y=x)$.
+
+On part de la valeur $u_0$ (ici $-1$) sur l'axe des abscisses, 
+le point de coordonnées $(u_0,f(u_0))$ est le point du graphe de $f$ situé à la verticale de notre premier point.
+
+La valeur $u_1=f(u_0)$ se lit alors 
+sur l'axe des ordonnées, mais on transforme cette ordonnée 
+ en une abscisse à l'aide de la première bissectrice.
+
+On recommence : $u_2=f(u_1)$ se lit sur l'axe des ordonnées et on le reporte sur l'axe des abscisses, etc.
+On obtient ici une sorte d'escargot.
+
+
+Graphiquement, on conjecture que 
+la sous-suite des termes de rang pair est croissante et converge
+alors que la sous-suite des termes de rang impair est décroissante et 
+converge vers la même limite.
+
+
+Cette limite à l'air d'être le réel $\ell$ vérifiant $f(\ell)=\ell$.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons comment obtenir ce graphe.
+
+On définit la fonction $f$ par la commande \codeinline{f = exp(-x)}.
+
+Voici le code définissant la liste des termes de la suite récurrente.
+
+\change
+
+C'est une fonction \codeinline{liste\_suite} en trois variables : la fonction, le terme intial et le nombre de termes à calculer.
+
+On initialise \codeinline{maliste} (la liste des valeurs de la suite) comme la liste vide,
+
+on introduit une autre variable $x$, qui va jouer le rôle du terme $u_k$ de la suite, 
+initialisée à la valeur donnée par \codeinline{terme\_init},
+
+puis une boucle sur \codeinline{n} termes qui 
+
+ajoute \codeinline{x} à la liste 
+
+et remplace \codeinline{x} par son image par $f$ : \codeinline{f(x)}.
+
+Lorsque la boucle est terminée après \codeinline{n} itérations, la fonction renvoie la liste qui contient $n$ termes de la suite.
+
+\change
+
+Par exemple la commande
+\codeinline{liste\_suite(f,-1,4)}
+calcule, pour le terme initial $a=-1$, les $4$ premiers termes de la suite $(u_n)$ ;
+on obtient la liste 
+correspondant aux termes : 
+
+$u_0=-1$, $u_1 = e$, $u_2 = e^{-e}$ et $u_3 = e^{-e^{-e}}$, 
+
+où l'on note $e$ la valeur de la finction exponentielle en $1$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons maintenant calculer la liste des points de la ligne brisée demandée.
+
+C'est une nouvelle fonction \codeinline{liste\_points} en les mêmes variables que la fonction \codeinline{liste\_suite}.
+
+On définit $u$ comme la liste des valeurs de la suite définie par $f$ à l'aide de la fonctions précédente : \codeinline{liste\_suite}.
+
+Le premier point de la liste est $(u_0,0)$,
+
+puis de nouveau à l'aide d'une boucle et pour chaque rang, on calcule deux points :
+$\big(u_k,f(u_k)\big)$ qui est un point du graphe de $f$ et $\big(u_{k+1},u_{k+1}\big)$ le point de la première bissectrice de même ordonnée,
+
+et on les ajoute à la liste.
+
+Notez que chaque élément de la liste est ici un couple $(x,y)$ de
+coordonnées.
+
+
+\change
+Par exemple la commande \codeinline{liste\_points(f,-1,3)}
+calcule, pour le terme initial $a=-1$, le point de départ $(-1,0)$ et les $3$ premiers 
+points de la visualisation de la suite $(u_n)$ ;
+on obtient la liste :
+
+$$(-1, 0), (-1, e), (e, e), (e, e^(-e)), (e^(-e), e^(-e)) $$
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous avons tous les outils nécessaires pour obtenir le graphe demandé.
+
+\change
+
+Ceci est fait grâce à une nouvelle fonction 
+
+\codeinline{dessine\_suite} toujours des trois mêmes variables, qui utilise la fonction \codeinline{liste\_points}.
+
+Au graphe $G$ de la fonction $f$, 
+
+on ajoute successivement le graphe de la première bissectrice, 
+
+puis la ligne brisée joignant les points de la liste que nous venons de construire.
+
+Il ne reste plus qu'à demander l'affichage du graphe.
+
+\change
+
+Par exemple, pour obtenir la figure présentée en debut de séquence, il suffit de faire appel à
+\codeinline{dessine\_suite(f,-1,10)}.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Une liste est, pour Sage, l'analogue de ce qu'on appellerait en mathématique une suite finie. 
+Une liste peut-être constituée de n'importe quel type d'objets.
+
+\change
+
+La syntaxe de Sage veut qu'une liste soit présentée entre crochets.
+
+\change
+
+On accède au $i$-ème terme de la suite en faisant suivre son nom de $[i]$.
+
+Attention, le premier terme est d'indice $0$.
+
+Par exemple pour la liste  
+
+\codeinline{mesprems = [2,3,5,7,11,13]},
+
+\codeinline{mesprems[0]} vaut $2$,
+
+\codeinline{mesprems[1]} vaut $3$...
+
+\change 
+
+Il est facile de parcourir une liste à l'aide une boucle. Par exemple 
+\codeinline{for p in mesprems:}. 
+
+%Tous les éléments de la liste sont atteints.
+%La boucle se fait alors sur tous les éléments de la liste.
+
+
+\change
+
+Une façon de créer une liste est de partir de la liste vide, 
+qui s'écrit \codeinline{[]},
+
+\change
+puis d'ajouter des éléments à l'aide de la méthode \codeinline{append}.
+
+\change
+
+ Par exemple 
+
+à ce stade la liste \codeinline{mespoints} est vide, (\codeinline{mespoints=[]})
+
+puis  l'élément (2,3) est ajouté avec la méthode \codeinline{append} (\codeinline{mespoints.append((2,3))})
+
+puis un autre %  \codeinline{mespoints.append((7,-1))}. 
+
+
+La liste \codeinline{mespoints} contient maintenant deux
+  éléments : \codeinline{ (2,3), (7,-1)}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Ces petits énoncés présentent quelques exemples de constructions de listes.
+
+Une utilisation intelligente du manuel vous permettra de produire un code très court et très lisible.
+%Il faut potasser le manuel afin de manipuler les listes avec aisance.
+
+PAUSE 3s
+
+\change
+
+La commande \codeinline{range} permet d'afficher les $n$ premiers entiers.
+
+\change
+
+On peut sélectionner les éléments d'une liste grâce à une condition que l'on introduit par un test \codeinline{if}.
+
+Cet exemple fournit la liste des premiers nombres premiers. 
+
+
+\change
+
+On peut se servir d'une liste déjà définie, ici \codeinline{premiers}, pour en définir une autre.
+
+\change
+
+On peut tronquer une liste ou en extraire une sous-liste. 
+
+Ici on ne garde que les $10$ premiers éléments.
+
+\change
+
+Voici la liste des nombres premiers auxquels on a ajouté leur rang.
+
+\change
+
+Il est également possible d'utiliser une fonction auxiliaire pour définir une liste. 
+
+Ici \codeinline{zeroun(k)} est une fonction qui renvoie $1$ où $0$ selon que $k$ est premier ou pas. 
+
+~
+
+On peut également fusionner des listes, 
+et faire de nombreuses autres opérations.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons, pour le reste de cette séquence, considérer l'ensemble des fonctions $f$ définies 
+%Dans ce tp, qui va nous occuper pour le reste de cette séquence, nous nous intéressons à
+ sur $x \in [0,1]$ par 
+$$f(x)=rx(1-x)$$  où le réel $r$, un paramètre, est compris entre $0$ et $4$.
+%$ 0 \le  r \le 4$.
+
+\change
+
+Nous allons nous intéresser aux suites récurrentes de terme initial $u_0 \in [0,1]$ et définies par $u_{n+1} = f(u_n)$ pour $r$ fixé.
+
+\change
+
+Dans cette première question, on demande de visualiser les suites récurrentes pour différentes valeurs de $r$ et $u_0$. 
+
+Vous pouvez pour cela suivre le procédé de construction que nous avons déjà élaboré.
+%, en s'aidant du graphe de $f$ et de la diagonale principale, en suivant le procédé de construction que nous avons déjà décrit.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Voici le comportement de différentes suites définies par le même premier terme $u_0=0,123$ et pour différentes valeurs de $r$.
+
+
+Pour $r=2,2$, la suite semble être monotone et avoir une limite,
+
+\change
+
+Pour $r=3,2$, la suite semble avoir \og deux limites \fg\ , c'est-à-dire
+  deux valeurs d'adhérence,
+
+  \change
+Pour $r=3,57$, la suite semble avoir $4$ valeurs d'adhérence.
+
+ \change
+ Pour  $r=4$ la situation semble chaotique.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans cette deuxième question, et les suivantes, on conserve les mêmes notations pour la fonction $f$ et la suite $u_n$.
+
+\change
+
+On cherche à tracer, à l'aide de Sage, pour $u_0$ fixé et deux entiers $M$ et $N$ grands avec $M<N$ (par exemple $M=100$, $N=200$)
+
+le \defi{diagramme de bifurcation} de $f$, c'est-à-dire l'ensemble des points
+  $$(u_i,r) \qquad \text{ pour } \quad M \le i \le N \text{ et } 0 \le r \le 4$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici le résultat attendu.
+
+En abscisse les réels de l'intervalle $[0,1]$  correspondant aux "limites" de la suites
+et en ordonnée le paramètre $r$.
+
+
+Lorsque l'on fixe une valeur de $r$, c'est-à-dire lorsqu'on regarde 
+l'intersection de ce diagramme de bifurcation avec une droite horizontale.
+alors cela donne une idée du nombre de valeurs d'adhérence de la suite 
+construite à partir de la fonction $f$ correspondant à la valeur du paramètre $r$.
+
+Pour $r\leq 3$ par exemple, on peut supposer que la suite n'admet qu'une seule valeur d'adhérence et donc qu'elle est convergente.
+
+Dès que $r$ dépasse $3$, on constate expérimentalement que la suite admet deux valeurs d'adhérence, puis $4$,... et ensuite le comportement devient chaotique.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans la troisième question, on demande de 
+
+déterminer les points fixes de $f$, et d'étudier leurs caractères attractif ou répulsif.
+
+On rappelle qu'un point fixe $x$ est attractif si $|f'(x)|<1$ et répulsif si $|f'(x)|>1$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici le code répondant à cette question. 
+
+On commence par définir les variables, la fonction, puis on résout l'équation donnant les points fixes.
+
+\change
+
+\begin{enumerate}
+    \item Les deux points fixes fournis dans la liste \codeinline{pts\_fixes}
+    sont $0$ et $\frac{r-1}{r}$.
+
+    \change 
+    
+    \item On calcule la dérivée \codeinline{ff}, 
+
+    on l'évalue en $0$, on trouve $f'(0)=r$. Ainsi si $r>1$ alors
+    $|f'(0)|>1$ et le point $0$ est répulsif. 
+    
+    \change
+
+    \item Par contre lorsque l'on résout l'inéquation $|f'(\frac{r-1}{r})|<1$, 
+    la machine renvoie les conditions $r>1$ et $r < 3$. 
+    Ainsi pour $1<r<3$, le point fixe $\frac{r-1}{r}$ est attractif.
+    \end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans la quatrième question, on étudie le cas où $1 < r \le3$. 
+
+Nous allons prouver mathématiquement que pour un terme initial $0<u_0<1$ 
+la suite $(u_n)$ converge vers le point fixe de la fonction $\frac{r-1}{r}$. 
+
+Nous nous limiterons au cas $r=2$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous n'allons par rentrer dans le détail de la solution mathématique, 
+mais nous allons seulement illustrer la situation en traçant la 
+ligne brisée associée à la suite à l'aide de la fonction 
+\codeinline{dessine\_suite} que nous avons déjà définie. 
+
+Nous constatons le phénomène de convergence vers le 
+point fixe $\frac{r-1}{r}$, qui prend ici pour $r=2$ la valeur $\frac{1}{2}$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans cette cinquième question, on étudie le cas où $3<r<1+\sqrt{6}$.
+
+\change
+
+On commencera par chercher les points fixes $\ell_1$ et $\ell_2$ de $f\circ f$  
+qui ne sont pas des points fixes de $f$.
+
+
+\change
+
+Puis on montrera que $f$ permute ces points fixes,
+
+\change
+
+et enfin on vérifiera sur un exemple que les suites $(u_{2n})$ et 
+$(u_{2n+1})$ sont croissantes ou décroissantes à partir d'un certain rang
+    et convergent, l'une vers $\ell_1$, l'autre vers $\ell_2$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici le code permettant de répondre à cette question.
+
+La seule nouveauté par rapport au calcul des points 
+fixes de $f$ est qu'il faut considérer, non plus $f$, mais maintenant $f\circ f$ ici notée $g$,
+avant de chercher ses points fixes.
+
+\change
+
+On obtient alors deux points fixes de $g$ qui ne sont pas des points fixes de $f$. 
+%Noter que l'on a du un peu aider Sage a simplifier les expressions.
+
+\change
+
+Pour finir, on demande de vérifier formellement l'égalité $f(\ell_1)=\ell_2$. 
+
+La seconde égalité est alors immédiate.
+%et la $f(\ell_2)=\ell_1$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour la vérification graphique, fixons les valeurs $r=1+\sqrt{5}$ pour définir la fonction $f$ et 
+$u_0=\frac23$ comme premier terme de la suite.
+
+On peut à nouveau  illustrer la situation en traçant les lignes 
+brisées associées aux deux sous-suites des termes de rangs pairs 
+et impairs à l'aide de la fonction \codeinline{dessine\_suite}, 
+appliquée cette fois ci à $g=f\circ f$. 
+
+
+%\change
+
+A gauche, la sous-suite des termes de rangs pairs (en partant de $u_0$) décroît vers sa limite $\ell_1$, 
+
+%\change
+
+tandis qu'à droite, la sous-suite des termes de rangs impairs (en partant de $u_1$) croît vers sa limite $\ell_2$. 
+
+%\change
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\diapo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\change
+
+On peut également tracer la ligne brisée associée à tous les termes de la suite 
+en revenant cette fois à la fonction $f$.
+
+On observe nettement les deux valeurs d'adhérence. 
+On dit que la suite  possède un cycle attracteur de période $2$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Dans les deux dernières questions, on s'intéresse aux cas restants.
+
+Premier cas : $1+\sqrt{6}<r<3, 5699456\ldots$ dans lequel on souhaite observer un cycle attracteur de période une puissance de $2$.
+
+Deuxième et dernier cas : $r > 3, 5699456\ldots$ dans lequel on souhaite mettre en évidence le caractère chaotique de la suite.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On obtient par exemple un cycle de longueur $8$ en prenant $r=3,56$, $u_0=0,35$ :
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\diapo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\change
+
+Le cas $r=4$ correspond à une situation chaotique.
+
+Ce cas passionnant est détaillé dans le polycopié et je vous encourage vivement 
+à l'étudier.
+
+\end{document}

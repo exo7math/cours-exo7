@@ -1,0 +1,953 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+%\newcommand\tvdots{\raisebox{3pt}{$\scalebox{.75}{\vdots}$}}
+
+\begin{document}
+
+%====================================================================
+\chapitre{L'espace vectoriel $\Rr^n$}
+%====================================================================
+
+
+\insertvideo{8J0pCiBu0vE}{partie 1. Vecteurs de $\Rr^n$}
+
+\insertvideo{xCA2fFei2_U}{partie 2. Exemples d'applications linéaires}
+
+\insertvideo{985k69XyA-c}{partie 3. Propriétés des applications linéaires}
+
+\bigskip
+
+Ce chapitre est consacré à l'ensemble $\Rr^n$ vu comme espace vectoriel.
+Il peut être vu de plusieurs façons :
+\begin{itemize}
+  \item un cours minimal sur les espaces vectoriels pour ceux qui n'auraient besoin que
+  de $\Rr^n$,
+
+  \item une introduction avant d'attaquer le cours détaillé sur les espaces vectoriels,
+
+  \item une source d'exemples à lire en parallèle du cours sur les espaces vectoriels.
+\end{itemize}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Vecteurs de $\Rr^n$}
+
+%---------------------------------------------------------------
+\subsection{Opérations sur les vecteurs}
+
+
+\begin{itemize}
+  \item L'ensemble des nombres
+réels $\Rr$ est souvent représenté par une droite. C'est un
+espace de dimension~$1$.
+
+  \item Le plan est formé des couples
+$\left(\begin{smallmatrix}x_1\\  x_2\end{smallmatrix}\right)$ de nombres réels.
+Il est noté $\Rr^2$. C'est un espace à deux dimensions.
+
+  \item L'espace de dimension $3$ est constitué des triplets de nombres réels
+$\left(\begin{smallmatrix}x_1\\x_2\\x_3\end{smallmatrix}\right)$.
+Il est noté $\Rr^3$.
+
+Le symbole $\left(\begin{smallmatrix}x_1\\x_2\\x_3\end{smallmatrix}\right)$
+a deux interprétations géométriques : soit comme un point de l'espace (figure de gauche),
+soit comme un vecteur (figure de droite) :
+
+\myfigure{0.6}{
+\tikzinput{fig_erene01}
+\qquad\qquad
+\tikzinput{fig_erene02}
+}
+\end{itemize}
+
+
+
+\bigskip
+
+
+
+On généralise ces notions en considérant des espaces de dimension $n$
+pour tout entier positif $n = 1,\, 2,\, 3,\, 4,\, \dots$
+Les éléments de l'espace de dimension $n$ sont les $n$-uples
+$\left(\begin{smallmatrix} x_1\\ x_2 \\ \vdots \\ x_n \end{smallmatrix}\right)$
+de nombres réels. L'espace de dimension $n$ est noté $\Rr^n$.
+Comme en dimensions $2$ et $3$, le $n$-uple
+$\left(\begin{smallmatrix} x_1\\x_2 \\  \vdots \\ x_n \end{smallmatrix}\right)$
+dénote aussi bien un point qu'un vecteur de l'espace de dimension $n$.
+
+\bigskip
+
+ Soient $u = \left(\begin{smallmatrix} u_1\\ u_2\\\vdots \\ u_n \end{smallmatrix}\right)$
+  et $v =\left(\begin{smallmatrix} v_1\\ v_2\\\vdots \\ v_n \end{smallmatrix}\right)$ deux vecteurs de $\Rr^n$.
+
+\begin{definition}
+\sauteligne
+\begin{itemize}
+  \item \defi{Somme de deux vecteurs.}
+  Leur somme est par définition le vecteur $u + v = \begin{pmatrix}u_1 + v_1 \\ \vdots \\ u_n + v_n\end{pmatrix}.$
+
+  \item \defi{Produit d'un vecteur par un scalaire.} Soit $\lambda\in \Rr$
+  (appelé un \defi{scalaire}\index{scalaire}) :
+$\lambda \cdot u = \begin{pmatrix}\lambda u_1 \\ \vdots \\ \lambda u_n \end{pmatrix}.$
+
+  \item Le \defi{vecteur nul}\index{vecteur!nul} de $\Rr^n$ est le vecteur
+  $0 = \left(\begin{smallmatrix} 0 \\ \vdots \\ 0 \end{smallmatrix}\right)$.
+
+  \item L'\defi{opposé} du vecteur $u = \left(\begin{smallmatrix} u_1\\ \vdots \\ u_n \end{smallmatrix}\right)$
+   est le vecteur $-u = \left(\begin{smallmatrix} -u_1\\ \vdots \\ -u_n \end{smallmatrix}\right)$.
+\end{itemize}
+\end{definition}
+
+\bigskip
+
+Voici des vecteurs dans $\Rr^2$ (ici $\lambda=2$):
+\myfigure{1}{
+\tikzinput{fig_erene03}
+}
+
+
+Dans un premier temps, vous pouvez noter $\vec{u}, \vec{v}, \vec{0}$ au lieu de $u$, $v$, $0$.
+Mais il faudra s'habituer rapidement à la notation sans flèche. De même, si
+$\lambda$ est un scalaire et $u$ un vecteur, on notera souvent $\lambda u$
+au lieu de $\lambda\cdot u$.
+
+
+\begin{theoreme}
+  Soient $u = \left(\begin{smallmatrix} u_1\\ \vdots \\ u_n \end{smallmatrix}\right)$, $v = \left(\begin{smallmatrix} v_1\\ \vdots \\ v_n \end{smallmatrix}\right)$
+  et $w = \left(\begin{smallmatrix} w_1\\ \vdots \\ w_n \end{smallmatrix}\right)$ des vecteurs de $\Rr^n$
+  et $\lambda, \mu \in \Rr$. Alors :
+ \begin{enumerate}
+ \item $u + v = v + u$
+ \item $u + (v+w) = (u+v) +w$
+ \item $u + 0 = 0 + u = u$
+ \item $u + (-u) = 0$
+ \item $1 \cdot u = u$
+ \item $\lambda \cdot (\mu \cdot u) = (\lambda\mu )\cdot u$
+ \item $\lambda \cdot (u+v) = \lambda \cdot u + \lambda \cdot v$
+ \item $(\lambda + \mu ) \cdot u = \lambda \cdot u + \mu \cdot u$
+ \end{enumerate}
+\end{theoreme}
+
+\myfigure{1}{
+\tikzinput{fig_erene04}
+}
+
+
+Chacune de ces propriétés découle directement de la définition de la somme
+et de la multiplication par un scalaire. Ces huit propriétés font de $\Rr^n$ un
+\defi{espace vectoriel}\index{espace vectoriel}. Dans le cadre général, ce sont ces huit propriétés qui définissent
+ce qu'est un espace vectoriel.
+
+
+ %---------------------------------------------------------------
+\subsection{Représentation des vecteurs de $\Rr^n$}
+
+
+Soit $u = \left(\begin{smallmatrix} u_1\\ \vdots \\ u_n \end{smallmatrix}\right)$ un vecteur de $\Rr^n$.
+On l'appelle \defi{vecteur colonne}\index{vecteur!colonne} et on considère
+naturellement $u$ comme une matrice de taille $n\times 1$. Parfois, on
+rencontre aussi des \defi{vecteurs lignes}\index{vecteur!ligne} : on
+peut voir le vecteur $u$ comme une matrice $1\times n$, de la forme
+$(u_1,\dots,u_n)$. En fait, le vecteur ligne correspondant à $u$
+est le transposé $u^T$ du vecteur colonne $u$.
+
+Les opérations de somme et de produit par un scalaire définies ci-dessus
+pour les vecteurs coïncident parfaitement avec les opérations définies sur
+les matrices :
+$$
+u + v =
+\begin{pmatrix}
+u_1\\
+\vdots\\
+u_n\end{pmatrix} +
+\begin{pmatrix}
+v_1\\
+\vdots\\
+v_n\end{pmatrix} =
+\begin{pmatrix}
+u_1 + v_1\\
+\vdots\\
+u_n + v_n\end{pmatrix}
+\qquad \text{ et } \qquad
+\lambda u =
+\lambda \begin{pmatrix}
+u_1\\
+\vdots\\
+u_n\end{pmatrix} =
+\begin{pmatrix}
+\lambda u_1\\
+\vdots\\
+\lambda u_n\end{pmatrix}.
+$$
+
+
+%---------------------------------------------------------------
+\subsection{Produit scalaire}
+
+
+Soient $u = \left(\begin{smallmatrix} u_1\\ \vdots \\ u_n \end{smallmatrix}\right)$
+et $v = \left(\begin{smallmatrix} v_1\\ \vdots \\ v_n \end{smallmatrix}\right)$
+deux vecteurs de $\Rr^n$. On définit leur \defi{produit scalaire}\index{produit scalaire} par
+$$\langle u \mid v \rangle = u_1 v_1 + u_2 v_2 + \dots + u_nv_n.$$
+C'est un scalaire (un nombre réel). Remarquons que cette définition généralise la notion
+de produit scalaire dans le plan $\Rr^2$ et dans l'espace $\Rr^3$.
+
+Une autre écriture :
+$$\langle u \mid v \rangle = u^T \times v =
+\begin{pmatrix} u_1 & u_2 & \cdots & u_n \end{pmatrix}\times
+\begin{pmatrix} v_1 \\ v_2 \\ \vdots \\ v_n \end{pmatrix} $$
+
+
+\bigskip
+
+
+Soient $A = (a_{ij})$ une matrice de taille $n\times p$, et $B = (b_{ij})$ une matrice de taille $p \times q$.
+Nous savons que l'on peut
+former le produit matriciel $AB$. On obtient une matrice de taille
+$n\times q$. L'élément d'indice $ij$ de la matrice $AB$ est
+$$
+a_{i1} b_{1j} + a_{i2} b_{2j} + \cdots + a_{ip} b_{pj}\, .
+$$
+
+
+
+Remarquons que ceci est  aussi le produit matriciel :
+$$\begin{pmatrix} a_{i1}& a_{i2} &\cdots &a_{ip}\end{pmatrix}\times
+\begin{pmatrix}b_{1j}\\ b_{2j}\\ \vdots\\ b_{pj} \end{pmatrix}. $$
+
+Autrement dit, c'est le produit scalaire du $i$-ème vecteur ligne de $A$ avec
+le $j$-ème vecteur colonne de $B$. Notons $\ell_1, \dots , \ell_n$ les vecteurs lignes
+formant la matrice $A$, et $c_1, \dots ,c_q$ les vecteurs colonnes formant la matrice $B$. On a alors
+$$
+AB = \begin{pmatrix}
+\langle\ell_1 \mid c_1\rangle & \langle\ell_1 \mid c_2\rangle &\cdots & \langle\ell_1\mid c_q\rangle \\
+\langle\ell_2 \mid c_1\rangle & \langle\ell_2 \mid c_2\rangle & \cdots & \langle\ell_2\mid c_q\rangle \\
+\vdots & \vdots & &\vdots\\
+\langle\ell_n \mid c_1\rangle & \langle\ell_n \mid c_2\rangle & \cdots & \langle\ell_n \mid c_q\rangle
+\end{pmatrix}.$$
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Faire un dessin pour chacune des $8$ propriétés qui font de $\Rr^2$ un espace vectoriel.
+
+  \item Faire la même chose pour $\Rr^3$.
+
+  \item Montrer que le produit scalaire vérifie
+  $\langle u \mid v \rangle = \langle v \mid u \rangle$,
+  $\langle u+v \mid w \rangle = \langle u \mid w \rangle + \langle v \mid w \rangle$,
+  $\langle \lambda u \mid v \rangle = \lambda\langle  u \mid v \rangle$ pour tout $u,v,w \in \Rr^n$ et $\lambda\in \Rr$.
+
+  \item Soit $u\in \Rr^n$. Montrer que $\langle u \mid u \rangle \ge 0$.
+  Montrer $\langle u \mid u \rangle = 0$ si et seulement si $u$ est le vecteur nul.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exemples d'applications linéaires}
+
+
+Soient
+$$f_1 : \Rr^p \longrightarrow \Rr \qquad f_2 : \Rr^p \longrightarrow \Rr \qquad \ldots \qquad f_n : \Rr^p \longrightarrow \Rr$$
+$n$ fonctions de $p$ variables réelles à valeurs réelles ;
+chaque $f_i$ est une fonction :
+$$f_i : \Rr^p \longrightarrow \Rr, \qquad (x_1,x_2,\ldots,x_p) \mapsto f_i(x_1,\ldots,x_p)$$
+
+On construit une application
+$$f : \Rr^p \longrightarrow \Rr^n$$
+définie par
+$$f(x_1,\dots , x_p)  = \left(f_1 (x_1, \dots , x_p), \dots , f_n (x_1, \dots , x_p)\right).$$
+
+
+%---------------------------------------------------------------
+\subsection{Applications linéaires}
+
+\begin{definition}
+Une application $f: \Rr^p  \longrightarrow \Rr^n$ définie par $f(x_1, \dots , x_p) = (y_1, \dots , y_n)$
+est dite une \defi{application linéaire}\index{application lineaire@application linéaire} si
+ $$
+ \left\{
+\begin{array}{ccccccccc}
+y_1 & = &a_{11}x_1 &+ &a_{12} x_2 & + & \cdots & + & a_{1p}x_p\\
+y_2 & = & a_{21} x_1 & + & a_{22} x_2 & + & \cdots & + & a_{2p} x_p\\
+\vdots &&\vdots &&\vdots & & & &\vdots\\
+y_n & = & a_{n1}x_1 & + & a_{n2}x_2 &+&\cdots & +& a_{np} x_p\, .
+\end{array}\right.
+$$
+\end{definition}
+
+
+En notation matricielle, on a
+$$f\begin{pmatrix} x_1\\x_2 \\ \vdots \\x_p \end{pmatrix}=
+\begin{pmatrix} y_1\\ y_2\\ \vdots\\ y_n  \end{pmatrix} =
+\begin{pmatrix}
+a_{11} & a_{12} & \cdots & a_{1p}\\
+a_{21} & a_{22} & \cdots & a_{2p}\\
+\vdots & \vdots & & \vdots\\
+a_{n1}& a_{n2} & \cdots & a_{np}
+\end{pmatrix}
+\begin{pmatrix} x_1\\x_2 \\ \vdots \\x_p \end{pmatrix},
+$$
+ou encore, si on note
+$X= \begin{pmatrix} x_1\\ \vdots \\x_p \end{pmatrix}$ et
+$A \in M_{n,p}(\Rr)$ la matrice $(a_{ij})$,
+\mybox{$f(X)=AX.$}
+Autrement dit, une application linéaire $\Rr^p \to \Rr^n$
+peut s'écrire $X \mapsto A X$. La matrice $A\in M_{n,p}(\Rr)$ est
+appelée la \defi{matrice de l'application linéaire}\index{matrice!d une application lineaire@d'une application linéaire} $f$.
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+  \item On a toujours $f(0,\ldots,0) = (0,\ldots,0)$. Si on note $0$ pour le vecteur nul
+dans $\Rr^p$ et aussi dans $\Rr^n$, alors une application linéaire vérifie toujours $f(0)=0$.
+  \item Le nom complet de la matrice $A$ est : la matrice de l'application linéaire $f$
+  de la base canonique de $\Rr^p$ vers la base canonique de $\Rr^n$ !
+\end{itemize}
+\end{remarque*}
+
+
+
+
+\begin{exemple}
+La fonction $f: \Rr^4 \longrightarrow \Rr^3$ définie par
+$$\left\{\begin{array}{rcl}
+y_1 & = & -2x_1 + 5x_2 + 2x_3 - 7x_4\\
+y_2 & = & 4x_1 + 2x_2 - 3x_3 + 3x_4\\
+y_3 & = & 7x_1 - 3x_2 + 9x_3
+\end{array}\right.$$
+s'exprime sous forme matricielle comme suit :
+$$\begin{pmatrix} y_1\\ y_2\\ y_3 \end{pmatrix} =
+\begin{pmatrix}
+-2 & 5 & 2 & -7\\
+4 & 2 & -3 & 3\\
+7 & -3 & 9 & 0
+\end{pmatrix}\quad
+\begin{pmatrix}x_1\\ x_2\\ x_3\\ x_4 \end{pmatrix}.$$
+\end{exemple}
+
+
+\begin{exemple}
+\sauteligne
+\begin{itemize}
+  \item Pour l'application linéaire identité $\Rr^n \to \Rr^n$, $(x_1,\ldots,x_n) \mapsto (x_1,\ldots,x_n)$, sa matrice associée
+  est l'identité $I_n$ (car $I_n X= X$).
+
+  \item Pour l'application linéaire nulle $\Rr^p \to \Rr^n$, $(x_1,\ldots,x_p) \mapsto (0,\ldots,0)$, sa matrice associée
+  est la matrice nulle $0_{n,p}$ (car $0_{n,p} X= 0$).
+\end{itemize}
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Exemples d'applications linéaires}
+
+%---------------------------------------------------------------
+\subsubsection{Réflexion par rapport à l'axe $(Oy)$}
+
+\index{reflexion@réflexion}
+
+La fonction
+$$f : \Rr^2 \longrightarrow \Rr^2 \qquad \begin{pmatrix} x \\ y \end{pmatrix} \mapsto \begin{pmatrix} -x \\ y \end{pmatrix}$$
+est la réflexion par rapport à l'axe des ordonnées $(Oy)$, et sa matrice est
+\[\begin{pmatrix}-1 & 0 \\ 0 & 1 \end{pmatrix}
+\qquad \text{ car } \qquad
+\begin{pmatrix} -1 & 0 \\ 0 & 1 \end{pmatrix}
+\begin{pmatrix} x \\ y \end{pmatrix}
+= \begin{pmatrix} -x \\ y \end{pmatrix}.
+\]
+
+
+\myfigure{1}{
+\tikzinput{fig_erene05}
+}
+
+%---------------------------------------------------------------
+\subsubsection{Réflexion par rapport à l'axe $(Ox)$}
+
+La réflexion par rapport à l'axe des abscisses $(Ox)$ est donnée par la matrice
+\[\begin{pmatrix} 1 & 0\\ 0 & -1 \end{pmatrix}.\]
+
+\myfigure{1}{
+\tikzinput{fig_erene07}
+}
+
+%---------------------------------------------------------------
+\subsubsection{Réflexion par rapport à la droite $(y = x)$}
+
+
+La réflexion par rapport à la droite $(y=x)$ est donnée par
+$$f: \Rr^2 \longrightarrow \Rr^2, \qquad
+\begin{pmatrix}x\\y\end{pmatrix} \mapsto \begin{pmatrix}y\\x\end{pmatrix}$$
+et sa matrice est
+\[\begin{pmatrix}0 & 1\\1 & 0\end{pmatrix}.\]
+
+\myfigure{1}{
+\tikzinput{fig_erene06}
+}
+
+%---------------------------------------------------------------
+\subsubsection{Homothéties}
+
+\index{homothetie@homothétie}
+
+L'homothétie de rapport $\lambda$ centrée à l'origine est :
+$$f: \Rr^2 \longrightarrow \Rr^2, \qquad
+\begin{pmatrix}x\\y\end{pmatrix} \mapsto \begin{pmatrix} \lambda x \\ \lambda y \end{pmatrix}.$$
+
+On peut donc écrire
+$f\left(\begin{smallmatrix} x \\ y \end{smallmatrix}\right) =
+\left(\begin{smallmatrix} \lambda & 0 \\ 0 & \lambda \end{smallmatrix}\right)
+\left(\begin{smallmatrix} x \\ y \end{smallmatrix}\right)$.
+Alors la matrice de l'homothétie est :
+\[\begin{pmatrix} \lambda & 0 \\ 0 & \lambda \end{pmatrix}.\]
+
+\myfigure{1}{
+\tikzinput{fig_erene08}
+}
+
+\bigskip
+
+\begin{remarque*}
+La translation de vecteur $\left(\begin{smallmatrix} u_0 \\ v_0 \end{smallmatrix}\right)$
+est l'application
+$$f : \Rr^2 \to \Rr^2, \qquad  \begin{pmatrix}x\\y\end{pmatrix} \mapsto
+\begin{pmatrix} x \\ y\end{pmatrix} + \begin{pmatrix} u_0 \\ v_0\end{pmatrix}
+= \begin{pmatrix} x+u_0 \\ y+v_0\end{pmatrix}.$$
+
+Si c'est une translation de vecteur non nul, c'est-à-dire
+$\left(\begin{smallmatrix} u_0 \\ v_0 \end{smallmatrix}\right) \neq \left(\begin{smallmatrix} 0 \\ 0 \end{smallmatrix}\right)$,
+alors \evidence{ce n'est pas} une application linéaire, car
+$f\left(\begin{smallmatrix} 0 \\ 0 \end{smallmatrix}\right) \neq \left(\begin{smallmatrix} 0 \\ 0 \end{smallmatrix}\right)$.
+\end{remarque*}
+
+
+%---------------------------------------------------------------
+\subsubsection{Rotations}
+
+\index{rotation}
+
+
+Soit $f: \Rr^2 \longrightarrow \Rr^2$ la rotation d'angle $\theta$, centrée à l'origine.
+
+
+
+\myfigure{1}{
+\tikzinput{fig_erene09}
+}
+
+
+Si le vecteur $\left(\begin{smallmatrix}x \\ y \end{smallmatrix}\right)$ fait un angle $\alpha$
+avec l'horizontale et que le point $\left(\begin{smallmatrix}x \\ y \end{smallmatrix}\right)$
+est à une distance $r$ de l'origine, alors
+$$\left\{\begin{array}{rcl}
+x & = & r \cos \alpha\\
+y & = & r \sin \alpha
+\end{array}.\right. $$
+Si $\left(\begin{smallmatrix}x' \\ y' \end{smallmatrix}\right)$ dénote l'image
+de $\left(\begin{smallmatrix}x \\ y \end{smallmatrix}\right)$ par la rotation d'angle
+$\theta$, on obtient :
+$$\left\{\begin{array}{rcl}
+x' & = & r \cos (\alpha + \theta)\\
+y' & = & r \sin (\alpha + \theta)
+\end{array}\right.
+\qquad \text{ donc } \qquad
+\left\{\begin{array}{rcl}
+x' & = & r \cos\alpha\cos\theta \  - \ r \sin \alpha \sin  \theta\\
+y' & = & r \cos \alpha\sin\theta \ + \ r\sin \alpha \cos \theta
+\end{array}\right.  $$
+(où l'on a appliqué les formules de trigonométrie pour
+$\cos (\alpha + \theta)$ et $\sin (\alpha + \theta)$).
+
+On aboutit à
+$$\left\{\begin{array}{rcl}
+x' & = & x \cos  \theta - y \sin\theta\\
+y' & = & x\sin \, \theta + y \cos\theta
+\end{array}\right.
+\qquad \text{ donc }\qquad
+\begin{pmatrix}x' \\ y' \end{pmatrix}
+= \begin{pmatrix}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{pmatrix}
+\begin{pmatrix}x \\ y \end{pmatrix}.
+$$
+Autrement dit, la rotation d'angle $\theta$ est donnée par la matrice
+$$\begin{pmatrix}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{pmatrix}.$$
+
+
+%---------------------------------------------------------------
+\subsubsection{Projections orthogonales}
+
+\index{projection orthogonale}
+
+\myfigure{1}{
+\tikzinput{fig_erene10}
+}
+L'application
+$$
+f: \Rr^2  \longrightarrow \Rr^2, \qquad \begin{pmatrix}x\\y\end{pmatrix} \mapsto
+\begin{pmatrix}x\\0\end{pmatrix}$$
+est la projection orthogonale sur l'axe $(Ox)$.
+C'est une application linéaire donnée par la matrice
+$$\begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}.$$
+
+L'application linéaire
+$$f: \Rr^3  \longrightarrow \Rr^3, \qquad
+\begin{pmatrix}x\\y\\z\end{pmatrix}  \mapsto \begin{pmatrix}x\\y\\0\end{pmatrix}$$
+est la projection orthogonale sur le plan $(Oxy)$ et sa matrice est
+$$\begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 0
+\end{pmatrix}.$$
+\myfigure{1}{
+\tikzinput{fig_erene11}
+}
+
+De même, la projection orthogonale sur le plan $(Oxz)$
+est donnée par la matrice de gauche ;
+la projection orthogonale sur le plan $(Oyz)$ par la matrice de droite :
+$$\begin{pmatrix}
+1 & 0 & 0\\
+0 & 0 & 0\\
+0 & 0 & 1
+\end{pmatrix}
+\qquad
+\begin{pmatrix}
+0 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{pmatrix}.$$
+
+
+%---------------------------------------------------------------
+\subsubsection{Réflexions dans l'espace}
+\index{reflexion@réflexion}
+
+L'application
+$$
+f: \Rr^3  \longrightarrow \Rr^3, \qquad \begin{pmatrix}x\\y\\z\end{pmatrix} \mapsto \begin{pmatrix}x\\y\\-z\end{pmatrix}$$
+est la réflexion par rapport au plan $(Oxy)$. C'est une application linéaire et sa matrice est
+\[ \begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & -1
+\end{pmatrix}
+. \]
+
+De même, les réflexions par rapport aux plans $(Oxz)$ (à gauche) et $(Oyz)$ (à droite) sont données par les matrices :
+$$\begin{pmatrix}
+1 & 0 & 0\\
+0 & -1 & 0\\
+0 & 0 & 1
+\end{pmatrix}
+\qquad \qquad
+\begin{pmatrix}
+-1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{pmatrix}.$$
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soit $A=\left(\begin{smallmatrix} 1 & 2 \\ 1 & 3 \end{smallmatrix} \right)$
+  et soit $f$ l'application linéaire associée. Calculer et dessiner l'image par $f$ de
+  $\left(\begin{smallmatrix} 1 \\ 0 \end{smallmatrix} \right)$, puis
+  $\left(\begin{smallmatrix} 0 \\ 1 \end{smallmatrix} \right)$
+et plus généralement de $\left(\begin{smallmatrix} x \\ y \end{smallmatrix} \right)$.
+Dessiner l'image par $f$ du carré de sommets
+$\left(\begin{smallmatrix} 0 \\ 0 \end{smallmatrix} \right)$
+$\left(\begin{smallmatrix} 1 \\ 0 \end{smallmatrix} \right)$
+$\left(\begin{smallmatrix} 1 \\ 1 \end{smallmatrix} \right)$
+$\left(\begin{smallmatrix} 0 \\ 1 \end{smallmatrix} \right)$.
+Dessiner l'image par $f$ du cercle inscrit dans ce carré.
+
+  \item Soit $A=\left(\begin{smallmatrix} 1 & 2 & -1 \\ 0 & 1 & 0 \\ 2 & 1 & 1 \end{smallmatrix} \right)$
+  et soit $f$ l'application linéaire associée. Calculer l'image par $f$ de
+  $\left(\begin{smallmatrix} 1 \\ 0 \\ 0 \end{smallmatrix} \right)$,
+  $\left(\begin{smallmatrix} 0 \\ 1 \\ 0 \end{smallmatrix} \right)$,
+  $\left(\begin{smallmatrix} 0 \\ 0 \\ 1 \end{smallmatrix} \right)$
+et plus généralement de $\left(\begin{smallmatrix} x \\ y \\z \end{smallmatrix} \right)$.
+
+
+  \item \'Ecrire la matrice de la rotation du plan d'angle $\frac\pi4$ centrée à l'origine.
+ Idem dans l'espace avec la rotation d'angle $\frac\pi4$ d'axe $(Ox)$.
+
+  \item \'Ecrire la matrice de la réflexion du plan par rapport à la droite $(y=-x)$.
+ Idem dans l'espace avec la réflexion par rapport au plan d'équation $(y=-x)$.
+
+ \item\'Ecrire la matrice de la projection orthogonale de l'espace sur l'axe $(Oy)$.
+
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Propriétés des applications linéaires}
+\index{application lineaire@application linéaire}
+%---------------------------------------------------------------
+\subsection{Composition d'applications linéaires et produit de matrices}
+
+
+Soient
+$$f : \Rr^p \longrightarrow \Rr^n \qquad \text{ et } \qquad g : \Rr^q \longrightarrow \Rr^p$$
+deux applications linéaires.
+Considérons leur composition :
+$$\Rr^q \overset{g}{\longrightarrow} \Rr^p\overset{f}{\longrightarrow} \Rr^n
+ \qquad \qquad
+f \circ g :  \Rr^q \longrightarrow \Rr^n.
+$$
+L'application $f \circ g$ est une application linéaire.
+Notons :
+\begin{itemize}
+  \item $A = \Mat(f) \in M_{n,p}(\Rr)$ la matrice associée à $f$,
+  \item $B = \Mat(g) \in M_{p,q}(\Rr)$ la matrice associée à $g$,
+  \item $C = \Mat(f \circ g) \in M_{n,q}(\Rr)$ la matrice associée à $f \circ g$.
+\end{itemize}
+
+On a pour un vecteur $X \in \Rr^q$ :
+$$(f \circ g)(X)  =  f \big(g(X)\big) = f\big( BX \big) = A(BX) = (AB)X.$$
+
+Donc la matrice associée à $f\circ g$ est $C=AB$.
+
+
+Autrement dit, la matrice associée à la composition de deux applications linéaires est
+égale au produit de leurs matrices :
+\mybox{$\Mat(f \circ g) = \Mat (f) \times \Mat (g)$}
+
+
+En fait le produit de matrices, qui au premier abord peut sembler
+bizarre et artificiel, est défini exactement pour vérifier cette relation.
+
+
+\begin{exemple}
+Soit $f: \Rr^2 \longrightarrow \Rr^2$ la réflexion par rapport à la droite
+$(y = x)$ et soit $g: \Rr^2 \longrightarrow \Rr^2$
+la rotation d'angle $\theta=\frac\pi3$ (centrée à l'origine).
+Les matrices sont
+$$ A = \Mat(f) = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
+\qquad \text{et} \qquad
+B = \Mat(g) =
+\begin{pmatrix}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{pmatrix}
+=
+\begin{pmatrix}
+\frac12 & -\frac{\sqrt3}{2} \\
+\frac{\sqrt3}{2} & \frac12
+\end{pmatrix}.
+$$
+
+Voici pour $X=\left(\begin{smallmatrix}1\\0\end{smallmatrix} \right)$ les images
+$f(X)$, $g(X)$, $f\circ g(X)$, $g\circ f(X)$ :
+\myfigure{1.2}{
+\tikzinput{fig_erene13}
+}
+
+Alors
+$$C = \Mat (f\circ g)  = \Mat (f) \times \Mat (g) =
+\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} \times
+\begin{pmatrix} \frac12 & -\frac{\sqrt3}{2} \\ \frac{\sqrt3}{2} & \frac12 \end{pmatrix}
+= \begin{pmatrix} \frac{\sqrt3}{2} & \frac12  \\ \frac12 & -\frac{\sqrt3}{2}\end{pmatrix}.
+$$
+
+Notons que si l'on considère la composition $g\circ f$ alors
+$$D = \Mat (g \circ f)  = \Mat (g) \times \Mat (f)
+= \begin{pmatrix} \frac12 & -\frac{\sqrt3}{2} \\ \frac{\sqrt3}{2} & \frac12 \end{pmatrix}
+ \times  \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
+= \begin{pmatrix}-\frac{\sqrt3}{2} & \frac12 \\  \frac12 & \frac{\sqrt3}{2} \end{pmatrix}.
+$$
+
+Les matrices $C=AB$ et $D=BA$ sont distinctes, ce qui montre que la
+composition d'applications linéaires, comme la multiplication des matrices,
+n'est pas commutative en général.
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Application linéaire bijective et matrice inversible}
+
+
+
+\begin{theoreme}
+\label{th:matinv}
+Une application linéaire $f : \Rr^n \to \Rr^n$ est bijective
+si et seulement si sa matrice associée $A= \Mat(f) \in M_n(\Rr)$
+ est inversible.
+\end{theoreme}
+
+L'application $f$ est définie par $f(X) = AX$.
+Donc si $f$ est bijective, alors
+d'une part $f(X)=Y \iff X = f^{-1}(Y)$,
+mais d'autre part $AX=Y \iff X = A^{-1}Y$.
+Conséquence : la matrice de $f^{-1}$ est $A^{-1}$.
+\begin{corollaire}
+Si $f$ est bijective, alors
+\mybox{$\Mat(f^{-1}) = \big(\Mat (f) \big)^{-1}$.}
+\end{corollaire}
+
+
+
+\begin{exemple}
+Soit $f: \Rr^2 \longrightarrow \Rr^2$ la rotation d'angle $\theta$.
+Alors $f^{-1}: \Rr^2 \longrightarrow \Rr^2$ est la rotation d'angle $-\theta$.
+
+On a
+$$\Mat(f) =
+\begin{pmatrix}
+\cos\, \theta & & -\sin \theta\\
+\sin\, \theta &&\cos\, \theta
+\end{pmatrix},$$
+
+$$\Mat(f^{-1}) = \big(\Mat (f) \big)^{-1}
+= \begin{pmatrix}
+\cos\, \theta &&\sin \,\theta\\
+-\sin\, \theta && \cos\,\theta
+\end{pmatrix}
+= \begin{pmatrix}
+\cos\, (-\theta ) && -\sin\, (-\theta )\\
+\sin\, (-\theta ) && \cos (-\theta )
+  \end{pmatrix}.
+$$
+\end{exemple}
+
+
+
+\begin{exemple}
+Soit $f: \Rr^2 \longrightarrow \Rr^2$ la projection sur l'axe $(Ox)$.
+Alors $f$ n'est pas injective. En effet, pour $x$ fixé et tout $y\in \Rr$,
+$f\left(\begin{smallmatrix}x\\y\end{smallmatrix}\right)
+= \left(\begin{smallmatrix}x\\0\end{smallmatrix}\right)$.
+L'application $f$ n'est pas non plus surjective :
+ceci se vérifie aisément car aucun point en-dehors de l'axe $(Ox)$ n'est dans l'image de $f$.
+
+
+\myfigure{1}{
+\tikzinput{fig_erene12}
+}
+
+La matrice de $f$ est
+$\left(\begin{smallmatrix}
+1 & 0\\
+0 & 0\end{smallmatrix}\right)$ ;
+elle n'est pas inversible.
+\end{exemple}
+
+
+
+La preuve du théorème \ref{th:matinv} est une conséquence directe du
+théorème suivant, vu dans le chapitre sur les matrices :
+\begin{theoreme}
+Les assertions suivantes sont équivalentes :
+\begin{itemize}
+  \item[(i)] La matrice $A$ est inversible.
+
+  \item[(ii)] Le système linéaire $AX=\left(\begin{smallmatrix} 0 \\ \vdots \\ 0\end{smallmatrix}\right)$ a une unique solution
+  $X=\left(\begin{smallmatrix} 0 \\ \vdots \\ 0\end{smallmatrix}\right)$.
+
+  \item[(iii)] Pour tout second membre $Y$, le système linéaire $AX=Y$
+  a une unique solution $X$.
+\end{itemize}
+\end{theoreme}
+
+Voici donc la preuve du théorème \ref{th:matinv}.
+\begin{proof}
+\begin{itemize}
+  \item Si $A$ est inversible, alors pour tout vecteur $Y$
+  le système $AX=Y$ a une unique solution $X$, autrement dit pour tout
+  $Y$, il existe un unique $X$ tel que $f(X)=AX=Y$. $f$ est donc bijective.
+
+  \item Si $A$ n'est pas inversible, alors il existe un vecteur $X$ non nul tel que
+  $AX=0$. En conséquence on a $X \neq 0$ mais $f(X)=f(0)=0$. $f$ n'est pas injective donc
+  pas bijective.
+\end{itemize}
+\end{proof}
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Caractérisation des applications linéaires}
+
+
+\begin{theoreme}
+\label{th:applinrn}
+Une application $f: \Rr^p \longrightarrow \Rr^n$ est linéaire si et seulement si
+pour tous les vecteurs $u$, $v$ de $\Rr^p$ et pour tout scalaire $\lambda \in \Rr$,
+on a
+\begin{enumerate}
+  \item[(i)]  $f(u+v) = f(u) + f(v)$,
+  \item[(ii)] $ f(\lambda u) = \lambda f(u)\, .$
+\end{enumerate}
+\end{theoreme}
+
+Dans le cadre général des espaces vectoriels, ce sont ces deux propriétés (i) et (ii) qui définissent une
+application linéaire.
+
+\begin{definition}
+Les vecteurs
+$$
+e_1 = \begin{pmatrix} 1\\0\\\vdots\\0\end{pmatrix}\qquad
+e_2 = \begin{pmatrix} 0\\1\\0\\\vdots\\0\end{pmatrix}\qquad\cdots\qquad
+e_p = \begin{pmatrix} 0\\\vdots\\0\\1\end{pmatrix}
+$$
+sont appelés les \defi{vecteurs de la base canonique}\index{base canonique} de $\Rr^p$.
+\end{definition}
+
+La démonstration du théorème impliquera :
+\begin{corollaire}
+Soit $f: \Rr^p \longrightarrow \Rr^n$ une application linéaire, et soient $e_1, \ldots , e_p$
+les vecteurs de base canonique de $\Rr^p$. Alors la matrice de $f$ (dans les bases canoniques
+de $\Rr^p$ vers $\Rr^n$) est donnée par
+$$\Mat(f) = \begin{pmatrix} f(e_1)&f(e_2)& \cdots& f(e_p)\end{pmatrix}\; ;$$
+autrement dit les vecteurs colonnes de $\Mat(f)$
+sont les images par $f$ des vecteurs de la base canonique $(e_1, \ldots , e_p)$.
+\end{corollaire}
+
+
+\begin{exemple}
+Considérons l'application linéaire $f : \Rr^3 \to \Rr^4$ définie par
+$$ \left\{\begin{array}{ccccccc}
+y_1 & = & 2x_1  &+ x_2   & -  x_3\\
+y_2 & = & -x_1 &-  4x_2 &         \\
+y_3 & = & 5x_1  &+  x_2  & +  x_3 \\
+y_4 & = &       & 3x_2  & +  2x_3\;.
+\end{array}\right.
+$$
+
+Calculons les images des vecteurs de la base canonique
+  $\left(\begin{smallmatrix} 1 \\ 0 \\ 0 \end{smallmatrix} \right)$,
+  $\left(\begin{smallmatrix} 0 \\ 1 \\ 0 \end{smallmatrix} \right)$,
+  $\left(\begin{smallmatrix} 0 \\ 0 \\ 1 \end{smallmatrix} \right)$ :
+
+$$f\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 2 \\ -1 \\ 5 \\ 0 \end{pmatrix}\qquad
+  f\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 1 \\ -4 \\ 1 \\ 3 \end{pmatrix}\qquad
+  f\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} -1 \\ 0 \\ 1 \\ 2 \end{pmatrix}.
+  $$
+
+Donc la matrice de $f$ est :
+$$\Mat(f) =
+\begin{pmatrix}
+2 & 1 & -1 \\
+-1& -4& 0  \\
+ 5& 1 & 1 \\
+ 0 & 3 & 2 \\
+\end{pmatrix}.$$
+\end{exemple}
+
+\begin{exemple}
+Soit $f : \Rr^2 \to \Rr^2$ la réflexion par rapport à la droite $(y=x)$
+et soit $g$ la rotation du plan
+d'angle $\frac\pi6$ centrée à l'origine.
+Calculons la matrice de l'application $f\circ g$.
+La base canonique de $\Rr^2$ est formée des vecteurs
+$\left(\begin{smallmatrix} 1 \\ 0 \end{smallmatrix} \right)$
+et $\left(\begin{smallmatrix} 0 \\ 1 \end{smallmatrix} \right)$.
+
+$$f\circ g \begin{pmatrix} 1 \\ 0 \end{pmatrix}
+= f \begin{pmatrix} \frac{\sqrt{3}}{2} \\ \frac12 \end{pmatrix}
+= \begin{pmatrix} \frac12 \\ \frac{\sqrt{3}}{2} \end{pmatrix}
+\qquad
+f\circ g \begin{pmatrix} 0 \\ 1 \end{pmatrix}
+= f \begin{pmatrix} - \frac12 \\ \frac{\sqrt{3}}{2}  \end{pmatrix}
+= \begin{pmatrix} \frac{\sqrt{3}}{2} \\ -\frac12  \end{pmatrix}$$
+
+Donc la matrice de $f \circ g$ est :
+$$\Mat(f) =
+\begin{pmatrix}
+\frac12 &  \frac{\sqrt{3}}{2} \\
+\frac{\sqrt{3}}{2}& -\frac12 \\
+\end{pmatrix}.$$
+
+\end{exemple}
+
+Voici la preuve du théorème \ref{th:applinrn}.
+\begin{proof}
+Supposons $f: \Rr^p \longrightarrow \Rr^n$ linéaire, et soit $A$ sa
+matrice. On a $f(u+v) = A(u+v) = Au + Av = f(u) + f(v)$
+et $f(\lambda u) = A(\lambda u) = \lambda Au = \lambda f(u)$.
+
+Réciproquement, soit $f: \Rr^p \longrightarrow \Rr^n$ une application qui vérifie
+(i) et (ii). Nous devons construire une matrice $A$ telle que $f(u)=Au$.
+Notons d'abord que (i) implique que $f(v_1 + v_2 + \dots + v_r) = f(v_1) + f(v_2) + \dots
+  + f(v_r)$.
+Notons $(e_1, \ldots , e_p)$ les vecteurs de la base canonique de $\Rr^p$.
+
+Soit $A$ la matrice $n\times p$  dont les colonnes sont
+$$f(e_1), f(e_2), \ldots , f(e_p).$$
+$$\text{ Pour } \quad X = \begin{pmatrix}x_1\\x_2\\ \vdots\\x_p\end{pmatrix} \in \Rr^p,
+\qquad \text{ alors } \qquad X = x_1 e_1 + x_2 e_2 + \dots + x_p e_p$$
+et donc
+\begin{eqnarray*}
+AX
+& = & A (x_1e_1 + x_2 e_2 + \dots + x_pe_p) \\
+& = & Ax_1e_1 + Ax_2 e_2 + \dots + Ax_pe_p \\
+& = & x_1 Ae_1 + x_2 Ae_2 + \dots + x_p Ae_p \\
+& = & x_1 f(e_1) + x_2 f(e_2) + \dots + x_p f(e_p) \\
+& = & f (x_1e_1) + f(x_2e_2) + \dots + f(x_pe_p) \\
+& = & f(x_1e_1 + x_2 e_2 + \dots + x_p e_p) = f(X).
+\end{eqnarray*}
+On a alors $f(X)=AX$, et $f$ est bien une application linéaire (de matrice $A$).
+\end{proof}
+
+
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soit $f$ la réflexion du plan par rapport à l'axe $(Ox)$ et soit $g$
+  la rotation d'angle $\frac{2\pi}{3}$ centrée à l'ori\-gine. Calculer la matrice de
+  $f\circ g$ de deux façons différentes (produit de matrices et image de la base canonique).
+  Cette matrice est-elle inversible ? Si oui, calculer l'inverse. Interprétation géométrique.
+  Même question avec $g\circ f$.
+
+  \item Soit $f$ la projection orthogonale de l'espace sur le plan $(Oxz)$ et soit $g$
+  la rotation d'angle $\frac{\pi}{2}$ d'axe $(Oy)$. Calculer la matrice de
+  $f\circ g$ de deux façons différentes (produit de matrices et image de la base canonique).
+  Cette matrice est-elle inversible ? Si oui, calculer l'inverse. Interprétation géométrique.
+  Même question avec $g\circ f$.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bigskip
+\bigskip
+
+\auteurs{
+\begin{itemize}
+  \item D'après un cours de Eva Bayer-Fluckiger, Philippe Chabloz, Lara Thomas
+  de l'\'Ecole Polytechnique Fédérale de Lausanne,
+
+  \item révisé et reformaté par Arnaud Bodin, relu par Vianney Combet.
+\end{itemize}
+}
+
+\finchapitre
+\end{document}

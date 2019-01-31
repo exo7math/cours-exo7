@@ -1,0 +1,1494 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+% Commande ponctuelle
+\newcommand{\alenvers}[1]{\rotatebox[origin=c]{180}{#1}}
+
+%====================================================================
+\chapitre{Équations différentielles}
+%====================================================================
+
+\insertvideo{dkjXofPNMDo}{partie 1. Définition}
+
+\insertvideo{6SfAvnaFhFM}{partie 2. Équation différentielle linéaire du premier ordre}
+
+\insertvideo{vUon9Q7-SZA}{partie 3. Équation différentielle linéaire du second ordre à coefficients constants}
+
+\insertvideo{hcZPh8NbTmw}{partie 4. Problèmes conduisant à des équations différentielles}
+
+\insertfiche{fic00165.pdf}{Équations différentielles}
+
+\bigskip
+
+Lorsqu'un corps tombe en chute libre sans frottement, il n'est soumis qu'à son poids $\vec{P}$.
+Par le principe fondamental de la mécanique : $\vec{P} = m\vec{a}$.
+Tous les vecteurs sont verticaux donc $mg = ma$, où
+$g$ est la constante de gravitation, $a$ l'accélération verticale et $m$ la masse.
+On obtient $a=g$. L'accélération étant la dérivée de la vitesse par rapport au temps, on obtient :
+\begin{equation}
+\frac{\dd v(t)}{\dd t} = g
+\label{eq:para1}
+\end{equation}
+
+
+Il est facile d'en déduire la vitesse par intégration :
+$v(t) = gt$ (en supposant que la vitesse initiale est nulle), c'est-à-dire
+que la vitesse augmente de façon linéaire au cours du temps. Puisque la vitesse est la dérivée de
+la position, on a $v(t) = \frac{\dd x(t)}{\dd t}$,
+donc par une nouvelle intégration on obtient $x(t) = \frac12 g t^2$
+(en supposant que la position initiale est nulle).
+
+
+  \myfigure{1}{
+    \tikzinput{fig_equadiff01}
+    \qquad\qquad\qquad\qquad\qquad\qquad
+    \tikzinput{fig_equadiff02}
+  }
+
+
+Le cas d'un parachutiste est plus compliqué. Le modèle précédent n'est pas applicable
+car il ne tient pas compte des frottements. Le parachute fait
+subir une force de frottement opposée à sa vitesse. On suppose que le frottement est proportionnel
+à la vitesse : $F = -fm v$ ($f$ est le coefficient de frottement).
+Ainsi le principe fondamental de la mécanique devient $mg - fmv = ma$, ce qui conduit à
+la relation :
+\begin{equation}
+\frac{\dd v(t)}{\dd t} = g - fv(t)
+\label{eq:para2}
+\end{equation}
+C'est une relation entre la vitesse $v$ et sa dérivée : il s'agit d'une \evidence{équation différentielle}.
+Il n'est pas évident de trouver quelle est la fonction $v$ qui convient.
+Le but de ce chapitre est d'apprendre comment déterminer $v(t)$, ce qui nous permettra
+d'en déduire la position $x(t)$ à tout instant.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définition}
+
+
+%---------------------------------------------------------------
+\subsection{Introduction}
+
+Une équation différentielle est une équation :
+\begin{itemize}
+\item dont l'inconnue est une fonction (généralement notée $y(x)$ ou simplement $y$) ;
+
+\item dans laquelle apparaissent certaines des dérivées de la
+  fonction (dérivée première $y'$, ou dérivées d'ordres supérieurs $y''$, $y^{(3)},\ldots$).
+\end{itemize}
+
+Voici des équations différentielles faciles à résoudre.
+\begin{exemple}
+De tête, trouver au moins une fonction, solution des
+équations différentielles suivantes :
+$$\begin{array}{lr}
+y' = \sin x & \qquad \qquad \alenvers{$y(x) = -\cos x + k \quad\text{ où } k \in \Rr$} \\
+y' = 1 + e^x & \qquad \qquad \alenvers{$y(x) = x + e^x + k \quad\text{ où } k \in \Rr$} \\
+y' = y & \qquad \qquad \alenvers{$y(x) = k e^x \quad\text{ où } k \in \Rr$} \\
+y' = 3y & \qquad \qquad \alenvers{$y(x) = k e^{3x} \quad\text{ où } k \in \Rr$} \\
+y'' = \cos x & \qquad \qquad \alenvers{$y(x) = -\cos x + ax + b \quad\text{ où } a, b \in \Rr$} \\
+y'' = y & \qquad \qquad \alenvers{$y(x) = a e^x + b e^{-x} \quad\text{ où }  a, b \in \Rr$}  \\
+\end{array}$$
+\end{exemple}
+
+
+Il est aussi facile de vérifier qu'une fonction donnée est bien solution d'une équation.
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+  \item Soit l'équation différentielle $y' = 2xy+4x$.
+  Vérifier que $y(x)=k\exp(x^2)-2$ est une solution sur $\Rr$, ceci quel que soit $k\in \Rr$.
+
+  \item Soit l'équation différentielle $x^2y''-2y+2x=0$.
+  Vérifier que $y(x)=kx^2+x$ est une solution sur $\Rr$, pour tout $k \in \Rr$.
+\end{enumerate}
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Définition}
+
+Passons à la définition complète d'une équation différentielle
+et surtout d'une solution d'une équation différentielle.
+
+\begin{definition}
+\sauteligne
+\begin{itemize}
+  \item Une \defi{équation différentielle}\index{equation differentielle@équation différentielle} d'ordre $n$ est une équation de la forme
+  \begin{equation}
+    F\left(x,y,y',\dots ,y^{(n)}\right)=0
+    \label{eq:eqdiff}
+    \tag{$E$}
+  \end{equation}
+  où $F$ est une fonction de $(n+2)$ variables.
+
+  \item Une \defi{solution} d'une telle équation sur un intervalle $I\subset \Rr$
+  est une fonction $y :I \to \Rr$ qui est $n$ fois dérivable
+  et qui vérifie l'équation (\ref{eq:eqdiff}).
+\end{itemize}
+\end{definition}
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+  \item C'est la coutume pour les équations différentielles de noter $y$ au lieu de $y(x)$,
+  $y'$ au lieu $y'(x)$,\ldots
+  On note donc \og $y' = \sin x$ \fg{} ce qui signifie \og $y'(x) = \sin x$ \fg.
+
+  \item Il faut s'habituer au changement de nom pour les fonctions et les variables.
+  Par exemple $(x'')^3+t(x')^3+(\sin t) x^4=e^t$
+  est une équation différentielle d'ordre $2$, dont l'inconnue est
+  une fonction $x$ qui dépend de la variable $t$. On cherche donc une fonction $x(t)$,
+  deux fois dérivable, qui vérifie $(x''(t))^3+t(x'(t))^3+(\sin t) (x(t))^4=e^t$.
+
+  \item Rechercher une primitive, c'est déjà résoudre l'équation différentielle
+  $y'= f(x)$. C'est pourquoi on trouve souvent \og intégrer l'équation différentielle \fg{} 
+  pour \og trouver les solutions de l'équation différentielle \fg.
+
+
+  \item La notion d'intervalle dans la résolution d'une équation différentielle est fondamentale.
+  Si on change d'intervalle, on peut très bien obtenir d'autres solutions.
+  Par exemple, si on se place sur l'intervalle $I_1 =\,]0, +\infty[$,
+  l'équation différentielle $y' = 1/x$ a pour solutions les fonctions $y(x) = \ln(x) + k$.
+Alors que sur l'intervalle $I_2 =\,]-\infty, 0[$, les solutions sont les fonctions $y(x) = \ln(-x) + k$
+($k$ est une constante).
+
+  \item Si aucune précision n'est donnée sur l'intervalle $I$,
+  on considérera qu'il s'agit de $I = \Rr$.
+\end{itemize}
+\end{remarque*}
+
+\begin{exemple}[Équation à variables séparées]
+Une équation différentielle 
+\defi{à variables séparées}\index{equation differentielle@équation différentielle!a variables separees@à variables séparées}
+est une équation
+du type :
+$$y'=g(x)/f(y) \qquad \text{ ou } \qquad y'f(y)=g(x)$$
+Une telle équation se résout par calcul de primitives.
+Si $G(x)$ est une primitive de $g(x)$ alors $G'(x)=g(x)$.
+Si $F(x)$ est une primitive de $f(x)$ alors
+$F'(x)=f(x)$, mais surtout, par dérivation d'une composition,
+$\big(F(y(x))\big)' = y'(x) F'(y(x)) = y' f(y)$.
+Ainsi l'équation différentielle $y'f(y)=g(x)$
+se réécrit $\big(F(y(x))\big)' = G'(x)$
+ce qui équivaut à une égalité de fonctions :
+$F(y(x))=G(x)+c$.
+
+\bigskip
+
+Voici un exemple concret :
+$$x^2y' = e^{-y}$$
+On commence par séparer les variables $x$ d'un côté et $y$ de l'autre :
+$y'e^{y} = \frac{1}{x^2}$  (en supposant $x\neq 0$).
+On intègre des deux côtés :
+$$e^{y} = -\frac{1}{x}+c \quad (c\in\Rr)$$
+Ce qui permet d'obtenir $y$ (en supposant $-\frac{1}{x}+c>0$) :
+$$y(x) = \ln\left(-\frac{1}{x}+c\right)$$
+qui est une solution sur chaque intervalle $I$ où elle est définie et dérivable.
+Cet intervalle dépend de la constante $c$ :
+si $c<0$, $I=\,]\frac1c,0[$ ;
+si $c=0$, $I=\,]-\infty,0[$ ; si $c>0$, $I=\,]\frac1c,+\infty[$.
+
+\end{exemple}
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Équation différentielle linéaire}
+
+On ne sait pas résoudre toutes les équations différentielles.
+On se concentre dans ce chapitre sur deux types d'équations : les équations différentielles
+linéaires du premier ordre et celles du second ordre à coefficients constants.
+
+\begin{itemize}
+  \item Une équation différentielle d'ordre $n$ est \defi{linéaire} si elle est de la forme
+$$a_0(x)y+a_1(x)y'+\dots +a_n(x)y^{(n)} = g(x)$$
+où les $a_i$ et $g$ sont des fonctions réelles continues sur un intervalle $I\subset \Rr$.
+
+Le terme linéaire signifie grosso modo qu'il n'y a pas d'exposant pour les termes $y,y',y'',\ldots$
+
+  \item Une équation différentielle linéaire est 
+  \defi{homogène}\index{equation differentielle@équation différentielle!homogene@homogène}, ou 
+  \defi{sans second membre}\index{equation differentielle@équation différentielle!sans second membre},
+  si la fonction $g$ ci-dessus est la fonction nulle :
+  $$a_0(x)y+a_1(x)y'+\dots +a_n(x)y^{(n)} = 0$$
+
+  \item Une équation différentielle linéaire est \defi{à coefficients constants} si
+  les fonctions $a_i$ ci-dessus sont constantes :
+  $$a_0y+a_1y'+\dots +a_ny^{(n)} = g(x)$$
+  où les $a_i$ sont des constantes réelles et $g$ une fonction continue.
+\end{itemize}
+
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+  \item $y' + 5xy = e^x$ est une équation différentielle linéaire du premier ordre avec second membre.
+
+  \item $y' + 5xy = 0$ est l'équation différentielle homogène associée à la précédente.
+
+  \item $2y'' - 3y' + 5y = 0$ est une équation différentielle linéaire du second ordre à coefficients constants,
+  sans second membre.
+
+
+  \item $y'^2 - y = x$ ou $y'' \cdot  y' - y = 0$ \emph{ne sont pas} des équations différentielles linéaires.
+\end{enumerate}
+\end{exemple}
+
+
+
+\begin{proposition}[Principe de linéarité]
+Si $y_1$ et $y_2$ sont solutions de l'équation différentielle linéaire homogène
+\begin{equation}
+  a_0(x)y+a_1(x)y'+\dots +a_n(x)y^{(n)} = 0
+  \label{eq:eqdifflin}
+ \tag{$E_0$}
+\end{equation}
+alors, quels que soient $\lambda,\mu \in \Rr$, $\lambda y_1 + \mu y_2$ est aussi solution de cette équation.
+\end{proposition}
+
+C'est une simple vérification. On peut reformuler la proposition en disant que l'ensemble des solutions
+forme un espace vectoriel.
+
+
+\bigskip
+
+Pour résoudre une équation différentielle linéaire avec second membre
+\begin{equation}
+  a_0(x)y+a_1(x)y'+\dots +a_n(x)y^{(n)} = g(x),
+  \label{eq:eqdifflinscnd}
+ \tag{$E$}
+\end{equation}
+on décompose souvent la résolution en deux étapes :
+\begin{itemize}
+  \item trouver une solution particulière $y_0$ de l'équation (\ref{eq:eqdifflinscnd}),
+  \item trouver l'ensemble $\mathcal{S}_h$ des solutions $y$ de l'équation homogène associée
+\begin{equation}
+  a_0(x)y+a_1(x)y'+\dots +a_n(x)y^{(n)} = 0
+  \label{eq:eqdifflinbis}
+ \tag{$E_0$}
+\end{equation}
+\end{itemize}
+ce qui permet de trouver toutes les solutions de (\ref{eq:eqdifflinscnd}) :
+\begin{proposition}[Principe de superposition]
+L'ensemble des solutions $\mathcal{S}$ de (\ref{eq:eqdifflinscnd}) est formé
+des
+$$y_0 + y \quad \text{ avec } \quad  y \in \mathcal{S}_h.$$
+\end{proposition}
+Autrement dit, on trouve toutes les solutions en ajoutant une solution particulière
+aux solutions de l'équation homogène.
+C'est une conséquence immédiate du caractère linéaire des équations.
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Chercher une solution \og simple \fg{} de l'équation différentielle
+  $y'=2y$. Même question avec $y''=-y$ ; $y''+\cos(2x)=0$ ; $xy''=y'$.
+
+  \item Résoudre l'équation différentielle à variables séparées $y'y^2=x$.
+  Même question avec $y'= y \ln x$ ; $y' = \frac{1}{y^n}$ ($n\ge1$).
+
+  \item Soit l'équation $y' = y(1 - y)$. Montrer que si
+  $y$ est une solution non nulle de cette équation, alors $z = 2y$
+  n'est pas solution. Que peut-on en conclure ?
+
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Équation différentielle linéaire du premier ordre}
+
+\begin{definition}
+Une équation différentielle \defi{linéaire du premier ordre} est une équation du type:
+\begin{equation}
+  y'=a(x)y + b(x)
+  \label{eq:eqdifflinordre1}
+  \tag{$E$}
+\end{equation}
+où $a$ et $b$ sont des fonctions définies sur un intervalle ouvert $I$ de $\Rr$.
+\end{definition}
+
+
+Dans la suite on supposera que $a$ et $b$ sont des fonctions continues sur $I$.
+On peut envisager la forme :
+$\alpha (x)y'+\beta (x)y=\gamma (x)$.
+On demandera alors que $\alpha (x)\neq 0$ pour tout $x\in I$.
+La division par $\alpha $ permet de retrouver la forme (\ref{eq:eqdifflinordre1}).
+
+\bigskip
+
+On va commencer par résoudre le cas où $a$ est une constante et $b=0$.
+Puis $a$ sera une fonction (et toujours $b=0$).
+On terminera par le cas général où $a$ et $b$ sont deux fonctions.
+
+%---------------------------------------------------------------
+\subsection{$y'=ay$}
+
+\begin{theoreme}
+\label{th:eqdifflinordre1cst}
+Soit $a$ un réel. Soit l'équation différentielle :
+\begin{equation}
+   y' = a y
+  \label{eq:eqdifflinordre1cst}
+  \tag{$E$}
+\end{equation}
+Les solutions de (\ref{eq:eqdifflinordre1cst}), sur $\Rr$, sont les fonctions $y$ définies par :
+\mybox{$y(x) = k e^{ax}$}
+où $k\in \Rr$ est une constante quelconque.
+\end{theoreme}
+
+
+Ce résultat est fondamental. Il est tout aussi fondamental de
+comprendre d'où vient cette formule, via une preuve rapide
+(mais pas tout à fait rigoureuse). On réécrit l'équation
+différentielle sous la forme
+$$\frac{y'}{y} =  a$$
+que l'on intègre à gauche et à droite pour trouver :
+$$\ln |y(x)| = ax+b$$
+On compose par l'exponentielle des deux côtés pour obtenir :
+$$|y(x)| = e^{ax+b}$$
+Autrement dit  $y(x) = \pm e^b e^{ax}$.
+En posant $k = \pm e^b$ on obtient les solutions (non nulles) cherchées.
+Nous verrons une preuve rigoureuse juste après.
+
+  \myfigure{0.47}{
+    \tikzinput{fig_equadiff03a}
+    \quad
+    \tikzinput{fig_equadiff03b}
+  }
+\begin{exemple}
+Résoudre l'équation différentielle :
+$$3y' - 5y = 0$$
+On écrit cette équation sous la forme $y' = \frac53 y$.
+Ses solutions, sur $\Rr$, sont donc de la forme :
+$y(x) = k e^{\frac53x}$, où $k \in \Rr$.
+\end{exemple}
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+  \item L'équation différentielle (\ref{eq:eqdifflinordre1cst})
+admet donc une infinité de solutions (puisque l'on a une
+infinité de choix de la constante $k$).
+
+  \item La constante $k$ peut être nulle. Dans ce cas, on obtient
+  la \og solution nulle \fg{} : $y = 0$ sur $\Rr$, qui est une solution
+  évidente de l'équation différentielle.
+
+  \item Le théorème \ref{th:eqdifflinordre1cst} peut aussi s'interpréter ainsi :
+  si $y_0$ est une solution non identiquement nulle de
+l'équation différentielle (\ref{eq:eqdifflinordre1cst}),
+alors toutes les autres solutions $y$ sont des multiples de $y_0$. En termes plus savants,
+l'ensemble des solutions forme un espace vectoriel de dimension $1$ (une droite vectorielle).
+\end{itemize}
+\end{remarque*}
+
+
+\begin{proof}[Preuve du théorème \ref{th:eqdifflinordre1cst}]
+~
+\begin{enumerate}
+  \item On vérifie que les fonctions proposées sont bien solutions de (\ref{eq:eqdifflinordre1cst}).
+  En effet, pour $y(x) = k e^{ax}$, on a
+  $$y'(x) = ake^{ax} = a y(x).$$
+
+  \item Montrons que les fonctions proposées sont les seules solutions.
+  (C'est-à-dire qu'il n'y en a pas d'un autre type que $y(x)= k e^{ax}$.)
+  Soit $y$ une solution quelconque de (\ref{eq:eqdifflinordre1cst}) sur $\Rr$.
+  Considérons la fonction $z$ définie par : $z(x) = y(x) e^{-ax}$.
+  Alors, par la formule de dérivation d'un produit :
+  $$z'(x) = y'(x)e^{-ax} +  y(x)\big(-ae^{-ax}\big) =  e^{-ax}\big(y'(x)-ay(x)\big)$$
+  Mais, par hypothèse, $y$ est une solution de (\ref{eq:eqdifflinordre1cst}),
+  donc $y'(x) - ay(x) = 0$. On en déduit que $z'(x) = 0$, pour tout réel $x$.
+  Ainsi $z$ est une fonction constante sur $\Rr$.
+  Autrement dit, il existe une constante $k$ telle que $z(x)=k$ pour tout $x\in \Rr$.
+  D'où :
+  $$z(x)= k \quad\text{donc}\quad  y(x) e^{-ax} = k \quad\text{donc}\quad
+  y(x) = ke^{ax}.$$
+  Ce qui termine la preuve du théorème.
+\end{enumerate}
+
+
+\end{proof}
+
+%---------------------------------------------------------------
+\subsection{$y'=a(x)y$}
+
+Le théorème suivant affirme que, lorsque $a$ est une fonction,
+résoudre l'équation différentielle $y'=a(x)y$
+revient à déterminer une primitive $A$ de $a$ (ce qui n'est pas toujours possible explicitement).
+
+
+
+\begin{theoreme}
+\label{th:eqdifflinordre1}
+Soit $a : I \to \Rr$ une fonction continue. Soit $A : I \to \Rr$ une primitive de $a$.
+Soit l'équation différentielle :
+\begin{equation}
+   y' = a(x) y
+  \label{eq:eqdifflinordre1bis}
+  \tag{$E$}
+\end{equation}
+Les solutions sur $I$ de (\ref{eq:eqdifflinordre1bis}) sont les fonctions $y$ définies par :
+\mybox{$y(x) = k e^{A(x)}$}
+où $k\in \Rr$ est une constante quelconque.
+\end{theoreme}
+
+Si $a(x)=a$ est une fonction constante, alors une primitive est par exemple $A(x)=ax$ et on retrouve
+les solutions du théorème \ref{th:eqdifflinordre1cst}.
+
+
+Une preuve rapide du théorème \ref{th:eqdifflinordre1} est la suivante :
+\begin{eqnarray*}
+&\frac{y'}{y} =  a(x)
+\iff \ln |y(x)| = A(x) + b
+\iff |y(x)| = e^{A(x)+b} \\
+\iff& y(x) = \pm e^b e^{A(x)}
+\iff y(x) = k e^{A(x)} \quad \text{ avec } k = \pm e^b
+\end{eqnarray*}
+
+
+Une preuve rigoureuse (puisque l'on évite de diviser
+par quelque chose qui pourrait être nul) :
+\begin{proof}
+$$\begin{array}{rl}
+     & y(x) \text{ solution de (\ref{eq:eqdifflinordre1bis}) } \\
+\iff & y'(x) - a(x)y(x) = 0 \\
+\iff & e^{-A(x)}\big(y'(x)-ay(x)\big) = 0 \\
+\iff & \big( y(x) e^{-A(x)}\big)' = 0 \\
+\iff & \exists k \in \Rr \quad y(x) e^{-A(x)} = k \\
+\iff & \exists k \in \Rr \quad y(x) = ke^{A(x)}\\
+\end{array}$$
+\end{proof}
+
+
+\begin{exemple}
+Comment résoudre l'équation différentielle $x^2y'=y$ ?
+On se place sur l'intervalle $I_+=\,]0,+\infty[$ ou $I_-=\,]-\infty,0[$.
+L'équation devient $y'= \frac{1}{x^2}y$. Donc $a(x)=\frac{1}{x^2}$, dont une primitive est
+$A(x)=-\frac1x$. Ainsi les solutions cherchées sont
+$y(x) = k e^{-\frac1x}$, où $k\in\Rr$.
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{$y' = a(x)y+b(x)$}
+
+Il nous reste le cas général de l'équation différentielle linéaire d'ordre $1$ avec second membre :
+\begin{equation}
+   y' = a(x) y  + b(x)
+  \label{eq:eqdifflinordre1scnd}
+  \tag{$E$}
+\end{equation}
+où $a : I \to \Rr$ et $b: I \to \Rr$ sont des fonctions continues.
+
+L'équation homogène associée est :
+\begin{equation}
+   y' = a(x) y
+  \label{eq:eqdifflinordre1scndhomo}
+  \tag{$E_0$}
+\end{equation}
+
+Il n'y a pas de nouvelle formule à apprendre pour ce cas.
+Il suffit d'appliquer le principe de superposition : les solutions de (\ref{eq:eqdifflinordre1scnd}) s'obtiennent en
+ajoutant à une solution particulière de (\ref{eq:eqdifflinordre1scnd}) les solutions de
+(\ref{eq:eqdifflinordre1scndhomo}).
+Ce qui donne :
+\begin{proposition}
+Si $y_0$ est une solution de (\ref{eq:eqdifflinordre1scnd}),
+alors les solutions de (\ref{eq:eqdifflinordre1scnd}) sont les
+fonctions $y : I \to \Rr$ définies par:
+$$y(x)= y_0(x)+k e^{A(x)} \qquad \text{ avec } k \in \Rr$$
+où $x\mapsto A(x)$ est une primitive de $x \mapsto a(x)$.
+\end{proposition}
+
+
+\bigskip
+La recherche de la solution générale de (\ref{eq:eqdifflinordre1scnd}) se réduit
+donc à la recherche d'une solution particulière. Parfois ceci
+se fait en remarquant une solution évidente. Par exemple,
+l'équation différentielle $y'=2xy+4x$
+a pour solution particulière $y_0(x)=-2$ ;
+donc l'ensemble des solutions de cette équation sont les
+$y(x) = -2 + ke^{x^2}$, où $k\in\Rr$.
+
+\bigskip
+\bigskip
+
+\textbf{Recherche d'une solution particulière : méthode de variation de la constante.}
+\index{variation de la constante}
+
+Le nom de cette méthode est paradoxal mais justifié !
+C'est une méthode générale pour trouver une solution
+particulière en se ramenant à un calcul de primitive.
+
+La solution générale de (\ref{eq:eqdifflinordre1scndhomo}) $y' = a(x) y$ est donnée
+par $y(x)=ke^{A(x)}$, avec $k\in \Rr$ une constante.
+La méthode de la variation de la constante consiste à chercher
+une solution particulière sous la forme $y_0(x)=k(x)e^{A(x)}$,
+où $k$ est maintenant une fonction à déterminer pour que
+$y_0$ soit une solution de (\ref{eq:eqdifflinordre1scnd}) $y' = a(x) y  + b(x)$.
+
+Puisque $A'=a$, on a :
+$$y_0'(x)=a(x)k(x)e^{A(x)} + k'(x)e^{A(x)}= a(x)y_0(x) + k'(x)e^{A(x)}$$
+Ainsi :
+$$y_0'(x) - a(x)y_0(x) = k'(x)e^{A(x)}$$
+
+Donc $y_0$ est une solution de (\ref{eq:eqdifflinordre1scnd}) si et seulement si
+$$k'(x)e^{A(x)}=b(x) \iff k'(x)=b(x)e^{-A(x)} \iff k(x)=\int b(x)e^{-A(x)}\dd x.$$
+Ce qui donne une solution particulière
+$y_0(x) = \left(\int b(x)e^{-A(x)}\dd x \right)e^{A(x)}$ de (\ref{eq:eqdifflinordre1scnd})
+sur $I$.
+La solution générale de  (\ref{eq:eqdifflinordre1scnd}) est donnée par
+$$y(x) = y_0(x) + ke^{A(x)}, \quad k\in \Rr.$$
+
+
+\begin{exemple}
+\label{ex:eqdifflinordre1scnd}
+Soit l'équation $y'+y = e^x+1$.
+L'équation homogène est $y'=-y$ dont les solutions sont
+les $y(x) = k e^{-x}$, $k\in\Rr$.
+
+Cherchons une solution particulière avec la méthode de variation de la constante :
+on note $y_0(x) = k(x) e^{-x}$. On doit trouver $k(x)$ afin que $y_0$ vérifie l'équation
+différentielle $y'+y = e^x+1$.
+$$\begin{array}{rcl}
+        && y_0'+y_0 = e^x+1  \\
+ & \iff & \left(k'(x) e^{-x} - k(x) e^{-x} \right) + k(x) e^{-x} = e^x+1 \\
+ & \iff & k'(x)e^{-x} = e^x+1 \\
+ & \iff & k'(x) = e^{2x}+e^x \\
+ & \iff & k(x) = \frac12e^{2x}+e^x + c \\
+\end{array}$$
+On fixe $c=0$ (n'importe quelle valeur convient) :
+$$y_0(x) =  k(x) e^{-x} = \left(\frac12e^{2x}+e^x\right)e^{-x} = \frac12e^{x}+1$$
+Nous tenons notre solution particulière ! Les solutions générales de l'équation
+$y'+y = e^x+1$ s'obtiennent en additionnant cette solution particulière aux solutions
+de l'équation homogène :
+$$y(x) = \frac12e^{x}+1 + k e^{-x}, \qquad k\in\Rr.$$
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Théorème de Cauchy-Lipschitz}
+
+
+Voici l'énoncé du théorème de Cauchy-Lipschitz dans le cas des
+équations différentielles linéaires du premier ordre.
+\begin{theoreme}[Théorème de Cauchy-Lipschitz]
+\index{theoreme@théorème!de Cauchy-Lipschitz}
+\label{th:cauchylipschitzord1}
+Soit $y'=a(x)y + b(x)$ une équation différentielle linéaire du premier ordre,
+où $a,b : I \to \Rr$ sont des fonctions continues sur un intervalle ouvert $I$.
+Alors, pour tout $x_0 \in I$ et pour tout $y_0 \in \Rr$, il existe une et une
+seule solution $y$ telle que $y(x_0)=y_0$.
+\end{theoreme}
+
+D'après nos calculs précédents cette solution est :
+$$y(x) = \left(\int_{x_0}^x b(t)e^{-A(t)}\dd t \right)e^{A(x)} + y_0e^{A(x)}$$
+où $A$ est la primitive de $a$ s'annulant en $x_0$, et cette solution vérifie bien $y(x_0)=y_0$.
+
+
+\begin{exemple}
+Trouver la solution de $y'+y = e^x+1$ vérifiant $y(1)=2$.
+Nous avons déjà trouvé toutes les solutions de cette équation dans l'exemple
+\ref{ex:eqdifflinordre1scnd} : $y(x) = \frac12e^{x}+1 + k e^{-x}$
+où $k\in\Rr$. Nous allons déterminer la constante $k$ afin que la condition initiale
+$y(1)=2$ soit vérifiée :
+$$y(1)=2 \iff \frac12e^{1}+1 + k e^{-1} = 2 \iff \frac{k}{e} = 1 - \frac{e}{2}
+\iff k = e - \frac{e^2}{2}$$
+Ainsi la solution cherchée est $y(x) = \frac12e^{x}+1 + \left(e - \frac{e^2}{2}\right)e^{-x}$,
+et c'est la seule solution.
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Courbes intégrales}
+
+Une \defi{courbe intégrale}\index{courbe!integrale@intégrale} d'une équation différentielle $(E)$
+est le graphe d'une solution de $(E)$.
+Le théorème \ref{th:cauchylipschitzord1} pour les équations
+différentielles linéaires du premier ordre $y'=a(x)y + b(x)$
+se reformule ainsi :
+\mybox{
+\og Par chaque point $(x_0,y_0) \in I \times \Rr$
+passe une et une seule courbe intégrale. \fg}
+
+\begin{exemple}
+Les solutions de l'équation différentielle
+$y'+y=x$ sont les
+$$y(x) = x-1 + ke^{-x} \quad k \in\Rr$$
+et sont définies sur $I=\Rr$.
+Pour chaque point $(x_0,y_0) \in \Rr^2$, il existe une unique solution
+$y$ telle que $y(x_0)=y_0$. Le graphe de cette solution
+est la courbe intégrale passant par $(x_0,y_0)$.
+
+  \myfigure{1}{
+    \tikzinput{fig_equadiff04}
+  }
+
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Exemples}
+
+\begin{exemple}
+On considère l'équation différentielle
+$(E)$ : $x^3y'+(2-3x^2)y=x^3$.
+
+\begin{enumerate}
+\item Résoudre l'équation différentielle $(E)$ sur $]0,+\infty[$ et
+  $]-\infty,0[$.
+
+\item Peut-on trouver une solution sur $\Rr$ ?
+
+\item Trouver la solution sur $]0,+\infty[$ vérifiant $y(1)=0$.
+\end{enumerate}
+
+
+\bigskip
+\textbf{Correction.}
+
+\begin{enumerate}
+  \item
+  \begin{enumerate}
+    \item Résolution de l'équation homogène $(E_0)$ :
+$x^3y'+(2-3x^2)y=0$.
+Pour $x\neq 0$, on a $y'=-\frac{2-3x^2}{x^3}y$. Donc la solution générale
+de $(E_0)$ est $y(x)=k e^{\int -\frac{2-3x^2}{x^3}\dd x}
+=k e^{3\ln |x|}e^{1/x^2}=k|x|^3e^{1/x^2}$.
+Donc la solution générale de $(E_0)$ sur $]0,+\infty[$ est :
+$y(x)= k_1 x^3e^{1/x^2}$ ; et sur $]-\infty,0[$ : $y(x)= k_2 x^3e^{1/x^2}$.
+
+    \item Résolution de l'équation avec second membre $(E)$ par la méthode de variation de
+la constante.
+On cherche une solution sous la forme $y(x)=k(x)x^3e^{1/x^2}$. En dérivant
+et en remplaçant dans l'équation différentielle, on obtient
+$k'(x) x^3e^{1/x^2} =1. $ Donc $k(x)=\int \frac{e^{-1/x^2}}{x^3}\dd x
+=\frac{1}{2}e^{-1/x^2}+c$. D'où une solution particulière de $(E)$ sur
+$]0,+\infty[$ ou $]-\infty,0[$ :
+$y_0(x)=k(x)x^3e^{1/x^2} =\frac{1}{2}x^3$.
+
+    \item Solution générale sur $]0,+\infty[$ :
+$y(x)=\frac{1}{2}x^3+k_1x^3e^{1/x^2}$.
+
+Solution générale sur $]-\infty,0[$ :
+$y(x)=\frac{1}{2}x^3+k_2x^3e^{1/x^2}$.
+  \end{enumerate}
+
+  \item  $x^3e^{1/x^2}$ tend vers $+\infty$ (resp. $-\infty$) lorsque $x \to 0^+$ (resp. $0^-$),
+donc pour $k_1$ ou $k_2$ non nul, $y$ ne
+peut pas être prolongée par continuité en $0$.
+Pour $k_1=k_2=0$, $y(x)=\frac{1}{2}x^3$ est continue et dérivable sur
+$\Rr$. C'est la seule solution sur $\Rr$.
+
+  \item Si l'on cherche une solution particulière vérifiant $y(1)=0$,
+alors on
+a $y(x)=\frac{1}{2}x^3+kx^3e^{1/x^2}$, $y(1)=1/2+ke=0$, donc $k=-\frac{1}{2e}$. Donc
+$y(x)=\frac{1}{2}x^3-\frac{1}{2e}x^3e^{1/x^2}$.
+\end{enumerate}
+\end{exemple}
+
+
+\begin{exemple}
+Résoudre $x(1+x)y'-(x+2)y=2x$.
+
+\begin{enumerate}
+  \item \textbf{Équation homogène.}
+
+  L'équation homogène est $x(1+x)y'-(x+2)y=0$.
+Pour $x\neq 0$ et $x\neq -1$, l'équation s'écrit $y'=\frac{x+2}{x(1+x)}y$.
+La décomposition de la fraction en éléments simples est :
+$a(x) = \frac{x+2}{x(1+x)}=\frac{2}{x}-\frac{1}{1+x}$.
+Une primitive de $a(x)$ est donc
+$A(x) = \int \frac{x+2}{x(1+x)} \dd x = 2\ln |x|-\ln|x+1|$.
+La solution générale de l'équation homogène est
+$y(x)= k e^{A(x)}= k e^{2\ln |x|-\ln|x+1|}
+= k e^{\ln \frac{x^2}{|x+1|}}=k\frac{x^2}{|x+1|} =\pm k\frac{x^2}{x+1}$.
+Cette solution est bien définie en $x=0$.
+On obtient donc la solution générale de l'équation homogène :
+$y(x)=k\frac{x^2}{x+1}$ sur $]-\infty, -1[$ ou sur $]-1,+\infty[$.
+
+
+  \item \textbf{Solution particulière.}
+
+On cherche une solution de l'équation non homogène sous la forme
+$y_0(x)=k(x)\frac{x^2}{x+1}$ par la méthode de variation de la constante.
+En remplaçant dans l'équation, on
+obtient $k'(x)x^3=2x$. Donc pour $x\neq 0$, on a
+$k'(x)=\frac{2}{x^2}$, et $k(x)=-\frac{2}{x}$.
+D'où la solution générale de l'équation non homogène
+$y(x)=-\frac{2x}{x+1} +k\frac{x^2}{x+1}$. Cette solution est définie
+sur $]-\infty, -1[$ ou $]-1,+\infty[$.
+
+  \item \textbf{Existe-t-il une solution définie sur $\Rr$ ?}
+
+  On a $y(x)=\frac{x(k x-2)}{x+1}$. Donc pour $k\neq -2$, on ne peut
+prolonger $y$ en $-1$.
+Pour $k=-2$, on peut prolonger $y$ en $-1$. On obtient une solution
+définie sur $\Rr$ : $y=-2x$.
+
+\end{enumerate}
+
+\end{exemple}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Résoudre l'équation différentielle $y'+ y \ln 2 = 0$.
+  Tracer les courbes intégrales. Trouver la solution vérifiant $y(1)=\frac12$.
+
+  \item Résoudre l'équation différentielle $2y'+3y=5$.
+  Trouver la solution vérifiant $y(0)=-\frac13$. Tracer la courbe intégrale.
+
+  \item Trouver une solution évidente, puis résoudre l'équation
+  différentielle $2xy'+y=1$. Trouver la solution
+  vérifiant $y(1)=2$. Tracer la courbe intégrale.
+  Même travail avec l'équation $xy'-y=x^2$.
+
+  \item Par la méthode de variation de la constante, trouver une solution
+  particulière de l'équation différentielle $y'-2xy=3xe^{x^2}$.
+  Même travail avec $y'+2y = \sin(3x)e^{-2x}$.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Équation différentielle linéaire du second ordre à coefficients constants}
+
+%---------------------------------------------------------------
+\subsection{Définition}
+
+
+Une équation différentielle linéaire du second ordre, à
+ coefficients constants, est une équation de la forme
+\begin{equation}
+ay''+by'+cy=g(x)
+\label{eq:linscd}
+\tag{$E$}
+\end{equation}
+où $a,b,c \in \Rr$, $a \neq 0$ et $g$ est une fonction continue sur
+un intervalle ouvert $I$.
+
+L'équation
+\begin{equation}
+ay''+by'+cy=0
+\label{eq:linscdhom}
+\tag{$E_0$}
+\end{equation}
+est appelée l'équation homogène associée à $(E)$.
+
+
+La structure des solutions de l'équation est très simple :
+\begin{theoreme}
+\label{th:eqdiffdim}
+L'ensemble des solutions de l'équation homogène (\ref{eq:linscdhom}) est
+un $\Rr$-espace vectoriel de dimension~$2$.
+\end{theoreme}
+
+Nous admettons ce résultat.
+
+
+%---------------------------------------------------------------
+\subsection{Équation homogène}
+
+On cherche une solution de (\ref{eq:linscdhom}) sous la forme
+$y(x)=e^{rx}$ où $r \in \Cc$ est une constante à déterminer. On trouve
+\begin{eqnarray*}
+     & ay''+by'+cy=0 \\
+\iff & (ar^2+br+c)e^{rx}=0 \\
+\iff & ar^2+br+c=0.
+\end{eqnarray*}
+
+\begin{definition}
+L'équation $ar^2+br+c=0$ est appelée
+\defi{l'équation caractéristique}\index{equation caracteristique@équation caractéristique} associée à (\ref{eq:linscdhom}).
+\end{definition}
+
+Soit $\Delta= b^2-4ac$, le discriminant de l'équation
+caractéristique associée à (\ref{eq:linscdhom}).
+
+
+\begin{theoreme}
+\sauteligne
+\begin{enumerate}
+
+\item Si $\Delta >0$, l'équation caractéristique possède deux racines réelles distinctes
+$r_1\neq r_2$ et les solutions de (\ref{eq:linscdhom}) sont les
+\mybox{$y(x) = \lambda e^{r_1x}+ \mu e^{r_2x} \quad \text{ où } \lambda, \mu \in \Rr.$}
+
+\item Si $\Delta=0$, l'équation caractéristique possède une racine double $r_0$
+et les solutions de (\ref{eq:linscdhom}) sont les
+\mybox{$y(x) = (\lambda+\mu x)e^{r_0 x} \quad \text{ où } \lambda, \mu \in \Rr.$}
+
+\item Si $\Delta<0$, l'équation caractéristique possède deux racines complexes
+conjuguées $r_1=\alpha+\ii \beta$, $r_2=\alpha-\ii \beta$ et les solutions de (\ref{eq:linscdhom}) sont les
+\mybox{$y(x) = e^{\alpha x}\big(\lambda\cos (\beta x)+\mu\sin (\beta x)\big) \quad \text{ où }
+\lambda, \mu \in \Rr.$}
+
+\end{enumerate}
+\end{theoreme}
+
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+  \item Résoudre sur $\Rr$ l'équation $y'' - y' - 2y = 0$.
+
+L'équation caractéristique est $r^2 - r - 2 = 0$,  qui s'écrit aussi $(r+1)(r-2) = 0$ ($\Delta >0$).
+D'où, pour tout $x \in \Rr$, $y(x) = \lambda e^{-x} + \mu e^{2x}$,
+avec $\lambda,\mu \in \Rr$.
+
+  \item Résoudre sur $\Rr$ l'équation $y'' - 4y' + 4y = 0$.
+
+L'équation caractéristique est $r^2 - 4r + 4 = 0$,
+soit $(r-2)^2 = 0$ ($\Delta=0$). D'où, pour tout $x \in \Rr$,
+$y(x) = (\lambda x + \mu) e^{2x}$, avec $\lambda,\mu \in \Rr$.
+
+  \item Résoudre sur $\Rr$ l'équation $y'' - 2y' + 5y = 0$.
+
+L'équation caractéristique est $r^2-2r+5 = 0$.
+Elle admet deux solutions complexes conjuguées :
+$r_1 = 1 + 2\ii$ et $r_2 = 1 - 2\ii$ ($\Delta<0$).
+D'où, pour tout $x \in \Rr$,
+$y(x) = e^x (\lambda \cos(2x) + \mu \sin(2x))$, avec $\lambda, \mu \in \Rr$.
+\end{enumerate}
+\end{exemple}
+
+
+
+\begin{proof}
+La preuve consiste à trouver deux solutions linéairement indépendantes,
+ce qui permet d'affirmer qu'elles forment une base d'après
+le théorème \ref{th:eqdiffdim} (que l'on a admis).
+\begin{enumerate}
+  \item Si $\Delta>0$, alors l'équation caractéristique a deux racines réelles
+distinctes $r_1, r_2$. On obtient ainsi deux solutions $y_1=e^{r_1x},
+y_2=e^{r_2x}$ qui sont linéairement indépendantes car $r_1 \neq r_2$.
+Comme l'espace des solutions est un espace vectoriel de dimension $2$
+(par le théorème \ref{th:eqdiffdim}), alors une base de
+l'espace des solutions de (\ref{eq:linscdhom})
+est $\big\{e^{r_1x}, e^{r_2x}\big\}$.
+
+La solution générale de  (\ref{eq:linscdhom}) s'écrit
+$y(x) = \lambda e^{r_1x} + \mu e^{r_2x},$ où $\lambda,
+\mu\in\Rr$.
+
+  \item Si $\Delta=0$, alors l'équation caractéristique a
+une racine réelle double $r_0$. On
+obtient ainsi une solution $y_1=e^{r_0x}$. On vérifie que $y_2=xe^{r_0x}$
+est aussi une solution :
+$ay''_2+by'_2+cy_2=(2ar_0+ar_0^2x)e^{r_0x}+(b+br_0x)e^{r_0x}+cxe^{r_0x}
+=(2ar_0+b)e^{r_0x}=0$ car $2ar_0+b=P'(r_0)=0$, où $P(r) = ar^2+br+c$.
+Ces deux solutions sont linéairement indépendantes.
+Une base de l'espace des solutions est $\big\{e^{r_0x}, xe^{r_0x}\big\}$,
+et la solution générale de  (\ref{eq:linscdhom}) s'écrit
+$y(x) = (\lambda  + \mu x) e^{r_0x}$, où $\lambda,\mu \in\Rr$.
+
+  \item Si $\Delta<0$, alors l'équation caractéristique a deux
+racines complexes conjuguées $r_1=\alpha+\ii\beta, r_2=\alpha-\ii\beta$.
+On obtient deux solutions complexes $Y_1=e^{(\alpha+\ii\beta)x}=e^{\alpha x}e^{\ii\beta x},
+Y_2=e^{(\alpha-\ii\beta)x}=e^{\alpha x}e^{-\ii\beta x}$.
+Comme les parties réelles et imaginaires sont des
+solutions réelles, on obtient deux solutions réelles
+$y_1=e^{\alpha x}\cos(\beta x)$, $y_2=e^{\alpha x}\sin(\beta x)$, qui sont
+linéairement indépendantes.
+Alors, une base de l'espace des solutions est
+$\big\{e^{\alpha x}\cos(\beta x), e^{\alpha x}\sin(\beta x)\big\}$.
+La solution générale de (\ref{eq:linscdhom}) s'écrit
+$y(x)=e^{\alpha x}(\lambda \cos(\beta x) +
+\mu\sin(\beta x))$, où $\lambda,\mu \in \Rr$.
+\end{enumerate}
+\end{proof}
+
+%---------------------------------------------------------------
+\subsection{Équation avec second membre}
+
+Nous passons au cas général d'une équation différentielle linéaire d'ordre $2$, à coefficients constants,
+mais avec un second membre $g$ qui est une fonction continue sur
+un intervalle ouvert $I \subset \Rr$ :
+\begin{equation}
+ay''+by'+cy=g(x)
+%\label{eq:linscd}
+\tag{$E$}
+\end{equation}
+
+Pour ce type d'équation, nous admettons le théorème de Cauchy-Lipschitz qui s'énonce ainsi :
+\begin{theoreme}[Théorème de Cauchy-Lipschitz]
+\index{theoreme@théorème!de Cauchy-Lipschitz}
+Pour chaque $x_0\in I$ et chaque couple $(y_0,y_1) \in \Rr^2$,
+l'équation (\ref{eq:linscd}) admet une \evidence{unique}
+solution $y$ sur $I$ satisfaisant aux conditions initiales :
+\mybox{$y(x_0) = y_0$ \quad et \quad $y'(x_0) = y_1$.}
+\end{theoreme}
+
+
+Dans la pratique, pour résoudre une équation différentielle linéaire avec second membre
+(avec ou sans conditions initiales), on cherche d'abord une solution de l'équation homogène,
+puis une solution particulière de l'équation avec second membre et on applique
+le principe de superposition :
+\begin{proposition}
+Les solutions générales de l'équation (\ref{eq:linscd}) s'obtiennent en
+ajoutant les solutions générales de l'équation homogène (\ref{eq:linscdhom})
+à une solution particulière de (\ref{eq:linscd}).
+\end{proposition}
+
+Il reste donc à déterminer une solution particulière.
+
+%---------------------------------------------------------------
+\subsection{Recherche d'une solution particulière}
+
+On donne deux cas particuliers importants et une méthode générale.
+
+
+\bigskip
+
+\textbf{Second membre du type $e^{\alpha x}P(x)$.}
+
+Si $g(x)=e^{\alpha x}P(x)$, avec $\alpha \in \Rr$ et $P\in \Rr[X]$,
+alors on cherche une solution particulière sous la forme
+$y_0(x)=e^{\alpha x}x^{m}Q(x)$, où $Q$ est un polynôme de
+même degré que $P$ avec :
+\begin{itemize}
+\item $y_0(x)=e^{\alpha x}Q(x)$ ($m=0$), si $\alpha$ n'est pas une racine de l'équation caractéristique,
+\item $y_0(x)=xe^{\alpha x}Q(x)$ ($m=1$), si $\alpha$ est une racine simple de l'équation caractéristique,
+\item $y_0(x)=x^2e^{\alpha x}Q(x)$ ($m=2$), si $\alpha$ est une racine double de l'équation caractéristique.
+\end{itemize}
+
+
+\bigskip
+
+\textbf{Second membre du type $e^{\alpha x}\big(P_1(x)\cos (\beta x)+P_2(x)\sin (\beta x)\big)$.}
+
+Si $g(x)=e^{\alpha x} \big(P_1(x)\cos (\beta x)+P_2(x)\sin (\beta x)\big)$,
+où $\alpha ,\beta \in \Rr$ et $P_1,P_2\in\Rr[X]$, on cherche une solution particulière sous la forme :
+\begin{itemize}
+\item $y_0(x)=e^{\alpha x} \big( Q_1(x)\cos (\beta x)+Q_2(x)\sin (\beta x) \big)$,
+si $\alpha +\ii \beta$ n'est pas une racine de l'équation caractéristique,
+
+\item $y_0(x)=xe^{\alpha x}  \big( Q_1(x)\cos (\beta x)+Q_2(x)\sin (\beta x) \big)$,
+si $\alpha +\ii \beta$ est une racine de l'équation caractéristique.
+\end{itemize}
+Dans les deux cas, $Q_1$ et $Q_2$ sont deux polynômes
+de degré $n=\max\{\deg P_1,\deg P_2\}$.
+
+
+
+\begin{exemple}
+Résoudre les équations différentielles :
+$$(E_0) \  y''-5y'+6y=0 \quad
+(E_1) \  y''-5y'+6y=4xe^x \quad
+(E_2) \  y''-5y'+6y=4xe^{2x}$$
+
+Trouver la solution de $(E_1)$ vérifiant $y(0)=1$ et $y'(0)=0$.
+
+
+\begin{enumerate}
+  \item \textbf{Équation $(E_0)$.}
+  L'équation caractéristique est $r^2-5r+6=(r-2)(r-3)=0$, avec deux
+racines distinctes $r_1=2, r_2=3$.
+Donc l'ensemble des solutions de $(E_0)$ est $\big\{\lambda e^{2x}+ \mu e^{3x} \mid
+\lambda, \mu \in \Rr\big\}$.
+
+
+
+  \item \textbf{Équation $(E_1)$.}
+  \begin{enumerate}
+    \item On cherche une solution particulière à $(E_1)$ sous la forme
+$y_0(x)=(ax+b)e^x$. Lorsque l'on injecte $y_0$ dans l'équation $(E_1)$, on obtient :
+$$\begin{array}{rl}
+& (ax+2a+b)e^x-5(ax+a+b)e^x+6(ax+b)e^x=4xe^x \\
+\iff & (a-5a+6a)x+2a+b-5(a+b)+6b=4x \\
+\iff & 2a=4 \ \text{ et }\ -3a+2b=0 \\
+\iff & a=2 \ \text{ et }\ b=3
+\end{array}$$
+ Donc $y_0(x)=(2x+3)e^x$.
+
+    \item L'ensemble des solutions de $(E_1)$ est
+$\big\{(2x+3)e^x+\lambda e^{2x} + \mu e^{3x} \mid \lambda,\mu\in \Rr\big\}$.
+
+    \item On a $y(x)=(2x+3)e^x+ \lambda e^{2x} + \mu e^{3x}$. On cherche $\lambda$,
+$\mu$ tels que $y(0)=1, y'(0)=0$. C'est-à-dire que
+$3+\lambda+\mu=1$, $5+2\lambda+3\mu=0$. Donc $\lambda=-1, \mu=-1$, c'est-à-dire que
+$y(x)=(2x+3)e^{x}-e^{2x}-e^{3x}$.
+  \end{enumerate}
+  \item \textbf{Équation $(E_2)$.}
+  Comme $2$ est une racine de l'équation caractéristique, on
+  cherche une solution particulière sous la forme $y_0(x)=x(ax+b)e^{2x}$.
+  On obtient $y_0(x)=x(-2x-4)e^{2x}$.
+\end{enumerate}
+\end{exemple}
+
+\bigskip
+
+
+\textbf{Méthode de variation des constantes.}
+\index{variation de la constante}
+
+Si $\{y_1,y_2\}$ est une base de solutions de l'équation homogène (\ref{eq:linscdhom}),
+on cherche une solution particulière sous la forme
+$y_0= \lambda y_1 + \mu y_2$, mais cette fois $\lambda$ et $\mu$ sont deux fonctions
+vérifiant :
+\mybox{
+($S$) \qquad $
+\left\{\begin{array}{ccl}
+\lambda'y_1+\mu'y_2&=&0\\
+\lambda'y'_1+\mu'y'_2&=& \frac{g(x)}{a}.
+\end{array}\right.
+$
+}
+
+
+Pourquoi cela ?
+Si $y_0= \lambda y_1 + \mu y_2$ est une telle fonction, alors :
+$$y_0'= \lambda' y_1 + \mu' y_2 + \lambda y_1' + \mu y_2' = \lambda y_1'+ \mu y_2'$$
+$$y_0'' = \lambda' y_1'+ \mu' y_2' + \lambda y_1''+ \mu y_2'' = \frac{g(x)}{a} + \lambda y_1''+ \mu y_2''$$
+Ainsi l'équation (\ref{eq:linscd}) est vérifiée par $y_0$ :
+\begin{eqnarray*}
+ ay_0''+by_0'+cy_0
+   &=& a\left(\frac{g(x)}{a} + \lambda y_1''+ \mu y_2''\right) + b\big(\lambda y_1'+ \mu y_2'\big) + c\big(\lambda y_1 + \mu y_2\big)\\
+   &=& g(x) + \lambda\big(ay_1''+by_1'+cy_1\big) + \mu\big(ay_2''+by_2'+cy_2\big)\\
+   &=& g(x)
+\end{eqnarray*}
+On a utilisé le fait que $y_1$ et $y_2$ sont solutions de l'équation homogène.
+Le système ($S$) se résout facilement, ce qui donne $\lambda'$ et $\mu'$,
+puis $\lambda$ et $\mu$ par intégration.
+
+
+\begin{exemple}
+Résoudre l'équation suivante, sur l'intervalle $]-\frac\pi2,+\frac\pi2[$ :
+$$y'' + y = \frac{1}{\cos x}$$
+
+Les solutions de l'équation homogène $y'' + y =0$ sont
+$\lambda \cos x  + \mu \sin x$ où $\lambda,\mu\in\Rr$.
+
+On cherche une solution particulière de l'équation avec second membre sous la forme
+$$y_0(x) =\lambda(x) \cos x  + \mu(x) \sin x$$
+où cette fois $\lambda(x),\mu(x)$ sont des fonctions à trouver et qui vérifient ($S$) :
+$$
+\left\{\begin{array}{ccl}
+\lambda'y_1+\mu'y_2&=&0\\
+\lambda'y'_1+\mu'y'_2&=& \frac{g(x)}{a}
+\end{array}\right.
+\quad \text{ donc } \quad
+\left\{\begin{array}{ccl}
+\lambda' \cos x + \mu' \sin x &=&0\\
+-\lambda' \sin x + \mu' \cos x &=& \frac{1}{\cos x}.
+\end{array}\right.
+$$
+En multipliant la première ligne par $\sin x$ et la seconde par $\cos x$, on obtient
+$$
+\left\{\begin{array}{ccl}
+\lambda' \cos x \sin x + \mu' (\sin x)^2 &=&0\\
+-\lambda' \cos x \sin x + \mu' (\cos x)^2 &=& 1
+\end{array}\right.
+\quad \text{ donc par somme } \quad
+\mu'=1.
+$$
+Ainsi $\mu(x) = x$ et la première ligne des équations devient
+$\lambda' = -\frac{\sin x}{\cos x}$ donc $\lambda(x) = \ln(\cos x)$.
+
+On vérifie pour se rassurer que $y_0(x) = \ln(\cos x) \cos x + x\sin x$ est une solution
+de l'équation. Ainsi les fonctions solutions sont de la forme :
+$$\lambda \cos x  + \mu \sin x + \ln(\cos x) \cos x + x\sin x$$
+quels que soient $\lambda,\mu\in \Rr$.
+
+\end{exemple}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Résoudre l'équation différentielle $y'' + \omega^2y=0$.
+  Trouver la solution vérifiant $y(0)=1$ et $y'(0)=1$.
+  Tracer la courbe intégrale.
+  Résoudre l'équation différentielle $y'' + \omega^2y= \sin(\omega x)$.
+
+  \item Résoudre l'équation différentielle $y'' + y' -6y=0$.
+  Trouver la solution vérifiant $y(-1)=1$ et $y'(-1)=0$.
+  Tracer la courbe intégrale.
+  Résoudre l'équation différentielle $y'' + y' -6y= e^x$.
+
+  \item Résoudre l'équation différentielle $2y'' -2 y' +\frac12 y=0$.
+  Trouver la solution ayant une limite finie lorsque $x\to +\infty$.
+  Résoudre $2y'' -2 y' +\frac12 y=x-1$.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problèmes conduisant à des équations différentielles}
+
+%---------------------------------------------------------------
+\subsection{Parachutiste}
+
+
+Revenons sur l'exemple du parachutiste de l'introduction :
+sa vitesse verticale vérifie l'équation différentielle
+$$\frac{\dd v(t)}{\dd t}= g - f v(t)$$
+où $g$ (la constante de gravitation) et $f$ (le coefficient de frottement) sont des
+constantes.
+
+  \myfigure{1}{
+    \tikzinput{fig_equadiff02}
+  }
+
+Nous avons tous les ingrédients pour trouver $v$.
+
+\begin{itemize}
+  \item \textbf{Équation homogène.}
+  Les solutions de l'équation homogène $v'(t)=-fv(t)$ sont les $v(t)= ke^{-ft}$, $k\in\Rr$.
+
+  \item \textbf{Solution particulière.}
+  On cherche une solution particulière $v_p(t)=k(t)e^{-ft}$ de l'équation
+  $v'= g - f v$ par la méthode de variation de la constante :
+  $v_p'(t) = k'(t)  e^{-ft} -f k(t)e^{-ft}$. Pour que
+  $v_p$ soit solution de l'équation différentielle il faut et il suffit donc que
+  $k'(t)e^{-ft}=g$. Ainsi $k'(t)=ge^{ft}$ donc, par exemple, $k(t)=\frac{g}{f}e^{ft}$.
+  Ainsi $v_p(t)=\frac{g}{f}$.
+
+  \item \textbf{Solutions générales.}
+  La solution générale de l'équation est donc $v(t)=\frac{g}{f}+k e^{-ft}$, $k\in\Rr$.
+
+  \item \textbf{Condition initiale.}
+  Si à l'instant $t=0$ le parachute se lance avec une vitesse initiale nulle, c'est-à-dire
+  $v(0)=0$, alors sa vitesse est :
+  $$v(t)=\frac{g}{f}-\frac{g}{f}e^{-ft}.$$
+
+  \myfigure{1.2}{
+    \tikzinput{fig_equadiff05}
+  }
+
+  \item \textbf{Vitesse limite.}
+  Lorsque $t\to+\infty$, $v(t) \to v_\infty = \frac{g}{f}$, qui représente la vitesse limite
+  que le parachutiste ne peut dépasser.
+  Expérimentalement, on mesure que $v_\infty$ vaut environ \SI{5}{\meter\per\second}
+  (soit environ \SI{20}{\kilo\meter\per\hour}), et comme $g \approx \SI{9.81}{\meter\per\second^2}$,
+  cela permet de calculer le coefficient de frottement $f$.
+
+  \item \textbf{Position.}
+  Comme  $v(t) = \frac{\dd x(t)}{\dd t}$, trouver la position $x$ revient à trouver
+  une primitive de $v$ :
+  $$x(t) = \frac{g}{f} t + \frac{g}{f^2}\big(e^{-ft}-1\big)$$
+  en prenant comme convention $x(0)=0$.
+\end{itemize}
+
+Ceci n'est bien sûr qu'un \evidence{modèle} qui ne correspond
+pas parfaitement à la réalité, mais permet cependant de mettre en évidence
+des propriétés vérifiées par les conditions expérimentales, comme la vitesse limite par exemple.
+
+
+%---------------------------------------------------------------
+\subsection{Demi-vie}
+
+Dans un tissu radioactif, la vitesse de désintégration des noyaux radioactifs
+est proportionnelle au nombre de noyaux radioactifs $N(t)$ présents dans le
+tissu à l'instant $t$. Il existe donc une constante $\lambda$ strictement positive telle que :
+$$N'(t) = -\lambda N(t)$$
+Le signe \og $-$\fg{} de cette équation différentielle traduit la
+décroissance du nombre de noyaux.
+Si $N_0$ désigne le nombre de noyaux à l'instant initial, on a donc :
+$$N(t) = N_0 e^{-\lambda t}$$
+Dans ce contexte apparaissent souvent deux grandeurs qu'il est bon de
+savoir interpréter graphiquement :
+\begin{itemize}
+  \item Le \defi{temps caractéristique}, noté $\tau$, est défini par :
+  $$\tau = \frac{1}{\lambda}$$
+  Si $(T)$ désigne la tangente à l'origine de la courbe $(C)$ de la fonction $N$,
+  le temps caractéristique $\tau$ est l'abscisse du point d'intersection de la
+  droite $(T)$ avec l'axe du temps. En effet, une équation de $(T)$ est :
+  $$y = N'(0)t + N(0) = -\lambda N_0 t + N_0$$
+On constate que si $t = \tau$, on a bien $y = 0$.
+Plus le temps caractéristique est petit,
+plus la vitesse de désintégration initiale est élevée.
+
+  \myfigure{1.5}{
+    \tikzinput{fig_equadiff06}
+  }
+
+
+  \item La \defi{période de demi-vie}, notée $\tau_{1/2}$,
+  est la période au bout de laquelle la moitié des noyaux se
+  sont désintégrés. On a donc :
+  $$N(\tau_{1/2}) = \frac{N_0}{2}$$
+  Donc $N_0 e^{ -\lambda \tau_{1/2} } =   \frac{N_0}{2}$, d'où
+  $\lambda \tau_{1/2} = \ln 2$.
+  Ainsi :
+  $$\tau_{1/ 2} = \frac{\ln 2}{\lambda} = \tau \ln 2$$
+
+
+  On peut aussi exprimer $N(t)$ en fonction de la période de demi-vie :
+  $$N(t) = N_0 e^{-\lambda t} = N_0 e^{-\frac{t}{\tau}}
+  =  N_0 e^{-\frac{t}{\tau_{1/2}} \ln 2} = N_0 2^{-\frac{t}{\tau_{1/2}}}$$
+
+    Notez que $\tau_{1/ 2}$ ne dépend pas de $N_0$, et c'est bien le
+    temps nécessaire pour que la moitié des noyaux se
+  soient désintégrés, ce quel que soit l'instant initial :
+  $$N(t+\tau_{1/ 2}) = N_0 2^{-\frac{t+\tau_{1/2}}{\tau_{1/2}}}
+  = N_0 2^{-\frac{t}{\tau_{1/2}}-1} = \frac12 N_0 2^{-\frac{t}{\tau_{1/2}}}
+  = \frac{N(t)}{2}$$
+
+\end{itemize}
+
+
+
+%---------------------------------------------------------------
+\subsection{Modèles d'évolution}
+
+On considère une culture de bactéries en milieu clos.
+Soit $N_0$ le nombre de bactéries introduites dans la culture à l'instant $t = 0$.
+
+\bigskip
+
+\textbf{Loi de Malthus.}
+
+Un premier modèle est de supposer que la vitesse d'accroissement des bactéries
+est proportionnelle au nombre de bactéries en présence.
+Cela signifie que le nombre $N(t)$ de bactéries vérifie l'équation différentielle
+$$y' = ay,$$
+où $a>0$ est une constante dépendant des conditions expérimentales.
+Nous savons résoudre cette équation ! Ainsi selon ce modèle
+$$N(t) = N_0 e^{at}.$$
+
+Le milieu étant limité (en volume, en éléments nutritifs,\ldots),
+le nombre de bactéries ne peut pas croître indéfiniment de façon exponentielle.
+Ce modèle ne peut donc s'appliquer sur une longue période.
+
+\bigskip
+
+\textbf{Modèle de Verhulst.}
+
+Pour tenir compte de ces observations, on présente un autre modèle d'évolution.
+On suppose que le nombre $N(t)$ de bactéries vérifie l'équation différentielle
+\begin{equation}
+  y' = ay(M - y),
+  \label{eq:eqdiffverhulst}
+  \tag{$E$}
+\end{equation}
+où $a>0$ et $M>0$ sont des constantes.
+
+On cherche les solutions $y$ de (\ref{eq:eqdiffverhulst}) telles que
+$y(t)>0$ pour $t\in I = [0,+\infty[$.
+Supposons qu'une telle solution $y$ existe.
+
+\begin{itemize}
+
+
+  \item \textbf{Changement de fonction.}
+
+  On transforme l'équation (\ref{eq:eqdiffverhulst})
+  en une équation plus facile à résoudre.
+  Pour cela on pose $z(x) = \frac{1}{y(x)}$.
+  La fonction $z$ est dérivable sur $I$ et :
+  $$z'=-\frac{y'}{y^2} = \frac{ay(y-M)}{y^2} = a - \frac{aM}{y} = a-aMz$$
+
+
+  \item \textbf{Solutions $z$.}
+
+  Ainsi la fonction $z$ doit vérifier l'équation différentielle
+  $$z' = a-aMz,$$
+  qui est une équation différentielle linéaire d'ordre $1$
+  à coefficients constants avec second membre constant.
+  On en déduit que, pour tout $x \in I$,
+  $$z(x) = k e^{-aMx} + \frac1M$$
+  où $k \in \Rr$ est une constante.
+
+  \item \textbf{Solutions $y$.}
+
+  Cela permet d'obtenir $y$ :
+  $$y(x) = \frac{1}{z(x)} = \frac{1}{k e^{-aMx} + \frac1M} = \frac{M}{kM e^{-aMx}+1}$$
+  La constante $k$ est déterminée par la condition initiale
+  $y(0) = \frac{M}{kM+1}=N_0$, ainsi $k = \frac{1}{N_0}-\frac{1}{M}$.
+
+  \item \textbf{Exemple.}
+  On suppose $N_0 = 0,01$ (en million de bactéries) et $M=1$, $a=1$.
+  Alors $k = \frac{1}{N_0}-\frac{1}{M} = 99$.
+  Ainsi selon ce modèle :
+  $$N(t) = \frac{1}{1 + 99 e^{-t}}$$
+  Il est clair que $0<N(t)<1$ pour tout $t\ge0$, et
+  $N(t) \to 1$ lorsque $t\to+\infty$.
+
+  Pour connaître les variations de la fonction $N$, nul besoin de calculs car on sait déjà que
+  $N$ est solution de l'équation différentielle (\ref{eq:eqdiffverhulst}), donc
+  $N'(t) = N(t)(1 - N(t))$.
+  Ainsi $N'(t)>0$, donc la fonction $N$ est croissante.
+\end{itemize}
+
+  \myfigure{1.5}{
+    \tikzinput{fig_equadiff07}
+  }
+
+
+Le modèle de Verhulst a l'avantage de
+bien faire apparaître un comportement asymptotique particulier :
+le nombre de bactéries finit par se stabiliser.
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Masse attachée à un ressort}
+
+Une masse est attachée à un ressort.
+Quelles sont les forces qui s'appliquent à cette masse ?
+\begin{itemize}
+  \item Un poids $\vec P$,
+  \item une réaction $\vec R=-\vec P$ qui s'oppose au poids,
+  \item une force de rappel $\vec T$,
+  \item une force de frottement $\vec F$.
+\end{itemize}
+
+
+  \myfigure{0.9}{
+    \tikzinput{fig_equadiff09}
+  }
+
+\subsubsection*{Principe fondamental de la mécanique}
+
+Le principe fondamental de la mécanique s'écrit :
+$$\vec P + \vec R + \vec T + \vec F = m\vec a$$
+Il est à noter que la réaction s'opposant au poids, on a $\vec P+\vec R = \vec 0$,
+et l'équation devient :
+$$\vec T + \vec F = m\vec a$$
+
+
+
+\subsubsection*{Force de rappel}
+
+La force de rappel est une force horizontale. Elle est nulle
+à la position d'équilibre, qui sera pour nous l'origine $x=0$.
+Si on écarte davantage la masse du mur,
+la force de rappel est un vecteur horizontal qui pointe
+vers la position d'équilibre (vers la gauche sur le dessin).
+Si on rapproche la masse du mur, le ressort se comprime,
+et la force de rappel est un vecteur horizontal qui pointe
+encore vers la position d'équilibre (cette fois vers la droite
+sur le dessin). On modélise la force de rappel par
+$$\vec T = -k x \vec i$$
+où $x$ est la position de la masse (on peut avoir $x\ge0$ ou $x\le 0$), et $k>0$
+est une constante qui dépend du ressort.
+
+  \myfigure{0.35}{
+    \tikzinput{fig_equadiff09a}\ 
+    \tikzinput{fig_equadiff09b}\ 
+    \tikzinput{fig_equadiff09c}\ 
+  }
+
+
+\subsubsection*{Oscillations sans frottements}
+
+Dans un premier temps, on suppose qu'il n'y a pas de
+frottement : $\vec F = \vec 0$.
+
+Le principe fondamental de la mécanique, considéré uniquement sur l'axe horizontal,
+s'écrit alors :
+$$-kx(t) = m\frac{\dd^2 x(t)}{\dd t^2}$$
+
+Il s'agit donc de résoudre l'équation différentielle du second ordre :
+$$y'' + \frac{k}{m} y = 0$$
+
+L'équation caractéristique est $r^2+\frac{k}{m} = 0$,
+dont les solutions sont les nombres complexes
+$r_1 = +\ii\sqrt{\frac{k}{m}}$ et $r_2 = -\ii\sqrt{\frac{k}{m}}$.
+Nous sommes dans le cas $\Delta = -4\frac{k}{m} <0$.
+Les solutions de cette équation caractéristique sont de la forme
+$\alpha \pm \ii \beta$ avec $\alpha=0$, $\beta = \sqrt{\frac{k}{m}}$,
+ce qui fait que les solutions de l'équation différentielle sont
+les :
+$$y(x) = e^{\alpha x}\big(\lambda\cos (\beta x)+\mu\sin (\beta x)\big)$$
+
+Dans notre situation (la fonction inconnue est $x$ et la variable $t$) :
+$$x(t) = \lambda\cos \left(\sqrt{\tfrac{k}{m}}t\right)
++\mu\sin \left(\sqrt{\tfrac{k}{m}}t\right)
+\qquad (\lambda, \mu \in \Rr)$$
+
+\begin{exemple}
+On lâche la masse au point d'abscisse $1$, sans vitesse initiale.
+Cela nous donne les conditions initiales
+$x(0)=1$ et $x'(0)=0$.
+Comme $x(0)=1$ alors $\lambda=1$. Comme
+$x'(0) = 0$ alors $\mu = 0$.
+Ainsi on trouve une solution périodique :
+$$x(t) = \cos \left(\sqrt{\tfrac{k}{m}}t\right)$$
+  \myfigure{1}{
+    \tikzinput{fig_equadiff10}
+  }
+
+\end{exemple}
+
+
+\subsubsection*{Oscillations avec faibles frottements}
+
+On rajoute une force de frottement $\vec F =  -fm \frac{\dd x(t)}{\dd t}$
+qui est proportionnelle à la vitesse et s'oppose au déplacement
+($f$ est le coefficient de frottement).
+Le principe fondamental de la mécanique devient :
+$$-kx(t)-fm \frac{\dd x(t)}{\dd t} = m\frac{\dd^2 x(t)}{\dd t^2}$$
+
+Il s'agit donc de résoudre l'équation différentielle :
+$$y'' + f y' + \frac{k}{m} y = 0$$
+
+L'équation caractéristique est cette fois $r^2+fr+\frac{k}{m}=0$.
+Son discriminant est  $\Delta = f^2-4\frac{k}{m}$.
+Supposons que le coefficient de frottement $f$ soit faible, c'est-à-dire
+que $\Delta = f^2-4\frac{k}{m} <0$, comme dans le cas sans frottement.
+On note $\delta = \sqrt{|\Delta|} = \sqrt{4\frac{k}{m} - f^{2}}$.
+Les deux solutions sont
+$r_1 = \alpha + \ii \beta$ et $r_2 = \alpha - \ii \beta$ avec
+$\alpha = -\frac{f}{2}$ et $\beta = \frac{\delta}{2} = \sqrt{\frac{k}{m} - \frac{f^{2}}{4}}$.
+Les solutions de l'équation différentielle sont encore de la forme :
+$$y(x) = e^{\alpha x}\big(\lambda\cos (\beta x)+\mu\sin (\beta x)\big)$$
+Ce qui donne ici :
+$$x(t) = e^{-\frac{f}{2} t}\left(\lambda\cos \left(\tfrac{\delta}{2}t\right)
++\mu\sin \left(\tfrac{\delta}{2}t\right)\right)\qquad (\lambda, \mu \in \Rr)$$
+
+Cette fois la solution n'est plus périodique, mais correspond à un mouvement
+oscillant amorti, qui tend vers la position d'équilibre $x=0$.
+
+  \myfigure{1}{
+    \tikzinput{fig_equadiff11}
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Un circuit électrique constitué d'un condensateur
+  de capacité $C$ se décharge dans une résistance $R$.
+  Calculer l'évolution de la charge électrique qui vérifie
+  $q(t) = -RC \frac{\dd q(t)}{\dd t}$.
+
+  \item Calculer et tracer les solutions du système masse-ressort
+  pour différents niveaux de frottements.
+
+  \item Un tasse de café de température $T_0= \SI{100}{\celsius}$
+  est posée dans une pièce de température $T_\infty = \SI{20}{\celsius}$.
+  La loi de Newton affirme que la vitesse de décroissance de la température
+  $\frac{\dd T(t)}{\dd t}$ est proportionnelle à l'écart entre sa température
+  $T(t)$ et la température ambiante $T_\infty$.
+  Sachant qu'au bout de \SI{3}{\minute} la température du café
+  est passée à $\SI{80}{\celsius}$, combien de temps faudra-t-il
+  pour avoir un café à $\SI{65}{\celsius}$ ?
+\end{enumerate}
+\end{miniexercices}
+
+\auteurs{
+
+D'après un cours de Gilles Costantini pour le site \texttt{\href{http://www.bacamaths.net/}{Bacamaths}}
+et des cours de Guoting Chen et Abdellah Hanani
+
+Repris et mixés par Arnaud Bodin
+
+Relu par Stéphanie Bodin et Vianney Combet
+
+}
+
+
+\finchapitre
+\end{document}
+
+
+

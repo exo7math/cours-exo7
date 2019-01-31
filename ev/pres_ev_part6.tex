@@ -1,0 +1,233 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={205,0,0}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\title{{\bf Espaces vectoriels}}
+\subtitle{Application linéaire (début)}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition
+    \item<4-> Premiers exemples
+    \item<5-> Premières propriétés   
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définition}
+
+\begin{frame}
+
+Soient $E$ et $F$ deux $\Kk$-espaces vectoriels
+\begin{mydefinition}
+Une application $f$ de $E$ dans $F$ est une \defi{application 
+linéaire} si : 
+\pause
+\begin{enumerate}
+  \item $f(u+v)=f(u)+f(v)$, pour tous $u, v \in  E$ 
+\pause
+  \item $f(\lambda \cdot u)=\lambda \cdot f(u)$, pour tout $u \in E$ et tout $\lambda \in \Kk$
+\end{enumerate}
+\end{mydefinition}
+
+\bigskip
+\pause
+
+L'ensemble des applications linéaires de $E$ dans $F$ est noté $\mathcal{L}(E,F)$
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Premiers exemple}
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}\setlength{\itemsep}{6pt}
+  \item $\begin{array}{rcl}
+f : \quad \Rr^3 & \to & \Rr^2\\
+(x,y,z) & \mapsto & (-2x,y+3z)
+ \end{array}$
+
+ \pause
+ 
+  \item $f$ est une application linéaire
+ 
+ \pause
+ 
+  \item Soient $u=(x,y,z)$ et $v=(x',y',z')$ de $\Rr^3$
+  
+$\begin{array}{rcl}
+f(u+v) \pause & = &f(x+x', y+y', z+z')\\
+       \pause & = & \big(-2(x+x'), y+y' + 3(z+z')\big)\\
+       \pause & = & (-2x, y+3z)+(-2x', y'+3z')\\
+       \pause & = & f(u)+f(v)
+\end{array}$
+
+ \pause
+ 
+  \item  Soient $u=(x,y,z) \in \Rr^3$ et $\lambda \in \Rr$
+
+$\begin{array}{rcl}
+f(\lambda \cdot u) \pause & = & f(\lambda x, \lambda y, \lambda z)\\
+             \pause & = & (-2\lambda x,   \lambda y + 3\lambda z)\\
+             \pause & = & \lambda \cdot (-2x,y+3z)\\
+             \pause & = & \lambda\cdot f(u)
+\end{array}$
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}[\textbf{d'application non linéaire}]
+Soit $f : \Rr \to \Rr$ l'application définie par $f(x)=x^2$
+\pause
+\begin{itemize}\setlength{\itemsep}{6pt}
+  \item On a $f(1)=1$ et $f(2)=4$. Donc $f(2) \neq 2 \cdot f(1)$
+\pause  
+  \item On n'a pas toujours l'égalité $f(\lambda x)=\lambda f(x)$
+\pause   
+  \item Donc $f$ n'est pas linéaire
+\pause  
+  \item On n'a pas non plus $f(x+x')=f(x)+f(x')$ (dès que $xx'\neq0$)
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\hfill{\textbf{Autres exemples}}
+\bigskip
+
+
+\begin{enumerate}\setlength{\itemsep}{6pt}
+\item Pour une matrice fixée $A \in M_{n,p}(\Rr)$, 
+l'application $f : \Rr^p \longrightarrow \Rr^n$ définie par 
+$$f(X) = AX$$
+est une application linéaire
+
+\pause
+
+\item L'\,\defi{application nulle}, notée $0_{\mathcal{L}(E,F)}$  
+$$f : E \longrightarrow F 
+\qquad f(u) = 0_F \qquad \text{ pour tout }u \in E$$
+
+\pause
+
+\item L'\,\defi{application identité}, notée $\id_E$ 
+$$f : E \longrightarrow E 
+\qquad f(u) = u \qquad \text{ pour tout }u \in E$$
+\end{enumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Premières propriétés}
+
+\begin{frame}
+Soient $E$ et $F$ deux $\Kk$-espaces vectoriels
+
+\begin{proposition}
+Si $f : E \longrightarrow F$ est une 
+application linéaire, alors 
+\begin{itemize}
+  \item $f(0_{E})=0_{F}$
+  \item $f(-u)=-f(u)$, pour tout $u \in E$
+\end{itemize}
+\end{proposition}
+\end{frame}
+
+
+\begin{frame}
+
+
+
+\begin{proposition}%[Caractérisation d'une application linéaire]
+$f : E \longrightarrow F$ est une 
+application linéaire si et seulement si, 
+pour tous vecteurs $u$ et $v$ de $E$ et pour tous scalaires  
+$\lambda$ et $\mu$ de $\Kk$
+\mybox{$f(\lambda u + \mu v)=\lambda f(u)+\mu f(v)$}
+\end{proposition}
+
+\bigskip
+\pause
+
+$$f(\lambda_1 v_1 +
+\dots + \lambda_n v_n) = \lambda_1 f(v_1) + \dots + \lambda_n
+f(v_n)$$
+
+\end{frame}
+
+
+\begin{frame}  
+  
+
+\textbf{Vocabulaire}
+
+
+\begin{itemize}
+  \item Une application linéaire de $E$ dans $F$ est 
+  aussi appelée \defi{morphisme} d'espaces vectoriels
+  
+  
+  \item L'ensemble des applications linéaires de $E$ dans $F$ est noté $\mathcal{L}(E,F)$
+
+  \bigskip
+  \pause
+  
+  \item Une application linéaire de $E$ dans $E$ est appelée \defi{endomorphisme} de $E$
+  
+  
+  \item L'ensemble des endomorphismes de $E$ est noté  $\mathcal{L}(E)$
+\end{itemize}
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+
+Montrer que les applications suivantes $f_i : \Rr^2 \to \Rr^2$ sont linéaires.
+  Caractériser géométriquement ces applications et faire un dessin.
+  \begin{enumerate}
+    \item $f_1(x,y)=(-x,-y)$ ;
+    \item $f_2(x,y) = (3x,3y)$ ;
+    \item $f_3(x,y)=(x,-y)$ ;
+    \item $f_4(x,y)=(-x,y)$ ;
+    \item $f_5(x,y)=\big(\frac{\sqrt 3}{2}x-\frac12y, \frac12x +\frac{\sqrt 3}{2}y\big)$.  
+  \end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

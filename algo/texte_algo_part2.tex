@@ -1,0 +1,692 @@
+
+\input{../preamb-texte.tex}
+
+\newcommand{\codeinline}[1]{\texttt{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Dans cette leçon on s'interesse aux entiers.
+
+\change
+
+Nous commençons par un peu d'arithmétique avec la division euclidienne et les calculs avec les modulos.
+
+\change
+
+Nous verrons l'écriture décimales des entiers 
+
+\change
+
+Pour cela nous utiliserons la notion de listes et le module \codeinline{math}.
+
+\change
+
+Le but de ce chapitre étant d'obtenir l'écriture binaire des entiers.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La division euclidienne de $a$ par $b$ s'écrit :
+$$a = bq+r \quad \text{ et } \quad 0 \le r < b$$
+
+\change
+
+où $q \in \Zz$ est le \defi{quotient} 
+
+\change
+
+En Python le quotient se calcule par : \codeinline{a // b}. Notez la double barre de division !
+
+\change
+
+Et $r \in \Nn$ est le \defi{reste}.
+
+\change
+
+Qui se calcule par \codeinline{a \% b}.
+
+\change
+
+Par exemple : \codeinline{14 // 3} retourne $4$
+
+\change
+
+Alors que \codeinline{14 \% 3}  retourne $2$ (il faut lire $14$ modulo $3$ égale $2$).
+
+\change
+
+On a bien $14 = 3 \times 4 + 2$ qui est l'écriture de la division euclidienne.
+
+\change
+
+Les calculs avec les modulos sont très pratiques.
+Par exemple pour tester si un entier est pair, ou impair cela revient à un test modulo $2$.
+Le code est \codeinline{if (n\%2 == 0): ... else: ...}.
+
+\change
+
+Si on besoin de calculer $\cos( n\frac\pi2)$ alors il faut discuter
+suivant les valeurs de \codeinline{n\%4}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour s'échauffer voici le petit exercice suivant !
+
+Il s'agit de compter le nombre de fois où le chiffre $1$ apparaît dans tous les nombres
+de $1$ à $999$.
+
+Ne continuer la vidéo qu'une fois que vous avez terminé la programmation.
+
+
+\change
+
+On écrit une boucle "pour" qui fait varier notre compteur $N$ de $1$ à $999$.
+
+Comment obtient le chiffre des unités d'un nombre ? C'est tout simplement le reste
+de $N$ modulo $10$.
+
+Par exemple $237$ modulo $10$ donne $7$.
+
+\change
+
+Pour le chiffre des dizaines c'est un peu plus compliqué.
+
+On commence par diviser $N$ par $10$. C'est ici la division d'entiers.
+
+Par exemple $237$ diviser par $10$ c'est $23$. 
+Ensuite on prend le reste modulo $10$.
+
+Donc pour $237$ on divise par $10$ pour obtenir $23$ puis modulo $10$ on obtient $3$.
+Qui est bien le chiffre des dizaines de $237$.
+
+\change
+
+Pour obtenir le chiffre des centaines on commence par diviser par $100$.
+
+
+\change
+
+On a défini un compteur NbdeUn qui compte le nombre de fois où le $1$ apparaît.
+
+\change
+
+Compteur que l'on incrémente à chaque fois que l'on a le chiffre $1$.
+
+\change
+
+\change
+
+Il ne reste plus qu'à afficher le résultat.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+L'écriture décimale d'un nombre, c'est associer à un entier $N$
+la suite de ses chiffres $[a_0,a_1,\ldots,a_n]$ de sorte que $a_i$ soit le $i$-ème chiffre
+de $N$.
+
+\change
+
+ C'est-à-dire 
+$N= a_n 10^n+ a_{n-1}10^{n-1}+\cdots + a_2 10^2 + a_1 10 + a_0$
+[partir de la fin]
+
+et ce qui est important $a_i \in \{0,1,\ldots,9\}$
+
+\change
+
+$a_0$ est le chiffre des unités, $a_1$ celui des dizaines, $a_2$ celui des centaines,...
+
+\change
+
+Voici votre travail :
+
+tout d'abord à partir de la liste des chiffres, calculer l'entier.
+
+Puis l'opération inverse : partant d'un entier $N$ retrouver la liste de ses chiffres.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici le premier algorithme de la liste vers l'entier :
+
+\change
+
+C'est juste la mise en oeuvre de la formule mathématique 
+$N= a_n 10^n+ a_{n-1}10^{n-1}+\cdots + a_2 10^2 + a_1 10 + a_0$.
+
+\change
+
+Par exemple \codeinline{chiffres-vers-entier([4,3,2,1])} renvoie l'entier $1234$.
+
+$4$ est le chiffre des unités, $3$ celui des dizaines,...
+
+Nous avons un indice $i$ qui correspond à l'exposant $10^i$,
+
+$10^0$ pour les unités, $10^1$ pour les dizaines, $10^2$ pour les centaines.
+
+Il reste à multiplier $10^i$ par le chiffre $a_i$ qui est pour nous stocké dans $tab[i]$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Expliquons les bases sur les \evidence{listes} (qui s'appelle aussi des \evidence{tableaux})
+
+ En Python une liste est présentée entre des crochets.
+ 
+ 
+\change
+
+Voici un exemple de liste \codeinline{tab = [4,3,2,1]}
+
+\change
+
+On accède aux valeurs par \codeinline{tab[i]} :
+
+\change
+
+$i$ étant un indice qui varie ici de $0$ à $3$.
+
+ \codeinline{tab[0]} vaut $4$,  \codeinline{tab[1]} vaut $3$, 
+ 
+ \codeinline{tab[2]} vaut $2$,  \codeinline{tab[3]} vaut $1$.
+
+
+\change
+
+Une façon simple de parcourir les éléments d'un tableau est \codeinline{for x in tab}, 
+  $x$ vaut alors successivement $4$, $3$, $2$, $1$.
+  
+\change
+
+La longueur du tableau s'obtient par \codeinline{len(tab)}. Pour notre exemple
+  \codeinline{len([4,3,2,1])} vaut $4$.
+  
+  \change
+  
+  Une autre façon de parcourir toutes les valeurs d'un tableau est  donc d'écrire
+  
+  \codeinline{for i in range(len(tab))}, puis utiliser \codeinline{tab[i]}, 
+  
+  ici $i$ variant ici de $0$ à $3$.
+  
+   
+  \change 
+  
+  La liste vide est seulement notée avec deux crochets : \codeinline{[]}.
+  
+  Elle est utile pour initialiser une liste.
+  
+  \change
+  
+  Pour ajouter un élément à une liste \codeinline{tab} existante on utilise
+  la fonction \codeinline{append}. Par exemple définissons la liste vide \codeinline{tab=[]},
+  
+  \change
+  
+   pour ajouter une valeur à la fin de la liste on saisit : \codeinline{tab.append(4)}. Maintenant notre liste 
+  est $[4]$, elle contient un seul élément. 
+  
+   \change 
+   
+ Si on continue avec \codeinline{tab.append(3)}. Alors maintenant 
+  notre liste a deux éléments : $[4,3]$.  etc.
+  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici l'écriture d'un entier $N$ en base $10$.
+
+\change
+
+Par exemple \codeinline{entier-vers-chiffres(1234)} renvoie le tableau $[4,3,2,1]$.
+
+Nous avons expliqué tout ce dont nous avions besoin sur les listes au-dessus, 
+expliquons les mathématiques.
+
+\change
+
+Décomposons les entiers naturels non nuls sous la forme 
+
+  $[1,10[  \ \cup  \ [10,100[ \ \cup$
+  $\  [100,1000[ \  \cup \  [1\,000,10\, 000[ \ \cup \cdots$ 
+
+  Ce qui correspond aux entiers à $1$ chiffre, à $2$ chiffres, à $3$ chiffres,...
+  
+\change
+
+  Chaque intervalle est du type $[10^n,10^{n+1}[$.
+  
+\change
+
+[[grand N, petit n]]
+
+  Pour un entier $N$ non nul il appartient à un de ces intervalles, il existe donc $n\in\Nn$ 
+  tel que $10^n \le N < 10^{n+1}$. 
+    
+\change 
+
+  Ce qui indique que le nombre de chiffres
+  de $N$ est $n+1$.
+  
+\change 
+
+[[grand N, petit n]]
+
+  Par exemple si $N=1234$ alors $1 \, 000 = 10^3 \le N < 10^4 = 10\, 000$, 
+  ainsi $n=3$ et le nombre de chiffres est $3+1=4$.
+    
+\change 
+
+  [[grand N, petit n]]
+  
+Comment calcule-t'on $n$ à partir de $N$ ?
+
+\change
+
+Nous allons utiliser le logarithme décimal $\log_{10}$ qui vérifie
+  $\log_{10}(10) = 1$ et $\log_{10}(10^i) = i$. 
+  
+  
+\change
+
+Le logarithme est une fonction croissante, donc l'inégalité 
+  $10^n \le N < 10^{n+1}$ devient $\log_{10}(10^n) \le \log_{10}(N) < \log_{10}(10^{n+1})$. 
+  
+\change
+  
+  
+  Ainsi $n \le \log_{10}(N) < n+1$.
+  
+  Ce qui indique donc que $n = E(\log_{10}(N))$ où $E(x)$ désigne la partie entière d'un réel $x$.
+  
+  [pause]
+  
+Pour l'algorithme, on part de la liste vide, 
+on calcule $n$ comme la partie entière du log décimale de $N$
+et on calcule les chiffres $1$ par $1$,
+la $i$-ème chiffre étant obtenu comme précédemment
+puis ajouté à la liste.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Quelques commentaires informatiques sur un module important pour nous.
+Les fonctions mathématiques ne sont pas définies par défaut dans Python
+
+il faut faire appel à une librairie spéciale : le module \codeinline{math} 
+contient les fonctions mathématiques principales.
+
+La première façon d'utiliser ce module est d'écrire la ligne \codeinline{import math}  en début de fichier
+
+puis pour utiliser la fonction cosinus par exemple on l'appelle par \codeinline{math.cos()}
+
+
+\change
+
+Comme on aura souvent besoin de ce module on préfère mettre en tête de fichier la ligne 
+\codeinline{from math import *}.
+  Cela signifie que l'on importe toutes les fonctions de ce module 
+  et qu'en plus on n'a pas besoin de préciser que la fonction
+  vient du module \codeinline{math}. 
+  
+  On peut écrire directement \codeinline{cos()} au lieu \codeinline{math.cos()}.
+  
+\change
+
+
+Voici maintenant une liste de fonction mathématiques usuelles .
+
+   \codeinline{abs(x)}     pour la valeur absolue   $|x|$  
+   
+   \codeinline{x ** n}     pour la puissance   $x^n$  
+   
+Ces fonctions sont toujours accessibles dans Python alors que les suivantes sont issues du module math.
+
+La racine carrée,
+
+L'exponentielle,
+
+Le logarithme néperien ou logarithme naturel qui vérifie $ln(e)=1$
+
+Le logarithme décimal avec $log(10)=1$.
+
+Et on peut aussi spécifier une base différente de $10$.
+
+Les fonctions cosinus, sinus, tangente : mais attention les angles sont exprimés en radians.
+   
+Les fonctions trigonométriques inverses : qui renvoient des angles en radians. 
+   
+La fonction partie entière, qui renvoie le plus grand entier en-dessous de $x$ (\emph{floor} signifie plancher)
+
+Et \emph{ceil} (qui signifie plafond) renvoie le plus petit entier au-dessus de $x$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On dispose d'une rampe de lumière, chacune des $8$ lampes pouvant être 
+allumée (rouge) ou éteinte (gris).
+
+
+On numérote les lampes de $0$ à $7$.
+On souhaite contrôler cette rampe : afficher toutes les combinaisons possibles, faire défiler 
+une combinaison de la gauche à droite (la ``chenille'')
+
+[7 clics]
+
+\change
+
+\change
+
+\change
+
+\change
+
+\change
+
+\change
+
+\change
+
+, inverser l'état de toutes les lampes,...
+
+[3 clics]
+
+\change
+
+\change
+
+\change
+
+
+Voyons comment l'écriture binaire des nombres peut nous aider.
+L'\defi{écriture binaire} d'un nombre c'est son écriture en base $2$.
+
+\change
+
+Comment calculer un nombre qui est écrit en binaire ?
+Le chiffre des ``dizaines'' correspond à $2$ (au lieu de $10$ en écriture décimale),
+le chiffre des ``centaines'' à $4=2^2$ (au lieu de $100=10^2$), 
+le chiffres des ``milliers'' à $8=2^3$ (au lieu de $1000=10^3$),...
+Pour le chiffre des unités cela correspond à $2^0 = 1$ (de même que $10^0=1$).
+
+\change
+
+Par exemple quel est l'entier dont l'écriture est $10011_b$.
+
+\change
+
+
+${\color{blue}10011}_b = {\color{blue}1} \cdot 2^4 + {\color{blue}0} \cdot 2^3 + 
+{\color{blue}0} \cdot 2^2 + {\color{blue}1}\cdot 2^1 + {\color{blue}1}\cdot 2^0$ 
+
+[[lire ordre inverse]]
+
+\change
+
+$= 16+2+1=19.$
+
+\change
+
+C'est donc le nombre $19$
+
+\change
+
+De façon générale tout entier $N\in \Nn$ s'écrit de manière unique sous la forme
+$$N= a_n 2^n+ a_{n-1}2^{n-1}+\cdots + a_2 2^2 + a_1 2 + a_0$$
+
+et cette fois $a_i$ ne peut être que $0$ ou $1$.
+
+\change
+
+
+
+On note alors $N= a_n a_{n-1}\ldots a_1 a_0 \ _b$ 
+
+(avec un indice $b$ pour indiquer que c'est son écriture binaire).
+
+
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici votre premier travail avec les nombres binaires :
+
+A partir d'une écriture binaire calculer l'entier correspondant.
+
+Et réciproquement à partir d'un entier calculer son écriture binaire.
+
+Programmer ces fonctions avant de continuer.
+
+\change
+
+Voici maintenant les algorithmes 
+ils sont en tout point similaire à ceux pour l'écriture en base $10$.
+
+Sauf que bien sûr ici on calcule avec des puissances de $2$.
+
+
+\change
+
+Idem pour le sens inverse où l'on a besoin du logarithme en base $2$, qui vérifie
+$\log_2(2)=1$ et $\log_2(2^i)=i$.
+
+On obtient ainsi le nombre de chiffre de l'écriture en base $2$.
+
+Et on calcule chacun des chiffres par des divisions euclidiennes par $2^i$ 
+puis le reste modulo $2$ : qui est donc soit $0$ soit $1$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Maintenant appliquons ceci à notre problème de lampes.
+Si une lampe est allumée on lui attribut $1$, et si elle est éteinte $0$.
+Pour une rampe de $8$ lampes on code $[a_0,a_1,\ldots,a_7]$ l'état des lampes.
+
+\change
+
+Par exemple la configuration suivante :
+est codé $[1,0,0,1,0,1,1,1]$ 
+
+\change
+
+ce qui correspond au nombre binaire
+$11101001_b = 233$.
+
+(attention à l'inversion de l'ordre).
+
+\change
+
+Voici votre travail :
+
+vous devez en premier afficher toutes les  configurations.
+
+Avec les trois questions suivantes vous allez programmer la "chenille" : une configuration 
+se décale cycliquement vers la droite.
+
+Enfin la dernière question est de voir mathématiquement à quoi correspond l'inversion d'une configuration :
+les lampes allumées s'éteignent et les lampes éteintes s'allument.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Il s'agit d'abord d'afficher les configurations. Par exemple si l'on a $4$ lampes alors
+les configurations sont $[0,0,0,0]$, $[1,0,0,0]$, $[0,1,0,0]$, $[1,1,0,0]$,\ldots, $[1,1,1,1]$.
+
+\change
+
+Pour chaque lampe nous avons deux choix (allumé ou éteint),
+
+\change
+
+ il y a en tout $n+1$ lampes donc un total de $2^{n+1}$ configurations.
+
+\change
+
+ Si l'on considère ces configurations comme des nombres écrits en binaire alors 
+l'énumération ci-dessus correspond à compter $0,1,2,3,\ldots, 2^{n+1}-1$.
+
+\change
+
+D'où l'algorithme suivant.
+
+C'est juste l'énumération des entiers de $0$ à $2^{n+1}-1$
+et leur conversion en écriture binaire.
+
+
+\change
+
+Où \codeinline{entier-vers-binaire-bis(N,n)} est similaire à \codeinline{entier-vers-binaire(N)},
+mais en affichant aussi les zéros non significatifs,
+
+\change
+
+par exemple $7$ en binaire s'écrit simplement $111_b$,
+mais codé sur $8$ chiffres on ajoute devant des $0$ non significatifs : $00000111_b$.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Maintenant nous allons décaler cycliquement la configuration d'une rampe.
+
+
+Commençons par une analogie : 
+En écriture décimale, multiplier par $10$ revient à décaler le nombre initial et rajouter un zéro.
+Par exemple $10\times{\color{blue}19} = {\color{blue}19}{\color{red}0}$.
+
+\change
+
+C'est la même chose en binaire !
+Multiplier un nombre par $2$ revient sur l'écriture à un décalage 
+vers la gauche et ajout d'un zéro sur le chiffre des unité.
+
+\change 
+
+Exemple : $19 = 10011_b$,
+
+$2 \times{\color{blue}10011}_b  = {\color{blue}10011}{\color{red}0}_b$
+
+c'est l'écriture de $2 \times 19 = 38$.
+
+\change
+
+ Partant de $N=a_n  a_{n-1}\ldots a_1 a_0 \ _b$. 
+  
+\change
+
+Notons $N'=2N$, son écriture binaire est 
+$N' = a_n  a_{n-1}\ldots a_1 a_0 0 \ _b$.
+
+avec un $0$ à la fin.
+
+\change
+
+L'entier $N'$ est $a_n \times 2^{n+1} + a_{n-1} \times 2^n + ...$
+
+donc $N' \pmod {2^{n+1}}$ fait disparaitre $a_n$ et s'écrit 
+$a_{n-1} a_{n-2} \ldots a_1 a_0 0 \ _b$ 
+  
+\change
+
+Pour faire permuter notre écriture il faut remplacer le chiffre des unités  par $a_n$ :
+il suffit d'additionner $a_n$.
+
+Comment s'obtient $a_n$ : c'est le quotient de $N'$ par $2^{n+1}$.
+
+\change
+
+En résumé $N' \pmod{2^{n+1}} + a_n$ vaut exactement ceci,
+
+\change
+
+
+ce qui signifie que son écriture binaire est $a_{n-1} a_{n-2} \ldots a_1 a_0 a_n \ _b$.
+
+Exactement la permutation que nous souhaitions !
+
+
+\change
+
+Une fois que l'on compris cela, le code est très simple :
+
+Partant de notre configuration, on transforme cette configuration en un entier.
+
+On fait notre transformation de $N$ en $N' \pmod{2^{n+1}} + a_n$
+
+et on retransforme ce nombre en écriture binaire.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On remarque que si l'on a deux configurations opposées alors leur somme vaut $2^{n+1}-1$
+
+\change
+
+par exemple avec $[1,0,0,1,0,1,1,1]$ et $[0,1,1,0,1,0,0,0]$,
+
+\change
+
+les deux nombres associés sont
+$N$ et $N'$ (il s'agit juste de les réécrire de droite à gauche)
+
+\change
+
+La somme $N + N' = 11101001_b + 00010110_b = 11111111_b $
+
+L'addition en écriture binaire se fait de la même façon qu'en écriture décimale et 
+ici il n'y a pas de retenue.
+
+\change
+
+cela vaut $2^{8}-1$. 
+
+\change
+
+C'est donc la formule $N' = 2^{n+1}-1 - N$  que l'on va appliquer.
+
+\change
+
+Voici l'algorithme : 
+
+on part d'une liste que l'on transforme en un entier $N$
+
+On calcule son opposé $N'$ par la formule  $N' = 2^{n+1}-1 - N$ 
+
+On converti $N'$ en écriture binaire.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici une liste assez longue d'exercices pour bien assimiler l'écriture des nombres. 
+
+
+\end{document}

@@ -1,0 +1,427 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={127,0,0}]{structure}
+
+% Commande spécifique à ce chapitre
+
+\newcommand{\Python}{\texttt{Python}}
+\renewcommand{\evidence}[1]{{\color{blue}\textbf{#1}}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Cryptographie}}
+\subtitle{L'arithmétique pour RSA}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Le petit théorème de Fermat amélioré
+    \item<4-> L'algorithme d'Euclide étendu
+    \item<5-> Inverse modulo $n$
+    \item<6-> L'exponentiation rapide
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Le petit théorème de Fermat amélioré}
+
+\begin{frame}
+
+\begin{theoreme}[Petit théorème de Fermat]
+Si $p$ est un nombre premier et $a \in \Zz$ alors
+\mybox{$a^p \equiv a \pmod p$}
+\end{theoreme}
+
+
+\pause
+\bigskip
+
+\begin{corollaire}
+Si $p$ ne divise pas $a$ alors
+\mybox{$a^{p-1} \equiv 1 \pmod p$} 
+\end{corollaire}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{theoreme}[Petit théorème de Fermat amélioré]
+Soient $p$ et $q$ deux nombres premiers distincts et soit $n = p q$. Pour tout
+$a\in \Zz$ tel que $\pgcd(a,n)=1$ alors :
+\mybox{$a^{(p-1)(q-1)} \equiv 1 \pmod n$}
+\end{theoreme}
+
+\pause
+\bigskip
+
+\begin{itemize}
+%  \item On note $\varphi(n)=(p-1)(q-1)$ la \defi{fonction d'Euler}
+%  \pause
+  \item $\pgcd(a,n)=1 \iff $ $p$ et $q$ ne divisent par $a$
+
+  \pause
+  \item Exemple : $p=5$, $q=7$
+  \begin{itemize}
+    \item $n = p \times q=35$
+    \item $%\varphi(n) =
+ (p-1)\times (q-1) =4\times 6 = 24$
+    \item Pour $a\!=\!1,2,3,4,6,8,9,11,12,13,16,17,18,...$ \quad $a^{24}\! \equiv \!1 \!\pmod{\!35}$
+  \end{itemize}
+ 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{theoreme}[Petit théorème de Fermat amélioré]
+Soient $p$ et $q$ deux nombres premiers distincts et soit $n = p q$. Pour tout
+$a\in \Zz$ tel que $\pgcd(a,n)=1$ alors :
+%\vspace*{-2ex}
+\myboxinline{$a^{(p-1)(q-1)} \equiv 1 \pmod n$}
+\end{theoreme}
+
+
+\begin{proof}
+\pause
+\vspace*{-1ex}
+Notons $c = a^{(p-1)(q-1)}$
+\begin{itemize}
+\pause
+  \item Calculons $c$ modulo $p$ :  $c \equiv a^{(p-1)(q-1)} \equiv (a^{(p-1)})^{q-1} \equiv 1^{q-1} \equiv 1 \pmod{p}$
+\pause
+  \item Calculons $c$ modulo $q$ :  $c \equiv a^{(p-1)(q-1)} \equiv (a^{(q-1)})^{p-1} \equiv 1^{p-1} \equiv 1 \pmod{q}$
+\pause
+  \item Nous allons en déduire que $c \equiv 1 \pmod{pq}$  
+  \pause
+  \begin{itemize}[<+->]
+    \item comme $c \equiv 1 \pmod{p}$ alors il existe $\alpha \in \Zz$ tel que $c = 1 + \alpha p$
+    \item comme $c \equiv 1 \pmod{q}$ alors il existe $\beta \in \Zz$ tel que $c = 1 + \beta q$
+    \item donc $c-1 = \alpha p = \beta q$ donc $p | \beta q$
+    \item comme $p$ et $q$ sont premiers entre eux $p | \beta$
+    \item il existe donc $\beta'\in \Zz$ tel que $\beta = \beta' p $
+    \item ainsi $c = 1 + \beta q = 1 + \beta' pq$
+    \item d'où $c \equiv 1 \pmod{pq}$ \qedhere
+  \end{itemize}
+  
+\end{itemize}
+\vspace*{-1ex}
+\end{proof}
+ 
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L'algorithme d'Euclide étendu}
+
+\begin{frame}[fragile]
+Principe de l'\evidence{algorithme d'Euclide}
+$$\pgcd(a,b)= \pgcd(b, a \pmod{b})$$
+
+\pause
+\bigskip
+
+$$a_0=a, b_0=b \qquad \text{puis} \qquad \left\{\begin{array}{rcl}
+           a_{i+1} & = & b_i \\
+           b_{i+1} & = & a_i \pmod {b_i} \\
+         \end{array}
+ \right.$$
+
+\pause
+\bigskip
+
+\begin{algo}[euclide.py (1)]
+\begin{lstlisting}
+def euclide(a,b):
+    while b !=0 :
+        a , b = b , a % b
+    return a
+\end{lstlisting}  
+\end{algo}    
+   
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+L'\defi{algorithme d'Euclide étendu} pour obtenir les coefficients de Bézout $u,v$ tels que $au+bv=\pgcd(a,b)$
+
+\pause
+\medskip
+
+$$x_0=1 \qquad  x_1=0 \qquad y_0=0 \qquad y_1 = 1$$
+
+Puis pour $i\geq 1$
+$$x_{i+1} = x_{i-1} - q_i x_i \qquad y_{i+1} = y_{i-1} - q_i y_i$$
+ où $q_i$ est le quotient de la division euclidienne de $a_i$ par $b_i$
+
+ 
+\pause
+
+{\small
+\begin{algo}[euclide.py (2)]
+\vspace*{-1ex}
+\begin{lstlisting}
+def euclide_etendu(a,b):
+    x = 1 ; xx = 0
+    y = 0 ; yy = 1 
+    while b !=0 :
+        q = a // b
+        a , b = b , a % b
+        xx , x = x - q*xx , xx
+        yy , y = y - q*yy , yy
+    return (a,x,y)
+\end{lstlisting}
+\vspace*{-1ex}
+\end{algo}
+}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Inverse modulo $n$}
+
+\begin{frame}
+
+Soit $a \in \Zz$, on dit que $x \in \Zz$ est un \defi{inverse de $a$ modulo $n$}
+si \mybox{$ax \equiv 1 \pmod{n}$}
+
+\pause
+
+\begin{proposition}
+\begin{itemize}
+  \item $a$ admet un inverse modulo $n$ si et seulement si $\pgcd(a,n)=1$
+\pause
+  \item Si $au+nv=1$ alors $u$ est un inverse de $a$ modulo $n$
+\end{itemize}  
+\end{proposition}
+
+\pause
+
+\begin{proof}
+$$\begin{array}{rcl}
+\pgcd(a,n)=1 
+\pause
+       & \iff & \exists u,v \in \Zz \qquad au+nv=1 \\
+\pause
+       & \iff & \exists u \in \Zz \qquad au \equiv 1 \pmod {n} \\
+\end{array}$$
+\end{proof}
+
+
+\end{frame}
+% 
+% \begin{frame}[fragile]
+% \begin{algo}[euclide.py (3)]
+% \begin{lstlisting}
+% def inverse(a,n):
+%     c,u,v = euclide_etendu(a,n) # pgcd et coeff de Bézout
+%     if c != 1 :        # Si pgcd différent de 1 renvoie 0
+%         return 0
+%     else :
+%         return u % n                  # Renvoie l'inverse 
+% \end{lstlisting}
+% \end{algo}
+% \end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L'exponentiation rapide}
+
+\begin{frame}
+
+
+\evidence{Calcul efficace de $a^k \pmod n$}
+
+\bigskip
+\pause
+
+Exemple : calcul de $5^{11} \pmod{14}$
+\pause
+\begin{enumerate}
+  \item On remarque que $11 = 8 + 2 + 1$
+\pause
+donc\vspace*{-1ex}
+$$5 ^{11} = 5^8 \times 5^2 \times 5^1$$
+
+\pause
+  \item Calculons les $5^{2^i} \pmod {14}$ 
+\pause\vspace*{-1ex}
+$$
+\begin{array}{l}
+5  \equiv  5 \pmod{14} \\
+\pause
+5^2  \equiv  25 \equiv 11 \pmod{14} \\
+\pause
+5^4  \pause \equiv 5^2 \times 5^2 \pause \equiv 11 \times 11 \pause \equiv 121 \pause\equiv 9 \pmod{14} \\
+\pause
+5^8  \pause\equiv 5^4 \times 5^4 \pause\equiv 9 \times 9 \pause\equiv 81 \pause\equiv 11 \pmod{14} \\
+\end{array}
+$$
+
+\pause  
+  \item Conséquence 
+  
+\qquad \qquad $5^{11} \equiv 5^8 \times 5^2 \times 5^1 \pause \equiv 11 \times 11 \times 5$
+
+\pause\qquad\qquad$\quad \ \  \equiv 11 \times 55 \pause\equiv 11 \times 13 \pause\equiv 143 \pause\equiv 3 \pmod{14}$
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\evidence{Méthode générale}
+
+\begin{enumerate}
+  \item On écrit le développement de l'exposant $k$ en base $2$ 
+  \begin{itemize}
+    \item $(k_\ell, \ldots, k_2, k_1, k_0)$ avec $k_i \in \{0,1\}$
+    
+    \item $k = \sum_{i=0}^\ell k_i 2^i$
+
+  \end{itemize}
+
+
+\pause
+
+  \item On calcule successivement les $x^{2^i}$ modulo $n$ sachant $x^{2^{i+1}} = x^{2^i} \times x^{2^i}$
+
+\pause
+  
+  \item On rassemble   
+  $$x^k = x^{\sum_{i=0}^\ell k_i 2^i} = \prod_{i=0}^\ell (x^{2^i})^{k_i}$$
+  
+\end{enumerate}
+
+\pause
+\bigskip
+
+ Exemple
+ \begin{enumerate}
+   \item $11$ en base $2$ s'écrit $({\color{red}1},{\color{red}0},{\color{red}1},{\color{red}1})$
+   \pause
+   \item On calcule $5^{2^0}$, $5^{2^1}$, $5^{2^2}$, $5^{2^3}$   
+   \pause
+   \item $5^{11} = (5^{2^3})^{{\color{red}1}} \times (5^{2^2})^{{\color{red}0}}
+\times (5^{2^1})^{{\color{red}1}} \times (5^{2^0})^{{\color{red}1}}$
+ \end{enumerate}
+
+\end{frame}
+
+
+\begin{frame}
+
+Calcul de $17^{154} \pmod {100}$
+
+
+\begin{enumerate}
+
+\pause  
+  \item $k=154$ en base $2$ : $154 = 128 + 16 + 8 + 2 = 2^7 + 2^4 + 2^3 + 2^1$
+
+\pause
+  $154$ s'écrit donc en base $2$ : $(1,0,0,1,1,0,1,0)$
+  
+\pause  
+
+  \item Calcul $17, 17^2, 17^4, 17^8,...,17^{128}$ modulo $100$
+  \vspace*{-2ex}
+  \pause
+$$
+\begin{array}{l}
+17  \equiv  17 \pmod{100} \\
+17^2  \equiv  17 \times 17 \equiv 289 \equiv 89 \pmod{100} \\
+17^4  \equiv 17^2 \times 17^2 \equiv 89 \times 89 \equiv 7921 \equiv 21 \pmod{100} \\
+17^8  \equiv 17^4 \times 17^4 \equiv 21 \times 21 \equiv 441 \equiv 41 \pmod{100} \\
+17^{16}  \equiv 17^8 \times 17^8 \equiv 41 \times 41 \equiv 1681 \equiv 81 \pmod{100} \\
+17^{32}  \equiv 17^{16} \times 17^{16} \equiv 81 \times 81 \equiv 6561 \equiv 61 \pmod{100} \\
+17^{64}  \equiv 17^{32} \times 17^{32} \equiv 61 \times 61 \equiv 3721 \equiv 21 \pmod{100} \\
+17^{128}  \equiv 17^{64} \times 17^{64} \equiv 21 \times 21 \equiv 441 \equiv 41 \pmod{100} \\
+\end{array}
+$$
+
+\pause 
+
+  \item $17^{154} \equiv 17^{128} \times 17^{16} \times 17^{8} \times 17^{2}
+\equiv 41 \times 81 \times 41 \times 89 
+$
+
+$ \quad \quad \ \, \equiv 3321 \times 3649 \equiv 21 \times 49\equiv 1029 \equiv 29 \pmod {100}$
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{algo}[euclide.py (3)]
+\begin{lstlisting}
+def puissance(x,k,n):
+    puiss = 1                      # Résultat
+    while (k>0):
+        if k % 2 != 0 :            # Si k est impair
+            puiss = (puiss*x) % n  
+        x = x*x % n                # Vaut x, x^2, x^4,...
+        k = k // 2 
+    return(puiss)  
+\end{lstlisting}
+\end{algo}
+
+\pause
+\bigskip
+
+Commande \Python\ \ \codeinline{pow(x,k,n)} \ pour le calcul de $x^k$ modulo $n$
+
+\pause
+
+\'Eviter : \codeinline{(x ** k) \% n}
+\end{frame}
+
+\end{document}

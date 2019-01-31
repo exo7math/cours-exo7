@@ -1,0 +1,434 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={192,41,0}]{structure}
+
+% Commande spécifique à ce chapitre
+
+\newcommand{\Python}{\texttt{Python}}
+\renewcommand{\evidence}[1]{{\color{blue}\textbf{#1}}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Algorithmes et mathématiques}}
+\subtitle{Polynômes -- Complexité d'un algorithme}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Qu'est-ce qu'un algorithme ?
+    \item<4-> Polynômes
+    \item<5-> Algorithme de Karatsuba
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Qu'est-ce qu'un algorithme ?}
+
+\begin{frame}
+\hfill\hfill\textbf{Qu'est ce qu'un algorithme ?}
+\bigskip
+\pause
+\begin{itemize}
+  \item Succession d'instructions qui renvoie un résultat
+\pause
+  \item Le résultat retourné est \evidence{exact}
+\pause
+  \item En un \evidence{nombre fini d'étapes}
+\end{itemize}
+
+\pause
+\bigskip
+Rapide ou pas ?
+
+\pause
+\begin{itemize}
+  \item Principal critère  : le temps de calcul
+\pause
+  \item La mémoire occupée
+\pause
+  \item Dépend du langage et de la machine utilisée
+\pause
+  \item Notion de \defi{complexité} \pause : nombre d'opérations élémentaires à faire
+\pause
+  \item Pour nous : nombre d'additions, de multiplications
+\end{itemize}
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Polynômes}
+
+\begin{frame}
+\begin{tp}
+On code un polynôme $a_0+a_1X+\cdots + a_n X^n$ sous la forme d'une liste $[a_0,a_1,\ldots,a_n]$.
+\begin{enumerate}
+  \item \'Ecrire une fonction correspondant à la somme de deux polynômes. Calculer la complexité 
+  de cet algorithme (en terme du nombre d'additions sur les coefficients, en fonctions du degré des polynômes).
+  
+  \item \'Ecrire une fonction correspondant au produit de deux polynômes. Calculer la complexité 
+  de cet algorithme (en terme du nombre d'additions et de multiplications sur les coefficients).
+  
+  \item \'Ecrire une fonction correspondant au quotient et au reste de la division euclidienne de $A$ par 
+  $B$ où   $B$ est un polynôme unitaire (son coefficient de plus haut degré est $1$). 
+  Majorer la complexité de cet algorithme (en terme du nombre d'additions et de multiplications sur les coefficients).
+\end{enumerate}
+  
+\end{tp}
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{algo}[polynome.py (1)]
+\begin{lstlisting}
+def somme(A,B):           # si deg(A)=deg(B)
+    C = []
+    for i in range(0,degre(A)+1): 
+        s = A[i]+B[i]
+        C.append(s) 
+\end{lstlisting}  
+\end{algo}
+
+\pause
+\bigskip
+
+\begin{itemize}
+  \item \codeinline{degre(poly)}
+\pause
+  \item Complexité 
+\pause
+  \begin{itemize}
+    \item $\deg A \le n$ et $\deg B \le n$ 
+\pause
+    \item addition des coefficients $a_i+b_i$
+\pause
+    \item $i$ variant de $0$ à $n$
+\pause
+    \item complexité est de $n+1$ additions (dans $\Zz$ ou $\Rr$)
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+$$A(X) = \sum_{i=0}^m a_i X^i \qquad B(X) = \sum_{j=0}^n b_j X^j$$
+
+\pause
+
+$$C = A \times B = \sum_{k=0}^{m+n} c_k X^k  \pause \qquad c_k = \sum_{i+j=k} a_i \times b_j$$
+\pause
+\begin{algo}[polynome.py (2)]
+\begin{lstlisting}
+def produit(A,B):
+    C = []
+    for k in range(degre(A)+degre(B)+1): 
+        s = 0
+        for i in range(k+1):            
+            if (i <= degre(A)) and (k-i <= degre(B)):
+                s = s + A[i]*B[k-i]
+        C.append(s)
+    return C
+\end{lstlisting}  
+\end{algo} 
+\end{frame}
+
+\begin{frame}
+Calcul de la complexité
+\bigskip
+
+\pause
+\begin{itemize}
+  \item Nombre de multiplications (dans $\Zz$ ou $\Rr$)
+\pause
+  \begin{itemize}
+    \item $m = \deg A$ et $n = \deg B$
+\pause
+    \item il faut multiplier les $m+1$ coefficients de $A$ par les $n+1$ coefficients de $B$
+\pause    
+    \item il y a donc $(m+1)(n+1)$ multiplications
+  \end{itemize}
+\pause
+  \item Nombre d'additions
+\pause
+  \begin{itemize}
+    \item les coefficients de $A\times B$ sont $c_0 = a_0 b_0$, 
+    $c_1 = a_0b_1+a_1b_0$, $c_2=a_2b_0+a_1b_1+a_2b_0$,\ldots
+\pause
+    \item le produit $A\times B$ est de degré $m+n$ donc a $m+n+1$ coefficients
+\pause
+    \item chaque addition regroupe deux termes
+\pause
+    \item partant de $(m+1)(n+1)$ produits nous devons arriver à $m+n+1$ coefficients
+\pause
+    \item il y a donc $(m+1)(n+1)-(m+n+1) = mn$ additions
+  \end{itemize}
+\pause
+  \item Exemple : $\deg A=\deg B=n$ de l'ordre de $n^2$ multiplications
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+
+$$A = 2X^4-X^3-2X^2+3X-1 \qquad B=X^2-X+1$$
+
+\pause
+
+\myfigure{1.2}{
+\tikzinput{fig_algo05} 
+}  
+
+\pause
+\vspace*{-2ex}
+
+\begin{itemize}
+  \item Quel monôme $P_1$ fait diminuer le degré de $A-P_1B$ ? C'est $2X^2$ 
+\pause
+  \item Poser $R_1=A-P_1B=X^3-4X^2+3X-1$, $Q_1 = 2X^2$
+\pause
+  \item Recommencer avec $R_1$ divisé par $B$
+\pause
+  \item Poser $R_2 = R_1-P_2B$ avec $P_2 = X$, $Q_2= Q_1+P_2$
+\pause
+  \item S'arrêter lorsque $\deg R_i < \deg B$
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+
+\begin{algo}[polynome.py (3)]
+\begin{lstlisting}
+def division(A,B):
+    Q = [0]     # Quotient
+    R = A       # Reste                            |\pause|
+    while (degre(R) >= degre(B)):                  |\pause|
+        P = monome(R[degre(R)],degre(R)-degre(B))  |\pause|
+        R = somme(R,produit(-P,B))                 |\pause|
+        Q = somme(Q,P)                             |\pause| 
+    return Q,R
+\end{lstlisting}  
+\end{algo}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Algorithme de Karatsuba}
+
+\begin{frame}
+
+
+\begin{itemize}
+\item Calcul de $P\times Q$ \pause : \og diviser pour régner \fg, \pause algorithme de Karatsuba
+\pause
+  \item $P$ et $Q$ polynômes de degrés $< 2n$
+\pause  
+  
+
+  \item $P = P_1 + P_2 \cdot X^n$ et $Q = Q_1 + Q_2 \cdot X^n$ \pause \quad $\deg P_i, Q_i < n$
+\end{itemize}
+
+\pause
+\vspace*{-1ex}
+\begin{tp}
+\small\vspace*{-1ex}
+\begin{enumerate}
+\setlength{\itemsep}{0pt}
+  \item \'Ecrire une formule qui réduit la multiplication des polynômes $P$ et $Q$ de degrés strictement inférieurs à $2n$ en
+multiplications de polynômes de degrés strictement inférieurs à $n$.
+
+  \item Programmer un algorithme récursif de multiplication qui utilise la formule précédente. Quelle est sa complexité ?
+  
+  \item On peut raffiner cette méthode avec la remarque suivante de Karatsuba : le terme intermédiaire de $P \cdot Q$ s’écrit
+\centerline{$P_1 \cdot Q_2 + P_2 \cdot Q_1 = (P_1 + P_2 ) \cdot (Q_1 + Q_2 ) - P_1 Q_1 - P_2 Q_2$}
+Comme on a déjà calculé $P_1Q_1$ et $P_2Q_2$, on échange deux multiplications et une addition (à gauche) 
+contre une multiplication et quatre additions (à droite).
+\'Ecrire une fonction qui réalise la multiplication de polynômes à la Karatsuba.
+  
+  \item Trouver la formule de récurrence qui définit la complexité de la multiplication de Karatsuba. Quelle est sa solution ?
+\end{enumerate}
+\vspace*{-2.5ex}
+\end{tp}
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{itemize}
+  \item $P = P_1 + P_2 \cdot X^n$ et $Q = Q_1 + Q_2 \cdot X^n$
+\pause
+  \item $P \times Q = (P_1 + X^n P_2 ) \cdot (Q_1 + X^n Q_2 ) 
+  \pause = P_1 Q_1 + X^n \cdot (P_1 Q_2 + P_2 Q_1 ) + X^{2n} \cdot P_2 Q_2$
+\pause
+  \item $4$ multiplications $P_1 Q_1$ , $P_1 Q_2$ , $P_2 Q_1$ et $P_2 Q_2$ 
+  entre polynômes de degrés $<n$
+\pause  
+  \item Multiplications par $X^n$ et $X^{2n}$ sont des ajouts de zéros
+\pause  
+  \item Complexité $C(n) = 4C(n/2)+O(n)$ ; se résout en $C(n) = O(n^2)$
+\pause
+  \item Karatsuba \pause $P_1 \cdot Q_2 + P_2 \cdot Q_1 = (P_1 + P_2 ) \cdot (Q_1 + Q_2 ) - P_1 Q_1 - P_2 Q_2$
+ \pause 
+  \item $\mathbf{3}$ multiplications $P_1 Q_1$, $P_2 Q_2$, $(P_1 + P_2 ) \cdot (Q_1 + Q_2 )$
+\pause 
+  \item Le découpage \codeinline{P1,P2 = decoupe(P,n)}
+\pause  
+  \item Décalage $X^n \cdot P$ : \codeinline{produit_monome(P,n)} 
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+
+\begin{algo}[polynome.py (4)]
+\begin{lstlisting}
+def produit_rapide(P,Q):
+  p = degre(P) ; q = degre(Q)                                  |\pause|
+  if (p == 0): return [P[0]*k for k in Q]   # init: P=cst       
+  if (q == 0): return [Q[0]*k for k in P]   # init: Q=cst      |\pause|
+  n = (max(p,q)+1)//2                       # demi-degré
+  P1,P2 = decoupe(P,n)                      # decoupages
+  Q1,Q2 = decoupe(Q,n)                                                 |\pause|
+  P1Q1 = produit_rapide(P1,Q1)              # produits
+  P2Q2 = produit_rapide(P2,Q2)                                         |\pause|
+  P12Q12 = produit_rapide(somme(P1,P2),somme(Q1,Q2))                       |\pause|
+  R1 = somme(P12Q12,somme(-P1Q1,-P2Q2))          |\pause|
+  R1 = produit_monome(R1,n)                 # décalages                  |\pause|
+  R2 = produit_monome(P2Q2,2*n)                                          |\pause|
+  return somme(P1Q1,somme(R1,R2))           # résultat                    
+\end{lstlisting}  
+\end{algo}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{enumerate}
+  \item Notons $C(n)$ la complexité de la multiplication entre deux polynômes de degrés $<n$
+
+ \pause 
+ 
+  \item
+  \begin{itemize} 
+    \item Trois appels récursifs
+    \pause  
+    \item Opérations linéaires : deux calculs de degrés, 
+      deux découpes en $n/2$ puis des additions : 
+      deux de taille $n/2$, une de taille $n$,
+      une de taille $3n/2$ et une de taille $2n$ 
+    \pause    
+    \item $C(n) = 3 \cdot C(n/2) + \gamma n$   
+  \end{itemize}
+  
+\pause   
+
+  \item 
+  \begin{itemize} 
+    \item $\alpha_\ell= \frac{C(2^\ell)}{3^\ell}$ \pause \quad $\alpha_0 = C(1)=1$
+\pause  
+    \item $\alpha_\ell = \frac{C(2^\ell)}{3^\ell} = \frac{3 C(2^{\ell-1})}{3^\ell} + \frac{\gamma 2^\ell}{3^\ell} \pause =  \alpha_{\ell-1} + \gamma \left( \frac23  \right)^\ell$
+\pause  
+    \item $\alpha_\ell = \gamma \sum_{k=1}^\ell \left( \frac23  \right)^{k}+\alpha_0 
+\pause  = 3\gamma\left( 1 -  \left( \frac23  \right)^{\ell+1} \right)+1-\gamma$
+\pause  
+    \item $C(n)\pause = C(2^\ell)\pause = 3^\ell \alpha_\ell \pause =\gamma(3^{\ell+1}-2^{\ell+1})+(1-\gamma)3^\ell\pause$
+    
+    \item $C(n) = O(3^\ell)\pause  = O(2^{\ell \frac{\ln 3}{\ln 2}})\pause  = O(n^\frac{\ln 3}{\ln 2})$
+
+  \end{itemize}    
+  
+ \pause  
+ 
+  \item La complexité de la multiplication de Karatsuba est 
+  \mybox{$O(n^\frac{\ln 3}{\ln 2}) \simeq O(n^{1.585})$}
+   
+\end{enumerate}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\small
+\begin{miniexercice}
+\begin{enumerate}\setlength{\itemsep}{0pt}
+  \item Faire une fonction qui renvoie le pgcd de deux polynômes.
+  
+  \item Comparer les complexités des deux méthodes suivantes pour évaluer un polynôme $P$ en une valeur $x_0 \in \Rr$ :
+  $P(x_0)= a_0+a_1x_0+\cdots+a_{n-1}x_0^{n-1}+a_nx_0^n$ et $P(x_0)=a_0+x_0\bigg(a_1 + x_0\big(a_2+ \cdots + x_0(a_{n-1}+a_nx_0)\big)\bigg)$
+  (méthode de Horner).
+  
+  \item Comment trouver le maximum d'une liste ? Montrer que votre méthode est de complexité minimale 
+ (en terme du nombre de comparaisons).
+  
+  \item Soit $f : [a,b] \to \Rr$ une fonction continue vérifiant $f(a)\cdot f(b)\le 0$. Combien d'itérations de la méthode de dichotomie 
+  sont nécessaires pour obtenir une racine de $f(x)=0$ avec une précision inférieure à $\epsilon$ ?
+
+  \item Programmer plusieurs façons de calculer les coefficients du binôme de Newton 
+  $\binom{n}{k}$ et les comparer.
+
+  \item Trouver une méthode de calcul de $2^n$ qui utilise peu de multiplications. 
+  On commencera par écrire $n$ en base $2$.
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

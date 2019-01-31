@@ -1,0 +1,19 @@
+% Aire sous la courbe de l'exponentielle entr 0 et 1.
+\begin{tikzpicture}[scale=1.3,xscale=2]
+
+\beameronly{\uncover<2->}{
+  \fill[myred!30] (0,0) -- plot[domain=-0:1] (\x,{exp(\x)}) -- (1,0) -- cycle;
+ \node at (0.5,0.7) {$\mathcal{A}$};
+}
+  \draw[gray] (0,0) -- plot[domain=-0:1] (\x,{exp(\x)}) -- (1,0) -- cycle;
+  \draw[ultra thick, color=myred,domain=-0.5:1.1] plot (\x,{exp(\x)}) node[right] {$y=e^x$};
+
+
+  \draw[gray,->] (-0.5,0) -- (1.5,0) node[below,black] {$x$};
+  \draw[gray,->] (0,-0.05) -- (0,3) node[right,black] {$y$};
+
+  \foreach \x/\xtext in {0/0, 1/1}
+  \draw (\x cm,2pt) -- (\x cm,-2pt) node[anchor=north] {$\xtext$};
+  \draw (1pt,1cm) -- (-1pt,1cm) node[anchor=east] {$1$};
+  \node[below, inner sep=10pt] at (0.5,0) {\vphantom{$n=10$}};
+\end{tikzpicture}

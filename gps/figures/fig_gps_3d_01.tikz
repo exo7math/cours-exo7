@@ -1,0 +1,125 @@
+% From Keith Wolcott, TUGboat 2012
+%%%%%%%% Set function values %%%%%%%
+% Set the x = a and x = b values of the
+% domain here where a <= x <= b.
+\def\aDomain{0}
+\def\bDomain{2}
+% Set the function.
+% The variable must be \x, e.g. \x^2.
+\def\fcn{1+3*\x}
+% Set min and max values of the function
+% (c <= f(x) <= d). Used for the y-axis.
+\def\cRange{0}
+\def\dRange{5}
+% Set the color of the back half.
+% This can look good as a different color
+% if it looks like the inside.
+\def\backColor{brown!20}
+% Set the color of the front half. lightgray looks
+% good for both back and front.
+\def\frontColor{red!40}
+% Set the number of shading circles to draw.
+% More gives a more even color.
+% Enter 1 for no shading.
+\def\xShadingSteps{1}
+% Set the number of x radius grid circles.
+\def\xGridSteps{8}
+% Set the number of radial grid lines.
+\def\rotationGridSteps{12}
+% Set the viewing elevation angle,
+% which is the angle up from horizontal.
+\def\phi{10}
+% Plane below
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\pgfmathsetmacro\scaleAttempt{4/\bDomain*\myscale}
+\begin{tikzpicture}[scale= \scaleAttempt,domain= \aDomain: \bDomain]
+\pgfmathsetmacro\intervalLength{\bDomain - \aDomain}
+\pgfmathsetmacro\xGridStepsize{\intervalLength/\xGridSteps}
+\pgfmathsetmacro\xShadingStepsize{\intervalLength/\xShadingSteps}
+\pgfmathsetmacro\rotationGridStepsize{360/\rotationGridSteps}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%   Plane below
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Angle to have a perspective
+\pgfmathsetmacro\theta {30}
+%\pgfmathsetmacro\phi {10}
+%\tikzset{xyplane/.estyle={cm={cos(\theta), sin(\theta)*sin(-\phi),0, cos(-\phi), (0, 0)}}}
+%\tikzset{xyplane/.estyle={cm={1,0,0,cos(90-\phi), (0, 0)}}}
+\tikzset{xyplane/.estyle={cm={cos(\theta),0, sin(\theta)*cos(90- \phi),sin(\phi), (0, 0)}}}
+\draw[xyplane, fill=gray, opacity=0.2] (-4,0) rectangle (3,10);
+\draw[xyplane] (-4,0) grid (3,10);
+% \draw[xyplane,->, red] (0,0) -- (1,0);
+% \draw[xyplane,->, blue] (0,0) -- (0,1);
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%  First cone
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Draw the shading of the back half.
+% Top half of a circle, rotated back (around x-axis)
+% 90 - \phi degrees and shifted up or down
+% to the correct height.
+\pgfmathsetmacro\nextShadingStep{\aDomain + \xShadingStepsize}
+\foreach \x in
+{\aDomain, \nextShadingStep, ..., \bDomain} {\pgfmathsetmacro\ysh {(cos(\phi))*(\fcn)}
+\tikzset{xyplane/.estyle={cm={1,0,0,cos(90-\phi), (0, \ysh)}}}
+\draw[xyplane,\backColor,ultra thick,opacity=1](\x, 0) arc (0:180:\x);
+}
+% Back longitude lines.
+% Rotates graph around y-axis, then
+% projects to xy-plane.
+\foreach \theta in {0, \rotationGridStepsize, ..., 180} {
+\tikzset{xyplane/.estyle={cm={cos(-\theta), sin(-\theta)*sin(-\phi),0, cos(-\phi), (0, 0)}}}
+\draw[xyplane, smooth] plot (\x, \fcn);
+}
+% Back latitude lines.
+% Top half of a circle, rotated back
+% (around x-axis) 90 - \phi degrees and
+% shifted up or down to the correct height.
+\pgfmathsetmacro\nextStep{\aDomain + \xGridStepsize}
+\foreach \x in {\aDomain,\nextStep, ...,\bDomain} {
+\pgfmathsetmacro\ysh {(cos(\phi))*(\fcn)}
+\tikzset{xyplane/.estyle={cm={1,0,0,cos(90-\phi), (0, \ysh)}}}
+\draw[xyplane] (\x, 0) arc (0: 180:\x);
+}
+% Draw the axis.
+\pgfmathsetmacro\yHeight{\dRange + \bDomain*sin(\phi) + .5}
+\draw[->, >=latex, thick] (-3, \cRange - .5+1.5) -- (-3, \yHeight+1)node[above, left] {$t$};
+% Comment out the next four commands
+% if you donÃÂ¢ÃÂÃÂt want an x-axis, and labels.
+% \draw[<->] (-\bDomain -.5, 0) -- (\bDomain + .5, 0)node[right] {$x$};
+% \draw (\bDomain, .1) -- (\bDomain, -.1)node[below] {\bDomain};
+% \pgfmathsetmacro\yLabel {cos(\phi)* \dRange}
+% \draw (-.1, \yLabel) -- (.1, \yLabel)node[right] {\dRange};
+% Draw the shading of the front half.
+% Top half of a circle, rotated back (around x-axis)
+% 90 - \phi degrees and shifted up or down
+% to the correct height.
+\foreach \x in {\aDomain, \nextShadingStep, ..., \bDomain} {
+\pgfmathsetmacro\ysh {(cos(\phi))*(\fcn)}
+\tikzset{xyplane/.estyle={cm={1,0,0,cos(90-\phi), (0, \ysh)}}}
+\draw[xyplane,\frontColor,ultra thick,opacity=.6](-\x, 0) arc (-180:0:\x);
+}
+% Front longitude lines.
+\foreach \theta in {0, \rotationGridStepsize, ..., 180} {
+\tikzset{xyplane/.estyle={cm={cos(\theta), sin(\theta)*sin(-\phi),0, cos(-\phi), (0, 0)}}}
+\draw[xyplane,smooth] plot (\x, \fcn);
+}
+% Front latitude lines.
+% Bottom half of a circle, rotated back
+% (around x-axis) 90 - \phi degrees and
+% shifted up or down to the correct height.
+\foreach \x in {\aDomain, \nextStep, ..., \bDomain}{
+\pgfmathsetmacro\ysh {(cos(\phi))*(\fcn)}
+\tikzset{xyplane/.estyle={cm={1,0,0,cos(90-\phi),(0, \ysh)}}}
+\draw[xyplane] (-\x, 0) arc (-180: 0:\x);
+}
+
+\end{tikzpicture}

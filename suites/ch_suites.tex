@@ -1,0 +1,1424 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Les suites}
+%====================================================================
+
+\insertvideo{eKWRb_wLczo}{partie 1. Premières définitions}
+
+\insertvideo{253AEiNBvGw}{partie 2. Limite}
+
+\insertvideo{tvbsvRGI_38}{partie 3. Exemples remarquables}
+
+\insertvideo{0W5KVpj769E}{partie 4. Théorèmes de convergence}
+
+\insertvideo{hqPxTPEqDXw}{partie 5. Suites récurrentes}
+
+\insertfiche{fic00010.pdf}{Suites}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Introduction}
+
+L'étude des suites numériques a pour objet la compréhension de l'évolution de séquences de nombres (réels, complexes ...).
+Ceci permet de modéliser de nombreux phénomènes de la vie quotidienne. Supposons par exemple que l'on place une somme
+$S$ à un taux annuel de $10\%$. Si $S_n$ représente la somme que l'on obtiendra après $n$ années, on a
+$$S_0=S \quad    S_1=S\times 1,1\quad \ldots \quad   S_n=S\times (1,1)^n \;\;.$$
+
+Au bout de $n=10$ ans, on possédera donc $S_{10}=S\times (1,1)^{10}\thickapprox S\times 2,59$ :
+la somme de départ avec les intérêts cumulés.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définitions}
+
+%---------------------------------------------------------------
+\subsection{Définition d'une suite}
+\begin{definition}
+\sauteligne
+    \begin{itemize}
+      \item Une \defi{suite}\index{suite} est une application $u:\Nn\to \Rr$.
+      \item Pour $n\in \Nn$, on note $u(n)$ par $u_n$ et on l'appelle $n$-ème{} \defi{terme} ou \defi{terme général} de la suite.
+    \end{itemize}
+\end{definition}
+
+La suite est notée $u$, ou plus souvent $(u_n)_{n\in \Nn}$ ou simplement $(u_n)$.
+Il arrive fréquemment que l'on considère des suites
+définies à partir d'un certain entier naturel $n_0$ plus grand que $0$, on note alors $(u_n)_{n\geq n_0}$.
+\begin{exemple}
+\sauteligne
+    \begin{itemize}
+      \item $(\sqrt{n})_{n\geq 0}$ est la suite de termes : $0$, $1$, $\sqrt2$, $\sqrt3$,\ldots
+      \item $((-1)^n)_{n\geq 0}$ est la suite qui alterne $+1$, $-1$, $+1$, $-1$,\ldots
+      \item La suite $(S_n)_{n\geq 0}$ de l'introduction définie par $S_n=S\times (1,1)^n$,
+      \item $(F_n)_{n\geq 0}$ définie par $F_0=1$, $F_1=1$ et la relation $F_{n+2}=F_{n+1}+F_n$
+ pour $n\in \Nn$ (suite de Fibonacci). Les premiers termes sont $1$, $1$, $2$, $3$, $5$, $8$, $13$, \ldots
+ Chaque terme est la somme des deux précédents.
+      \item $\left(\frac{1}{n^2}\right)_{n\geq 1}$. Les premiers termes sont
+      $1$, $\frac14$, $\frac19$, $\frac{1}{16}$, \ldots
+    \end{itemize}
+\end{exemple}
+%---------------------------------------------------------------
+\subsection{Suite majorée, minorée, bornée}
+
+\begin{definition}
+Soit $(u_n)_{n\in \Nn}$ une suite.
+\begin{itemize}
+  \item $(u_n)_{n\in \Nn}$ est \defi{majorée}\index{suite!majoree@majorée} si \quad $\exists M \in \Rr \quad \forall n\in \Nn \quad u_n \leq M$.
+  \item $(u_n)_{n\in \Nn}$ est \defi{minorée}\index{suite!minoree@minorée} si \quad $\exists m \in \Rr \quad  \forall n\in \Nn \quad u_n \geq m$.
+  \item $(u_n)_{n\in \Nn}$ est \defi{bornée}\index{suite!bornee@bornée} si elle est majorée et minorée, ce qui revient à dire :
+$$\exists M \in \Rr \quad  \forall n\in \Nn \quad |u_n| \leq M.$$
+\end{itemize}
+\end{definition}
+
+\myfigure{1}{
+\tikzinput{fig_suites01a}
+\qquad
+\tikzinput{fig_suites01b}
+}
+
+%---------------------------------------------------------------
+\subsection{Suite croissante, décroissante}
+\begin{definition}
+Soit $(u_n)_{n\in \Nn}$ une suite.
+\begin{itemize}
+  \item $(u_n)_{n\in \Nn}$ est \defi{croissante}\index{suite!croissante} si \quad $\forall n\in \Nn \quad u_{n+1} \ge u_n $.
+  \item $(u_n)_{n\in \Nn}$ est \defi{strictement croissante} si \quad $\forall n\in \Nn \quad u_{n+1} > u_n$.
+  \item $(u_n)_{n\in \Nn}$ est \defi{décroissante}\index{suite!decroissante@décroissante} si \quad $\forall n\in \Nn \quad u_{n+1} \le u_n$.
+  \item $(u_n)_{n\in \Nn}$ est \defi{strictement décroissante} si \quad $\forall n\in \Nn \quad u_{n+1} < u_n$.
+    \item $(u_n)_{n\in \Nn}$ est \defi{monotone}\index{suite!monotone} si elle est croissante ou décroissante.
+      \item $(u_n)_{n\in \Nn}$ est \defi{strictement monotone}
+si elle est strictement croissante ou strictement décroissante.
+  \end{itemize}
+\end{definition}
+
+
+Voici un exemple d'une suite croissante (mais pas strictement croissante) :
+\myfigure{0.9}{
+\tikzinput{fig_suites02}
+}
+
+\begin{remarque*}
+\sauteligne
+    \begin{itemize}
+      \item $(u_n)_{n\in \Nn}$ est croissante si et seulement si $\forall n\in \Nn \quad  u_{n+1}-u_n \geq 0$.
+      \item Si $(u_n)_{n\in \Nn}$ est une suite à termes strictement positifs, elle est
+croissante si et seulement si $\forall n\in \Nn \quad \frac{u_{n+1}}{u_n} \geq 1$.
+    \end{itemize}
+\end{remarque*}
+\begin{exemple}
+\sauteligne
+    \begin{itemize}
+      \item La suite $(S_n)_{n\geq 0}$ de l'introduction est strictement croissante car $S_{n+1}/S_n=1,1>1$.
+      \item La suite $(u_n)_{n\geq 1}$ définie par $u_n=(-1)^n/n$ pour $n\geq 1$,
+n'est ni croissante ni décroissante. Elle est majorée par $1/2$ (borne atteinte en $n=2$), minorée par $-1$ (borne atteinte en $n=1$).
+
+\myfigure{1}{
+\tikzinput{fig_suites03}
+}
+
+      \item La suite $\left(\frac1n\right)_{n\geq1}$ est une suite strictement décroissante. Elle est majorée par $1$
+      (borne atteinte pour $n=1$), elle est minorée par $0$ mais cette valeur n'est jamais atteinte.
+    \end{itemize}
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item La suite $\big(\frac{n}{n+1}\big)_{n\in \Nn}$ est-elle monotone ? Est-elle bornée ?
+%  \item La suite $((1+\frac{1}{n})^n)_{n \ge 1}$ est-elle bornée ? [[Arnaud : comment on fait ??]]
+  \item La suite $\big(\frac{n\sin(n!)}{1+n^2}\big)_{n\in \Nn}$ est-elle bornée ?
+  \item Réécrire les phrases suivantes en une phrase mathématique.
+  \'Ecrire ensuite la négation mathématique de chacune des phrases.
+  (a) La suite $(u_n)_{n\in\Nn}$ est majorée par $7$.
+  (b) La suite $(u_n)_{n\in\Nn}$ est constante.
+  (c) La suite $(u_n)_{n\in\Nn}$ est strictement positive à partir d'un certain rang.
+  (d) $(u_n)_{n\in\Nn}$ n'est pas strictement croissante.
+  \item Est-il vrai qu'une suite croissante est minorée ? Majorée ?
+  \item Soit $x>0$ un réel. Montrer que la suite $\left(\frac{x^n}{n!}\right)_{n\in \Nn}$
+  est décroissante à partir d'un certain rang.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Limites}
+
+\subsection{Introduction}
+Pour un trajet au prix normal de 20 euros on achète une carte d'abonnement de train à $50$ euros
+et on obtient chaque billet à $10$ euros.
+La publicité affirme \og 50\% de réduction \fg{}. Qu'en pensez-vous ?
+
+Pour modéliser la situation en termes de suites, on pose pour un entier $n\geq 1$ :
+\begin{align*}
+  u_n&=20n \\
+  v_n&=10n+50
+\end{align*}
+$u_n$ est le prix payé au bout de $n$ achats au tarif plein, et $v_n$ celui au tarif réduit,
+y compris le prix de l'abonnement. La réduction est donc, en pourcentage :
+$$1-\frac{v_n}{u_n}=\frac{u_n-v_n}{u_n}=\frac{10n-50}{20n}=0,5 -\frac{5}{2n}\xrightarrow[n\to +\infty]{}0,5 $$
+
+
+Il faut donc une infinité de trajets pour arriver à 50\% de réduction !
+
+\myfigure{1}{
+\tikzinput{fig_suites04}
+}
+
+%---------------------------------------------------------------
+\subsection{Limite finie, limite infinie}
+
+Soit $(u_n)_{n\in \Nn}$ une suite.
+
+\begin{definition}
+\label{def_lim}
+  La suite $(u_n)_{n\in \Nn}$ a pour \defi{limite}\index{suite!limite}\index{limite} $\ell\in \Rr$ si :
+pour tout $\epsilon >0$, il existe un entier naturel $N$ tel que si $n\geq N$ alors
+$\lvert u_n-\ell\rvert\leq\epsilon$ :
+\mybox{$\forall \epsilon >0 \quad \exists N \in \Nn \quad
+    \forall n \in \Nn \qquad
+    \left( n\geq N \implies \lvert u_n-\ell\rvert\leq\epsilon \right)$}
+\end{definition}
+
+On dit aussi que la suite $(u_n)_{n\in \Nn}$ \defi{tend vers $\ell$}.
+Autrement dit : $u_n$ est proche d'aussi près que l'on veut de $\ell$, à partir d'un certain rang.
+
+\myfigure{1}{
+\tikzinput{fig_suites05}
+}
+
+\begin{definition}
+\sauteligne
+\begin{enumerate}
+  \item   La suite $(u_n)_{n\in \Nn}$ \defi{tend vers $+\infty$} si :
+\[ \forall A >0 \quad \exists N \in \Nn \quad
+    \forall n \in \Nn \qquad \left( n\geq N \implies u_n\geq A \right)\]
+\item La suite $(u_n)_{n\in \Nn}$ \defi{tend vers $-\infty$} si :
+\[ \forall A >0 \quad \exists N \in \Nn \quad
+    \forall n \in \Nn \qquad \left( n\geq N \implies u_n\leq -A \right)\]
+\end{enumerate}
+\end{definition}
+
+
+\begin{remarque*}
+\sauteligne
+  \begin{enumerate}
+    \item On note $\lim_{n\to +\infty}u_n=\ell$ ou parfois $u_n\xrightarrow[n\to +\infty]{} \ell$,
+et de même pour une limite $\pm \infty$.
+
+    \item $\lim_{n\to +\infty}u_n=-\infty\iff \lim_{n\to +\infty}-u_n=+\infty$.
+
+    \item On raccourcit souvent la phrase logique en :
+    $$\forall \epsilon >0 \quad \exists N \in \Nn  \qquad
+    \left( n\geq N \implies \lvert u_n-\ell\rvert\leq\epsilon \right).$$
+    Noter que $N$ dépend de $\epsilon$ et qu'on ne peut pas échanger l'ordre du \og pour tout \fg{}
+    et du \og il existe \fg{}.
+
+
+
+    \item L'inégalité $|u_n-\ell| \le \epsilon$ signifie $\ell-\epsilon \le u_n \le \ell +\epsilon$.
+    On aurait aussi pu définir la limite par la phrase : $\forall \epsilon >0 \quad \exists N \in \Nn  \quad
+    \left( n\geq N \implies \lvert u_n-\ell\rvert < \epsilon \right)$, où l'on a remplacé la dernière inégalité
+    large par une inégalité stricte.
+
+  \end{enumerate}
+\end{remarque*}
+
+\begin{definition}
+  Une suite $(u_n)_{n\in \Nn}$ est \defi{convergente}\index{suite!convergente}\index{convergence} si elle admet une limite \evidence{finie}.
+Elle est \defi{divergente}\index{suite!divergente}\index{divergence} sinon (c'est-à-dire soit la suite tend vers $\pm \infty$,
+soit elle n'admet pas de limite).
+\end{definition}
+
+
+
+On va pouvoir parler de \evidence{la} limite, si elle existe, car il y a unicité de la limite :
+
+\begin{proposition}
+  Si une suite est convergente, sa limite est unique.
+\end{proposition}
+
+\begin{proof}
+  On procède par l'absurde. Soit $(u_n)_{n\in \Nn}$ une suite convergente ayant
+deux limites $\ell\neq \ell'$. Choisissons $\epsilon >0$ tel que $\epsilon <\frac{\lvert \ell-\ell'\rvert}{2}$.
+
+Comme $\lim_{n\to +\infty}u_n=\ell$, il existe $N_1$ tel que $n\geq N_1$ implique $\lvert u_n-\ell\rvert<\epsilon$.
+
+De même $\lim_{n\to +\infty}u_n=\ell'$, il existe $N_2$ tel que $n\geq N_2$ implique $\lvert u_n-\ell'\rvert<\epsilon$.
+
+Notons $N=\max(N_1,N_2)$, on a alors pour ce $N$ :
+
+$$\lvert u_N-\ell\rvert<\epsilon \quad \text{ et } \quad \lvert u_N-\ell'\rvert<\epsilon$$
+
+Donc $\lvert \ell-\ell'\rvert =\lvert \ell-u_N+u_N-\ell'\rvert\leq \lvert \ell-u_N\rvert+\lvert u_N-\ell'\rvert$
+d'après l'inégalité triangulaire. On en tire
+$\lvert \ell-\ell'\rvert \leq \epsilon + \epsilon =2\epsilon<\lvert \ell-\ell'\rvert$.
+On vient d'aboutir à l'inégalité $\lvert \ell-\ell'\rvert < \lvert \ell-\ell'\rvert$ qui est impossible.
+Bilan : notre hypothèse de départ est fausse et donc $\ell=\ell'$.
+\end{proof}
+
+%---------------------------------------------------------------
+\subsection{Propriétés des limites}
+
+\begin{proposition}
+\sauteligne
+  \begin{enumerate}
+    \item $\lim_{n\to +\infty}u_n=\ell\iff \lim_{n\to +\infty}(u_n-\ell)=0 \iff \lim_{n\to +\infty}\lvert u_n-\ell\rvert =0$,
+    \item $\lim_{n\to +\infty}u_n=\ell\implies \lim_{n\to +\infty}\lvert u_n\rvert=\lvert \ell\rvert$.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  Cela résulte directement de la définition.
+\end{proof}
+
+\begin{proposition}[Opérations sur les limites]
+\label{prop:suitelimite}
+Soient $(u_n)_{n\in \Nn}$ et $(v_n)_{n\in \Nn}$ deux suites convergentes.
+\begin{enumerate}
+  \item Si $\lim_{n\to +\infty}u_n=\ell$, où $\ell\in \Rr$, alors pour $\lambda \in \Rr$ on a $\lim_{n\to +\infty}\lambda u_n=\lambda \ell$.
+  \item Si $\lim_{n\to +\infty}u_n=\ell$ et $\lim_{n\to +\infty}v_n=\ell'$, où $\ell,\ell'\in \Rr$, alors
+    \begin{align*}
+      \lim_{n\to +\infty}\left(u_n+v_n\right)&=\ell+\ell'&\\
+      \lim_{n\to +\infty}\left(u_n\times v_n\right)&=\ell\times \ell'
+    \end{align*}
+  \item Si $\lim_{n\to +\infty}u_n=\ell$ où $\ell\in \Rr^*= \Rr\backslash \left\{0\right\}$
+alors $u_n\neq 0 $ pour $n$ assez grand et $\lim_{n\to +\infty}\frac{1}{u_n}=\frac{1}{\ell}$.
+\end{enumerate}
+\end{proposition}
+
+Nous ferons la preuve dans la section suivante.
+
+Nous utilisons continuellement ces propriétés, le plus souvent sans nous en rendre compte.
+\begin{exemple}
+Si $u_n \to \ell$ avec $\ell \neq \pm 1$, alors
+$$u_n(1-3u_n)-\frac{1}{u_n^2-1} \xrightarrow[n\to +\infty]{} \ell(1-3\ell) - \frac{1}{\ell^2-1}.$$
+\end{exemple}
+
+
+\begin{proposition}[Opérations sur les limites infinies]
+\label{prop:suiteinfty}
+  Soient $(u_n)_{n\in \Nn}$ et $(v_n)_{n\in \Nn}$ deux suites telles que $\lim_{n\to +\infty}v_n=+\infty$.
+  \begin{enumerate}
+    \item  $\lim_{n\to +\infty}\frac{1}{v_n}=0$
+    \item Si $(u_n)_{n\in \Nn}$ est minorée alors  $\lim_{n\to +\infty}\left(u_n+v_n\right)=+\infty$.
+    \item Si $(u_n)_{n\in \Nn}$ est minorée par un nombre $\lambda>0$
+alors $\lim_{n\to +\infty}\left(u_n\times v_n\right)=+\infty$.
+    \item Si $\lim_{n\to +\infty}u_n= 0$ et $u_n>0$ pour $n$ assez
+grand alors $\lim_{n\to +\infty}\frac{1}{u_n}=+\infty$.
+  \end{enumerate}
+\end{proposition}
+
+
+\begin{exemple}
+La suite $(\sqrt{n})$ tend vers $+\infty$, donc la suite $(\frac1{\sqrt{n}})$ tend vers $0$.
+\end{exemple}
+
+
+
+%-----------------------------------------------------
+\subsection{Des preuves !}
+
+Nous n'allons pas tout prouver mais seulement quelques résultats importants.
+Les autres se démontrent de manière tout à fait semblable.
+
+Commençons par prouver un résultat assez facile (le premier point de la proposition \ref{prop:suiteinfty}) :
+
+\medskip
+
+\centerline{\og{}\emph{Si \quad $\lim u_n = +\infty$ \quad alors \quad $\lim \frac{1}{u_n} = 0$.}\fg{}}
+
+\begin{proof}
+Fixons $\epsilon>0$. Comme $\lim_{n\to +\infty}u_n= +\infty$,
+il existe un entier naturel $N$ tel que $n\ge N$ implique $u_n\ge \frac{1}{\epsilon}$.
+On obtient alors $0 \le \frac{1}{u_n} \le \epsilon$ pour $n\geq N$.
+On a donc montré que $\lim_{n\to +\infty}\frac{1}{u_n}= 0$.
+\end{proof}
+
+Afin de prouver que la limite d'un produit est le produit des limites
+nous aurons besoin d'un peu de travail.
+
+\begin{proposition}
+Toute suite convergente est bornée.
+\end{proposition}
+
+\begin{proof}
+Soit $(u_n)_{n\in \Nn}$  une suite convergeant vers le réel $\ell$. En appliquant
+la définition de limite (définition \ref{def_lim}) avec $\epsilon=1$,
+on obtient qu'il existe un entier naturel $N$ tel que pour $n\geq N$ on ait
+$\lvert u_n-\ell \rvert \leq 1$, et donc pour $n\geq N$ on a
+\[\lvert u_n \rvert =\lvert \ell+(u_n-\ell) \rvert \leq \lvert \ell \rvert + \lvert u_n-\ell  \rvert \leq \lvert \ell \rvert +1 .\]
+
+\myfigure{1}{
+\tikzinput{fig_suites09}
+}
+
+Donc si on pose
+\[ M= \max(\lvert u_0 \rvert,\lvert u_1\rvert, \cdots , \lvert u_{N-1}\rvert , \lvert \ell \rvert +1) \]
+on a alors $\forall n \in \Nn\;\; \lvert u_n \rvert \leq M$.
+\end{proof}
+
+
+
+
+\begin{proposition}
+\label{prop:suitebornezero}
+Si la suite $(u_n)_{n\in \Nn}$ est bornée et $\lim_{n\to +\infty}v_n=0$ alors $\lim_{n\to +\infty}\left(u_n\times v_n\right)=0$.
+\end{proposition}
+
+\begin{exemple}
+ Si $(u_n)_{n\geq1}$ est la suite donnée par $u_n=\cos(n)$ et
+$(v_n)_{n\geq1}$ est celle donnée par $v_n=\frac{1}{\sqrt{n}}$, alors $\lim_{n\to +\infty}\left(u_nv_n\right)=0$.
+\end{exemple}
+
+\begin{proof}
+La suite $(u_n)_{n\in \Nn}$ est bornée, on peut donc trouver un réel $M>0$ tel que pour tout
+entier naturel $n$ on ait $\lvert u_n \rvert\leq M$. Fixons $\epsilon >0$. On applique la
+définition de limite (définition \ref{def_lim}) à la suite $(v_n)_{n\in \Nn}$ pour
+$\epsilon'=\frac{\epsilon}{M}$.  Il existe donc un entier naturel $N$ tel que
+$n\geq N$ implique $ \lvert v_n  \rvert\leq  \epsilon'$. Mais alors pour $n\geq N$ on a :
+\[ \lvert u_nv_n \rvert= \lvert u_n \rvert \lvert v_n \rvert \leq M\times \epsilon'=\epsilon .\]
+On a bien montré que $\lim_{n\to +\infty}\left(u_n\times v_n\right)=0$.
+\end{proof}
+
+\bigskip
+
+Prouvons maintenant la formule concernant le produit de deux limites (voir proposition \ref{prop:suitelimite}).
+
+\medskip
+
+\centerline{\og \emph{Si \quad $\lim u_n = \ell$ \quad et \quad $\lim v_n = \ell'$ 
+\quad alors \quad $\lim u_n v_n = \ell \ell'$.} \fg{}}
+
+\begin{proof}[Démonstration de la formule concernant le produit de deux limites]
+Le principe est d'écrire :
+  \[
+    u_nv_n-\ell\ell'=(u_n-\ell)v_n+\ell(v_n-\ell')
+  \]
+D'après la proposition \ref{prop:suitebornezero}, la suite de terme général $\ell(v_n-\ell')$ tend vers $0$.
+Par la même proposition il en est
+de même de la suite de terme général $(u_n-\ell)v_n$, car la suite convergente $(v_n)_{n\in \Nn}$
+est bornée. On conclut que $\lim_{n\to +\infty} (u_nv_n-\ell\ell')=0$, ce qui équivaut à $\lim_{n\to +\infty} u_nv_n=\ell\ell'$.
+\end{proof}
+
+
+
+%-----------------------------------------------------
+\subsection{Formes indéterminées}
+Dans certaines situations, on ne peut rien dire à priori sur la limite,
+il faut faire une étude au cas par cas.
+
+\begin{exemple}
+\sauteligne
+  \begin{enumerate}
+    \item \og $+\infty-\infty$ \fg{} Cela signifie que si $u_n \to + \infty$ et $v_n \to - \infty$
+    il faut faire faire l'étude en fonction de chaque suite pour déterminer $\lim (u_n+v_n)$ comme le prouve les exemples suivants.
+      \begin{align*}
+        \lim_{n\to +\infty}\left(e^n-\ln(n)\right)&=+\infty\\
+                                \lim_{n\to +\infty}\left(n-n^2\right)&=-\infty \\
+                                \lim_{n\to +\infty}\left(\left(n+\frac{1}{n}\right)-n\right)&=0
+      \end{align*}
+    \item \og $0\times \infty$ \fg{}
+             \begin{align*}
+               \lim_{n\to +\infty} \frac{1}{\ln n} \times e^n &=+\infty\\
+                                \lim_{n\to +\infty} \frac{1}{n} \times \ln n
+                                &=0 \\
+                                \lim_{n\to +\infty} \frac{1}{n} \times (n+1)
+                                &=1
+                        \end{align*}
+    \item \og $\frac{\infty}{\infty}$\fg{}, \og $\frac{0}{0}$ \fg{}, \og $1^\infty$\fg{}, ...
+  \end{enumerate}
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Limite et inégalités}
+
+\begin{proposition}
+\label{prop:lim_ineg}
+\sauteligne
+  \begin{enumerate}
+    \item Soient $(u_n)_{n\in \Nn}$ et $(v_n)_{n\in \Nn}$ deux suites convergentes
+telles que : $\forall n \in \Nn$, $u_n\leq v_n$. Alors
+      \[\lim_{n\to +\infty} u_n \leq \lim_{n\to +\infty} v_n\]
+    \item  Soient $(u_n)_{n\in \Nn}$ et $(v_n)_{n\in \Nn}$ deux suites telles que
+$\lim_{n\to +\infty} u_n=+\infty$ et  $\forall n \in \Nn$, $v_n \geq u_n$.
+Alors $\lim_{n\to +\infty} v_n=+\infty$.
+    \item Théorème des  \og gendarmes \fg{}\index{theoreme@théorème!des gendarmes} : si $(u_n)_{n\in \Nn}$,
+$(v_n)_{n\in \Nn}$ et $(w_n)_{n\in \Nn}$ sont trois suites telles que
+      \[ \forall n \in \Nn \quad u_n\leq v_n\leq w_n \]
+et $\lim_{n\to +\infty}u_n=\ell=\lim_{n\to +\infty}w_n$, alors la suite $(v_n)_{n\in \Nn}$
+est convergente et $\lim_{n\to +\infty} v_n=\ell$.
+  \end{enumerate}
+\myfigure{1}{
+\tikzinput{fig_suites06}
+}
+\end{proposition}
+
+\begin{remarque*}
+\sauteligne
+  \begin{enumerate}
+    \item Soit $(u_n)_{n\in \Nn}$ une suite convergente telle que :
+$\forall n \in \Nn$, $u_n\geq 0$. Alors $\lim_{n\to +\infty} u_n\geq 0$.
+    \item Attention, si $(u_n)_{n\in \Nn}$ est une suite convergente telle que :
+$\forall n \in \Nn$, $u_n > 0$, on ne peut affirmer que la limite est strictement positive mais
+seulement que $\lim_{n\to +\infty} u_n \ge 0$.
+Par exemple la suite $(u_n)_{n\in \Nn}$ donnée par $u_n=\frac{1}{n+1} $ est à termes strictement positifs, mais converge vers zéro.
+
+
+  \end{enumerate}
+\end{remarque*}
+
+\begin{proof}[Démonstration de la proposition \ref{prop:lim_ineg}]
+~
+  \begin{enumerate}
+    \item En posant $w_n=v_n-u_n$, on se ramène à montrer que si une
+suite $(w_n)_{n\in \Nn}$ vérifie $\forall n \in \Nn$, $w_n\geq 0$ et converge,
+alors $\lim_{n\to +\infty} w_n\geq 0$. On procède par l'absurde en supposant
+que $\ell=\lim_{n\to +\infty} w_n <0$. En prenant $\epsilon=\lvert\frac{\ell}{2}  \rvert $
+dans la définition de limite (définition \ref{def_lim}), on obtient qu'il existe
+un entier naturel $N$ tel que $n\geq N$ implique $ \lvert w_n - \ell  \rvert <  \epsilon=-\frac{\ell}{2}$.
+En particulier on a pour $n\geq N$ que $w_n< \ell-\frac{\ell}{2}=\frac{\ell}{2}<0$, une contradiction.
+
+\myfigure{0.9}{
+\tikzinput{fig_suites07}
+}
+    \item Laissé en exercice.
+
+    \item En soustrayant la suite $(u_n)_{n\in \Nn}$, on se ramène à
+montrer l'énoncé suivant : si  $(u_n)_{n\in \Nn}$ et $(v_n)_{n\in \Nn}$ sont deux
+suites telles que : $\forall n \in \Nn$, $0\leq u_n\leq v_n$ et $\lim_{n\to +\infty} v_n= 0$,
+alors $(u_n)$ converge et $\lim_{n\to +\infty} u_n= 0$. Soit $\epsilon >0$ et $N$ un entier naturel
+tel que $n\geq N$ implique $\lvert v_n \rvert <\epsilon$. Comme
+$\lvert u_n \rvert=u_n\leq v_n=\lvert v_n \rvert$, on a donc : $n\geq N$ implique
+$\lvert u_n \rvert <\epsilon$. On a bien montré que $\lim_{n\to +\infty} u_n= 0$.
+
+  \end{enumerate}
+\end{proof}
+
+\begin{exemple}[Exemple d'application du théorème des \og gendarmes \fg{}]
+Trouver la limite de la suite $(u_n)_{n\in \Nn}$ de terme général :
+\[u_n =2 +\frac{(-1)^n}{1+n+n^2}\]
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+%\subsection{}
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soit $(u_n)_{n\in \Nn}$ la suite définie par $u_n = \frac{2n+1}{n+2}$.
+En utilisant la définition de la limite montrer que $\lim_{n\to+\infty} u_n = 2$.
+Trouver explicitement un rang à partir duquel $1,999 \le u_n \le 2,001$.
+
+    \item  Déterminer la limite $\ell$ de la suite $(u_n)_{n\in \Nn^*}$ de terme général :
+$\frac{n+\cos n}{n-\sin n}$ et trouver un entier $N$
+tel que si $n\geq N$, on ait $|u_n-\ell|\leq 10^{-2}$.
+
+  \item La suite $(u_n)_{n\in \Nn}$ de terme général $(-1)^ne^{n}$ admet-elle une limite ?
+Et la suite de terme général $\frac{1}{u_n}$ ?
+
+  \item  Déterminer la limite de la suite $(u_n)_{n\geq 1}$ de terme général $\sqrt{n+1}-\sqrt{n}$.
+   Idem avec $v_n = \frac{\cos n}{\sin n + \ln n}$. Idem avec $w_n=\frac{n!}{n^n}$.
+
+
+  %La suite $(u_n)_{n\geq 1}$ de terme général $n^{-2+(-1)^n}$ admet-elle une limite ?
+%   \item  Déterminer la limite de la suite $(u_n)_{n\geq 1}$ de terme général
+% $\frac{E(\pi)+E(2\pi)+\cdots+E(n\pi)}{n^2}$.
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exemples remarquables}
+
+%---------------------------------------------------------------
+\subsection{Suite géométrique}
+
+\begin{proposition}[Suite géométrique]
+\index{suite!geometrique@géométrique}
+~
+\label{prop:suitegeo}
+On fixe un réel $a$. Soit $(u_n)_{n\in \Nn}$ la suite de terme général : $u_n=a^n$.
+\begin{enumerate}
+  \item Si $a=1$, on a pour tout $n\in \Nn$ : $u_n=1$.
+  \item Si $a>1$, alors $\lim_{n\to +\infty} u_n= +\infty$.
+  \item Si $-1<a<1$, alors $\lim_{n\to +\infty} u_n= 0$.
+  \item Si $a\le-1$, la suite $(u_n)_{n\in \Nn}$ diverge.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}~
+  \begin{enumerate}
+    \item est évident.
+    \item Écrivons $a=1+b$ avec $b>0$. Alors le binôme de Newton s'écrit
+$a^n=(1+b)^n=1+nb+\binom{n}{2}b^2+\cdots+\binom{n}{k}b^k+\cdots+b^n$. Tous les termes
+sont positifs, donc pour tout entier naturel $n$ on a : $a^n\geq 1+nb$. Or
+$\lim_{n\to +\infty}(1+nb)=+\infty$ car $b>0$. On en déduit que $\lim_{n\to +\infty} a^n=+\infty$.
+    \item Si $a=0$, le résultat est clair. Sinon, on pose $b=\lvert \frac{1}{a}
+\rvert$. Alors $b>1$ et d'après le point précédent $\lim_{n\to +\infty} b^n=+\infty$.
+Comme pour tout entier naturel $n$ on a : $\lvert a \rvert ^n=\frac{1}{b^n}$, on en
+déduit que $\lim_{n\to +\infty} \lvert a \rvert ^n=0$, et donc aussi $\lim_{n\to +\infty} a  ^n=0$.
+    \item Supposons par l'absurde que la suite $(u_n)_{n\in \Nn}$
+converge vers le réel $\ell$. De $a^2\geq 1$, on déduit que pour tout entier naturel $n$,
+on a $a^{2n}\geq 1$. En passant à la limite, il vient $\ell\geq 1$. Comme de plus pour tout
+entier naturel $n$ on a $a^{2n+1}\leq a \leq -1$, il vient en passant de nouveau à la
+limite $\ell\leq -1$. Mais comme on a déjà $\ell\geq 1$, on obtient une contradiction, et donc $(u_n)$ ne converge pas.
+  \end{enumerate}
+\end{proof}
+
+
+
+%---------------------------------------------------------------
+\subsection{Série géométrique}
+
+\begin{proposition}[Série géométrique]
+\index{serie geometrique@série géométrique}
+  Soit $a$ un réel, $a\neq 1$. En notant $\sum_{k=0}^na^k=1+a+a^2+\cdots+a^n$, on a :
+  \mybox{$\displaystyle \sum_{k=0}^na^k=\frac{1-a^{n+1}}{1-a} $}
+
+\end{proposition}
+
+\begin{proof}
+En multipliant par $1-a$ on fait apparaître une somme télescopique
+(presque tous les termes s'annulent) :
+  \[(1-a)\big(1+a+a^2+\cdots+a^n \big)=
+  \big(1+a+a^2+\cdots+a^n \big) - \big(a+a^2+\cdots+a^{n+1} \big)=1-a^{n+1} .\]
+\end{proof}
+
+\begin{remarque*}
+Si $a\in ]-1,1[$ et $(u_n)_{n\in \Nn}$ est la suite de terme général :
+$u_n= \sum_{k=0}^na^k$, alors $\lim_{n\to +\infty} u_n= \frac{1}{1-a}$.
+De manière plus frappante, on peut écrire :
+\[1+a+a^2+a^3 +\cdots = \frac{1}{1-a}\]
+
+Enfin, ces formules sont aussi valables si $a\in \Cc\setminus\{1\}$.
+Si $a=1$, alors $1+a+a^2+\cdots+a^n=n+1$.
+\end{remarque*}
+
+\begin{exemple}
+L'exemple précédent avec $a=\frac{1}{2}$ donne
+
+  \[1+\frac{1}{2} +\frac{1}{4} +\frac{1}{8} +\cdots = 2 .\]
+
+Cette formule était difficilement concevable avant l’avènement du calcul infinitésimal et a été
+popularisée sous le nom du \evidence{paradoxe de Zénon}. On tire une flèche à $2$ mètres d'une cible.
+Elle met un certain laps de temps pour parcourir
+la moitié de la distance, à savoir un mètre. Puis il lui faut encore du
+temps pour parcourir la moitié de la distance restante, et de nouveau un
+certain temps pour la moitié de la distance encore restante.
+On ajoute ainsi une infinité de durées non nulles, et Zénon en conclut
+que la flèche n'atteint jamais sa cible !
+
+L'explication est bien donnée par l'égalité ci-dessus :
+la somme d'une infinité de termes peut bien être une valeur finie !!
+Par exemple si la flèche va à une vitesse de $1$\,m/s, alors
+elle parcoure la première moitié en $1$\,s, le moitié de la distance restante en $\frac12$\,s, etc.
+Elle parcoure bien toute la distance en $1+\frac{1}{2} +\frac{1}{4} +\frac{1}{8} +\cdots = 2$ secondes !
+
+\myfigure{1.3}{
+\tikzinput{fig_suites08}
+}
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Suites telles que $\left|\frac{u_{n+1}}{u_n}\right|<\ell<1$ }
+
+\begin{theoreme}
+Soit  $(u_n)_{n\in \Nn}$ une suite de réels non nuls. On suppose qu'il existe un réel $\ell$
+%tel que $0< l <1$ et
+tel que pour tout entier naturel $n$ (ou seulement à partir d'un certain rang) on ait :
+\[ \left | \frac{u_{n+1}}{u_n}\right |  <\ell<1.\]
+Alors $\lim_{n\to +\infty} u_n= 0$.
+
+\end{theoreme}
+
+\begin{proof}
+  On suppose que la propriété $\left|\frac{u_{n+1}}{u_n}\right|<\ell<1$ est vraie
+pour tout entier naturel $n$ (la preuve dans le cas où cette propriété n'est vraie
+qu'à partir d'un certain rang n'est pas très différente).
+  On écrit
+  \[ \frac{u_n}{u_0}=\frac{u_1}{u_0} \times\frac{u_2}{u_1} \times\frac{u_3}{u_2} \times\cdots\times \frac{u_n}{u_{n-1}}\]
+ce dont on déduit
+  \[ \left\lvert\frac{u_n}{u_0}  \right\rvert <\ell\times \ell\times \ell \times \cdots \times \times \ell=\ell^n\]
+et donc $\lvert u_n \rvert <\lvert u_0 \rvert \ell^n$. Comme $\ell<1$, on a $\lim_{n\to +\infty} \ell^n= 0$.
+On conclut que $\lim_{n\to +\infty} u_n= 0$.
+\end{proof}
+
+\begin{corollaire}
+Soit  $(u_n)_{n\in \Nn}$ une suite de réels non nuls.
+\mybox{Si $\lim_{n\to +\infty}\frac{u_{n+1}}{u_n}=  0$, alors $\lim_{n\to +\infty} u_n= 0$.}
+\end{corollaire}
+
+\begin{exemple}
+Soit $a\in \Rr$. Alors $\lim_{n\to +\infty} \frac{a^n}{n!} =0$.
+\end{exemple}
+
+\begin{proof}
+  Si $a=0$, le résultat est évident. Supposons $a\neq 0$, et posons $u_n= \frac{a^n}{n!}$. Alors
+  \[\frac{u_{n+1}}{u_n}= \frac{a^{n+1}}{(n+1)!}\cdot \frac{n!}{a^n}=\frac{a}{n+1} .\]
+
+  Pour conclure, on peut ou bien directement utiliser le corollaire : comme $\lim \frac{u_{n+1}}{u_n} = 0$
+  (car $a$ est fixe), on a $\lim u_n = 0$. Ou bien, comme $\frac{u_{n+1}}{u_n} = \frac{a}{n+1}$, on
+  déduit par le théorème que pour $n\geq N>2 \lvert a \rvert $ on a :
+
+  \[\left | \frac{u_{n+1}}{u_n}\right | =\frac{\lvert a \rvert }{n+1}\leq
+  \frac{\lvert a \rvert }{N+1}<\frac{\lvert a \rvert  }{N}< \frac{1}{2} =\ell\]
+et donc $\lim_{n\to +\infty} u_n =0$.
+\end{proof}
+
+\begin{remarque*}
+\sauteligne
+  \begin{enumerate}
+    \item Avec les notations du théorème, si on a pour tout entier naturel $n$
+à partir d'un certain rang : $\left|\frac{u_{n+1}}{u_n}\right|>\ell>1$, alors la suite $(u_n)_{n\in \Nn}$ diverge. En effet, il suffit d'appliquer le théorème à la suite de terme général $ \frac{1}{\lvert u_n \rvert }$ pour voir que  $\lim_{n\to +\infty} \lvert u_n \rvert =+\infty$.
+    \item Toujours avec les notations du théorème, si $\ell=1$ on ne peut rien dire.
+  \end{enumerate}
+\end{remarque*}
+
+\begin{exemple}
+Pour un nombre réel $a$, $a>0$, calculer $\lim_{n\to +\infty} \sqrt[n]{a}$.
+
+On va montrer que $\lim_{n\to +\infty} \sqrt[n]{a}=1$. Si $a=1$, c'est clair.
+Supposons $a>1$. Écrivons $a=1+h$, avec $h>0$. Comme
+\[\left(1+\frac{h}{n}\right)^n\geq 1+n\frac{h}{n}=1+h=a\]
+(voir la preuve de la proposition \ref{prop:suitegeo}) on a en appliquant la fonction racine $n$-ème, $\sqrt[n]{\cdot}$ :
+\[ 1+\frac{h}{n} \geq \sqrt[n]{a} \geq 1 .\]
+On peut conclure grâce au théorème \og des gendarmes \fg{} que $\lim_{n\to +\infty} \sqrt[n]{a}=1$.
+Enfin, si $a<1$, on applique le cas précédent à $b= \frac{1}{a}>1$.
+\end{exemple}
+
+
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Approximation des réels par des décimaux}
+
+\begin{proposition}
+\label{prop:ecdecim}
+  Soit $a\in \Rr$. Posons
+  \[u_n = \frac{E(10^na)}{10^n}. \]
+  Alors $u_n$ est une approximation décimale de $a$ à $10^{-n}$ près,
+  en particulier $\lim_{n\to +\infty} u_n=a$.
+\end{proposition}
+
+\begin{exemple} $\pi= 3,14159265\ldots$
+
+ $$ \begin{array}{l}
+    u_0  = \frac{E(10^0\pi)}{10^0}  = E(\pi)  = 3\\
+    u_1  = \frac{E(10^1\pi)}{10^1}  = \frac{E(31,415\ldots)}{10}  = 3,1\\
+    u_2  = \frac{E(10^2\pi)}{10^2}  = \frac{E(314,15\ldots)}{100} = 3,14\\
+    u_3  = 3,141
+  \end{array}$$
+\end{exemple}
+
+\begin{proof}
+  D'après la définition de la partie entière, on a
+  \[E(10^na)\leq 10^na < E(10^na)+1\]
+donc
+\[ u_n \leq a < u_n+\frac{1}{10^n} \]
+ou encore
+\[ 0 \leq a -u_n< \frac{1}{10^n} .\]
+Or la suite de terme général $\frac{1}{10^n}$ est une suite géométrique de raison
+$\frac{1}{10}$, donc elle tend vers $0$. On en déduit que $\lim_{n\to +\infty} u_n=a$.
+
+\end{proof}
+
+\begin{exercicecours}
+  Montrer que la suite $(u_n)_{n\in \Nn}$ de la proposition \ref{prop:ecdecim} est croissante.
+\end{exercicecours}
+
+\begin{remarque*}
+\sauteligne
+  \begin{enumerate}
+    \item Les $u_n$ sont des nombres décimaux, en particulier ce sont des nombres rationnels.
+    \item Ceci fournit une démonstration de la densité de $\Qq$ dans $\Rr$.
+Pour $\epsilon >0$, et $I=]a-\epsilon,a+\epsilon[$, alors pour $n$ assez grand, $u_n\in I\cap \Qq$.
+  \end{enumerate}
+\end{remarque*}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Déterminer la limite de la suite $(u_n)_{n\in \Nn}$ de terme général $5^n-4^n$.
+
+  \item Soit $v_n=1+a+a^2+\cdots + a^n$. Pour quelle valeur de $a \in \Rr$ la suite
+  $(v_n)_{n\ge 1}$ a pour limite $3$ (lorsque $n \to + \infty$) ?
+
+  \item Calculer la limite de $\frac{1+2+2^2+\cdots + 2^n}{2^n}$.
+
+  \item Montrer que la somme des racines $n$-èmes de l'unité est nulle.
+
+  \item Montrer que si $\sin(\frac \theta 2)\neq 0$ alors
+  $\frac{1}{2}+\cos(\theta )+\cos(2\theta )+\cdots+\cos(n\theta )
+  =\frac{\sin\left( (n+ \frac{1}{2})\theta \right)}{2\sin(\frac{\theta }{2})}$
+  (penser à $e^{\ii\theta}$).
+
+  \item Soit $(u_n)_{n\geq 2}$ la suite de terme général
+  % $\frac{n!}{n^n}$. [[Arnaud : trop dur !]]
+  $u_n= \ln(1+\frac12)\times\ln(1+\frac 13)\times\cdots\times\ln(1+\frac1n)$.
+Déterminer la limite de $\frac{u_{n+1}}{u_n}$. Que peut-on en déduire ?
+  \item Déterminer la limite de $\frac{\pi^n}{1\times 3 \times 5 \times \cdots \times (2n+1)}$
+  (où $\pi = 3,14\ldots$).
+
+   \item Soit $a$ un réel. Montrer que pour tout $\epsilon>0$ il existe un couple
+   $(m,n)\in \Zz\times \Nn$ (et même une infinité)
+tel que $\left|a-\frac{m}{2^n}\right|\leq \epsilon$.
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Théorème de convergence}
+
+%---------------------------------------------------------------
+\subsection{Toute suite convergente est bornée}
+
+
+Revenons sur une propriété importante que nous avons déjà démontrée dans la section sur les limites.
+\begin{proposition}
+Toute suite convergente est bornée.
+\end{proposition}
+
+La réciproque est fausse mais nous allons ajouter une
+hypothèse supplémentaire pour obtenir des résultats.
+
+
+%---------------------------------------------------------------
+\subsection{Suite monotone}
+
+\begin{theoreme}
+\label{thm:suite_croiss_maj}
+\sauteligne
+\mybox{Toute suite croissante et majorée est convergente.}
+\end{theoreme}
+
+\begin{remarque*}
+  Et aussi :
+  \begin{itemize}
+    \item Toute suite décroissante et minorée est convergente.
+    \item Une suite croissante et qui n'est pas majorée tend vers $+\infty$.
+    \item Une suite décroissante et qui n'est pas minorée tend vers $-\infty$.
+  \end{itemize}
+\end{remarque*}
+
+\begin{proof}[Démonstration du théorème \ref{thm:suite_croiss_maj}]
+Notons $A=\left\{ u_n| n\in \Nn\right\} \subset \Rr$. Comme la suite $(u_n)_{n\in \Nn}$
+est majorée, disons par le réel $M$, l'ensemble $A$ est majoré par $M$, et de plus
+ il est non vide. Donc d'après le théorème $\Rr4$ du chapitre sur les réels,
+l'ensemble $A$ admet une borne supérieure : notons $\ell=\sup A$. Montrons que
+$\lim_{n\to +\infty} u_n=\ell$. Soit $\epsilon >0$. Par la caractérisation
+de la borne supérieure, il existe un élément $u_N$ de $A$ tel que
+ $\ell-\epsilon < u_N \leq \ell$. Mais alors pour $n\geq N$ on a $\ell-\epsilon < u_N \leq u_n \leq \ell$,
+et donc $\lvert u_n-\ell \rvert \leq \epsilon$.
+\end{proof}
+
+
+
+%---------------------------------------------------------------
+\subsection{Deux exemples}
+
+
+\subsubsection{La limite $\zeta(2)$}
+\label{ssub:zeta}
+
+Soit $(u_n)_{n\geq 1}$ la suite de terme général :
+\[ u_n =1+\frac{1}{2^2} +\frac{1}{3^2}+\cdots+\frac{1}{n^2} .\]
+
+\begin{itemize}
+  \item  La suite $(u_n)_{n\geq 1}$ est croissante : en effet $u_{n+1}-u_n= \frac{1}{(n+1)^2}>0$.
+  \item Montrons par récurrence que pour tout entier naturel $n\geq 1$ on a $u_n\leq 2 - \frac{1}{n} $.
+  \begin{itemize}
+  \item Pour $n=1$, on a $u_1=1\leq 1=2 - \frac{1}{1}$.
+  \item Fixons $n\geq 1$ pour lequel on suppose $u_n\leq 2 - \frac{1}{n}$.
+Alors $u_{n+1}=u_n+ \frac{1}{(n+1)^2}\leq  2 - \frac{1}{n}+ \frac{1}{(n+1)^2}$.
+Or $\frac{1}{(n+1)^2}\leq \frac{1}{n(n+1)}=\frac{1}{n}-\frac{1}{n+1}$, donc $u_{n+1}\leq 2-\frac{1}{n+1}$, ce qui achève la récurrence.
+\end{itemize}
+\item Donc la suite $(u_n)_{n\geq 1}$ est croissante et majorée par $2$ : elle converge.
+\end{itemize}
+
+On note $\zeta(2)$ cette limite, vous montrerez plus tard qu'en fait $\zeta(2)=\frac{\pi^2}{6}$.
+
+
+
+\subsubsection{Suite harmonique}
+
+C'est la suite $(u_n)_{n\geq 1}$ de terme général :
+\[ u_n =1+\frac{1}{2} +\frac{1}{3}+\cdots+\frac{1}{n} .\]
+Calculons $\lim_{n\to +\infty} u_n$.
+
+\begin{itemize}
+  \item La suite $(u_n)_{n\geq 1}$ est croissante : en effet $u_{n+1}-u_n= \frac{1}{n+1}>0$.
+  \item Minoration de $u_{2^p}-u_{2^{p-1}}$. On a
+$u_2-u_1=1+\frac{1}{2}-1=\frac{1}{2}$ ; $u_4-u_2=\frac{1}{3}+\frac{1}{4}> \frac{1}{4}+\frac{1}{4}=\frac{1}{2}$, et en général :
+    \[ u_{2^p}-u_{2^{p-1}}=\underbrace{\frac{1}{2^{p-1}+1}+ \frac{1}{2^{p-1}+2}+\cdots+\frac{1}{2^p}}_{2^{p-1}=2^p-2^{p-1}
+\textrm{ termes }\geq \frac{1}{2^p}}> 2^{p-1}\times \frac{1}{2^p}=\frac{1}{2}\]
+  \item  $\lim_{n\to +\infty} u_n=+\infty$. En effet
+    \[  u_{2^p}-1 = u_{2^p}-u_1= (u_2 - u_1)+ (u_4 - u_2)+ \cdots +  (u_{2^p}-u_{2^{p-1}}) \geq \frac{p}{2} \]
+donc la suite  $(u_n)_{n\geq 1}$ est croissante mais n'est pas bornée, donc elle tend vers $+\infty$.
+
+\end{itemize}
+
+
+%---------------------------------------------------------------
+\subsection{Suites adjacentes}
+
+\begin{definition}
+Les suites $(u_n)_{n\in \Nn}$ et $(v_n)_{n\in \Nn}$ sont dites \defi{adjacentes}\index{suite!adjacente} si
+\begin{enumerate}
+  \item $(u_n)_{n\in \Nn}$ est croissante et $(v_n)_{n\in \Nn}$ est décroissante,
+  \item pour tout $n\geq 0$, on a $u_n\leq v_n$,
+  \item $\lim_{n\to +\infty} (v_n -u_n) = 0$.
+\end{enumerate}
+\end{definition}
+
+\begin{theoreme}
+\sauteligne
+  \mybox{Si les suites $(u_n)_{n\in \Nn}$ et $(v_n)_{n\in \Nn}$ sont adjacentes, \\
+  elles convergent vers la même limite.}
+\end{theoreme}
+
+Il y a donc deux résultats dans ce théorème, la convergence de $(u_n)$ et
+$(v_n)$ et en plus l'égalité des limites.
+Les termes de la suites sont ordonnées ainsi :
+$$u_0 \le u_1 \le u_2 \le \cdots \le u_n \le \cdots \cdots \le v_n\le \cdots \le v_2 \le v_1 \le v_0$$
+
+\begin{proof}~
+  \begin{itemize}
+    \item La suite $(u_n)_{n\in \Nn}$ est croissante et majorée par $v_0$,
+    donc elle converge vers une limite $\ell$.
+    \item La suite $(v_n)_{n\in \Nn}$ est décroissante et minorée par $u_0$,
+    donc elle converge vers une limite $\ell'$.
+    \item Donc $\ell'-\ell=\lim_{n\to +\infty} (v_n -u_n) = 0$, d'où $\ell'=\ell$.
+  \end{itemize}
+\end{proof}
+
+
+\begin{exemple}
+Reprenons l'exemple de $\zeta(2)$. Soient $(u_n)$ et $(v_n)$ les deux suites définies pour $n \ge 1$ par
+$$u_n = \sum_{k=1}^n \frac 1 {k^2} = 1+\frac{1}{2^2} +\frac{1}{3^2}+\cdots+\frac{1}{n^2} \quad \text{ et } \quad v_n = u_n + \frac2{n+1} .$$
+Montrons que $(u_n)$ et $(v_n)$ sont deux suites adjacentes :
+\begin{enumerate}
+  \item
+  \begin{enumerate}
+    \item $(u_n)$ est croissante car $u_{n+1}-u_n = \frac{1}{(n+1)^2} > 0$.
+    \item $(v_n)$ est décroissante : \\
+    $v_{n+1}-v_n = \frac{1}{(n+1)^2} + \frac{2}{n+2} - \frac{2}{n+1}
+    = \frac{n+2+2(n+1)^2-2(n+1)(n+2)}{(n+2)(n+1)^2} = \frac{-n}{(n+2)(n+1)^2}< 0$
+  \end{enumerate}
+
+  \item Pour tout $n\ge 1$ : $v_n-u_n = \frac{2}{n+1} >0$, donc $u_n \le v_n$.
+
+  \item Enfin comme $v_n-u_n = \frac{2}{n+1}$ alors $\lim (v_n-u_n) = 0$.
+\end{enumerate}
+
+Les suites $(u_n)$ et $(v_n)$ sont deux suites adjacentes, elles convergent donc vers une même limite
+finie $\ell$. Nous avons en plus l'encadrement $u_n \le \ell \le v_n$ pour tout $n\ge 1$.
+Ceci fournit des approximations de la limite :
+par exemple pour $n=3$, $1+\frac{1}{4} +\frac{1}{9} \le \ell \le 1+\frac{1}{4} +\frac{1}{9} + \frac{1}{2}$
+donc $1,3611\ldots \le \ell \le 1,8611\ldots$
+\end{exemple}
+
+
+\begin{exercicecours}
+  Soit $(u_n)_{n\geq 1}$ la suite de terme général :
+\[ u_n =1+\frac{1}{2^3} +\frac{1}{3^3}+\cdots+\frac{1}{n^3} .\]
+Montrer que la suite $(u_n)_{n\geq 1}$ converge (on pourra considérer la suite
+$(v_n)_{n\geq 1}$ de terme général $v_n=u_n+  \frac{1}{n^2}$).
+\end{exercicecours}
+
+\begin{remarque*}
+  On note $\zeta(3)$ cette limite. On l'appelle aussi constante d'Apéry qui a prouvé en 1978 que $\zeta(3)\notin \Qq$.
+\end{remarque*}
+
+\subsection{Théorème de Bolzano-Weierstrass}
+
+\begin{definition}
+  Soit $(u_n)_{n\in \Nn}$ une suite. Une \defi{suite extraite}\index{suite!extraite} ou
+\defi{sous-suite}\index{sous-suite} de  $(u_n)_{n\in \Nn}$ est une suite de la forme
+$(u_{\phi(n)})_{n\in \Nn}$, où $\phi : \Nn \to \Nn$ est une application strictement croissante.
+\end{definition}
+
+
+\myfigure{1}{
+\tikzinput{fig_suites10}
+}
+
+
+\begin{exemple}
+Soit la suite $(u_n)_{n\in \Nn}$ de terme général $u_n=(-1)^n$.
+\begin{itemize}
+  \item Si on considère $\phi : \Nn \to \Nn$ donnée par $\phi(n)=2n$,
+alors la suite extraite correspondante a pour terme général $u_{\phi(n)}=(-1)^{2n}=1$,
+donc la suite $(u_{\phi(n)})_{n\in \Nn}$ est constante égale à $1$.
+  \item Si on considère $\psi : \Nn \to \Nn$ donnée par $\psi(n)=3n$, alors la suite
+extraite correspondante a pour terme général $u_{\psi(n)}=(-1)^{3n}=\big( (-1)^3\big)^n = (-1)^n$.
+La suite $(u_{\psi(n)})_{n\in \Nn}$ est donc égale à $(u_n)_{n\in \Nn}$.
+
+\end{itemize}
+\myfigure{0.85}{
+\tikzinput{fig_suites11}\quad
+\tikzinput{fig_suites12}
+}
+\end{exemple}
+
+\begin{proposition}
+  Soit $(u_n)_{n\in \Nn}$ une suite. Si $\lim_{n\to +\infty}u_n=\ell$, alors
+pour toute suite extraite $(u_{\phi(n)})_{n\in \Nn}$ on a $\lim_{n\to +\infty} u_{\phi(n)}=\ell$.
+\end{proposition}
+
+\begin{proof}
+  Soit $\epsilon >0$. D'après la définition de limite (définition \ref{def_lim}),
+il existe un entier naturel $N$ tel que $n\geq N$ implique $\lvert u_n-\ell \rvert <\epsilon$.
+Comme l'application $\phi$ est strictement croissante, on montre facilement par récurrence
+que pour tout $n$, on a $\phi(n)\geq n$. Ceci implique en particulier que si $n\geq N$,
+alors aussi $\phi(n)\geq N$, et donc $\lvert u_{\phi(n)}-\ell \rvert <\epsilon$.
+Donc la définition de limite (définition \ref{def_lim}) s'applique aussi à la suite extraite.
+
+\end{proof}
+
+\begin{corollaire}
+  Soit $(u_n)_{n\in \Nn}$ une suite. Si elle admet une sous-suite divergente,
+ou bien si elle admet deux sous-suites convergeant vers des limites distinctes, alors elle diverge.
+\end{corollaire}
+
+\begin{exemple}
+Soit la suite $(u_n)_{n\in \Nn}$ de terme général $u_n=(-1)^n$. Alors
+$(u_{2n})_{n\in \Nn}$ converge vers $1$, et $(u_{2n+1})_{n\in \Nn}$ converge vers $-1$
+(en fait ces deux sous-suites sont constantes). On en déduit que la suite $(u_n)_{n\in \Nn}$ diverge.
+\end{exemple}
+
+
+\begin{exercicecours}
+  Soit $(u_n)_{n\in \Nn}$ une suite. On suppose que les deux sous-suites
+$(u_{2n})_{n\in \Nn}$ et $(u_{2n+1})_{n\in \Nn}$ convergent vers la même limite $\ell$.
+Montrer que $(u_n)_{n\in \Nn}$ converge également vers $\ell$.
+\end{exercicecours}
+
+Terminons par un résultat théorique très important.
+\begin{theoreme}[Théorème de Bolzano-Weierstrass]
+\index{theoreme@théorème!de Bolzano-Weierstrass}
+\label{thm:Bolzano_Weierstrass}
+  Toute suite bornée admet une sous-suite convergente.
+\end{theoreme}
+
+\begin{exemple}
+\sauteligne
+  \begin{enumerate}
+    \item On considère la suite $(u_n)_{n\in \Nn}$ de terme général
+$u_n=(-1)^n$. Alors on peut considérer les deux sous-suites $(u_{2n})_{n\in \Nn}$
+et $(u_{2n+1})_{n\in \Nn}$.
+    \item On considère la suite $(v_n)_{n\in \Nn}$ de terme général $v_n=\cos n$.
+Le théorème affirme qu'il existe une sous-suite convergente, mais il est moins facile de l'expliciter.
+  \end{enumerate}
+\end{exemple}
+
+\begin{proof}[Démonstration du théorème \ref{thm:Bolzano_Weierstrass}]
+On procède par dichotomie. L'ensemble des valeurs de la suite est par hypothèse
+contenu dans un intervalle $[a,b]$. Posons $a_0=a$, $b_0=b$, $\phi(0)=0$.
+Au moins l'un des deux intervalles $\left[a_0, \frac{a_0+b_0}{2}\right]$ ou
+$\left[\frac{a_0+b_0}{2},b_0 \right]$ contient $u_n$ pour une infinité d'indices $n$.
+On note $[a_1,b_1]$ un tel intervalle, et on note $\phi(1)$ un entier $\phi(1)>\phi(0)$
+tel que $u_{\phi(1)}\in [a_1,b_1]$.
+
+\myfigure{1}{
+\tikzinput{fig_suites13}
+}
+
+En itérant cette construction,
+on construit pour tout entier naturel $n$ un intervalle $[a_n,b_n]$,
+de longueur $\frac{b-a}{2^n}$, et un entier $\phi(n)>\phi(n-1)$ tel que $u_{\phi(n)}\in [a_n,b_n]$.
+Notons que par construction la suite $(a_n)_{n\in \Nn}$ est croissante et la suite
+$(b_n)_{n\in \Nn}$ est décroissante.
+
+% \myfigure{1}{
+% \tikzinput{fig_suites14}
+% }
+
+Comme de plus $\lim_{n\to +\infty} (b_n-a_n)=
+ \lim_{n\to +\infty} \frac{b-a}{2^n}=0$, les suites $(a_n)_{n\in \Nn}$ et
+$(b_n)_{n\in \Nn}$ sont adjacentes et donc convergent vers une même limite $\ell$.
+On peut appliquer le théorème \og des gendarmes \fg{} pour conclure que
+$\lim_{n\to +\infty} u_{\phi(n)}=\ell$.
+\end{proof}
+
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soit $(u_n)_{n\in \Nn}$ la suite définie par $u_0=1$ et pour $n\geq 1$,
+$u_n=\sqrt{2+u_{n-1}}$. Montrer que cette suite est croissante et majorée par $2$.
+Que peut-on en conclure ?
+
+  \item Soit $(u_n)_{n \ge 2}$ la suite définie par
+  $u_n =\frac{\ln 4}{\ln 5}\times \frac{\ln 6}{\ln 7}\times\frac{\ln 8}{\ln 9}\times
+  \cdots \times\frac{\ln (2n)}{\ln (2n+1)}.$  \'Etudier la croissance de la suite.
+  Montrer que la suite $(u_n)$ converge.
+
+  \item Soit $N\geq 1$ un entier et $(u_n)_{n\in \Nn}$ la suite de terme général
+$u_n=\cos(\frac{n\pi}{N})$. Montrer que la suite diverge.
+
+  \item Montrer que les suites de terme général $u_n=\sum_{k=1}^n \frac{1}{k!}$ et
+$v_n=u_n+\frac{1}{n \cdot (n!)}$ sont adjacentes. Que peut-on en déduire ?
+
+   \item Soit $(u_n)_{n\geq 1}$ la suite de terme général $\sum_{k=1}^{n}\frac{(-1)^{k+1}}{k}$.
+On considère les deux suites extraites de terme général $v_n=u_{2n}$ et $w_n= u_{2n+1}$.
+Montrer que les deux suites $(v_n)_{n\geq 1}$ et $(w_n)_{n\geq 1}$ sont adjacentes.
+En déduire que la suite $(u_n)_{n\geq 1}$ converge.
+
+   \item Montrer qu'une suite bornée et divergente admet deux sous-suites convergeant
+   vers des valeurs distinctes.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Suites récurrentes}
+
+%Une catégorie essentielle de suites sont les suites récurrentes définies par une fonction.
+Les suites récurrentes définies par une fonction forment une catégorie essentielle de suites.
+
+
+Ce 
+%chapitre 
+paragraphe est l'aboutissement de notre étude %sur les 
+des suites, mais sa lecture nécessite aussi la maîtrise préalable de l'étude de fonctions (voir \og Limites et fonctions continues \fg).
+
+%---------------------------------------------------------------
+\subsection{Suite récurrente définie par une fonction}
+
+Soit $f : \Rr \to \Rr$ une fonction. Une \defi{suite récurrente}\index{suite!recurrente@récurrente} 
+est définie par son premier terme et une relation permettant de calculer les termes de proche en proche :
+$$u_0 \in \Rr \quad \text{ et } \quad u_{n+1} = f(u_n) \ \ \text{ pour } n \ge 0.$$
+Une suite récurrente est donc définie par deux données : un terme initial $u_0$, et une
+relation de récurrence $u_{n+1}=f(u_n)$. La suite s'écrit ainsi :
+$$u_0, \quad u_1 = f(u_0), \quad u_2 = f(u_1) =f(f(u_0)), \quad u_3 = f(u_2) =f(f(f(u_0))),\ldots$$
+
+Le comportement d'une telle suite peut très vite devenir complexe.
+\begin{exemple}
+Soit $f(x)=1+\sqrt{x}$. Fixons $u_0= 2$ et définissons pour $n\ge0$ :
+$u_{n+1}=f(u_n)  $. C'est-à-dire $u_{n+1}=1+\sqrt{u_n}$.
+Alors les premiers termes de la suite sont :
+$$2, \quad 1+\sqrt{2}, \quad 1+\sqrt{1+\sqrt{2}},  \quad 1+\sqrt{1+\sqrt{1+\sqrt{2}}},  \quad 1+\sqrt{1+\sqrt{1+\sqrt{1+\sqrt{2}}}},\ldots$$
+\end{exemple}
+
+
+Une suite récurrente donnée n'est pas forcément convergente. Lorsqu'elle admet une limite, l'ensemble des valeurs possibles est restreint par le résultat essentiel suivant.
+
+\begin{proposition}
+\label{prop:fll}
+Si $f$ est une fonction continue et la suite récurrente $(u_n)$ converge vers $\ell$, alors
+$\ell$ est une solution de l'équation :
+\mybox{$f(\ell)=\ell$}
+\end{proposition}
+
+Si on arrive à montrer que la limite existe, cette proposition affirme qu'elle est à chercher parmi les solutions de l'équation $f(\ell)=\ell$.
+\myfigure{1}{
+\tikzinput{fig_suites15}
+}
+Une valeur $\ell$, vérifiant $f(\ell)=\ell$ est un \defi{point fixe}\index{point fixe} de $f$.
+La preuve est très simple et %mérite d'être refaite à chaque fois.
+utilise essentiellement la continuité de la fonction $f$ :
+\begin{proof}
+Lorsque $n\to +\infty$, $u_n\to \ell$ et donc aussi $u_{n+1} \to \ell$.
+Comme $u_n\to \ell$ et que $f$ est continue alors
+la suite $(f(u_n)) \to f(\ell)$.
+La relation $u_{n+1} = f(u_n)$ devient à la limite (lorsque $n\to+\infty$) : $\ell=f(\ell)$.
+\end{proof}
+
+
+
+Nous allons étudier en détail deux cas particuliers, celui ou la fonction est croissante, puis celui ou la fonction est décroissante. %fondamentaux : lorsque la fonction est croissante,puis lorsque la fonction est décroissante.
+
+%---------------------------------------------------------------
+\subsection{Cas d'une fonction croissante}
+
+Commençons par remarquer que pour une fonction croissante, le comportement de la suite
+$(u_n)$ définie par récurrence est assez simple :
+\begin{itemize}
+  \item Si $u_1\ge u_0$ alors $(u_n)$ est croissante.
+  \item Si $u_1 \le u_0$ alors $(u_n)$ est décroissante.
+\end{itemize}
+
+La preuve est %une simple 
+facile par récurrence :
+par exemple si $u_1\ge u_0$, alors comme $f$ est croissante
+on a $u_2 = f(u_1)\ge f(u_0)=u_1$. Partant de $u_2\ge u_1$ on en déduit $u_3 \ge u_2$,...
+
+\bigskip
+
+Voici le résultat principal :
+\begin{proposition}
+\label{prop:fcroissante}
+Si $f : [a,b] \to [a,b]$ une fonction continue et \evidence{croissante},
+alors quelque soit $u_0 \in [a,b]$, la suite récurrente $(u_n)$ est
+monotone et converge vers $\ell \in [a,b]$ vérifiant \myboxinline{$f(\ell)=\ell$}.
+\end{proposition}
+
+Il y a une hypothèse importante qui est un peu cachée : $f$ va de l'intervalle $[a,b]$ dans
+lui-même. Dans la pratique, pour appliquer cette proposition, il faut commencer par choisir $[a,b]$
+et vérifier que $f([a,b]) \subset [a,b]$.
+
+\myfigure{1}{
+\tikzinput{fig_suites16}
+}
+
+
+\begin{proof}
+La preuve est une conséquence des résultats précédents.
+Par exemple si $u_1\ge u_0$ alors la suite $(u_n)$ est croissante, comme par ailleurs elle est majorée par
+$b$, %donc 
+elle converge vers un réel $\ell$. Par la proposition \ref{prop:fll}, %alors
+on a $f(\ell)=\ell$.
+Si $u_1 \le u_0$, %alors
+$(u_n)$ est une décroissante et minorée par $a$, et la conclusion est la même.
+\end{proof}
+
+\begin{exemple}
+Soit $f : \Rr \to \Rr$ définie par $f(x)=\frac14(x^2-1)(x-2)+x$ et $u_0 \in [0,2]$.
+\'Etudions la suite $(u_n)$ définie par récurrence : $u_{n+1}=f(u_n)$ (pour tout $n\ge0$).
+
+\begin{enumerate}
+
+  \item \'Etude de $f$
+  \begin{enumerate}
+    \item $f$ est continue sur $\Rr$.
+    \item $f$ est dérivable sur $\Rr$ et $f'(x)>0$.
+    \item Sur l'intervalle $[0,2]$, $f$ est strictement croissante.
+    \item Et comme $f(0)=\frac12$ et $f(2)=2$ alors $f([0,2]) \subset [0,2]$.
+  \end{enumerate}
+
+  \item Graphe de $f$
+
+\myfigure{1}{
+\tikzinput{fig_suites17}
+}
+
+
+Voici comment tracer la suite : on trace le graphe de $f$ et la bissectrice $(y=x)$.
+On part d'une valeur $u_0$ \couleurnb{(en rouge)}{} sur l'axe des abscisses, la valeur $u_1=f(u_0)$ se lit
+sur l'axe des ordonnées, mais on reporte la valeur de $u_1$ sur l'axe des
+abscisses par symétrie par rapport à la bissectrice.
+On recommence : $u_2=f(u_1)$ se lit sur l'axe des ordonnées et on le reporte sur l'axe des abscisses, etc.
+On obtient ainsi une sorte d'escalier, et graphiquement on conjecture que la suite est croissante et tend vers $1$.
+Si on part d'une autre valeur initiale $u_0'$ \couleurnb{(en vert)}{}, c'est le même principe, mais cette fois on obtient
+un escalier qui descend.
+
+
+
+
+
+  \item Calcul des points fixes.
+
+Cherchons les valeurs $x$ qui vérifient $(f(x)=x)$, autrement dit $(f(x)-x=0)$, mais
+\begin{equation}
+\label{eq:fxmoinsx}
+f(x)-x=\frac14 (x^2-1)(x-2)
+\end{equation}
+
+Donc les points fixes sont les $\{-1,1,2\}$.
+La limite de $(u_n)$ est donc à chercher parmi ces $3$ valeurs.
+
+
+  \item Premier cas : $u_0=1$ ou $u_0=2$.
+
+  Alors $u_1=f(u_0)=u_0$ et par récurrence la suite $(u_n)$ est constante (et converge
+  donc vers $u_0$).
+
+  \item Deuxième cas : $0 \le u_0 <1$.
+  \begin{itemize}
+    \item Comme $f([0,1])\subset [0,1]$, la fonction $f$ se restreint sur l'intervalle $[0,1]$ en une fonction
+    $f : [0,1] \to [0,1]$.
+
+    \item De plus sur $[0,1]$, $f(x)-x\ge0$. Cela se déduit de l'étude de $f$ ou
+    directement de l'expression (\ref{eq:fxmoinsx}).
+
+    \item Pour $u_0 \in [0,1[$, $u_1 = f(u_0) \ge u_0$ d'après le point précédent. Comme $f$ est croissante, par récurrence, comme on l'a vu, la suite $(u_n)$ est croissante.
+
+    \item La suite $(u_n)$ est croissante et majorée par $1$, donc elle converge. Notons $\ell$ sa limite.
+
+    \item D'une part $\ell$ doit être un point fixe de $f$ : $f(\ell)=\ell$. Donc $\ell \in \{-1,1,2\}$.
+
+    \item D'autre part la suite $(u_n)$ étant croissante avec $u_0\ge0$ et majorée par $1$, donc $\ell \in [0,1]$.
+
+    \item Conclusion : si $0\le u_0<1$ alors $(u_n)$ converge vers $\ell = 1$.
+  \end{itemize}
+
+  \item Troisième cas : $1 < u_0 < 2$.
+
+  La fonction $f$ se restreint en $f : [1,2] \to [1,2]$. Sur l'intervalle $[1,2]$, $f$ est croissante
+  mais cette fois $f(x) \le x$. Donc $u_1 \le u_0$, et la suite $(u_n)$ est décroissante.
+  La suite $(u_n)$ étant minorée par $1$, elle converge. Si on note $\ell$ sa limite alors
+  d'une part $f(\ell)=\ell$, donc $\ell \in \{-1,1,2\}$,
+  et d'autre part $\ell \in [1,2[$. Conclusion : $(u_n)$ converge vers $\ell=1$.
+
+\end{enumerate}
+
+
+\end{exemple}
+
+
+
+Le graphe de $f$ joue un rôle très important, il faut le tracer même si on ne le demande pas explicitement.
+Il permet de se faire une idée très précise du comportement de la suite :
+Est-elle croissante ? Est-elle positive ? Semble-t-elle converger ? Vers quelle limite ?
+Ces indications sont essentielles pour savoir ce qu'il faut montrer lors de l'étude de la suite.
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Cas d'une fonction décroissante}
+
+
+
+\begin{proposition}
+Soit $f : [a,b] \to [a,b]$ une fonction continue et \evidence{décroissante}.
+Soit $u_0 \in [a,b]$ et la suite récurrente $(u_n)$ définie par $u_{n+1}=f(u_n)$. Alors :
+\begin{itemize}
+  \item La sous-suite $(u_{2n})$ converge vers une limite $\ell$  vérifiant $f\circ f(\ell)=\ell$.
+  \item La sous-suite $(u_{2n+1})$ converge vers une limite $\ell'$ vérifiant $f\circ f(\ell')=\ell'$.
+\end{itemize}
+\end{proposition}
+
+
+Il se peut (ou pas !) que $\ell=\ell'$.
+
+\begin{proof}
+La preuve se déduit du cas croissant.
+La fonction $f$ étant décroissante, la fonction $f\circ f$ est croissante.
+Et on applique la proposition \ref{prop:fcroissante} à la fonction $f\circ f$ et
+à la sous-suite $(u_{2n})$ définie par récurrence $u_2 = f\circ f(u_0)$, $u_4 = f\circ f(u_2)$,\ldots
+
+De même en partant de $u_1$ et $u_3 = f \circ f(u_1)$,\ldots
+\end{proof}
+
+\begin{exemple}
+$$f(x)=1+\frac1x,\qquad u_0 >0, \qquad u_{n+1} = f(u_n)= 1 + \frac{1}{u_n}$$
+
+
+\begin{enumerate}
+  \item \'Etude de $f$. La fonction $f : ]0,+\infty[\to ]0,+\infty[$ est
+  une fonction continue et strictement décroissante.
+
+  \item Graphe de $f$.
+
+\myfigure{1}{
+\tikzinput{fig_suites18}
+}
+
+Le principe pour tracer la suite est le même qu'auparavant : on place $u_0$,
+on trace $u_1=f(u_0)$ sur l'axe des ordonnées et on le reporte par symétrie sur l'axe des abscisses,...
+On obtient ainsi une sorte d'escargot, et graphiquement on conjecture que la suite converge
+vers le point fixe de $f$. En plus on note que la suite des termes de rang pair semble une suite croissante,
+alors que la suite des termes de rang impair semble décroissante.
+
+  \item Points fixes de $f\circ f$.
+
+  $$f\circ f(x)= f\big( f(x)\big)= f\big(1+\frac1x\big)= 1+ \frac{1}{1+\frac1x}=1+\frac{x}{x+1} = \frac{2x+1}{x+1}$$
+  Donc
+  $$f\circ f(x)=x \iff  \frac{2x+1}{x+1} = x \iff x^2-x-1=0 \iff x \in
+\left\{\frac{1-\sqrt{5}}{2},\frac{1+\sqrt{5}}{2}\right\}$$
+
+  Comme la limite doit être positive, le seul point fixe à considérer est $\ell=\frac{1+\sqrt{5}}{2}$.
+
+  Attention ! Il y a un unique point fixe, mais on ne peut pas conclure à ce stade car $f$ est définie sur $]0,+\infty[$ qui n'est pas un intervalle compact.
+
+  \item Premier cas $0 < u_0 \le \ell = \frac{1+\sqrt{5}}{2}$.
+
+  Alors,  $u_1 = f(u_0) \ge f(\ell)=\ell$ ; et par une étude de $f\circ f(x)-x$, on obtient que  :  $u_2 = f\circ f(u_0) \ge u_0$ ; $u_1  \ge f\circ f(u_1)=u_3$.
+
+  Comme $u_2 \ge u_0$ et $f\circ f$ est croissante, la suite $(u_{2n})$ est croissante.
+  De même $u_3  \le u_1$, donc la suite $(u_{2n+1})$ est décroissante.
+  De plus comme  $u_0 \le u_1$, en appliquant $f$ un nombre \emph{pair} de fois, on obtient que $u_{2n} \le u_{2n+1}$.
+  La situation est donc la suivante :
+  $$u_0 \le u_2 \le \cdots \le u_{2n} \le \cdots \le u_{2n+1} \le \cdots \le u_3 \le u_1$$
+
+  La suite $(u_{2n})$ est croissante et majorée par $u_1$, donc elle converge. Sa limite ne peut
+  être que l'unique point fixe de $f\circ f$: $\ell = \frac{1+\sqrt{5}}{2}$.
+
+   La suite $(u_{2n+1})$ est décroissante et minorée par $u_0$, donc elle converge aussi vers
+   $\ell = \frac{1+\sqrt{5}}{2}$.
+
+   On en conclut que la suite $(u_{n})$ converge vers $\ell = \frac{1+\sqrt{5}}{2}$.
+
+  \item Deuxième cas $u_0 \ge \ell = \frac{1+\sqrt{5}}{2}$.
+
+  On montre de la même façon que $(u_{2n})$ est décroissante et converge vers $\frac{1+\sqrt{5}}{2}$,
+  et que $(u_{2n+1})$ est croissante et converge aussi vers $\frac{1+\sqrt{5}}{2}$.
+
+
+\end{enumerate}
+
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+
+  \item Soit $f(x)=\frac19x^3+1$, $u_0=0$ et pour $n\ge0$ :
+  $u_{n+1}=f(u_n)$. \'Etudier en détail la suite $(u_n)$ :
+(a) montrer que $u_n\ge0$ ;
+(b) étudier et tracer le graphe de $g$ ;
+(c) tracer les premiers termes de $(u_n)$ ;
+(d) montrer que $(u_n)$ est croissante ;
+(e) étudier la fonction $g(x)=f(x)-x$ ;
+(f) montrer que $f$ admet deux points fixes sur $\Rr_+$, $0 < \ell < \ell'$ ;
+(g) montrer que $f([0,\ell]) \subset [0,\ell]$ ;
+(h) en déduire que $(u_n)$ converge vers $\ell$.
+
+
+  \item Soit $f(x)=1+\sqrt{x}$, $u_0= 2$ et pour $n\ge0$ :
+  $u_{n+1}=f(u_n)$. \'Etudier en détail la suite $(u_n)$.
+
+
+  \item Soit $(u_n)_{n\in\Nn}$ la suite définie par :
+$u_0 \in[0,1]$ et $u_{n+1} = u_n - u_n^2$. \'Etudier en détail la suite $(u_n)$.
+
+  \item \'Etudier la suite définie par $u_0=4$ et $u_{n+1}=\frac{4}{u_n+2}$.
+
+\end{enumerate}
+\end{miniexercices}
+
+
+\auteurs{
+
+
+Auteurs : Arnaud Bodin, Niels Borne, Laura Desideri
+
+Dessins : Benjamin Boutin
+}
+
+\finchapitre
+\end{document}
+
+

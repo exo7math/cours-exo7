@@ -1,0 +1,336 @@
+%%%%%%%%%%%%%%%%%% PREAMBULE %%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt]{report}
+
+%----- Principaux packages -----
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+\usepackage{fancybox}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[usenames, x11names]{xcolor}
+\usepackage{fouriernc}
+
+
+%----- Ensembles : entiers, reels, complexes -----
+\newcommand{\Nn}{\mathbb{N}} \newcommand{\N}{\mathbb{N}}
+\newcommand{\Zz}{\mathbb{Z}} \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Qq}{\mathbb{Q}} \newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Rr}{\mathbb{R}} \newcommand{\R}{\mathbb{R}}
+\newcommand{\Cc}{\mathbb{C}} \newcommand{\C}{\mathbb{C}}
+\newcommand{\Kk}{\mathbb{K}} \newcommand{\K}{\mathbb{K}}
+
+%----- Modifications de symboles -----
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\Re}{\mathop{\text{Re}}\nolimits}
+\renewcommand{\Im}{\mathop{\text{Im}}\nolimits}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\epsilon}{\varepsilon}
+
+%----- Fonctions usuelles -----
+\newcommand{\ch}{\mathop{\mathrm{ch}}\nolimits}
+\newcommand{\sh}{\mathop{\mathrm{sh}}\nolimits}
+\renewcommand{\tanh}{\mathop{\mathrm{th}}\nolimits}
+\newcommand{\cotan}{\mathop{\mathrm{cotan}}\nolimits}
+\newcommand{\Arcsin}{\mathop{\mathrm{Arcsin}}\nolimits}
+\newcommand{\Arccos}{\mathop{\mathrm{Arccos}}\nolimits}
+\newcommand{\Arctan}{\mathop{\mathrm{Arctan}}\nolimits}
+\newcommand{\Argsh}{\mathop{\mathrm{Argsh}}\nolimits}
+\newcommand{\Argch}{\mathop{\mathrm{Argch}}\nolimits}
+\newcommand{\Argth}{\mathop{\mathrm{Argth}}\nolimits}
+\newcommand{\pgcd}{\mathop{\mathrm{pgcd}}\nolimits} 
+
+ %----- Commandes divers ------
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\Ker}{\mathop{\text{Ker}}\nolimits}
+\newcommand{\id}{\mathop{\text{id}}\nolimits}
+\newcommand{\Card}{\mathop{\text{Card}}\nolimits}
+\newcommand{\Vect}{\mathop{\text{Vect}}\nolimits}
+\newcommand{\Mat}{\mathop{\mathrm{Mat}}\nolimits}
+\newcommand{\rg}{\mathop{\text{Ker}}\nolimits}
+\newcommand{\tr}{\mathop{\text{tr}}\nolimits}
+\newcommand{\ppcm}{\mathop{\text{ppcm}}\nolimits}
+
+
+%----- Definition d'un terme -----
+\newcommand{\defi}[1]{{\color{myorange}\textbf{\emph{#1}}}}
+\newcommand{\evidence}[1]{{\color{blue}\textbf{\emph{#1}}}}
+\newcommand{\assertion}[1]{{\og\emph{#1}\fg}} % pour chapitre logique
+
+
+%-----  Package liens hypertexts ----- 
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue,
+pdftitle={Exo7 - Cours de mathématiques}, pdfauthor={Exo7}}
+
+%----- Commandes tikz -----
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{calc}
+\usetikzlibrary{shadows}
+\usetikzlibrary{arrows}
+\usetikzlibrary{patterns}
+\usetikzlibrary{matrix}
+
+%-----  Multi colonnes- ---- 
+\usepackage{multicol}
+\setlength{\columnseprule}{0.2mm}
+
+%-----  Package d'importation ----- 
+\usepackage{import}
+
+
+%----- Style sections ----- 
+\usepackage{sectsty}
+%\allsectionsfont{\color{blue}\itshape\underline}
+\chapterfont{\selectfont}
+\sectionfont{\color{Tomato3}\upshape\selectfont}
+\subsectionfont{\color{Tomato4}\upshape\selectfont}
+\usepackage{titlesec}
+\titleformat{\chapter}{\color{Red3}\titlerule[3pt]\vspace{2pt}\titlerule[1pt]
+\normalfont\sffamily\Large\bfseries\center\vspace{0.8em}}{}{20pt}{}[\vspace{1em}
+{\titlerule[1pt]}\vspace{2pt}\titleline{\color{Red3}\newline\titlerule[3pt]}]
+
+
+%----- Structure des exercices ------
+
+\newtheoremstyle{styleexo}% name
+{2ex}% Space above
+{3ex}% Space below
+{}% Body font
+{}% Indent amount 1
+{\bfseries} % Theorem head font
+{}% Punctuation after theorem head
+{\newline}% Space after theorem head 2
+{}% Theorem head spec (can be left empty, meaning ‘normal’)
+
+\theoremstyle{styleexo}
+\newtheorem{exo}{Exercice}
+\newtheorem{ind}{Indications}
+\newtheorem{cor}{Correction}
+
+\newcommand{\exercice}[1]{} \newcommand{\finexercice}{}
+%\newcommand{\exercice}[1]{{\tiny\texttt{#1}}\vspace{-2ex}} % pour afficher le numero absolu, l'auteur...
+\newcommand{\enonce}{\begin{exo}} \newcommand{\finenonce}{\end{exo}}
+\newcommand{\indication}{\begin{ind}} \newcommand{\finindication}{\end{ind}}
+\newcommand{\correction}{\begin{cor}} \newcommand{\fincorrection}{\end{cor}}
+\newcommand{\noindication}{\stepcounter{ind}}
+\newcommand{\nocorrection}{\stepcounter{cor}}
+\newcommand{\fiche}[1]{} \newcommand{\finfiche}{}
+\newcommand{\titre}[1]{\centerline{\large \bf #1}}
+\newcommand{\addcommand}[1]{}
+
+
+%Link to video Youtube
+
+% variable myvideo : 0 no video, otherwise youtube reference
+\newcommand{\video}[1]{\def\myvideo{#1}}
+\newcommand{\insertvideo}[2]{\video{#1}%
+{\small\texttt{\href{http://www.youtube.com/watch?v=\myvideo}{Vidéo $\blacksquare$ #2}}}}
+
+% Liens vers les fiches d'exercices
+\newcommand{\mafiche}[1]{\def\mymafiche{#1}}
+\newcommand{\insertfiche}[2]{\mafiche{#1}%
+{\small\texttt{\href{http://exo7.emath.fr/ficpdf/\mymafiche}{Fiche d'exercices $\blacklozenge$ #2}}}}
+
+
+%----- Sommaire et mini-sommaires ------
+\usepackage[french]{minitoc}
+\setcounter{tocdepth}{1}
+\setcounter{minitocdepth}{2}
+\renewcommand{\contentsname}{}
+\mtcsettitle{minitoc}{}
+\mtcsetrules{minitoc}{off}
+\mtcsetfeature{minitoc}{before}{\vspace{-5pt}}% à ajuster
+\makeatletter
+\renewcommand{\thesection}{\@arabic\c@section}
+% \renewcommand{\thechapter}{}
+% \renewcommand{\chaptername}{}
+\makeatother
+
+
+
+%----- Logo Exo7 ------
+\definecolor{myred}{rgb}{0.93,0.26,0}
+\definecolor{myorange}{rgb}{0.97,0.58,0}
+\definecolor{myyellow}{rgb}{1,0.86,0}
+
+\newcommand{\LogoExoSept}[1]{  % input : echelle
+{\usefont{U}{cmss}{bx}{n}
+\begin{tikzpicture}[scale=0.1*#1,transform shape]
+  \fill[color=myorange] (0,0)--(4,0)--(4,-4)--(0,-4)--cycle;
+  \fill[color=myred] (0,0)--(0,3)--(-3,3)--(-3,0)--cycle;
+  \fill[color=myyellow] (4,0)--(7,4)--(3,7)--(0,3)--cycle;
+  \node[scale=5] at (3.5,3.5) {Exo7};
+\end{tikzpicture}}
+}
+
+%------ Titre livre -------------
+\newcommand{\montitre}[1]{
+\hfill\LogoExoSept{3}
+
+{\footnotesize % \renewcommand{\contentsname}{\small Sommaire}
+\dominitoc 
+%\renewcommand{\contentsname}{Cours de mathématiques\\ Première année}
+\renewcommand{\contentsname}{#1}
+\begingroup
+\let\clearpage\relax
+\tableofcontents
+\endgroup}\finsommaire}
+
+\newcommand{\finsommaire}{
+\vfill\par\href{http://www.unisciel.fr/}{\includegraphics[scale=1]{logo_unisciel.png}}
+\hfill\hspace*{9ex}\begin{minipage}{0.5\textwidth}\vspace*{-5.5ex}\center Cours et exercices 
+de maths \\ \texttt{\href{http://exo7.emath.fr}{exo7.emath.fr}}\end{minipage}
+\hfill\href{http://www.univ-lille1.fr/}{\includegraphics[scale=0.33]{logo_lille1.jpg}}
+\vspace*{-3.5ex}\newpage}
+
+
+%------ Chapitre -------------
+% \renewcommand{\thechapter}{\Roman{chapter}}
+% 
+% \newcommand{\chapitre}[1]{          % pour chapitre dans livre
+% \chapter{#1}\vspace*{-21.5ex}
+% \LogoExoSept{1.6} \vspace*{5ex}
+% {\footnotesize % \renewcommand{\contentsname}{\small Sommaire}
+% \renewcommand{\contentsname}{}
+% {\small\minitoc}}
+% \vspace*{2ex}} 
+
+\newcommand{\chapitre}[1]{          % pour chapitre seul
+\begin{document}
+ \vspace*{-4ex}
+\LogoExoSept{3} \vspace*{-2ex}
+
+\vspace*{3.0ex}{\color{Red3}
+{\hrule height 3pt}\vspace{2pt}{\hrule height 1pt}\vspace*{1.8ex} 
+\hfil\textsf{\textbf{\Large {#1}}}
+\vspace*{2ex}{\hrule height 1pt}\vspace{2pt}{\hrule height 3pt}}
+\vspace*{2ex}{\footnotesize 
+\renewcommand{\contentsname}{}
+\tableofcontents}\vspace*{2ex}}
+
+%\newcommand{\finchapitre}{}
+\newcommand{\finchapitre}{\end{document}} % pour chapitre seul
+
+
+%----- Style des pages ------
+\usepackage[a4paper]{geometry}
+\geometry{top=2cm, bottom=2cm, left=2cm, right=2cm, marginparsep=1cm}
+\setlength{\parindent}{0cm}
+
+%----- Personnalisation tiret itemize -----
+\renewcommand{\FrenchLabelItem}{{\bf--}}  % Evite confusion avec signe -
+
+%----- Personnalisation pour les theoremes,... -----
+\makeatletter
+\newtheoremstyle{propthm}{\topsep}{\topsep}{}{}{\bfseries}{}{\newline}{%
+\thmname{#1}\thmnumber{ #2}\@ifnotempty{#3}{ (\thmnote{#3})}.}
+
+\newtheoremstyle{definit}{\topsep}{\topsep}{}{}{\bfseries}{}{ }{%
+\thmname{#1}\thmnumber{ #2}\@ifnotempty{#3}{ (\thmnote{#3})}.}
+\makeatother
+
+\theoremstyle{propthm}
+\newtheorem{proposition}{Proposition}
+\newtheorem*{propriete*}{Proriété}
+\newtheorem{theoreme}{Théorème}
+
+\theoremstyle{definit}
+\newtheorem{definition}{Définition}
+\newtheorem{corollaire}{Corollaire}
+
+\theoremstyle{definition}
+\newtheorem{exemple}{Exemple}
+\newtheorem{lemme}{Lemme}
+\newtheorem*{remarque*}{Remarque}
+\newtheorem{tp}{Travaux pratiques}
+\newtheorem*{miniexercices}{Mini-exercices}
+\newtheorem{exercicecours}{Exercice}
+
+%----- Commandes anti-beamer -----
+\newcommand{\pause}{}  % permet de mettre des \pause dans beamer pas dans poly
+\newcommand{\beameronly}[1]{}
+
+
+%------ Figures ------
+\def\myscale{1} % par défaut 
+\newcommand{\myfigure}[2]{  % entrée : echelle, fichier figure
+\def\myscale{#1}\begin{center}\footnotesize{#2}\end{center}}
+
+
+%------ Encadrement des formules ------
+\usepackage{fancybox}
+%\setlength{\fboxsep}{7pt}
+\newcommand{\mybox}[1]{\begin{center}\shadowbox{#1}\end{center}}
+\newcommand{\myboxinline}[1]{\raisebox{-2ex}{\shadowbox{#1}}}
+
+
+%------ Encadrement auteurs ------
+\usepackage[tikz]{bclogo}
+\newcommand{\auteurs}[1]{
+\renewcommand\bcStyleTitre[1]{\large\textbf{Auteurs}}
+\vfill{\color{black!80}
+\begin{bclogo}[logo=\bcplume, couleurBord=black!70, couleurBarre=gray, couleurOmbre=gray, arrondi=0.2, ombre=true, blur]{Auteurs}
+ #1 \end{bclogo}}}
+
+%------ Algorithmes ------
+
+\newcommand{\Python}{\texttt{Python}}
+\newcommand{\Sage}{\texttt{Sage}}
+
+% Pour afficher du code
+\usepackage{listingsutf8}
+
+% \lstset{
+%   language=Python,
+%   upquote=true,
+%   columns=flexible,
+%   keepspaces=true,
+%   basicstyle=\ttfamily,
+%   commentstyle=\color{gray},
+%   showspaces=false
+%   showstringspaces=false
+% } 
+\lstset{
+  language=Python,
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  showspaces=false
+  showstringspaces=false
+}
+
+% \makeatletter
+% \def\lst@outputspace{\lst@bkgcolor\empty\color{white}}
+% \makeatother
+\makeatletter
+\def\lst@outputspace{{\ifx\lst@bkgcolor\empty\color{white}\else
+\lst@bkgcolor\fi\lst@visiblespace}}
+\lst@keepspacestrue
+\lst@keepspacestrue 
+\makeatother
+
+% \newcommand{\insertcode}[1]{\hrulefill\quad \texttt{#1}\newline
+% \lstinputlisting[inputencoding=utf8/latin1]{Algos/#1}\hrulefill}
+\newcommand{\insertcode}[2]{
+\renewcommand\bcStyleTitre[1]{\hfill\texttt{\color{gray}#2}}
+\begin{center}
+\begin{minipage}{0.9\textwidth}
+\begin{bclogo}[logo=\bctrombone, couleurBord=black!80, couleurBarre=gray, 
+couleurOmbre=gray, arrondi=0.2, ombre=true, blur]{#1}
+\lstinputlisting[inputencoding=utf8/latin1]{../#1} 
+\end{bclogo}  
+\end{minipage}  
+\end{center}
+}
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}

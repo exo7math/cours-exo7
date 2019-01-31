@@ -1,0 +1,1648 @@
+
+\documentclass[12pt, class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+% Commandes spécifiques à ce chapitre
+\newcommand{\GL}{GL}
+
+
+\begin{document}
+
+%====================================================================
+\chapitre{Systèmes différentiels}
+%====================================================================
+
+
+
+Nous allons voir comment des méthodes d'algèbre linéaire 
+permettent de résoudre des problèmes d'analyse.
+
+Dans ce chapitre, les matrices sont à coefficients réels ou complexes.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Cas d'une matrice diagonalisable}
+
+%----------------------------------------------------
+\subsection{Introduction}
+
+
+Vous savez résoudre les équations différentielles du type $x'(t) = a x(t)$, où 
+la dérivée $x'(t)$ est liée à la fonction $x(t)$. Par exemple, si $a$ est une constante, les fonctions solutions sont les $x(t) = x_0 e^{at}$ (où $x_0 \in \Rr$). Plus généralement, on apprend à résoudre les équations 
+$x'(t)=a(t)x(t)+b(t)$ où $a$ et $b$ sont des fonctions de $t$.
+Dans tous les cas, l'exponentielle joue un rôle central dans l'écriture des solutions.
+
+Considérons maintenant le système différentiel suivant :
+\begin{equation}
+\left\{\begin{array}{rcl}
+x'(t) &=& a\,x(t)+b\,y(t)\cr
+y'(t) &=& c\,x(t)+d\,y(t)
+\end{array}\right.
+\label{eq:sysdiffintro}\tag{$S$}
+\end{equation}
+
+La situation se complique car les équations sont enchevêtrées : $x'(t)$ est liée à $x(t)$, mais aussi à $y(t)$. Donc il faudrait d'abord trouver $y(t)$ pour résoudre la première équation. Mais, dans la seconde équation,
+$y'(t)$ est liée à $y(t)$, mais aussi à $x(t)$, que l'on n'a pas encore su trouver !
+
+Pour s'en sortir, la solution consiste à considérer le couple $(x(t),y(t))$ comme une seule variable.
+On pose 
+$$X(t) = \begin{pmatrix}x(t)\cr y(t)\end{pmatrix},\qquad
+X'(t) = \begin{pmatrix}x'(t)\cr y'(t)\end{pmatrix},\qquad
+A = \begin{pmatrix}a & b \cr c & d\end{pmatrix}.$$
+Le système différentiel (\ref{eq:sysdiffintro}) s'écrit alors simplement :
+$$X'(t) = A X(t).$$
+On a alors envie de dire que, comme pour une équation du type $x'(t)=ax(t)$, les solutions de ce type d'équation seraient les fonctions définies par
+$$X(t) =  e^{tA} \cdot X_0$$
+(où $X_0 \in \Rr^2$) et ce sera effectivement le cas, une fois que l'on aura défini ce qu'est l'exponentielle d'une matrice !
+
+Pour l'instant, nous allons voir comment résoudre un système différentiel dans le cas particulier où la matrice est diagonalisable.
+ 
+
+%----------------------------------------------------
+\subsection{\'Ecriture matricielle}
+
+
+Un \defi{système différentiel linéaire homogène} est un système d'équations différentielles de la forme :
+\begin{equation}
+\left\{\begin{array}{rcl}
+x'_1(t)&=& a_{11}x_1(t)+a_{12}x_2(t)+\cdots+a_{1n}x_n(t)\cr
+\vdots&& \cr 
+x'_n(t) &=& a_{n1}x_1(t)+a_{n2}x_2(t)+\cdots+a_{nn}x_n(t)
+\end{array}\right.
+\label{eq:sysdiff}\tag{$S$}
+\end{equation}
+où les $a_{ij}$ ($1\le i,j \le n$) sont des coefficients constants réels ou complexes. 
+
+On pose 
+$$X(t) = \begin{pmatrix}x_1(t)\cr \vdots \cr x_n(t)\end{pmatrix},\qquad
+X'(t) = \begin{pmatrix}x_1'(t)\cr \vdots \cr x_n'(t)\end{pmatrix},\qquad
+A = \begin{pmatrix}
+a_{11} & \cdots & a_{1n} \cr
+\vdots &       & \vdots \cr
+a_{n1} & \cdots & a_{nn} \cr
+\end{pmatrix}.$$
+Avec cette notation matricielle, le système différentiel (\ref{eq:sysdiff}) devient :
+\mybox{$X'(t) = A X(t).$}
+
+
+\defi{Résoudre} le système linéaire $X'=AX$, avec $A \in M_n(\Rr)$ (ou $A \in M_n(\Cc)$) une matrice constante, c'est donc trouver $X(t)$ dérivable (c'est-à-dire $n$ fonctions $x_1(t),\ldots,x_n(t)$ dérivables) tel que $X'(t) = A X(t)$, pour tout $t \in \Rr$.
+
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+  \item Dans le cas $n=1$, on retrouve simplement une seule équation que l'on écrit $x'(t) = a x(t)$ et dont les solutions sont les $x(t) = x_0 e^{at}$, pour n'importe quelle constante (réelle ou complexe) $x_0$.
+  \item L'ensemble des solutions est un espace vectoriel. En effet, on prouve facilement que l'ensemble des solutions est un sous-espace vectoriel de l'ensemble des fonctions dérivables de $\Rr$ dans $\Rr^n$ : la fonction identiquement nulle est solution et, si $X_1$ et $X_2$ sont solutions, alors $\lambda X_1+\mu X_2$ est aussi solution (avec $\lambda,\mu \in \Rr$).
+\end{itemize}
+\end{remarque*}
+
+\begin{exemple}[Système diagonal]
+Si $A$ est une matrice diagonale à coefficients réels, alors le système s'écrit $X'=AX$ avec 
+$$A = \begin{pmatrix}
+\lambda_1&0&\cdots &0\cr
+0& \ddots & &\vdots \cr
+\vdots & &\ddots&0\cr
+0&\cdots&0&\lambda_n
+\end{pmatrix},
+\qquad \text{ c'est-à-dire }\qquad
+\left\{\begin{array}{rcl}
+x'_1(t)&=& \lambda_1 x_1(t)\cr
+\vdots&& \cr 
+x'_n(t) &=& \lambda_n x_n(t).
+\end{array}\right.
+$$
+On résout indépendamment chaque équation $x'_i(t) = \lambda_i x_i(t)$, dont les solutions
+sont les $x_i(t) = k_i e^{\lambda_i t}$, $k_i \in \Rr$.
+Les solutions $X(t)$ sont donc les fonctions 
+$$X(t) = \begin{pmatrix}
+k_1 e^{\lambda_1 t}\cr
+\vdots\cr
+k_n e^{\lambda_n t}\cr
+\end{pmatrix}$$
+où $k_1,\ldots,k_n$ sont des constantes réelles.
+
+%Une autre façon de l'écrire est 
+%$$X(t) = e^{At} \cdot X(0)$$
+%où $X(0)$ est le vecteur de coordonnées $(x_1(0),\ldots,x_n(0))$.
+\end{exemple}
+
+
+\begin{exemple}[Système triangulaire]
+Un système triangulaire n'est pas tellement plus compliqué à résoudre.
+En effet, si $A$ est une matrice triangulaire, on a :
+$$\left\{\begin{array}{rcr}
+x'_1 &=& a_{11}x_1+\cdots+\cdots+a_{1n}x_n\cr
+x'_2 &=& \quad \quad \ \ a_{22}x_2+\cdots+a_{2n}x_n\cr
+\vdots&&\cr 
+x'_n&=& \quad\quad\quad \quad \quad\quad \ \ a_{nn}x_n
+\end{array}\right.$$
+On résout le système de proche en proche :
+on peut d'abord intégrer la dernière équation, puis reporter 
+la solution dans l'équation précédente (qui devient une équation du type
+$x'(t) = ax(t) + b(t)$) et ainsi en remontant intégrer tout le système.
+\end{exemple}
+
+
+
+
+
+%----------------------------------------------------
+\subsection{Cas diagonalisable}
+
+Voici un premier résultat qui affirme que si on connaît un vecteur propre de $A$, alors on peut lui associer une solution du système différentiel.
+
+\begin{proposition}
+\label{prop:sysdiff}
+Soient $A\in M_n(\Rr)$, $\lambda$ une valeur propre de $A$ et $V$ un vecteur propre associé. 
+Alors la fonction 
+$$\begin{array}{cccc}
+X : & \Rr & \longrightarrow & \Rr^n\cr 
+    &t &\longmapsto & e^{\lambda t} V
+    \end{array}$$
+est solution du système différentiel $X'=AX$.
+\end{proposition} 
+
+\begin{proof}
+Soit % $V=\begin{pmatrix}v_1\cr\vdots\cr v_n\end{pmatrix}$ et 
+$X(t)=e^{\lambda t}V$. 
+On a alors
+$$X'(t)=\lambda e^{\lambda t} V=e^{\lambda t}(\lambda V)=e^{\lambda t} AV=AX(t).$$
+Cela prouve que $X(t)$ est bien solution du système homogène $X'=AX$.
+\end{proof}
+
+
+
+\begin{exemple}
+Soit $A=\left(\begin{smallmatrix}3&1\cr -1&1\end{smallmatrix}\right)$.
+On a $\chi_A(X)=(X-2)^2$, la seule valeur propre de $A$ est donc $\lambda=2$.
+Déterminons un vecteur propre : soit $V=\left(\begin{smallmatrix}x \cr y\end{smallmatrix}\right)\in\Rr^2$ tel que $A \cdot V=2V$ ;
+on a alors $x+y=0$, et le vecteur $V=\left(\begin{smallmatrix} 1 \cr -1 \end{smallmatrix}\right)$ est un vecteur propre de $A$. Ainsi l'application 
+$X(t)=e^{2t}\left(\begin{smallmatrix}1\cr-1\end{smallmatrix}\right) = \left(\begin{smallmatrix}e^{2t}\cr-e^{2t}\end{smallmatrix}\right)$ 
+est une solution du système $X'=AX$, ce que l'on vérifie aussi à la main.
+\end{exemple}
+
+
+
+\bigskip
+
+
+\begin{theoreme}
+Soit $A\in M_n(\Rr)$ une matrice diagonalisable sur $\Rr$. Notons 
+$(V_1,\ldots,V_n)$ une base de vecteurs propres et $\lambda_1,\ldots,\lambda_n$ les valeurs propres correspondantes. Alors les fonctions $X_i(t)=e^{\lambda_i t}V_i$ ($1\le i\le n$) forment une base de l'espace des solutions du système $X'=AX$.
+\end{theoreme}
+
+\begin{proof}~
+\begin{itemize}
+  \item Tout d'abord, par la proposition \ref{prop:sysdiff}, les $X_i(t)=e^{\lambda_i t}V_i$ 
+sont bien des solutions du système différentiel.
+
+  \item Montrons que ces solutions sont linéairement indépendantes.
+Soient $c_1,\dots,c_n$ des réels tels que 
+$$c_1X_1(t)+\cdots+c_nX_n(t)=0.$$
+Cette égalité étant vraie pour tout $t\in\Rr$, elle est vraie en particulier pour $t=0$ où elle devient
+$$c_1V_1+\cdots+c_nV_n=0.$$
+Cela implique $c_1=\dots=c_n=0$ car les $V_i$ forment une base de $\Rr^n$. 
+
+%Comme l'espace des solutions est de dimension $n$, les $S_i$ forment une base. 
+
+  \item Soit $P$ la matrice dont les colonnes sont les vecteurs $V_1,\dots,V_n$.
+Alors la matrice $P^{-1}AP=D$ est diagonale.
+
+  \item Soit $X(t)$ une solution du système différentiel $X'=AX$.
+  La matrice de passage $P$ étant inversible, notons $Y = P^{-1}X$ (donc $X=PY$).
+  Alors $Y' = P^{-1}X' = P^{-1}AX = P^{-1}APY = DY$.
+  Ainsi $Y$ est la solution d'un système différentiel diagonal :
+$$\left\{\begin{array}{rcl}
+y'_1 &=& \lambda_1 y_1\cr 
+\vdots&&\cr 
+y'_n &=& \lambda_n y_n
+\end{array}\right. \qquad  {\text{d'où}}\ \ \ 
+Y(t)=\begin{pmatrix}
+k_1e^{\lambda_1t}\cr 
+\vdots\cr 
+k_ne^{\lambda_nt}
+\end{pmatrix}.$$
+Comme les colonnes de $P$ sont les vecteurs $V_1,\ldots,V_n$, alors 
+$$X(t) = PY(t) = k_1e^{\lambda_1t}V_1+\cdots+k_ne^{\lambda_nt}V_n=k_1X_1(t)+\cdots+k_nX_n(t).$$
+
+On vient de prouver que n'importe quelle solution $X(t)$ est combinaison linéaire des $X_i(t)$.
+Ainsi la famille $(X_1,\ldots,X_n)$ est génératrice de l'espace des solutions.
+
+
+  \item Conclusion : $(X_1,\ldots,X_n)$ est une base de solutions.
+ \qedhere
+\end{itemize}  
+\end{proof}
+
+\begin{exemple}
+On veut résoudre le système différentiel $X'=AX$ avec $X(0) = X_0$ où
+$$A = \begin{pmatrix}1&4&-4\\3&2&-4\\ 3&-3&1 \end{pmatrix}
+ \quad \text{ et } \quad
+ X_0 = \begin{pmatrix}1\\2\\3 \end{pmatrix}.$$
+ 
+\begin{itemize}
+  \item \textbf{Valeurs propres et vecteurs propres.}
+  
+   Les valeurs propres de $A$ sont $\lambda_1 = 1$, $\lambda_2 = -2$ et $\lambda_3 = 5$.
+   Les vecteurs propres associés sont 
+   $$V_1 = \begin{pmatrix} 1\\1\\1  \end{pmatrix}, \qquad
+   V_2 = \begin{pmatrix} 0\\1\\1   \end{pmatrix}, \qquad
+   V_3 = \begin{pmatrix} 1\\1\\0   \end{pmatrix}.$$
+   
+  \item \textbf{Solutions générales.}
+  
+  Nous obtenons trois solutions
+  $$X_1(t) = e^{\lambda_1 t}V_1 = \begin{pmatrix} e^t \\ e^t \\ e^t \end{pmatrix}, \qquad
+  X_2(t) = e^{\lambda_2 t}V_2 = \begin{pmatrix}0\\ e^{-2t}\\ e^{-2t} \end{pmatrix}, \qquad
+  X_3(t) = e^{\lambda_3 t}V_3 = \begin{pmatrix}e^{5t}\\e^{5t}\\0 \end{pmatrix}.$$
+  
+  Les solutions du système $X'=AX$ sont donc les fonctions de la forme
+  $$X(t) = \alpha X_1(t) + \beta X_2(t) + \gamma X_3(t)$$
+  avec $\alpha,\beta,\gamma \in \Rr$.
+    
+  \item \textbf{Condition initiale.}
+  
+  On cherche quelle solution vérifie en plus $X(0) = X_0$. Or
+  $$X(0) = \alpha X_1(0) + \beta X_2(0) + \gamma X_3(0) 
+  =  \alpha V_1 + \beta V_2 + \gamma V_3
+  = \begin{pmatrix} \alpha + \gamma \\ \alpha+\beta +\gamma \\ \alpha + \beta \end{pmatrix}.$$
+  La condition initiale $X(0) = X_0$ se transforme donc en le système linéaire :
+  $$\left\{ \begin{array}{rcl}
+  \alpha + \gamma &=& 1\\ 
+  \alpha+\beta +\gamma &=& 2\\ 
+  \alpha + \beta &=& 3
+  \end{array}
+  \right.$$
+  On trouve $\alpha = 2$, $\beta = 1$, $\gamma = -1$.
+  Ainsi l'unique solution qui vérifie le système et la condition initiale est
+  $$X(t) = \begin{pmatrix} 2e^t - e^{5t} \\ 2e^t + e^{-2t} - e^{5t} \\ 2e^t+ e^{-2t} \end{pmatrix}.$$
+
+\end{itemize}
+\end{exemple}
+
+
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Résoudre l'équation différentielle linéaire d'ordre $1$ : $x'(t) = -3x(t)$.
+  Trouver la solution vérifiant $x(0)=1$.
+   Idem avec $x'(t)+x(t) = \cos t$, puis $x'(t) +x(t) = te^t$.
+   
+  \item Résoudre le système différentiel $X'=AX$ où
+  $A = \left(\begin{smallmatrix}-1&0\\0&2\end{smallmatrix}\right)$. Trouver la solution vérifiant 
+  $X(0) = \left(\begin{smallmatrix}1\\-1\end{smallmatrix}\right)$.
+  Même question avec $A = \left(\begin{smallmatrix}-1&1\\0&2\end{smallmatrix}\right)$.
+  
+  \item Trouver les valeurs propres et les vecteurs propres de la matrice
+  $A = \left(\begin{smallmatrix}-1&2\\2&2\end{smallmatrix}\right)$. En déduire les solutions du système différentiel $X'=AX$.
+  
+  \item Trouver les solutions du système différentiel $X'=AX$ où
+  $A = \left(\begin{smallmatrix}4&2&-2\\0&2&-1\\0&0&3\end{smallmatrix}\right)$.
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exponentielle de matrices}
+
+
+%----------------------------------------------------
+\subsection{Rappels}
+
+Avant de définir l'exponentielle de matrices, voici quelques petits rappels sur l'exponentielle réelle ou complexe. Tout d'abord, pour $z \in \Cc$, l'exponentielle peut être définie par une série :
+\[ \exp(z) = \sum_{k=0}^{+\infty} \frac{{z^k}}{k!}.\]
+On la note aussi $e^z$. Retenons quelques propriétés principales :
+\begin{enumerate}
+  \item $\exp(0) =1$,
+  \item $\exp(z+z') = \exp(z) \cdot \exp(z')$ ($\forall z,z' \in \Cc$),
+  \item $\exp(-z) = \frac{1}{\exp(z)}$ ($\forall z \in \Cc$),
+  \item $\exp(k z) = (\exp(z))^k$ ($\forall z \in \Cc$, $\forall k \in \Zz$).
+\end{enumerate}
+
+
+Une autre propriété essentielle est que l'exponentielle définit une fonction dérivable et (pour $a \in \Cc$) :
+$$\frac{\dd}{\dd t} \exp(a t) = a \exp(at).$$
+
+
+
+
+L'espace vectoriel $M_n(\Rr)$ étant un espace vectoriel de 
+dimension finie sur lequel toutes les normes sont 
+équivalentes, on en choisit une que l'on note $\| \cdot \|$.
+Par exemple, $\| A \| = \max_{1\le i,j \le n}( |a_{ij} | )$.
+
+\bigskip
+
+{\bf Rappels} : Rappelons la définition d'une série. Soit 
+$(u_n)_{n\in\Nn}$ une suite. On appelle série de terme 
+général $u_n$ la suite $(S_n)_{n\in\Nn}$ de terme général 
+$\displaystyle S_n=\sum_{k=0}^{n}u_k$. Si cette suite 
+admet une limite, quand $n$ tend vers l'infini, on dit que la 
+série converge et on note $\displaystyle S=\sum_{k=0}^{+\infty}u_k$ sa limite.
+
+
+Nous allons maintenant définir ce qu'est l'exponentielle d'une matrice.
+
+
+
+
+
+%----------------------------------------------------
+\subsection{Exponentielle de matrices}
+
+La série de terme général ${\frac{1}{k!}}a^k$ étant convergente 
+pour tout $a\in \Rr$, la série de terme général $\frac{1}{k!}\|A\|^k$ 
+est également convergente pour toute matrice $A\in M_n(\Rr)$. 
+Par conséquent, la série $\displaystyle \sum_{k=0}^{+\infty} \frac{1}{k!}A^k$ 
+est convergente dans $M_n(\Rr)$.
+
+
+
+\begin{theoreme}
+Pour toute matrice $A \in M_n(\Rr)$, la série $\sum_{k\ge0} \frac{A^k}{k!}$
+converge dans $M_n(\Rr)$. On note
+\[\exp(A) = \sum_{k=0}^{+\infty} \frac{A^k}{k!}\]
+sa limite. C'est \defi{la matrice exponentielle de $A$}.
+\end{theoreme}
+
+Notation : on la note aussi $e^A$.
+
+Ce théorème est aussi valable pour l'exponentielle d'une matrice complexe $A \in M_n(\Cc)$.
+
+\bigskip
+
+
+Voici deux exemples simples, mais importants pour la suite.
+
+\begin{exemple}[Exponentielle d'une matrice diagonale]
+Si $A$ est la matrice diagonale
+$$A =
+\begin{pmatrix}
+\lambda_1&0&\cdots &0\cr
+0& \ddots & &\vdots \cr
+\vdots & &\ddots&0\cr
+0&\cdots&0&\lambda_n
+\end{pmatrix},
+\qquad \text{ alors } \qquad
+A^k =
+\begin{pmatrix}
+\lambda_1^k&0&\cdots &0\cr
+0& \ddots & &\vdots \cr
+\vdots & &\ddots&0\cr
+0&\cdots&0&\lambda_n^k
+\end{pmatrix},
+$$
+et donc 
+$$\exp(A) =
+\begin{pmatrix}
+e^{\lambda_1}&0&\cdots &0\cr
+0& \ddots & &\vdots \cr
+\vdots & &\ddots&0\cr
+0&\cdots&0&e^{\lambda_n}
+\end{pmatrix}.$$
+\end{exemple}
+
+
+\begin{exemple}[Exponentielle d'une matrice nilpotente]
+Rappelons qu'une matrice $A$ est \defi{nilpotente} s'il existe $N \in \Nn$ tel que $A^N$ soit la matrice nulle.
+Pour une telle matrice nilpotente, $\exp(A)$ est ainsi une \evidence{somme finie} :
+\[\exp(A) = \sum_{k=0}^{N-1} \frac{A^k}{k!}.\]
+\end{exemple}
+
+
+
+%----------------------------------------------------
+\subsection{Propriétés}
+
+L'exponentielle de matrices (réelles ou complexes) vérifie les propriétés suivantes :
+
+\begin{proposition}[Propriétés de l'exponentielle]
+\sauteligne
+\begin{enumerate}
+  \item \label{it:exp1} Si on note $O_n$ la matrice nulle, alors $\exp(O_n)=I_n$.
+  \item \label{it:exp2} Si $A$ et $B\in M_n(\Rr)$ (ou $M_n(\Cc)$) vérifient $AB=BA$, alors $\exp(A+B)=\exp(A) \cdot \exp(B)$.
+  \item \label{it:exp3} Pour toute matrice $A\in M_n(\Rr)$ (ou $M_n(\Cc)$), la matrice $\exp(A)$ est inversible et $(\exp(A))^{-1}=\exp(-A)$.
+  \item \label{it:exp4} $\exp (kA) = (\exp(A))^k$ pour tout $k\in \Zz$.  
+\end{enumerate} 
+\end{proposition}
+
+\begin{remarque*}
+Attention ! Si $A$ et $B$ ne commutent pas, alors, en général, $\exp (A+B) \neq \exp (A) \cdot \exp (B)$.
+\end{remarque*}
+
+
+Nous ne démontrerons pas ces propriétés, mais nous pouvons cependant faire 
+les remarques suivantes :
+\begin{itemize}
+  \item Le \ref{it:exp1} est évident.
+  \item Le \ref{it:exp2} se démontre comme dans le cas de l'exponentielle 
+complexe, le fait que les matrices commutent permettant d'utiliser 
+la formule du binôme de Newton.
+  \item Pour le \ref{it:exp3}, on remarque que les 
+matrices $A$ et $-A$ commutent, d'où $$\exp(A) \cdot \exp(-A) = \exp(A-A)=\exp(0_n)=I_n.$$ 
+  \item Pour le \ref{it:exp4}, c'est d'abord une récurrence sur $k \ge 0$, puis on utilise le \ref{it:exp3} pour obtenir la propriété pour $k \le 0$.
+\end{itemize}
+
+
+
+
+%----------------------------------------------------
+\subsection{Calculs}
+
+Le calcul de l'exponentielle d'une matrice peut s'effectuer en se ramenant aux calculs de l'exponentielle d'une matrice diagonale et d'une matrice nilpotente.
+On se ramènera à une telle situation par le résultat suivant :
+\begin{lemme}
+Si $A$, $P\in M_n(\Cc)$, et $P$ est inversible, on a $\exp(P^{-1}AP)=P^{-1}\exp(A) P$.
+\end{lemme}
+
+\begin{proof}
+On note que, pour tout $k\in\Nn$, on a $P^{-1}A^kP=(P^{-1}AP)^k$ 
+et l'on revient à la définition de l'exponentielle :
+$$\exp(P^{-1}AP)=\sum_{k=0}^{+\infty}{\frac{1}{k!}}P^{-1}A^kP
+= P^{-1}\left(\sum_{k=0}^{+\infty}{\frac{1}{k!}}A^k\right)P
+= P^{-1}\exp(A) P.$$
+\end{proof}
+
+
+\textbf{Méthode de calcul de $\exp(A)$.}
+\begin{itemize}
+  \item Si $A$ est diagonale ou nilpotente, il n'y a pas de problème (voir avant).
+  \item Sinon on utilise la décomposition de Dunford $A=\Delta+N$ avec $\Delta$ diagonalisable,
+  $N$ nilpotente et $N \Delta=\Delta N$, ce qui permet d'écrire $\exp(A)=\exp(\Delta) \cdot \exp(N)$. 
+La matrice $\Delta$ étant diagonalisable, il existe une matrice $P$ inversible 
+telle que $D = P^{-1} \Delta P$ soit diagonale, soit encore $\Delta = P D P^{-1}$, d'où
+$$\exp(\Delta) = \exp(P D P^{-1})=P \exp(D) P^{-1}.$$
+\end{itemize}
+ 
+On peut donc toujours calculer l'exponentielle d'une matrice à coefficients dans $\Cc$.
+
+
+
+
+\begin{exemple}
+Soit $A$ la matrice 
+$$A = \begin{pmatrix}
+1 & 1 & 0 \\
+0 & 2 & -1 \\
+-1 & 1 & 3
+\end{pmatrix}.$$
+
+
+\begin{itemize}
+  \item \textbf{Décomposition de Dunford.}
+  
+La décomposition de Dunford est $A = D + N$ avec 
+$$D  = \begin{pmatrix}
+2 & 0 & 0 \\
+0 & 2 & 0 \\
+0 & 0 & 2
+\end{pmatrix}
+\quad \text{ et } \quad 
+N = \begin{pmatrix}
+-1 & 1 & 0 \\
+0 & 0 & -1 \\
+-1 & 1 & 1
+\end{pmatrix}.$$
+Ici $D$ est déjà une matrice diagonale puisque $D=2I_3$,  ce qui va simplifier les calculs.
+
+\item \textbf{La matrice diagonale.}
+$$\exp(D) = 
+\begin{pmatrix}
+e^2 & 0 & 0 \\
+0 & e^2 & 0 \\
+0 & 0 & e^2
+\end{pmatrix} = e^2 I$$
+
+\item \textbf{La matrice nilpotente.}
+
+La matrice $N$ est nilpotente :
+$$N^2 = 
+\begin{pmatrix}
+1 & -1 & -1 \\
+1 & -1 & -1 \\
+0 & 0 & 0
+\end{pmatrix}
+\quad \text{ et } \quad N^3 = 0.$$
+Ainsi 
+$$\exp(N) = I + N + \frac{1}{2!}N^2 = 
+\begin{pmatrix}
+\frac{1}{2} & \frac{1}{2} & -\frac{1}{2} \\
+\frac{1}{2} & \frac{1}{2} & -\frac{3}{2} \\
+-1 & 1 & 2
+\end{pmatrix}.
+$$
+
+\item \textbf{Exponentielle de $A$.}
+
+
+$$\exp(A) = \exp(D) \cdot \exp(N)
+= \begin{pmatrix}
+e^2 & 0 & 0 \\
+0 & e^2 & 0 \\
+0 & 0 & e^2
+\end{pmatrix}
+\begin{pmatrix}
+\frac{1}{2} & \frac{1}{2} & -\frac{1}{2} \\
+\frac{1}{2} & \frac{1}{2} & -\frac{3}{2} \\
+-1 & 1 & 2
+\end{pmatrix}
+= 
+\begin{pmatrix}
+\frac{1}{2} \, e^{2} & \frac{1}{2} \, e^{2} & -\frac{1}{2} \, e^{2} \\
+\frac{1}{2} \, e^{2} & \frac{1}{2} \, e^{2} & -\frac{3}{2} \, e^{2} \\
+-e^{2} & e^{2} & 2 \, e^{2}
+\end{pmatrix}
+$$
+\end{itemize}
+\end{exemple}
+
+\begin{exemple}
+Soit $A$ la matrice 
+$$A = \begin{pmatrix}
+-5 & 0 & 1 \\
+12 & 6 & 6 \\
+-1 & 0 & -7
+\end{pmatrix}.$$
+
+
+\begin{itemize}
+  \item \textbf{Décomposition de Dunford.}
+  
+La décomposition de Dunford est $A = \Delta + N$ avec 
+$$\Delta  = \begin{pmatrix}
+-6 & 0 & 0 \\
+\frac{25}{2} & 6 & \frac{13}{2} \\
+0 & 0 & -6
+\end{pmatrix}
+\quad \text{ et } \quad 
+N = \begin{pmatrix}
+1 & 0 & 1 \\
+-\frac{1}{2} & 0 & -\frac{1}{2} \\
+-1 & 0 & -1
+\end{pmatrix}.$$
+
+\item \textbf{La matrice nilpotente.}
+
+La matrice $N$ est nilpotente, avec $N^2$ la matrice nulle.
+Ainsi $\exp(N) = I + N$. 
+
+\item \textbf{La matrice diagonalisable.}
+
+La matrice $\Delta$ se transforme en une matrice diagonale par 
+$D = P^{-1} \Delta P$ où
+$$D = \begin{pmatrix}
+6 & 0 & 0 \\
+0 & -6 & 0 \\
+0 & 0 & -6
+\end{pmatrix}
+\quad \text{ et } \quad
+P = \begin{pmatrix} 
+0 & 1 & 0 \\
+1 & 0 & 1 \\
+0 & -\frac{25}{13} & -\frac{24}{13}
+\end{pmatrix}, \qquad
+P^{-1} = \begin{pmatrix}
+\frac{25}{24} & 1 & \frac{13}{24} \\
+1 & 0 & 0 \\
+-\frac{25}{24} & 0 & -\frac{13}{24}
+\end{pmatrix}
+.$$
+
+
+Comme $\Delta = P D P^{-1}$ alors
+$\exp(\Delta) = \exp(P D P^{-1})=P \exp(D) P^{-1}$ :
+$$\exp(D) = 
+\begin{pmatrix}
+e^6 & 0 & 0 \\
+0 & e^{-6} & 0 \\
+0 & 0 & e^{-6}
+\end{pmatrix}
+\qquad
+\exp(\Delta) =
+\begin{pmatrix}
+e^{-6} & 0 & 0 \\
+\frac{25}{24}(e^{6} - e^{-6}) & e^{6} & \frac{13}{24} (e^{6} - e^{-6}) \\
+0 & 0 & e^{-6}
+\end{pmatrix}
+$$
+
+
+\item \textbf{Exponentielle de $A$.}
+
+
+$$\exp(A) 
+= \exp(\Delta) \cdot \exp(N)
+= \begin{pmatrix}
+2 e^{-6} & 0 & e^{-6} \\
+\frac{1}{24} (25 e^{6} - 37e^{-6}) & e^{6} & \frac{1}{24} (13 e^{6} - 25e^{-6}) \\
+-e^{-6} & 0 & 0
+\end{pmatrix}
+$$
+\end{itemize}
+\end{exemple}
+
+
+ 
+%----------------------------------------------------
+\subsection{Dérivée}
+
+Si $M(t)$ est une matrice dont les coefficients $a_{ij}(t)$ sont des fonctions dérivables de la variable $t$, alors la dérivée de $A(t)$ est la matrice $A'(t)$ dont les coefficients sont les dérivées $a_{ij}'(t)$.
+La dérivée d'une matrice vérifie les propriétés usuelles des dérivées. 
+En particulier, elle vérifie que, si les matrices $M(t)$ et $N(t)$ sont dérivables, alors le produit aussi et on a (attention à l'ordre des produits !) :
+\[(MN)'(t) = M'(t)N(t) + M(t) N'(t) . \]
+
+
+\begin{proposition}
+Soit $A\in M_n(\Rr)$. L'application de $\Rr$ dans
+$M_n(\Rr)$ définie par $t \mapsto\exp(tA)$ est dérivable et on a 
+$$\frac{\dd}{\dd t} \big( \exp(t A) \big) = A \exp(t A).$$
+\end{proposition} 
+
+Remarque : comme les matrices $A$ et $\exp(tA)$ commutent, alors on a aussi
+$\frac{\dd}{\dd t} \exp(t A) = \exp(t A) A$.
+
+
+\begin{proof}
+Notons $$E(t)=\exp(tA) = \sum_{k=0}^{+\infty}{\frac{1}{k!}}t^kA^k=\sum_{k=0}^{+\infty}E_k(t)$$
+où $E_k(t)={\frac{1}{k!}}t^kA^k$. On a $E'_0(t) = 0$ et, pour tout $k>0$, 
+$$E'_k(t)={\frac{1}{(k-1)!}}t^{k-1}A^k=AE_{k-1}(t).$$
+Pour des raisons de convergence normale, comme dans le cas des séries de fonctions, on a 
+$$E'(t)=\sum_{k=0}^{+\infty}E'_k(t)=\sum_{k=1}^{+\infty}A E_{k-1}(t)=A E(t).$$
+\end{proof}
+ 
+ 
+ 
+ 
+ 
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+
+  \item Vérifier que
+$\exp \left(t \cdot 
+\left(\begin{smallmatrix}
+0 & -1\\
+ 1& 0
+\end{smallmatrix}\right)\right) = 
+\left(\begin{smallmatrix}
+\cos t &- \sin t \\
+\sin t & \cos t
+\end{smallmatrix}\right)$ pour tout $t$ réel.
+
+  \item Montrer que, pour toute matrice $A \in M_n(\Cc)$, 
+$\det(\exp(A)) = e^{\tr A}$. Commencer par le cas où $A$ est triangulaire.
+
+
+  \item 
+  Soient $\Delta = 
+    \left(\begin{smallmatrix}
+    1 & 0 & 0 \\
+0 & 1 & 0 \\
+-3 & 3 & -2
+      \end{smallmatrix}\right)$,
+ $N =
+  \left(\begin{smallmatrix} 
+-2 & 2 & 0 \\
+-2 & 2 & 0 \\
+0 & 0 & 0
+  \end{smallmatrix}\right)$.     
+  Montrer que $A = \Delta + N$ est la décomposition de Dunford de $A$.
+  Calculer $\exp(\Delta)$, $\exp(N)$ et $\exp(A)$.
+  
+  
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Systèmes différentiels linéaires}
+
+Nous revenons à notre problème : résoudre le système différentiel $X'=AX$, 
+où $A$ est une matrice carrée quelconque.
+Nous allons voir comment utiliser les propriétés 
+de l'exponentielle de matrices et la réduction des matrices 
+carrées pour écrire les solutions. 
+
+%----------------------------------------------------
+\subsection{Solutions des systèmes homogènes}
+
+\begin{theoreme}
+\label{th:sysdiff}
+Soit $A\in M_n(\Rr)$. Les solutions du système différentiel homogène $X'=AX$ sont
+les fonctions 
+$X:\Rr \longrightarrow \Rr^n$ définies 
+par $$X(t) = \exp(tA) \cdot X_0$$
+où $X_0$ est un vecteur de $\Rr^n$ quelconque.
+\end{theoreme}
+
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+  \item En particulier, les solutions sont définies sur $\Rr$ tout entier.
+  \item Ce théorème est aussi vrai sur $\Cc$.
+  \item Il est clair que $X(0) = X_0$.
+\end{itemize}
+\end{remarque*}
+
+
+\bigskip
+
+Tirons deux conséquences importantes de ce théorème.
+La première est que si on impose une condition initiale, alors on a existence et unicité de la solution.
+
+\begin{corollaire}[Théorème de Cauchy-Lipschitz]
+\label{cor:sysdiffCL}
+Pour $X_0 \in \Rr^n$ fixé, il existe une et une seule solution $X(t)$ vérifiant le système différentiel
+$X' = A X$ et la condition initiale $X(0)=X_0$.
+\end{corollaire}
+
+
+Seconde conséquence : comme à chaque $X_0 \in \Rr^n$ on associe une unique solution, alors l'espace vectoriel des solutions est aussi de dimension $n$.
+\begin{corollaire}
+\label{cor:dimsysdiff}
+L'ensemble des solutions du système différentiel $X' = A X$ (avec $A \in M_n(\Rr)$) 
+est un $\Rr$-espace vectoriel de dimension $n$.
+\end{corollaire}
+
+
+\begin{proof}[Preuve du théorème]
+~
+\begin{itemize}
+\item 
+D'une part, la dérivée de $\exp(t A)$ est $A \exp(t A)$, donc $X(t) = \exp(tA) \cdot X_0$ est bien solution de l'équation $X' = AX$.
+ 
+\item Réciproquement, si on pose $Y(t) = \exp(-tA)X(t)$, alors
+\[Y'(t) = \exp (-tA) (X'-AX) = 0.\]
+Donc, sur $\Rr$, $Y$ est une fonction constante que l'on note $X_0 \in \Rr^n$. Ainsi 
+$X(t) = \exp(tA) \cdot X_0$ pour tout $t$. 
+\end{itemize}
+\end{proof}
+
+%----------------------------------------------------
+\subsection{Méthode}
+
+
+\textbf{Dans la pratique, que fait-on ?}
+
+\begin{enumerate}
+  \item \textbf{Forme des solutions.} 
+  
+  Il s'agit d'intégrer l'équation $X'=AX$ dont les solutions 
+  s'écrivent 
+  $$X(t)=\exp(tA) \cdot X_0 \quad \text{ avec } \  X_0\in\Rr^n.$$
+  
+  \item \textbf{Réduction à la forme $D + N$.} 
+  
+  Si le polynôme caractéristique de $A$ est scindé (ce qui est toujours vrai sur $\Cc$), alors la décomposition de Dunford permet d'écrire $A$ sous la forme  \og{}diagonalisable + nilpotente\fg{}. Autrement dit, il existe une matrice inversible $P$ telle que la matrice $P^{-1}AP=D+N$ avec $D$ diagonale, $N$ nilpotente et $ND=DN$.
+  
+  On note cette matrice $B = P^{-1}AP=D+N$.
+  
+  
+  \item \textbf{\'Equation en $Y$.} 
+  
+  Posons $Y = P^{-1}X$ (donc $X=PY$). 
+  L'équation $X'=AX$ devient une équation de $Y'$ :
+  $$Y' = P^{-1}X'= P^{-1}AX = P^{-1}AP Y = BY.$$
+  
+  \item \textbf{Solutions en $Y$.}  
+  
+  Les solutions $Y(t)$ sont donc de la forme $Y(t)=\exp(tB)V$ où $V\in\Rr^n.$
+  De plus, $\exp(tB)=\exp(tD+tN)=\exp(tD)\cdot\exp(tN)$ et les matrices $\exp(tD)$ et $\exp(tN)$ sont faciles à calculer puisque $D$ est diagonale et $N$ est nilpotente.
+  
+  \item \textbf{Solutions en $X$.}
+  
+  On obtient alors $X = PY=P\exp(tB)V$ ($V\in\Rr^n$).
+  Ainsi, les solutions de l'équation $X'=AX$ sont de la forme
+$$X(t)=P\exp(tD)\cdot\exp(tN)V \quad \text{ avec }\  V\in\Rr^n$$
+et il est inutile de calculer la matrice $P^{-1}$.
+   
+\end{enumerate}
+
+%----------------------------------------------------
+\subsection{Exemple}
+
+
+\begin{exemple}
+Résoudre le système différentiel :
+\[\left\{\begin{array}{lcl}
+x'_1(t) &= & x_1(t) -3x_3(t)\\
+x'_2(t) & = & x_1(t) - x_2(t) - 6x_3(t)\\
+x_3'(t) & = & -x_1(t)+2x_2(t) + 5x_3(t)
+\end{array}\right.\]
+avec pour \og{}conditions initiales\fg{} : $x_1(0) = 1,x_2(0) = 1, x_3(0) = 0$.
+
+
+\begin{enumerate}
+
+  \item \textbf{Forme des solutions.} 
+  
+  La matrice du système différentiel est 
+  $$A = \begin{pmatrix}1&0&-3\\1&-1&-6\\-1&2&5\end{pmatrix}.$$
+  Les solutions du système $X'=AX$ sont les 
+  $X(t) = \exp ( tA) X_0$.
+  Ici la condition initiale est 
+  $X_0 = \left(\begin{smallmatrix}1\\1\\0\end{smallmatrix}\right)$. 
+  
+  
+  \item \textbf{Réduction à la forme $D + N$.} 
+  
+  La décomposition de Dunford de $A$ s'écrit ici $P^{-1}AP = D+N$
+  avec
+  $$
+  D = \begin{pmatrix}1&0&0\\0&2&0\\0&0&2\end{pmatrix}
+  \qquad
+  N = \begin{pmatrix}0&0&0\\0&-3&3\\0&-3&3\end{pmatrix}
+  \qquad
+  P = \begin{pmatrix}1&1&0\\\frac12&0&1\\0&\frac23&-1\end{pmatrix}
+  \qquad
+  P^{-1} = \begin{pmatrix}4 & -6 & -6 \\-3 & 6 & 6 \\-2 & 4 & 3\end{pmatrix}
+  $$
+   
+  
+  $D$ est bien diagonale ; $N$ est nilpotente, car $N^2 = 0$ ; et $DN=ND$.
+  
+  \item \textbf{\'Equation en $Y$.} 
+  
+  Posons $Y = P^{-1}X$ (donc $X=PY$). Posons $B = P^{-1}AP=D+N$ :
+  $$B = \begin{pmatrix}
+  1 & 0 & 0 \\
+  0 & -1 & 3 \\
+  0 & -3 & 5
+  \end{pmatrix}$$
+  
+  L'équation $X'=AX$ devient une équation de $Y$ :
+  $Y' = BY$.
+  
+  \item \textbf{Solutions en $Y$.}  
+  
+  Les solutions de $Y' = BY$ sont les $Y(t)=\exp(tB)V$, $V\in\Rr^n$.
+  
+  $$\exp(tD) = \begin{pmatrix}e^{t}&0&0\\0&e^{2t}&0\\0&0&e^{2t}\end{pmatrix}
+  \qquad
+  \exp(tN) = I + tN 
+  = 
+  \begin{pmatrix}
+  1 & 0 & 0 \\
+  0 & -3t + 1 & 3t \\
+  0 & -3t & 3t + 1
+  \end{pmatrix}
+  $$
+  Ainsi
+  $$\exp(tB)=\exp(tD+tN)=\exp(tD)\cdot\exp(tN)=
+  \begin{pmatrix}
+  e^{t} & 0 & 0 \\
+  0 & (-3t + 1)e^{2t} & 3te^{2t} \\
+  0 & -3te^{2t} & (3t + 1)e^{2t}
+  \end{pmatrix}.
+  $$
+   
+  \item \textbf{Solutions en $X$.}
+   
+  Les solutions du système $X'=AX$ sont les
+  $$X(t) = P\exp(tB)V = 
+  \begin{pmatrix}
+  e^t & (-3t + 1)e^{2t} & 3te^{2t} \\
+  \frac12 e^t & -3te^{2t} & (3t + 1)e^{2t} \\
+  0 & (t+\frac23)e^{2t} & -(t + 1)e^{2t}
+  \end{pmatrix} \cdot V.$$
+   
+  \item \textbf{Solution en $X$ avec condition initiale.} 
+  
+  On veut $X(0) = X_0= \left(\begin{smallmatrix}1\\1\\0\end{smallmatrix}\right)$.
+  Mais, en $t=0$, la solution $X(t) = P\exp(tB)V_0$ conduit à 
+  $X(0) = PV_0$, d'où $V_0 = P^{-1}X_0$.
+  On trouve 
+  $$V_0 = \begin{pmatrix}-2\\3\\2\end{pmatrix}.$$  
+  
+On trouve alors $X(t) = P\exp(tB)V_0$, c'est-à-dire
+\[
+\left\{
+\begin{array}{rcl}
+x_1(t) &=& (-3t+3)e^{2t}-2e^t\\
+x_2(t) &=& (-3t+2)e^{2t}-e^t\\
+x_3(t) &=& te^{2t}.
+\end{array}
+\right.
+\]
+
+\end{enumerate}
+\end{exemple}
+
+
+ 
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+
+  \item Soit $A \in M_n(\Rr)$. Soient $t_0 \in \Rr$ et $X_0 \in \Rr^n$. Trouver l'expression de la solution du système $X'=AX$ vérifiant $X(t_0)=X_0$.
+  \item Prouver ce résultat du cours : \og{}L'ensemble des solutions du système différentiel $X' = A X$ (avec $A \in M_n(\Rr)$) est un $\Rr$-espace vectoriel de dimension $n$.\fg{}
+  
+  \item Soit $A = \left(\begin{smallmatrix}-2&0&0\\1&-2&0\\1&1&-2\end{smallmatrix}\right)$.
+  Trouver la décomposition de Dunford de $A$. Résoudre le système différentiel $X'=AX$.
+  Trouver la solution vérifiant $X(0) = \left(\begin{smallmatrix}0\\1\\0\end{smallmatrix}\right)$.
+  
+  \item Soient \\
+  \centerline{$
+  A =  \left(\begin{smallmatrix} 
+  -1 & 0 & 1 \\
+2 & 3 & 0 \\
+0 & 0 & -1
+\end{smallmatrix}\right),
+\quad
+D = \left(\begin{smallmatrix}
+3 & 0 & 0 \\
+0 & -1 & 0 \\
+0 & 0 & -1
+\end{smallmatrix}\right),
+\quad
+N = \left(\begin{smallmatrix}
+0 & 0 & 0 \\
+0 & -4 & -8 \\
+0 & 2 & 4
+\end{smallmatrix}\right),
+\quad
+P = \left(\begin{smallmatrix}
+0 & 1 & 0 \\
+1 & 0 & 1 \\
+0 & -4 & -8
+\end{smallmatrix}\right).
+ $ }
+ Montrer que $P^{-1}AP = D +N$ correspond à la décomposition de Dunford de $A$.
+ Calculer $\exp(tD)$, $\exp(tN)$ et $\exp(tA)$. 
+ Résoudre le système différentiel $X'=AX$. 
+ Trouver la solution vérifiant $X(0) = \left(\begin{smallmatrix} 1\\1\\1\end{smallmatrix}\right)$.
+\end{enumerate}
+\end{miniexercices}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\'Equations différentielles linéaires}
+
+Nous allons voir comment des méthodes d'algèbre linéaire 
+permettent de résoudre des équations différentielles linéaires d'ordre $n$.
+
+
+%---------------------------------------------------------------
+\subsection{\'Equations différentielles linéaires d'ordre $2$}
+
+On souhaite intégrer l'équation différentielle
+\begin{equation}
+x''(t)+px'(t)+qx(t)=0
+\label{eq:eqdifflin2}\tag{$E$}
+\end{equation}
+où $p$ et $q$ sont des constantes réelles.
+C'est une équation différentielle linéaire d'ordre $2$ à coefficients constants.
+L'inconnue est la fonction $x : \Rr \to \Rr$ de la variable $t$, qui doit être deux fois dérivable.
+
+
+\bigskip
+
+Quel est le lien avec nos systèmes différentiels ?
+On se ramène à l'étude des systèmes du paragraphe précédent en posant $y=x'$. 
+L'équation différentielle (\ref{eq:eqdifflin2}) est alors équivalente au système différentiel :
+$$\left\{\begin{array}{rcl}
+x'&=& y\cr 
+y'&=& -qx-py
+\end{array}\right.$$
+En effet, la première équation $x'=y$ implique en particulier $x'' = y'$, donc la deuxième équation
+devient l'équation (\ref{eq:eqdifflin2}) $x'' = -qx-px'$.
+On vient donc de justifier le résultat suivant :
+\begin{proposition}
+La fonction $x: \Rr \rightarrow \Rr$ est solution de l'équation différentielle 
+$$x''+px'+qx=0$$ si et seulement si l'application $X : \Rr \rightarrow \Rr^2$ définie par 
+$$X(t)=\begin{pmatrix}x(t)\cr y(t)\end{pmatrix}=
+\begin{pmatrix}x(t)\cr x'(t)\end{pmatrix}$$ 
+est solution du système $X'=AX$ avec
+$$A=\begin{pmatrix}0&1\cr-q&-p\end{pmatrix}.$$ 
+\end{proposition} 
+
+Par le corollaire \ref{cor:dimsysdiff}, on a alors :
+\begin{corollaire}
+\label{cor:dimeqdiff}
+L'ensemble des solutions de l'équation différentielle $x''(t)+px'(t)+qx(t)=0$ est
+un espace vectoriel de dimension $2$.
+\end{corollaire}
+
+\bigskip
+
+\textbf{Comment trouver les solutions ?}
+
+Le polynôme caractéristique de $A$ est $\chi_A(X)=X^2+pX+q$.
+Notons $\lambda_1$ et $\lambda_2$ les racines de $\chi_A$.
+Ce sont les valeurs propres de la matrice $A$, et il est donc
+ naturel que les solutions fassent intervenir ces racines. 
+ 
+Soit $\lambda$ une racine du polynôme caractéristique : 
+$\lambda$ est valeur propre de la matrice $A$. Soit 
+$V = \left(\begin{smallmatrix} v_1 \\ v_2 \end{smallmatrix} \right)$ un vecteur propre associé à cette valeur propre. Alors, par la proposition \ref{prop:sysdiff},
+la fonction 
+$$X(t) =  e^{\lambda t} V$$
+est solution du système différentiel $X'=AX$, donc 
+$x(t) = v_1 e^{\lambda t}$ est solution de l'équation différentielle $x''(t) + px'(t) + qx(t) = 0$.
+
+
+\bigskip
+
+ 
+\begin{theoreme}
+Soit l'équation différentielle $x''(t)+px'(t)+qx(t)=0$
+et son équation caractéristique $X^2+pX+q=0$, où $p,q \in \Rr$. 
+\begin{itemize}
+  \item Si $\lambda_1$ et $\lambda_2$ sont deux racines réelles distinctes de l'équation caractéristique, les solutions de l'équation différentielle sont les :
+$$\alpha e^{\lambda_1t} + \beta e^{\lambda_2t} \qquad (\alpha,\beta \in \Rr).$$
+  
+  \item Si $\lambda_0$ est une racine réelle double, les solutions sont les :
+$$(\alpha t + \beta) e^{\lambda_0 t}\qquad (\alpha,\beta \in \Rr).$$
+
+  \item Si $a+\ii b$ et $a-\ii b$ sont deux racines complexes conjuguées, les solutions réelles de l'équation différentielle sont les :
+$$e^{at} \big( \alpha \cos (bt) + \beta \sin (bt) \big)\qquad (\alpha,\beta \in \Rr).$$
+\end{itemize}
+\end{theoreme} 
+ 
+ 
+  
+\begin{proof}
+La preuve est une simple vérification. On vérifie que les solutions proposées sont bien des solutions (à faire).
+Ainsi, dans chacun des cas, on trouve que les solutions forment un espace vectoriel de dimension $2$.
+En conclusion, par le corollaire \ref{cor:dimeqdiff}, on a trouvé toutes les solutions.
+\end{proof}
+
+ 
+
+\begin{exemple}
+Quelles sont les solutions de l'équation différentielle $x''+x=0$ ?
+
+
+\begin{itemize}
+  \item \textbf{Première méthode.}
+  L'équation caractéristique est $x^2+1=0$, dont les solutions sont $\pm\ii$, c'est-à-dire 
+  $a=0$ et $b=1$. On trouve deux solutions $x_1(t) = \cos t$ et $x_2(t)=\sin t$. L'ensemble des solutions
+  est alors   
+  $$t \mapsto \alpha \cos t + \beta \sin t \qquad (\alpha,\beta \in \Rr).$$
+  On a la certitude qu'il n'y a pas d'autres solutions par le corollaire \ref{cor:dimeqdiff}.
+  
+  
+  \item \textbf{Seconde méthode.} 
+
+  \'Ecrivons l'équation sous la forme du système différentiel $X' = AX$ avec
+  
+$$
+X(t) = \begin{pmatrix}x(t)\cr x'(t)\end{pmatrix},\qquad 
+X'(t) = \begin{pmatrix}x'(t)\cr x''(t)\end{pmatrix},\qquad
+A = \begin{pmatrix}0&1\cr-1&0\end{pmatrix}.
+$$
+On retrouve les solutions de notre système précédent via la matrice $\exp (tA)$, c'est-à-dire après calculs 
+$$\exp (tA) = \begin{pmatrix}\cos t&\sin t\cr-\sin t&\cos t \end{pmatrix},$$
+dont les colonnes sont des solutions linéairement indépendantes du système $X'=AX$.
+La solution générale s'écrit $X(t) = \exp (tA) X_0$ pour 
+$X_0 = \left( \begin{smallmatrix} \alpha \\ \beta \end{smallmatrix} \right)$, ou autrement dit
+$$X(t)= \alpha \begin{pmatrix}\cos t\cr -\sin t\end{pmatrix} +  \beta \begin{pmatrix}\sin t\cr \cos t\end{pmatrix}.$$
+Et en particulier $x(t) = \alpha \cos t + \beta \sin t$, avec $\alpha, \beta \in \Rr$. 
+\end{itemize}
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+\subsection{\'Equations différentielles linéaires d'ordre $n$}
+
+Ce que nous avons fait pour les équations différentielles linéaires d'ordre $2$ se généralise 
+aux équations d'ordre $n$.
+Le principe est le même. 
+On considère une équation différentielle linéaire d'ordre $n$ à coefficients constants
+\begin{equation}
+x^{(n)}(t) + a_1x^{(n-1)}(t) + \cdots+ a_{n-1}x'(t) + a_n x(t)=0
+\label{eq:eqdifflinn}\tag{$E$}
+\end{equation}
+où la fonction inconnue est une fonction $t \mapsto x(t)$ de $\Rr$ dans $\Rr$, $n$ fois dérivable.
+
+
+
+On introduit les fonctions auxiliaires
+$$
+\left\{\begin{array}{rcl}
+x_1 &=& x\cr 
+x_2 &=& x_1' =x'\cr
+\vdots && \cr 
+x_{n-1} &=& x'_{n-2}=x^{(n-2)}\cr
+x_n &=&x'_{n-1}=x^{(n-1)}
+\end{array}\right.$$
+
+L'équation (\ref{eq:eqdifflinn}) se transforme alors en le système différentiel suivant :
+$$
+\left\{\begin{array}{rcl}
+x'_1 &=& x_2\cr 
+x'_2 &=& x_3\cr
+\vdots&& \cr 
+x'_{n-1} &=& x_{n}\cr 
+x'_n &=& -a_1x_n-a_2x_{n-1}-\cdots-a_nx_1
+\end{array}\right.$$
+
+
+Ainsi résoudre l'équation (\ref{eq:eqdifflinn}) est équivalent à résoudre le système différentiel
+$$X'=AX$$
+avec
+$$
+X(t) = \begin{pmatrix} x_1(t) \\ x_2(t) \\ \vdots \\ x_n(t) \end{pmatrix}
+= \begin{pmatrix} x(t) \\ x'(t) \\ \vdots \\ x^{(n-1)}(t) \end{pmatrix},
+\qquad
+X'(t) = \begin{pmatrix} x_1'(t) \\ x_2'(t) \\ \vdots \\ x_n'(t) \end{pmatrix}
+= \begin{pmatrix} x'(t) \\ x''(t) \\ \vdots \\ x^{(n)}(t) \end{pmatrix}
+$$
+et
+$$
+A=\begin{pmatrix}
+0&1&\cdots&0\cr
+0&0&\cdots&0\cr
+\vdots&\vdots& &1\cr
+-a_n&-a_{n-1}&\cdots&-a_{1}
+\end{pmatrix}.$$
+
+
+Une reformulation du théorème de Cauchy-Lipschitz (voir corollaire \ref{cor:sysdiffCL}) 
+pour les systèmes différentiels devient :
+\begin{corollaire}[Théorème de Cauchy-Lipschitz]
+Soient $t_0\in \Rr$, $c_0,c_1,\ldots,c_{n-1} \in \Rr$ fixés.
+Il existe une et une seule fonction $x(t)$ qui vérifie
+$$x^{(n)}(t) + a_1x^{(n-1)}(t) + \cdots+ a_{n-1}x'(t) + a_n x(t)=0$$
+ainsi que toutes les conditions initiales :
+$$x(t_0) = c_0, \quad x'(t_0) = c_1, \quad \ldots, \quad x^{(n-1)}(t_0) = c_{n-1}.$$
+\end{corollaire}
+Attention, les conditions initiales sont bien toutes pour le même paramètre $t=t_0$.
+
+
+
+De même, le corollaire \ref{cor:dimsysdiff} devient :
+\begin{corollaire}
+\label{cor:dimeqdiffn}
+L'ensemble des solutions de l'équation différentielle (\ref{eq:eqdifflinn}) est
+un espace vectoriel de dimension $n$.
+\end{corollaire}
+
+
+
+
+Un calcul simple de déterminant justifie le lien entre :
+(a) l'équation différentielle (\ref{eq:eqdifflinn}),
+(b) les racines de l'équation caractéristique $\chi_A(X)=0$ et
+(c) les valeurs propres de $A$.
+Voir le paragraphe sur la matrice compagnon d'un polynôme dans le chapitre \og{}Valeurs propres, vecteurs propres\fg{}.
+
+\begin{lemme}
+Le polynôme caractéristique de $A$ est
+$$\chi_A(X) = (-1)^n \big(X^n + a_1X^{n-1} + \cdots+ a_{n-1}X + a_n\big) $$
+où les $a_i$ sont les coefficients de l'équation différentielle (\ref{eq:eqdifflinn}).
+\end{lemme}
+
+
+On termine par l'énoncé d'un théorème qui donne toutes les solutions. 
+\begin{theoreme}
+Soit l'équation différentielle 
+$$x^{(n)}(t) + a_1x^{(n-1)}(t) + \cdots+ a_{n-1}x'(t) + a_n x(t)=0$$
+où $a_1,a_2,\ldots,a_n \in \Rr$.
+Notons $\lambda_1, \lambda_2,\ldots,\lambda_r \in \Cc$ les racines deux à deux distinctes du polynôme caractéristique
+$\chi_A(X)$ et $m_1,m_2,\ldots,m_r$ les multiplicités. Autrement dit :
+\[\chi_A(X) = (-1)^n \big(X^n+a_1X^{n-1}+ \cdots +a_n\big) = (-1)^n(X-\lambda_1)^{m_1}\cdots(X-\lambda_r)^{m_r}.\]
+Alors chaque solution $x(t)$ de l'équation différentielle est la partie réelle de 
+\[\sum_{k=1}^r P_k(t)e^{\lambda_kt}\]
+pour des polynômes $P_k$ de degré $< m_k$ (pour tout $k$).
+\end{theoreme} 
+
+La preuve consiste encore une fois à vérifier que les fonctions proposées sont bien des solutions.
+
+
+Comme l'équation caractéristique est à coefficients réels,  
+si $\lambda_k$ est une solution complexe alors son conjugué l'est aussi.
+Ainsi, une base  de solutions réelles est donnée par :
+\begin{itemize}
+  \item les $P_k(t)e^{\lambda_k t}$ avec $\deg P_k < m_k$, si $\lambda_k$ est réel ;
+  \item et les $P_k(t) e^{a_k t} \cos(b_kt)$ ainsi que
+  les $P_k(t) e^{a_k t} \sin(b_kt)$ avec $\deg P_k < m_k$, si $\lambda_k = a_k + \ii b_k$ est complexe.
+\end{itemize}
+  
+\begin{exemple}
+Résoudre l'équation $x''' - 3x'' + 4 x=0$.
+
+\begin{itemize}
+  \item L'équation caractéristique est $X^3 - 3X^2 + 4=0$, ce qui s'écrit aussi
+$(X-2)^2(X+1)=0$. Les valeurs propres sont $\lambda_1 = 2$ (de multiplicité $m_1 = 2$)
+et $\lambda_2 = -1$ (de multiplicité $m_2 = 1$).
+
+  \item La valeur propre $\lambda_1 = 2$ conduit aux solutions
+  $(a+bt)e^{2t}$ avec $a,b \in \Rr$.
+
+  \item La valeur propre $\lambda_2 = -1$ conduit aux solutions $ce^{-t}$ avec $c\in\Rr$.
+  
+  \item L'ensemble des solutions est donc
+  $$\big\{ t \mapsto (a+bt)e^{2t} + ce^{-t} \mid a,b,c \in \Rr \big\}.$$
+\end{itemize}
+\end{exemple}
+
+\begin{exemple}
+Résoudre l'équation $x''' - 2x'' -2x' -3x=0$.
+
+\begin{itemize}
+  \item L'équation caractéristique est $X^3 - 2X^2 - 2X - 3=0$, ce qui s'écrit aussi
+$(X-3)(X^2+X+1)=0$.
+Une valeur propre est donc $\lambda_1 = 3$.
+Les solutions de $X^2+X+1=0$ sont 
+$\lambda_2 = -\frac12 + \frac{\sqrt3}{2}\ii$ et $\lambda_3 = -\frac12 - \frac{\sqrt3}{2}\ii$.
+
+ 
+  \item La valeur propre $\lambda_1 = 3$ conduit à la solution
+  $t \mapsto e^{3t}$.
+
+  \item Les valeurs propres $\lambda_2$ et $\lambda_3$ conduisent aux solutions complexes $e^{\lambda_2t}$ et $e^{\lambda_3t}$. Comme on s'intéresse aux solutions réelles, alors on considère les deux fonctions définies par la partie réelle et la partie imaginaire 
+  de $e^{-\frac12t}e^{\frac{\sqrt3}{2}\ii t}$ :
+   
+ $$t \mapsto e^{-\frac12t} \cos\left(\frac{\sqrt3}{2}t\right) 
+ \quad \text{ et } \quad
+ t \mapsto e^{-\frac12t} \sin\left(\frac{\sqrt3}{2}t\right).$$ 
+  
+  \item L'ensemble des solutions est donc
+  $$\left\{ t \mapsto ae^{3t} + e^{-\frac12t} \left( b\cos\left(\frac{\sqrt3}{2}t\right) 
+  + c \sin\left(\frac{\sqrt3}{2}t\right)\right)  \mid a,b,c \in \Rr \right\}.$$
+\end{itemize}
+\end{exemple}
+
+ 
+%---------------------------------------------------------------
+\subsection{Suites récurrentes linéaires}
+
+La suite de Fibonacci est une suite définie par deux conditions initiales et une relation de récurrence :
+$$u_0 = 0, \qquad u_1 = 1, \qquad u_{k+2} = u_{k+1}+u_{k} \ \text{ pour } k \ge 0.$$
+
+Le premiers termes sont :
+$$0 \quad 1 \quad 1 \quad 2 \quad 3 \quad 5 \quad 8 \quad 13 \quad 21 \quad 34 \quad \ldots$$
+
+On cherche une formule qui donne directement $u_k$ en fonction de $k$ (et ne dépend donc pas des termes $u_{k-1}$,\ldots).
+Une première formule s'obtient à l'aide de matrices.
+Soient
+$$X_k =  \begin{pmatrix}u_k \\ u_{k+1}\end{pmatrix}, \qquad X_{k+1} =  \begin{pmatrix}u_{k+1} \\ u_{k+2}\end{pmatrix},
+\qquad A = \begin{pmatrix}0&1\\1&1\end{pmatrix}.$$
+Alors on a 
+$$X_{k+1} = A X_k$$
+et ainsi, la suite de Fibonacci est aussi définie par :
+$$X_0 = \begin{pmatrix}0\\1\end{pmatrix} \qquad \text{ et } \qquad X_k = A^k X_0 \quad (k\ge0).$$
+La formule $X_k = A^k X_0$ est une première formule qui permet de calculer directement $X_k$. Il existe une méthode efficace pour calculer $A^k$ : l'exponentiation rapide. 
+
+Mais le but de cette section est de trouver un autre type de formule directe, en faisant l'analogie entre
+l'équation $X_{k+1} = A X_k$ avec le système différentiel $X'=AX$.
+
+De façon plus générale, on considère une suite $(u_k)_{k \in \Nn}$ qui vérifie la relation de récurrence :
+\begin{equation}
+u_{k+n} + a_1 u_{k+n-1}+ \cdots+ a_{n-1}u_{k+1} +a_n u_k=0
+\label{eq:eqrec}\tag{$E$}
+\end{equation}
+
+L'analogie est la suivante :
+$$\begin{array}{ccc}
+u_k & \leftrightsquigarrow & x(t) \\
+u_{k+1} & \leftrightsquigarrow & x'(t) \\
+u_{k+2} & \leftrightsquigarrow & x''(t) \\
+\vdots  & & \vdots \\
+X_k = \begin{pmatrix}u_k\\u_{k+1}\\\vdots\\u_{k+n-1}\end{pmatrix} & \leftrightsquigarrow & 
+X(t)  = \begin{pmatrix} x(t) \\ x'(t) \\ \vdots \\ x^{(n-1)}(t) \end{pmatrix}\\
+X_{k+1} = \begin{pmatrix}u_{k+1}\\u_{k+2}\\\vdots\\u_{k+n}\end{pmatrix} & \leftrightsquigarrow & X'(t) =\begin{pmatrix} x'(t) \\ x''(t) \\  \vdots \\ x^{(n)}(t) \end{pmatrix} \\
+X_{k+1} = A X_k & \leftrightsquigarrow & X'(t)=AX(t) \\
+\end{array}$$
+
+\begin{theoreme}
+Soit la relation de récurrence linéaire :
+$$u_{k+n} + a_1 u_{k+n-1}+ \cdots+ a_{n-1}u_{k+1} +a_n u_k=0$$
+où $a_1,a_2,\ldots,a_n \in \Rr$.
+Notons $\lambda_1, \lambda_2,\ldots,\lambda_r \in \Cc$ les racines deux à deux distinctes de l'équation 
+caractéristique et $m_1,m_2,\ldots,m_r$ les multiplicités :
+\[X^n+a_1X^{n-1}+ \cdots +a_{n-1}X+a_n = (X-\lambda_1)^{m_1}\cdots(X-\lambda_r)^{m_r}.\]
+Alors les suites $(u_k)_{k\in\Nn}$ vérifiant la relation de récurrence sont exactement les suites de la forme :
+\[ u_k = P_1(k) \lambda_1^k + \cdots + P_r(k) \lambda_r^k \]
+pour des polynômes $P_i$ de degré $< m_i$ (pour tout $i$).
+\end{theoreme}
+
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+  \item Les $P_i$ peuvent être déterminés par $u_0,\ldots,u_{n-1}$.
+  \item Pour $n=1$, les suites vérifiant $u_{k+1} = a u_k$ sont les suites géométriques.
+  L'équation caractéristique est $X=a$. Elles s'écrivent bien $u_k = u_0 a^k$.
+\end{itemize}
+\end{remarque*}
+
+Revenons à la suite de Fibonacci.
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+  \item Quelles sont les suites réelles $(u_k)$ vérifiant $u_{k+2} = u_{k+1}+u_{k}$ ?
+    
+  L'équation caractéristique est $X^2 = X + 1$. Autrement dit $(X-\lambda_1)(X-\lambda_2)=0$,
+  avec $\lambda_1 = \frac{1+\sqrt5}{2}$, $\lambda_2 = \frac{1-\sqrt5}{2}$, chacune de multiplicité $1$.
+  Les suites $(u_k)$ sont donc de la forme $u_k = \alpha \lambda_1^k + \beta \lambda_2^k$, c'est-à-dire :
+  $$u_k = \alpha \left(\frac{1+\sqrt5}{2}\right)^k + \beta \left(\frac{1-\sqrt5}{2}\right)^k \quad \text{ pour } \alpha, \beta \in \Rr.$$
+  
+  \item Quelle suite vérifie en plus $u_0 = 0$ et $u_1= 1$ ?
+  
+  Comme $u_0 = \alpha \lambda_1^0 + \beta \lambda_2^0 = \alpha+\beta$, alors la condition initiale $u_0 = 0$ implique
+  $\beta = -\alpha$.
+  
+  Comme $u_1 = \alpha \lambda_1 + \beta \lambda_2 = \alpha(\lambda_1-\lambda_2) = \alpha \sqrt5$, alors la condition initiale $u_1 = 1$ implique $\alpha = \frac{1}{\sqrt5}$.
+  
+  Conclusion : la suite de Fibonacci est la suite définie par
+  $$u_k =  \frac{1}{\sqrt5}\left( \left(\frac{1+\sqrt5}{2}\right)^k - \left(\frac{1-\sqrt5}{2}\right)^k\right).$$
+  
+\end{enumerate}
+\end{exemple}
+
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Trouver les solutions de l'équation différentielle $x''=x$.
+  Trouver la solution vérifiant $x(0) = 1$, $x'(0)=-1$.
+  
+  \item Mêmes questions avec $x''-2x'+x=0$.
+  Puis $x''+2x'-x=0$.
+  
+  \item Trouver les solutions réelles des équations différentielles 
+  $x''' = x$, $x''' - 2x'' - x' + 2x=0$ et
+  $x''' - x'' + x' - x=0$.
+  
+  \item Trouver les suites vérifiant la relation de récurrence $u_{k+2} = 3u_{k+1}+4u_k$. Trouver la suite vérifiant la condition initiale $u_0=0$, $u_1 = 1$. Idem avec la relation  $u_{k+2} = 2u_{k+1}-u_k$, puis
+ $u_{k+2} = -u_{k+1}-2u_k$. 
+  Idem avec $u_{k+3} - u_{k+2} -8u_{k+1} + 6u_k = 0$ (sans conditions initiales).  
+  
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exemples en dimension 2}
+
+
+%---------------------------------------------------------------
+\subsection{Trajectoires}
+
+Soit $A\in M_2(\Rr)$. Les solutions du système $X'=AX$ sont des applications 
+$t \mapsto X(t)$ de $\Rr$ dans $\Rr^2$ qui peuvent être
+considérées comme des courbes paramétrées. 
+
+Une \defi{trajectoire} $T$ du système différentiel $X'=AX$ est (le support de) la courbe paramétrée 
+définie par une solution $X(t) = \left(\begin{smallmatrix}x(t)\\y(t)\end{smallmatrix} \right)$:
+$$T =  \big\{ \big( x(t), y(t) \big) \mid t \in \Rr \big\}.$$
+
+La  trajectoire associée à $X(t)$ a pour vecteurs tangents les $X'(t)$ et est  donc tangente
+au champ de vecteurs $A \left(\begin{smallmatrix}x\\y\end{smallmatrix} \right)$.
+
+Les trajectoires sont en général des courbes, mais le point d'équilibre $\{(0,0)\}$ constitue à lui tout seul une trajectoire spéciale.
+
+\bigskip
+
+Voici une reformulation géométrique du théorème de Cauchy-Lipschitz (corollaire \ref{cor:sysdiffCL}).
+\begin{proposition}
+Les trajectoires du système différentiel $X'=AX$ sont disjointes ou confondues. 
+\end{proposition} 
+
+\begin{proof}
+Soient $X_1$ et $X_2$ deux solutions du système différentiel $X'=AX$, et 
+soient $T_1$ et $T_2$ les deux trajectoires associées.
+
+Supposons que $T_1 \cap T_2 \neq \varnothing$. Nous allons montrer qu'alors $T_1=T_2$.
+Soit $X_0 \in T_1 \cap T_2$ : 
+il existe $t_1\in\Rr$ et $t_2\in\Rr$ tels que 
+$X_1(t_1)=X_0$ et $X_2(t_2)=X_0.$
+Mais on connaît la forme des solutions des systèmes différentiels (voir le théorème \ref{th:sysdiff}) :
+il existe un vecteur $V_1$ tel que $X_1(t)  = \exp(tA)V_1$.
+De même, $X_2(t) = \exp(tA)V_2$.
+Ainsi, pour $t \in \Rr$ quelconque,
+$$X_1(t+t_1) = \exp(tA) \cdot \exp(t_1A) \cdot V_1 = \exp(tA) X_1(t_1) = \exp(tA) X_0$$
+et de même
+$$X_2(t+t_2) = \exp(tA) \cdot \exp(t_2A) \cdot V_2 = \exp(tA) X_2(t_2) = \exp(tA) X_0.$$
+Bilan : $X_1(t+t_1)=X_2(t+t_2)$. Cette conclusion peut se réécrire 
+$X_1(t)=X_2(t+t_2-t_1)$, pour tout $t\in \Rr$. Autrement dit, tout point de la trajectoire $T_1$ est aussi un point de la trajectoire $T_2$ (et réciproquement). Les trajectoires sont bien confondues.
+\end{proof}
+
+Nous n'allons pas étudier systématiquement toutes les trajectoires possibles, mais nous allons étudier quelques cas emblématiques.
+
+
+%---------------------------------------------------------------
+\subsection{Matrice diagonalisable sur $\Rr$}
+
+
+
+\begin{exemple}
+Considérons le système :
+$$\left\{\begin{array}{rcl}x'&=& x\cr y'&=& -2y\end{array}\right.
+\quad \text{ c'est-à-dire } \quad
+\begin{pmatrix}x'\cr y'\end{pmatrix}
+= \begin{pmatrix}1&0\cr 0&-2\end{pmatrix}
+\begin{pmatrix}x\cr y\end{pmatrix}.$$
+C'est un système $X'=AX$ où la matrice 
+$$A=\begin{pmatrix}1&0\cr 0&-2\end{pmatrix}$$
+est diagonale. On résout les deux équations et on obtient
+$$\left\{\begin{array}{rcl}
+x(t) &=& ae^t\cr  
+y(t) &=& be^{-2t}
+\end{array}\right.$$
+où $a$ et $b$ sont des constantes réelles. 
+\'Etudions plus précisément les trajectoires obtenues selon les 
+valeurs des constantes $a$ et $b$.
+
+\begin{itemize}
+  \item Si $a=b=0$, la solution du système obtenue est l'application nulle de 
+  $\Rr$ dans $\Rr^2$, et sa trajectoire est réduite au point $(0,0)\in\Rr^2$.
+
+  \item Si $a=0$ et $b\neq 0$ alors, pour tout $t\in\Rr$, $x(t)=0$ 
+  et $y(t)$ est du signe de $b$. Ainsi les trajectoires sont les demi-axes verticaux.
+  Si $a \neq 0$ et $b = 0$, les trajectoires sont les demi-axes horizontaux.
+  
+  \item Si $a\neq0$ et $b\neq0$ alors, pour tout $t\in\Rr$, on a 
+$y(t)=b\left( \frac{a}{x(t)}\right)^2$, 
+et les trajectoires sont donc les courbes d'équation 
+$\displaystyle yx^2 = a^2 b$. Ce sont des courbes qui ressemblent à des branches d'hyperboles.
+\end{itemize}
+
+\myfigure{0.9}{
+\tikzinput{fig_sysdiff_01}
+}
+
+\end{exemple}
+
+
+
+\begin{exemple}
+Considérons le système $X'=AX$ avec cette fois la matrice
+$$A = \begin{pmatrix}1&0\cr 0&+2\end{pmatrix}.$$
+Les solutions sont de la forme 
+$$\left\{\begin{array}{rcl}
+x(t) &=& ae^t\cr  
+y(t) &=& be^{+2t}
+\end{array}\right.$$
+où $a, b \in \Rr$.
+Dans le cas où $a\neq0$ et $b\neq0$, les trajectoires vérifient cette fois
+$y = \frac{b}{a^2} x^2$ et sont des branches de paraboles. 
+
+\myfigure{0.9}{
+\tikzinput{fig_sysdiff_02}
+}
+
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+\subsection{Matrice diagonalisable sur $\Cc$}
+
+Voici un exemple où l'on utilise les valeurs propres et les vecteurs propres complexes pour trouver les solutions réelles.
+
+\begin{exemple}
+Soit le système $X'=AX$ avec la matrice
+$$A = \begin{pmatrix}1&2\cr -2&1\end{pmatrix}.$$
+Cette matrice $A$ n'est pas diagonalisable sur $\Rr$ ; par contre elle l'est sur $\Cc$.
+
+Voici ses deux valeurs propres $\lambda_1,\lambda_2$ avec les deux vecteurs propres $V_1,V_2$ associés :
+$$\lambda_1 = 1 - 2\ii, \quad V_1 = \begin{pmatrix} 1\\-\ii\end{pmatrix}
+\quad;\quad
+\lambda_2 = 1 + 2\ii, \quad V_2 = \begin{pmatrix} 1\\\ii\end{pmatrix}.$$
+Nous savons alors par la proposition \ref{prop:sysdiff} que 
+$$X_{1}^{\Cc}(t) = e^{\lambda_1 t} V_1 \quad \text{ et } \quad
+X_{2}^{\Cc}(t) = e^{\lambda_2 t} V_2 $$
+sont des solutions du système $X'=AX$.
+On calcule ensuite
+$$X_{1}^{\Cc}(t) 
+= e^{\lambda_1 t} V_1
+= e^{(1-2\ii)t} \begin{pmatrix} 1\\ -\ii\end{pmatrix}
+= \begin{pmatrix} e^t e^{-2\ii t} \\ -\ii e^t e^{-2\ii t} \end{pmatrix},$$
+soit encore
+$$X_{1}^{\Cc}(t)
+= \begin{pmatrix} e^t ( \cos(-2t)+ \ii \sin(-2t) ) \\ -\ii e^t( \cos(-2t)+ \ii \sin(-2t) )   \end{pmatrix}
+= \begin{pmatrix} e^t ( \cos(2t) - \ii \sin(2t) ) \\  e^t( -\sin(2t)- \ii \cos(2t) )   \end{pmatrix}.$$
+
+De même, on trouve 
+$$X_{2}^{\Cc}(t) 
+= e^{\lambda_2 t} V_2
+= \begin{pmatrix} e^t ( \cos(2t) + \ii \sin(2t) ) \\  e^t( -\sin(2t) + \ii \cos(2t) ) \end{pmatrix}.$$
+
+
+Par contre, $X_1^{\Cc}$ et $X_2^{\Cc}$ sont des solutions à valeurs complexes.
+Comme $A$ est une matrice réelle, alors ces solutions sont conjuguées, et la partie réelle et la partie imaginaire de $X_1^{\Cc}$ (ou $X_2^{\Cc}$) sont solutions :
+$$X_1(t) = \Re X_1^{\Cc}(t) =
+ \begin{pmatrix}  \cos(2t)e^t \\  -\sin(2t)e^t  \end{pmatrix}
+ \qquad 
+ X_2(t) = \Im X_1^{\Cc}(t) =
+ \begin{pmatrix}  -\sin(2t)e^t \\ -\cos(2t)e^t \end{pmatrix}$$
+Ces deux solutions $X_1$ et $X_2$ forment une base de l'espace vectoriel des solutions. Ainsi, si $X(t)$ est une solution, elle s'écrit
+$X(t) = a X_1(t) + b X_2(t)$.
+
+Conclusion : les solutions sont de la forme 
+$$\left\{\begin{array}{rcl}
+x(t) &=& \big(a\cos(2t) - b\sin(2t) \big)  e^t\cr  
+y(t) &=& -\big(a\sin(2t) + b\cos(2t) \big)  e^t
+\end{array}\right.$$
+où $a, b \in \Rr$.
+
+\myfigure{1.3}{
+\tikzinput{fig_sysdiff_03}
+}
+
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Matrice non diagonalisable}
+
+Voici un exemple où l'on utilise l'exponentielle de matrices.
+
+\begin{exemple}
+Considérons le système $X'=AX$ avec la matrice
+$$A = \begin{pmatrix}1&1\cr 0&1\end{pmatrix}.$$
+
+Nous savons que les solutions sont de la forme
+$X(t) = \exp(tA) X_0$.
+Il est ici facile de calculer $\exp(tA)$ :
+\begin{itemize}
+  \item \textbf{Première méthode}. Par récurrence, il vient facilement 
+  $$A^k = \begin{pmatrix}1&k\cr 0&1\end{pmatrix}
+  \qquad \text{ d'où } \qquad 
+  \exp(tA) =  \begin{pmatrix}e^t& te^t\cr 0&e^t\end{pmatrix}.$$
+  
+  \item \textbf{Seconde méthode.} La décomposition de Dunford est ici
+  $ A = D + N$ avec 
+  $$D = \begin{pmatrix}1&0\cr 0&1\end{pmatrix}, \qquad
+  N = \begin{pmatrix}0&1\cr 0&0\end{pmatrix}.$$
+  On a bien $DN=ND$ (car la matrice identité commute avec n'importe quelle matrice).
+  Il est clair que $N^2$ est la matrice nulle.
+  Ainsi
+  $$\exp(tA) = \exp(tD)\cdot \exp(tN) = \exp(tD) \cdot (I+tN)
+  = \begin{pmatrix}e^t& 0\cr 0&e^t\end{pmatrix}
+  \begin{pmatrix}1& t\cr 0&1\end{pmatrix}
+  = \begin{pmatrix}e^t& te^t\cr 0&e^t\end{pmatrix}.$$
+  
+\end{itemize}
+
+Avec $X_0 =  \left(\begin{smallmatrix}a\\b\end{smallmatrix} \right)$,
+les solutions et les trajectoires sont données par :
+$$\left\{\begin{array}{rcl}
+x(t) &=& (a+bt)e^t\cr  
+y(t) &=& be^{t}
+\end{array}\right.$$
+
+\myfigure{1.1}{
+\tikzinput{fig_sysdiff_04}
+}
+
+\end{exemple}
+
+
+ 
+ 
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Trouver les solutions du système différentiel 
+    $\left\{\begin{array}{rcl}x'&=&y\cr y'&=&-x\end{array}\right.$. 
+    Montrer que les trajectoires des solutions sont des cercles centrés à l'origine.
+    
+  \item Trouver les solutions du système différentiel $X'=AX$ où
+  $A =  \left(\begin{smallmatrix}2&1\\1&1\end{smallmatrix} \right)$.
+  Trouver la trajectoire passant par le point $(1,0)$.
+  
+  \item Diagonaliser la matrice $A =  \left(\begin{smallmatrix}0&1\\1&0\end{smallmatrix} \right)$,
+  c'est-à-dire déterminer une matrice diagonale $D$ semblable à $A$.   
+  Trouver les solutions du système différentiel $X'=DX$, et tracer les trajectoires.
+  En déduire les solutions et les trajectoires du système $X'=AX$.
+  
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+
+\auteurs{
+\\
+D'après un cours de Sandra Delaunay et un cours d'Alexis Tchoudjem.
+
+Revu et augmenté par Arnaud Bodin.
+
+Relu par Stéphanie Bodin et Vianney Combet.
+}
+
+
+\finchapitre 
+\end{document}
+
+

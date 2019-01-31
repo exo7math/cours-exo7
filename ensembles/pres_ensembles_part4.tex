@@ -1,0 +1,505 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={153,0,0}]{structure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{{\bf Ensembles et applications}}
+\subtitle{Ensembles finis}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Cardinal
+    \item<4-> Injection, surjection, bijection et ensembles finis
+    \item<5-> Nombres d'applications
+    \item<6-> Nombres de sous-ensembles
+    \item<7-> Coefficients du binôme de Newton
+    \item<8-> Formule du binôme de Newton
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+
+%---------------------------------------------------------------
+\section{Ensembles finis}
+
+\begin{frame}
+
+
+\begin{mydefinition}
+Un ensemble $E$ est \defi{fini} s'il existe $n\in \Nn$ et
+une bijection de $E$ vers l'ensemble $\{1,2,\ldots,n\}$
+
+\pause
+
+Ce $n$ est unique, s'appelle le \defi{cardinal} de $E$ (ou le \defi{nombre d'éléments})
+et est noté $\Card E$
+\end{mydefinition}
+
+\pause
+\bigskip
+
+
+\begin{itemize}
+  \item $E=\{\text{rouge},\text{noir}\}$ est en bijection avec $\{1,2\}$ et donc $\Card E =2$
+\pause
+  \item $\Nn$ n'est pas un ensemble fini
+\pause
+  \item par définition le cardinal de l'ensemble vide est $0$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+
+
+
+Si $A$ est un ensemble fini et $B \subset A$
+\begin{enumerate}
+  \item<1-> $B$ est aussi fini et $\Card B \le \Card A$
+  \item<2-> $\Card (A \setminus B) = \Card A - \Card B$
+\end{enumerate}
+
+\pause
+\pause 
+\bigskip
+
+Si $A, B$ sont deux ensembles finis 
+%\setcounter{theenumi}{2}
+\begin{enumerate}
+
+  \item<3-> Si $A \cap B = \varnothing$ alors $\Card (A \cup B) = \Card A + \Card B$
+
+  \item<4-> Pour $A,B$ finis quelconques:
+\mybox{$\Card (A \cup B) = \Card A + \Card B - \Card (A\cap B)$}
+\pause\pause
+\myfigure{1.3}{
+\tikzinput{fig_ensembles14} 
+}
+\end{enumerate}
+
+\end{frame}
+
+%---------------------------------------------------------------
+
+\section{Applications et ensembles finis}
+
+
+\begin{frame}
+
+Soit $E,F$ deux ensembles finis et $f : E \to F$
+\begin{proposition}
+\begin{enumerate}
+  \item<1-> \label{it:bij1} Si $f$ est injective alors $\Card E \le \Card F$
+  \item<2-> \label{it:bij2} Si $f$ est surjective alors $\Card E \ge \Card F$
+  \item<3-> \label{it:bij3} Si $f$ est bijective alors $\Card E = \Card F$
+\end{enumerate}
+\end{proposition}
+\end{frame}
+
+
+
+\begin{frame}
+Soient $E,F$ deux ensembles finis et $f : E \to F$
+\begin{proposition}
+Si $\Card E = \Card F$
+alors les assertions suivantes sont équivalentes
+\pause
+\begin{enumerate}
+  \item[i.] $f$ est injective
+  \item[ii.] $f$ est surjective
+  \item[iii.] $f$ est bijective
+\end{enumerate}
+\end{proposition}
+
+\pause
+
+Schéma de la preuve \qquad $ (i) \implies (ii) \implies (iii) \implies (i) $
+
+\pause
+\bigskip
+
+Le \defi{principe des tiroirs}
+\begin{proposition}
+Si l'on range dans $k$ tiroirs, $n > k$ paires de chaussettes
+alors il existe un tiroir contenant (au moins) deux paires
+de chaussettes
+\end{proposition}
+
+  
+\end{frame}
+
+%---------------------------------------------------------------
+
+\section{Nombres d'applications}
+
+\begin{frame}
+
+$\Card E=n$ \quad et \quad $\Card F=p$
+\begin{proposition}
+Le nombre d'applications différentes de $E$ dans $F$ est 
+\pause
+ \myboxinline{$p^n$}
+\end{proposition}
+
+\pause
+\medskip
+
+Autrement dit c'est \myboxinline{$(\Card F)^{\Card E}$}
+
+\pause 
+\bigskip
+
+\begin{exemple}
+En particulier le nombre  d'applications de $E$ dans lui-même est $n^n$
+
+\pause 
+\smallskip
+
+Par exemple si $E=\{1,2,3,4,5\}$ alors ce nombre est $5^5 = 3125$
+\end{exemple}
+\end{frame}
+
+%---------------------------------------------------------------
+
+\begin{frame}
+
+$\Card E = n$
+\begin{proposition}
+Le nombre de bijections de $E$ dans $E$ est 
+\pause
+\mybox{$n!=1\times 2 \times 3 \times \cdots \times n$}
+\end{proposition}
+
+\pause
+
+\begin{exemple}
+Parmi les $3125$ applications de $E=\{1,2,3,4,5\}$ dans lui-même,
+
+il y en a $5! = 120$ qui sont bijectives
+\end{exemple}
+
+\pause
+
+\begin{proof}[Preuve rapide]
+Pour l'image du premier élément il y a $n$ choix
+
+\pause
+
+Pour l'image du deuxième : $n-1$ choix
+
+\pause
+
+\ldots
+
+Pour l'image du $k$-ième : $n-k+1$ choix
+
+\ldots
+
+\pause
+
+Pour l'image du $n$-ième : $1$ choix
+\end{proof}
+  
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Nombres de sous-ensembles}
+
+\begin{frame}
+
+$\Card E = n$
+\begin{proposition}
+Il y a $2^{\Card E}$ sous-ensembles de $E$ 
+\pause
+\mybox{$\Card \mathcal{P}(E) = 2^n$}
+\end{proposition}
+
+\pause
+
+\begin{exemple}
+Si $E= \{1,2,3,4,5\}$ alors $\mathcal{P}(E)$ a $2^5 = 32$ parties
+
+\pause
+
+\begin{itemize}
+  \item l'ensemble vide : $\varnothing$
+\pause
+  \item $5$ singletons : $\{1\}, \{2\},\ldots$
+\pause
+  \item $10$ paires : $\{1,2\}, \{1,3\}, \ldots, \{2,3\}, \ldots$
+\pause
+  \item $10$ triplets : $\{1,2,3\},\{1,2,4\},\ldots$
+\pause
+  \item $5$ ensembles à $4$ éléments : $\{1,2,3,4\}, \{1,2,3,5\},\ldots$
+\pause
+  \item $E$ tout entier :  $\{1,2,3,4,5\}$
+\end{itemize}
+
+\end{exemple}
+
+\end{frame}
+
+
+%---------------------------------------------------------------
+
+\section{Coefficients du binôme de Newton}
+
+\begin{frame}
+
+\begin{mydefinition}
+Le nombre de parties à $k$ éléments d'un ensemble à $n$ éléments est
+noté
+
+\smallskip
+
+\centerline{$\binom{n}{k}$ \quad ou \quad $C_n^k$}
+\end{mydefinition}
+
+\pause
+
+{\footnotesize
+\begin{exemple}
+\begin{itemize}
+\item Les parties à $k\!=\!2$ éléments de $\{1,2,3\}$ sont $\{1,2\}$, $\{1,3\}$, $\{2,3\}$
+donc $\binom{3}{2} = 3$
+\pause
+\item Pour $n=5$ \qquad
+$
+\binom{5}{0} = 1 \;\;
+\binom{5}{1} = 5 \;\;
+\binom{5}{2} = 10 \;\;
+\binom{5}{3} = 10 \;\;
+\binom{5}{4} = 5 \;\;
+\binom{5}{5} = 1
+$
+\end{itemize}
+\end{exemple}
+}
+\pause
+
+\begin{proposition}
+\begin{itemize}
+  \item $\binom{n}{0}=1$ \quad  $\binom{n}{1}=n$ \quad  $\binom{n}{n}=1$
+\pause
+  \item \myboxinline{$\binom{n}{n-k} = \binom{n}{k}$}
+\pause
+  \item \myboxinline{$\binom{n}{0}+\binom{n}{1}+\cdots+\binom{n}{k}+\cdots+\binom{n}{n} = 2^n$}
+\end{itemize}
+\end{proposition}
+
+\end{frame}
+
+%---------------------------------------------------------------
+
+\begin{frame}
+
+
+\begin{proposition}\ 
+\mybox{$\displaystyle \binom n k = \binom{n-1}{k} + \binom{n-1}{k-1} \qquad 0<k<n$}
+\end{proposition}
+
+\pause
+
+\begin{proof}
+$\Card E = n$, \quad $a \in E$, \quad  $E' = E \setminus \{ a \}$
+
+\pause
+
+Il y a deux sortes de parties $A \subset E$ ayant $k$ éléments :
+\begin{itemize}
+\pause
+  \item celles qui ne contiennent pas $a$ : 
+\pause
+ce sont donc des parties à $k$ éléments 
+dans $E'$ qui possède $n-1$ éléments, il y a en a donc $\binom{n-1}{k}$
+\pause
+  \item celles qui contiennent $a$ : 
+\pause
+elles sont de la forme $A = \{a\} \cup A'$ 
+avec $A'$ une partie à $k-1$ éléments dans $E'$, il y en a $\binom{n-1}{k-1}$
+\end{itemize}
+\pause
+Bilan : $\binom n k = \binom{n-1}{k-1} + \binom{n-1}{k}$
+\end{proof}
+\end{frame}
+
+%---------------------------------------------------------------
+
+\begin{frame}
+Le \evidence{triangle de Pascal} %la table des $\binom{n}{k}$ 
+\qquad\qquad \uncover<2->{$k \le n$}
+\uncover<3->{\quad  $\binom{n}{0}=1 \quad \binom{n}{n}=1$}
+
+
+\[\hspace*{-2cm}
+\begin{array}{ccc}
+%\hspace*{3cm}
+\uncover<4->{\binom{n-1}{k-1} & + & \binom{n-1}{k}
+\\
+& & \shortparallel
+\\
+& & \binom{n}{k}
+}
+\\ \\
+\uncover<5-10>{
+\binom{
+\only<5>{{\color{red} 2}-1}
+\only<6>{{\color{blue} 1}}
+\only<7,9>{{\color{red} 3}-1}
+\only<8,10>{{\color{blue} 2}}
+}{
+\only<5,7>{{\color{red} 1}-1}
+\only<6,8>{{\color{blue} 0}}
+\only<9>{{\color{red} 2} -1}
+\only<10>{{\color{blue} 1}}
+} & + & 
+\binom{
+\only<5>{{\color{red} 2}-1}
+\only<6>{\color{blue} 1}
+\only<7,9>{{\color{red} 3}-1}
+\only<8,10>{\color{blue} 2}
+}{
+{\color{red} \only<5-8>{1} \only<9-10>{2}}
+}
+\\
+& & \shortparallel
+\\
+& & \binom{
+\only<5-6>{\color{red} 2}
+\only<7-10>{\color{red} 3}
+}{
+{\color{red} \only<5-8>{1} \only<9-10>{2}}
+}
+}
+\end{array}
+\qquad
+\begin{array}{cc|ccccccc}
+&&&& k
+\\
+&	& 0 & {\color<5-8>{red} 1} & {\color<9-10>{red} 2} & 3 & 4 & 5 
+\\ \hline 
+& 0 & \temporal<2>{}{?}{1} & & \phantom{22} & \phantom{22} & \phantom{22} & \phantom{22} & \uncover<15>{\;}
+\\
+& 1 	& \temporal<2>{}{?}{\color<6>{blue} 1} 	& \temporal<2>{}{?}{\color<6>{blue} 1}
+\\
+& {\color<5,6>{red}2} 	& \temporal<2>{}{?}{\color<8>{blue} 1}	
+& \temporal<2-5>{}{{\color<5>{red}?}}{\color<6>{red} \color<8,10>{blue} 2}		
+& \temporal<2>{}{?}{\color<10>{blue} 1}
+\\
+n & {\color<7,8,9,10>{red} 3}
+& \temporal<2>{}{?}{\color<11>{blue} 1}	
+& \temporal<2-7>{}{\color<7>{red}?}{\color<8>{red} \color<11-12>{blue} 3}		
+& \temporal<2-9>{}{\color<9>{red} ?}{\color<10>{red} \color<12-13>{blue} 3}		
+& \temporal<2>{}{?}{\color<13>{blue} 1}
+\\ 
+& 4		& \temporal<2>{}{?}{1}	
+& \temporal<2-10>{}{?}{\color<11>{red} 4}		
+& \temporal<2-11>{}{?}{\color<12>{red} 6}
+& \temporal<2-12>{}{?}{\color<13>{red} 4}		& \temporal<2>{}{?}{1}
+\\
+& 5 & \temporal<2>{}{?}{1} 
+& \temporal<2-13>{ & & & }{? & ? & ? & ? }{5 & 10 & 10 & 5}
+& \temporal<2>{}{?}{1}
+\\
+& 6 & \temporal<2>{}{?}{1} 
+& \temporal<2-14>{ & & & & }{? & ? & ? & ? & ? }{6 & 15 & 20 & 15 & 6}
+& \temporal<2>{}{?}{1}
+\end{array}
+\]  
+\end{frame}
+
+%---------------------------------------------------------------
+
+\begin{frame}
+
+\begin{proposition}
+\mybox{$\displaystyle \binom n k = \frac{n!}{k!(n-k)!}$}
+\end{proposition}
+
+\pause
+
+\begin{proof}
+Récurrence sur $n$. Vrai pour $n=1$
+\pause
+
+Supposons vrai au rang $n-1$ 
+$$\begin{array}{rcl}
+\displaystyle \binom n k \pause & = & \displaystyle \binom{n-1}{k-1} + \binom{n-1}{k} \\ \\
+\pause
+ & = & \displaystyle \frac{(n-1)!}{(k-1)!(n-1-(k-1))!} + \frac{(n-1)!}{k!(n-1-k)!} \\ \\
+\pause
+& = & \displaystyle \frac{(n-1)!}{(k-1)!(n-k-1)!} \times \left( \frac{1}{n-k} + \frac{1}{k} \right) = \frac{n!}{k!(n-k)!}
+\end{array}$$
+\end{proof}
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Formule du binôme de Newton}
+
+\begin{frame}
+\begin{theoreme}
+Soit $a,b \in\Rr$ et  $n \ge 1$
+\mybox{$\displaystyle (a+b)^n = \pause \sum_{k=0}^n \binom{n}{k} \ a^{n-k} \cdot b^{k}$}
+\end{theoreme}
+
+
+\pause
+
+{\small
+$$(a+b)^n = \binom{n}{0}\ a^n + \binom{n}{1}\ a^{n-1}\cdot b
++ \cdots + \binom{n}{k} \ a^{n-k} \cdot b^{k}+\cdots + \binom{n}{n}\ b^n$$
+}
+
+\pause
+
+\begin{exemple}
+\begin{enumerate}
+  \item $(a+b)^2= a^2 + 2ab + b^2$
+\pause
+  \item $(a+b)^3 = a^3 + 3a^2b + 3ab^2 + b^3$
+\pause
+  \item Si $a=1$ et $b=1$, on retrouve $\sum_{k=0}^n \binom{n}{k} = 2^n$
+\end{enumerate}
+\end{exemple}
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Combien y a-t-il d'applications injectives d'un ensemble à $n$ éléments dans un ensemble à $n+1$ éléments ?
+  \item Combien y a-t-il d'applications surjectives d'un ensemble à $n+1$ éléments dans un ensemble à $n$ éléments ?
+  \item Calculer le nombre de façons de choisir $5$ cartes dans un jeux de $32$ cartes.
+  \item Calculer le nombre de listes à $k$ éléments dans un ensemble à $n$ éléments ({\small les listes sont ordonnées :
+par exemple $(1,2,3) \neq (1,3,2)$}).
+  \item Développer $(a-b)^4$, $(a+b)^5$.
+  \item Que donne la formule du binôme pour $a=-1$, $b=+1$ ? En déduire que dans un ensemble à $n$ éléments il y a
+autant de parties de cardinal pair que de cardinal impair.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

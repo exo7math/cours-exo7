@@ -1,0 +1,624 @@
+
+\documentclass[12pt, class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+
+\begin{document}
+
+%====================================================================
+\chapitre{Difféomorphismes}
+%====================================================================
+
+% Commandes à virer
+\newcommand{\ou}{\mathscr{O}}
+\newcommand{\f}{\mathscr{F}}
+\newcommand{\mat}{\mathscr{M}}
+\newcommand{\co}{\mathscr{C}}
+\newcommand{\ja}{\mathrm{J}}
+\newcommand{\jac}{|\mathrm{J}|}
+\newcommand{\rot}{\mathrm{rot}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Difféomorphismes}
+
+%----------------------------------------------------
+\subsection{Définition}
+
+\noindent Soient $U$ et $V$ des OUVERTS ( non vides) de $\R^p$.
+\begin{definition}[DIFFEOMORPHISME]
+ \textcolor[rgb]{0.98,0.00,0.00}{ 
+  On dit qu'une application $f: U \rightarrow V$ est un diff\'eomorphisme de $U$ sur $V$
+si et seulement si
+\begin{itemize}
+  \item[1.] $f$ est une bijection,
+  \item[2.] $f$ est de classe $\co^1$, c'est \`a dire contin\^ument diff\'erentiable sur $U$,
+  \item[3.] $f^{-1}$ est de classe $\co^1$ sur $V$.
+\end{itemize}}
+\end{definition}
+
+%----------------------------------------------------
+\subsection{Difféomorphisme et jacobienne}
+
+[[Tout écrire en terme de Jacobienne, aps de différentielle quand à valeur vectorielle]]
+
+\begin{proposition}[DIFFEOMORPHISME ET RECIPROQUE]
+ \textcolor[rgb]{0.44,0.00,0.87}{
+  Si $f: U \rightarrow V$ est un diff\'eomorphisme alors sa diff\'erentielle est en tout point de
+$U$ un isomorphisme (de $\R^p$ dans lui-même) et la diff\'erentielle de sa fonction r\'eciproque $f^{-1}$
+est li\'ee \`a celle de $f$ par la formule
+\begin{equation*}
+  d(f^{-1})_y=(df_{f^{-1}(y)})^{-1}, \;\;\mathrm{\; pour\; tout \;} y \in V.
+\end{equation*}}
+\end{proposition}
+
+\noindent {\textbf{Preuve.}} Faite en cours.
+
+
+\begin{proposition}[DIFFEOMORPHISME ET JACOBIENNE]
+ \textcolor[rgb]{0.44,0.00,0.87}{
+  Si $f: U \rightarrow V$ est un diff\'eomorphisme alors sa diff\'erentielle est en tout point de
+$U$ un isomorphisme (de $\R^p$ dans lui-même) et la diff\'erentielle de sa fonction r\'eciproque $f^{-1}$
+est li\'ee \`a celle de $f$ par la formule
+\begin{equation*}
+  J(f^{-1})_y=(J(f)_{f^{-1}(y)})^{-1}, \;\;\mathrm{\; pour\; tout \;} y \in V.
+\end{equation*}
+où $ J(f^{-1})_y$ et $(J(f)_{f^{-1}(y)})^{-1}$ sont respectivement la jacobienne de $f^{-1}$ en $y$ et la jacobienne de 
+$f$ en $f^{-1}$ en $y$.}
+\end{proposition}
+
+\noindent {\textbf{Preuve.}} Faite en cours.
+
+
+\subsection{Hanani}
+
+Les applications de $\Rr^n$ dans $\Rr^n$ qui sont bijectives et de classe $\mathscr{C}^1$ ainsi que leur réciproque, sont utilisées comme changements de variables. On les appelle des difféomorphismes.
+
+\vskip6mm
+
+\begin{definition}Soient $U$ et $V$ deux ouverts de $\Rr^n$ et $\Phi:U\to V$. On dit que $f$ est un ${\mathscr C}^1$-difféomorphisme si
+\begin{enumerate}
+\item $\Phi$ est une bijection de $U$ sur $V$.
+\item $\Phi$ est de classe ${\mathscr C}^1$ sur $U$.
+\item $\Phi^{-1}$ est de classe ${\mathscr C}^1$ sur $V$.
+\end{enumerate}
+\end{definition}
+
+\vskip4mm
+
+\noindent Du théorème de composition découle que les différentielles de $\Phi$ et $\Phi^{-1}$ sont elles aussi réciproques l'une de l'autre. Et donc les matrices jacobiennes, qui sont des matrices carrées $n\times n$, sont inverses l'une de l'autre.
+
+\vskip6mm
+
+\begin{proposition}Soit $\Phi:U\to V$ un ${\mathscr C}^1$-difféomorphisme, $A\in U$ et $B\in V$. Alors
+$$\left[\ja _{\Phi}(A)\right]^{-1}=\ja _{\Phi ^{-1}}(\Phi(A))\quad \mbox{et}\quad \ja _{\Phi ^{-1}}(B)=\left[\ja _{\Phi}\left(\Phi^{-1}(B)\right)\right]^{-1}.$$
+\end{proposition}
+
+\vskip4mm
+
+\noindent Pour un difféomorphisme, le déterminant de la matrice jacobienne joue un r\^ole particulier.
+
+\vskip6mm
+
+\begin{definition}Soient $U$ et $V$ deux ouverts de $\Rr^n$ et $\Phi:U\to V$ une application de classe ${\mathscr C}^1$. On appelle jacobien de $\Phi$ au point $A\in U$ le déterminant de la matrice jacobienne de $\Phi$ au point $A$ :
+$$\jac _{\Phi}(A)=\det \left(\ja _{\Phi}(A)\right).$$
+\end{definition}
+
+\vskip4mm
+
+\noindent Il est clair que le jacobien d'un difféomorphisme ne s'annule pas, puisque la matrice jacobienne est inversible. La réciproque est donnée par le théorème d'inversion.
+
+\vskip6mm
+
+\begin{theoreme}[d'inversion]Soient $U$ et $V$ deux ouverts de $\Rr^n$ et $\Phi:U\to V$ une application de classe ${\mathscr C}^1$. Si $\Phi$ est bijective et si le jacobien de $\Phi$ ne s'annule pas sur $U$, alors $\Phi$ est un ${\mathscr C}^1$-difféomorphisme de $U$ sur $V$.
+\end{theoreme}
+
+\vskip4mm
+
+\noindent{\bf Exemple. }Les passages en coordonnées polaires, cylindriques ou sphériques, sont très souvent utilisés. Détaillons le premier qui consiste à remplacer les coordonnées cartésiennes $(x,y)$ d'un point du plan, par le module $r$ et l'argument $\theta$ du point dans le plan complexe.
+$$\begin{array}{ccccl}\Phi &:&U=\Rr^2\setminus \left(\Rr^+\times\{0\}\right)&\to&V=]0,+\infty [\times ]0,2\pi [\\&&(x,y)&\mapsto &\displaystyle (r,\theta).\end{array}$$
+
+\vskip4mm
+
+\noindent Dans la pratique, on travaille avec la réciproque
+$$\begin{array}{ccccl}\Psi &:&V&\to&U\\&&(r,\theta)&\mapsto &\displaystyle (x,y)\end{array} \qquad \mbox{ o\`u }\left\{\begin{array}{l} x=r \cos \theta \\ y=r \sin \theta .\end{array}\right.$$
+On doit avoir $r=\sqrt{x^2+y^2}$ et le point $(x/r,y/r)$ est dans le cercle unité privé du point $(1,0)$. Donc il existe un unique $\theta \in ]0,2\pi [$ tel que
+$$x=r\cos \theta \quad \mbox{et}\quad y=r\sin \theta .$$
+Ainsi $\Psi$ est bijective et il est évident qu'elle est de classe ${\mathscr C}^1$. Sa matrice jacobienne est 
+$$\ja _{\Psi }(r,\theta )=\left(\begin{array}{cc}\cos \theta &-r\sin \theta \\\displaystyle \sin \theta &r\cos \theta \end{array}\right)$$
+et son jacobien, qui vaut $r$, ne s'annule pas sur $V$. Donc $\Psi $ est un ${\mathscr C}^1$-difféomorphisme de $V$ sur $U$. Pour calculer les dérivées partielles de $r$ et $\theta$, on utilise l'inversion matricielle de la jacobienne. En effet, puisque $\Phi =\Psi ^{-1}$,
+$$\ja _{\Phi }(x,y)=\left(\begin{array}{cc}\displaystyle \frac{\partial r}{\partial x}&\displaystyle \frac{\partial r}{\partial y}\\ \displaystyle \frac{\partial \theta}{\partial x}&\displaystyle \frac{\partial \theta}{\partial y}\end{array}\right)=\left[\ja _{\Psi }(r,\theta ))\right]^{-1}=\frac{1}{r}\left(\begin{array}{cc}r\cos \theta &r\sin \theta \\ \\ -\sin \theta &\cos \theta\end{array}\right)$$
+Ce qui nous donne
+$$\left(\begin{array}{cc}\displaystyle \frac{\partial r}{\partial x}&\displaystyle \frac{\partial r}{\partial y}\\ \\ \displaystyle \frac{\partial \theta}{\partial x}&\displaystyle \frac{\partial \theta}{\partial y}\end{array}\right)=\left(\begin{array}{cc}\cos \theta &\sin \theta \\ \\ \displaystyle -\frac{\sin \theta }{r}&\displaystyle \frac{\cos \theta }{r}\end{array}\right)=\left(\begin{array}{cc}\displaystyle \frac{x}{\sqrt{x^2+y^2}} &\displaystyle \frac{y}{\sqrt{x^2+y^2}} \\ \\ \displaystyle -\frac{y}{x^2+y^2}&\displaystyle \frac{x}{x^2+y^2}\end{array}\right).\leqno{(*)}$$
+
+\vskip4mm
+
+\noindent Considérons maintenant une application $f:(x, y)\mapsto f(x,y)$ de $U$ dans $\Rr$. Pour utiliser passer en coordonnées, on doit remplacer les anciennes coordonnées $(x,y)$ par les nouvelles coordonnées $(r,\theta)$, et donc considérer la fonction $g$ de $V$ dans $\Rr$ qui à $(r,\theta)$ associe :
+$$g(r,\theta)=f\left(\Phi ^{-1}(r,\theta)\right)=f\left(x(r,\theta),y(r,\theta)\right).$$
+La formule de dérivation des fonctions composées donne
+$$\left\{\begin{array}{ccl}\displaystyle \frac{\partial f}{\partial x}(x,y)&=&\displaystyle \frac{\partial g}{\partial r}(r,\theta )\frac{\partial r}{\partial x}(x,y)+\frac{\partial g}{\partial \theta}(r,\theta )\frac{\partial \theta }{\partial x}(x,y)\\ \\ \displaystyle \frac{\partial f}{\partial y}(x,y)&=&\displaystyle \frac{\partial g}{\partial r}(r,\theta )\frac{\partial r}{\partial y}(x,y)+\frac{\partial g}{\partial \theta}(r,\theta )\frac{\partial \theta }{\partial x}(x,y).\end{array}\right.$$
+Donc, d'après $(*)$, on aura :
+$$\left\{\begin{array}{ccl}\displaystyle \frac{\partial f}{\partial x}(x,y)&=&\displaystyle \cos \theta .\frac{\partial g}{\partial r}(r,\theta )-\frac{\sin \theta }{r}.\frac{\partial g}{\partial \theta}(r,\theta )\\ \\ \displaystyle \frac{\partial f}{\partial y}(x,y)&=&\displaystyle \sin \theta .\frac{\partial g}{\partial r}(r,\theta )+\frac{\cos \theta }{r}.\frac{\partial g}{\partial \theta}(r,\theta ).\end{array}\right. \leqno{(\star \star )}$$
+
+
+
+%----------------------------------------------------
+\subsection{Équations aux dérivées partielles}
+ 
+
+%----------------------------------------------------
+\subsection{}
+
+\subsection{Champs de vecteurs}
+
+\vskip4mm
+
+\noindent Les équations aux dérivées partielles sont omniprésentes en physique. Elles relient entre elles les dérivées partielles d'ordre $1$ et $2$, et font intervenir des combinaisons de dérivées partielles comme le gradient, la divergence ou le rotationnel.
+
+\vskip6mm
+
+\noindent On rappelle que le gradient d'une fonction de deux variables $f$ est le champ de vecteurs de $\Rr^2$ défini par
+$$\nabla f=\left(\frac{\partial f}{\partial x},\frac{\partial f}{\partial y}\right).$$
+On dispose donc d'un opérateur, noté formellement, $\displaystyle \nabla :=\left(\frac{\partial }{\partial x},\frac{\partial }{\partial y}\right)$ sur les fonctions. De m\^eme, le gradient d'une fonction de trois variables $f$ est le champ de vecteurs de $\Rr^3$ défini par
+$$\nabla f=\left(\frac{\partial f}{\partial x},\frac{\partial f}{\partial y},\frac{\partial f}{\partial z}\right).$$
+On dispose à nouveau d'un opérateur, noté formellement, $\displaystyle \nabla :=\left(\frac{\partial }{\partial x},\frac{\partial }{\partial y},\frac{\partial }{\partial z}\right)$.
+
+\vskip6mm
+
+\begin{definition}Soit $U$ un ouvert de $\Rr^2$. Soit $F:(x,y)\mapsto \left(P(x,y),Q(x,y)\right)$ une application de classe $\mathscr{C}^1$ de $U$ dans $\Rr^2$. Une telle application est aussi appelée un champ de vecteurs de $\Rr^2$ défini sur $U$. On définit formellement le rotationnel du champ de vecteurs $F$ comme étant le champ de vecteurs de $\Rr$ défini sur $U$ par
+$$\mathrm{rot}(F)(x,y)=\det (\nabla ,F)=\left|\begin{array}{cc}\frac{\partial}{\partial x}&P\\ \\ \frac{\partial}{\partial y}&Q
+\end{array}\right|(x,y)=\frac{\partial Q}{\partial x}(x,y)-\frac{\partial P}{\partial y}(x,y).$$
+\end{definition}
+
+\vskip4mm
+
+\noindent Un champ de vecteurs sera noté indifféremment $F$ ou $\overrightarrow{F}$. On vérifiera à partir de cette définiton et le théorème de Schwarz que, $\mbox{rot}(\nabla f)=0$.
+
+\vskip6mm
+
+\begin{definition}Soit $U$ un ouvert de $\Rr^3$ et $F:(x,y,z)\mapsto \left(P(x,y,z),Q(x,y,z),R(x,y,z)\right)$ une application de classe $\mathscr{C}^1$ de $U$ dans $\Rr^3$, appelée aussi champ de vecteurs de $\Rr^3$ défini sur $U$.
+\begin{enumerate}
+\item Le rotationnel de $F$ est le champ de vecteurs de $\Rr^3$ donné par
+$$\mathrm{rot}(F)=\nabla \wedge F=\left(\frac{\partial R}{\partial y}-\frac{\partial Q}{\partial z},\frac{\partial P}{\partial z}-\frac{\partial R}{\partial x},\frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y}\right).$$
+\item La divergence de $F$ est la fonction $\displaystyle \mathrm{div}(F)=\langle \nabla ,F\rangle =\frac{\partial P}{\partial x}+\frac{\partial Q}{\partial y}+\frac{\partial R}{\partial z}$.
+\end{enumerate}
+\end{definition}
+
+\vskip4mm
+
+\noindent On vérifiera à partir de ces définitons et le théorème de Schwarz que, $\mbox{rot}(\nabla f)=0$ et que, pour un champ de vecteurs $F$ de $\Rr^3$, $\mathrm{div}(\mathrm{rot}(F))=0$.
+
+\vskip6mm
+
+\begin{definition}Soit $F$ un champ de vecteurs défini sur $U$. On dit que $F$ dérivé d'un potentiel sur $U$ s'il existe une fonction $f:U\to \Rr$ telle que $F= \nabla f$ sur $U$. Dans ce cas, on dira que $f$ est un potentiel de $F$.
+\end{definition}
+
+\vskip4mm
+
+\begin{theoreme}[\bf Poincaré]Soit $U$ un ouvert simplement connexe de $\Rr^2$ (resp. $\Rr^3$) et $F$ un champ de vecteurs de $\Rr^2$ (resp. $\Rr^3$) de classe ${\mathscr C}^1$ sur $U$. Alors $F$ dérive d'un potentiel sur $U$ si, et seulement si, $\rot F=0$.
+\end{theoreme}
+
+\vskip6mm
+
+\noindent{\bf Méthode. }Lorsqu'un champ de vecteurs $\overrightarrow{F}$ dérive d'un potentiel $f$, on écrit $\displaystyle \nabla f=\overrightarrow{F}$. En identifiant les coordonnées, on obtient un système d'équations dont la seule inconnue est $f$. Il faut donc intégrer ce système pour déterminer $f$.
+
+\vskip6mm
+
+\noindent{\bf Exemple. }{\it Montrer que le champ de vecteurs $\overrightarrow{F}(x,y)=y^2\vec{i}+(2xy-1)\vec{j}$ dérive d'un potentiel sur $\Rr^2$ et déterminer les potentiels dont il dérive.}
+
+\vskip4mm
+
+\noindent \underline{\it Solution}. \rm Ici $P(x,y)=y^2$, $Q(x,y)=2xy-1$ et $\displaystyle \frac{\partial P}{\partial y}=2y=\frac{\partial Q}{\partial x}$. Donc $\rot \overrightarrow{F}=0$ et, comme $\Rr^2$ est simplement connexe, $\overrightarrow{F}$ dérive d'un potentiel $f$ sur $\Rr^2$. On aura :
+$$\frac{\partial f}{\partial x}(x,y)=P(x,y)=y^2\rightarrow f(x,y)=xy^2+K(y)$$
+et 
+$$\frac{\partial f}{\partial y}(x,y)=Q(x,y)=2xy-1\rightarrow K'(y)=-1\rightarrow K(y)=-y+C,\quad C\in \Rr.$$
+Les potentiels de $\overrightarrow{F}$ sur $\Rr^2$ sont les fonctions $f$ définies par $f(x,y)=xy^2-y+C$.
+
+\vskip8mm
+
+\subsection{Exemples d'équations aux dérivées partielles}
+
+\vskip4mm
+
+\noindent Soit $U$ un ouvert non vide de $\Rr^2$. On note $(x_0,y_0)$ un point de $U$ et $U_1$ (resp. $U_2$) la projection de $U$ sur l'axe $y=0$ (resp. $x=0$).
+
+\vskip6mm
+
+\begin{proposition}Soit $h$ une fonction de classe $\mathscr{C}^0$ sur $U$. On note $H$ la primitive de $h_1:x\mapsto h(x,y)$ sur $U_1$ qui s'annule en $x_0$. Une fonction $f$ de classe $\mathscr{C}^1$ sur $U$ est une solution de 
+$$(E_1)\; :\; \frac{\partial f}{\partial x}(x,y)=h(x,y)$$
+si, et seulement si, il existe une fonction $k$ de classe $\mathscr{C}^1$ sur $U_2$ telle que
+$$\forall (x,y)\in U,\; \; f(x,y)=H(x,y)+k(y).$$
+\end{proposition}
+
+\vskip4mm
+
+\noindent{\it Démonstration. }Si $f$ est une solution de $(E_1)$ la fonction $\varphi :x\mapsto f(x,y)-H(x,y)$ est dérivable et de dérivée nulle. Elle est donc constante :
+$$\forall x\in U_1,\; \varphi (x)=\varphi (x_0)\rightarrow f(x,y)=H(x,y)+f(x_0,y)$$
+et $k:y\mapsto f(x_0,y)$ est bien une fonction de classe $\mathscr{C}^1$ sur $U_2$. Réciproquement, on vérifie qu'une fonction de cette forme est solution de $(E_1)$.
+
+\vskip6mm
+
+\begin{proposition}Soit $h$ une fonction de classe $\mathscr{C}^0$ sur $U_1$ et $H$ une primitive de $h$ sur $U_1$. Une fonction $f$ de classe $\mathscr{C}^2$ sur $U$ est une solution de 
+$$(E_2)\; :\; \frac{\partial ^2f}{\partial x\partial y}(x,y)=h(x)$$
+si, et seulement si, il existe une fonction $K$ de classe $\mathscr{C}^2$ sur $U_2$ telle que
+$$\forall (x,y)\in U,\; \; f(x,y)=yH(x)+K(y).$$
+\end{proposition}
+
+\vskip4mm
+
+\noindent{\it Démonstration. }Si $f$ est une solution de $(E_2)$ la fonction $\displaystyle \frac{\partial f}{\partial y}$ est solution d'une équation du type $(E_1)$. Donc
+$$\forall (x,y)\in U,\; \frac{\partial f}{\partial y}(x,y)=H(x)+k(y)$$
+o\`u $k$ est une fonction de classe $\mathscr{C}^1$ sur $U_2$. Ainsi $f$ est une solution d'une équation du type $(E_1)$. Donc de la forme ci-dessus.  Réciproquement, on vérifie qu'une fonction de cette forme est solution de $(E_2)$.
+
+\vskip6mm
+
+\begin{proposition}Une fonction $f$ de classe $\mathscr{C}^2$ sur $U$ est une solution de 
+$$(E_3)\; :\; \frac{\partial ^2f}{\partial x^2}(x,y)=0$$
+si, et seulement si, il existe deux fonctions $K$ et $H$ de classe $\mathscr{C}^2$ sur $U_2$ telles que
+$$\forall (x,y)\in U,\; \; f(x,y)=xH(y)+K(y).$$
+\end{proposition}
+
+\vskip4mm
+
+\noindent{\it Démonstration. }Si $f$ est une solution de $(E_3)$ la fonction $\displaystyle \frac{\partial f}{\partial x}$ est solution d'une équation du type $(E_1)$. Donc
+$$\forall (x,y)\in U,\; \frac{\partial f}{\partial x}(x,y)=k(y)$$
+o\`u $k$ est une fonction de classe $\mathscr{C}^1$ sur $U_2$. Ainsi $f$ est une solution d'une équation du type $(E_1)$. Donc de la forme ci-dessus. Réciproquement, on vérifie qu'une fonction de cette forme est solution de $(E_3)$.
+
+\vskip6mm
+
+\noindent{\bf Résolution à l'aide d'un difféomorphisme. }Pour intégrer une EDP, $(E)$ donnée, on utilise un changement de variables pour se ramener à une EDP plus simple. Soit
+$$\begin{array}{ccccl}\Phi &:&U&\to&V\\&&(x,y)&\mapsto &\displaystyle (u,v).\end{array}$$
+un $\mathscr{C}^1$-difféomorphisme. Pour une fonction $f$ solution de $(E)$, on pose $g=f\circ \Phi ^{-1}$. C'est à dire $f=g\circ \Phi$.
+\begin{enumerate}
+\item On utilise la formule de dérivation des fonctions composées pour exprimer les dérivées partielles de $f$ en fonction de $g$, $u$ et $u$.
+\item On remplace dans l'équation $(E)$ ce qui donne l'EDP $(E')$ satisfaite par $g$.
+\item On intègre $(E')$ et on en déduit les solutions $f$ de $(E)$.
+\end{enumerate}
+
+\vskip6mm
+
+\noindent{\bf Exemple. }Intégrons dans $U=\{(x,y)\in \Rr^2|\ x>0\}$ l'EDP suivante :
+$$(E)\;\; :\; \; x\frac{\partial f}{\partial x}+y\frac{\partial f}{\partial y}=\sqrt{x^2+y^2}.$$
+\rm On pose $\displaystyle V=]0,+\infty [\times \left]-\frac{\pi}{2},\frac{\pi}{2}\right[$, et on considère l'application $\Phi : V\to U$ définie par
+$$\Phi (r,\theta )=(r\cos \theta,r\sin \theta )$$
+\begin{enumerate}
+\item L'application $\Phi$ est un ${\mathscr C}^1$-difféomorphisme de $V$ sur $U$, et
+$$\forall (x,y)\in U,\; \;\Phi ^{-1}(x,y)=\left( \sqrt{x^2+y^2},\arctan\frac{y}{x}\right).$$
+\item Soit $f$ une fonction de classe ${\mathscr C}^1$ solution de $(E)$ sur $U$. On considère la fonction $g$ définie sur $V$ par
+$$g(r,\theta )=f(x,y)\mbox{ avec }(x,y)=(r\cos \theta,r\sin \theta ).$$
+\begin{enumerate}
+\item On exprime les dérivées partielles premières de $f$ en fonction de $g$, $r$ et $\theta$ (cf. les relations $(\star \star )$ ci-dessus).
+\item On reporte dans l'équation $(E)$ ce qui donne :
+$$r\frac{\partial g}{\partial r}(r,\theta )=r\Leftrightarrow \frac{\partial g}{\partial r}(r,\theta )=1.$$
+\item On voit que $g$ est une solution d'une équation du type $(E_1)$, donc $g(r,\theta )=r+k(\theta )$ o\`u $k$ est une fonction de classe ${\mathscr C}^1$ sur $\displaystyle \left]-\frac{\pi}{2},\frac{\pi}{2}\right[$. On en déduit que toute solution $f$ de $(E)$ est de la forme :
+$$\displaystyle f(x,y)=\sqrt{x^2+y^2}+k\left(\arctan \frac{y}{x}\right).$$
+\end{enumerate}                 
+\end{enumerate}
+
+
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item 
+\end{enumerate}
+\end{miniexercices}
+
+
+
+\subsection{Introduction}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Théorème d'inversion locale}
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+ 
+ 
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item 
+\end{enumerate}
+\end{miniexercices}
+
+
+\subsection{Pujo : Th\'eor\`eme d'inversion locale}
+\begin{theoreme}[THEOREME D'INVERSION LOCALE]
+\textcolor[rgb]{0.44,0.00,0.87}{
+Si
+\begin{itemize}
+  \item[1.]$f: U \rightarrow V$ est de classe $\co^1$,
+  \item[2.]$a \in U$ est tel que $df_a$ soit un isomorphisme (de $\R^p$ dans lui-même),
+  \end{itemize}
+alors il existe un voisinage ouvert $U_a$ de $a$ dans $U$ et un voisinage ouvert
+$V_b$ de $b=f(a)$ dans $V$ tel que la restriction de $f$ \`a $U_a$ soit un diff\'eomorphisme de $U_a$
+sur $V_b$.}
+\end{theoreme}
+
+\noindent {\textbf{Preuve.}} Pas faite en cours.
+
+\begin{corollaire}[THEOREME D'INVERSION GLOBALE]
+ \textcolor[rgb]{0.44,0.00,0.87}{
+  Soit $f: U \rightarrow \R^p$ une application de classe $\co^1$ avec $U$ un ouvert
+non vide. C'est un diff\'eomorphisme de $U$ sur $f(U)$ si et seulement si
+\begin{itemize}
+  \item[1.] elle est injective, et
+  \item[2.] sa diff\'erentielle est en tout point de $U$ un isomorphisme  (de $\R^p$ dans lui-même).
+\end{itemize}}
+\end{corollaire}
+
+\noindent {\textbf{Preuve.}} Pas faite en cours.
+
+\begin{corollaire} [FORMULATION AVEC JACOBIENNE]\textcolor[rgb]{0.44,0.00,0.87}{ \textbf{Dimension finie.}
+  Soit $U$ un ouvert de $\R^p$ et $f: U \rightarrow \R^p$ injective et de classe $\co^1$.
+Alors $f$ est un diff\'eomorphisme si et seulement si le d\'eterminant de sa matrice jacobienne
+(que l'on appelle jacobien de $f$) ne s'annule pas sur $U$.}
+\end{corollaire}
+
+\noindent {\textbf{Preuve.}} Pas faite en cours.
+
+
+\subsection{Fichou}
+
+\noindent{Soient $U$ un ouvert de $\mathbb{R}^n$, $F$ une application de $U$ dans $\mathbb{R}^n$ et $V = F(U) \subset \mathbb{R}^n$.
+
+\begin{definition}
+$F$ est {\bf inversible} sur $U$ s'il existe une application $G$ de $V$ dans $\mathbb{R}^n$ telle que $G \circ F = {\bf 1}_{U}$ et $F \circ G = {\bf 1}_{V}$\,.
+\end{definition}
+
+\begin{definition}
+$F$ de $\mathbb{R}^n$ dans $\mathbb{R}^n$ est {\bf localement inversible} en $X_0 \in \mathbb{R}^n$ s'il existe des ouverts $U$ et $V$ avec $X_0 \in U$ et $F(X_0) \in V$ et $F(U)=V$ tel que $F$ est inversible sur $U$. 
+\end{definition}
+
+
+\noindent{{\bf Exemples} 
+\begin{enumerate}
+\item[(1)] $f : \mathbb{R} \rightarrow \mathbb{R}$ \;\;\; avec $f(x) = x^3$
+\item[(2)] $f : \mathbb{R} \rightarrow \mathbb{R}$ \;\;\; avec $f(x) = x^2$
+\item[(3)] Si $A \in \mathbb{R}^n$, soit $F$ de $\mathbb{R}^n$ dans $\mathbb{R}^n$ avec $F(X) = X + A$.
+\item[(4)] $U = \lbrace (r\,,\,\theta) \; / \; r > 0 \,,\, 0 < \theta < \pi \rbrace$\\
+$F(r\,,\,\theta) = (r\, \cos \theta \,,\, r\, \sin \theta)$
+\end{enumerate}
+
+
+
+\begin{theoreme}(d'inversion locale)\\
+Soient $F$ définie sur un domaine $D$ de $\mathbb{R}^n$ \`a valeurs dans $\mathbb{R}^n$ de classe $\mathcal{C}^1$ et $X_0$ un point intérieur \`a $D$. Alors si $dF(X_0)$ est inversible (en tant qu'application linéaire) $F$ est localement inversible en $F_0$. Si $G$ désigne son inverse locale, $G$ est aussi de classe $C^1$ et en $Y=F(X)$, pour $X$ proche de $X_0$, on a $dG(y)=dF(X)^{-1}$ (l'exposant désigne ici l'opération d'inversion d'une matrice).
+\end{theoreme}
+Une démonstration de ce théor\`eme est donnée en annexe.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Théorème des fonctions implicites}
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+ 
+ 
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item 
+\end{enumerate}
+\end{miniexercices}
+
+
+
+\subsection{Pujo : Th\'eor\`eme des fonctions implicites}
+
+\noindent Le th\'eor\`eme des fonctions implicites concerne la r\'esolution d'\'equations non-lin\'eaires de la forme
+\begin{equation*}
+  f(x,y)=0,
+\end{equation*}
+et doit son nom au fait que, sous les hypoth\`eses que l'on va pr\'eciser, on peut en tirer $y$ comme
+fonction de $x$: on dit alors que $f(x,y)=0$ d\'efinit implicitement $y$, ou encore $y$ comme
+fonction implicite de $x$.\\
+Donnons d'abord une formulation générale (qui peut être utilisée sans passer par les matrices jacobiennes),
+puis un cas particulier de fonctions de $\R^2$ à valeurs dans $\R$ pour finalement énoncé le résulat avec les matrices jacobiennes.
+
+
+
+
+\begin{theoreme}[THEOREME DES FONCTIONS IMPLICITES]\textcolor[rgb]{0.44,0.00,0.87}{
+ Soient $E$, $F$ et $G$, trois espaces de dimension finie.  Soit $U$ un ouvert de $E \times F$ et $f: U \rightarrow G$ une fonction de classe
+$\co^1$. On suppose qu'il existe $(a,b)  \in U$ tel que $f(a,b)=0_G$ et la diff\'erentielle partielle de $f$ par rapport \`a $y$,
+$d_2f$ est telle que $d_2f_{(a,b)}$ soit un isomorphisme de $F$ sur $G$. Alors
+il existe un voisinage ouvert $U_{(a,b)}$ de $(a,b)$ dans $U$, un voisinage ouvert $W_a$ de $a$ dans $E$ et une fonction de classe $\co^1(W_a,F)$
+\begin{equation*}
+  \varphi: W_a \rightarrow F
+\end{equation*}
+telle que
+\begin{equation*}
+  ((x,y) \in U_{(a,b)} \;\mathrm{et}\; f(x,y)=0_G)\Leftrightarrow y=\varphi(x).
+\end{equation*} }
+\end{theoreme}
+
+\noindent {\textbf{Preuve.}} Faite en cours.
+
+\begin{proposition}[DIFFERENTIELLES FONCTION IMPLICITE] \textcolor[rgb]{0.44,0.00,0.87}{
+Sous les hypoth\`eses du th\'eor\`eme des fonctions implicites, et quitte \`a r\'eduire $W_a$ on a
+\begin{equation*}
+  d\varphi_x(h)=-(d_2f_{(x,\varphi(x))})^{-1}d_1f_{(x,\varphi(x))}(h)
+\end{equation*}
+pour tout $x \in W_a$ et pour tout $h \in E$.}
+\end{proposition}
+
+\noindent {\textbf{Preuve.}} Faite en cours.
+
+
+%\noindent Voici un r\'esultat qui permet de simplifier la v\'erification des hypoth\`eses des th\'eor\`emes
+%d'inversion locale ou des fonctions implicites.
+%
+%\begin{theoreme} \textcolor[rgb]{0.44,0.00,0.87}{
+%  Si $E$ et $F$ sont des espaces de Banach, si $u$ est un application lin\'eaire continue et bijective de $E$ sur $F$,
+%alors sa r\'eciproque est continue.}
+%\end{theoreme}
+%\noindent N.B.:
+%\begin{itemize}
+%  \item[1.] on rappelle qu'en dimension finie ce r\'esultat n'a pas d'int\'er\^et puisque toutes les applications lin\'eaires sont continues.
+%  \item[2.] Ainsi, pour v\'erifier que $u$ est un isomorphisme de $E$ sur $F$, il suffit de v\'erifier que $u$ est lin\'eaire, continue et bijective.
+%\end{itemize}
+
+\begin{proposition}[FONCTIONS DE $E \subset \R^2 \mapsto \R$] 
+\textcolor[rgb]{0.44,0.00,0.87}{ 
+Soient $U \subset \R^2$, $U$ ouvert et $f:U \rightarrow \R$ une application
+de classe $\co^1$ sur $U$. On suppose qu'il existe $(a,b) \in U$ tel que 
+$f(a,b)=0$ et que $\dfrac{\partial f}{\partial y}(a,b) \neq 0$.
+Alors il existe un voisinage $U_{(a,b)}$ de $(a,b)$ dans $U$, un voisinage
+ouvert $W_a$ de $a$ dans $U$ et une fonction de classe $\co^1 (W_a, \R)$
+\begin{equation*}
+\varphi: W_a \rightarrow \R,
+\end{equation*}
+telle que
+\begin{equation*}
+((x,y) \in U_{(a,b)} \;\mathrm{et\;} f(x,y)=0)\Leftrightarrow y=\varphi(x),
+\end{equation*}
+et quitte à réduire $W_a$ on a 
+\begin{equation*}
+\dfrac{\partial f}{\partial y}(x,\varphi(x)) \neq 0, \; \mathrm{et \;}\varphi'(x)=-\dfrac{\dfrac{\partial f}{\partial x}(x,\varphi(x))}{\dfrac{\partial f}{\partial y}(x,\varphi(x))}
+\end{equation*}
+ }
+\end{proposition}
+
+\noindent {\textbf{Preuve.}} Pas faite en cours.
+
+\begin{proposition} [FONCTIONS DE $U \subset \R^{p+q} \mapsto \R^q$] 
+\textcolor[rgb]{0.44,0.00,0.87}{ 
+Soient $U \subset \R^p \times R^q$, $E$ ouvert et $f:U \rightarrow \R^q$ une application
+de classe $\co^1$ sur $U$. On note $f_i$, $i=1,...,q$ les composantes de $f$ chacune définie de $U$ à valeurs dans $\R$. On suppose qu'il existe $(a,b) \in U$ tel que  
+$f(a,b)=0$ et que la matrice définie par les coefficients
+$\lbrace(\dfrac{\partial f_i}{\partial x_{p+j}})(a,b)\rbrace_{1 \leq i,j \leq q} $ est inversible (autrement dit le déterminant de cette matrice
+est non nul).
+Alors il existe un voisinage $U_{(a,b)}$ de $(a,b)$ dans $U$, un voisinage
+ouvert $W_a$ de $a$ dans $\R^p$ et une fonction de classe $\co^1 (W_a, \R^q)$
+\begin{equation*}
+\varphi: W_a \rightarrow \R^q,
+\end{equation*}
+telle que
+\begin{equation*}
+((x,y) \in U_{(a,b)} \;\mathrm{et\;} f(x,y)=0)\Leftrightarrow y=\varphi(x),
+\end{equation*}
+et quitte à réduire $W_a$ on a la jacobienne de $\varphi$ en $(x_1,...,x_p)$\\
+$J_{\varphi}(x_1,...,x_p)= $
+\begin{equation*}
+-\left(
+\begin{array}{lll}
+\dfrac{\partial f_1}{\partial x_{p+1}}(x,\varphi(x))&...&\dfrac{\partial f_1}{\partial x_{p+q}}(x,\varphi(x))\\
+\vdots & &\vdots\\
+\dfrac{\partial f_q}{\partial x_{p+1}}(x,\varphi(x))&...&\dfrac{\partial f_q}{\partial x_{p+q}}(x,\varphi(x))
+ \end{array}
+\right)^{-1}
+\left(
+\begin{array}{lll}
+\dfrac{\partial f_1}{\partial x_{1}}(x,\varphi(x))&...&\dfrac{\partial f_1}{\partial x_{p}}(x,\varphi(x))\\
+\vdots & &\vdots\\
+\dfrac{\partial f_q}{\partial x_{1}}(x,\varphi(x))&...&\dfrac{\partial f_q}{\partial x_{p}}(x,\varphi(x))
+ \end{array}
+\right).
+\end{equation*}
+ }
+\end{proposition}
+
+\noindent {\textbf{Preuve.}} Pas faite en cours.
+
+\subsection{Fichou : Fonctions implicites : cas $f(x\,,\,y) = 0$}
+ 
+
+\noindent{Soit $f : \mathbb{R}^2 \rightarrow \mathbb{R}$. On consid\`ere la courbe de niveau $\lbrace f(x\,,\,y) = 0 \rbrace = N_{0}$\,.
+
+\begin{definition}
+On dit que la fonction $y = \varphi(x)$ est {\bf définie implicitement par} $f(x\,,\,y) = 0$ si $f(x\,,\, \varphi(x)) = 0$, c'est-\`a-dire si $(x\,,\, \varphi(x)) \in N_{0}$\,.\\
+Alors on dit que $y = \varphi(x)$ est une {\bf fonction implicite} de $f(x\,,\,y) = 0$.
+\end{definition}
+
+\noindent{{\bf Exemple}\\
+$f(x\,,\,y) = \ln(xy) - \sin x$ \,\, avec $xy > 0$ \\
+$f(x\,,\,y) = x^2 + y^2 - 1$. Faire un dessin!
+
+
+
+\begin{theoreme} (des fonctions implicites)\\
+Soient $f : \mathbb{R}^2 \rightarrow \mathbb{R}$ une fonction de classe $\mathcal{C}^1$ et $(x_{0}\,,\,y_{0})$ un point tel que $f(x_{0}\,,\,y_{0}) = 0$.\\
+Si $\displaystyle \frac{\partial f}{\partial y}(x_{0}\,,\,y_{0}) \neq 0$ alors :
+\begin{enumerate}
+\item[(i)] Il existe une fonction implicite $y = \varphi(x)$ de classe $\mathcal{C}^1$, définie sur l'intervalle ouvert $B(x_{0}\,,\,\varepsilon)$, tel que pour tout $x\in B(x_0,\epsilon)$ on ait $y_{0} = \varphi(x_{0})$ et $f(x\,,\,\varphi(x)) = 0$.
+\item[(ii)] De plus, la dérivée de $\varphi$ est donnée par $\displaystyle \varphi'(x) = \frac{-\frac{\partial f}{\partial x}(x\,,\, \varphi(x))}{\frac{\partial f}{\partial y}(x\,,\, \varphi(x))}$ en tout point de $B(x_0,\epsilon)$ o\`u $\displaystyle \frac{\partial f}{\partial y}(x\,,\,\varphi(x)) \neq 0$.
+\end{enumerate}
+\end{theoreme}
+\begin{proof} ~~
+C'est une conséquence du théor\`eme d'inversion locale. Soit $f$ une fonction $C^1$ de deux variables et $(x_0,y_0)$ tel que $f(x_0,y_0)=0$ et ${{\partial f}\over{\partial y}}(x_0,y_0)\neq 0$. Considérons la fonction $F$ définie par
+$$
+F(x,y)=(x,f(x,y)).
+$$
+La matrice jacobienne de $F$ est
+$$
+\begin{pmatrix}  1&0\\ {{\partial f}\over{\partial x}} & {{\partial f}\over{\partial y}}  \end{pmatrix}.
+$$
+Par hypoth\`ese ${{\partial f}\over{\partial y}}$ ne s'annule pas en $(x_0,y_0)$. La matrice $dF(x_0,y_0)$ est donc inversible et d'apr\`es le théor\`eme d'inversion locale, $F$ est localement inversible en $(x_0,y_0)$ : il existe $r>0$ tel que $F$ soit une bijection de la boule $B=B((x_0,y_0),r)$ sur son image et l'application inverse, appelons la $G$ est $C^1$ sur l'ouvert $F(B)$. \'Ecrivons $G(s,t)=(g_1(s,t),g_2(s,t))$ les coordonnées de $G$. Comme $G$ est l'inverse de $F$ on a, pour tout $(s,t)$ dans $F(B)$ (en utilisant la définition de $F$) :
+$$
+(s,t)=F(g_1(s,t),g_2(s,t))=(g_1(s,t),f(g_1(s,t),g_2(s,t))).
+$$
+On a donc les égalités : $g_1(s,t)=s$ et $f(s,g_2(s,t))=t$.
+Les points $(x,y)$ de $B$ pour lesquels $f(x,y)=0$ sont les points dont l'image par $F$ est de la forme $(x,0)$. Ce sont donc les points $G(x,0)$ pour $(x,0)$ dans $F(B)$, soit encore, d'apr\`es la forme de l'application $G$, les points $(x,g_2(x,0))$ pour $(x,0)$ dans $F(B)$. Or $F(B)$ est un ouvert contenant $(x_0,0)$. Il existe donc $\alpha>0$ tel que, pour $x\in]x_0-\alpha,x_0+\alpha[$, $(x,y)\in B$, l'équation $f(x,y)=0$ équivaut \`a $y=g_2(x,0)$. Il suffit d'écrire $\phi(x)=g_2(x,0)$ pour voir qu'on a bien établi le résultat souhaité.
+\end{proof}
+
+\noindent{{\bf Exemple}\\
+Le cas du cercle.\\
+ \'Etude au point $(lambda,0)$ de $f(x\,,\,y) = x(x^2+y^2)-\lambda(x^2-y^2)$. 
+
+
+\noindent{{\bf Remarque} : On retrouve ainsi une équation de la tangente aux courbes de niveau.
+
+\subsection{Fonctions implicites : cas $f(x_{1} \, \dots \,   x_{n}) = 0$}
+
+L'étude est similaire pour les hypersurfaces de niveau en plusieurs variables, o\`u on va pouvoir exprimer une variable en fonction des autres si la dérivée partielle correspondante n'est pas nulle. 
+
+\begin{theoreme}
+Si $f\colon\thinspace \mathbb{R}^n\to\mathbb{R}$ est de classe $\mathcal{C}^1$ et si $\displaystyle \frac{\partial f}{\partial x_{n}} \, (X_{0}) \neq 0$ alors : 
+\begin{enumerate}
+\item[(i)]  La fonction implicite $x_{n} = \varphi (x_{1}  \, \dots \, x_{n-1})$ existe sur une boule ouverte $B((x_{1,0}  \, \dots \,  x_{n-1 , 0})\,,\, \varepsilon)$ et on a : $f(x_{1} \, \dots \, x_{n-1} \,,\, \varphi(x_{1} \, \dots \, x_{n-1})) = 0$.
+\item[(ii)] $\displaystyle \frac{\partial \varphi}{\partial x_{i}} \, = \, \frac{-\; \frac{\partial f}{\partial x_{i}} (x_{1} \, \dots \, x_{n-1} \,,\, \varphi(x_{1} \, \dots \, x_{n-1}))}{\frac{\partial f}{\partial x_{n}} (x_{1} \, \dots \, x_{n-1} \,,\, \varphi(x_{1} \, \dots \, x_{n-1}))}$
+\end{enumerate}
+\end{theoreme}
+
+\auteurs{
+\\
+D'après un cours de ...
+
+Revu et augmenté par Arnaud Bodin.
+
+Relu par Stéphanie Bodin et Vianney Combet.
+}
+
+
+\finchapitre 
+\end{document}
+
+

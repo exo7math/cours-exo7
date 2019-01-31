@@ -1,0 +1,139 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici une leçon assez courte consacrée à la permutation de termes d'une série. 
+C'est une étude plus poussée qui peut peut être passée en première lecture.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Théorème.
+
+Soit $\displaystyle\sum_{k=0}^{+\infty} u_k$ une série absolument convergente et soit $S$ sa somme.
+
+\change
+Soit $\sigma : \Nn \to \Nn$ une bijection de l'ensemble des indices.
+
+\change
+Alors la série $\displaystyle \sum_{k=0}^{+\infty} u_{\sigma(k)}$ converge
+
+\change
+et la somme reste la même, c'est-à-dire :
+
+$$\sum_{k=0}^{+\infty} u_{\sigma(k)} = S.$$
+
+\change
+Remarquons que la condition de convergence absolue est indispensable.
+Il se trouve que, pour une série convergente, mais pas absolument convergente, 
+on peut permuter les termes pour obtenir n'importe quelle valeur !
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Comme exemple de permutation, on peut réordonner les termes $u_0,u_1,u_2,u_3,\ldots$ 
+en prenant deux termes de rang pair puis un terme de rang impair, ce qui donne :
+$$u_0, u_2, u_1, u_4, u_6, u_3, u_8, u_{10}, u_5,\ldots$$
+
+\change
+Par contre il ne serait pas autorisé de regrouper tous les termes pairs d'abord (vu qu'il y en a un infinité) et 
+les termes impairs ensuite :
+$$u_0,u_2, u_4,\ldots, u_{2k},\ldots,u_1,u_3,\ldots, u_{2k+1},\ldots$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons à la démonstration --un peu technique-- du théorème :
+
+Par hypothèse $\sum_{k=0}^{+\infty} |u_k|$ converge. 
+
+\change
+D'après le critère de Cauchy,
+$$\forall \epsilon>0\quad \exists n_0\in\Nn \qquad \sum_{n=n_0+1}^{+\infty} |u_k|<\epsilon.$$
+
+\change
+Fixons $\epsilon>0$.  Choisissons $k_0\in\Nn$ tel que 
+$\big\{0, 1,2,\dots,n_0\big\} \subset \big\{\sigma(0),\sigma(1),\ldots, \sigma(k_0)\big\}$.  
+
+\change
+Pour $n\geq k_0$ on a :
+$$\left|S-\sum_{k=0}^n u_{\sigma(k)}\right| $$
+
+\change
+
+Par l'inégalité triangulaire c'est inférieur ou égal à la somme
+$$
+\left|S-\sum_{k=0}^{n_0} u_k\right|+\left|\sum_{k=0}^{n_0} u_k- 
+\sum_{k=0}^n u_{\sigma(k)}\right|$$
+
+\change
+Majorons ces deux termes.
+
+Pour le premier terme on a 
+$$\left|S-\sum_{k=0}^{n_0} u_k\right| = \left| \sum_{k=n_0+1}^{+\infty} u_k\right| $$
+
+\change
+$$
+\le \sum_{k=n_0+1}^{+\infty} |u_k|$$
+
+\change
+$\le \epsilon$
+par le critère de Cauchy. [montrer haut]
+
+On va majorer le second terme à la diapo suivante.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour le second terme :
+$$\left|\sum_{k=0}^n u_{\sigma(k)}-\sum_{k=0}^{n_0} u_k\right|$$
+
+
+\change
+est égal à
+$$\left|\sum_{k \in \{\sigma(0),\ldots,\sigma(n)\}\setminus\{0,\ldots,n_0\}} u_k \right|$$
+
+\change
+qui est majoré par
+$$
+\le \sum_{k \in \{\sigma(0),\ldots,\sigma(n)\}\setminus\{0,\ldots,n_0\}} |u_k| $$
+
+Tout les $k$ restant dans cet ensemble [montrer] sont plus grand que $n_0$.
+
+\change
+
+Donc la somme est 
+$$
+\le \sum_{k=n_0+1}^{+\infty} |u_k|$$
+
+\change
+et donc encore une fois 
+$$
+\le \epsilon.$$
+
+\change
+Ce qui prouve $\left|S-\sum_{k=0}^n u_{\sigma(k)}\right| \le 2\epsilon$ et donne le résultat.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Souvenez vous que dans le théorème de cette leçon la série était *absolument* convergente.
+
+Le but de cet exercice est de comprendre que si la série n'est pas absolument convergente,
+le théorème n'est plus du tout valide et des phénomènes étranges apparaissent. 
+Vous devez vérifier qu'en regroupant trois par trois les termes de cettes séries convergente on obtient
+une autre valeur de la somme.
+
+
+\end{document}

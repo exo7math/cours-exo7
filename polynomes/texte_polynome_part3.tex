@@ -1,0 +1,496 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Voici une leçon importante dans laquelle nous abordons beaucoup de notions : 
+
+\change
+
+Les racines d'un polynôme
+
+\change
+
+le théorème de d'Alembert-Gauss
+
+\change
+
+La définition de Polynômes irréductibles
+
+\change
+
+et le Théorème de factorisation
+
+\change
+
+Que l'on détaillera dans le cas des polynômes sur $\Cc$ ou sur $\Rr$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Soit $P$ un polynôme à coefficient dans $\Kk$ où $\Kk$ est l'un des corps $\Qq, \Rr, \Cc$.
+
+ On dit que
+$\alpha$ est une \defi{racine}  de $P$ si $P(\alpha)=0$.
+
+On dit aussi que $\alpha$ est un \defi{zéro} de $P$.
+
+
+\change
+
+Une relation importante est que 
+$P(\alpha)=0$ ssi  $X-\alpha \text{ divise } P$
+
+\change
+
+La preuve est la suivante on écrit la division euclidienne de $P$ par $X-\alpha$ 
+
+\change
+
+on obtient  $P=Q\cdot(X-\alpha)+R$ 
+
+\change
+
+où $R$ est un polynome de degré strictement inférieur au diviseur donc $\deg R < 1$. 
+
+\change
+
+Mais un polynome de degre $<1$ est un polynome constant.
+
+
+\change
+
+Maintenant par l'écriture de la division euclidienne  évaluée en $\alpha$
+$P(\alpha)=0 \iff R(\alpha) =0 $
+
+comme $R$ est un polynôme constant 
+
+\change
+
+$R(\alpha) =0$
+équivaut à ce que $R$ est le polynôme cst  $=0$.
+
+\change
+
+Mais toujours par l'écriture de la division euclidienne
+$R=0 \iff P = Q(X-\alpha)$ 
+
+\change
+
+c-a-d $X-\alpha$ divise $P$.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On dit que $\alpha$ est une \defi{racine de multiplicité $k$}
+ de $P$ si $(X-\alpha )^k$ divise $P$ alors que $(X- \alpha )^{k+1}$ ne divise pas $P$.
+
+On dit aussi que $\alpha$ est une \defi{racine d'ordre $k$}.
+
+\change
+
+si $k=1$ $\alpha$ est une \defi{racine simple}, 
+
+\change
+
+si $k=2$ $\alpha$ est une \defi{racine double}, etc.
+
+\change
+
+
+Voici une façon de calculer la multiplicité d'une racine :
+
+
+\change
+
+
+les trois proposition suivantes sont équivalentes [[tout afficher]]
+
+\change
+
+\change
+
+
+$\alpha$ est une racine de multiplicité $k$ de $P$.
+
+équivaut
+
+Il existe  $Q \in\Kk[X]$ tel que $P=(X-\alpha)^kQ,$ avec $Q(\alpha) \neq 0$.
+
+
+équivaut à
+
+$P(\alpha)= 0$, $P'(\alpha)=0$ $\cdots$ $P^{(k-1)}(\alpha)=0$ et $P^{(k)}(\alpha) \neq 0$.
+
+Cette dernière assertion est très utile dans la pratique,
+
+on calcule $P(\alpha)$, $P'(\alpha)$, $P''(\alpha)$
+jusqu'à ce que l'on obtienne une dérivée $k$-ème non nulle.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici le théorème fondamental de l'algèbre : le théorème de d'Alembert-Gauss.
+
+Tout polynôme à coefficients complexes de degré $n \ge 1$  
+admet au moins une racine dans $\Cc$.
+
+\change
+
+Et on peut être plus précis : il y a exactement $n$ racines 
+si on compte chaque racine
+avec sa multiplicité.
+
+(une racine simple compte pour $1$, une racine double pour $2$, etc.)
+
+
+
+
+\change
+
+Soit $P(X)=3X^3-2X^2+6X-4$.
+
+
+\change
+
+Considéré comme un polynôme à coefficients dans $\Qq$ ou $\Rr$,
+$P$ a une racine  $\alpha = \frac23$
+
+\change
+
+et il se décompose en
+$P(X)=3(X-\frac23)(X^2+2)$.
+
+Il n'y a qu'une seule racine réelle
+
+et en plus $\frac23$ est une racine simple (l'exposant est $1$).
+
+\change
+
+Par contre si on considère maintenant aussi les racines complexes
+
+\change
+
+alors $P(X)=3(X-\frac23)(X-\ii\sqrt2)(X+\ii\sqrt2)$
+
+donc admets trois racines : $\frac23$ bien sûr,
+
+mais aussi les nombres complexes $+ \ii \sqrt 2$ et $- \ii \sqrt 2$.
+Ce sont des racines simples.
+
+$P$ est un polynôme de degré $3$ et admet exactement $3$ racines, mais c'est valable sur $\Cc$.
+
+
+Pour un corps $\Kk$ autre que les nombres complexes,
+on peut seulement affirmer 
+$P$ admet *au plus* $n$ racines dans $\Kk$.
+
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Revoyons un exemple que vous connaissez bien : 
+les racines d'un polynôme de degré $2$ :
+
+Soit $P(X)=aX^2+bX+c$ un polynôme de degré $2$ à coefficients réels,
+c-a-d $a,b,c \in \Rr$ et $a\neq 0$.
+
+
+\change
+
+Si $\Delta = b^2-4ac > 0$ alors $P$ admet $2$ racines réelles distinctes $\frac{-b+\sqrt{\Delta}}{2a}$
+et $\frac{-b-\sqrt{\Delta}}{2a}$
+
+\change
+
+Si $\Delta < 0$ alors $P$ n'a pas de racines réelles mais admet $2$ racines complexes distinctes qui sont
+$\frac{-b+\ii\sqrt{|\Delta|}}{2a}$
+et $\frac{-b-\ii\sqrt{|\Delta|}}{2a}$
+
+\change
+
+Si $\Delta = 0$ alors $P$ admet une racine réelle double $\frac{-b}{2a}$.
+En tenant compte des multiplicités on a donc toujours exactement $2$ racines.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour le polynôme $P(X)=X^n-1$ montrons qu'il n'y a pas deux racines égales,
+sans les calculer.
+
+\change
+
+Sachant que $P$ est de degré $n$ alors par le théorème de d'Alembert-Gauss
+on sait qu'il admet $n$ racines comptées avec multiplicité. 
+
+\change
+
+Il s'agit donc maintenant de montrer que ce sont des racines simples.
+
+\change
+
+Raisonnons par l'absurde et 
+
+\change
+
+Supposons qu'il existe une racine $\alpha$ de multiplicité $\ge 2$
+
+\change
+
+Cela signifie exactement que  $P(\alpha)=0$
+
+\change
+
+et que $P'(\alpha)=0$
+
+\change
+
+$P(\alpha)=0$ implique $\alpha^n-1=0$ 
+
+\change
+
+et donc $\alpha$ ne peut pas être nul.
+
+\change
+
+Mais d'autre part $P'(X) = n X^{n-1}$ donc
+$P'(\alpha)=0$ 
+implique $n\alpha^{n-1}=0$ 
+
+\change
+
+et donc $\alpha=0$,
+
+
+\change
+
+On obtient une contradiction.
+
+
+\change
+
+Ce qui implique que toutes les racines sont simples.
+
+\change
+
+et ainsi les $n$ racines sont distinctes.
+
+Sur cet exemple particulier on aurait aussi pu calculer les racines 
+qui sont ici les racines $n$-ième de l'unité.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous dirons d'un polynômes $P$ a coefficient dans $\Kk$ qu'il est irréductible 
+si ses seuls diviseurs sont soit des constantes, soit le polynome lui même.
+
+Plus précisément si $Q$ est un polynôme à coefficient dans $\Kk$ qui divise le polynôme irrédéuctible $P$
+alors
+
+soit $Q$ est un polynômes constant,
+
+soit $Q$ égale $P$ a une constante multiplicative près.
+
+
+Notez déjà l'analogie avec les nombres premiers :
+un nombre est premiers si ces diviseurs sont soit $1$, soit le nombre lui même.
+
+
+\change
+
+Un polynôme est donc réductible s'il se décompose en produit de deux 
+ polynômes $A \times B$ de $\Kk[X]$ de degré $\ge 1$.
+ 
+ 
+\change
+
+Passons aux exemples :
+
+$X^2-1$ est réductible car il s'écrit $(X-1)(X+1)$.
+
+
+\change
+
+$X^2+1=(X-\ii)(X+\ii)$ est réductible en tant que polynôme sur les nombres complexes.
+
+Mais en tant que polynômes sur $\Rr$ il n'existe pas une telle décomposition : c'est un polynômes irréductible
+dans $\Rr[X]$.
+
+
+Etre irréductible ou pas dépend donc du corps $\Qq$, $\Rr$ ou $\Cc$ que l'on considère.
+
+\change
+
+Par exemple 
+$X^2-2=(X-\sqrt2)(X+\sqrt2)$ est réductible dans $\Rr[X]$ mais cette décomposition n'est pas à coefficients rationnel et en fait
+$X^2-2$ est irréductible dans $\Qq[X]$.  
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Les polynômes irréductibles sont les briques élémentaires qui permettent de reconstituer
+tous les polynômes :
+
+
+Tout polynôme $A(X)$ s'écrit comme un produit de polynômes
+irréductibles :
+
+Il s'agit bien sûr de l'analogue de la décomposition d'un nombre en facteurs premiers.
+Les polynômes correspondent aux entiers et les polynômes irréductibles aux nombres premiers.
+
+Théorème : 
+Tout polynôme $A$ s'écrit comme un produit de polynômes
+irréductibles unitaires :
+$$A= \lambda  P_1^{k_1}P_2^{k_2} \cdots P_r^{k_r}$$
+ où $\lambda$ est une constante, $k_i$ sont des entiers, qui sont les multiplicités
+et les $P_i$ sont des polynômes irréductibles distincts.
+
+
+\change
+
+
+Comme dans le cas des entiers cette écriture va être unique à l'ordre près :
+
+Si l'on suppose les polynômes irréductibles unitaires et distincts
+alors cette écriture est unique 
+(unicité des $P_i$, du coefficient $\lambda$,
+du nombre de polynômes $r$,
+ des exposants $k_i$).
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Ce théorème important est une reformulation immédiate du théorème de d'Alembert-Gauss.  
+
+Théorème : Les polynômes irréductibles de $\Cc[X]$ sont les polynômes de degré $1$. 
+
+\change
+
+Donc pour $P\in\Cc[X]$ la factorisation s'écrit 
+$P=\lambda (X-\alpha_1)^{k_1}(X- \alpha_2)^{k_2}\cdots(X- \alpha_r)^{k_r},$ 
+où $\alpha_1,...,\alpha_r$ sont les racines distinctes de $P$ et
+$k_1,...,k_r$ sont leurs multiplicités. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons au cas des polynômes à coefficients réels.
+
+Les polynômes irréductibles de $\Rr[X]$
+sont d'une part les polynômes de degré $1$ 
+
+mais aussi les polynômes de degré $2$ ayant
+un discriminant $\Delta$ strictement négatif.
+
+\change
+
+la factorisation d'un polynome $P$ à coefficient réel s'écrit
+$P=\lambda(X-\alpha_1)^{k_1}(X-\alpha_2)^{k_2}\cdots(X-\alpha_r)^{k_r}
+Q_1^{\ell_1}\cdots Q_s^{\ell_s},$
+
+\change
+
+les $\alpha_i$ sont toutes les racines réelles 
+
+et $k_i$ la multiplicité de chaque racine
+
+\change
+les $Q_i$ sont des polynômes de degré $2$
+ayant un discriminant strictement négatif.
+
+Si $Q_i=X^2+\beta_iX+\gamma_i$ alors $\Delta = \beta_i^2-4\gamma_i<0$
+
+
+\change
+
+Par exemple le polynôme $2X^4(X-1)^3(X^2+1)^2(X^2+X+1)$ 
+est déjà décomposé en facteurs irréductibles dans $\Rr[X]$
+
+car $X^2+1$ et $X^2+X+1$ ont un discriminant $<0$ donc n'ont pas de racines réelles.
+
+\change
+
+Par contre si on considère $P$ comme un polynôme à coefficients complexes
+alors il faut factoriser  $X^2+1$ et $X^2+X+1$
+
+pour  obtenir la factorisation :
+$2X^4(X-1)^3(X-\ii)^2(X+\ii)^2(X-j)(X-j^2)$ 
+où $j$ est le nombre complexe $e^{\frac{2\ii\pi}{3}}$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Soit $P(X)=X^4+1$. On cherche quelle est sa décomposition en facteurs irréductibles
+
+\change
+
+Sur $\Cc$ tout d'abord.
+
+\change
+
+On peut dans un premier temps reconnaître l'identité remarquable $a^2-b^2$ qui permet de
+décomposer $P(X)=(X^2+\ii)(X^2-\ii)$.
+
+\change
+
+Mais ce n'est pas fini on doit se ramener à des facteurs de degré $1$.
+
+On voit que les racines du polynôme $P$ sont les racines carrées complexes de $\ii$ et de $-\ii$.
+
+\change
+
+On calcule ses racines pour trouver cette factorisation de $P$.
+
+
+\change
+
+Passons  Sur $\Rr$. 
+
+\change
+
+Il et facile de montrer que pour un polynôme à coefficient *réels*
+, si $\alpha$ est une racine
+alors $\bar \alpha$ aussi. 
+
+\change
+
+Dans la décomposition ci-dessus on regroupe les facteurs ayant des racines conjuguées, 
+
+\change
+
+de cette façon :
+
+$(X-\alpha)(X-\bar \alpha)$ est un polynôme à coefficients réels.
+
+
+Ce qui donne la factorisation dans $\Rr[X]$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Entraînez-vous avec ces exercices !
+
+
+\end{document}

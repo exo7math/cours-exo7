@@ -1,0 +1,5 @@
+var('t')
+x = sqrt(2)*cos(t)/(1+sin(t)^2)
+y = sqrt(2)*cos(t)*sin(t)/(1+sin(t)^2)
+G = parametric_plot((x, y), (t, 0, 2*pi))
+G.show()

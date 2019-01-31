@@ -1,0 +1,344 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+Dans cette partie nous allons approfondir notre étude de la chaînette.
+
+\change
+Nous calculerons sa longueur
+
+\change
+Nous verrons comment on peut facilement calculer le paramètre $a$ d'une chaînette
+
+\change
+On en profitera pour donner une autre représentation de la chaînette,
+par une équation paramétrique
+
+\change
+Puis ce qui est important dans la pratique c'est de calculer
+quelles sont les forces de tension en chaque point.
+
+\change
+Enfin, nous terminerons par l'énoncé de deux problèmes pour aller plus loin.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On commence par le calcul de la longueur.
+
+Les données sont les suivantes, on se donne une chaînette
+de paramètre $a$.
+
+
+Alors la longueur de la portion de la chaînette  
+entre le point le plus bas $(0,a)$ et le point d'abscisse $x_0$ est :
+$$\ell = a \sh \frac{x_0}{a}.$$
+
+Je vous rappelle que $sh$ est le sinus hyperbolique.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Calculons donc cette longueur $\ell$.
+
+\change
+Je vous rappelle l'équation de la chaînette : $y(x) =a \ch \frac x a$.
+
+\change
+Par définition la longueur vaut
+$\ell = \int_0^{x_0} \sqrt{1+y'(x)^2} dx.$
+
+\change
+Ainsi :
+ $\ell = \int_0^{x_0} \sqrt{1+\sh^2 \tfrac x a} dx$
+ car la dérivée de $\ch$ est $\sh$.
+ 
+ \change
+ En utilisant la relation $1+\sh^2 u = \ch^2 u$
+ on a $\ell = \int_0^{x_0} \sqrt{\ch^2 \tfrac x a} dx$
+ 
+ \change
+ Cela donne $\int_0^{x_0} \ch \tfrac x a dx$
+ 
+ \change
+ et comme une primitive de $\ch x$ est $\sh x$ alors
+ 
+ la longueur vaut
+ le crochet $\left[ a \sh \tfrac x a \right]_0^{x_0}$
+ 
+ \change
+ Ce qui conduit bien à la formule
+ $\ell =  a \sh \tfrac{x_0}{a}.$
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+ 
+ \change
+La chaînette ne dépend que du seul paramètre $a$.
+
+\change
+Ce paramètre $a$ vaut $a = \frac{T_h}{\mu g}$ et est fonction de la masse $\mu$  
+du fil par unité de longueur, de la constante de gravitation $g$ et 
+de la tension horizontale $T_h$, qui elle dépend de l'écartement
+de deux points par lesquels passe la chaînette.
+Ce qui fait qu'il n'est pas facile de calculer $a$ ainsi.
+
+\change
+Fixons deux points, pour simplifier nous supposerons qu'ils sont à la même 
+hauteur (même ordonnée). Prenons une chaînette de longueur $2\ell$ fixée (et connue !).
+Nous allons calculer le paramètre $a$ en fonction de la longueur $2\ell$
+et de la flèche $h$. 
+
+\change
+La \defi{flèche} est la hauteur $h$ entre les deux points d'accroche
+et le point le plus bas de la chaînette.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici comment calculer simplement le paramètre $a$ à partir de la longueur
+de la chaînette et de la flèche.
+
+Proposition :
+Pour une chaînette de longueur $2\ell$ et de flèche $h$ alors
+$$a=\frac{\ell^2-h^2}{2h}.$$
+
+
+\change
+La preuve n'est pas compliquée.
+
+On note $(+x_0, y_0)$ et $(-x_0, y_0)$ 
+les coordonnées des points d'accroche.
+
+\change
+L'équation de la chaînette étant $y= a \ch \frac x a$,
+alors $y_0 = a \ch \frac{x_0}{a}$ 
+
+et par définition de la flèche cela vaut aussi $y_0 = a + h$.
+
+\change
+donc la flèche vaut $h = a \ch \frac{x_0}{a} -a$
+
+\change
+Quant à la longueur nous avons vu qu'elle vaut $2\ell =  2a \sh \left( \frac{x_0}{a} \right)$.
+
+\change
+
+On va calculer :
+$\ell^2 - h^2$
+
+\change
+On remplace par les expressions  de $\ell$ et $h$ :
+
+$\ell^2 - h^2 = a^2 \sh^2 \tfrac{x_0}{a} - \left( a \ch \tfrac{x_0}{a} - a \right)^2$
+
+\change
+On développe le carré :
+    
+\change
+Puis on utilise la formule $\ch^2 u - \sh^2 u = 1$
+
+qui permet de simplifier 
+$\ell^2 - h^2 = 2a\left(-a+a \ch \tfrac{x_0}{a} \right)$
+  
+\change
+Et on reconnaît l'expression de la flèche,
+donc $\ell^2 - h^2 =2ah$. 
+
+\change
+
+Ainsi $\displaystyle a = \frac{\ell^2-h^2}{2h}$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous avons obtenu une équation cartésienne $y= a \ch \frac x a$
+
+voici une équation paramétrique de la chaînette :
+$$\left\{
+\begin{array}{rcl}
+x(t) &=& a \ln t \\
+y(t) &=& \frac a 2 \left(t+\frac 1 t\right)
+\end{array}
+\right.
+$$
+ceci pour les $t>0$.
+
+La preuve utilise la forme logarithmique de la fonction $\Argch$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous pouvons calculer la tension en un point $(x_0,y_0)$ de la chaînette.
+On note $h$ la flèche correspondante et $\ell$ la longueur entre le point le plus bas et $(x_0,y_0)$.
+
+\change
+
+La \emph{tension horizontale} $T_h$ est constante et vaut :
+  $$T_h = a \mu g = \frac{\ell^2-h^2}{2h} \mu g.$$
+
+ 
+\change 
+Le \emph{tension verticale} dépend du point où l'on se trouve,
+par exemple en $(x_0,y_0)$ elle est : $$T_v= T_h \cdot \sh \frac{x_0}{a} = T_h \cdot \frac \ell a.$$
+  
+\change
+Enfin la \emph{tension totale} au point $(x_0,y_0)$ est :
+  $$T = \sqrt{T_h^2+T_v^2} = T_h \cdot \ch \frac{x_0}{a} 
+  = T_h \cdot \frac{a+h}{a}.$$
+
+La tension totale croît donc avec la hauteur du point.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voici les calculs des tensions.
+
+\change
+
+\change
+On a vu dans une partie précédente que la tension horizontale est constante. 
+
+\change
+Et la formule $T_h = a \mu g$ provient de la définition même de la constante $a$.
+
+\change
+Enfin, la dernière égalité est donnée par la proposition qui permet le calcul du paramètre en fonction de la flèche.
+
+
+\change
+Pour la tension verticale 
+
+\change
+nous avons cette relation 
+  $T_v(x_0) = T_h \cdot y'(x_0) =
+  T_h \cdot \sh \frac{x_0}{a} = T_h \cdot \frac \ell a$
+  démontrée lors du calcul de l'équation de la chaînette.
+  
+\change
+On termine avec la tension totale.
+
+\change
+Le vecteur tension est $\vec T(x) = -T_h(x)\vec i - T_v(x) \vec j$,
+
+\change
+La tension totale est la norme de ce vecteur, donc 
+au point d'abscisse $x_0$ c'est $T(x_0) = \|\vec T(x_0) \| 
+  = \sqrt{T_h^2+T_v^2}$
+  
+ \change
+ En remplaçant par les expression précédentes on trouve
+ 
+ $T(x_0) = = T_h \sqrt{1+\sh^2 \frac{x_0}{a}}
+  = T_h \cdot \ch \frac{x_0}{a} = T_h \cdot \frac{a+h}{a}.$
+  
+  La dernière égalité est juste le fait que 
+  $y_0 = a+h = a \ch \frac{x_0}{a}$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici un premier problème que vous allez résoudre.
+
+\change
+On se donne deux poteaux distants d'une longueur $2x_0$ fixée 
+et d'une hauteur suffisante.
+
+\change
+Parmi toutes les chaînettes passant par les sommets de ces poteaux, on cherche celle
+qui a les forces de tensions minimales.
+
+\change
+Nous avons calculé que la tension totale vaut 
+$$T_x(a) = a \mu g \cdot \ch \frac{x}{a}.$$
+
+\change
+Pour une chaînette donnée, c'est-à-dire pour une valeur de $a$ fixée, 
+la tension est donc maximale au point d'accroche, ici en $x=x_0$.
+
+car le cosinus hyperbolique est une fonction croissante sur $[0,+\infty[$. 
+
+\change
+Pour un $a$
+fixé, la tension maximale est donc $T_{x_0}(a)$. 
+
+\change
+Notre problème, $x_0$ étant fixé, est de trouver
+le $a$ qui minimise $T_{x_0}(a)$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici la liste des questions qui vont vous permettent de savoir quelle
+forme doit avoir une chaînette afin d'avoir des tensions minimales.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+Vous allez maintenant calculer que la courbe du câble 
+d'un pont suspendu est une parabole.
+
+\change
+Un pont suspendu est composé d'un tablier sur lequel passe les voitures par exemples.
+Ici sa longueur est grand $L$ et de masse grand $M$.
+
+\change
+Comment tient se pont ?
+
+Un gros câble est accroché entre deux pylônes. 
+
+\change
+Et à ce gros câble sont accrochés plein de petits câbles verticaux,
+appelés câbles de suspension, reliant le gros câble au tablier.
+
+Le problème est de calculer l'équation $y(x)$ du câble. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici maintenant la liste des questions qui se termine par 
+le calcul de l'équation du câble.
+
+La démarche est très similaire aux calculs que 
+l'on a faits pour la chaînette.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Vous avez tous les ingrédients pour calculer 
+une équation du câble du \emph{Golden Bridge} qui surplombe
+la baie de San Francisco.
+
+\end{document}

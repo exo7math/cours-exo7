@@ -1,0 +1,251 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={102,51,102}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Intégrales impropres}}
+\subtitle{Intégrales impropres sur un intervalle borné}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Fonctions positives
+    \item<4-> Théorème de comparaison
+    \item<5-> Théorème des équivalents
+    \item<6-> Fonctions oscillantes
+      \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Fonctions positives}
+
+\begin{frame}
+
+	
+
+\myfigure{1}{
+\tikzinput{fig_intimp04}
+}
+
+\pause
+
+$$\int_a^b f(t)\;\dd t = \lim_{x\rightarrow a^+} \int_x^b f(t)\;\dd t$$
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Théorème de comparaison}
+
+\begin{frame}
+
+\begin{theoreme}[de comparaison]
+Soient $f$ et $g$ deux fonctions positives et continues sur $]a,b]$.  Supposons que $f$ soit majorée par $g$ au voisinage de $a$, c'est-à-dire :
+\centerline{$\exists \epsilon>0 \quad \forall t\in ]a,a+\epsilon] \qquad f(t)\le g(t)$}
+\vspace*{-2ex}
+\begin{enumerate}
+  \item Si \  $\int_a^{b} g(t)\;\dd t$ \ converge alors \  $\int_a^{b} f(t)\;\dd t$ \  converge
+  \item Si \  $\int_a^{b} f(t)\;\dd t$ \  diverge alors \  $\int_a^{b} g(t)\;\dd t$ \  diverge
+\end{enumerate}
+\end{theoreme}
+
+\pause
+
+
+Est-ce que $\int_0^1 \frac{(-\ln t)^\alpha}{\sqrt{t}}\;\dd t$ converge ($\alpha\in\Rr$) ?
+\pause
+\begin{itemize}
+  \item $\frac{(-\ln t)^\alpha}{\sqrt{t}} = \big((-\ln t)^\alpha t^{1/4}\big)\,t^{-3/4}$
+
+\pause
+  
+  \item On sait que $\lim_{t\rightarrow 0^+}  (-\ln t)^\alpha t^{1/4}=0$
+ 
+\pause
+  
+  \item  $\exists \epsilon>0$ tel que 
+  $\forall t\in]0,\epsilon]\quad (-\ln t)^\alpha t^{1/4}\le 1$ 
+
+\pause
+
+
+  \item $\forall t\in]0,\epsilon]\quad \frac{(-\ln t)^\alpha}{\sqrt{t}} \le t^{-3/4}$
+
+\pause
+  
+  \item $\int_0^1 t^{-3/4}\;\dd t = \lim_{\epsilon\to0} [4t^{1/4}]_\epsilon^1 = 4$ converge
+
+\pause
+  
+  \item Par comparaison $\int_0^1 \frac{(-\ln t)^\alpha}{\sqrt{t}}\;\dd t$ converge aussi  
+\end{itemize}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Théorème des équivalents}
+
+\begin{frame}
+
+	
+\begin{theoreme}[des équivalents]
+Soient $f$ et $g$ deux fonctions continues et strictement positives sur
+$]a,b]$.  Supposons qu'elles soient équivalentes au voisinage de $a$, c'est-à-dire :
+$\lim_{t\rightarrow a^+}\frac{f(t)}{g(t)} = 1\;.$
+L'intégrale $\int_a^b f(t)\;\dd t$ converge si et seulement si 
+$\int_a^b g(t)\;\dd t$ converge
+\end{theoreme}
+
+\pause
+
+
+
+\begin{exemple}
+
+$\int_0^1 \sqrt{\frac{-\ln t+1}{\sin t}}\;\dd t$ converge
+\pause
+\ car $\sqrt{\frac{-\ln t+1}{\sin t}} \ \underset{0^+}{\sim}\ 
+\frac{(-\ln t)^{1/2}}{\sqrt{t}}$ 
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+
+\evidence{Intégrales de Riemann}
+\mybox{
+\begin{minipage}{0.7\textwidth}\vspace*{-2ex}
+$$\text{Si } \alert<2->{\alpha < 1}\quad \text{ alors } \quad \int_0^1 \frac{1}{t^\alpha}\;\dd t
+\quad\text{ converge}$$
+$$\text{Si } \alert<2->{\alpha \ge 1}\quad \text{ alors } \quad \int_0^1 \frac{1}{t^\alpha}\;\dd t
+\quad\text{ diverge}$$ 
+\end{minipage}
+}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Fonctions oscillantes}
+
+\begin{frame}
+
+\vspace*{-2ex}
+\myfigure{1.2}{
+\tikzinput{fig_intimp05}
+}
+% Le changement de variable $u=\frac{1}{t-a}$ permet de se ramener au cas
+% précédent d'une fonction oscillante sur un intervalle non borné, 
+% ce qui nous dispensera de donner autant de détails.
+\pause
+\vspace*{-2ex}
+$$\int_a^b f(t)\;\dd t = \lim_{x\rightarrow a^+} \int_x^b f(t)\;\dd t$$
+
+
+\pause 
+
+Le changement de variable $u=\frac{1}{t-a}$ ramène au cas étudié auparavant 
+d'une fonction oscillante sur un intervalle non borné
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{mydefinition}
+Soit $f$ une fonction continue sur $]a,b]$. On dit que $\int_a^b f(t)\;\dd t$ est \defi{absolument convergente} si 
+$\int_a^b \big|f(t)\big|\;\dd t$ est une intégrale convergente
+\end{mydefinition}
+
+\pause
+
+
+\begin{theoreme}
+Si l'intégrale $\int_a^b f(t)\;\dd t$ est absolument convergente,
+alors elle est convergente
+\end{theoreme}
+\pause
+
+\begin{exemple}
+\begin{enumerate}
+  \item L'intégrale $\int_0^1 \frac{\sin\frac1t}{\sqrt{t}}\;\dd t\ \text{ est absolument convergente}$
+
+ \pause 
+En effet $\frac{\big|\sin\frac1t\big|}{\sqrt{t}}\le \frac{1}{\sqrt{t}}$.
+\pause Or l'intégrale $\int_0^1 \frac{1}{\sqrt{t}}\;\dd t$
+converge
+
+\pause
+  
+  \item Par contre, 
+$
+\int_0^1 \frac{\sin\frac1t}{t}\;\dd t$ n'est pas absolument convergente mais elle est convergente,
+comme $\int_1^{\infty} \frac{\sin u}{u}\;\dd u$
+% \pause En effet  $t\mapsto \frac1u$ ramène à $\int_1^{\infty} \frac{\sin u}{u}\;\dd u$ :
+
+\pause
+\centerline{$
+\int_x^1 \frac{\sin\frac1t}{t}\;\dd t = 
+\int_{1/x}^1 u\sin u \cdot \frac{-1}{u^2}\;\dd u = 
+\int_1^{1/x} \frac{\sin u}{u}\;\dd u
+$}
+\end{enumerate}
+\vspace*{-2ex} 
+\end{exemple}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \section*{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+	\begin{enumerate}
+  \item \'Etudier la convergence des intégrales :
+  $$\int_0^1 \frac{\dd t}{1-t} \qquad 
+  \int_0^1 \frac{\dd t}{\sqrt{1-t}} \qquad 
+  \int_0^1 \ln \frac1t \;\dd t \qquad
+  \int_0^1 t\sin \frac1t \;\dd t$$
+  
+  \item Pour quelles valeurs de $\beta \in \Rr$ l'intégrale
+  $\int_0^1 \frac{\dd t}{t(-\ln t)^\beta}$ converge ?
+  
+  \item Prouver le théorème de comparaison et le théorème des équivalents de cette section, 
+  en vous inspirant des démonstrations des sections précédentes.
+ 
+  \item Même travail pour montrer qu'une intégrale absolument convergente est convergente.
+
+\end{enumerate}
+
+\end{miniexercice}	
+\end{frame}
+
+
+
+
+\end{document}
+

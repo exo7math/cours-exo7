@@ -1,0 +1,21 @@
+\begin{tikzpicture}[scale=0.6]
+  \def\xmin{-5}; 
+ \def\xmax{+5}; 
+ \def\ymin{-5}; 
+ \def\ymax{+5};
+% \draw[help lines] (\xmin,\ymin) grid (\xmax,\ymax);
+  \draw[->,>=latex,thick,gray] (\xmin,0)--(\xmax,0);
+ \draw[->,>=latex,thick,gray] (0,\ymin)--(0,\ymax); 
+%  \node at (0,1)[left] {$1$};  
+%   \node at (1,0)[below] {$1$};   
+\node at (1.5,4.5) {$\text{sh}\,x$};  
+  \node at (4,1.5) {$\text{argsh}\,x$};  
+  \node at (4.2,3.4) {$(y=x)$};  
+ \clip (\xmin,\ymin) rectangle (\xmax,\ymax);
+ \def\a{+1};
+% \draw [thick, domain=\xmin:\xmax] plot(\x,{exp(\x)});
+ \draw [very thick, color=red,samples=20,smooth] plot(\x,{(exp(\x)-exp(-\x))/2});
+ \draw [very thick, color=blue,samples=20,smooth] plot(\x,\x);
+ \draw [very thick, color=green!60!black,samples=20,smooth, domain=-5:5] plot(\x,{ln(\x+sqrt(\x*\x+1))});
+
+\end{tikzpicture}

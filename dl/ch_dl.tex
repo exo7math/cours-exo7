@@ -1,0 +1,1235 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Développements limités}
+%====================================================================
+
+\insertvideo{vlFWMeBUTXo}{partie 1. Formules de Taylor}
+
+\insertvideo{gFpLfhXjLSY}{partie 2. Développements limités au voisinage d'un point}
+
+\insertvideo{_AS7bwOsxd4}{partie 3. Opérations sur les DL}
+
+\insertvideo{bS8MxViqUUE}{partie 4. Applications}
+
+\insertfiche{fic00163.pdf}{Développements limités}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Motivation}
+
+Prenons l'exemple de la fonction exponentielle.
+Une idée du comportement de la fonction $f(x)=\exp x$ autour du point $x=0$ est donné par sa tangente,
+dont l'équation est $y=1+x$. Nous avons approximé le graphe par une droite.
+Si l'on souhaite faire mieux, quelle parabole d'équation $y = c_0 + c_1x + c_2 x^2$ approche le mieux
+le graphe de $f$ autour de $x=0$ ? Il s'agit de la parabole d'équation $y=1+x+\frac12 x^2$.
+Cette équation à la propriété remarquable que si on note $g(x)=\exp x - \big(1+x+\frac12 x^2\big)$ alors
+$g(0)=0$, $g'(0)=0$ et $g''(0)=0$. Trouver l'équation de cette parabole c'est faire un développement limité à l'ordre $2$
+de la fonction $f$.
+Bien sûr si l'on veut être plus précis, on continuerait avec une courbe du troisième degré
+qui serait en fait $y = 1+x+\frac12 x^2 + \frac16 x^3$.
+
+\myfigure{1}{
+\tikzinput{fig_dl01}
+}
+
+\bigskip
+
+Dans ce chapitre, pour n'importe quelle fonction, nous allons trouver le polynôme de degré $n$
+qui approche le mieux la fonction. Les résultats ne sont valables que pour $x$ autour d'une valeur
+fixée (ce sera souvent autour de $0$). Ce polynôme sera calculé à partir des dérivées successives au point
+considéré. Sans plus attendre, voici la formule, dite formule de Taylor-Young :
+$$f(x)= f(0)+f'(0)x+f''(0)\frac{x^2}{2!}+\cdots
++f^{(n)}(0)\frac{x^n}{n!} + x^n\epsilon(x).$$
+La partie polynomiale $f(0)+f'(0)x+\cdots+f^{(n)}(0)\frac{x^n}{n!}$
+est le polynôme de degré $n$ qui approche le mieux $f(x)$ autour de $x=0$.
+La partie $x^n\epsilon(x)$ est le \og reste \fg{}  dans lequel $\epsilon(x)$ est une fonction
+qui tend vers $0$ (quand $x$ tend vers $0$) et qui est négligeable devant la partie polynomiale.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Formules de Taylor}
+
+
+Nous allons voir trois formules de Taylor, elles auront toutes la même partie polynomiale
+mais donnent plus ou moins d'informations sur le reste. Nous commencerons par la formule de
+Taylor avec reste intégral qui donne une expression exacte du reste. Puis la formule de Taylor avec
+reste $f^{(n+1)}(c)$ qui permet d'obtenir un encadrement du reste et nous terminons avec la formule de Taylor-Young
+très pratique si l'on n'a pas besoin d'information sur le reste.
+
+\bigskip
+
+Soit $I \subset \Rr$ un intervalle ouvert. Pour $n \in \Nn^*$, on dit
+que $f : I \to \Rr$ est une fonction de \defi{classe $\mathcal{C}^n$}\index{fonction!de classe Cn@de classe $\mathcal{C}^n$}
+si $f$ est $n$ fois dérivable sur $I$ et $f^{(n)}$ est continue.
+$f$ est de  \defi{classe $\mathcal{C}^0$} si $f$ est continue sur $I$.
+$f$ est de  \defi{classe $\mathcal{C}^\infty$}\index{fonction!de classe Cy@de classe $\mathcal{C}^\infty$} si $f$ est de classe $\mathcal{C}^n$
+pour tout $n\in\Nn$.
+
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Formule de Taylor avec reste intégral}
+
+\begin{theoreme}[Formule de Taylor avec reste intégral]
+\index{formule!de Taylor avec reste integral@de Taylor avec reste intégral}
+Soit $f : I\to\Rr$ une fonction de classe $\mathcal{C}^{n+1}$ ($n \in \Nn$)
+et soit $a,x \in I$.
+Alors
+\mybox{
+$\begin{array}{lr}
+f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\cdots & \\[2ex]
+&\hspace*{-4cm} \cdots+\frac{f^{(n)}(a)}{n!}(x-a)^n+\int_a^x \frac{f^{(n+1)}(t)}{n!}(x-t)^ndt.  
+\end{array}$
+}
+\end{theoreme}
+
+
+Nous noterons $T_n(x)$ la partie polynomiale de la
+formule de Taylor (elle dépend de $n$ mais aussi de $f$ et~$a$)  :
+$$T_n(x) =f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\cdots
++\frac{f^{(n)}(a)}{n!}(x-a)^n.$$
+
+\begin{remarque*}
+En écrivant $x=a+h$ (et donc $h=x-a$)
+la formule de Taylor précédente devient (pour tout $a$ et $a+h$ de $I$) :
+$$f(a+h)=f(a)+f'(a)h+\frac{f''(a)}{2!}h^2+\cdots
++\frac{f^{(n)}(a)}{n!}h^n+\int_0^{h} \frac{f^{(n+1)}(a+t)}{n!}(h-t)^ndt$$
+\end{remarque*}
+
+\begin{exemple}
+La fonction $f(x)=\exp x$ est de classe $\mathcal{C}^{n+1}$ sur $I=\Rr$ pour tout $n$. Fixons $a\in\Rr$.
+Comme $f'(x)=\exp x$, $f''(x)=\exp x$,\ldots alors pour tout $x\in\Rr$ :
+$$\exp x=\exp a+\exp a \cdot (x-a)+\cdots+\frac{\exp a}{n!}(x-a)^n+\int_a^x\frac{\exp t}{n!}(x-t)^ndt.$$
+Bien sûr si l'on se place en $a=0$ alors on retrouve le début de notre approximation de la fonction
+exponentielle en $x=0$ : $\exp x=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\cdots$
+\end{exemple}
+
+
+
+\begin{proof}[Preuve du théorème]
+Montrons cette formule de Taylor par récurrence sur $k \le n$:
+{\small
+\[
+f(b)=f(a)+f'(a)(b-a)+\frac{f''(a)}{2!}(b-a)^2+\cdots
++\frac{f^{(k)}(a)}{k!}(b-a)^k+\int_a^b f^{(k+1)}(t)\frac{(b-t)^k}{k!}dt.
+\]}
+(Pour éviter les confusions entre ce qui varie et ce qui est fixe dans cette
+preuve on remplace $x$ par $b$.)
+\\
+
+\textbf{Initialisation.}
+Pour $n=0$, une primitive de $f'(t)$ est $f(t)$ donc
+$\int_a^b f'(t) \, dt=f(b)-f(a)$, donc
+$f(b)=f(a)+\int_a^b f'(t) \, dt$.
+(On rappelle que par convention $(b-t)^0=1$ et $0!=1$.)
+
+\textbf{Hérédité.}
+Supposons la formule vraie au rang $k-1$. Elle s'écrit
+$f(b)=f(a)+f'(a)(b-a)+\cdots
++\frac{f^{(k-1)}(a)}{(k-1)!}(b-a)^{k-1}
++\int_a^bf^{(k)}(t)\frac{(b-t)^{k-1}}{(k-1)!}dt$.
+
+On effectue une intégration par parties dans l'intégrale
+$\int_a^b f^{(k)}(t) \frac{(b-t)^{k-1}}{(k-1)!} \, dt$. En posant
+$u(t)=f^{(k)}(t)$ et $v'(t) = \frac{(b-t)^{k-1}}{(k-1)!}$,
+on a $u'(t)= f^{(k+1)}(t)$ et $v(t) = - \frac{(b-t)^{k}}{k!}$; alors
+\begin{align*}
+\int_a^b f^{(k)}(t) \frac{(b-t)^{k-1}}{(k-1)!} \, dt
+  & = \left[-f^{(k)}(t)\frac{(b-t)^{k}}{k!}\right]_a^b + \int_a^b f^{(k+1)}(t) \frac{(b-t)^{k}}{k!} \, dt\\
+  & = f^{(k)}(a)\frac{(b-a)^{k}}{k!} + \int_a^b f^{(k+1)}(t) \frac{(b-t)^{k}}{k!}\, dt . \\
+\end{align*}
+
+Ainsi lorsque l'on remplace cette expression dans la formule au rang $k-1$ on obtient la formule au rang~$k$.
+
+\textbf{Conclusion.} Par le principe de récurrence la formule de Taylor est vraie
+pour tous les entiers $n$ pour lesquels $f$ est classe $\mathcal{C}^{n+1}$.
+\end{proof}
+
+
+%---------------------------------------------------------------
+
+\subsection{Formule de Taylor avec reste $f^{(n+1)}(c)$}
+
+\begin{theoreme}[Formule de Taylor avec reste $f^{(n+1)}(c)$]
+\index{formule!de Taylor avec reste f@de Taylor avec reste $f^{(n+1)}(c)$}
+Soit $f : I\to\Rr$ une fonction de classe $\mathcal{C}^{n+1}$ ($n \in \Nn$)
+et soit $a,x \in I$.
+Il existe un réel $c$ entre $a$ et $x$ tel que :
+\mybox{
+$\begin{array}{lr}
+f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\cdots & \\[2ex]
+& \hspace*{-4cm} \cdots+\frac{f^{(n)}(a)}{n!}(x-a)^n +\frac{f^{(n+1)}(c)}{(n+1)!}
+(x-a)^{n+1}. \end{array}$
+}
+
+\end{theoreme}
+
+
+
+
+\begin{exemple}
+Soient $a,x \in\Rr$. Pour tout entier $n\ge0$ il existe $c$ entre $a$ et $x$ tel que
+$\exp x=\exp a+\exp a \cdot (x-a)+\cdots+\frac{\exp a}{n!}(x-a)^n+\frac{\exp c}{(n+1)!}(x-a)^{n+1}.$
+\end{exemple}
+
+Dans la plupart des cas on ne connaîtra pas ce $c$. Mais ce théorème permet d'encadrer le reste.
+Ceci s'exprime par le corollaire suivant :
+\begin{corollaire}
+Si en plus la fonction $|f^{(n+1)}|$ est majorée sur $I$ par un réel $M$, alors pour tout $a, x\in
+I$, on~a :
+\[
+\big|f(x)-T_n(x)\big|\le M\frac{|x-a|^{n+1}}{(n+1)! \ } \cdotp
+\]
+\end{corollaire}
+
+\begin{exemple}
+Approximation de $\sin(0,01)$.
+
+Soit $f(x)=\sin x$. Alors $f'(x)=\cos x$, $f''(x)=-\sin x$, $f^{(3)}(x)=-\cos x$, $f^{(4)}(x)=\sin x$.
+On obtient donc $f(0)=0$, $f'(0)=1$, $f''(0)=0$, $f^{(3)}(0)=-1$.
+La formule de Taylor ci-dessus en $a=0$ à l'ordre $3$ devient :
+$f(x)=0+1\cdot x +0\cdot \frac{x^2}{2!}-1\frac{x^3}{3!} + f^{(4)}(c)\frac{x^4}{4!}$,
+c'est-à-dire $f(x)= x -\frac{x^3}{6} + f^{(4)}(c)\frac{x^4}{24}$,
+pour un certain $c$ entre $0$ et $x$.
+
+Appliquons ceci pour $x=0,01$. Le reste étant petit on trouve
+alors
+\[
+\sin(0,01) \approx 0,01 - \frac{(0,01)^3}{6}=0,00999983333\ldots
+\]
+
+On peut même savoir quelle est la précision de cette approximation :
+comme $f^{(4)}(x)=\sin x$ alors  $|f^{(4)}(c)|\le 1$.
+Donc
+$\big|f(x) - \big(x -\frac{x^3}{6} \big) \big| \le \frac{x^4}{4!}$.
+Pour $x=0,01$ cela donne :
+$\big|\sin(0,01) -  \big(0,01 - \frac{(0,01)^3}{6}\big)\big| \le \frac{(0,01)^4}{24}$.
+Comme $\frac{(0,01)^4}{24} \approx 4,16 \cdot 10^{-10}$ alors
+notre approximation donne au moins $8$ chiffres exacts après la virgule.
+\end{exemple}
+
+
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+  \item Dans ce théorème l'hypothèse $f$ de classe $\mathcal{C}^{n+1}$ peut-être affaiblie
+en $f$ est \og $n+1$ fois dérivable sur $I$ \fg{}.
+
+  \item \og le réel $c$ est entre $a$ et $x$ \fg{} signifie \og $c\in ]a,x[$ ou $c\in ]x,a[$ \fg{}.
+
+  \item Pour $n=0$ c'est exactement l'énoncé du théorème des accroissements finis :
+il existe $c\in]a,b[$ tel que $f(b)=f(a)+f'(c)(b-a)$.
+
+  \item Si $I$ est un intervalle fermé borné et $f$ de classe $\mathcal{C}^{n+1}$,
+alors $f^{(n+1)}$ est continue sur $I$ donc il existe un $M$ tel que
+$|f^{(n+1)}(x)|\le M$ pour tout $x\in I$. Ce qui permet toujours d'appliquer le corollaire.
+\end{itemize}
+\end{remarque*}
+
+Pour la preuve du théorème nous aurons besoin d'un résultat préliminaire.
+\begin{lemme}[\'Egalité de la moyenne]
+\index{egalite de la moyenne@égalité de la moyenne}
+Supposons $a<b$ et soient $u,v : [a,b] \to \Rr$ deux fonctions continues avec $v$ positive ou nulle.
+Alors il existe $c\in[a,b]$ tel que $\int_a^b u(t)v(t)\, dt = u(c) \int_a^b v(t)\, dt$.
+\end{lemme}
+
+\begin{proof}
+Notons $m = \inf_{t\in[a,b]} u(t)$ et $M=\sup_{t\in[a,b]} u(t)$.
+On a alors $m\int_a^b v(t)\, dt \le \int_a^b u(t)v(t)\, dt\le M\int_a^b v(t)\, dt$ (car $v\ge0$).
+Ainsi $m \le \frac{\int_a^b u(t)v(t)\, dt}{\int_a^b v(t)\, dt }\le M$.
+Puisque $u$ est continue sur $[a,b]$ elle prend toutes les valeurs comprises entre $m$ et $M$
+(théorème des valeurs intermédiaires). Donc il existe $c \in[a,b]$ avec
+$u(c)=\frac{\int_a^b u(t)v(t)\, dt}{\int_a^b v(t)\, dt}$.
+\end{proof}
+
+
+\begin{proof}[Preuve du théorème]
+Pour la preuve nous montrerons la formule de Taylor pour $f(b)$ en supposant $a<b$.
+Nous montrerons seulement $c\in [a,b]$ au lieu de $c\in ]a,b[$.
+
+Posons $u(t)=f^{(n+1)}(t)$ et $v(t)= \frac{(b-t)^n}{n!}$ (qui est bien positive ou nulle).
+La formule de Taylor avec reste intégral s'écrit
+$f(b) = T_n(a)+ \int_a^b u(t)v(t) \, dt$.
+Par le lemme, il existe $c\in[a,b]$ tel que
+$\int_a^b u(t)v(t) \, dt = u(c) \int_a^b v(t)\, dt$.
+Ainsi le reste est
+$\int_a^b u(t)v(t) \, dt = f^{(n+1)}(c) \int_a^b \frac{(b-t)^n}{n!} \, dt
+=f^{(n+1)}(c) \left[ -\frac{(b-t)^{n+1}}{(n+1)!} \right]_a^b
+= f^{(n+1)}(c)  \frac{(b-a)^{n+1}}{(n+1)!}$.
+Ce qui donne la formule recherchée.
+\end{proof}
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Formule de Taylor-Young}
+
+\begin{theoreme}[Formule de Taylor-Young]
+\index{formule!de Taylor-Young}
+Soit $f: I \to \Rr$ une fonction de classe $\mathcal{C}^n$ et soit $a\in I$.
+Alors pour tout $x \in I$ on a :
+\mybox{
+$\begin{array}{lr}
+f(x)= f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\cdots &\\[2ex]
+& \hspace*{-4cm}\cdots+\frac{f^{(n)}(a)}{n!}(x-a)^n +(x-a)^n\epsilon(x),   
+ \end{array}
+$}
+où $\epsilon$ est une fonction définie sur $I$ telle que $\epsilon(x) \xrightarrow[x\to a]{} 0$.
+\end{theoreme}
+
+\begin{proof}
+$f$ étant une fonction de classe $\mathcal{C}^n$ nous appliquons la formule de Taylor avec reste $f^{(n)}(c)$
+au rang $n-1$. Pour tout $x$, il existe $c=c(x)$ compris entre $a$ et $x$ tel que
+$f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\cdots
++\frac{f^{(n-1)}(a)}{(n-1)!}(x-a)^{n-1} +\frac{f^{(n)}(c)}{n!}(x-a)^{n}.$
+Que nous réécrivons :
+$f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\cdots
++\frac{f^{(n)}(a)}{n!}(x-a)^n + \frac{f^{(n)}(c)-f^{(n)}(a)}{n!}(x-a)^{n}.$
+On pose $\epsilon(x)=\frac{f^{(n)}(c)-f^{(n)}(a)}{n!}$.
+Puisque $f^{(n)}$ est continue et que $c(x) \to a$ alors $\lim_{x\to a} \epsilon(x) = 0$.
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Un exemple}
+
+Soit $f : ]-1,+\infty[ \to \Rr$, $x \mapsto \ln(1+x)$; $f$ est infiniment dérivable.
+Nous allons calculer les formules de Taylor en $0$ pour les premiers ordres.
+
+Tous d'abord $f(0)=0$. Ensuite $f'(x)=\frac{1}{1+x}$ donc $f'(0)=1$.
+Ensuite $f''(x) = -\frac{1}{(1+x)^2}$ donc $f''(0)=-1$.
+Puis $f^{(3)}(x)= + 2 \frac{1}{(1+x)^3}$ donc $f^{(3)}(0)= + 2$.
+Par récurrence on montre que $f^{(n)}(x) = (-1)^{n-1} (n-1)!\frac{1}{(1+x)^n}$
+et donc $f^{(n)}(0)= (-1)^{n-1} (n-1)!$.
+Ainsi pour $n>0$ : $\frac{f^{(n)}(0)}{n!}x^n =  (-1)^{n-1} \frac{(n-1)!}{n!} x^n= (-1)^{n-1}\frac{x^n}{n}$.
+
+Voici donc les premiers polynômes de Taylor :
+$$T_0(x)=0 \qquad T_1(x) = x \qquad T_2(x) = x -\frac{x^2}{2}
+\qquad T_3(x) = x -\frac{x^2}{2} + \frac{x^3}{3}$$
+
+Les formules de Taylor nous disent que les restes sont de plus en plus petits lorsque $n$ croît.
+Sur le dessins les graphes des polynômes $T_0, T_1, T_2, T_3$ s'approchent de plus en plus du graphe de $f$.
+Attention ceci n'est vrai qu'autour de $0$.
+
+\myfigure{1}{
+\tikzinput{fig_dl02}
+}
+
+Pour $n$ quelconque nous avons calculé que le polynôme de Taylor en $0$ est
+$$T_n(x)=\sum_{k=1}^n (-1)^{k-1}\frac{x^k}{k} = x-\frac{x^2}{2} + \frac{x^3}{3}-\cdots + (-1)^{n-1}\frac{x^n}{n}.$$
+
+
+%---------------------------------------------------------------
+\subsection{Résumé}
+
+
+Il y a donc trois formules de Taylor qui s'écrivent toutes sous la forme
+$$f(x) = T_n(x) + R_n(x)$$
+où $T_n(x)$ est toujours le même polynôme de Taylor :
+$$T_n(x) =f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\cdots
++\frac{f^{(n)}(a)}{n!}(x-a)^n.$$
+
+C'est l'expression du reste $R_n(x)$ qui change (attention le reste n'a aucune raison d'être un polynôme).
+
+\begin{align*}
+R_n(x) & = \int_a^x \frac{f^{(n+1)}(t)}{n!}(x-t)^ndt
+ & \quad   \text{Taylor avec reste intégral} \\
+R_n(x) & =\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}
+ & \quad   \text{Taylor avec reste } f^{(n+1)}(c),\   c \text{ entre } a \text{ et } x \\
+R_n(x) & = (x-a)^n\epsilon(x)
+ & \quad \text{Taylor-Young avec } \epsilon(x) \xrightarrow[x\to a]{} 0 \\
+\end{align*}
+Selon les situations l'une des formulations est plus adaptée que les autres.
+Bien souvent nous n'avons pas besoin de beaucoup d'information sur le reste et
+c'est donc la formule de Taylor-Young qui sera la plus utile.
+
+Notons que les trois formules ne requièrent pas exactement les mêmes hypothèses:
+Taylor avec reste intégral à l'ordre $n$ exige une fonction de classe $\mathcal{C}^{n+1}$,
+Taylor avec reste une fonction $n+1$ fois dérivable, et Taylor-Young une fonction $\mathcal{C}^n$.
+Une hypothèse plus restrictive donne logiquement une conclusion plus forte.
+Cela dit, pour les fonctions de classe $\mathcal{C}^\infty$ que l'on manipule le plus souvent,
+les trois hypothèses sont toujours vérifiées.
+
+\bigskip
+
+\textbf{Notation.}
+Le terme $(x-a)^n\epsilon(x)$ où $\epsilon(x) \xrightarrow[x\to 0]{} 0$
+est souvent abrégé en \og \defi{petit o} \fg{} de $(x-a)^n$ et est noté $o((x-a)^n)$.
+Donc $o((x-a)^n)$ est une fonction telle que $\lim_{x\to a}\frac{o((x-a)^n)}{(x-a)^n}=0$.
+Il faut s'habituer à cette notation qui simplifie les écritures, mais il faut toujours garder à l'esprit
+ce qu'elle signifie.
+
+\bigskip
+
+\textbf{Cas particulier : Formule de Taylor-Young au voisinage de $0$.}
+On se ramène souvent au cas particulier où $a=0$, la formule de Taylor-Young s'écrit alors
+
+\mybox{$\displaystyle f(x)= f(0)+f'(0)x+f''(0)\frac{x^2}{2!}+\cdots
++f^{(n)}(0)\frac{x^n}{n!} + x^n\epsilon(x)$}
+où \ $\lim_{x\to0}\epsilon (x)=0$.
+
+Et avec la notation \og petit o \fg{} cela donne :
+$$f(x)= f(0)+f'(0)x+f''(0)\frac{x^2}{2!}+\cdots
++f^{(n)}(0)\frac{x^n}{n!} + o(x^n)$$
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Écrire les trois formules de Taylor en $0$ pour $x \mapsto \cos x$, $x\mapsto \exp(-x)$ et $x\mapsto \sh x$.
+  \item Écrire les formules de Taylor en $0$ à l'ordre $2$ pour $x \mapsto \frac{1}{\sqrt{1+x}}$, $x\mapsto \tan x$.
+  \item Écrire les formules de Taylor en $1$ pour $x \mapsto x^3-9x^2+14x+3$.
+  \item Avec une formule de Taylor à l'ordre $2$ de $\sqrt{1+x}$, trouver une approximation
+de $\sqrt{1,01}$. Idem avec $\ln(0,99)$.
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Développements limités au voisinage d'un point}
+
+
+%---------------------------------------------------------------
+\subsection{Définition et existence}
+
+
+Soit $I$ un intervalle ouvert et $f : I \to \Rr$ une fonction quelconque.
+
+\begin{definition}
+Pour $a\in I$ et $n\in \Nn$, on dit que $f$ admet un
+\defi{développement limité}\index{developpement limite@développement limité} (\defi{DL}) au point $a$ et à l'ordre $n$, s'il existe
+des réels $c_0, c_1,\ldots,c_n$
+et une fonction $\epsilon : I \to \Rr$ telle que $\lim_{x\to a} \epsilon(x)=0$
+de sorte que pour tout $x\in I$ :
+$$f(x)=c_0+c_1 (x-a)+\cdots+c_n(x-a)^n+(x-a)^n\epsilon(x).$$
+\begin{itemize}
+\item L'égalité précédente s'appelle un DL de $f$ au voisinage de $a$ à l'ordre $n$ .
+
+\item Le terme $c_0+c_1(x-a)+\cdots+c_n(x-a)^n$ est appelé la \defi{partie polynomiale}\index{partie polynomiale} du DL.
+
+\item Le terme $(x-a)^n\epsilon(x)$ est appelé le \defi{reste} du DL.
+\end{itemize}
+\end{definition}
+
+
+La formule de Taylor-Young permet d'obtenir immédiatement des développements limités
+en posant $c_k = \frac{f^{(k)}(a)}{k!}$ :
+\begin{proposition}
+Si $f$ est de classe $\mathcal{C}^n$ au voisinage d'un point $a$
+alors $f$ admet un DL au point $a$ à l'ordre $n$, qui provient de la
+formule de Taylor-Young:
+$$f(x)= f(a)+\frac{f'(a)}{1!}(x-a)+ \frac{f''(a)}{2!}(x-a)^2+\cdots
++\frac{f^{(n)}(a)}{n!}(x-a)^n+(x-a)^n\epsilon(x)$$
+où $\lim_{x\to a}\epsilon(x)=0$.
+\end{proposition}
+
+\begin{remarque*}
+\sauteligne
+\begin{enumerate}
+  \item Si $f$ est de classe $\mathcal{C}^n$
+au voisinage d'un point $0$, un DL en $0$ à l'ordre $n$ est l'expression :
+$$f(x)= f(0)+f'(0)x+f''(0)\frac{x^2}{2!}+\cdots
++f^{(n)}(0)\frac{x^n}{n!} + x^n\epsilon(x)$$
+
+  \item Si $f$ admet un DL en un point $a$ à l'ordre $n$
+alors elle en possède un pour tout $k \le n$.
+En effet
+\begin{eqnarray*}
+f(x) & = & f(a)+\frac{f'(a)}{1!}(x-a)+\cdots + \frac{f^{(k)}(a)}{k!}(x-a)^k
+\\
+&& + \underbrace{\frac{f^{(k+1)}(a)}{(k+1)!}(x-a)^{k+1} + \cdots
++\frac{f^{(n)}(a)}{n!}(x-a)^n+(x-a)^n\epsilon(x)}_{=(x-a)^k\eta(x)}
+\end{eqnarray*}
+où $\lim_{x\to a}\eta(x)=0$.
+\end{enumerate}
+\end{remarque*}
+
+%---------------------------------------------------------------
+\subsection{Unicité}
+
+\begin{proposition}
+Si $f$ admet un DL alors ce DL est unique.
+\end{proposition}
+
+\begin{proof}
+Écrivons deux DL de $f$ :
+$f(x)=c_0+c_1(x-a)+\cdots+c_n(x-a)^n+(x-a)^n\epsilon_1(x)$
+et $f(x)=d_0+d_1(x-a)+\cdots+d_n(x-a)^n+(x-a)^n\epsilon_2(x)$.
+En effectuant la différence on obtient:
+\[
+(d_0-c_0)+(d_1-c_1)(x-a)+\cdots+(d_n-c_n)(x-a)^n+(x-a)^n(\epsilon_2(x)-\epsilon_1(x))=0.
+\]
+Lorsque l'on fait $x=a$ dans cette égalité alors on trouve $d_0-c_0=0$.
+Ensuite on peut diviser cette égalité par $x-a$  :
+$(d_1-c_1)+(d_2-c_2)(x-a)+\cdots+(d_n-c_n)(x-a)^{n-1}+(x-a)^{n-1}(\epsilon_2(x)-\epsilon_1(x))=0$.
+En évaluant en $x=a$ on obtient $d_1-c_1=0$, etc.
+On trouve $c_0=d_0$, $c_1=d_1$, \ldots, $c_n=d_n$.
+Les parties polynomiales sont égales et donc les restes aussi.
+\end{proof}
+
+
+
+
+\begin{corollaire}
+Si $f$ est paire (resp. impaire) alors la partie polynomiale de son DL en $0$
+ne contient que des monômes de degrés pairs (resp. impairs).
+\end{corollaire}
+
+Par exemple $x \mapsto \cos x$ est paire et nous verrons que son DL en $0$ commence par :
+$\cos x=1-\frac{x^2}{2!}+\frac{x^4}{4!}-\frac{x^6}{6!}+\cdots$.
+
+\begin{proof}
+ $f(x)=c_0+c_1 x +c_2x^2+c_3x^3+\cdots+c_nx^n+x^n\epsilon(x)$. Si $f$ est paire alors
+$f(x)=f(-x)=c_0-c_1 x+c_2x^2-c_3x^3 +\cdots+(-1)^nc_nx^n+x^n\epsilon(x)$.
+Par l'unicité du DL en $0$ on trouve $c_1=-c_1$, $c_3=-c_3$, \ldots \
+et donc $c_1=0$, $c_3=0$,\ldots
+\end{proof}
+
+
+\begin{remarque*}
+\sauteligne
+\begin{enumerate}
+  \item L'unicité du DL et la formule de Taylor-Young
+prouve que si l'on connaît le DL et que $f$ est de classe $\mathcal{C}^n$ alors
+on peut calculer les nombres dérivés à partir de la partie polynomiale par la formule
+$c_k = \frac{f^{(k)}(a)}{k!}$. Cependant dans la majorité des cas on fera l'inverse :
+on trouve le DL à partir des dérivées.
+
+  \item  Si $f$ admet un DL en un point $a$ à l'ordre $n \ge
+   0$ alors $f$ est continue en $a$ et $c_0=f(a)$.
+
+\item Si $f$ admet un DL en un point $a$ à l'ordre $n \ge1$,
+alors $f$ est dérivable en $a$ et on a  $c_0=f(a)$ et $c_1=f'(a)$.
+Par conséquent $y=c_0+c_1(x-a)$ est l'équation de la tangente au graphe de $f$
+au point d'abscisse $a$.
+
+\item Plus subtil: $f$ peut admettre un DL à l'ordre $2$ en
+   un point $a$ \emph{sans} admettre une dérivée seconde en $a$.
+Soit par exemple $f(x) = x^3 \sin\frac1x$. Alors $f$ est dérivable mais
+$f'$ ne l'est pas. Pourtant $f$ admet un DL en $0$ à l'ordre $2$ :
+$f(x)=x^2 \epsilon(x)$ (la partie polynomiale est nulle).
+\end{enumerate}
+\end{remarque*}
+
+%---------------------------------------------------------------
+\subsection{DL des fonctions usuelles à l'origine}
+
+
+Les DL suivants en $0$ proviennent de la formule de Taylor-Young.
+\index{developpement limite@développement limité}
+\begin{center}
+\mybox{$\exp x=1+\frac{x}{1!}+\frac{x^2}{2!}+\frac{x^3}{3!}+\cdots+\frac{x^n}{n!}
++x^n\epsilon(x)$}
+
+\smallskip
+
+
+$\ch x=1+\frac{x^2}{2!}+\frac{x^4}{4!}+\cdots+\frac{x^{2n}}{(2n)!}
++x^{2n+1}\epsilon(x)$
+
+\smallskip
+
+$\sh x=\frac{x}{1!}+\frac{x^3}{3!}+\frac{x^5}{5!}+\cdots
++\frac{x^{2n+1}}{(2n+1)!}
++x^{2n+2}\epsilon(x)$
+
+\smallskip
+
+$\cos x=1-\frac{x^2}{2!}+\frac{x^4}{4!}-\cdots+(-1)^n\frac{x^{2n}}{(2n)!}
++x^{2n+1}\epsilon(x)$
+
+\smallskip
+
+$\sin x=\frac{x}{1!}-\frac{x^3}{3!}+\frac{x^5}{5!}-\cdots
++(-1)^n\frac{x^{2n+1}}{(2n+1)!}
++x^{2n+2}\epsilon(x)$
+
+\smallskip
+
+\mybox{$\ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}-\cdots
++(-1)^{n-1}\frac{x^{n}}{n} +x^{n}\epsilon(x)$}
+
+\smallskip
+
+\mybox{$(1+x)^{\alpha}=1+\alpha x+\frac{\alpha(\alpha-1)}{2!}x^2+\cdots
++\frac{\alpha(\alpha-1)...(\alpha-n+1)}{n!}x^n+x^n\epsilon(x)$}
+
+\smallskip
+
+${\displaystyle \frac{1}{1+x}}=1-x+x^2-x^3+\cdots+(-1)^nx^n+x^n\epsilon(x)$
+
+\smallskip
+
+${\displaystyle \frac{1}{1-x}} = 1+x+x^2+\cdots+x^n+x^n\epsilon(x)$
+
+\smallskip
+
+$\sqrt{1+x}  =\ \ 1 + \frac{x}{2} - \frac{1}{8}x^2+ \cdots +
+(-1)^{n-1} \frac{1\cdot1\cdot3\cdot5\cdots(2n-3)}{2^n n!}x^n\ \  + x^n\epsilon(x)$
+\end{center}
+
+
+Ils sont tous à apprendre par cœur. C'est facile avec les remarques suivantes :
+\begin{itemize}
+  \item Le DL de $\ch x$ est la partie paire du DL de $\exp x$. C'est-à-dire que l'on ne retient que les
+monômes de degré pair. Alors que le DL de $\sh x$ est la partie impaire.
+
+  \item Le DL de $\cos x$ est la partie paire du DL de $\exp x$ en alternant le signe $+/-$ du monôme.
+Pour $\sin x$ c'est la partie impaire de $\exp x$ en alternant aussi les signes.
+
+  \item On notera que la précision du DL de $\sin x$ est meilleure que l'application naïve de la formule de Taylor
+  le prévoit ($x^{2n+2} \epsilon(x)$ au lieu de $x^{2n+1} \epsilon(x)$) ;
+  c'est parce que le DL est en fait à l'ordre $2n+2$,
+  avec un terme polynomial en $x^{2n+2}$ nul (donc absent). Le même phénomène est vrai pour tous les DL pairs ou impairs (dont $\sh x, \cos x, \ch x$).
+
+  \item Pour $\ln(1+x)$ n'oubliez pas qu'il n'y a pas de terme constant, pas de factorielle aux dénominateurs,
+et que les signes alternent.
+
+  \item Il faut aussi savoir écrire le DL à l'aide des sommes formelles (et ici des \og petits o \fg{}):
+$$\exp x=\sum_ {k=1}^n \frac{x^k}{k!} \ \ + o(x^n) \qquad \text{ et } \qquad \ln(1+x)=\sum_ {k=1}^n (-1)^{k-1}\frac{x^k}{k}\ \  + o(x^n)$$
+
+  \item La DL de $(1+x)^\alpha$ est valide pour tout $\alpha \in \Rr$. Pour $\alpha = -1$ on retombe sur le DL
+de $(1+x)^{-1} = \frac{1}{1+x}$. Mais on retient souvent le DL de $\frac{1}{1-x}$ qui est très facile.
+Il se retrouve aussi avec la somme d'une suite géométrique :
+$1+x+x^2+\cdots+x^n = \frac{1-x^{n+1}}{1-x}= \frac{1}{1-x} - \frac{x^{n+1}}{1-x} = \frac{1}{1-x} + x^n\epsilon(x)$.
+
+  \item Pour $\alpha = \frac12$ on retrouve $(1+x)^{\frac12} = \sqrt{1+x} = 1 + \frac{x}{2} - \frac{1}{8}x^2+\cdots$.
+Dont il faut connaître les trois premiers termes.
+\end{itemize}
+
+
+%---------------------------------------------------------------
+\subsection{DL des fonctions en un point quelconque}
+
+
+La fonction $f$ admet un DL au voisinage d'un point $a$ si et seulement si la
+fonction $x \mapsto f(x+a)$ admet un DL au voisinage de $0$.
+Souvent on ramène donc le problème en $0$ en faisant le changement de variables $h=x-a$.
+
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+  \item DL de $f(x)=\exp x$ en $1$.
+
+On pose $h=x-1$. Si $x$ est proche de $1$ alors $h$ est proche de $0$.
+Nous allons nous ramener à un DL de $\exp h$ en $h=0$. On note $e=\exp 1$.
+\begin{eqnarray*}
+\exp x 
+  &=& \exp( 1+ (x-1) ) = \exp(1) \exp (x-1) = e \exp h \\
+  &=& e \left(1+h+ \frac{h^2}{2!} + \cdots + \frac{h^n}{n!}+h^n\epsilon(h)\right)
+\\
+&=&  e \left(1+(x-1)+\frac{(x-1)^2}{2!}+\cdots
++\frac{(x-1)^n}{n!}+(x-1)^n\epsilon(x-1)\right)
+\end{eqnarray*}
+où $\lim_{x\to1}\epsilon(x-1)=0$.
+
+  \item DL de $g(x)=\sin x$ en $\pi/2$.
+
+Sachant $\sin x=\sin(\frac{\pi}{2}+x-\frac{\pi}{2})
+=\cos (x-\frac{\pi}{2})$ on se ramène au DL de
+$\cos h$ quand $h=x-\frac{\pi}{2} \to 0$.
+On a donc
+$\sin x =1-\frac{(x-\frac{\pi}{2})^2}{2!}+\cdots
++(-1)^n\frac{(x-\frac{\pi}{2})^{2n}}{(2n)!}
++(x-\frac{\pi}{2})^{2n+1}\epsilon(x-\frac{\pi}{2})$,  où
+$\lim_{x\to\pi/2}\epsilon(x-\frac{\pi}{2})=0$.
+
+  \item DL de $\ell(x)=\ln(1+3x)$ en $1$ à l'ordre $3$.
+
+Il faut se ramener à un DL du type $\ln(1+h)$ en $h=0$.
+On pose $h=x-1$ (et donc $x=1+h$).
+
+On a $\ell(x)=\ln(1+3x) = \ln\big(1+3(1+h)\big)
+=  \ln(4 + 3h) = \ln\big(4 \cdot (1+\frac{3h}{4})\big)
+= \ln 4 + \ln\big(1+\frac{3h}{4}\big)
+= \ln 4 + \frac{3h}{4} - \frac12 \big(\frac{3h}{4} \big)^2
++ \frac13 \big(\frac{3h}{4} \big)^3 + h^3 \epsilon(h)
+= \ln 4 + \frac{3(x-1)}{4} - \frac{9}{32}(x-1)^2
++ \frac{9}{64}(x-1)^3 + (x-1)^3 \epsilon(x-1)$
+ où $\lim_{x\to1}\epsilon(x-1)=0$.
+\end{enumerate}
+\end{exemple}
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Calculer le DL en $0$ de $x\mapsto \ch x$ par la formule de Taylor-Young.
+Retrouver ce DL en utilisant que $\ch x = \frac{e^x+e^{-x}}{2}$.
+  \item Écrire le DL en $0$ à l'ordre $3$ de $\sqrt[3]{1+x}$. Idem avec $\frac{1}{\sqrt{1+x}}$.
+  \item Écrire le DL en $2$ à l'ordre $2$ de $\sqrt{x}$.
+  \item Justifier l'expression du DL de $\frac{1}{1-x}$ à l'aide de l'unicité du DL
+et de la somme d'une suite géométrique.
+\end{enumerate}
+\end{miniexercices}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Opérations sur les développements limités}
+
+%---------------------------------------------------------------
+\subsection{Somme et produit}
+
+On suppose que $f$ et $g$ sont deux fonctions qui admettent des DL en $0$ à l'ordre $n$ :
+$$f(x)=c_0+c_1x + \cdots +c_nx^n + x^n\epsilon_1(x)\qquad
+g(x)=d_0+d_1x + \cdots +d_nx^n + x^n\epsilon_2(x)$$
+
+\begin{proposition}
+\sauteligne
+\begin{itemize}
+  \item $f+g$  admet un DL en $0$ l'ordre $n$ qui est :
+$$(f+g)(x)=f(x)+g(x)=(c_0+d_0)+(c_1+d_1)x+\cdots+(c_n+d_n)x^n +x^n\epsilon(x).$$
+
+  \item $f\times g$ admet un DL en $0$ l'ordre $n$ qui est :
+$(f \times g)(x)=f(x) \times g(x)= T_n(x)+x^n\epsilon (x)$
+où $T_n(x)$ est le  polynôme
+$(c_0+c_1x + \cdots +c_nx^n)\times(d_0+d_1x + \cdots +d_nx^n)$
+tronqué à l'ordre $n$.
+\end{itemize}
+\end{proposition}
+
+\defi{Tronquer} un polynôme à l'ordre $n$ signifie que l'on conserve seulement
+les monômes de degré $\le n$.
+
+\begin{exemple}
+Calculer le DL de $\cos x \times \sqrt{1+x}$ en $0$  à l'ordre $2$.
+On sait que 
+$\cos x=1-\frac{1}{2}x^2+x^2\epsilon_1(x)$
+et $\sqrt{1+x}=1+\frac{1}{2}x-\frac{1}{8}x^2+x^2\epsilon_2(x)$.
+Donc :
+\begin{align*}
+\cos x \times \sqrt{1+x}
+  & = \left( 1-\frac{1}{2}x^2+x^2\epsilon_1(x)\right)\times \left(1+\frac{1}{2}x-\frac{1}{8}x^2+x^2\epsilon_2(x)\right)  \\
+  & = 1+\frac{1}{2}x-\frac{1}{8}x^2+x^2\epsilon_2(x)\quad \text{on développe}\\
+  &  \qquad -\frac{1}{2}x^2\left(1+\frac{1}{2}x-\frac{1}{8}x^2+x^2\epsilon_2(x)\right) \\
+  &  \qquad +x^2\epsilon_1(x)\left(1+\frac{1}{2}x-\frac{1}{8}x^2+x^2\epsilon_2(x)\right) \\
+  & = 1+\frac{1}{2}x-\frac{1}{8}x^2+x^2\epsilon_2(x) \quad \quad \text{on développe encore} \\
+  &  \qquad -\frac{1}{2}x^2-\frac{1}{4}x^3+\frac{1}{16}x^4-\frac12x^4\epsilon_2(x)\\
+  &  \qquad +x^2\epsilon_1(x) +\frac{1}{2}x^3\epsilon_1(x)-\frac{1}{8}x^4\epsilon_1(x)+x^4\epsilon_1(x)\epsilon_2(x) \\
+  & = \underbrace{1+\frac{1}{2}x + \left(-\frac{1}{8}x^2-\frac{1}{2}x^2\right)}_{\text{partie tronquée à l'ordre $2$}}
+\quad \text{termes de degré $0$ et $1$, $2$}\\
+  & \qquad  + \underbrace{
+  \begin{array}{cc}
+  x^2\epsilon_2(x) -\frac{1}{4}x^3+\frac{1}{16}x^4-\frac12x^4\epsilon_2(x) +x^2\epsilon_1(x) \\
++\frac{1}{2}x^3\epsilon_1(x)-\frac{1}{8}x^4\epsilon_1(x)+x^4\epsilon_1(x)\epsilon_2(x)
+  \end{array}
+}_{\text{reste de la forme }
+x^2\epsilon(x)} \ \text{et les autres}\\
+  & = 1+\frac{1}{2}x-\frac{5}{8}x^2+x^2\epsilon(x)
+\end{align*}
+On a en fait écrit beaucoup de choses superflues, qui à la fin sont dans le reste et n'avaient pas besoin d'être explicitées !
+Avec l'habitude les calculs se font très vite car on n'écrit plus les termes inutiles. Voici le même calcul
+avec la notation \og petit o \fg{} : dès qu'apparaît un terme $x^2\epsilon_1(x)$ ou un terme $x^3$,... on écrit juste $o(x^2)$
+(ou si l'on préfère $x^2\epsilon(x)$).
+\begin{align*}
+\cos x \times \sqrt{1+x}
+  & = \left( 1-\frac{1}{2}x^2+ o(x^2)\right)\times \left(1+\frac{1}{2}x-\frac{1}{8}x^2+o(x^2)\right)  \quad \text{on développe}\\
+  & = 1+\frac{1}{2}x-\frac{1}{8}x^2+o(x^2)\\
+  &  \qquad -\frac{1}{2}x^2 + o(x^2) \\
+  &  \qquad + o(x^2) \\
+  & = 1+\frac{1}{2}x-\frac{5}{8}x^2+o(x^2) \\
+\end{align*}
+La notation «petit o» évite de devoir donner un nom à chaque fonction, en ne gardant que
+sa propriété principale, qui est de décroître vers $0$ au moins à une certaine vitesse.
+Comme on le voit dans cet exemple, $o(x^2)$ \emph{absorbe} les éléments de même ordre de grandeur
+ou plus petits que lui: $o(x^2)-\frac{1}{4}x^3 + \frac{1}{2} x^2 o(x^2) = o(x^2)$.
+Mais il faut bien comprendre que les différents $o(x^2)$ écrits ne correspondent pas à la même fonction,
+ce qui justifie que cette égalité ne soit pas fausse!
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+\subsection{Composition}
+
+On écrit encore :
+$$f(x) = C(x) + x^n\epsilon_1(x)=c_0+c_1x + \cdots +c_nx^n + x^n\epsilon_1(x)$$
+$$g(x) = D(x) + x^n\epsilon_2(x)=d_0+d_1x + \cdots +d_nx^n + x^n\epsilon_2(x)$$
+\begin{proposition}
+Si $g(0)=0$ (c'est-à-dire $d_0=0$) alors la fonction $f\circ g$ admet un DL en $0$ à l'ordre $n$
+dont la partie polynomiale est
+le polynôme tronqué à l'ordre $n$ de la composition $C(D(x))$.
+\end{proposition}
+
+\begin{exemple}
+Calcul du DL de $h(x)=\sin\big(\ln(1+x)\big)$ en $0$ à l'ordre $3$.
+
+\begin{itemize}
+  \item On pose ici $f(u)=\sin u$ et $g(x)=\ln(1+x)$ (pour plus de clarté il est préférable de donner 
+  des noms différents aux variables des deux fonctions, ici $x$ et $u$).
+On a bien $f\circ g(x) = \sin\big(\ln(1+x)\big)$ et $g(0)=0$.
+
+  \item On écrit le DL à l'ordre 3 de $f(u)=\sin u = u-\frac{u^3}{3!}+u^3\epsilon_1(u)$ pour $u$ proche de $0$.
+
+  \item Et on pose $u=g(x)=\ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}+x^3\epsilon_2(x)$ pour $x$ proche de $0$.
+
+  \item On aura besoin de calculer un DL à l'ordre 3 de $u^2$ (qui est bien sûr le produit $u\times u$):
+$u^2 = \big(x-\frac{x^2}{2}+\frac{x^3}{3}+x^3\epsilon_2(x)\big)^2 = x^2-x^3+x^3\epsilon_3(x)$
+et aussi $u^3$ qui est $u \times u^2$, $u^3=x^3+x^3\epsilon_4(x)$.
+  \item Donc
+$h(x)=f\circ g(x)= f(u) = u-\frac{u^3}{3!}+u^3\epsilon_1(u)=
+\big(x-\frac{1}{2}x^{2}+\frac{1}{3}x^3\big) -\frac16 x^3  +x^3\epsilon(x)
+= x-\frac{1}{2}x^{2}+\frac16 x^3  +x^3\epsilon(x)$.
+\end{itemize}
+\end{exemple}
+
+
+\begin{exemple}
+Soit $h(x)=\sqrt{\cos x}$. On cherche le DL de $h$ en $0$ à l'ordre $4$.
+
+On utilise cette fois la notation \og petit o \fg{}.
+On connaît le DL de $f(u)=\sqrt{1+u}$ en $u=0$ à l'ordre $2$ :
+$f(u)=\sqrt{1+u}=1+\frac{1}{2}u-\frac{1}{8}u^2 + o(u^2)$.
+
+Et si on pose $u(x)=\cos x-1$ alors on a $h(x)= f\big(u(x)\big)$ et $u(0)=0$.
+D'autre part le DL de $u(x)$ en $x=0$ à l'ordre $4$ est :
+$u=-\frac{1}{2}x^2+\frac{1}{24}x^4+o(x^4)$.
+On trouve alors
+$u^2 = \frac{1}{4}x^4 + o(x^4)$.
+
+
+Et ainsi
+\begin{align*}
+h(x) & = f\big(u\big) = 1+\frac{1}{2}u-\frac{1}{8}u^2 + o(u^2) \\
+     & = 1 + \frac{1}{2}\big(-\frac{1}{2}x^2+\frac{1}{24}x^4\big)-\frac{1}{8}\big(\frac{1}{4}x^4\big) + o(x^4) \\
+     & =1-\frac{1}{4}x^2+\frac{1}{48}x^4 -\frac{1}{32}x^4+o(x^4) \\
+     & = 1-\frac{1}{4}x^2-\frac{1}{96}x^4+o(x^4) \\
+\end{align*}
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Division}
+
+Voici comment calculer le DL d'un quotient $f/g$. Soient
+$$f(x)=c_0+c_1x + \cdots +c_nx^n + x^n\epsilon_1(x) \qquad
+g(x)=d_0+d_1x + \cdots +d_nx^n + x^n\epsilon_2(x)$$
+Nous allons utiliser le DL de $\frac{1}{1+u} = 1-u+u^2-u^3+\cdots$.
+
+\begin{enumerate}
+  \item Si $d_0= 1$ on pose $u = d_1x + \cdots +d_nx^n + x^n\epsilon_2(x) $
+et le quotient s'écrit $f/g = f \times \frac{1}{1+u}$.
+  \item Si $d_0$ est quelconque avec $d_0 \neq 0$ alors
+on se ramène au cas précédent en écrivant
+\[
+\frac{1}{g(x)} =\frac{1}{d_0} \frac{1}{1+\frac{d_1}{d_0}x+\cdots+\frac{d_n}{d_0}x^n
++\frac{x^n\epsilon_2(x)}{d_0}}.
+\]
+
+  \item Si $d_0=0$ alors on factorise par $x^k$ (pour un certain $k$) afin de se ramener aux cas précédents.
+\end{enumerate}
+
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+  \item DL de $\tan x$ en $0$ à l'ordre $5$.
+
+Tout d'abord
+$\sin x=x-\frac{x^3}{6}+\frac{x^5}{120}+x^5\epsilon(x)$.
+D'autre part
+ $\cos  x=1-\frac{x^2}{2}+\frac{x^4}{24} +x^5\epsilon(x)=1+u$
+en posant $u= -\frac{x^2}{2}+\frac{x^4}{24} +x^5\epsilon(x)$.
+
+Nous aurons besoin de $u^2$ et $u^3$ :
+$u^2 = \big(-\frac{x^2}{2}+\frac{x^4}{24} +x^5\epsilon(x)\big)^2
+= \frac{x^4}{4}+x^5\epsilon(x)$ et en fait $u^3 = x^5\epsilon(x)$.
+(On note abusivement $\epsilon(x)$ pour différents restes.)
+
+Ainsi
+\begin{eqnarray*}
+\frac{1}{\cos x} 
+  &=& \frac{1}{1+u} =1-u+u^2-u^3+u^3\epsilon(u) \\
+  &=& 1+\frac{x^2}{2}-\frac{x^4}{24}+\frac{x^4}{4}+x^5\epsilon(x) \\
+  &=& 1+\frac{x^2}{2}+\frac{5}{24}x^4+x^5\epsilon(x).
+\end{eqnarray*}
+Finalement
+\begin{eqnarray*}
+\tan x 
+  &=& \sin x \times \frac1{\cos x} \\
+  &=& \big(x-\frac{x^3}{6}+\frac{x^5}{120}+x^5\epsilon(x)\big)\times\big(1+\frac{x^2}{2}+\frac{5}{24}x^4+x^5\epsilon(x)\big) \\
+  &=& x +\frac{x^3}{3}+\frac{2}{15}x^5+x^5\epsilon(x).
+\end{eqnarray*}
+
+  \item DL de $\frac{1+x}{2+x}$ en $0$ à l'ordre $4$.
+\begin{eqnarray*}
+\frac{1+x}{2+x} 
+  &=& (1+x)\frac12\frac{1}{1+\frac{x}{2}} \\
+  &=& \frac12(1+x) \left( 1-\frac{x}{2}+\left(\frac{x}{2}\right)^2-\left(\frac{x}{2}\right)^3
++\left( \frac{x}{2} \right)^4 + o(x^4) \right) \\
+  &=& \frac12+\frac{x}{4}-\frac{x^2}{8}+\frac{x^3}{16}-\frac{x^4}{32} + o(x^4)
+\end{eqnarray*}
+
+  \item Si l'on souhaite calculer le DL de $\frac{\sin x}{\sh x}$ en $0$ à l'ordre $4$
+alors on écrit
+\begin{eqnarray*}
+\frac{\sin x}{\sh x} &=&
+\frac{x-\frac{x^3}{3!} + \frac{x^5}{5!}+ o(x^5)}{x+\frac{x^3}{3!} + \frac{x^5}{5!} + o(x^5)}
+= \frac{x\big(1-\frac{x^2}{3!} + \frac{x^4}{5!}+ o(x^4)\big)}{x\big(1+\frac{x^2}{3!}+ \frac{x^4}{5!} + o(x^4)\big)}
+\\
+&=& \big(1-\frac{x^2}{3!}  + \frac{x^4}{5!}+ o(x^4)\big) \times \frac{1}{1+\frac{x^2}{3!}+ \frac{x^4}{5!} + o(x^4)}\\
+&=& \cdots \  = 1-\frac{x^2}{3}+\frac{x^4}{18} + o(x^4)
+\end{eqnarray*}
+\end{enumerate}
+\end{exemple}
+
+
+\textbf{Autre méthode.}
+Soit
+$f(x)=C(x) + x^n\epsilon_1(x)$ et $g(x)=D(x) + x^n\epsilon_2(x)$.
+Alors on écrit la division suivant les puissances croissantes de
+$C$ par $D$ à l'ordre $n$ : $C=DQ+ x^{n+1}R$ avec $\deg Q \le n$.
+Alors $Q$ est la partie polynomiale du DL en $0$ à l'ordre $n$ de $f/g$.
+
+\begin{exemple}
+DL de $\frac{2+x+2x^3}{1+x^2}$ à l'ordre $2$.
+On pose $C(x)=2+x+2x^3$ et $g(x)=D(x)=1+x^2$ alors
+$C(x)=D(x)\times (2+x-2x^2) + x^3(1+2x)$. On a donc $Q(x)=2+x-2x^2$,
+$R(x) = 1+2x$. Et donc lorsque l'on divise cette égalité par $D(x)$ on obtient
+$\frac{f(x)}{g(x)}=2+x-2x^2 + x^2\epsilon(x)$.
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Intégration}
+
+Soit $f : I\to \Rr$ une fonction de classe $\mathcal{C}^n$ dont le DL
+en $a\in I$ à l'ordre $n$ est $f(x)=c_0+c_1(x-a)+c_2(x-a)^2+\cdots+c_n(x-a)^n+(x-a)^n\epsilon(x)$.
+\begin{theoreme}
+Notons $F$ une primitive de $f$.
+Alors $F$ admet un DL en $a$ à l'ordre $n+1$ qui s'écrit :
+\begin{multline*}
+F(x)=F(a)+c_0(x-a)+c_1\frac{(x-a)^2}{2}+ c_2\frac{(x-a)^3}{3}+\cdots \\
+\cdots +c_n\frac{(x-a)^{n+1}}{n+1}+(x-a)^{n+1}\eta(x)  
+\end{multline*}
+où $\displaystyle\lim_{x\to a}\eta(x)=0$.
+\end{theoreme}
+
+Cela signifie que l'on intègre la partie polynomiale terme à terme pour obtenir le DL de $F(x)$ à la constante $F(a)$ près.
+
+\begin{proof}
+On a $F(x)-F(a)=\int_a^xf(t)dt
+=a_0(x-a)+\cdots+\frac{a_n}{n+1}(x-a)^{n+1}+\int_a^x(t-a)^{n+1}
+\epsilon(t)dt$.
+Notons $\eta(x)=\frac{1}{(x-a)^{n+1}}\int_a^x(t-a)^{n}\epsilon(t)dt$.
+(Remarque : la fonction $\epsilon$ est continue : elle est continue en $a$ par définition,  
+et elle est continue en dehors de $a$ en écrivant 
+$\epsilon(x) = \frac{1}{(x-a)^n}\big(f(x)-(c_0+c_1(x-a)+c_2(x-a)^2+\cdots+c_n(x-a)^n)\big)$.)
+Alors :
+
+$|\eta(x)|
+  \le \left|\frac{1}{(x-a)^{n+1}} \int_a^x|(t-a)^{n}| \cdot \sup_{t\in[a,x]}|\epsilon(t)|dt\right|
+=\left|\frac{1}{(x-a)^{n+1}}\right| \cdot \sup_{t\in[a,x]}|\epsilon(t)| \cdot \int_a^x|(t-a)^{n}| dt
+=\frac{1}{n+1}\sup_{t\in[a,x]}|\epsilon(t)|$.
+
+Mais $\sup_{t\in[a,x]}|\epsilon(t)| \to 0$ lorsque $x\to a$. Donc $\eta(x)\to 0$ quand $x\to a$.
+
+\end{proof}
+
+\begin{exemple}
+Calcul du DL de $\arctan x$.
+
+
+On sait que $\arctan' x=\frac{1}{1+x^2}$. En posant $f(x)=\frac{1}{1+x^2}$
+et $F(x)=\arctan x$,  on écrit
+$$\arctan' x=\frac{1}{1+x^2}=\sum_{k=0}^{n}(-1)^kx^{2k}+x^{2n}\epsilon(x).$$
+
+Et comme $\arctan(0)=0$ alors
+$\arctan x=\sum_{k=0}^{n}\frac{(-1)^k}{2k+1}x^{2k+1}+x^{2n+1}\epsilon(x)
+=x-\frac{x^3}{3}+\frac{x^5}{5}-\frac{x^7}{7} +\cdots$
+\end{exemple}
+
+\begin{exemple}
+La méthode est la même pour obtenir un DL de $\arcsin x$ en $0$ à l'ordre $5$.
+
+$\arcsin' x=(1-x^2)^{-\frac{1}{2}}
+=1-\frac{1}{2}(-x^2)
++\frac{-\frac{1}{2}(-\frac{1}{2}-1)}{2}(-x^2)^2+x^4\epsilon(x)
+=1+\frac{1}{2}x^2 + \frac{3}{8}x^4+x^4\epsilon(x)$.
+
+Donc $\arcsin x =x+\frac{1}{6}x^3+\frac{3}{40}x^5+x^5\epsilon(x)$.
+\end{exemple}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Calculer le DL en $0$ à l'ordre $3$ de $\exp(x) -\frac{1}{1+x}$, puis de $x\cos(2x)$ et $\cos(x)\times \sin(2x)$.
+  \item Calculer le DL en $0$ à l'ordre $2$ de $\sqrt{1+2\cos x}$, puis de $\exp\big(\sqrt{1+2\cos x}\big)$.
+  \item Calculer le DL en $0$ à l'ordre $3$ de $\ln(1+\sin x)$. Idem à l'ordre $6$ pour $\big(\ln(1+x^2)\big)^2$.
+  \item Calculer le DL en $0$ à l'ordre $n$ de $\frac{\ln(1+x^3)}{x^3}$. Idem à l'ordre $3$ avec $\frac{e^x}{1+x}$.
+  \item Par intégration retrouver la formule du DL de $\ln(1+x)$. Idem à l'ordre $3$ pour $\arccos x$.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Applications des développements limités}
+
+Voici les applications les plus remarquables des développements limités.
+On utilisera aussi les DL lors de l'étude locale des courbes paramétrées
+lorsqu'il y a des points singuliers.
+
+
+%---------------------------------------------------------------
+\subsection{Calculs de limites}
+
+Les DL sont très efficaces pour calculer des limites ayant des formes indéterminées !
+Il suffit juste de remarquer que
+si $f(x) = c_0+c_1(x-a)+\cdots$ alors $\lim_{x\to a} f(x) = c_0$.
+
+\begin{exemple}
+Limite en $0$ de $\displaystyle \frac{\ln(1+x)-\tan x+\frac{1}{2}\sin^2x}{3x^2\sin^2x}$.
+
+Notons $\frac{f(x)}{g(x)}$ cette fraction.
+En $0$ on a $f(x)=\ln(1+x)-\tan x+\frac{1}{2}\sin^2x
+=\big(x-\frac{x^2}{2}+\frac{x^3}{3}-\frac{x^4}{4}+o(x^4)\big)
+-\big(x+\frac{x^3}{3}+o(x^4)\big)
+ +\frac{1}{2}\big(x-\frac{x^3}{6}+o(x^3)\big)^2
+=-\frac{x^2}{2}-\frac{x^4}{4}+\frac{1}{2}(x^2-\frac{1}{3}x^4)+o(x^4)
+= -\frac{5}{12}x^4 + o(x^4)$
+et $g(x)=3x^2\sin^2x=3x^2\big(x+o(x)\big)^2 =3x^4+o(x^4)$.
+
+Ainsi $\frac{f(x)}{g(x)}= \frac{-\frac{5}{12}x^4 + o(x^4)}{3x^4+o(x^4)} = \frac{-\frac{5}{12} + o(1)}{3+o(1)}$
+en notant $o(1)$ une fonction (inconnue) tendant vers $0$ quand $x \to 0$.
+Donc $\lim_{x\to0}\frac{f(x)}{g(x)}=-\frac{5}{36}$.
+
+Note : en calculant le DL à un ordre inférieur (2 par exemple), on n'aurait pas pu conclure,
+car on aurait obtenu $\frac{f(x)}{g(x)} = \frac{o(x^2)}{o(x^2)}$, ce qui ne lève pas l'indétermination.
+De façon générale, on calcule les DL à l'ordre le plus bas possible, et si cela ne suffit pas, on augmente progressivement l'ordre (donc la précision de l'approximation).
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+\subsection{Position d'une courbe par rapport à sa tangente}
+
+\begin{proposition}
+Soit $f : I \to \Rr$ une fonction admettant un DL en $a$ :
+$f(x)=c_0+c_1(x-a)+c_k(x-a)^k+(x-a)^k\epsilon(x)$,
+où $k$ est le plus petit entier $\ge2$ tel que le coefficient $c_k$ soit non nul.
+Alors l'équation de la tangente à la courbe de $f$ en $a$ est : $y=c_0+c_1(x-a)$ et
+la position de la courbe par rapport à la tangente pour $x$ proche de $a$ est
+donnée par le signe $f(x)-y$, c'est-à-dire le signe de $c_k(x-a)^k$.
+\end{proposition}
+
+
+Il y a $3$ cas possibles.
+\begin{itemize}
+  \item Si ce signe est positif alors la courbe est au-dessus de la tangente.
+  \myfigure{1}{
+\tikzinput{fig_dl03}
+}
+  \item Si ce signe est négatif alors la courbe est en dessous de la tangente.
+  \myfigure{1}{
+\tikzinput{fig_dl04}
+}
+  \item Si ce signe change (lorsque l'on passe de $x<a$ à $x>a$) alors la courbe traverse
+la tangente au point d'abscisse $a$. C'est un \defi{point d'inflexion}\index{point d'inflexion}.
+\myfigure{1}{
+\tikzinput{fig_dl05}
+}
+\end{itemize}
+
+Comme le DL de $f$ en $a$ à l'ordre $2$ s’écrit aussi
+$f(x)=f(a)+f'(a)(x-a) + \frac{f''(a)}{2}(x-a)^2 + (x-a)^2\epsilon(x)$,
+alors l'équation de la tangente est aussi $y=f(a)+f'(a)(x-a)$.
+Si en plus $f''(a)\neq 0$ alors $f(x)-y$ garde un signe constant autour de $a$.
+En conséquence si $a$ est un point d'inflexion alors $f''(a)=0$. (La réciproque est fausse.)
+
+
+\begin{exemple}
+Soit $f(x)=x^4-2x^3+1$.
+
+\begin{enumerate}
+  \item Déterminons la tangente en $\frac{1}{2}$ du graphe de $f$
+et précisons la position du graphe par rapport à la tangente.
+
+On a $f'(x)=4x^3-6x^2$, $f''(x)=12x^2-12x$, donc $f''(\frac{1}{2}) = -3 \neq 0$ et $k=2$.
+% $f^{(3)}(x)=24x-12$, $f^{(4)}(x)=24$ et pour $k\ge 5$, $f^{(5)}(x)=0$
+
+On en déduit le DL de $f$ en $\frac{1}{2}$ par la formule de Taylor-Young :
+$f(x)=f(\frac12)+f'(\frac12)(x-\frac12)+\frac{f''(\frac12)}{2!}(x-\frac12)^2 +(x-\frac12)^2 \epsilon(x)
+=\frac{13}{16} -(x- \frac12) -\frac{3}{2}(x-\frac12)^2 + (x-\frac12)^2 \epsilon(x)$.
+
+%$f(x)=f(\frac12)+f'(\frac12)(x-\frac12)+\frac{f''(\frac12)}{2!}(x-\frac12)^2
+%+\frac{f^{(3)}(\frac12)}{3!}(x-\frac12)^3+\frac{f^{(4)}(\frac12)}{4!}(x-\frac12)^4
+%=\frac{13}{16} -(x- \frac12) -\frac{3}{2}(x-\frac12)^2
+%+(x-\frac12)^2\epsilon(x).$
+
+Donc la tangente en $\frac12$ est
+$y= \frac{13}{16} -(x- \frac12)$ et le graphe de $f$ est en dessous
+de la tangente car $f(x)-y =  \big(-\frac32 + \epsilon(x)\big)(x-\frac12)^2$ est négatif
+autour de $x=\frac12$.
+
+
+  \item Déterminons les points d'inflexion.
+
+Les points d'inflexion sont à chercher parmi les solutions de $f''(x)=0$. Donc parmi $x=0$ et $x=1$.
+\begin{itemize}
+\item Le DL en $0$ est $f(x)= 1-2x^3+x^4$ (il s'agit juste d'écrire les monômes par degrés croissants !).
+L'équation de la tangente au point d'abscisse $0$ est donc $y=1$ (une tangente horizontale).
+Comme $-2x^3$ change de signe en $0$ alors $0$ est un point d'inflexion de $f$.
+
+\item Le DL en $1$ : on calcule $f(1)$, $f'(1)$, \ldots pour trouver le DL en $1$
+$f(x)= -2(x-1) + 2(x-1)^3+(x-1)^4$.
+L'équation de la tangente au point d'abscisse $1$ est donc $y=-2(x-1)$.
+Comme $2(x-1)^3$ change de signe en $1$, $1$ est aussi un point d'inflexion de $f$.
+\end{itemize}
+\end{enumerate}
+
+\myfigure{0.7}{
+\tikzinput{fig_dl06a}
+\tikzinput{fig_dl06b}
+}
+
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Développement limité en $+\infty$}
+
+Soit $f$ une fonction définie sur un intervalle $I = ]x_0,+\infty[$.
+On dit que $f$ admet un \defi{DL en $+\infty$}\index{developpement limite@développement limité!en l'infini@en $+\infty$} à l'ordre $n$
+s'il existe des réels $c_0,c_1,\ldots,c_n$ tels que
+$$f(x)=c_0+\frac{c_1}{x}+\cdots+\frac{c_n}{x^n}
++\frac{1}{x^n}\epsilon\big(\frac{1}{x}\big)$$
+où $\epsilon\big(\frac{1}{x}\big)$ tend vers $0$ quand $x\to+\infty$.
+
+\begin{exemple}
+$f(x)=\ln\big(2+\frac{1}{x}\big)=\ln2+\ln\big(1+\frac{1}{2x}\big)
+=\ln2+\frac{1}{2x}-\frac{1}{8x^2}+\frac{1}{24x^3}+\cdots
++(-1)^{n-1}\frac{1}{n2^nx^n} +\frac{1}{x^{n}}\epsilon(\frac{1}{x}),$
+où $\lim_{x\to\infty}\epsilon(\frac{1}{x})=0$
+
+\myfigure{1}{
+\tikzinput{fig_dl07}
+}
+
+Cela nous permet d'avoir une idée assez précise du comportement de $f$ au voisinage de $+\infty$.
+Lorsque $x\to +\infty$ alors $f(x)\to \ln2$.
+Et le second terme est $+\frac 12x$, donc est positif, cela signifie
+que la fonction $f(x)$ tend vers $\ln 2$ tout en restant au-dessus de $\ln 2$.
+\end{exemple}
+
+
+\begin{remarque*}
+\sauteligne
+\begin{enumerate}
+  \item Un DL en $+\infty$ s'appelle aussi un développement asymptotique\index{developpement limite@développement limité!asymptotique}.
+  \item Dire que la fonction $x \mapsto f(x)$ admet un DL en $+\infty$ à l'ordre $n$ est équivalent à
+dire que la fonction $x \to f(\frac{1}{x})$ admet un DL en $0^+$ à l'ordre $n$.
+  \item On peut définir de même ce qu'est un DL en $-\infty$.
+\end{enumerate}
+\end{remarque*}
+
+
+\begin{proposition}
+On suppose que la fonction $x\mapsto\frac{f(x)}{x}$
+admet un DL en $+\infty$ (ou en $-\infty$) :
+$\frac{f(x)}{x}= a_0 +\frac{a_1}{x}+\frac{a_k}{x^k}+\frac{1}{x^k}\epsilon(\frac{1}{x}),$
+où $k$ est
+le plus petit entier $\ge 2$ tel que le coefficient de  $\frac{1}{x^k}$ soit
+non nul.
+Alors $\lim_{x\to+\infty} f(x)-(a_0x+a_1) =0$ (resp. $x\to -\infty$) : la droite $y= a_0x+a_1$ est une 
+\defi{asymptote}\index{asymptote}
+à la courbe de $f$ en $+\infty$ (ou $-\infty$) et la position de la courbe par rapport à
+l'asymptote est donnée par le signe de $f(x)-y$, c'est-à-dire le signe de $\frac{a_k}{x^{k-1}}$.
+\end{proposition}
+
+\myfigure{1}{
+\tikzinput{fig_dl08}
+}
+
+\begin{proof}
+On a $\lim_{x\to+\infty} \big(f(x)-a_0x-a_1\big)
+=\lim_{x\to+\infty}\frac{a_k}{x^{k-1}}+\frac{1}{x^{k-1}}\epsilon(\frac{1}{x})=0$.
+Donc $y=a_0x+a_1$ est une asymptote à la courbe de $f$.
+Ensuite on calcule la différence $f(x)-a_0x-a_1=\frac{a_k}{x^{k-1}}+\frac{1}{x^{k-1}}\epsilon(\frac{1}{x})
+=\frac{a_k}{x^{k-1}}\big(1+\frac{1}{a_k}\epsilon(\frac{1}{x})\big)$.
+\end{proof}
+
+\begin{exemple}
+Asymptotes de  $f(x)=\exp{\frac1x} \cdot \sqrt{x^2-1}$.
+
+\myfigure{1}{
+\tikzinput{fig_dl09}
+}
+
+\begin{enumerate}
+\item En $+\infty$,
+\begin{align*}
+\frac{f(x)}{x}
+  & = \exp{\frac1x} \cdot\frac{\sqrt{x^2-1}}{x} =\exp{\frac1x} \cdot\sqrt{1-\frac{1}{x^2}} \\
+  & = \Big(1+\frac{1}{x}+\frac{1}{2x^2}+\frac{1}{6x^3} +\frac{1}{x^3}\epsilon(\frac1x)\Big)
+\cdot\Big(1-\frac{1}{2x^2}+\frac{1}{x^3}\epsilon(\frac{1}{x})\Big) \\
+  & = \cdots = 1+\frac{1}{x}-\frac{1}{3x^3} +\frac{1}{x^3}\epsilon(\frac{1}{x}) \\
+\end{align*}
+
+
+Donc l'asymptote de $f$ en $+\infty$ est $y=x+1$. Comme
+$f(x)-x-1=-\frac{1}{3x^2}+\frac{1}{x^2}\epsilon(\frac{1}{x})$ quand
+$x\to+\infty$, le graphe de $f$ reste en dessous de l'asymptote.
+
+\item En $-\infty$.
+$\frac{f(x)}{x}=\exp{\frac1x}\cdot\frac{\sqrt{x^2-1}}{x}
+=-\exp{\frac1x}\cdot\sqrt{1-\frac{1}{x^2}}
+=-1-\frac{1}{x}+\frac{1}{3x^3}+\frac{1}{x^3}\epsilon(\frac{1}{x}).$
+Donc $y=-x-1$ est une asymptote de $f$ en $-\infty$. On a
+$f(x)+x+1=\frac{1}{3x^2}+\frac{1}{x^2}\epsilon(\frac{1}{x})$ quand
+$x\to-\infty$ ; le graphe de $f$ reste au-dessus de l'asymptote.
+\end{enumerate}
+\end{exemple}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Calculer la limite de $\displaystyle \frac{\sin x - x}{x^3}$ lorsque $x$ tend vers $0$.
+Idem avec $\displaystyle \frac{\sqrt{1+x}-\sh \frac x2}{x^k}$ (pour $k=1,2,3,\ldots$).
+  \item Calculer la limite de $\displaystyle \frac{\sqrt x - 1}{\ln x}$ lorsque $x$ tend vers $1$.
+Idem pour $\displaystyle \left(\frac{1-x}{1+x}\right)^{\frac{1}{x}}$,
+puis $\displaystyle \frac{1}{\tan^2 x}-\frac{1}{x^2}$ lorsque $x$ tend vers $0$.
+  \item Soit $f(x)=\exp x + \sin x$. Calculer l'équation de la tangente en $x=0$ et la position du graphe.
+Idem avec $g(x)= \sh x$.
+  \item Calculer le DL en $+\infty$ à l'ordre $5$ de $\frac{x}{x^2-1}$. Idem à l'ordre $2$ pour
+$\big(1+\frac 1x\big)^{x}$.
+  \item Soit $f(x)=\sqrt{\frac{x^3+1}{x+1}}$. Déterminer l'asymptote en $+\infty$ et la position du graphe
+par rapport à cette asymptote.
+\end{enumerate}
+\end{miniexercices}
+
+
+\auteurs{
+
+Rédaction : Arnaud Bodin
+
+Basé sur des cours de Guoting Chen et Marc Bourdon
+
+Relecture : Pascal Romon
+
+Dessins : Benjamin Boutin
+}
+
+\finchapitre
+\end{document}
+
+

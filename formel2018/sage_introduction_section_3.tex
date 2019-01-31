@@ -1,0 +1,374 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+% Commande ponctuelle
+\newcommand{\alenvers}[1]{\rotatebox[origin=c]{180}{#1}}
+\newcommand{\vect}{\overrightarrow}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Calcul formel}
+%====================================================================
+
+%\insertvideo{CzGMmG7klkM}{partie 3. Suites récurrentes et preuves formelles}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{section}{2}
+\section{Suites récurrentes et preuves formelles}
+
+Commençons par un exemple. Après avoir déclaré les deux variables $a$ et $b$
+par \codeinline{var('a,b')}, la commande
+
+\centerline{\codeinline{expand((a+b)^2-a^2-2*a*b-b^2)}}
+
+renvoie $0$.
+Ce simple calcul doit être considéré comme une preuve par ordinateur
+de l'identité $(a+b)^2 = a^2+2ab+b^2$,
+sans qu'il y ait obligation de vérification.
+Cette << preuve >> est fondée sur la confiance que nous avons en \Sage\ 
+pour manipuler les expressions algébriques.
+Nous allons utiliser la puissance du calcul formel, non seulement pour faire des 
+expérimentations, mais aussi pour effectuer des preuves (presque) à notre place.
+
+\bigskip
+
+Rappelons la démarche que l'on adopte :
+\begin{enumerate}
+  \item Je me pose des questions.
+  
+  \item J'écris un algorithme pour tenter d'y répondre.
+  
+  \item Je trouve une conjecture sur la base des résultats expérimentaux observés.
+  
+  \item Je tente de prouver la conjecture.
+\end{enumerate}
+
+
+
+%--------------------------------------------------------
+\subsection{La suite de Fibonacci}
+
+
+La suite de Fibonacci est définie par les relations suivantes :
+$$F_0 = 0, \qquad F_1 = 1 \qquad \mbox{et} \qquad F_{n} = F_{n-1} + F_{n-2} \quad \text{ pour } n\ge 2.$$
+
+
+\begin{tp}
+\sauteligne
+\begin{enumerate}
+  \item Calculer les $10$ premiers termes de la suite de Fibonacci.
+  \item \textbf{Recherche d'une conjecture.} On cherche s'il peut exister 
+  des constantes $\phi,\psi,c$ réelles telles que
+  $$F_n = c \big(\phi^n-\psi^n\big).$$
+  Nous allons calculer ces constantes.
+   \begin{enumerate}
+    \item On pose $G_n = \phi^n$. Quelle équation doit satisfaire $\phi$
+    afin que $G_{n} = G_{n-1}+G_{n-2}$ ?
+    \item Résoudre cette équation.
+    \item Calculer $c,\phi,\psi$.
+  \end{enumerate}
+  
+  \item \textbf{Preuve.} On note $H_n = \frac{1}{\sqrt{5}}  \big(\phi^n-\psi^n\big)$
+  où $\phi = \frac{1+\sqrt5}{2}$ et $\psi=\frac{1-\sqrt5}{2}$.
+  \begin{enumerate}
+    \item Vérifier que $F_n=H_n$ pour les premières valeurs de $n$.
+    \item Montrer à l'aide du calcul formel que $H_{n} = H_{n-1}+H_{n-2}$. Conclure.
+  \end{enumerate}  
+\end{enumerate}
+\end{tp}
+
+\begin{enumerate}
+  \item 
+
+
+Voici une fonction qui calcule le terme de rang $n$ de la suite de Fibonacci
+en appliquant la formule de récurrence.
+
+\insertcode{algos/fibonacci-tex1.sage}{fibonacci.sage (1)}
+
+On affiche les valeurs de $F_0$ à $F_9$ :
+\insertcode{algos/fibonacci-tex2.sage}{fibonacci.sage (2)}
+
+
+Ce qui donne :
+$$0 \qquad 1 \qquad 1 \qquad 2 \qquad 3 \qquad 5 \qquad 8 \qquad 13 \qquad 21 
+\qquad 34 $$
+
+  \item 
+  \begin{enumerate}
+    \item On pose $G_n = \phi^n$ et on suppose que $G_{n} = G_{n-1}+G_{n-2}$.
+  C'est-à-dire que l'on veut résoudre $\phi^n = \phi^{n-1} + \phi^{n-2}$.
+  Notons $(E)$ cette équation $X^n = X^{n-1} + X^{n-2}$,
+  ce qui équivaut à l'équation $X^{n-2}\big(X^2-X-1 \big) = 0$.
+  On écarte la solution triviale $X=0$ pour obtenir l'équation 
+  $X^2-X-1 = 0$.  
+  
+  
+    \item On profite de \Sage\ pour calculer les deux racines de cette dernière
+  équation.
+  \insertcode{algos/fibonacci-tex3.sage}{fibonacci.sage (3)}
+  
+  Les solutions sont fournies sous la forme d'une liste que l'on appelle
+  \codeinline{solutions}. On récupère chaque solution
+  avec \codeinline{solutions[0]} et \codeinline{solutions[1]}.
+  Par exemple, \codeinline{solutions[1]} renvoie \codeinline{x == 1/2*sqrt(5) + 1/2}.
+  Pour récupérer la partie droite de cette solution et la nommer $\phi$, 
+  on utilise la fonction \codeinline{rhs()} (pour \emph{right hand side})
+  qui renvoie la partie droite d'une équation (de même \codeinline{lhs()}, 
+  pour \emph{left hand side} renverrait la partie gauche d'une équation).
+  
+  On obtient donc les deux racines
+  $$\phi = \frac{1+\sqrt5}{2} \qquad \mbox{et} \qquad \psi  = \frac{1-\sqrt5}{2}.$$
+  
+  $\phi^n$ et $\psi^n$ vérifient la même relation de récurrence que la suite de Fibonacci
+  mais bien sûr les valeurs prises ne sont pas entières.
+  
+    \item Comme $F_1=1$ alors $c(\phi-\psi)=1$, ce qui donne $c = \frac{1}{\sqrt 5}$.
+  \end{enumerate}  
+  La conséquence de notre analyse est que \emph{si} une formule 
+  $F_n = c(\phi^n-\psi^n)$ existe alors les constantes sont
+  nécessairement $c= \frac{1}{\sqrt 5}$, $\phi = \frac{1+\sqrt5}{2}$, 
+  $\psi  = \frac{1-\sqrt5}{2}$.
+  
+
+  
+  \item  
+  Dans cette question, nous allons maintenant montrer avec \Sage\ qu'avec ces constantes on a effectivement 
+  $$F_n = \frac{1}{\sqrt5}\left(\left(\frac{1+\sqrt5}{2}\right)^n- 
+  \left(\frac{1-\sqrt5}{2}\right)^n\right).$$
+
+%  $$\displaystyle F_n = \frac{1}{\sqrt5}\left(\left(\tfrac{1+\sqrt5}{2}\right)^n- 
+%    \left(\tfrac{1-\sqrt5}{2}\right)^n\right).$$
+  \begin{enumerate}
+    \item On définit une nouvelle fonction \codeinline{conjec} qui correspond à l'expression de $H_n$,
+    la conjecture que l'on souhaite montrer.
+    On vérifie que l'on a l'égalité souhaitée pour les premières valeurs de $n$.
+    
+    \insertcode{algos/fibonacci-tex4.sage}{fibonacci.sage (4)}
+    
+    \item Nous allons montrer que $F_n=H_n$ pour tout $n\ge0$ en nous aidant du calcul formel.
+    \begin{itemize}
+      \item \textbf{Initialisation.}
+      Il est clair que $F_0=H_0=0$ et $F_1=H_1=1$.
+      On peut même demander à l'ordinateur de le faire, en effet
+      \codeinline{fibonacci(0)-conjec(0)} et \codeinline{fibonacci(1)-conjec(1)}
+      renvoient tous les deux $0$.
+      
+      \item \textbf{Relation de récurrence.}
+      Nous allons montrer que $H_n$ vérifie exactement la même relation de récurrence que les nombres de Fibonacci.
+      Encore une fois, on peut le faire à la main ou bien demander à l'ordinateur de le faire pour nous :
+      \insertcode{algos/fibonacci-tex5.sage}{fibonacci.sage (5)}
+      
+
+      
+      Le résultat est $0$. Comme le calcul est valable pour la variable formelle $n$,
+      il est vrai quel que soit $n\ge0$. Ainsi $H_n=H_{n-1}+H_{n-2}$.    
+      Il a tout de même fallu préciser à \Sage\ de simplifier les racines carrées
+      avec la commande \codeinline{canonicalize_radical()} (la commande \codeinline{simplify_radical} ne fait plus partie des nouvelles version de \Sage\ ).   
+      
+      \item \textbf{Conclusion.} 
+      Les suites $(F_n)$ et $(H_n)$ ont les mêmes termes initiaux et 
+      vérifient la même relation de récurrence. Elles ont donc les mêmes termes pour chaque rang :
+      pour tout $n\ge0$, $F_n=H_n$.
+      
+      
+    \end{itemize}
+
+  \end{enumerate}
+  
+\end{enumerate}
+
+%--------------------------------------------------------
+\subsection{L'identité de Cassini}
+
+
+A votre tour maintenant d'expérimenter, conjecturer et prouver 
+\emph{l'identité de Cassini}.
+\begin{tp}
+Calculer, pour différentes valeurs de $n$, la quantité
+$$F_{n+1}F_{n-1}-F_n^2.$$
+
+Que constatez-vous ? 
+Proposez une formule générale.
+Prouvez cette formule qui s'appelle l'identité de Cassini.   
+\end{tp}
+
+
+Notons pour $n \ge 1$ :
+$$C_n = F_{n+1}F_{n-1}-F_n^2.$$
+Après quelques tests, on conjecture la formule très simple $C_n = (-1)^n$.
+  
+Voici deux preuves : une preuve utilisant le calcul formel
+et une autre à la main.
+
+\textbf{Première preuve -- \`A l'aide du calcul formel.}
+
+
+On utilise la formule   
+$$F_n = \frac{1}{\sqrt5}\left(\left(\frac{1+\sqrt5}{2}\right)^n- 
+  \left(\frac{1-\sqrt5}{2}\right)^n\right)$$
+et on demande simplement à l'ordinateur de vérifier l'identité !
+
+\insertcode{algos/cassini-tex1.sage}{cassini.sage (1)}
+
+
+\insertcode{algos/cassini-tex2.sage}{cassini.sage (2)}
+
+L'ordinateur effectue (presque) tous les calculs pour nous.
+Le seul problème est que \Sage\ échoue de peu à simplifier l'expression 
+contenant des racines carrées (peut-être les versions futures feront mieux ?).
+En effet, après simplification on obtient :
+$$C_n = (-1) ^n \frac{(\sqrt 5 -1)^n (\sqrt 5 + 1)^n}{2^{2n}}.$$
+
+Il ne reste qu'à conclure à la main. 
+En utilisant l'identité remarquable $(a-b)(a+b)=a^2-b^2$,
+on obtient facilement $(\sqrt 5 -1)(\sqrt 5 + 1) = (\sqrt 5)^2 - 1 = 4$
+et donc $C_n = (-1) ^n \frac{4^n}{2^{2n}} = (-1)^n$.
+
+\bigskip
+
+\textbf{Seconde preuve -- Par récurrence.}
+
+On souhaite montrer que l'assertion
+$$(\mathcal{H}_n) \qquad F_n^2 = F_{n+1}F_{n-1} - (-1)^n$$
+est vrai pour tout $n \ge 1$.
+
+\begin{itemize}
+  \item Pour $n=1$, $F_1^2 = 1^2 = 1\times 0 - (-1)^1 = F_2\times F_0 - (-1)^1$.
+  $\mathcal{H}_1$ est donc vraie.
+  \item Fixons $n \ge 1$ et supposons $\mathcal{H}_n$ vraie.
+  Montrons que $\mathcal{H}_{n+1}$ est vraie. On a : 
+  $$F_{n+1}^2 = F_{n+1}\times (F_n+F_{n-1})
+  = F_{n+1}F_n+F_{n+1}F_{n-1}.$$
+  Par l'hypothèse $\mathcal{H}_n$, $F_{n+1}F_{n-1}=F_n^2+(-1)^n$.
+  Donc
+  $$F_{n+1}^2 =F_{n+1}F_n+ F_n^2+(-1)^n = (F_{n+1}+F_n)F_n - (-1)^{n+1} 
+  = F_{n+2}F_n - (-1)^{n+1}.$$
+  Donc $\mathcal{H}_{n+1}$ est vraie.
+  \item Conclusion, par le principe de récurrence, pour tout $n\ge1$, 
+  l'identité de Cassini est vérifiée.
+\end{itemize}
+
+
+
+
+%--------------------------------------------------------
+\subsection{Une autre suite récurrente double}
+
+\begin{tp}
+Soit $(u_n)_{n \in \Nn}$ la suite définie par 
+$$u_0 = \frac32, \qquad u_1 = \frac53 \qquad \mbox{et} \qquad u_n = 1 + 4\frac{u_{n-2}-1}{u_{n-1}u_{n-2}}
+\quad \text{ pour } n\ge 2.$$
+Calculer les premiers termes de cette suite. \'Emettre une conjecture. 
+La prouver par récurrence.
+
+\emph{Indication.} Les puissances de $2$ seront utiles...
+\end{tp}
+
+Commençons par la partie expérimentale, le calcul des premières valeurs de la suite $(u_n)$ :
+\insertcode{algos/suite-recurrente-tex1.sage}{suite-recurrente.sage (1)}
+
+Notez l'utilisation de la double affectation du type \codeinline{x, y = newx, newy}.
+C'est très pratique comme par exemple dans \codeinline{a, b = a+b, a-b}
+et évite l'introduction d'une variable auxiliaire.
+
+Cette fonction \codeinline{masuite} permet de calculer les premiers termes de la suite $(u_n)$ :
+$$\frac32 \qquad \frac 53 \qquad \frac95 \qquad \frac{17}{9} \qquad \frac{33}{17} \qquad \frac{65}{33} \qquad \cdots$$
+
+
+Au vu des premiers termes, on conjecture que notre suite $(u_n)$ coïncide 
+avec la suite $(v_n)$ définie par :
+$$v_n = \frac{2^{n+1} + 1}{2^n + 1}.$$
+
+On définit donc une fonction qui renvoie la valeur de $v_n$ en fonction de $n$.
+\insertcode{algos/suite-recurrente-tex2.sage}{suite-recurrente.sage (2)} 
+
+
+Pour renforcer notre conjecture, on vérifie que $(u_n)$ et $(v_n)$ sont égales pour les $20$ premiers termes :
+
+\insertcode{algos/suite-recurrente-tex3.sage}{suite-recurrente.sage (3)} 
+
+%La commande \codeinline{var('n')} permet ici de déclarer la variable $n$ afin de l'utiliser
+%dans la boucle. \`A la fin de la boucle $n$ vaut $19$.
+Il est à noter que l'on peut calculer $u_n$ pour des valeurs de $n$ aussi grandes que l'on veut mais que l'on n'a pas une formule
+directe pour calculer $u_n$ en fonction de $n$. L'intérêt de $(v_n)$ est de fournir une 
+telle formule.
+
+\bigskip
+
+Voici maintenant une preuve assistée par l'ordinateur.
+Notre conjecture à démontrer est : pour tout $n \ge 0$, $v_n=u_n$.
+Pour cela, nous allons va prouver que $v_n$ et $u_n$ coïncident sur les deux premiers termes et vérifient
+la même relation de récurrence. Ce seront donc deux suites égales.
+
+\begin{itemize}
+  \item \textbf{Initialisation.} Vérifions que $v_0=u_0$ et $v_1=u_1$.
+  Il suffit de vérifier que \codeinline{conjec(0)-3/2}
+  et \codeinline{conjec(1)-5/3} renvoient tous les deux $0$.
+  
+  \item \textbf{Relation de récurrence.}
+  Par définition, $(u_n)$ vérifie la relation de récurrence 
+  $u_n = 1 + 4\frac{u_{n-2}-1}{u_{n-1}u_{n-2}}$.
+  Définissons une fonction correspondant à cette relation : 
+  à partir d'une valeur $x$ (correspond à $u_{n-1}$) et $y$ (correspondant à $u_{n-2}$)
+  on renvoie $1 + 4\frac{y-1}{xy}$.
+  
+  \insertcode{algos/suite-recurrente-tex4.sage}{suite-recurrente.sage (4)} 
+  
+  On demande maintenant à l'ordinateur de vérifier que la suite $(v_n)$ vérifie aussi 
+  cette relation de récurrence :
+  \insertcode{algos/suite-recurrente-tex5.sage}{suite-recurrente.sage (5)}
+  
+  Le résultat obtenu est $0$. Donc $v_n$ vérifie pour tout $n$ 
+  la relation $v_n = 1 + 4\frac{v_{n-2}-1}{v_{n-1}v_{n-2}}$.
+  
+  \item \textbf{Conclusion.} Les suites $(v_n)$ et $(u_n)$ sont égales aux rangs $0$ et $1$ 
+  et vérifient la même relation de récurrence pour $n\ge2$. Ainsi $u_n=v_n$ pour tout $n\in \Nn$.
+  Les suites $(u_n)$ et $(v_n)$ sont donc égales.
+  
+\end{itemize}
+Notez qu'il a fallu guider \Sage\ pour simplifier notre résultat à l'aide de la fonction
+\codeinline{simplify_rational} qui simplifie les fractions rationnelles.
+
+\begin{remarque*}
+Quelques commentaires sur les dernières lignes de code.
+\begin{itemize}
+  \item La commande \codeinline{var('n')} est essentielle. Elle permet de réinitialiser 
+  la variable $n$ en une variable formelle. Souvenez-vous qu'auparavant 
+  $n$ valait $19$. Après l'instruction \codeinline{var('n')} la variable $n$ redevient 
+  une indéterminée \codeinline{'n'} sans valeur spécifique.
+   
+  \item Pour bien comprendre ce point, supposons que vous souhaitiez vérifier que
+  $(n+2)^3 = n^3 + 6n^2+12n+8$.
+  Vous pouvez-bien sûr le vérifier par exemple pour les vingts premières valeurs de $n$ : $0,1,2,\ldots,19$.
+  Mais en définissant la variable formelle \codeinline{var('n')} et à l'aide
+  de la commande \codeinline{expand((n+2)^3-n^3-6*n^2-12*n-8))} le logiciel de calcul formel
+  << prouve >> directement que l'égalité est vérifiée pour tout $n$.
+  Si vous oubliez de réinitialiser la variable $n$ en une variable formelle, 
+  vous ne l'aurez vérifiée que pour les vingt premiers entiers !
+ 
+\end{itemize}
+  
+  
+\end{remarque*}
+
+
+% %--------------------------------------------------------
+% %\subsection{Mini-exercices}
+% 
+% \begin{miniexercices}
+% \begin{enumerate}
+%   \item Trouver une expression simple pour $1^2+3^2+5^2+\cdots +(2n+1)^2$.
+%   Puis prouver la formule.
+%   
+%   \item   
+%   
+%   \item Nous nous intéressons à une propriété très intéressante du Triangle de Pascal : 
+%   les sommes des diagonales forment la suite de Fibonacci : 
+% \end{enumerate}
+% \end{miniexercices}
+
+\finchapitre
+\end{document}
+

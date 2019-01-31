@@ -1,0 +1,262 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici une leçon consacrée à la comparaison série-intégrale, qui fait la jonction entre les séries et les intégrales impropres. C'est un lien essentiel entre deux objets mathématiques qui sont au final assez proches.
+
+\change
+
+\change
+nous commencerons par énoncer le théorème de comparaison série/intégrale,
+
+\change
+puis nous en donnerons la démonstration.
+
+\change
+Nous l'appliquerons ensuite aux séries de Riemann qui sont des séries de références,
+
+\change
+et aux séries de Bertrand.
+
+\change
+Enfin, nous donnerons quelques applications des résultats précédents.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour l'ensemble de cette leçon, 
+il faut connaître les intégrales impropres 
+$\int_0^{+\infty} f(t) \;\dd t$.
+
+Si ce n'est pas encore votre cas, il faut quand 
+même étudier cette séquence et retenir de 
+le résultat sur les séries de Riemann.
+
+
+
+\change
+Théorème.
+
+Soit $f : [0,+\infty[ \to [0,+\infty[$ une fonction décroissante.
+
+\change
+Alors la série $\sum_{k \ge 0} f(k)$ (dont le terme général est $u_k = f(k)$) 
+et l'intégrale impropre $\int_0^{+\infty} f(t) \; \dd t$ sont de même nature.
+
+\change
+"De même nature" signifie que la série et l'intégrale du théorème sont soit toutes deux
+convergentes, soit toutes deux divergentes.
+
+\change
+\textbf{Attention !} Il est important que $f$ soit positive et décroissante.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le plus simple est de bien comprendre le dessin et de refaire la démonstration
+chaque fois que l'on en a besoin.
+
+Soit $k\in\Nn$. 
+
+\change
+Comme $f$ est décroissante, pour $k\le t \le k+1$, on a $f(k+1)\le f(t)\le f(k)$ (attention à l'ordre). 
+
+\change
+En intégrant sur l'intervalle $[k,k+1]$ de longueur $1$, on obtient:
+
+\change
+$$f(k+1)\le \int_k^{k+1} f(t) \; \dd t \le f(k)$$  
+
+\change
+Sur le dessin cette inégalité signifie que l'aire sous la courbe, 
+entre les abscisses $k$ et $k+1$, est comprise entre l'aire du 
+rectangle vert de hauteur $f(k+1)$ et de base $1$ et 
+l'aire du rectangle bleu de hauteur $f(k)$ et de même base $1$.
+
+Poursuivons la démonstration à la diapo suivante.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On vient d'obtenir cet encadrement pour tout $k\in\Nn$.
+
+\change
+On somme à présent ces inégalités pour $k$ variant de $0$ à $n-1$ :
+
+\change
+$$\sum_{k=0}^{n-1} f(k+1) \le \sum_{k=0}^{n-1} \int_{k}^{k+1} f(t) \; \dd t
+\le \sum_{k=0}^{n-1} f(k).$$
+
+\change
+Soit :
+$$u_1+\cdots+u_{n} \le \int_0^{n} f(t)\; \dd t \le u_0+\cdots+u_{n-1}.$$
+
+\change
+La série $\sum u_k$ converge et a pour somme $S$ si et seulement si la suite des sommes
+partielles converge vers $S$. 
+
+\change 
+Si c'est le cas $\int_0^{n} f(t)\; \dd t$ est majorée par $S$
+
+\change
+et comme $\int_0^x f(t)\; \dd t$ est une fonction croissante de $x$ (par positivité de $f$), l'intégrale converge. 
+
+\change
+Réciproquement, si l'intégrale converge, alors $\int_0^{n} f(t)\;\dd t$ est majorée, 
+
+\change
+la suite des sommes partielles aussi, et la série converge.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le théorème de comparaison et le théorème des équivalents permettent de ramener l'étude des séries à termes positifs à un catalogue de séries dont la convergence est connue. Dans ce catalogue, on trouve les séries de Riemann et les séries de Bertrand.
+
+Commençons par les \defi{séries de Riemann} $\sum_{k\ge 1} \frac{1}{k^\alpha}$, pour $\alpha>0$
+un réel.
+
+\change
+Proposition.
+
+\change
+
+Si $\alpha >1$ alors $\displaystyle  \sum_{k = 1}^{+\infty} \frac{1}{k^\alpha}$ converge
+
+\change
+Si $0 <\alpha \le1$ alors $\displaystyle  \sum_{k \ge 1} \frac{1}{k^\alpha}$ diverge
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+Dans le théorème précédent sur la comparaison série/intégrale, rien n'oblige à démarrer de $0$ : pour $m\in\Nn$,
+la série $\sum_{k \ge m} f(k)$ et l'intégrale impropre $\int_m^{+\infty} f(t) \;\dd t$ sont de même nature.
+
+\change
+Nous l'appliquons à $f : [1,+\infty[ \to [0,+\infty[$ définie par $f(t)=\frac{1}{t^\alpha}$. 
+
+\change
+Pour $\alpha >0$, c'est une fonction décroissante et positive.
+
+\change
+On peut appliquer le théorème de comparaison série/intégrale.
+
+\change
+Or on sait que :
+$$
+\int_1^{x} \frac{1}{t^\alpha}\;\dd t$$
+
+est égal à $ \displaystyle{\frac{1}{1-\alpha}(x^{1-\alpha}-1)}$ si $\alpha\neq 1$,
+
+\change
+et à $\ln(x)$ si $\alpha=1$.
+
+\change
+Pour $\alpha > 1$, $\int_1^{+\infty} \frac{1}{t^\alpha} \; \dd t $ 
+est convergente, donc la série $\sum_{k = 1}^{+\infty} \frac{1}{k^\alpha}$ converge.
+
+\change
+Pour $0<\alpha\le 1$, $\int_1^{+\infty} \frac{1}{t^\alpha} \; \dd t $ 
+est divergente, donc la série $\sum_{k \ge 1} \frac{1}{k^\alpha}$ diverge.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Une famille de séries plus sophistiquées sont les \defi{séries de Bertrand} : 
+$\displaystyle\sum_{k\ge2} \frac{1}{k^\alpha(\ln k)^\beta}$
+où $\alpha > 0$ et $\beta \in \Rr$.
+
+\change
+Proposition.
+
+Si \quad $\alpha>1$ \quad  alors la série de Bertrand converge. 
+
+Si \quad $0<\alpha<1$ \quad  alors elle diverge.
+
+Pour l'instant c'est comme les séries de Riemann.
+
+\change
+Si \quad $\alpha=1$ \quad et \quad $\begin{cases} \beta>1 & \text{alors elle converge.}\\   
+\beta\le 1 & \text{alors elle diverge.}
+\end{cases}$
+
+\change
+La démonstration est la même que pour les séries de Riemann.
+
+\change
+Par exemple pour le cas $\alpha=1$ : 
+
+\change
+$$
+\int_2^{x} \frac{1}{t(\ln t)^{\beta}}\;\dd t =
+\left\{\begin{array}{ll}
+\displaystyle{\frac{1}{1-\beta}\left((\ln x)^{1-\beta}-(\ln 2)^{1-\beta}\right)}&\text{si }\beta\neq
+    1\\[1.5ex]
+\ln(\ln x)-\ln(\ln 2) &\text{si }\beta=1
+\end{array}\right. 
+$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous retrouvons en particulier le fait que :
+
+ $\sum \frac{1}{k^2}$ converge (prendre $\alpha=2$),
+
+\change
+alors que $\sum \frac{1}{k}$ diverge (prendre $\alpha=1$).
+
+\change
+Terminons avec deux exemples d'utilisation des équivalents 
+avec les séries de Riemann et de Bertrand.
+
+Tout d'abord, la série 
+  $$\sum_{k \ge 1} \ln\left(1+\frac{1}{\sqrt{k^3}}\right)$$ 
+  est-elle convergente ?
+ 
+\change 
+Comme
+ $$\ln\left(1+\frac{1}{\sqrt{k^3}}\right) \quad \sim \quad \frac{1}{\sqrt{k^3}}$$
+  
+\change  
+et comme la série de Riemann $\sum \frac{1}{\sqrt{k^3}}=\sum \frac{1}{k^{\frac32}}$ converge (car $\frac32>1$) 
+
+\change
+alors par le théorème des équivalents la série $\sum_{k=1}^{+\infty} \ln\left(1+\frac{1}{\sqrt{k^3}}\right)$ converge également.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+ La série
+$$\sum_{k \ge 1} 
+\frac{1-\cos\left(\frac{1}{k\sqrt{\ln k}}\right)}{\sin\left(\frac{1}{k}\right)}$$
+est-elle convergente ?
+
+\change 
+On cherche un équivalent du terme général (qui est positif) :  
+$$\frac{1-\cos\left(\frac{1}{k\sqrt{\ln k}}\right)}
+{\sin\left(\frac{1}{k}\right)} \quad \sim \quad \frac{1}{2k\ln k}$$
+
+\change
+Or la série de Bertrand $\sum \frac{1}{k\ln k}$ diverge, 
+
+\change
+donc
+notre série diverge aussi.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+\end{document}

@@ -1,0 +1,265 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={205,0,0}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{{\bf Espaces vectoriels}}
+\subtitle{Application linéaire (milieu)}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Exemples géométriques
+    \item<4-> Autres exemples    
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exemples géométriques}
+
+\begin{frame}
+\evidence{Symétrie centrale}
+
+Soit $E$ un $\Kk$-espace vectoriel
+$$\begin{array}{rcl}
+f : E & \to & E \\
+u & \mapsto & - u
+  \end{array}$$
+  
+\myfigure{0.7}{
+\tikzinput{/fig_ev12-1} 
+\qquad\qquad
+\pause
+\tikzinput{/fig_ev12-2} 
+}
+
+ 
+
+
+\evidence{Homothétie} de rapport $\lambda \in \Kk$
+
+$$\begin{array}{rcl}
+f_{\lambda} : E & \to & E \\
+u & \mapsto & \lambda u
+  \end{array}$$
+\pause
+$$
+f_{\lambda}(\alpha u + \beta v) 
+= \lambda (\alpha u + \beta v) 
+= \alpha (\lambda u)+ \beta (\lambda v) 
+= \alpha f_{\lambda}(u) +\beta f_{\lambda}(v)
+$$
+\end{frame}
+
+\begin{frame}
+
+\evidence{Projection} 
+
+\pause
+
+\begin{itemize}
+  \item Soient $F$ et $G$ deux sous-espaces
+vectoriels supplémentaires d'un espace vectoriel $E$ : \ \  $F \oplus G = E$
+\vspace*{-3ex}
+\myfigure{1}{\qquad\qquad\qquad
+\tikzinput{/fig_ev13-pres} 
+}
+\pause  
+  \item Tout vecteur $u$ de $E$ s'écrit de façon unique  $u=v+w$ avec $v \in F$ et $w \in G$
+\pause  
+  \item La \defi{projection} sur $F$ parallèlement à $G$ est l'application $p : E \to E$
+définie par $p(u)=v$
+
+\pause
+  \item Une projection est une application linéaire 
+\pause
+  \item Une projection $p$ vérifie l'égalité $p^2=p$
+  
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\myfigure{1}{
+\tikzinput{/fig_ev14} 
+}
+\begin{exemple}
+\begin{itemize}\setlength{\itemsep}{6pt}
+  \item $F=\big\{ (x,y,z) \in \Rr^3\mid x-y-z=0\big\}$ 
+  \item $G=\big\{(x,y,z) \in \Rr^3 \mid y=z=0 \big\}$
+\pause  
+  \item $F \oplus G = \Rr^3$
+\pause  
+  \item $(x,y,z)=(y+z,y,z)+ (x-y-z, 0,0)$
+\pause  
+  \item Projection $p$ sur $F$ parallèlement à $G$ : $p(x,y,z)=(y+z,y,z)$
+
+ 
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}\setlength{\itemsep}{6pt}
+  \item $\mathcal{P}$ l'ensemble des fonctions paires 
+ 
+  \item $\mathcal{I}$ l'ensemble des fonctions impaires
+\pause  
+  \item $\mathcal{P} \oplus \mathcal{I} = \mathcal{F}(\Rr ,\Rr)$
+\pause  
+  \item Notons $p$ la projection sur $\mathcal{P}$ parallèlement à $\mathcal{I}$
+\pause  
+  \item Si $f$ est un élément de 
+$\mathcal{F}(\Rr ,\Rr)$, on a $p(f)=g$ où 
+\vspace*{-1ex}
+$$\begin{array}{rcl}
+g : \Rr & \to & \Rr \\
+x & \mapsto & 
+{\displaystyle \frac{f(x)+f(-x)}2}
+\end{array}$$
+  
+\end{itemize}
+
+\end{exemple}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Autres exemples}
+
+\begin{frame}
+\hfill{\textbf{Autres exemples}}
+
+\vspace*{-0.5ex}
+\begin{itemize}
+  \item \evidence{Dérivation}
+  \begin{itemize}\setlength{\itemsep}{3pt}
+    \item $\begin{array}{rcl}
+d : \mathcal{C}^1 (\Rr,\Rr) & \longrightarrow & \mathcal{C}^0 (\Rr,\Rr)  \\
+f & \longmapsto & f'     
+  \end{array}$
+    \item $d$ est une application linéaire
+    \item car $(\lambda f + \mu g)' = \lambda f' + \mu g'$ et donc $d(\lambda f + \mu g)=\lambda d(f) + \mu d(g)$
+  \end{itemize}
+  
+\medskip
+\pause
+
+  \item \evidence{Intégration}
+  \begin{itemize}\setlength{\itemsep}{3pt}
+    \item $\begin{array}{rcl}
+  I : \mathcal{C}^0(\Rr,\Rr) & \longrightarrow & \mathcal{C}^1(\Rr,\Rr)\\  
+  f(x) & \longmapsto & \int_0^x f(t) \; dt
+  \end{array}$
+    \item $I$ est une application linéaire
+    \item car $\int_0^x \big(\lambda f(t) + \mu g(t)\big) \; dt = \lambda \int_0^x f(t) \; dt + \mu \int_0^x g(t) \; dt$
+  \end{itemize}
+  
+\medskip
+\pause
+
+  \item \evidence{Polynômes}
+  \begin{itemize}\setlength{\itemsep}{3pt}
+    \item $\begin{array}{rcl}
+f : \quad \Rr_n[X]  & \longrightarrow & \Rr_{n+1}[X] \\
+P & \longmapsto & X P
+  \end{array}$
+    \item si $P = a_n X^n + \dots + a_1 X + a_0$,
+alors $f(P) =  a_n X^{n+1} + \dots + a_1 X^2 + a_0 X$
+    \item $f$ est une application linéaire
+    \item car $f(\lambda P+ \mu Q) = \lambda X P + \mu X Q = \lambda f(P) + \mu f(Q)$
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\hfill{\textbf{Autres exemples}}
+\bigskip
+
+\begin{itemize}
+  \item \evidence{Transposition}
+
+  \begin{itemize}\setlength{\itemsep}{6pt}
+  \item $\begin{array}{rcl}
+T : M_{n}(\Kk) & \longrightarrow & M_{n}(\Kk)\\
+             A & \longmapsto & A^{T}
+\end{array} $
+  \item $T$ est une application linéaire
+  \item car $(\lambda A + \mu B)^{T}=\lambda A^{T} + \mu B^{T}$
+  \end{itemize}
+ 
+
+\bigskip
+\pause
+
+  \item \evidence{Trace}
+  \begin{itemize}\setlength{\itemsep}{6pt}
+  \item $\begin{array}{rcl}
+\tr : M_{n}(\Kk) & \longrightarrow & \Kk\\
+             A & \longmapsto & \tr{A}
+\end{array} $
+  \item $\tr$ est une application linéaire
+  \item car $\tr(\lambda A + \mu B) = \lambda \tr A + \mu \tr B$
+  \end{itemize}
+
+
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+
+\begin{enumerate}
+
+  \item Les applications suivantes sont-elles linéaires ?
+
+  \begin{enumerate}
+    \item $\Rr \longrightarrow \Rr$, \quad $x \longmapsto 3x-2$
+    \item $\Rr^4 \longrightarrow \Rr$, \quad $(x,y,x',y') \longmapsto x\cdot x' + y \cdot y'$
+    \item $\mathcal{C}^0(\Rr,\Rr) \longrightarrow \Rr$, \quad $f \longmapsto f(1)$
+    \item $\mathcal{C}^1(\Rr,\Rr) \longrightarrow \mathcal{C}^0(\Rr,\Rr)$, \quad $f \longmapsto f'+f$
+    \item $\mathcal{C}^0([0,1],\Rr) \longrightarrow \Rr$, \quad $f \longmapsto \int_0^1 |f(t)|\; dt$
+    \item $\mathcal{C}^0([0,1],\Rr) \longrightarrow \Rr$, \quad $f \longmapsto \max_{x\in [0,1]} f(x)$
+    \item $\Rr_3[X] \longrightarrow \Rr_3[X]$, \quad $P(X) \longmapsto P(X+1) - P(0)$
+  \end{enumerate}
+  
+  \item Soient $f,g : M_n(\Rr) \longrightarrow M_n(\Rr)$ 
+  définies par $A \longmapsto \frac{A+A^T}{2}$ et $A \longmapsto \frac{A-A^T}{2}$. 
+  Montrer que $f$ et $g$ sont des applications linéaires.
+  Montrer que $f(A)$ est une matrice symétrique, $g(A)$ une matrice antisymétrique
+  et que $A = f(A)+g(A)$. En déduire que les matrices symétriques et les matrices antisymétriques sont en somme
+  directe dans $M_n(\Rr)$. Caractériser géométriquement $f$ et $g$.
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

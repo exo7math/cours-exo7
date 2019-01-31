@@ -1,0 +1,567 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+\change
+
+Nous commençons ce chapitre sur les groupes par la définition,
+
+\change 
+
+nous verrons ensuite plusieurs ensembles
+que vous connaissez et qui ont une structure de groupe
+
+\change
+
+Nous ferons quelques calculs dans les groupes
+
+\change
+
+Et nous terminons par l'étude en détails
+d'un groupe obtenu à partir des matrices $2 \times 2$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Racontons avant tout comment les\\ groupes sont apparus.
+
+Vous savez résoudre les équation de degré $2$, $ax^2+bx+c=0$
+les solutions sont les $x_i = \frac{-b\pm\sqrt{\Delta}}{2a}$
+avec $\Delta = b^2-4ac$
+
+\change
+
+On sait aussi résoudre les équations de degré $3$, les solutions font
+intervenir en plus des racines cubiques.
+
+Par exemple une solution de $x^3+3x+1=0$ 
+est de cette forme [[montrer $\sqrt[3]{\frac{\sqrt 5 - 1}{2}} -  \sqrt[3]{\frac{\sqrt 5 + 1}{2}}$]]
+
+
+\change
+
+Il existe également de telles formules pour les équation de degré $4$
+
+\change
+
+La question s'est longtemps posée si l'on pouvait faire de même
+pour les équations de degré 5 et plus.
+
+\change
+
+La réponse fut apportée par Galois et Abel : il n'existe pas en général une telle  formule.
+
+Galois sait même dire pour quels polynômes c'est possible
+et pour lesquels ce ne l'est pas
+
+
+\change
+
+Il introduit pour cela la notion de groupe, il est alors âgé de 17 ans !
+
+\change
+
+Les groupes servent de fondement à beaucoup d'autres objets mathématiques :
+les anneaux, les corps, les matrices, les espaces vectoriels,...
+
+\change
+
+Ils s'appliquent dans des domaines variés : de l'arithmétique à la cryptographie 
+en passant par la géométrie.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Un groupe est un ensemble $G$ auquel est associé une opération $\star$,
+
+$G$ et la loi de composition étoile doivent vérifier quatre propriétés :
+
+\change
+
+l'opération $\star$ est une loi de composition interne
+
+c'est à dire 
+
+ pour tout $x,y \in G$, \quad $x \star y \in G$ 
+
+Autrement dit si l'on compose deux éléments de $G$ le résultat est encore
+un élément de $G$
+
+\change
+
+
+la loi $\star$  est associative
+
+
+c'est-à-dire  $(x \star y) \star z = x \star (y \star z)$ 
+
+on peut donc déplacer ou omettre les parenthèses.
+
+\change
+
+Il existe un élément petit $e$ de $G$
+
+qui vérifie $x \star e = x$ et $e \star x = x$ pour tous les $x$ de $G$
+
+
+ce $e$ s'appelle l'élément neutre,
+car $e$ composé avec n'importe quel élément, conserve cet élément.
+
+
+\change
+
+Enfin tout élément $x$ admet un inverse pour la loi $\star$ :
+c'est à dire qu'il existe un autre élément $x'$ de $G$
+tel que $x \star x' =e$ et $x' \star x = e$ 
+
+Ce $x'$ s'appelle l'inverse de $x$ et est noté [[$x^{-1}$]] $x$ à la puissance $-1$
+
+
+Ces quatre propriétés font de $G$ avec la loi $\star$ un groupe.
+
+\change
+
+On dira d'un groupe $G$ qu'il est commutatif si en plus
+
+$\text{pour tout } x,y   \qquad x \star y = y \star x$
+
+Mais attention, cette dernière égalité n'est pas vraie pour tous les groupes !
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons voir que des ensembles que vous connaissez déjà on en fait
+une structure de groupe.
+
+Tout d'abord l'ensemble $\Rr^*$ des réels non nuls auquel on associe la loi $\times$ qui est la multiplication
+habituelle est un groupe commutatif.
+
+\change
+
+On a bien que le produit de deux nombres réels non nuls est un nombre réel non nul,
+
+\change
+
+La multiplication est bien associative,
+
+\change
+
+il existe un élément neutre : c'est $1$. En effet $1\times x=x$
+et $x\times 1 = x$.
+
+\change
+
+
+Tout réel non nul admet un inverse, c'est $x'= \frac{1}{x}$ 
+
+en effet $x \times \frac{1}{x}$ égal l'élément neutre $1$ (et $\frac{1}{x}\times x=1$)
+
+
+Cela fait de $(\Rr^*,\times)$ un groupe.
+
+\change
+
+En plus, pour tout $x,y$ on a $x\times y=y\times x$,
+donc  $(\Rr^*,\times)$ est un groupe commutatif.
+
+
+\change
+
+On fait la même chose avec l'ensemble $\Zz$ des entiers relatifs mais cette fois
+le loi est l'addition habituelle $+$.
+
+\change
+
+On a bien $x+y \in \Zz$
+
+\change
+
+La loi $+$ est associative
+
+\change
+
+L'élément neutre est cette fois $0$ car $0+x=x$ (et $x+0=x$)
+
+\change
+
+L'inverse d'un entier $x$ est $x'=-x$ car $x+(-x)$ égale l'élément neutre $0$.
+
+Lorsque la loi est $+$ on appellera $-x$ l'opposé plutôt que l'inverse.
+
+$(\Zz,+)$ est un groupe,
+
+\change
+
+il est même commutatif car $x+y=y+x$ pour tout $x,y$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Montrez de la même façon que l'ensemble 
+
+ $\Qq^*$ des rationnels non nuls muni de la multiplication est un groupe commutatif
+
+  idem avec les nombres complexes non nuls muni de la multiplication des\\ nombres complexes.
+
+\change
+
+Pour la loi d'addition les ensemble $\Qq$, $\Rr$, $\Cc$ sont des groupes commutatifs.
+
+\change
+
+Il est important de comprendre pourquoi les ensembles suivants ne sont pas 
+des groupes.
+
+Prenons l'ensemble $\Zz^*$ des entiers relatifs non nuls avec la multiplication habituelle
+
+ce n'est pas un groupe car l'une des propriétés n'est pas vérifiée :
+l'existence de l'inverse.
+
+Par exemple si l'inverse de $2$ existait ce devrait être $\frac 12$,
+mais $\frac 12$ n'est pas un entier. Donc $2$ n'a pas d'inverse.
+
+
+Même chose avec $\Nn$ muni de l'addition, si $3$ admettait un inverse pour l'addition ce serait $-3$
+mais $-3$ n'est pas dans $\Nn$. Ainsi $(\Nn,+)$ n'est pas un groupe.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Etudions maintenant des exemples géométriques.
+
+Soit $\mathcal{R}$ l'ensemble des rotations du plan dont le centre est à l'origine $O$
+
+la loi $\circ$ est ici la composition des fonctions
+
+Vérifions que $\mathcal{R}$ muni de cette loi est un groupe commutatif.
+
+\change
+
+Une rotation dont le centre est à l'origine est caractérisée par un angle $\theta$.
+
+\change
+
+Si on compose deux rotations  $R_\theta$ avec $R_{\theta'}$ cela reste une rotation 
+dont le centre est l'origine.
+
+\change
+
+La loi de composition des fonctions est associative. 
+
+\change
+
+Il existe un élément neutre : c'est la rotation d'angle $0$
+qui est aussi l'identité  : l'image de tout point $P$ est $P$ lui même.
+
+\change
+
+Si l'on compose une rotation d'angle $\theta$ par la rotation d'angle $-\theta$
+
+alors un point $P$ s'envoie sur lui même, c'est donc que la rotation d'angle $-\theta$
+est l'inverse de la rotation d'angle $\theta$ pour notre loi $\circ$ de composition.
+
+\change
+
+Enfin ce groupe est commutatif  :
+
+$R_\theta \circ R_{\theta'}=R_{\theta'} \circ R_{\theta}$
+
+car nos rotations sont toutes centrées à l'origine.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Continuons avec la géométrie :
+
+soit $\mathcal{I}$ l'ensemble de isométries du plan 
+
+ce sont les translations, les rotations (de centre quelconque)
+les réflexions par rapports à des droites et les composées de toutes ces transformations.
+
+La loi $\circ$ est une nouvelle fois la composition des fonctions.
+
+Alors $(\mathcal{I},\circ)$ est un groupe mais il n'est pas commutatif.
+
+\change
+
+Admettons que c'est un groupe et montrons la non-commutativité :
+
+Prenons par exemple 
+
+  \begin{itemize}
+     \item $R$ la rotation centrée à l'origine,\\ d'angle $\frac \pi 2$
+     \item $T$ la translation de vecteur $(1,0)$
+     \item alors les isométries  $T \circ R$ et $R \circ T$ ne sont pas égales
+
+\change
+
+     \item il suffit de choisir un point et de calculer ses images,
+on prend par exemple $A$ le point de coordonnées $(1,1)$.
+
+
+$T \circ R (1,1) = T (-1,1) = (0,1)$
+
+ $R\circ T(1,1) = R(2,1) = (-1,2)$,
+
+  \end{itemize}
+
+Les images sont distinctes donc les isométries ne sont pas égales.
+
+Le groupe des isométries n'est pas commutatif.
+
+Dans un groupe non commutatif il faut faire attention 
+à l'ordre des compositions.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Revenons au cadre général d'un groupe $G$ quelconque, avec une loi $\star$.
+
+Nous notons $x \star x$ par $x^2$,
+
+ $x\star x \star x$ par $x^3$
+
+et plus généralement 
+ $x^{n} = x\star x \star \cdots \star x$ avec $n$ occurrences de $x$
+
+
+Par définition $x^0$ vaut $e$ l'élément\\ neutre du groupe $G$
+
+Enfin $x^{-n} = x^{-1}\star \cdots \star x^{-1}$ ou $x^{-1}$ est l'inverse
+de $x$ dans le groupe.
+
+
+\change
+
+Avec ces notations les règles de calcul sont les mêmes
+qu'avec les puissances usuelles :
+ 
+\begin{itemize}
+  \item $x^m \star x^n = x^{m+n}$
+  \item $x$ puissance $m$ le tout  à la puissance $n$ vaut $x$ à la puisance $m$ fois $n$
+[[$(x^m)^n = x^{mn}$]]
+  \item l'inverse de $x\star y$ c'est $y^{-1} \star x^{-1}$
+Notez bien l'inversion de l'ordre.
+[[$(x \star y)^{-1} = y^{-1} \star x^{-1}$]]
+  \item Enfin si $G$ est commutatif alors $(x\star y)^n = x^n \star y^n$
+
+mais attention si $G$ n'est pas commutatif $(x\star y)^n$ vaut seulement
+$(x\star y) \star (x\star y) \star  $, $n$ fois
+\end{itemize} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons maintenant étudier un groupe, basé sur les matrices et leur multiplication.
+
+Une matrice $2\times 2$ est simplement un tableau de $4$ nombres réels
+$a,b,c,d$ que l'on note ainsi.
+
+\change
+
+Si l'on a deux matrices $M$ et $M'$ alors le produit de $M$ par $M'$
+est encore une matrice 
+
+\change
+
+qui est définie par la formule suivante.
+
+\change
+
+Voici comment présenter les calculs, on place $M$ à gauche,
+
+\change
+
+et $M'$ au dessus de ce qui va être le résultat.
+
+\change
+
+On calcule un par un, chacun des termes de $M \times M'$.
+
+\change
+
+Reprenons pas à pas.
+
+
+Pour le premier terme on prend la colonne situé au dessus et la ligne
+située à gauche, 
+
+\change
+
+\change
+
+\change
+
+on effectue les produits $a\times a'$ et $b\times c'$ et additionne
+pour obtenir le premier terme.
+
+\change
+
+Même chose avec le second terme : la colonne situé au dessus, la ligne
+située à gauche, les produits, on additionne.
+
+\change
+
+Idem pour les deux autres termes.
+
+\change
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons les calculs sur un exemples.
+
+$M$ est la matrice $M=\left(\begin{matrix} 1 & 1 \\ 0 & -1 \\ \end{matrix}\right)$
+
+et $M' = \left(\begin{matrix} 1 & 0 \\ 2 & 1 \\ \end{matrix}\right)$
+
+\change
+
+Calculons d'abord $M \times M'$
+
+\change
+
+$$\left(\begin{matrix} 3 & 1 \\ -2 & -1 \\ \end{matrix}\right)$$
+
+\change
+
+Calculons $M' \times M$
+
+$$\left(\begin{matrix} \ 1\  & \ 1\  \\ \ 2\  & \ 1\  \\ \end{matrix}\right) $$
+
+\change
+
+Nous constatons que les matrices $M \times M'$ et $M' \times M$
+sont distinctes. 
+
+\change
+
+Le produit de matrices n'est pas commutatifs.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Introduisons le déterminant d'une matrice $2\times2$.
+
+La déterminant de la matrice $a,b,c,d$ est le nombre réel $ad-bc$.
+
+\change
+
+Une propriété facile à vérifier est que que le déterminant de $M \times M'$
+est égal à déterminant de $M$ fois déterminant de $M'$.
+
+\change
+
+Pour la preuve, on se remémore d'abord ce que vaut la matrice $M\times M'$.
+
+\change
+
+Il ne reste plus qu'à calculer les trois déterminants : celui de 
+$M\times M'$, celui de $M$, celui de $M'$ 
+
+et de vérifier la formule.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici notre dernier exemple de groupe.
+
+Nous considérons l'ensemble des matrices ayant un déterminant non nul, 
+
+la loi est la multiplication des matrices.
+
+Alors cela forme un groupe, qui n'est pas commutatif.
+
+\change
+
+Ce groupe se note $G\ell_2$
+
+\change
+
+Effectuons la preuve.
+
+Le produit de deux matrices est encore une matrice
+
+et si les déterminants de $M$ et $M'$ sont nuls alors
+le déterminant de $M\times M'$ est non nul grâce au lemme précédent.
+
+\change
+
+La multiplication des matrices est associative.
+
+Il faut vérifier que pour trois matrices on a bien : $(M\times M')\times M''=M \times (M'\times M'')$
+
+c'est un peu fastidieux mais c'est un bon exercice.
+
+\change
+
+L'élément neutre est la matrice identité, noté $I$,
+avec des $1$ sur la diagonale et des zéros ailleurs.
+
+Vérifier que $M$ fois $I$ égal $M$ et aussi que $I$ fois $M$ égal $M$.
+
+\change
+
+
+Enfin il existe un inverse de $M$ pour la multiplication des matrices.
+
+On définit $M^{-1} = \frac{1}{ad-bc} \left(\begin{smallmatrix} d & -b \\ -c & a\\ \end{smallmatrix}\right)$
+
+(remarquez que l'on divise chaque coefficient par le déterminant qui est non nul)
+
+Alors vérifiez que  $M$ fois $M^{-1}$ égal $I$ (l'élément neutre)
+
+et que $M^{-1}$ fois $M$ égal $I$.
+
+
+
+
+Cela fait des matrices à déterminant non nul un groupe.
+
+Et nous avions déjà vu que le produit de matrices n'était pas commutatif.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La notion de groupe est vraiment difficile, prenez le temps
+de bien comprendre les définitions et les exemples de cette vidéo.
+Avant de passer à la suite.
+
+Pour vous aider à comprendre voici deux pages d'exercices !
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Et voici la suite des exercices...
+
+
+\end{document}

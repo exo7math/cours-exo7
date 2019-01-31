@@ -1,0 +1,468 @@
+
+\input{../preamb-texte.tex}
+\newcommand{\Sage}{\texttt{Sage}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans cette partie, nous allons voir comment calculer des intégrales avec Sage.
+
+\change
+
+Voici le plan que nous allons suivre :
+
+\change
+
+nous commencerons par donner les commandes de base
+
+\change
+
+nous calculerons des intégrales par intégration par parties
+
+\change
+
+puis nous verrons comment le calcul formel permet aussi le changement de variable.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans ce premier travail, calculons des primitives, 
+à la main puis à l'aide de commandes de Sage.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+\change
+
+Voici comment faire avec Sage. La commande
+\codeinline{integral(f(x),x)} renvoie une primitive de $f$.
+
+\change
+Comme ici :
+$\displaystyle\int x^4 + \frac{1}{x^2} + \exp(x)+ \cos(x) \; \dd x 
+  = \frac15 x^5 - \frac1x + \exp(x) + \sin(x)$
+
+\change
+
+\change
+
+\change
+
+Même chose ici : $\displaystyle\int  x \sin(x^2) \; \dd x 
+  = - \frac12\cos(x^2)$.
+  
+La machine renvoie une seule primitive. Pour avoir l'ensemble des primitives, il faut
+bien entendu ajouter une constante.
+
+\change
+
+\change
+
+\change
+
+On peut également intégrer des fonctions avec des paramètres.
+
+\change
+Souvent, pour intégrer des fractions rationnelles il est préférable d'écrire la décomposition en éléments simples.
+
+
+
+\change  
+Cela se fait avec la commande \codeinline{partialfraction}. Par exemple pour
+$f = x^4/(x^2-1)$ la commande \codeinline{f.partialfraction(x)} 
+renvoie la décomposition en éléments simples: %sur $\Qq$.
+$x^2 + 1 - \frac12\frac{1}{x + 1} + \frac12\frac{1}{x - 1}$.
+
+\change
+
+\change
+Sous cette forme on sait calculer la primitive, ce que Sage confirme.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans ce deuxième travail, nous passons au calcul d'intégrales. 
+
+\change
+%Voici la réponse, qui est très semblable à la précédente :
+
+La commande
+\codeinline{integral(f(x),x,a,b)} renvoie l'intégrale de la fonction $f$ de variable $x$ entre les bornes $a$ et $b$. 
+
+Il suffit donc d'ajouter par rapport à ce qui précède les bornes en fin de commande. Ici on intègre pour $x$ allant de $1$ à $3$.
+
+\change
+L'intégrale est bien sûr un nombre et non plus une fonction comme auparavant pour les primitives.
+
+\change
+Aucun problème pour les autres intégrales, comme celle ci
+
+\change
+ou celle là.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Rappelons la formule d'intégration par parties.
+
+$$\int_a^b u(x) \, v'(x)\;\dd x= \big[uv\big]_a^b - \int_a^b u'(x) \, v(x)\;\dd x$$
+
+Cette formule est aussi valable pour les primitives en "oubliant" les bornes $a$ et $b$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans ces travaux pratiques, nous allons nous intéresser aux primitives de la fonction $x^n\exp(x)$, pour un entier $n$ quelconque.
+
+Le but est d'obtenir une formule close.
+ Nous trouverons plusieurs approches. 
+% en essayant d'abord d'obtenir  directement une formule.
+
+Nous tenterons ensuite de conjecturer puis de prouver une relation de récurrence pour $F_n$ en suivant la méthode vue dans les séances précédentes.
+
+Dans cette dernière question, nous obtiendrons une formule directe pour $F_n$, en suivant les mêmes étapes qu'à la question précédente.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+[granf $F$/petit $f$]
+
+
+\change
+La commande directe \codeinline{integral(f,x)}
+  renvoie un résultat mystérieux contenant une \emph{fonction spéciale} $\Gamma$.  
+
+Ceci ne nous aide guère.% pour calculer cette primitive.
+
+\change
+
+Par contre, il n'y a aucun problème pour calculer les primitives $F_n$ 
+  pour les premières valeurs de $n$. 
+  
+Voici les quelques lignes de code qui :
+
+- définissent les variables,
+
+- la fonction à intégrer,
+
+- la fonction [grand] $F(n)$ qui calcule une primitive pour un entier $n$ donné.
+
+- et enfin une boucle qui appelle cette fonction et affiche chaque primitive
+pour des valeurs de $n$ variant de $0$ à $9$.
+
+\change
+
+Voici les premières primitives.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Au vu des premiers termes, on conjecture la relation 
+$F_n(x) = x^n \exp(x) - nF_{n-1}(x)$.
+
+On vérifie facilement à l'aide d'une boucle que cette conjecture 
+est vraie pour les premières valeurs de $n$.
+
+\change    
+    Par contre, Sage ne sait pas vérifier formellement cette identité 
+    (c'est-à-dire lorsque $n$ est une variable formelle).
+
+\change
+Nous prouvons donc à la main la formule en faisant une intégration par parties.
+
+
+On pose par exemple $u=x^n$ et $v'=\exp(x)$ 
+
+ce qui donne $u'=nx^{n-1}$ et $v = \exp(x)$.
+
+\change
+Ainsi     
+    $$   F_n =  \int x^n \exp(x)\; \dd x$$
+    \begin{center}
+      $F_n$ : la primitive de $x^n \exp(x)$
+    \end{center}
+\change 
+    \begin{center}
+      s'exprime comme
+    \end{center}
+   $$ = \big[x^n\exp(x)\big] - \int nx^{n-1}\exp(x)\; \dd x$$
+   
+\change
+    \begin{center}
+      ce qui se réécrit : 
+    \end{center}
+$$= x^n\exp(x) - n F_{n-1}(x).$$
+  
+  
+\change
+Cela nous donne une nouvelle façon de calculer nos primitives.
+Voici le code d'une fonction récursive FF basée sur la relation de récurrence que nous venons d'établir.
+
+~
+
+Cette formulation récursive est très élégante mais peut-être pas si simple à comprendre.
+
+~
+
+Tout d'abord si $n=0$, on sait que la primitive est l'exponentielle, on renvoie donc cette fonction, c'est la condition d'arrêt de notre récurrence.
+
+~
+
+Si $n$ est plus grand que $1$ alors on sait que 
+
+$$F_n(x) = x^n \exp(x) - nF_{n-1}(x)$$
+
+la fonction renvoie donc $x^n \exp(x) - nF_{n-1}(x)$.
+
+Mais le travail n'est pas fini pour la machine, puisque le résultat fait lui-même
+appel à la fonction au rang $n-1$, qui lui même aura besoin du résultat au rang $n-2$, etc
+
+jusqu'à ce que l'on arrive au rang $0$ pour lequel la condition initiale stoppe la récurrence. 
+
+La machine est alors en mesure de répondre à la question pour le rang $1$, puis pour le rang $2$... et enfin pour le rang $n$ comme demandé.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Concernant la formule directe, on conjecture avec un peu d'observation et de réflexion que : 
+  $$F_n(x) = \exp x \sum_{k=0}^n (-1)^{n-k} \frac{n!}{k!} x^k$$
+
+Mais comment vérifier que cette formulation est exacte ?
+
+\change
+Appelons $G_n$ le second membre de cette expression.
+
+\change
+Alors, en isolant le dernier terme de la somme, $G_n$ se réécrit :
+
+\change
+$$n G_{n-1} + \exp(x)x^n$$
+
+\change
+Autrement dit, $G_n$ vérifie une relation de récurrence.
+
+Cette relation est la même que celle vérifiée par $F_n$.
+
+%En effet :
+%$$\begin{array}{rcl} 
+%    G_n(x) 
+%    &=& \exp(x)\sum_{k=0}^{n-1} (-1)^{n-k} \frac{n!}{k!} x^k  + \exp(x)x^n \\
+%    \pause
+%    &=& n G_{n-1}(x)+ \exp(x)x^n       
+%    \end{array}$$
+    
+%C'est la même relation de récurrence que pour $F_n$.
+De plus, les termes initiaux $G_0$ et $F_0$ coïncident.
+
+En conclusion, $G_n=F_n$  pour tout $n$.
+
+\change
+
+Voici une nouvelle fonction qui calcule l'expression de notre primitive.
+C'est tout simplement l'implémentation de notre formule directe.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Avant d'aborder notre prochain travail, rappelons la formule de changement de variable.
+
+On considère une fonction $f$  définie sur un intervalle $I$ et $\varphi : J \to I$ 
+une bijection de classe $\mathcal{C}^1$. 
+
+La formule de changement de variable pour les intégrales est l'égalité suivante :
+$$\int_a^b f(x) \; \dd x 
+= \int_{\varphi^{-1}(a)}^{\varphi^{-1}(b)} f\big(\varphi(u)\big)\cdot\varphi'(u) \; \dd u$$
+
+
+Cette formule est aussi valable pour les primitives, en omettant les bornes des intégrales !
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans cette première question du tp, nous allons procéder à un changement de variable simple.
+
+On souhaite calculer $\displaystyle\int \sqrt{1-x^2} \; \dd x$ en simplifiant l'intégrale à l'aide de Sage, grâce au changement de variable $x = \sin u$.
+
+Nous introduisons pour ce faire la fonction $\varphi(u) = \sin u$,
+
+et calculons $f\big( \varphi(u) \big)$ et  $\varphi'(u)$.
+
+L'objectif est d'avoir progressé dans la résolution de notre problème, c'est-à-dire que la fonction $g$ définie par $g(u) = f\big(\varphi(u)\big)\cdot\varphi'(u)$ soit plus facile à intégrer.
+
+Nous en calculerons alors une primitive et répondrons ainsi à la question initialement posée.
+
+%et vous en déduisez une primitive de $f(x) = \sqrt{1-x^2}$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+%Voici le code de notre solution.
+
+On commence par définir la fonction $f(x) = \sqrt{1-x^2}$.
+
+Ce qu'on appelle changement de variable $x = \sin u$ signifie que l'on choisit pour $\varphi$ la fonction $\sin u$.
+
+Voici l'implémentation du code :
+
+la déclaration des variables,
+
+la fonction $f$
+
+et la changement de variable.
+
+
+\change
+    
+On obtient $f\big( \varphi(u) \big)$ en substituant à la variable $x$ l'expression $\sin u$. 
+    
+    
+cela donne $f\big( \varphi(u) \big) = \sqrt{1-\sin^2 u} = \sqrt{\cos^2 u} = |\cos u|$.
+
+Ce qui s'obtient par la commande \codeinline{frondphi = $f(x=\phi)$}, puis en simplifiant.    
+
+    % (Notez que Sage\ \og oublie \fg{} les valeurs absolues, car il calcule en fait la 
+    % racine carrée complexe et pas réelle.
+    % Ce sera heureusement sans conséquence pour la suite.
+    % En effet pour que $f(x)$ soit définie, il faut $x \in [-1,1]$, comme $x = \sin u$
+    % alors $u \in [-\frac\pi2,\frac\pi2]$ et donc $\cos u \ge 0$.)    
+ 
+Enfin $\varphi'(u) = \cos u$ s'obtient par la commande \codeinline{dphi = diff(phi,u)}.
+    
+\change
+
+
+On définit la fonction $g$ comme demandé dans l'énoncé.
+%$g(u) = f\big(\varphi(u)\big)\cdot\varphi'(u)$ 
+	
+Vous noterez qu'après le changement de variable notre nouvelle fonction $g(u)$
+est très facile à intégrer. C'est tout l'intérêt d'un changement de variable !
+
+[grand $G$/petit $g$] On note $G$ une primitive de $g$.
+
+\change
+
+[grand $F$/petit $f$]
+
+Pour obtenir une primitive de $f$, il ne faut pas oublier de revenir à la variable $x$.
+
+Comme $x = \sin u$ alors $u = \arcsin x$.
+
+La commande de substitution \codeinline{F = G(u = arcsin(x))} donne alors la primitive recherchée, 
+
+ici c'est $\frac{\arcsin x}{2} + \frac x2 \sqrt{1-x^2}$.
+
+On retrouve bien la solution que propose \Sage\ lorsqu'on lui demande directement une primitive de $f$. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans la deuxième question de ce tp, on effectue un changement de variable avec une définition un peu différente.%donné dans le sens inverse.
+
+On souhaite calculer la primitive suivante : 
+$$\displaystyle\int \frac{\dd x}{1+\left(\frac{x+1}{x}\right)^{1/3}}$$
+
+Pour cela nous allons utiliser un changement de variable défini par une équation : $u^3 = \frac{x+1}{x}$.
+    
+Il faut commencer par expliciter le changement de variable $\varphi(u)$ et $\varphi^{-1}(x)$.
+
+Nous ne corrigerons pas ici les questions suivantes mais il s'agit ni plus ni moins de reprendre 
+les questions précédentes et d'automatiser les procédures afin 
+ de calculer des primitives mais aussi des intégrales à l'aide d'un changement de variable donné.
+
+%Dans cette dernière question du tp, on demande comme à la question précédente d'écrire une fonction qui effectue le changement de variable, mais cette fois-ci pas pour calculer la primitive de la fonction $f$, mais son intégrale entre deux bornes $a$ et $b$ données.
+%
+%Bien sur, l'équation qui définit le lien entre les deux variables est encore un paramètre.
+%
+%Il faut ensuite appliquer la fonction à l'exemple suivant.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour calculer la primitive $\int \frac{\dd x}{1+\left(\frac{x+1}{x}\right)^{1/3}}$, l'énoncé  nous recommande le changement de variable $u^3 = \frac{x+1}{x}$.
+  
+La seule difficulté supplémentaire est qu'il faut ici exprimer $x$ en fonction de $u$ 
+mais aussi $u$ en fonction de $x$.
+
+Pour cela introduisons formellement l'équation reliant $u$ et $x$ par la commande : 
+  \codeinline{$eqn = u^3 == (x+1)/x$}. 
+  
+  
+  On peut maintenant résoudre l'équation afin d'obtenir
+  $\phi(u)$ (c'est-à-dire $x$ en fonction de $u$) par :  
+  \codeinline{phi = solve(eqn,x)[0].rhs()} 
+  
+  et $\phi^{-1}(x)$ (c'est-à-dire $u$ en fonction de $x$) : 
+  \codeinline{phiinv = solve(eqn,u)[0].rhs()}.
+  
+  Le reste se déroule alors comme précédemment.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\diapo
+%
+%Voici le code de notre solution.
+%
+%
+%\begin{enumerate}
+%\setcounter{enumi}{2}
+%		
+%	\item La fonction \codeinline{integralechgtvar} dépend 
+%	de la fonction $f$, et de l'équation $eqn$ définissant le changement de variable.
+%
+%	Notre fonction reprend les étapes de la question précédente :
+%
+%	On commence par extraire les fonctions $\phi$ et son inverse qui incarnent le changement de variable à partir de l'équation reliant les variables, etc.
+%
+%        Il est alors aisé d'appliquer notre fonction à un exemple donné en spécialisant les variables en $f(x)=(\cos x + 1)^n\sin x $ pour la fonction et $u= \cos x + 1$ pour l'équation.
+%
+%\end{enumerate}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\diapo
+%% \change
+%Voici notre fonction.
+%% \change
+%\begin{enumerate}
+%
+%
+%		\setcounter{enumi}{3}
+%
+%	\item		
+%Le seule différence avec la fonction précédente est 
+%
+%d'une part qu'il faut calculer les nouvelles bornes $\phi^{-1}a$ et $\phi^{-1}b$,
+%
+%d'autre part utiliser la commande \codeinline{integral} en utilisant ces nouvelles bornes.
+%
+%
+%\end{enumerate}
+
+
+
+
+\end{document}

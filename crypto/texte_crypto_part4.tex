@@ -1,0 +1,370 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons maintenant voir un processus de chiffrement radicalement différent
+
+il s'agit de la cryptographie à clé publique.
+
+\change
+
+\change
+
+Nous commencerons par énoncer le principe de Kerckhoffs
+
+\change
+
+Nous évoquerons un problème mathématique difficile : la factorisation d'entiers
+
+\change
+
+Nous aborderons la notion de fonction à sens unique
+
+\change
+
+Nous reviendrons sur le principe de chiffrement à clé privée
+
+\change
+
+Avant d'étudier le principe du chiffrement à clé publique.
+  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour envoyer des messages secrets, les Grecs utilisaient un messager.
+
+Il commençaient par lui raser la tête,
+
+tatouaient le message sur son crâne et attendaient que les cheveux repoussent.
+
+A ce moment là seulement, le messager pouvait se mettre en route et effectuer sa mission !
+
+=
+
+La sécurité d'un tel protocole d'échange d'informations repose uniquement sur le fait de tenir secrète la méthode utilisée.
+
+\change
+
+Ce procédé, rapporté dans des écrits de l'époque, va à l'encontre d'un principe énoncé beaucoup plus tard par
+Auguste Kerckhoffs, en 1883, et qui dit que : 
+
+\centerline{<<La sécurité d'un système de chiffrement ne doit reposer que sur le secret la clé.>>}
+
+\change
+
+Plus précisément, cela revient à dire que : 
+
+\centerline{<<L'ennemi peut avoir connaissance du système de chiffrement.>>}
+
+\change
+Ce principe est novateur dans la mesure 
+où intuitivement il semble opportun de dissimuler le maximum 
+de choses possibles : à la fois la clé (bien sûr) mais aussi le système de chiffrement. 
+
+\change
+Mais l'objectif visé par Kerckhoffs est plus académique, 
+il pense qu'un système (dépendant d'un secret) dont 
+le mécanisme est connu de tous 
+
+sera testé, attaqué, étudié, 
+
+et finalement utilisé s'il s'avère intéressant et robuste.
+
+\change
+Bien évidemment, même si le système peut être rendu public, 
+la sécurité est basée sur le caractère secret de la clé utilisée dans sa mise en oeuvre.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Une question se pose alors : quels sont les outils mathématiques capables de répondre au principe énoné par Kerckoffs ?
+
+=
+
+Nous allons voir qu'il en existe un tout simple et connu de tous : la multiplication ! Voyons comment.
+
+\change
+
+Si je vous demande combien font $5\times7$, vous répondez immédiatement $35$.
+
+\change
+Si je vous demande de factoriser $35$, c'est-à-dire de le décomposer en produit de facteurs premiers, vous répondez rapidement $5\times 7$.
+
+\change
+Cependant ces deux questions ne sont pas du même ordre de difficulté.
+
+=
+
+Si je vous demande maintenant de factoriser $1591$, vous allez sans doute devoir faire plusieurs tentatives,
+
+\change
+alors que si je vous avais directement demandé de calculer $37\times 43$ cela ne vous aurait posé aucun problème.
+
+\change
+On s'aperçoit rapidement que calculer le produit de deux nombres premiers $p$ et $q$ est plus facile que retrouver 
+$p$ et $q$ à partir du produit $p \times q$.
+
+\change
+Formalisons ceci avec la notion de complexité.
+
+La \defi{complexité} estime le temps de calcul (ou le nombre d'opérations élémentaires)
+nécessaire pour effectuer une opération.
+
+\change
+Commençons par la complexité de l'addition :
+
+\change
+disons que calculer la somme de deux chiffres (par exemple $6+8$) soit de complexité $1$
+(par exemple $1$ seconde pour un humain, $1$ millionième de seconde pour un ordinateur).
+
+\change
+Pour calculer la somme de deux entiers à $n$ chiffres, la complexité est de l'ordre de $n$ (en négligeant les retenues)
+
+\change
+Par exemple pour la somme $1234+2323$, il faut faire $4$ additions de chiffres, 
+donc environ $4$ secondes pour un humain.
+
+\change
+
+\change
+La multiplication de deux entiers à $n$ chiffres est de complexité d'ordre $n^2$. 
+
+\change
+Par exemple pour multiplier $1234$ par $2323$ il faut faire
+$16$ multiplications de chiffres (et quelques additions)
+
+Chaque chiffre de $1234$ est à multiplier par chaque chiffre
+de $2323$.
+
+\change
+Par contre la meilleure méthode de factorisation connue est de complexité d'ordre
+$\exp(4n^\frac13)$ 
+
+C'est moins que $\exp(n)$, mais lorsque $n$ tend vers $+\infty$ c'est beaucoup plus que $n^d$ pour tout $d$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici un tableau donnant une idée de la difficulté croissante à multiplier et factoriser des nombres à $n$ chiffres :
+
+=
+
+Ici pour la multiplication, nous avons une croissance en le carré de $n$.
+
+alors que pour la factorisation nous avons une croissance de type exponentiel.
+
+=
+
+Pour des entiers de plusieurs centaines de chiffres, le problème de la factorisation ne peut être résolu 
+en un temps raisonnable, même par un ordinateur.
+
+C'est ce problème, qui n'est pas symétrique (on dit aussi asymétrique), qui est à la base de la sécurité du chiffrement RSA que nous détaillerons plus tard : connaître $p$ et $q$ apporte plus d'information utile que le produit $p\times q$. 
+
+Même si en théorie il est possible à partir du produit $p\times q$ de retrouver $p$ et $q$, 
+c'est en pratique impossible lorsque la taille des objets grandit.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Il existe d'autres situations mathématiques asymétriques :
+que l'on appelle les \defi{fonctions à sens unique}.
+
+\change
+En d'autres termes, étant donnée une fonction $f$, 
+
+\change
+il est possible connaissant $x$ de calculer <<facilement>> $f(x)$ ;
+
+\change
+mais inversement, connaissant un élément de l'ensemble image de $f$, il est <<difficile>> voir impossible 
+de retrouver son antécédent. 
+
+\change
+Dans le cadre de la cryptographie, posséder une fonction à sens 
+unique qui joue le rôle de chiffrement n'a que peu de sens. 
+
+En effet, il est absolument indispensable d'avoir un moyen efficace pour déchiffrer les messages 
+transmis après chiffrement. 
+
+On parle alors de \defi{fonction à sens unique à trappe}. C'est-à-dire que le calcul de l'image réciproque est difficile en général sauf si on a accès à une information supplémentaire.
+
+\change
+Prenons par exemple le cas de la fonction $f$  : $$x \longmapsto x^3 \pmod{100}.$$
+
+et tentons de résoudre le problème suivant : 
+
+trouver $x$ tel que $x^3 \equiv 11 \pmod{100}$.
+
+\change
+On peut pour cela faire une recherche exhaustive, 
+
+c'est-à-dire essayer successivement 
+  $0$, $1$, $2$, $3$, ...,  $99$, 
+  
+\change 
+on trouve alors : 
+
+$71^3=357\,911 \equiv 11 \pmod{100}.$
+    
+\change
+Pour ce problème, il existe un trappe, une astuce. Il suffit de considérer la fonction :
+
+$$y \longmapsto y^7 \pmod{100}$$
+
+qui permet de répondre directement à la question !
+
+En effet 
+
+$11^7= 19\,487\,171 \equiv 71 \pmod{100}.$
+
+=
+
+Conclusion : le problème posé est difficile à résoudre, sauf pour ceux qui 
+connaissent la trappe secrète. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Avant de poursuivre plus avant, effectuons un petit retour en arrière.
+
+=
+
+Les protocoles étudiés dans les chapitres précédents étaient tous 
+des chiffrements à clé privée.
+
+Voici un schéma résumant ce type de chiffrement.
+
+Le message initial M est chiffré par Bruno à l'aide de la clé C.
+
+Le message crypté est ensuite transmis à Alice,
+
+qui à l'aide de la clé C déchiffre le message.
+
+
+||| Les deux interlocuteurs partagent donc la même clé l'un pour chiffrer et l'autre pour déchiffrer.
+
+Cela pose bien sûr un problème majeur déjà évoqué : Alice et Bruno doivent d'abord échanger cette clé.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Les protocoles de chiffrement à clé privée peuvent, de façon imagée, se représenter ainsi.
+
+Tout se passe comme si Alice et Bruno possédaient chacun une clé d'un coffre fort.
+
+Dans ce cas, Bruno peut déposer quand il le souhaite un message qu'il destine à Alice.
+
+Et Alice peut venir en prendre connaissance quand bon lui semble.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons maintenant au protocole de chiffrement à clé publique. 
+
+
+L'association des mots <<clé>> et <<publique>> peut paraître incongrue, 
+
+mais il signifie que le principe de chiffrement est accessible à tous 
+
+mais que le déchiffrement nécessite une information supplémentaire : une clé (bien sûr secrète).
+
+
+De façon imagée, si Bruno veut envoyer un message à Alice,
+
+il le dépose dans la boîte aux lettres d'Alice. 
+
+Et puisqu'Alice est la seule à en avoir la clé, elle sera la seule à prendre connaissance du message de Bruno.
+
+=
+
+Ici la clé publique est symbolisée par la boîte aux lettres, tout le monde peut y déposer
+un message, 
+
+la clé qui ouvre la boîte aux lettres est la clé privée, clé qui reste secrète.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons maintenant le schéma résumant le chiffrement à clé publique.
+
+Tout d'abord, il y a maintenant deux clés : l'une publique et l'autre privée.
+
+Ces deux clés sont préparées par Alice (pensez à la boîte aux lettres et à sa clé).
+
+Elle prépare une clé publique qu'elle diffuse à tout le monde
+et une clé privée qu'elle garde secrète.
+
+Si Bruno veut envoyer un message secret à Alice,
+
+il commence par récupérer la clé publique d'Alice,
+
+il crypte son message à l'aide de cette clé publique.
+
+Il transmet le message crypté à Alice.
+
+Alice est la seule à pouvoir décrypter le message en utilisant sa clé secrète.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Les paramètres d'un protocole de \defi{chiffrement à clé publique} sont donc : 
+
+\change
+les fonctions de chiffrement et de déchiffrement C et D (qui sont publiques),
+
+\change
+la clé publique du destinataire qui va permettre de paramétrer la fonction de chiffrement,
+
+\change
+la clé privée du destinataire qui va permettre de paramétrer la fonction de déchiffrement.
+
+
+\change
+Donnons tout de suite un exemple en prenant appui sur la fonction à trappe vue précédemment.
+
+Nous nous posions la question (difficile) de trouver $x$ tel que $x^3 \equiv 11 \pmod{100}$.
+
+Rappelez vous : nous avions trouvé comme réponse $71$ et avions mis en évidence une trappe $7$ ou plus exactement la fonction 
+$$y\longmapsto y^{7} \pmod{100}$$
+pour calculer directement 71.
+
+\change
+Dans ce cadre :
+
+les fonctions de chiffrement et de déchiffrement sont du type $x$ à la puissance quelque chose modulo $100$.
+
+\change
+la clé publique d'Alice qui vaut ici $3$
+
+permet de définir complètement la fonction de chiffrement $C$ : 
+
+$x\longmapsto x^3 \pmod{100}.$
+
+\change
+Enfin  la clé privée d'Alice, ici $7$,
+qui permet de définir complètement la fonction de déchiffrement $D$ : 
+
+$x\longmapsto x^7 \pmod{100}.$
+
+
+\end{document}

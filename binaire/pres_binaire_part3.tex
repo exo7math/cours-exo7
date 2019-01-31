@@ -1,0 +1,411 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={245,66,24}]{structure}
+
+% Commande spécifique à ce chapitre
+
+\newcommand{\Python}{\texttt{Python}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+% Black and white
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+    literate={>>>}{\textcolor{red}{>\,\!>\,\!>}}{3},
+  escapeinside=||
+}
+
+
+% Color
+\lstset{
+  language=Python,
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  keywordstyle=\color{blue},
+  %emph={bin,oct,hex},
+  emphstyle=\color{blue},
+  stringstyle=\color{green!60!black},
+%  frame=single,  
+  showspaces=false,
+  showstringspaces=false,
+  literate={>>>}{\textcolor{red}{>\,\!>\,\!>}}{3},
+  escapeinside=||
+}
+
+\renewcommand{\debutmontitre}{
+  \author{} \date{} 
+  \thispagestyle{empty}
+  \hspace*{-10ex}
+  \begin{minipage}{\textwidth}
+    \titlepage  
+  \vspace*{-1.5cm}
+%   \begin{center}
+%     \LogoExoSept{2.5}
+%   \end{center}
+  \end{minipage}
+
+  \vspace*{-0cm}
+  
+  % Astuce pour que le background ne soit pas discrétisé lors de la conversion pdf -> png
+\begin{tikzpicture}
+        \fill[opacity=0,green!60!black] (0,0)--++(0,0)--++(0,0)--++(0,0)--cycle; 
+\end{tikzpicture}
+
+% toc S'affiche trop tot :
+% \tableofcontents[hideallsubsections, pausesections]
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Représentation des nombres}}
+\subtitle{Les bases $8$ et $16$}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfil\qquad\qquad\qquad\qquad
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> L'octal
+    \item<4-> L'hexadécimal
+    \item<5-> Intérêt de ces bases
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Motivation}
+
+\begin{frame}
+
+\evidence{Les bases $8$ et $16$}
+
+\pause  
+\bigskip
+
+En informatique deux autres bases sont utilisées
+
+\begin{itemize}
+\pause
+\item 
+\begin{itemize}
+\item la base $8$
+\pause
+\item les huit chiffres de \codeinline{0} à \codeinline{7}
+\pause
+\item écriture \defi{octale}
+\end{itemize}
+
+
+\pause  
+\item 
+\begin{itemize}
+\item la base $16$
+\pause
+\item les dix chiffres usuels de \codeinline{0} à
+  \codeinline{9} et les six premières lettres de l'alphabet de \codeinline{A} à
+  \codeinline{F}
+\pause
+\item écriture \defi{hexadécimale}
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L'octal}
+
+\begin{frame}
+
+\evidence{Base $8$}
+  
+\medskip
+
+\pause
+
+\textbf{Exemple avec $n=47$}
+
+  \begin{itemize}
+    \pause
+  \item Divisions successives par 8
+    $$\begin{array}{rcl}
+  47 &=& 8\times 5 + 7\\
+  5  &=& 8\times 0 + 5
+  \end{array}$$
+
+\pause
+  \item $47 = \textcolor{red}{5}\times 8^1 + \textcolor{red}{7}\times 8^0$
+  
+    \pause
+  \item $47 = \overline{\textcolor{red}{\mathtt{57}}}_8$
+  \end{itemize}
+  
+\medskip
+
+\pause
+\textbf{Exemple avec $n=3010$}
+  \begin{itemize}
+\pause
+  \item
+  $$\begin{array}{rcl}
+  3010 &=& 8\times 376 + 2\\
+  376  &=& 8\times 47 + 0\\
+  47   &=& 8\times 5 + 7\\
+  5    &=& 8\times 0 + 5
+  \end{array}$$
+\pause
+  
+  \item $3010 = \textcolor{red}{5}\times 8^3 + \textcolor{red}{7}\times 8^2 + \textcolor{red}{0}\times 8^1 + \textcolor{red}{2}\times 8^0$
+  
+\pause
+  \item $3010 = \overline{\textcolor{red}{\mathtt{5702}}}_8$
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \evidence{Les nombres de 0 à 20 en octal}
+
+  \bigskip
+  
+  \begin{center}
+    \begin{tabular}[ht]{rrp{2cm}rr}
+      0 & $\overline{0}_{8}$ & &10 & $\overline{12}_{8}$\\
+      1 & $\overline{1}_{8}$ & &11 & $\overline{13}_{8}$\\
+      2 & $\overline{2}_{8}$ & &12 & $\overline{14}_{8}$\\
+      3 & $\overline{3}_{8}$ & &13 & $\overline{15}_{8}$\\
+      4 & $\overline{4}_{8}$ & &14 & $\overline{16}_{8}$\\
+      5 & $\overline{5}_{8}$ & &15 & $\overline{17}_{8}$\\
+      6 & $\overline{6}_{8}$ & &16 & $\overline{20}_{8}$\\
+      7 & $\overline{7}_{8}$ & &17 & $\overline{21}_{8}$\\
+      8 & $\overline{10}_{8}$ & &18 & $\overline{22}_{8}$\\
+      9 & $\overline{11}_{8}$ & &19 & $\overline{23}_{8}$\\
+      &  & &20 & $\overline{24}_{8}$\\
+    \end{tabular}
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+
+\evidence{L'octal en \Python}
+
+\begin{itemize}
+  \pause
+  \item L'analogue de \codeinline{bin} pour l'octal est \codeinline{oct}
+  \pause
+  \item Préfixe \codeinline{0o} ou \codeinline{-0o}
+\end{itemize}
+  \pause
+  
+\begin{lstlisting}
+>>> oct(47)
+'0o57'|\pause|
+>>> oct(3010)
+'0o5702'|\pause|
+>>> oct(-3010)
+'-0o5702'|\pause|
+\end{lstlisting}
+
+\begin{lstlisting}
+>>> 0o57
+47|\pause|
+>>> 2 * 0o57 
+94
+\end{lstlisting}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L'hexadécimal}
+
+
+\begin{frame}
+
+\evidence{Base $16$}
+
+
+\pause
+\textbf{Exemple avec $n=47$}
+
+  \begin{itemize}
+    \pause
+  \item Divisions successives par 16
+    $$\begin{array}{rcl}
+  47 &=& 16\times 2 + 15\\
+  2  &=& 16\times 0 + 2
+  \end{array}$$
+  \vspace*{-3ex}
+  
+  \pause
+  \item $47 = \textcolor{red}{2}\times 16^1 + \textcolor{red}{15}\times 16^0$
+  \pause
+  \item $47 = \overline{\textcolor{red}{\mathtt{2F}}}_{16}$
+  \quad (\codeinline{F} pour représenter $15$)
+  \end{itemize}
+  
+\medskip
+
+\pause
+\textbf{Exemple avec $n=3010$}
+  \begin{itemize}
+
+  \item  $$\begin{array}{rcl}
+  3010 &=& 16\times 188 + 2\\
+  188  &=& 16\times 11 + 12\\
+  11   &=& 16\times 0 + 11
+  \end{array}$$  \vspace*{-1ex}
+  
+  \pause
+  \item $3010 = \textcolor{red}{11}\times 16^2 + \textcolor{red}{12}\times 16^1 + \textcolor{red}{2}\times 16^0$
+    \pause
+  \item $3010 = \overline{\textcolor{red}{\mathtt{BC2}}}_{16}$  
+ \quad (\codeinline{B} pour $11$, \codeinline{C} pour $12$)  
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \evidence{Les nombres de 0 à 20 en hexadécimal}
+
+  \bigskip
+  
+  \begin{center}
+    \begin{tabular}[ht]{rrp{2cm}rr}
+      0 & $\overline{0}_{16}$ & &10 & $\overline{\mathtt{A}}_{16}$\\
+      1 & $\overline{1}_{16}$ & &11 & $\overline{\mathtt{B}}_{16}$\\
+      2 & $\overline{2}_{16}$ & &12 & $\overline{\mathtt{C}}_{16}$\\
+      3 & $\overline{3}_{16}$ & &13 & $\overline{\mathtt{D}}_{16}$\\
+      4 & $\overline{4}_{16}$ & &14 & $\overline{\mathtt{E}}_{16}$\\
+      5 & $\overline{5}_{16}$ & &15 & $\overline{\mathtt{F}}_{16}$\\
+      6 & $\overline{6}_{16}$ & &16 & $\overline{10}_{16}$\\
+      7 & $\overline{7}_{16}$ & &17 & $\overline{11}_{16}$\\
+      8 & $\overline{8}_{16}$ & &18 & $\overline{12}_{16}$\\
+      9 & $\overline{9}_{16}$ & &19 & $\overline{13}_{16}$\\
+      &  & &20 & $\overline{14}_{16}$\\
+    \end{tabular}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\evidence{L'hexadécimal en \Python}
+
+
+\begin{itemize}
+  \pause
+  \item L'équivalent de \codeinline{bin} et \codeinline{oct} pour l'hexadécimal est \codeinline{hex}
+    \pause
+  \item Préfixe \codeinline{0x}
+\end{itemize}
+  
+ \pause 
+\begin{lstlisting}
+>>> hex(47)
+'0x2f'|\pause|
+>>> hex(3010)
+'0xbc2'|\pause|
+>>> hex(-3010)
+'-0xbc2'|\pause|  
+\end{lstlisting}
+
+\begin{lstlisting}
+>>> 0x2f
+47|\pause|
+>>> 100 - 0x2f
+53
+\end{lstlisting}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Intérêt de ces bases}
+
+
+\begin{frame}
+
+
+\evidence{Conversion binaire/octal}
+
+ \begin{itemize}
+   \pause
+   \item $8 = 2^3$
+     \pause
+   \item Un entier entre $0$ et $7$ s'écrit en binaire à l'aide de $3$ bits
+     \pause
+   \item Pour passer du binaire à l'octal
+     \begin{itemize}
+       \pause
+     \item regrouper les bits par paquets de $3$ en commençant par la droite
+       \pause
+     \item puis  convertir chacun de ces paquets en un chiffre octal
+     \end{itemize}
+     \pause
+  \item $n = \overline{\mathtt{101111}}_2 =  \overbrace{\mathtt{101}}^{\textcolor{red}{\mathtt{5}}}\overbrace{\mathtt{111}}^{\textcolor{red}{\mathtt{7}}} = \overline{\textcolor{red}{\mathtt{57}}}_8$
+ \end{itemize}
+
+
+
+\end{frame}
+
+\begin{frame}
+  \evidence{Conversion binaire/hexadécimal}
+
+ \begin{itemize}
+   \pause
+   \item $16 = 2^4$
+     \pause
+   \item Tout entier n’excédant pas $15$ a une écriture
+binaire sur quatre bits
+   \pause
+   \item Pour passer du binaire à l'hexadécimal
+     \begin{itemize}
+       \pause
+     \item  regrouper les bits par paquets de quatre en commençant par la droite
+       \pause
+     \item puis convertir chaque paquet en un chiffre hexadécimal
+     \end{itemize}
+     \pause
+  \item $n = \overline{101111}_{2}= \overbrace{\mathtt{0010}}^{\textcolor{red}{\mathtt{2}}}\overbrace{\mathtt{1111}}^{\textcolor{red}{\mathtt{F}}} = \overline{\textcolor{red}{\mathtt{2F}}}_{16}$
+
+   
+ \end{itemize}
+
+\end{frame}
+\end{document}

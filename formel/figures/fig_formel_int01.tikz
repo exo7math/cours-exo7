@@ -1,0 +1,20 @@
+\begin{tikzpicture}[scale=2]
+
+% Graphe et aire
+  \fill[red!30] (0,0) -- plot[domain=0:2] (\x,{1/(1+\x)}) -- (2,0) -- cycle; 
+% \node at (0.5,0.3) {$\mathcal{A}$};
+
+  \draw[gray] (0,0) -- plot[domain=-0:2] (\x,{1/(1+\x)}) -- (2,0) -- cycle;
+  \draw[ultra thick, color=red,domain=0:2] plot (\x,{1/(1+\x)}) node[above right] {$y=\frac{1}{1+x}$};
+
+% Labels
+  \foreach \x/\xtext in {0/0, 1/1, 2/2}
+  \draw (\x cm,2pt) -- (\x cm,-2pt) node[anchor=north] {$\xtext$};
+  \draw (1pt,1cm) -- (-1pt,1cm) node[anchor=east] {$1$};
+  \node[below, inner sep=10pt] at (0.5,0) {\vphantom{$n=10$}};
+
+% Axes
+     \draw[->,>=latex,thick, gray] (-0.5,0)--(2.5,0) node[below,black] {$x$};
+     \draw[->,>=latex,thick, gray] (0,-0.05)--(0,1.5) node[right,black] {$y$};  
+
+\end{tikzpicture}

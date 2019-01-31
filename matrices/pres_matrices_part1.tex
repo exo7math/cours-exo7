@@ -1,0 +1,318 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={191,146,10}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Matrices}}
+\subtitle{Définition}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition
+    \item<4-> Matrices particulières
+    \item<5-> Addition de matrices
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définition}
+
+\begin{frame}
+$\Kk$ un corps (comme $\Qq$, $\Rr$ ou $\Cc$)
+\pause
+
+\begin{mydefinition}
+\begin{itemize}
+  \item Une \defi{matrice} $A$ est un tableau rectangulaire 
+d'éléments de $\Kk$
+  \item \pause \pause $A$ est dite de \defi{taille} $n \times p$ si elle a $n$ lignes et $p$ colonnes 
+  \item \pause Les nombres du tableau sont appelés les \defi{coefficients} de $A$ 
+  \item \pause $a_{i,j}$ est le coefficient en $i$-ème ligne et $j$-ème colonne 
+\end{itemize}
+\end{mydefinition}
+
+
+\[
+\onslide<3->
+A=\begin{pmatrix} 
+a_{1,1}& a_{1,2}& \dots & a_{1,j}& \dots & a_{1,p}\cr 
+a_{2,1}& a_{2,2}& \dots & a_{2,j}& \dots &a_{2,p}\cr
+\dots & \dots & \dots & \dots & \dots & \dots \cr
+a_{i,1}& a_{i,2} & \dots & a_{i,j}& \dots &a_{i,p} \cr
+\dots & \dots & \dots & \dots & \dots & \dots \cr
+a_{n,1}& a_{n,2}& \dots & a_{n,j}& \dots & a_{n,p}\cr 
+\end{pmatrix}
+\pause
+\qquad \text{ ou } \qquad
+A= \Big(a_{i,j}\Big)_{\substack{1\leq i \leq n \\ 1\leq j \leq p}}
+% \qquad \text{ ou } \qquad
+% \Big(a_{i,j}\Big)
+\]
+ 
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%
+
+\begin{frame}
+
+\begin{exemple}
+$$ A  =  \left(
+ \begin{array}{ccc}
+{\color<3>{red}1}  & -2 & 5\\
+0 & 3  & {\color<4>{red}7} 
+\end{array}
+\right)$$
+\pause
+\begin{itemize}
+  \item Matrice $2\times 3$
+  \pause 
+  \item $a_{1,1}=1$ \pause et $a_{2,3}=7$
+\end{itemize}
+ \end{exemple} 
+
+ \pause
+\begin{mydefinition}
+\begin{itemize}
+ 
+  \item Deux matrices sont \defi{égales} si elles ont même taille et mêmes coefficients 
+  
+  \item  \pause $M_{n,p}(\Kk) =$ ensemble des matrices $n\times p$ à
+coefficients dans $\Kk$ 
+
+Les éléments de $M_{n,p}(\mathbb{R})$ sont appelés \defi{matrices réelles}
+\end{itemize}  
+\end{mydefinition}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Matrices particulières}
+
+\begin{frame}
+
+\begin{itemize}
+  \item $n=p$ : \defi{matrice carrée}, on note $M_{n}(\Kk)=M_{n,n}(\Kk)$.
+  
+  \[
+\begin{pmatrix}
+ {\color<2->{myred}a_{1,1}} & a_{1,2} & \dots & a_{1,n}\\
+ a_{2,1} & {\color<2->{myred}a_{2,2}} & \dots & a_{2,n}\\
+ \vdots& \vdots & {\color<2->{myred}\ddots}  & \vdots\\
+ a_{n,1} & a_{n,2} & \dots & {\color<2->{myred}a_{n,n}}  
+\end{pmatrix}
+ \] 
+
+\pause $a_{1,1}, a_{2,2}, \ldots, a_{n,n}$ forment la \defi{diagonale principale} 
+ 
+  \item\pause  $n=1$ : \defi{matrice ligne}  ou \defi{vecteur ligne} 
+$$A=\begin{pmatrix} 
+a_{1,1}& a_{1,2}&  \ldots & a_{1,p}\cr
+\end{pmatrix}$$
+
+\vspace{-.3cm}
+
+  \item\pause $p=1$ :  \defi{matrice colonne} ou \defi{vecteur colonne}  
+$A=\begin{pmatrix} 
+a_{1,1}\cr 
+a_{2,1}\cr
+\enspace \vdots \hfill \cr
+a_{n,1}\cr 
+\end{pmatrix}$
+  \item \pause \!\defi{matrice\! nulle} $0_{n,p}$ ou $0$\!:\! 
+  matrice dont tous les coefficients sont\! nuls 
+  
+\end{itemize}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Addition de matrices}
+
+\begin{frame}
+
+$A$ et $B$ deux matrices de même taille $n\times p$
+
+\begin{mydefinition}[Somme de deux matrices]
+La \defi{somme} $C=A+B$ est la matrice $n\times p$ définie par 
+\[c_{ij}=a_{ij}+b_{ij}\]
+\end{mydefinition}
+
+\pause
+\begin{exemple}
+\[
+\text{Si} \quad 
+A  =  \begin{pmatrix}
+3 & -2\\
+1 & 7                         
+\end{pmatrix}
+\quad \text{et} \quad 
+B = \begin{pmatrix}
+0 & 5 \\
+2 & -1      
+    \end{pmatrix}  
+    \pause
+    \quad \text{alors} \quad A + B = \begin{pmatrix}
+3 & 3\\
+3 & 6                 
+\end{pmatrix}
+\]
+\pause
+\[
+\text{Par contre si } \quad
+B' =  \begin{pmatrix}
+-2\\8  \end{pmatrix}
+\quad \text{ alors } \quad A+B' \quad \text{ n'est pas définie}
+\]
+\end{exemple}
+
+\end{frame}
+
+%%%%%%%%%%%%%%
+
+\begin{frame}
+
+
+\begin{mydefinition}[Produit d'une matrice par un scalaire]
+Le produit de $A=\big(a_{ij}\big)\in M_{n,p}(\Kk)$ 
+par $\alpha \in \Kk$ est la matrice 
+\[\alpha \cdot A = \big(\alpha a_{ij}\big)
+\]
+\end{mydefinition}
+
+\pause
+
+\begin{exemple}
+$$
+\text{Si} \quad 
+A  = \begin{pmatrix} 
+1& 2 & 3\cr 
+0& 1& 0\cr
+\end{pmatrix}
+\quad \text{et} \quad \alpha = 2
+\quad \text{alors} \quad
+\alpha A =
+\begin{pmatrix} 
+2& 4 & 6\cr 
+0& 2& 0\cr
+\end{pmatrix}$$
+\end{exemple}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%
+
+\begin{frame}
+
+  \begin{itemize}
+  \item $-A=(-1)A$ est l'\defi{opposée} de $A$
+\item\pause La \defi{différence} $A-B$ est définie par $A + (-B)$
+\end{itemize}
+
+\pause
+\begin{exemple}
+\[
+\text{Si} \quad A =  \begin{pmatrix} 
+2 & -1 & 0\\
+4 & -5 & 2
+\end{pmatrix}
+\quad \text{et} \quad 
+B  =  \begin{pmatrix} 
+-1 & 4 & 2\\
+7 & -5 & 3
+\end{pmatrix}
+\]
+\[ \text{alors} \quad
+A-B  = \begin{pmatrix}  
+3 & -5 & -2\\
+-3 & 0 & -1
+\end{pmatrix}
+\]
+\end{exemple}
+
+\end{frame}
+
+%%%%%%%%%%%%%%
+
+\begin{frame}
+
+Soient $A,B, C\in M_{n,p}(\Kk)$ et $\alpha, \beta \in \Kk$
+\pause
+\begin{proposition}
+\begin{enumerate}
+  \item $A + B = B + A$ : la somme est commutative
+  \item\pause $A + (B+C) = (A + B) + C$ : la somme est associative
+  \item\pause $A + 0 = A$ : la matrice nulle est l'élément neutre de l'addition
+  \item\pause $(\alpha + \beta )A =\alpha A + \beta A$
+  \item\pause $\alpha (A+B)=\alpha A + \alpha B$
+\end{enumerate}
+\end{proposition}
+
+\pause
+\begin{proof}
+ 
+\begin{enumerate}
+\setcounter{enumi}{3}
+  \item
+  \begin{itemize}
+  \item le terme général de $(\alpha + \beta ) A $ est $(\alpha + \beta)a_{ij}$
+  \item\pause $(\alpha + \beta)a_{ij}=\alpha a_{ij}+ \beta a_{ij}$ \pause terme général de la matrice $\alpha A + \beta A$
+\end{itemize}  
+\end{enumerate}
+\end{proof}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Soient 
+  $A=\left(\begin{smallmatrix}-7&2\\0&-1\\1&-4\end{smallmatrix}\right)$,
+  $B=\left(\begin{smallmatrix}1&2&3\\2&3&1\\3&2&1\end{smallmatrix}\right)$,
+  $C=\left(\begin{smallmatrix}21&-6\\0&3\\-3&12\end{smallmatrix}\right)$,
+  $D=\frac12\left(\begin{smallmatrix}1&0&1\\0&1&0\\1&1&1\end{smallmatrix}\right)$,
+  $E=\left(\begin{smallmatrix}1&2\\-3&0\\-8&6\end{smallmatrix}\right)$.   
+  Calculer toutes les sommes possibles de deux de ces matrices. 
+  Calculer $3A+2C$ et $5B-4D$. Trouver $\alpha$ tel que $A-\alpha C$ soit la matrice nulle.
+  
+  \item Montrer que si $A+B=A$, alors $B$ est la matrice nulle.
+  
+  \item Que vaut $0\cdot A$ ? et $1\cdot A$ ? Justifier l'affirmation : $\alpha(\beta A) = (\alpha\beta)A$.
+  Idem avec $nA = A+A+\cdots+A$ ($n$ occurrences de $A$).
+    
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

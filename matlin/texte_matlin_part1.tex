@@ -1,0 +1,347 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Ce chapitre est l'aboutissement de toutes les notions d'algèbre linéaire 
+vues jusqu'ici : espaces vectoriels, dimension, applications linéaires, matrices.
+Nous allons voir que dans le cas des espaces vectoriels de dimension finie, 
+l'étude des applications linéaires se ramène à l'étude des matrices, ce qui
+facilite les calculs.
+
+\change
+Le plan est le suivant :
+
+\change
+La définition du rang d'une famille de vecteurs
+
+\change
+Puis du rang d'une matrice.
+
+\change
+Nous verrons quelles opérations conservent le rang
+
+\change
+Et on terminera par deux résultats théoriques :
+
+le lien entre rang et matrice inversible
+
+\change
+Et on verra que le rang est aussi engendré par les vecteurs lignes
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+En termes simples le rang d'une famille de vecteurs est la dimension du plus petit sous-espace
+vectoriel contenant tous ces vecteurs.
+
+
+
+On part d'un espace vectoriel $E$  et d'une
+famille finie de vecteurs $\{v_1, \ldots ,v_p\}$. 
+
+\change
+Le sous-espace vectoriel  engendré par $\{v_1, \ldots ,v_p\}$ étant de dimension
+finie, on peut donc donner la définition suivante :
+
+\change
+Le \defi{rang} de la famille $\{v_1, \ldots ,v_p\}$ 
+est la dimension du sous-espace vectoriel 
+engendré par les vecteurs $v_1, \dots ,v_p$.
+
+\change
+Ce que je peux écrire aussi 
+$\rg(v_1, \dots ,v_p) = \dim \Vect(v_1, \ldots ,v_p)$
+
+\change
+Calculer le rang d'une famille de vecteurs n'est pas toujours évident, cependant
+il y a des inégalités qui découlent directement de la définition.
+
+Tout d'abord le rang est inférieur ou égal au nombre d'éléments dans la famille.
+
+Le rang vaut $0$ si et seulement si tous les vecteurs sont nuls.
+
+Plus intéressant, le rang vaut $p$ si et seulement si la famille $\{v_1, \ldots ,v_p\}$ est libre.
+
+\change
+Enfin si $E$ est de dimension finie alors le rang est plus petit que la dimension de l'espace ambiant.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On veut savoir quel est le rang de ces $3$ vecteurs qui sont des vecteurs de l'espace vectoriel $\Rr^4$.
+
+\change
+On commence par des remarques :
+
+Ce sont des vecteurs de $\Rr^4$ donc le rang est $\le 4$.
+
+\change
+Mais comme il n'y a que $3$ vecteurs, alors on a mieux, le rang est $\le 3$.
+
+\change
+Ensuite comme par exemple le vecteur $v_1$ est non nul le rang n'est pas $0$.
+
+\change
+Le rang des $3$ vecteurs est toujours plus grand que le rang de $2$ de ces vecteurs.
+
+Et comme il est clair que $v_1$ et $v_2$ ne sont pas des vecteurs colinéaires
+alors le rang est plus grand que $2$.
+
+
+Il reste donc à déterminer si le rang vaut $2$ ou $3$.
+
+
+\change
+Cela revient à savoir si  la famille $\{v_1,v_2,v_3\}$ est libre ou liée.
+
+\change
+Ce que l'on détermine en résolvant le système linéaire
+$\lambda_1 v_1 + \lambda_2 v_2 + \lambda_3 v_3 = 0$. 
+
+\change
+Après un petit calcul on trouve une solution non triviale
+$v_1-v_2+v_3=0$. La famille est donc liée.
+
+\change
+Ainsi $v_3$ est combinaison linéaire de $v_1$ et $v_2$ donc 
+$\Vect(v_1,v_2,v_3)= \Vect(v_1,v_2)$, 
+
+\change
+et finalement $\rg (v_1,v_2,v_3) = \dim \Vect(v_1,v_2,v_3) = 2$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Une matrice peut être vue comme une juxtaposition de vecteurs colonnes.
+
+
+On définit le rang d'une matrice comme étant le rang de ses vecteurs colonnes. 
+
+\change
+Voyons un exemple simple, calculons le rang de cette matrice.
+
+\change
+
+On considère que cette matrice représente $4$ vecteurs colonnes
+et par définition le rang de la matrice est le rang
+des $4$ vecteurs colonnes que voici.
+
+\change
+Mais sur cet exemple tous les vecteurs sont colinéaires à $v_1$, 
+
+\change
+ce qui signifie que le rang de la famille est exactement $1$ 
+
+\change
+et ainsi $\rg A = 1$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On dit qu'une matrice est échelonnée par rapport aux colonnes si
+le nombre de zéros commençant une colonne croît strictement colonne après colonne,
+jusqu'à ce qu'il ne reste plus que des zéros.\\
+
+Ici les $*$ désignent des coefficients quelconques, les $+$ des coefficients non nuls :\\
+
+Autrement dit, la matrice transposée est échelonnée par rapport aux lignes.
+
+Le rang d'une matrice échelonnée est très simple à calculer.
+
+Proposition : Le rang d'une matrice échelonnée par colonnes est égal au nombre
+de colonnes non nulles.
+
+Par exemple, dans cette matrice échelonnée, $4$ colonnes sur $6$ sont non nulles, donc le rang 
+de cette matrice est $4$.\\
+
+La démonstration de cette proposition consiste à remarquer que
+les vecteurs colonnes non nuls sont linéairement indépendants, 
+ce qui est clair au vu de la forme échelonnée de la matrice.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le rang d'une matrice ayant les colonnes $C_1, C_2, \ldots, C_p$
+n'est pas modifié par les opérations élémentaires suivantes sur les 
+vecteurs colonnes :
+
+\change
+$C_i \leftarrow \lambda C_i$ : 
+  on peut multiplier une colonne par un scalaire non nul.
+
+\change
+$C_i \leftarrow C_i+\lambda C_j$ :
+  on peut ajouter à la colonne $C_i$ un multiple d'une autre colonne $C_j$.
+
+\change
+  $C_i \leftrightarrow C_j$ : on peut échanger deux colonnes.
+
+\change
+Pour gagner du temps on peut même effectuer
+l'opération $C_i \leftarrow C_i + \lambda_1 C_1 + \lambda_2 C_2 + \cdots + \lambda_p C_p$
+qui est la répétition de plusieurs opérations de ce type [montrer 2.]
+
+
+On a même un résultat plus fort, comme vous pouvez le voir dans la démonstration :
+non seulement le rang est conservé par ces opérations élémentaires,
+mais en plus l'espace vectoriel engendré par les vecteurs colonnes est conservé
+par ces opérations.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons dans la pratique comment calculer le rang d'une matrice ou d'un système de vecteurs.
+
+\change
+Il s'agit d'appliquer la méthode de Gauss sur les colonnes de la matrice $A$
+(considérée comme une juxtaposition de vecteurs colonnes).
+
+\change
+Le principe de la méthode de Gauss affirme que les $3$ opérations élémentaires
+$C_i \leftarrow \lambda C_i$, 
+$C_i \leftarrow C_i+\lambda C_j$,
+$C_i \leftrightarrow C_j$
+
+\change
+permettent de transformer la matrice $A$ en une matrice échelonnée
+par rapport aux colonnes.
+
+\change
+Le rang de la matrice est alors le nombre de colonnes non nulles.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici une famille de 5 vecteurs de l'espace vectoriel $\Rr^4$.
+
+Quel est son rang ?
+
+\change
+Calculer le rang de la famille de vecteurs c'est calculer le rang de cette matrice,
+où l'on a juxtaposé les vecteurs colonnes.
+
+Nous allons appliquer la méthode du pivot de Gauss sur les colonnes pour rendre cette matrice échelonnée.
+
+On veut obtenir des zéros sur la première ligne à droite du premier pivot.
+
+\change
+Pour cela on effectue ces opérations élémentaires.
+
+\change
+Chacune de ces opérations fait apparaître un $0$.
+
+Ce n'est bien sûr pas encore fini !
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Repartant de cette matrice, 
+
+\change
+\change
+on échange les colonnes $C_2$ et $C_3$ 
+
+pour avoir le coefficient $-1$ en position de pivot et ainsi 
+éviter d'introduire des fractions. 
+
+
+On veut maintenant des zéros à droite de ce deuxième pivot
+
+\change
+Ce que l'on obtient en faisant ces opérations 
+
+\change
+Enfin, en faisant les opérations $C_4\leftarrow C_4-C_3$
+et $C_5\leftarrow C_5-2C_3$, on obtient une matrice échelonnée par colonnes.
+
+\change
+Il y a $3$ colonnes non nulles : on en déduit que le rang de 
+la famille de vecteurs est $3$.
+
+\change
+On a même trouvé une base pour l'espace vectoriel engendré par 
+$(v_1,v_2,v_3,v_4,v_5)$,
+une telle base est formée par les $3$ vecteurs colonnes 
+non nulles de la matrice échelonnée.
+
+
+On s'arrête là pour les exemples mais vous devez en faire plein d'autres.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous anticipons sur la suite, pour énoncer un résultat important :
+
+Théorème : Une matrice carrée de taille *$n$* est inversible si et seulement si elle
+est de rang exactement *$n$*.
+
+
+La preuve repose sur plusieurs résultats qui seront vus au fil de ce chapitre.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On termine par un autre résultat important à la fois pratique et théorique.
+
+On a considéré jusqu'ici une matrice 
+comme une juxtaposition de vecteurs colonnes 
+et défini le rang comme la dimension de l'espace engendré par 
+ses colonnes.
+
+Considérons maintenant que $A$ est aussi une superposition 
+de vecteurs lignes $(w_1,\ldots,w_n)$.
+
+\change
+Proposition : $\rg A = \dim \Vect (w_1,\ldots,w_n)$
+
+
+\change
+Autrement dit : \emph{l'espace vectoriel engendré par les vecteurs colonnes
+et l'espace vectoriel engendré par les vecteurs lignes sont de même dimension.}
+
+\change
+Une formulation plus théorique est que 
+$\rg A = \rg A^T$
+
+\change
+le rang d'une matrice est égal au rang de sa transposée.
+
+
+Attention ! Les espaces vectoriels engendrés par les colonnes
+et les lignes d'une matrice $A$ sont de même dimension mais ne sont pas égaux.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On termine comme d'habitude par des exercices.
+
+\end{document}

@@ -1,0 +1,28 @@
+\begin{tikzpicture}
+
+  \draw[->,>=latex,thick,gray] (-0.5,0) -- (4.5,0) node[below,black] {$x$};
+  \draw[->,>=latex,thick,gray] (0,-0.5) -- (0,3.5) node[right,black] {$y$};
+
+\beameronly{\uncover<5->}{
+  \fill[myred!30] (1,0) -- plot[domain=1:2] (\x,{1+1/\x}) -- (2,0) -- cycle; 
+};
+
+
+  \draw[ultra thick, color=myred,domain=0.5:4, smooth] plot (\x,{1+1/\x}) node[right] {$f(x)$};
+
+ \draw[green!60!black, thick] (1.02,0.02) -- (1.02,1.5) -- (1.98,1.5) -- (1.98,0.02)-- cycle;
+ \draw[green!60!black, thick, dashed] (1,1.5) -- (0,1.5) node[left]{$f(k+1)$};
+
+ \draw[blue, thick] (1,0) -- (1,2) -- (2,2) -- (2,0)-- cycle;
+ \draw[blue, thick, dashed] (1,2) -- (0,2) node[left]{$f(k)$};
+
+
+
+
+
+
+  \foreach \x/\xtext in {1/k, 2/k+1}
+  \draw (\x cm,2pt) -- (\x cm,-2pt) node[anchor=north] {$\xtext$};
+
+%  \node[below, inner sep=10pt] at (0.5,0) {\vphantom{$n=10$}};
+\end{tikzpicture}

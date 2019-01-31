@@ -1,0 +1,28 @@
+\begin{tikzpicture}
+
+% Axes
+     \draw[->,>=latex,thick, gray] (-3.5,0)--(3.5,0) node[below,black] {$x$};
+     \draw[->,>=latex,thick, gray] (0,-1.5)--(0,1.5) node[right,black] {$y$};
+
+ % Ticks
+    	\foreach \x in {1,...,3}
+     		\draw (\x,2pt) -- (\x,-2pt)
+			node[anchor=north west] {\x};
+    	\foreach \x in {-1,...,-3}
+     		\draw (\x,2pt) -- (\x,-2pt)
+			node[anchor=north east] {\x};
+    	\foreach \x in {1}
+     		\draw (2pt,\x) -- (-2pt,\x)
+			node[anchor=north east] {\x};
+    	\foreach \x in {-1}
+     		\draw (2pt,\x) -- (-2pt,\x)
+			node[anchor=south east] {\x};
+
+% Courbe
+\draw [very thick, color=red, domain=pi/2:pi, samples=100, smooth]
+  plot (xy polar cs:angle=\x r, radius={1+2*cos(\x r)^2});
+\draw [very thick, color=blue, domain=0:pi/2, samples=100, smooth]
+  plot (xy polar cs:angle=\x r, radius={1+2*cos(\x r)^2});
+
+
+\end{tikzpicture}

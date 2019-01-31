@@ -1,0 +1,19 @@
+\tikzset{node style ge/.style={circle}}
+
+\begin{tikzpicture}[baseline=(A.center)]
+
+  \tikzset{BarreStyle/.style =  {opacity=.4,line width=4 mm,line cap=round,color=#1}}
+    \tikzset{SignePlus/.style =   {below right=0.5em,opacity=1,circle,fill=#1!50}}
+    \tikzset{SigneMoins/.style =   {above right=0.5em,opacity=1,circle,fill=#1!50}}
+
+% les matrices
+\matrix (A) [matrix of math nodes, nodes = {node style ge},,column sep=0 mm,%
+ left delimiter  = (, right delimiter = )]
+{ a & b \\
+  c & d \\
+};
+
+ \draw [BarreStyle=blue] (A-1-1.north west) to (A-2-2.south east) node[SignePlus=blue] {$+$};
+ \draw [BarreStyle=orange]  (A-2-1.south west) to (A-1-2.north east) node[SigneMoins=orange] {$-$};
+
+\end{tikzpicture}

@@ -1,0 +1,406 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={0,45,179}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcounter{saveenumi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+
+\title{{\bf Intégrales}}
+\subtitle{Intégration des fractions rationnelles}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Trois situations de base
+    \item<4-> Intégration des éléments simples
+    \item<5-> Intégration des fonctions trigonométriques
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section*{Motivation}
+
+
+\begin{frame}
+
+\begin{itemize}
+  \item $f(x)=a_0+a_1x+a_2x^2+\cdots+ a_n x^n$
+
+\pause
+
+ $\int f(x)\; dx = a_0x+a_1\frac{x^2}{2}+a_2\frac{x^3}{3}+\cdots+a_n\frac{x^{n+1}}{n+1}+c$
+
+\pause
+
+  \item $f(t)=\sqrt{a^2\cos^2 t+ b^2 \sin^2 t}$
+
+\pause
+
+ $\int_0^{2\pi} f(t) \; dt = ?$
+\pause
+  \item Longueur de l'ellipse $(a\cos t, b\sin t)$
+
+\myfigure{1.2}{
+\tikzinput{fig_int09} 
+} 
+
+\pause
+  \item Fonctions que l'on saura intégrer : les fractions rationnelles
+
+\end{itemize}
+
+\end{frame}
+
+
+
+
+%---------------------------------------------------------------
+\section*{Trois situations de base}
+
+
+\begin{frame}
+
+$$f(x)=\frac{\alpha x + \beta}{a x^2+b x+c}$$
+\medskip
+
+\pause
+
+\textbf{Premier cas.} $a x^2+b x+c$ a deux racines réelles distinctes $x_1,x_ 2\in \Rr$
+
+\pause
+
+$$f(x)=\frac{\alpha x + \beta}{a(x - x_1)(x - x_2)}
+\pause
+=\frac{A}{x - x_1}+\frac{B}{x -x_2}$$
+\pause
+$$\int f(x)\;dx = A \ln|x - x_1|+B\ln|x -x_2|+c$$ 
+\pause
+\medskip
+
+\textbf{Deuxième cas.} $a x^2+b x+c$ a une racine double $x_0 \in \Rr$
+
+\pause
+
+$$f(x)=\frac{\alpha x + \beta}{a(x -x_0)^2}
+\pause
+=\frac{A}{(x - x_0)^2}+\frac{B}{x - x_0}$$
+\pause
+$$\int f(x)\;dx = -\frac{A}{x - x_0} + B\ln|x - x_0|+c$$ 
+
+\end{frame}
+
+
+
+
+\begin{frame}
+
+\textbf{Troisième cas.} Le dénominateur $a x^2+b x+c$ n'a pas de racine réelle
+\pause
+\begin{exemple}
+$$f(x)=\frac{x+1}{2x^2+x+1}$$
+
+\pause
+
+\begin{enumerate}
+  \item Faire apparaître une fraction du type $\frac{u'}{u}$ 
+\pause
+$$f(x) = \frac{(4x+1)\frac14-\frac14+1}{2x^2+x+1} 
+\pause
+= \tfrac14 \cdot \frac{4x+1}{2x^2+x+1} + \tfrac34 \cdot \frac{1}{2x^2+x+1}$$
+
+\pause
+
+  \item On intègre en $\ln|u|$
+\pause
+$$\int \frac{4x+1}{2x^2+x+1} \; dx \pause= \int \frac{u'(x)}{u(x)} \; dx \pause = \ln \big| 2x^2+x+1 \big|+c$$
+
+\setcounter{saveenumi}{\theenumi}
+
+\end{enumerate}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}
+\hfil $f(x) = \frac{x+1}{2x^2+x+1}
+= \frac14 \cdot \frac{4x+1}{2x^2+x+1} + \frac34 \cdot \frac{1}{2x^2+x+1}$
+
+\pause
+\medskip
+
+\begin{enumerate}
+\setcounter{enumi}{\thesaveenumi}
+  \item \'Ecrire $\frac{1}{2x^2+x+1}$ sous la forme $\frac{1}{u^2+1}$ \pause (dont une primitive est $\arctan u$)
+
+\pause
+\medskip
+\hfil $\frac{1}{2x^2+x+1} \pause=  \frac{1}{2(x+\frac 14)^2-\frac18+1}
+\pause=\frac{1}{2(x+\frac 14)^2+\frac78}
+\pause= \frac87 \cdot \frac{1}{\big(\frac{4}{\sqrt7}(x+\frac 14)\big)^2+1}$
+
+\medskip
+\pause
+
+On pose  $u= \frac{4}{\sqrt7}(x+\frac 14)$ \pause(et donc $du = \frac{4}{\sqrt7} dx$) 
+\pause
+
+\hfil $\int \frac{dx}{2x^2+x+1} 
+\pause= \int \frac87 \frac{dx}{\big(\frac{4}{\sqrt7}(x+\frac 14)\big)^2+1}
+\pause= \frac 87 \int \frac{du}{u^2+1} \cdot \frac{\sqrt7}{4}$
+
+\pause
+\hfil $\quad = \frac{2}{\sqrt7}\arctan u+ c 
+\pause= \frac{2}{\sqrt7}\arctan \left(\frac{4}{\sqrt7}\big(x+\frac 14\big)\right) + c$
+
+\medskip
+\pause
+
+  \item $\int f(x)\; dx \pause= \frac14\ln \big(2x^2+x+1\big) 
++\pause \frac{3}{2\sqrt7}\arctan \left(\frac{4}{\sqrt7}\big(x+\frac 14\big)\right)+c$
+
+\end{enumerate}
+\end{exemple}
+\end{frame}
+
+
+
+
+
+%---------------------------------------------------------------
+\section*{Intégration des éléments simples}
+
+
+\begin{frame}
+Une fraction rationnelle $\frac{P(x)}{Q(x)}$ \pause se décompose comme somme 
+d'un polynôme \pause et d'éléments simples \pause $\frac{\gamma}{(x - x_0)^k}$ \pause ou $\frac{\alpha x+\beta}{(a x^2+b x+c)^k}$
+
+\pause
+\begin{enumerate}
+  \item Intégration de l'élément simple $\frac{\gamma}{(x - x_0)^k}$
+\pause
+  \begin{itemize}
+     \item Si $k=1$ alors $\int \frac{\gamma \; dx}{x - x_0} = \gamma \ln|x - x_0|+c$
+\pause
+     \item Si $k\ge 2$, $\int \frac{\gamma \; dx}{(x - x_0)^k} = \gamma \int (x - x_0)^{-k} \; dx
+= \frac{\gamma}{-k+1}(x - x_0)^{-k+1}+c$
+  \end{itemize}
+
+\pause
+\medskip 
+
+  \item Intégration de l'élément simple 
+
+\hfil $\frac{\alpha x+\beta}{(a x^2+b x+c)^k} 
+\pause = \gamma \frac{2a x+b}{(a x^2+b x+c)^k} + \delta \frac{1}{(a x^2+b x+c)^k}$
+
+\pause
+  \begin{itemize}
+     \item $\int \frac{2a x+b}{(a x^2+b x+c)^k} \; dx \pause= \int \frac{u'(x)}{u(x)^k} \; dx \pause= \frac{1}{-k+1}u(x)^{-k+1}+c
+\pause= \frac{1}{-k+1}(a x^2+b x+c)^{-k+1}+c$
+ 
+ \pause   
+     \item Si $k=1$, calcul de $\int \frac{1}{a x^2+b x+c}\; dx$.  \pause Du type $\int \frac{du}{u^2+1}=\arctan u + c$
+
+\pause
+     \item Si $k\ge 2$, calcul de $\int \frac{1}{(a x^2+b x+c)^k} \; dx$. \pause Du type $I_k =\int \frac{du}{(u^2+1)^k}$.
+\pause
+
+Une IPP permet de passer de $I_k$ à $I_{k-1}$
+  \end{itemize}
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}[Calcul de $I_2 = \int \frac{du}{(u^2+1)^2}$]
+
+\pause
+
+Intégration par parties à partir de $I_1=\int \frac{du}{u^2+1}$
+
+
+\pause 
+$f=\frac{1}{u^2+1}$ et $g'=1$ 
+\pause 
+(avec $f'=-\frac{2u}{(u^2+1)^2}$ et $g=u$) 
+
+\pause
+
+$$\begin{array}{rcl}
+I_1 
+  & = & \int \frac{du}{u^2+1} =\pause \left[ \frac{u}{u^2+1} \right] + \int \frac{2u^2 \; du}{(u^2+1)^2}
+        \pause = \left[ \frac{u}{u^2+1} \right] + 2 \int  \frac{u^2+1 - 1}{(u^2+1)^2}du \\
+\pause
+ & = & \left[ \frac{u}{u^2+1} \right] + 2 \int \frac{du}{u^2+1} - 2 \int \frac{du}{(u^2+1)^2}
+    \pause = \left[ \frac{u}{u^2+1} \right] + 2I_1 - 2I_2  
+\end{array}
+$$
+
+\pause
+D'où $\displaystyle I_2 = \tfrac12 I_1 + \tfrac12\frac{u}{u^2+1} + c$
+
+\pause
+\medskip
+
+Mais $I_1=\arctan u$ donc 
+
+\pause
+
+$$I_2 = \int \frac{du}{(u^2+1)^2} =  \tfrac12 \arctan u + \tfrac12\frac{u}{u^2+1} + c$$ 
+\end{exemple}
+\end{frame}
+
+
+
+
+
+%---------------------------------------------------------------
+\section*{Intégration des fonctions trigonométriques}
+
+
+\begin{frame}
+$$\int P(\cos x,\sin x)\;dx \qquad\pause \int \frac{P(\cos x,\sin x)}{Q(\cos x, \sin x)}\;dx$$
+
+\pause
+
+\textbf{Les règles de Bioche} \pause \quad $\omega(x) = f(x)\;dx$
+
+\pause
+
+\centerline{$\omega(-x)=-f(-x)\;dx$ \pause et $\omega (\pi-x)=-f(\pi-x)\;dx$}
+
+\pause
+\medskip
+
+\begin{itemize}
+  \item Si $\omega(-x)=\omega(x)$ \pause alors poser $u=\cos x$
+\pause
+  \item Si $\omega(\pi-x)=\omega(x)$ alors poser $u=\sin x$
+\pause
+  \item Si $\omega(\pi + x)=\omega(x)$ alors poser $u=\tan x$
+\end{itemize}
+
+\pause
+\medskip
+
+\begin{exemple}[Calcul de la primitive $\int \frac{\cos x \; dx}{2-\cos^2 x}$]
+\pause
+$\omega(x)= \frac{\cos x \; dx}{2-\cos^2 x}$ 
+\pause
+\hfill
+$\omega(\pi-x)=\frac{\cos(\pi-x) \; d(\pi-x)}{2-\cos^2 (\pi-x)} = \frac{(-\cos x) \; (-dx)}{2-\cos^2 x} 
+= \omega(x)$ 
+
+\pause
+\medskip
+
+Le changement de variable  $u = \sin x$
+\pause
+\hfil $du= \cos x \; dx$
+
+\pause
+\medskip
+$
+\int \frac{\cos x \; dx}{2-\cos^2 x}
+\pause
+= \int \frac{\cos x \; dx}{1+\sin^2 x}
+\pause
+= \int \frac{du}{1+u^2} 
+\pause
+= \big[ \arctan u \big] 
+\pause
+= \arctan (\sin x) + c
+$
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+
+\textbf{Le changement de variable $\displaystyle t=\tan \frac x2$}
+
+\pause
+
+\mybox{$\displaystyle
+    \cos x = \frac {1-t^2}{1+t^2} \quad \pause \sin x = \frac{2t}{1+t^2} \quad \pause
+\tan x = \frac{2t}{1-t^2} \quad\pause
+\quad dx=\dfrac{2\;dt}{1+t^2}
+\pause
+$}
+\pause
+\begin{exemple}
+
+\uncover<8->{Changement de variable $t=\tan \frac{x}{2}$} \uncover<9->{ : bijection de $[-\frac\pi2,0]$ vers $[-1,0]$}
+
+
+
+$$\int_{-\frac\pi2}^0 \frac{dx}{1-\sin x} \pause\pause\pause
+= \int_{-1}^0 \frac{\frac{2\;dt}{1+t^2}}{1-\frac{2t}{1+t^2}} \pause
+= 2\int_{-1}^0 \frac{dt}{1+t^2-2t} $$
+\pause
+$$
+= 2\int_{-1}^0 \frac{dt}{(1-t)^2} \pause
+= 2 \left[\frac{1}{1-t}\right]_{-1}^0\pause
+= 2\big(1-\frac12\big)\pause
+= 1$$
+ 
+\end{exemple}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Mini-exercices}
+
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Calculer les primitives $\int \frac{4x+5}{x^2+x-2}\; dx$,
+$\int \frac{6-x}{x^2-4x+4}\; dx$, $\int \frac{2x-4}{(x-2)^2+1}\; dx$, $\int \frac{1}{(x-2)^2+1}\; dx$.
+
+  \item Calculer les primitives $I_k = \int \frac{dx}{(x-1)^k}$ pour tout $k \ge 1$.
+Idem avec $J_k = \int \frac{x\; dx}{(x^2+1)^k}$.
+
+  \item Calculer les intégrales suivantes :
+$\int_0^1 \frac{dx}{x^2+x+1}$, $\int_0^1 \frac{x \; dx}{x^2+x+1}$, $\int_0^1\frac{x\; dx}{(x^2+x+1)^2}$,  
+$\int_0^1\frac{dx}{(x^2+x+1)^2}$.
+
+  \item Calculer les intégrales suivantes :
+$\int_{-\frac\pi2}^{\frac\pi2} \sin^2 x \cos^3 x \; dx$,
+$\int_{0}^{\frac\pi2} \cos^4 x \; dx$,
+$\int_0^{2\pi} \frac{dx}{2+\sin x}$.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+\end{document}

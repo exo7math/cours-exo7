@@ -1,0 +1,392 @@
+
+\input{../preamb-texte.tex}
+
+\newcommand{\Sage}{\texttt{Sage}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Bonjour,
+
+Nous allons utiliser la puissance du calcul formel, non seulement pour faire des expérimentations sophistiquées, mais aussi pour effectuer l'essentiel des preuves (presque) à notre place.
+
+%Non seulement nous allons pouvoir faire des expérimentations
+%sophistiquées mais en plus l'ordinateur va faire l'essentiel
+%des preuves à notre place.
+
+\change
+
+\change
+Nous allons étudier en détail la suite de Fibonacci
+
+\change
+et nous prouverons ensuite l'identité de Cassini.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Comment la machine peut-elle nous aider à faire des preuves ?
+
+\change
+Déclarons deux variables $a$ et $b$
+par l'instruction \codeinline{var('a,b')}.
+
+\change
+Alors la commande
+
+$expand( (a+b)^2-a^2-2*a*b-b^2 )$
+
+renvoie $0$.
+
+\change
+Ce simple calcul doit être considéré comme une preuve par ordinateur
+de l'identité 
+$$(a+b)^2 = a^2+2ab+b^2$$
+sans qu'il y ait obligation de vérification humaine.
+
+\change
+Cette "preuve" est fondée sur la confiance faite à \Sage\ 
+pour manipuler les expressions algébriques.
+
+\change
+Nous allons maintenant mettre en oeuvre la démarche 
+que l'on a adoptée, à savoir :
+
+\change
+\begin{enumerate}
+  \item Je me pose des questions.
+
+  \change
+  \item J'écris un algorithme pour tenter d'y répondre.
+
+  \change
+  \item Je trouve une conjecture sur la base des résultats expérimentaux.
+
+  \change
+  \item Je prouve la conjecture.
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La suite de Fibonacci est une suite récurrente double.
+
+On initialise la suite par 
+$F_0 = 0 \qquad F_1 = 1$.
+
+Puis, pour $n\ge 2$, le terme général est défini par 
+$F_{n} = F_{n-1} + F_{n-2}$.
+
+\change
+Voici un énoncé qui va nous conduire à la preuve d'un résultat que vous connaissez certainement.
+
+Les questions permettent de suivre pas à pas notre démarche.
+
+Dans un premier temps, nous construisons une fonction qui
+calcule le terme $F_n$ pour un $n$ donné.
+
+Ensuite, nous allons déterminer quelles pourraient être les valeurs des constantes $c$, $\phi$ et $\psi$ qui 
+conviendraient pour avoir l'égalité
+$$F_n = c \big(\phi^n-\psi^n\big)$$
+
+Enfin, à l'aide de la machine, il sera établi formellement 
+que la suite de Fibonacci s'écrit effectivement
+sous cette forme.  $\frac{1}{\sqrt{5}}  \big(\phi^n-\psi^n\big)$.
+
+
+Arrêtez ici la vidéo, lancez le logiciel Sage et tentez de répondre aux questions posées.
+
+Ensuite continuer la vidéo.
+
+PAUSE 3s
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici ce que vous devez avoir obtenu :
+
+$F_0 = 0 \qquad F_1 = 1$ 
+
+puis  
+$1 \qquad 2 \qquad 3 \qquad 5 \qquad 8 \qquad 13 \qquad 21\qquad 34 $.
+
+
+\change
+
+Voici une fonction qui calcule le terme de rang $n$ de 
+la suite de Fibonacci.
+
+Tout d'abord si $n=0$ et $n=1$ alors on renvoie directement le résultat et on s'arrête là. En effet ces deux valeurs ne sont pas calculables, elles font partie de la définition de la suite.
+
+Pour calculer un terme de rang $n\ge2$, nous allons appliquer 
+la formule de récurrence.
+
+Tout d'abord on initialise deux termes, 
+
+celui-ci joue le rôle de
+$F$ indice $n-2$ 
+
+et celui-là le rôle de $F$ indice $n-1$.
+
+On applique la formule de récurrence :
+$F_{n} = F_{n-1} + F_{n-2}$
+
+Ensuite, on décale tous les termes d'un rang.
+
+On répète (à l'aide de la boucle "pour") cette opération jusqu'à obtenir le terme souhaité.
+
+\change
+Une autre petite boucle permet ici d'afficher les 10 premiers termes [montrer le haut].
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous souhaitons maintenant étudier la forme que pourrait avoir une formule 
+de calcul direct des nombres de Fibonacci, c'est-à-dire obtenir $F_n$ en fonction de $n$.
+
+On pose $G_n = \phi^n$ 
+
+et on suppose que $G_n$ vérifie la relation de récurrence
+$G_{n} = G_{n-1}+G_{n-2}$.
+
+\change
+C'est-à-dire que l'on doit résoudre $\phi^n = \phi^{n-1} + \phi^{n-2}$.
+
+\change
+Autrement dit $\phi$ est solution de l'équation
+ $X^n = X^{n-1} + X^{n-2}$,
+ 
+\change
+On factorise cette équation,
+
+\change
+On écarte la solution triviale $X=0$, pour obtenir l'équation 
+  $X^2-X-1 = 0$.  
+  
+\change
+On profite de \Sage\ pour calculer les deux racines de 
+cette dernière équation avec la commande "solve".
+
+Noter qu'il s'agit bien de résoudre une égalité,
+donc il y a deux symboles "égal".
+
+\change
+\Sage\ nous renvoie les deux solutions.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons comment automatiser la gestion des solutions.
+
+\change
+Donnons un nom à la liste des solutions.
+
+\change
+La liste contient deux solutions, par exemple la seconde est
+\codeinline{x == 1/2*sqrt(5) + 1/2}.
+
+\change
+Pour en extraire juste la partie numérique, on utilise la méthode
+\codeinline{rhs()} qui renvoie la partie droite d'une équation.
+
+\change
+Ce qui nous permet d'obtenir les deux solutions
+
+$$\phi = \frac{1+\sqrt5}{2} \qquad \mbox{et} \qquad \psi  = \frac{1-\sqrt5}{2}.$$
+  
+  $\phi^n$ et $\psi^n$ vérifient la même relation de récurrence 
+  que la suite de Fibonacci 
+  mais bien sûr les valeurs prises 
+  par $\phi^n$ et $\psi^n$ 
+  ne sont pas entières.
+  
+\change
+Voyons comment obtenir une formule du type 
+$F_n = c  \big(\phi^n-\psi^n\big)$
+  
+
+\change
+Il nous reste à déterminer $c$. 
+
+Comme $F_1=1$ alors 
+$c(\phi-\psi)=1$, ce qui donne $c = \frac{1}{\sqrt 5}$.
+
+
+\change
+La conséquence de notre analyse est que \emph{si} une formule 
+  $F_n = c(\phi^n-\psi^n)$ existe alors les constantes sont
+  nécessairement $c= \frac{1}{\sqrt 5}$, $\phi = \frac{1+\sqrt5}{2}$, 
+  $\psi  = \frac{1-\sqrt5}{2}$.
+  
+Notez bien que n'avons pour l'instant que la partie analyse du problème.
+Il faut maintenant faire la synthèse, c'est-à-dire  
+prouver que cette forme convient.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+  Nous allons maintenant montrer que la suite $H_n$ définie avec 
+  les constantes calculées précédemment est effectivement la suite de Fibonacci.
+%  on a effectivement  $F_n$ qui est définit par cette formule.
+  
+\change
+On définit pour cela une nouvelle fonction \codeinline{conjec} 
+qui correspond à $H_n$, le terme de droite de la formule que l'on souhaite montrer.
+
+\change
+On vérifie avec \Sage\ que l'on a l'égalité souhaitée $F_n=H_n$ 
+pour les premières valeurs de $n$ par exemple jusqu'à 9.
+    
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo   
+ 
+ 
+Voici la partie la plus importante : nous allons prouver que
+$F_n=H_n$ quelque soit $n$.
+
+L'idée de la preuve est la suivante, nous allons montrer que $H_n$ 
+a les mêmes termes initiaux et vérifie la même relation de récurrence
+que la suite de Fibonacci.
+
+\change
+
+Nous avons déjà vérifié que $H_n$ et $F_n$ avaient les mêmes premiers termes,
+
+$F_0=H_0=0$ et $F_1=H_1=1$.
+
+\change 
+Vérifions à présent que $H_n$ satisfait la même relation de récurrence que $H_n$.
+
+
+\change
+
+Rappelons que l'on a défini $H_n$ par cette fonction.
+
+\change
+Nous allons montrer que $H_n$ vérifie exactement 
+la même relation de récurrence que les nombres de Fibonacci.
+
+Encore une fois, on peut soit le faire à la main, 
+soit le demander à l'ordinateur de le faire pour nous.
+
+\change
+ 
+Le résultat, après simplification (\codeinline{simplify\_radical}), est $0$. 
+
+\change
+
+Comme le calcul est valable pour la variable formelle $n$, 
+%en effet nous avons pris soin de formaliser la variable avec \codeinline{var('n')},
+
+\change
+
+alors il est vrai quel que soit $n\ge0$. 
+
+Ainsi $H_n=H_{n-1}+H_{n-2}$.   
+
+
+\change
+
+Tirons le bilan de nos travaux :
+
+Les suites $(F_n)$ et $(H_n)$ ont les mêmes termes initiaux et 
+vérifient la même relation de récurrence. 
+Elles ont donc les mêmes termes pour chaque rang c'est-à-dire : 
+      pour tout $n\ge0$, $F_n=H_n$.
+
+      
+  La commande \codeinline{var('n')} est essentielle. Elle permet de réinitialiser 
+  la variable $n$ en une variable formelle. 
+  Après l'instruction \codeinline{var('n')} la variable $n$ redevient 
+  une indéterminée \codeinline{'n'} sans valeur spécifique.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+A votre tour maintenant d'expérimenter, conjecturer et prouver 
+\emph{l'identité de Cassini}.
+
+Il s'agit de trouver une expression simple pour la quantité
+$$F_{n+1}F_{n-1}-F_n^2.$$
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Vérifions ce que vous avez obtenu.
+
+
+Notons $$C_n = F_{n+1}F_{n-1}-F_n^2.$$
+
+\change
+
+Après quelques tests, on conjecture que les valeurs sont plus ou moins un et plus précisément $(-1)^n$.
+ 
+
+\change
+
+Voyons une preuve de ce résultat à l'aide du calcul formel.
+
+On rappelle la formule établie précédemment pour les nombres de Fibonacci :
+
+\change
+
+que l'on implémente en une fonction de Sage.
+
+\change
+
+Pour une variable formelle $n$, c'est-à-dire pour $n$ quelconque,
+
+\change
+
+définissons une quantité qui correspond à $C_n$.
+
+\change
+
+Ensuite demandons à la machine de simplifier l'expression $C_n$.
+
+\change
+L'ordinateur effectue (presque) tous les calculs pour nous.
+Le seul problème est que \Sage\ échoue de peu à simplifier 
+l'expression contenant des racines carrées. 
+
+En effet, une fois simplifiée, on obtient :
+$$C_n = (-1) ^n \frac{(\sqrt 5 -1)^n (\sqrt 5 + 1)^n}{2^{2n}}.$$
+
+\change
+Il ne reste qu'à conclure à la main. 
+En utilisant l'identité remarquable $(a-b)(a+b)=a^2-b^2$,
+ $(\sqrt 5 -1)(\sqrt 5 + 1) = (\sqrt 5)^2 - 1 = 4$
+et donc $C_n = (-1)^n \frac{4^n}{2^{2n}} = (-1)^n$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Je vous laisse terminer cette séquence avec l'étude d'une autre 
+suite récurrente double. 
+
+Reprenez le schéma d'étude adopté pour la suite
+de Fibonacci et trouvez une expression simple de cette suite.
+
+
+\end{document}

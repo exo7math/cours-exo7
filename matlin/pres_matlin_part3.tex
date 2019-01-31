@@ -1,0 +1,570 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={56,98,238}]{structure}
+ 
+% Commande spécifique à ce chapitre
+\definecolor{Green4}{rgb}{0.28,0.67,0.10}
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Matrices et applications linéaires}}
+\subtitle{Matrice d'une application linéaire}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Matrice associée à une application linéaire
+    \item<4-> Opérations sur les applications linéaires \\ et les matrices
+    \item<5-> Matrice d'un endomorphisme
+    \item<6-> Matrice d'un isomorphisme
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Matrice associée à une application linéaire}
+
+\begin{frame}
+
+\begin{itemize}
+  \item $E$ et $F$ deux $\Kk$-espaces vectoriels de dimension finie
+  \pause
+  \item $\mathcal{B}=(e_1, \dots ,e_p)$ une base de $E$
+  \pause
+  \item $\mathcal{B}'=(f_1, \dots ,f_n)$ une base de $F$
+  \pause
+  \item $f : E \to F$ une application linéaire
+\end{itemize}
+
+\bigskip
+\pause
+
+\begin{enumerate}
+  \item $f$ est déterminée de façon unique par l'image
+d'une base de $E$, donc par les vecteurs 
+$f(e_1), f(e_2), \ldots, f(e_p)$
+\pause
+  
+  \item $f(e_j)$ se décompose de manière unique dans la base $\mathcal{B}'$
+  \pause
+  
+  \item Il existe $a_{1,j},a_{2,j}, \ldots , a_{n,j} \in \Kk$
+tels que 
+\vspace*{-2ex}
+$$f (e_j)=a_{1,j}f_1+a_{2,j}f_2+\dots +a_{n,j}f_n 
+\pause = \left(\begin{smallmatrix}a_{1,j}\\a_{2,j}\\ \vdots \\a_{n,j}\end{smallmatrix}\right)_{\mathcal{B}'}$$
+
+\end{enumerate}
+
+\end{frame}
+
+
+\begin{frame}  
+
+\begin{itemize}
+  \item $f : E \to F$ une application linéaire
+  
+  \item $\mathcal{B}=(e_1, \dots ,e_p)$ une base de $E$, $\mathcal{B}'=(f_1, \dots ,f_n)$ une base de $F$
+
+  \item $f (e_j)=a_{1,j}f_1+a_{2,j}f_2+\dots +a_{n,j}f_n 
+= \left(\begin{smallmatrix}a_{1,j}\\a_{2,j}\\ \vdots \\a_{n,j}\end{smallmatrix}\right)_{\mathcal{B}'}$
+
+%   \item L'application linéaire $f$ est entièrement déterminée par les
+% coefficients $(a_{i,j})_{(i,j) \in \{1,\ldots,n\} \times \{1,\ldots,p\}}$
+\end{itemize}
+\vspace*{-1.5ex}
+\pause
+\begin{mydefinition}
+La \defi{matrice} de $f$ 
+par rapport aux bases ${\color{blue}\mathcal{B}}$ et ${\color{Green4}\mathcal{B}'}$ est 
+la matrice $(a_{i,j}) \in M_{n,p}(\Kk)$
+\vspace*{-4ex}
+\pause
+$$\Mat_{{\color{blue}\mathcal{B}},{\color{Green4}\mathcal{B}'}}(f) = 
+ \bordermatrix{    
+                                  & \uncover<4->{f({\color{blue}e_1})}& \uncover<7->{\ldots} & \uncover<7->{f({\color{blue}e_j})}  &\uncover<9->{\ldots}  & \uncover<9->{f({\color{blue}e_p})} \cr
+  \uncover<5->{\color{Green4}f_1} & \uncover<6->{a_{11}} &        & \uncover<8->{a_{1j}} & \uncover<9->{\ldots} & \uncover<9->{a_{1p}}\cr
+  \uncover<5->{\color{Green4}f_2} & \uncover<6->{a_{21}} &        & \uncover<8->{a_{2j}} & \uncover<9->{\ldots} & \uncover<9->{a_{2p}}\cr
+  \uncover<5->{\color{Green4}\vdots} & \uncover<6->{\vdots} & \uncover<7->{\vdots} & \uncover<8->{\vdots} &        & \uncover<9->{\vdots}\cr
+  \uncover<5->{\color{Green4}f_n} & \uncover<6->{a_{n1}} &        & \uncover<8->{a_{nj}} & \uncover<9->{\ldots} & \uncover<9->{a_{np}}
+ }
+$$
+\end{mydefinition}
+\vspace*{-1ex}
+
+\begin{itemize}
+
+  \item   \uncover<10->{la $j$-ème colonne est constituée des coordonnées du vecteur
+$f({\color{blue}e_j})$ dans la base 
+${\color{Green4}\mathcal{B}'}=({\color{Green4}f_1}, {\color{Green4}f_2}, \ldots ,{\color{Green4}f_n})$
+}
+ 
+  \item   \uncover<11->{les vecteurs colonnes 
+sont l'image par $f$ des vecteurs de la base de départ $\color{blue}\mathcal{B}$, 
+exprimée dans la base d'arrivée $\color{Green4}\mathcal{B}'$
+}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+$$\begin{array}{rcl}
+f \quad : \quad \Rr^3& \longrightarrow & \Rr^2\\
+(x_1,x_2,x_3)&\longmapsto & (x_1+x_2-x_3, x_1-2x_2+3x_3)\\
+\end{array}$$
+\pause
+\vspace*{-3ex}
+\begin{itemize}
+  \item $f  : \left(\begin{smallmatrix} x_1\\x_2\\x_3 \end{smallmatrix}\right) 
+\mapsto \left(\begin{smallmatrix} x_1+x_2-x_3 \\ x_1-2x_2+3x_3 \end{smallmatrix}\right)$
+\pause
+  \item Soit $\mathcal{B} = (e_1,e_2,e_3)$ la base canonique de $\Rr^3$
+\pause  
+  \item Soit $\mathcal{B}' = (f_1,f_2)$ la base canonique de $\Rr^2$
+\pause  
+  \item $e_1 = \left(\begin{smallmatrix}1\\0\\0\end{smallmatrix}\right) \quad
+e_2 = \left(\begin{smallmatrix}0\\1\\0\end{smallmatrix}\right) \quad
+e_3 = \left(\begin{smallmatrix}0\\0\\1\end{smallmatrix}\right) \qquad
+\pause
+f_1 = \left(\begin{smallmatrix}1\\0\end{smallmatrix}\right) \quad
+f_2 = \left(\begin{smallmatrix}0\\1\end{smallmatrix}\right)$
+\end{itemize}
+\pause
+Quelle est la matrice de $f$ dans les bases $\mathcal{B}$ et $\mathcal{B}'$ ?
+\vspace*{-1ex}
+  \begin{itemize}
+  \pause
+    \item $f(e_1) = f(1,0,0) \pause = (1,1) \pause =f_1+f_2$ 
+  \pause  
+    \item $f(e_2) = f(0,1,0) =(1,-2)=f_1-2f_2$
+  \pause 
+    \item $f(e_3) = f(0,0,1) =(-1,3)=-f_1+3f_2$
+  \pause
+  \end{itemize}
+  $$\Mat_{{\color{blue}\mathcal{B}},{\color{Green4}\mathcal{B}'}}(f)
+  = \bordermatrix{
+                                   & \uncover<14->{f({\color{blue}e_1})} & \uncover<17->{f({\color{blue}e_2})} & \uncover<19->{f({\color{blue}e_3})} \cr
+  \uncover<15->{\color{Green4}f_1} & \uncover<16->{1}                    & \uncover<18->{1}                    & \uncover<20->{-1} \cr
+  \uncover<15->{\color{Green4}f_2} & \uncover<16->{1}                    & \uncover<18->{-2}                   & \uncover<20->{3} 
+  }
+  $$
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+Même application linéaire :
+\vspace*{-1ex}
+$$\begin{array}{rcl}
+f \quad : \quad \Rr^3& \longrightarrow & \Rr^2\\
+(x_1,x_2,x_3)&\longmapsto & (x_1+x_2-x_3, x_1-2x_2+3x_3)\\
+\end{array}$$
+\pause
+\vspace*{-2ex}
+\begin{itemize}  
+  \item $\epsilon_1 = \left(\begin{smallmatrix}1\\1\\0\end{smallmatrix}\right) \quad
+\epsilon_2 = \left(\begin{smallmatrix}1 \\ 0 \\ 1 \end{smallmatrix}\right) \quad
+\epsilon_3 = \left(\begin{smallmatrix}0 \\ 1 \\ 1 \end{smallmatrix}\right)\qquad
+\pause
+\phi_1 = \left(\begin{smallmatrix}1\\0\end{smallmatrix}\right) \quad
+\phi_2 = \left(\begin{smallmatrix}1\\1\end{smallmatrix}\right)
+$
+\pause
+  \item Nouvelle base de départ $\mathcal{B}_0 =(\epsilon_1,\epsilon_2,\epsilon_3)$
+\pause
+
+  \item Nouvelle base d'arrivée $\mathcal{B}_0' = (\phi_1,\phi_2)$
+
+\pause  
+  \item Quelle est la matrice de $f$ dans les bases $\mathcal{B}_0$
+et $\mathcal{B}_0'$ ?
+
+\pause 
+  \item 
+  \begin{itemize}
+    \item $f(\epsilon_1) = f(1,1,0) \pause= (2,-1) \pause= 3\phi_1-\phi_2$
+    \pause
+    \item $f(\epsilon_2) = f(1,0,1) = (0,4) = -4\phi_1+4\phi_2$
+    \pause
+    \item $f(\epsilon_3) = f(0,1,1) = (0,1) = -\phi_1+\phi_2$
+  \end{itemize}
+\end{itemize}
+  \pause
+  \vspace*{-0.0ex}
+   $$\Mat_{{\color{blue}\mathcal{B}_0},{\color{Green4}\mathcal{B}_0'}}(f)
+  = \bordermatrix{
+                         & f({\color{blue}\epsilon_1}) & f({\color{blue}\epsilon_2}) & f({\color{blue}\epsilon_3}) \cr
+  {\color{Green4}\phi_1} &  3 & -4 & -1\cr
+  {\color{Green4}\phi_2} &  -1 & 4 & 1
+  }
+  $$ 
+
+
+\end{exemple}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Opérations sur les applications linéaires et les matrices}
+
+\begin{frame}
+
+\begin{itemize}
+  \item Soient $f,g : E \to F$ deux applications linéaires
+  \pause
+  \item Soit $\mathcal{B}$ une base de $E$
+  \pause
+  \item Soit $\mathcal{B}'$ une base de $F$
+\end{itemize}
+
+\pause
+\begin{proposition}
+\begin{itemize}
+  \item $\Mat_{\mathcal{B},\mathcal{B}'} (f+g) = \Mat_{\mathcal{B},\mathcal{B}'} (f)
+  + \Mat_{\mathcal{B},\mathcal{B}'} (g)$
+  \pause
+  \item $\Mat_{\mathcal{B},\mathcal{B}'} ( \lambda f) = \lambda \Mat_{\mathcal{B},\mathcal{B}'} (f)$
+\end{itemize}
+\end{proposition}
+
+\pause
+$$A = \Mat_{\mathcal{B},\mathcal{B}'} (f)
+\qquad
+B = \Mat_{\mathcal{B},\mathcal{B}'} (g)
+$$
+\pause
+$$
+C = \Mat_{\mathcal{B},\mathcal{B}'} (f+g)
+\qquad
+D = \Mat_{\mathcal{B},\mathcal{B}'} (\lambda f)$$
+
+\pause
+$$\text{Alors} \qquad \qquad C = A+B \qquad \pause\qquad D = \lambda A$$
+\end{frame}
+
+
+\begin{frame}
+
+\begin{itemize}
+  \item Soient $f : E \to F$  et $g : F \to G$ deux applications linéaires
+  \pause
+  \item Soient
+$\mathcal{B}$ une base de $E$, $\mathcal{B}'$ une base de $F$
+et $\mathcal{B}''$ une base de $G$
+
+\end{itemize}
+
+\pause
+\begin{proposition}
+\label{prop:multmatlin}
+\mybox{$\Mat_{\mathcal{B},\mathcal{B}''} (g \circ f)
+= \Mat_{\mathcal{B}',\mathcal{B}''} (g) \times \Mat_{\mathcal{B},\mathcal{B}'} (f)$}
+\end{proposition}
+
+\pause
+$$A = \Mat_{\mathcal{B},\mathcal{B}'} (f)
+\qquad
+B = \Mat_{\mathcal{B}',\mathcal{B}''} (g)
+\qquad
+C = \Mat_{\mathcal{B},\mathcal{B}''} (g \circ f)$$
+ 
+$$\text{Alors} \quad C = B\times A$$ 
+
+\end{frame}
+
+
+
+\begin{frame}
+\begin{exemple}
+
+\begin{itemize}
+  \item $f : \Rr^2 \to \Rr^3$
+  
+  $A = \Mat_{\mathcal{B},\mathcal{B}'} (f)
+= \begin{pmatrix}
+1&0\cr
+1&1\cr
+0&2\cr
+\end{pmatrix}
+\in M_{3,2}$
+\pause
+
+  \item $g : \Rr^3 \to \Rr^2$ 
+  
+  $B = \Mat_{\mathcal{B}',\mathcal{B}''} (g)
+= \begin{pmatrix}
+2&-1&0\cr
+3&1&2\cr
+\end{pmatrix}
+\in M_{2,3}$
+
+\pause
+  \item 
+  
+  $g \circ f : \Rr^2 \to \Rr^2$
+  
+\end{itemize}  
+\pause
+  $$\Mat_{\mathcal{B},\mathcal{B}''} (g \circ f) \pause = C \pause = B \times A 
+\pause  = 
+\begin{pmatrix}
+2&-1&0\cr
+3&1&2\cr
+\end{pmatrix}
+\times
+\begin{pmatrix}
+1&0\cr
+1&1\cr
+0&2\cr
+\end{pmatrix}
+\pause = 
+\begin{pmatrix}
+1&-1\cr
+4&5\cr
+\end{pmatrix}
+$$
+  
+
+
+\end{exemple}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Matrice d'un endomorphisme}
+
+
+\begin{frame}
+
+\begin{itemize}
+
+  \item $f : E \to E$ est un endomorphisme
+  \pause
+  \item Deux bases distinctes pour l'espace vectoriel $E$ : $\Mat_{\mathcal{B},\mathcal{B}'} (f)$
+  \pause  
+  \item Même base $\mathcal{B}$ au départ et à l'arrivée : $\Mat_{\mathcal{B}} (f)$
+
+\end{itemize}
+
+\pause
+\begin{exemple}
+\begin{itemize}
+  \item \evidence{identité} $\id : E \to E$, $\id(x)=x$ 
+\hfill\pause
+  $\Mat_{\mathcal{B}} (\id) = I_n$
+\hspace*{1em}
+
+\pause
+  \item \evidence{homothétie} $h_\lambda : E \to E$, $h_\lambda(x) = \lambda \cdot x$
+\hfill\pause
+  $\Mat_{\mathcal{B}} (h_\lambda) = \lambda I_n$
+\hspace*{1em}
+
+\pause
+  \item \evidence{symétrie centrale} $s : E \to E$, $s(x) = - x$ 
+\hfill\pause
+  $\Mat_{\mathcal{B}} (s) = - I_n$
+\hspace*{1em}
+  
+  \pause
+  \item \evidence{rotation}   
+  \begin{itemize}
+    \item $r_\theta : \Rr^2 \longrightarrow \Rr^2$
+    \pause
+    \item rotation d'angle $\theta$, centrée à l'origine 
+    \pause
+    \item $\Rr^2$ muni de la base canonique $\mathcal{B}$
+    \pause
+    \item $r_\theta (x,y) = (x \cos  \theta - y \sin\theta,x\sin \, \theta + y \cos\theta)$
+    \pause
+    
+$$\Mat_{\mathcal{B}} (r_\theta) = 
+  \begin{pmatrix}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{pmatrix}$$
+  \end{itemize} 
+\end{itemize}
+  
+\end{exemple}
+\end{frame}
+
+\begin{frame}
+
+\begin{corollaire}
+Soient $f :  E \to E$ une application linéaire et $\mathcal{B}$ une base de $E$
+
+Quel que soit $p \in \Nn$
+$$\Mat_{\mathcal{B}} (f^p) = \big( \Mat_{\mathcal{B}} (f) \big)^p$$
+\end{corollaire}
+
+\pause
+\bigskip
+
+La matrice associée à $f^p = \underbrace{f \circ f \circ\cdots \circ f}_{p \text{ occurrences}} $
+est $A^p = \underbrace{A \times A \times \cdots \times A}_{p \text{ facteurs}}$
+
+\bigskip
+\pause
+
+\begin{exemple}
+\vspace*{-2ex}
+$$\Mat_{\mathcal{B}} (r_\theta^p) 
+\pause= \big( \Mat_{\mathcal{B}} (r_\theta) \big)^p
+\pause=  \begin{pmatrix}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{pmatrix}^p
+\pause \!\!= \begin{pmatrix}
+\cos(p\theta) & -\sin(p\theta)\\
+\sin(p\theta) & \cos(p\theta)
+\end{pmatrix}$$
+\end{exemple}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Matrice d'un isomorphisme}
+
+\begin{frame}
+
+Un \defi{isomorphisme} $f : E \to F$ est une application linéaire bijective
+\pause
+
+\begin{theoreme}
+\label{th:invmatlin}
+\begin{itemize}
+  \item Soient $E$ et $F$ deux espaces vectoriels de même dimension finie
+  \item Soit $f : E \to F$ une application linéaire
+  \item Soient $\mathcal{B}$ une base de $E$, $\mathcal{B}'$ une base de $F$
+  \item Soit $A = \Mat_{\mathcal{B},\mathcal{B}'} (f)$
+\end{itemize}
+\pause
+
+\begin{enumerate}
+  \item $f$ est bijective si et seulement si la matrice $A$ est inversible
+ \pause 
+  
+  \item  Si $f : E \to F$ est bijective, alors la matrice de 
+  $f^{-1} : F \to E$ est la matrice $A^{-1}$
+  \pause
+  \vspace*{-2ex}
+  $$\Mat_{\mathcal{B}',\mathcal{B}}(f^{-1}) = \bigg( \Mat_{\mathcal{B},\mathcal{B}'}(f) \bigg)^{-1}$$
+\end{enumerate}
+\end{theoreme}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{itemize}
+  \item $f : E \to E$
+  \item Même base $\mathcal{B}$ au départ et à l'arrivée
+  \item $A = \Mat_{\mathcal{B}}(f)$
+\end{itemize}
+
+\pause
+\begin{corollaire}
+\begin{itemize}
+  \item $f$ est bijective si et seulement si $A$ est inversible
+  
+  \item Si $f$ est bijective, alors la matrice associée à 
+  $f^{-1}$ dans la base $\mathcal{B}$ est $A^{-1}$
+\end{itemize}
+\end{corollaire}
+
+\pause
+\centerline{$\Mat_{\mathcal{B}}(f^{-1}) = \big(\Mat_{\mathcal{B}}(f) \big)^{-1}$}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+  \item Soient $r : \Rr^2 \to \Rr^2$ la rotation d'angle $\frac\pi6$ (centrée à l'origine)
+  \pause
+ $$A = \Mat_{\mathcal{B}} (r) =  
+  \begin{pmatrix}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{pmatrix}
+\pause=
+\begin{pmatrix}
+\frac{\sqrt{3}}{2} & -\frac12\\
+\frac12& \frac{\sqrt{3}}{2}
+\end{pmatrix}$$
+\pause
+    \item Soit $s$ la réflexion par rapport à $(y=x)$ 
+    \pause:
+    $B = \Mat_{\mathcal{B}} (s) = \begin{pmatrix} 0&1\\1&0 \end{pmatrix}$
+  
+  \pause
+  \item $\Mat_{\mathcal{B}} (s \circ r) \pause= B \times A \pause= \begin{pmatrix}
+\frac12&\frac{\sqrt{3}}{2} & \\
+\frac{\sqrt{3}}{2}&-\frac12& 
+\end{pmatrix}$
+
+  \pause
+  
+  \item $\Mat_{\mathcal{B}} \big((s \circ r)^{-1}\big) \pause= (BA)^{-1} \pause=  \begin{pmatrix}
+\frac12&\frac{\sqrt{3}}{2} & \\
+\frac{\sqrt{3}}{2}&-\frac12& 
+\end{pmatrix}^{-1} 
+\pause= \begin{pmatrix}
+\frac12&\frac{\sqrt{3}}{2} & \\
+\frac{\sqrt{3}}{2}&-\frac12& 
+\end{pmatrix}$ 
+
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Calculer la matrice associée aux applications linéaires 
+  $f_i : \Rr^2 \to \Rr^2$ dans la base canonique :
+  \begin{enumerate}
+  \item $f_1$ la symétrie par rapport à l'axe $(Oy)$,
+  \item $f_2$ la symétrie par rapport à l'axe $(y=x)$,
+  \item $f_3$ le projection orthogonale sur l'axe $(Oy)$,
+  \item $f_4$ la rotation d'angle $\frac\pi4$.
+  \end{enumerate}
+  Calculer quelques matrices associées à $f_i \circ f_j$ et, 
+  lorsque c'est possible, à $f_i^{-1}$.
+  
+  \item Même travail pour $f_i : \Rr^3 \to \Rr^3$ :
+  \begin{enumerate}
+  \item $f_1$ l'homothétie de rapport $\lambda$,
+  \item $f_2$ la réflexion orthogonale par rapport au plan $(Oxz)$,
+  \item $f_3$ la rotation d'axe $(Oz)$ d'angle $-\frac{\pi}{2}$,
+  \item $f_4$ la projection orthogonale sur le plan $(Oyz)$.
+  \end{enumerate}  
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

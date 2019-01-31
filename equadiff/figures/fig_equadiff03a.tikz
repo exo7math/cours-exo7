@@ -1,0 +1,20 @@
+\begin{tikzpicture}
+
+  \draw[->,>=latex,thick,gray] (-6.5,0) -- (2.4,0) node[below left,black] {$x$};
+  \draw[->,>=latex,thick,gray] (0,-5) -- (0,5) node[left,black] {$y$};
+
+\begin{scope}[xscale=1]
+\foreach \k in {-3,-2.5,...,3} {
+  \draw[thick, color=myred,domain=-6:2, smooth,samples=50] plot (\x,{\k*exp(+0.33*\x)});
+}
+\end{scope}
+
+\node[blue] at (-3,3) {Cas \  $a>0$};
+
+\draw[blue] (2.3,6)--(2.5,6)--(2.5,0.2)--(2.3,0.2);
+\draw[blue] (2.3,-6)--(2.5,-6)--(2.5,-0.2)--(2.3,-0.2);
+\node[blue, right] at (3,3) {$k>0$};
+\node[blue, right] at (3,0) {$k=0$};
+\node[blue, right] at (3,-3) {$k<0$};
+
+\end{tikzpicture}

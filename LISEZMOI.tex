@@ -1,0 +1,128 @@
+\documentclass[11pt]{article} % type de document avec taille de police par défaut
+% =============================================================
+\usepackage[a4paper]{geometry} % la "géométrie" de la page
+% --------------- PDF/lua/Xe/LaTeX spécifique
+\usepackage{iftex}
+\ifPDFTeX % PDFLaTeX
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern}
+\else % LuaLaTeX & XeLaTeX
+  \usepackage{fontspec}
+\fi
+% ---------------
+\usepackage[francais]{babel} % pour franciser LaTeX
+\usepackage{xcolor} % pour pouvoir utiliser des couleurs
+\usepackage[pdfencoding=auto,hidelinks]{hyperref} % pour les liens. En règle général il doit être le dernier package chargé.
+% ---------------
+\newcommand{\cmd}[1]{\textbf{\texttt{\color{red!70!black}#1}}}
+% pas de retrait
+% ---------------
+\setlength{\parskip}{3pt}
+% Espace interligne (+ 14%)
+\linespread{1.14}
+
+% =============================================================
+
+% ---------------
+\title{Instructions pour rédiger et compiler le livre Exo7}
+\author{Kroum Tzanev}
+\date{\today}
+% ---------------
+
+\begin{document}
+%==============================================================
+\maketitle
+
+% --------------------
+\section{Fichiers et répertoires}
+
+\subsection{Structure générale}
+
+Les fichiers \cmd{book.tex} et \cmd{main.tex} sont les fichiers principaux de deux versions du livre. Ils sont petits et contiennent essentiellement des instructions d'inclusion des chapitres.
+
+Chaque chapitre est dans un répertoire séparé :
+\cmd{zeros}, \cmd{algo}, \cmd{arithmetique}, \cmd{autres}, \cmd{complexes}, \cmd{courbes}, \cmd{crypto}, \cmd{derivee}, \cmd{determinants}, \cmd{dimension}, \cmd{dl}, \cmd{ensembles}, \cmd{equadiff}, \cmd{erene}, \cmd{ev}, \cmd{fonctions}, \cmd{groupes}, \cmd{int}, \cmd{lecons}, \cmd{logique}, \cmd{matlin}, \cmd{matrices}, \cmd{polynomes}, \cmd{reels}, \cmd{suites}, \cmd{syslin}, \cmd{usuelles}.
+
+La plupart de ces répertoires contiennent un sous-répertoire \cmd{figure} qui contient les figures. La majorité des figures sont écrites dans le langage Ti\textit{k}Z/PGF et portent une extension \cmd{.tikz}.
+
+\subsection{Fichier de styles}
+
+Le fichier \cmd{exo7book.sty} est le fichier de style principal et peut être évoqué avec l'une des options \cmd{[screen]}, \cmd{[print]}, \cmd{[minimal]} ou \cmd{[test]}. En fonction du choix de l'option, l'un des fichiers \cmd{exo7book-screen.sty}, \cmd{exo7book-print.sty}, \cmd{exo7book-minimal.sty} ou \cmd{exo7book-test.sty} est évoqué. Et la partie commune du style, qui ne dépend pas du choix de l'option, se trouve dans le fichier \cmd{exo7book-common.sty}. Tous ces fichiers sont commentés.
+
+\section{Compilation}
+
+Les options \cmd{[screen]} et \cmd{[minimal]} sont compilables avec PDF/Lua/XeLaTeX. Par contre, il faut compiler l'option \cmd{[print]} de préférence avec PDFLaTeX.
+
+Vu que le livre contient des centaines d'images, pour accélérer la compilation, les images TikZ sont pré-compilées. Le résultat de cette pré-compilation est stocké dans un sous-répertoire,  nommé \cmd{tikzcach}, du répertoire de chaque chapitre. Ce sous-répertoire contient pour chaque image deux versions pré-compilées en PDF, une en couleur (les fichiers se terminant par \cmd{\_col.pdf}) et une en nuances de gris (les fichiers se terminant par \cmd{\_bw.pdf}). Si pendant la compilation, LaTeX constate que la version pré-compilée existe, il inclut directement le pdf en question et saute le code de la figure.\\
+Ainsi si vous faites un changement dans une figure, pour que ce changement devienne visible il faut supprimer la version pré-compilée de l'image en question avant la compilation.
+
+Pour pouvoir pré-compiler les images il faut autoriser LaTeX à exécuter des commandes extérieures. Pour cela il faut appeler latex avec l'option \cmd{--shell-escape} de TeXLive ou \cmd{--enable-write18} pour MiKTeX. \textit{Attention : ne jamais compiler une source non vérifiée avec cette option, car elle ouvre la porte aux hackers.}
+
+Vous pouvez compiler les chapitres un par un également. Pour cela il suffit de compiler le fichier \cmd{ch\_xxxxx.tex} qui se trouve dans le répertoire en question. Ceci est rendu possible grâce à l'utilisation de package \cmd{standalone}.
+
+\section{Git}
+
+\cmd{Git} est un logiciel de gestion de versions décentralisé. C'est une version plus moderne de \cmd{SVN}, qui est lui-même une version plus moderne de \cmd{CSV}. Dans ce chapitre je ne vais pas faire un cours sur \cmd{Git}, je vais simplement décrire le «workflow» que j'utilise.
+
+\begin{enumerate}
+  \item Pour rapatrier les sources du livre à partir du serveur git du CNRS :
+
+  \cmd{git clone git@git.math.cnrs.fr:plm/bodin/exo7}
+
+  Ceci va créer un sous-répertoire \cmd{exo7} qui va contenir toutes les sources, ainsi qu'un sous-répertoire caché \cmd{.git}. C'est dans ce répertoire caché que se trouvent les versions du livre.
+
+  \item Avant de débuter l'édition sur un des fichiers, il faut récupérer la dernière version des fichiers avec la commande (exécutée dans le répertoire où se trouvent les sources)
+
+  \cmd{git pull}
+
+  \item Quand vous avez fini une modification d'un fichier existant vous pouvez le mettre «à l'abri» ([ang.] staged area) avec la commande
+
+  \cmd{git add -u}
+
+  Et si vous avez créé un nouveau fichier (par exemple une image tikz ou un chapitre) vous pouvez le rajouter avec la commande :
+
+  \cmd{git add \textit{nom-du-fichier}}
+
+  Attention ces deux commandes ne créent pas une nouvelle version dans le dépôt git, elles «préparent» les fichiers qui vont être mis à jour lors de la prochaine version.
+
+   \item Quand vous avez terminé avec vos rédactions (souvent sur un seul fichier, mais ça peut être aussi sur plusieurs fichiers) et quand vous avez rajouté ces fichiers avec la commande \cmd{git add}, il est temps de créer une nouvelle version dans le dépôt \cmd{git} en rajoutant un message décrivant cette version :
+
+   \cmd{git commit -m"La description de la version bla, bla"}
+
+   Attention : cette commande ne met pas à jour les fichiers sur le serveur git du CNRS, mais seulement en local dans le répertoire \cmd{.git}.
+
+   \item A la fin de la journée, ou de la semaine, quand vous estimez que vos modifications doivent être mises à disposition de vos collègues, il faut synchroniser votre dépôt local (votre répertoire .git) avec le serveur cnrs en utilisant la commande
+
+   \cmd{git push}
+\end{enumerate}
+
+En cas de conflit entre votre version et la version de vos collègues, les choses se compliquent, mais vous pouvez toujours envoyer votre répertoire complet (y compris le sous-répertoire caché .git) à un collègue qui s'y connaît mieux que vous en git pour qu'il résolve le conflit à votre place ;)
+
+\subsection{Quelques liens pour Git}
+
+\begin{itemize}
+  \item \url{http://rogerdudler.github.io/git-guide/index.fr.html}
+  \item \url{http://www.miximum.fr/enfin-comprendre-git.html}
+  \item \url{http://openclassrooms.com/courses/gerez-vos-codes-source-avec-git}
+  \item \url{https://git-scm.com/book/fr}
+\end{itemize}
+
+
+\subsection{Quelques commandes avancées bien utiles (Arnaud)}
+
+\begin{itemize}
+  \item \cmd{git status} permet de voir ce qui est à jour ou pas, indexé ou pas...
+  \item \cmd{git ls-files} liste les fichiers indexés
+  \item \cmd{git mv}, \cmd{git rm} pour manipuler les fichiers en conservant l'indexation git.
+  \item Pour nettoyer son répertoire de tous les fichiers auxiliaires \LaTeX\ (tout .gitignore sauf les pdf) :
+  \begin{itemize}
+    \item \cmd{git clean -x -e "*.pdf" -n} voir les fichiers que l'on souhaite effacer 
+    \item \cmd{git clean -x -e "*.pdf" -f} efface vraiment !
+  \end{itemize}
+\end{itemize}
+
+
+
+%==============================================================
+\end{document}

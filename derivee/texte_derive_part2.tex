@@ -1,0 +1,537 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Voici une partie beaucoup plus pratique : nous allons calculer
+des dérivées.  
+
+\change
+
+On commence par les formules pour la somme et le produit
+
+\change
+
+On continue avec une liste de dérivées des fonctions les plus fréquentes.
+
+\change
+
+On passe ensuite à la formule importante pour la dérivée de la composition de deux fonctions.
+
+\change
+
+On termine avec les dérivées secondes, dérivées troisièmes,... et la formule de Leibniz.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Commençons avec deux fonctions dérivables $f$ et $g$ définies sur un intervalle $I$.
+
+\change
+La fonction $f+g$ est dérivable
+
+et pour tout $x \in I$ :
+$(f+g)'(x) = f'(x)+g'(x)$,
+
+C'est à dire que la dérivée d'une somme est la somme des dérivées.
+
+\change
+
+Pour $\lambda$ un réel fixé  $(\lambda f)'(x) = \lambda f'(x)$
+
+\change
+
+Voici la formule pour la dérivée d'un produit :
+$(f \times g)'(x) = f'(x)g(x)+f(x)g'(x)$,
+
+
+\change
+
+Si $f$ ne s'annule pas  alors $1/f$ est dérivable et
+  $\left(\frac{1}{f}\right)'(x)=-\frac{f'(x)}{f(x)^2}$
+
+\change 
+
+Et pour le quotient la formule est 
+$\left(\frac{f}{g}\right)'(x)=\frac{f'(x)g(x)-f(x)g'(x)}{g(x)^2}$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Il est plus facile de mémoriser ces égalités comme égalités de fonctions :
+
+$$(f+g)'=f'+g',\quad  (\lambda f)' = \lambda f', \quad (f \times g)' = f'g+fg', $$
+
+\change
+
+et aussi 
+$\left(\frac{1}{f}\right)'=-\frac{f'}{f^2}$
+
+\change
+
+et enfin
+
+$\left(\frac{f}{g}\right)'=\frac{f'g-fg'}{g^2}.$
+
+\change
+
+Prouvons par exemple la formule de la dérivée d'un produit : $(f \times g)' = f'g+fg'$.
+
+\change
+
+Fixons $x_0 \in I$.
+
+\change
+
+Partons du taux taux d'accroissement de $f(x)\times g(x)$ en $x_0$ :
+
+$\frac{f(x)g(x)-f(x_0)g(x_0)}{x-x_0}$
+
+
+\change
+
+que l'on écrit sous la forme 
+
+$\frac{f(x)-f(x_0)}{x-x_0} g(x)+\frac{g(x)-g(x_0)}{x-x_0}f(x_0) $
+
+\change
+
+pour le premier terme on reconnaît le taux d'accroissement de $f$ en $x_0$ donc ce premier terme tend vers $f'(x_0)g(x_0)$ 
+
+de même le second terme tend vers $g'(x_0)f(x_0).$
+
+\change 
+
+Ceci est vrai pour tout $x_0$ la fonction $f\times g$ est dérivable sur $I$ de dérivée $f'g+fg'$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voici un tableau qui résume les principales formules à connaître.
+
+
+\setlength{\arrayrulewidth}{0.05mm}
+%\begin{tabular}{|l|l|l|} \hline
+\begin{tabular}[t]{|c|c@{\vrule depth 1.2ex height 3ex width 0mm \ }|} 
+\hline
+\textbf{Fonction}         & \textbf{Dérivée} \\ \hline
+   $x^n$         & $nx^{n-1}$  \quad ($n \in \Zz$)   \\ \hline
+   $\frac 1x$    & $-\frac{1}{x^2}$              \\ \hline
+   $\sqrt{x}$    & $\frac12 \frac1{\sqrt{x}}$   \\ \hline
+   $x^\alpha$   & $\alpha x^{\alpha-1}$  \quad ($\alpha\in\Rr$)  \\ \hline
+   $e^x$         & $e^x$                        \\ \hline
+   $\ln x$       & $\frac 1x$                   \\ \hline
+   $\cos x$      & $-\sin x$                    \\ \hline
+   $\sin x$      & $\cos x$                     \\ \hline
+   $\tan x$      & $1+\tan^2 x = \frac{1}{\cos^2 x}$        \\ \hline
+\end{tabular} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons à une formule importante qui mérite toute votre attention : la dérivée d'une composition.
+
+Soit $f$ est dérivable en $x$ et $g$ une fonction dérivable en $f(x)$ 
+alors tout d'abord  $g\circ f$ est
+dérivable en $x$
+
+\change
+ et sa dérivée est
+
+$\big( g \circ f \big)'(x) = g'\big( f(x) \big) \cdot f'(x)$
+
+
+\change
+
+Appliquons cette formule pour calculer la dérivée de $\ln(1+x^2)$.
+
+\change
+
+Ici la fonction $f$ est  $f(x)=1+x^2$ avec  $f'(x) = 2x$.
+
+\change
+
+Et $g(x)=\ln(x)$ donc  $g'(x) = \frac 1x$ ; 
+
+\change
+
+On a bien $\ln(1+x^2)=g\circ f(x)$
+
+\change
+
+Et par la formule sa dérivée est
+
+$\big( g \circ f \big)'(x) = g'\big( f(x) \big) \cdot f'(x)$
+
+\change
+
+On remplace $f$ par $1+x^2$ et $f'$ par $2x$
+
+Maintenant  $g'(u) = \frac 1u$ [montrer au-dessus]
+
+\change
+
+on l'applique en $u=1+x^2$ et on obtient que 
+la dérivée de $\ln(1+x^2)$ est $\frac{2x}{1+x^2}.$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Ce tableau reprend les dérivées des fonctions classiques composées avec une autre fonction $u$ (qui dépend d'une variable $x$)
+
+Ces formules découlent de la formule de la dérivée d'une composition.
+
+
+\begin{tabular}[t]{cc@{\vrule depth 1.2ex height 3ex width 0mm \ }} 
+\textbf{Fonction}         & \textbf{Dérivée} \\ \hline
+   $u^n$         & $nu'u^{n-1}$  \quad  ($n \in \Zz$)   \\ \hline
+   $\frac 1u$    & $-\frac{u'}{u^2}$              \\ \hline
+   $\sqrt{u}$    & $\frac12 \frac{u'}{\sqrt{u}}$   \\ \hline
+   $u^\alpha$   & $\alpha u' u^{\alpha-1}$ \quad ($\alpha\in\Rr$)  \\ \hline
+   $e^u$         & $u'e^u$                        \\ \hline
+   $\ln u$       & $\frac {u'}{u}$                   \\ \hline
+   $\cos u$      & $-u'\sin u$                    \\ \hline
+   $\sin u$      & $u'\cos u$                     \\ \hline
+   $\tan u$      & $u'(1+\tan^2 u) = \frac{u'}{\cos^2 u}$        \\ \hline
+\end{tabular} 
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Quelques remarques sur toutes ces formules.
+
+Tout d'abord les formules pour $x^n$, $\frac 1x$ $\sqrt x$ et $x^\alpha$ 
+sont aussi des conséquences de la dérivée de l'exponentielle.
+
+\change
+
+Par exemple calculons la dérivée de $x^\alpha$
+
+\change
+
+on passe à la forme exponentielle $x^\alpha = e^{\alpha \ln x}$ 
+
+\change
+
+et donc la dérivée de $x^\alpha$
+
+\change
+
+égale la dérivée de $e^{\alpha \ln x}$
+
+\change
+
+On applique la formule de la dérivée d'une composition :
+la dérivée de $e^u$ est $u'e^u$.
+
+Donc la dérivée de $x^\alpha$
+est $\alpha \frac{1}{x} e^{\alpha \ln x} $
+
+\change
+
+ce qui vaut 
+$=\alpha \frac 1x x^{\alpha}$
+
+\change
+
+et ainsi on obtient que la dérivée de $x^\alpha$ est $\alpha x^{\alpha-1}.$
+
+(pause)
+
+
+\change
+
+
+Il y a un piège à éviter , 
+
+dès qu'une fonction a un exposant qui varie  il faut absolument 
+repasser à la forme exponentielle.
+
+\change
+
+
+Par exemple pour calculer la dérivée de $2^x$,
+
+ici l'exposant n'est pas une constante c'est $x$ .
+
+\change
+
+on réécrit d'abord $2^x=e^{x\ln 2}$ 
+
+\change
+
+C'est encore une fois une fonction du type $e^u$ de dérivée $u'e^u$.
+
+Et donc $f'(x)=\ln 2 \times e^{x\ln 2}$
+
+
+\change
+
+$ = \ln 2 \times 2^x $.
+
+Ce serait une grave erreur en partant de $2^x$ de vouloir 
+appliquer la formule de la dérivée de $x^\alpha$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Soit $I$ un intervalle ouvert. Soit $f : I \to J$ une fonction dérivable et bijective 
+
+dont on note $f^{-1} : J \to I$ la bijection réciproque. 
+
+\change
+
+Si $f'$ ne s'annule pas sur $I$ alors d'une part 
+$f^{-1}$ est dérivable 
+
+\change
+
+et d'autre part pour tout $x \in J$ :
+
+$\big(f^{-1}\big)'(x)= \frac{1}{f'\big( f^{-1}(x) \big)} $
+
+\change
+
+
+Il peut être plus simple de retrouver la formule à chaque fois
+
+Notons $g=f^{-1}$ la bijection réciproque de $f$.
+
+\change
+
+Que $g$ soit la bijection réciproque de $f$ se traduit par l'égalité :
+
+$f\big( g(x) \big)  = x$
+
+\change
+
+On dérive cette égalité pour obtenir ceci 
+
+En effet à droite la dérivée de $x$ est $1$ ;
+à gauche la dérivée de $f\big( g(x) \big) = f \circ g(x)$ est $f'\big(g(x)\big) \cdot g'(x)$.
+
+\change
+
+On se souvient que $g=f^{-1}$ donc on obtient la formule voulue.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+\'Etudions en détail la fonction $f$ définie par $f(x)=x+\exp(x)$.
+
+\change
+
+Tout d'abord $f$ est dérivable 
+car $f$ est la somme de deux fonctions dérivables. En particulier $f$ est continue.
+
+\change
+
+$f$ est strictement croissante car $f$ est la somme de deux fonctions strictement croissante.
+
+\change
+
+Comme $\lim_{x\to-\infty} f(x)=-\infty$ et $\lim_{x\to+\infty} f(x)=+\infty$ 
+et que $f$ est continue strictement croissante alors $f$ est une bijection de $\Rr$ dans $\Rr$.
+
+\change
+
+Enfin $f'(x)$ vaut $1 + \exp(x)$ et l'exponentielle est toujours positive alors $f'(x)$ ne s'annule jamais.
+
+\change
+
+
+
+On a vu que $f$ était bijective on note $g = f^{-1}$ la bijection réciproque de $f$. 
+
+\change
+
+Même si on ne sait pas calculer $g$, on peut malgré tout connaître des informations sur 
+cette fonction : par le corollaire de la page précédente $g$ est dérivable
+
+
+
+On calcule $g'$ en dérivant l'égalité $f\big( g(x) \big)  = x$. 
+
+\change
+
+Ce qui donne 
+$f'\big(g(x)\big) \cdot g'(x) = 1$
+
+\change
+
+et donc ici 
+$g'(x) = \frac{1}{f'\big( g(x) \big)} = \frac{1}{1+\exp\big( g(x) \big)}.$
+
+\change
+
+Pour cette fonction $f$ particulière on peut préciser davantage :
+comme  $f\big( g(x)\big) = x$ alors $g(x)+\exp\big( g(x) \big)=x$ donc 
+$\exp\big( g(x) \big)=x-g(x)$. 
+
+\change
+
+Cela conduit à :
+$g'(x) =  \frac{1}{1+x -g(x)}.$
+
+\change
+
+Par exemple  $f(0)=1$ donc $g(1)=0$ et donc $g'(1)=\frac12$.
+
+\change
+
+Autrement dit l'équation de la tangente 
+au graphe de $f^{-1}$ au point d'abscisse $x_0=1$ est donc $y=\frac12 (x-1)$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici le graphe de $f$. C'est bien une fonction strictement croissante de$-\infty$ à $+\infty$.
+
+\change
+
+Le graphe de la fonction réciproque s'obtient --dans un repère orthonormé-- par la symétrie 
+par rapport à la droite d'équation $(y=x)$.
+
+\change
+
+Et nous avons calculer l'équation de la tangente en $1$. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Soit $f : I \to \Rr$ une fonction dérivable et soit $f'$ sa dérivée.
+
+\change
+
+Si la fonction $f' : I \to \Rr$ est elle même une fonction dérivable alors on note
+$f''$ la dérivée de la dérivée que l'on nomme  la \defi{dérivée seconde} de $f$. 
+
+\change
+
+
+Plus généralement on note :
+
+$f^{(0)} = f, \quad f^{(1)} = f', \quad f^{(2)} = f''$
+
+et par récurrence si  la dérivée d'ordre $n$ existe et est dérivable alors
+on appelle sa dérivée la dérivée d'ordre $n+1$ de $f$.
+
+\change
+
+
+Lorsque la \defi{dérivée $n$-ième} $f^{(n)}$ existe 
+ on dira que $f$ est \defi{$n$ fois dérivable}.
+
+\change
+
+
+Il existe une formule intéressante pour la dérivée $n$-ième d'un produit :
+c'est la formule de Leibniz :
+
+Si l'on a $f$ et $g$ deux fonctions $n$ fois dérivables alors 
+
+
+$ \big( f \cdot g \big)^{(n)} =  f^{(n)} \cdot g + \binom{n}{1}\ f^{(n-1)}\cdot g^{(1)}
++ \cdots + \binom{n}{k} \ f^{(n-k)} \cdot g^{(k)}+\cdots + f \cdot g^{(n)}$
+
+\change
+
+Autrement dit à l'aide des sommes formelles :
+
+$\big( f \cdot g \big)^{(n)} = \sum_{k=0}^n \binom{n}{k} \ f^{(n-k)} \cdot g^{(k)}.$
+
+La démonstration est similaire à celle de la formule du binôme de Newton
+et les coefficients que l'on obtient sont les coefficients du binôme de Newton.
+
+\change
+
+Pour $n=1$ on retrouve la formule de la dérivée d'un produit $(f\cdot g)'= f' g + f g'$.
+
+\change
+
+Pour $n=2$, on obtient $(f\cdot g)''= f''g + 2f' g' + fg''$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Mettons en pratique la formule de Leibniz pour calculer les dérivées de $\exp(x) \cdot (x^2+1)$
+
+\change
+
+On commence par le premier facteur : $f(x)=\exp x$ 
+
+c'est facile, la dérivée est l'exponentielle elle-même !
+ $f'(x)=\exp x$ 
+
+Donc aussi :  $f''(x)=\exp x$ et plus généralement $f^{(k)}(x)=\exp x$.
+
+\change
+
+Passons au deuxième facteur $g(x)=x^2+1$ sa dérivée est  $g'(x)=2x$,
+
+
+sa dérivée seconde $g''(x)=2$ 
+
+et toute dérivée d'ordre supérieure à $2$ sera nulle.
+
+\change
+
+Ecrivons la formule de Leibniz :
+
+[grause pause]
+
+
+\change 
+
+
+On remplace $f$ et toutes ses dérivées par $\exp x$
+
+Et on remplace $g$, $g'$ et $g''$. La somme s'arrête là car après les dérivées sont nuls.
+
+
+
+On se retrouve donc avec une somme qui n'a plus que trois termes.
+
+\change
+
+On peut factoriser par l'exponentielle pour obtenir une expression plus condensée :
+
+$\big( f \cdot g \big)^{(n)}(x) =  \exp(x) \cdot \Big(x^2 + 2nx + \frac{n(n-1)}{2}+1  \Big)$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Je vous donne la recette pour réussir en maths :
+Entraînez-vous, relisez le cours, et travaillez encore et encore !
+
+
+\end{document}

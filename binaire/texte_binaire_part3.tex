@@ -1,0 +1,324 @@
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo %titre
+Pour terminer ce chapitre, nous allons évoquer les deux autres bases fréquemment utilisées en informatique : les bases 8 et 16.
+
+\change
+
+Dans cette partie nous présenterons
+
+\change
+- la base 8
+
+\change
+- la base 16
+
+\change
+- et nous terminerons en indiquant en quoi ces bases présentent un intérêt.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo %les bases 8 et 16 utilisée en info
+
+\change
+Les informaticiens préfèrent parfois  travailler avec des nombres écrits dans deux autres bases que la base 2 :
+
+\change
+la représentation en base 8 des nombres
+
+\change
+repose sur un alphabet de 8 chiffres : les chiffres de 0 à 7
+
+\change
+et elle est nommée représentation \emph{octale}
+ 
+\change
+la représentation en base 16 des nombres
+
+\change
+repose sur un alphabet de 16 chiffres : les chiffres de 0 à 9 auxquels on ajoute les 6 premières lettres de l'alphabet latin, c'est-à-dire les lettres de \texttt{A} à \texttt{F}
+
+\change
+et elle est nommée représentation \emph{hexadécimale}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo %la base 8
+
+Commençons avec la base 8,
+
+\change
+et déterminons l'écriture octale de $n=47$.
+
+\change
+Pour cela, nous allons employer une méthode analogue à celle utilisée pour la conversion en binaire, c'est-à-dire calculer des divisions euclidiennes successives. Mais on divise par 8 au lieu de diviser par 2.
+
+Avec la première division, nous obtenons un quotient de 5 et un premier reste de 7.
+
+Puis en divisant le quotient 5 par 8, on obtient un quotient nul et un second reste égal à 5.
+
+Nous arrêtons là les divisions puisque nous avons obtenu un quotient nul.
+
+\change
+Le nombre $47$ s'écrit donc comme une somme de deux puissances de $8$ successives avec les coefficients $5$ pour la puissance première, et $7$ pour la puissance zéro-ième.
+
+\change
+En base 8, le nombre $n=47$ s'écrit donc avec les deux chiffres $5$ et $7$, c'est-à-dire les deux restes successifs des divisions euclidiennes regroupés de droite à gauche.
+
+Comme pour la représentation binaire, nous surmontons la représentation octale d'une barre et mettons 8 en indice pour bien marquer qu'il s'agit d'un nombre représenté en octal et non du nombre cinquante-sept.
+
+\change
+Prenons un autre exemple avec $n=3010$ :
+ 
+\change
+Les divisions successives par 8 sont au nombre de 4 pour arriver à un quotient nul.
+
+\change
+Ce qui donne la décomposition de $3010$ en somme coefficientée de puissances de 8,
+
+\change
+et donc son écriture octale obtenue en regroupant les quatre restes de droite à gauche.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo %les entiers de 0 à 20 en octal
+
+Observons un instant l'écriture octale des nombres de 0 à 20.
+
+\hrule\medskip
+
+Les nombres de 0 à 7 s'écrivent tous avec un seul chiffre.
+
+\hrule\medskip
+
+À partir du nombre 8 il faut au moins deux chiffres pour les représenter en octal.
+
+\hrule\medskip
+
+Les nombres de 8 à 15 s'écrivent tous avec deux chiffres le premier étant un 1.
+
+\hrule\medskip
+
+16 s'écrit deux suivi d'un zéro (16 est égal à 2 fois 8 + 0).
+
+\hrule\medskip
+Le premier nombre, non visible ici, dont l'écriture octale nécessite trois chiffres est le nombre 64 qui est le carré de 8 et qui s'écrit donc un-zéro-zéro en base 8.
+
+
+ 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo %l'octal en Python
+
+Comme pour le binaire, le langage Python offre des fonctionnalités pour travailler sur la réprésentation octales des nombres.
+
+\change
+La fonction \codeinline{oct} est l'équivalent de la fonction \codeinline{bin} que nous avons vue dans la partie précédente.
+
+\change
+
+Par exemple, si on applique cette fonction à l'entier 47, Python nous donne la représentation octale de ce nombre sous forme d'une chaîne de caractères (ce qu'on repère par la présence des apostrophes) débutant par le préfixe \codeinline{'0o'}.
+
+\change
+
+Voici un nouvel exemple avec le nombre 3010.
+
+\change
+Et un autre avec un nombre négatif.
+
+
+\change
+Comme pour le binaire on peut écrire directement les nombres en octal. Pour cela il suffit de préfixer leur écriture par \codeinline{0o}.
+
+Ainsi si on écrit l'expression \codeinline{0o57}, Python reconnaît qu'il s'agit de l'entier 47.
+
+\change
+
+Enfin, rien interdit dans une même expression de mêler écritures décimale et octale. 
+
+L'expression \codeinline{2 * 0o57} vaut bien 94.
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo %la base 16
+
+Abordons maintenant la base 16,
+
+\change
+et déterminons l'écriture hexadécimale de 47.
+
+\change
+Comme pour le binaire et l'octale, il s'agit d'effectuer des divisions successives par 16.
+
+Ici deux divisions suffisent pour obtenir un quotient nul.
+
+\change
+De ces divisions on peut déduire que 47 se décompose en $2\times 16^1 + 15\times 16^0$.
+
+Cela permet d'en déduire que l'écriture de ce nombre en base 16 nécessitera deux chiffres : un pour le coefficient de $16^1$, ici 2, et un pour le coefficient de $16^0$ ici 15. 
+
+Les 10 chiffres usuels ne suffisent plus en hexadécimal. Il nous faut donc introduire 6 chiffres supplémentaires qui seront les 6 premières lettres de l'alphabet A pour représenter 10, B pour représenter 11, et ainsi de suite jusqu'à F pour représenter 15.
+
+\change
+
+
+Ainsi 47 s'écrit deux-F le symbole F étant utilisé comme chiffre hexadécimal pour désigner le nombre 15.
+
+\change
+Avec le nombre 3010, il faut trois divisions successives,
+
+\change
+pour constater que $3010 = 11\times 16^2 +12\times 16^1 + 2\times 16^0$
+
+\change
+et en déduire l'écriture hexadécimale de ce nombre  : B-C-2,
+
+B étant utilisé pour désigner 11, et C pour désigner 12.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo %les entiers de 0 à 20 en hexa
+
+Voici l'écriture hexadécimale des nombres de 0 à 20.
+
+\hrule\medskip
+
+Il suffit d'un seul chiffre hexa pour représenter les nombres de 0 à 16.
+
+\hrule\medskip
+
+À partir de 16, il en faut au moins deux.
+
+\hrule\medskip
+
+Le plus grand nombre pouvant s'écrire avec deux chiffres est le nombre représenté par FF, qui vaut 15 fois 16 + 15, c'est-à-dire 255.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo %l'hexa en Python
+
+Python permet d'écrire les nombres en binaire, en octal, et bien entendu aussi en hexadécimal.
+
+\change
+C'est la fonction \codeinline{hex} qui donne la représentation hexadécimale d'un entier.
+
+\change
+
+\change
+
+On voit sur cet exemple que \codeinline{hex(47)} donne bien l'écriture hexadécimale de 47 que nous avons établie il y a quelques instants.
+
+La réponse est fournie sous forme d'une chaîne de caractères préfixée par \codeinline{0x}.
+
+\change
+
+Voici ce qu'il en est pour 3010,
+
+\change
+
+et pour un entier négatif.
+
+\change
+Si on le souhaite, on peut écrire les nombres en hexa. Il suffit pour cela de faire précéder leur écriture hexadécimale par \codeinline{0x},
+
+zéro-x-deux-f vaut bien 47.
+
+\change
+
+Et comme on l'a vu pour le binaire et l'octal, rien interdit de mêler des écritures dans des bases différentes.
+
+100 moins 0x2f (c'est à dire 47) est bien égal à 53. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo % conversion binaire/octal
+
+
+Dans la première partie nous avons dit que le binaire était motivé par le fait que les ordinateurs sont des machines électroniques dont les composants élémentaires sont les transistors qui ne connaissent que deux états.
+
+Alors pourquoi s'intéresser aux bases 8 et 16 ?
+
+
+\change
+Pour la base 8, la raison provient du fait que 8 est la puissance troisième de 2,
+
+\change
+ce qui fait que, comme on l'a déjà constaté, les entiers de 0 à 7 peuvent tous s'écrire avec trois bits en binaire.
+
+\change
+Une conséquence de ces remarques est qu'il est tout à fait possible de passer de l'écriture binaire d'un nombre à son écriture octale en effectuant aucun calcul arithmétique : ni divisions, ni multiplications, ni aucune autre opération.
+
+
+
+\change
+
+Si on dispose de l'écriture binaire d'un nombre et qu'on souhaite obtenir son écriture octale, il suffit de regrouper les bits par paquets de trois en partant de la droite,
+
+\change
+
+et de remplacer chacun de ses paquets par le chiffre octal correspondant.
+
+\change
+
+Ainsi pour le nombre qui s'écrit en bianire avec les 6 bits 101111, on obtient deux paquets de trois bits :
+
+- 111 pour celui de droite qui est l'écriture binaire au nombre 7
+
+- et 101 pour celui de gauche qui est l'écriture binaire du nombre 5
+ 
+et comme chacun de ces deux nombres correspond à un chiffre octal,
+
+l'écriture octale du nombre de départ est cinq-sept.
+
+\hrule\medskip
+Bien entendu l'opération inverse de conversion de l'octal en binaire se fait en inversant le procédé qu'on vient de décrire et ne nécessite elle aussi aucune opération arithmétique
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo % conversion binaire/hexa
+
+Voyons maintenant ce qu'il en est pour la conversion binaire/hexadécimal
+
+\change
+Le constat de départ est que 16 est la puissance quatrième de 2,
+
+\change
+et donc que les entiers de 0 à 15 peuvent tous s'écrire  en binaire avec quatre bits.
+
+\change
+Et donc pour passer de l'écriture binaire d'un nombre à son écriture hexadécimale,
+
+\change
+il suffit de regrouper les bits par paquets de quatre en partant de la droite
+
+\change
+puis de remplacer chacun de ces paquets par le chiffre hexadécima qui lui correspond.
+
+\change
+
+Avec notre nombre de 6 bits, 
+
+- le paquet des quatres bits les plus à droite correspond au nombre 15
+- et il reste deux bits qu'on complète en plaçant deux bits nuls à gauche pour former un paquet de quatre bits qui correspond au nombre 2
+
+On obtient ainsi l'écriture hexadécimale deux-F du nombre de départ sans avoir effectué aucun calcul.
+
+\hrule\medskip
+On peut de même passer de l'écriture hexadécimale au binaire sans aucun calcul.
+
+
+\hrule\medskip
+
+Les écritures octales et hexadécimales sont donc des codages bien pratiques du binaire qui permet d'avoir des représentations plus concises et plus lisibles que le binaire. C'est ce qui motive leur intérêt en informatique.
+
+
+
+
+
+
+\end{document}

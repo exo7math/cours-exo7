@@ -1,0 +1,953 @@
+%%%%%%%%%%%%%%%%%% PREAMBULE %%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+\usepackage{fancybox}
+\usepackage{graphicx}
+
+%----- Ensembles : entiers, reels, complexes -----
+\newcommand{\Nn}{\mathbb{N}} \newcommand{\N}{\mathbb{N}}
+\newcommand{\Zz}{\mathbb{Z}} \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Qq}{\mathbb{Q}} \newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Rr}{\mathbb{R}} \newcommand{\R}{\mathbb{R}}
+\newcommand{\Cc}{\mathbb{C}} \newcommand{\C}{\mathbb{C}}
+\newcommand{\Kk}{\mathbb{K}} \newcommand{\K}{\mathbb{K}}
+
+%----- Modifications de symboles -----
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\Re}{\mathop{\mathrm{Re}}\nolimits}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}\nolimits}
+\newcommand{\llbracket}{\left[\kern-0.15em\left[}
+\newcommand{\rrbracket}{\right]\kern-0.15em\right]}
+
+%----- Fonctions usuelles -----
+\newcommand{\ch}{\mathop{\mathrm{ch}}\nolimits}
+\newcommand{\sh}{\mathop{\mathrm{sh}}\nolimits}
+\renewcommand{\tanh}{\mathop{\mathrm{th}}\nolimits}
+\newcommand{\cotan}{\mathop{\mathrm{cotan}}\nolimits}
+\newcommand{\Arcsin}{\mathop{\mathrm{Arcsin}}\nolimits}
+\newcommand{\Arccos}{\mathop{\mathrm{Arccos}}\nolimits}
+\newcommand{\Arctan}{\mathop{\mathrm{Arctan}}\nolimits}
+\newcommand{\Argsh}{\mathop{\mathrm{Argsh}}\nolimits}
+\newcommand{\Argch}{\mathop{\mathrm{Argch}}\nolimits}
+\newcommand{\Argth}{\mathop{\mathrm{Argth}}\nolimits}
+\newcommand{\pgcd}{\mathop{\mathrm{pgcd}}\nolimits} 
+
+%----- Structure des exercices ------
+\theoremstyle{definition}
+\newtheorem{exo}{Exercice}
+\newtheorem{ind}{Indications}
+\newtheorem{cor}{Correction}
+
+\newcommand{\exercice}[1]{} \newcommand{\finexercice}{}
+%\newcommand{\exercice}[1]{{\tiny\texttt{#1}}\vspace{-2ex}} % pour afficher le numero absolu, l'auteur...
+\newcommand{\enonce}{\begin{exo}} \newcommand{\finenonce}{\end{exo}}
+\newcommand{\indication}{\begin{ind}} \newcommand{\finindication}{\end{ind}}
+\newcommand{\correction}{\begin{cor}} \newcommand{\fincorrection}{\end{cor}}
+
+\newcommand{\noindication}{\stepcounter{ind}}
+\newcommand{\nocorrection}{\stepcounter{cor}}
+
+\newcommand{\fiche}[1]{} \newcommand{\finfiche}{}
+\newcommand{\titre}[1]{\centerline{\large \bf #1}}
+\newcommand{\addcommand}[1]{}
+\newcommand{\video}[1]{}
+
+%----- Presentation ------
+\setlength{\parindent}{0cm}
+
+\newcommand{\ExoSept}{\textbf{\textsf{Exo7}}}
+\newcommand{\LogoExoSept}{\setlength{\unitlength}{0.6em}
+\begin{picture}(0,0)  \thicklines     \put(0,4){\line(0,1){3}}   \put(0,7){\line(1,0){3}}
+  \put(3,7){\line(0,-1){7}}  \put(0,4){\line(1,0){7}}   \put(3,0){\line(1,0){4}}
+  \put(7,0){\line(0,1){4}}   \put(3,7){\line(4,-3){4}}  \put(7,4){\line(3,4){3}}  
+  \put(10,8){\line(-4,3){4}} \put(3,7){\line(3,4){3}}   \put(4.6,6.8){\mbox{\ExoSept}}
+\end{picture}}
+
+%----- Commandes supplementaires ------
+
+\newcommand{\ii}{\mathrm{i}}
+
+\usepackage[usenames, x11names]{xcolor}
+
+%----- Commandes tikz -----
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{calc}
+\usetikzlibrary{shadows}
+\usetikzlibrary{arrows}
+\usetikzlibrary{patterns}
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%% ENTETE %%%%%%%%%%%%%%%%%%
+
+\LogoExoSept
+
+%\kern-2em
+\hfill\textsf{Ann\'ee 2014}
+
+\vspace*{0.5ex}
+\hrule\vspace*{1.5ex} 
+\hfil\textsf{\textbf{\Large Exercices de math\'ematiques}}
+\vspace*{1ex} \hrule 
+\vspace*{5ex} 
+
+
+%%%%%%%%%%%%%%%%%% EXERCICES %%%%%%%%%%%%%%%%%%
+\fiche{f00xxx, bodin, 2014/04/24} 
+
+\titre{Exercices -- La règle et le compas}
+
+
+% % Décommenter pour chapitre seul -- Commenter pour livre
+% %\input{../preamb-poly-book-new.tex}
+% \input{/home/arnaud/Maths/Geometrie/preamb-geo.tex}
+% 
+% % Commandes specifiques a ce chapitre
+% % \newcommand{\construc}{\mathcal{C}}
+% % \newcommand{\plan}{\mathcal{P}}
+% % \newcommand{\cercle}{\mathcal{C}}
+% 
+% %%%%%%%%%%%%%%%%%% ENTETE %%%%%%%%%%%%%%%%%%
+% 
+% %\chapitre{Exercices -- La règle et le compas}
+% 
+% \begin{document}
+% \montitre{Exercices -- La règle et le compas}
+
+% Autres idées d'exercices :  
+  % Réciproque du théorème de Wantzel est fausse
+ 
+% Références pour cette fiches :
+% André Pillons, Vassallo-Royer, Carrega
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Constructions et les trois problèmes grecs}
+
+
+\exercice{}
+\enonce[Constructions élémentaires]
+\'Etant donné deux points $A,B$, dessiner à la règle et au compas :
+\begin{enumerate}
+    \item un triangle équilatéral de base $[AB]$,
+    \item un carré de base $[AB]$,
+    \item un rectangle dont l'un des côtés est $[AB]$ et l'autre est de longueur double,
+    \item un losange dont l'une des diagonales est $[AB]$ 
+    et l'autre est de longueur $\frac14 AB$,    
+    \item un hexagone régulier dont l'un des côtés est $[AB]$.    
+\end{enumerate} 
+\finenonce
+\finexercice
+
+
+\exercice{}
+\enonce[Centres de cercles]
+\begin{itemize}
+  \item \'Etant donné un cercle dont on a perdu le centre, retrouver 
+  le centre à la règle et compas.
+  
+  \item \'Etant donné un triangle, tracer son cercle circonscrit.
+  
+  \item \'Etant donné un triangle, tracer son cercle inscrit.  
+\end{itemize}
+\finenonce
+\finexercice
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\exercice{}
+\enonce[Construction au compas seul]
+Construire au compas seulement :
+\begin{enumerate}
+ \item Le symétrique de $P$ par rapport à une droite $(AB)$. (Seuls les points $P, A, B$ sont tracés, 
+ pas la droite.)
+
+ \item Le symétrique d'un point $P$ par rapport à un point $O$.
+
+ \item(*) Le milieu de deux points $A$, $B$. (La droite $(AB)$ n'est pas tracée !)
+\end{enumerate}
+\finenonce
+\finexercice
+
+
+
+\exercice{}
+\enonce[Pentagone régulier]
+% \exercice{77, bodin, 1998/09/01}
+% \video{wHlb0IsMB7Q}
+
+Soit $(A_{0},A_{1},A_{2},A_{3},A_{4})$ un pentagone r\'egulier. On note $O$ son centre et on
+choisit un rep\`ere orthonorm\'e $(O,\overrightarrow{u},\overrightarrow{v})$ avec
+$\overrightarrow{u}=\overrightarrow{OA_{0}}$, qui nous permet d'identifier le plan avec
+l'ensemble des nombres complexes $\Cc$.
+
+
+\begin{enumerate}
+\item
+Donner les affixes $\omega_{0},\ldots,\omega_{4}$ des points $A_{0},\ldots,A_{4}$. Montrer
+que  $\omega_{k}={\omega_{1}}^k$ pour $ k\in\{0,1,2,3,4\}$. Montrer que
+$1+\omega_{1}+\omega_{1}^2+\omega_{1}^3+\omega_{1}^4=0$.
+
+\item
+En d\'eduire que $\cos(\frac{2\pi}{5})$ est l'une des solutions de l'\'equation $4z^2+2z-1=0$.
+En d\'eduire la valeur de $\cos(\frac{2\pi}{5})$.
+
+\item
+On consid\`ere le point $B$ d'affixe $-1$. Calculer la longueur $BA_{2}$ en fonction de
+$\cos\frac{2\pi}{5}$ puis de $\sqrt{5}$.
+
+\item
+On consid\`ere le point $I$ d'affixe $\frac{\ii}{2}$, le cercle $\mathcal{C}$ de centre $I$ de
+rayon $\frac{1}{2}$ et enfin le point $J$ d'intersection de $\mathcal{C}$ avec le segment
+$[BI]$. Calculer la longueur $BI$ puis  la longueur $BJ$.
+
+\item
+\textbf{Application:} Dessiner un pentagone r\'egulier \`a la r\`egle et au compas. Expliquer.
+\end{enumerate}
+
+
+   \begin{tikzpicture}[scale=2]
+      \coordinate (a0) at (0:1);
+      \coordinate (a1) at (72:1);      
+      \coordinate (a2) at (72*2:1);
+      \coordinate (a3) at (72*3:1);
+      \coordinate (a4) at (72*4:1);     
+      \coordinate (o) at (0,0);
+      
+      \draw (0,0) circle (1);
+      \draw[thick] (a0)--(a1)--(a2)--(a3)--(a4)--cycle;
+      
+      \node at (o) [below right] {$O$};
+      \node at (a0) [above right] {$A_0$};      
+      \node at (a1) [above] {$A_1$};
+      \node at (a2) [left] {$A_2$};
+      \node at (a3) [left] {$A_3$};
+      \node at (a4) [below] {$A_4$};
+      \node at (a0) [below right] {$1$};      
+      \node at (0,1) [above left] {$\ii$};
+
+      \draw[->] (-1.2,0)--(1.2,0);
+      \draw[->] (0,-1.2)--(0,1.2);         
+   \end{tikzpicture}
+
+
+\finenonce 
+
+\noindication
+
+\correction
+\begin{enumerate}
+\item
+Comme $(A_{0},\ldots,A_{4})$ est un pentagone r\'egulier, on a
+$OA_{0}=OA_{1}=OA_{2}=OA_{3}=OA_{4}=1$ et $
+  (\overrightarrow{OA_{0}},\overrightarrow{OA_{1}})=\frac{2\pi}{5}[2\pi],
+  (\overrightarrow{OA_{0}},\overrightarrow{OA_{2}})=\frac{4\pi}{5}[2\pi],
+  (\overrightarrow{OA_{0}},\overrightarrow{OA_{3}})=-\frac{4\pi}{5}[2\pi],
+  (\overrightarrow{OA_{0}},\overrightarrow{OA_{4}})=-\frac{2\pi}{5}[2\pi],
+ $.
+On en d\'eduit:
+ $
+  \omega_{0}=1,
+  \omega_{1}=e^{\frac{2\ii\pi}{5}},
+  \omega_{2}=e^{\frac{4\ii\pi}{5}},
+  \omega_{3}=e^{-\frac{4\ii\pi}{5}}=e^{\frac{6\ii\pi}{5}},
+  \omega_{4}=e^{-\frac{2\ii\pi}{5}}=e^{\frac{8\ii\pi}{5}},
+ $.
+On a bien $\omega_{i}=\omega_{1}^i$. Enfin, comme
+$\omega_{1}\neq0$, $1+\omega_{1}+\ldots+\omega_{1}^4=
+\frac{1-\omega_{1}^5}{1-\omega_{1}}=\frac{1-1}{1-\omega_{1}}=0$.
+
+\item $\mathop{\mathrm{Re}}\nolimits(1+\omega_{1}+\ldots+\omega_{1}^4)=
+1+2\cos(\frac{2\pi}{5})+2\cos(\frac{4\pi}{5})$. Comme
+$\cos(\frac{4\pi}{5})=2\cos^2(\frac{2\pi}{5})-1$ on en d\'eduit:
+$4\cos^2(\frac{2\pi}{5})+2\cos(\frac{2\pi}{5})-1=0$.
+$\cos(\frac{2\pi}{5})$ est donc bien une solution de l'\'equation
+$4z^2+2z-1=0$. Etudions cette \'equation: $\Delta=20=2^2.5$. Les
+solutions sont donc $\frac{-1-\sqrt{5}}{4}$ et
+$\frac{-1+\sqrt{5}}{4}$. Comme $\cos(\frac{2\pi}{5})>0$, on en
+d\'eduit que $\cos(\frac{2\pi}{5})=\frac{\sqrt{5}-1}{4}$.
+
+\item
+ $
+  BA_{2}^2=|\omega_{2}+1|^2
+          =|\cos(\frac{4\pi}{5})+i\sin(\frac{4\pi}{5})+1|^2
+          =1+2\cos(\frac{4\pi}{5})+\cos^2(\frac{4\pi}{5})+\sin^2(\frac{4\pi}{5})
+          =4\cos^2(\frac{2\pi}{5})
+  $. Donc $BA_{2}=\frac{\sqrt{5}-1}{2}$.
+
+\item
+$BI=|\ii/2+1|=\frac{\sqrt{5}}{2}$. $BJ=BI-1/2=\frac{\sqrt{5}-1}{2}$.
+
+\item
+Pour tracer un pentagone r\'egulier, on commence par tracer un
+cercle $C_{1}$ et deux diam\`etres orthogonaux, qui jouent le r\^ole
+du cercle passant par les sommets et des axes de coordonn\'ees. On
+trace ensuite le milieu d'un des rayons: on obtient le point I de
+la question 4. On trace le  cercle de centre $I$ passant par le
+centre de $C_{1}$: c'est le cercle $\mathcal{C}$. On trace le
+segment $[BI]$ pour obtenir son point $J$ d'intersection avec
+$\mathcal{C}$. On trace enfin le cercle de centre $B$ passant par
+$J$: il coupe $C_{1}$ en $A_{2}$ et $A_{3}$, deux sommets du
+pentagone. Il suffit pour obtenir tous les sommets de reporter la
+distance $A_{2}A_{3}$ sur $C_{1}$, une fois depuis $A_{2}$, une
+fois depuis $A_{3}$. (en fait le cercle de centre $B$ et passant
+par $J'$, le point de $\mathcal{C}$ diam\'etralement oppos\'e \`a
+$J$, coupe $C_{1}$ en $A_{1}$ et $A_{4}$, mais nous ne l'avons pas
+justifi\'e par le calcul : c'est un exercice !)
+\end{enumerate}
+% $$
+% \includegraphics[65mm,50mm]{penta.eps}
+% $$
+\fincorrection
+\finexercice
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Les nombres constructibles à la règle et au compas}
+
+
+\exercice{}
+\enonce[Construction de l'axe des ordonnées]
+\begin{enumerate}
+  \item Montrer qu'il possible de construire un point de l'axe des ordonnées 
+  (autre que l'origine) dans l'ensemble des points constructibles $\mathcal{C}_3$.
+  
+  \item En déduire que $\mathcal{C}_4$ contient le point $(0,1)$.
+\end{enumerate}
+\finenonce
+\finexercice
+
+
+\exercice{}
+\enonce[Constructions approchant $\pi$]
+\ 
+\begin{enumerate}
+ \item Construire les approximations suivantes de $\pi$ : 
+$\frac{22}{7}=3,1428\ldots$, $\sqrt{2}+\sqrt{3}=3,1462\ldots$
+ 
+ \item Construire $\frac{\sqrt{2}}{\sqrt{3}}$, $5^{\frac{1}{4}}$, $\sqrt{3-\sqrt{3}}$. 
+     
+\end{enumerate}
+\finenonce
+
+\finexercice
+
+
+\exercice{}
+\enonce[Approximation de Kochanski]
+Une valeur approchée de $\pi$ avec quatre décimales exactes est donnée par
+$$\phi = \sqrt{\frac{40}{3} - 2 \sqrt{3}} = 3,141533\ldots$$
+Soient les points suivants $O(0,0)$, $I(1,0)$, $Q(2,0)$. 
+On construit les points $P_1, P_2,\ldots$ ainsi:
+\begin{itemize}
+ \item $P_1$ est l'intersection des cercles centrés en $O$ et $I$ de rayon $1$ ayant une ordonnée positive.
+ \item $P_2$ est l'intersection des cercles centrés en $O$ et $P_1$ de rayon $1$ (l'autre intersection est $I$).
+ \item $P_3$ est l'intersection de  la droite $P_2I$ avec l'axe des ordonnées.
+ \item $P_4$ est l'image de $P_3$ par une translation de vecteur $(0,-3)$.
+\end{itemize}
+Calculer les coordonnées de chacun des $P_i$.
+Montrer que la longueur $P_4Q$ vaut $\phi$.
+\finenonce
+
+\finexercice
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\'Eléments de théorie des corps}
+
+
+\exercice{}
+\enonce[Extensions quadratiques]
+\begin{enumerate}
+  \item Montrer que $\sqrt{3} \notin \Qq(\sqrt2)$.
+  \item Montrer que $\sqrt{1+\sqrt2} \notin \Qq(\sqrt2)$.
+  \item Montrer que $\sqrt 5 \notin \Qq(\sqrt2)(\sqrt 3)$.
+  \item Trouver un polynôme $P \in \Qq[X]$ tel que que $P(\sqrt{1+\sqrt2}) = 0$.   
+  \item Trouver un polynôme $P \in \Qq[X]$ tel que que $P(\sqrt2 + \sqrt 3) = 0$. 
+  % C'est x4 − 10x2 + 1 = (x − √2 − √3)(x + √2 − √3)(x − √2 + √3)(x + √2 + √3)
+  \item Montrer que $\Qq(\sqrt[3]{2})$ 
+\end{enumerate}
+\finenonce
+\finexercice
+
+
+\exercice{}
+\enonce[Degré algébrique]
+
+\begin{enumerate}
+  \item Soit $x \in \Rr$ montrer que $\Qq(x)$, le plus petit corps contenant $x$, vérifie :
+  $$\Qq(x) =\left\{ \frac{P(x)}{Q(x)} \mid P,Q \in \Qq[X] \text{ et } Q(x) \neq 0 \right\}.$$
+  
+  \item Montrer que $K = \left\{ a+b\sqrt[3]{2}+c\sqrt[3]{2}^2 \mid a,b,c \in \Qq \right\}$ est un corps.
+  
+  \item Montrer que  $K=\Qq(\sqrt[3]{2})$ ; c'est-à-dire que $K$ est le 
+  plus petit corps contenant $\Qq$ et $\sqrt[3]{2}$.
+  
+  \item Vérifier sur cet exemple que le degré algébrique de $\sqrt[3]{2}$ égale 
+  le degré de l'extension $[\Qq(\sqrt[3]{2}):\Qq]$.
+  
+  \item Expliciter une extension de $\Qq$ ayant le degré $4$.
+\end{enumerate}
+\finenonce
+
+\correction
+\begin{enumerate}
+  \item 
+  \begin{enumerate}
+    \item   
+    \item    
+  \end{enumerate} 
+  
+  \item Montrons que $K = \left\{ a+b\sqrt[3]{2}+c\sqrt[3]{2}^2 \mid a,b,c \in \Qq \right\}$ est un corps
+  L'addition et la multiplication définie sur $K$ sont celles du corps $(\Rr,+,\times)$.
+  Beaucoup de propriétés découlent du fait que l'ensemble des réels est un corps.
+  
+  [pb : mq $+$ et $\times$ lci]
+  
+ \begin{enumerate}
+  \item $(K,+)$ est un groupe commutatif, car :
+    \begin{itemize}
+      
+      \item $0 \in K$ (prendre $a=b=c=0$) et $0+x = x$ (pour tout $x\in K$).
+      
+      \item Si $x\in K$ alors $-x \in K$.
+      
+      \item $+$ est associative : cela découle de l'associativité sur $\Rr$.
+      
+      \item $x+y=y+x$ : idem.
+    \end{itemize} 
+  
+  \item $(K\setminus\{0\},\times)$ est un groupe commutatif, en effet :
+     \begin{itemize} 
+      \item $1 \in K\setminus\{0\}$ et $1 \times x = x$ (pour tout $x\in K\setminus\{0\}$).
+      
+      \item Si $x\in K\setminus\{0\}$ alors $x^{-1} \in K\setminus\{0\}$ :
+      [à faire]
+      \item $\times$ est associative :  cela découle de l'associativité sur $\Rr\setminus\{0\}$.
+      
+      \item $x\times y=y\times x$ : .     
+
+    \end{itemize} 
+    
+  \item $\times$ est distributive par rapport à $+$ : cela découle de la distributivité sur $\Rr$.
+ \end{enumerate}
+  
+  \begin{enumerate}
+    \item   
+    \item    
+  \end{enumerate} 
+  
+  \item Par définition $\Qq(\sqrt[3]{2})$ est le plus petit corps contenant $\Qq$ et $\sqrt[3]{2}$.
+  Mais il est clair que $K = \left\{ a+b\sqrt[3]{2}+c\sqrt[3]{2}^2 \mid a,b,c \in \Qq \right\}$ contient $\sqrt[3]{2}$ (prendre $a=0$, $b=1$, $c=0$) et que $\Qq \subset K$.
+  Donc comme $\Qq(\sqrt[3]{2}) \subset K$.
+  
+  Nous allons maintenant montrer la partie "le plus petit". Soit donc $K'$ un autre corps contenant
+  $\Qq$ et $\sqrt[3]{2}$. On veut montrer $K \subset K'$.
+  $K'$ doit contenir tout élément $a\in \Qq$ et contient $\sqrt[3]{2}$ donc il contient
+  tout élément de la forme $a+b \sqrt[3]{2}$ (avec $a,b \in \Qq$).
+  Mais comme $K'$ est un corps contenant $\sqrt[3]{2}$ il contient aussi $\sqrt[3]{2}^2$ et donc tout élément de la forme
+  $a+b\sqrt[3]{2}+c\sqrt[3]{2}^2$ avec ($a,b,c \in \Qq$). Ainsi $K \subset K'$.
+  
+  Conclusion : $K$ est bien le plus petit corps contenant  $\Qq$ et $\sqrt[3]{2}$, c'est-à-dire
+  $K = \Qq(\sqrt[3]{2})$.
+  
+  
+  \item
+  \begin{enumerate}
+    \item Le degré algébrique d'un réel $x$ est le plus petit degré 
+    d'un polynôme $P\in\Qq[X]$ tel que $P(x)=0$.
+    Pour $x = \sqrt[3]{2}$, un polynôme qui annule $x$ est $P(X) = X^3-2$.
+    Donc le degré algébrique de $x$ est $\le 3$. 
+    Mais le nombre algébrique de degré $1$ sont les rationnels, alors que le nombre réels
+    algébrique de degré $2$ sont de la forme $a+b \sqrt{\delta}$ (avec $a,b,\delta\in\Qq$).
+    Donc $x = \sqrt[3]{2}$ n'est ni de degré $1$, ni de degré $2$. Ainsi le degré algébrique de
+    $x = \sqrt[3]{2}$ est $3$.
+    
+    \item On a vu que $K=\Qq(\sqrt[3]{2}) = \left\{ a+b\sqrt[3]{2}+c\sqrt[3]{2}^2 \mid a,b,c \in \Qq \right\}$
+    c'est donc un $\Qq$-espace vectoriel dont une base est $(1,\sqrt[3]{2},\sqrt[3]{2}^2)$.
+    C'est donc un espace vectoriel sur $\Qq$ de dimension $3$.
+    Ainsi le degré de l'extension $[\Qq(\sqrt[3]{2}):\Qq] = \dim_\Qq K = 3$.
+  
+  \end{enumerate}  
+  C'est un résultat plus général (voir le cours) : le degré algébrique d'un réel $x$
+  égale le degré de l'extension $[\Qq(x):\Qq]$.
+  
+  \item 
+  \begin{enumerate}
+    \item 
+  Premier exemple avec $x = \sqrt{\sqrt{2}} = $, alors
+  $$\Qq\big(2^{\frac14}\big) = \big\{ a + b 2^{\frac14} + c 2^{\frac24} + d  2^{\frac34} \mid a,b,c,d \in \Qq \big\}.$$
+  C'est une extension de $\Qq$ degré $4$.
+    \item
+  Second exemple avec $x = \sqrt{2}\ii$, alors
+  $$\Qq\big(\sqrt{2}\ii\big) = \big\{ a + b \sqrt{2} + c \ii  + d \sqrt{2}\ii  \mid a,b,c,d \in \Qq   \big\}.$$
+  C'est aussi une extension de $\Qq$ de degré $4$.
+  \end{enumerate}
+\end{enumerate}
+
+
+\fincorrection
+\finexercice
+
+
+\exercice{}
+\enonce[Nombres transcendants]
+\ 
+\begin{enumerate}
+ \item Montrer que l'ensemble des nombres réels algébriques est un ensemble dénombrable.
+ \item En déduire l'existence de nombres réels qui ne soient pas algébriques.
+\end{enumerate}
+\finenonce
+
+\indication
+\begin{enumerate}
+  \item Un nombre algébrique est par définition
+  une racine d'un polynôme $P$ de $\Qq[X]$. 
+  
+  \item $\Rr$ n'est pas dénombrable.
+\end{enumerate}
+
+
+\finindication
+
+\correction
+\begin{enumerate}
+  \item Un nombre $x \in \Rr$ est un \emph{nombre algébrique}
+  s'il existe un polynôme $P \in \Qq[X]$, tel que $P(x)=0$.
+  Pour un degré $n$ fixé, il y a un nombre dénombrable de polynômes
+  de degré $n$ à coefficients rationnels. En effet, un tel polynôme s'écrit :
+  $$P(X) = a_nX^n + a_{n-1}X^{n-1}+\cdots +a_1X+a_0$$
+  Et comme la liste des coefficients forment un sous-ensemble de $\Qq^{n+1}$, 
+  c'est un ensemble  dénombrable.
+  Chaque polynôme de degré $n$, admet au plus $n$ racines. Donc 
+  l'ensemble des racines des polynômes de degré $n$ est un ensemble dénombrable.
+  
+  Enfin on décompose l'ensemble $\overline{\Qq}$ des nombres algébriques comme
+  l'union (sur l'indice $n$) des racines des polynômes de degré $n$ :
+  $$\overline{\Qq} = \bigcup_{n=0}^{+\infty} \Big\{ x \in \Rr \mid 
+  \exists Q \in \Qq[X] \text{ avec } \deg Q = n \text{ et } Q(x)=0 \Big\}$$
+  Ainsi $\overline{\Qq}$ est l'union dénombrable d'ensembles dénombrables, ce qui implique
+  que $\overline{\Qq}$ est un ensemble dénombrable.
+  
+  \item $\overline{\Qq}$ est un sous-ensemble dénombrable de $\Rr$, qui lui n'est pas dénombrable.
+  Ainsi $\Rr \setminus \overline{\Qq}$ est un ensemble non dénombrable, 
+  et en particulier non vide !
+\end{enumerate}
+
+Remarque : un nombre qui n'est pas algébrique s'appelle un \emph{nombre transcendant}.
+Notre démonstration prouve l'existence de nombres transcendants, mais ne nous permet 
+pas d'en expliciter un seul. Par exemples $\pi$, $e$ sont des nombres transcendants.
+
+\fincorrection
+
+\finexercice
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Corps et nombres constructibles}
+
+\exercice{}
+\enonce[Corps stables par racine carrée]
+Un corps $K \subset \Rr$ est \emph{stable par racine carrée} s'il vérifie la propriété suivante:
+$$\forall x \in K \qquad   x  \ge 0 \Rightarrow \sqrt x \in K.$$
+
+Montrer que l'ensemble $\mathcal{C}_\Rr$ des nombres constructibles est 
+le plus petit sous-corps de $\Rr$ stable par racine carrée.
+\finenonce
+
+\indication
+Utiliser le théorème de Wantzel.
+\finindication
+
+\correction
+Il y a une étape facile : le sous-corps $\mathcal{C}_\Rr$ est stable par racine carrée.
+En effet on a vu que si $x \in \mathcal{C}_\Rr$ est un nombre constructible, alors
+$\sqrt x$ est aussi constructible, donc $\sqrt x \in \mathcal{C}_\Rr$.
+
+\bigskip
+
+Soit maintenant $K$ un corps stable par racine carrée, il s'agit de montrer que
+$\mathcal{C}_\Rr \subset K$.
+Par le théorème de Wantzel, si $x \in \mathcal{C}_\Rr$ est un nombre constructible alors
+il existe une suite d'extensions quadratiques :
+$$\Qq = K_0 \subset K_1 \subset \cdots \subset K_r$$
+telles que $x \in K_r$.
+
+\bigskip
+
+Montrons par récurrence que $K_i \subset K$.
+\begin{itemize}
+  \item Comme $K_0 = \Qq$ alors $K_0 \subset K$.
+  
+  \item Supposons $K_{i-1} \subset K$. Le fait que $K_i$ est une extension quadratique de 
+  $K_{i-1}$, signifie qu'il existe $\delta \in K_{i-1}$ tel que  $K_i = K_{i-1}(\sqrt{\delta})$.
+  Pour $x \in K_i$ alors il existe $a,b \in K_{i-1}$ tels que $x = a + b \sqrt{\delta}$.
+  Par hypothèse de récurrence $a,b \in K_{i-1}$, donc $a,b \in K$.
+  Mais on sait aussi que $\delta \in K_{i-1}$, donc $\delta \in K$. Par hypothèse
+  $K$ est stable par racine carrée donc $\sqrt\delta \in K$.
+  Ainsi $a,b, \sqrt\delta \in K$, donc $x  = a + b \sqrt{\delta} \in K$.
+  Bilan : $K_i \subset K$.
+  
+  \item Par le principe de récurrence, on a prouvé $K_r \subset K$.
+\end{itemize}
+
+\bigskip
+
+
+C'est presque terminé. Pour $x \in \mathcal{C}_\Rr$, le théorème de Wantzel, nous a
+dit $x \in K_r$, et par ce que l'on vient de prouver $x \in K$.
+
+\bigskip
+
+Conclusion : $\mathcal{C}_\Rr$ est corps stable par racine carrée et tout autre corps
+stable par racine carrée contient $\mathcal{C}_\Rr$.
+Ainsi $\mathcal{C}_\Rr$ est bien  
+le plus petit sous-corps de $\Rr$ stable par racine carrée.
+\fincorrection
+
+\finexercice
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Applications aux problèmes grecs}
+
+
+
+\exercice{}
+\enonce[Trissection des angles]
+Le but est de montrer que tous les angles ne sont pas \emph{trissectables} (divisibles en trois) à la règle et au compas.
+Nous allons le prouver pour l'angle $\frac \pi 3$ : plus précisément le point de coordonnées 
+$(\cos \frac \pi 3,\sin \frac \pi 3)$ est constructible mais le point $(\cos \frac \pi 9,\sin \frac \pi 9)$ ne l'est pas.
+\begin{enumerate}
+ \item Exprimer $\cos 3\theta$ en fonction de $\cos \theta$.
+ \item Soit $P(X) = X^3-\frac34X-\frac 18$. Montrer que $P(\cos \frac\pi 9) = 0$.
+ Montrer que $P(X)$ est irréductible dans $\Qq[X]$.
+ \item Conclure.
+\end{enumerate}
+\finenonce
+
+\indication
+\begin{enumerate}
+  \item \`A l'aide des nombres complexes, calculer $(e^{\ii\theta})^3$ de deux façons.
+  \item Tout d'abord montrer que s'il était réductible alors il aurait racine dans $\Qq$.
+Si $\frac ab$ est cette racine avec $\pgcd(a,b)=1$ alors à partir de $P(\frac ab)=0$ obtenir une équation d'entiers.
+  \item Utiliser le théorème de Wantzel.
+\end{enumerate}
+\finindication
+
+\finexercice
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Constructions assistées}
+
+\exercice{}
+\enonce[Spirale d'Archimède]
+Soit $(\mathcal{S})$ la \emph{spirale d'Archimède} paramétrée par 
+$$M_t = (t \cos(2\pi t),t \sin(2\pi t)), \quad t \ge 0.$$
+\begin{enumerate}
+ \item Tracer $\mathcal{S}$.
+ 
+ \item \emph{Trissection des angles}. \'Etant tracée la spirale d'Archimède, construire avec la règle et le compas la  trissection d'un angle donné. 
+ \emph{Indications.} Supposer l'angle $\theta < \frac \pi 2$. \'Ecrire l'angle sous la forme $\theta = 2\pi t$ ; placer $M_t$ et tracer un cercle centré à l'origine du bon rayon.
+ 
+ \item \emph{Quadrature du cercle.}
+   \begin{enumerate}
+     \item Calculer une équation de la tangente à $(\mathcal{S})$ en un point $M_t$.
+     \item La tangente en $M_1$ (pour $t=1$) coupe l'axe des ordonnées en $N$. Calculer la longueur $ON$.
+     \item En déduire qu'avec le tracé de la spirale d'Archimède et le tracé de la tangente en $M_1$ on peut résoudre la quadrature du cercle à la règle et au compas.
+   \end{enumerate}
+\end{enumerate}
+\finenonce
+
+\finexercice
+
+
+\exercice{}
+\enonce[La règle tournante]
+On souhaite trissecter les angles à l'aide d'un compas et d'une règle graduée.
+Soit $\mathcal{C}$ le cercle de rayon $r>0$ centré en $O$.
+Soient $A, B \in \mathcal{C}$ de telle sorte que 
+l'angle en $O$ d'un triangle $OAB$ soit aigu. Notons $\theta$ cet angle.
+\emph{Sur la règle} marquer deux points $O'$ et $C$ tel que $O'C=r$.
+Faire pivoter et glisser la règle autour du point $B$ afin que 
+le point $C$ appartienne à $\mathcal{C}$ et le point $O'$ appartiennent 
+à la droite $(OA)$ (de sorte que $O$ soit dans le segment $[O'A]$).
+Montrer que l'angle en $O'$ du triangle $AO'B$ vaut $\frac{\theta}{3}$.
+
+
+   \begin{tikzpicture}[scale=2]
+      \def\maincircle{(0,0) circle (1)};
+      \coordinate (o) at (0,0);
+      \coordinate (a) at (1,0);      
+      \coordinate (b) at (60:1);
+      \coordinate (c) at (160:1);      
+      \coordinate (oo) at (-1.8793,0);
+      
+      \node at (o) [below] {$O$};
+      \node at (a) [right] {$A$};      
+      \node at (b) [above right] {$B$};
+      \node at (c) [above left] {$C$};
+      \node at (oo) [below] {$O'$};
+      
+      \draw (o)--(b);
+      \draw (o)--(c);
+      \draw (oo)--(b);
+      \draw (oo)--(a);
+  
+      \draw \maincircle;
+
+      \draw (0.2,0) arc(0:60:0.2);
+      \draw (-1.6793,0) arc (0:20:0.2);
+      \node at (0.3,0.1) {$\theta$};
+      \node at (-1.7,0.2) {$\theta/3$};      
+   \end{tikzpicture}
+
+\finenonce
+\finexercice
+
+
+
+\exercice{}
+\enonce[Cissoïde de Dioclès]
+Soient les points $O(0,0)$ et $I(1,0)$.
+Soit $\mathcal{C}$ le cercle de diamètre $[OI]$
+et $\mathcal{L}$ la droite d'équation $(x=1)$.
+Pour un point $M$ de $\mathcal{C}$, soit $M'$ l'intersection de $(OM)$ avec $\mathcal{L}$.
+Soit enfin $M''$ le point tel que $\overrightarrow{OM''}= \overrightarrow{MM'}$.
+L'ensemble des points $M''$ lorsque $M$ parcourt $\mathcal{C}$ est \emph{la cissoïde
+de Dioclès}, notée $\mathcal{D}$.
+
+Le but de l'exercice est de montrer que la duplication du cube est possible à l'aide de la règle,
+du compas et du tracé de la cissoïde.
+
+\begin{enumerate}
+ \item La droite $(OM)$ ayant pour équation $(y=tx)$, exprimer les coordonnées de $M$, $M'$ puis $M''$ en fonction de $t$.
+% M(1/(1+t^2), t*x)   M'(1,t)  M'' (1-1/1+t^2, t*x)
+\item En déduire une équation paramétrique de $\mathcal{D}$ :
+ $$x(t) = \frac{t^2}{1+t^2}, \quad y(t) = \frac{t^3}{1+t^2}.$$
+
+\item Montrer qu'une équation cartésienne de $\mathcal{D}$ est :
+ $$x(x^2+y^2)-y^2 = 0.$$
+ 
+\item \'Etudier et tracer $\mathcal{D}$.
+ 
+\item Soit $P(0,2)$. La droite $(PI)$ coupe $\mathcal{D}$ en un point noté $Q$.
+La droite $(OQ)$ coupe $\mathcal{L}$ en un point noté $R$. Calculer une équation de $(PI)$ ainsi que 
+les coordonnées de $Q$ et $R$.
+% R(1, \sqrt[3]{2})
+
+\item Conclure.
+\end{enumerate}
+
+\shorthandoff{:}
+\begin{center}
+\begin{tikzpicture}[scale=3]
+  \draw[domain=-2:2,samples=100, thick] plot ({(\x*\x/(1+\x*\x))},{(\x*\x*\x/(1+\x*\x))});
+  \draw (0.5,0) circle (0.5);
+ % \draw (0,-1.5)--(0,1.5);
+  \draw (1,-1.7)--(1,1.7); 
+  
+  \draw (0,0) node[below left] {$O$} -- (1.5,1.1);
+  \node at (1.2,0.7) [left] {$M'$};
+  \node at (0.6,0.25) [left] {$M''$}; 
+  \node at (0.8,0.6) [left] {$M$};
+  \node at (1,1.5) [right] {$\mathcal{L}$};
+  \node at (1,0) [right] {$I$};  
+  \node at (0.1,0.5) {$\mathcal{C}$};
+\end{tikzpicture}
+\hspace*{3cm}
+\begin{tikzpicture}[scale=2.5]
+  \draw[domain=-2:2.8,samples=100, thick] plot ({(\x*\x/(1+\x*\x))},{(\x*\x*\x/(1+\x*\x))});
+  \draw (0.5,0) circle (0.5);
+  \draw (0,-1.5)--(0,2.5);
+  \draw (1,-1.5)--(1,2.5);   
+  \draw (0,2)--(1,0);
+    \draw (0,0) node[left] {$O(0,0)$} -- (1.5,1.5*1.2599);
+  \node at (1.1,1.2599) [right] {$R$};
+  \node at (0.6,0.8) [left] {$Q$};
+  \node at (1,2) [right] {$\mathcal{L}$};
+  \node at (0,2) [left] {$P(0,2)$};
+  \node at (1,0) [right] {$I(1,0)$};
+\end{tikzpicture}
+\end{center}
+\shorthandon{:}
+\finenonce
+
+\finexercice
+
+
+\exercice{}
+\enonce[Lunules d'Hippocrate de Chios]
+Montrer que l'aire des quatre lunules égale l'aire du carré. 
+
+\begin{center}
+   \begin{tikzpicture}[scale=0.5]
+      \def\maincircle{(0,0) circle (1.4142*2)} 
+      \begin{scope}
+        \begin{scope}[even odd rule]% first circle without the second
+            \clip \maincircle (-5,-5) rectangle (5,5);
+            \fill[orange] (0,2) circle (2);
+            \fill[orange] (0,-2) circle (2);
+            \fill[orange] (2,0) circle (2);
+            \fill[orange] (-2,0) circle (2);
+        \end{scope}
+      \end{scope}
+
+      \draw (-2,2) rectangle (2,-2);
+      \draw \maincircle;
+      \draw (2,2) arc(0:180:2);
+      \draw (-2,2) arc(90:270:2);
+      \draw (-2,-2) arc(180:360:2);
+      \draw (2,2) arc(90:-90:2);     
+   \end{tikzpicture}
+\end{center}
+\finenonce
+
+\indication
+C'est un simple calcul d'aires : calculer l'aire totale formée 
+par la figure de deux façons différentes.
+\finindication
+
+\correction
+
+Notons $\mathcal{A}$ l'aire totale formée par la figure.
+On décompose la figure totale de deux façon différente.
+
+\begin{center}
+ \begin{tikzpicture}[scale=.6]
+      \useasboundingbox (0,-5) rectangle (10,5);
+      \def\maincircle{(0,0) circle (1.4142*2)}  
+      \fill[blue!50] (-2,2) rectangle (2,-2);
+      \fill[blue] (2,2) arc(0:180:2);     
+      \fill[blue] (-2,2) arc(90:270:2);
+      \fill[blue] (-2,-2) arc(180:360:2);     
+       \fill[blue] (2,2) arc(90:-90:2);   
+      
+      \draw (-2,2) rectangle (2,-2);
+      \draw \maincircle;
+      \draw (2,2) arc(0:180:2);
+      \draw (-2,2) arc(90:270:2);
+      \draw (-2,-2) arc(180:360:2);
+      \draw (2,2) arc(90:-90:2);     
+ \end{tikzpicture} 
+ \begin{tikzpicture}[scale=.6]
+      \useasboundingbox (0,-5) rectangle (0,5);
+      \def\maincircle{(0,0) circle (1.4142*2)}
+      
+      \begin{scope}
+        \begin{scope}[even odd rule]% first circle without the second
+            \clip \maincircle (-5,-5) rectangle (5,5);
+            \fill[green!60!black] (0,2) circle (2);
+            \fill[green!60!black] (0,-2) circle (2);
+            \fill[green!60!black] (2,0) circle (2);
+            \fill[green!60!black] (-2,0) circle (2);
+        \end{scope}
+      \end{scope}
+      
+      \fill[green!60] \maincircle;
+      \draw (-2,2) rectangle (2,-2);
+      \draw \maincircle;
+      \draw (2,2) arc(0:180:2);
+      \draw (-2,2) arc(90:270:2);
+      \draw (-2,-2) arc(180:360:2);
+      \draw (2,2) arc(90:-90:2);     
+   \end{tikzpicture}
+\end{center}
+
+Première façon, sur la figure de gauche.
+L'aire totale $\mathcal{A}$ se décompose en l'aire $\mathcal{A}_\text{carré}$ du carré
+(zone bleu clair, dont on veut calculer l'aire)
+et l'aire $\mathcal{A}_\text{demi-disques}$ formée par $4$ demi-disques (zone bleu foncé) :
+$$\mathcal{A} = \mathcal{A}_\text{carré} + \mathcal{A}_\text{demi-disques}$$
+Si on note $a$ la longueur d'un des côtés du carré alors 
+$$\mathcal{A}_\text{demi-disques} = 4 \times \frac12 \times \pi \left(\frac{a}{2}\right)^2 = \frac{\pi a^2}{2}$$
+
+
+\begin{center}
+   \begin{tikzpicture}[scale=0.5]
+      \def\maincircle{(0,0) circle (1.4142*2)} 
+      \begin{scope}
+        \begin{scope}[even odd rule]% first circle without the second
+            \clip \maincircle (-5,-5) rectangle (5,5);
+            \fill[orange] (0,2) circle (2);
+            \fill[orange] (0,-2) circle (2);
+            \fill[orange] (2,0) circle (2);
+            \fill[orange] (-2,0) circle (2);
+        \end{scope}
+      \end{scope}
+
+      \draw (-2,2) rectangle (2,-2);
+      \draw \maincircle;
+      \draw (2,2) arc(0:180:2);
+      \draw (-2,2) arc(90:270:2);
+      \draw (-2,-2) arc(180:360:2);
+      \draw (2,2) arc(90:-90:2);
+      
+      \draw[very thick, blue] (2,-2)--(2,2);
+      \node at (2,0) [left] {$a$};
+      \draw[very thick, blue] (0,0)--(45:2.82);
+      \node at (1.1,1) [left] {$r$};      
+   \end{tikzpicture}
+\end{center}
+
+Deuxième façon, sur la figure de droite.
+L'aire totale $\mathcal{A}$ se décompose cette fois en l'aire $\mathcal{A}_\text{disque}$ 
+du disque (zone vert clair)
+et l'aire $\mathcal{A}_\text{lunules}$ formée par $4$ lunules (zone vert foncé, dont 
+on veut aussi calculer l'aire) :
+$$\mathcal{A} = \mathcal{A}_\text{disque} + \mathcal{A}_\text{lunules}$$
+
+Le rayon du cercle est $r = \frac{\sqrt{2}}{2}a$.
+Ainsi 
+$$\mathcal{A}_\text{disque} = \pi r^2 = \pi \left(\frac{\sqrt{2}}{2}a\right)^2 = \frac{\pi a^2}{2}$$
+
+\begin{center}
+   \begin{tikzpicture}[scale=0.5]
+      \def\maincircle{(0,0) circle (1.4142*2)} 
+      \begin{scope}
+        \begin{scope}[even odd rule]% first circle without the second
+            \clip \maincircle (-5,-5) rectangle (5,5);
+            \fill[gray] (0,2) circle (2);
+            \fill[gray] (0,-2) circle (2);
+            \fill[gray] (2,0) circle (2);
+            \fill[gray] (-2,0) circle (2);
+        \end{scope}
+      \end{scope}
+
+      \draw (-2,2) rectangle (2,-2);
+      \draw \maincircle;
+      \draw (2,2) arc(0:180:2);
+      \draw (-2,2) arc(90:270:2);
+      \draw (-2,-2) arc(180:360:2);
+      \draw (2,2) arc(90:-90:2);
+      
+      \draw[very thick, blue] (2,-2)--(2,2);
+      \node at (2,0) [left] {$a$};
+      \draw[very thick, blue] (0,0)--(45:2.82);
+      \node at (1.1,1) [left] {$r$};      
+   \end{tikzpicture}
+\end{center}
+
+Conséquence $\mathcal{A}_\text{demi-disques} = \mathcal{A}_\text{disque}$
+donc
+$$\mathcal{A}_\text{lunules} 
+= \mathcal{A} - \mathcal{A}_\text{disque}
+= \mathcal{A} - \mathcal{A}_\text{demi-disques}
+= \mathcal{A}_\text{carré}$$
+L'aire des lunules égale l'aire du carrée ! C'est une variante résoluble de la quadrature du cercle.
+
+\fincorrection
+
+\finexercice
+
+\end{document}

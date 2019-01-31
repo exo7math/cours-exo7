@@ -1,0 +1,53 @@
+\begin{tikzpicture}[scale=1.5]
+
+\begin{scope}[rotate=10]
+
+    \draw[domain=0:2.35, blue,very thick,smooth] plot (\x,{2-(\x-1)^2)});
+
+
+   \def \x{0.7}
+    \coordinate (A) at ({\x},{2-(\x-1)^2)});
+    \fill (A) circle (1.5pt) node[above=8pt] {$M(t_0)$};
+    \beameronly {\uncover<1,6->}{
+    \draw[myred,very thick] (A)--+(1.5,{1.5*(2-2*\x)}) ;
+    \draw[myred,very thick] (A)--+(-1.5,{-1.5*(2-2*\x)}) ;
+   }
+
+\def\i{4}
+   \def\xx{\x + 1.5-0.3*\i};
+    \coordinate (M) at ({\xx},{2-(\xx-1)^2)});
+    \beameronly {\uncover<5->}{
+    \fill (M) circle (1.5pt);
+    \draw (A)--(M)--+($\i*(M)-\i*(A)$)--(A)--+($\i*(A)-\i*(M)$);
+    }
+
+\def\i{3}
+   \def\xx{\x + 1.5-0.3*\i};
+    \coordinate (M) at ({\xx},{2-(\xx-1)^2)});
+    \beameronly {\uncover<4->}{
+    \fill (M) circle (1.5pt);
+    \draw (A)--(M)--+($\i*(M)-\i*(A)$)--(A)--+($\i*(A)-\i*(M)$);
+    }
+
+\def\i{2}
+   \def\xx{\x + 1.5-0.3*\i};
+    \coordinate (M) at ({\xx},{2-(\xx-1)^2)});
+    \beameronly {\uncover<3->}{
+    \fill (M) circle (1.5pt);
+    \draw (A)--(M)--+($\i*(M)-\i*(A)$)--(A)--+($\i*(A)-\i*(M)$);
+    }
+
+\def\i{1}
+   \def\xx{\x + 1.5-0.3*\i};
+    \coordinate (M) at ({\xx},{2-(\xx-1)^2)});
+    \beameronly {\uncover<2->}{
+    \fill (M) circle (1.5pt);
+    \draw (A)--(M)--+($\i*(M)-\i*(A)$)--(A)--+($\i*(A)-\i*(M)$);
+    }
+
+  \fill (M) circle (1.5pt);
+  \node[above right] at (M) {$M(t)$};
+  \node[below right] at (2.2,2.85) {tangente};
+\end{scope}
+
+\end{tikzpicture}

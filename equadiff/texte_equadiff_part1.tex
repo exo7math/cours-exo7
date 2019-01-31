@@ -1,0 +1,426 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Les équations différentielles sont des objets parmi les plus importants en mathématiques.
+
+\change
+Nous commencerons ce chapitre par une motivation physique 
+
+\change
+et quelques exemples mathématiques
+
+\change
+avant de présenter la définition d'une équation différentielle,
+
+\change
+et de nous concentrer sur les équations différentielles linéaires.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Lorsqu'un corps tombe en chute libre sans frottement 
+
+\change
+il n'est soumis qu'à son poids $\vec{P}$.
+
+\change
+
+Le cas d'un parachutiste est plus compliqué. 
+Le modèle précédent n'est pas applicable
+
+\change
+Le parachute fait subir une force de frottement opposée à sa vitesse. 
+
+\change
+Le poids est une force verticale dirigée vers le bas, 
+et $P = mg$ où $m$ est la masse et $g$ est la constante de gravitation.
+
+\change
+La force de frottement est aussi une force verticale mais dirigée vers le haut.
+On suppose que le frottement est proportionnel
+à la vitesse : $F = -fm v$,
+
+$f$ est le coefficient de frottement.
+
+\change
+Ainsi le principe fondamental de la mécanique 
+s'écrit $\vec{P}+\vec{F} = m\vec{a}$
+où $\vec{a}$ est l'accélération.
+
+\change
+Cette équation sur l'axe vertical devient $mg - fmv = ma$, 
+
+\change
+L'accélération étant la dérivée de la vitesse par rapport au temps on obtient :
+
+\begin{equation}
+\frac{\dd v(t)}{\dd t} = g - kv(t)
+\label{eq:para1}
+\end{equation}
+
+\change
+C'est une relation entre la vitesse $v$ et sa dérivée : 
+
+\change
+il s'agit d'une \evidence{équation différentielle}.
+
+\change
+Il n'est pas évident de trouver quelle est la fonction $v$ qui convient.
+Le but de chapitre est d'apprendre comment déterminer $v(t)$, 
+
+\change
+Une fois que l'on aura déterminer la vitesse on saura 
+en déduire la position $x(t)$ à tout instant.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Qu'est donc une équation différentielle ?
+
+Une équation différentielle est une équation :
+
+\change
+dont l'inconnue est une fonction (généralement notée $y(x)$ ou simplement $y$) ;
+
+\change
+
+dans laquelle apparaissent certaines des dérivées de la
+  fonction (dérivée première $y'$, ou dérivées d'ordre supérieur $y''$, $y^{(3)},...$).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici des équations différentielles faciles à résoudre.
+
+
+Vous devez trouver une fonction $y(x)$
+qui vérifie chacune des équations.
+
+Par exemple : quelle fonction $y(x)$
+a pour dérivée $sin(x)$. Une solution est $y(x)=-\cos(x)$.
+
+Je vous laisse arrêter la vidéo ici et résoudre les autres exemples.
+
+\change
+Vous pourrez ensuite vérifier vos calculs.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Il est aussi facile de vérifier qu'une fonction donnée est bien solution d'une équation.
+
+Soit l'équation différentielle $y' = 2xy+4x$.
+
+\change
+Je vous laisse vérifier que $y(x)=k\exp(x^2)-2$ est une solution sur $\Rr$, 
+ceci quel que soit $k\in \Rr$.
+
+Pour ce faire vous avez juste à dériver ce $y$
+  
+\change 
+
+Même chose pour l'équation différentielle $x^2y''-2y+2x=0$.
+
+\change
+Vérifier que $y(x)=kx^2+x$ est une solution, pour tout $k \in \Rr$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+
+Passons à la définition complète d'une équation différentielle
+et surtout d'une solution d'une équation différentielle.
+
+
+Une \defi{équation différentielle} d'ordre $n$ est une équation de la forme
+  \begin{equation}
+    F\left(x,y,y',\dots ,y^{(n)}\right)=0 
+    \label{eq:eqdiff}
+    \tag{$E$}
+  \end{equation}
+  où $F$ est une fonction de $(n+2)$ variables.
+  
+ \change 
+  
+Une \defi{solution} d'une telle équation sur un intervalle $I\subset \Rr$ 
+  est une fonction $y :I \to \Rr$ qui est 
+  
+  (1) $n$ fois dérivable 
+  
+  et (2) qui vérifie l'équation (\ref{eq:eqdiff}).
+  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici quelques remarques !
+
+
+C'est la coutume pour les équations différentielles de noter $y$ 
+au lieu de $y(x)$, 
+  $y'$ au lieu $y'(x)$,\ldots
+  
+  
+\change
+On note donc \og$y' = \sin x$\fg\ pour l'équation \og$y'(x) = \sin x$\fg.
+  
+\change
+Il faut s'habituer au changement de nom pour les fonctions et les variables.
+
+\change
+  Par exemple $(x'')^3+t(x')^3+(\sin t) x^4=e^t$
+  est une équation différentielle d'ordre $2$, 
+  
+  l'inconnue est une fonction $x$ qui dépend de la variable $t$.
+  
+  On cherche donc une fonction $x(t)$,
+  deux fois dérivable, qui vérifie $(x''(t))^3+t(x'(t))^3+(\sin t) (x(t))^4=e^t$. 
+
+\change
+
+Rechercher une primitive c'est déjà résoudre l'équation différentielle
+  $y'= f(x)$. C'est pourquoi on parle souvent \og d'intégrer l'équation différentielle \fg\ 
+  pour signifier \og trouver les solutions de l'équation différentielle \fg.
+  
+ 
+\change
+La notion d'intervalle dans la résolution d'une équation différentielle est fondamentale. 
+  Si on change d'intervalle, on peut très bien obtenir d'autres solutions. 
+
+  \change
+  Par exemple, si on se place sur l'intervalle $I_1 = ]0, +\infty[$,
+  l'équation différentielle $y' = 1/x$ a pour solutions les fonctions $y(x) = \ln(x) + k$.
+  
+  \change
+Alors que sur l'intervalle $I_2 = ]-\infty, 0[$, les solutions sont les fonctions $y(x) = \ln(-x) + k$
+($k$ est une constante). 
+
+  \change Si aucune précision n'est donnée sur l'intervalle $I$, 
+  on considérera qu'il s'agit de $I = \Rr$.
+  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+[[grand F/petit f]]
+
+
+Voici un type d'équation différentielle, dites à variables séparées,
+qui se résout par intégration.
+
+\change
+Une équation différentielle \defi{à variables séparées} est une équation
+du type : 
+$$y'=g(x)/f(y)$$
+
+\change
+ou ce qui revient au même 
+$$y'f(y)=g(x)$$
+
+\change
+Une telle équation se résout par calcul de primitives.
+Si $G(x)$ est une primitive de $g(x)$ 
+
+\change
+alors par définition $G'(x)=g(x)$.
+
+\change
+Si $F(x)$ est une primitive de $f(x)$, 
+
+alors bien sûr $F'(x)=f(x)$, 
+
+
+\change
+mais surtout par dérivation d'une composition
+$\big(F(y(x))\big)' = y'(x) F'(y(x))$
+
+\change
+qui vaut donc $y' f(y)$.
+
+\change
+Ainsi l'équation différentielle $y'f(y)=g(x)$
+
+\change
+se réécrit $\big(F(y(x))\big)' = G'(x)$
+
+\change
+ce qui équivaut à une égalité de fonctions :
+$F(y(x))=G(x)+c$.  
+
+En effet les deux dérivées étant égales, les fonctions sont égales
+à une constante près.
+
+\change
+Voici un exemple concret :
+$$x^2y' = e^{-y}$$
+
+\change
+On commence par *séparer* les variables $x$ d'un côté et $y$ de l'autre :
+$y'e^{y} = \frac{1}{x^2}$  (en supposant $x\neq 0$).
+
+\change
+On intègre des deux côtés :
+$$e^{y} = -\frac{1}{x}+c \quad (c\in\Rr).$$
+
+\change
+Ce qui permet d'obtenir $y$ (en supposant $-\frac{1}{x}+c>0$) :
+$$y(x) = \ln\left(-\frac{1}{x}+c\right)$$
+
+On a trouvé les solutions.
+
+\change
+Il faut quand même terminer la résolution proprement 
+en déterminant l'intervalle 
+sur lequel cette solution est valide.
+
+Il faut en effet que $x$ soit non nul, et que $-\frac{1}{x}+c>0$.
+
+\change
+
+Cet intervalle dépend de la constante $c$ :
+
+on trouve que si $c<0$, $I=]\frac1c,0[$ ; 
+
+si $c=0$, $I=]-\infty,0[$ ; 
+
+enfin si $c>0$, $I=]\frac1c,+\infty[$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+On ne sait pas résoudre toutes les équations différentielles.
+On se concentre dans ce chapitre sur deux types d'équations : les équations différentielles
+linéaires du premier ordre et celles du second ordre à coefficients constants.
+
+Une équation différentielle d'ordre $n$ est \defi{linéaire} si elle est de la forme
+$$a_0(x)y+a_1(x)y'+\dots +a_n(x)y^{(n)} = g(x)$$
+où les $a_i$ et $g$ sont des fonctions réelles continues sur un intervalle $I\subset \Rr$.
+
+Le terme linéaire signifie qu'il n'y a pas d'exposant pour les termes $y,y',y'',...$
+
+\change  
+Une équation différentielle linéaire est \defi{homogène}, ou \defi{sans second membre},
+  si la fonction $g$ ci-dessus est la fonction nulle :
+  $$a_0(x)y+a_1(x)y'+\dots +a_n(x)y^{(n)} = 0$$
+
+\change   
+Une équation différentielle linéaire est \defi{à coefficients constants} si
+  $$a_0y+a_1y'+\dots +a_ny^{(n)} = g(x)$$
+  où les $a_i$ sont des constantes réelles (et plus des fonctions) 
+  et $g$ reste une fonction continue.
+  
+  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici quelques exemples pour assimiler le vocabulaire.
+
+$y' + 5xy = e^x$ est une équation différentielle linéaire du premier ordre avec second membre.
+
+\change
+$y' + 5xy = 0$ est l'équation différentielle homogène associée à la précédente.
+
+\change
+$2y'' - 3y' + 5y = 0$ est une équation différentielle linéaire du second ordre à coefficients constants,
+  sans second membre.
+  
+\change
+$y'^2 - y = x$ ou $y'' \cdot  y' - y = 0$ \emph{ne sont pas} des équations différentielles linéaires.  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Pour les équations linéaires le principe de linéarité 
+est très important et très utile.
+
+Proposition :
+
+Si $y_1$ et $y_2$ sont solutions de l'équation différentielle linéaire *homogène*
+\begin{equation}
+  a_0(x)y+a_1(x)y'+\dots +a_n(x)y^{(n)} = 0
+  \label{eq:eqdifflin}
+ \tag{$E_0$}
+\end{equation}
+alors, quels que soient $\lambda,\mu \in \Rr$, $\lambda y_1 + \mu y_2$ 
+est aussi solution de cette équation.
+
+C'est une simple vérification. 
+
+On peut reformuler cette proposition 
+en disant que l'ensemble des solutions
+d'une équation différentielle linéaire sans second membre
+forme un espace vectoriel.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons appliquer immédiatement le principe de linéarité.
+
+Pour résoudre une équation différentielle linéaire *avec* second membre  cette fois
+\begin{equation}
+  a_0(x)y+a_1(x)y'+\dots +a_n(x)y^{(n)} = g(x)
+  \label{eq:eqdifflinscnd}
+ \tag{$E$}
+\end{equation}
+\change
+on décompose souvent la résolution en deux étapes :
+
+(1) on cherche d'abord une solution particulière $y_0$ de cette équation,
+
+\change
+(2) ensuite on trouve l'ensemble de toutes les solutions 
+$y$ de l'équation *homogène* associée, c-à-d la même équation mais 
+avec un second membre nul [montrer].
+On note $\mathcal{S}_h$ l'ensemble de ces solutions.
+
+Ces deux étapes permettent de trouver toutes les solutions de (\ref{eq:eqdifflinscnd}) :
+
+\change
+En effet on a la principe de superposition :
+
+
+L'ensemble des solutions $\mathcal{S}$ de (\ref{eq:eqdifflinscnd}) est formé 
+des 
+$$y_0 + y \quad \text{ avec } \quad  y \in \mathcal{S}_h$$
+
+
+Autrement dit, on trouve toutes les solutions en ajoutant une solution particulière 
+de $(E)$ aux solutions de l'équation homogène $(E_0)$.
+C'est une conséquence immédiate du caractère linéaire des équations.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Ne partez pas sans chercher ces exercices d’entraînements.
+
+
+\end{document}

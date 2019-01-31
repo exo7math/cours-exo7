@@ -1,0 +1,325 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={179,179,12}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Développements limités}}
+\subtitle{Applications}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Calculs de limites
+    \item<4-> Position d'une courbe par rapport à sa tangente
+    \item<5-> Développement limité en $+\infty$
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%---------------------------------------------------------------
+\section{Calculs de limites}
+
+\begin{frame}
+
+
+Si \quad $f(x) = c_0+c_1(x-a)+\cdots$ \quad alors \quad $\lim_{x\to a} f(x) = c_0$
+
+\pause
+
+\begin{exemple}
+Limite en $0$ de $\frac{\ln(1+x)-\tan x+\frac{1}{2}\sin^2x}{3x^2\sin^2x}$ 
+
+\pause
+
+\begin{enumerate}
+  \item  \ \\ \vspace*{-3ex}
+$\begin{array}{l@{\vrule depth 1.2ex height 3ex width 0mm }}
+f(x)=\ln(1+x)-\tan x+\frac{1}{2}\sin^2x \\ \pause
+\hspace*{-3em}=\!\big(x-\frac{x^2}{2}+\frac{x^3}{3}-\frac{x^4}{4}+o(x^4)\big)\pause
+-\big(x+\frac{x^3}{3}+o(x^4)\big)\pause
+ +\frac{1}{2}\big(x-\frac{x^3}{6}+o(x^3)\big)^{\!2} \\ \pause
+\hspace*{-3em}=-\frac{x^2}{2}-\frac{x^4}{4}+\frac{1}{2}(x^2-\frac{1}{3}x^4)+o(x^4) \\ \pause
+\hspace*{-3em}= -\frac{5}{12}x^4 + o(x^4)
+\end{array}$
+\pause
+  \item $g(x)=3x^2\sin^2x\pause=3x^2\big(x+o(x)\big)^2 \pause=3x^4+o(x^4)$
+\pause
+  \item $\frac{f(x)}{g(x)}= \frac{-\frac{5}{12}x^4 + o(x^4)}{3x^4+o(x^4)} \pause = \frac{-\frac{5}{12} + o(1)}{3+o(1)}$
+\pause
+  \item $\lim_{x\to0}\frac{f(x)}{g(x)}=-\frac{5}{36}$
+\end{enumerate}
+\end{exemple}
+  
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+\section{Position d'une courbe par rapport à sa tangente}
+
+\begin{frame}
+
+\begin{proposition}
+Soit $f : I \to \Rr$ une fonction admettant un DL en $a$ :
+$f(x)=c_0+c_1(x-a)+c_k(x-a)^k+(x-a)^k\epsilon(x)$
+\pause
+\begin{enumerate}
+  \item La tangente à la courbe de $f$ en $a$ est $y=c_0+c_1(x-a)$
+\pause
+  \item La position de la courbe par rapport à la tangente pour $x$ proche de $a$ est
+donnée par le signe $f(x)-y$, i.e. le signe de $c_k(x-a)^k$
+\end{enumerate}
+
+\end{proposition}
+\pause
+
+\begin{itemize}
+  \item Si le signe est positif alors la courbe est au-dessus de la tangente
+\pause
+  \item Si le signe est négatif alors la courbe est en-dessous de la tangente
+\pause
+  \item Si le signe change (lorsque l'on passe de $x<a$ à $x>a$) alors la courbe traverse 
+la tangente en $a$. \pause C'est un \defi{point d'inflexion}
+\pause
+
+Si $a$ est un point d'inflexion alors $f''(a)=0$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+
+\myfigure{0.8}{
+\tikzinput{fig_dl03} 
+\pause
+\tikzinput{fig_dl04} 
+}  
+
+\pause
+
+
+\myfigure{0.8}{
+\tikzinput{fig_dl05} 
+}  
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+Tangente et position de la courbe $f(x)=x^4-2x^3+1$ en $\frac{1}{2}$
+\pause
+\begin{itemize}
+  \item $f'(x)=4x^3-6x^2$, \pause $f''(x)=12x^2-12x$, donc $f''(\frac{1}{2}) = -3 \neq 0$ et $k=2$ 
+\pause
+  \item DL de $f$ en $\frac{1}{2}$ par la formule de Taylor-Young \pause
+$\begin{array}{rcl@{\vrule depth 1.2ex height 3ex width 0mm }}
+ f(x) 
+& = & f(\frac12)+f'(\frac12)(x-\frac12)+\frac{f''(\frac12)}{2!}(x-\frac12)^2 +(x-\frac12)^2 \epsilon(x) \\ \pause
+& = & \frac{13}{16} -(x- \frac12) -\frac{3}{2}(x-\frac12)^2 + (x-\frac12)^2 \epsilon(x) \\ 
+ \end{array}$
+
+\pause
+  \item tangente en $\frac12$ est $y= \frac{13}{16} -(x- \frac12)$
+\pause
+  \item $f(x)-y =  \big(-\frac32 + \epsilon(x)\big)(x-\frac12)^2$ est négatif autour de $x=\frac12$
+\pause
+  \item le graphe de $f$ est en-dessous de la tangente
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\myfigure{1}{
+\tikzinput{fig_dl06a} 
+}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+Points d'inflexion de $f(x)=x^4-2x^3+1$
+
+\pause
+
+\begin{itemize}
+  \item Si $a$ point d'inflexion alors $f''(a)=0$
+\pause
+  \item Comme $f''(x)=12x^2-12x$ alors $a=0$ ou $a=1$
+\pause
+  \item 
+  \begin{itemize}
+     \item DL en $0$ :  $f(x)= 1-2x^3+x^4$
+\pause
+     \item tangente en $0$ : $y=1$
+\pause
+     \item $f(x)-y=-2x^3+x^3\epsilon(x)$ change de signe
+\pause
+     \item $0$ est un point d'inflexion 
+  \end{itemize}
+\pause
+  \item 
+  \begin{itemize}
+     \item DL en $1$ :  $f(x)=-2(x-1) + 2(x-1)^3+(x-1)^4$
+\pause
+     \item tangente en $1$ : $y=-2(x-1)$
+\pause
+     \item $f(x)-y=2(x-1)^3+(x-1)^3\epsilon(x)$ change de signe 
+\pause
+     \item $1$ est un point d'inflexion 
+  \end{itemize}
+\end{itemize}
+
+
+
+\end{exemple}
+\end{frame}
+
+\begin{frame}
+\myfigure{1}{
+\tikzinput{fig_dl06b} 
+}
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Développement limité en $+\infty$}
+
+\begin{frame}
+
+$f : ]x_0,+\infty[ \to \Rr$ admet un \defi{DL en $+\infty$} à l'ordre $n$
+s'il existe des réels $c_0,c_1,\ldots,c_n$ tels que 
+$$f(x)=c_0+\frac{c_1}{x}+\cdots+\frac{c_n}{x^n} 
++\frac{1}{x^n}\epsilon\big(\frac{1}{x}\big)$$
+\pause
+où $\epsilon\big(\frac{1}{x}\big) \to 0$ quand $x\to+\infty$
+
+\pause
+\medskip
+
+\mybox{$f(x)$ a un DL en $+\infty$ \quad $\iff$ \quad  $f(\frac{1}{x})$ a un DL en $0^+$}
+
+\pause
+
+\begin{exemple}
+\hfill
+\begin{minipage}{0.5\textwidth}
+\uncover<5->{\myfigure{0.45}{
+\tikzinput{fig_dl07} 
+}}  
+\end{minipage}
+
+\vspace*{-33mm}
+\begin{minipage}{0.5\textwidth}
+$$
+\begin{array}{rcl@{\vrule depth 1.2ex height 3ex width 0mm }}
+f(x)
+ & = & \ln\big(2+\frac{1}{x}\big) \\ \pause \pause
+ & = & \ln2+\ln\big(1+\frac{1}{2x}\big) \\ \pause
+ & = & \ln2+\frac{1}{2x}-\frac{1}{8x^2}+\frac{1}{24x^3}+\cdots \\
+& & \cdots +(-1)^{n-1}\frac{1}{n2^nx^n} +\frac{1}{x^{n}}\epsilon(\frac{1}{x}) 
+\end{array}$$
+  
+\end{minipage}
+
+
+\end{exemple}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{proposition} 
+Si la  fonction $\frac{f(x)}{x}$ a un DL en $+\infty$
+\vspace*{-3mm}
+$$\frac{f(x)}{x}= a_0 +\frac{a_1}{x}+\frac{a_k}{x^k}+\frac{1}{x^k}\epsilon(\frac{1}{x})$$
+\vspace*{-7mm}
+\pause
+\begin{enumerate}
+  \item $\lim_{x\to+\infty} f(x)-(a_0x+a_1) =0$ : la droite $y= a_0x+a_1$ est une \defi{asymptote} à la courbe de $f$ en
+$+\infty$
+\uncover<4->{
+  \item la position de la courbe par rapport à 
+l'asymptote est donnée par le signe de $f(x)-y$, c'est-à-dire le signe de $\frac{a_k}{x^{k-1}}$
+}
+\end{enumerate}
+\end{proposition}
+\pause
+\myfigure{0.7}{
+\tikzinput{fig_dl08} 
+}
+\end{frame}
+
+\begin{frame}
+\begin{exemple}[Asymptote de  $f(x)=\exp{\frac1x} \cdot \sqrt{x^2-1}$ en $+\infty$]
+\pause
+\myfigure{0.7}{
+\tikzinput{fig_dl09} 
+}
+\pause
+\vspace*{-5mm}
+$$
+\begin{array}{rcl@{\vrule depth 1.2ex height 3ex width 0mm }}
+\frac{f(x)}{x} \pause
+  & = & \exp{\frac1x} \cdot\frac{\sqrt{x^2-1}}{x} \pause =\exp{\frac1x} \cdot\sqrt{1-\frac{1}{x^2}} \\ \pause
+  & = & \Big(1+\frac{1}{x}+\frac{1}{2x^2}+\frac{1}{6x^3} +\frac{1}{x^3}\epsilon(\frac1x)\Big) 
+\cdot\Big(1-\frac{1}{2x^2}+\frac{1}{x^3}\epsilon(\frac{1}{x})\Big) \\ \pause
+  & = & \cdots = 1+\frac{1}{x}-\frac{1}{3x^3} +\frac{1}{x^3}\epsilon(\frac{1}{x}) \\
+\end{array}$$
+
+\pause 
+
+Asymptote de $f$ en $+\infty$ est $y=x+1$ \pause\pause \hfill $f(x)-x-1=-\frac{1}{3x^2}+\frac{1}{x^2}\epsilon(\frac{1}{x})$
+\pause
+graphe de $f$ est en dessous de l'asymptote quand $x\to+\infty$
+\end{exemple}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Calculer la limite de $\displaystyle \frac{\sin x - x}{x^3}$ lorsque $x$ tend vers $0$. 
+Idem avec $\displaystyle \frac{\sqrt{1+x}-\sh \frac x2}{x^k}$ (pour $k=1,2,3,\ldots$).
+  \item Calculer la limite de $\displaystyle \frac{\sqrt x - 1}{\ln x}$ lorsque $x$ tend vers $1$. 
+Idem pour $\displaystyle \left(\frac{1-x}{1+x}\right)^{\frac{1}{x}}$, 
+puis $\displaystyle \frac{1}{\tan^2 x}-\frac{1}{x^2}$ lorsque $x$ tend vers $0$.
+  \item Soit $f(x)=\exp x + \sin x$. Calculer l'équation de la tangente en $x=0$ et la position du graphe.
+Idem avec $g(x)= \sh x$.
+  \item Calculer le DL en $+\infty$ à l'ordre $5$ de $\frac{x}{x^2-1}$. Idem à l'ordre $2$ pour
+$\big(1+\frac 1x\big)^{x}$.
+  \item Soit $f(x)=\sqrt{\frac{x^3+1}{x+1}}$. Déterminer l'asymptote en $+\infty$ et la position du graphe
+par rapport à cette asymptote.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

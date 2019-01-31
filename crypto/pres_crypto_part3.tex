@@ -1,0 +1,539 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={127,0,0}]{structure}
+
+% Commande spécifique à ce chapitre
+
+\newcommand{\Python}{\texttt{Python}}
+\renewcommand{\evidence}[1]{{\color{blue}\textbf{#1}}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+\definecolor{coul_prive}{rgb}{0.93,0.26,0}
+\definecolor{coul_public}{rgb}{0.06,0.63,0}
+
+\newcommand{\prive}[1]{{\bf\color{coul_prive} #1}}
+\newcommand{\public}[1]{{\bf\color{coul_public} #1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Cryptographie}}
+\subtitle{La machine Enigma et les clés secrètes}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Un secret parfait
+    \item<4-> La machine Enigma
+%    \item<5-> Des zéros et des uns
+    \item<5-> La ronde des chiffres : DES
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Un secret parfait}
+
+\begin{frame}
+
+\begin{itemize}\setlength{\itemsep}{6pt}
+  \item Inconvénient des chiffrements précédents : une même lettre est régulièrement chiffrée de la même façon
+\pause  
+  \item Une attaque statistique est toujours possible
+\pause  
+  \item \defi{Chiffrement parfait} : changer la correspondance à chaque lettre
+\pause  
+  \item Principe 
+\pause  
+  \begin{itemize}\setlength{\itemsep}{4pt}
+    \item deux entiers $m$ et $c$ tels que $m+c=100$. Que vaut $m$ ?
+\pause    
+    \item c'est bien sûr impossible de répondre
+\pause    
+    \item $0+100$, $1+99$, $2+98$,...
+\pause    
+    \item connaissant $c$ alors on trouve $m=100-c$
+  \end{itemize}
+  
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{itemize}\setlength{\itemsep}{6pt}
+  \item Alice veut envoyer à Bruno le message secret \prive{$M$} 
+\centerline{\prive{ATTAQUE \ LE \ CHATEAU}}
+\pause
+
+  \item 
+  \begin{itemize}\setlength{\itemsep}{4pt}
+    \item Alice choisit une clé secrète \prive{$C$}
+\pause    
+    \item Alice transmet cette clé à Bruno
+\pause    
+    \item Cette clé a la même longueur que le message
+\pause
+    \item Elle est composée d'entiers de $0$ à $25$ tirés au hasard
+  \end{itemize}
+\pause
+\smallskip
+
+\centerline{\prive{$C$} = [4, 18, 2, 0, 21, 12, 18, 13, 7, 11, 23, 22, 19, 2, 16, 9]}  
+
+\pause
+  \item
+  \begin{itemize}\setlength{\itemsep}{4pt}
+    \item la première lettre \prive{A} est décalée de $4$ et devient \public{E}
+\pause    
+    \item le premier \prive{T} est décalé de $18$ lettres et devient \public{L}
+ \pause   
+    \item le second \prive{T} est décalé de $2$ lettres, il devient \public{V}
+ \pause   
+    \item le \prive{A} suivant est décalé de $0$ lettre, cela reste \public{A}...
+  \end{itemize}
+
+\pause  
+  \item Message chiffré \public{$X$}  \\
+\centerline{\public{ELVALGW \ YL \ NEWMGQD}}
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{itemize}
+  \item On identifie $A$ avec $0$, $B$ avec $1$, ..., $Z$ avec $25$
+\pause  
+  \item \! Le message crypté est la somme du message \!\prive{$M$}\! avec la clé secrète\! \prive{$C$}
+  \\
+  \centerline{\public{$X$} = \prive{$M$} $\oplus$ \prive{$C$}}
+ 
+\pause
+
+\begin{center}
+\small
+\begin{tabular}{ccccccccc}
+&&\prive{A}&\prive{T}&\prive{T}&\prive{A}&\prive{Q}&\prive{U}&\prive{E}\\
+&&\prive{0}&\prive{19}&\prive{19}&\prive{0}&\prive{16}&\prive{20}&\prive{4}\\
+\pause 
+%\multicolumn{7}{l}{$\oplus$}\\
+$\oplus$&&\prive{4}&\prive{18}&\prive{2}&\prive{0}&\prive{21}&\prive{12}&\prive{18}\\
+\hline
+\pause
+=&&\public{4}&\public{11}&\public{21}&\public{0}&\public{11}&\public{6}&\public{22}\\
+&&\public{E}&\public{L}&\public{V}&\public{A}&\public{L}&\public{G}&\public{W}\\
+\end{tabular}
+\end{center}
+
+
+\pause
+  \item Bruno reçoit \public{$X$} et connaît \prive{$C$}, donc il effectue \public{$X$} $\ominus$ \prive{$C$} = \prive{$M$}
+  
+\end{itemize}
+
+\bigskip
+\pause
+
+Principes à respecter
+\pause
+\begin{enumerate}
+  \item La longueur de la clé est égale à la longueur du message
+\pause 
+  \item La clé est choisie au hasard
+\pause  
+  \item La clé ne sert qu'une seule fois
+\end{enumerate}
+
+\bigskip
+\pause
+
+Inconvénients
+\pause
+\begin{itemize}
+  \item Clé aussi longue que le message
+\pause  
+  \item Clé secrète doit être transmise à Bruno
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{La machine Enigma}
+
+\begin{frame}
+
+\begin{minipage}{0.73\textwidth}
+\hspace*{-5em}
+\begin{itemize}
+\uncover<2->{
+  \item La machine Enigma est une machine électro-mécanique qui ressemble \\ à une machine à écrire
+}
+\uncover<3->{
+  \item Lorsque qu'une touche est enfoncée, des disques internes sont actionnés et le caractère crypté s'allume
+}  
+\uncover<4->{
+  \item Utilisée pour les communications de l'armée allemande durant la seconde guerre mondiale
+}
+\uncover<5->{
+  \item Les services secrets polonais et britanniques avaient réussi à percer les mystères de ce procédé de chiffrement
+}  
+\uncover<6->{
+  \item Génie d'Alan Turing et l'invention de l’ancêtre de l'ordinateur
+}
+\end{itemize}  
+\end{minipage}
+\begin{minipage}{0.2\textwidth}
+\hspace*{-4em}
+{\centering 
+\includegraphics[width=2\textwidth]{figures/Enigma_Machine.png} 
+}  
+\end{minipage}
+
+\end{frame}
+
+
+\begin{frame}
+Machine Enigma simplifiée à deux anneaux
+
+{\centering 
+            \includegraphics[width=0.4\textwidth]{figures/Enigma_7_bi_unesurune.png} 
+
+}
+\pause
+\begin{itemize}
+  \item Un anneau extérieur fixe contenant l'alphabet \prive{ABCDE...} en clair
+\pause  
+  \item  
+  \begin{itemize}
+    \item Un anneau intérieur contenant un alphabet \public{NOJAK...GWQRUEY}
+\pause    
+    \item Le choix de cet alphabet \public{NOJAK...} doit rester secret
+\pause    
+    \item Cet anneau tourne d'un cran après qu'une touche ait été enfoncée
+  \end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\evidence{Chiffrement du mot \prive{BAC} avec clé en position \prive{GWQR...}}
+\pause
+
+{\centering 
+   \qquad         \includegraphics[width=0.4\textwidth]{figures/Enigma_0_bi_unesurune.png} 
+ \qquad    
+\uncover<4->{\includegraphics[width=0.4\textwidth]{figures/Enigma_1_bi_unesurune.png} }
+}
+
+\begin{enumerate}
+  \item \textbf{Position initiale.} Le \prive{A} extérieur
+  est en face du \public{G} intérieur (qui est la clé) et donc \prive{B} en face de \public{W}
+\pause
+
+  \item  \textbf{Première lettre.} L'opérateur tape  \prive{B} : la machine affiche \public{W}
+\pause
+
+  \item \textbf{Rotation.} L'anneau intérieur tourne de $1/26$ème de tour, 
+  maintenant le \prive{A} extérieur est en face du \public{W}, le \prive{B} en face du \public{Q},...
+
+%   \item \textbf{Deuxième lettre.} L'opérateur tape la deuxième lettre du message en clair \prive{A} : 
+%   la machine affiche de nouveau \public{W}
+%     
+%   \item \textbf{Rotation.} L'anneau intérieur tourne de $1/26$ème de tour, maintenant le \prive{A} extérieur 
+%   est en face du \public{Q}, le \prive{B} en face du \public{R}, le \prive{C} en face du \public{U},...
+%   
+%    \item \textbf{Troisième lettre.} L'opérateur tape la troisième lettre du message en clair \prive{C} : 
+%    la machine affiche la correspondance \public{U} et effectue sa rotation.
+%    
+%    \item \textbf{Message codé.} Le message crypté est donc \public{WWU}
+\end{enumerate}
+
+
+\end{frame}
+
+\begin{frame}
+\evidence{Chiffrement du mot \prive{BAC} avec clé en position \prive{GWQR...}}
+
+{\centering 
+   \qquad         \includegraphics[width=0.4\textwidth]{figures/Enigma_1_bi_unesurune.png} 
+ \qquad    
+\uncover<3->{\includegraphics[width=0.4\textwidth]{figures/Enigma_2_bi_unesurune.png} }
+}
+
+
+\pause
+
+\begin{enumerate}\setcounter{enumi}{3}
+%   \item \textbf{Position initiale.} Le \prive{A} extérieur
+%   est en face du \public{G} intérieur (qui est la clé) et donc \prive{B} en face de \public{W}
+%   
+%   \item  \textbf{Première lettre.} L'opérateur tape  \prive{B} : la machine affiche \public{W}
+%   
+%   \item \textbf{Rotation.} L'anneau intérieur tourne de $1/26$ème de tour, 
+%   maintenant le \prive{A} extérieur est en face du \public{W}, le \prive{B} en face du \public{Q},...
+
+  \item \textbf{Deuxième lettre.} L'opérateur tape \prive{A} : 
+  la machine affiche de nouveau \public{W}
+\pause
+
+  \item \textbf{Rotation.} L'anneau intérieur tourne de $1/26$ème de tour, maintenant le \prive{A} extérieur 
+  est en face du \public{Q}, le \prive{B} en face du \public{R}, le \prive{C} en face du \public{U},...
+\pause
+
+   \item \textbf{Troisième lettre.} Lettre tapée  \prive{C} : 
+   la machine affiche \public{U} et effectue sa rotation
+\pause
+
+   \item \textbf{Message crypté.} Le message crypté est donc \public{WWU}
+\end{enumerate}
+
+\end{frame}
+
+
+
+\begin{frame}
+\evidence{Chiffrement du mot \prive{BAC}}
+
+
+{\centering 
+            \includegraphics[width=0.4\textwidth]{figures/Enigma_0_bi_unesurdeux.png} 
+            \qquad 
+            \includegraphics[width=0.4\textwidth]{figures/Enigma_0_tri_deuxsurdeux.png} 
+
+}
+
+
+\pause
+
+\begin{enumerate}%\setcounter{enumi}{3}
+%   \item \textbf{Position initiale.} Le \prive{A} extérieur
+%   est en face du \public{G} intérieur (qui est la clé) et donc \prive{B} en face de \public{W}
+%   
+%   \item  \textbf{Première lettre.} L'opérateur tape  \prive{B} : la machine affiche \public{W}
+%   
+%   \item \textbf{Rotation.} L'anneau intérieur tourne de $1/26$ème de tour, 
+%   maintenant le \prive{A} extérieur est en face du \public{W}, le \prive{B} en face du \public{Q},...
+
+  \item \textbf{Première lettre.} L'opérateur tape \prive{B} : 
+  la machine affiche \public{A}
+\pause
+
+  \item \textbf{Rotation(s).}... 
+\end{enumerate}
+
+\end{frame}
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Des zéros et des uns}
+% 
+% \begin{frame}
+% 
+% \begin{itemize}
+%   \item Les deux seuls nombres sont $0$ et $1$
+% \pause
+% 
+%   \item L'addition est celle de $\Zz/2\Zz$ :
+% $$0+0=0 \qquad 0+1=1 \qquad 1+0=1 \qquad \color{red}{1+1=0}$$
+% \pause
+% 
+%   \item
+%   \begin{itemize}
+%     \item Deux mots $m$ et $c$ composés de $0$ et de $1$
+%     \pause
+%     \item $m \oplus c$ addition \emph{bit} par \emph{bit}
+%     \pause
+%     \item Exemple $m = 10101010$, $c = 01110011$, notons $x= m \oplus c$ :
+% \pause    
+% $$\begin{array}{lccccccccc}
+% m \quad &        & 1&0&1&0&1&0&1&0 \\
+% c & \oplus & 0&1&1&1&0&0&1&1 \\
+% \hline
+% \pause
+% x &        & 1&1&0&1&1&0&0&1 \\
+% \end{array}$$
+%   \end{itemize}
+%   
+%  \pause 
+%   \item $m$ est le message en clair, $c$ la clé de cryptage et $x$ le message crypté
+%  
+% \pause 
+%   \item Comment déchiffrer le message ?
+%   \pause
+%   \begin{itemize}
+%     \item $0+0=0$ et $1+1=0$  alors $-1=+1$
+%     \pause
+%     \item $x\oplus c = m$
+%     \pause
+%     \item Preuve : $x \oplus c = (m \oplus c) \oplus c = m \oplus (c \oplus c) = m \oplus 0 = m$
+%   \end{itemize}
+% \end{itemize}
+% 
+% \end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{La ronde des chiffres : DES}
+
+\begin{frame}
+
+\begin{itemize}
+  \item Enigma change mécaniquement d'alphabet
+\pause  
+  \item Méthode numérique : le DES  : \emph{Data Encryption Standard}
+\pause  
+  \item But : générer une clé aléatoire de grande longueur
+\pause 
+  \item Génération pseudo-aléatoire
+\end{itemize}
+
+\pause 
+
+\begin{exemple}
+\begin{itemize}
+  \item Soit $(u_n)$  définie par $(a,b)$ et $u_0$ et 
+$$u_{n+1} \equiv a\times u_n + b \pmod{26}$$
+\vspace*{-4ex}
+\pause  
+  \item Exemple : $a=2$, $b=5$ et $u_0=6$ \\
+\pause  
+{\small $6 \quad 17\quad 13\quad 5\quad 15 \quad9\quad 23\quad 25\quad 3 \quad11\quad 1 \quad7\quad 19\quad 17\quad 13\quad 5 \ldots$}
+\pause  
+  \item $(a,b,u_0)$  la \defi{clé principale}
+\pause  
+  \item $(u_n)_{n\in\Nn}$ les \defi{clés secondaires}
+\end{itemize}
+  
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+
+\evidence{DES simplifié}
+\pause  
+
+\begin{itemize} 
+  \item Les additions se font \emph{terme} à \emph{terme}
+\pause    
+  \item Modulo $10$  
+\pause    
+          $$[1 \ 2 \ 3 \  4] \oplus [7\  8\  9\  0] = [8\  0\  2\  4]$$
+\pause    
+  \item Le message est découpé en blocs de longueur $8$ 
+\pause   
+  \item La clé est de longueur $4$
+\pause    
+\begin{itemize}
+  \item Message $M = [1\  2\  3\  4\  5\  6\  7\  8]$ 
+\pause    
+  \item Clé $C=[3\  1\  3\  2]$
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+
+\evidence{\'Etape 1. Premier tour}
+$$M_0 = [ G_0 \ \|\  D_0] = [1\  2\  3\  4\  \| \ 5\  6\  7\  8]$$
+\pause
+
+$$M_1 = [ D_0 \ \|\  C \oplus \sigma(G_0)]$$
+\pause
+
+\begin{enumerate}
+  \item On échange la partie droite et la partie gauche de $M_0$ 
+\pause  
+$$M_0  \longmapsto  [5\  6\  7\  8\  \|\  1\  2\  3\  4]$$
+\pause
+  \item Sur la nouvelle partie droite, on permute circulairement les nombres
+\pause  
+$$\longmapsto  [5\  6\  7\  8\  \|\ 2\  3\  4\  1]$$
+\pause
+
+  \item Puis on ajoute la clé secrète $C$ à droite (ici $C=[3\  1\  3\  2]$)
+\pause  
+$$\longmapsto  [5\  6\  7\  8\  \| \ 5\  4\  7\  3] = M_1$$
+\end{enumerate}
+
+\end{frame}
+
+
+\begin{frame}
+
+
+\evidence{Tours suivants}
+$$\text{Si} \quad M_i=[G_i \ \| \ D_i] \quad \text{alors} \quad M_{i+1} = [ D_i \ \| \ C \oplus \sigma(G_i)]$$
+
+\pause
+
+\evidence{\'Etape 2. Deuxième tour}
+$$M_1 = [5\  6\  7\  8\  \|\ 5\  4\  7\  3]$$
+\pause
+\begin{enumerate}
+  \item On échange la partie droite et la partie gauche de $M_1$
+$$M_1  \longmapsto  [5\  4\  7\  3\  \| \ 5\  6\  7\  8]$$
+\pause
+  \item Sur la nouvelle partie droite, on applique $\sigma$
+$$\longmapsto  [5\  4\  7\  3\  \| \ 6\  7\  8\  5]$$
+\pause
+  \item Puis on ajoute la clé secrète $C$ à droite
+$$\longmapsto  [5\  4\  7\  3\  \| \ 9\  8\  1\  7] = M_2$$
+\end{enumerate}
+\pause
+$$X=M_2 = [5\  4\  7\  3\ 9\  8\  1\  7]$$
+
+\end{frame}
+
+
+\end{document}

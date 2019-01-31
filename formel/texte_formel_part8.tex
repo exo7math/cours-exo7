@@ -1,0 +1,489 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans cette partie, nous allons apprendre à manipuler des polynômes.
+
+\change
+Voici le plan que nous allons suivre :
+
+\change
+Nous commencerons par introduire quelques commandes de base,
+
+\change
+puis nous étudierons deux problèmes concrets : l'algorithme de Horner 
+
+\change 
+puis l'interpolation de Lagrange.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici un premier tp pour se familiariser avec les commandes élémentaires.
+
+On se donne deux polynômes $P$ et $Q$ explicites à coefficients rationnels et nous allons répondre aux questions suivantes.
+
+\change
+Comparer le degré du produit et la somme des degrés,
+
+\change
+comparer le degré de la différence  et le maximum des degrés,
+
+\change 
+développer $Q(X)$ et déterminer le coefficient de son terme de degré $3$,
+
+\change 
+effectuer la division euclidienne du polynôme $P(X)$ par $(X+1)^2$,
+
+\change 
+et enfin, trouver les racines de $Q$ et aussi celles de $P$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change  
+On commence par déclarer l'anneau $R$ des polynômes à coefficients dans $\Qq$ (les rationnels) 
+où [grand] $X$ est la variable. 
+
+~
+
+Nous définissons ensuite les polynômes $P$ et $Q$.
+
+\change
+
+\change
+La commande \codeinline{degree()} permet d'obtenir le degré d'un polynôme.
+
+
+On peut ainsi tester les égalités sur les degrés proposées par l'énoncé.
+  
+\change
+Cette première égalité est vraie dans le cas particulier de notre exemple, mais est également vraie en général :
+le degré du produit est bien la somme des degrés.
+
+\change
+Par contre, la seconde est fausse (il n'y a pas toujours égalité des degrés).
+
+L'énoncé vrai en toute généralité est que :
+  $\deg(P - Q)$ est inférieur au maximum des degrés de $P$ et $Q$.
+
+\change
+On développe un polynôme parla commande \codeinline{expand}.
+
+\change
+On récupère les coefficients en considérant le polynôme comme une liste :
+  
+\codeinline{Q[k]} renvoie le coefficient de $X^k$.
+  
+\change
+ On obtient le quotient et le reste de la division euclidienne de polynômes comme avec les entiers (avec la double barre oblique et le signe de pourcentage).
+ 
+\change	  
+ Le quotient \codeinline{$P // (X+1)^2$} vaut $X^2 - 2X$. 
+
+\change	
+  Le reste \codeinline{$P \% (X+1)^2$} vaut $2X - 1$.
+  
+\change
+La dernière question sur les racines est ambigüe : il faut en effet préciser dans quel ensemble on cherche les racines.
+  
+Les cherche-t-on dans le corps des rationnels, des réels ou des complexes ?
+% $\Qq$ $\Rr$ ou $\Cc$ ? 
+  
+De plus, souhaitons-nous une racine exacte ou approchée ?
+  
+  
+\change	  
+ La commande \codeinline{roots} sans argument renvoie les racines qui sont dans le corps de base (ici $\Qq$). 
+  Sur cet exemple, elle retourne la liste vide car $P$ n'a pas de racines rationnelles.
+  
+\change	
+\codeinline{Q.roots} renvoie une liste composée d'un unique tuple contenant deux éléments $-1$ et $4$. 
+
+Cela signifie que 
+%\codeinline{[(-1, 4)]} car 
+$-1$ est une racine de multiplicité $4$.
+  
+\change	
+En précisant \codeinline{QQbar} dans cette commande, nous obtenons les racines exactes de $P$ dans $\Cc$ (pour un polynôme à coefficients dans $\Qq$), à savoir ici deux racines réelles et deux racines imaginaires pures.
+    % \codeinline{-1.817354021023971?},
+    % \codeinline{1.817354021023971?}, 
+    % \codeinline{-0.5502505227003375?*I},
+    % \codeinline{0.5502505227003375?*I}. 
+    % Le point d'interrogation en fin d'écriture signifie que Sage\ calcule avec les valeurs exactes, 
+    % mais n'affiche que les premières décimales.
+
+  
+\change
+En précisant maintenant \codeinline{RR}, nous obntenons les racines réelles \emph{approchées}.
+  %  \codeinline{-1.81735402102397}, \codeinline{1.81735402102397}. 
+  On quitte donc la résolution formelle
+    pour une résolution numérique approchée.
+    
+  
+\change    
+De même ici pour les racines complexes \emph{approchées}.        
+
+~
+
+Vous êtes maintenant en possession de quelques outils permettant de manipuler les polynômes.
+
+% \change
+
+% \change
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans ce tp, nous allons tracer dans le plan complexe l'image d'un cercle centré à l'origine et de rayon $r$, 
+par un polynôme $P$ à coefficients complexes.
+
+\change
+Le but est, en faisant varier le paramètre $r$, d'obtenir une illustration graphique du théorème de d'Alembert-Gauss.
+
+\change
+Nous mènerons les calculs et les visualisations pour un polynôme particulier.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici, pour quelques valeurs de $r$, les images extraites de l'animation.
+
+%des valeurs de $r$ 
+%valant
+%successivement : $r_0 = 0.5$, $r_1 = 0.6176\ldots$,
+%$r_2 = 0.9534\ldots$, $r_3 = 1.2082\ldots$, $r_4 = 1.4055\ldots$ et $r_5 = 1.5$.
+
+\change
+
+Les valeurs intéressantes sont lorsque la courbe passe par l'origine, comme ici.
+
+En effet, la courbe passe par l'origine
+lorsqu'il existe un nombre complexe $re^{\ii t}$ tel que $P(re^{\ii t}) = 0$, autrement dit lorsque 
+$P$ admet une racine de module $r$.
+
+~
+
+ D'après le théorème de d'Alembert-Gauss, un polynôme de degré $n$ admet au plus
+$n$ racines. 
+%Ainsi, il y a au plus $n$ valeurs $r_1,\ldots,r_n$ pour lesquelles $\mathcal{C}_{r_i}$ passe par l'origine.
+
+
+Pour notre polynôme exemple, de degré $4$, 
+
+\change
+Voici l'illustration de l'existence d'une deuxième racine dont le module est différent de celui de la première..
+
+\change
+Puis une troisème.
+
+\change
+Et enfin d'une quatrième.
+
+Nous obtenons donc $4$ racines, ici de modules distincts.
+
+\change
+Ensuite la courbe ne semble plus repasser par l'origine.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+%\change
+Voici maintenant comment procéder :
+
+
+On commence par définir l'anneau $\Cc[X]$ des polynômes à coefficients complexes non formels.
+	 %par \codeinline{R.<X> = CC[]}.
+  Les calculs seront donc des calculs approchés.% avec des nombres complexes.
+  %Notre polynôme $P$ est défini par \codeinline{$P = X^4-X^3+X^2-I*X+1$}.
+  
+  Puis on définit le polynôme $P$ pour l'illustration.
+  
+  
+\change
+  Le cercle de rayon $r$ est l'ensemble des complexes de la forme $re^{\ii t}$ pour $t\in [0,2\pi]$.
+
+  La courbe cherchée, c'est-à-dire l'image du cercle centré en l'origine et de rayon $r$ est donc l'ensemble  des $P(re^{\ii t})$ pour $ t \in  [0,2\pi]$.
+  
+  Nous pouvons décrire ces points images sous forme partie réelle et partie imaginaire et obtenir ainsi une courbe paramétré.
+
+Une animation est simplement une juxtaposition d'images. 
+
+Chaque image est obtenue par notre fonction. Il suffit de faire varier le rayon $r$ : ici de $0.5$ à $1.5$ par pas de $0.05$.
+
+~
+
+Il n'y a plus qu'à l'afficher.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+L'algorithme de Horner permet d'évaluer rapidement un polynôme $P$ en une valeur $\alpha$.
+
+\change
+Voyons comment il fonctionne à la main avec l'exemple de $P(X) = X^5 + X^4 - 5X^3 - 3X - 2$
+et $\alpha = 2$.
+
+
+\change
+Sur la première ligne du tableau, on écrit les coefficients de $P$ : $a_n,a_{n-1},\ldots,a_1,a_0$. Ici, $a_5=1$, $a_4=1$...
+
+\change
+On reporte en troisième ligne / première colonne, $a_n$, le coefficient dominant de $P$.
+
+\change
+On multiplie ce nombre par $\alpha$ et on écrit ce produit en deuxième ligne / deuxième colonne, c'est-à-dire juste au dessus à droite 
+% (sur la deuxième ligne, décalé d'un cran à droite),
+
+\change
+puis on ajoute $a_{n-1}$ et on écrit cette somme en troisième ligne / deuxième colonne, c'est-à-dire juste au dessous.
+% (sur la troisième ligne juste en dessous). 
+
+\change
+Et on recommence. À chaque étape, on multiplie le dernier nombre obtenu par $\alpha$
+
+\change
+ et on lui ajoute le coefficient de $P$ correspondant. 
+ 
+\change
+
+\change
+
+\change
+
+\change
+
+\change
+
+\change
+Le dernier nombre obtenu est $P(\alpha)$.
+
+
+Ici le dernier nombre est $0$, donc $P(2)=0$. 
+
+\change
+Conclusion : $2$ est racine de $P$.
+
+\change
+Avec le même polynôme et en choisissant maintenant $\alpha=-1$, le tableau se complète ainsi :
+
+\change
+ce qui implique $P(-1)=6$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans ce tp, nous allons voir que cet algorithme de Horner permet d'effectuer des calculs efficaces avec les polynômes.
+
+
+Dans la première question, nous comparerons le nombre d'opérations nécessaires pour évaluer un polynôme en une valeur donnée 
+
+par le calcul direct, 
+
+puis par le schéma de Horner qui consiste en fait à évaluer $P(\alpha)$ en l'écrivant :
+
+$$P(\alpha) =  \Big(\big((a_n \alpha+a_{n-1})\alpha +a_{n-2} \big) \alpha + \cdots +a_1\Big) \alpha +a_0.$$
+
+Ensuite, nous écrirons une fonction qui, utilisant l'algorithme de Horner, permettra d'évaluer un polynôme en une valeur donnée.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Tout d'abord, le calcul d'un monôme $a_k\cdot \alpha^k$ de degré $k$ nécessite naïvement $k$ multiplications.
+
+Donc pour calculer
+$P(\alpha)$ par le calcul direct, il faut $n+(n-1)+\cdots+k+\cdots+1+0 = \frac{n(n+1)}{2}$ multiplications (et $n$ additions).
+
+\change
+La méthode de Horner 
+       ne nécessite seulement que $n$ multiplications (et $n$ additions). 
+
+~
+
+On passe donc d'un coût d'ordre $\frac12n^2$ à un coût d'ordre $n$ ; le gain est conséquent.%énorme. 
+
+\change
+    Formalisons le calcul précédent en définissant la suite $b$ par : $b_{n} = a_n$ puis
+ $b_{k} = \alpha b_{k+1}  + a_k$.
+ 
+\change
+Cette formalisation nous permet d'obtenir l'implémentation suivante : 
+
+  n est le degré de $P$,
+  
+  on récupère d'abord le coefficient de plus haut degré,
+  
+  on applique la formule de récurrence pour les indices valant successivement $n-1$, $n-2$,... jusqu'à $0$, ce qui se code par une boucle "pour" de pas -1.
+
+$P(\alpha)$ est alors la valeur $b_0$, que l'on renvoie.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous passons maintenant à l'interpolation de Lagrange et à la manière dont on peut la programmer.
+
+~
+
+On commence par rappeler l'énoncé mathématique : étant données $n+1$ valeurs $x_i$, et $n+1$ valeurs $y_i$, il existe un unique polynôme de degré au plus $n$ prenant la valeur $y_i$ en $x_i$.
+
+\change
+Ce théorème permet en particulier d'approximer une fonction par des polynômes.
+
+Pour cela, on fixe $n+1$ abscisses $x_i$, ce qui nous donne, par $f$, $n+1$ ordonnées $f(x_i)$.
+
+Il existe donc un polynôme de degré inférieur à $n$ qui prend les mêmes valeurs que la fonction $f$ en les $n+1$ valeurs $x_i$. 
+
+Ce polynôme est de plus unique.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans ce tp consacré à l'interpolation de Lagrange, nous montrerons d'abord l'unicité du polynôme d'interpolation.
+
+\change
+Puis nous définirons les polynômes de Lagrange :
+
+le $i$-ème polynôme de Lagrange est le produit des quotients de  $X-x_j$ divisé par $x_i-x_j$, dans lequel l'indice $j$ prend les valeurs de $0$ à $n$ sauf la valeur $i$.
+
+~
+
+Nous montrerons que le polynôme défini par $\displaystyle \sum_{i=0}^{n} y_i L_i(X)$ répond à notre problème d'interpolation.
+
+\change
+Bien sûr, nous écrirons ensuite une fonction qui calcule le polynôme d'interpolation et l'utiliserons sur un exemple.
+%et appliquez la pour approximer cette fonction.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Commençons par l'unicité.
+
+Supposons que $P$ et $Q$ soient deux polynômes de degré inférieur à $n$ vérifiant
+tous les deux $P(x_i)=Q(x_i)=y_i$ pour tout $i$ de $0$ à $n$.
+  
+\change  
+Le polynôme $P-Q$ vérifie alors $(P-Q)(x_i)=0$, pour  $i$ variant de $0$ à $n$. 
+ 
+\change 
+Ainsi $P-Q$ est un polynôme de degré inférieur à $n$ ayant $n+1$ racines distinctes. 
+
+\change
+Ce polynôme est donc nécessairement le polynôme nul. Ainsi $P-Q=0$ et par suite les polynômes $P$ et $Q$ sont égaux.
+
+On a donc montrer que si un tel polynôme d'interpolation existe, il est unique.
+
+Il s'agit maintenant de le trouver !
+
+\change
+Nous allons le construire à partir des polynômes de Lagrange $L_i$.
+
+\change
+Les polynômes $L_i$ sont de degré exactement $n$ 
+
+\change
+et sont définis de sorte que $L_i(x_i) = 1$ et $L_i(x_j)=0$ pour tout  $j$ différent de $i$.
+  
+\change  
+  Il est alors clair que le polynôme $P$ défini par $P(X) = \displaystyle \sum_{j=0}^{n} y_j L_j(X)$ est aussi de degré inférieur à $n$ 
+
+\change   
+et surtout que, par construction, il vérifie $P(x_i) = y_i$ pour tout $i$ variant de $0$ à $n$.
+  
+\change
+Pour l'implémentation, on commence par définir l'anneau de polynômes (les coefficients sont ici des réels approchés),
+
+\change
+la fonction à interpoler,
+
+\change
+et la liste des points d'interpolation de la fonction $f$, ici le nombre de points est fixé en fonction de $n$ et les abscisses sont équidistantes.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La fonction suivante renvoie le polynôme interpolateur souhaité pour une liste de points donnée en paramètre.
+
+$n$ est le degré (le nombre de points moins un),
+
+on extrait la liste des abscisses,
+
+et celle des ordonnées.
+
+\change
+
+On construit ensuite la liste des polynômes de Lagrange.
+
+Pour cela, on calcule, au préalable, le numérateur $A$
+
+et le dénominateur $B$ pour chaque polynôme de Lagrange.
+
+\change
+Il ne reste plus alors qu'à calculer le polynôme interpolateur par 
+la formule $\displaystyle \sum_{i=0}^{n} y_i L_i$ donnée par le théorème démontré précédemment.
+
+~
+
+Cette fonction pourra maintenant ête utilisée pour différentes listes de points d'interpolation.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Nous allons voir dans ce qui suit quelques tracés d'interpolation de la fonction donnée dans l'énoncé : $f(x) = \sin(2\pi x)e^{-x}$.
+
+La courbe représentation de $f$ est en rouge, celle du polynôme d'interpolation en bleu.
+
+Nous avons ici le cas où $n=3$.
+  
+  Remaquez que la fonction et le polynôme coincident bien en $n+1$ soit $4$ points.
+  
+  \change
+  Pour $n=4$, le polynôme est le polynôme nul et passent bien par ces 5 points.
+  
+\change
+  
+$n=5$
+
+\change
+
+$n=6$
+
+\change
+
+$n=7$
+
+\change
+
+  À partir de $n=8$, il devient difficile de distinguer le
+  graphe de la fonction de celui du polynôme d'interpolation.
+
+
+
+
+\end{document}

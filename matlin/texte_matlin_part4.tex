@@ -1,0 +1,556 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Pass}{\mathop{\text{P}}\nolimits}
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+\change
+Voici le point culminant de ce chapitre, nous allons approfondir les relations entre matrices
+et applications linéaires.
+
+\change
+On commence par une relation simple : comment décrire l'action d'une application linéaire en terme de matrices.
+
+\change
+Il y a cependant une différence entre matrice et applications linéaires.
+Pour expliquer cette différence nous aurons besoin de la notion de matrice de passage d'une base à une autre.
+
+\change
+Ceci nous permettra d'énoncer la formule de changement de base.
+
+\change
+On terminera par la notion de matrices semblables.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Soit $E$ un espace vectoriel de dimension finie et
+soit $\mathcal{B} = (e_1,e_2, \dots ,e_p )$ une base de $E$. 
+
+\change
+Pour chaque $x \in E$, il existe des coordonnées $x_i$ uniques
+telles que 
+$x=x_1e_1+x_2e_2+\dots +x_p e_p.$
+
+\change
+La matrice des coordonnées de $x$ est  
+noté $\Mat_\mathcal{B} (x)$ ou encore comme un
+vecteur colonne, 
+$\left(\begin{smallmatrix}x_1\cr x_2\cr \vdots \cr x_p\end{smallmatrix}\right)_\mathcal{B}$
+avec l'indice $\mathcal{B}$ pour rappeler que ce sont les coordonnées dans la base $\mathcal{B}$.
+
+
+\change
+Soient $E$ et $F$ deux $\Kk$-espaces vectoriels de dimension finie
+et  $f : E \to F$ une application linéaire. 
+
+\change
+Soit $x$ un élément de $E$ et posons $y=f(x)$.
+
+Le but de cette proposition est de traduire l'égalité vectorielle
+$y=f (x)$  par une égalité matricielle.
+
+\change
+Soit $\mathcal{B}$ une base de $E$ 
+
+\change
+et soit $\mathcal{B}'$ une base de $F$.
+
+
+\change
+On note encore $A = \Mat_{\mathcal{B},\mathcal{B}'} (f)$
+  
+\change
+pour un vecteur $x$ de $E$ on note $X = \Mat_{\mathcal{B}} (x) = 
+  \left(\begin{smallmatrix}x_1\cr x_2\cr \vdots \cr x_p\end{smallmatrix}\right)_\mathcal{B}$.
+
+[petit $x$ grand $X$]
+
+\change
+Pour un vecteur $y \in F$, on note $Y = \Mat_{\mathcal{B}'} (y) = 
+  \left(\begin{smallmatrix}y_1\cr y_2\cr \vdots \cr y_n\end{smallmatrix}\right)_{\mathcal{B}'}$.
+
+[petit $y$, grand $Y$]
+  
+\change
+Alors, si $y = f(x)$, on a $Y = AX$.
+
+\change
+Une autre façon d'écrire cette égalité matricielle $Y = AX$ est
+$\Mat_{\mathcal{B}'} \big( f(x) \big) 
+= \Mat_{\mathcal{B},\mathcal{B}'} (f) \times \Mat_{\mathcal{B}} (x)$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Soient $E$ un $\Kk$-espace vectoriel de dimension $3$  
+et fixons un base $\mathcal{B}$ une base de
+$E$ constituée de vecteurs $(e_1,e_2,e_3)$. 
+
+\change
+Soit $f$ l'endomorphisme de $E$ dont la matrice dans la base
+$\mathcal{B}$ est égale à cette matrice $A$.
+
+\change
+On se propose de déterminer le noyau de $f$.
+
+\change
+Par définition 
+$x  \in \Ker f$
+
+\change
+ssi $f(x)= 0_E$
+
+\change
+En termes de coordonnées cela signifie que le vecteur $f(x)$ est 
+le vecteur nul.
+
+\change
+Et en terme de matrice cela signifie $AX$ est égal au vecteur nul. [grand $X$]
+
+\change
+Le vecteur inconnu $X$ est constitué des trois coordonnées $x_1,x_2,x_3$.
+
+\change
+Cette égalité matricielle se transforme en 
+ce système linéaire où les trois inconnues sont
+$x_1,x_2,x_3$.
+
+\change
+Il s'agit maintenant de résoudre ce système linéaire,
+
+\change
+en fait la deuxième équation est la somme des deux autres,
+on peut s'en passer.
+
+\change
+Si on choisit $t$ comme paramètre pour $x_3$, alors $x_2=-t$ et par la première équation $x_1=t$.
+
+Donc le noyau est l'ensemble des triplets $(t,-t,t)$.
+
+\change
+Ces vecteurs sont tous colinéaire au vecteur $(1,-1,1)$.
+
+Donc le noyau est de dimension $1$, et il est engendré par le vecteur $(1,-1,1)$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On continue notre exemple, mais maintenant on va calculer l'image de $f$.
+
+\change
+On vient donc de montrer que le noyau est de dimension $1$. 
+
+\change
+Par le théorème du rang, la dimension de l'image $\Im f$ 
+est la dimension de l'espace $E$ moins la dimension du noyau, donc 
+la dimension de l'image est $3-1=2$.
+
+\change
+Par définition de la matrice de $f$, ces trois vecteurs colonnes
+sont dans l'image de $f$.
+
+Mais comme l'image est de dimension $2$,
+on prend deux vecteurs, en vérifiant qu'ils sont linéairement indépendants.
+
+\change
+Les deux premiers vecteurs de la matrice $A$ conviennent, 
+
+et ainsi ils engendrent $\Im f$ : 
+
+Une base de l'image est donc donnée par 
+$\left(\begin{smallmatrix}1\\2\\1\end{smallmatrix}\right)_{\mathcal{B}}$
+et $\left(\begin{smallmatrix}2\\3\\1\end{smallmatrix}\right)_{\mathcal{B}}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Soit $E$ un espace vectoriel de dimension finie $n$. 
+On sait que toutes les bases de $E$ ont $n$ éléments.
+
+\change
+Soit $\mathcal{B}$ une base de $E$. Soit $\mathcal{B}'$ une autre base de $E$.
+
+\change
+On appelle \defi{matrice de passage} de la base $\mathcal{B}$ vers la base 
+$\mathcal{B}'$,  la matrice carrée de taille $n$ dont la $j$-ème colonne 
+est formée des coordonnées du $j$-ème vecteur de la base $\mathcal{B}'$, 
+par rapport à la base $\mathcal{B}$.
+
+On notera cette matrice $\Pass_{\mathcal{B},\mathcal{B'}}$.
+
+\change
+On résume ceci par l'incantation :
+
+La matrice de passage $\Pass_{\mathcal{B},\mathcal{B'}}$ est constituée - en colonnes - des
+coordonnées des vecteurs de la nouvelle base $\mathcal{B}'$
+exprimés dans l'ancienne base $\mathcal{B}$. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Soit l'espace vectoriel réel $\Rr^2$.
+On considère deux vecteurs 
+$
+e_1 = \begin{pmatrix}1\\0\end{pmatrix} \qquad
+e_2 = \begin{pmatrix}1\\1\end{pmatrix}$
+
+\change
+et deux autres vecteurs 
+$
+\epsilon_1 = \begin{pmatrix}1\\2\end{pmatrix} \qquad
+\epsilon_2 = \begin{pmatrix}5\\4\end{pmatrix}.$
+
+
+\change
+Les deux premiers vecteurs forment une base que l'on appelle $\mathcal{B}$.
+
+\change
+Mais les deux autres vecteurs forment aussi une base,
+que l'on appelle $\mathcal{B}'$.
+
+\change
+On souhaite savoir quelle est la matrice de passage de la base $\mathcal{B}$ vers 
+la base $\mathcal{B}'$.
+
+\change
+Il faut exprimer $\epsilon_1$ en fonction de $(e_1,e_2)$.
+Et aussi $\epsilon_2$ en fonction de $(e_1,e_2)$.
+
+\change
+On calcule que :
+$\epsilon_1 = -e_1+2e_2$
+
+\change
+ce qui donne les coordonnées $\begin{pmatrix}-1\\2\end{pmatrix}$ dans la base ${\mathcal{B}}$.
+
+\change
+Pour $\epsilon_2$ on trouve $\epsilon_2 = e_1+4e_2$
+
+\change
+donc $\begin{pmatrix}1\\4\end{pmatrix}$ dans la base ${\mathcal{B}}$.
+
+\change
+La matrice de passage est donc composée des vecteurs de la nouvelle base $(\epsilon_1,\epsilon_2)$
+écrits en colonnes et exprimés dans l'ancienne base $(e_1,e_2)$.
+
+On trouve donc 
+$$\begin{pmatrix}-1&1\\2&4\end{pmatrix}$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+On peut également interpréter une matrice de passage comme la matrice associée à
+l'application identité de $E$ par rapport à des bases bien choisies.
+
+Proposition : 
+La matrice de passage $\Pass_{\mathcal{B},\mathcal{B}'}$
+de la base $\mathcal{B}$ vers la base $\mathcal{B}'$
+est la matrice associée à l'identité 
+où $E$ est l'espace de départ muni de la base $\mathcal{B}'$,
+et $E$ est aussi l'espace d'arrivée, mais muni de la base $\mathcal{B}$.
+
+Avec nos notations habituelles on a donc :
+
+$\Pass_{\mathcal{B},\mathcal{B'}} = \Mat_{\mathcal{B}',\mathcal{B}} (\id_E)$
+
+Faites bien attention à l'inversion de l'ordre des bases !
+
+
+Cette interprétation permet de démontrer plusieurs résultats de façon très élégante et avec un
+minimum de calculs. 
+
+\change
+Voyons quelques uns de ces résultats :
+
+
+Tout d'abord la matrice de passage d'une base $\mathcal{B}$ vers une base $\mathcal{B}'$ 
+  est inversible et son inverse est égale à la matrice de passage de la base $\mathcal{B}'$ 
+  vers la base $\mathcal{B}$ : 
+  
+Ce qui s'écrit : $\Pass_{\mathcal{B}',\mathcal{B}} = \big( \Pass_{\mathcal{B},\mathcal{B}'} \big)^{-1}$
+  
+
+\change
+Enfin si $\mathcal{B}$, $\mathcal{B}'$ et $\mathcal{B}''$ sont trois bases, alors
+on peut passer facilement de la première à la troisième base par la formule :
+
+$\Pass_{\mathcal{B},\mathcal{B}''} = \Pass_{\mathcal{B},\mathcal{B}'}
+  \times \Pass_{\mathcal{B}',\mathcal{B}''}$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Soit $E = \Rr^3$ muni de sa base canonique $\mathcal{B}$. 
+
+\change
+Définissons deux nouvelles bases :
+
+une première base $\mathcal{B}_1$
+que voici
+
+\change
+Et un une seconde base $\mathcal{B}_2$
+que voilà.
+
+Pour ces deux bases les vecteurs sont exprimés dans la base canonique
+de $\Rr^3$.
+
+\change
+Vous vous demandez quelle est la matrice de passage de $\mathcal{B}_1$ vers $\mathcal{B}_2$.
+
+\change
+Tout d'abord il est très facile de calculer la matrice de passage de la base canonique vers la base 
+$\mathcal{B}_1$. 
+
+Comme elle est constituée des coordonnées de la nouvelle base $\mathcal{B}_1$ dans l'ancienne base $\mathcal{B}$ (qui est la base canonique), il s'agit simplement de copier les vecteurs colonnes de la base $\mathcal{B}_1$.
+
+\change
+De même pour calculer la matrice de passage de la base canonique vers la base 
+$\mathcal{B}_2$, on copie et on juxtapose les vecteurs colonnes pour former la matrice.
+
+Revenons à notre question : calculer la matrice de passage de $\mathcal{B}_1$ vers $\mathcal{B}_2$ ?
+
+\change
+La proposition vue juste avant implique la relation
+
+$\Pass_{\mathcal{B}, \mathcal{B}_2} = \Pass_{\mathcal{B}, \mathcal{B}_1} \times \Pass_{\mathcal{B}_1, \mathcal{B}_2}$.
+
+\change
+On y est presque ! Cette relation implique 
+que 
+$\Pass_{\mathcal{B}_1, \mathcal{B}_2} =  \Pass_{\mathcal{B}, \mathcal{B}_1}^{-1} \times \Pass_{\mathcal{B}, \mathcal{B}_2}$.
+
+
+\change
+En appliquant la méthode de Gauss pour calculer cet inverse 
+
+\change
+on trouve alors :
+$$\Pass_{\mathcal{B}_1, \mathcal{B}_2} 
+= \begin{pmatrix}
+1 & 0 & -3\\
+2 & -1 & -1\\
+0 & 0 & 1
+\end{pmatrix}.$$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons maintenant étudier l'effet d'un changement de bases sur
+les coordonnées d'un vecteur.
+
+Soient $\mathcal{B}$ et 
+$\mathcal{B}'$ deux bases d'un même espace vectoriel $E$. 
+
+
+\change
+Soit $\Pass_{\mathcal{B},\mathcal{B}'}$ la matrice de passage de 
+la base $\mathcal{B}$ vers la base $\mathcal{B}'$. 
+
+\change
+Pour $x \in E$, il se décompose dans la base $\mathcal{B}$ en $x=\sum_{i=1}^n x_ie_i$
+
+\change
+on note $X$ le vecteur $\left(\begin{smallmatrix}x_1\cr x_2\cr \vdots \cr x_n
+\end{smallmatrix}\right)$ des coordonnées dans la base $\mathcal{B}$.
+
+\change
+Ce *même* $x$ se décompose dans la base $\mathcal{B}'$ en $x=\sum_{i=1}^n x'_ie'_i$.
+
+\change
+On note cette fois $X'$ le vecteur 
+$\left(\begin{smallmatrix}x'_1\cr x'_2\cr \vdots \cr x'_n
+\end{smallmatrix}\right)$ 
+des coordonnées dans la base $\mathcal{B}'$.
+
+\change
+Comment retrouver grand $X'$ à partir de $X$ ?
+C'est simple il suffit d'utiliser la matrice de passage.
+
+La formule donne la relation 
+
+$X = \Pass_{\mathcal{B},\mathcal{B}'} \times X'$
+
+
+Notez bien l'ordre ! On a en fait exprimer $X$ en fonction de $X'$.
+Pour $X'$ en fonction de $X$, c'est bien sûr $X' = P^{-1} X$.
+
+\change
+Voyons la démonstration :
+
+Nous avons que la matrice de passage $P$ de la base $\mathcal{B}$ vers la base $\mathcal{B}'$
+est la matrice de l'identité de $E$ dans $E$ avec $\mathcal{B}'$ 
+comme base de départ et $\mathcal{B}$ comme base d'arrivée.
+
+\change
+$X$ 
+
+\change
+par définition c'est $\Mat_\mathcal{B} (x)$
+
+\change
+On utilise ensuite que $x$ c'est l'identité appliqué à $x$ !
+
+\change
+Maintenant on applique la première proposition de cette séquence à l'application linéaire  $f$ égale l'identité, qui nous dit que le vecteur $f(x)$ c'est la matrice de $f$ fois le vecteur $x$. 
+
+Donc ici, le vecteur $x$ dans la base d'arrivée $\mathcal{B}$
+
+c'est la matrice de identité de la base $\mathcal{B}'$ à la base $\mathcal{B}$
+
+fois le vecteur $x$ dans la base de départ $\mathcal{B}'$.
+
+
+\change
+On a rappelé que ceci était la matrice de passage de la base $\mathcal{B}$ vers la base $\mathcal{B}'$.
+
+Ainsi on obtient la formule souhaitée !
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici comment passer simplement de la matrice d'une application linéaire dans une base à la matrice de la même application linéaire dans une autre base.
+
+\change
+Nous allons voir cette formule de changement de base dans 
+le cas particulier d'un endomorphisme :
+
+Voici les données $f : E \to E$ est une application linéaire.  
+
+\change
+Et on a deux bases $\mathcal{B}$, $\mathcal{B}'$ de $E$.
+
+\change 
+$A$ est la matrice de l'application linéaire $f$ dans la base 
+  $\mathcal{B}$. On choisit donc ici la même base $\mathcal{B}$ au départ et à l'arrivée.
+  
+\change
+Par contre soit $B$ la matrice de l'application linéaire $f$ dans
+  la base $\mathcal{B}'$. Ici c'est $\mathcal{B}'$ qui est la base 
+  de départ et d'arrivée.
+  
+  
+\change
+Enfin soit $P$ la matrice de passage de la base $\mathcal{B}$ à la base $\mathcal{B}'$.
+  
+\change
+La formule de changement de base est la suivante :
+
+$B = P^{-1} A P$.
+
+Si on connaît la matrice de $f$ dans une base [montrer $A$]
+alors on peut calculer la matrice de $f$ dans n'importe quelle autre base [montrer $B$].
+
+C'est une formule essentielle de l'algèbre linéaire.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+Reprenons les deux bases de $\Rr^3$ d'un exemple étudié précédemment :
+
+Voici $\mathcal{B}_1$
+
+et voilà $\mathcal{B}_2$.
+
+On considère  $f : \Rr^3 \to \Rr^3$ l'application linéaire dont
+la matrice  est cette matrice $A$,
+avec $\mathcal{B}_1$ comme base au départ et à l'arrivée.
+
+\change
+Le problème est le suivant : 
+Que vaut la matrice de $f$ cette fois dans la base $\mathcal{B}_2$ ?
+
+\change
+Nous avons déjà calculé que la matrice de passage de $\mathcal{B}_1$ vers $\mathcal{B}_2$ 
+était cette matrice.
+
+\change
+On applique la formule du changement de base :
+
+\change
+La matrice $B$ de $f$ dans la base $\mathcal{B}_2$ 
+est donnée par la formule 
+$B = P^{-1} A P$.
+
+\change
+On calcule l'inverse de $P$, et on effectue les produits
+
+\change
+pour obtenir la matrice $B$
+qui est ici une matrice diagonale avec $1,2,3$ sur la diagonale.
+
+
+C'est souvent l'intérêt des changements de base : se ramener à une matrice plus simple.
+
+
+Par exemple ici, il est maintenant facile de calculer les puissances $B^k$, 
+pour en déduire les $A^k$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Je considère ici des matrices carrées de taille $n$.
+
+La matrice $B$ est dite \defi{semblable} à la matrice $A$ s'il existe une
+matrice inversible $P$ telle que
+$B=P^{-1}AP$.
+   
+   
+\change
+C'est un bon exercice de montrer que la relation << être semblable >> est une relation 
+d'équivalence :
+
+\change
+cela signifie que :
+La relation est \evidence{réflexive} : une matrice $A$ est semblable à elle-même.
+
+\change
+La relation est \evidence{symétrique} : si $A$ est semblable à $B$, 
+  alors $B$ est semblable à $A$.
+
+\change
+Enfin La relation est \evidence{transitive} : si $A$ est semblable à $B$, 
+  et $B$ est semblable à $C$, alors $A$ est semblable à $C$.
+
+  
+
+Compte tenu de ces propriétés, on dit simplement que $A$ et $B$ sont 
+semblables.
+
+\change
+On termine par une remarque fondamentale, qui est une conséquence de la formule de changement de base et qui conclue le lien entre matrice et application linéaire :
+
+Corollaire : Deux matrices semblables représentent le même endomorphisme, mais exprimé dans
+des bases différentes.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Vous êtes arrivé à un seuil important de l'algèbre,
+il est temps pour vous de vous entraîner 
+
+\end{document}

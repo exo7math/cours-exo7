@@ -1,0 +1,1572 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Intégrales}
+%====================================================================
+
+\insertvideo{qXDhD4y_GtQ}{partie 1. L'intégrale de Riemann}
+
+\insertvideo{0Na28lA-2aA}{partie 2. Propriétés}
+
+\insertvideo{y8-0OvFmAf8}{partie 3. Primitive}
+
+\insertvideo{Nltru5TPFCI}{partie 4. Intégration par parties - Changement de variable}
+
+\insertvideo{Yd74zJSYTPU}{partie 5. Intégration des fractions rationnelles}
+
+\insertfiche{fic00015.pdf}{Calculs d'intégrales}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Motivation}
+
+
+Nous allons introduire l'intégrale à l'aide d'un exemple.
+Considérons la fonction exponentielle $f(x)=e^x$. On souhaite calculer
+l'aire $\mathcal{A}$ en-dessous du graphe de $f$ et entre les droites d'équation $(x=0)$, $(x=1)$ et l'axe $(O x)$.
+
+\myfigure{1}{
+\tikzinput{fig_int01a}
+}
+
+Nous approchons cette aire par des sommes d'aires des rectangles situés sous la courbe.
+Plus précisément, soit $n \ge 1$ un entier; découpons notre intervalle $[0,1]$
+à l'aide de la subdivision $(0,\frac{1}{n},\frac{2}{n}, \ldots, \frac{i}{n}, \cdots,\frac{n-1}{n},1)$.
+
+On considère les \og rectangles inférieurs \fg{} $\mathcal{R}_i^-$,
+chacun ayant pour base l'intervalle $\big[\frac{i-1}{n},\frac{i}{n}\big]$
+et pour hauteur $f\big(\frac{i-1}{n}\big)=e^{(i-1)/n}$. L'entier $i$ varie de $1$ à $n$.
+L'aire de $\mathcal{R}_i^-$ est \og base $\times$ hauteur \fg{} : $\big(\frac{i}{n}-\frac{i-1}{n}\big) \times e^{(i-1)/n}
+= \frac{1}{n} e^{\frac{i-1}{n}}$.
+
+\myfigure{1}{
+\tikzinput{fig_int01b1}
+\qquad
+\tikzinput{fig_int01b2}
+}
+
+La somme des aires des $\mathcal{R}_i^-$ se calcule alors comme somme d'une suite géométrique:
+\[
+\sum_{i=1}^{n} \frac{e^{\frac{i-1}{n}}}{n}
+= \frac{1}{n} \sum_{i=1}^{n} \big(e^{\frac 1n}\big)^{i-1}
+= \frac{1}{n} \frac{1-\big(e^{\frac 1n}\big)^{n}}{1-e^{\frac 1n}}
+= \frac{\frac{1}{n}}{e^{\frac 1n}-1}\big(e-1\big)
+\xrightarrow[n\to+\infty]{} e-1.
+\]
+Pour la limite on a reconnu l'expression du type $\frac{e^x-1}{x} \xrightarrow[x\to 0]{} 1$
+(avec ici $x=\frac1n$).
+
+Soit maintenant les \og rectangles supérieurs \fg{} $\mathcal{R}_i^+$,
+ayant la même base $\big[\frac{i-1}{n},\frac{i}{n}\big]$ mais la hauteur
+$f\big(\frac{i}{n}\big)=e^{i/n}$. Un calcul similaire montre que
+$\sum_{i=1}^{n} \frac{e^{\frac{i}{n}}}{n} \to e-1$ lorsque $n\to +\infty$.
+
+L'aire $\mathcal{A}$ de notre région est supérieure à la somme des aires des rectangles inférieurs  ;
+et elle est inférieure
+ à la somme des aires des rectangles supérieurs. Lorsque l'on considère des subdivisions de plus en plus petites
+(c'est-à-dire lorsque l'on fait tendre $n$ vers $+\infty$) alors on obtient à la limite que l'aire $\mathcal{A}$
+de notre région est encadrée par deux aires qui tendent vers $e-1$. Donc l'aire de notre région est
+$\mathcal{A} = e-1$.
+
+
+\myfigure{1}{
+\tikzinput{fig_int01c}
+}
+
+Voici le plan de lecture conseillé pour ce chapitre :
+il est tout d'abord nécessaire de bien comprendre comment est définie l'intégrale
+et quelles sont ses principales propriétés (parties \ref{sec:int1} et \ref{sec:int2}).
+Mais il est important d'arriver rapidement à savoir calculer des intégrales :
+à l'aide de primitives ou par les deux outils efficaces que sont l'intégration par parties
+et le changement de variable.
+
+Dans un premier temps on peut lire les sections \ref{ssec:int11}, \ref{ssec:int12}
+puis \ref{ssec:int21}, \ref{ssec:int22}, \ref{ssec:int23},
+avant de s'attarder longuement sur les parties \ref{sec:int3}, \ref{sec:int4}.
+Lors d'une seconde lecture, revenez sur la construction de l'intégrale et les preuves.
+
+
+Dans ce chapitre on s'autorisera (abusivement) une confusion
+entre une fonction $f$ et son expression $f(x)$. Par exemple on écrira
+\assertion{une primitive de la fonction $\sin x$ est $-\cos x$} au lieu
+\assertion{une primitive de la fonction $x\mapsto \sin x$ est $x\mapsto -\cos x$}.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L'intégrale de Riemann}
+\label{sec:int1}
+
+Nous allons reprendre la construction faite dans l'introduction pour une fonction $f$ quelconque.
+Ce qui va remplacer les rectangles seront des \evidence{fonctions en escalier}.
+Si la limite des aires en-dessous égale la limite des aires au-dessus on appelle cette limite commune
+\evidence{l'intégrale} de $f$ que l'on note $\int_a^b f(x) \; dx$.
+Cependant il n'est pas toujours vrai que ces limites soient égales, l'intégrale n'est donc
+définie que pour les fonctions \evidence{intégrables}. Heureusement nous verrons
+que si la fonction $f$ est continue alors elle est intégrable.
+
+\myfigure{1}{
+\tikzinput{fig_int02}
+}
+
+
+%---------------------------------------------------------------
+\subsection{Intégrale d'une fonction en escalier}
+\label{ssec:escalier}
+\label{ssec:int11}
+
+\begin{definition}
+Soit $[a,b]$ un intervalle fermé borné de $\Rr$
+($-\infty<a<b<+\infty$). On appelle une \defi{subdivision}\index{subdivision} de $[a,b]$ une suite finie,
+strictement croissante, de nombres $\mathcal{S}=(x_0,x_1,\ldots,x_n)$ telle que $x_0=a$ et
+$x_n=b$. Autrement dit $a=x_0< x_1<\cdots< x_n=b$.
+\end{definition}
+
+\myfigure{1}{
+\tikzinput{fig_int03}
+}
+
+\begin{definition}
+Une fonction $f : [a,b] \to \Rr$ est une \defi{fonction en escalier}\index{fonction!en escalier}
+s'il existe  une subdivision $(x_0,x_1,\ldots,x_n)$ et des nombres réels
+$c_1,\ldots,c_n$ tels que pour tout $i\in \{1,\ldots,n\}$ on ait
+$$\forall x \in ]x_{i-1},x_i[ \quad f(x)=c_i$$
+\end{definition}
+
+Autrement dit $f$ est une fonction constante sur chacun des sous-intervalles de la subdivision.
+
+
+\begin{remarque*}
+La valeur de $f$ aux points $x_i$ de la subdivision n'est pas imposée. Elle peut être égale à
+celle de l'intervalle qui précède ou de celui qui suit, ou encore une autre valeur arbitraire.
+Cela n'a pas d'importance car l'aire ne changera pas.
+\end{remarque*}
+\myfigure{1}{
+\tikzinput{fig_int04}
+}
+
+\begin{definition}
+Pour une fonction en escalier comme ci-dessus, son \defi{intégrale}\index{integrale@intégrale}
+est le réel $\int_a^b f(x) \; dx$ défini par
+\mybox{$\displaystyle \int_a^b f(x) \; dx = \sum_{i=1}^n c_i(x_i-x_{i-1})$}
+\end{definition}
+
+
+
+\begin{remarque*}
+Notez que chaque terme $c_i(x_i-x_{i-1})$ est l'aire du rectangle compris entre les abscisses
+$x_{i-1}$ et $x_i$ et de hauteur $c_i$. Il faut juste prendre garde que l'on compte l'aire
+avec un signe \og $+$ \fg{} si $c_i>0$ et un signe \og $-$ \fg{} si $c_i<0$.
+
+
+L'intégrale d'une fonction en escalier est l'aire de la partie % [[en rouge ??]]
+située au-dessus
+de l'axe des abscisses \couleurnb{(ici en rouge)}{} moins l'aire de la partie %[[en bleu]]
+située en-dessous  \couleurnb{(en bleu)}{}.
+L'intégrale d'une fonction en escalier est bien un nombre réel qui mesure l'aire algébrique
+(c'est-à-dire avec signe) entre la courbe de $f$ et l'axe des abscisses.
+\end{remarque*}
+
+%---------------------------------------------------------------
+\subsection{Fonction intégrable}
+\label{ssec:int12}
+
+Rappelons qu'une fonction $f : [a,b] \to \Rr$ est \defi{bornée} s'il existe $M\ge0$ tel que :
+$$\forall x \in [a,b] \quad -M \le f(x) \le M.$$
+
+Rappelons aussi que si l'on a deux fonctions $f,g : [a,b] \to \Rr$, alors on note
+$$f \le g  \qquad \iff \qquad \forall x \in [a,b] \quad f(x) \le g(x).$$
+
+\bigskip
+
+On suppose à présent que $f : [a,b] \to \Rr$ est une fonction bornée quelconque. On définit deux nombres réels :
+$$I^-(f) = \sup \left\{ \int_a^b \phi(x) \; dx \mid \phi \text{ en escalier et } \phi \le f \right\}$$
+$$I^+(f) = \inf \left\{ \int_a^b \phi(x) \; dx \mid \phi \text{ en escalier et } \phi \ge f \right\}$$
+
+
+\myfigure{1}{
+\tikzinput{fig_int05}
+}
+
+Pour $I^-(f)$ on prend toutes les fonctions en escalier (avec toutes les subdivisions possibles)
+qui restent inférieures à $f$. On prend l'aire la plus grande parmi toutes ces fonctions en escalier,
+comme on n'est pas sûr que ce maximum existe on prend la borne supérieure.
+Pour $I^+(f)$ c'est le même principe mais les fonctions en escalier sont supérieures à $f$
+et on cherche l'aire la plus petite possible.
+
+Il est intuitif que l'on a :
+\begin{proposition}
+\label{prop:ImoinsIplus}
+$I^-(f) \le I^+(f)$.
+\end{proposition}
+Les preuves sont reportées en fin de section.
+
+\begin{definition}
+Une fonction bornée $f :[a,b] \to \Rr$ est dite \defi{intégrable}\index{fonction!integrable@intégrable} (\defi{au sens de Riemann})
+si $I^-(f) = I^+(f)$. On appelle alors ce nombre 
+\defi{l'intégrale de Riemann}\index{integrale@intégrale!de Riemann} de $f$ sur $[a,b]$ et on le note
+$\int_a^b f(x)\; dx$.
+\end{definition}
+
+\begin{exemple}
+\sauteligne
+\begin{itemize}
+  \item Les fonctions en escalier sont intégrables ! En effet si $f$ est une fonction en escalier
+alors la borne inférieure $I^-(f)$ et supérieure $I^+(f)$ sont atteintes avec la fonction
+$\phi=f$. Bien sûr l'intégrale $\int_a^b f(x)\; dx$ coïncide avec l'intégrale de la fonction
+en escalier définie lors du paragraphe \ref{ssec:escalier}.
+
+
+  \item Nous verrons dans la section suivante que les fonctions continues
+et les fonctions monotones sont intégrables.
+
+  \item Cependant toutes les fonctions ne sont pas intégrables. La fonction $f : [0,1] \to \Rr$ définie par
+$f(x)=1$ si $x$ est rationnel et $f(x)=0$ sinon, n'est pas intégrable sur $[0,1]$.
+Convainquez-vous que si $\phi$ est une fonction en escalier avec $\phi \le f$ alors $\phi \le 0$
+et que si $\phi \ge f$ alors $\phi \ge 1$. On en déduit que $I^-(f)=0$ et $I^+(f)=1$.
+Les bornes inférieure et supérieure ne coïncident pas, donc $f$ n'est pas intégrable.
+
+
+\myfigure{1}{
+\tikzinput{fig_int06}
+}
+\end{itemize}
+\end{exemple}
+
+
+Il n'est pas si facile de calculer des exemples avec la définition.
+Nous avons vu l'exemple de la fonction exponentielle dans l'introduction
+où nous avions en fait montré que
+$\int_0^1 e^x \; dx = e-1$. Nous allons voir maintenant
+l'exemple de la fonction $f(x)=x^2$.
+Plus tard nous verrons que les primitives permettent de calculer simplement
+beaucoup d'intégrales.
+
+
+\begin{exemple}
+Soit $f:[0,1] \to \Rr$, $f(x)=x^2$. Montrons qu'elle est intégrable et calculons
+$\int_0^1f(x) \; dx$.
+
+\myfigure{1}{
+\tikzinput{fig_int11}
+}
+
+Soit $n\ge 1$ et considérons la subdivision régulière de $[0,1]$ suivante
+$\mathcal{S}=\big(0,\frac1n,\frac2n,\ldots,\frac in,\ldots, \frac{n-1}{n},1\big)$.
+
+Sur l'intervalle $\big[\frac{i-1}{n},\frac in\big]$ nous avons
+\[
+\forall x \in \big[\tfrac{i-1}{n},\tfrac in\big] \quad  \big(\tfrac{i-1}{n}\big)^2 \le x^2 \le \big(\tfrac in\big)^2 \; .
+\]
+
+Nous construisons une fonction en escalier $\phi^-$ en-dessous de $f$  par
+$\phi^-(x) = \frac{(i-1)^2}{n^2}$ si $x \in \big[\frac{i-1}{n},\frac in\big[$
+(pour chaque $i=1,\ldots,n$) et $\phi^-(1)=1$.
+De même nous construisons une fonction en escalier $\phi^+$ au-dessus de $f$ définie
+par $\phi^+(x) = \frac{i^2}{n^2}$ si $x \in \big[\frac{i-1}{n},\frac in\big[$
+(pour chaque $i=1,\ldots,n$) et $\phi^+(1)=1$.
+$\phi^-$ et $\phi^+$ sont des fonctions en escalier et l'on a $\phi^- \le f \le \phi^+$.
+
+L'intégrale de la fonction en escalier $\phi^+$ est par définition
+\[
+\int_0^1 \phi^+(x)\; dx = \sum_{i=1}^n  \frac{i^2}{n^2} \left(\frac in - \frac{i-1}{n}\right)
+= \sum_{i=1}^n  \frac{i^2}{n^2} \frac 1n  = \frac{1}{n^3} \sum_{i=1}^n i^2.
+\]
+
+On se souvient de la formule $\sum_{i=1}^n i^2=\tfrac{n(n + 1)(2n + 1)}{6}$, et donc
+\[
+\int_0^1 \phi^+(x)\; dx = \frac{n(n + 1)(2n + 1)}{6n^3} =  \frac{(n + 1)(2n + 1)}{6n^2} \; \cdotp
+\]
+
+De même pour la fonction $\phi^-$ :
+\[
+\int_0^1 \phi^-(x)\; dx = \sum_{i=1}^n  \frac{(i-1)^2}{n^2} \frac 1n
+= \frac{1}{n^3} \sum_{j=1}^{n-1} j^2 =\frac{(n-1)n(2n - 1)}{6n^3} =  \frac{(n - 1)(2n - 1)}{6n^2}\; \cdotp
+\]
+
+Maintenant $I^-(f)$ est la borne supérieure sur toutes les fonctions en escalier inférieures à $f$
+donc en particulier $I^-(f) \ge \int_0^1 \phi^-(x)\; dx$. De même $I^+(f) \le \int_0^1 \phi^+(x)\; dx$.
+En résumé :
+$$\tfrac{(n - 1)(2n - 1)}{6n^2}=\int_0^1 \phi^-(x)\; dx \le I^-(f) \le I^+(f) \le \int_0^1 \phi^+(x)\; dx =\tfrac{(n + 1)(2n + 1)}{6n^2}.$$
+
+Lorsque l'on fait tendre $n$ vers $+\infty$ alors les deux extrémités tendent vers $\frac13$.
+On en déduit que $I^-(f)= I^+(f)=\frac13$. Ainsi $f$ est intégrable
+et $\int_0^1 x^2\; dx = \frac13$.
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Premières propriétés}
+
+\begin{proposition}
+\label{prop:intprop}
+\sauteligne
+\begin{enumerate}
+  \item Si $f : [a,b] \to \Rr$ est intégrable et si l'on change les valeurs de $f$
+en un nombre fini de points de $[a,b]$ alors la fonction $f$ est
+toujours intégrable et la valeur de l'intégrale $\int_a^b f(x)\; dx$ ne change pas.
+
+  \item Si $f  : [a,b] \to \Rr$ est intégrable alors la restriction de $f$
+à tout intervalle $[a',b'] \subset [a,b]$ est encore intégrable.
+\end{enumerate}
+\end{proposition}
+
+
+
+%---------------------------------------------------------------
+\subsection{Les fonctions continues sont intégrables}
+
+Voici le résultat théorique le plus important de ce chapitre.
+\begin{theoreme}
+\label{th:continueintegrable}
+Si $f : [a,b] \to \Rr$ est continue alors $f$ est intégrable.
+\end{theoreme}
+
+La preuve sera vue plus loin mais l'idée est que les fonctions continues peuvent être
+approchées d'aussi près que l'on veut par des fonctions en escalier, tout en gardant
+un contrôle d'erreur uniforme sur l'intervalle.
+
+\medskip
+
+Une fonction $f : [a,b] \to \Rr$ est dite \defi{continue par morceaux}\index{fonction!continue par morceaux} s'il existe un entier $n$ et
+une subdivision $(x_0,\ldots,x_n)$ telle que $f_{|]x_{i-1},x_i[}$ soit continue, admette une limite finie à droite en $x_{i-1}$ et une limite à gauche en $x_{i}$ pour tout $i \in \{ 1,\ldots,n \}$.
+
+\myfigure{0.8}{
+\tikzinput{fig_int12}
+}
+
+\begin{corollaire}
+Les fonctions continues par morceaux sont intégrables.
+\end{corollaire}
+
+\medskip
+
+
+Voici un résultat qui prouve que l'on peut aussi intégrer des fonctions qui ne sont pas continues
+à condition que la fonction soit croissante (ou décroissante).
+\begin{theoreme}
+\label{th:monotoneintegrable}
+Si $f : [a,b] \to \Rr$ est monotone alors $f$ est intégrable.
+\end{theoreme}
+%
+% %---------------------------------------------------------------
+% \subsection{Subdivision}
+%
+
+%
+% Nous aurons besoin d'un peu plus de connaissance sur les subdivisions.
+% Soit $[a,b]$ un intervalle fermé borné de $\Rr$
+% ($-\infty<a<b<+\infty$).
+% \begin{definition}
+% \begin{enumerate}
+%   \item (Rappel)  Une \defi{subdivision} de $[a,b]$ une suite finie
+% croissante de nombres $\mathcal{S}=(x_0,x_1,\cdots,x_n)$ telle que $x_0=a$ et
+% $x_n=b$.
+%   \item Le \defi{pas} de la subdivision est le réel $\delta(\mathcal{S})=\sup_{i=1}^k(x_i-x_{i-1})$.
+%   \item Une subdivision est dite \defi{réguli\`ere} ou à \defi{pas constant} si $x_i-x_{i-1}$
+% est constant, donc pour tout $i$, $x_i-x_{i-1}=\frac{b-a}{n}$.
+%   \item On dit qu'une subdivision $(y_0,y_1,\ldots,y_m)$ est \defi{plus fine} que $(x_0,x_1,\cdots,x_n)$
+% si  $\{x_0,x_1,\cdots,x_n\} \subset \{y_0,y_1\cdots,y_m\}$.
+% \end{enumerate}
+% \end{definition}
+%
+% [[dessins]]
+
+%---------------------------------------------------------------
+\subsection{Les preuves}
+
+Les preuves peuvent être sautées lors d'une première lecture.
+Les démonstrations demandent une bonne maîtrise des bornes sup et inf
+et donc des \og epsilons \fg{}.
+La proposition \ref{prop:ImoinsIplus} se prouve en manipulant les \og epsilons \fg{}.
+Pour la preuve de la proposition \ref{prop:intprop} : on prouve d'abord les propriétés
+pour les fonctions en escalier et on en déduit qu'elles restent vraies pour les fonctions intégrables
+(cette technique sera développée en détails dans la partie suivante).
+
+
+Le théorème \ref{th:continueintegrable} établit que les fonctions continues sont intégrables.
+Nous allons démontrer une version affaiblie de ce résultat. Rappelons que $f$ est dite de
+\defi{classe $\mathcal{C}^1$}\index{fonction!de classe@de classe $\mathcal{C}^1$} si $f$ est continue, dérivable et $f'$ est aussi continue.
+\begin{theoreme}[Théorème \ref{th:continueintegrable} faible]
+\label{th:c1integrable}
+Si $f : [a,b] \to \Rr$ est de classe $\mathcal{C}^1$ alors $f$ est intégrable.
+\end{theoreme}
+
+\begin{proof}
+Comme $f$ est de classe  $\mathcal{C}^1$ alors $f'$ est une fonction continue sur l'intervalle fermé et borné $[a,b]$ ;
+$f'$ est donc une fonction bornée : il existe $M\ge 0$ tel que pour tout $x \in [a,b]$ on ait $|f'(x)|\le M$.
+
+Nous allons utiliser l'inégalité des accroissements finis :
+\begin{equation}
+\label{eq:ineqacct}
+\tag{$\star$}
+\forall x,y \in [a,b] \quad |f(x)-f(y)| \le M |x-y|.
+\end{equation}
+
+\medskip
+
+Soit $\epsilon>0$ et soit $(x_0,x_1,\ldots,x_n)$ une subdivision de $[a,b]$ vérifiant pour tout $i=1,\ldots,n$ :
+\begin{equation}
+\label{eq:epsilon}
+\tag{$\star\star$}
+0 < x_i-x_{i-1} \le \epsilon.
+\end{equation}
+
+ Nous allons construire deux fonctions
+en escalier $\phi^-, \phi^+ : [a,b] \to \Rr$ définies de la façon suivante :
+pour chaque $i=1,\ldots,n$ et chaque $x\in[x_{i-1},x_i[$ on pose
+$$c_i = \phi^-(x)= \inf_{t\in [x_{i-1},x_i[} f(t) \quad \text{ et } \quad
+d_i = \phi^+(x)= \sup_{t\in [x_{i-1},x_i[} f(t)$$
+et aussi $\phi^-(b)= \phi^+(b)=f(b)$.
+$\phi^-$ et $\phi^+$ sont bien deux fonctions en escalier (elles sont constantes sur chaque intervalle
+$[x_{i-1},x_i[$).
+
+\myfigure{1.1}{
+\tikzinput{fig_int13}
+}
+
+\medskip
+
+De plus par construction on a bien $\phi^-\le f \le \phi^+$
+et donc
+\[
+\int_a^b \phi^-(x)\;dx \le I^-(f) \le I^+(f) \le \int_a^b \phi^+(x)\;dx \; .
+\]
+En utilisant la continuité de $f$ sur l'intervalle $[x_{i - 1}, x_i]$, on déduit l'existence
+de $a_i,b_i \in [x_{i -1},x_i]$ tels que $f(a_i)=c_i$ et $f(b_i)=d_i$.
+Avec (\ref{eq:ineqacct}) et (\ref{eq:epsilon}) on sait que
+$d_i-c_i = f(b_i) - f(a_i) \le M |b_i - a_i| \le M (x_i-x_{i-1}) \le M\epsilon$
+(pour tout $i=1,\ldots,n$). Alors
+$$\int_a^b \phi^+(x)\;dx - \int_a^b \phi^-(x)\;dx
+\le \sum_{i=1}^n M\epsilon(x_i-x_{i-1})=M\epsilon(b-a)$$
+
+Ainsi $0 \le I^+(f) - I^-(f) \le M\epsilon(b-a)$ et lorsque l'on fait tendre $\epsilon \to 0$
+on trouve $I^+(f) = I^-(f)$, ce qui prouve que $f$ est intégrable.
+\end{proof}
+
+La preuve du théorème \ref{th:monotoneintegrable} est du même style
+et nous l'omettons.
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soit $f : [1,4] \to \Rr$ définie par $f(x)=1$ si $x\in[1,2[$, $f(x)=3$ si $x\in [2,3[$
+et $f(x)=-1$ si $x \in [3,4]$. Calculer $\int_1^2 f(x) \;dx$, $\int_1^3 f(x)\;dx$, $\int_1^4 f(x)\;dx$,
+$\int_1^{\frac32} f(x) \;dx$, $\int_{\frac32}^{\frac72} f(x) \;dx$.
+  \item Montrer que $\int_0^1 x \; dx =\frac12$ (prendre une subdivision régulière
+et utiliser $\sum_{i=1}^n i = \frac{n(n+1)}{2}$).
+  \item Montrer que si $f$ est une fonction intégrable et \emph{paire} sur l'intervalle $[-a,a]$ alors
+$\int_{-a}^a f(x)\;dx = 2 \int_0^a f(x)\; dx$ (on prendra une subdivision symétrique par rapport à l'origine).
+  \item Montrer que si $f$ est une fonction intégrable et \emph{impaire} sur l'intervalle $[-a,a]$ alors
+  $\int_{-a}^a f(x)\;dx = 0$.
+  \item Montrer que toute fonction monotone est intégrable en s'inspirant de la preuve du théorème
+\ref{th:c1integrable}.
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Propriétés de l'intégrale}
+\label{sec:int2}
+
+Les trois principales propriétés de l'intégrale sont
+la relation de Chasles, la positivité et la linéarité.
+
+%---------------------------------------------------------------
+\subsection{Relation de Chasles}
+\label{ssec:int21}
+
+\begin{proposition}[Relation de Chasles]
+\index{relation de Chasles}
+Soient $a<c<b$. Si $f$ est intégrable sur $[a,c]$ et $[c,b]$, alors
+$f$ est intégrable sur $[a,b]$.
+Et on a $$\int_a^b f(x)\;dx = \int_a^c f(x) \; dx + \int_c^b f(x)\;dx$$
+\end{proposition}
+
+
+
+Pour s'autoriser des bornes sans se préoccuper de l'ordre on définit :
+$$\int_a^a f(x) \;dx=0 \qquad \text{ et pour } a<b  \quad \int_b^a f(x) \;dx= -\int_a^b f(x) \; dx.$$
+
+Pour $a,b,c$ quelconques la \evidence{relation de Chasles} devient alors
+\mybox{$\displaystyle\int_a^b f(x)\;dx = \int_a^c f(x)\;dx + \int_c^b f(x)\;dx$}
+
+
+%---------------------------------------------------------------
+
+\subsection{Positivité de l'intégrale}
+\label{ssec:int22}
+
+\begin{proposition}[Positivité de l'intégrale]
+\index{integrale@intégrale!positivite@positivité}
+Soit $a \le b$ deux réels et $f$ et $g$ deux fonctions intégrables sur $[a,b]$.
+\mybox{Si $f\le g$ \quad alors \quad  $\displaystyle \int_a^b f(x)\;dx \le\int_a^b g(x)\;dx$}
+\end{proposition}
+
+En particulier l'intégrale d'une fonction positive est positive :
+\mybox{Si \quad $f\ge 0$ \quad alors \quad $\displaystyle \int_a^bf(x)\;dx \ge 0$}
+
+%---------------------------------------------------------------
+
+\subsection{Linéarité de l'intégrale}
+\label{ssec:int23}
+
+\begin{proposition}
+\index{integrale@intégrale!linearite@linearité}
+Soient $f,g$ deux fonctions intégrables sur $[a,b]$.
+\begin{enumerate}
+  \item $f+g$ est une fonction intégrable et
+$\int_a^b (f+g)(x) \; dx= \int_a^b f(x) \; dx+ \int_a^b g(x) \; dx$.
+
+  \item Pour tout réel $\lambda$,  $\lambda f$ est
+intégrable et on a $\int_a^b \lambda f(x) \; dx= \lambda \int_a^b f(x) \; dx$.
+
+Par ces deux premiers points
+nous avons la \evidence{linéarité de l'intégrale} :
+pour tous réels $\lambda,\mu$
+\mybox{$\displaystyle
+\int_a^b \big(\lambda f(x)+\mu g(x)\big)\;dx= \lambda\int_a^b f(x)\;dx+\mu\int_a^b g(x)\;dx$}
+
+
+  \item $f \times g$ est une fonction intégrable sur $[a,b]$
+mais en général $\int_a^b (f g)(x)\;dx \neq
+\big(\int_a^b f(x)\;dx\big)\big(\int_a^b g(x)\;dx\big)$.
+
+  \item $|f|$ est une fonction intégrable sur $[a,b]$ et
+\mybox{$\displaystyle\left\vert\int_a^b f(x) \;dx\right\vert\le\int_a^b\big\vert f(x)\big\vert \;dx$}
+\end{enumerate}
+\end{proposition}
+
+
+\begin{exemple}
+$$\int_0^1 \big(7x^2-e^x\big) \; dx  = 7 \int_0^1 x^2\; dx \ \ - \  \int_0^1 e^x \; dx = 7 \frac 13 \ - \ (e-1) = \frac{10}{3}-e$$
+Nous avons utilisé les calculs déjà vus : $\int_0^1 x^2\; dx = \frac13$ et $\int_0^1 e^x \; dx = e-1$.
+\end{exemple}
+
+\begin{exemple}
+Soit $I_n = \int_1^n \frac{\sin(n x)}{1+x^n} \; dx$. Montrons que $I_n \to 0$ lorsque $n\to +\infty$.
+
+$$|I_n| = \left| \int_1^n \frac{\sin(n x)}{1+x^n} \; dx \right| \le  \int_1^n  \frac{|\sin(n x)|}{1+x^n} \; dx
+\le \int_1^n  \frac{1}{1+x^n} \; dx \le  \int_1^n  \frac{1}{x^n} \; dx$$
+
+Il ne reste plus qu'à calculer cette dernière intégrale (en anticipant un peu sur la suite du chapitre) :
+$$\int_1^n  \frac{1}{x^n} \; dx = \int_1^n x^{-n} \; dx = \left[\frac{x^{-n+1}}{-n+1}\right]_1^n
+= \frac{n^{-n+1}}{-n+1} - \frac{1}{-n+1}  \xrightarrow[n\to+\infty]{} 0$$
+(car $n^{-n+1} \to 0$ et $\frac{1}{-n+1} \to 0$).
+\end{exemple}
+
+
+\begin{remarque*}
+Notez que même si $f\times g$ est intégrable on a en général $\int_a^b (f g)(x)\;dx \neq
+\big(\int_a^b f(x)\;dx\big)\big(\int_a^b g(x)\;dx\big)$.
+Par exemple, soit $f : [0,1] \to \Rr$ la fonction définie par $f(x)=1$ si $x\in[0,\frac12[$ et $f(x)=0$ sinon.
+Soit $g : [0,1] \to \Rr$ la fonction définie par $g(x)=1$ si $x\in[\frac12,1[$ et $g(x)=0$ sinon.
+Alors $f(x)\times g(x)=0$ pour tout $x\in[0,1]$ et donc $\int_0^1 f(x)g(x) \; dx=0$ alors
+que $\int_0^1 f(x) \; dx= \frac12$ et $\int_0^1 g(x) \; dx=\frac12$.
+\end{remarque*}
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Une preuve}
+
+Nous allons prouver la linéarité de l'intégrale:
+$\int \lambda f= \lambda \int f$ et $\int f+g = \int f + \int g$.
+L'idée est la suivante : il est facile de voir que pour des fonctions en escalier
+l'intégrale (qui est alors une somme finie) est linéaire. Comme les fonctions en escalier
+approchent autant qu'on le souhaite les fonctions intégrables alors cela implique la linéarité
+de l'intégrale.
+
+\begin{proof}[Preuve de $\int \lambda f= \lambda \int f$]
+Soit $f : [a,b] \to \Rr$ une fonction intégrable et $\lambda \in \Rr$. Soit $\epsilon >0 $.
+Il existe $\phi^-$ et $\phi^+$ deux fonctions en escalier approchant suffisamment $f$,
+avec $\phi^- \le f \le \phi^+$ :
+\begin{equation}
+\label{eq:ineqint}
+\tag{$\dag$}
+\int_a^b f(x)\; dx  \ - \epsilon\  \le \int_a^b \phi^-(x)\;dx \quad \text{ et } \quad \int_a^b \phi^+(x)\;dx \  \le \int_a^b f(x)\; dx  \ + \epsilon\
+\end{equation}
+
+
+Quitte à rajouter des points, on peut supposer que la subdivision $(x_0,x_1,\ldots,x_n)$ de $[a,b]$
+est suffisamment fine pour que $\phi^-$ et $\phi^+$ soient toutes les deux constantes
+sur les intervalles $]x_{i-1},x_i[$ ; on note $c_i^-$ et $c_i^+$ leurs valeurs respectives.
+
+Dans un premier temps on suppose $\lambda \ge 0$. Alors $\lambda \phi^-$ et $\lambda \phi^+$
+sont encore des fonctions en escalier
+vérifiant $\lambda \phi^- \le \lambda f \le \lambda\phi^+$. De plus
+$$\int_a^b \lambda \phi^-(x)\;dx =  \sum_{i=1}^n \lambda c_i^-(x_{i}-x_{i-1})
+=  \lambda \sum_{i=1}^n c_i^-(x_{i}-x_{i-1}) = \lambda\int_a^b  \phi^-(x)\;dx$$
+De même pour $\phi^+$.
+Ainsi
+$$\lambda\int_a^b \phi^-(x)\;dx \le I^-(\lambda f) \le I^+(\lambda f)
+\le \lambda\int_a^b \phi^+(x)\;dx$$
+En utilisant les deux inégalités (\ref{eq:ineqint}) on obtient
+$$\lambda \int_a^b f(x)\; dx \  -\lambda \epsilon \ \le I^-(\lambda f) \le I^+(\lambda f) \le  \lambda \int_a^b f(x)\; dx \ +\lambda \epsilon$$
+Lorsque l'on fait tendre $\epsilon \to 0$ cela prouve que $I^-(\lambda f) = I^+(\lambda f)$, donc $\lambda f$ est intégrable
+et $\int_a^b \lambda f(x)\; dx = \lambda \int_a^b f(x)\; dx$.
+Si $\lambda \le 0$ on a $\lambda \phi^+ \le \lambda f \le \lambda\phi^-$ et le raisonnement est similaire.
+\end{proof}
+
+\begin{proof}[Preuve de $\int f+g = \int f + \int g$]
+Soit $\epsilon >0 $. Soient $f,g : [a,b] \to \Rr$ deux fonctions intégrables.
+On définit deux fonctions en escalier $\phi^+,\phi^-$ pour $f$ et deux fonctions en escalier
+$\psi^+,\psi^-$ pour $g$ vérifiant des inégalités  similaires à (\ref{eq:ineqint}) de la preuve au-dessus.
+On fixe une subdivision suffisamment fine pour toutes les fonctions
+$\phi^\pm, \psi^\pm$. On note $c_i^\pm, d_i^\pm$ les constantes respectives sur l'intervalle $]x_{i-1},x_i[$.
+Les fonctions $\phi^- + \psi^-$ et $\phi^+ + \psi^+$ sont en escalier et vérifient  $\phi^- + \psi^- \le f+g \le \phi^+ + \psi^+$.
+Nous avons aussi que
+$$\int_a^b (\phi^-+\psi^-)(x)\;dx = \sum_{i=1}^n (c_i^-+d_i^-)(x_{i}-x_{i-1})
+= \int_a^b \phi^-(x)\;dx+\int_a^b \psi^-(x)\;dx$$
+De même pour $\phi^+ + \psi^+$.
+Ainsi
+{\small
+$$\int_a^b  \phi^-(x)\;dx + \int_a^b \psi^-(x)\;dx \le I^-(f+g) \le I^+(f+g)
+\le \int_a^b  \phi^+(x)\;dx + \int_a^b \psi^+(x)\;dx $$
+}
+Les conditions du type (\ref{eq:ineqint}) impliquent alors
+{\small$$
+\int_a^b f(x)\; dx+\int_a^b g(x)\; dx \  -2\epsilon \ \le I^-(f+g) 
+\le I^+(f+g) \le \int_a^b f(x)\; dx+\int_a^b g(x)\; dx\  +2\epsilon
+$$}
+Lorsque $\epsilon\to 0$ on déduit $I^-(f+g) = I^+(f+g)$, donc $f+g$ est intégrable et
+$\int_a^b \big(f(x)+ g(x)\big)\; dx = \int_a^b f(x)\; dx+\int_a^b g(x)\; dx$.
+\end{proof}
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item En admettant que $\int_0^1 x^n \; dx = \frac1{n+1}$. Calculer l'intégrale
+$\int_0^1 P(x)\; dx$ où $P(x)=a_n x^n+\cdots+a_1x+a_0$. Trouver un polynôme $P(x)$
+non nul de degré $2$ dont l'intégrale est nulle : $\int_0^1 P(x) \; dx=0$.
+
+  \item A-t-on $\int_a^b f(x)^2 \; dx = \left( \int_a^b f(x) \; dx \right)^2$ ;
+$\int_a^b \sqrt{f(x)} \; dx = \sqrt{\int_a^b f(x) \; dx}$ ;
+$\int_a^b |f(x)| \; dx = \left| \int_a^b f(x) \; dx \right|$ ;
+$\int |f(x)+g(x)| \; dx = \left| \int_a^b f(x) \; dx \right| + \left| \int_a^b g(x) \; dx \right|$ ?
+
+  \item Peut-on trouver $a<b$ tels que $\int_a^b x\; dx = -1$ ;
+$\int_a^b x\; dx = 0$ ; $\int_a^b x\; dx = +1$ ?
+Mêmes questions avec $\int_a^b x^2 \; dx$.
+
+  \item Montrer que $0 \le \int_1^2  \sin^2 x \; dx \le 1$ et $\left|\int_a^b \cos^3 x \; dx \right| \le |b-a|$.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Primitive d'une fonction}
+\label{sec:int3}
+
+%---------------------------------------------------------------
+\subsection{Définition}
+
+\begin{definition}
+Soit $f:I \to \Rr$ une fonction définie sur un intervalle $I$ quelconque.
+On dit que $F : I \to \Rr$ est une \defi{primitive}\index{primitive} de $f$ sur $I$ si
+$F$ est une fonction dérivable sur $I$ vérifiant $F'(x)=f(x)$ pour tout $x \in I$.
+\end{definition}
+Trouver une primitive est donc l'opération inverse de calculer la fonction dérivée.
+
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+\item Soit $I=\Rr$ et $f: \Rr \to \Rr$ définie par $f(x) = x^2$.
+Alors $F: \Rr \to \Rr$ définie par $F(x) = \frac{x^3}{3}$ est une primitive de $f$.
+La fonction définie par $F(x)= \frac{x^3}{3}+1$ est aussi une primitive de $f$.
+
+\item Soit $I=[0,+\infty[$ et $g : I\to\Rr$ définie par $g(x)=\sqrt x$.
+Alors $G : I\to\Rr$ définie par $G(x)=\frac{2}{3} x^{\frac{3}{2}}$
+est une primitive de $g$ sur $I$. Pour tout $c\in \Rr$, la fonction $G+c$
+est aussi une primitive de $g$.
+\end{enumerate}
+\end{exemple}
+
+
+Nous allons voir que trouver une primitive permet de les trouver toutes.
+\begin{proposition}
+\label{prop:primitunic}
+Soit $f : I \to \Rr$ une fonction et soit $F : I \to \Rr$ une primitive de $f$.
+Toute primitive de $f$ s'écrit $G=F+c$ où $c\in \Rr$.
+\end{proposition}
+
+\begin{proof}
+Notons tout d'abord que si l'on note $G$ la fonction définie par $G(x)=F(x)+c$ alors
+$G'(x)=F'(x)$ mais comme $F'(x)=f(x)$ alors $G'(x)=f(x)$ et $G$ est bien une primitive de $f$.
+
+Pour la réciproque supposons que $G$ soit une primitive quelconque de $f$.
+Alors $(G-F)'(x)=G'(x)-F'(x)=f(x)-f(x)=0$, ainsi
+la fonction $G-F$ a une dérivée nulle sur un intervalle, c'est donc une fonction constante!
+Il existe donc $c\in \Rr$ tel que $(G-F)(x)=c$. Autrement dit
+$G(x)=F(x)+c$ (pour tout $x\in I$).
+\end{proof}
+
+
+\textbf{Notations.}
+On notera une primitive de $f$ par
+$\int f(t) \; dt$  ou $\int f(x) \; dx$ ou $\int f(u) \; du$
+(les lettres $t, x, u, ...$ sont  des  lettres dites \emph{muettes},
+c'est-à-dire interchangeables).
+On peut même noter une primitive simplement par~$\int f$.
+
+La proposition \ref{prop:primitunic}
+nous dit que si $F$ est une primitive de $f$
+alors il existe un réel $c$, tel que $F=\int f(t) \; dt + c$.
+
+Attention: $\int f(t)\;dt$ désigne une fonction de $I$ dans $\Rr$
+alors que l'intégrale $\int_a^b f(t) \; dt$ désigne un nombre réel.
+Plus précisément nous verrons que si $F$ est une primitive de $f$ alors
+$\int_a^b f(t) \; dt = F(b)-F(a)$.
+
+\medskip
+
+Par dérivation on prouve facilement le résultat suivant :
+\begin{proposition}
+Soient $F$ une primitive de $f$ et $G$ une primitive de $g$. Alors $F+G$ est une
+primitive de $f+g$.
+Et si $\lambda \in \Rr$ alors $\lambda F$ est une primitive de $\lambda f$.
+\end{proposition}
+
+Une autre formulation est de dire que pour tous réels $\lambda,\mu$ on a
+\mybox{
+$\displaystyle\int\big(\lambda f(t)+ \mu g(t)\big) \; dt=\lambda \int f(t) \; dt+\mu \int g(t)\; dt$}
+
+
+%---------------------------------------------------------------
+\subsection{Primitives des fonctions usuelles}
+
+
+\index{primitive}
+\begin{center}
+%\noindent
+\setlength{\arrayrulewidth}{0.05mm}
+%\begin{tabular}{|l|l|l|} \hline
+%\begin{tabular}[t]{|c@{\vrule depth 1.2ex height 5ex width 0mm \ }|}
+\begin{tabular}{|c@{\vrule depth 3ex height 4ex width 0mm \ }|}
+\hline
+   $\int e^x \; dx  = e^x + c$  \quad sur $\Rr$ \\ \hline
+   $\int \cos x \; dx  = \sin x  + c$  \quad sur $\Rr$ \\ \hline
+   $\int \sin x \; dx  = -\cos x  + c$  \quad sur $\Rr$ \\ \hline
+   $\int x^n \; dx = \frac{x^{n+1}}{n+1} + c$  \quad ($n \in \Nn$)  \quad sur $\Rr$ \\ \hline
+   $\int x^\alpha \; dx = \frac{x^{\alpha+1}}{\alpha+1} + c$  \quad ($\alpha \in \Rr\setminus\{-1\}$)  sur $]0,+\infty[$\\ \hline
+   $\int \frac 1x \; dx  = \ln |x|  + c$  \quad sur $]0,+\infty[$ ou $]-\infty,0[$ \\ \hline
+\end{tabular}
+\begin{tabular}{|c@{\vrule depth 3ex height 4ex width 0mm \ }|}
+\hline
+   $\int\sh x \; dx=\ch x+c$, $\int \ch x \; dx=\sh x+c$ \quad sur $\Rr$ \\ \hline
+   $\int \frac{dx}{1+x^2}= \arctan x+c$ \quad sur $\Rr$ \\ \hline
+   $\int\frac{dx}{\sqrt{1-x^2}} = \left\{ \begin{array}{l}
+   \arcsin x + c \\ \frac\pi2-\arccos x +c \end{array} \right.$ \quad  sur $]-1,1[$ \\ \hline
+   $\int \frac{dx}{\sqrt {x^2+1}}=  \left\{ \begin{array}{l} \mbox{Argsh} x+c \\
+   \ln\big(x+\sqrt{x^2+1}\big)+c  \end{array} \right.$ \quad sur $\Rr$ \\ \hline
+   $\int \frac{dx}{\sqrt {x^2-1}} = \left\{ \begin{array}{l} \mbox{Argch} x+c \\
+   \ln\big(x+\sqrt{x^2-1}\big)+c \end{array} \right.$ \quad sur $x\in ]1,+ \infty[$\\ \hline
+\end{tabular}
+\end{center}
+
+
+\begin{remarque*}
+Ces primitives sont à connaître par c\oe ur.
+\begin{enumerate}
+  \item  Voici comment lire ce tableau. Si $f$ est la fonction définie sur $\Rr$ par $f(x)=x^n$
+alors la fonction : $x \mapsto \frac{x^{n+1}}{n+1}$ est une primitive de $f$ sur $\Rr$. Les primitives
+de $f$ sont les fonctions définies par $x \mapsto \frac{x^{n+1}}{n+1}+c$ (pour $c$ une constante réelle quelconque).
+Et on écrit $\int x^n \; dx=\frac{x^{n+1}}{n+1}+c$, où $c\in \Rr$.
+
+  \item Souvenez vous que la variable sous le symbole intégrale est une variable muette. On peut aussi bien écrire
+$\int t^n \; dt = \frac{x^{n+1}}{n+1}+c$.
+
+  \item La constante est définie pour un intervalle. Si l'on a deux intervalles, il y a
+deux constantes qui peuvent être différentes. Par exemple pour $\int \frac 1x \; dx$ nous avons deux domaines de validité :
+$I_1=]0,+\infty[$ et $I_2=]-\infty,0[$. Donc
+$\int \frac{1}{x} \; dx=\ln x +c_1$ si $x>0$ et $\int \frac{1}{x} \; dx=\ln |x| +c_2 =\ln (-x)+c_2$ si $x<0$.
+
+  \item On peut trouver des primitives aux allures très différentes par exemple $x\mapsto \arcsin x$ et
+$x\mapsto \frac{\pi}{2}-\arccos x$ sont deux primitives de la même fonction $x\mapsto \frac{1}{\sqrt{1-x^2}}$.
+Mais bien sûr on sait que $\arcsin x + \arccos x = \frac\pi2$, donc les primitives diffèrent bien d'une constante !
+\end{enumerate}
+\end{remarque*}
+
+%---------------------------------------------------------------
+\subsection{Relation primitive-intégrale}
+
+\begin{theoreme}
+Soit $f : [a,b] \to \Rr$ une fonction continue.
+La fonction $F:I \to \Rr$ définie par
+\mybox{$\displaystyle F(x)=\int_a^x f(t) \; dt$}
+est une primitive de $f$, c'est-à-dire $F$ est dérivable et $F'(x)=f(x)$.
+
+Par conséquent pour une primitive $F$ quelconque de $f$:
+\mybox{$\displaystyle \int_a^b f(t) \; dt = F(b)-F(a)$}
+\end{theoreme}
+
+\textbf{Notation.} On note $\big[F(x)\big]_a^b=F(b)-F(a)$.
+
+
+\begin{exemple}
+Nous allons pouvoir calculer plein d'intégrales. Recalculons d'abord
+les intégrales déjà rencontrées.
+\begin{enumerate}
+  \item  Pour $f(x)=e^x$ une primitive est $F(x)=e^x$ donc
+$$\int_0^1 e^x \; dx =  \big[e^x\big]_0^1=e^1-e^0=e-1.$$
+
+  \item Pour $g(x)=x^2$ une primitive est $G(x)=\frac{x^3}{3}$ donc
+$$\int_0^1 x^2 \; dx =  \big[\tfrac{x^3}{3}\big]_0^1=\tfrac{1}{3}.$$
+
+  \item $\int_a^x \cos t \; dt = \big[ \sin t\big]_{t=a}^{t=x} = \sin x - \sin a$
+est une primitive de $\cos x$.
+
+  \item Si $f$ est impaire alors ses primitives sont paires (le montrer).
+  En déduire que $\int_{-a}^a f(t)  \; dt = 0$.
+\end{enumerate}
+\end{exemple}
+
+
+\begin{remarque*}
+\sauteligne
+\begin{enumerate}
+
+  \item $F(x)=\int_a^x f(t) \; dt$ est même \evidence{l'unique primitive de $f$ qui s'annule en $a$}.
+
+  \item En particulier si $F$ est une fonction de classe $\mathcal{C}^1$ alors
+\myboxinline{$\int_a^b F'(t) \; dt = F(b)-F(a)$}.
+
+  \item On évitera la notation $\int_a^x f(x) \; dx$ où la variable $x$ est présente à la fois aux bornes et à l'intérieur de l'intégrale. Mieux vaut utiliser la
+  notation $\int_a^x f(t) \; dt$ ou $\int_a^x f(u) \;du$ pour éviter toute
+  confusion.
+
+  \item Une fonction intégrable n'admet pas forcément une primitive.
+Considérer par exemple $f : [0,1] \to \Rr$ définie par $f(x)=0$
+si $x \in [0,\frac{1}{2}[$ et $f(x)=1$ si $x \in [\frac{1}{2},1]$.
+$f$ est intégrable sur $[0,1]$ mais elle n'admet pas de primitive sur $[0,1]$.
+En effet par l'absurde si $F$ était une primitive de $f$, par exemple la primitive qui vérifie $F(0)=0$.
+Alors $F(x)=0$ pour $x\in[0,\frac12[$ et $F(x)= x -\frac{1}{2}$ pour $x\in [\frac{1}{2},1]$.
+Mais alors nous obtenons une contradiction car $F$ n'est pas dérivable en $\frac12$ alors que
+par définition une primitive doit être dérivable.
+\end{enumerate}
+\end{remarque*}
+
+\begin{proof}
+Essayons de visualiser tout d'abord pourquoi la fonction $F$ est dérivable et $F'(x)=f(x)$.
+
+
+\myfigure{1}{
+\tikzinput{fig_int14}
+}
+
+Fixons $x_0\in[a,b]$.
+Par la relation de Chasles nous savons :
+$$F(x)-F(x_0) = \int_a^x f(t) \; dt - \int_a^{x_0} f(t) \; dt =
+\int_{x_0}^a f(t) \; dt + \int_a^x f(t) \; dt  = \int_{x_0}^x f(t) \; dt$$
+Donc le taux d'accroissement
+$$\frac{F(x)-F(x_0)}{x - x_0} = \frac{1}{x - x_0} \int_{x_0}^x f(t) \; dt = \frac{\mathcal{A}}{x - x_0} $$
+où $\mathcal{A}$ est l'aire hachurée \couleurnb{(en rouge)}{}. Mais cette aire est presque un rectangle, si $x$ est suffisamment
+proche de $x_0$, donc l'aire $\mathcal{A}$ vaut environ $(x - x_0)\times f(x_0)$ ; 
+lorsque $x\to x_0$ le taux d'accroissement tend donc vers $f(x_0)$. Autrement dit $F'(x_0)=f(x_0)$.
+
+\bigskip
+
+Passons à la preuve rigoureuse.
+Comme $f(x_0)$ est une constante alors $\int_{x_0}^x f(x_0) \; dt=(x - x_0)f(x_0)$, donc
+\begin{eqnarray*}
+\frac{F(x)-F(x_0)}{x - x_0} -f(x_0)
+  &=& \frac{1}{x - x_0} \int_{x_0}^x f(t) \; dt - \frac{1}{x - x_0} \int_{x_0}^x f(x_0) \; dt \\
+  &=& \frac{1}{x - x_0} \int_{x_0}^x \big(f(t)-f(x_0)\big) \; dt  
+\end{eqnarray*}
+Fixons $\epsilon >0$. Puisque $f$ est continue en $x_0$, il existe $\delta > 0$
+tel que $(|t-x_0| < \delta \implies |f(t)-f(x_0)| < \epsilon)$.
+Donc :
+\begin{eqnarray*}
+\left| \frac{F(x)-F(x_0)}{x - x_0} -f(x_0)\right|
+  &=& \left| \frac{1}{x - x_0} \int_{x_0}^x \big(f(t)-f(x_0)\big) \; dt\right| \\
+  &\le& \frac{1}{|x - x_0|}\left| \int_{x_0}^x \big| f(t)-f(x_0)\big| \; dt\right| \\
+  &\le&  \frac{1}{|x - x_0|} \left|\int_{x_0}^x \epsilon \; dt \right|= \epsilon
+\end{eqnarray*}
+Ce qui prouve que $F$ est dérivable en $x_0$ et $F'(x_0)=f(x_0)$.
+
+\bigskip
+
+Maintenant on sait que $F$ est une primitive de $f$, $F$ est même la primitive qui s'annule en $a$ car
+$F(a) =\int_a^a f(t) \; dt=0$.  Si $G$ est une autre primitive on sait $F=G+c$. Ainsi
+\[
+G(b)-G(a) = F(b)+c - \big( F(a)+c \big) = F(b)-F(a) = F(b) = \int_a^b f(t) \; dt .
+\]
+\end{proof}
+
+
+
+%---------------------------------------------------------------
+\subsection{Sommes de Riemann}
+
+L'intégrale est définie à partir de limites de sommes.
+Mais maintenant que nous savons calculer des intégrales sans utiliser ces sommes
+on peut faire le cheminement inverse : calculer des limites de sommes à partir d'intégrales.
+
+
+\begin{theoreme}
+Soit $f : [a,b] \to \Rr$ une fonction intégrable, alors 
+\mybox{$\displaystyle S_n = \tfrac{b-a}{n} \sum_{k=1}^{n} f\big(a+k\tfrac{b-a}{n} \big)
+\qquad \xrightarrow[n\to+\infty]{} \qquad \int_a^b f(x) \; dx$}
+\end{theoreme}
+
+La somme $S_n$ s'appelle la \defi{somme de Riemann}\index{somme de Riemann} associée à l'intégrale et correspond à une subdivision régulière
+de l'intervalle $[a,b]$ en $n$ petits intervalles. La hauteur de chaque rectangle
+étant évaluée à son extrémité droite.
+
+Le cas le plus utile est le cas où $a=0$, $b=1$ alors $\frac{b-a}{n}=\frac1n$ et
+$f\big(a+k\frac{b-a}{n}\big) = f\big(\frac kn\big)$ et ainsi
+$$S_n = \tfrac{1}{n} \sum_{k=1}^{n} f\big(\tfrac kn \big)
+\qquad \xrightarrow[n\to+\infty]{} \qquad \int_0^1 f(x) \; dx$$
+
+\myfigure{1}{
+\tikzinput{fig_int10}
+}
+
+\begin{exemple}
+Calculer la limite de la somme $S_n= \sum_{k=1}^{n} \frac1{n+k}$.
+
+On a $S_1=\frac12$, $S_2=\frac13+\frac14$, $S_3=\frac14+\frac15+\frac16$,
+$S_4=\frac15+\frac16+\frac17+\frac18$,\ldots
+
+La somme $S_n$ s'écrit aussi $S_n = \frac{1}{n}  \sum_{k=1}^{n} \frac1{1+\frac kn}$.
+En posant $f(x)=\frac{1}{1+x}$, $a=0$ et $b=1$,
+on reconnaît que $S_n$ est une somme de Riemann.
+Donc
+\begin{multline*}
+S_n=\frac{1}{n} \sum_{k=1}^{n} \frac1{1+\frac kn}=\frac{1}{n} \sum_{k=1}^{n} f\big(\tfrac kn\big)\\
+\xrightarrow[n\to+\infty]{} \int_a^b f(x) \; dx = \int_0^1 \frac{1}{1+x} \; dx
+=\big[\ln|1+x|\big]_0^1 = \ln 2-\ln 1 = \ln 2.
+\end{multline*}
+
+Ainsi $S_n \to \ln 2$ (lorsque $n\to +\infty$).
+\end{exemple}
+
+% \bigskip
+%
+% [[paragraphe suivant : à virer ??]]
+%
+% Il existe en fait plusieurs sommes de Riemann, qui convergent toutes vers $\int_a^b f(x) \; dx$.
+% De façon générale soit $\mathcal{S}_n=(x_0,x_1,\ldots,x_n)$ une subdivision de l'intervalle $[a,b]$
+% pour chaque $i=1,\ldots,n$ soit $t_i \in [x_{i-1},x_i]$.
+% Le \defi{pas} de la subdivision $\mathcal{S}_n$ est par définition
+% $\delta(\mathcal{S}_n) :=\max_{i=,\ldots,n} (x_i-x_{i-1})$.
+%
+% \begin{theoreme}
+% Soit $f$ une fonction intégrable et supposons que $\delta(\mathcal{S}_n) \to 0$ quand $n\to+\infty$.
+% Alors
+% $$\sum_{i=1}^n f(t_i)(x_i-x_{i-1})  \xrightarrow[n\to+\infty]{} \int_a^b f(x) \; dx$$
+% \end{theoreme}
+
+
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Trouver les primitives des fonctions : $x^3-x^7$, $\cos x+\exp x$, $\sin(2x)$, $1+\sqrt{x}+x$,
+$\frac{1}{\sqrt x}$, $\sqrt[3]{x}$, $\frac{1}{x+1}$.
+  \item Trouver les primitives des fonctions : $\ch (x)-\sh (\frac{x}{2})$, $\frac{1}{1+4x^2}$,
+$\frac{1}{\sqrt {1+x^2}} - \frac{1}{\sqrt {1-x^2}}$.
+  \item Trouver une primitive de $x^2e^x$ sous la forme $(a x^2+b x+c)e^x$.
+  \item Trouver toutes les primitives de $x\mapsto \frac{1}{x^2}$ (préciser les intervalles et les constantes).
+  \item Calculer les intégrales $\int_0^1 x^n \; dx$, $\int_0^{\frac\pi4} \frac{dx}{1+x^2}$,
+$\int_1^e \frac{1-x}{x^2}\; dx$, $\int_0^{\frac12} \frac{dx}{x^2-1}$.
+  \item Calculer la limite (lorsque $n\to+\infty$) de la somme
+$S_n = \sum_{k=1}^n \frac{e^{k/n}}{n}$. 
+Idem avec $S'_n = \sum_{k=1}^n \frac{n}{(n+k)^2}$.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Intégration par parties -- Changement de variable}
+\label{sec:int4}
+
+Pour trouver une primitive d'une fonction $f$ on peut avoir la chance de reconnaître
+que $f$ est la dérivée d'une fonction bien connue. C'est malheureusement très rarement le cas,
+et on ne connaît pas les primitives de la plupart des fonctions. Cependant nous allons
+voir deux techniques qui permettent des calculer des intégrales et des primitives :
+l'intégration par parties et le changement de variable.
+
+
+%---------------------------------------------------------------
+\subsection{Intégration par parties}
+\index{integration par parties@intégration par parties}
+\begin{theoreme}
+Soient $u$ et $v$ deux fonctions de classe $\mathcal{C}^1$ sur un intervalle $[a,b]$.
+\mybox{$\displaystyle\int_a^b u(x) \, v'(x)\;dx= \big[uv\big]_a^b - \int_a^b u'(x) \, v(x)\;dx$}
+\end{theoreme}
+
+\textbf{Notation.} Le crochet $\big[F\big]_a^b$ est par définition $\big[F\big]_a^b=F(b)-F(a)$.
+Donc $\big[uv\big]_a^b = u(b)v(b)-u(a)v(a)$.
+Si l'on omet les bornes alors $\big[F\big]$ désigne la fonction $F+c$ où $c$ est une constante quelconque.
+
+La formule d'intégration par parties pour les primitives est la même mais sans les bornes :
+$$\int u(x)v'(x)\;dx= \big[uv\big] - \int u'(x)v(x)\;dx.$$
+
+
+La preuve est très simple :
+\begin{proof}
+On a $(uv)'=u'v+uv'$. Donc $\int_a^b (u'v+uv')=\int_a^b (uv)'=\big[uv\big]_a^b$.
+D'où $\int_a^b uv'= \big[uv\big]_a^b - \int_a^b u'v$.
+\end{proof}
+
+L'utilisation de l'intégration par parties repose sur l'idée suivante :
+on ne sait pas calculer directement l'intégrale d'une fonction $f$ s'écrivant
+comme un produit $f(x)=u(x)v'(x)$ mais si l'on sait calculer l'intégrale
+de $g(x)=u'(x)v(x)$ (que l'on espère plus simple) alors par la formule d'intégration par parties
+on aura l'intégrale de $f$.
+
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+
+  \item Calcul de $\int_0^1 x e^x \; dx$.
+On pose $u(x)=x$ et $v'(x)=e^x$.
+Nous aurons besoin de savoir que $u'(x)=1$ et qu'une primitive de $v'$ est simplement $v(x)=e^x$.
+La formule d'intégration par parties donne :
+$$
+\begin{array}{rcl}
+\int_0^1 x e^x \; dx
+  & = & \int_0^1 u(x)v'(x)\;dx \\
+  & = & \big[u(x)v(x)\big]_0^1 - \int_0^1 u'(x)v(x)\;dx \\
+  & = & \big[x e^x\big]_0^1 \ \  - \  \int_0^1 1\cdot e^x \;dx \\
+  & = & \big(1\cdot e^1-0\cdot e^0\big) - \big[e^x\big]_0^1 \\
+  & = & e -(e^1-e^0) \\
+  & = & 1
+\end{array}
+$$
+
+  \item Calcul de $\int_1^e x\ln x \; dx$.
+
+On pose cette fois $u=\ln x$ et $v'=x$. Ainsi
+$u'=\frac1x$ et $v=\frac{x^2}{2}$.
+Alors
+\begin{align*}
+\int_1^e \ln x \cdot  x\; dx
+= \int_1^e  uv' = \big[uv\big]_1^e - \int_1^e u'v
+= \big[\ln x \cdot\tfrac{x^2}{2}\big]_1^e - \int_1^e \tfrac 1x \tfrac{x^2}{2} \; dx \\
+= \big(\ln e \tfrac{e^2}{2} - \ln 1 \tfrac{1^2}{2} \big) - \tfrac12 \int_1^e x  \; dx
+= \tfrac{e^2}{2} -\frac12 \left[ \tfrac{x^2}{2} \right]_1^e
+= \tfrac{e^2}{2} - \tfrac{e^2}{4} + \tfrac{1}{4} = \tfrac{e^2+1}{4}\\
+\end{align*}
+
+
+
+  \item Calcul de $\int \arcsin x \; dx$.
+
+Pour déterminer une primitive de $\arcsin x$,
+nous faisons artificiellement apparaître un produit en écrivant $\arcsin x = 1 \cdot \arcsin x$
+pour appliquer la formule d'intégration par parties.
+On pose $u=\arcsin x$, $v'=1$ (et donc $u'=\frac{1}{\sqrt{1-x^2}}$ et $v=x$) alors
+\begin{eqnarray*}
+\int 1\cdot \arcsin x \; dx 
+  &=& \big[x\arcsin x\big] - \int \frac{x}{\sqrt{1-x^2}} \; dx \\
+  &=& \big[x\arcsin x\big] - \big[-\sqrt {1-x^2}\big] \\
+  &=& x\arcsin x+ \sqrt {1-x^2}+c
+\end{eqnarray*}
+
+  \item Calcul de $\int x^2e^x \; dx$.
+On pose $u=x^2$ et $v'=e^x$ pour obtenir :
+$$\int x^2e^x \; dx = \big[ x^2e^x \big] - 2\int x e^x \; dx$$
+On refait une deuxième intégration par parties pour calculer
+$$\int x e^x \; dx = \big[x e^x\big] - \int e^x \; dx = (x-1)e^x+c$$
+D'où
+$$\int x^2e^x \; dx = (x^2-2x+2) e^x + c.$$
+\end{enumerate}
+\end{exemple}
+
+\begin{exemple}
+Nous allons étudier les intégrales définies par
+$I_n=\displaystyle \int_0^1 \frac{\sin(\pi x)}{x+n} \;dx$, pour tout entier $n>0$.
+\begin{enumerate}
+\item Montrer que $0\le I_{n+1}\le I_n$.
+
+Pour $0\le x\le 1$, on a $0<x+n\le x+n+1$ et $\sin(\pi x)\ge 0$,
+donc $0\le \frac{\sin(\pi x)}{x+n+1}\le \frac{\sin(\pi x)}{x+n}$.
+D'où $0\le I_{n+1}\le I_n$ par la positivité de l'intégrale.
+
+\item Montrer que $I_n \le \ln\frac{n+1}{n}$. En déduire $\lim_{n\to+\infty}I_n$.
+
+De $0\le \sin(\pi x)\le 1$, on a $\frac{\sin(\pi x)}{x+n}\le
+\frac{1}{x+n}$. D'où
+$0 \le I_n\le \int_0^1 \frac{1}{x+n} \; dx=\big[\ln(x+n)\big]_0^1=\ln\frac{n+1}{n}\to 0$.
+
+\item Calculer $\lim_{n\to+\infty} n I_n$.
+
+Nous allons faire une intégration par parties avec $u=\frac{1}{x+n}$ et $v'=\sin(\pi x)$
+(et donc $u' = - \frac{1}{(x+n)^2}$ et $v = - \frac 1\pi \cos(\pi x)$) :
+\begin{eqnarray*}
+n I_n 
+  &=& n\int_0^1\frac1{x+n} \sin(\pi x) \; dx \\
+  &=& - \frac n\pi\left[\frac{1}{x+n} \cos(\pi x)\right]_0^1
+      - \frac n\pi \int_0^1 \frac{1}{(x+n)^2}\cos(\pi x) \; dx \\
+  &=& \frac{n}{\pi(n+1)}+\frac{1}{\pi} - \frac{n}{\pi}J_n
+\end{eqnarray*}
+Il nous reste à évaluer $J_n = \int_0^1 \frac{\cos(\pi x)}{(x+n)^2} \; dx$.
+\begin{multline*}
+\left|\frac{n}{\pi}J_n\right| \le \frac{n}{\pi}\int_0^1 \frac{|\cos(\pi x)|}{(x+n)^2} \; dx
+\le\frac{n}{\pi}\int_0^1\frac{1}{(x+n)^2} \; dx \\
+=\frac{n}{\pi}\left[-\frac{1}{x+n}\right]_0^1
+=\frac{n}{\pi}\left(-\frac{1}{1+n}+\frac{1}{n}\right) =\frac{1}{\pi}\frac{1}{n+1} \to0.
+\end{multline*}
+
+Donc $\lim_{n\to+\infty} n I_n =\lim_{n\to+\infty} \frac{n}{\pi(n+1)}+\frac{1}{\pi} - \frac{n}{\pi}J_n =\frac{2}{\pi}.$
+\end{enumerate}
+\end{exemple}
+
+
+%---------------------------------------------------------------
+
+\subsection{Changement de variable}
+\index{integrale@intégrale!changement de variable}
+
+\begin{theoreme}
+Soit $f$ une fonction définie sur un intervalle $I$ et $\varphi : J \to I$ une bijection de classe $\mathcal{C}^1$.
+Pour tout $a,b\in J$
+\mybox{$\displaystyle\int_{\varphi(a)}^{\varphi(b)} f(x) \; dx = \int_a^b f\big(\varphi(t)\big)\cdot\varphi'(t) \; dt$}
+
+Si $F$ est une primitive de $f$ alors $F\circ \varphi$ est une primitive de
+$\big(f \circ \varphi\big)\cdot\varphi'$.
+%Autrement dit: \mybox{$\displaystyle \left( \int f(x) \; dx \right) \circ \varphi
+%= \int f\big(\varphi(t)\big)\varphi'(t) \; dt$}
+\end{theoreme}
+
+%C'est-à-dire qu'une primitive de $f(\varphi(t))\varphi'(t)$ s'obtient à partir
+%de celle de $f$ en composant avec $\varphi$.
+
+%La formule $\int f(x) \; dx = \int f\big(\varphi(t)\big)\varphi'(t) \; dt$ est bien un changement de variable.
+Voici un moyen simple de s'en souvenir. En effet si l'on note
+$x=\varphi(t)$ alors par dérivation on obtient $\frac{dx}{dt} = \varphi'(t)$ donc
+$dx = \varphi'(t) \; dt$. D'où la substitution
+$\int_{\varphi(a)}^{\varphi(b)} f(x) \; dx = \int_a^b f(\varphi(t)) \; \varphi'(t) \; dt$.
+
+\begin{proof}
+Comme $F$ est une primitive de $f$ alors $F'(x)=f(x)$ et
+par la formule de la dérivation de la composition $F\circ \varphi$ on a
+$$(F\circ\varphi)'(t)=F'(\varphi(t))\varphi'(t)=f(\varphi(t))\varphi'(t).$$
+Donc $F\circ \varphi$ est une primitive de $f(\varphi(t))\varphi'(t)$.
+% c'est-à-dire $\displaystyle\int f(\varphi(t))\varphi'(t) \; dt =\int f(x) \; dx$.
+
+Pour les intégrales :
+ $\displaystyle\int_a^b f(\varphi(t))\varphi'(t) \; dt = \big[ F\circ \varphi\big]_a^b
+= F\big(\varphi(b)\big)-F\big(\varphi(a)\big) = \big[ F\big]_{\varphi(a)}^{\varphi(b)}
+= \int_{\varphi(a)}^{\varphi(b)} f(x) \; dx$.
+\end{proof}
+
+
+\begin{remarque*}
+Comme $\varphi$ est une bijection de $J$ sur $\varphi(J)$, sa réciproque $\varphi^{-1}$ existe et
+est dérivable sauf quand $\varphi$ s'annule. Si $\varphi$ ne s'annule pas, on peut écrire $t=\varphi^{-1}(x)$
+et faire un changement de variable en sens inverse.
+\end{remarque*}
+
+
+\begin{exemple}
+Calculons la primitive $F = \int \tan t \; dt$.
+\[
+F=\int \tan t \; dt = \int \frac{\sin t}{\cos t} \; dt \; .
+\]
+On reconnaît ici une forme $\frac{u'}{u}$ (avec $u=\cos t$ et $u'=-\sin t$) dont une primitive est $\ln|u|$.
+Donc $F = \int -\frac{u'}{u} = -\big[\ln |u| \big] = -\ln|u|+c = -\ln|\cos t|+c$.
+
+\bigskip
+
+Nous allons reformuler tout cela en terme de changement de variable.
+Notons $\varphi(t)= \cos t$ alors $\varphi'(t) = -\sin t$, donc
+\[
+F = \int -\frac{\varphi'(t)}{\varphi(t)} \; dt
+\]
+Si $f$ désigne la fonction définie par $f(x)=\frac1x$, qui est bijective tant que $x \neq 0$;
+alors $F = - \int \varphi'(t) f(\varphi(t))\; dt$.
+En posant $x = \varphi(t)$ et donc $dx = \varphi'(t) dt$, on reconnaît la formule du changement de variable,
+par conséquent
+\[
+F \circ \varphi^{-1} = -\int f(x) \; dx=-\int \frac1x \;dx
+= -\ln|x|+c \; .
+\]
+Comme $x = \varphi(t)=\cos t$, on retrouve bien $F(t) = -\ln|\cos t| + c$.
+
+Remarque : pour que l'intégrale soit bien définie il faut que $\tan t$ soit définie,
+donc $t \not\equiv \frac{\pi}{2} \bmod \pi$. La restriction d'une primitive à un intervalle
+$]-\frac{\pi}{2} + k \pi, \frac{\pi}{2} + k \pi[$ est donc de la forme $-\ln|\cos t| + c$.
+Mais la constante $c$ peut être différente sur un intervalle différent.
+\end{exemple}
+
+\begin{exemple}
+Calcul de $\int_0^{1/2}\frac{x}{(1-x^2)^{3/2}} \;dx$.
+
+Soit le changement de variable $u=\varphi(x) = 1-x^2$. Alors $du = \varphi'(x) \; dx = -2x \; dx$.
+Pour $x=0$ on a $u=\varphi(0)=1$ et pour $x=\frac12$ on a $u=\varphi(\frac{1}{2})=\frac34$.
+Comme $\varphi'(x)=-2x$, $\varphi$ est une bijection de $[0,\frac{1}{2}]$ sur $[1,\frac{3}{4}]$. Alors
+\begin{eqnarray*}
+\int_0^{1/2}\frac{x \; dx}{(1-x^2)^{3/2}} 
+  &=& \int_1^{3/4} \frac{\frac{-du}{2}}{u^{3/2}}
+  = -\frac12\int_1^{3/4} u^{-3/2}\;du \\
+  &=& -\frac12\big[-2u^{-1/2}\big]_1^{3/4}
+  =\big[\frac1{\sqrt{u}}\big]_1^{3/4} 
+  = \frac1{\sqrt{\frac34}}-1= \frac{2}{\sqrt3}-1.
+\end{eqnarray*}
+\end{exemple}
+
+\begin{exemple}
+Calcul de $\int_0^{1/2}\frac{1}{(1-x^2)^{3/2}} \;dx$.
+
+On effectue le changement de variable $x=\varphi(t) = \sin t$ et $dx = \cos t \; dt$.
+De plus $t=\arcsin x$ donc pour $x=0$ on a $t=\arcsin(0)=0$ et pour $x=\frac12$ on a $t=\arcsin(\frac12)=\frac\pi6$. Comme $\varphi$ est une bijection de $[0,\frac\pi6]$ sur $[0,\frac12]$,
+\begin{eqnarray*}
+\int_0^{1/2} \frac{dx}{(1-x^2)^{3/2}}
+&=& \int_0^{\pi/6}\frac{\cos t \; dt}{(1-\sin^2 t)^{3/2}}
+= \int_0^{\pi/6}\frac{\cos t \; dt}{(\cos^2 t)^{3/2}} \\
+&=& \int_0^{\pi/6}\frac{\cos t}{\cos^3 t} \;dt
+=  \int_0^{\pi/6}\frac{1}{\cos^2 t} \;dt
+= \big[\tan t\big]_0^{\pi/6}
+=\frac{1}{\sqrt{3}} \; .
+\end{eqnarray*}
+\end{exemple}
+
+
+\begin{exemple}
+Calcul de $\int \frac{1}{(1+x^2)^{3/2}} \; dx$.
+
+Soit le changement de variable $x=\tan t$ donc $t = \arctan x$ et $dx = \frac{dt}{\cos^2 t}$
+(la fonction tangente établit une bijection de $]-\frac\pi2,+\frac\pi2[$ sur $\Rr$).
+Donc
+\begin{align*}
+F & = \int\frac{1}{(1+x^2)^{3/2}} \; dx  = \int \frac{1}{(1+\tan^2 t)^{3/2}}\; \frac{dt}{\cos^2 t} \\
+  & = \int (\cos^2 t)^{3/2}\; \frac{dt}{\cos^2 t} \qquad \text{ car } 1+\tan^2t=\frac{1}{\cos^2t} \\
+  & = \int \cos t\; dt
+    = \big[ \sin t\big]
+    = \sin t + c
+    = \sin(\arctan x)+c \\
+\end{align*}
+
+
+Donc
+$$\int \frac{1}{(1+x^2)^{3/2}}\;dx=\sin(\arctan x)+c.$$
+
+En manipulant un peu les fonctions on trouverait que la primitive s'écrit aussi
+$F(x)=\frac{x}{\sqrt{1+x^2}}+c$.
+\end{exemple}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Calculer les intégrales à l'aide d'intégrations par parties:
+  $\int_0^{\pi/2} t \sin t \; dt$, $\int_0^{\pi/2} t^2 \sin t \; dt$, puis par récurrence
+  $\int_0^{\pi/2} t^n \sin t \; dt$.
+
+  \item Déterminer les primitives à l'aide d'intégrations par parties:
+  $\int t \sh t \; dt$, $\int t^2 \sh t \; dt$, puis par récurrence
+  $\int t^n \sh t \; dt$.
+
+  \item Calculer les intégrales à l'aide de changements de variable:
+  $\int_0^a \sqrt{a^2 - t^2} \; dt$ ;
+  $\int_{-\pi}^\pi \sqrt{1+\cos t} \; dt$ (pour ce dernier poser deux changements de variables :
+  $u = \cos t$, puis $v=1-u$).
+
+  \item Déterminer les primitives suivantes à l'aide de changements de variable :
+  $\int \tanh t \; dt$ où $\tanh t = \frac{\sh t}{\ch t}$,
+  $\int e^{\sqrt{t}} \; dt$.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Intégration des fractions rationnelles}
+
+
+Nous savons intégrer beaucoup de fonctions simples. Par exemple
+toutes les fonctions polynomiales: si $f(x)=a_0+a_1x+a_2x^2+\cdots+ a_n x^n$
+alors $\int f(x)\; dx = a_0x+a_1\frac{x^2}{2}+a_2\frac{x^3}{3}+\cdots+a_n\frac{x^{n+1}}{n+1}+c$.
+
+\bigskip
+
+Il faut être conscient cependant que beaucoup de fonctions ne s'intègrent
+pas à l'aide de fonctions simples.
+Par exemple si $f(t)=\sqrt{a^2\cos^2 t+ b^2 \sin^2 t}$ alors
+l'intégrale $\int_0^{2\pi} f(t) \; dt$ ne peut pas s'exprimer
+comme somme, produit, inverse ou composition de fonctions que vous connaissez.
+En fait cette intégrale vaut la longueur d'une ellipse
+d'équation paramétrique $(a\cos t, b\sin t)$ ; il n'y a donc pas de formule
+pour le périmètre d'une ellipse (sauf si $a=b$ auquel cas l'ellipse est un cercle !).
+
+%[[dessin ellipse avec demi-grand axe]]
+\myfigure{1.2}{
+\tikzinput{fig_int09}
+}
+
+\bigskip
+
+Mais de façon remarquable, il y a toute une famille de fonctions que l'on saura
+intégrer : les fractions rationnelles.
+
+
+%---------------------------------------------------------------
+\subsection{Trois situations de base}
+
+On souhaite d'abord intégrer les fractions rationnelles $f(x)=\frac{\alpha x + \beta}{a x^2+b x+c}$
+avec $\alpha, \beta, a, b, c \in \Rr$, $a\neq 0$ et $(\alpha,\beta)\neq (0,0)$.
+
+\textbf{Premier cas.} Le dénominateur $a x^2+b x+c$ possède deux racines réelles distinctes $x_1,x_ 2\in \Rr$.
+
+
+Alors $f(x)$ s'écrit aussi $f(x)=\frac{\alpha x + \beta}{a(x - x_1)(x - x_2)}$ et il existe des nombres $A,B \in \Rr$
+tels que $f(x)=\frac{A}{x - x_1}+\frac{B}{x -x_2}$. On a donc
+$$\int f(x)\;dx = A \ln|x - x_1|+B\ln|x -x_2|+c$$
+sur chacun des intervalles
+$]-\infty,x_1[$, $]x_1,x_2[$, $]x_2,+\infty[$ (si $x_1<x_2$).
+
+
+\bigskip
+
+\textbf{Deuxième cas.} Le dénominateur $a x^2+b x+c$ possède une racine double $x_0 \in \Rr$.
+
+
+Alors $f(x)=\frac{\alpha x + \beta}{a(x -x_0)^2}$ et il existe des nombres $A,B \in \Rr$
+tels que $f(x)=\frac{A}{(x - x_0)^2}+\frac{B}{x - x_0}$. On a alors
+$$\int f(x)\;dx = -\frac{A}{x - x_0} + B\ln|x - x_0|+c$$
+sur chacun des intervalles
+$]-\infty,x_0[$, $]x_0,+\infty[$.
+
+\bigskip
+
+\textbf{Troisième cas.}   Le dénominateur $a x^2+b x+c$ ne possède pas de racine réelle.
+Voyons comment faire sur un exemple.
+
+\begin{exemple}
+Soit $f(x)=\frac{x+1}{2x^2+x+1}$.
+Dans un premier temps on fait apparaître une fraction du type $\frac{u'}{u}$
+(que l'on sait intégrer en $\ln|u|$).
+$$f(x) = \frac{(4x+1)\frac14-\frac14+1}{2x^2+x+1} = \frac14 \cdot \frac{4x+1}{2x^2+x+1} + \frac34 \cdot \frac{1}{2x^2+x+1}$$
+
+On peut intégrer la fraction $\frac{4x+1}{2x^2+x+1}$ :
+$$\int \frac{4x+1}{2x^2+x+1} \; dx = \int \frac{u'(x)}{u(x)} \; dx = \ln \big| 2x^2+x+1 \big|+c$$
+
+\bigskip
+
+Occupons nous de l'autre partie $\frac{1}{2x^2+x+1}$, nous allons l'écrire sous la forme
+$\frac{1}{u^2+1}$ (dont une primitive est $\arctan u$).
+
+\begin{eqnarray*}
+\frac{1}{2x^2+x+1} 
+&=&  \frac{1}{2(x+\frac 14)^2-\frac18+1}
+=\frac{1}{2(x+\frac 14)^2+\frac78}\\
+&=&\frac87 \cdot \frac{1}{\frac87 2(x+\frac 14)^2+1}
+= \frac87 \cdot \frac{1}{\big(\frac{4}{\sqrt7}(x+\frac 14)\big)^2+1}
+\end{eqnarray*}
+On pose le changement de variable $u= \frac{4}{\sqrt7}(x+\frac 14)$
+(et donc $du = \frac{4}{\sqrt7} dx$) pour trouver
+\begin{eqnarray*}
+\int \frac{dx}{2x^2+x+1}
+&=& \int \frac87 \frac{dx}{\big(\frac{4}{\sqrt7}(x+\frac 14)\big)^2+1}
+= \frac 87 \int \frac{du}{u^2+1} \cdot \frac{\sqrt7}{4} \\
+&=& \frac{2}{\sqrt7}\arctan u+ c
+= \frac{2}{\sqrt7}\arctan \left(\frac{4}{\sqrt7}\big(x+\frac 14\big)\right) + c \; .
+\end{eqnarray*}
+
+\bigskip
+
+Finalement :
+$$\int f(x)\; dx = \frac14\ln \big(2x^2+x+1\big) + \frac{3}{2\sqrt7}\arctan \left(\frac{4}{\sqrt7}\big(x+\frac 14\big)\right)+c$$
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Intégration des éléments simples}
+
+Soit $\frac{P(x)}{Q(x)}$ une fraction rationnelle, où $P(x),Q(x)$ sont des polynômes à coefficients réels.
+Alors la fraction $\frac{P(x)}{Q(x)}$ s'écrit comme somme d'un polynôme $E(x) \in \Rr[x]$ (la partie entière)
+et d'éléments simples d'une des formes suivantes :
+$$\frac{\gamma}{(x - x_0)^k} \quad \text{ ou } \quad \frac{\alpha x+\beta}{(a x^2+b x+c)^k} \text{ avec } b^2-4ac < 0$$
+où $\alpha,\beta,\gamma,a,b,c \in \Rr$ et $k \in \Nn\setminus\{0\}$.
+
+\begin{enumerate}
+  \item On sait intégrer le polynôme $E(x)$.
+
+  \item Intégration de l'élément simple $\frac{\gamma}{(x - x_0)^k}$.
+  \begin{enumerate}
+     \item Si $k=1$ alors $\int \frac{\gamma \; dx}{x - x_0} = \gamma \ln|x - x_0|+c_0$
+(sur $]-\infty,x_0[$ ou $]x_0,+\infty[$).
+     \item Si $k\ge 2$ alors  $\int \frac{\gamma \; dx}{(x - x_0)^k} = \gamma \int (x - x_0)^{-k} \; dx
+= \frac{\gamma}{-k+1}(x - x_0)^{-k+1}+c_0$ (sur $]-\infty,x_0[$ ou $]x_0,+\infty[$).
+  \end{enumerate}
+
+  \item Intégration de l'élément simple $\frac{\alpha x+\beta}{(a x^2+b x+c)^k}$.
+On écrit cette fraction sous la forme
+$$\frac{\alpha x+\beta}{(a x^2+b x+c)^k} = \gamma \frac{2a x+b}{(a x^2+b x+c)^k} + \delta \frac{1}{(a x^2+b x+c)^k}$$
+  \begin{enumerate}
+     \item Si $k=1$, calcul de $\int \frac{2a x+b}{a x^2+b x+c} \; dx = \int \frac{u'(x)}{u(x)} \; dx = \ln |u(x)| + c_0
+= \ln |a x^2+b x+c|+c_0$.
+     
+     \item Si $k\ge 2$, calcul de $\int \frac{2a x+b}{(a x^2+b x+c)^k} \; dx = \int \frac{u'(x)}{u(x)^k} \; dx = \frac{1}{-k+1}u(x)^{-k+1}+c_0
+= \frac{1}{-k+1}(a x^2+b x+c)^{-k+1}+c_0$.
+
+     \item Si $k=1$, calcul de $\int \frac{1}{a x^2+b x+c}\; dx$. Par un changement de variable $u= px+q$ on se ramène à
+calculer une primitive du type
+$\int \frac{du}{u^2+1}=\arctan u + c_0$.
+
+     \item Si $k\ge 2$, calcul de $\int \frac{1}{(a x^2+b x+c)^k} \; dx$. On effectue le changement de variable $u=px+q$
+pour se ramener au calcul de $I_k =\int \frac{du}{(u^2+1)^k}$.
+Une intégration par parties permet de passer de $I_k$ à $I_{k-1}$.
+
+Par exemple calculons $I_2$. Partant de $I_1=\int \frac{du}{u^2+1}$ on pose
+$f=\frac{1}{u^2+1}$ et $g'=1$. La formule d'intégration par parties $\int f g'=[f g]-\int f' g$ donne
+(avec $f'=-\frac{2u}{(u^2+1)^2}$ et $g=u$)
+\begin{eqnarray*}
+I_1
+  & = & \int \frac{du}{u^2+1} = \left[ \frac{u}{u^2+1} \right] + \int \frac{2u^2 \; du}{(u^2+1)^2}
+        = \left[ \frac{u}{u^2+1} \right] + 2 \int  \frac{u^2+1 - 1}{(u^2+1)^2}du \\
+ & = & \left[ \frac{u}{u^2+1} \right] + 2 \int \frac{du}{u^2+1} - 2 \int \frac{du}{(u^2+1)^2}
+    = \left[ \frac{u}{u^2+1} \right] + 2I_1 - 2I_2
+\end{eqnarray*}
+On en déduit
+$I_2 = \frac12 I_1 + \frac12\frac{u}{u^2+1} + c_0$.
+Mais comme $I_1=\arctan u$ alors
+$$I_2 = \int \frac{du}{(u^2+1)^2} =  \frac12 \arctan u + \frac12\frac{u}{u^2+1} + c_0.$$
+  \end{enumerate}
+\end{enumerate}
+
+
+%---------------------------------------------------------------
+\subsection{Intégration des fonctions trigonométriques}
+
+On peut aussi calculer les primitives de la forme $\int P(\cos x,\sin x)\;dx$ ou de la forme
+$\int \frac{P(\cos x,\sin x)}{Q(\cos x, \sin x)}\;dx$
+quand $P$ et $Q$ sont des polynômes, en se ramenant à intégrer une fraction rationnelle.
+
+Il existe deux méthodes :
+\begin{itemize}
+  \item les règles de Bioche sont assez efficaces mais ne fonctionnent pas toujours ;
+  \item le changement de variable $t = \tan \frac x2$ fonctionne tout le temps mais conduit à davantage de calculs.
+\end{itemize}
+
+\bigskip
+
+\textbf{Les règles de Bioche.}\index{regle@règle!de Bioche}
+On note $\omega(x) = f(x)\;dx$.
+On a alors $\omega(-x)= f(-x)\;d(-x)=-f(-x)\;dx$ et
+$\omega (\pi-x)= f(\pi-x)\;d(\pi-x)=-f(\pi-x)\;dx$.
+
+
+
+\begin{itemize}
+  \item Si $\omega(-x)=\omega(x)$ alors on effectue le changement de variable $u=\cos x$.
+
+  \item Si $\omega(\pi-x)=\omega(x)$ alors on effectue le changement de variable $u=\sin x$.
+
+  \item Si $\omega(\pi + x)=\omega(x)$ alors on effectue le changement de variable $u=\tan x$.
+\end{itemize}
+
+\begin{exemple}
+Calcul de la primitive $\int \frac{\cos x \; dx}{2-\cos^2 x}$
+
+On note $\omega(x)= \frac{\cos x \; dx}{2-\cos^2 x}$.
+Comme $\omega(\pi-x)=\frac{\cos(\pi-x) \; d(\pi-x)}{2-\cos^2 (\pi-x)} = \frac{(-\cos x) \; (-dx)}{2-\cos^2 x}
+= \omega(x)$ alors le changement de variable qui convient est $u = \sin x$
+pour lequel $du= \cos x \; dx$. Ainsi:
+\[
+\int \frac{\cos x \; dx}{2-\cos^2 x}
+= \int \frac{\cos x \; dx}{2-(1-\sin^2 x)}
+= \int \frac{du}{1+u^2} = \big[ \arctan u \big]
+= \arctan (\sin x) + c \; .
+\]
+\end{exemple}
+
+
+\bigskip
+
+\textbf{Le changement de variable $t=\tan \frac x2$.}
+
+Les formules de la \og tangente de l'arc moitié \fg{} permettent d'exprimer sinus, cosinus et tangente
+en fonction de $\tan \frac x2$.
+\mybox{
+\begin{tabular}{c}
+Avec \quad  $\displaystyle t=\tan \frac{x}{2}$ \quad on a \\[2ex]
+$\displaystyle\cos x = \frac {1-t^2}{1+t^2} 
+\qquad  \sin x = \frac{2t}{1+t^2} 
+\qquad \tan x = \frac{2t}{1-t^2}$ \\[2ex]
+et \qquad  $\displaystyle dx=\dfrac{2\;dt}{1+t^2}.$
+\end{tabular}
+}
+
+\begin{exemple}
+Calcul de l'intégrale $\int_{-\pi/2}^0 \frac{dx}{1-\sin x}$.
+
+Le changement de variable $t=\tan \frac{x}{2}$ définit une bijection de $[-\frac\pi2,0]$ vers $[-1,0]$
+(pour $x=-\frac\pi2$, $t=-1$ et pour $x=0$, $t=0$). De plus on a $\sin x = \frac{2t}{1+t^2}$
+et $dx=\frac{2\;dt}{1+t^2}$.
+\begin{eqnarray*}
+\int_{-\frac\pi2}^0 \frac{dx}{1-\sin x}
+&=& \int_{-1}^0 \frac{\frac{2\;dt}{1+t^2}}{1-\frac{2t}{1+t^2}}
+= 2\int_{-1}^0 \frac{dt}{1+t^2-2t}\\
+&=& 2\int_{-1}^0 \frac{dt}{(1-t)^2}
+= 2 \left[\frac{1}{1-t}\right]_{-1}^0
+= 2\big(1-\frac12\big)
+= 1  
+\end{eqnarray*}
+
+
+\end{exemple}
+
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Calculer les primitives $\int \frac{4x+5}{x^2+x-2}\; dx$,
+$\int \frac{6-x}{x^2-4x+4}\; dx$, $\int \frac{2x-4}{(x-2)^2+1}\; dx$, $\int \frac{1}{(x-2)^2+1}\; dx$.
+
+  \item Calculer les primitives $I_k = \int \frac{dx}{(x-1)^k}$ pour tout $k \ge 1$.
+Idem avec $J_k = \int \frac{x\; dx}{(x^2+1)^k}$.
+
+  \item Calculer les intégrales suivantes :
+$\int_0^1 \frac{dx}{x^2+x+1}$, $\int_0^1 \frac{x \; dx}{x^2+x+1}$, $\int_0^1\frac{x\; dx}{(x^2+x+1)^2}$,
+$\int_0^1\frac{dx}{(x^2+x+1)^2}$.
+
+  \item Calculer les intégrales suivantes :
+$\int_{-\frac\pi2}^{\frac\pi2} \sin^2 x \cos^3 x \; dx$,
+$\int_{0}^{\frac\pi2} \cos^4 x \; dx$,
+$\int_0^{2\pi} \frac{dx}{2+\sin x}$.
+\end{enumerate}
+\end{miniexercices}
+
+
+\auteurs{
+
+Rédaction : Arnaud Bodin
+
+Basé sur des cours de Guoting Chen et Marc Bourdon
+
+Relecture : Pascal Romon
+
+Dessins : Benjamin Boutin
+}
+
+\finchapitre
+\end{document}

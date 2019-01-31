@@ -1,0 +1,387 @@
+
+\input{../preamb-pres.tex}
+% Couleur à définir
+
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Séries}}
+\subtitle{Séries à termes positifs}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Convergence par les sommes partielles
+    \item<4-> Théorème de comparaison
+    \item<5-> Théorème des équivalents
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Convergence par les sommes partielles}
+
+\begin{frame}
+
+\textbf{Rappels.}
+Soit $(s_n)_{n\ge0}$ une suite croissante de nombres réels
+\begin{itemize}
+  \item\pause Si la suite $(s_n)$ est majorée, alors elle converge
+  \item\pause Sinon la suite $(s_n)$ tend vers $+\infty$
+\end{itemize}
+
+\vspace{.3cm}
+\pause
+
+Soit une série $\sum u_k$ à \defi{termes positifs}, c'est-à-dire $u_k\ge 0$ pour tout $k$
+
+\pause
+Alors $S_n = \displaystyle\sum_{k=0}^n u_k$ est une suite croissante, puisque :
+\vspace{-.3cm}
+$$S_{n}-S_{n-1} = u_n \ge 0$$
+
+\pause
+\begin{proposition}
+Une série à termes positifs est convergente si et seulement si 
+la suite des sommes partielles est majorée
+\end{proposition}
+
+\begin{itemize}
+  \item\pause $\sum u_k$ converge si et seulement si $\exists M>0 \quad \forall n\ge 0 \quad S_n \le M$
+  \item\pause si $\sum u_k$ converge alors sa somme $S=\lim S_n$ vérifie $S_n \le S$ pour tout $n$
+  \item\pause $\sum_{k\ge0} q^k$ converge si $0<q<1$ et diverge si $q \ge 1$
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Théorème de comparaison}
+
+\begin{frame}
+
+\begin{theoreme}[de comparaison]
+\pause
+Soient $\sum u_k$ et $\sum v_k$ deux séries à termes positifs ou nuls
+
+\pause
+On suppose qu'il existe $k_0\ge 0$ tel que $u_k \le v_k$ pour tout $k\ge k_0$
+\begin{itemize}
+\item\pause Si $\sum v_k$ converge alors $\sum u_k$ converge
+\item\pause Si $\sum u_k$ diverge alors $\sum v_k$ diverge
+\end{itemize}
+\end{theoreme}
+
+\pause
+\begin{proof}
+$k_0=0$
+\begin{itemize}
+\item\pause Notons \ $S_n=u_0+\cdots+u_n$ \ et \ $S'_n = v_0+\cdots+v_n$
+
+\begin{itemize}
+\item\pause Les suites $(S_n)$ et $(S'_n)$ sont croissantes
+\item\pause Pour tout $n \ge 0$, $S_n\le S'_n$
+\end{itemize}
+\item\pause Si la série $\sum v_k$ converge, alors la suite
+$(S'_n)$ converge. Soit $S'$ sa limite. 
+
+\pause
+La suite $(S_n)$ est croissante et majorée par $S'$, \pause donc elle converge, et ainsi la série $\sum u_k$ converge aussi
+\item\pause Si la série $\sum u_k$ diverge, alors $(S_n)$ tend vers $+\infty$, \pause et de même pour $(S'_n)$ : la série $\sum v_k$ diverge\qedhere
+\end{itemize}
+\end{proof}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exemples}
+
+\begin{frame}
+
+\begin{exemple}
+\pause
+La série
+$
+\displaystyle\sum_{k=0}^{+\infty} \frac{1}{(k+1)(k+2)} $ converge. Nous allons en déduire que
+\vspace{-.2cm}
+\mybox{$\displaystyle
+\sum_{k=1}^{+\infty} \frac{1}{k^2}
+\quad\text{ converge}
+$}
+\vspace{-.2cm}
+\pause
+\begin{itemize}
+\item on a 
+$
+\displaystyle\lim_{k\to+\infty}
+\frac{\frac{1}{2k^2}}{\frac{1}{(k+1)(k+2)}}=\frac{1}{2}
+$
+\item\pause En particulier, il existe $k_0$ tel que pour $k \ge k_0$
+\vspace{-1ex}
+$$
+\frac{1}{2k^2} \le \frac{1}{(k+1)(k+2)}
+$$
+\item\pause On en déduit que la série de terme général $\frac{1}{2k^2}$ converge
+
+\pause
+D'où le résultat par linéarité
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+%%%%%%%%%%%%%%
+\begin{frame}
+
+\begin{exemple}
+\mybox{$\displaystyle\text{La  \defi{série exponentielle}} \quad \sum_{k\ge 0} \frac{1}{k!} \quad \text{converge}$}
+\vspace{-.1cm}
+où $0!=1$ et $k!=1\cdot 2\cdot 3\dots \cdot k$ pour $k\ge 1$
+
+\pause
+\vspace{.2cm}
+En effet :
+\begin{itemize}
+\item $\frac{1}{k!}\le \frac{1}{k(k-1)}$ pour $k \ge 2$
+\item\pause Mais $\displaystyle\sum_{k \ge 2}\frac{1}{k(k-1)} = \displaystyle\sum_{k\ge0} \frac{1}{(k+1)(k+2)}$
+est une série convergente
+\item\pause Donc la série exponentielle $\displaystyle\sum_{k\ge 0} \frac{1}{k!}$ converge
+\end{itemize}
+\vspace{-.1cm}
+\pause
+Par définition : la somme $\displaystyle\sum_{k=0}^{+\infty} \frac{1}{k!} =e = \exp(1)$ est le nombre d'Euler
+\end{exemple}
+
+\end{frame}
+
+%%%%%%%%%%%%%%
+\begin{frame}
+\begin{exemple}
+Inversement nous avons vu que la série $\displaystyle\sum_{k\ge1} \frac{1}{k}$ diverge 
+
+\pause
+On en déduit que les séries 
+$\displaystyle\sum_{k\ge1} \frac{\ln(k)}{k}$ et $\displaystyle\sum_{k\ge1} \frac{1}{\sqrt{k}}$ divergent également
+\end{exemple}
+
+\end{frame}
+
+%%%%%%%%%%%%%%
+\begin{frame}
+
+\begin{exemple}
+Soit $(a_k)_{k\ge 1}$ une suite, $a_k\in\{0,1,\ldots,9\}$. La série $\displaystyle \sum_{k\geq1} \frac{a_k}{10^k}$ converge
+
+\pause
+\vspace{-.1cm}
+En effet :
+\begin{itemize}
+\item son terme général $u_k=\frac{a_k}{10^k}$ est majoré par $\frac{9}{10^k}$
+\item\pause mais la série géométrique $\sum \frac{1}{10^k}$ converge, car $\frac{1}{10}<1$
+\item\pause la série $\sum \frac{9}{10^k}$ converge aussi par linéarité, d'où le résultat
+\end{itemize}
+\vspace{.1cm}
+
+\pause
+Une somme $\displaystyle\sum_{k=1}^{+\infty} \frac{a_k}{10^k}$ est une écriture décimale d'un réel
+$x$, $0 \le x \le 1$
+
+\begin{itemize}
+\item\pause par exemple, si $a_k = 3$ pour tout $k$ : 
+
+\hspace{-.9cm}
+$\displaystyle\sum_{k=1}^{+\infty} \tfrac{3}{10^k} 
+\pause= \tfrac{3}{10}+\tfrac{3}{100}+\tfrac{3}{1000}\cdots
+\pause= 0,3+0,03+0,003\cdots \pause= 0,333\ldots \pause= \tfrac13$
+\item\pause ou
+$\displaystyle\sum_{k=1}^{+\infty} \tfrac{3}{10^k} 
+\pause= \tfrac{3}{10} \displaystyle\sum_{k=0}^{+\infty} \tfrac{1}{10^k}
+\pause=  \tfrac{3}{10} \cdot \tfrac{1}{1-\tfrac{1}{10}}
+\pause= \tfrac13$
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Théorème des équivalents}
+
+\begin{frame}
+Soient $(u_k)$ et $(v_k)$ deux suites \evidence{strictement positives} 
+
+\pause
+Alors les suites $(u_k)$ et $(v_k)$ sont \defi{équivalentes} si 
+$$\lim_{k\to+\infty} \frac{u_k}{v_k}=1$$
+\pause
+On note alors $$u_k \sim v_k$$
+
+\pause
+\begin{theoreme}[des équivalents]
+Soient $(u_k)$ et $(v_k)$ deux suites strictement positives
+
+\pause
+Si $u_k \sim v_k$ alors les séries $\sum u_k$ et $\sum v_k$ sont de même nature
+\end{theoreme}
+
+\begin{itemize}
+\item\pause $\sum u_k$ et $\sum v_k$ sont toutes les deux convergentes ou toutes les deux divergentes
+\item\pause Si $(u_k)$ et $(v_k)$ sont strictement négatives, la conclusion reste vraie
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%
+\begin{frame}
+Par exemple
+\begin{itemize}
+\item\pause les suites $\frac{1}{k^2}$ et $\frac{1}{(k+1)(k+2)}=\frac{1}{k^2+3k+2}$
+sont équivalentes
+\item\pause $\sum \frac{1}{(k+1)(k+2)}$ converge, \pause donc $\sum \frac{1}{k^2}$ converge
+\end{itemize}
+
+\pause
+\begin{proof}
+\begin{itemize}
+\item\pause Par hypothèse, pour tout $\epsilon>0$, il existe $k_0$ tel que pour
+tout $k \ge k_0$
+$$\left|\frac{u_k}{v_k} -1\right| < \epsilon$$
+\pause
+autrement dit 
+$$(1-\epsilon)v_k < u_k <(1+\epsilon) v_k$$
+
+\item\pause Fixons $\epsilon <1$
+\begin{itemize}
+\item\pause Si $\sum u_k$ converge, \pause alors $\sum(1-\epsilon) v_k$ converge, \pause donc $\sum v_k$ aussi
+\smallskip
+\item\pause Si $\sum u_k$ diverge, alors $\sum (1+\epsilon)v_k$ diverge, et $\sum v_k$ aussi 
+\qedhere
+\end{itemize}
+\end{itemize}
+\end{proof}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exemples}
+
+\begin{frame}
+\begin{exemple}
+Les deux séries 
+$$
+\sum \frac{k^2+3k+1}{k^4+2k^3+4}
+\qquad \text{ et } \qquad 
+\sum \frac{k +\ln(k)}{k^3}
+\quad \text{ convergent}
+$$
+\vspace{-.3cm}
+\begin{itemize}
+\item\pause Dans les deux cas le terme général est équivalent à $\frac{1}{k^2}$
+\item\pause Or la série $\sum \frac{1}{k^2}$ converge
+\end{itemize}
+\end{exemple}
+
+\pause
+\begin{exemple}
+Par contre
+$$
+\sum \frac{k^2+3k+1}{k^3+2k^2+4}
+\qquad \text{ et } \qquad 
+\sum \frac{k +\ln(k)}{k^2}
+\;\mbox{ divergent}
+$$
+\vspace{-.3cm}
+\begin{itemize}
+\item\pause Dans les deux cas le terme général est équivalent à $\frac{1}{k}$
+\item\pause Or la série $\sum \frac{1}{k}$ diverge
+\end{itemize}\end{exemple}
+
+\end{frame}
+
+%%%%%%%%%%%%%%
+\begin{frame}
+
+\begin{exemple}
+Est-ce que la série $\displaystyle\sum_{k \ge 1}  \ln \big(\tanh k\big)$ converge ?
+
+\begin{itemize}
+  \item\pause Remarquons que, pour $k >0$, $0<\tanh k<1$ 
+  
+  \item\pause $\tanh k = \frac{\sh k}{\ch k} = \frac{e^k-e^{-k}}{e^k+e^{-k}}
+  \pause= 1+  \frac{-2e^{-k}}{e^k+e^{-k}} = 1+\frac{-2e^{-2k}}{1+e^{-2k}}$
+
+  
+  \item\pause Comme $\lim_{x\to 0} \frac{\ln(1+x)}{x}=1$ alors, si
+  $u_k \to 0$, $\ln(1+u_k) \sim u_k$
+  
+  \pause Ainsi 
+  $$\ln(\tanh k) = \ln\left( 1+\frac{-2e^{-2k}}{1+e^{-2k}} \right)
+  \pause\sim  \frac{-2e^{-2k}}{1+e^{-2k}} \pause \sim -2e^{-2k}$$
+      
+  \item\pause Les suites $\ln(\tanh k)$ et $-2e^{-2k}$ sont strictement négatives  
+  \item\pause La série $\sum e^{-2k}= \sum (e^{-2})^k$ converge
+  \item\pause Alors la série $\sum\ln(\tanh k)$ converge également 
+\end{itemize}
+
+\end{exemple}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+
+  \item Montrer que la série 
+  $\sum_{k\geq1} \frac{(\ln k)^\alpha}{k^3}$ converge pour tout $\alpha \in \Rr$.
+  
+  \item Montrer que si $\sum u_k$ converge et $u_k>0$, alors $\sum u_k^2$ converge.
+
+  \item Soient  $\sum u_k$ et $\sum v_k$ vérifiant $u_k>0$, $v_k>0$ et $0<m \le \frac{u_k}{v_k} \le M$.
+  Montrer que les deux séries sont de même nature.
+
+  \item Par comparaison ou recherche d'équivalent, déterminer la nature de la série
+  $\sum_{k \ge 1} \frac{\ln k}{k}$.
+  Même question avec les séries de terme général 
+  $\sin \left(\frac{1}{(k-1)(k+1)}\right)$ ;
+  $\sqrt{1+\frac{1}{k^2}}-\sqrt{1-\frac{1}{k^2}}$ ; 
+  $\ln\left(\sqrt{1-\frac{1}{\sqrt[3]{k^2}}}\right)$.
+  
+  
+  \item \'Ecrire la série associée au développement décimal $0,999\ldots$ Calculer sa somme $S$ grâce à la série associée à $10 \cdot S$, en simplifiant $10 \cdot S - S$. Retrouver $S$ par une série géométrique.
+
+  \item Justifier que la série $\sum_{k=2}^{+\infty} \frac{1}{k^2-1}$ est convergente.
+  Décomposer $\frac{1}{k^2-1}$ en éléments simples. 
+  Déterminer une expression des sommes partielles $S_n$.
+  En déduire que $\sum_{k=2}^{+\infty} \frac{1}{k^2-1} = \frac34$.
+
+%  \item Nous admettons ici que $\sum_{k=0}^{+\infty}\frac{1}{k!} = e$.
+%  Sans calculs, déterminer les sommes :
+%  $$\sum_{k=0}^{+\infty}\frac{k}{k!} \qquad 
+%  \sum_{k=0}^{+\infty}\frac{k(k-1)}{k!} \qquad
+%  \sum_{k=0}^{+\infty}\frac{k^2}{k!}$$
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

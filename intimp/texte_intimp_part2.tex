@@ -1,0 +1,356 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans cette partie, nous nous intéressons aux intégrales 
+impropres des fonctions de signe constant. \\
+On se concentrera sur le cas des fonctions positives, les fonctions négatives 
+se traitant de la même manière.
+
+  \change
+  
+  \change
+
+  Nous commençons par un théorème de comparaison entre 
+  deux intégrales impropres de fonctions positives,
+
+  \change
+
+puis nous démontrons un autre théorème qui liera 
+les intégrales de deux fonctions équivalentes.
+  
+\change
+
+  Enfin, nous examinons un exemple de référence :
+  les intégrales impropres dites de Riemann
+
+\change
+
+et une variante : les intégrales impropres de Bertrand.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Si on ne peut pas calculer une primitive de $f$, 
+on étudie la convergence en
+comparant avec des intégrales dont la convergence est connue,
+grâce au théorème suivant.
+
+ \change
+
+ Dans ce théorème, on considère deux fonctions $f$ et $g$
+ continues et *positives*, telles que $f$ est majorée par $g$ 
+ au voisinage de $+\infty$, 
+ ce qui signifie $\exists A\ge a \quad \forall t>A \qquad f(t)\le g(t)$
+ 
+ \change
+ 
+ On s'intéresse aux intégrales impropres de ces fonctions 
+ sur un intervalle du type $[a,+\infty[$.
+
+ Alors si l'intégrale de $g$ converge, 
+ il en est de même de l'intégrale de $f$
+
+ \change
+ on a aussi que si l'intégrale de $f$ diverge, 
+ il en est de même de l'intégrale de $g$.
+
+ \change
+La preuve est assez simple.
+Tout d'abord, la convergence des intégrales ne dépend pas de la borne 
+de gauche de l'intervalle, et nous pouvons nous contenter d'étudier 
+$\int_A^x f(t)\;\dd t$ et $\int_A^x g(t)\;\dd t$.
+
+Enfin d'après la positivité de l'intégrale, l'intégrale de $A$ à $x$ 
+de $f$ est majorée par celle de $g$.
+
+\change
+On remarque aussi que l'intégrale de $A$ à $x$ de $f$ est une 
+fonction croissante de $x$, par positivité de la fonction $f(x)$
+et positivité de l'intégrale.
+
+Donc si l'intégrale de $g$ converge, l'intégrale de $A$ à $x$ 
+de $f$ est une fonction croissante et majorée par 
+l'intégrale de $g$ de $A$ à $+\infty$, et donc converge. 
+Ce qui signifie précisément que  l'intégrale de $f$ converge
+
+\change
+Inversement, si $\int_A^{x} f(t)\;\dd t$ tend vers $+\infty$, 
+alors $\int_A^{x} g(t)\;\dd t$, qui lui est supérieure,
+tend aussi vers $+\infty$.
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici une application typique du théorème de comparaison.
+
+Montrons que l'intégrale 
+$$\int_1^{+\infty} t^\alpha e^{-t}\;\dd t\quad\text{ converge,}$$
+quel que soit le réel $\alpha$. 
+\\
+
+On ne connait pas de primitive de $t^\alpha e^{-t}$, on va donc 
+majorer cette fonction positive par une autre plus simple à 
+intégrer, et dont l'intégrale converge. 
+
+\change
+On choisit de majorer par la fonction $e^{-t/2}$, pour cela on 
+commence par écrire : $t^\alpha e^{-t} = t^\alpha e^{-t/2}\,e^{-t/2}$.
+  
+\change
+
+On sait que $\lim_{t\rightarrow+\infty} t^\alpha e^{-t/2} =0$, 
+pour tout $\alpha$,  car l'exponentielle "l'emporte" sur les 
+puissances.
+
+\change
+
+Ainsi $t^\alpha e^{-t/2}$ est aussi petit que l'on veut et par exemple 
+il existe un réel $A>0$ tel que :
+$$\forall t>A\qquad t^\alpha e^{-t/2}\le 1\;.$$ 
+
+\change
+
+En multipliant par $e^{-t/2}$ on obtient :
+$$\forall t>A\qquad t^\alpha e^{-t}\le e^{-t/2}\;.$$
+
+\change
+
+Mais l'intégrale $\int_1^{+\infty} e^{-t/2}\;\dd t$ converge.
+
+En effet :
+$\int_1^x e^{-t/2}\;\dd t$
+
+\change
+se calcule par la primitive :
+$= \left[-2 e^{-t/2}\right]_1^x$
+
+\change
+donc $= 2e^{-1/2} -2e^{-x/2}$
+
+\change
+Lorsque $x\rightarrow+\infty$
+la limite est $2e^{-1/2}$ 
+\hfill (.../...)
+
+\change
+Cela prouve que, comme on l'a dit, l'intégrale 
+$\int_1^{+\infty} e^{-t/2}\;\dd t$ converge.
+
+\change  
+On peut à présent appliquer le théorème  de comparaison :
+
+(1) la fonction $t^\alpha e^{-t}$ est plus petite que
+$e^{-t/2}$ pour $t$ assez grand ;
+
+(2) $\int_1^{+\infty} e^{-t/2}\;\dd t$ converge
+
+Conclusion : 
+$\int_1^{+\infty} t^\alpha e^{-t}\;\dd t$ converge aussi.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+
+Pour le théorème des équivalents, considérons $f$ et $g$ 
+deux fonctions continues strictement positives sur $[a,+\infty[$.
+On suppose que $f$ et $g$  sont équivalentes en $+\infty$, 
+ce qui signifie simplement que $\lim_{t\rightarrow+\infty}\frac{f(t)}{g(t)} = 1$.
+
+\change
+Alors les intégrales de $f$ et $g$ sont de même nature.
+
+C'est un théorème très utile qui permet de remplacer la fonction 
+à intégrer par un équivalent, souvent lus simple, au voisinage de $+\infty$ 
+pour étudier la convergence d'une intégrale.
+
+\change
+
+La preuve consiste à traduire l'hypothèse que $f$ et $g$ 
+sont équivalentes en $+\infty$, 
+
+ainsi $\lim_{t\rightarrow+\infty}\frac{f(t)}{g(t)} = 1$, 
+
+\change
+cela fournit un l'encadrement 
+
+$$(1-\epsilon)g(t)<f(t)<(1+\epsilon)g(t)\;.$$
+
+valable pour $t$ assez grand.
+
+\change
+On a le choix de $\epsilon>0$, et on prend $0<\epsilon<1$ arbitraire. 
+
+Alors cette double inégalité et le théorème de comparaison permettent de conclure : 
+
+si $\int g$ converge alors par cette inégalité $\int f$ converge aussi.
+Par contre si $\int g$ diverge alors par cette inégalité $\int f$ diverge. 
+\\
+Les deux intégrales ont donc la même nature.
+\hfill (.../...)
+
+\change
+\newpage
+
+Voici un exemple : 
+
+$\frac{t^5+3t+1}{t^3+4}e^{-t}$
+
+\change
+
+le numérateur de la fraction est équivalent à $t^5$, le dénominateur à $t^3$,
+donc la fonction équivaut à $t^2e^{-t}$ au voisinage de $+\infty$.
+
+\change
+Mais on a déjà vu que l'intégrale 
+$\int_1^{+\infty} t^2e^{-t}\;\dd t$ converge, 
+
+\change
+on conclut que $\int_1^{+\infty} \frac{t^5+3t+1}{t^3+4}e^{-t}\;\dd t$ 
+converge aussi.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour l'étude de la convergence d'une intégrale pour laquelle on n'a pas de primitive, 
+l'utilisation des équivalents permet de se ramener 
+à un catalogue d'intégrales dont la nature est connue. 
+
+Commençons par l'une des plus importante : les intégrales de Riemann.
+
+Une \defi{intégrale de Riemann} est une intégrale de la forme 
+$$\int_1^{+\infty} \frac{1}{t^{\alpha}}\;\dd t$$\\
+où $\alpha$ est un paramètre strictement positif.
+
+\change
+La convergence dépend de $\alpha$.
+$$\text{Si } \quad \alpha > 1\quad \text{ alors }\quad 
+\int_1^{+\infty} \frac{1}{t^{\alpha}}\;\dd t \quad\text{ converge.}$$
+
+\change
+$$\text{Si } \quad \alpha\le 1\quad \text{ alors }\quad 
+\int_1^{+\infty} \frac{1}{t^{\alpha}}\;\dd t \quad\text{ diverge.}$$
+
+
+\change
+Il est essentiel de retenir ce résultat.
+
+\change
+La preuve est très simple : on dispose d'une primitive 
+explicite de $t^\alpha$, 
+
+\change
+Pour $\alpha\neq 1$, une primitive de $\frac{1}{t^{\alpha}}$ est $\tfrac{1}{-\alpha+1}\frac{1}{t^{\alpha-1}}$,
+donc si $\alpha >1$, le crochet admet une limite finie, donc l'intégrale de Riemann converge.
+Par contre si $\alpha<1$  le crochet a une limite infinie, donc l'intégrale diverge.
+
+\change
+Le cas $\alpha =1$ se traite à part :
+une primitive $1/t$ est $\ln t$, et le crochet tend vers $+\infty$, donc 
+l'intégrale diverge.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Poursuivons avec les intégrales de Bertrand.
+
+Une \defi{intégrale de Bertrand} est  du type
+$$\int_2^{+\infty} \frac{1}{t\;(\ln t)^{\beta}}\;\dd t$$
+où $\beta \in \Rr$.
+
+\change
+Si $\beta > 1$ alors  l'intégrale converge.
+
+\change
+Si $\beta \le 1$ alors  l'intégrale diverge.
+
+\change
+
+\change
+Encore une fois on dispose d'une primitive explicite de 
+$t\;(\ln t)^{\beta}$, 
+
+\change
+en distinguant le cas $\beta \neq 1$,
+
+\change
+et le cas $\beta=1$,
+
+ce qui aboutit à la règle que je viens d'énoncer.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici un exemple d'application :
+on souhaite déterminer la nature de 
+cette intégrale, pour laquelle le seul point incertain est $+\infty$.
+
+Pour répondre au problème, calculons un équivalent de la fonction au voisinage de $+\infty$.
+Pour cela, on calcule un équivalent de chacun des trois facteurs :
+%donc du produit, car .
+
+\change
+$\sqrt{t^2+3t}$
+
+\change
+$= t\sqrt{1+\frac{3}{t}}$
+
+\change
+$\mathop{\sim}_{+\infty}\quad   t$
+
+
+\change
+Pour $\ln\left(\cos\frac{1}{t}\right)$ on fait un DL du cosinus
+
+\change
+ce qui donne $\ln\left(1-\frac{1}{2t^2}+o\left(\frac{1}{t^2}\right)\right)$
+
+\change
+et par un DL du logarithme
+$\mathop{\sim}_{+\infty}\quad  -\frac{1}{2t^2}$
+
+\change
+Enfin 
+$\sin^2\left(\frac{1}{\ln t}\right)$
+
+\change
+$\mathop{\sim}_{+\infty}\quad \left(\frac{1}{\ln t}\right)^2$
+
+\change
+Les équivalents sont multiplicatifs
+donc la fonction à étudier équivaut en $+\infty$ à $-\frac{1}{2t\;(\ln t)^2}$
+
+
+\change
+Remarquons que dans cette équivalence les deux fonctions sont négatives 
+au voisinage de $+\infty$. 
+D'après le théorème des équivalents,
+les deux intégrales associées sont de même nature.
+Mais comme cette intégrale est du type intégrale de Bertrand 
+avec $\beta=2$ donc converge, 
+alors notre intégrale initiale est aussi convergente.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici quelques exercices pour vous entraîner 
+sur les intégrales impropres des fonctions de signe constant.
+
+\end{document}

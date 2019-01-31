@@ -1,0 +1,5 @@
+var('x')
+y = function('y',x)
+yy = diff(y,x)
+desolve(yy == y+x+1, y)
+desolve(yy == y+x+1, y, ics=[0,1])

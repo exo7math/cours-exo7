@@ -1,0 +1,728 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={192,41,0}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcommand{\Sage}{\texttt{Sage}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||,
+  breaklines=true,
+  postbreak=\raisebox{0ex}[0ex][0ex]{\qquad\ensuremath{\color{red}\hookrightarrow\space}},
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\renewcommand*{\theenumii}{\alph{enumii}}
+
+\title{{\bf Calcul formel}}
+\subtitle{Calculs d'intégrales}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> \Sage\ comme une super-calculatrice 
+    \item<4-> Intégration par parties
+    \item<5-> Changement de variable
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\Sage\ comme une super-calculatrice}
+
+\begin{frame}
+\begin{tp}
+Calculer à la main les primitives des fonctions suivantes. 
+Vérifier vos résultats à l'ordinateur.
+
+\medskip
+
+\begin{enumerate}
+  \item $f_1(x) = x^4 + \frac{1}{x^2} + \exp(x)+ \cos(x)$
+  
+  \medskip
+  
+  \item $f_2(x) = x \sin(x^2)$
+  
+  \medskip
+   
+  \item $f_3(x) = \frac{\alpha}{\sqrt{1-x^2}} + \frac{\beta}{1+x^2} + \frac{\gamma}{1+x}$
+  
+  \medskip
+  
+  \item $f_4(x) = \frac{x^4}{x^2-1}$ 
+  
+%  \medskip
+  
+%  \item $f_5(x) = x^n \ln x$ pour tout $n\ge0$
+\end{enumerate}
+\end{tp}
+
+\end{frame}
+
+\begin{frame}
+\begin{enumerate}
+  \item $\displaystyle\int x^4 + \frac{1}{x^2} + \exp(x)+ \cos(x) \; \dd x 
+  \uncover<3->{= \frac15 x^5 - \frac1x + \exp(x) + \sin(x)}$
+  
+  \pause
+  \codeinline{integral(x^4 + 1/x^2 + exp(x)+ cos(x),x)}
+  
+  \medskip
+  \pause\pause
+  
+  
+  \item $\displaystyle\int  x \sin(x^2) \; \dd x 
+  \uncover<6->{= - \frac12\cos(x^2)}$
+  
+  \pause
+  \codeinline{integral(x*sin(x^2),x)}
+  
+  \medskip
+  \pause\pause
+   
+  \item $\displaystyle\int \tfrac{a}{\sqrt{1-x^2}} + \tfrac{b}{1+x^2} + \tfrac{c}{1+x} \; \dd x
+  \uncover<9->{= a\arcsin(x) + b\arctan(x) + c\ln(x + 1)}$
+  
+  \pause
+  \codeinline{var('x,a,b,c')}
+  
+  \codeinline{integral(a/sqrt(1-x^2) + b/(1+x^2) + c/(1+x),x)}
+  
+  \medskip
+  \pause\pause
+  
+  \item $\displaystyle\int \frac{x^4}{x^2-1} \; \dd x 
+  \uncover<14->{= \frac13 x^3 + x - \frac12 \ln(x + 1) + \frac12 \ln(x - 1)}$ 
+  
+  \pause
+  \codeinline{f(x) = x^4/(x^2-1)}
+  
+  \codeinline{f.partial_fraction(x)} 
+  
+  \pause
+  
+  $f(x) = x^2 + 1 - \frac12\frac{1}{x + 1} + \frac12\frac{1}{x - 1}$ 
+  
+  \pause  
+  
+  \codeinline{integral(f(x),x)}
+  
+%  \medskip
+%  
+%  \item $\int x^n \ln x \; \dd x$ pour tout $n\ge0$
+%  
+%  \codeinline{var('x,n')}
+%  
+%  \codeinline{assume(n>0)}
+%  
+%  \codeinline{f(x) = x^n*ln(x)}
+%  
+%  \codeinline{integral(f(x),x)}  
+\end{enumerate}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{tp}
+Calculer à la main et à l'ordinateur les intégrales suivantes.
+\begin{enumerate}
+  \item $\displaystyle I_1 = \int_1^3 x^2 + \sqrt{x} + \frac1x + \sqrt[3]{x} \; \dd x$
+  \item $\displaystyle I_2 = \int_0^\frac{\pi}{2} \sin x (1+\cos x)^4 \; \dd x$
+  \item $\displaystyle I_3 = \int_0^{\frac\pi6} \sin^3 x \; \dd x$
+  %\item $\displaystyle I_4 = \int_0^{\sqrt3} \frac{3x^3 - 2x^2 - 5x - 6}{(x + 1)^2(x^2 + 1)} \; \dd x$
+\end{enumerate}
+\end{tp}
+
+\pause
+\begin{enumerate}
+\item \codeinline{integral(x^2 + sqrt(x) + 1/x + x^(1/3),x,1,3)} 
+
+\pause
+
+$I_1 = \frac94 3^{\frac13} + 2\sqrt3 + \ln 3 + \frac{29}{4}$
+
+\pause
+
+\item \codeinline{integral(sin(x)*(1+cos(x))^4,x,0,pi/2)} \quad $I_2 = \frac{31}{5}$
+
+\pause
+
+\item \codeinline{integral(sin(x)^3,x,0,pi/6)} \quad $I_3 = \frac23 - \frac{3\sqrt{3}}{8}$
+
+\end{enumerate}
+%f(x) = (3*x^3 - 2*x^2 - 5*x - 6)/((x^2 + 1)*(x + 1)^2)
+%monint = integral(f(x),x,0,sqrt(3))
+%print(monint)
+%g(x) = f.partial_fraction(x)
+%monintbis = integral(g(x),x,0,sqrt(3))
+%print(monintbis)
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Intégration par parties}
+
+\begin{frame}
+\evidence{Intégration par parties}
+
+\begin{theoreme}
+Soient $u$ et $v$ deux fonctions de classe $\mathcal{C}^1$ sur un intervalle $[a,b]$.
+$$\int_a^b u(x) \, v'(x)\;\dd x= \big[uv\big]_a^b - \int_a^b u'(x) \, v(x)\;\dd x$$
+\end{theoreme} 
+
+\end{frame}
+
+
+
+\begin{frame}
+\begin{tp}
+Pour chaque $n\ge 0$, nous allons déterminer une primitive $F_n$ de la fonction 
+$$f_n(x) = x^n \exp(x).$$
+
+\begin{enumerate}
+  \item \Sage\ connaît-il directement la formule ?
+  
+  \item Calculer une primitive $F_n$ de $f_n$ pour les premières valeurs de $n$.
+  
+   \item 
+   \begin{enumerate}
+     \item \'Emettre une conjecture reliant $F_n$ et $F_{n-1}$.
+     \item Prouver cette conjecture.
+     \item En déduire une fonction récursive qui calcule $F_n$.
+   \end{enumerate}
+  
+  \item 
+   \begin{enumerate}
+     \item \'Emettre une conjecture pour une formule directe de $F_n$.
+     \item Prouver cette conjecture.
+     \item En déduire une expression qui calcule $F_n$.
+   \end{enumerate}  
+\end{enumerate} 
+\end{tp}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\vspace*{-1ex}
+
+$$F_n = \int x^n \exp(x) \; \dd x$$
+
+\vspace*{-1ex}
+\pause
+
+\begin{enumerate}
+  \item \Sage\ ne connaît pas la formule !
+  
+\pause  
+  
+  \item Premières primitives $F_n$
+\end{enumerate}
+
+\vspace*{-1ex}
+\pause
+
+{\small
+\begin{algo}[integrale-ipp.sage (1)]
+\begin{lstlisting}
+var('x,n')
+f = x^n*exp(x)|\vspace*{-0.5ex}|
+   
+def F(n):
+    return integral(x^n*exp(x),x)|\vspace*{-0.5ex}|
+    
+for n in range(0,10):
+    print F(n)
+\end{lstlisting}
+\end{algo}
+
+\pause
+\vspace*{-2ex}
+
+  $$\begin{array}{rcl}
+    F_0(x) &=& \exp(x) \\
+    F_1(x) &=& (x - 1)\exp(x) \\
+    F_2(x) &=& (x^2 - 2x + 2)\exp(x) \\
+    F_3(x) &=& (x^3 - 3x^2 + 6x - 6)\exp(x) \\
+    F_4(x) &=& (x^4 - 4x^3 + 12x^2 - 24x + 24)\exp(x) \\
+  %  F_5(x) &=& (x^5 - 5x^4 + 20x^3 - 60x^2 + 120x - 120)\exp(x) \\
+  \end{array}$$ 
+}  
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\vspace*{-1ex}
+
+$$F_n = \int x^n \exp(x) \; \dd x$$
+
+\vspace*{-1ex}
+\pause 
+
+
+\begin{enumerate}
+\setcounter{enumi}{2}
+  \item
+    \begin{itemize}
+      \item $F_n(x) = x^n \exp(x) - nF_{n-1}(x)$
+    \pause  
+      
+      \item \Sage\ ne sait pas (encore) vérifier formellement cette identité 
+    (avec $n$ une variable formelle)
+    
+    \pause
+    
+      \item Preuve par intégration par parties 
+    ($u=x^n$, $v'=\exp(x)$ donc $u'=nx^{n-1}$, $v = \exp(x)$)
+    
+    
+    \vspace*{-0.5ex}
+    \pause
+    
+    $$\begin{array}{rcl}
+    F_n(x) 
+    & = & \int x^n \exp(x)\; \dd x \\[1mm]
+    \pause 
+    & = & \big[x^n\exp(x)\big] - \int nx^{n-1}\exp(x)\; \dd x\\[1mm]
+    \pause
+    & = & x^n\exp(x) - n F_{n-1}(x)
+    \end{array}$$
+    
+    \vspace*{-1.5ex}
+    
+    \end{itemize}
+\end{enumerate}
+
+
+\pause
+
+\begin{algo}[integrale-ipp.sage (2)]
+\begin{lstlisting}
+def FF(n):
+    if n==0:
+        return exp(x)
+    else:
+        return x^n*exp(x) - n*FF(n-1)
+\end{lstlisting}
+\end{algo}
+
+\end{frame}
+
+
+ 
+\begin{frame}[fragile]
+
+\vspace*{-1ex}
+
+$$F_n = \int x^n \exp(x) \; \dd x$$
+
+\vspace*{-1ex}
+
+\begin{enumerate}
+\setcounter{enumi}{3}
+  \item $\displaystyle F_n(x) = \exp(x)\sum_{k=0}^n (-1)^{n-k} \frac{n!}{k!} x^k$ ?
+  
+  \pause
+  \vspace*{2ex} 
+  
+   \begin{itemize}
+      \item ~ 
+      
+    \vspace*{-5ex}    
+        
+    $\begin{array}{rcl} 
+    G_n(x) 
+    &=& \displaystyle \exp(x)\sum_{k=0}^{n} (-1)^{n-k} \frac{n!}{k!} x^k\\
+    \pause
+    &=& \displaystyle \exp(x)\sum_{k=0}^{n-1} (-1)^{n-k} \frac{n!}{k!} x^k  + \exp(x)x^n \\
+   \pause
+    &=& -n G_{n-1}(x)+ \exp(x)x^n       
+    \end{array}$
+    
+    \pause
+    \item $G_n$ vérifie la même relation de récurrence que $F_n$,
+    de plus $G_0(x)=\exp x = F_0(x)$, donc pour tout $n$, $G_n=F_n$
+    \vspace*{-1ex}
+    
+    \end{itemize}
+\end{enumerate}
+
+\medskip 
+\pause
+ 
+\begin{algo}[integrale-ipp.sage (3)]
+\begin{lstlisting}
+def FFF(n): 
+    return exp(x)*sum((-1)^(n-k)*x^k*factorial(n)/factorial(k),k,0,n)
+\end{lstlisting}
+\end{algo}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Changement de variable}
+
+\begin{frame}
+
+\evidence{Changement de variable}
+
+\begin{theoreme}
+Soit $f$ une fonction définie sur un intervalle $I$ et $\varphi : J \to I$ 
+une bijection de classe $\mathcal{C}^1$. Pour tout $a,b\in I$,
+
+$$\int_a^b f(x) \; \dd x 
+= \int_{\varphi^{-1}(a)}^{\varphi^{-1}(b)} f\big(\varphi(u)\big)\cdot\varphi'(u) \; \dd u$$
+\end{theoreme}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{tp}
+\begin{enumerate}
+  \item Calcul de la primitive $\displaystyle\int \sqrt{1-x^2} \; \dd x$.
+  \begin{enumerate}
+    \item Poser $f(x) = \sqrt{1-x^2}$ et le changement de variable $x = \sin u$, c'est-à-dire on pose 
+    $\varphi(u) = \sin u$.
+    \item Calculer $f\big( \varphi(u) \big)$ et $\varphi'(u)$.
+    \item Calculer la primitive de $g(u) = f\big(\varphi(u)\big)\cdot\varphi'(u)$.
+    \item En déduire une primitive de $f(x) = \sqrt{1-x^2}$.
+  \end{enumerate}
+  
+  % \item Calcul de la primitive $\displaystyle\int \frac{\dd x}{1+\left(\frac{x+1}{x}\right)^{1/3}}$.
+  % \begin{enumerate}  
+    % \item Poser le changement de variable défini par l'équation $u^3 = \frac{x+1}{x}$.
+    
+    % \item En déduire le changement de variable $\varphi(u)$ et $\varphi^{-1}(x)$.
+  % \end{enumerate}
+  
+  
+  % \item \'Ecrire une function \codeinline{integrale_chgtvar(f,eqn)} qui calcule
+  % une primitive de $f(x)$ par le changement de variable défini par l'équation 
+  % \codeinline{eqn} reliant $u$ et $x$.
+  
+  % En déduire $\displaystyle\int (\cos x + 1)^n \cdot \sin x \; \dd x$, en posant $u= \cos x + 1$.
+  
+  % \item Même travail avec \codeinline{integrale_chgtvar_bornes(f,a,b,eqn)}
+  % qui calcule l'intégrale de $f(x)$ entre $a$ et $b$ par changement de variable.
+  
+  % En déduire $\displaystyle\int_0^{\frac\pi4} \frac{\dd x}{2+\sin^2 x}$, en posant $u = \tan x$.
+\end{enumerate}
+\end{tp}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\small 
+
+  \vspace*{-1ex} 
+  
+$$\displaystyle\int \sqrt{1-x^2} \; \dd x$$
+
+  \vspace*{-3ex} 
+  
+  \begin{enumerate}
+    \item 
+%  \begin{enumerate}
+%    \item ~
+%  \end{enumerate}
+  
+  \end{enumerate}    
+    
+    \begin{minipage}{0.59\textwidth}
+    $f(x) = \sqrt{1-x^2}$
+    
+    $x = \sin u$ 
+       
+    $\varphi(u) = \sin u$
+    \end{minipage}
+    \begin{minipage}{0.33\textwidth}
+    \codeinline{var('x,u')}
+    
+    \codeinline{f = sqrt(1-x^2)}
+    
+    \codeinline{phi = sin(u)}
+    \end{minipage} 
+    
+    \bigskip
+    \pause
+   
+    %\item 
+    \begin{minipage}{0.59\textwidth}    
+    $f\big( \varphi(u) \big) = \sqrt{1-\sin^2 u}  = |\cos u|$
+    
+    $\varphi'(u) = \cos u$
+    \end{minipage} 
+    \begin{minipage}{0.33\textwidth}
+    \codeinline{frondphi = f(x=phi)}
+
+    \codeinline{dphi = diff(phi,u)}    
+    \end{minipage}
+    
+    \bigskip         
+    \pause
+     
+    %\item 
+    \begin{minipage}{0.59\textwidth}    
+    $g(u) = f\big(\varphi(u)\big)\cdot\varphi'(u) = \cos^2 u = \frac{1+\cos(2u)}{2}$
+    
+    $\int g(u)\; \dd u = \frac{u}{2} + \frac{\sin(2u)}{4}$
+    \end{minipage} 
+    \begin{minipage}{0.33\textwidth}
+    \codeinline{g = frondphi*dphi}
+    
+    %\codeinline{g = g.simplify_full().simplify_radical()}
+    
+    \codeinline{G = integral(g,u)}
+    \end{minipage}
+    
+    
+    \bigskip 
+    \pause
+             
+    %\item 
+    \begin{minipage}{0.59\textwidth}
+    $\begin{array}{rcl}
+    \int \sqrt{1-x^2} \; \dd x &=& \frac{\arcsin x}{2} + \frac{\sin(2\arcsin x)}{4}\\
+    
+    
+    &=& \frac{\arcsin x}{2} + \frac x2 \sqrt{1-x^2}\end{array}$
+    \end{minipage} 
+    \begin{minipage}{0.33\textwidth}
+    \codeinline{F = G(u = arcsin(x))}
+    \end{minipage}
+    
+   
+
+
+\end{frame}
+
+\begin{frame}
+\begin{tp}
+\begin{enumerate}
+		  \setcounter{enumi}{1}
+  % \item Calcul de la primitive $\displaystyle\int \sqrt{1-x^2} \; \dd x$.
+  % \begin{enumerate}
+    % \item Poser $f(x) = \sqrt{1-x^2}$ et le changement de variable $x = \sin u$, c'est-à-dire on pose 
+    % $\varphi(u) = \sin u$.
+    % \item Calculer $f\big( \varphi(u) \big)$ et $\varphi'(u)$.
+    % \item Calculer la primitive de $g(u) = f\big(\varphi(u)\big)\cdot\varphi'(u)$.
+    % \item En déduire une primitive de $f(x) = \sqrt{1-x^2}$.
+  % \end{enumerate}
+  
+  \item Calcul de la primitive $\displaystyle\int \frac{\dd x}{1+\left(\frac{x+1}{x}\right)^{1/3}}$.
+  \begin{enumerate}  
+    \item Poser le changement de variable défini par l'équation $u^3 = \frac{x+1}{x}$.
+    
+    \item En déduire le changement de variable $\varphi(u)$ et $\varphi^{-1}(x)$.
+  \end{enumerate}
+  
+  
+  \item \'Ecrire une fonction \codeinline{integrale_chgtvar(f,eqn)} qui calcule
+   une primitive de $f(x)$ par le changement de variable défini par l'équation 
+   \codeinline{eqn} reliant $u$ et $x$.
+  
+  En déduire $\displaystyle\int (\cos x + 1)^n \cdot \sin x \; \dd x$, en posant $u= \cos x + 1$.
+  
+  \item Même travail avec \codeinline{integrale_chgtvar_bornes(f,a,b,eqn)}
+   qui calcule l'intégrale de $f(x)$ entre $a$ et $b$ par changement de variable.
+  
+  En déduire $\displaystyle\int_0^{\frac\pi4} \frac{\dd x}{2+\sin^2 x}$, en posant $u = \tan x$.
+\end{enumerate}
+\end{tp}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+
+
+
+\begin{algo}[integrales-chgtvar.sage]
+\begin{lstlisting}
+f = 1/(1+((x+1)/x)^(1/3))
+eqn = u^3 == (x+1)/x
+phi = solve(eqn,x)[0].rhs()      # x en fonction de u 
+phi_inv = solve(eqn,u)[0].rhs()  # u en fonction de x
+frondphi = f(x=phi)
+dphi = diff(phi,u)
+g = frondphi*dphi
+g = g.simplify_full()
+G = integrate(g,u)
+F = G(u = phi_inv)
+F = F.simplify_full()
+\end{lstlisting}
+\end{algo}
+\end{frame}
+
+
+%
+%
+%\begin{frame}
+%\begin{tp}
+%\begin{enumerate}
+%		  \setcounter{enumi}{2}
+%  % \item Calcul de la primitive $\displaystyle\int \sqrt{1-x^2} \; \dd x$.
+%  % \begin{enumerate}
+%    % \item Poser $f(x) = \sqrt{1-x^2}$ et le changement de variable $x = \sin u$, c'est-à-dire on pose 
+%    % $\varphi(u) = \sin u$.
+%    % \item Calculer $f\big( \varphi(u) \big)$ et $\varphi'(u)$.
+%    % \item Calculer la primitive de $g(u) = f\big(\varphi(u)\big)\cdot\varphi'(u)$.
+%    % \item En déduire une primitive de $f(x) = \sqrt{1-x^2}$.
+%  % \end{enumerate}
+%  
+%  % \item Calcul de la primitive $\displaystyle\int \frac{\dd x}{1+\left(\frac{x+1}{x}\right)^{1/3}}$.
+%  % \begin{enumerate}  
+%    % \item Poser le changement de variable défini par l'équation $u^3 = \frac{x+1}{x}$.
+%    
+%    % \item En déduire le changement de variable $\varphi(u)$ et $\varphi^{-1}(x)$.
+%  % \end{enumerate}
+%  
+%  
+%  \item \'Ecrire une fonction \codeinline{integrale_chgtvar(f,eqn)} qui calcule
+%  une primitive de $f(x)$ par le changement de variable défini par l'équation 
+%  \codeinline{eqn} reliant $u$ et $x$.
+%  
+%  En déduire $\displaystyle\int (\cos x + 1)^n \cdot \sin x \; \dd x$, en posant $u= \cos x + 1$.
+%  
+%  % \item Même travail avec \codeinline{integrale_chgtvar_bornes(f,a,b,eqn)}
+%  % qui calcule l'intégrale de $f(x)$ entre $a$ et $b$ par changement de variable.
+%  
+%%  En déduire $\displaystyle\int_0^{\frac\pi4} \frac{\dd x}{2+\sin^2 x}$, en posant $u = \tan x$.
+%\end{enumerate}
+%\end{tp}
+%
+%\end{frame}
+%
+%
+%\begin{frame}[fragile]
+%\begin{algo}[integrales-chgtvar.sage (3)]
+%\begin{lstlisting}
+%def integrale_chgtvar(f,eqn):
+%    phi = solve(eqn,x)[0].rhs()     # x en fonction de u 
+%    phi_inv = solve(eqn,u)[0].rhs() # u en fonction de x 
+%    frondphi = f(x=phi)             
+%    dphi = diff(phi,u)              
+%    g = frondphi*dphi               
+%    g = g.simplify_full()
+%    G = integral(g,u)               
+%    F = G(u = phi_inv)             
+%    F = F.simplify_full()
+%    return F
+%f = (cos(x)+1)^n*sin(x)
+%eqn = u == cos(x)+1
+%print(integrale_chgtvar(f,eqn))
+%\end{lstlisting}
+%\end{algo}
+%\end{frame}
+%
+%
+%
+%
+%\begin{frame}
+%\begin{tp}
+%\begin{enumerate}
+%		  \setcounter{enumi}{3}
+%  % \item Calcul de la primitive $\displaystyle\int \sqrt{1-x^2} \; \dd x$.
+%  % \begin{enumerate}
+%    % \item Poser $f(x) = \sqrt{1-x^2}$ et le changement de variable $x = \sin u$, c'est-à-dire on pose 
+%    % $\varphi(u) = \sin u$.
+%    % \item Calculer $f\big( \varphi(u) \big)$ et $\varphi'(u)$.
+%    % \item Calculer la primitive de $g(u) = f\big(\varphi(u)\big)\cdot\varphi'(u)$.
+%    % \item En déduire une primitive de $f(x) = \sqrt{1-x^2}$.
+%  % \end{enumerate}
+%  
+%  % \item Calcul de la primitive $\displaystyle\int \frac{\dd x}{1+\left(\frac{x+1}{x}\right)^{1/3}}$.
+%  % \begin{enumerate}  
+%    % \item Poser le changement de variable défini par l'équation $u^3 = \frac{x+1}{x}$.
+%    
+%    % \item En déduire le changement de variable $\varphi(u)$ et $\varphi^{-1}(x)$.
+%  % \end{enumerate}
+%  
+%  
+%  % \item \'Ecrire une function \codeinline{integrale_chgtvar(f,eqn)} qui calcule
+%  % une primitive de $f(x)$ par le changement de variable défini par l'équation 
+%  % \codeinline{eqn} reliant $u$ et $x$.
+%  
+%  % En déduire $\displaystyle\int (\cos x + 1)^n \cdot \sin x \; \dd x$, en posant $u= \cos x + 1$.
+%  
+%  \item Même travail avec \codeinline{integrale_chgtvar_bornes(f,a,b,eqn)}
+%  qui calcule l'intégrale de $f(x)$ entre $a$ et $b$ par changement de variable.
+%  
+%  En déduire $\displaystyle\int_0^{\frac\pi4} \frac{\dd x}{2+\sin^2 x}$, en posant $u = \tan x$.
+%\end{enumerate}
+%\end{tp}
+%
+%\end{frame}
+%%
+%%\begin{frame}[fragile]
+%%\begin{algo}[integrales-chgtvar.sage (4)]
+%%\begin{lstlisting}
+%%def integrale_chgtvar_bornes(f,a,b,eqn):
+%%    phi = solve(eqn,x)[0].rhs()     # x en fonction de u 
+%%    phi_inv = solve(eqn,u)[0].rhs() # u en fonction de x 
+%%    frondphi = f(x=phi)             
+%%    dphi = diff(phi,u)           
+%%    g = frondphi*dphi            
+%%    g = g.simplify_full()
+%%    a_inv = phi_inv(x=a)           
+%%    b_inv = phi_inv(x=b)
+%%    new_I = integral(g,u,a_inv,b_inv) 
+%%    return new_I
+%%f = 1/(2+sin(x)^2)
+%%eqn = u == tan(x)
+%%a = 0
+%%b = pi/4
+%%print 'Nous : ', integrale_chgtvar_bornes(f,a,b,eqn)   
+%%\end{lstlisting}
+%%\end{algo}
+%%\end{frame}
+%
+
+
+\end{document}

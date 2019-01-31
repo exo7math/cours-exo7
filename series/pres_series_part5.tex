@@ -1,0 +1,280 @@
+
+\input{../preamb-pres.tex}
+% Couleur à définir
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Séries}}
+\subtitle{Comparaison série/intégrale}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Théorème de comparaison série/intégrale
+    \item<4-> Démonstration
+    \item<5-> Séries de Riemann
+    \item<6-> Séries de Bertrand
+    \item<7-> Applications
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Théorème de comparaison série/intégrale}
+
+\begin{frame}
+\`A connaître : les intégrales impropres $\int_0^{+\infty} f(t) \;\dd t$
+
+\pause
+\medskip
+
+\begin{theoreme}
+Soit $f : [0,+\infty[ \to [0,+\infty[$ une fonction décroissante
+
+\pause
+Alors la série $\displaystyle\sum_{k \ge 0} f(k)$ et l'intégrale impropre $\displaystyle\int_0^{+\infty} f(t) \; \dd t$ sont de même nature
+\end{theoreme}
+
+\pause
+\medskip
+<<~De même nature~>> signifie que la série et l'intégrale sont toutes deux convergentes ou toutes deux divergentes
+
+\pause
+\medskip
+\textbf{Attention !} Il est important que $f$ soit positive et décroissante
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Démonstration}
+
+\begin{frame}
+\begin{proof}
+Soit $k\in\Nn$
+
+\begin{itemize}
+\item\pause Comme $f$ est décroissante, pour $k\le t \le k+1$, on a $f(k+1)\le f(t)\le f(k)$
+\onslide<1->
+\myfigure{1.1}{
+\tikzinput{fig_series02} 
+}  
+\item\pause En intégrant sur $[k,k+1]$ on obtient \ \pause $f(k+1)\le \displaystyle\int_k^{k+1} f(t) \; \dd t \le f(k)$
+\noqed\qedhere
+\end{itemize}
+\end{proof}
+\end{frame}
+
+
+\begin{frame}
+\begin{proof}
+$$f(k+1)\le \int_k^{k+1} f(t) \; \dd t \le f(k)$$
+\begin{itemize}
+\item\pause On somme ces inégalités pour $k$ variant de $0$ à $n-1$
+\pause
+$$\sum_{k=0}^{n-1} f(k+1) \le \sum_{k=0}^{n-1} \int_{k}^{k+1} f(t) \; \dd t
+\le \sum_{k=0}^{n-1} f(k)
+$$
+\pause
+Soit
+$$u_1+\cdots+u_{n} \le \int_0^{n} f(t)\; \dd t \le u_0+\cdots+u_{n-1}$$
+
+\item\pause Si $\sum u_k$ converge et a pour somme $S$\pause , alors $\int_0^{n} f(t)\; \dd t$ est
+majorée par $S$
+
+\pause
+Comme $\int_0^x f(t)\; \dd t$ est une fonction croissante de $x$, l'intégrale converge 
+
+\item\pause Réciproquement, si l'intégrale
+converge, alors $\int_0^{n} f(t)\;\dd t$ est majorée\pause , la suite des
+sommes partielles aussi : la série converge \qedhere
+\end{itemize}
+\end{proof}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Séries de Riemann}
+
+\begin{frame}
+
+
+$$\sum_{k = 1}^{+\infty} \frac{1}{k^\alpha}$$
+
+\begin{proposition}[Séries de Riemann]
+\pause
+\mybox{Si \quad $\alpha >1$ \quad alors \quad $\displaystyle  \sum_{k = 1}^{+\infty} \frac{1}{k^\alpha}$ \quad converge}
+
+
+\pause
+\mybox{Si \quad $0 <\alpha \le1$ \quad alors \quad $\displaystyle  \sum_{k \ge 1} \frac{1}{k^\alpha}$ \quad diverge}
+\end{proposition}
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{proposition}[Séries de Riemann]
+Si \quad $\alpha >1$ \quad alors \quad $\displaystyle  \sum_{k = 1}^{+\infty} \frac{1}{k^\alpha}$ \quad converge
+
+Si \quad $0 <\alpha \le1$ \quad alors \quad $\displaystyle  \sum_{k \ge 1} \frac{1}{k^\alpha}$ \quad diverge
+\end{proposition}
+
+\pause
+\begin{proof}
+\pause
+Soit $f : [1,+\infty[ \to [0,+\infty[$, $f(t)=\frac{1}{t^\alpha}$. \pause Pour $\alpha >0$, c'est une fonction décroissante et positive\pause : on peut appliquer le théorème précédent.\pause Or
+$$
+\int_1^{x} \frac{1}{t^\alpha}\;\dd t =
+\left\{\begin{array}{ll}
+\displaystyle{\frac{1}{1-\alpha}(x^{1-\alpha}-1)}&\mbox{si }\alpha\neq
+    1\\[1.5ex]
+\pause \ln(x) &\mbox{si }\alpha=1
+\end{array}\right. 
+$$
+
+\begin{itemize}
+\item\pause Pour $\alpha > 1$, $\int_1^{+\infty} \frac{1}{t^\alpha} \; \dd t $ 
+est convergente, donc la série $\sum_{k = 1}^{+\infty} \frac{1}{k^\alpha}$ converge
+
+\item\pause Pour $0<\alpha\le 1$, $\int_1^{+\infty} \frac{1}{t^\alpha} \; \dd t $ 
+est divergente, donc la série $\sum_{k \ge 1} \frac{1}{k^\alpha}$ diverge\qedhere
+\end{itemize}
+\end{proof}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Séries de Bertrand}
+
+\begin{frame}
+\defi{Séries de Bertrand} : 
+$\displaystyle\sum_{k\ge2} \frac{1}{k^\alpha(\ln k)^\beta}$ \ où $ \alpha > 0$ et $\beta \in \Rr$
+
+\pause
+\begin{proposition}
+\mybox{Si \ $\alpha>1$ \ alors la série converge. \ \ Si \ $0<\alpha<1$ \ alors elle diverge}
+
+\pause
+\mybox{Si \quad $\alpha=1$ \quad et \quad $\begin{cases} \beta>1 & \text{alors elle converge}\\   
+\beta\le 1 & \text{alors elle diverge}
+\end{cases}$}
+\end{proposition}
+
+\pause
+\begin{proof}
+\pause
+Cas $\alpha=1$ :  \quad \pause
+$
+\displaystyle\int_2^{x} \frac{1}{t(\ln t)^{\beta}}\;\dd t =
+\left\{\begin{array}{ll}
+{\dfrac{1}{1-\beta}\left((\ln x)^{1-\beta}-(\ln 2)^{1-\beta}\right)}&\text{si }\beta\neq
+    1\\[1.5ex]
+\ln(\ln x)-\ln(\ln 2) &\text{si }\beta=1 \qedhere
+\end{array}\right. 
+$
+\end{proof}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Applications}
+
+\begin{frame}
+Nous retrouvons en particulier
+\begin{enumerate}
+  \item $\displaystyle\sum \frac{1}{k^2}$ converge ($\alpha=2$)
+  
+  \medskip
+  
+  \item\pause $\displaystyle\sum \frac{1}{k}$ diverge ($\alpha=1$)
+\end{enumerate}
+
+\pause
+\begin{exemple}
+La série  $\displaystyle\sum_{k \ge 1} \ln\left(1+\frac{1}{\sqrt{k^3}}\right)$ est-elle convergente ? 
+ 
+ \begin{itemize}
+ \item\pause $\ln\left(1+\frac{1}{\sqrt{k^3}}\right) \quad \sim \quad \frac{1}{\sqrt{k^3}}$
+\item\pause La série de Riemann $\sum \frac{1}{\sqrt{k^3}}=\sum \frac{1}{k^{\frac32}}$ converge (car $\frac32>1$) 
+\item\pause Alors par le théorème des équivalents la série $\displaystyle\sum_{k=1}^{+\infty} \ln\left(1+\frac{1}{\sqrt{k^3}}\right)$ converge également
+\end{itemize}
+\end{exemple}
+
+ \end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+
+$$\text{La série}\qquad\sum_{k \ge 1} 
+\frac{1-\cos\left(\frac{1}{k\sqrt{\ln k}}\right)}{\sin\left(\frac{1}{k}\right)}
+\qquad\text{est-elle convergente ?}$$
+  
+ \begin{itemize}
+ \item\pause On cherche un équivalent du terme général (qui est positif) :  
+$$\frac{1-\cos\left(\frac{1}{k\sqrt{\ln k}}\right)}
+{\sin\left(\frac{1}{k}\right)} \quad \sim \quad \frac{1}{2k\ln k}$$
+\item\pause Or la série de Bertrand $\sum \frac{1}{k\ln k}$ diverge
+\item\pause Donc notre série diverge aussi
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Notons $H_n = \sum_{k=1}^{n} \frac 1k$ la somme partielle de la série harmonique
+  
+  Soit $f : [1,+\infty[\to[0,+\infty[$ définie par $f(t)=\frac1t$
+  \begin{enumerate}
+    \item Donner un encadrement simple de $\int_k^{k+1} f(t) \;\dd t$
+    \item Faire la somme de ces inégalités pour $k$ variant de $1$ à $n-1$, puis $k$ variant de $1$
+  à $n$, pour obtenir : $\ln(n+1) \le H_n \le1 + \ln n$
+    \item En déduire $H_n \sim \ln n$
+    \item La série harmonique converge-t-elle ?
+   \end{enumerate}
+  
+  \item Reprendre le schéma d'étude précédent pour montrer que, pour la série de Riemann 
+  et $0\le \alpha <1$, on a
+  $\sum_{k=1}^{n} \frac{1}{k^\alpha} \sim \frac{n^{1-\alpha}}{1-\alpha}$
+  
+  \item Reprendre le schéma d'étude précédent, mais cette fois pour le reste
+  $R_n = \sum_{k=n+1}^{\infty} \frac{1}{k^2}$, afin de montrer que
+  $R_n \sim \frac{1}{n}.$
+  Calculer $R_{100}$. Quelle approximation cela fournit-il de la somme de la série ?
+  
+  \item \'Etudier la convergence des séries suivantes en fonction des paramètres $\alpha>0$ et $\beta \in \Rr$ :
+  $\sum \sqrt{k^\alpha+1}-\sqrt{k^\alpha} \qquad
+  \sum \sin\left(\frac{k^\alpha}{\ln k}\right) \qquad
+  \sum \ln \left(1+\frac{1}{k(\ln k)^\beta}\right)$
+  
+  
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

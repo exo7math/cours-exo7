@@ -1,0 +1,254 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={142,35,35}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\title{{\bf Polynômes}}
+\subtitle{Fractions rationnelles}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition
+    \item<4-> Décomposition en éléments simples sur $\Cc$
+    \item<5-> Décomposition en éléments simples sur $\Rr$
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%---------------------------------------------------------------
+\section{Définition}
+
+\begin{frame}
+\begin{mydefinition}
+$$F=\frac{P}{Q} \qquad \text{est une \defi{fraction rationnelle}}$$
+
+\medskip
+
+\centerline{$P,Q \in \Kk[X]$ sont deux polynômes et $Q \neq 0$}
+\end{mydefinition}
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Décomposition en éléments simples sur $\Cc$}
+
+\begin{frame}
+\begin{theoreme}[Décomposition en éléments simples sur $\Cc$]
+Soit $P/Q$ une fraction rationnelle avec $P,Q \in \Cc[X]$, $\pgcd(P,Q)=1$ et 
+$Q=(X-\alpha_1)^{k_1}\cdots(X-\alpha_r)^{k_r}$. 
+Alors il existe une et une seule écriture :
+\pause
+$$\begin{array}{rl}
+\displaystyle \frac{P}{Q} \  =  \ \  E  & + \ 
+ \displaystyle  \frac{a_{1,1}}{(X-\alpha_1)^{k_1}}+\frac{a_{1,2}}{(X-\alpha_1)^{k_1-1}}+\cdots
++\ \frac{a_{1,k_1}}{(X-\alpha_1)} \\[4mm]
+  & \displaystyle+ \frac{a_{2,1}}{(X-\alpha_2)^{k_2}}+\cdots
++\ \frac{a_{2,k_2}}{(X-\alpha_2)} \\[3mm]
+ & + \ \cdots
+\end{array}$$
+\end{theoreme}
+
+\pause
+
+Le polynôme $E$ s'appelle la \defi{partie polynomiale}
+
+
+\pause
+
+Les termes $\frac{a}{(X-\alpha)^i}$ sont les \defi{éléments simples} sur $\Cc$
+
+\pause
+
+\begin{exemple}
+\begin{itemize}
+  \item $\frac{1}{X^2+1} = \frac{a}{X+\ii} + \frac{b}{X-\ii}$ \quad avec $a=\tfrac12 \ii$, $b=-\tfrac12\ii$
+
+\pause 
+  
+  \item $\frac{X^4-8X^2+9X-7}{(X-2)^2(X+3)}= X+1 + \frac{-1}{(X-2)^2} + \frac{2}{X-2} + \frac{-1}{X+3}$
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}
+Décomposons la fraction $\frac{P}{Q}= \frac{X^5-2X^3+4X^2-8X+11}{X^3-3X+2}$
+
+\pause
+
+\begin{enumerate}
+  \item \textbf{Partie polynomiale}
+  \begin{itemize}
+    \item La partie polynomiale est donc le quotient de la division euclidienne de $P$ par $Q$
+\pause
+    \item $P(X) = (X^2+1)Q(X)+ 2X^2-5X+9$
+\pause
+    \item $E(X)=X^2+1$
+\pause
+    \item $\frac{P(X)}{Q(X)} =X^2+1 + \frac{2X^2-5X+9}{Q(X)}$
+  \end{itemize}
+\pause
+  \item \textbf{Factorisation du dénominateur} \pause $Q(X)= (X-1)^2(X+2)$
+\pause
+  \item \textbf{Décomposition théorique}
+\pause
+$$\frac{P(X)}{Q(X)}= E(X)+ \frac{a}{(X-1)^2} + \frac{b}{X-1} + \frac{c}{X+2}$$
+
+\end{enumerate}
+\end{exemple}
+\end{frame}
+
+
+
+\begin{frame}
+\begin{exemple}
+\begin{enumerate}
+\setcounter{enumi}{3}
+  \item \textbf{Détermination des coefficients}
+  \begin{itemize}
+  \setlength{\itemsep}{5pt} 
+    \item $\displaystyle \frac{P(X)}{Q(X)} =X^2+1 + \frac{2X^2-5X+9}{X^3-3X+2}$
+    \item $\displaystyle \frac{P(X)}{Q(X)}= E(X)+ \frac{a}{(X-1)^2} + \frac{b}{X-1} + \frac{c}{X+2}$
+\pause
+    \item $\displaystyle \frac{2X^2-5X+9}{(X-1)^2(X+2)} = \frac{(b+c)X^2+(a+b-2c)X+2a-2b+c}{(X-1)^2(X+2)}$
+\pause
+    \item $b+c=2$, \quad  $a+b-2c=-5$, \quad $2a-2b+c=9$
+\pause
+    \item $\ldots$ $a=2$, $b=-1$, $c=3$
+  \end{itemize}
+\pause
+{\small
+$$\frac{P}{Q} = \frac{X^5-2X^3+4X^2-8X+11}{X^3-3X+2} = X^2+1 + \frac{2}{(X-1)^2} + \frac{-1}{X-1} + \frac{3}{X+2}$$
+}
+\end{enumerate}
+\end{exemple}
+\end{frame}
+
+\begin{frame}
+\begin{exemple}
+\begin{enumerate}
+\setcounter{enumi}{3}
+  \item \textbf{Détermination des coefficients (bis)}
+  \begin{itemize}
+  \setlength{\itemsep}{5pt} 
+    \item $\frac{P_1(X)}{Q(X)} =  \frac{2X^2-5X+9}{(X-1)^2(X+2)} = \frac{a}{(X-1)^2} + \frac{b}{X-1} + \frac{c}{X+2}$
+\pause
+    \item $F_1(X)= (X-1)^2 \frac{P_1(X)}{Q(X)} \pause = a + b(X-1) + c\frac{(X-1)^2}{X+2}$ \pause donc $F_1(1)=a$
+\pause
+    \item $F_1(X) = \frac{2X^2-5X+9}{X+2}$ \pause donc $F_1(1)=2$ \pause ainsi $a=2$
+\pause
+    \item $F_2(X) = (X+2)\frac{P_1(X)}{Q(X)} \pause = \frac{2X^2-5X+9}{(X-1)^2} \pause = a\frac{X+2}{(X-1)^2} + b\frac{X+2}{X-1} + c$
+\pause
+    \item $F_2(-2) = c = 3$ ainsi $c=3$
+\pause    
+    \item $\frac{P_1(0)}{Q(0)} = a - b + \frac c2 = \frac{9}{2}$ donc $b=-1$
+  \end{itemize}    
+\pause  
+{\small
+$$\frac{P}{Q} =  X^2+1 + \frac{2}{(X-1)^2} + \frac{-1}{X-1} + \frac{3}{X+2}$$
+}
+
+\end{enumerate}
+\end{exemple}
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Décomposition en éléments simples sur $\Rr$}
+
+\begin{frame}
+
+Soit $P/Q$ une fraction rationnelle avec $P,Q \in \Rr[X]$, $\pgcd(P,Q)=1$
+\begin{theoreme}[Décomposition en éléments simples sur $\Rr$]
+$P/Q$ s'écrit de manière unique comme somme :
+\begin{itemize}
+  \item d'une partie polynomiale $E(X)$
+  \item d'éléments simples $\frac{a}{(X-\alpha)^i}$
+  \item d'éléments simples $\frac{aX+b}{(X^2+\alpha X + \beta)^i}$
+
+  \pause
+  
+  \begin{itemize}
+    \item $X-\alpha$ et $X^2 + \alpha X + \beta$ sont les facteurs irréductibles de $Q(X)$
+    
+    \pause
+    
+    \item les exposants $i$ sont inférieurs ou égaux à la puissance correspondante dans cette factorisation
+  \end{itemize}
+\end{itemize}
+
+\end{theoreme}
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{exemple} 
+$$\frac{P(X)}{Q(X)}=\frac{3X^4+5X^3+8X^2+5X+3}{(X^2+X+1)^2(X-1)}$$
+
+\pause
+
+\begin{itemize}[<+->]
+\setlength{\itemsep}{7pt} 
+  \item $\deg P < \deg Q$ donc $E(X)=0$
+  \item $X^2+X+1$ est irréductible sur $\Rr$
+  \item $\displaystyle \frac{P(X)}{Q(X)} = \frac{aX+b}{(X^2+X+1)^2}+\frac{cX+d}{X^2+X+1}+\frac{e}{X-1}$
+  \item $\displaystyle \frac{P(X)}{Q(X)} = \frac{2X+1}{(X^2+X+1)^2}+\frac{-1}{X^2+X+1}+\frac{3}{X-1}$
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Soit $Q(X)=(X-2)^2(X^2-1)^3(X^2+1)^4$. Pour $P \in \Rr[X]$ quelle est la forme théorique 
+de la décomposition en éléments simples sur $\Cc$ de $\frac PQ$ ? Et sur $\Rr$ ?
+
+  \item Décomposer les fractions suivantes en éléments simples sur $\Rr$ et $\Cc$ :
+$\frac{1}{X^2-1}$ ; $\frac{X^2+1}{(X-1)^2}$ ; $\frac{X}{X^3-1}$.
+
+  \item Décomposer les fractions suivantes en éléments simples sur $\Rr$ :
+$\frac{X^2+X+1}{(X-1)(X+2)^2}$ ; $\frac{2X^2-X}{(X^2+2)^2}$ ; $\frac{X^6}{(X^2+1)^2}$.
+
+  \item Soit $F(X) = \frac{2X^2+7X-20}{X+2}$. 
+  Déterminer l'équation de l'asymptote oblique en $\pm \infty$. 
+  \'Etudier la position du graphe de $F$ par rapport à cette droite.
+
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

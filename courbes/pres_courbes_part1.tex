@@ -1,0 +1,402 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={102,102,0}]{structure}
+
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Courbes paramétrées}}
+\subtitle{Notions de base}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> La cycloïde
+    \item<4-> Définition
+    \item<5-> Réduction du domaine d'étude
+    \item<6-> Points simples, points multiples   
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{La cycloïde}
+
+\begin{frame}
+
+\uncover<6->{
+$$\left\{\begin{array}{rcl}
+x(t) &=& r(t-\sin t) \\           
+y(t) &=& r(1-\cos t)
+\end{array} \right.$$
+}
+
+\myfigure{0.8}{
+\tikzinput{fig_courbes_part0_01}
+} 
+
+\end{frame}
+
+
+\begin{frame}
+\myfigure{1.6}{
+\tikzinput{fig_courbes_part0_03}
+} 
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définition}
+
+\begin{frame}
+
+\begin{mydefinition}
+Une \defi{courbe paramétrée plane} est une application 
+$$\begin{array}[t]{cccc}
+f :&D\subset\Rr&\rightarrow&\Rr^2\\
+ &t&\mapsto&f(t)
+\end{array}$$ d'un sous-ensemble $D$ de $\Rr$ dans $\Rr^2$ 
+\end{mydefinition}
+
+\pause
+
+\myfigure{0.8}{
+\tikzinput{fig_courbes_part1_00}
+}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{exemple}
+\begin{itemize}
+\item $t\mapsto (\cos t,\sin t)$, $t\in[0,2\pi[$ : une paramétrisation du cercle trigonométrique
+
+\uncover<2->{
+\item $t\mapsto(2t-3,3t+1)$, $t\in\Rr$ : une paramétrisation de la droite 
+passant par le point $A(-3,1)$ et de vecteur directeur $\vec{u}(2,3)$
+}
+
+\end{itemize}
+\vspace*{-2ex}
+\myfigure{0.7}{
+\tikzinput{fig_courbes_part1_01a} \qquad\qquad
+\uncover<2->{
+\tikzinput{fig_courbes_part1_01b}
+}
+}
+\vspace*{-3ex}
+\end{exemple}
+
+
+\end{frame}
+
+\begin{frame}
+
+\begin{exemple}
+\begin{itemize}	
+\item $\lambda\mapsto\big((1-\lambda)x_A+\lambda x_B,(1-\lambda)y_A+\lambda y_B\big)$, 
+$\lambda\in[0,1]$ : une paramétrisation du segment $[AB]$
+
+\uncover<2->{
+\item Graphe d'une fonction $f : D \subset \Rr \to \Rr$ : 
+$\left\{
+\begin{array}{l}
+x(t)=t\\
+y(t)=f(t)
+\end{array}
+\right.$
+}
+\end{itemize} 
+\vspace*{-2ex}
+\myfigure{0.6}{
+\tikzinput{fig_courbes_part1_01c} \qquad\qquad
+\uncover<2->{
+\tikzinput{fig_courbes_part1_01d} 
+}}
+
+
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{mydefinition}
+Le \defi{support d'une courbe paramétrée} $\begin{array}[t]{cccc}
+f :&D\subset\Rr&\rightarrow&\Rr^2\\
+ &t&\mapsto&f(t)
+\end{array}$ est l'ensemble des points $M(t)$ où $t$ décrit $D$
+\end{mydefinition}
+
+\pause	
+
+\myfigure{0.7}{
+\tikzinput{fig_courbes_part1_02} 
+\uncover<3->{\tikzinput{fig_courbes_part1_03}}
+}
+$$\begin{array}[t]{ccc}
+[0,2\pi[&\longrightarrow&\Rr^2\\
+t&\longmapsto&(\cos t,\sin t)
+\end{array} \qquad \qquad 
+\uncover<3->{
+\begin{array}[t]{ccc}
+\Rr &\longrightarrow&\Rr^2\\
+t&\longmapsto& \left(\frac{1-t^2}{1+t^2},\frac{2t}{1+t^2}\right)
+\end{array}
+}$$ 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Réduction du domaine d'étude}
+
+\begin{frame}
+
+
+\begin{itemize}
+  \item Translation de vecteur $\vec{u}(a,b)$ : $t_{\vec{u}}(M)=(x+a,y+b)$
+\uncover<3->{  \item Réflexion d'axe $(Ox)$ : $s_{(Ox)}(M)=(x,-y)$}
+\uncover<5->{  \item Réflexion d'axe $(Oy)$ : $s_{(Oy)}(M)=(-x,y)$}
+\uncover<6->{  \item Réflexion d'axe la droite $(D)$ d'équation $y=x$ : $s_D(M)=(y,x)$}
+\end{itemize}
+
+
+\myfigure{0.65}{
+\uncover<2->{\tikzinput{fig_courbes_part1_04a} }
+\uncover<4->{\tikzinput{fig_courbes_part1_04b} }
+}
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{itemize}
+  \item Symétrie centrale de centre $O$ : $s_O(M)=(-x,-y)$
+\uncover<3->{  \item Rotation d'angle $\frac{\pi}{2}$ autour de $O$ : $\text{rot}_{O,\pi/2}(M)=(-y,x)$}
+\end{itemize}
+
+
+\myfigure{0.5}{
+\uncover<2->{\tikzinput{fig_courbes_part1_04c} }
+\uncover<4->{\tikzinput{fig_courbes_part1_04d} }
+}
+
+\end{frame}
+
+\begin{frame}
+\begin{exemple}
+Déterminer un domaine d'étude simple de l'arc 
+$\left\{
+\begin{array}{l}
+x(t)=t-\frac32\sin t\\
+y(t)=1-\frac32\cos t
+\end{array}
+\right.$
+\pause
+
+\vspace*{-1ex}
+\textbf{Solution}
+\vspace*{-1ex}
+{\small
+\begin{itemize}
+  \item $M(t+2\pi)\pause=(t-\tfrac32\sin t,1-\tfrac32\cos t)+(2\pi,0)\pause=t_{\vec{u}} \big(M(t)\big)$
+où $\vec{u}=\!(2\pi,0)$
+  \pause
+  \item Pour $t\in[-\pi,\pi]$,\pause 
+$M(-t)\pause=\big(-(t-\tfrac32\sin t),1-\tfrac32\cos t \big)\pause=s_{(Oy)}\big(M(t)\big)$
+  \pause
+  \item \'Etude sur $[0,\pi]$\pause
+\end{itemize}
+}
+\vspace*{-4ex}
+\myfigure{0.9}{
+\tikzinput{fig_courbes_part1_05a} \pause
+\tikzinput{fig_courbes_part1_05b}
+} 
+\vspace*{-5ex}\pause
+\myfigure{0.9}{
+\tikzinput{fig_courbes_part1_05}
+}
+\vspace*{-5ex}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+Domaine d'étude de \defi{courbe de Lissajous} 
+$\left\{
+\begin{array}{l}
+x(t)=\sin(2t)\\
+y(t)=\sin(3t)
+\end{array}
+\right.$
+\pause
+
+\vspace*{-1ex}
+
+%\medskip
+\textbf{Solution}
+
+\vspace*{-1ex}
+\begin{itemize}
+  \item Pour $t\in\Rr$, $M(t+2\pi)=M(t)$
+\pause
+  \item Pour $t\in[-\pi,\pi]$, \pause $M(-t)\pause= \big(-\sin(2t),-\sin(3t)\big)\pause=s_O\big(M(t)\big)$
+\pause
+  \item Pour $t\in[0,\pi]$, \pause 
+$M(\pi-t)\pause=\big(\sin(2\pi-2t),\sin(3\pi-3t)\big)\pause=\big(\sin(-2t),\sin(\pi-3t)\big)
+\pause=\big(-\sin(2t),\sin(3t)\big)\pause=s_{(Oy)}\big(M(t)\big)$
+\pause 
+  \item \'Etude sur $[0,\frac\pi2]$
+\end{itemize}
+
+\pause
+\vspace*{-3ex}
+
+\myfigure{0.8}{
+\tikzinput{fig_courbes_part1_06a} \qquad 
+\pause
+\tikzinput{fig_courbes_part1_06b} \qquad 
+\pause
+\tikzinput{fig_courbes_part1_06}}
+\end{exemple}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Points simples, points multiples}
+
+\begin{frame}
+
+Soit $f : t\mapsto M(t)$ une courbe paramétrée et soit $A$ un point du plan
+\begin{mydefinition}
+La \defi{multiplicité} du point $A$ par rapport à la courbe $f$ est le nombre 
+de réels $t$ pour lesquels $M(t)=A$
+\end{mydefinition}
+
+\pause
+
+\myfigure{0.8}{
+\tikzinput{fig_courbes_part1_09a} \qquad 
+\pause
+\tikzinput{fig_courbes_part1_09b} \qquad 
+\pause
+\tikzinput{fig_courbes_part1_09c}
+}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+Trouver les points multiples de 
+$\left\{
+\begin{array}{l}
+x(t)=2t+t^2\\
+y(t)=2t-\frac{1}{t^2}
+\end{array}
+\right.$ \quad $t\in\Rr^*$
+
+\pause
+
+\medskip
+\textbf{Solution}
+
+\vspace*{-0.5cm}
+
+\hfill\begin{minipage}{0.3\textwidth}
+\myfigure{0.5}{
+\tikzinput{fig_courbes_part1_10}
+}  
+\end{minipage}
+
+\pause
+\vspace*{-3.5cm}
+
+\begin{itemize}
+  \item Soit $(t,u)\in(\Rr^*)^2$ tel que $t>u$
+  
+  \pause
+  \item $
+M(t)=M(u)\pause\Leftrightarrow\left\{
+\begin{array}{l}
+2t+t^2=2u+u^2\\
+2t-\frac{1}{t^2}=2u-\frac{1}{u^2}
+\end{array}
+\right.$
+  \pause
+  \item $
+M(t)=M(u)\Leftrightarrow\left\{
+\begin{array}{l}
+(t^2-u^2)+2(t-u)=0\\
+2(t-u)-\big(\frac{1}{t^2}-\frac{1}{u^2}\big)=0
+\end{array}
+\right.$
+  \pause
+  \item \ldots
+  \pause
+  \item $M(t)=M(u)\Leftrightarrow t=-1+\sqrt{2}\quad\text{et}\quad u=-1-\sqrt{2}$
+  \pause
+  \item $M(-1+\sqrt{2})=M(-1-\sqrt{2})=(1,-5)$
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Représenter graphiquement chacune des transformations du plan 
+  qui servent à réduire l'intervalle d'étude. 
+  
+  \item Pour la courbe de Lissajous définie par $x(t)=\sin(2t)$ et
+  $y(t)=\sin(3t)$, montrer que la courbe est symétrique par rapport à
+  l'axe $(Ox)$. Exprimer cette symétrie en fonction de celles déjà trouvées :
+  $s_O$ et $s_{(Oy)}$.
+    
+  \item Trouver les symétries et les points multiples de la courbe définie par 
+  $x(t) = \frac{1-t^2}{1+t^2}$ et $y(t) = t \frac{1-t^2}{1+t^2}$.
+  
+  \item Trouver un intervalle d'étude pour l'astroïde définie par $x(t) = \cos^3 t$,
+  $y(t) = \sin^3 t$.  
+  
+  \item Trouver un intervalle d'étude pour la cycloïde définie par $x(t) = r(t-\sin t)$,
+  $y(t) = r(1-\cos t)$. Montrer que la cycloïde n'a pas de points multiples.
+
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

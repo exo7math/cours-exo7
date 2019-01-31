@@ -1,0 +1,416 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+Dans la leçon précédente, nous avons vu comment additionner deux matrices, 
+ainsi que multiplier une matrice par un scalaire. Nous poursuivons à présent 
+par une leçon consacrée à la multiplication des matrices entre elles.
+
+\change
+Nous commencerons par définir cette multiplication.
+% 
+% \change
+% et nous en donnerons quelques exemples.
+
+\change
+Nous verrons ensuite les propriétés du produit de matrices, qui sont parfois assez 
+différentes de celles du produit des nombres réels.
+
+\change
+Nous définirons la matrice identité, qui joue un rôle analogue à celui du nombre 1 pour les réels.
+
+\change
+Nous verrons également comme définir la puissance d'une matrice, ainsi qu'une formule du binôme pour les matrices.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le produit $AB$ de deux matrices $A$ et $B$ est défini si et seulement si le nombre de colonnes de 
+$A$ est égal au nombre de lignes de $B$. Soient $A=(a_{ij})$ une matrice $n\times p$ et $B=(b_{ij})$ une matrice $p\times q$. 
+
+\change
+Alors le produit $C=AB$ est une matrice $n\times q$
+
+\change
+ dont les coefficients $c_{ij}$ sont définis par :
+
+$
+c_{ij} = \sum_{k=1}^p a_{ik}b_{kj}
+$
+
+\change
+On peut écrire le coefficient de façon plus développée, à savoir : 
+$$c_{ij}=a_{i1}b_{1j}+a_{i2}b_{2j}+ \dots + 
+a_{ik}b_{kj}+ \dots + a_{ip}b_{pj}.$$ 
+
+On voit ici apparaître tous les éléments de la ligne numéro $i$ de la matrice $A$, et ici les éléments de la colonne numéro $j$ de $B$.
+
+\change
+Il est commode de disposer les calculs de la façon suivante.
+
+Avec cette disposition, on considère d'abord la ligne de la matrice $A$ située à gauche du coefficient $c_{ij}$ que l'on veut calculer (ligne représentée par des $\times $ bleus dans $A$), c'est-à-dire la ligne numéro $i$. Et aussi la colonne de la matrice $B$ située au-dessus du coefficient que l'on veut calculer (colonne représentée par des $\times$ mauve dans $B$), c'est-à-dire la colonne numéro $j$.
+
+On calcule le produit du premier coefficient de la ligne par le premier coefficient 
+de la colonne ($a_{i1} \times b_{1j}$), que l'on ajoute au produit du deuxième coefficient de la ligne par le deuxième coefficient 
+de la colonne ($a_{i2} \times b_{2j}$), que l'on ajoute au produit du troisième\ldots
+
+On voit donc qu'il est indispensable que cette ligne et cette colonne aient le même nombre $p$ de coefficients.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons tout de suite à un exemple. Considérons les deux matrices $A$ et $B$ suivantes. 
+La matrice $A$ est de taille $2\times 3$ et la matrice $B$ de taille $3\times 2$. 
+Il est donc possible de calculer le produit $AB$ car $A$ a $3$ colonnes et $B$, $3$ lignes.
+
+\change
+On dispose d'abord le produit correctement : la matrice obtenue sera de taille $2\times2$. Puis on calcule les coefficients un par un,
+en commençant par le premier coefficient $c_{11} $
+
+\change
+ $c_{11}= 1\times 1\ +\ 2\times(-1)\ +\ 3\times1=2$
+
+\change
+De même, $c_{12}=1\times2+2\times1+3\times1=7$.
+
+\change
+Et on calcule de la même manière $c_{21}$, on trouve $3$
+
+\change
+et $c_{22}=11$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Un exemple intéressant est le produit d'un vecteur ligne par un vecteur colonne. On considère un vecteur ligne $u = \begin{pmatrix} a_1 & a_2 & \cdots & a_n \end{pmatrix} $ et un vecteur colonne $v = \begin{pmatrix} b_1 \\ b_2 \\ \vdots \\ b_n \end{pmatrix}$.
+
+\change
+Alors $u \times v$ est une matrice de taille $1\times 1$ dont l'unique coefficient est
+$a_1 b_1 + a_2 b_2 + \cdots + a_n b_n$.
+
+\change
+Ce nombre s'appelle le \defi{produit scalaire} des vecteurs $u$ et $v$.
+
+
+De manière générale, calculer le coefficient $c_{ij}$ dans le produit $A\times B$
+revient donc à calculer le produit scalaire des vecteurs formés 
+par la $i$-ème ligne de $A$ et la $j$-ème colonne de $B$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Il faut faire attention au fait que le produit entre deux matrices 
+se comporte parfois de manière très différente du produit entre deux nombres réels. Voici donc quelques pièges à éviter.
+
+Tout d'abord, le produit de matrices n'est pas commutatif en général. En effet, il se peut que $AB$ soit défini mais pas $BA$, ou que $AB$ et $BA$ 
+soient tous deux définis mais pas de la même taille. 
+Mais même dans le cas où $AB$ et $BA$ sont définis et de la même taille, on a en général $AB\neq BA$. 
+
+\change
+Par exemple, ces deux matrices sont carrées de taille $2\times2$. On peut donc calculer à la fois $AB$ et $BA$, 
+et on obtient à chaque fois une matrice carrée  $2\times2$. 
+
+
+\change
+Mais on voit en faisant le calcul que $AB$ est cette matrice
+
+\change
+qui est différente de la matrice $BA$.
+
+\change
+Deuxième piège classique à éviter : $AB=0$ n'implique pas $A=0$ ou $B=0$.
+
+\change
+C'est-à-dire que l'on peut trouver deux matrices $A$ et $B$ dont le produit $AB$ est nul, 
+mais telles que ni $A$ ni $B$ ne soit nulle, comme c'est le cas sur cet exemple.
+
+\change
+
+Troisième piège à éviter du même style : $AB=AC$ n'implique pas $B=C$.
+On peut avoir à la fois $AB  = AC$ et $B \neq C$ : on ne peut donc pas "simplifier" par $A$.
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \diapo
+% 
+% Troisième piège à éviter : $AB=AC$ n'implique pas $B=C$.
+% 
+% 
+% \change
+% Par exemple si on considère les trois matrices carrées $2\times2$ suivantes, alors on peut vérifier facilement que les produits $AB$ et $AC$ coïncident, bien que les matrices $B$ et $C$ soient clairement différentes.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Malgré les difficultés soulevées juste avant, le produit vérifie les propriétés suivantes :
+
+Tout d'abord,  $A (BC) = (AB) C$, on dit que le produit est associatif, 
+ 
+\change
+ $A(B+C) = AB + AC$ \ et \ $(B+C) A = BA + CA$ : le produit est distributif par rapport à la somme,
+
+\change
+enfin, $A\cdot 0 = 0$ \ et \ $0\cdot A= 0$, où $0$ désigne la matrice nulle.
+ 
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \diapo
+% Démontrons la première propriété, c'est-à-dire l'associativité du produit.
+% 
+% Posons $A=(a_{ij}) \in M_{n,p}(\Kk)$, $B=(b_{ij})\in M_{p,q}(\Kk)$ 
+% et $C=(c_{ij})\in M_{q,r}(\Kk)$.  
+% 
+% \change
+% Prouvons que $A(BC) = (AB) C$ en montrant que les matrices $A(BC)$ et $(AB) C$ ont les mêmes coefficients.
+% 
+% \change
+% Le coefficient d'indice $(i,k)$ de la matrice $AB$ est 
+% $x_{ik}={\displaystyle \sum_{\ell=1}^{p}}a_{i \ell}b_{\ell k}$.
+% 
+% \change
+% Le coefficient d'indice $(i,j)$ de la matrice $(AB)C$ est donc
+% $$ \sum_{k=1}^{q}x_{ik}c_{kj}=\sum_{k=1}^{q}
+% \left ( \sum_{\ell=1}^{p}a_{i\ell}b_{\ell k} \right )c_{kj}.$$
+% 
+% \change
+% Par ailleurs, le coefficient d'indice $(\ell,j)$ de la matrice $BC$ est 
+% $y_{\ell j}={\displaystyle \sum_{k=1}^{q}}b_{\ell k}c_{kj}$. 
+% 
+% \change
+% Le coefficient d'indice $(i,j)$ de la matrice $A(BC)$ est donc
+% $$\sum_{\ell=1}^{p}a_{i\ell}\left (  \sum_{k=1}^{q}b_{\ell k}c_{kj}\right ).$$
+% 
+% \change
+% A présent, comme dans $\Kk$ la multiplication est distributive et associative, 
+% les coefficients de $(AB)C$ et $A(BC)$ coïncident. 
+% 
+% Les autres démonstrations se font comme celle de l'associativité. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La matrice carrée suivante s'appelle \defi{la matrice identité} : 
+ \[
+ I_n = \left(
+ \begin{array}{cccc}
+1 & 0 & \dots & 0\\
+0& 1& \dots & 0\\
+ \vdots& \vdots & \ddots  & \vdots\\
+0 & 0 & \dots &1
+\end{array}
+\right)
+ \]
+
+Ses éléments diagonaux sont égaux à $1$ et tous ses autres éléments sont égaux à $0$.
+Elle se note $I_n$ ou simplement $I$.
+
+\change
+On peut formaliser cela en introduisant le symbole de Kronecker.
+Si $i$ et $j$ sont deux entiers, on appelle \defi{symbole de Kronecker}, et on note $\delta_{i,j}$, le réel qui vaut $0$ si $i$ est différent de $j$, et $1$ si $i$ est égal à $j$. 
+
+\change
+Alors le terme général de la matrice identité $I_{n}$ est $\delta_{i,j}$  avec $i$ et $j$ entiers, compris entre $1$ et $n$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans le calcul matriciel, la matrice identité joue un rôle
+analogue à celui du nombre $1$ pour les réels.
+C'est l'élément neutre pour la multiplication. En
+d'autres termes :
+
+Si $A$ est une matrice $n \times p$, alors 
+$$ I_n \cdot A = A \qquad \text{et} \qquad A \cdot I_p = A.$$
+
+\change
+
+Nous allons détailler la preuve.
+Soit  $A \in M_{n,p}(\Kk)$ de terme général $a_{ij}$. Montrons que $AI_p=A$, où la matrice unité d'ordre $p$ est donc telle que tous les éléments de la diagonale principale sont égaux à $1$, les autres étant tous nuls. 
+
+\change
+La matrice produit $AI_{p}$ est une matrice appartenant à $M_{n,p}(\Kk)$
+dont le terme général $c_{ij}$ est donné par la formule 
+$c_{ij}={\displaystyle \sum_{k=1}^{p}a_{ik}\delta_{kj}}$, où $\delta_{kj}$ est le symbole de Kronecker. Dans cette somme, $i$ et $j$ sont fixés et $k$ prend toutes les valeurs comprises entre $1$ et $p$. 
+
+\change
+Si $k\neq j$ alors $\delta_{kj}=0$,
+
+\change
+et si $k=j$ alors $\delta_{kj}=1$.
+
+\change
+Donc dans cette somme, tous les termes correspondant à des valeurs de $k$ différentes de $j$ 
+sont nuls et il reste donc $c_{ij}=a_{ij}\delta_{jj}=a_{ij}1=a_{ij}$.
+
+\change
+Donc les matrices $AI_{p}$ et $A$ ont le même terme général : elles sont donc égales.
+
+\change
+L'égalité $I_{n}A=A$ se démontre de la même façon.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans l'ensemble $M_{n}(\Kk)$ des matrices carrées de taille $n \times n$ à
+coefficients dans $\Kk$,  la multiplication des matrices est une  
+opération interne : si $A,B \in M_n(\Kk)$ alors $AB \in M_n(\Kk)$.
+
+\change
+En particulier, on peut multiplier une matrice carrée par elle-même :
+on note $A^2 = A \times A$, $A^3 = A \times A \times A$.
+
+\change
+On peut ainsi définir les puissances successives d'une matrice :
+
+$A^p = \underbrace{A \times A \times \cdots \times A}_{p \text{ facteurs}}$.
+
+\change
+
+Et par définition $A^0$ est la matrice identité.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On cherche à calculer $A^{p}$ où $A$ est la matrice suivante.
+
+\change
+On commence par calculer $A^{2}$, $A^3$ et $A^{4}$
+
+\change
+et on obtient les trois matrices suivantes. 
+
+\change
+\change
+
+Regardons de plus près ces quatre matrices $A$, $A^{2}$, $A^3$ et $A^{4}$. On remarque qu'elles ont toutes la même forme, avec des zéros au mêmes endroits ici et là. Le coefficient $(1,1)$ vaut toujours $1$. Le coefficient $(2,2)$ prend les valeurs $1$ et $-1$. Le coefficient en bas à droite prend successivement les valeurs 2, 4, 8, 16, et le coefficient en haut à droite prend ces mêmes valeurs moins une unité, c'est-à-dire 1, 3, 7, 15.
+
+\change
+L'observation de ces premières puissances permet donc de penser que la formule
+pourrait bien être : $A^{p}$ qui vaut cette matrice avec sur la diagonale $1,\  (-1)^{p}, \ 2^p $ et en haut à droite $2^p-1$. 
+
+Il ne s'agit pour l'instant que d'une conjecture, c'est-à-dire d'une assertion que l'on pense être vraie, et qu'il nous faut démontrer. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Démontrons ce résultat par récurrence.
+
+\change
+Tout d'abord l'initialisation. Ce résultat est vrai pour $p=0$, puisqu'on trouve l'identité. 
+
+\change
+A présent l'hérédité. On suppose cette formule  vraie pour un entier $p$ fixé et on va en déduire qu'elle est alors vraie aussi pour $p+1$.
+
+\change
+On a 
+$A ^{p+1}=A ^{p} \times A $
+
+\change
+et donc d'après l'hypothèse de récurrence, on obtient ce produit.
+
+\change
+En calculant ce produit, on obtient pour $A ^{p+1}$ la valeur suivante, c'est-à-dire qu'on retrouve bien cette formule, 
+mais au rang $p+1$.
+
+\change
+Donc, d'après le principe de récurrence, la propriété est démontrée. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On termine par la formule de binôme de Newton pour les matrices, que vous pouvez passer en première lecture.
+
+
+Comme la multiplication n'est pas commutative, les identités binomiales usuelles sont fausses. 
+En particulier, $(A+B)^2$ ne vaut en général pas $A^2+2AB+B^2$, mais on sait seulement que 
+$(A+B)^2= A^2+{\color{myred}AB+BA}+B^2.$
+
+\change
+La proposition suivante permet de calculer $(A+B)^{p}$ dans le cas particulier où les matrices $A$ et $B$ commutent.
+
+Dire que deux matrices $A$ et $B$ \defi{commutent}, c'est dire que $AB=BA$. 
+
+\change
+Alors, pour tout entier $p \ge 0$, on a la formule 
+$$(A+B)^{p}= \sum_{k=0}^{p} \binom{p}{k} A^{p-k}B^{k}$$
+où $\binom{p}{k}$ désigne le coefficient usuel du binôme.
+
+La démonstration de cette proposition est similaire à celle de la formule du binôme pour $(a+b)^p$, avec $a,b \in \Rr$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Calculons les puissances de la matrice $A$ suivante, qui a des $1$ sur la diagonale, et des zéros sous la diagonale.
+
+\change
+On pose $N$ la matrice $A$ moins l'identité, et qui a donc des zéros sur la diagonale et les mêmes coefficients que $A$ ailleurs.
+
+\change
+Alors on obtient pour $N^2$ cette matrice qui a également des zéros ici
+
+\change
+pour $N^3$ encore plus de zéros, 
+
+\change
+et finalement on obtient que $N^4$ est nulle.
+
+On dit que la matrice $N$ est nilpotente c'est-à-dire il existe un entier $k$ tel que $N^{k}=0$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Comme on a $A=I+N$ et les matrices $N$ et $I$ commutent (car la matrice identité 
+commute avec toutes les matrices), on peut appliquer la formule du binôme de Newton. 
+
+\change
+
+On obtient ainsi
+$
+A^{p} = \sum_{k=0}^{p} \binom{p}{k} N^{k} I^{p-k}$
+
+\change
+Et comme toutes les puissance de l'identité valent l'identité, ceci vaut simplement $  \sum \binom{p}{k} N^{k} $
+ 
+\change
+Or $N^{k}=0$ dès que $k \geq 4$, et il ne reste donc plus dans la somme que les termes pour $k$ variant de $0$ à $3$.
+
+\change
+En développant on obtient $I+pN+\tfrac{p(p-1)}{2!}N^{2}+ \tfrac{p(p-1)(p-2)}{3!}N^{3}$.
+
+\change
+ce qui donne pour $A^p$ la formule suivante.
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Entraînez-vous avec ces exercices pour vérifier que vous avez bien compris le cours.
+
+
+
+\end{document}

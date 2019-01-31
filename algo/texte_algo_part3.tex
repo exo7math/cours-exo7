@@ -1,0 +1,456 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Le but de cette section est le calcul des sinus, cosinus, et tangente d'un angle par nous même,
+avec une précision de $8$ chiffres après la virgule.
+
+
+\change
+
+Comme travail préparatoire nous aurons besoin de calculer quelques valeurs de Arctan
+
+\change
+
+Avant de passer au calcul de la tangente de n'importe quel angle
+
+\change
+
+On en déduira les sinus et cosinus
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Nous aurons besoin de calculer une fois pour toute 
+$\Arctan (1)$, $\Arctan (1/10)$, $\Arctan (1/100)$,...
+
+\change
+
+Je vous rappelle que $\Arctan$ est la bijection réciproque de tangente 
+sur l'intervalle $]-\frac\pi2,\frac\pi2[$
+
+Donc l'angle $\theta_i = \Arctan (10^{-i})$ c'est l'angle qui vérifie $\tan \theta_i = 10^{-i}$.
+
+\change
+
+
+Nous allons utiliser la formule suivante
+$\Arctan x = \sum_{k=0}^{+\infty} (-1)^k\frac{x^{2k+1}}{2k+1}$
+
+Autrement dit $\Arctan x= x - \frac{x^3}{3}+ \frac{x^5}{5}-\frac{x^7}{7}+\cdots$
+
+
+\change
+
+Voici votre travail.
+
+Tout d'abord que peut bien valoir $\Arctan 1$ ?
+
+Puis avec les premiers termes de la formule calculez $\Arctan (10^{-i})$
+
+Et en fait vous vous apercevrez qu'assez peu de termes suffisent.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voici comment programmer le calcul de l'arctangente.
+
+\change
+
+C'est la mise en oeuvre directe de cette formule.
+
+Et le paramètre $n$ signifie que l'on ne va pas jusqu'à l'infini mais seulement jusqu'à $k=n$.
+
+On part d'une somme valant zero puis par recurrence 
+on ajoute ou on soustrait le terme $\frac{x^{2k+1}}{2k+1}$.
+
+On teste si $k$ est pair par le reste modulo $2$.
+
+Si $k$ est pair (par exemple ici $k=0$, ici $k=2$) alors on ajoute le terme $\frac{x^{2k+1}}{2k+1}$ .
+
+Si $k$ est impair on le soustrait.
+
+\change
+
+Il faut maintenant justifier que s'arrêter à un certain rang suffit pour notre approximation.
+
+Comme $\tan pi/4 = 1$ alors $\Arctan 1 = \pi/4$.
+
+\change
+
+Donc il nous reste à calculer des arctan avec $x \le 1/10$.
+
+Mais si $x \le 1/10$ alors les termes $x^{2k+1}$ deviennent vite très petits.
+
+\change
+
+Et dès que $k\ge 4$ chaque terme ne contribue pas au $8$ 
+première decimale de notre angle $\arctan x$. 
+
+Il faudrait en fait montrer que la somme de tous ces termes ne contribue pas, 
+je vous laisse l'écrire.
+
+\change
+
+On garde donc seulement les termes jusqu'à $k=3$.
+
+
+Pour $x=1/10$, $1/100$ on obtient alors une bonne approximation de $\arctan x$.
+
+\change
+
+En constate que pour $10^{-4}$ et des valeurs encore plus petites
+alors l'approximation $\arctan x \simeq x$ suffit à donner $8$ chiffres 
+exacts après la virgule.
+
+\change
+
+A partir de cet algorithme on construit une liste "theta" contenant les 
+$\theta_0$, $\theta_1$, $\theta_2$,...
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Le principe pour le calcul de la tangente est le suivant : on connaît un certain nombre d'angles avec leur tangente : les angles $\theta_i$ 
+
+que l'on vient de calculer  avec par définition $\tan \theta_i = 10^{-i}$. 
+
+
+Fixons un angle $a \in [0,\frac\pi2]$.
+
+
+Partant du point $M_0 = (1,0)$, nous allons construire des points $M_1,M_2,\ldots,M_n$
+jusqu'à ce que $M_n$ soit (à peu près) sur la demi-droite correspondant à l'angle $a$.
+
+L'angle pour passer d'un point $M_k$ à $M_{k+1}$ est l'un des angles $\theta_i$.
+
+Si $M_n$ a pour coordonnées $(x_n,y_n)$ alors ce que l'on cherche c'est $\tan a$ qui vaut presque
+$\frac{y_n}{x_n}$.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Détaillons une étape.
+
+\change
+
+On part d'un point $M$ de coordonnées $(x,y)$ 
+
+\change
+
+et on considère la rotation centrée à l'origine et d'angle $\theta$
+
+Cette rotation envoie le point $M(x,y)$ sur le point $N(x',y')$ 
+
+\change
+
+Voici comme on calcule les coordonnées de $N$ en fonction de celle de $M$.
+
+
+$$\begin{pmatrix} x' \\ y' \end{pmatrix}
+= \begin{pmatrix} \cos \theta & - \sin \theta \\ \sin \theta & \cos \theta \end{pmatrix}
+\begin{pmatrix} x \\y \end{pmatrix}$$
+
+
+\change
+
+Ce qui signifie exactement 
+
+$$
+\left\{ \begin{array}{rcl} 
+        x' = x \cos \theta - y \sin \theta \\
+        y' = x \sin \theta + y \cos \theta \\
+        \end{array}
+\right. $$
+
+
+\change
+
+Enfin le point qui sera important pour  nous est le point $M'$.
+
+C'est le point de la demi-droite $[ON)$ tel que les droites $(OM)$ 
+et $(MM')$ soient perpendiculaires en $M$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici votre travail :
+
+
+tout d'abord une partie mathématiques :
+il s'agit de trouver les coordonnées de $M'$ uniquement en fonction 
+des coordonnées $(x,y)$ de $M$.
+
+Tout va reposer sur le fait que la formule fait uniquement intervenir $x,y$ et 
+$\tan \theta$.
+
+La question suivante sert de travail préparatoire :
+on a la liste d'angle fixés les $\theta_i$. Il s'agit d’écrire un petit algorithme
+qui décompose un angle $a$ comme une somme des angles $\theta_i$. Bien sûr on souhaite faire ceci avec un minimum d'angles.
+
+
+Enfin après tous ces préparatifs vous pourrez programmer la fonction tangente.
+La décomposition en somme d'angle donne une suite de points $M_k$ dont on peut calculer les coordonnées.
+
+Ce qui nous interesse c'est le point $M_n$ qui est situé sur la droite 
+qui fait un angle (presque) $a$ avec l'horizontale.
+
+La tangente de $a$ c'est coté opposé sur coté adjacent donc c'est presque $y_n$ divisé par $x_n$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On commence par la deuxième question !
+
+Voici comment décomposer l'angle $a$ en une somme d'angle $\theta_i$.
+
+Il y a donc deux boucles la première boucle tant que l'on n'a pas atteint la précision souhaitée.
+Pour nous c'est obtenir $8$ chiffres exactes après la virgule donc on prend comme précision $10^{-9}$ par exemple.
+
+On commence par retirer l'angle le plus grand possible, c'est l'objet de cette deuxième boucle.
+On cherche l'angle 
+$\theta_i$ le plus grand possible mais qui est quand même plus petit que $a$.
+
+Une fois trouvé on retire $\theta_i$ à l'angle $a$, et on recommence avec notre nouvel angle $a$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Revenons à la première question et aux mathématiques avec le calcul des coordonnées de $M'$.
+
+\change
+
+Dans le triangle rectangle $OMM'$ on a $\cos \theta = \frac{OM}{OM'}$ 
+
+\change
+
+donc $OM' = \frac{OM}{\cos \theta}$.
+ 
+\change 
+ 
+ D'autre part comme la rotation d'angle $\theta$ conserve les distances alors $OM=ON$. 
+ 
+\change
+ 
+Notons $(x'',y'')$ les coordonnées de $M'$.
+
+\change
+
+$N$ a pour coordonnées $(x',y')$. 
+L'égalité  $OM' = \frac{OM}{\cos \theta}$ nous dit que 
+$x''= \frac{1}{\cos \theta} x'$ et 
+    $y''= \frac{1}{\cos \theta} y'$. 
+
+
+Mais $N$ est l'image de $M$ par la rotation d'angle $\theta$.
+
+\change
+
+On a vu comment comment calculer les coordonnées $x'$ 
+
+\change
+et de $y'$ en fonction de $x$ et $y$.
+
+
+Mais on a en plus ici le facteur $1/\cos \theta$,
+
+\change
+
+ce qui fait que $x'' = x - y \tan \theta$
+
+\change
+
+Et $y'' = x \tan \theta + y$.
+
+\change
+
+Et termes de matrices cela signifie que le vecteurs 
+$\begin{pmatrix} x'' \\ y'' \end{pmatrix}$
+
+est le produit du vecteur $\begin{pmatrix} x \\y \end{pmatrix}$
+
+par la matrice $\begin{pmatrix} 1 & - \tan \theta \\ \tan \theta & 1 \end{pmatrix}$
+
+
+Tout l’intérêt de cette écriture et de cette transformation de $M$ à $M'$ c'est que cela ne fait
+intervenir que la tangente de l'angle $\theta$. Pas de sinus, pas de cosinus.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Posons $x_0 = 1$, $y_0=0$ et $M_0=\begin{pmatrix}x_0\\y_0\end{pmatrix}$.
+
+\change
+
+Alors on définit par récurrence 
+ $M_{k+1} = P(\theta_i) \cdot M_k$
+
+\change
+
+où $P(\theta)$ est la matrice $\begin{pmatrix} 1 & - \tan \theta \\ \tan \theta & 1 \end{pmatrix}$.
+
+
+Partant de $M_0$ on itère donc notre transformation.
+
+$M_0$ s'envoie sur $M_1$, puis $M_1$ s'envoie sur $M_2$, etc.
+
+
+\change
+
+Les $\theta_i$ que l'on utilise sont ceux apparaissant 
+dans la décomposition de l'angle en somme de $\theta_i$,
+
+
+que l'on a choisit de sorte que $\tan \theta_i = 10^{-i}$. 
+
+
+\change
+
+Ainsi si l'on passe d'un point $M_k$ à $M_{k+1}$ 
+par un angle $\theta_i$ 
+
+alors les coordonnées du point $M_{k+1}$ s'obtiennent simplement comme :
+
+
+  $$ \left\{ \begin{array}{l} 
+        x_{k+1} = x_k - y_k \cdot 10^{-i} \\
+        y_{k+1} = x_k \cdot 10^{-i}+ y_k \\
+        \end{array}
+\right. $$   
+
+où les $\tan \theta_i$ sont remplacés par $10^{-i}$.
+
+\change
+
+La valeur $\frac{y_n}{x_n}$ est la tangente de la somme des angles 
+$\theta_i$, 
+
+\change
+
+donc une approximation de $\tan a$.
+  
+  
+  Notez que chacune des itérations ne nécessite quasiment que des additions
+  et peu se faire sans probleme à la main car une multiplication par $10^{-i}$ 
+ c'est juste un décalage de la virgule vers la gauche de $i$ chiffres.
+ 
+ C'est ce qui fait la facilité avec laquelle s'éxecute cet algorithme
+ que l'on trouve dans les calculatrices.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici le code pour le calcul de tangente :
+
+$a$ est le paramètre de notre fonction dont on veut calculer la tangente.
+
+On initialise la precision,
+et on part du $M_0$ de coordonnées $(1,0)$.
+
+\change
+
+Ensuite on refait notre boucle qui décompose l'angle $a$
+en somme des $\theta_i$.
+
+\change
+
+Désormais à chaque fois que l'on trouve qu'il faut ajouter un angle $\theta_i$ 
+
+on calcule aussi les coordonnées du nouveau point (disons $M_{k+1}$) en fonction
+des coordonnées du point précédents $M_k$.
+
+\change
+
+Maintenant on repart du point $M_{k+1}$ et on itère.
+
+Notre boucle s'arrête lorsque l'on trouve un point $M_n$ 
+qui forme un angle presque $a$ avec l'horizontale.
+
+Ici $a$ est une variable qui change : à chaque fois on retire à $a$ les $\theta_i$, 
+on s'arrête lorsque l'angle $a$ est inférieure à la précision.
+
+\change
+
+A la fin on retourne $y/x$ qui correspond à l'approximation de la tangente 
+de notre angle $a$ initial.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Une fois que l'on sait calculer la tangente d'un angle il n'est pas dur d'en déduire
+le sinus et le cosinus.
+
+A vous de jouer !
+
+[pause]
+
+
+\change
+
+Voici les formules $\cos x = \frac{1}{\sqrt{1+\tan^2 x}}$
+
+\change
+
+$\sin x = \frac{\tan x}{\sqrt{1+\tan^2 x}}$
+
+\change 
+
+ces formules sont valables seulement pour $x$ est compris entre $0$ et $\frac \pi2$
+
+\change
+
+
+La preuve est simple. On sait que $\cos^2+\sin^2 x = 1$
+
+\change
+
+donc en divisant par $\cos^2 x$ on trouve 
+$1+\tan^2 x = \frac{1}{\cos^2 x}$
+
+\change
+
+Comme $x$ est compris entre $0$ et $\frac \pi2$ alors
+$\cos x$ est positif donc
+
+on trouve $\cos x = \frac{1}{\sqrt{1+\tan^2 x}}$.
+
+Donc une fois que l'on a calculé $\tan x$ on en déduit $\sin x$ et $\cos x$ par un calcul de racine carrée.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour poursuivre votre travail voici quelques exercices.
+
+
+\end{document}

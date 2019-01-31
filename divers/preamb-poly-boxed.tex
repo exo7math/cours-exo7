@@ -1,0 +1,393 @@
+%%%%%%%%%%%%%%%%%% PREAMBULE %%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt]{article}
+
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+\usepackage{fancybox}
+\usepackage{graphicx}
+
+\usepackage{float}
+
+\usepackage[usenames, x11names]{xcolor}
+\usepackage{tikz}
+\usepackage{datetime}
+%\usepackage{mathptmx}
+\usepackage{newcent}
+\usepackage[mathcal,mathbf]{euler}
+
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue,
+pdftitle={Exo7 - Exercices de mathématiques}, pdfauthor={Exo7}}
+
+
+% section
+\usepackage{sectsty}
+%\allsectionsfont{\color{blue}\itshape\underline}
+\sectionfont{\color{Tomato3}\upshape\selectfont}
+\subsectionfont{\color{Tomato4}\upshape\selectfont}
+
+%----- Ensembles : entiers, reels, complexes -----
+\newcommand{\Nn}{\mathbb{N}} \newcommand{\N}{\mathbb{N}}
+\newcommand{\Zz}{\mathbb{Z}} \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Qq}{\mathbb{Q}} \newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Rr}{\mathbb{R}} \newcommand{\R}{\mathbb{R}}
+\newcommand{\Cc}{\mathbb{C}} \newcommand{\C}{\mathbb{C}}
+\newcommand{\Kk}{\mathbb{K}} \newcommand{\K}{\mathbb{K}}
+
+%----- Modifications de symboles -----
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\Re}{\mathop{\text{Re}}\nolimits}
+\renewcommand{\Im}{\mathop{\text{Im}}\nolimits}
+\newcommand{\llbracket}{\left[\kern-0.15em\left[}
+\newcommand{\rrbracket}{\right]\kern-0.15em\right]}
+
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\leq}{\leqslant}
+
+%----- Fonctions usuelles -----
+\newcommand{\ch}{\mathop{\mathrm{ch}}\nolimits}
+\newcommand{\sh}{\mathop{\mathrm{sh}}\nolimits}
+\renewcommand{\tanh}{\mathop{\mathrm{th}}\nolimits}
+\newcommand{\cotan}{\mathop{\mathrm{cotan}}\nolimits}
+\newcommand{\Arcsin}{\mathop{\mathrm{Arcsin}}\nolimits}
+\newcommand{\Arccos}{\mathop{\mathrm{Arccos}}\nolimits}
+\newcommand{\Arctan}{\mathop{\mathrm{Arctan}}\nolimits}
+\newcommand{\Argsh}{\mathop{\mathrm{Argsh}}\nolimits}
+\newcommand{\Argch}{\mathop{\mathrm{Argch}}\nolimits}
+\newcommand{\Argth}{\mathop{\mathrm{Argth}}\nolimits}
+\newcommand{\pgcd}{\mathop{\mathrm{pgcd}}\nolimits} 
+
+%----- Structure des exercices ------
+
+\newtheoremstyle{styleexo}% name
+{2ex}% Space above
+{3ex}% Space below
+{}% Body font
+{}% Indent amount 1
+{\bfseries} % Theorem head font
+{}% Punctuation after theorem head
+{\newline}% Space after theorem head 2
+{}% Theorem head spec (can be left empty, meaning ‘normal’)
+
+\theoremstyle{styleexo}
+\newtheorem{exo}{Exercice}
+\newtheorem{ind}{Indications}
+\newtheorem{cor}{Correction}
+
+
+\newcommand{\exercice}[1]{} \newcommand{\finexercice}{}
+%\newcommand{\exercice}[1]{{\tiny\texttt{#1}}\vspace{-2ex}} % pour afficher le numero absolu, l'auteur...
+\newcommand{\enonce}{\begin{exo}} \newcommand{\finenonce}{\end{exo}}
+\newcommand{\indication}{\begin{ind}} \newcommand{\finindication}{\end{ind}}
+\newcommand{\correction}{\begin{cor}} \newcommand{\fincorrection}{\end{cor}}
+
+\newcommand{\noindication}{\stepcounter{ind}}
+\newcommand{\nocorrection}{\stepcounter{cor}}
+
+\newcommand{\fiche}[1]{} \newcommand{\finfiche}{}
+\newcommand{\titre}[1]{\centerline{\large \bf #1}}
+\newcommand{\addcommand}[1]{}
+\newcommand{\video}[1]{}
+
+% Marge
+\newcommand{\mymargin}[1]{\marginpar{{\small #1}}}
+
+
+
+%----- Presentation ------
+\setlength{\parindent}{0cm}
+
+\definecolor{myred}{rgb}{0.93,0.26,0}
+\definecolor{myorange}{rgb}{0.97,0.58,0}
+\definecolor{myyellow}{rgb}{1,0.86,0}
+
+\newcommand{\LogoExoSept}[1]{  % input : echelle
+{\usefont{U}{cmss}{bx}{n}
+\begin{tikzpicture}[scale=0.1*#1,transform shape]
+  \fill[color=myorange] (0,0)--(4,0)--(4,-4)--(0,-4)--cycle;
+  \fill[color=myred] (0,0)--(0,3)--(-3,3)--(-3,0)--cycle;
+  \fill[color=myyellow] (4,0)--(7,4)--(3,7)--(0,3)--cycle;
+  \node[scale=5] at (3.5,3.5) {Exo7};
+\end{tikzpicture}}
+}
+
+% \newcommand{\ExoSept}{\href{http://exo7.emath.fr}{\textbf{\textsf{Exo7}}}}
+% \newcommand{\LogoExoSept}{\setlength{\unitlength}{0.6em}
+% \begin{picture}(0,0) \thicklines  \put(0,4){\line(0,1){3}}   \put(0,7){\line(1,0){3}}
+%   \put(3,7){\line(0,-1){7}}  \put(0,4){\line(1,0){7}}   \put(3,0){\line(1,0){4}}
+%   \put(7,0){\line(0,1){4}}   \put(3,7){\line(4,-3){4}}  \put(7,4){\line(3,4){3}}
+%   \put(10,8){\line(-4,3){4}} \put(3,7){\line(3,4){3}}   \put(4.6,6.8){\mbox{\ExoSept}}
+% \end{picture}}
+
+
+\newcommand{\montitre}[1]{
+ \vspace*{-4ex}
+\LogoExoSept{3} \vspace*{-2ex}
+
+%\hfill\texttt{\color{Wheat4}Math47 -- Université Lille 1} \\ 
+\hfill\texttt{\color{Wheat4}le \today\ à \currenttime} \\ 
+\vspace*{0.0ex}
+{\color{Red3}
+{\hrule height 3pt}\vspace*{1.8ex} 
+\hfil\textsf{\textbf{\Large {#1}}}
+\vspace*{2ex}
+{\hrule height 3pt} 
+}
+\vspace*{2ex} 
+% {\marginpar
+% {\hfill
+% \begin{minipage}{7cm}
+% \color{darkgray}
+{\footnotesize % \renewcommand{\contentsname}{\small Sommaire}
+\renewcommand{\contentsname}{}
+\tableofcontents
+}
+\vspace*{2ex}
+% \end{minipage}}
+%}
+} 
+
+%----- Commandes supplementaires ------
+
+% \usepackage[landscape]{geometry}
+% \geometry{top=1cm, bottom=3cm, left=2cm, right=10cm, marginparsep=1cm
+% }
+\usepackage[a4paper]{geometry}
+\geometry{top=2cm, bottom=2cm, left=2cm, right=2cm, marginparsep=1cm}
+
+%\usepackage{standalone}
+
+\usepackage{fancybox}
+\setlength{\fboxsep}{7pt}
+\newcommand{\mabox}{\shadowbox}
+
+
+% Commande tikz
+\usetikzlibrary{calc}
+
+
+%--- personnalisation theoremes ---%
+
+%--- tentative de personnalisation pour les theoremes, definitions, etc.
+%\makeatletter
+%\newtheoremstyle{propthm}{\topsep}{\topsep}{\itshape}{}{\bfseries}{}{\newline}{%
+%
+%\hspace{-0.75em}%
+%\begin{tikzpicture}
+%%\fill[myred] (0pt,-0.5pt) rectangle (0.25\linewidth,0.5pt);
+%%\fill[myred] (0,0) rectangle (1pt,-2.5em);
+%\draw[myred,very thick,rounded corners] (0,-2.5em) -- (0,0) -- (0.25\linewidth,0);
+%%\fill[myred] (\linewidth+10pt,-0.5pt) rectangle (\linewidth+10pt-0.25\linewidth,0.5pt);
+%%\fill[myred] (\linewidth+10pt,0) rectangle (\linewidth+10pt-1pt,-2.5em);
+%\node[inner sep=0em,outer sep=0pt,right,fill=white] at (0.75em,0em) {
+%\thmname{#1}\thmnumber{ #2}\@ifnotempty{#3}{ (\thmnote{#3})}.
+%};
+%\end{tikzpicture}
+%\vspace{-2.em}
+%}
+%
+%\newtheoremstyle{definit}{\topsep}{\topsep}{\itshape}{}{\bfseries}{}{\newline}{%
+%\hspace{-0.75em}%
+%\begin{tikzpicture}
+%%\fill[myred] (0pt,-0.5pt) rectangle (0.25\linewidth,0.5pt);
+%%\fill[myred] (0,0) rectangle (1pt,-2.5em);
+%\draw[myorange,very thick,rounded corners] (0,-2.5em) -- (0,0) -- (2.0em,0);
+%%\fill[myred] (\linewidth+10pt,-0.5pt) rectangle (\linewidth+10pt-0.25\linewidth,0.5pt);
+%%\fill[myred] (\linewidth+10pt,0) rectangle (\linewidth+10pt-1pt,-2.5em);
+%\node[inner sep=0em,outer sep=0pt,right,fill=white] at (0.75em,0em) {
+%\thmname{#1}\thmnumber{ #2}\@ifnotempty{#3}{ (\thmnote{#3})}.
+%};
+%\end{tikzpicture}
+%\vspace{-2.em}
+%}
+%\makeatother
+
+
+\theoremstyle{propthm}
+%\newtheorem{proposition}{Proposition}
+%\newtheorem{theoreme}{Théorème}
+
+\theoremstyle{definit}
+%\newtheorem{definition}{Définition}
+%\newtheorem{corollaire}{Corollaire}
+
+\theoremstyle{definition}
+\newtheorem{exemple}{Exemple}
+\newtheorem{lemme}{Lemme}
+\newtheorem*{remarque*}{Remarque}
+
+
+
+
+%--- personnalisation des theoremes avec boites arrondies colorees
+%--- demande deux compilations
+
+\makeatletter
+
+\tikzstyle{every picture}+=[remember picture]
+
+
+\newcounter{numdef}	% definition du compteur
+\setcounter{numdef}{0}	% attribution de la valeur 0 au compteur
+
+\newenvironment{definition}[1][]{%
+\refstepcounter{numdef}	% +1 au compteur
+\vskip\baselineskip		% nouvelle ligne avant de debuter l'environnement
+% on place un node en haut a gauche de la boite, et l'intitule de la boite
+\begin{tikzpicture}[remember picture]
+\coordinate (n1);
+\node[below right,inner sep=0] at (n1)
+	{\textbf{D\'efinition \thenumdef\@ifnotempty{#1}{ (#1)}.} };
+\end{tikzpicture}
+}{%
+\vskip\baselineskip		% nouvelle ligne pour placer le second coin de la boite
+\hfill					% tout a droite !
+% on place le node en bas a droite et on trace enfin le rectangle (avec la bonne position des la seconde compilation)
+\begin{tikzpicture}[remember picture,overlay]
+\coordinate (n2);
+\draw[myorange,rounded corners,very thick]
+	($(n1)+(-0.5em,0.5em)$) rectangle ($(n2)+(1em,1.5em)$);
+\end{tikzpicture}
+\par
+}
+
+
+
+\newcounter{numthm}
+\setcounter{numthm}{0}
+
+\newenvironment{theoreme}[1][]{%
+\refstepcounter{numthm}%
+\vskip\baselineskip
+\begin{tikzpicture}[remember picture]
+\coordinate (n1) {};
+\node[below right,inner sep=0] at (n1)
+	{\textbf{Th\'eor\`eme \thenumthm\@ifnotempty{#1}{ (#1)}.} };
+\end{tikzpicture}
+\newline
+}{%
+\vskip\baselineskip\hfill
+\begin{tikzpicture}[remember picture,overlay]
+\coordinate (n2) {};
+\draw[myred,rounded corners,very thick]
+	($(n1)+(-0.5em,0.5em)$) rectangle ($(n2)+(1em,1.5em)$);
+\end{tikzpicture}
+}
+
+
+\newcounter{numprop}
+\setcounter{numprop}{0}
+
+\newenvironment{proposition}[1][]{%
+\refstepcounter{numprop}%
+\vskip\baselineskip
+\begin{tikzpicture}[remember picture]
+\coordinate (n1) {};
+\node[below right,inner sep=0] at (n1)
+	{\textbf{Proposition \thenumprop\@ifnotempty{#1}{ (#1)}.} };
+\end{tikzpicture}
+\newline
+}{%
+\vskip\baselineskip\hfill
+\begin{tikzpicture}[remember picture,overlay]
+\coordinate (n2) {};
+\draw[myred,rounded corners,very thick]
+	($(n1)+(-0.5em,0.5em)$) rectangle ($(n2)+(1em,1.5em)$);
+\end{tikzpicture}
+}
+
+\newcounter{numcor}
+\setcounter{numcor}{0}
+
+\newenvironment{corollaire}[1][]{%
+\refstepcounter{numcor}%
+\vskip\baselineskip
+\begin{tikzpicture}[remember picture]
+\coordinate (n1) {};
+\node[below right,inner sep=0] at (n1)
+	{\textbf{Corollaire \thenumcor\@ifnotempty{#1}{ (#1)}.} };
+\end{tikzpicture}
+\newline
+}{%
+\vskip\baselineskip\hfill
+\begin{tikzpicture}[remember picture,overlay]
+\coordinate (n2) {};
+\draw[myorange,rounded corners,very thick]
+	($(n1)+(-0.5em,0.5em)$) rectangle ($(n2)+(1em,1.5em)$);
+\end{tikzpicture}
+}
+
+
+\makeatother
+
+
+
+
+
+
+
+%----- Commandes geometrie ------
+
+\newcommand{\droite}[1]{(#1)}
+\newcommand{\segment}[1]{[#1]}
+\newcommand{\aire}[1]{\mathcal{A}(#1)}
+\newcommand{\milieu}[1]{\mathop{\mathrm{mil}}[#1]}
+\newcommand{\cercle}{\mathcal{C}}
+\newcommand{\plan}{\mathcal{P}}
+\newcommand{\arc}[1]{\overset{\frown}{#1}}
+
+%----- Commandes geometrie ------
+
+%\nom{le prénom}{le nom}
+\newcommand{\nom}[2]{\textsc{#1 #2}}
+
+% \triangle, \angle
+
+%----- Commandes ifs ------
+\newcommand{\myvec}[2]{\begin{pmatrix}#1 \\ #2\end{pmatrix}}
+
+
+%definition d'un terme
+\newcommand{\defi}[1]{{\color{myorange}\textbf{\emph{#1}}}}
+\newcommand{\evidence}[1]{{\color{blue}\textbf{\emph{#1}}}}
+
+%\renewcommand{\contentsname}{Sommaire}
+\renewcommand{\contentsname}{}
+\setcounter{tocdepth}{2}
+
+ %----- Commandes divers ------
+
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\pause}{}
+\newcommand{\Ker}{\mathop{\text{Ker}}\nolimits}
+\newcommand{\id}{\mathop{\text{id}}\nolimits}
+\newcommand{\Card}{\mathop{\text{Card}}\nolimits}
+
+%------ Figures ------
+
+\def\myscale{1} % par défaut 
+\newcommand{\myfigure}[2]{  % entrée : echelle, fichier figure
+\def\myscale{#1}
+\begin{center}
+\footnotesize
+{#2}
+\end{center}}
+
+%------ Encadrement ------
+\newcommand{\mybox}[1]{
+\begin{center}
+\shadowbox{#1}
+\end{center}}
+
+\newcommand{\myboxinline}[1]{
+\raisebox{-2ex}{
+\shadowbox{#1}
+}
+}

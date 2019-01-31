@@ -1,0 +1,448 @@
+
+\input{../preamb-texte.tex}
+
+\newcommand{\codeinline}[1]{\texttt{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+Notre but dans cette série de leçons est double :
+
+le but principal est de présenter des algorithmes en lien avec les mathématiques.
+
+Le second but est d'en profiter pour apprendre les bases du langage Python,
+
+c'est un langage moderne, de prise en main facile et pourtant très puissant.
+
+
+\change
+
+Dans cette première leçon on commence par vérifier si tout fonctionne.
+
+\change
+
+Puis on fait quelques calculs
+
+\change
+
+On introduira les boucles (\codeinline{pour} et \codeinline{tant que}),
+le test \codeinline{si ... sinon ...} et les fonctions.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour commencer testons si tout fonctionne!
+
+Démarrez Python et faites les opération élémentaires suivantes.
+
+Faites maintenant une pause sur cette vidéo et continuer lorsque 
+vous avez fini ce tp.
+
+[[temps de pause]]
+
+\change
+
+Lorsque l'on démarre Python,
+on obtient une invite de commande symbolisée par
+trois signes ``superieur''.
+
+Pour définir une variable et y affecter une valeur on 
+tape juste "a=3" puis "Entrée".
+
+\change
+
+Même chose avec "b=6".
+
+
+\change
+
+Et on définit la variable somme qui est a+b.
+
+\change
+
+Pour voir si Python sait calculer il suffit d'afficher la valeur de "somme".
+
+\change
+
+Cela affiche bien $9$ !
+
+
+\change
+
+Il est plus agréable d'afficher le résultat avec une petit phrase.
+
+\change
+
+\change
+
+
+Et on fait la même chose pour le produit.
+
+
+\change
+
+\change
+
+
+Dans la suite on omettra les symboles \codeinline{>>>}. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Maintenant que tout est en place allons y pour un deuxième exercice.
+
+Dans ce  tp on s’intéresse à la somme des cubes $1^3+2^3+3^3+ \cdots + n^3$.
+
+Il faut calculer la somme des cubes.
+
+Mettre ce calcul sous la forme d'une fonction.
+
+Et comparer le resultat avec le carré de la somme des entiers.
+
+Programmez ces questions avant de passer à la suite.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voici ce que l'on fait pour calculer $S_n$ avec par exemple $n = 10$. 
+
+On affecte d'abord la valeur $0$ à une variable \codeinline{somme}
+
+cela correspond à l'initialisation $S_0=0$
+
+Puis nous avons défini une boucle
+avec l'instruction "pour" qui fait varier $i$ entre $1$ et $n$.
+
+Nous calculons successivement $S_1$, $S_2$,\ldots 
+en utilisant la formule de récurrence
+$S_{i}= S_{i-1}+i^3$. 
+
+Comme nous n'avons pas besoin de conserver toutes les valeurs des $S_i$ alors on garde
+le même nom pour toutes les sommes, à chaque étape on affecte à 
+\codeinline{somme} l'ancienne valeur de la somme plus $i^3$ :
+
+\codeinline{somme = somme + i*i*i}.
+
+Lorsque la boucle est finie, c'est-à-dire une fois que l'on a fait l'étape avec $i=n$,
+
+alors on affiche le résultat.
+
+\change
+
+On nous demande aussi de définir une fonction qui calcule la somme des
+$n$ premiers entiers.
+
+\change
+
+On peut faire une boucle comme précédemment mais on connait aussi une formule directe
+pour cette somme.
+
+\change
+
+C'est très simple d'écrire une fonction avec Python.
+
+Ici nous définissons une fonction que l'on appelle "somme-entiers",
+
+elle prend en entrée la variable n.
+
+Et retourne comme resultat $n(n+1)/2$.
+
+
+Donc si on exécute "somme-entiers(10)" cela renvoie $10*11/2$ donc $55$.
+
+Avec Python les espaces en début de ligne sont importants, ce sont eux qui déterminent le début 
+et la fin d'un bloc d'instructions ou d'une fonction.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Revenons sur ce que nous avons appris jusque là.
+
+On affecte une valeur à une variable à l'aide du symbole "égal".
+
+
+\change
+
+On affiche un message avec la fonction \codeinline{print()}.
+    
+\change
+
+On regroupe nos bouts de code dans des fonctions ce qui permet de les ré-utiliser.
+
+Une \evidence{fonction} en informatique est similaire à une fonction mathématique, 
+c'est un objet qui prend en entrée des variables 
+(dites variables formelles ou variables muettes, pour nous c'était l'entier $n$)
+
+\change
+
+et retourne une valeur 
+(un entier, une liste, une chaîne de caractères,... ici c'était 
+$\frac{n(n+1)}{2}$).
+
+\change
+
+Pour parcourir tous les entiers de $1$ à $n$ il faut utiliser la commande 
+
+\codeinline{range(1,n+1)}
+C'est bien les entiers \textbf{strictement inférieurs à} $n+1$.
+
+\change
+
+La raison est que l'appel le plus fréquent est la commande 
+\codeinline{range(n)} qui elle 
+désigne les entiers de $0$ à $n-1$ mais qui contient bien $n$ éléments.
+ 
+\change
+
+ Enfin en Python  (contrairement aux autres langages) 
+ c'est l'indentation (les espaces en début de chaque ligne)
+ qui détermine les blocs d'instructions. 
+  
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous reformulons notre calcul de la somme des cubes et l'insérons dans une fonction.
+
+En entrée on a la variable n.
+
+Nous effectuons la même boucle qu'auparavant.
+
+Et on renvoie comme résultat la somme obtenue.
+
+Notez le premier décalage pour signifier que toutes 
+ses instructions sont des instructions de la fonction.
+
+Et pour les sous-instructions de la boucle on redécale 
+la ou les lignes correspondantes.
+
+Il faut donc être très soigneux dans la présentation du code.
+
+Notez que pour le $i$ au cube on utilise ici l'instruction $i * * 3$.
+
+
+\change
+
+Maintenant on souhaite comparer la somme des cubes avec le carré de la somme des entiers.
+
+Par exemple choisissons $n=12$.
+
+On effectue le test suivant à l'aide de l'instruction "si ... alors", "sinon alors".
+
+Ici on teste si la somme des cubes est égale la somme des entiers au carré.
+
+Si c'est vrai  alors on affiche le message "oui c'est vrai",
+
+si on n'a pas égalité alors on affiche que "c'est faux".
+
+Je vous laisse tester différentes valeurs de $n$ et vérifier ce qui s'affiche !
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Encore un petit résumé :
+
+Les puissances se calculent aussi avec \codeinline{**} : $5^2$ s'écrit \codeinline{5*5} ou \codeinline{5**2},
+  $5^3$ s'écrit \codeinline{5*5*5} ou \codeinline{5**3},...
+
+\change
+
+Nous avons défini une \evidence{boucle}
+avec l'instruction \evidence{\codeinline{for}} qui fait varier un indice 
+
+ici $i$ variait de  $1$ et $n$.
+
+\change
+
+Le test "si alors", "sinon alors" exécute le premier 
+  bloc d'instructions si la condition est vraie ; 
+   si la condition est fausse cela exécute l'autre bloc.
+  
+\change
+
+Voic des exemples de conditions mathématiques :
+  \begin{itemize}
+     \item $a<b$,
+     \item $a \le b$,
+     \item le test d'égalité : $a=b$,
+     \item le test de différence : $a \neq b$.
+  \end{itemize}   
+  
+  
+\change
+
+Attention ! Il est important de comprendre que \evidence{\codeinline{a==b}} 
+vaut soit vraie ou faux (on compare $a$ et $b$)
+
+\change
+
+  alors qu'avec \evidence{\codeinline{a=b}} on affecte dans $a$ la valeur de $b$. 
+  
+  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Nous allons voir qu'il est possible de calculer les premières 
+décimales de $\pi$ par la méthode de Monte-Carlo, 
+c'est à dire avec l'aide du hasard.
+On considère le carré de coté $1$, le cercle de rayon $1$ 
+centré à l'origine, d'équation $x^2+y^2=1$,
+et la portion de disque dans le carré.
+
+A l'aide de ces questions vous allez calculer les premières 
+décimales de $\pi$.
+
+Je vous laisse lire et travailler !
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+[[on repart du tp]]
+Un petit calcul prouve que l'aire de la portion de disque est 
+$\frac{\pi}{4}$, l'aire du carré est $1$. 
+  Donc la probabilité de tomber dans le disque est $\frac{\pi}{4}$.
+
+[[on passe au code]]
+  
+\change
+
+Découvrons le code :
+
+on importe d'abord le module qui gère les tirages de nombres au hasard.
+
+\change
+
+On définit deux variables, l'une qui compte le nb de tir.
+
+Et la deuxième qui compte seulement le nb de tir au but, qui arrivent dans la portion de disque.
+
+Au depart elles valent toutes deux $0$.
+
+\change
+
+Puis voici la boucle, 
+
+cette boucle "tant que" est répétée tant que la condition est vraie,
+
+c-a-d ici tant que "Tir < 1000".
+
+
+On commence par incrémenter le numéro du tir.
+
+A chaque itération on tire une abscisse $x$ au hasard. 
+
+Et une ordonnée $y$.
+
+On utilise une fonction \codeinline{random()} du module "random" 
+qui renvoie au hasard un nombre réel de l'intervalle $[0,1[$.
+
+
+On a donc obtenu un point de coordonnées $(x,y)$ dans le carré.
+
+On teste si on est ou pas dans la portion de disque 
+à l'aide de l'inégalité $x^2+y^2 \le 1$.
+
+Je vous rappelle que $x^2+y^2=1$ est l'équation de notre cercle.
+ 
+Si on est dans le cercle alors on incrémente 
+le compteur qui compte le nb de tir dans le disque.
+
+
+\change
+
+On continue 
+  jusqu'à ce que l'on atteigne $999$. Pour \codeinline{Tir}$=1000$ la condition
+  n'est plus vraie et le bloc d'instructions du \codeinline{while} n'est pas exécuté. 
+  
+  On passe aux instructions suivantes
+  pour afficher le résultat.
+  
+  La probabilité d'atteindre le disque est approché par le nombre de tir dans le disque divisé par le nombre de tir total.
+  
+  Comme la probabilité est $\pi/4$ on affiche $4*$ la probabilité pour obtenir une estimation de $\pi$.
+
+Cette méthode n'est pas très efficace, 
+il faut énormément de tirs pour obtenir les deux premières décimales de $\pi$.
+  
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+  
+ Voyons ce que nous avons appris de nouveau.
+ 
+ Nous avons découvert un nouveau type de boucle : 
+ la boucle est \evidence{\codeinline{while condition: ...}} Tant que la condition est vérifiée 
+  les instructions de la boucle sont exécutées.
+ 
+ 
+Une fois que la condition n'est plus vérifiée on passe aux instructions d'après.
+
+  \change
+  
+ La fonction \codeinline{random()} renvoie un nombre réel au hasard 
+ de l'intervalle $[0,1[$.   
+ 
+ Bien sûr à chaque appel de la fonction \codeinline{random()} 
+ le nombre obtenu est différent !
+
+  \change
+  
+Cette fonction n'est pas connue par défaut de Python, 
+il faut lui indiquer le nom du \evidence{module} où elle se trouve.
+
+
+  En début de fichier on ajoute \codeinline{import random} pour le module 
+  qui gère les tirages au hasard. 
+  
+  Et pour indiquer 
+  qu'une fonction vient d'un module il faut l’appeler par \codeinline{module.fonction()} donc ici \codeinline{random.random()}
+  (module et fonction portent ici le même nom !).
+  
+
+  \change
+  
+Lorsque qu'une ligne contient un dièse, 
+tout ce qui suit est ignoré. Cela permet
+  d'insérer des commentaires, ce qui est essentiel pour relire le code.
+  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+J’espère que vous êtes maintenant motivé pour vous lancer dans la programmation.
+
+La pratique est évidemment indispensable, il faut surmonter les difficultés techniques,
+
+les erreurs de syntaxe,...
+
+Vous trouverez de l'aide et des tutoriels partout sur internet.
+
+Vous pourrez ainsi faire des petits programmes pour répondre à ces questions.
+
+
+Ce travail en vaut la peine car une fois que vous connaissez vraiment 
+un langage il n'est pas très difficile de programmer dans un autre.
+
+
+\end{document}

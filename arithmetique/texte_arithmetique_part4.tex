@@ -1,0 +1,598 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+\change
+
+Dans cette leçon nous allons définir la notion de congruence
+et apprendre à calculer modulo $n$.
+
+\change
+
+Nous résoudrons ensuite les équations du type $ax \equiv b \pmod n$
+
+\change
+
+Nous terminerons par le petit théorème de Fermat et ses applications.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+
+Fixons un entier $n\ge 2$ et deux entiers $a,b$.
+
+
+On dit que $a$ est congru à $b$ modulo $n$ si $n$ divise $b-a$
+
+\change
+
+On note alors 
+$$a \equiv b \pmod n$$ 
+
+\change
+
+Une autre formulation est de dire que 
+
+$a \equiv b \pmod n \quad \iff \quad \exists k \in \Zz \quad a = b +kn$
+
+\change
+Quelque exemples avec $n=7$.
+
+$15 \equiv 1 \pmod 7$, car $15 -1 = 14$ est un multiple de $7$. 
+
+\change
+
+$72 \equiv 2 \pmod {7}$, car $72-2 = 70$ qui est un multiple de $7$.
+
+
+\change
+
+Enfin
+
+$3 \equiv -11 \pmod{7}$
+
+Car $3 - (-11) = 14$.
+
+\change
+
+Voici aussi quelques remarques :
+
+tout d'abord 
+
+$a\equiv 0 \pmod n$
+
+équivaut à $a=0+kn$ qui équivaut à $n \text{ divise } a$
+
+\change
+
+D'autres notations sont utilisées
+
+$a$ égal $b \pmod n$ \quad  ou bien  \quad  $a \equiv b$ crochets $[n]$
+
+\change 
+
+La division euclidienne permet de trouver un ``bon'' représentant 
+de $a$ modulo $n$.
+
+En effet si $a=bn+r$ alors $a\equiv r \pmod n$,
+et l'on sait que le reste est un entier positif strictement inférieur à $n$.
+
+Tout entier $a$ est donc congru à un entier compris entre $0$ et $n-1$.
+
+\change
+
+Enfin la relation congru modulo $n$ vérifie les trois points suivants qui en font une relation d'équivalence :
+
+\change
+
+1. $a \equiv a \pmod n$
+
+\change
+
+2. si $a \equiv b \pmod n$ alors $b \equiv a \pmod n$
+
+\change
+
+3. si $a \equiv b \pmod n$ et $b \equiv c \pmod n$ alors $a \equiv c \pmod n$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Continuons avec des propriétés qui faciliteront les calculs.
+
+
+On part de deux entiers $a,b$ avec  $a \equiv b \pmod n$ et 
+deux entiers $c,d$ avec $c \equiv d \pmod n$
+
+
+\change
+
+ $a+c \equiv b+d \pmod n$
+
+\change
+
+ $a\times c \equiv b \times d \pmod n$
+
+\change
+
+et aussi 
+
+ $a^k \equiv b^k \pmod n$ (pour tout entier $k$)
+
+\change
+
+Cela nous permet par exemple d'affirmer que 
+
+$5x+8 \equiv 3 \pmod 5$ \quad quelque soit l'entier $x$.
+
+En effet 
+
+$8$ est congru à $3$ modulo $5$
+
+et $5$ est congru à $0$ modulo $5$
+donc $5 \times x$ vaut aussi $0$ modulo $5$.
+
+Par addition $5x+8$ est congru à $3$ !
+
+
+\change
+
+  $11$ est congru à $1$ modulo $10$ donc par le troisième
+point pour n'importe quel exposant $k$ $11^k$ est congru 
+à $1^k$ donc à $1$ modulo $10$.
+
+\change
+
+Montrons le point 2. de la proposition.
+
+c'est-à-dire que si $a \equiv b \pmod n$ et $c \equiv d \pmod n$ alors $a\times c \equiv b \times d \pmod n$
+
+\change
+
+Tout d'abord  $a \equiv b \pmod n$ signifie qu'il existe $k \in \Zz$ tel que $a=b + kn$ 
+
+\change
+
+et de même $c \equiv d \pmod n$ donc il existe $\ell \in \Zz$ tel que $c \equiv d + \ell n$
+
+\change
+
+Calculons le produit $a\times c$ :
+
+$a\times c = (b+kn)\times(d+\ell n)$
+
+$ = bd + (b \ell + d k + k\ell n)n = bd + mn$
+
+$ac$ est donc égal à $bd$ plus un multiple de $n$
+
+\change
+
+C'est exactement dire que $ac \equiv bd \pmod n$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous pouvons montrer le critère de divisibilité par $9$ que vous 
+connaissez depuis longtemps.
+
+\change
+
+Je rappelle qu'un nombre est divisible par $9$
+
+si et seulement si la somme de ses chiffres est divisible par $9$.
+
+\change
+
+La divisibilité par $9$ équivaut à ce que $N$ soit congru à $0$ modulo $9$.
+
+\change
+
+Calculons les puissances de $10$ :
+
+ $10 \equiv 1 \pmod 9$, car $10-1$ est un mulitple de $9$,
+
+\change
+
+$100$ est aussi congru à $1$ modulo $9$, car
+par exemple $100-1=99$ est un muliple de $9$,
+
+un autre argument est que $100=10^2$ et que l'on vient de calculer $10$ modulo $9$ donc $100 \equiv 1^2 \pmod 9$.
+
+\change
+
+Ainsi de suite, $10^k \equiv 1 \pmod 9$.
+
+\change
+
+Revenons à notre entier $N$ et écrivons-le en base $10$ 
+
+$N = \underline{a_k \cdots a_2 a_1 a_0}$
+
+$a_0$ est le chiffre des unités, $a_1$ celui des dizaines, $a_2$ celui des centaines, etc.
+
+\change
+
+Cela se traduit par l'égalité 
+$N =  a_0 + 10 a_1 + 10^2 a_2 + \cdots 10^k a_k$.
+
+\change
+
+Passons aux calculs modulo $9$.
+
+
+$N = 10^k a_k + \cdots + 10^2 a_2 + 10^1 a_1 + a_0$
+
+Donc 
+$ N \equiv  a_k + \cdots + a_2 + a_1 + a_0 \pmod 9 $
+
+Car chacun des $10^k \equiv 1 \pmod 9$.
+
+
+\change
+
+Maintenant on a bien $N \equiv 0 \pmod 9$ $\iff$ la somme des chiffres vaut $0$ modulo $9$
+
+\change
+
+(pause)
+
+Pour illustrer, montrons que 
+
+$N = 488\, 889$ est divisible par $9$.
+
+\change
+
+On décompose $N$ avec des puissances de $10$
+
+\change
+
+On réduit modulo $9$, seul les chiffres restes
+
+\change
+
+La somme vaut $45$
+
+\change
+
+On recalcule la somme des chiffres de $45$
+
+qui vaut $9$
+
+\change
+
+qui vaut aussi $0$ modulo $9$.
+
+Ainsi ce $N$ est bien un multiple de $9$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+[2 prises]
+
+Les calculs bien menés avec les congruences peuvent être très rapides.
+
+Voyons différentes façons de calculer $2^{21} \pmod {37}$
+
+Plus exactement on souhaite trouver un nombre inférieur à $37$ qui est congru à $2^{21}$ modulo ${37}$. 
+
+\change
+
+Première méthode : On calcule $2^{21}$, puis on fait la division euclidienne de $2^{21}$ par $37$ le reste est notre résultat.
+C'est laborieux !
+
+\change
+
+Deuxième  méthode : On calcule successivement les $2^k$ modulo $37$ 
+
+\change
+
+$2^1 \equiv 2 \pmod {37}$,
+
+\change
+
+$2^2 \equiv 4 \pmod {37}$, 
+
+\change
+
+$2^3 \equiv 8 \pmod {37}$,
+
+
+\change
+
+$2^4 \equiv 16 \pmod {37}$,
+
+\change
+
+$2^5 \equiv 32 \pmod {37}$. 
+
+\change
+
+
+$2^6 \equiv 64$
+
+Ensuite on n'oublie pas d'utiliser les congruences :
+
+\change
+
+$64 \equiv 27 \pmod {37}$.
+
+\change 
+
+Puis pour $2^7$ on écrit
+
+$2^7 = 2 \cdot 2^6$
+
+et on utilise le résultat précédent :
+donc
+
+\change
+
+\change
+
+$2^7  \equiv 2 \cdot 2^6  \equiv 2 \cdot 27 \equiv 54 \equiv 17 \pmod {37}$ 
+
+
+et ainsi de suite en utilisant le calcul précédent à chaque étape.
+
+\change
+
+C'est assez efficace et on peut raffiner : par exemple on trouve $2^{8} \equiv 34 \pmod {37}$
+mais donc aussi $2^{8} \equiv -3 \pmod {37}$ et donc 
+
+\change
+
+\change
+
+
+$2^9 \equiv 2 \cdot 2^8 \equiv 2 \cdot(-3) \equiv -6 \equiv 31 \pmod{37}$...
+
+C'est une méthode qui conduit assez rapidement au résultat.
+
+\change
+
+
+Il existe une méthode encore plus efficace.
+
+\change
+
+on écrit l'exposant $21$ en base $2$ :
+$21 = 2^{4} + 2^{2} + 2^{0} = 16 + 4 + 1$.
+
+\change
+
+ Alors
+$2^{21} =  2^{16} \cdot 2^{4} \cdot 2^{1}$. 
+
+Et il est facile de calculer successivement chacun des ces termes 
+car les exposants sont des puissances de $2$. 
+
+
+\change
+
+En effet $2^8 \equiv  (2^4)^2 \equiv 16^2 \equiv 256 \equiv 34 \equiv -3 \pmod {37}$
+
+\change
+
+Ce qui permet de calculer $2^{16}$ égal $2^8$ au carré.
+
+\change
+
+Donc 
+
+ $2^{16} \equiv  \left(2^{8}\right)^2 
+\equiv (-3)^2 \equiv 9 \pmod{37}$
+
+
+\change
+
+
+Ainsi  $2^{21} \equiv  2^{16} \cdot 2^{4} \cdot 2^{1} $
+
+
+\change
+
+$ \equiv 9 \times 16 \times 2 $
+
+\change
+
+
+$\equiv 288$
+
+\change
+
+$\equiv 29 \pmod {37}$
+
+Conclusion 
+
+$2^{21}$ est congru à $29$ modulo $37$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Etant donné trois entier $a,b$ et $n$
+Considérons l'équation 
+$ax \equiv b \pmod n$ d'inconnue $x$, $x$ étant aussi un entier.
+
+\change
+
+Voyons comment résoudre ces équation avec l'exemple
+
+$9x \equiv 6 \pmod{24}$
+
+\change
+
+Trouver $x$ tel que $9x \equiv 6 \pmod{24}$ est équivalent à trouver $x$ et $k$ tels que
+$9x = 6 + 24k$. 
+
+\change
+
+Mis sous la forme $9x-24k=6$ il s'agit alors d'une équation que nous avons étudié en détails
+dans une leçon précédente.
+
+Il y a bien des solutions car $\pgcd(9,24)=3$ divise $6$.
+
+\change
+
+En divisant par le pgcd on obtient l'équation équivalente :
+ $$3x-8k=2.$$
+
+\change
+
+
+Pour le calcul du pgcd et d'une solution particulière nous utilisons normalement l'algorithme d'Euclide et sa remontée.
+Ici il est facile de trouver une solution particulière $(x_0=6,k_0=2)$ à la main.
+
+\change
+
+On termine comme d'habitude, une fois que l'on a une solution particulière on sait
+trouver toutes les solutions. Faites les calculs
+pour trouver que les $x$ solutions sont les  $x=6+ 8\ell$. $\ell$ parcourant $\Zz$.
+
+(ici la forme des entiers $k$ ne nous intéresse pas)
+
+\change
+
+On préfère les regrouper en $3$ classes modulo $24$:
+
+$x_1 = 6 + 24 m$, 
+
+$x_2 = 14 + 24 m$,
+
+$x_3=22+24m$
+
+ avec $m$ parcourant $\Zz$
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous énonçons le petit théorème de Fermat.
+
+Si $p$ est un nombre premier et $a \in \Zz$ alors
+$a^p \equiv a \pmod p$
+
+Attention aux hypothèses 
+
+1. $p$ est un nombre premier, 
+
+2. l'exposant est $p$ et la congruence est modulo $p$
+pour le même $p$.
+
+
+\change
+
+Une autre formulation -toute aussi utile-
+est la suivante :
+
+Si $p$ ne divise pas $a$ on a :
+$a^{p-1} \equiv 1 \pmod p$.
+
+Encore une fois $p$ est un nombre premier 
+
+en plus ici $p$ ne doit pas diviser $a$.
+
+On obtient le corollaire en divisant par $a$ dans l'égalité du petit théorème de Fermat.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Comme applications nous allons calculer $14^{3141} \pmod {17}$.
+
+\change
+
+
+Le nombre $17$ étant premier on sait par le petit théorème de Fermat que
+$14^{16} \equiv 1 \pmod {17}$.
+
+\change
+
+Essayons d'utiliser cette propriété.
+
+\'Ecrivons la division euclidienne de $3141$ par $16$ :
+$$3141 = 16\times 196 + 5.$$
+
+\change
+
+Alors
+$14^{3141} = 14^{16 \times 196 + 5}$
+
+\change
+
+qui vaut $14^{16\times 196}\times 14^5$
+
+\change
+
+ou encore 
+$ \left(14^{16}\right)^{196}\times 14^5$
+
+\change
+
+Mais par le petit théorème de Fermat 
+$14^{16} \equiv 1$  modulo $17$ donc notre nombre est congru à
+
+$ \equiv 1^{196} \times 14^5$
+
+et ainsi 
+
+$14^{3141} \equiv  14^5\pmod{17}$.
+
+\change
+
+Il ne reste plus qu'à calculer $14^5$ modulo $17$.
+
+\change
+
+
+Cela peut se faire rapidement :
+$14 \equiv -3 \pmod {17}$ 
+
+
+\change
+
+donc $14^2\equiv (-3)^2 \equiv 9 \pmod {17}$,
+
+\change
+
+pour $14^3$ on obtient $14^3 \equiv 7 \pmod{17}$,
+
+\change
+
+et par exemple $14^5$ s'obtient comme $14^5 = 14^2 \times 14^3$ donc
+
+$14^5 \equiv 9 \times 7 \equiv 63 \equiv 12 \pmod {17}$.
+
+\change
+
+Conclusion : $14^{3141}$ qui était congru à $14^5$ est congru à $12 \pmod {17}$.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Il vous reste maintenant à répondre aux mini-exercices.
+
+
+\end{document}

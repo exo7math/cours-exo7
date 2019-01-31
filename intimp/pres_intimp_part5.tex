@@ -1,0 +1,331 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={102,51,102}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Intégrales impropres}}
+\subtitle{Intégration par parties - Changement de variables}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Intégration par parties
+    \item<4-> Changement de variable
+    \item<5-> Plan d'étude
+        \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Intégration par parties}
+
+\begin{frame}
+
+\begin{theoreme}[Intégration par parties]
+\uncover<2->{
+\begin{itemize}
+  \item Soient $u$ et $v$ deux fonctions de classe $\mathcal{C}^1$ sur l'intervalle $[a,+\infty[$
+
+  \item Supposons que $\lim_{t\to+\infty} u(t)v(t)$ existe et soit finie
+\end{itemize}
+
+Les intégrales $\displaystyle\int_a^{+\infty} u(t) \, v'(t)\;\dd t$
+et $\displaystyle\int_a^{+\infty} u'(t) \, v(t)\;\dd t$ sont de même nature.
+En cas de convergence on a :
+}
+\alt<1>{
+$$\int u(t) \, v'(t)\;\dd t = \big[uv\big] - \int u'(t) \, v(t)\;\dd t$$
+}{
+$$\int_{a}^{+\infty} u(t) \, v'(t)\;\dd t 
+= \big[uv\big]_a^{+\infty} - \int_a^{+\infty} u'(t) \, v(t)\;\dd t$$
+}
+\vspace{-0.5cm}
+\end{theoreme}
+
+\pause\pause
+\centerline{$\big[uv\big]_a^{+\infty} = \lim_{t\to+\infty} (uv)(t) - (uv)(a)$}
+\pause
+\begin{proof}
+C'est la formule usuelle d'intégration par parties 
+$$\int_a^{x} u(t) \, v'(t)\;\dd t 
+= \big[uv\big]_a^{x} - \int_a^{x} u'(t) \, v(t)\;\dd t$$
+\end{proof}
+\end{frame}
+
+\begin{frame}
+\begin{exemple}
+Que vaut l'espérance $\int_0^{+\infty} \lambda t e^{-\lambda t}\;\dd t$ de la loi exponentielle
+ ($\lambda > 0$) ?
+
+\pause
+
+Intégration par parties : $u = \lambda t$, $v' = e^{-\lambda t}$
+\pause
+\vspace*{-1ex}
+\begin{align*}
+\int_0^{x} \lambda t e^{-\lambda t}\;\dd t 
+ & = \int_0^{x} u(t) \, v'(t)\;\dd t  \\
+\uncover<4->{ & = \big[uv\big]_0^{x} - \int_0^{x} u'(t) \, v(t)\;\dd t \\}
+\uncover<5->{ & = \Big[ \lambda t \cdot \frac{-1}{\lambda}e^{-\lambda t}\Big]_0^{x} 
+ - \int_0^{x} \lambda \cdot  \frac{-1}{\lambda}e^{-\lambda t}\;\dd t \\}
+\uncover<6->{ & = -xe^{-\lambda x} + \int_0^{x} e^{-\lambda t} \;\dd t\\}
+\uncover<7->{ & = -xe^{-\lambda x} + \Big[\frac{-1}{\lambda}e^{-\lambda t}\Big]_0^{x} \\}
+\uncover<8->{ & = -xe^{-\lambda x}-\frac{1}{\lambda} \left(e^{-\lambda x} -1\right)} \uncover<9->{\xrightarrow{x \mapsto+\infty}  \frac{1}{\lambda}}
+% & \longrightarrow \ \  \frac{1}{\lambda} \qquad \text{ lorsque } x \to +\infty \\
+\end{align*}
+\vspace*{-3ex}
+
+\uncover<10->{
+Ainsi $\int_0^{+\infty} \lambda t e^{-\lambda t}\;\dd t = \frac{1}{\lambda}$
+}
+\end{exemple}	
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Changement de variable}
+
+\begin{frame}
+\begin{theoreme}[Changement de variable]
+\uncover<2->{
+\begin{itemize}
+  \item Soit $f$ une fonction définie sur un intervalle $I = [a,+\infty[$
+  \item Soit $J= [\alpha,\beta[$ un intervalle avec $\alpha\in \Rr$ et $\beta\in \Rr$ ou $\beta=+\infty$
+  \item Soit $\varphi : J \to I$ un difféomorphisme de classe $\mathcal{C}^1$
+\end{itemize}
+Les intégrales $\int_{a}^{+\infty} f(x) \;\dd x$ et
+$\int_\alpha^\beta f\big(\varphi(t)\big)\cdot\varphi'(t) \;\dd t$ sont de même nature.
+En cas de convergence, on a :
+}
+$$\int_{a}^{+\infty} f(x) \;\dd x = \int_\alpha^\beta f\big(\varphi(t)\big)\cdot\varphi'(t) \;\dd t$$
+\end{theoreme} 
+
+\bigskip
+\pause
+\pause
+
+Un \defi{difféomorphisme de classe $\mathcal{C}^1$}
+est une application $\mathcal{C}^1$, bijective, 
+dont la bijection réciproque est aussi $\mathcal{C}^1$
+
+
+
+
+
+\end{frame}
+
+
+\begin{frame}[t]
+
+\begin{exemple}
+L'intégrale de Fresnel  $\int_1^{+\infty} \sin (t^2) \; \dd t$ converge
+\end{exemple}
+
+\uncover<1->{
+\only<1>{
+\vspace*{1cm}
+\myfigure{1.1}{
+\tikzinput{fig_intimp06} 
+} 
+}
+
+\pause\pause
+\begin{itemize}
+  \item Changement de variable $u=t^2$, qui induit 
+$t=\sqrt{u}$,  $\dd t=\frac{\dd u}{2\sqrt u}$
+\pause  
+  \item $\varphi \!:\! u \mapsto t = \sqrt{u}$ est un difféomorphisme 
+  entre $u\!\in\![1,\!x^2]$ et $t\!\in\![1,\!x]$
+\pause  
+ \item Théorème : $\int f(t) \;\dd t 
+= \int f\big(\varphi(u)\big)\cdot\varphi'(u) \;\dd u$
+\pause 
+  \item D'où $\int_1^x \sin (t^2) \; \dd t = \int_1^{x^2} \sin (u) \; \frac{\dd u}{2\sqrt u}$
+\pause    
+  \item Par le théorème d'Abel $\int_1^{+\infty} \frac{\sin u}{\sqrt u} \; \dd u$
+  converge
+\pause
+  \item Donc $\int_1^{x^2} \sin (u) \; \frac{\dd u}{2\sqrt u}$ admet une limite finie (lorsque 
+$x\to+\infty$)
+\pause
+  \item Ce qui prouve que $\int_1^x \sin (t^2) \; \dd t$
+admet aussi une limite finie
+\pause
+  \item Conclusion : $\int_1^{+\infty} \sin (t^2) \; \dd t$ converge
+\end{itemize}
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Plan d'étude}
+
+\begin{frame}
+
+\evidence{Plan d'étude}
+
+\vspace*{-3ex}
+
+\begin{minipage}{0.29\textwidth}
+$$I = \int_{-\infty}^{+\infty} \frac{\sin |t|}{|t|^{3/2}}\;\dd t$$  
+\end{minipage}
+\begin{minipage}{0.69\textwidth}
+\myfigure{0.5}{
+\tikzinput{fig_intimp01} 
+}  
+\end{minipage}
+
+	\pause
+
+\evidence{Étape 1. Identifier les points incertains}\\
+\pause
+\begin{itemize}
+  \item La fonction $|t|^{-3/2}\sin |t|$ est définie sur $\Rr^*$
+  \pause
+  \item La fonction est paire, elle tend vers $0$ en
+oscillant quand $t$ tend vers $-\infty$ et $+\infty$
+\pause
+  \item Elle n'est pas définie en $0$ et
+tend vers $+\infty$ en $0^-$ et en $0^+$
+\pause
+  \item $4$ points incertains : $-\infty$, $0^-$, $0^+$ et $+\infty$
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+
+\evidence{Étape 2. Isoler les points incertains}\\
+\pause
+\begin{itemize}
+  \item 4 intervalles : $]-\infty,-1]$, $[-1,0[$, $]0,1]$ et $[1,+\infty[$
+  \pause
+  \item 4 intégrales $I_1$, $I_2$, $I_3$ et $I_4$
+  \pause
+  \item L'intégrale $I$ ne converge que si chacun des
+morceaux converge
+\pause
+  \item $I=I_1+I_2+I_3+I_4$
+\end{itemize}
+
+\bigskip
+\pause 
+\evidence{Étape 3. Se ramener à une intégrale sur $[a,+\infty[$ ou sur $]a,b]$}\\
+\pause
+\begin{itemize}
+  \item Changement de variable $t\mapsto -t$
+  \pause
+  \item Notre exemple : puisque la fonction est paire,
+$I_1=I_4$ et $I_2=I_3$
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\evidence{Étape 4.1. Si c'est possible, calculer une primitive}\\
+
+\pause
+\evidence{Étape 4.2. Si la fonction est de signe constant}\\
+\pause
+\vspace*{-1ex}
+\begin{itemize}
+  \item Utiliser le théorème des équivalents ou le théorème de comparaison
+  \pause
+  \item Exemple 
+  \pause
+  \begin{itemize}
+    \item $t^{-3/2} \sin |t|  \;\underset{0^+}{\sim}\; t^{-1/2}$
+    \pause
+    \item $\int_0^1 \frac{1}{t^{1/2}}\;\dd t$ converge (intégrale de Riemann)
+    \pause
+    \item donc $I_3 = \int_0^1 t^{-3/2} \sin |t| \;\dd t$ converge
+  \end{itemize}
+
+\end{itemize}
+
+\pause 
+
+\evidence{Étape 4.3. Si la fonction n'est pas de signe constant}\\
+\vspace*{-1ex}
+\pause
+\begin{itemize}
+  \item \'Etude de l'intégrale de $|f|$. S'il y a convergence absolue, il y a convergence
+  \pause
+  \item Si l'intégrale n'est pas absolument convergente, il
+faut essayer d'appliquer le théorème d'Abel
+\pause
+  \item Exemple 
+  \pause
+  \begin{itemize}
+    \item $t^{-3/2} \big|\sin |t| \big|\le t^{-3/2}$
+    \pause
+    \item $\int_1^{+\infty} \frac{1}{t^{3/2}}\;\dd t$ converge (intégrale de Riemann)
+    \pause
+    \item donc $I_4=\int_{1}^{+\infty} |t|^{-3/2} \sin |t| \;\dd t$ est absolument convergente
+  \end{itemize} 
+\end{itemize}
+\pause
+Conclusion : $I = \int_{-\infty}^{+\infty} \frac{\sin |t|}{|t|^{3/2}}\;\dd t$ converge
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Soit $I_n = \int_0^{+\infty} t^n e^{-t}\;\dd t$. 
+  Calculer $I_0$. Par intégration par parties, trouver une relation de 
+  récurrence entre $I_{n+1}$ et $I_n$. En déduire que $I_n = n!$\ .
+  
+  \item Par intégration par parties, montrer que l'intégrale
+  $\int_0^1 \frac{\ln t}{(1+t)^2}\; \dd t$ converge et vaut $-\ln 2$.
+  
+  \item Soit $I= \int_0^{+\infty} \ln(1+\frac{1}{t^2}) \;\dd t$. Identifier les points incertains.
+  Faire une intégration par parties en écrivant $1\cdot \ln(1+\frac{1}{t^2})$. Montrer que $I$ converge
+  et que $I = \pi$. 
+  
+  \item Soit $I=\int_0^1 \left(-\ln t\right)^\beta \;\dd t$.
+  Identifier les points incertains. 
+  \`A l'aide du changement de variable $t=\frac 1u$, montrer que cette intégrale
+  converge quel que soit $\beta \in \Rr$.
+  
+  \item Soit $I=\int_0^{+\infty}\frac{\dd t}{t^2+\sqrt t}$.
+  Identifier les points incertains. 
+  \`A l'aide du changement de variable $t=u^2$, montrer que l'intégrale
+  converge et que $I = \frac{4\sqrt3\pi}{9}$.
+
+
+\end{enumerate}
+\end{miniexercice}	
+\end{frame}
+
+
+
+
+\end{document}
+

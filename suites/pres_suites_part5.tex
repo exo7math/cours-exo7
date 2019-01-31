@@ -1,0 +1,409 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={34,139,34}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\title{{\bf Suites}}
+\subtitle{Suites récurrentes}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Suite récurrente définie par une fonction
+    \item<4-> Cas d'une fonction croissante
+    \item<5-> Cas d'une fonction décroissante
+  \end{itemize}
+\end{minipage}
+}
+
+
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Suite récurrente définie par une fonction}
+
+\begin{frame}
+Une \defi{suite récurrente} est définie par 
+\pause
+\begin{itemize}
+  \item une fonction $f : \Rr \to \Rr$ 
+\pause
+  \item un terme initial $u_0 \in \Rr$
+\pause
+  \item une relation de récurrence $u_{n+1}=f(u_n)$ pour $n \ge 0$
+\end{itemize}
+\pause
+\medskip
+$$u_0 \quad\pause u_1 = f(u_0) \quad\pause u_2 = f(u_1) =f(f(u_0)) \quad\pause u_3 = f(u_2) =f(f(f(u_0)))\ldots$$
+\pause
+\vspace*{-2ex}
+\mybox{$u_0 \in \Rr \quad \text{ et } \quad u_{n+1} = f(u_n) \ \ \text{ pour } n \ge 0$}
+\pause
+\begin{exemple}
+\begin{itemize}
+  \item $f(x)=1+\sqrt{x}$
+\pause  
+  \item $u_0= 2$
+\pause  
+  \item $u_{n+1}=f(u_n)$ c'est-à-dire $u_{n+1}=1+\sqrt{u_n}$, pour $n\ge0$
+\end{itemize}
+\pause
+{\footnotesize
+$$2 \quad\pause 1+\sqrt{2} \quad\pause 1+\sqrt{1+\sqrt{2}}  \quad\pause 1+\sqrt{1+\sqrt{1+\sqrt{2}}}  \quad\pause 1+\sqrt{1+\sqrt{1+\sqrt{1+\sqrt{2}}}}\ldots$$
+}
+\end{exemple}
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{proposition}
+\label{prop:fll}
+Si $f$ est une fonction continue
+et si la suite récurrente $(u_n)$ converge vers $\ell$
+alors $\ell$ est une solution de l'équation :
+\myboxinline{$f(\ell)=\ell$}  
+\end{proposition}
+
+\pause
+
+Une valeur $\ell$, vérifiant $f(\ell)=\ell$ est un \defi{point fixe} de $f$
+
+\myfigure{1}{
+\tikzinput{fig_suites15}
+}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\begin{proposition}
+\label{prop:fll}
+Si $f$ est une fonction continue et la suite récurrente $(u_n)$ converge vers $\ell$, alors
+$\ell$ est une solution de l'équation :
+\myboxinline{$f(\ell)=\ell$}  
+\end{proposition}
+
+
+\begin{proof}
+\pause
+\begin{itemize}
+  \item Lorsque $n\to +\infty$, $u_n\to \ell$ et donc aussi $u_{n+1} \to \ell$
+\pause  
+  \item Comme $u_n\to \ell$ et que $f$ est continue alors la suite $(f(u_n)) \to f(\ell)$
+\pause  
+  \item La relation $u_{n+1} = f(u_n)$ devient à la limite : $\ell=f(\ell)$
+\end{itemize}
+
+\end{proof}
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Cas d'une fonction croissante}
+
+
+\begin{frame}
+
+
+\begin{proposition}
+\label{prop:fcroissante}
+Si $f : [a,b] \to [a,b]$ une fonction continue et \evidence{croissante}, 
+alors quelque soit $u_0 \in [a,b]$, la suite récurrente $(u_n)$ est
+monotone et converge vers $\ell \in [a,b]$ vérifiant \myboxinline{$f(\ell)=\ell$} 
+\end{proposition}
+
+\pause
+\medskip
+
+
+\begin{minipage}{0.6\textwidth}
+\begin{itemize}
+  \item $f([a,b]) \subset [a,b]$
+  \pause
+\uncover<4->{  \item Si $u_1\ge u_0$ on a $u_2 = f(u_1)\ge f(u_0)=u_1$, on en déduit $u_3 \ge u_2$,...  $(u_n)$ est croissante}
+\uncover<5->{  \item Si $u_1 \le u_0$ alors $(u_n)$ est décroissante}
+\uncover<6->{  \item Preuve : si $u_1\ge u_0$ alors la suite $(u_n)$ est croissante, elle est majorée par 
+$b$, donc elle converge vers un réel $\ell$}
+\uncover<7->{  \item $f(\ell)=\ell$}
+\end{itemize}  
+\end{minipage}
+\begin{minipage}{0.3\textwidth}
+\uncover<3->{
+\myfigure{0.7}{
+\tikzinput{fig_suites16}
+}
+}
+\end{minipage}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\begin{exemple}
+Soit $f : \Rr \to \Rr$ définie par $f(x)=\frac14(x^2-1)(x-2)+x$ et $u_0 \in [0,2]$
+
+\'Etude de la suite $(u_n)$ définie : $u_{n+1}=f(u_n)$ (pour tout $n\ge0$)
+
+\pause
+
+\begin{enumerate}
+
+  \item \textbf{\'Etude de $f$}
+\pause  
+  \begin{itemize}[<+->]
+    \item $f$ est continue
+    \item $f$ est dérivable et $f'(x)>0$
+    \item $f$ est strictement croissante
+    \item Comme $f(0)=\frac12$ et $f(2)=2$ alors $f([0,2]) \subset [0,2]$
+  \end{itemize}
+\end{enumerate}
+
+
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\myfigure{1}{
+\tikzinput{fig_suites17}
+}  
+\end{frame}
+
+
+
+\begin{frame}
+\begin{exemple}
+\begin{enumerate}
+  \setcounter{enumi}{1}
+  \item \textbf{Calcul des points fixes}
+  \begin{itemize}
+\pause
+    \item Cherchons les $x$ qui vérifient $(f(x)=x)$
+\pause    
+    \item $f(x)-x=\frac14 (x^2-1)(x-2) \qquad \color{blue}{(\star)}$
+\pause    
+    \item Donc les points fixes sont les $\{-1,1,2\}$
+\pause    
+    \item La limite de $(u_n)$ est donc à chercher parmi ces $3$ valeurs
+  \end{itemize}
+
+\bigskip
+\pause
+   \item \textbf{Premier cas :} $u_0=1$ ou $u_0=2$
+\pause  
+
+  Alors $u_1=f(u_0)=u_0$ et la suite $(u_n)$ est constante
+\end{enumerate}
+
+
+\end{exemple}
+\end{frame}
+
+
+
+
+\begin{frame}
+\begin{exemple}
+\begin{enumerate}
+  \setcounter{enumi}{3}
+  \item \textbf{Deuxième cas :} $0 \le u_0 <1$
+  \pause
+  \begin{itemize}[<+->]
+    \item $f([0,1])\subset [0,1]$, on considère la restriction $f : [0,1] \to [0,1]$
+    
+    \item De plus $\color{blue}{(\star)}$ implique sur $[0,1]$, $f(x)-x\ge0$ 
+    
+    \item Pour $u_0 \in [0,1[$, $u_1 = f(u_0) \ge u_0$. Comme $f$ est croissante, $(u_n)$ est croissante
+    
+    \item $(u_n)$ est croissante et majorée par $1$, donc elle converge. Notons $\ell$ sa limite
+    
+    \item D'une part $\ell$ est un point fixe de $f$ : $f(\ell)=\ell$. Donc $\ell \in \{-1,1,2\}$
+    
+    \item D'autre part $(u_n)$ étant croissante avec $u_0\ge0$ et majorée par $1$, donc $\ell \in [0,1]$
+    
+    \item Conclusion : si $0\le u_0<1$ alors $(u_n)$ converge vers $\ell = 1$
+  \end{itemize}
+  
+\medskip
+\pause
+
+  \item \textbf{Troisième cas :} $1 < u_0 < 2$
+  
+   \pause 
+  \begin{itemize}[<+->]
+      \item $f : [1,2] \to [1,2]$
+      \item $(u_n)$ est décroissante et minorée par $1$
+      \item $(u_n)$ converge vers $\ell=1$
+  \end{itemize}
+
+\end{enumerate}
+
+\end{exemple}
+\end{frame}
+
+
+  
+
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Cas d'une fonction décroissante}
+
+
+\begin{frame}
+\begin{proposition}
+Soit $f : [a,b] \to [a,b]$ une fonction continue et \evidence{décroissante}.
+Soit $u_0 \in [a,b]$ et la suite récurrente $(u_n)$ définie par $u_{n+1}=f(u_n)$. Alors :
+\begin{itemize}
+  \item $(u_{2n})$ converge vers une limite $\ell$  vérifiant $f\circ f(\ell)=\ell$
+  \item $(u_{2n+1})$ converge vers une limite $\ell'$ vérifiant $f\circ f(\ell')=\ell'$
+\end{itemize}
+\end{proposition}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+$$f(x)=1+\frac1x \qquad u_0 >0 \qquad u_{n+1} = f(u_n)= 1 + \frac{1}{u_n}$$
+
+\pause
+
+\begin{enumerate}
+  \item \textbf{\'Etude de $f$} \quad  $f : ]0,+\infty[\to ]0,+\infty[$  
+  continue et strictement décroissante
+
+\pause
+
+  \item \textbf{Points fixes de $f\circ f$} 
+{\small  $$f\circ f(x)= f\big( f(x)\big)= f\big(1+\frac1x\big)= 1+ \frac{1}{1+\frac1x}= \frac{2x+1}{x+1}$$}
+\pause
+{\footnotesize    $$f\circ f(x)=x \ \Leftrightarrow \  \frac{2x+1}{x+1} = x  \ \Leftrightarrow \ x^2-x-1=0  \ \Leftrightarrow \  x \in 
+\left\{\frac{1-\sqrt{5}}{2},\frac{1+\sqrt{5}}{2}\right\}$$}  
+
+\pause
+ $$\ell=\frac{1+\sqrt{5}}{2}$$
+
+\end{enumerate}
+
+\end{exemple}
+\end{frame}
+  
+  
+
+\begin{frame}
+
+ \myfigure{1}{
+\tikzinput{fig_suites18}
+}   
+
+
+\end{frame}
+
+\begin{frame}
+\begin{exemple}
+$$f(x)=1+\tfrac1x \qquad u_0 >0 \qquad u_{n+1} = f(u_n)= 1 + \tfrac{1}{u_n}$$
+\vspace*{-3.5ex}
+\begin{enumerate}
+ \setcounter{enumi}{2}
+  \item \textbf{Premier cas :} $0 < u_0 \le \ell = \frac{1+\sqrt{5}}{2}$
+\pause  
+  \begin{itemize}[<+->]
+    \item $u_1 = f(u_0) \ge f(\ell)=\ell$ ; et par une étude de $f\circ f(x)-x$, 
+  on obtient que  :  $u_2 = f\circ f(u_0) \ge u_0$ 
+  
+    \item Comme $u_2 \ge u_0$ et $f\circ f$ est croissante, la suite $(u_{2n})$ est croissante
+    
+    \item $u_1  \ge f\circ f(u_1)=u_3$, la suite $(u_{2n+1})$ est décroissante
+    
+    \item Comme  $u_0 \le u_1$, en itérant $f\circ f$, on obtient $u_{2n} \le u_{2n+1}$
+    
+    \item $u_0 \le u_2 \le \cdots \le u_{2n} \le \cdots \le u_{2n+1} \le \cdots \le u_3 \le u_1$
+    
+     \item $(u_{2n})$ est croissante et majorée par $u_1$
+     
+     \item Sa limite est l'unique point fixe $\ell$ de $f\circ f$
+     
+     \item $(u_{2n+1})$ est décroissante et minorée par $u_0$, donc converge vers $\ell$
+     
+     \item La suite $(u_{n})$ converge vers $\ell = \frac{1+\sqrt{5}}{2}$
+  \end{itemize}
+
+ 
+ \pause
+ 
+  \item \textbf{Deuxième cas :} $u_0 \ge \ell = \frac{1+\sqrt{5}}{2}$
+
+  \pause
+  
+  $(u_{2n})$ est décroissante, $(u_{2n+1})$ est croissante, toutes deux convergent vers $\frac{1+\sqrt{5}}{2}$
+    
+\end{enumerate}  
+\end{exemple}
+\end{frame}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+
+  \item Soit $f(x)=\frac19x^3+1$, $u_0=0$ et pour $n\ge0$ :
+  $u_{n+1}=f(u_n)$. \'Etudier en détails la suite $(u_n)$ :
+(a) montrer que $u_n\ge0$ ;
+(b) étudier et tracer le graphe de $g$ ; 
+(c) tracer les premiers termes de $(u_n)$ ;
+(d) montrer que $(u_n)$ est croissante ; 
+(e) étudier la fonction $g(x)=f(x)-x$ ;
+(f) montrer que $f$ admet deux points fixes sur $\Rr_+$, $0 < \ell < \ell'$ ;
+(g) montrer que $f([0,\ell]) \subset [0,\ell]$ ;
+(h) en déduire que $(u_n)$ converge vers $\ell$.
+
+
+  \item Soit $f(x)=1+\sqrt{x}$, $u_0= 2$ et pour $n\ge0$ :
+  $u_{n+1}=f(u_n)$. \'Etudier en détail la suite $(u_n)$.
+
+
+  \item Soit $(u_n)_{n\in\Nn}$ la suite définie par :
+$u_0 \in[0,1]$ et $u_{n+1} = u_n - u_n^2$. \'Etudier en détail la suite $(u_n)$.
+
+  \item \'Etudier la suite définie par $u_0=4$ et $u_{n+1}=\frac{4}{u_n+2}$.
+  
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

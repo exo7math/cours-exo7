@@ -1,0 +1,28 @@
+\begin{tikzpicture}[scale=1.5]
+
+     \draw[->,>=latex,thick, gray] (-2,0)--(7.5,0) node[below,black] {$x$};
+     \draw[->,>=latex,thick, gray] (0,-0.5)--(0,2.5) node[right,black] {$y$};
+
+% Cycloide
+\beameronly {\uncover<5->}{
+  \draw[red, very thick,domain=-0.75*pi:2.6*pi,samples=100] plot ({\x - sin(\x r)},{1 - cos(\x r)});
+}
+\def\t{60}
+
+
+\def\mkRoue#1#2{
+\def\t{#1}
+\begin{scope}[xshift=0.01745*\t cm, yshift=1 cm,rotate=-\t]
+     \draw[thick, blue!#2]  (0,0) circle (1);
+     \draw[thick, blue!#2] (0,0)--(0,-1);
+     \fill[black!#2] (0,0) circle (1.5pt);
+     \fill[red!#2] (0,-1) circle (2pt);
+\end{scope}
+}
+\beameronly {\uncover<1->}{\mkRoue{0}{50};}
+\beameronly {\uncover<2->}{\mkRoue{80}{50};}
+\beameronly {\uncover<4->}{\mkRoue{240}{50};}
+\beameronly {\uncover<3->}{\mkRoue{160}{100};}
+
+
+\end{tikzpicture}

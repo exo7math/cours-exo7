@@ -1,0 +1,916 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Les nombres réels}
+%====================================================================
+
+\insertvideo{NCWWVven9Cs}{partie 1. L'ensemble des nombres rationnels $\Qq$}
+
+\insertvideo{83z7Bpz7Fzo}{partie 2. Propriétés de $\Rr$}
+
+\insertvideo{rYOyqI9YLgA}{partie 3. Densité de $\Qq$ dans $\Rr$}
+
+\insertvideo{sBnmcj3jTFY}{partie 4. Borne supérieure}
+
+\insertfiche{fic00009.pdf}{Propriétés de $\Rr$}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Motivation}
+
+Voici une introduction, non seulement à ce chapitre sur les nombres réels,
+mais aussi aux premiers chapitres de ce cours d'analyse.
+
+Aux temps des Babyloniens (en Mésopotamie de 3000 à 600 avant J.C.)
+le système de numération était en base $60$, c'est-à-dire que tous
+les nombres étaient exprimés sous la forme $a+\frac{b}{60} + \frac{c}{60^2}+ \cdots$.
+On peut imaginer que pour les applications pratiques c'était largement suffisant (par exemple
+estimer la surface d'un champ, le diviser en deux parties égales, calculer le rendement par unité de surface,...).
+En langage moderne cela correspond à compter uniquement avec des nombres rationnels $\Qq$.
+
+\medskip
+
+Les pythagoriciens (vers 500 avant J.C. en Grèce) montrent que $\sqrt 2$ n'entre pas ce cadre là.
+C'est-à-dire que $\sqrt2$ ne peut s'écrire sous la forme $\frac pq$ avec $p$ et $q$ deux entiers.
+C'est un double saut conceptuel : d'une part concevoir que $\sqrt 2$ est de nature différente
+mais surtout d'en donner une démonstration.
+
+\medskip
+
+Le fil rouge de ce cours va être deux exemples très simples : les nombres $\sqrt{10}$ et $1,10^{1/12}$.
+Le premier représente par exemple la diagonale d'un rectangle de base $3$ et de hauteur $1$ ; le second correspond par exemple
+au taux d'intérêt mensuel d'un taux annuel de $10\,\%$.
+Dans ce premier chapitre vous allez apprendre à montrer que $\sqrt{10}$ n'est pas un nombre rationnel
+mais aussi à encadrer $\sqrt{10}$ et $1,10^{1/12}$ entre deux entiers consécutifs.
+
+\medskip
+
+Pour pouvoir calculer des décimales après la virgule, voire des centaines de décimales, nous aurons besoin
+d'outils beaucoup plus sophistiqués :
+\begin{itemize}
+  \item une construction solide des nombres réels,
+
+  \item l'étude des suites et de leur limites,
+
+  \item l'étude des fonctions continues et des fonctions dérivables.
+\end{itemize}
+
+Ces trois points sont liés et permettent de répondre à notre problème, car par exemple nous verrons
+en étudiant la fonction $f(x)=x^2-10$ que la suite des rationnels $(u_n)$ définie par
+$u_0=3$ et $u_{n+1}=\frac12 \left( u_n+\frac{10}{u_n} \right)$ tend très vite vers $\sqrt{10}$.
+Cela nous permettra de calculer des centaines de décimales de $\sqrt{10}$ et de certifier qu'elles sont exactes~:
+$$\sqrt{10} = 3,1622776601683793319988935444327185337195551393252168\ldots$$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L'ensemble des nombres rationnels $\Qq$}
+
+%---------------------------------------------------------------
+\subsection{\'Ecriture décimale}
+
+
+Par définition, l'ensemble des \defi{nombres rationnels}\index{nombre!rationnel} est
+\[
+\Qq = \left\{ \frac{p}{q}  \mid p\in \Zz, q\in \Nn^*\right\}.
+\]
+
+On a noté $\Nn^*=\Nn\setminus\left\{ 0 \right\}$.
+
+Par exemple : $\frac25$ ; $\frac{-7}{10}$ ; $\frac36=\frac12$.
+
+Les nombres décimaux\index{nombre!décimal}, c'est-à-dire les nombres de la forme $\frac{a}{10^n}$,
+avec $a\in \Zz$ et $n\in \Nn$, fournissent d'autres exemples :
+$$1,234=1234\times 10^{-3}=\frac{1234}{1000} \qquad
+0,00345=345\times 10^{-5}=\frac{345}{100\,000}.$$
+
+\begin{proposition}
+Un nombre est rationnel si et seulement s'il admet une écriture décimale périodique ou finie.
+\end{proposition}
+
+Par exemple :
+$$\frac{3}{5}=0,6\qquad \frac{1}{3}=0,3333\ldots \qquad
+1,179\,\underleftrightarrow{325}\,\underleftrightarrow{325}\,\underleftrightarrow{325}\ldots $$
+
+
+Nous n'allons pas donner la démonstration mais le sens direct ($\implies$) repose
+sur la division euclidienne.
+Pour la réciproque ($\Longleftarrow$) voyons comment cela marche sur un exemple :
+Montrons que $x = 12,34\,\underleftrightarrow{2021}\,\underleftrightarrow{2021}\ldots$ est un rationnel.
+
+L'idée est d'abord de faire apparaître la partie périodique juste après la virgule.
+Ici la période commence deux chiffres après la virgule, donc on multiplie par $100$ :
+\begin{equation}
+\label{eq:per1}
+100x = 1234,\underleftrightarrow{2021}\,\underleftrightarrow{2021}\ldots
+\end{equation}
+
+Maintenant on va décaler tout vers la gauche de la longueur d'une période, donc ici on multiplie
+encore par $10\,000$ pour décaler de $4$ chiffres :
+\begin{equation}
+\label{eq:per2}
+10\,000 \times 100  x = 1234 \, 2021,\underleftrightarrow{2021}\ldots
+\end{equation}
+
+
+Les parties après la virgule des deux lignes \eqref{eq:per1} et \eqref{eq:per2}
+sont les mêmes, donc si on les soustrait en faisant \eqref{eq:per2}-\eqref{eq:per1} alors les parties décimales s'annulent :
+$$10\,000 \times 100 x-100x=12\,342\,021-1234$$
+donc $999\,900x=12\,340\,787$ donc
+$$x=\frac{12\,340\,787}{999\,900}.$$
+Et donc bien sûr $x\in \Qq$.
+
+
+%---------------------------------------------------------------
+\subsection{$\sqrt2$ n'est pas un nombre rationnel}
+
+Il existe des nombres qui ne sont pas rationnels, les \defi{irrationnels}\index{nombre!irrationnel}.
+Les nombres irrationnels apparaissent naturellement dans les figures géométriques :
+par exemple la diagonale d'un carré de côté $1$ est le nombre irrationnel $\sqrt{2}$ ;
+la circonférence d'un cercle de rayon $\frac12$ est $\pi$ qui est également un nombre irrationnel.
+Enfin $e=\exp(1)$ est aussi irrationnel.
+
+\myfigure{2}{
+\tikzinput{fig_reels01}
+\qquad
+\tikzinput{fig_reels02}
+}
+
+
+Nous allons prouver que $\sqrt{2}$ n'est pas un nombre rationnel.
+\begin{proposition}
+\sauteligne
+\label{prop:rac2irr}
+\mybox{$\sqrt{2}\notin \Qq$}
+\end{proposition}
+
+\begin{proof}
+Par l'absurde supposons que $\sqrt{2}$ soit un nombre rationnel.
+Alors il existe des entiers $p\in \Zz$ et $q\in \Nn^*$ tels que $\sqrt{2}=\frac pq$,
+de plus --ce sera important pour la suite-- on suppose que $p$ et $q$ sont premiers entre eux
+(c'est-à-dire que la fraction $\frac pq$ est sous une écriture irréductible).
+
+En élevant au carré, l'égalité  $\sqrt{2}=\frac pq$ devient $2q^2=p^2$.
+Cette dernière égalité est une égalité d'entiers. L'entier de gauche est pair, donc on en déduit que
+$p^2$ est pair ; en terme de divisibilité  $2$ divise $p^2$.
+
+Mais si $2$ divise $p^2$ alors $2$ divise $p$ (cela se prouve par facilement l'absurde).
+Donc il existe un entier $p'\in \Zz$ tel que $p=2p'$.
+
+Repartons de l'égalité $2q^2=p^2$ et remplaçons $p$ par $2p'$. Cela donne
+$2q^2=4p'^2$. Donc $q^2=2p'^2$. Maintenant cela entraîne que $2$ divise $q^2$
+et comme avant alors $2$ divise $q$.
+
+Nous avons prouvé que $2$ divise à la fois $p$ et $q$. Cela rentre en contradiction avec le fait que $p$ et $q$ sont premiers
+entre eux. Notre hypothèse de départ est donc fausse : $\sqrt2$ n'est pas un nombre rationnel.
+\end{proof}
+
+
+
+Comme ce résultat est important en voici une deuxième démonstration, assez différente, mais
+toujours par l'absurde.
+\begin{proof}[Autre démonstration]
+Par l'absurde, supposons $\sqrt{2}=\frac pq$, donc $q\sqrt{2}=p\in \Nn$.
+Considérons l'ensemble
+$$\mathcal N=\big\{ n\in \Nn^* \mid n\sqrt{2}\in \Nn\big\}.$$
+
+Cet ensemble n'est pas vide car on vient de voir que $q\sqrt{2}=p \in \Nn$ donc $q \in \mathcal{N}$.
+Ainsi $\mathcal N$ est une partie non vide de $\Nn$, elle admet donc un plus petit élément $n_0=\min \mathcal N$.
+
+Posons
+$$n_1=n_0\sqrt{2}-n_0=n_0(\sqrt{2}-1),$$
+ il découle de cette dernière égalité
+et de $1<\sqrt{2}<2$ que $0<n_1<n_0$.
+
+De plus $n_1\sqrt{2}=(n_0\sqrt{2}-n_0)\sqrt{2}=2n_0-n_0\sqrt{2}\in \Nn$.
+Donc $n_1 \in \mathcal N$ et $n_1<n_0$ : on vient de trouver un élément $n_1$ de $\mathcal{N}$ strictement plus petit que
+$n_0$ qui était le minimum. C'est une contradiction.
+
+Notre hypothèse de départ est fausse, donc $\sqrt2 \notin \Qq$.
+\end{proof}
+
+\begin{exercicecours}
+Montrer que $\sqrt{10} \notin \Qq$.
+\end{exercicecours}
+
+\bigskip
+\bigskip
+
+On représente souvent les nombres réels sur une \og droite numérique\fg{} :
+\myfigure{1}{
+\tikzinput{fig_reels03}
+}
+
+Il est bon de connaître les premières décimales de certains réels
+$\sqrt{2}\simeq 1,4142\ldots$ \quad
+$\pi\simeq 3,14159265\ldots$ \quad $e\simeq 2,718\ldots$
+
+\bigskip
+
+Il est souvent pratique de rajouter les deux extrémités à la droite numérique.
+\begin{definition}
+\[ \overline{\Rr}=\Rr\cup\{-\infty,\infty\}  \]
+\end{definition}
+
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Montrer que la somme de deux rationnels est un rationnel. Montrer que le produit de
+deux rationnels est un rationnel. Montrer que l'inverse d'un rationnel non nul est un rationnel.
+Qu'en est-il pour les irrationnels ?
+
+  \item \'Ecrire les nombres suivants sous forme d'une fraction :
+$0,1212$ ;\quad  $0,12\, \underleftrightarrow{12}\ldots$ ;\quad  $78,33\,456\,\underleftrightarrow{456}\ldots$
+
+  \item Sachant $\sqrt2\notin \Qq$, montrer $2-3\sqrt2 \notin \Qq$, $1-\frac{1}{\sqrt2} \notin \Qq$.
+
+  \item Notons $D$ l'ensemble des nombres de la forme $\frac{a}{2^n}$ avec $a\in \Zz$ et $n\in \Nn$.
+Montrer que $\frac13 \notin D$. Trouver $x\in D$ tel que $1234<x<1234,001$.
+
+  \item Montrer que $\frac{\sqrt2}{\sqrt3} \notin \Qq$.
+
+  \item Montrer que $\log 2 \notin \Qq$
+($\log 2$ est le logarithme décimal de $2$ : c'est le nombre réel tel que $10^{\log 2} = 2$).
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Propriétés de $\Rr$}
+\index{nombre!reel@réel}
+%---------------------------------------------------------------
+\subsection{Addition et multiplication}
+
+Ce sont les propriétés que vous avez toujours pratiquées. Pour $a,b,c \in \Rr$ on a :
+
+\begin{center}
+\begin{tabular}{ll}
+$a+b=b+a$ & $a\times b=b\times a$ \\
+$0+a=a$ & $1\times a =a\text{ si }a\neq 0$ \\
+$a+b=0 \iff a=-b$ & $ab=1 \iff a=\frac{1}{b}$\\
+$(a+b)+c=a+(b+c)$ & $(a\times b)\times c=a\times (b\times c)$\\
+&\\
+$a\times(b+c)=a\times b+a\times c$ & \\
+$a\times b=0 \iff (a=0 \text{ ou } b=0)$ &
+\end{tabular}
+\end{center}
+
+On résume toutes ces propriétés en disant que :
+\begin{propriete*}[$\Rr1$]
+$(\Rr,+,\times)$ est un \evidence{corps commutatif}.
+\end{propriete*}
+%---------------------------------------------------------------
+\subsection{Ordre sur $\Rr$}
+
+Nous allons voir que les réels sont ordonnés. La notion d'ordre est générale et nous allons définir cette notion sur un ensemble
+quelconque. Cependant gardez à l'esprit que pour nous $E=\Rr$ et $\mathcal{R}=\le$.
+
+\begin{definition}
+Soit $E$ un ensemble.
+\begin{enumerate}
+\item Une \defi{relation} $\mathcal R$ sur $E$ est un sous-ensemble
+de l'ensemble produit $E\times E$. Pour $(x,y)\in E\times E$,
+on dit que $x$ est en relation avec $y$ et on note $x\mathcal R y$ pour dire que $(x,y)\in\mathcal R$.
+
+\item Une relation $\mathcal R$ est une \defi{relation d'ordre}\index{relation d'ordre} si
+\begin{itemize}
+  \item $\mathcal R$ est \defi{réflexive} : pour tout $x\in E$, $x\mathcal R x$,
+  \item $\mathcal R$ est \defi{antisymétrique} : pour tout $x,y\in E$, $\left( x\mathcal R y \text{ et } y\mathcal R x\right) \implies x=y$,
+  \item $\mathcal R$ est \defi{transitive} : pour tout $x,y,z\in E$, $\left( x\mathcal R y \text{ et } y\mathcal R z\right) \implies x\mathcal R z$.
+\end{itemize}
+\end{enumerate}
+\end{definition}
+\begin{definition}
+Une relation d'ordre $\mathcal R$ sur un ensemble $E$ est \defi{totale} si pour tout $x,y\in E$ on a $ x\mathcal R y \text{ ou } y\mathcal R x$. On dit aussi que $(E,\mathcal R)$ est un \defi{ensemble totalement ordonné}.
+\end{definition}
+
+\begin{propriete*}[$\Rr2$]
+La relation $\leq$ sur $\Rr$ est une relation d'ordre, et de plus, elle est totale.
+\end{propriete*}
+Nous avons donc :
+\begin{itemize}
+  \item pour tout $x \in \Rr$, $x \le x$,
+  \item pour tout $x,y \in \Rr$, si $x \le y$ et $y\le x$ alors $x=y$,
+  \item pour tout $x,y,z \in \Rr$ si $x\le y$ et $y\le z$ alors $x\le z$.
+\end{itemize}
+
+\begin{remarque*}
+Pour $(x,y)\in \Rr^2$ on a par définition :
+\begin{align*}
+x \leq y &\iff  y-x \in \Rr_+ \\
+x < y &\iff \left(x\leq y \text{ et } x\neq y\right).
+\end{align*}
+\end{remarque*}
+
+Les opérations de $\Rr$ sont compatibles avec la relation d'ordre $\leq$ au sens suivant, pour des réels $a,b,c,d$ :
+\begin{align*}
+ \left (a\leq b \text{ et } c\leq d \right) &\implies a+c\leq b+d \\
+         \left (a\leq b \text{ et } c \geq 0\right)& \implies a\times c\leq b\times c \\
+ \left (a\leq b \text{ et } c \leq 0\right)& \implies a\times c\geq b\times c .
+\end{align*}
+
+On définit le maximum de deux réels $a$ et $b$ par :
+\[ \max(a,b)=
+\begin{cases}
+a & \text{ si } a\geq b \\
+b & \text{ si } b>a.
+\end{cases}
+\]
+
+\begin{exercicecours}
+Comment définir $\max(a,b,c)$, $\max(a_1,a_2,\ldots,a_n)$ ? Et $\min(a,b)$ ?
+\end{exercicecours}
+
+
+%---------------------------------------------------------------
+\subsection{Propriété d'Archimède}
+\begin{propriete*}[$\Rr3$, Propriété d'Archimède]
+\label{propr:archi}
+$\Rr$ est \defi{archimédien}\index{archimedien@archimédien}, c'est-à-dire :
+\[ \forall x \in \Rr\;\;\; \exists n \in \Nn \;\;\; n>x\]
+\centerline{\og{}Pour tout réel $x$, il existe un entier naturel $n$ strictement plus grand que $x$.\fg{}}
+\end{propriete*}
+
+Cette propriété peut sembler évidente, elle est pourtant essentielle puisque elle
+permet de définir la partie entière d'un nombre réel :
+\begin{proposition}
+\label{prop:part_ent}
+Soit $x\in \Rr$, il \evidence{existe} un \evidence{unique} entier relatif, la 
+\defi{partie entière}\index{partie entiere@partie entière} notée $E(x)$, tel que :
+\mybox{$E(x)\leq x <E(x)+1$}
+\end{proposition}
+
+
+\begin{exemple}
+\sauteligne
+\begin{itemize}
+\item $E(2,853)=2$, $E(\pi)=3$, $E(-3,5)=-4$.
+\item $E(x)=3 \iff 3\leq x <4$.
+\end{itemize}
+\end{exemple}
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+\item On note aussi $E(x)=[x]$.
+\item Voici le graphe de la fonction partie entière $x\mapsto E(x)$ :
+
+\myfigure{0.8}{
+\tikzinput{fig_reels04}
+}
+\end{itemize}
+\end{remarque*}
+
+Pour la démonstration de la proposition \ref{prop:part_ent} il y a deux choses à établir : d'abord qu'un tel entier $E(x)$ existe
+et ensuite qu'il est unique.
+
+\begin{proof}
+~\\
+\textbf{Existence.} Supposons $x\geq 0$, par la propriété d'Archimède
+(Propriété $\Rr3$) il existe $n\in \Nn$ tel que $n>x$.
+L'ensemble $K=\big\{k\in \Nn \mid k\leq x \big\}$ est donc fini (car pour tout $k$ dans $K$, on a $0 \le k < n$).
+Il admet donc un plus grand élément $k_{max}=\max K$. On a alors $k_{max}\leq x$
+car $k_{max}\in K$, et $k_{max}+1 > x$ car $k_{max}+1\notin K$.
+Donc $k_{max}\leq x< k_{max}+1$ et on prend donc $E(x)=k_{max}$.
+
+\medskip
+
+\textbf{Unicité.} Si $k$ et $\ell$ sont deux entiers relatifs vérifiant
+$k\leq x< k+1$ et $\ell\leq x< \ell+1$, on a donc $k \leq x < \ell+1$, donc par
+transitivité $k<\ell+1$. En échangeant les rôles de $\ell$ et $k$,
+on a aussi $\ell<k+1$. On en conclut que $\ell-1<k<\ell+1$, mais il n'y a qu'un seul entier compris strictement entre $\ell-1$
+et $\ell+1$, c'est $\ell$. Ainsi $k=\ell$.
+
+Le cas $x<0$ est similaire.
+\end{proof}
+
+
+\begin{exemple}
+Encadrons $\sqrt{10}$ et $1,1^{1/12}$ par deux entiers consécutifs.
+
+\begin{itemize}
+  \item Nous savons $3^2 = 9 < 10$ donc $3=\sqrt{3^2} < \sqrt{10}$ (la fonction racine carrée est croissante).
+De même $4^2=16 > 10$ donc $4=\sqrt{4^2} > \sqrt{10}$.
+Conclusion : $3 < \sqrt{10} < 4$ ce qui implique $E\big(\sqrt{10}\big)=3$.
+
+  \item On procède sur le même principe. $1^{12} < 1,10 < 2^{12}$ donc en passant à
+la racine $12$-ième (c'est-à-dire à la puissance $\frac1{12}$) on obtient :
+$1 < 1,1^{1/12} < 2$ et donc $E\big(1,1^{1/12}\big)=1$.
+\end{itemize}
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Valeur absolue}
+
+Pour un nombre réel $x$, on définit la \defi{valeur absolue}\index{valeur absolue} de $x$ par :
+\mybox{$\displaystyle |x|=
+\begin{cases}
+x & \text{ si } x\geq 0 \\
+-x & \text{ si } x<0
+\end{cases}
+$}
+
+Voici le graphe de la fonction $x\mapsto |x|$ :
+
+\myfigure{1}{
+\tikzinput{fig_reels05}
+}
+
+\begin{proposition}
+\sauteligne
+\begin{enumerate}
+  \item $|x|\geq 0$ \quad ; \quad  $|-x|=|x|$ \quad  ;  \quad $|x|>0 \iff x\neq 0$
+  \item $\sqrt{x^2}=|x|$
+  \item $|xy|=|x||y|$
+  \item \defi{Inégalité triangulaire}\index{inegalite@inégalité!triangulaire} \myboxinline{$|x+y|\leq |x|+|y|$}
+  \item \defi{Seconde inégalité triangulaire} $\big||x|-|y|\big|\leq |x-y|$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Démonstration des inégalités triangulaires]
+~
+\begin{itemize}
+\item $-|x|\leq x \leq |x|$ et $-|y|\leq y \leq |y|$.
+En additionnant $-\left(|x|+|y|\right)\leq x+y\leq |x|+|y|$, donc $|x+y|\leq |x|+|y|$.
+
+\item Puisque $x=(x-y)+y$, on a d'après la première inégalité :
+$|x| = \big| (x-y)+y \big| \leq |x-y|+ |y|$. Donc $|x|-|y|\leq |x-y|$, et en intervertissant
+les rôles de $x$ et $y$, on a aussi $|y|-|x|\leq |y-x|$.
+Comme $|y-x|= |x-y|$ on a donc $\big||x|-|y|\big|\leq |x-y|$.
+\end{itemize}
+\end{proof}
+
+Sur la droite numérique, $|x-y|$ représente la distance entre les
+réels $x$ et $y$ ; en particulier $|x|$ représente la distance entre les réels $x$ et $0$.
+
+\myfigure{1}{
+\tikzinput{fig_reels06}
+}
+
+\begin{center}
+\begin{tikzpicture}[>=latex]
+
+\end{tikzpicture}
+\end{center}
+
+De plus on a :
+\begin{itemize}
+  \item $|x-a|<r \iff a-r< x <a+r$.
+  \item Ou encore, comme on le verra bientôt, $|x-a|<r \iff x \in ]a-r,a+r[$.
+\end{itemize}
+\myfigure{1}{
+\tikzinput{fig_reels07}
+}
+
+\begin{exercicecours}
+Soit $a\in \Rr\backslash \{0\}$ et $x\in \Rr$ tel que $|x-a|<|a|$. Montrer que
+$x\neq 0$ et ensuite que $x$ est du même signe que $a$.
+\end{exercicecours}
+
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+\item On munit l'ensemble $\mathcal P(\Rr)$ des parties de $\Rr$ de la relation $\mathcal R$ définie par
+$A\mathcal R B$ si $A\subset B$. Montrer qu'il s'agit d'une relation d'ordre. Est-elle totale ?
+
+\item Soient $x,y$ deux réels. Montrer que $|x|\geq \big||x+y|-|y|\big|$.
+
+\item Soient $x_1,\ldots,x_n$ des réels. Montrer que $|x_1+\cdots+x_n|\leq |x_1|+\cdots+|x_n|$. Dans quel cas a-t-on égalité ?
+
+\item Soient $x,y>0$ des réels. Comparer $E(x+y)$ avec $E(x)+E(y)$.
+Comparer $E(x\times y)$ et $E(x)\times E(y)$.
+
+\item Soit $x>0$ un réel. Encadrer $\frac{E(x)}{x}$. Quelle est la limite de $\frac{E(x)}{x}$ lorsque $x \to +\infty$ ?
+
+\item On note $\{x\}=x-E(x)$ la \emph{partie fractionnaire} de $x$, de sorte que $x=E(x) + \{x\}$.
+Représenter les graphes des fonctions $x \mapsto E(x)$, $x \mapsto \{x\}$, $x \mapsto E(x)-\{x\}$.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Densité de $\Qq$ dans $\Rr$}
+
+%---------------------------------------------------------------
+\subsection{Intervalle}
+
+\begin{definition}
+Un \defi{intervalle de $\Rr$}\index{intervalle} est un sous-ensemble $I$ de $\Rr$ vérifiant la propriété :
+\[ \forall a,b \in I \;\;  \forall x\in \Rr\;\; \left( a\leq x \leq b \implies x \in I \right )\]
+\end{definition}
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+\item Par définition $I=\varnothing$ est un intervalle.
+\item $I=\Rr$ est aussi un intervalle.
+\end{itemize}
+\end{remarque*}
+
+
+
+\begin{definition}
+Un \defi{intervalle ouvert} est un sous-ensemble de $\Rr$ de la forme
+\( ]a,b[=\big\{x \in \Rr\;  |\; a<x<b\big\}\), où $a$ et $b$ sont des éléments de $\overline{\Rr}$.
+\end{definition}
+
+Même si cela semble évident il faut justifier qu'un intervalle ouvert est un intervalle~(!).
+En effet soient $a',b'$ des éléments de $]a,b[$ et $x\in \Rr$ tel que $a'\leq x \leq b'$.
+Alors on a $a<a'\leq x \leq b'<b$, donc $x\in ]a,b[$.
+
+% \medskip
+%
+% Les intervalles de $\Rr$ sont d'une des formes suivantes :
+% $]a,b[$, $[a,b]$, $[a,b[$, $]a,b]$, $]-\infty,a[$, $]-\infty,a]$, $]a,+\infty[$, $[a,+\infty[$.
+
+\bigskip
+
+
+La notion de voisinage sera utile pour les limites.
+\begin{definition}
+Soit $a$ un réel, $V\subset \Rr$ un sous-ensemble.
+On dit que $V$ est un \defi{voisinage}\index{voisinage} de $a$ s'il existe un intervalle
+ouvert $I$ tel que $a\in I$ et $I\subset V$.
+\end{definition}
+
+\myfigure{1}{
+\tikzinput{fig_reels08}
+}
+
+
+%---------------------------------------------------------------
+\subsection{Densité}
+\begin{theoreme}
+\sauteligne
+\begin{enumerate}
+  \item $\Qq$ est \defi{dense}\index{densite@densité} dans $\Rr$ :
+tout intervalle ouvert (non vide) de $\Rr$ contient une infinité de rationnels.
+  \item $\Rr\backslash\Qq$ est dense dans $\Rr$ :
+tout intervalle ouvert (non vide) de $\Rr$ contient une infinité d'irrationnels.
+\end{enumerate}
+\end{theoreme}
+
+
+\begin{proof}
+On commence par remarquer que tout intervalle ouvert non vide de $\Rr$
+contient un intervalle du type $]a,b[$, $a,b \in \Rr$. On peut donc supposer que $I=]a,b[$ par la suite.
+\begin{enumerate}
+\item \emph{Tout intervalle contient un rationnel.}
+
+On commence par montrer l'affirmation :
+\begin{equation}
+\label{eq:ratiodense}
+\forall a,b \in \Rr \ \  \left(a<b \implies \exists r\in \Qq \quad a<r<b \right)
+\end{equation}
+Donnons d'abord l'idée de la preuve. Trouver un tel rationnel $r=\frac pq$,
+avec $p\in \Zz$ et $q\in \Nn^*$, revient à trouver de tels entiers $p$ et $q$
+vérifiant $qa<p<qb$. Cela revient à trouver un $q\in \Nn^*$ tel que l'intervalle ouvert
+$]qa,qb[$ contienne un entier $p$. Il suffit pour cela que la longueur $qb-qa=q(b-a)$
+de l'intervalle dépasse strictement $1$, ce qui équivaut à $q>\frac{1}{b-a}$.
+
+Passons à la rédaction définitive. D'après la propriété d'Archimède (propriété $\Rr3$),
+il existe un entier $q$ tel que $q>\frac{1}{b-a}$. Comme $b-a>0$, on a $q\in \Nn^*$.
+Posons $p=E(aq)+1$. Alors $p-1\leq aq<p$. On en déduit d'une part $a<\frac pq$, et d'autre part
+$\frac pq- \frac 1q\leq a$, donc $\frac pq \leq a+\frac 1q < a+b-a=b$. Donc $\frac pq\in ]a,b[$.
+On a montré l'affirmation \eqref{eq:ratiodense}.
+
+\item  \emph{Tout intervalle contient un irrationnel.}
+
+Partant de $a$, $b$ réels tels que $a<b$, on peut
+appliquer l'implication de l'affirmation \eqref{eq:ratiodense} au
+ couple $(a-\sqrt{2},b-\sqrt{2})$. On en déduit qu'il existe un
+rationnel $r$ dans l'intervalle $]a-\sqrt{2},b-\sqrt{2}[$ et
+par translation $r+\sqrt{2}\in ]a,b[$. Or $r+\sqrt{2}$ est irrationnel,
+car sinon comme les rationnels sont stables par somme, $\sqrt{2}=-r+r+\sqrt{2}$
+serait rationnel, ce qui est faux d'après la proposition \ref{prop:rac2irr}.
+On a donc montré que si $a<b$, l'intervalle $]a,b[$ contient aussi un irrationnel.
+
+\item \emph{Tout intervalle contient une infinité de rationnels et d'irrationnels.}
+
+On va déduire de l'existence d'un rationnel et d'un irrationnel
+dans tout intervalle $]a,b[$ le fait qu'il existe une infinité
+de chaque dans un tel intervalle ouvert. En effet pour un entier $N\geq 1$, on
+ considère l'ensemble de $N$ sous-intervalles ouverts disjoints deux à deux :
+\[ \Big]a,a+\frac{b-a}{N}\Big[\ , \quad
+\Big]a+\frac{b-a}{N},a+\frac{2(b-a)}{N}\Big[\ ,\quad \ldots \quad
+\Big]a+\frac{(N-1)(b-a)}{N},b\Big[ \ .\]
+Chaque sous-intervalle contient un rationnel et un irrationnel,
+donc $]a,b[$ contient (au moins) $N$ rationnels et $N$ irrationnels.
+Comme ceci est vrai pour tout entier $N\geq 1$, l'intervalle ouvert
+$]a,b[$ contient alors une infinité de rationnels et une infinité d'irrationnels.
+\end{enumerate}
+
+\end{proof}
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Montrer qu'une intersection d'intervalles est un intervalle. Qu'en est-il pour une réunion ?
+Trouver une condition nécessaire et suffisante afin que la réunion de deux intervalles soit un intervalle.
+%\item Soit $a\in \Rr$. Montrer qu'une intersection de voisinages de $a$ est un voisinage de $a$. Qu'en est il pour une réunion ?
+  \item Montrer que l'ensemble des nombres décimaux (c'est-à-dire ceux de la forme
+$\frac{a}{10^n}$, avec $n\in \Nn$ et $a\in \Zz$) est dense dans $\Rr$.
+  \item Construire un rationnel compris strictement entre $123$ et $123,001$. Ensuite construire un irrationnel.
+Sauriez-vous en construire une infinité ? Et entre $\pi$ et $\pi+0,001$ ?
+  \item Montrer que si $z=e^{i\alpha}$ et $z'=e^{i\beta}$ sont deux nombres complexes de module $1$,
+avec $\alpha<\beta$, il existe un entier $n\in \Nn^*$ et une racine $n$-ième de
+l'unité $z=e^{i\gamma}$ avec $\alpha<\gamma<\beta$.
+%    \item Montrer qu'il existe une suite $(u_n)_{n\in \Nn}$ d'éléments de $\Rr$ telle que l'ensemble $\{ u_n, n\in \Nn \}$ est dense dans $\Rr$.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Borne supérieure}
+
+%---------------------------------------------------------------
+\subsection{Maximum, minimum}
+
+
+\begin{definition}
+\label{def:max}
+Soit $A$ une partie non vide de $\Rr$. Un réel $\alpha$ est un
+\defi{plus grand élément}\index{plus grand element@plus grand élément} de $A$ si :
+ \centerline{$\alpha \in A$ \qquad et  \qquad  $\forall x \in A \;\; x\leq \alpha$.}
+S'il existe, le plus grand élément est unique, on le note alors $\max A$.
+
+Le \defi{plus petit élément}\index{plus petit element@plus petit élément} de $A$, noté $\min A$, 
+s'il existe est le réel
+$\alpha$ tel que $\alpha \in A$ et $\forall x \in A \;\; x \ge \alpha$.
+\end{definition}
+
+
+
+Le plus grand élément s'appelle aussi le \defi{maximum}\index{maximum} et le plus petit élément, 
+le \defi{minimum}\index{minimum}.
+Il faut garder à l'esprit que le plus grand élément ou le plus petit élément n'existent pas toujours.
+
+\begin{exemple}
+\sauteligne
+\begin{itemize}
+  \item $\max[a,b]=b$ , $\min [a,b]=a$.
+  \item L'intervalle $]a,b[$ n'a pas de plus grand élément, ni de plus petit élément.
+  \item L'intervalle $[0,1[$ a pour plus petit élément $0$ et n'a pas de plus grand élément.
+\end{itemize}
+\end{exemple}
+
+
+\begin{exemple}
+Soit $A=\big\{ 1-\frac{1}{n} \mid n\in \Nn^* \big\}$.
+
+
+Notons $u_n=1-\frac{1}{n}$ pour $n\in \Nn^* $. Alors $A=\big\{ u_n \mid n\in \Nn^* \big\}$.
+Voici une représentation graphique de $A$ sur la droite numérique :
+\myfigure{1.5}{
+\tikzinput{fig_reels09}
+}
+
+\begin{enumerate}
+  \item $A$ n'a pas de plus grand élément : Supposons qu'il existe un plus grand élément $\alpha=\max A$.
+On aurait alors $u_n \le \alpha$, pour tout $u_n$. Ainsi $1-\frac{1}{n} \le \alpha$ donc $\alpha \ge 1-\frac{1}{n}$.
+\`A la limite lorsque $n \to +\infty$ cela implique $\alpha \ge 1$.
+Comme $\alpha$ est le plus grand élément de $A$ alors $\alpha \in A$.
+Donc il existe $n_0$ tel que $\alpha = u_{n_0}$. Mais alors $\alpha = 1-\frac{1}{n_0} <1$.
+Ce qui est en contradiction avec $\alpha \ge 1$. Donc $A$ n'a pas de maximum.
+
+  \item $\min A=0$ : Il y a deux choses à vérifier tout d'abord pour $n=1$, $u_1=0$ donc $0 \in A$.
+Ensuite pour tout $n\ge 1$, $u_n \ge 0$. Ainsi $\min A = 0$.
+\end{enumerate}
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+\subsection{Majorants, minorants}
+
+
+\begin{definition}
+\label{def:majorant-minorant}
+Soit $A$ une partie non vide de $\Rr$. Un réel $M$ est un
+\defi{majorant}\index{majorant} de $A$ si $\forall x \in A \;\; x\leq M$.
+
+Un réel $m$ est un \defi{minorant}\index{minorant} de $A$ si $\forall x \in A \;\; x\geq m$.
+\end{definition}
+
+\begin{exemple}
+\sauteligne
+\begin{itemize}
+\item $3$ est un majorant de $]0,2[$ ;
+\item $-7,-\pi,0$ sont des minorants de $]0,+\infty[$ mais il n'y a pas de majorant.
+\end{itemize}
+\end{exemple}
+
+
+Si un majorant (resp. un minorant) de $A$ existe on dit que $A$ est \defi{majorée} (resp. \defi{minorée}).
+
+Comme pour le minimum et le maximum il n'existe pas toujours de majorant ni de minorant,
+en plus on n'a pas l'unicité.
+
+\begin{exemple}
+Soit $A=[0,1[$.
+\myfigure{1.5}{
+\tikzinput{fig_reels10}
+}
+\begin{enumerate}
+  \item les majorants de $A$ sont exactement les éléments de $[1,+\infty[$,
+  \item les minorants de $A$ sont exactement les éléments de $]-\infty,0]$.
+\end{enumerate}
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Borne supérieure, borne inférieure}
+
+
+\begin{definition}
+\label{def:sup-inf}
+Soit $A$ une partie non vide de $\Rr$ et $\alpha$ un réel.
+\begin{enumerate}
+  \item $\alpha$ est la \defi{borne supérieure}\index{borne superieure@borne supérieure} de $A$ si $\alpha$ est un majorant de $A$ et
+si c'est le plus petit des majorants. S'il existe on le note $\sup A$.
+  \item $\alpha$ est la \defi{borne inférieure}\index{borne inferieure@borne inférieure} de $A$ si $\alpha$ est un minorant de
+$A$ et si c'est le plus grand des minorants. S'il existe on le note $\inf A$.
+\end{enumerate}
+\end{definition}
+
+\begin{exemple}
+Soit $A=]0,1]$.
+\begin{enumerate}
+  \item $\sup A=1$ : en effet les majorants de $A$ sont les éléments de $[1,+\infty[$. Donc le plus petit des majorants est $1$.
+  \item $\inf A=0$ : les minorants sont les éléments de $]-\infty,0]$ donc le plus grand des minorants est $0$.
+\end{enumerate}
+\end{exemple}
+
+\begin{exemple}
+\sauteligne
+\begin{itemize}
+  \item $\sup[a,b]=b$,
+  \item $\inf[a,b]=a$,
+  \item $\sup]a,b[=b$,
+  \item $]0,+\infty[$ n'admet pas de borne supérieure,
+  \item $\inf ]0,+\infty[ =0$.
+\end{itemize}
+\end{exemple}
+
+
+
+\begin{theoreme}[$\Rr4$]
+Toute partie de $\Rr$ non vide et majorée admet une borne supérieure.
+\end{theoreme}
+
+De la même façon : Toute partie de $\Rr$ non vide et minorée admet une borne inférieure.
+
+\begin{remarque*}
+C'est tout l'intérêt de la borne supérieure par rapport à la notion de plus grand élément,
+dès qu'une partie est bornée elle admet toujours une borne supérieure et une borne inférieure.
+Ce qui n'est pas le cas pour le plus grand ou plus petit élément. Gardez à l'esprit l'exemple $A=[0,1[$.
+\end{remarque*}
+
+\begin{proposition}[Caractérisation de la borne supérieure]
+Soit $A$ une partie non vide et majorée de $\Rr$. La borne supérieure de $A$ est l'unique réel $\sup A$ tel que
+\begin{enumerate}
+\item[(i)] si $x\in A$, alors $x\leq \sup A$,
+\item[(ii)] pour tout $y<\sup A$, il existe $x\in A$ tel que $y<x$.
+\end{enumerate}
+\end{proposition}
+
+\begin{exemple}
+Reprenons l'exemple de la partie $A=\big\{ 1-\frac{1}{n} \mid n\in \Nn^* \big\}$.
+
+\myfigure{1.5}{
+\tikzinput{fig_reels09}
+}
+\begin{enumerate}
+  \item Nous avions vu que $\min A = 0$. Lorsque le plus petit élément d'une partie existe alors
+la borne inférieure vaut ce plus petit élément : donc $\inf A= \min A=0$.
+
+  \item \emph{Première méthode pour $\sup A$.} Montrons que $\sup A=1$ en utilisant la définition
+de la borne supérieure. Soit $M$ un majorant de $A$ alors $M \ge 1-\frac 1n$, pour tout $n\ge 1$.
+Donc à la limite $M \ge 1$. Réciproquement si $M\ge 1$ alors $M$ est un majorant de $A$.
+Donc les majorants sont les éléments de $[1,+\infty[$. Ainsi le plus petit des majorants est $1$ et donc $\sup A=1$.
+
+  \item \emph{Deuxième méthode pour $\sup A$.} Montrons que $\sup A=1$ en utilisant la caractérisation
+de la borne supérieure.
+  \begin{enumerate}
+     \item[(i)] Si $x\in A$, alors $x\leq 1$ ($1$ est bien un majorant de $A$) ;
+     \item[(ii)] pour tout $y< 1$, il existe $x\in A$ tel que $y<x$  : en effet prenons $n$ suffisamment grand tel que
+$0<\frac 1n < 1-y$. Alors on a $y < 1-\frac 1n < 1$. Donc $x=1-\frac 1n \in A$ convient.
+   \end{enumerate}
+Par la caractérisation de la borne supérieure, $\sup A=1$.
+\end{enumerate}
+\end{exemple}
+
+
+\begin{proof}~
+\begin{enumerate}
+\item Montrons que $\sup A$ vérifie ces deux propriétés.
+La borne supérieure est en particulier un majorant, donc vérifie la première
+propriété. Pour la seconde, fixons $y<\sup A$. Comme $\sup A$ est le plus
+petit des majorants de $A$ alors $y$ n'est pas un majorant de $A$.
+Donc il existe $x\in A$ tel que $y<x$. Autrement dit $\sup A$ vérifie
+également la seconde propriété.
+
+\item Montrons que réciproquement si un nombre $\alpha$
+vérifie ces deux propriétés, il s'agit de $\sup A$. La première propriété
+montre que $\alpha$ est un majorant de $A$. Supposons par l'absurde que
+$\alpha$ n'est pas le plus petit des majorants. Il existe donc un autre
+majorant $y$ de $A$ vérifiant $y<\alpha$. La deuxième propriété montre
+l'existence d'un élément $x$ de $A$ tel que $y<x$, ce qui contredit le
+fait que $y$ est un majorant de $A$. Cette contradiction montre donc que
+$\alpha$ est bien le plus petit des majorants de $A$, à savoir $\sup A$.
+\end{enumerate}
+\end{proof}
+
+\bigskip
+Nous anticipons sur la suite pour donner une autre caractérisation, très utile, de la borne supérieure.
+\begin{proposition}
+Soit $A$ une partie non vide et majorée de $\Rr$. La borne supérieure de $A$ est l'unique réel $\sup A$ tel que
+\begin{enumerate}
+\item[(i)] $\sup A$ est un majorant de $A$,
+\item[(ii)] il existe une suite $(x_n)_{n\in\Nn}$ d'éléments de $A$ qui converge vers $\sup A$.
+\end{enumerate}
+\end{proposition}
+
+
+%---------------------------------------------------------------
+\subsection*{Remarques historiques}
+
+\begin{itemize}
+\item Les propriétés $\Rr1$, $\Rr2$, $\Rr3$ et le théorème $\Rr4$
+sont intrinsèques à la construction de $\Rr$ (que nous admettons).
+
+  \item Il y a un grand saut entre $\Qq$ et $\Rr$ :
+on peut donner un sens précis à l'assertion
+ \og il y a beaucoup plus de nombres irrationnels que de nombres rationnels \fg{},
+bien que ces deux ensembles soient infinis, et m\^eme denses dans $\Rr$.
+
+D'autre part, la construction du corps des réels $\Rr$ est beaucoup plus récente
+que celle de $\Qq$ dans l'histoire des mathématiques.
+
+
+\item La construction de $\Rr$ devient une nécessité après l'introduction
+du calcul infinitésimal (Newton et Leibniz vers 1670). Jusqu'alors l'existence d'une borne supérieure était considérée
+comme évidente et souvent confondue avec le plus grand élément.
+
+\item Ce n'est pourtant que beaucoup plus tard, dans les années $1860$-$1870$
+(donc assez récemment dans l'histoire des mathématiques) que deux constructions complètes de $\Rr$ sont données :
+\begin{itemize}
+\item Les coupures de Dedekind : $\mathcal C$ est une coupure si $\mathcal C \subset \Qq$
+et si $\forall r\in \mathcal C$ on a $r'<r\implies r'\in \mathcal C$.
+\item Le suites de Cauchy : ce sont les suites $(u_n)_{n\in \Nn}$ vérifiant la propriété
+\[ \forall \epsilon >0\;\; \exists N \in \Nn \qquad  \left( m\geq N\;\;,n\geq  N\right)\implies |u_m-u_n|\leq \epsilon \;\; .\]
+Les réels sont l'ensemble des suites de Cauchy (où l'on identifie deux suites de Cauchy
+dont la différence tend vers $0$).
+\end{itemize}
+
+\end{itemize}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soit $A$ une partie de $\Rr$. On note $-A=\{-x| x\in A\}$. Montrer que $\min A=-\max(-A)$,
+c'est-à-dire que si l'une des deux quantités a un sens, l'autre aussi, et on a égalité.
+  \item Soit $A$ une partie de $\Rr$. Montrer que $A$ admet un plus petit
+élément si et seulement si $A$ admet une borne inférieure qui appartient à $A$.
+\item Même exercice, mais en remplaçant $\min$ par $\inf$ et $\max$ par $\sup$.
+ % \item Soit $f:\Rr\to \Rr$ une fonction croissante. Comparer $f(\sup A)$ et $\sup f(A)$. Mêmes questions avec $\max$, $\min$, $\inf$, puis reprendre l'exercice avec $f$ décroissante.
+  \item Soit $A=\big\{(-1)^n \frac{n}{n+1}\mid n\in \Nn\big\}$. Déterminer, s'ils existent, le plus grand élément, le plus petit élément,
+les majorants, les minorants, la borne supérieure et la borne inférieure.
+  \item Même question avec $A= \big\{ \frac{1}{1+x} \mid x \in [0,+\infty[ \big\}$.
+%    \item Soit $f:[0,1]\to[0,1]$ une fonction croissante. Montrer que $A=\big\{x\in[0,1]| x\geq f(x) \big\}$
+% admet une borne inférieure $a$, puis que ce $a$ est en fait le minimum de $A$, et finalement que $f(a)=a$.
+\end{enumerate}
+\end{miniexercices}
+
+\auteurs{
+Arnaud Bodin, 
+Niels Borne, 
+Laura Desideri
+}
+
+\finchapitre
+\end{document}
+
+

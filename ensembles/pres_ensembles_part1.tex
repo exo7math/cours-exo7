@@ -1,0 +1,359 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={153,0,0}]{structure}
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\title{{\bf Ensembles et applications}}
+\subtitle{Ensembles}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définir des ensembles
+    \item<4-> Inclusion, union, intersection, complémentaire
+    \item<5-> Règles de calcul
+    \item<6-> Produit cartésien
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Motivation}
+
+\begin{frame}
+
+Le \evidence{paradoxe de Russell} \pause 
+
+\begin{itemize}
+  \item L'ensemble de tous les ensembles n'existe pas
+
+\pause
+
+  \item \emph{\og Dans une ville, le barbier rase tous ceux qui ne se rasent pas eux-mêmes.
+Qui rase le barbier ? \fg\ }
+\end{itemize}
+
+
+\bigskip
+\pause
+
+\begin{itemize}
+  \item l'ensemble des entiers naturels $\Nn =\{0,1,2,3,\ldots\}$
+\pause
+  \item l'ensemble des entiers relatifs $\Zz = \{\ldots, -2,-1,0,1,2,\ldots\}$
+\pause
+  \item l'ensemble des rationnels $\Qq = \big\{ \frac{p}{q} \mid p \in \Zz, q \in \Nn\setminus \{ 0\} \big\}$
+\pause
+  \item l'ensemble des réels $\Rr$, par exemple $1, \sqrt 2$, $\pi$, $\ln(2)$,\ldots
+\pause
+  \item l'ensemble des nombres complexes $\Cc$
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Ensembles}
+
+%---------------------------------------------------------------
+\section{Définir des ensembles}
+
+\begin{frame}
+
+\begin{itemize}
+  \item Un \defi{ensemble} est une collection d'éléments
+
+\pause
+
+  \item Exemples : $\{ 0, 1 \}$ \; ; \; $\{ \text{rouge}, \text{noir} \}$ 
+  \; ; \; $\{0, 1, 2, 3,\ldots\} = \Nn$
+
+\pause
+
+  \item L'\defi{ensemble vide} $\varnothing$ est l'ensemble ne contenant aucun élément
+
+\pause
+
+  \item \myboxinline{$x \in E$} si $x$ est un élément de $E$; \; la négation est $x \notin E$
+
+\pause
+
+  \item Autre façon : une collection d'éléments qui vérifient une propriété
+
+ \pause
+  
+  \item Exemples
+  \begin{itemize}
+     \item $\big\{ x \in \Rr \mid  |x-2| < 1 \big\}$
+     \item $\big\{ z \in \Cc \mid z^5=1 \big\}$
+     \item $\big\{ x \in \Rr \mid 0 \le x \le 1 \big\}=[0,1]$
+  \end{itemize}
+   
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Inclusion, intersection,...}
+
+\begin{frame}
+\begin{itemize}
+  \item<1-> \defi{Inclusion} $E \subset F$ si tout élément de $E$ est aussi élément de $F$
+
+Autrement dit: \; $\forall x \in E \; (x \in F)$
+
+\pause
+
+On dit aussi
+
+\assertion{$E$ est un \defi{sous-ensemble} de $F$} ou \assertion{$E$ est une \defi{partie} de $F$}
+
+\bigskip
+\pause
+
+  \item \defi{Égalité}  $E = F$ si et seulement si $E \subset F$ et $F \subset E$
+
+\bigskip
+\pause
+
+  \item $\mathcal{P}(E)$ : \defi{ensemble des parties} de $E$
+
+\bigskip
+\pause
+
+Exemple si $E= \{1,2,3\}$ 
+$$\mathcal{P}(\{1,2,3\}) = 
+\big\{ \varnothing, \{1\}, \{2\}, \{3\}, \{1,2\}, \{1,3\}, \{2,3\}, \{1,2,3\} \big\}$$
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------------------------
+
+\begin{frame}
+\begin{itemize}
+  \item \defi{Complémentaire} si $A \subset E$
+\myboxinline{$\complement_E A = \big\{ x \in E \mid x \notin A \big\}$}
+
+\smallskip
+\pause
+
+\begin{minipage}{0.5\textwidth}
+\myfigure{1}{
+\tikzinput{fig_ensembles01} 
+}  
+\end{minipage}
+\pause
+\begin{minipage}{0.4\textwidth}
+Noté aussi $E \setminus A$ \ \  ou \ \ $\complement A$ 
+\end{minipage}
+
+
+\pause
+
+  \item \defi{Union}
+  \myboxinline{$A \cup B = \big\{ x \in E \mid x \in A \ \text{ ou } \ x \in B \big\}$}
+
+\pause
+
+\myfigure{1}{
+\tikzinput{fig_ensembles02} 
+\qquad
+\uncover<7->{
+\tikzinput{fig_ensembles03}}
+}
+
+  \pause
+  \item \defi{Intersection} 
+\myboxinline{$A \cap B = \big\{ x \in E \mid x \in A \ \text{ et } \  x \in B \big\}$}
+
+\end{itemize}
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Règles de calculs}
+
+\begin{frame}
+
+\begin{itemize}
+  \item $A \cap (B \cap C) = (A \cap B) \cap C$ 
+\pause 
+  \item $A \cup (B \cup C) = (A \cup B) \cup C$  
+\end{itemize}
+
+\pause
+\medskip
+
+\begin{itemize}
+  \item $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$
+\pause
+  \item $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$
+\end{itemize}
+
+\pause
+\medskip
+
+\begin{itemize}
+  \item $\complement \left( \complement A \right) = A$
+\pause
+  \item $A \subset B \quad \Longleftrightarrow \quad \complement B \subset \complement A$
+\end{itemize}
+
+\end{frame}
+
+%---------------------------------------------------------------------------------
+
+\begin{frame}
+
+$$\complement \left( A \cap B \right) = \complement A \cup \complement B 
+\qquad \qquad
+\pause 
+\complement \left( A \cup B \right) = \complement A \cap \complement B$$
+
+\pause
+\vspace*{-6mm}
+
+\myfigure{1}{
+\tikzinput{fig_ensembles04a} 
+\quad\pause
+\tikzinput{fig_ensembles04b} 
+}
+\pause
+\myfigure{1}{
+\tikzinput{fig_ensembles04c} 
+\quad\pause
+\tikzinput{fig_ensembles04d} 
+}
+
+\end{frame}
+
+%---------------------------------------------------------------------------------
+
+\begin{frame}
+\[
+A \cap (B \cup C) = (A \cap B) \cup (A \cap C)
+\]
+\pause
+\begin{proof}
+$\hphantom{\iff\ } x \in A \cap (B \cup C)$ \pause
+
+$\iff x \in A \text{ et } x \in (B \cup C)$ \pause
+
+$\iff  x \in A \text{ et } (x \in B \text{ ou } x \in C)$ \pause
+
+$\iff (x \in A \text{ et } x\in B) \text{ ou } (x \in A \text{ et } x \in C)$ \pause
+
+$\iff (x \in A \cap B) \text{ ou } (x \in A \cap C)$ \pause
+
+$\iff x \in (A\cap B) \cup (A\cap C)$
+\end{proof}
+
+\end{frame}
+
+%---------------------------------------------------------------------------------
+
+\begin{frame}
+$$\complement \left( A \cap B \right) = \complement A \cup \complement B$$  \pause
+\begin{proof}
+$\hphantom{\iff\ }x \in \complement \left( A \cap B \right)$ \pause
+
+$\iff x \notin \left( A \cap B \right)$ \pause
+
+$\iff \text{non} \big(x \in A \cap B\big)$ \pause
+
+$\iff \text{non} \big(x \in A \text{ et } x \in B\big)$ \pause
+
+$\iff \text{non} (x \in A) \text{ ou } \text{non} (x \in B)$ \pause
+
+$\iff x \notin A \text{ ou } x\notin B$ \pause
+
+$\iff x \in \complement A \cup \complement B$
+\end{proof}
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Produit cartésien}
+
+\begin{frame}
+
+\begin{minipage}{0.7\textwidth}
+\defi{Produit cartésien} $E \times F$ 
+c'est l'ensemble des \\ couples $(x,y)$ où $x \in E$ et $y \in F$
+
+\pause
+\bigskip
+
+\begin{exemple}
+{\small
+\begin{enumerate}
+  \item $\Rr^2 = \Rr \times \Rr= \big\{ (x,y) \mid x,y \in \Rr \big\}$
+
+\pause
+
+  \item $[0,1] \times \Rr = \big\{ (x,y) \mid 0 \le x \le 1, y \in \Rr \big\}$ 
+
+
+\uncover<5->{
+  \item $[0,1] \times [0,1] \times [0,1] = \big\{ (x,y,z) \mid 0 \le x,y,z \le 1 \big\}$
+}
+
+\end{enumerate}
+}
+\end{exemple}  
+\end{minipage}
+\begin{minipage}{0.29\textwidth}
+\uncover<4->{\myfigure{1}{
+\tikzinput{fig_ensembles05} 
+}}
+\pause
+\uncover<6->{\myfigure{1}{
+\tikzinput{fig_ensembles06} 
+}}  
+\end{minipage}
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+
+  \item En utilisant les définitions, montrer : $A \neq B$ si et seulement s'il existe $a \in A \setminus B$
+  ou $b \in B \setminus A$.
+
+  \item Énumérer $\mathcal{P}(\{1,2,3,4\})$.
+
+  \item Montrer $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$ et
+$\complement \left( A \cup B \right) = \complement A \cap \complement B$.
+
+  \item Énumérer $\{1,2,3\} \times \{1,2,3,4\}$.
+
+  \item Représenter les sous-ensembles de $\Rr^2$ suivants :
+$\big(]0,1[ \cup [2,3[\big) \times [-1,1]$,
+$\big( \Rr \setminus (]0,1[ \cup [2,3[\big) \times \big( (\Rr \setminus[-1,1]) \cap [0,2]  \big)$.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+\end{document}

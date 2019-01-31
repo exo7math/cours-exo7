@@ -1,0 +1,339 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={245,66,24}]{structure}
+
+% Commande spécifique à ce chapitre
+
+\newcommand{\Python}{\texttt{Python}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+
+
+
+% Black and white
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+    literate={>>>}{\textcolor{red}{>\,\!>\,\!>}}{3},
+  escapeinside=||
+}
+
+
+
+% Color
+\lstset{
+  language=Python,
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  keywordstyle=\color{blue},
+  %emph={bin,oct,hex},
+  emphstyle=\color{blue},
+  stringstyle=\color{green!60!black},
+%  frame=single,  
+  showspaces=false,
+  showstringspaces=false,
+  literate={>>>}{\textcolor{red}{>\,\!>\,\!>}}{3},
+  escapeinside=||
+}
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+
+\renewcommand{\debutmontitre}{
+  \author{} \date{} 
+  \thispagestyle{empty}
+  \hspace*{-10ex}
+  \begin{minipage}{\textwidth}
+    \titlepage  
+  \vspace*{-1.5cm}
+%   \begin{center}
+%     \LogoExoSept{2.5}
+%   \end{center}
+  \end{minipage}
+
+  \vspace*{-0cm}
+  
+  % Astuce pour que le background ne soit pas discrétisé lors de la conversion pdf -> png
+\begin{tikzpicture}
+        \fill[opacity=0,green!60!black] (0,0)--++(0,0)--++(0,0)--++(0,0)--cycle; 
+\end{tikzpicture}
+
+% toc S'affiche trop tot :
+% \tableofcontents[hideallsubsections, pausesections]
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Représentation des nombres}}
+\subtitle{Algorithmes pour le binaire}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfil\qquad\qquad\qquad\qquad
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Le binaire en \Python
+    \item<4-> Calcul de l'écriture binaire
+    \item<5-> Calcul d'un entier représenté en binaire
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Le binaire en  \Python}
+
+
+
+\begin{frame}[fragile]
+  
+\evidence{Binaire en \Python} 
+
+\begin{itemize}
+  \pause
+  \item \codeinline{bin} donne une chaîne de caractères représentant l'écriture binaire
+  \pause
+\begin{lstlisting}
+>>> bin(47)|\pause|
+'0b101111'|\pause|
+>>> bin(3010)
+'0b101111000010'  
+\end{lstlisting}  
+
+\pause
+  \item La chaîne débute par \codeinline{'0b'}
+\pause
+  \item Les nombres négatifs sont précédés du signe moins (\codeinline{-})
+
+\begin{lstlisting}
+>>> bin(-47)
+'-0b101111'  
+\end{lstlisting}
+
+\pause
+  \item Écriture directe en binaire des nombres entiers
+\begin{lstlisting}
+>>> 0b101
+5|\pause|
+>>> 0b101 + 47
+52  
+\end{lstlisting}
+
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Calcul de l'écriture binaire}
+
+
+
+\begin{frame}
+\evidence{Calcul de l'écriture binaire}
+
+\pause
+Exemple : $n = 47$
+\begin{itemize}
+\pause
+\item $n$ divisé par $2$ :   $47 = 2\times 23 + 1$ \hfill\qquad $q_1=23$ \qquad $r_0={\color{red}1}$\qquad \qquad \qquad 
+\pause
+\item $q_1$ divisé par $2$ : $23 = 2\times 11 + 1$ \hfill\qquad $q_2=11$ \qquad $r_1={\color{red}1}$\qquad \qquad \qquad 
+\pause
+\item $q_2$ divisé par $2$ : $11 = 2\times 5 + 1$ \hfill\qquad $q_3=5$ \qquad $r_2={\color{red}1}$\qquad \qquad \qquad 
+\pause
+\item $q_3$ divisé par $2$ : $5 = 2\times 2 + 1$ \hfill\qquad $q_4=2$ \qquad $r_3={\color{red}1}$\qquad \qquad \qquad 
+\pause
+\item $q_4$ divisé par $2$ : $2 = 2\times 1 + 0$ \hfill\qquad $q_5=1$ \qquad $r_4={\color{red}0}$\qquad \qquad \qquad 
+\pause
+\item $q_5$ divisé par $2$ : $1 = 2\times 0 + 1$ \hfill\qquad $q_6=0$ \qquad $r_5={\color{red}1}$\qquad \qquad \qquad 
+\pause
+\end{itemize}
+
+\medskip
+
+
+L'écriture binaire de $n=47$ est :
+\[47 = \overline{r_{5}r_{4}r_{3}r_{2}r_{1}r_{0}} = \overline{{\color{red}\mathtt{101111}}}_2\]
+
+
+\begin{itemize}
+\pause
+  \item Successions de divisions euclidiennes par $2$
+\pause
+  \item Les restes $r_i$ sont $0$ ou $1$
+\pause
+  \item On continue jusqu'à obtenir un quotient nul
+\pause
+  \item L'écriture binaire s'obtient en alignant de droite à gauche les restes
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\evidence{Calcul de l'écriture binaire}
+
+\bigskip
+
+\begin{algo}
+\textbf{Entrée :} $n\in\mathbb{N}$ un entier non nul
+
+\textbf{Sortie :} $r_{t-1}r_{t-2}\ldots r_1r_0$ écriture binaire de $n$
+
+
+\begin{enumerate}
+\item $i \leftarrow 0$
+\item $q_i \leftarrow n$
+\item \textbf{Tant que} $q_i \neq 0$
+\item $\qquad q_{i+1} \leftarrow q_i\div 2$
+\item $\qquad r_i \leftarrow q_i \pmod{2}$
+\item $\qquad i \leftarrow i + 1$
+\item \textbf{Fin Tant que}
+\item \textbf{Renvoyer :} $r_{i-1}r_{i-2}\ldots r_1r_0$
+\end{enumerate}
+\end{algo}
+
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Calcul d'un entier représenté en binaire}
+
+\begin{frame}
+
+\evidence{Calcul d'un entier représenté en binaire}
+
+\bigskip
+\pause
+
+\textbf{Première méthode.}\\
+ Développer le calcul d'une somme de puissances de $2$
+
+\bigskip
+\pause
+Exemple $n = \overline{{\color{red}\mathtt{101111}}}_2$
+\[\begin{array}{rcl}
+\pause
+n &=& 
+{\color{red}1}\times 2^5 
++ {\color{red}0}\times 2^4 
++ {\color{red}1}\times 2^3 
++ {\color{red}1}\times 2^2 
++ {\color{red}1}\times 2^1 
++ {\color{red}1}\times 2^0\\
+\pause
+&=& 32 + 8 + 4 + 2 + 1\\
+\pause
+&=& 47
+\end{array}\]
+
+\end{frame}
+
+
+\begin{frame}
+
+
+\evidence{Calcul d'un entier représenté en binaire}
+
+\bigskip
+\pause
+
+\textbf{Deuxième méthode.} Algorithme de Horner
+
+\bigskip
+\pause
+Exemple $n = \overline{{\color{red}\mathtt{101111}}}_2$
+\[\begin{array}{rcl}
+\pause
+n &=& 1\times 2^5 + 0\times 2^4 + 1\times 2^3 + 1\times 2^2 + 1\times 2^1 + 1\times 2^0\\
+\pause
+&=& (1\times 2^4 + 0\times 2^3 + 1\times 2^2 + 1\times 2^1 + 1)\times 2 + 1\\
+\pause
+&=& ((1\times 2^3 + 0\times 2^2 + 1\times 2^1 + 1)\times 2 + 1)\times 2 + 1\\
+\pause
+&=& (((1\times 2^2 + 0\times 2^1 + 1)\times 2 + 1)\times 2 + 1)\times 2 + 1\\
+\pause
+&=& (((({\color{red}1}\times 2 + {\color{red}0})\times 2 + {\color{red}1})\times 2 + {\color{red}1})\times 2 + {\color{red}1})\times 2 + {\color{red}1} \\
+\pause
+&=& 47
+\end{array}\]
+
+\pause
+N'apparaissent que
+\begin{itemize}
+\pause
+\item les bits de l'écriture binaire de $n$
+\pause
+\item des additions et des multiplications par $2$
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+\evidence{Calcul d'un entier représenté en binaire}
+
+\bigskip
+
+\textbf{Deuxième méthode.} Algorithme de Horner
+
+\bigskip
+
+\begin{algo}
+\textbf{Entrée :} $r_{t-1}r_{t-2}\ldots r_1r_0$ l'écriture binaire d'un entier $n$
+
+\textbf{Sortie :} valeur de $n$
+
+\begin{enumerate}
+
+\item $n\leftarrow r_{t-1}$ (le bit le plus à gauche dans l'écriture binaire)
+\item \textbf{Pour} $i$ variant de $t-2$ à 0 (en décroissant)
+\item $\qquad n\leftarrow n\times 2 + r_{i}$
+\item \textbf{Fin pour}
+\item \textbf{Renvoyer :} $n$
+\end{enumerate}
+\end{algo}
+
+\end{frame}
+
+
+
+\end{document}

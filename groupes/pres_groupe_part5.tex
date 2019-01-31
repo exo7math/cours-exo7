@@ -1,0 +1,640 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={0,153,0}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcounter{saveenumi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+
+
+\title{{\bf Groupes}}
+\subtitle{Le groupe des permutations $\mathcal{S}_n$}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Groupe des permutations
+    \item<4-> Le groupe $\mathcal{S}_3$
+    \item<5-> Décomposition en cycles
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%---------------------------------------------------------------
+\section{Groupe des permutations}
+
+
+\begin{frame}
+
+Fixons $n\ge 2$
+\begin{proposition}
+L'ensemble des bijections de $\{1,2,\ldots,n\}$ dans lui-même, muni de la composition
+des fonctions est un groupe, noté $(\mathcal{S}_n,\circ)$
+\end{proposition}
+
+\pause
+\bigskip
+
+Une bijection de $\{1,2,\ldots,n\}$  est une \defi{permutation}
+
+Le groupe $(\mathcal{S}_n,\circ)$ est le \defi{groupe des permutations} 
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{lemme}
+Le cardinal de $\mathcal{S}_n$ est $n!$
+\end{lemme}
+
+\pause
+\bigskip
+
+\begin{proof}
+
+Bijection $f : \{1,2,\ldots,n\} \longrightarrow \{1,2,\ldots,n\}$
+
+\medskip
+ 
+Pour $f(1)$ il y a $n$ choix
+
+Pour $f(2)$ il y a $n-1$ choix
+
+...
+
+
+Pour l'image du dernier élément $n$ il ne reste qu'une possibilité
+
+Au final il y a $n\times(n-1)\times \cdots \times 2 \times 1 = n!$ permutations
+\end{proof}
+
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Notation et exemples}
+
+
+\begin{frame}
+\'Ecriture d'une permutation $f : \{1,2,\ldots,n\} \longrightarrow \{1,2,\ldots,n\}$
+$$\left[\begin{matrix} 
+ 1    & 2    & \cdots & n \\  
+ f(1) & f(2) & \cdots & f(n) \\      
+        \end{matrix}
+ \right]
+$$
+
+\pause
+\bigskip
+
+\begin{exemple}
+La permutation de $\mathcal{S}_7$ 
+$$\left[\begin{matrix} 
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \tikz[remember picture]\coordinate(extop); \\  
+ 3 & 7 & 5 & 4 & 6 & 1 & 2  \tikz[remember picture]\coordinate(exbot);\\      
+        \end{matrix} \right]
+$$  
+
+\pause
+
+\begin{tikzpicture}[x=1mm,y=1mm, remember picture, overlay]
+   \coordinate (mytop) at ($(extop)+(3,3)$);
+   \coordinate (mybot) at ($(exbot)+(3,-1)$);
+   \draw[|->, myred, very thick] (mytop) to[bend left,thick]node[right, midway]{$f$} (mybot);
+\end{tikzpicture}
+
+\pause
+
+est la bijection $f : \{1,2,\ldots,7\} \longrightarrow \{1,2,\ldots,7\}$
+définie par 
+
+\centerline{$f(1)= 3$ \quad  $f(2)=7$ \quad  $f(3)=5$ \quad $f(4)=4$}
+\centerline{$f(5)=6$ \quad $f(6)=1$ \quad $f(7)=2$}
+\end{exemple}
+
+\end{frame}
+
+
+\begin{frame}
+L'élément neutre du groupe est l'\evidence{identité}
+
+Pour $\mathcal{S}_7$ c'est \quad
+$\id = \left[\begin{matrix} 
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \\  
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \\     
+        \end{matrix} \right]
+$
+
+
+\pause
+\medskip
+
+\evidence{Composition} de deux permutations
+$$f =\left[\begin{matrix} 
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \\  
+ 3 & 7 & 5 & 4 & 6 & 1 & 2 \\      
+        \end{matrix} \right]
+\qquad 
+g = \left[\begin{matrix} 
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \\  
+ 4 & 3 & 2 & 1 & 7 & 5 & 6 \\      
+        \end{matrix} \right]
+$$
+
+\pause
+
+$$g\circ f 
+= \left[\begin{matrix} 
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \tikz[remember picture]\coordinate(comptop); \\  
+ 3 & 7 & 5 & 4 & 6 & 1 & 2  \tikz[remember picture]\coordinate(compmid);\\   
+\uncover<5->{2 & 6 & 7 & 1 & 5 & 4 & 3 \tikz[remember picture]\coordinate(compbot);} \\
+        \end{matrix} \right]
+\uncover<8->{
+\qquad\qquad = \left[\begin{matrix} 
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \\      
+ 2 & 6 & 7 & 1 & 5 & 4 & 3
+        \end{matrix} \right]
+}
+$$
+\begin{tikzpicture}[x=1mm,y=1mm, remember picture, overlay]
+   \coordinate (mytopone) at ($(comptop)+(3,3)$);
+   \coordinate (mymidone) at ($(compmid)+(3,+1)$);
+   \draw[|->, myred, very thick] (mytopone) to[thick]node[right, midway]{$f$} (mymidone);
+\end{tikzpicture}
+\pause
+\begin{tikzpicture}[x=1mm,y=1mm, remember picture, overlay]
+   \coordinate (mymidtwo) at ($(compmid)+(3,+1)$);
+   \coordinate (mybottwo) at ($(compbot)+(3,-1)$);
+   \draw[|->, myred, very thick] (mymidtwo) to[thick]node[right, midway]{$g$} (mybottwo);
+\end{tikzpicture}
+\pause\pause
+\begin{tikzpicture}[x=1mm,y=1mm, remember picture, overlay]
+   \coordinate (mytopthree) at ($(comptop)+(6,3)$);
+   \coordinate (mybotthree) at ($(compbot)+(6,-1)$);
+  \draw[|->, myred, very thick] (mytopthree) to[bend left,thick]node[right, midway]{$g\circ f$} (mybotthree);
+\end{tikzpicture}
+\pause
+\begin{tikzpicture}[x=1mm,y=1mm, remember picture, overlay]
+   \coordinate (rayemid) at ($(compmid)+(0,1)$);
+   \draw[myred, very thick] (rayemid)-- +(-35,0);
+\end{tikzpicture}
+
+\pause\pause
+\medskip
+
+\evidence{L'inverse} : échanger les lignes du haut et du bas
+$$f= \left[\begin{matrix} 
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \tikz[remember picture]\coordinate(invtop); \\  
+ 3 & 7 & 5 & 4 & 6 & 1 & 2 \tikz[remember picture]\coordinate(invbot); \\      
+        \end{matrix} \right]$$
+\pause
+\begin{tikzpicture}[x=1mm,y=1mm, remember picture, overlay]
+   \coordinate (mytop) at ($(invtop)+(3,3)$);
+   \coordinate (mybot) at ($(invbot)+(3,-1)$);
+   \draw[|->, myred, very thick] (mybot) to[bend right,thick]node[right, midway]{$f^{-1}$} (mytop);
+\end{tikzpicture}
+\pause
+$$f^{-1}=\left[ \begin{matrix}
+ 3 & 7 & 5 & 4 & 6 & 1 & 2\\ 
+\uncover<12->{ 1 & 2 & 3 & 4 & 5 & 6 & 7}\\  
+        \end{matrix} \right]
+\pause\pause
+=\left[\begin{matrix} 
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \\ 
+ 6 & 7 & 1 & 4 & 3 & 5 & 2 \\ 
+        \end{matrix} \right]
+$$
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Le groupe $\mathcal{S}_3$}
+
+\begin{frame}
+\medskip 
+Le groupe $\mathcal{S}_3$ des permutations de $\{1,2,3\}$ a $3!=6$ éléments
+
+\pause
+
+\begin{minipage}{0.39\textwidth}
+\begin{itemize}
+ \item $\id = \left[\begin{smallmatrix} 
+ 1 & 2 & 3 \\  
+ 1 & 2 & 3 \\     
+        \end{smallmatrix} \right]
+$
+\pause
+
+ \item $\tau_1 = \left[\begin{smallmatrix} 
+ 1 & 2 & 3 \\  
+ 1 & 3 & 2 \\     
+        \end{smallmatrix} \right]
+$ 
+\pause
+
+ \item $\tau_2 = \left[\begin{smallmatrix} 
+ 1 & 2 & 3 \\  
+ 3 & 2 & 1 \\     
+        \end{smallmatrix} \right]
+$ 
+\pause
+
+ \item $\tau_3 = \left[\begin{smallmatrix} 
+ 1 & 2 & 3 \\  
+ 2 & 1 & 3 \\     
+        \end{smallmatrix} \right]
+$
+\pause
+
+ \item $\sigma = \left[\begin{smallmatrix} 
+ 1 & 2 & 3 \\  
+ 2 & 3 & 1 \\     
+        \end{smallmatrix} \right]
+$
+\pause
+
+
+ \item $\sigma^{-1} = \left[\begin{smallmatrix} 
+ 1 & 2 & 3 \\  
+ 3 & 1 & 2 \\     
+        \end{smallmatrix} \right]
+$ 
+\end{itemize}  
+\end{minipage}
+\pause
+\begin{minipage}{0.39\textwidth}
+$$\mathcal{S}_3 = \big\{id,\tau_1,\tau_2,\tau_3,\sigma,\sigma^{-1}\big\}$$  
+\pause
+\medskip 
+$$\tau_1 \circ \sigma
+\pause 
+=\left[\begin{smallmatrix} 
+ 1 & 2 & 3 \\  
+ 2 & 3 & 1 \\  
+ 3 & 2 & 1 \\    
+        \end{smallmatrix} \right]
+\pause
+= \left[\begin{matrix} 
+ 1 & 2 & 3 \\  
+ 3 & 2 & 1 \\    
+        \end{matrix} \right]
+\pause
+= \tau_2
+$$
+\pause
+$$
+\sigma \circ \tau_1 
+= \left[\begin{smallmatrix} 
+ 1 & 2 & 3 \\  
+ 1 & 3 & 2 \\ 
+ 2 & 1 & 3 \\     
+        \end{smallmatrix} \right]
+= \left[\begin{matrix} 
+ 1 & 2 & 3 \\  
+ 2 & 1 & 3 \\     
+        \end{matrix} \right]
+\pause
+= \tau_3
+ $$
+\end{minipage}
+
+\pause
+\bigskip 
+
+\begin{lemme}
+Le groupe $\mathcal{S}_n$ n'est pas commutatif ($n\ge3$)
+\end{lemme}
+\end{frame}
+
+
+\begin{frame}
+\centerline{Table du groupe $\mathcal{S}_3$}
+
+\medskip 
+
+\begin{center}
+\begin{tabular}{c||c|c|c|c|c|c}
+\textcolor{green}{$g$} $\circ$ \textcolor{blue}{$f$}  & \textcolor{blue}{$\id$} & \textcolor{blue}{$\tau_1$} 
+ & \textcolor{blue}{$\tau_2$} & \textcolor{blue}{$\tau_3$} 
+&  \textcolor{blue}{$\sigma$} & \textcolor{blue}{$\sigma^{-1}$} \\ \hline\hline
+
+\textcolor{green}{$\id$} & \uncover<4->{$\id$} & \uncover<4->{$\tau_1$} & \uncover<4->{$\tau_2$} & \uncover<4->{$\tau_3$} & \uncover<4->{$\sigma$} & \uncover<4->{$\sigma^{-1}$} \\ \hline
+
+\textcolor{green}{$\tau_1$} & \uncover<5->{$\tau_1$} & \uncover<6->{$\id$} & \uncover<6->{$\sigma$} & \uncover<6->{$\sigma^{-1}$} & \uncover<2->{\textcolor{red}{$\tau_1 \circ \sigma = \tau_2$}} & \uncover<6->{$\tau_3$} \\ \hline
+
+\textcolor{green}{$\tau_2$} & \uncover<5->{$\tau_2$}  & \uncover<6->{$\sigma^{-1}$} & \uncover<6->{$\id$} & \uncover<6->{$\sigma$} & \uncover<6->{$\tau_3$} & \uncover<6->{$\tau_1$} \\ \hline
+
+\textcolor{green}{$\tau_3$} & \uncover<5->{$\tau_3$} & \uncover<6->{$\sigma$} & \uncover<6->{$\sigma^{-1}$} & \uncover<6->{$\id$} & \uncover<6->{$\tau_1$} & \uncover<6->{$\tau_2$} \\ \hline
+
+\textcolor{green}{$\sigma$} & \uncover<5->{$\sigma$} & \uncover<3->{\textcolor{orange}{$\sigma \circ \tau_1=\tau_3$}} & \uncover<6->{$\tau_1$} & \uncover<6->{$\tau_2$} & \uncover<6->{$\sigma^{-1}$} & \uncover<6->{$\id$} \\ \hline
+
+\textcolor{green}{$\sigma^{-1}$} & \uncover<5->{$\sigma^{-1}$} & \uncover<6->{$\tau_2$} & \uncover<6->{$\tau_3$} & \uncover<6->{$\tau_1$} & \uncover<6->{$\id$} & \uncover<6->{$\sigma$} \\
+\end{tabular}
+\end{center}
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Groupe des isométries du triangle}
+
+\begin{frame}
+
+\begin{minipage}{0.60\textwidth}
+\myfigure{1}{
+\tikzinput{fig_groupes01}
+}
+\pause\pause
+Isométries $f$ telles que $f(A) \in \{A,B,C\}$,
+$f(B) \in \{A,B,C\}$, $f(C) \in \{A,B,C\}$
+\pause
+\end{minipage}
+ \begin{minipage}{0.39\textwidth}
+\begin{itemize}
+  \item l'identité $\id$
+\pause
+  \item la rotation $s$ d'angle $\frac{2\pi}{3}$ et 
+la rotation $s^{-1}$ d'angle $-\frac{2\pi}{3}$
+\pause
+  \item les réflexions $t_1, t_2, t_3$ d'axes 
+$\mathcal{D}_1, \mathcal{D}_2,\mathcal{D}_3$
+\end{itemize}
+\end{minipage}
+
+\medskip
+\pause
+
+\begin{proposition}
+L'ensemble des  isométries d'un triangle équilatéral, muni de la composition, forme un groupe.
+\pause
+Ce groupe est isomorphe à $(\mathcal{S}_3,\circ)$
+\end{proposition}
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Décomposition en cycles}
+
+
+\begin{frame}
+
+Un \defi{cycle} est une permutation $\sigma$ 
+\begin{itemize}
+  \item qui fixe un certain nombre d'éléments ($\sigma(i)=i$)
+  \item les autres sont obtenus par itération : $j, \sigma(j),\sigma^2(j),\ldots$
+\end{itemize}
+
+
+\pause
+\bigskip 
+
+\begin{exemple}
+$$
+\sigma = \left[\begin{matrix} 
+ 1 & \mathbf{2} & 3 & \mathbf{4} & \mathbf{5} & 6 & 7 & \mathbf{8} \\  
+ 1 & \mathbf{8} & 3 & \mathbf{5} & \mathbf{2} & 6 & 7 & \mathbf{4} \\      
+        \end{matrix} \right]
+$$
+\pause
+les éléments $1, 3, 6, 7$ sont fixes
+
+\pause
+les autres s'obtiennent comme itération de $2$ 
+
+\pause
+\centerline{$2 \mapsto \sigma(2)=8 \mapsto \sigma(8)=\sigma^2(2)=4 \mapsto \sigma(4)=\sigma^3(2) =  5$}
+
+\centerline{$\sigma^4(2)=\sigma(5)=2$}
+
+\medskip 
+\pause
+
+Notation : \hfil $(2\tikz[remember picture]\coordinate(cycun);\quad 8\tikz[remember picture]\coordinate(cycdeux);\quad
+4\tikz[remember picture]\coordinate(cyctrois);\quad 5\tikz[remember picture]\coordinate(cycquatre);)$
+
+\pause
+
+\begin{tikzpicture}[x=1mm,y=1mm, remember picture, overlay]
+   \coordinate (mycycun) at ($(cycun)+(-1,-1)$);
+   \coordinate (mycycdeux) at ($(cycdeux)+(-1,-1)$);
+   \coordinate (mycycdeuxbis) at ($(cycdeux)+(-1,-2)$);
+   \coordinate (mycyctroisbis) at ($(cyctrois)+(-1,-2)$);
+   \coordinate (mycyctrois) at ($(cyctrois)+(-1,-1)$);
+   \coordinate (mycycquatre) at ($(cycquatre)+(-1,-1)$);
+   \coordinate (mycycquatrebis) at ($(cycquatre)+(-1,+3)$);
+   \coordinate (mycycunbis) at ($(cycun)+(-1,+3)$);
+
+   \draw[->, myred, very thick] (mycycun) to[bend right, thick] (mycycdeux);
+   \draw[->, myred, very thick] (mycycdeuxbis) to[bend right, thick] (mycyctroisbis);
+   \draw[->, myred, very thick] (mycyctrois) to[bend right, thick] (mycycquatre);
+   \draw[->, myred, very thick] (mycycquatrebis) to[bend right, thick] (mycycunbis);
+\end{tikzpicture}
+
+\pause
+Ce même cycle est aussi noté $(8\ 4\ 5\ 2)$, $(4\ 5\ 2\ 8)$ ou $(5\ 2\ 8\ 4)$
+
+\medskip 
+\pause
+
+L'inverse s'obtient en renversant l'ordre:
+$\sigma^{-1}=(5\ 4\ 8\ 2)$  
+\end{exemple}
+
+
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+  \item Le \defi{support} d'un cycle sont les éléments qui ne sont pas fixes 
+\pause
+  \item La \defi{longueur} (ou l'\defi{ordre}) d'un cycle est le nombre d'éléments qui ne sont pas fixes
+\end{itemize}
+
+\pause
+Le support de $\sigma=(2\ 8\ 4\ 5)$ est $\{2, 4, 5, 8\}$, c'est un cycle de longueur $4$
+
+\pause
+\begin{exemple}
+$
+\sigma = \left[\begin{smallmatrix} 
+ 1 & 2 & 3 \\  
+ 2 & 3 & 1 \\      
+        \end{smallmatrix} \right]
+= (1\ 2\ 3)$ est un cycle de longueur $3$ 
+
+\medskip
+\pause
+
+$
+\tau = \left[\begin{smallmatrix} 
+ 1 & 2 & 3 & 4 \\  
+ 1 & 4 & 3 & 2 \\      
+        \end{smallmatrix} \right]
+= (2\ 4)$ est un cycle de longueur $2$ : une \defi{transposition}  
+\end{exemple}
+
+\pause
+\begin{exemple}
+$f =\left[\begin{smallmatrix} 
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \\  
+ 7 & 2 & 5 & 4 & 6 & 3 & 1 \\      
+        \end{smallmatrix} \right]
+$ n'est pas un cycle
+
+\pause
+
+Il s'écrit comme la composition de deux cycles $f = (1\ 7) \circ (3\ 5\ 6)$
+
+\pause
+
+Les supports de $(1\ 7)$ et $(3\ 5\ 6)$ sont disjoints donc $f = (3\ 5\ 6) \circ (1\ 7)$  
+\end{exemple}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{theoreme}
+Toute permutation de $\mathcal{S}_n$ se décompose en composition
+de cycles à supports disjoints
+
+\pause
+
+De plus cette décomposition est unique
+\end{theoreme}
+
+\pause
+
+\begin{itemize}
+  \item Unique à l'écriture de chaque cycle près
+\hfill $(3\ 5\ 6)=(5\ 6\ 3)$
+
+\pause
+  \item Unique à l'ordre près
+\hfill $(1\ 7) \circ (3\ 5\ 6)= (3\ 5\ 6) \circ (1\ 7)$
+\end{itemize}
+\pause
+
+
+\begin{exemple}
+\centerline {$
+f = \left[\begin{smallmatrix} 
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\  
+ 5 & 2 & 1 & 8 & 3 & 7 & 6 & 4 \\      
+        \end{smallmatrix} \right]
+\pause =  (1\ 5\ 3) \circ \pause (4\ 8) \circ \pause (6\ 7)$
+}
+\end{exemple}
+
+\pause
+Si les supports ne sont pas disjoints alors cela ne commute plus !
+
+\pause
+
+\begin{exemple}
+$g = (1\ 2)\circ(2\ 3\ 4) 
+\pause
+= 
+\left[\begin{smallmatrix} 
+ 1 & 2 & 3 & 4 \\  
+ 1 & 3 & 4 & 2 \\   
+ 2 & 3 & 4 & 1 \\  
+\end{smallmatrix} \right] 
+\pause
+=
+\left[\begin{smallmatrix} 
+ 1 & 2 & 3 & 4 \\  
+ 2 & 3 & 4 & 1 \\      
+\end{smallmatrix} \right] 
+\pause =
+(1\ 2\ 3\ 4)$
+
+\pause
+
+$h = (2\ 3\ 4)\circ(1\ 2) 
+\pause = 
+\left[\begin{smallmatrix} 
+ 1 & 2 & 3 & 4 \\  
+ 3 & 1 & 4 & 2 \\      
+\end{smallmatrix} \right]
+\pause 
+= (1\ 3\ 4\ 2)$ 
+\end{exemple}
+
+\end{frame}
+
+
+
+
+
+
+
+%---------------------------------------------------------------
+\section*{Mini-exercices}
+
+
+\begin{frame}
+
+\begin{miniexercice}
+{\small
+\begin{enumerate}
+  \item Soient $f$ définie par $f(1)=2$, $f(2)=3$, $f(3)=4$, $f(4)=5$, $f(5)=1$
+et $g$ définie par $g(1)=2$, $g(2)=1$, $g(3)=4$, $g(4)=3$, $g(5)=5$. \'Ecrire les permutations
+$f$, $g$, $f^{-1}$, $g^{-1}$, $g\circ f$, $f\circ g$, $f^2$, $g^2$, $(g\circ f)^2$.
+  \item \'Enumérer toutes les permutations de $\mathcal{S}_4$ qui n'ont pas d'éléments fixes.
+Les écrire ensuite sous le forme de compositions de cycles à supports disjoints.
+  \item Trouver les isométries directes préservant le carré. Dresser la table des compositions
+et montrer qu'elles forment un groupe. Montrer que ce groupe est isomorphe à $\Zz/4\Zz$.
+  \item Montrer qu'il existe un sous-groupe de $\mathcal{S}_3$ isomorphe à $\Zz/2\Zz$.
+Même question avec $\Zz/3\Zz$. Est-ce que $\mathcal{S}_3$ et $\Zz/6\Zz$ sont isomorphes ?
+  \item Décomposer la permutation suivante en produit de cycles à supports disjoints :
+$f=
+\left[\begin{smallmatrix} 
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 \\  
+ 5 & 7 & 2 & 6 & 1 & 4 & 3 \\      
+\end{smallmatrix} \right]
+$. 
+Calculer $f^2$, $f^3$, $f^4$ puis $f^{20xx}$ où $20xx$ est l'année en cours. Mêmes questions avec 
+$g=
+\left[\begin{smallmatrix} 
+ 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\  
+ 3 & 8 & 9 & 6 & 5 & 2 & 4 & 7 & 1\\      
+\end{smallmatrix} \right]$ et
+$h = (2 5)(1 2 4 3)(1 2)$.
+\end{enumerate}
+}
+\end{miniexercice}
+\end{frame}
+
+
+
+\end{document}

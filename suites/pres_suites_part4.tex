@@ -1,0 +1,395 @@
+\input{./preamb-pres-suites.tex}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+
+
+
+\title{{\bf Suites}}
+\subtitle{Théorèmes de convergence}
+
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Suite monotone
+    \item<4-> Deux exemples
+    \item<5-> Suites adjacentes
+    \item<6-> Théorème de Bolzano-Weierstrass
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Suite monotone}
+
+\begin{frame}
+\begin{theoreme}
+%\vspace*{-2ex}
+  \mybox{Toute suite croissante et majorée est convergente}
+\end{theoreme}
+\pause
+
+  \begin{itemize}
+    \item Toute suite décroissante et minorée est convergente
+\pause    
+    \item Une suite croissante et qui n'est pas majorée tend vers $+\infty$
+  \end{itemize}
+
+\pause
+\begin{proof}
+\begin{itemize}
+  \item Notons $A=\left\{ u_n| n\in \Nn\right\} \subset \Rr$
+\pause 
+  \item Si $M$ majore la suite $(u_n)$ alors $A$ est majoré par $M$
+\pause  
+  \item Notons $\ell=\sup A$
+\pause  
+  \item Montrons que $\lim_{n\to +\infty} u_n=\ell$
+\pause    
+  \begin{itemize}
+    \item Soit $\epsilon >0$
+    \item Il existe $u_N \in A$ tel que  $\ell-\epsilon < u_N \leq \ell$
+    \item Pour $n\geq N$ on a $\ell-\epsilon < u_N \leq u_n \leq \ell$
+    \item Donc $\lvert u_n-\ell \rvert \leq \epsilon$ \qedhere
+  \end{itemize}
+
+\end{itemize}
+
+\end{proof}
+
+\end{frame}
+
+
+\section{Deux exemples}
+
+\begin{frame} 
+\defi{Zêta(2)} 
+\mybox{$ u_n =1+\frac{1}{2^2} +\frac{1}{3^2}+\cdots+\frac{1}{n^2}$}
+
+\pause
+\begin{itemize}
+  \item  $(u_n)$ est croissante : $u_{n+1}-u_n= \frac{1}{(n+1)^2}>0$
+\pause
+  \item Montrons par récurrence que $u_n\leq 2 - \frac{1}{n}$
+\pause  
+  \begin{itemize}
+    \item $u_1=1\leq 2 - \frac{1}{1}$
+\pause    
+    \item Fixons $n\geq 1$ pour lequel on suppose $u_n\leq 2 - \frac{1}{n}$
+    \begin{itemize}
+      \item $u_{n+1}=u_n+ \frac{1}{(n+1)^2}\leq  2 - \frac{1}{n}+ \frac{1}{(n+1)^2}$
+      \item Or $\frac{1}{(n+1)^2}\leq \frac{1}{n(n+1)}=\frac{1}{n}-\frac{1}{n+1}$
+      \item Donc $u_{n+1}\leq 2-\frac{1}{n+1}$
+    \end{itemize}
+\pause    
+    \item Ce qui achève la récurrence 
+  \end{itemize}
+
+  \pause  
+  \item $(u_n)$ est croissante et majorée par $2$ : elle converge
+
+\pause 
+  \item Cette limite est  $\zeta(2)=\frac{\pi^2}{6}$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\defi{Suite harmonique} 
+\mybox{$ u_n =1+\frac{1}{2} +\frac{1}{3}+\cdots+\frac{1}{n}$}
+
+\bigskip
+\pause
+
+
+Calculons $\lim_{n\to +\infty} u_n$
+\pause
+\begin{itemize}
+  \item La suite $(u_n)$ est croissante : $u_{n+1}-u_n= \frac{1}{n+1}>0$
+\pause
+
+  \item Minoration de $u_{2^p}-u_{2^{p-1}}$ :
+  \pause
+\[ u_{2^p}-u_{2^{p-1}}
+\pause
+=\underbrace{\frac{1}{2^{p-1}+1}+ \frac{1}{2^{p-1}+2}+\cdots+\frac{1}{2^p}}_{\pause 2^{p-1}
+=2^p-2^{p-1}
+\text{ termes }
+\pause
+\geq \frac{1}{2^p}}
+\pause
+> 2^{p-1}\times \frac{1}{2^p}
+\pause
+=\frac{1}{2}\]
+
+\vspace*{-2ex}
+\pause
+
+  \item $ u_{2^p}-1 = u_{2^p}-u_1= (u_2 - u_1)+ (u_4 - u_2)+ \cdots +  (u_{2^p}-u_{2^{p-1}}) \geq \frac{p}{2} $
+
+
+\pause
+
+ \item $\lim_{n\to +\infty} u_n=+\infty$
+\end{itemize}
+
+\end{frame}
+
+\section{Suites adjacentes}
+
+
+\begin{frame}
+\begin{mydefinition}
+Deux suites $(u_n)_{n\in \Nn}$ et $(v_n)_{n\in \Nn}$ sont dites \defi{adjacentes} si
+\begin{enumerate}
+  \item $(u_n)_{n\in \Nn}$ est croissante et $(v_n)_{n\in \Nn}$ est décroissante
+  \item pour tout $n\geq 0$, on a $u_n\leq v_n$
+  \item $\lim_{n\to +\infty} (v_n -u_n) = 0$
+\end{enumerate}
+\end{mydefinition}
+
+\pause
+\medskip
+
+\begin{theoreme}
+Si $(u_n)$ et $(v_n)$ sont adjacentes, 
+  elles convergent et ont la même limite
+\end{theoreme}
+
+\pause
+
+$$u_0 \le u_1 \le u_2 \le \cdots \le u_n \le \cdots \cdots \le v_n\le \cdots \le v_2 \le v_1 \le v_0$$
+
+\pause
+
+\begin{proof}
+  \begin{itemize}
+    \item $(u_n)$ est croissante et majorée par $v_0$ donc elle converge vers une limite $\ell$
+\pause
+    \item $(v_n)$ est décroissante et minorée par $u_0$, donc elle converge vers une limite $\ell'$
+\pause
+    \item Comme $\lim_{n\to +\infty} (v_n -u_n) = 0$, d'où $\ell'-\ell=0$ \qedhere
+  \end{itemize}
+\end{proof}
+	
+\end{frame}
+
+
+\begin{frame}
+
+
+\defi{Zêta(2)} 
+\vspace*{-1ex}
+$$u_n = \sum_{k=1}^n \frac 1 {k^2} = 1+\frac{1}{2^2} +\frac{1}{3^2}+\cdots+\frac{1}{n^2}
+\pause 
+\quad \text{ et } \quad v_n = u_n + \frac2{n+1}$$
+
+\pause
+\medskip
+$(u_n)$ et $(v_n)$ sont deux suites adjacentes :
+\medskip
+\pause
+\begin{enumerate}
+  \item 
+  \begin{itemize}
+    \item $(u_n)$ est croissante car $u_{n+1}-u_n = \frac{1}{(n+1)^2} > 0$
+\pause    
+    \item $(v_n)$ est décroissante :
+    $v_{n+1}-v_n = \frac{1}{(n+1)^2} + \frac{2}{n+2} - \frac{2}{n+1} 
+\pause  = \frac{n+2+2(n+1)^2-2(n+1)(n+2)}{(n+2)(n+1)^2} 
+\pause  = \frac{-n}{(n+2)(n+1)^2}< 0$
+  \end{itemize}
+\pause   
+  \item Pour tout $n\ge 1$ : $v_n-u_n = \frac{2}{n+1} >0$, \pause donc $u_n \le v_n$
+\pause 
+  \item $v_n-u_n = \frac{2}{n+1}$  \pause donc $\lim (v_n-u_n) = 0$
+\end{enumerate}
+
+\pause  
+\bigskip
+
+Conclusion
+\begin{itemize}
+  \item Les suites $(u_n)$ et $(v_n)$ sont adjacentes
+\pause    
+  \item Elles convergent vers une même limite $\ell$
+\pause    
+  \item Encadrement $u_n \le \ell \le v_n$
+\pause    
+  \item Exemple $n=3$ \quad $1+\frac{1}{4} +\frac{1}{9} \le \ell \le 1+\frac{1}{4} +\frac{1}{9} + \frac{1}{2}$
+\pause   
+  \item $1,3611\ldots \le \ell \le 1,8611\ldots$
+\end{itemize}
+
+\end{frame}
+
+\section{Théorème de Bolzano-Weierstrass}
+
+\begin{frame}
+\begin{mydefinition}
+Soit $(u_n)_{n\in \Nn}$ une suite. Une \defi{suite extraite} ou  
+\defi{sous-suite} de $(u_n)_{n\in \Nn}$ est une suite de la forme 
+$(u_{\phi(n)})_{n\in \Nn}$, où $\phi : \Nn \to \Nn$ est une application strictement croissante
+\end{mydefinition}
+
+
+
+\myfigure{1.1}{\tikzinput{fig_suites10}}  
+\end{frame}
+
+
+\begin{frame}
+
+\begin{mydefinition}
+Une \defi{suite extraite} de $(u_n)_{n\in \Nn}$ est une suite de la forme 
+$(u_{\phi(n)})_{n\in \Nn}$
+\end{mydefinition}
+
+\pause
+
+Exemple : $(u_n)_{n\in \Nn}$ la suite de terme général $u_n=(-1)^n$
+
+\pause
+
+\begin{itemize}
+  \item $\phi : \Nn \to \Nn$, $\phi(n)=2n$, $u_{\phi(n)}=(-1)^{2n}=1$
+ 
+\pause
+
+La suite extraite $(u_{\phi(n)})_{n\in \Nn}$ est constante égale à $1$
+
+\pause
+
+
+\myfigure{0.85}{\tikzinput{fig_suites11} \quad 
+\uncover<8->{\tikzinput{fig_suites12}} }
+
+\pause
+  \item $\psi : \Nn \to \Nn$, $\psi(n)=3n$, $u_{\psi(n)}=(-1)^{3n}=\big( (-1)^3\big)^n = (-1)^n$
+ 
+\pause
+
+La suite $(u_{\psi(n)})_{n\in \Nn}$ est donc égale à $(u_n)_{n\in \Nn}$
+
+
+\end{itemize}
+
+
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{proposition}
+Soit $(u_n)_{n\in \Nn}$ une suite. Si $\lim_{n\to +\infty}u_n=\ell$, alors 
+pour toute suite extraite $(u_{\phi(n)})_{n\in \Nn}$ 
+on a $\lim_{n\to +\infty} u_{\phi(n)}=\ell$
+\end{proposition}
+
+\pause
+\bigskip
+
+\evidence{Critère de divergence.} Si une suite $(u_n)_{n\in \Nn}$ admet une sous-suite divergente, 
+ou bien si elle admet deux sous-suites convergeant vers des 
+limites distinctes, alors elle diverge
+
+
+\pause
+\bigskip
+
+Exemple :
+\begin{itemize}
+  \item Soit la suite $(u_n)_{n\in \Nn}$ définie par $u_n=(-1)^n$
+  \item Alors $(u_{2n})_{n\in \Nn}$ converge vers $1$
+  \item Et $(u_{2n+1})_{n\in \Nn}$ converge vers $-1$
+  \item Conclusion : la suite $(u_n)_{n\in \Nn}$ diverge
+\end{itemize}
+	
+\end{frame}
+
+
+\begin{frame}
+\begin{theoreme}[de Bolzano-Weierstrass]
+\label{thm:Bolzano_Weierstrass}
+  Toute suite bornée admet une sous-suite convergente
+\end{theoreme}
+
+\pause
+\bigskip
+\bigskip
+
+Exemples :
+  \begin{enumerate}
+    \item Si $(u_n)_{n\in \Nn}$ est définie par 
+    $u_n=(-1)^n$ on a deux sous-suites $(u_{2n})_{n\in \Nn}$ 
+et $(u_{2n+1})_{n\in \Nn}$ convergente
+
+\pause
+\medskip
+
+    \item Si $(v_n)_{n\in \Nn}$ a pour terme général $v_n=\cos n$, 
+le théorème affirme qu'il existe une sous-suite convergente, 
+mais il est moins facile de l'expliciter
+  \end{enumerate}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \section*{Mini-exercices}
+
+\begin{frame}
+ \begin{miniexercice}	
+\begin{enumerate}
+  \item Soit $(u_n)_{n\in \Nn}$ la suite définie par $u_0=1$ et pour $n\geq 1$, 
+$u_n=\sqrt{2+u_{n-1}}$. Montrer que cette suite est croissante et majorée par $2$. 
+Que peut-on en conclure ?
+
+  \item Soit $(u_n)_{n \ge 2}$ la suite définie par 
+  $u_n =\frac{\ln 4}{\ln 5}\times \frac{\ln 6}{\ln 7}\times\frac{\ln 8}{\ln 9}\times 
+  \cdots \times\frac{\ln (2n)}{\ln (2n+1)}.$  \'Etudier la croissance de la suite.
+  Montrer que la suite $(u_n)$ converge.
+  
+  \item Soit $N\geq 1$ un entier et $(u_n)_{n\in \Nn}$ la suite de terme général 
+$u_n=\cos(\frac{n\pi}{N})$. Montrer que la suite diverge. 
+  
+  \item Montrer que les suites de terme général $u_n=\sum_{k=1}^n \frac{1}{k!}$ et 
+$v_n=u_n+\frac{1}{n \cdot (n!)}$ sont adjacentes. Que peut-on en déduire ? 
+
+   \item Soit $(u_n)_{n\geq 1}$ la suite de terme général $\sum_{k=1}^{n}\frac{(-1)^{k+1}}{k}$. 
+On considère les deux suites extraites de terme général $v_n=u_{2n}$ et $w_n= u_{2n+1}$. 
+Montrer que les deux suites $(v_n)_{n\geq 1}$ et $(w_n)_{n\geq 1}$ sont adjacentes. 
+En déduire que la suite $(u_n)_{n\geq 1}$ converge.
+
+ %  \item Montrer qu'une suite bornée et divergente admet deux sous-suites convergeant 
+  % vers des valeurs distinctes. 
+\end{enumerate}
+
+ \end{miniexercice}
+
+ \end{frame}
+
+
+\end{document}

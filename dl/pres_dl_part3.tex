@@ -1,0 +1,396 @@
+
+\input{../preamb-pres}
+\usecolortheme[RGB={179,179,12}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Développements limités}}
+\subtitle{Opérations sur les développements limités}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Somme et produit
+    \item<4-> Composition
+    \item<5-> Division
+    \item<6-> Intégration
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%---------------------------------------------------------------
+\section{Somme et produit}
+
+\begin{frame}
+\center 
+$f(x)=c_0+c_1x + \cdots +c_nx^n + x^n\epsilon_1(x)$ 
+
+\smallskip 
+
+$g(x)=d_0+d_1x + \cdots +d_nx^n + x^n\epsilon_2(x)$
+
+\pause
+
+\begin{proposition}
+\begin{itemize}
+  \item $f+g$  admet un DL en $0$ l'ordre $n$ 
+\pause
+\vspace*{-1ex}
+$$f(x)+g(x)=(c_0+d_0)+(c_1+d_1)x+\cdots+(c_n+d_n)x^n +x^n\epsilon(x)$$
+\pause
+\vspace*{-2ex}
+  \item $f\times g$ admet un DL en $0$ l'ordre $n$ 
+\pause
+\vspace*{-1ex}
+$$f(x) \times g(x)= T_n(x)+x^n\epsilon (x)$$
+où $T_n(x)$ est le  polynôme 
+$(c_0+c_1x + \cdots +c_nx^n)\times(d_0+d_1x + \cdots +d_nx^n)$ 
+tronqué à l'ordre $n$
+\end{itemize}
+\end{proposition}
+
+\pause
+
+\defi{Tronquer} c'est conserver seulement les monômes de degré $\le n$
+  
+\end{frame}
+
+
+
+
+\begin{frame}
+
+\begin{exemple}
+\vspace*{-2ex}
+$$\begin{array}{l@{\vrule depth 1.2ex height 3ex width 0mm }}
+ {\color<2,3>{red} \cos x} \times {\color<3>{blue} \sqrt{1+x}}
+\pause
+   =  \left({\color<2,3>{red}1-\frac{1}{2}x^2+x^2\epsilon_1(x)}\right)\times \uncover<3->{\left({\color<3>{blue}1+\frac{1}{2}x-\frac{1}{8}x^2+x^2\epsilon_2(x)}\right)}\\
+\pause
+\pause
+   =  1+\frac{1}{2}x-\frac{1}{8}x^2+x^2\epsilon_2(x)\\\pause
+    \qquad -\frac{1}{2}x^2\left(1+\frac{1}{2}x-\frac{1}{8}x^2+x^2\epsilon_2(x)\right) \\\pause
+    \qquad \qquad +x^2\epsilon_1(x)\left(1+\frac{1}{2}x-\frac{1}{8}x^2+x^2\epsilon_2(x)\right) \\\pause
+   = 1+\frac{1}{2}x-\frac{1}{8}x^2+x^2\epsilon_2(x) \\\pause
+    \qquad -\frac{1}{2}x^2-\frac{1}{4}x^3+\frac{1}{16}x^4-\frac12x^4\epsilon_2(x)\\\pause
+    \qquad \qquad +x^2\epsilon_1(x) +\frac{1}{2}x^3\epsilon_1(x)-\frac{1}{8}x^4\epsilon_1(x)+x^4\epsilon_1(x)\epsilon_2(x) \\\pause
+   = 1+\frac{1}{2}x + \left(-\frac{1}{8}x^2-\frac{1}{2}x^2\right)\pause
+   \quad  + \quad  x^2\epsilon_2(x) -\frac{1}{4}x^3+\frac{1}{16}x^4+\cdots \\ \pause
+   =  1+\frac{1}{2}x-\frac{5}{8}x^2 \pause \ + \ x^2\epsilon(x) \\
+\end{array}$$
+\end{exemple}
+\end{frame}
+
+\begin{frame}
+\begin{exemple}
+$$\begin{array}{rcl@{\vrule depth 1.2ex height 3ex width 0mm }}
+\cos x \times \sqrt{1+x} 
+  &\pause  = & \left( 1-\frac{1}{2}x^2+ o(x^2)\right)\times \left(1+\frac{1}{2}x-\frac{1}{8}x^2+o(x^2)\right) \\ \pause
+  & = & 1+\frac{1}{2}x-\frac{1}{8}x^2+o(x^2)\\ \pause
+  &&  \qquad -\frac{1}{2}x^2 + o(x^2) \\ \pause
+  &&  \qquad \qquad + o(x^2) \\
+\pause
+  & = & 1+\frac{1}{2}x-\frac{5}{8}x^2+o(x^2) \\
+\end{array}$$
+\end{exemple}
+
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Composition}
+
+\begin{frame}
+
+$$f(x) =c_0+c_1x + \cdots +c_nx^n + x^n\epsilon_1(x) \uncover<2->{= C(x) + x^n\epsilon_1(x)}$$
+$$g(x) =d_0+d_1x + \cdots +d_nx^n + x^n\epsilon_2(x) \uncover<3->{= D(x) + x^n\epsilon_2(x)}$$
+
+\pause
+\pause
+\pause
+
+
+\begin{proposition} 
+\begin{itemize}
+  \item Si $g(0)=0$ (c'est-à-dire $d_0=0$) alors la fonction $f\circ g$ admet un DL en $0$ à l'ordre $n$
+\pause
+  \item Sa partie polynomiale est le polynôme tronqué à l'ordre $n$ de la composition $C(D(x))$
+\end{itemize}
+\end{proposition}  
+
+\end{frame}
+
+\begin{frame}
+
+\begin{exemple}
+DL de $\sin\big(\ln(1+x)\big)$ en $0$ à l'ordre $3$
+\pause
+\begin{enumerate}
+  \item On pose $f(u)=\sin u$ et $g(x)=\ln(1+x)$ \pause
+$f\circ g(x) = \sin\big(\ln(1+x)\big)$ \pause et $g(0)=0$
+\pause
+  \item $f(u)=\sin u = u-\frac{u^3}{3!}+u^3\epsilon_1(u)$ 
+\pause
+  \item $u=g(x)=\ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}+x^3\epsilon_2(x)$
+\pause
+  \item $u^2 = \big(x-\frac{x^2}{2}+\frac{x^3}{3}+x^3\epsilon_2(x)\big)^2 \pause = x^2-x^3+x^3\epsilon_3(x)$
+\pause
+  \item $u^3 = u \times u^2 \pause = x^3+x^3\epsilon_4(x)$
+\pause
+  \item \ \\ \vspace*{-3ex}
+$\begin{array}{rcl@{\vrule depth 1.2ex height 3ex width 0mm }}
+f\circ g(x) \pause & = & f(u) \pause = u-\frac{u^3}{3!}+u^3\epsilon_1(u) \\
+\pause
+ & = & \big(x-\frac{1}{2}x^{2}+\frac{1}{3}x^3\big) -\frac16 x^3  +x^3\epsilon(x) \\
+\pause
+ & = & x-\frac{1}{2}x^{2}+\frac16 x^3  +x^3\epsilon(x) \\
+\end{array}$
+\end{enumerate}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}
+DL de $h(x)=\sqrt{\cos x}$ en $0$ à l'ordre $4$ 
+
+\pause
+\begin{itemize}
+  \item $f(u)=\sqrt{1+u}\pause =1+\frac{1}{2}u-\frac{1}{8}u^2 + o(u^2)$ \pause
+
+  \item On pose $u(x)=\cos x-1$ \pause 
+
+  \begin{itemize}
+     \item $h(x)=\sqrt{\cos x}= f\big(u(x)\big)$ et $u(0)=0$ \pause 
+     \item $u=\cos x-1=-\frac{1}{2}x^2+\frac{1}{24}x^4+o(x^4)$ \pause 
+     \item $u^2 = \frac{1}{4}x^4 + o(x^4)$ \pause 
+  \end{itemize}
+
+  \item  \ \\ \vspace*{-3ex}
+$\begin{array}{rcl@{\vrule depth 1.2ex height 3ex width 0mm }}
+h(x)\pause  & = & f\big(u\big) \pause=  1+\frac{1}{2}u-\frac{1}{8}u^2 + o(u^2) \\ \pause
+     & = & 1 + \frac{1}{2}\big(-\frac{1}{2}x^2+\frac{1}{24}x^4\big)-\frac{1}{8}\big(\frac{1}{4}x^4\big) + o(x^4) \\ \pause 
+     & = & 1-\frac{1}{4}x^2+\frac{1}{48}x^4 -\frac{1}{32}x^4+o(x^4) \\ \pause 
+     & = & 1-\frac{1}{4}x^2-\frac{1}{96}x^4+o(x^4) \\ 
+\end{array}$
+\end{itemize}
+
+\end{exemple}
+
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Division}
+
+\begin{frame}
+
+
+$$f(x)=c_0+c_1x + \cdots +c_nx^n + x^n\epsilon_1(x)$$ 
+$$g(x)=d_0+d_1x + \cdots +d_nx^n + x^n\epsilon_2(x)$$ \pause
+$$\frac{1}{1+u} = 1-u+u^2-u^3+\cdots$$
+\pause
+\begin{enumerate}
+  \item Si $d_0= 1$ on pose $u = d_1x + \cdots +d_nx^n + x^n\epsilon_2(x) $ 
+\pause
+$$f/g = f \times \frac{1}{1+u}$$
+\pause
+
+  \item Si $d_0\neq 0$ on se ramène au cas précédent en écrivant 
+\[
+\frac{1}{g(x)} =\frac{1}{d_0} \frac{1}{1+\frac{d_1}{d_0}x+\cdots+\frac{d_n}{d_0}x^n
++\frac{x^n\epsilon_2(x)}{d_0}}
+\]
+ \pause
+
+  \item Si $d_0=0$ on factorise par $x^k$ afin de se ramener aux cas précédents
+\end{enumerate}
+  
+\end{frame}
+
+\begin{frame}
+
+\begin{exemple}
+DL de $\tan x$ en $0$ à l'ordre $5$
+ 
+ \pause
+\begin{itemize}
+  \item $\sin x=x-\frac{x^3}{6}+\frac{x^5}{120}+x^5\epsilon(x)$ 
+\pause
+  \item $\cos  x=1-\frac{x^2}{2}+\frac{x^4}{24} +x^5\epsilon(x)$
+\pause
+  \item on pose $u= -\frac{x^2}{2}+\frac{x^4}{24} +x^5\epsilon(x)$ de sorte que $\cos x = 1+u$
+\pause
+  \item $u^2 = \big(-\frac{x^2}{2}+\frac{x^4}{24} +x^5\epsilon(x)\big)^2 \pause
+= \frac{x^4}{4}+x^5\epsilon(x)$
+\pause
+  \item $u^3 = x^5\epsilon(x)$
+\pause
+
+  \item   \ \\ \vspace*{-3ex}
+$\begin{array}{l@{\vrule depth 1.2ex height 3ex width 0mm }}
+\frac{1}{\cos x} = \frac{1}{1+u} \pause =1-u+u^2-u^3+u^3\epsilon(u) \\ \pause
+=1+\frac{x^2}{2}-\frac{x^4}{24}+\frac{x^4}{4}+x^5\epsilon(x) \pause
+=1+\frac{x^2}{2}+\frac{5}{24}x^4+x^5\epsilon(x)           
+\end{array}$
+
+\pause
+  \item   \ \\ \vspace*{-3ex}
+$\begin{array}{l@{\vrule depth 1.2ex height 3ex width 0mm }} 
+\tan x= \sin x \times \frac1{\cos x} \\ \pause 
+=  \big(x-\frac{x^3}{6}+\frac{x^5}{120}+x^5\epsilon(x)\big)\times\big(1+\frac{x^2}{2}+\frac{5}{24}x^4+x^5\epsilon(x)\big) \\ \pause
+= \cdots  = x +\frac{x^3}{3}+\frac{2}{15}x^5+x^5\epsilon(x)
+\end{array}$
+\end{itemize}
+
+\end{exemple}
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{exemple}
+DL de $\frac{1+x}{2+x}$ en $0$ à l'ordre $4$
+\vspace*{-2ex}
+\pause
+$$\begin{array}{rcl@{\vrule depth 1.2ex height 3ex width 0mm }}
+\frac{1+x}{2+x}  
+  & = & \displaystyle (1+x)\tfrac12\frac{1}{1+\frac{x}{2}} \\ \pause
+  & = & \frac12(1+x) \left( 1-\frac{x}{2}+\left(\frac{x}{2}\right)^2-\left(\frac{x}{2}\right)^3
++\left( \frac{x}{2} \right)^4 + o(x^4) \right) \\ \pause
+  & = & \frac12+\frac{x}{4}-\frac{x^2}{8}+\frac{x^3}{16}-\frac{x^4}{32} + o(x^4) \\
+\end{array}$$
+\end{exemple}
+
+
+\pause
+
+\begin{exemple}
+DL de $\frac{\sin x}{\sh x}$ en $0$ à l'ordre $4$
+\vspace*{-3ex}
+\pause
+$$\begin{array}{rcl@{\vrule depth 1.2ex height 4ex width 0mm }}
+\frac{\sin x}{\sh x} 
+  & = & \frac{x-\frac{x^3}{3!} + \frac{x^5}{5!}+ o(x^5)}{x+\frac{x^3}{3!} + \frac{x^5}{5!} + o(x^5)}  \pause
+   =  \frac{x\big(1-\frac{x^2}{3!} + \frac{x^4}{5!}+ o(x^4)\big)}{x\big(1+\frac{x^2}{3!}+ \frac{x^4}{5!} + o(x^4)\big)} \\ \pause
+  & = & \big(1-\frac{x^2}{3!}  + \frac{x^4}{5!}+ o(x^4)\big) \times \frac{1}{1+\frac{x^2}{3!}+ \frac{x^4}{5!} + o(x^4)} \\ \pause
+  & = & \quad \cdots \quad \pause =  1-\frac{x^2}{3}+\frac{x^4}{18} + o(x^4) \\
+\end{array}
+$$
+\end{exemple}
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Intégration}
+
+\begin{frame}
+
+$$f(x)=c_0+c_1x+c_2x^2+\cdots+c_nx^n+x^n\epsilon(x)$$
+
+\pause
+
+\begin{theoreme}
+Une primitive $F$ de $f$ admet un DL en $0$ à l'ordre $n+1$
+\pause
+$$F(x)= \uncover<4->{\alert<4>{F(0)}+}c_0 x+c_1\frac{x^2}{2}+ c_2\frac{x^3}{3}+\cdots+c_n\frac{x^{n+1}}{n+1} 
++x^{n+1}\eta(x)$$
+
+où $\displaystyle\lim_{x\to 0}\eta(x)=0$
+\end{theoreme}
+\pause  
+\pause
+
+On intègre la partie polynomiale terme à terme 
+puis on ajoute la constante $F(0)$
+
+\end{frame}
+
+\begin{frame}
+
+\begin{exemple}
+DL de $\arctan x$
+{\small
+\pause
+\vspace*{-2ex}
+$$\arctan' x=\frac{1}{1+x^2} \pause =\sum_{k=0}^{n}(-1)^kx^{2k}+x^{2n}\epsilon(x)$$
+\pause
+\vspace*{-1ex}
+$$\arctan x= \uncover<5->{\alert<5>{0}+} \sum_{k=0}^{n}\frac{(-1)^k}{2k+1}x^{2k+1}+x^{2n+1}\epsilon(x)$$
+\pause
+\pause
+\vspace*{-1ex}
+$$\arctan x=x-\frac{x^3}{3}+\frac{x^5}{5}-\frac{x^7}{7} +\cdots$$
+\vspace*{-2ex}
+}
+\end{exemple}
+
+\pause
+
+\begin{exemple}
+DL de $\arcsin x$ en $0$ à l'ordre $5$
+{\small
+\pause
+
+\vspace*{1ex}
+\qquad 
+$\begin{array}{rcl}
+\arcsin' x 
+ & = & (1-x^2)^{-\frac{1}{2}} \pause
+=1-\frac{1}{2}(-x^2)
++\frac{-\frac{1}{2}(-\frac{1}{2}-1)}{2}(-x^2)^2+x^4\epsilon(x) \\
+\pause
+ & = & \vphantom{\Big(} 1+\frac{1}{2}x^2 + \frac{3}{8}x^4+x^4\epsilon(x)  \\
+ \end{array}
+$
+\pause
+\vspace*{-1ex}
+$$\arcsin x =x+\tfrac{1}{6}x^3+\tfrac{3}{40}x^5+x^5\epsilon(x)$$
+\vspace*{-2ex}
+}
+\end{exemple}
+
+  
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Calculer le DL en $0$ à l'ordre $3$ de $\exp(x) -\frac{1}{1+x}$, puis de $x\cos(2x)$ et $\cos(x)\times \sin(2x)$.
+  \item Calculer le DL en $0$ à l'ordre $2$ de $\sqrt{1+2\cos x}$, puis de $\exp\big(\sqrt{1+2\cos x}\big)$.
+  \item Calculer le DL en $0$ à l'ordre $3$ de $\ln(1+\sin x)$. Idem à l'ordre $6$ pour $\big(\ln(1+x^2)\big)^2$.
+  \item Calculer le DL en $0$ à l'ordre $n$ de $\frac{\ln(1+x^3)}{x^3}$. Idem à l'ordre $3$ avec $\frac{e^x}{1+x}$.
+  \item Par intégration retrouver la formule du DL de $\ln(1+x)$. Idem à l'ordre $3$ pour $\arccos x$.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,506 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+\change
+
+Les développements limités ont de nombreuses applications
+en voici trois parmi les plus remarquables.
+
+\change
+
+Tout d'abord les DL sont extrêmement efficaces pour calculer
+des limites.
+
+\change
+
+Ils permettent aussi de préciser le comportement local des fonctions
+et en particulier la position d'une courbe par rapport à tangente.
+
+\change 
+
+Enfin les développement limités s'applique pour l'étude des asymptotes et le comportement 
+en $+\infty$ des fonctions.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voici la première application : les DL sont un outils formidables 
+pour calculer des limites ayant des formes indéterminées !
+
+Le principe est simple si l'on a obtenu le DL d'une fonction, en $a$ par exemple,
+alors la limite de $f$ en $a$ est tout simplement le terme constant du DL : $c_0$.
+
+\change
+
+Prenons l'exemple d'une fonction assez compliquée :
+$\frac{\ln(1+x)-\tan x+\frac{1}{2}\sin^2x}{3x^2\sin^2x}$
+
+On souhaite calculer la limite en $0$.
+
+Remarquons que le numérateur vaut $0$ en $x=0$ et le dénominateur également.
+
+Il s'agit donc d'une forme indéterminée du type ``$0/0$''.
+
+Voyons comment les développements limités résolvent le problème.
+
+
+\change
+
+J'appelle $f(x)$ le numérateur 
+et je calcule son DL en $0$ à l'ordre $4$.
+
+\change
+
+Tout d'abord $\ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}-\frac{x^4}{4}+o(x^4)$
+
+\change
+
+puis $\tan x=x+\frac{x^3}{3}+o(x^4)$
+
+\change
+
+Et enfin $\sin^2x = \big(x-\frac{x^3}{6}+o(x^3)\big)^2$
+
+\change
+
+on regroupe les deux premiers DL et on développe le carré.
+
+\change
+
+On obtient que 
+$f(x)= -\frac{5}{12}x^4 + o(x^4)$
+
+\change
+
+Je fais la même chose avec le dénominateur 
+$g(x)=3x^2\sin^2x$
+
+\change
+
+Son DL est $3x^2\big(x+o(x)\big)^2$
+
+\change 
+
+ce qui donne $3x^4+o(x^4)$
+
+\change
+
+Revenons à notre forme indéterminée $\frac{f(x)}{g(x)}$
+
+elle s'écrit donc $\frac{-\frac{5}{12}x^4 + o(x^4)}{3x^4+o(x^4)}$
+
+\change
+
+On factorise en haut et en bas par $x^4$ pour obtenir
+$\frac{-\frac{5}{12} + o(1)}{3+o(1)}$.
+
+Ce n'est plus une forme indéterminée ! Le numérateur 
+tend maintenant vers $-\frac{5}{12}$
+et le dénominateur vers $3$.
+
+Je vous rappelle que $o(1)$ désigne une fonction quelconque tendant vers $0$ quand $x \to 0$.
+
+\change
+
+Ainsi $\frac{f(x)}{g(x)}$ tends vers $-\frac{5}{12}$ divisé par $3$
+
+Donc la limite recherchée est $=-\frac{5}{36}$.
+
+
+Vous remarquez que l'on a du calculer des DL à l'ordre $4$ afin de trouver 
+le premier terme non nul des DL de $f$ et $g$.
+
+Si vous calculez seulement un DL à l'ordre $2$ par exemple, alors vous n'auriez pas levé l'indétermination.
+C'est surtout la pratique qui vous dira jusqu'à quel ordre il faut écrire les développements.
+
+Je vous encourage donc à faire de nombreux exemples.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Soit $f$ une fonction admettant un DL en $a$ 
+s'écrivant 
+$f(x)=c_0+c_1(x-a)+c_k(x-a)^k+(x-a)^k\epsilon(x)$, 
+
+ici $k$ est le plus petit entier $\ge2$ tel que le coefficient $c_k$ soit non nul.
+
+\change
+
+Alors le DL nous donne l'équation de la tangente à la courbe de $f$ en $a$ c'est  $y=c_0+c_1(x-a)$ 
+
+\change
+
+Mais il donne aussi 
+la position de la courbe par rapport à la tangente pour $x$ proche de $a$ :
+
+la position est donnée par le signe $f(x)-y$, c'est-à-dire le signe de $c_k(x-a)^k$.
+
+
+
+Il y a trois types de position que peut avoir le graphe par rapport à sa tangente :
+
+\change
+
+Si le signe de $f(x)-y$ est positif alors la courbe est au-dessus de la tangente.
+
+\change
+
+  Si le signe est négatif alors la courbe est en dessous de la tangente. 
+
+\change
+
+Si le signe change (lorsque l'on passe de $x<a$ à $x>a$) alors la courbe traverse 
+la tangente au point d'abscisse $a$. 
+
+\change
+
+Ce point s'appelle un \defi{point d'inflexion}.
+
+\change
+
+Notez que pour qu'il y ait un point d'inflexion 
+il est nécessaire que le coefficient $c_2$ soit nul, c'est-à-dire $f''(a)=0$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici les dessins : dans le premier cas
+
+$k$ est pair et $c_k$ positif donc $c_k (x-a)^k$ reste positif avant et après $a$ donc  la courbe est au-dessus de la tangente.
+
+\change
+
+si $k$ est pair et $c_k$ négatif alors $c_k (x-a)^k$ est négatif autour de $a$ la courbe reste sous de la tangente.
+
+\change
+
+Enfin si $k$ est impair alors $c_k (x-a)^k$ change de signe (positif puis négatif, ou négatif puis positif).
+La courbe qui était au-dessus de la tangente passe en-dessous (ou inversement).
+
+C'est un point d'inflexion.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Soit $f(x)=x^4-2x^3+1$.
+
+Déterminons la tangente du graphe de $f$ au point d'abscisse $\frac{1}{2}$  
+et précisons la position du graphe par rapport à cette tangente.
+
+\change
+
+Pour calculer le DL on calcule d'abord les dérivées successives 
+
+On a $f'(x)=4x^3-6x^2$
+
+\change
+
+$f''(x)=12x^2-12x$, donc $f''(\frac{1}{2}) = -3 \neq 0$ et donc le rang du premier coefficient non nul 
+de la proposition précédente est ici $k=2$.
+
+\change
+
+la formule de Taylor-Young nous donne alors le le DL de $f$ en $\frac{1}{2}$ à l'ordre $2$
+
+\change
+
+$f(x)=f(\frac12)+f'(\frac12)(x-\frac12)+\frac{f''(\frac12)}{2!}(x-\frac12)^2 +(x-\frac12)^2 \epsilon(x)$
+
+\change
+
+ce qui donne ici 
+
+$f(x)==\frac{13}{16} -(x- \frac12) -\frac{3}{2}(x-\frac12)^2 + (x-\frac12)^2 \epsilon(x)$.
+
+\change
+
+Les deux premiers termes du DL nous donne l'équation de la tangente :
+$y= \frac{13}{16} -(x- \frac12)$
+
+\change
+
+Et le premier terme non nul suivant nous donne la position du graphe par rapport à la tangente :
+
+Ici $f(x)-y$ (l'équation de la tangente) vaut $-\frac32(x-\frac12)^2$ + un petit reste.
+
+Donc cette différence est négative autour de $x=\frac12$. 
+
+\change
+
+Ce qui signifie que le graphe de $f$ est en dessous de la tangente au voisinage de $x=\frac12$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Cela se vérifie sur le dessin :
+voici le graphe de notre fonction $f$.
+
+\change
+
+Et lorsque l'on trace le graphe de la tangente au point d'abscisse $1/2$,
+effectivement la graphe de la courbe reste sous la tangente,
+ceci autour des $x=1/2$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Reprenons la même fonction $f$ et déterminons ses points d'inflexion.
+
+
+Je vous rappelle qu'un point d'inflexion est un point où le graphe d'une fonction
+traverse la tangente.
+
+\change
+
+Et que les points d'inflexion sont à chercher parmi les solutions de $f''(a)=0$. 
+
+\change
+
+Ici $f''(x)=12x^2-12x$,  $a=0$ ou $a=1$. 
+
+Etudions chacun de ces cas.
+
+
+\change
+
+Tout d'abord en $0$
+Le DL en $0$ est $f(x)= 1-2x^3+x^4$ 
+
+Comme $f$ est un polynôme il s'agit juste 
+d'écrire les monômes par degrés croissants !
+
+\change
+
+L'équation de la tangente au point d'abscisse $0$ est donc $y=1$ 
+
+c'est une tangente horizontale
+
+\change
+
+
+Comme $f(x)-y=-2x^3$ + un reste,  alors le signe change en $0$ 
+
+\change
+
+Donc $0$ est bien un point d'inflexion. 
+
+On peut même être plus précis : juste avant $0$, la différence est positive donc le graphe est au-dessus de la tangente
+et juste après la différence devient négative et le graphe passe en-dessous de la tangente.
+
+\change
+
+On fait maintenant le même travail en $1$.
+
+on calcule $f(1)$, $f'(1)$,...
+pour trouver le DL en $1$
+
+\change
+
+La tangente en $1$ a donc pour équation $y=-2(x-1)$
+
+\change
+
+Maintenant $f(x)-y = 2(x-1)^3$ + un reste, change de signe en $1$, 
+
+\change
+
+$1$ est aussi un point d'inflexion de $f$. 
+
+Ici le graphe est d'abord dessous puis dessus.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Sur le graphe de $f$ vérifions graphiquement ce que l'on vient de démontrer :
+
+\change
+
+la courbe traverse bien la tangente $0$, c'est bien un point d'inflexion
+
+\change
+
+même chose en $1$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous savons ce qu'est un développement limité en un point $a$.
+Voyons ce qu'est un développement limité en $+\infty$.
+
+On parle aussi de développement asymptotique.
+
+Prenons une fonction $f$ définie sur un intervalle qui va jusqu'à l'infini.
+
+On dit que $f$ admet un \defi{DL en $+\infty$} à l'ordre $n$
+s'il existe des réels $c_0,c_1,\ldots,c_n$ tels que 
+$$f(x)=c_0+\frac{c_1}{x}+\frac{c_2}{x^2}+\cdots+\frac{c_n}{x^n} 
++\frac{1}{x^n}\epsilon\big(\frac{1}{x}\big)$$
+
+\change
+
+où $\epsilon\big(\frac{1}{x}\big)$ tend vers $0$ quand $x\to+\infty$.
+
+
+\change
+
+Notez que lorsque $x\to +\infty$ alors $\frac{1}{x} \to 0$.
+
+Donc dire que la fonction $f(x)$ admet un DL en $+\infty$ à l'ordre $n$ est équivalent à 
+dire que la fonction $f(\frac{1}{x})$ admet un DL en $0^+$ à l'ordre $n$.
+
+\change
+
+Comme exemple nous calculons le DL en $+\infty$ de la fonction $\ln\big(2+\frac{1}{x}\big)$.
+
+\change
+
+dont voici le graphe.
+
+\change
+
+On se ramène d'abord à une forme du type $\ln(1+u)$ en factorisant par $2$
+ ce qui donne $\ln2+\ln\big(1+\frac{1}{2x}\big)$
+
+\change
+
+Maintenant lorsque $x\to+\infty$ alors $\frac{1}{2x} \to 0$ donc en posant
+$u=\frac{1}{2x}$ on obtient une expression en $\ln(1+u)$
+dont le DL pour $u$ proche de $0$ est $u-\frac{u^2}{2}+\frac{u^3}{3}...$
+
+On remplace $u$ par $\frac{1}{2x}$
+
+Pour obtenir ce développement en $+\infty$.
+
+
+\change
+
+Cela nous permet d'avoir une idée assez précise du comportement de $f$ au voisinage de $+\infty$.
+
+Lorsque $x\to +\infty$ alors $f(x)\to \ln2$.
+
+Et le second terme est $+\frac 12x$, donc est positif, cela signifie
+que la fonction $f(x)$ tend vers $\ln 2$ tout en restant au-dessus de $\ln 2$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Approfondissons le comportement à l'infini vu dans l'exemple précédent.
+
+On suppose qu'une fonction $\frac{f(x)}{x}$
+admet un DL en  $+\infty$ qui s'écrit sous la forme :
+$\frac{f(x)}{x}= a_0 +\frac{a_1}{x}+\frac{a_k}{x^k}+\frac{1}{x^k}\epsilon(\frac{1}{x}),$  
+
+où $k$ est le plus petit entier $\ge 2$ tel que le coefficient de  $\frac{1}{x^k}$ soit
+non nul. 
+
+\change
+
+Alors $f(x)-(a_0x+a_1) \to 0$ lorsque $x\to +\infty$
+
+cela signifie que la droite d'équation $y= a_0x+a_1$ est une \defi{asymptote} 
+à la courbe de $f$ en $+\infty$ 
+
+\change
+
+Voici une représentation graphique
+
+\change
+
+En plus on sait comment se comporte la courbe :
+
+La position de la courbe par rapport à 
+l'asymptote est donnée par le signe de $f(x)-y$, 
+c'est-à-dire le signe de $\frac{a_k}{x^{k-1}}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On termine avec le calcul de l'asymptote de  $f(x)=\exp{\frac1x} \cdot \sqrt{x^2-1}$
+en $+\infty$.
+
+\change
+
+Dont voici le graphe
+
+
+\change
+
+Il s'agit donc de calculer le DL de $\frac{f(x)}{x}$
+
+\change 
+
+qui est $\exp{\frac1x} \cdot\frac{\sqrt{x^2-1}}{x}$
+
+\change
+
+et qui s'écrit ainsi après avoir passer le $x$ à l'intérieur de la racine.
+
+\change
+
+On pose $u=\frac1x$, comme $x\to +\infty$ alors $u\to 0$
+
+on applique le DL de $\exp u$
+
+et celui $\sqrt{1-u^2}$
+
+\change
+
+On multiplie les DL et on regroupe les termes pour obtenir que 
+
+ $\frac{f(x)}{x} = 1+\frac{1}{x}-\frac{1}{3x^3} +\frac{1}{x^3}\epsilon(\frac{1}{x}) $
+
+
+\change
+
+Ainsi le graphe de $f$ admet un asymptote en $+\infty$ qui
+la droite d`'équation $y=x+1$ : en effet avec cette équation $f(x)-y \to 0$.
+
+\change
+
+Voici son tracé.
+
+\change
+
+Et comme $f(x)-y=-\frac{1}{3x^2}$ + des termes négligeables 
+
+\change
+
+alors cette différence est négative (pour $x$ assez grand)
+et donc le graphe de $f$ reste en dessous de l'asymptote
+tout en s'en rapprochant.
+
+\change
+
+On montrerait de la même façon qu'il existe un asymptote en $-\infty$ qui est d'équation $y=-x-1$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Comme d'habitude voici les mini-exercices !
+
+
+\end{document}

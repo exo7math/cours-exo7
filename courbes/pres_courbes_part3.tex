@@ -1,0 +1,378 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={102,102,0}]{structure}
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Courbes paramétrées}}
+\subtitle{Points singuliers -- Branches infinies}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Tangente en un point singulier
+    \item<4-> Position par rapport à la tangente
+    \item<5-> Branches infinies   
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Tangente en un point singulier}
+
+\begin{frame}
+
+
+\begin{itemize}
+  \item $M(t_0)$ d'une courbe paramétrée $M(t) = \big( x(t),y(t)\big)$
+est dit \defi{point singulier} si le vecteur dérivé en ce point est nul
+\pause  
+  \item c'est équivalent à $\overrightarrow{\frac{\dd M}{\dd t}}(t_0)=\vec{0}$
+\pause   
+  \item ou encore $\big( x'(t_0), y'(t_0)\big) = (0,0)$
+\end{itemize}
+
+\pause 
+\mybox
+{
+\begin{minipage}{0.8\textwidth}
+\begin{center}
+En un point $M(t_0)$ singulier, on étudie 
+$\displaystyle \lim_{t\rightarrow t_0}\frac{y(t)-y(t_0)}{x(t)-x(t_0)}$
+\pause 
+\begin{itemize}
+  \item Si cette limite est un réel $\ell$, la tangente en $M(t_0)$ 
+existe et a pour coefficient directeur $\ell$
+\pause   
+  \item Si cette limite existe mais est infinie, la tangente en $M(t_0)$ 
+existe et est verticale
+\pause 
+\end{itemize}
+\end{center}  
+\end{minipage}
+}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+Déterminer la tangente en tout point de la courbe $\left\{
+\begin{array}{l}
+x(t)=3t^2\\
+y(t)=2t^3\\
+\end{array}\right.$
+
+
+\begin{minipage}{0.65\textwidth}
+\begin{itemize}
+  \uncover<2->{\item \textbf{Calcul du vecteur dérivé}  }
+  \uncover<3->{\qquad $\overrightarrow{\frac{\dd M}{\dd t}}(t)=\left(\begin{smallmatrix}
+6t\\6t^2\end{smallmatrix}\right)$}
+
+  \uncover<4->{\item \textbf{Tangente en $M(t)$, $t\neq0$} }
+  \begin{itemize}
+    \uncover<5->{\item la tangente dirigée 
+  par $\overrightarrow{\frac{\dd M}{\dd t}}(t)
+=\left(\begin{smallmatrix}6t\\6t^2\end{smallmatrix}\right)$}
+    \uncover<6->{\item donc par $\left(\begin{smallmatrix}1\\t\end{smallmatrix}\right)$}
+    \uncover<7->{\item une équation de la tangente en $M(t)$ est donc $t(x-3t^2)-(y-2t^3)=0$}
+    \uncover<8->{\item ou encore $y=tx-t^3$}
+  \end{itemize}
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.3\textwidth}
+\vspace*{2ex}
+\myfigure{0.6}{
+\tikzinput{fig_courbes_part3_01}
+}  
+\end{minipage}
+
+\vspace*{-2ex}
+\begin{itemize}
+  \uncover<9->{\item \textbf{Tangente en $M(0)$} }
+  \begin{itemize}
+    \uncover<10->{\item Pour $t\neq 0$, $\frac{y(t)-y(0)}{x(t)-x(0)}=\frac{2t^3}{3t^2}=\frac{2t}{3}\xrightarrow{t\to 0} 0$}
+    
+    \uncover<11->{\item La tangente en $M(0)$ est l'axe des abscisses}
+
+  \end{itemize}
+\end{itemize} 
+
+\end{exemple}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Position d'une courbe par rapport à sa tangente}
+
+\begin{frame}
+\myfigure{1.1}{
+\begin{tabular}{cc}
+\tikzinput{fig_courbes_part3_02}&
+\pause
+\tikzinput{fig_courbes_part3_03}\\[5mm]
+\pause
+\tikzinput{fig_courbes_part3_04}&
+\pause
+\tikzinput{fig_courbes_part3_05}\\
+\end{tabular}
+}
+
+\end{frame}
+
+
+\begin{frame}
+
+\mybox{$\displaystyle M(t) = M(0) + t^p \overrightarrow{v} + t^q \overrightarrow{w} +t^q \overrightarrow{\epsilon}(t)$}
+\pause\vspace*{-2ex}
+{\small
+\begin{itemize}
+  \item $p<q$ sont des entiers
+  \pause\item $\overrightarrow{v}$ et $\overrightarrow{w}$ sont des vecteurs non colinéaires 
+  \pause\item $\overrightarrow{\epsilon}(t)$ est un vecteur, tel que $\|\overrightarrow{\epsilon}(t)\| \to 0$ lorsque $t\to t_0$
+\end{itemize}
+}
+\pause\vspace*{-3ex}
+\myfigure{0.65}{
+\begin{tabular}{cc}
+\tikzinput{fig_courbes_part3_06}&\pause\pause
+\tikzinput{fig_courbes_part3_07}\\[3mm]\pause
+\tikzinput{fig_courbes_part3_08}&\pause
+\tikzinput{fig_courbes_part3_09}\\
+\end{tabular}
+}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\'Etudier le point singulier à l'origine de 
+$\left\{\begin{array}{l} x(t) = t^5\\ y(t) = t^3\end{array}\right.$
+
+\pause
+%\medskip
+\begin{minipage}{0.45\textwidth}
+\myfigure{1.1}{
+\tikzinput{fig_courbes_part3_10}
+}  
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+
+\begin{itemize}
+  \pause\item $\displaystyle M(t) = t^3 \begin{pmatrix}0\\1\end{pmatrix} + t^5 
+\begin{pmatrix}1\\0\end{pmatrix}$
+  
+  \pause\item Ainsi $p=3$, $q=5$
+  
+  \pause\item $\overrightarrow{v}=\left(\begin{smallmatrix}0\\1\end{smallmatrix}\right)$,
+$\overrightarrow{w}=\left(\begin{smallmatrix}1\\0\end{smallmatrix}\right)$
+
+  \pause\item C'est un point d'inflexion
+\end{itemize}
+
+\end{minipage}
+
+
+
+
+\end{exemple}
+	
+\end{frame}
+
+\begin{frame}
+\begin{exemple}
+\'Etudier le point singulier à l'origine de 
+$\left\{\begin{array}{l} x(t) = 2t^2\\ y(t) = t^2 - t^3\end{array}\right.$
+
+\bigskip
+
+\pause
+\begin{minipage}{0.45\textwidth}
+\myfigure{0.8}{
+\tikzinput{fig_courbes_part3_11}
+}  
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+
+\begin{itemize}
+  \pause\item $M(0)=(0,0)$ est bien un point singulier
+  
+  \pause\item $\displaystyle M(t) = t^2 \begin{pmatrix}2\\1\end{pmatrix} + t^3 
+\begin{pmatrix}0\\-1\end{pmatrix}$ 
+
+  \pause\item Ainsi $p=2$, $q=3$
+  
+  \pause\item $\overrightarrow{v}=\left(\begin{smallmatrix}2\\1\end{smallmatrix}\right)$,
+$\overrightarrow{w}=\left(\begin{smallmatrix}0\\-1\end{smallmatrix}\right)$
+
+  \pause\item C'est un point de rebroussement de première espèce
+\end{itemize}
+
+\end{minipage}
+
+\end{exemple}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Branches infinies}
+
+\begin{frame}
+
+\begin{mydefinition}
+Il y a \defi{branche infinie} en $t_0$ dès que l'une au moins des deux 
+fonctions $|x|$ ou $|y|$ tend vers l'infini quand $t$ tend vers $t_0$ 
+\end{mydefinition}
+\pause
+\begin{enumerate}
+\item Si $x(t) \to +\infty$ et $y(t) \to \ell \in \Rr$ (quand $t \to t_0$)
+la droite $y=\ell$ est \defi{asymptote horizontale}
+
+
+\uncover<4->{\item Si $x(t) \to \ell \in \Rr$ et $y(t) \to +\infty$ (quand $t \to t_0$)
+la droite d'équation $x=\ell$ est \defi{asymptote verticale} 
+} 
+
+\end{enumerate}
+
+\myfigure{0.5}{
+\uncover<5->{\tikzinput{fig_courbes_part3_14}}
+\uncover<3->{\tikzinput{fig_courbes_part3_15}}
+}
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{mydefinition}
+La droite d'équation 
+$y=ax+b$ est \defi{asymptote oblique} à la courbe $\big(x(t),y(t) \big)$ si :
+
+\begin{enumerate}
+  \uncover<3->{\item $\frac{y(t)}{x(t)}$ tend vers un réel non nul $a$}
+
+  \uncover<4->{\item $y(t)-ax(t)$ tend vers un réel $b$ (nul ou pas)}
+\end{enumerate}
+\end{mydefinition}
+
+\bigskip
+
+\begin{minipage}{0.49\textwidth}
+\uncover<2->{\myfigure{0.65}{
+\tikzinput{fig_courbes_part3_16}
+}}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\vspace*{-3ex}
+\uncover<5->{\mybox{$\displaystyle \lim_{t \to t_0}(y(t)-(ax(t)+b))=0$}}
+\end{minipage}
+
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\vspace*{-0.5ex}
+\'Etudier les branches infinies de la courbe
+$\left\{\begin{array}{l} x(t) = \frac{t}{t-1} \\ y(t) = \frac{3t}{t^2-1} \end{array}\right.$
+%Déterminer la position de la courbe par rapport à ses asymptotes.
+
+\vspace*{-2ex}
+\begin{itemize}
+ 
+  \uncover<2->{\item \textbf{\'Etude en $-1^-$}}
+  \begin{itemize}
+    \uncover<3->{\item Lorsque $t\to-1^-$, $x(t) \to \frac12$ et $y(t) \to -\infty$}
+    \uncover<4->{\item Asymptote verticale $x=\frac12$  }
+  \end{itemize}
+  
+  
+  \uncover<2->{\item \textbf{\'Etude en $-1^+$}}
+   \begin{itemize}
+    \uncover<5->{\item Lorsque $t\to-1^+$, $x(t) \to \frac12$ et $y(t) \to +\infty$}
+    \uncover<6->{\item Asymptote verticale $x=\frac12$}
+  \end{itemize}
+  
+ 
+   \uncover<2->{\item \textbf{\'Etude en $+1^-$}}
+   \begin{itemize}
+     \uncover<7->{\item Lorsque $t\to +1^-$, $x(t) \to -\infty$ et $y(t) \to -\infty$}
+     
+     \uncover<8->{\item $\displaystyle \frac{y(t)}{x(t)} = \frac{\frac{3t}{t^2-1}}{\frac{t}{t-1}}
+  = \frac{3}{t+1} \longrightarrow a=\frac{3}{2} \quad \text{ lorsque }t\to +1^-$}
+     
+     \uncover<9->{\item $\displaystyle y(t)-\frac32 x(t)  \longrightarrow b=-\frac{3}{4} \quad \text{ lorsque }t\to +1^-$}
+     
+     \uncover<10->{\item Asymptote $y = \frac32 x -\frac{3}{4}$}
+   \end{itemize}
+  \uncover<2->{\item \textbf{\'Etude en $+1^+$}} \quad   \uncover<11->{Même asymptote}
+\end{itemize}
+\vspace*{-1.5ex}
+\end{exemple}
+
+\end{frame}
+
+\begin{frame}
+
+
+\myfigure{0.7}{
+\tikzinput{fig_courbes_part3_18}
+}  
+
+	
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Déterminer la tangente et le type de point singulier à l'origine 
+  dans chacun des cas :
+  $(t^5,t^3+t^4)$, $(t^2-t^3,t^2+t^3)$, $(t^2+t^3,t^4)$, $(t^3,t^6+t^7)$.
+ 
+  \item Trouver les branches infinies de la courbe définie par 
+  $x(t) = 1-\frac{1}{1+t^2}$, $y(t)=t$. Déterminer l'asymptote, ainsi que la position
+  de la courbe par rapport à cette asymptote.
+  
+  \item Mêmes questions pour les asymptotes de la courbe définie par 
+  $x(t) = \frac{1}{t}+\frac{1}{t-1}$, $y(t)=\frac{1}{t-1}$.
+  
+  \item Déterminer le type de point singulier de l'astroïde définie par $x(t) = \cos^3 t$,
+  $y(t) = \sin^3 t$. Pourquoi l'astroïde n'a-t-elle pas de branche infinie ?
+  
+  \item Déterminer le type de point singulier de la cycloïde définie par 
+  $x(t) = r(t-\sin t)$,  $y(t) = r(1-\cos t)$. Pourquoi la cycloïde
+  n'a-t-elle pas d'asymptote ?
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

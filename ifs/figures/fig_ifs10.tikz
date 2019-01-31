@@ -1,0 +1,44 @@
+\begin{tikzpicture}[scale=0.7]
+
+\newcommand\mafigure{\draw[->,>=latex, gray] (0,0)--(5,0); \draw[->,>=latex, gray] (0,0)--(0,5);}
+
+\newcommand*\shadok{
+\draw circle (3);
+\draw (69:2.5) circle (0.5);
+\draw (88:2.5) circle (0.5);
+\draw (100:3)--(-1,-2)--(55:3);
+\fill (71:2.3) circle (0.15);
+\fill (86:2.3) circle (0.15);
+\draw (-100:3)--++(0,-3)--++(180:1)--++(180:-1)--++(170:1)--++(170:-1)--++(190:1);
+\draw (-80:3)--++(0,-3)--++(180:-1)--++(180:1)--++(170:-1)--++(170:1)--++(190:-1);
+\draw (79:2.7) .. controls +(60:.5) and +(180:.5) .. +(1.1,.6);
+\draw (79:2.7) .. controls +(65:.5) and +(180:.2) .. +(.4,1);
+\draw (79:2.7) .. controls +(70:.5) and +(0:.5) .. +(-.8,1);
+
+\begin{scope}[xshift=1cm,rotate=-50, scale=0.5]
+\draw (0,0)..controls +(-90:1) and +(-90:1) .. ++(1,0)..controls +(-90:1) and +(-90:1)..++(1,0)..controls +(-90:1) and +(-90:1)..++(1,0);
+\end{scope}
+\begin{scope}[xshift=-2.8cm, yshift=-1cm, rotate=60, scale=0.5]
+\draw (0,0)..controls +(-90:1) and +(-90:1) .. ++(1,0)..controls +(-90:1) and +(-90:1)..++(1,0)..controls +(-90:1) and +(-90:1)..++(1,0);
+\end{scope}
+}
+
+
+\mafigure;
+
+%   \coordinate (A) at (6,3);
+%   \coordinate (B) at (6,0);   
+%   \draw[|->] (A)--(B);
+%    \node at (A)[above] {$(x,y)$};  
+%    \node at (B)[below] {$x$};  
+
+\begin{scope}[blue, scale=0.5, shift = {(4,7)}, rotate=30]
+  \shadok;
+\end{scope}
+
+   \foreach \i in {20,45,65,85,95,100}{
+\begin{scope}[cm={1,0,0,{1-\i/100},(0,0)},red]
+  \begin{scope}[scale=0.5, shift = {(4,7)}, rotate=30]\shadok;\end{scope}
+\end{scope}
+}
+\end{tikzpicture}

@@ -1,0 +1,586 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={192,41,0}]{structure}
+
+% Commande spécifique à ce chapitre
+\usetikzlibrary{arrows}
+\usetikzlibrary{patterns}
+
+\newcommand{\Sage}{\texttt{Sage}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||,
+  breaklines=true,
+  postbreak=\raisebox{0ex}[0ex][0ex]{\qquad\ensuremath{\color{red}\hookrightarrow\space}},
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\renewcommand*{\theenumii}{\alph{enumii}}
+
+\title{{\bf Calcul formel}}
+\subtitle{\'Equations différentielles}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> \'Equations différentielles $y' = f(x,y)$
+    \item<4-> Interprétation géométrique
+    \item<5-> \'Equations différentielles du second ordre
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\'Equations différentielles $y' = f(x,y)$}
+
+\begin{frame}
+
+\begin{tp}
+\begin{enumerate}
+  \item 
+  \begin{enumerate}
+    \item Résoudre l'équation différentielle :
+    
+  \vspace*{-2ex}  
+  $$y' = y + x + 1.$$
+  \vspace*{-3ex} 
+  
+  Il s'agit donc de trouver toutes les fonctions $x\mapsto y(x)$ dérivables, telles que
+  $y'(x) = y(x) + x + 1$, pour tout $x\in \Rr$.
+    
+    \item Résoudre l'équation différentielle avec condition initiale :
+    
+  \vspace*{-2ex}   
+  $$y' = y + x + 1 \quad \text{ et } \quad y(0)=1.$$
+  \vspace*{-3ex}
+  
+  \end{enumerate}
+  
+  
+
+  \item 
+  \begin{enumerate}
+    \item
+    Résoudre sur $\Rr_+^*$ l'équation différentielle :
+    
+    \vspace*{-2ex}
+    $$x^2y' = (x-1)y.$$ 
+    \vspace*{-3ex}
+    
+    \item Trouver la solution vérifiant $y(1)=2$.
+    
+    \item Peut-on trouver une solution sur $\Rr$ ?
+  \end{enumerate}
+    
+  \item Calculer la \defi{fonction logistique} $y$, solution
+  de l'équation différentielle 
+  
+  \vspace*{-2ex}
+  $$y'= y(1-y) - 1.$$       
+\end{enumerate}
+\end{tp}
+
+\pause
+
+Commande \codeinline{desolve}, documentation \codeinline{help(desolve)}
+
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+
+\begin{enumerate}
+  \item  $y' = y + x + 1$ 
+%  \insertcode{formel/Algos/equadiff-intro-tex1.sage}{equadiff-intro.sage (1)}
+\pause
+\vspace*{-0.5ex}
+
+
+\begin{algo}[equadiff-intro.sage (1)]
+\begin{lstlisting}
+|\uncover<2->{|var('x')|}|
+|\uncover<3->{|y = function('y',x)|}|
+|\uncover<4->{|yy = diff(y,x)|}|
+|\uncover<5->{|desolve(yy == y+x+1, y)|}|
+|\uncover<9->{|desolve(yy == y+x+1, y, ics=[0,1])|}|
+\end{lstlisting}
+\end{algo}
+
+
+\vspace*{-1ex}  
+
+  \begin{itemize}
+  \uncover<2->{\item la variable $x$}
+  \uncover<3->{\item la fonction $x \mapsto y(x)$} \uncover<4->{ainsi que sa dérivée $y'(x)$}
+  \uncover<5->{\item l'équation différentielle $y' = y + x + 1$}
+  \uncover<5->{\item la résolution de l'équation différentielle par la commande \codeinline{desolve}}
+  \uncover<6->{\item \Sage\ renvoie
+  \codeinline{-((x + 1)*e^(-x) - _C + e^(-x))*e^x}
+  }
+  \uncover<7->{\item \codeinline{_C} désigne une constante}
+  \uncover<8->{\item les solutions sont les :
+  
+\vspace*{-3ex}  
+$$y(x) = -x-2 + C \exp(x) \quad \text{ où } \quad C \in \Rr$$
+}
+
+\vspace*{-3ex} 
+  \uncover<9->{\item condition initiale $y(0)=1$\pause, option \codeinline{ics}}
+  \uncover<10->{\item l'unique solution est alors : $y(x) = -x-2 + 3\exp(x)$}
+  \end{itemize}
+  
+\end{enumerate}  
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+
+\begin{enumerate}
+\setcounter{enumi}{1}
+  \item $x^2y' = (x-1)y$
+%\insertcode{formel/Algos/equadiff-intro-tex2.sage}{equadiff-intro.sage (2)}
+
+\pause
+
+\begin{algo}[equadiff-intro.sage (2)]
+\begin{lstlisting}
+equadiff = x^2*yy == (x-1)*y
+assume(x>0)
+desolve(equadiff, y)
+|\uncover<4->{|desolve(equadiff, y, ics=[1,2])|}|
+|\uncover<6->{|forget()|}|
+|\uncover<6->{|assume(x<0)|}|
+|\uncover<6->{|desolve(equadiff, y)|}|
+\end{lstlisting}
+\end{algo}
+
+\vspace*{-.5ex}
+
+  \begin{enumerate}
+    \uncover<3->{\item En se restreignant à $\Rr_+^*$, on trouve $y(x) = Cx \exp(\frac1x)$, $C\in \Rr$}
+    
+    \medskip
+    
+    \uncover<5->{\item La solution vérifiant $y(1)=2$ est $y(x) = 2x \exp(\frac1x - 1)$}
+    %c'est-à-dire $C = 2 \exp(-\frac1e)$.
+    
+    \medskip
+        
+    \uncover<6->{\item Sur $\Rr_-^*$, les solutions sont aussi de la forme $y(x) = Cx \exp(\frac1x)$.}
+
+    \uncover<7->{La seule solution sur $\Rr$ est donc la fonction nulle ($C=0$)}
+  \end{enumerate}
+  
+\end{enumerate}  
+\end{frame}
+
+
+
+\begin{frame}[fragile] 
+
+\begin{enumerate}
+\setcounter{enumi}{2}
+  \item $y'= y(1-y) - 1$
+\pause  
+%  \insertcode{formel/Algos/equadiff-intro-tex3.sage}{equadiff-intro.sage (3)}  
+
+\begin{algo}[equadiff-intro.sage (3)]
+\begin{lstlisting}
+|\uncover<2->{|equadiff = yy == y*(1-y) - 1|}|
+|\uncover<3->{|sol\_impl = desolve(equadiff, y)|}|
+|\uncover<5->{|sol = solve(sol\_impl,y)|}|
+\end{lstlisting}
+\end{algo}
+  
+ 
+  \begin{itemize}
+  \uncover<3->{\item \Sage\ ne résout pas directement cette équation différentielle}
+  
+  \medskip
+  
+  \uncover<4->{\item il renvoie une équation vérifiée par $y$ : 
+  
+  \vspace*{-2ex}
+  \begin{equation*}
+  \label{eq:diff1}
+  -\frac{2}{3} \, \sqrt{3} \arctan\left(\frac{1}{3} \, \sqrt{3} {\big(2 \, y\left(x\right) - 1\big)}\right) = C + x
+  \end{equation*}
+  }
+  
+  \uncover<5->{ 
+  \item on demande alors à \Sage\ de résoudre cette équation}\uncover<6->{, pour obtenir :
+  
+  \vspace*{-2ex}
+  \begin{equation*}
+  \label{eq:diff2}
+  y\left(x\right) = -\frac{\sqrt{3}}{2} \tan\left(\frac{\sqrt{3}}{2} C + \frac{\sqrt{3}}{2}  x\right) + \frac{1}{2}
+  \end{equation*}  
+}
+ 
+  \end{itemize}  
+
+\end{enumerate}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Interprétation géométrique}
+
+\begin{frame}
+
+\begin{itemize}
+  \item Les \defi{courbes intégrales} d'une équation différentielle $y' = f(x,y)$
+sont les graphes des solutions de cette équation
+
+\pause
+  
+  \item \`A chaque point $(x,y(x))$ d'une courbe intégrale, on associe un \defi{vecteur tangent}
+  $(x',y'(x)) = \big( 1 , f(x,y) \big)$
+  
+  \myfigure{1}{
+    \tikzinput{fig_formel_equadiff_vecteurs}\ \      
+  }
+  
+\pause 
+ 
+  \item %Gardons une équation différentielle $y' = f(x,y)$, dont nous ne connaissons pas les solutions.
+  Le \defi{champ de vecteurs}  est, en chaque point $(x,y)$ du plan, 
+le vecteur $\big( 1 , f(x,y) \big)$
+
+\pause
+
+
+  \item Résoudre une équation différentielle, c'est à partir d'un champ de vecteurs, trouver une courbe intégrale,
+c'est-à-dire une courbe qui en tout point est tangente aux vecteurs
+
+%
+%  \item La donnée d'un champ de vecteur
+%revient ici à associer à chaque point, la pente de la tangente au graphe 
+%d'une solution passant par ce point
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\begin{tp}
+Nous allons étudier graphiquement l'équation différentielle 
+
+\vspace*{-2ex} 
+
+  $$y' = -xy.$$
+  
+\vspace*{-1ex}  
+  
+\begin{enumerate}
+  \item Représenter le champ de vecteurs associé à cette équation différentielle.
+ 
+  \item 
+  \begin{enumerate}
+    \item Résoudre l'équation.
+    
+    \item Tracer, sur un même graphe, les courbes intégrales correspondant aux solutions
+    définies par $y(0)=k$, pour différentes valeurs de $k\in\Rr$.
+    
+    \item Que remarquez-vous ? Quel théorème cela met-il en évidence ? 
+  \end{enumerate}
+  
+  \item Tracer quelques isoclines de cette équation différentielle.
+\end{enumerate}
+\end{tp}
+
+\pause
+
+Les \defi{isoclines} de $y' = f(x,y)$ sont les courbes sur lesquelles la tangente a 
+une pente donnée $c$, c'est-à-dire un ensemble du type 
+
+\vspace*{-2ex}
+$$\big\lbrace (x,y) \in \Rr^2 \mid f(x,y) = c \big\rbrace.$$
+%\`A ne pas confondre avec les solutions ! En chaque point d'une isocline, 
+%la solution passant par ce point croise cette isocline avec une pente $c$. 
+\end{frame}
+
+
+\begin{frame}
+
+\begin{center}
+\only<1>{\includegraphics[scale=0.5]{figures/equadiff-courbe1.png}}
+\only<2>{\includegraphics[scale=0.5]{figures/equadiff-courbe2.png}}
+\only<3>{\includegraphics[scale=0.5]{figures/equadiff-courbe3.png}}
+\only<4>{\includegraphics[scale=0.5]{figures/equadiff-courbe4.png}}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{enumerate}
+  \item Champ de vecteurs associé à $y' = f(x,y)$ :
+   
+\end{enumerate}
+ 
+ % \insertcode{formel/Algos/equadiff-courbe-tex1.sage}{equadiff-courbe.sage (1)}
+\begin{algo}[equadiff-courbe.sage (1)]
+\begin{lstlisting}
+def champ_vecteurs(f,xmin,xmax,ymin,ymax,delta):
+    G = Graphics()  
+    for i in srange(xmin, xmax, delta):
+        for j in srange(ymin, ymax, delta):
+            pt = vector([i,j])
+            v = vector([1,f(u=i,v=j)])                 
+            G = G + arrow(pt,pt+v)
+    return G
+\end{lstlisting}
+\end{algo}  
+\pause
+  \begin{itemize}
+    \item Les variables de la fonction $f$ sont ici $u$ et $v$
+%\pause  
+%    \item N'hésitez pas à renormaliser les vecteurs $v$ 
+%\pause  
+%    \item La fonction \codeinline{plot\_vector\_field}, prédéfinie dans \Sage, trace aussi les champs de
+%  vecteurs
+  \end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{center}
+\includegraphics[scale=0.5]{figures/equadiff-courbe1.png}
+\end{center}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile] 
+ 
+\begin{enumerate}
+  \setcounter{enumi}{1}
+  \item $y' = -xy$
+  
+  \pause
+  \begin{enumerate}
+    \item Les solutions de l'équation sont les
+    $$y(x) = C \exp\left(-\frac{x^2}{2}\right) \quad \text{ où } \quad C \in \Rr$$
+    
+    
+    \pause
+    \item Le code suivant résout l'équation différentielle et trace la solution 
+    avec la condition initiale $y(0)=k$, pour différentes valeurs de $k$
+  \end{enumerate}
+\end{enumerate} 
+    
+%\insertcode{formel/Algos/equadiff-courbe-tex2.sage}{equadiff-courbe.sage (2)}
+\begin{algo}[equadiff-courbe.sage (2)]
+\begin{lstlisting}
+def courbes_integrales(equadiff,a,b,kmin,kmax,delta):
+    G = Graphics()
+    for k in srange(kmin, kmax, delta):
+        sol = desolve(equadiff, y, ics=[0,k])
+        G = G + plot(sol, (x, a, b))
+    return G
+\end{lstlisting}
+\end{algo}      
+
+ 
+\end{frame}
+
+
+\begin{frame}
+
+\evidence{Théorème d'existence et d'unicité de Cauchy-Lipschitz} 
+
+Les courbes intégrales forment une partition 
+de l'espace : par un point il passe exactement une courbe intégrale.
+
+\begin{center}
+\includegraphics[scale=0.45]{figures/equadiff-courbe2.png}
+\end{center}
+
+\end{frame}
+
+
+
+\begin{frame}  
+
+\begin{enumerate}
+\setcounter{enumi}{2}
+  \item $y' = -xy$
+  \begin{itemize}
+    \item les isoclines sont définies par l'équation $f(x,y) = c$
+    \pause
+    \item elles se tracent par la commande \\
+  \centerline{\codeinline{implicit\_plot(f-c, (x,xmin,xmax), (y,ymin, ymax))}}
+  \pause
+    \item ici les isoclines sont des hyperboles  d'équation $-xy=c$
+  \end{itemize}
+\end{enumerate}
+\begin{center}  
+\includegraphics[scale=0.4]{figures/equadiff-courbe4.png}
+\end{center}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\'Equations différentielles du second ordre}
+
+\begin{frame}
+\begin{tp}
+L'équation différentielle
+
+\vspace*{-2ex}
+$$x''(t) +f x'(t)+ \frac{k}{m} x(t) = 0$$ 
+correspond au mouvement d'une masse $m$ 
+attachée à un ressort de constante $k>0$
+et subissant des frottements $f\ge0$.
+
+Résoudre et tracer les solutions pour 
+différentes valeurs de $f\ge0$ (prendre $k=1$, $m=1$) 
+avec les conditions initiales :
+
+\vspace*{-2ex}
+$$x(0)= 1 \quad \text{ et } \quad x'(0)=0.$$
+\end{tp}  
+
+\myfigure{0.6}{
+    \tikzinput{fig_formel_equadiff_ressort}   
+}
+\end{frame}
+
+
+\begin{frame}
+
+
+\begin{center}
+\only<1>{\includegraphics[scale=0.5]{figures/equadiff-ressort1.png}\\$f=0$}
+\only<2>{\includegraphics[scale=0.5]{figures/equadiff-ressort2.png}\\$f=1$}
+\only<3>{\includegraphics[scale=0.5]{figures/equadiff-ressort3.png}\\$f=2$} 
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}
+
+Pour $f$ fixé, l'équation $x''(t) +f x'(t)+ \frac{k}{m} x(t) = 0$ se résout par : \\
+
+{\small
+\centerline{\codeinline{desolve(diff(x,t,2)+f*diff(x,t)+k/m*x(t) == 0, x, ics=[0,1,0])}}
+}
+
+\pause
+\medskip
+
+\begin{minipage}{0.7\textwidth}
+\begin{itemize}
+  \item Cas $f=0$. Pas de frottements
+  \pause
+  \begin{itemize}
+    \item $x''+ \frac{k}{m} x = 0$
+    \pause
+    \item $k=1$, $m=1$ : $x''+ x = 0$
+    \pause
+    \item solutions $x(t) = \lambda \cos t + \mu \sin t$, $\lambda,\mu \in\Rr$
+    \pause
+    \item conditions initiales $x(0)=1$ et $x'(0)=0$
+    \pause
+    \item solution unique  $x(t) = \cos t$
+  \end{itemize}  
+\end{itemize}
+\end{minipage}\pause
+\begin{minipage}{0.29\textwidth}
+\includegraphics[scale=0.15]{figures/equadiff-ressort1.png}
+\end{minipage}
+
+\pause
+
+
+\begin{minipage}{0.7\textwidth}
+\begin{itemize}  
+  \item Cas $0 < f < 2$. Frottements faibles
+  
+    \begin{itemize}
+    \item $f=1$\pause
+    \item $x(t)=\left(\frac{\sqrt{3}}{3} \sin\left(\frac{\sqrt{3}}{2} t\right) + 
+   \cos\left(\frac{\sqrt{3}}{2} t\right)\right)
+  e^{-\frac{1}{2} t}$
+  \end{itemize}   
+\end{itemize}
+\end{minipage}\pause
+\begin{minipage}{0.39\textwidth}
+\includegraphics[scale=0.15]{figures/equadiff-ressort2.png}
+\end{minipage}
+
+\pause
+\smallskip
+
+\begin{minipage}{0.7\textwidth}
+\begin{itemize}
+  \item Cas $f \ge 2$. Frottements forts
+  \begin{itemize}
+  \pause
+    \item $x(t) = (t + 1)e^{-t}$
+  \end{itemize}     
+\end{itemize}
+\end{minipage}\pause
+\begin{minipage}{0.29\textwidth}
+\includegraphics[scale=0.15]{figures/equadiff-ressort3.png}
+\end{minipage}
+
+\end{frame}
+
+
+
+
+\end{document}

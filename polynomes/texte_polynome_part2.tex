@@ -1,0 +1,604 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous abordons les propriétés arithmétiques des polynômes.
+
+\change
+
+Vous allez voir qu'il y a de grandes similarités entre l'arithmétique des entiers
+et l'arithmétique des polynômes :
+
+\change
+
+On commence par la Division euclidienne de polynômes.
+
+\change
+
+Nous définirons le pgcd de deux polynômes.
+
+\change
+
+Nous étudierons le théorème de Bézout 
+
+et ses conséquences.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Prenons deux polynômes $A,B$ à coefficients dans $\Kk$.
+
+Rappelons que $\Kk$ désigne l'un des corps $\Qq, \Rr$ ou $\Cc$.
+
+On dit que $B$ \defi{divise} $A$ s'il existe  $Q\in\Kk[X]$ tel que $A=BQ$.
+
+\change
+
+On note alors $B|A$.
+
+On dit aussi que $A$ est multiple de $B$ ou que $A$ est divisible par $B$.
+
+\change
+
+Commençons par les propriétés évidentes comme $A|A$, $1|A$ et $A|0$
+
+\change
+
+Puis nous avons que si à la fois
+ $A|B$ et $B|A$, alors, on ne peut dire que $A=B$ mais presque,
+ 
+il existe une constante non nulle $\lambda$ telle que   $A=\lambda B$.
+ 
+\change
+
+Si $A|B$ et $B|C$ alors $A|C$.
+
+\change
+
+Enfin si $C|A$ et si $C|B$, et quelque soit les polynômes $U,V$ alors  $C|(AU+BV)$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Vous connaissez la division euclidienne de deux entiers, voici la division 
+euclidienne de deux polynômes.
+
+Fixons deux polynômes $A,B$ --avec $B$ non nul.
+
+Il existe un polynôme $Q$ et il existe un polynôme $R$
+
+tels que $A=BQ+R$.
+
+En plus on peut choisir $Q$ et $R$ de sorte que $\deg R < \deg B$.
+
+Avec cette condition de degré les polynômes $Q$ et $R$ sont uniques.
+
+Théorème : ``Il \evidence{existe} des polynômes $Q$ et $R$ \evidence{uniques} tels que :
+$A=BQ+R \quad \text{ et } \quad \deg R < \deg B$''
+
+\change
+
+Bien sûr par analogie avec l'arithmétique des entiers :
+
+$Q$ s'appelle le \defi{quotient} et $R$ le \defi{reste}.
+
+\change
+
+Retenez bien la condition sur le degré, qui permet l'unicité :
+$\deg R < \deg B$
+
+cela signifie que ou bien $R=0$
+ou bien $0 \le \deg R < \deg B$.
+
+\change
+
+Bien sûr, si le reste est nul alors $A=BQ$,
+donc $B|A$.
+
+Et réciproquement si $B|A$ alors le reste est nul.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Passons à la pratique de la division euclidienne,
+
+si vous n'êtes pas à l'aise avec les divisions, commencez donc par revoir les divisions d'entiers
+
+car pour les polynômes la démarche est similaire.
+
+On souhaite calculer la division euclidienne de ce polynôme $A$ par ce polynôme $B$.
+
+\change
+
+
+On va trouver un quotient $Q$ et un reste $R$
+
+
+\change
+
+qui vérifient $A=BQ+R$ et $\deg R = 1$ qui est strictement plus petit que $\deg B=2$.
+
+
+\change
+
+On pose une division de polynômes comme on pose une division euclidienne de deux entiers.
+
+Ici $A$, ici $B$, ici on va chercher le quotient,
+
+et le reste sera là.
+
+[split]
+
+Combien de fois peut-on mettre le polynômes $X^2-X+1$,
+
+dans $2X^4-X^3-2X^2+3X-1$ ?
+
+\change
+
+La réponse est $2X^2$.
+
+En effet si on multiplie $X^2-X+1$ par $2X^2$, alors on va obtenir un polynôme
+qui commence par $2X^4$ comme lui.
+
+Le quotient commence donc par $2X^2$.
+
+\change
+
+Pour continuer on multiplie $2X^2$ par $X^2-X+1$ qui vaut $2X^4-2X^3+2X^2$.
+
+\change
+
+Que l'on soustrait à notre polynôme de départ.
+
+On a tout fait pour les termes de degré $4$ s'annulent.
+
+\change
+
+Donc pas de terme de degré $4$,
+
+$-X^3$ moins ($-2X^3$) donne $+X^3$,
+
+$-2X^2$ moins $2X^2$ donne $-4X^2$.
+
+Puis $3X$ moins $0$, $-1$ moins $0$.
+
+On obtient donc un reste provisoire égal
+
+à $X^3-4X^2+3X-1$,
+
+mais ce reste est de degré $3$ n'est pas de degré inférieur au degré du diviseur [montrer].
+
+Donc on recommence.
+
+Combien de fois peut-on mettre  $X^2-X+1$,
+
+dans $X^3-4X^2+3X-1$,
+
+réponse $X$ fois,
+
+\change
+
+on calcule $X$ fois $X^2-X+1$,
+
+\change
+
+que l'on soustrait au reste provisoire.
+
+\change
+
+
+Nouveau reste est $-3X^2 +2X - 1$.
+
+Bien sûr on est passé d'un reste de degré $3$ à un reste de degré $2$.
+
+Mais on veut un reste de degré strictement inférieur à $2$ donc on recommence.
+
+\change
+
+Combien de fois peut-on mettre  $X^2-X+1$,
+
+dans $-3X^2 +2X - 1$,
+
+réponse $-3$ fois.
+
+\change
+
+On multiplie  $X^2-X+1$ par $-3$
+
+\change
+
+On soustrait
+
+\change
+
+
+Et on obtient un nouveau reste qui est $-X+2$.
+
+Comme ce reste est de degré $1$ il est bien strictement inférieur au degré de notre diviseur.
+
+On arête ici le processus.
+
+On trouve donc un quotient qui est $Q = 2X^2+X-3$
+
+et le reste $R=-X+2$.
+
+
+On n'oublie pas de vérifier qu'effectivement $A=BQ+R$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Calculons un autre exemple avec
+$X^4-3X^3+X+1$ divisé par $X^2+2$ 
+
+
+\change
+
+\change
+
+On pose la division.
+
+On prend soin de bien présenter les poynômes.
+
+Par exemple ici on laisse de la place pour les monomes en $X^2$.
+
+\change
+
+Pour obtenir un terme $X^4$,
+
+on doit multiplier $X^2+2$ par $X^2$.
+
+\change
+
+On calcule $X^2$ par $X^2+2$
+
+et on soustrait pour obtenir ce polynôme de degré $3$.
+
+
+On continue, pour obtenir un polynôme qui commence par $-3X^3$ on doit
+multiplier $X^2+2$ par $-3X$.
+
+\change 
+
+Donc le quotient commence par $X^2-3X$
+
+\change
+
+On calcule $X^2+2$ fois $-3X$
+
+et on soustrait.
+
+\change
+
+On doit multiplier par $-2$ pour obtenir un coeffcient $-2X^2+...$
+
+
+\change
+
+on soustrait
+ 
+et on obtient un reste qui vaut $7X+5$.
+
+Son degré est bien strictement inferieur au degré du quotient donc on s'arete là !
+
+\change
+
+On trouve un quotient égal à $X^2-3X-2$ et 
+un reste égale à $7X+5$ et on fait une vérification rapide.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons définir le pgcd de deux polynômes.
+
+Soient  $A,B$ deux polynômes non nuls.
+
+Il existe un unique polynôme unitaire de plus grand degré qui
+divise à la fois $A$ et $B$.
+
+Rappelons qu'unitaire signifie que le coefficient dominant est $1$.
+
+\change
+
+Cet unique polynôme est appelé le \defi{pgcd} 
+(plus grand diviseur commun) de $A$ et $B$ 
+que l'on note $\pgcd(A,B)$.
+
+\change
+
+Notez que l'on suppose que le $\pgcd$ est unitaire pour avoir l'unicité.
+
+
+% 
+% \change
+% 
+% Comme pour les entiers
+% Si $A|B$
+% 
+% alors le pgcd de $A$ est de $B$ est $A$.
+% 
+% Mais comme on n'est pas sûr que soit unitaire,
+% on doit diviser par son coefficient dominant.
+
+\change
+
+Enfin une propriété similaire à celle des entiers :
+ Si $A=BQ+R$ alors $\pgcd(A,B) = \pgcd(B,R)$
+ 
+ Ce sera important pour la suite.
+ 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le calcul des pgcd se fait comme pour les entiers par l'algorithme d'Euclide,
+
+c'est à dire une successions de division euclidiennes.
+
+\change
+
+On souhaite calculer le pgcd de deux polynômes $A$ et $B$
+
+on écrit d'abord la division euclidienne de $A$ par $B$.
+
+On obtient un certain reste $R_1$.
+
+\change
+
+Si ce reste n'est pas nul alors 
+on divise maintenant $B$ par $R_1$.
+
+
+\change
+
+Et on recommence,
+
+\change
+
+à chaque étape c'est le diviseur de la ligne au-dessus
+que l'on divise par le reste de la ligne d'au dessus.
+
+\change
+
+On continue ainsi
+
+\change
+
+Jusqu'à ce que l'on obtienne un reste nul.
+
+\change
+
+Le pgcd est le dernier reste non nul : ici $R_k$.
+
+Au besoin il faut le rendre unitaire en divisant par son coefficient dominant.
+
+\change
+
+Nous avons donc effectuer une série de divisions euclidiennes.
+
+\change
+
+Et à chaque étape le degré du reste diminue strictement,
+
+\change
+
+donc nous sommes sûr qu'au  bout d'un certain temps le reste sera nul.
+
+\change
+
+Enfin ce qui justifie que l'algorithme donne le bon résultat
+
+c'est que nous avons vu que $\pgcd(A,B)=\gcd(B,R_1)$
+
+puis en itérant $\pgcd(B,R_1)= \pgcd(R_1,R_2)$
+
+etc... jusqu'à $\pgcd$ de $R_k$ avec le polynôme nul qui est $R_k$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Commençons par un exemple simple avec le calcul
+du pgcd de  $X^4-1$ et $X^3-1$.
+
+\change
+
+On commence l'algorithme d'Euclide en divisant $A$ par $B$ :
+
+$X^4-1  =  (X^3-1) \times X + X-1$
+
+On itère le processus, avec la division euclidienne de ce polynôme (le diviseur) 
+par celui là (le reste)
+
+\change
+
+Ici c'est simplement 
+
+$X^3-1 =  (X-1)\times (X^2+X+1) + 0$
+
+On obtient donc un reste nul.
+
+\change
+
+Comme pour les entiers le pgcd est le dernier reste non nul, 
+
+donc $\pgcd(X^4-1, X^3-1)=X-1$.  
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Calculons le pgcd de  $A=X^5+X^4+2X^3+X^2+X+2$ et $B=X^4+2X^3+X^2-4$. 
+
+\change
+
+La division euclidienne de $A$ par $B$ s'écrit ainsi.
+
+\change
+
+On divise ensuite $B$ par le reste obtenu.
+
+\change
+
+Ce qui était le diviseur devient le dividende,
+et ce qui était le reste devient le diviseur.
+
+\change
+
+On obtient ici un reste nul. C'est à dire que $X^2+X+2$
+divise ce polynôme.
+
+Le pgcd est le dernier reste non nul.
+
+\change
+
+Mais n'oublions pas que par définition le pgcd est un polynôme unitaire
+(son coefficient dominant est $1$).
+
+
+Donc le pgcd de $A$ et $B$ est $X^2+X+2$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Soient $A, B$ deux polynômes et $D$ leur pgcd.
+
+
+Le théorème de Bézout assure qu'il existe deux polynômes 
+$U, V$ tels que $AU+BV=D$.
+
+
+\change
+
+Ce théorème découle de l'algorithme d'Euclide et plus spécialement de sa remontée
+comme on le voit sur l'exemple suivant.
+
+Nous avons calculé $\pgcd(X^4-1, X^3-1) = X-1$. 
+
+\change
+
+Nous remontons l'algorithme d'Euclide, ici il n'y avait qu'une ligne :
+$X^4-1  =  (X^3-1) \times X + X-1$,
+
+\change
+
+que nous réécrivons 
+$X-1 = -(X^4-1) + (X^3-1) \times X$.
+
+\change
+ 
+Donc $U=-1$ et $V=X$ conviennent.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons le théorème de Bézout sur un exemple plus compliqué.
+
+Nous avions calculer par l'algorithme d'Euclide que 
+pour ces deux polynômes leur pgcd était $D=X^2+X+2$
+
+\change
+
+Voici les étapes de l'algorithme d'Euclide :
+division euclidienne de $A$ par $B$
+
+puis division euclidienne de $B$ par le reste
+
+et pour la dernière division euclidienne le reste est nul.
+
+
+
+\change
+
+On part donc du pgcd $D$ qui est le dernier reste non nul.
+
+On récrit l'avant dernière ligne sous cette forme.
+
+Le polynôme $3X^3+2X^2+5X-2$ qui apparaît est le reste de la ligne du dessus.
+
+\change
+
+
+Donc on remplace ce polynôme par une expression en fonction de $A$ et $B$ 
+
+\change
+
+et on regroupe les termes.
+
+
+\change
+
+Donc en posant $U=\frac{1}{14}(3X+4)$ et $V=-\frac{1}{14}(3X^2+X+5)$
+
+\change
+
+nous avons bien écrit $AU+BV=D$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous dirons que deux polynômes $A$ et $ B$ sont \defi{premiers entre eux} si  $\pgcd(A,B)=1$.
+
+\change
+
+Pour $A,B$ quelconques on peut se ramener à des polynômes premiers entre eux :
+si  $\pgcd(A,B)=D$ alors $A$ et $B$ s'écrivent : $A=DA'$, $B=DB'$ avec $\pgcd(A',B')=1$.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On termine par des corollaires très importants du théorème de Bézout.
+
+Le premier corollaire s'appelle aussi le théorème de Bézout.
+
+
+Deux polynômes $A$ et $B$ sont premiers entre eux si
+et seulement s'il existe deux polynômes $U$ et $V$ tels que $AU+BV=1$.
+
+\change
+
+Deuxième conséquence :
+
+Pour trois polynômes $A,B,C$
+
+Si $C|A$ et $C|B$ alors $C|\pgcd(A,B)$.
+
+\change
+
+Enfin voici le lemme de Gauss
+
+Pour trois polynômes $A,B,C$
+
+Si $A$ divise le produit $B \times C$ et que $A$ et $B$ sont premiers entre eux alors $A|C$.
+
+Attardez vous sur ces trois corollaires importants !
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+A vous de faire ces exercices ; il y a pas mal de calculs, mais savoir
+bien poser les divisions euclidiennes, calculer des pgcd et les coefficients de Bézout
+demande rigueur et persévérance ce qui est très important.
+
+
+\end{document}

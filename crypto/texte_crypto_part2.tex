@@ -1,0 +1,425 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous avons vu que le chiffrement de César présente une sécurité très faible, 
+la principale raison étant que l'espace des clés est trop petit : il n'y a que $26$
+clés de chiffrement possibles. Avec un nombre si petit, il est possible de tester toutes les clés.
+
+\change
+
+Nous allons voir deux nouvelles techniques de chiffrement qui offrent une meilleure sécurité :
+
+\change
+
+Le chiffrement par substitution
+
+\change
+
+et le chiffrement de Vigenère.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Commençons par le chiffrement par substitution.
+
+Au lieu de décaler les lettres de l'alphabet comme dans le chiffrement de César, 
+
+on associe maintenant à chaque lettre une autre lettre (sans ordre fixe ou règle générale).
+
+\change
+
+De cette façon par exemple :
+
+{\small
+\begin{tabular}{|*{26}{c|}}
+\hline
+A&B&C&D&E&F&G&H&I&J&K&L&M&N&O&P&Q&R&S&T&U&V&W&X&Y&Z\\
+\hline
+F&Q&B&M&X&I&T&E&P&A&L&W&H&S&D&O&Z&K&V&G&R&C&N&Y&J&U\\
+\hline
+\end{tabular}  
+}
+\medskip
+
+\change
+
+Pour crypter le message \\
+{ETRE \ OU \ NE \ PAS \ ETRE \ TELLE \ EST \ LA \ QUESTION}
+
+\change
+
+
+on regarde la correspondance et on remplace 
+
+$\equiv \equiv \equiv $ la lettre E par la lettre X, [sur le tableau]
+
+puis la lettre T par la lettre G, 
+
+puis la lettre R par la lettre K...
+
+\change
+
+
+Le message crypté est alors : \\
+{XGKX \ DR \ SX \ OFV \ XGKX \ GXWWX \ XVG \ WF \ ZRXVGPDS}
+
+\change
+
+||| Pour le décrypter, en connaissant les substitutions, c'est-à-dire la clé secrète de chiffrement, on fait l'opération inverse.
+
+\change
+
+Nous allons voir que le principal avantage est ici que l'espace des clés est gigantesque.
+
+Il ne sera donc plus question d'énumérer et de tester toutes les possibilités.
+
+
+\change
+
+Il y a cependant des inconvénients :
+
+\change
+
+tout d'abord : la clé à retenir est beaucoup plus longue, elle est constituée des $26$ lettres de l'alphabet : "FQBMX...".
+
+\change
+
+Mais surtout, nous allons voir que malgré ce grand nombre de clés, il est finalement assez simple de déchiffrer les messages interceptés.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Mathématiquement, choisir une clé de chiffrement revient à choisir une bijection de
+l'ensemble $\big\{ A,B,\ldots,Z \big\}$ sur lui-même
+
+\change
+
+Il y a $26!$ choix possibles. 
+
+\change
+
+En effet, pour la lettre A de l'ensemble de départ, il y a
+$26$ choix possibles dans l'ensemble d'arrivée (nous avions choisi F), 
+
+\change
+
+pour B il reste $25$ choix possibles
+(tout sauf F qui est déjà choisi), 
+
+\change
+
+pour C il reste $24$ choix...
+
+\change
+
+enfin pour Z il ne reste qu'une seule possibilité, la seule lettre qui n'a pas encore été choisie.
+
+\change
+
+$\equiv \equiv \equiv $ Au final il y a : $26\times 25 \times 24 \times \cdots \times 2 \times 1$ 
+
+\change
+
+c'est-à-dire $26!$ choix de clés.
+
+\change
+
+||| Ce qui fait environ $4 \times 10^{26}$ clés. C'est un nombre immense.
+
+Il y a plus de clés différentes que de grains de sable
+sur Terre ! 
+
+\change
+
+Si un ordinateur pouvait tester $1 \; 000\; 000$ de clés par seconde 
+
+(c'est-à-dire déchiffrer un message et tester son éventuelle signification), 
+
+il lui faudrait alors plus de $12$ millions d'années pour les essayer toutes !!
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+La principale faiblesse du chiffrement par substitution est qu'une même lettre
+est toujours chiffrée de la même façon. 
+
+Dans l'exemple précédent E est toujours transformé en X.
+
+\change
+
+Or, dans les textes longs, les lettres %de la langue française %, et ceci est vrai pour toutes les langues, 
+n'apparaissent pas toutes avec la même fréquence.
+
+Mais ces fréquences sont à peu de choses près les mêmes quels que soient les textes choisis. 
+
+\change
+
+En français, les lettres les plus rencontrées sont dans l'ordre : 
+
+$\equiv \equiv \equiv $ 
+$${E S A I N T R U L O D C P M V Q G F H B X J Y Z K W}$$
+
+%En fait ce classement peut varier en fonction de la taille ou du style des textes choisis. 
+
+\change
+
+Voici quelques fréquences, la lettre $E$ est de loin la plus représentée, mais ici les lettres N et T possèdent des fréquences très très proches.
+
+
+\change
+
+Ces spécificités liées à chaque langue fournissent une méthode d'attaque que voici : 
+
+\change
+dans le texte crypté, on cherche la lettre qui apparaît le plus souvent
+
+\change
+si le texte est assez long cela devrait être le $E$ ou plus exactement l'image de la lettre E par la fonction de chiffrement.
+
+\change
+la lettre qui apparaît ensuite dans l'étude des fréquences devrait être l'image de la lettre S, 
+
+\change
+puis de la lettre A... 
+
+\change
+On obtient ainsi par approches successives le message initial sous la forme d'un texte à trous 
+
+\change
+||| dans lequel il faut deviner les lettres manquantes.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Par exemple, tentons de déchiffrer la phrase suivante : \\
+{LHLZ \  HFQ  \ BC HFFPZ \  WH \  YOUPFH  \ MUPZH}
+
+\change
+$\equiv \equiv \equiv $ 
+On compte les apparitions des lettres : \\
+\centerline{H : 6 \quad F : 4 \quad P : 3 \quad Z : 3}
+
+\change
+ce qui nous permet de faire dans un premier temps l'hypothèse que la lettre H crypte la lettre E, 
+et la lettre F crypte la lettre S,
+
+\change
+ce qui donne le texte à trous suivant : 
+
+\centerline{*E** \ ES* \ ** \ ESS** \ *E \ ***SE \ ****E}
+
+\change
+
+D'après les statistiques P et Z devraient se décrypter en (A et I) ou (I et A), ce n'est pas très clair.
+
+\change
+
+Le quatrième mot "HFFPZ", pour l'instant décrypté en "ESS**",
+
+\change
+
+ se complèterait alors en
+"ESSAI" ou "ESSIA". La première solution semble donc correcte ! 
+
+\change
+
+Ainsi P crypte A, et
+Z crypte I.
+
+\change
+
+La phrase est maintenant celle-ci : 
+
+\centerline{*E*I \  ES* \  ** \  ESSAI \  *E \ ***ASE \ **AIE}
+
+
+||| En réfléchissant un petit peu, et après quelques essais, on décrypte le message : 
+
+\change
+
+\centerline{CECI \ EST \ UN \ ESSAI \ DE \ PHRASE \ VRAIE}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+L'espace des clés du chiffrement par substitution est immense, mais le
+fait qu'une lettre soit toujours chiffrée de la même façon représente comme on vient de le voir une trop grande faiblesse.
+Le chiffrement de Vigenère remédie à ce problème. Voyons comment !
+
+
+Nous allons nous concentrer non plus sur des lettres mais sur des blocs de lettres.
+
+\change
+
+$\equiv \equiv \equiv $ 
+Par exemple on découpe ce message en blocs de longueur $4$ : 
+{CETTE \ PHRASE \  NE \ VEUT \ RIEN \ DIRE}
+
+\change
+
+il devient alors ceci :
+
+{CETT \ EPHR \ ASEN \ EVEU \ TRIE \ NDIR \ E}
+
+(les espaces sont purement indicatifs, dans la première phrase ils séparent les mots,
+dans la seconde ils séparent les blocs).
+
+\change
+
+Si $k$ est la longueur d'un bloc, alors on choisit une clé constituée 
+de $k$ nombres entiers $(n_1,n_2,\ldots,n_k)$ compris entre $0$ à $25$ :
+
+
+\change
+
+||| Le chiffrement consiste maintenant à effectuer un chiffrement de type César, c'est-à-dire un décalage, 
+
+mais qui dépend de la position de chaque lettre dans les blocs, c'est-à-dire : 
+
+\change
+
+$\equiv \equiv \equiv $ 
+un décalage de $n_1$ positions pour la première lettre de chaque bloc,
+
+\change 
+
+un décalage de $n_2$ positions pour la deuxième lettre de chaque bloc,
+
+\change
+
+etc. jusqu'à un décalage de $n_k$ positions pour la $k$-ème et dernière lettre de chaque bloc. 
+
+
+\change
+
+Pour notre exemple, on choisit comme clé $(3,1,5,2)$ 
+
+alors pour le premier bloc "CETT", on effectue  :
+
+  \change
+  un décalage de $3$ pour C qui donne F,
+  
+  \change
+  un décalage de $1$ pour E qui donne F,
+  
+  \change
+  un décalage de $5$ pour le premier T qui donne Y,
+  
+  \change
+  et enfin un décalage de $2$ pour le deuxième T qui donne V. 
+
+\change
+
+Ainsi "CETT" devient "FFYV".
+
+||| Vous remarquerez que les deux lettres T ne sont pas cryptées par la même lettre
+et que les deux F ne cryptent pas la même lettre. 
+
+Pour crypter le message en entier, il suffit ensuite de répéter l'opération pour tous les blocs.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+L'élément de base du chiffrement de Vigenère n'est plus, comme pour le chiffrement de César, une lettre mais un \defi{bloc}, 
+c'est-à-dire un groupement de lettres.
+
+La fonction de chiffrement associe maintenant à un bloc de lon\-gueur $k$, un autre bloc de longueur $k$, 
+
+\change
+
+$\equiv \equiv \equiv $ 
+ce qui donne en mathématisant les choses :
+
+une fonction $C_{n_1,n_2,\ldots,n_k}$ qui va de
+$\Zz/26\Zz \times \Zz/26\Zz \times \cdots \times \Zz/26\Zz$ dans lui même.
+
+et qui au k-uplet $(x_1,x_2,\ldots,x_k)$ associe le k-uplet $(x_1+n_1,x_2+n_2,\ldots,x_k+n_k)$
+dans lequel les calculs sont effectués modulo $26$.
+
+\change
+
+||| Chacune des composantes de cette fonction est donc un chiffrement de César,
+
+mais le décalage dépend du rang dans le bloc.
+
+\change
+
+Enfin, la fonction de déchiffrement est simplement $C_{-n_1,-n_2,\ldots,-n_k}$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Pour une clé de longueur $k$, il y a $26^k$ choix possibles.
+
+\change
+
+
+Par exemple, pour des blocs de longueur $k=4$ cela en donne déjà $456\;976$ clés possibles, et même si un ordinateur teste
+toutes les combinaisons possibles sans problème, il n'est pas question pour un humain de parcourir 
+cette liste pour trouver le message initial, c'est-à-dire celui qui est compréhensible !
+
+\change
+
+Il persiste tout de même une faiblesse du même ordre que celle rencontrée dans le chiffrement par substitution : la lettre A
+n'est pas toujours cryptée par la même lettre, mais si deux lettres A sont situées à la même position dans deux blocs différents 
+alors elles seront cryptées par la même lettre.
+
+\change 
+$\equiv \equiv \equiv $ 
+Par exemple dans "ALPH \ ABET" les deux A des deux blocs ont la même position, 
+
+\change
+
+elles seront donc cryptées par la même lettre, ici, $D$
+
+\change
+
+
+Une attaque possible est donc la suivante : 
+
+\change
+
+on découpe notre message en plusieurs listes,
+
+\change
+
+
+les premières lettres de chaque bloc, les deuxièmes lettres de chaque bloc...
+
+\change
+
+
+et on fait une attaque statistique sur chacun de ces regroupements. En effet, ces regroupements seront chiffrés par un même décalage, c'est-à-dire un cas particulier de chiffrement par substitution.
+
+\change
+
+||| Mais ce type d'attaque n'est bien s\^ur possible que si la taille des blocs 
+est petite devant la longueur du texte.
+
+
+\end{document}

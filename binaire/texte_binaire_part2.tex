@@ -1,0 +1,257 @@
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo %titre
+
+Dans cette deuxième partie, nous allons voir comment passer de la représentation décimale d'un entier à sa représentation binaire et vice-versa.
+
+\change
+Nous aborderons ce sujet en trois points :
+
+\change
+
+- tout d'abord découvrir certaines fonctionnalités du langage Python relatives au binaire ;
+
+\change
+
+- ensuite nous verrons quel algorithme utiliser pour déterminer l'écriture bianire d'un entier ;
+
+\change
+
+enfin, nous verrons deux méthodes pour effectuer l'opération inverse, l'une s'avérant bien meilleure que l'autre.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo % binaire en Python 
+
+Beaucoup de langages de programmation permettent de travailler avec l'écriture binaire des nombres, et Python est l'un de ceux-là.
+
+\change
+
+La fonction prédéfinie \codeinline{bin} donne l'écriture binaire du nombre entier qu'on lui passe
+
+\change
+
+Par exemple, pour obtenir l'écriture binaire de 47, on écrit l'expression \codeinline{bin (47)}
+
+\change
+et l'interpréteur du langage Python nous donne la valeur de cette expression, c'est-à-dire ici l'écriture binaire de 47
+
+\change
+Un autre exemple  nous donne l'écriture binaire de l'entier 3010.
+
+\change
+
+La présence d'apostrophes autour des réponses fournies par l'interpréteur signale que les valeurs renvoyées par la fonction \codeinline{bin} sont des chaînes de caractères et non des nombres. Il s'agit bien d'une représentation écrite de nombres. À noter que ces chaînes de caractères sont préfixées par \codeinline{'0b'}. 
+
+\change
+Bien entendu la  fonction \codeinline{bin} s'applique aussi aux nombres négatifs
+. Voici l'écriture binaire du nombre -47 qui est ici celle du nombre 47 précédée du signe \codeinline{-}. C'est une représentation usuelle qu'on nomme représentation signe + valeur absolue.
+
+Il faut savoir qu'il existe d'autres représentations binaires des entiers négatifs que nous n'aborderons pas ici.
+
+\change
+
+En règle générale, lorsque dans un programme informatique nous avons à écrire un nombre, les langages nous permettent de l'écrire naturellement en décimal.
+
+Mais si nous en avons besoin pour une raison ou une autre, il est tout à fait possible d'écrire un nombre directement en binaire. En Python, il suffit pour cela de faire précéder l'écriture binaire du nombre par \codeinline{0b}.
+
+Nous voyons ici que le nombre écrit \codeinline{0b101} est reconnu comme étant le nombre 5.
+
+À noter qu'autour du nombre écrit en binaire, il ne faut pas mettre d'apostrophes.
+
+\change
+
+Enfin, dans une expression comprenant plusieurs nombres il est tout à fait possible de mêler représentations décimales et binaires.
+
+Cet exemple montre la somme de deux nombres dont le premier est écrit en binaire et le second en décimal.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo % Calcul de l'écriture binaire
+
+Intéressons nous maintenant à une méthode algorithmique simple pour déterminer l'écriture binaire d'un nombre
+
+\change
+Prenons l'exemple de notre nombre 47 :
+
+\change
+Effectuons une division euclidienne de notre nombre par 2.
+
+Nous obtenons un quotient $q_1=23$ et un reste $r_0=1$.
+
+\change
+Divisons maintenant notre quotient $q_1$ par 2.
+
+Nous obtenons un nouveau quotient $q_2=11$ et un nouveau reste $r_1=1$.
+
+\change
+Recommençons avec $q_2$ pour obtenir un troisième quotient $q_3=5$ et un reste $r_2=1$.
+
+\change
+Encore une nouvelle division qui donne un quotient $q_4=2$ et un reste $r_3=1$.
+
+\change
+Une divsion encore pour obtenir un quotient $q_5=1$ et un reste $r_4=0$.
+
+\change
+Et enfin un quotient $q_6=0$ et un reste $r_5=1$.
+
+Cette division est la dernière puisque le quotient obtenu est nul.
+  
+\change
+En regroupant les restes successifs obtenus de droite à gauche, on reconnaît l'écriture binaire de 2.
+
+
+En résumé, on peut construire  l'écriture binaire d'un nombre entier
+\change
+
+
+- par des divisions euclidiennes successives par 2 ;
+
+\change
+- chacune de ces divisions donnant un reste qui bien entendu ne peut prendre que l'une ou l'autre des deux valeurs 0 ou 1 ;
+
+\change
+- on arrête les divisions dès qu'on obtient un reste nul.
+
+\change
+
+L'écriture binaire du nombre s'obtient en alignant de droite à gauche les différenrs restes obtenus au cours des divisions.
+
+Pas besoin de connaître les puissances de 2 pour établir cette écriture.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo % Calcul de l'écriture binaire algo formalisé
+
+
+Voici donc une version formalisée en pseudo-code de l'algorithme que nous venons de voir sur un exemple.
+
+\hrule\medskip
+
+Cet algorithme prend en entrée un entier naturel $n$ non nul,
+
+et produit en sortie l'écriture binaire de cet entier.
+
+\hrule\medskip
+
+Nous l'avons vu l'algorithme consiste à faire une succession de divisions euclidiennes par 2. Ces divisions successives produisent un certain nombre de quotients et de restes. Nous utilisons un indice $i$ pour ces quotients et restes, indice initialisé à 0 comme le montre la ligne 1.
+
+\hrule\medskip
+
+À la ligne 2, nous attribuons la valeur $n$, l'entier dont on veut la représentation binaire à un premier quotient fictif $q_0$.
+
+\hrule\medskip
+
+Les lignes 3 à 7 forment une boucle tant que exprimant la répétition des divisions euclidiennes. Cette répétition est conditionnée par le fait que le dernier quotient $q_i$ n'est pas nul.
+
+Lorsque c'est le cas, on calcul un nouveau quotient $q_{i+1}$ (ligne 4), et un nouveau reste $r_i$ (ligne 5).
+Et on incrémente l'indice $i$ (ligne 6) avant d'entamer une éventuelle nouvelle division.
+
+\hrule\medskip
+
+En sortie de boucle, il ne reste plus qu'à construire la représentation binaire de $n$ en regroupant les bits $r_i$ obtenus de droite à gauche.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo % Calcul d'un entier représenté en binaire 1
+
+Envisageons maintenant l'opération inverse, à savoir le calcul du nombre entier dont on connaît une représentation binaire.
+
+Nous allons envisager deux méthodes pour le faire.
+
+\change
+
+La première de ces méthodes est celle que nous avons déjà implictement utilisée : on calcule la somme des puissances de 2 correspondant au bits à 1 dans l'écriture binaire.
+
+\change
+Voyons à nouveau cela avec $n=\overline{101111}_2$
+
+\change
+Par définition de l'écriture binaire, cela signifie que 
+$$ n = 1\times 2^5 + 0\times 2^4 + 1\times 2^3 + 1\times 2^2 + 1\times 2^1 + 1\times 2^0,$$
+
+\change
+donc égal à
+$$ 32 + 8 + 4 + 2 + 1,$$
+
+\change
+et donc égal à $47$.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo % Calcul d'un entier représenté en binaire 2 Algo de Horner
+
+La seconde méthode, bien que moins immédiate, est nettement plus performante.
+
+\change
+C'est un cas particulier de l'algorithme de Horner.
+
+\change
+Prenons le même exemple
+
+\change 
+et réécrivons l'interprétation de cette représentation en termes de somme coefficientée de puissances de 2,
+
+\change
+mais au lieu de calculer les puissances de 2, mettons 2 en facteur de tous les termes correpondant à des puissances de 2 d'exposant au moins égal à 1.
+
+On obtient une nouvelle expression dans laquelle la partie parenthésée est une somme coefficientée de puissances de 2, mais avec un exposant limité à 4 cette fois.
+
+\change
+On effectue la même opération de factorisation pour l'expression entre parenthèse, et on obtient une nouvelle somme de puissances d'exposant limité à trois.
+
+\change
+On recommence
+\change
+et encore.
+
+Que remarque-t-on dans cette dernière formulation de $n$ ?
+
+Il n'y a plus de puissances de 2, mais à la place seules des multiplications par 2 et des additions. Et outre les facteurs 2, ne figurent que les bits de $n$.
+
+Si on effectue toutes ces opérations dans l'ordre imposé par le parenthésage, nous obtenons (sans surprise) le nombre
+\change 
+47.
+
+\change
+Donc dans cette méthode, n'apparaissent que
+\change
+- les bits de l'écriture binaire
+
+\change
+- des additions et des multiplications par 2.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo % Calcul d'un entier représenté en binaire 3 Algo de Horner formalisé
+
+Terminons cette partie par une présentation formalisée de l'algorithme de Horner que nous venons de voir sur un exemple.
+
+\hrule\medskip
+
+Cet algorithme prend en entrée une représentation binaire d'un entier naturel $n$ les bits étant indexés de droite à gauche de $0$ à $t-1$. Autrement dit l'entier $n$ est écrit avec $t$ bits.
+
+Et cet algorithme renvoie la valeur de $n$.
+
+\hrule\medskip
+
+On commence par initialiser une variable $n$ en lui attribuant pour valeur le bit le plus à gauche. (ligne 1)
+
+\hrule\medskip
+Les lignes 2 à 4 forment une boucle pour marquant la succession de multiplication par 2 et d'ajout d'un nouveau bit.
+Les indices de parcours des bits vont de $t-2$ à $0$ en décroissant.
+
+\hrule\medskip
+
+Une fois cette itération terminée, la valeur de la variable $n$ est l'entier qu'on souhaite.
+
+
+
+
+\end{document}

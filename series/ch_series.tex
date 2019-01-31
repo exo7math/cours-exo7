@@ -1,0 +1,2213 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Séries}
+%====================================================================
+
+%\insertvideo{}{partie 1. }
+
+
+% Introduction
+
+Dans ce chapitre nous allons nous intéresser à des sommes ayant une infinité de termes.
+Par exemple que peut bien valoir la somme infinie suivante :
+\[1+\frac{1}{2} +\frac{1}{4} +\frac{1}{8}+\frac{1}{16} +\cdots \ \ = \ \ ? \]
+
+
+\myfigure{1.3}{
+\tikzinput{fig_series01} 
+}
+
+Cette question a été
+popularisée sous le nom du \evidence{paradoxe de Zénon}. 
+On tire une flèche à $2$~mètres d'une cible. 
+Elle met un certain laps de temps pour parcourir
+la moitié de la distance, à savoir un mètre. Puis il lui faut encore du 
+temps pour parcourir la moitié de la distance restante, et de nouveau un 
+certain temps pour la moitié de la distance encore restante. 
+On ajoute ainsi une infinité de durées non nulles, et Zénon en conclut 
+que la flèche n'atteint jamais sa cible ! Zénon ne concevait pas qu'une infinité 
+de distances finies puisse être parcourue en un temps fini.
+Et pourtant nous allons voir dans ce chapitre que la somme d'une infinité de termes
+peut être une valeur finie.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définitions -- Série géométrique}
+
+
+
+%---------------------------------------------------------------
+\subsection{Définitions}
+
+\begin{definition}
+Soit $(u_k)_{k \ge 0}$ une suite de nombres réels (ou de nombres complexes).
+On pose
+$$S_n=u_0+u_1+u_2+\cdots+ u_n=\sum_{k=0}^n u_k.$$
+
+La suite $(S_n)_{n \ge 0}$ s'appelle la \defi{série} de terme général 
+$u_k$.
+
+Cette série est notée par la somme infinie $\displaystyle \sum_{k \ge 0} u_k $.
+La suite $(S_n)$ s'appelle aussi la \defi{suite des sommes partielles}.
+\end{definition}
+
+\begin{exemple}
+Fixons $q\in \Cc$. Définissons la suite $(u_k)_{k \ge 0}$ par
+$u_k = q^k$ ; c'est une suite géométrique.
+La \defi{série géométrique} $\displaystyle \sum_{k \ge 0} q^k$ est la suite des sommes partielles :
+$$S_0 = 1 \qquad S_1 = 1 + q \qquad S_2 = 1+q+q^2 \qquad \ldots \qquad S_n = 1+q+q^2+\cdots+q^n \quad \ldots$$
+\end{exemple}
+
+
+\begin{definition}
+Si la suite $(S_n)_{n \ge 0}$ admet une limite finie dans $\Rr$ (ou dans $\Cc$),
+on note
+$$S = \sum_{k=0}^{+\infty} u_k =\lim_{n\to+\infty} S_n.$$
+
+On appelle alors $S= \sum_{k=0}^{+\infty} u_k$ la \defi{somme} de la série $\sum_{k \ge 0} u_k$,
+et on dit que la série est \defi{convergente}.
+Sinon, on dit qu'elle est \defi{divergente}. 
+\end{definition}
+
+
+
+\textbf{Notations.}
+On peut noter une série de différentes façons, et bien sûr avec différents symboles pour l'indice : 
+$$\sum_{i = 0}^{+\infty} u_i \qquad \sum_{n \in \Nn} u_n \qquad {\textstyle \sum_{k \ge 0} u_k}\qquad \sum u_k.$$
+
+Pour notre part, on fera la distinction entre une série quelconque $\displaystyle \sum_{k \ge 0} u_k$,
+et on réservera la notation $\displaystyle \sum_{k=0}^{+\infty} u_k$ à une série convergente ou à sa somme.
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Série géométrique}
+
+
+\begin{proposition}
+Soit $q\in \Cc$. La série géométrique $\sum_{k \ge 0} q^k$ est convergente 
+si et seulement si $|q|<1$. On a alors 
+\mybox{$\displaystyle \sum_{k=0}^{+\infty} q^k =1+q+q^2+q^3+\cdots= \frac{1}{1-q}$}
+\end{proposition}
+
+\begin{proof}
+
+Considérons 
+$$S_n=1+q+q^2+q^3+\cdots+q^n.$$
+
+\begin{itemize}
+  \item \'Ecartons tout de suite le cas $q=1$, pour lequel $S_n = n+1$.
+Dans ce cas $S_n \to +\infty$, et la série diverge.
+  
+  \item Soit $q \neq 1$ et multiplions $S_n$ par $1-q$ :
+$$(1-q)S_n=(1+q+q^2+q^3+\cdots+q^n)-(q+q^2+q^3+\cdots+q^{n+1})=1-q^{n+1}$$
+Donc
+\mybox{$\displaystyle S_n  = \frac{1-q^{n+1}}{1-q}$}
+
+Si $|q|<1$, alors $q^n \to 0$, donc $q^{n+1} \to 0$ et ainsi $S_n \to \frac{1}{1-q}$.
+Dans ce cas la série $\sum_{k \ge 0} q^k$ converge.
+
+Si $|q| \ge 1$, alors la suite $(q^n)$ n'a pas de limite finie
+(elle peut tendre vers $+\infty$, par exemple si $q=2$ ;
+ou bien être divergente, par exemple si $q=-1$).
+Donc si $|q| \ge 1$, $(S_n)$ n'a pas de limite finie, donc la série 
+$\sum_{k \ge 0} q^k$ diverge.
+\end{itemize}
+\end{proof}
+
+
+\begin{exemple}
+\begin{enumerate}
+  \item Série géométrique de raison $q=\frac 12$ : \quad 
+  $\displaystyle \sum_{k=0}^{+\infty} \frac{1}{2^k} = \frac{1}{1-\frac12} = 2$.
+  Cela résout le paradoxe de Zénon : la flèche arrive bien jusqu'au mur !
+
+  
+  \item Série géométrique de raison $q=\frac 13$, avec premier terme $\frac{1}{3^3}$. 
+  On se ramène à la série géométrique commençant à $k=0$ en ajoutant et retranchant les premiers termes :
+  $\displaystyle \sum_{k=3}^{+\infty} \frac{1}{3^k} = \sum_{k=0}^{+\infty} \frac{1}{3^k} \  -  1 - \frac 13-\frac 1{3^2} 
+  = \frac{1}{1-\frac13} - \frac{13}{9}= \frac32-\frac{13}{9} = \frac{1}{18}$.
+  
+  \item Le fait de calculer la somme d'une série à partir de $k=0$ est
+purement conventionnel. On peut toujours effectuer un changement
+d'indice pour se ramener à une somme à partir de $0$. Une autre façon pour calculer la même série 
+$\displaystyle \sum_{k=3}^{+\infty} \frac{1}{3^k}$ que précédemment
+est de faire le changement d'indice $n=k-3$ (et donc $k=n+3$):
+$$\sum_{k=3}^{+\infty} \frac{1}{3^k} 
+= \sum_{n=0}^{+\infty} \frac{1}{3^{n+3}}
+= \sum_{n=0}^{+\infty} \frac{1}{3^3}\frac{1}{3^n}
+= \frac{1}{3^3}\sum_{n=0}^{+\infty} \frac{1}{3^n}
+= \frac{1}{27}\frac{1}{1-\frac13}
+= \frac{1}{18}$$
+
+
+  \item $\displaystyle \sum_{k=0} ^{+\infty} (-1)^k \left(\frac{1}{2}\right)^{2k}
+  =\sum_{k=0} ^{+\infty} \left(-\frac{1}{4}\right)^k=\frac{1}{1-\frac{-1}{4}}=\frac{4}{5}.$
+ 
+\end{enumerate}
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Séries convergentes}
+
+La convergence d'une série ne dépend pas de ses premiers termes : 
+changer un nombre fini de termes d'une
+série ne change pas sa nature, convergente ou divergente. 
+Par contre, si elle est convergente, sa somme est évidemment modifiée.
+
+
+Une façon pratique d'étudier la convergence d'une série est d'étudier son reste :
+le \defi{reste d'ordre~$n$} d'une série convergente $\sum_{k = 0}^{+\infty} u_k$ est :
+$$R_n = u_{n+1}+u_{n+2}+\cdots = \sum_{k=n+1}^{+\infty} u_k$$
+
+\begin{proposition}
+Si une série est convergente, alors 
+$S=S_n+R_n$ (pour tout $n\ge0$) et $\lim_{n\to+\infty} R_n=0$.
+\end{proposition}
+
+\begin{proof}
+\begin{itemize}
+  \item $S = \sum_{k=0}^{+\infty} u_k =\sum_{k=0}^{n} u_k+ \sum_{k=n+1}^{+\infty} u_k=S_n+R_n$.
+  \item Donc $R_n = S-S_n \to S-S =0$ lorsque $n\to+\infty$.
+\end{itemize} 
+\end{proof}
+
+
+
+%---------------------------------------------------------------
+\subsection{Suites et séries}
+
+
+Il n'y a pas de différence entre l'étude des suites et des séries. 
+On passe de l'une à l'autre très facilement.
+
+Tout d'abord rappelons qu'à une série $\sum_{k \ge 0} u_k$, on associe 
+la somme partielle $S_n=\sum_{k=0}^n u_k$ et que par définition
+la série est convergente si la suite $(S_n)_{n\ge0}$ converge.
+
+
+
+Réciproquement si on veut étudier une suite $(a_k)_{k\ge0}$ on peut utiliser le résultat suivant :
+\begin{proposition}
+Une \defi{somme télescopique} est une série de la forme
+$$\sum_{k\ge0} (a_{k+1}-a_k).$$
+
+Cette série est convergente si et seulement si $\ell := \lim_{k\to+\infty} a_k$ existe et dans ce cas
+on a :
+$$\sum_{k=0}^{+\infty} (a_{k+1}-a_k) = \ell - a_0.$$
+\end{proposition}
+
+\begin{proof}
+\begin{eqnarray*}
+S_n
+&=& \sum_{k=0}^n (a_{k+1}-a_k)\\
+&=& (a_1-a_0)+(a_2-a_1)+(a_3-a_2) +\cdots +(a_{n+1}-a_n)\\
+&=& -a_0 +a_1-a_1+a_2-a_2+ \cdots +a_n-a_n+a_{n+1}\\
+&=& a_{n+1}-a_0 
+\end{eqnarray*}
+\end{proof}
+
+
+Voici un exemple très important pour la suite.
+\begin{exemple}
+\label{ex:seriek2}
+La série $$\sum_{k=0}^{+\infty} \frac{1}{(k+1)(k+2)}=\frac{1}{1\cdot 2}+\frac{1}{2\cdot 3}+
+ \frac{1}{3\cdot 4}+\cdots$$
+est convergente et a la valeur $1$. 
+En effet, elle peut être écrite comme somme télescopique, et plus précisément la somme partielle vérifie :
+$$S_n=\sum_{k=0}^n \frac{1}{(k+1)(k+2)}= \sum_{k=0}^n \left(\frac{1}{k+1}-\frac{1}{k+2}\right)
+= 1 - \frac{1}{n+2} \to 1 \quad \text{ lorsque } n\to+\infty$$
+
+Par changement d'indice, on a aussi que les séries 
+$\sum_{k=1}^{+\infty} \frac{1}{k(k+1)}$ et 
+$\sum_{k=2}^{+\infty} \frac{1}{k(k-1)}$ sont convergentes et de même somme $1$.
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Le terme d'une série convergente tend vers $0$}
+
+
+\begin{theoreme}
+Si la série $\sum_{k\ge0} u_k$ converge, 
+alors la suite des termes généraux $(u_k)_{k \ge 0}$ tend vers $0$.
+\end{theoreme}
+
+Le point clé est que l'on retrouve le terme général à partir des sommes partielles par la formule
+$$u_n = S_n - S_{n-1}.$$
+
+\begin{proof}
+Pour tout $n \ge 0$, posons $S_n=\sum_{k=0}^{n} u_k$. Pour tout
+$n \ge 1$, $u_n=S_n-S_{n-1}$. Si $\sum_{k\ge0} u_k$ converge, 
+la suite $(S_n)_{n\ge0}$ converge vers la somme $S$ de la série. Il en
+est de même de la suite $(S_{n-1})_{n \ge 1}$. Par linéarité de
+la limite, la suite $(u_n)$ tend vers $S-S=0$.
+\end{proof}
+
+\bigskip
+
+La contraposée de ce résultat est souvent utilisée : 
+\mybox{Une série dont le terme général ne tend pas vers $0$ ne peut pas
+converger.}
+
+Par exemple les séries $\sum_{k \ge 1} (1+\frac{1}{k})$ et $\sum_{k \ge 1} k^2$ sont 
+divergentes.
+
+Plus intéressant, la série $\sum u_k$ de terme général 
+$$
+u_k = \left\{
+\begin{array}{ll}
+1&\text{ si } k=2^\ell \quad \text{ pour un certain } \ell \ge 0 \\
+0&\text{ sinon }
+\end{array}
+\right.
+$$
+diverge. En effet, même si les termes valant $1$ sont très rares, il y en a quand
+même une infinité !
+
+%---------------------------------------------------------------
+\subsection{Linéarité}
+
+\begin{proposition}
+Soient $\sum_{k=0}^{+\infty} a_k$ et $\sum_{k=0}^{+\infty} b_k$ 
+deux séries convergentes de sommes respectives $A$ et $B$, et soient $\lambda, \mu \in \Rr$ (ou $\Cc$).
+Alors la série $\sum_{k=0}^{+\infty} (\lambda a_k+\mu b_k)$ est convergente et de somme
+ $\lambda A+\mu B$. On a donc
+ $$\sum_{k=0}^{+\infty} (\lambda a_k+\mu b_k) = 
+ \lambda \sum_{k=0}^{+\infty} a_k+ \mu \sum_{k=0}^{+\infty} b_k.$$
+
+\end{proposition}
+\begin{proof}
+$A_n=\sum_{k=0}^n a_k\to A\in\Cc, B_n=\sum_{k=0}^n b_k\to B\in\Cc$. Donc
+$ \sum_{k=0}^n (\lambda a_k+\mu b_k) 
+= \lambda  \sum_{k=0}^n a_k + \mu \sum_{k=0}^n b_k 
+= \lambda A_n + \mu B_n \to \lambda A +\mu B$.
+\end{proof}
+
+
+Par exemple :
+$$
+\sum_{k=0}^{+\infty} \left(\frac{1}{2^k}+\frac{5}{3^k}\right)
+ = 
+\sum_{k=0}^{+\infty} \frac{1}{2^k}+
+5\sum_{k=0}^{+\infty} \frac{1}{3^k}
+=
+\frac{1}{1-\frac{1}{2}}+5\frac{1}{1-\frac{1}{3}} =
+ 2+5\frac{3}{2}=\frac{19}{2}\;.
+$$
+
+\bigskip
+
+Comme application pour les séries à termes complexes, la convergence équivaut à
+celle des parties réelle et imaginaire :
+ 
+\begin{proposition}
+\label{prop:reimseries}
+Soit $(u_k)_{k\ge0}$ une suite de nombres complexes. Pour tout $k$, notons
+$u_k = a_k + \ii b_k$, avec $a_k$ la partie réelle de $u_k$ et $b_k$ la partie imaginaire. 
+La série $\sum u_k$ converge si et seulement si les deux séries 
+$\sum a_k$ et $\sum b_k$ convergent. Si c'est le cas, on a :
+$$
+\sum_{k=0}^{+\infty} u_k = 
+\sum_{k=0}^{+\infty} a_k + \ii \sum_{k=0}^{+\infty} b_k\;. 
+$$
+\end{proposition}
+
+\begin{exemple}
+Considérons par exemple la série géométrique $\sum_{k\ge0} r^k$, où
+$r = \rho e^{\ii\theta}$ est un complexe de module $\rho<1$ et d'argument $\theta$.
+
+Comme le module de $r$ est strictement inférieur à $1$, alors la série converge et 
+$$\sum_{k=0}^{+\infty} r^k = \frac{1}{1-r}.$$
+
+D'autre part, $r^k = \rho^k e^{\ii k\theta}$ par la formule de Moivre. 
+Les parties réelle et imaginaire de $r^k$ sont
+$$
+a_k=\rho^k\cos(k\theta)
+\quad\text{ et }\quad 
+b_k=\rho^k\sin(k\theta)\;.
+$$
+On déduit de la proposition précédente que :
+$$
+\sum_{k=0}^{+\infty} a_k = \Re \left(\sum_{k=0}^{+\infty} r^k\right) = \Re \left(\frac{1}{1-r}\right) 
+\quad\text{ et }\quad 
+\sum_{k=0}^{+\infty} b_k = \Im \left(\sum_{k=0}^{+\infty} r^k\right)  = \Im \left(\frac{1}{1-r}\right)\;. 
+$$
+Le calcul donne :
+$$
+\sum_{k=0}^{+\infty} \rho^k\cos(k\theta) = 
+\frac{1-\rho\cos\theta}{1+\rho^2-2\rho\cos\theta} 
+\quad\text{ et }\quad 
+\sum_{k=0}^{+\infty} \rho^k\sin(k\theta) = 
+\frac{\rho\sin\theta}{1+\rho^2-2\rho\cos\theta}
+\;. 
+$$  
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Sommes de séries}
+
+
+Pour l'instant, il n'y a pas beaucoup de séries dont vous connaissez 
+la somme, à part les séries géométriques. Il faudra attendre d'autres chapitres
+et d'autres techniques pour calculer des sommes de séries. Dans ce chapitre
+on s'intéressera essentiellement à savoir si une série converge ou diverge.
+
+\bigskip
+
+Voici cependant une exception !
+
+\begin{exemple}
+Soit $q \in \Cc$ tel que $|q|<1$.
+Que vaut la somme
+$$\sum_{k=0}^{+\infty} k q^k \quad \text{?}$$ 
+
+Admettons un moment que cette série converge et notons 
+$S = \sum_{k=0}^{+\infty} k q^k$.
+
+\'Ecrivons : 
+\begin{align*}
+S 
+&= \sum_{k=0}^{+\infty} kq^k = \sum_{k=1}^{+\infty} kq^k = q\sum_{k=1}^{+\infty} kq^{k-1} \\
+&= q\sum_{k=1}^{+\infty} q^{k-1} + q\sum_{k=1}^{+\infty}(k-1)q^{k-1}\\
+&= q\sum_{k=1}^{+\infty} q^{k-1} + q\sum_{k'=0}^{+\infty} k'q^{k'} \qquad \text{ en posant } k'=k-1\\
+&= q\sum_{k=1}^{+\infty} q^{k-1} + q\cdot S\\
+\end{align*}
+En résolvant cette équation en $S$, on trouve que 
+$$(1-q)S = q\sum_{k=1}^{+\infty} q^{k-1}\;.$$
+Cette dernière série est une série géométrique de raison $q$ avec $|q|<1$ donc converge.
+Cela justifie la convergence de $S$.
+
+Ainsi $$(1-q)S = q \cdot \frac{1}{1-q}\;.$$
+Conclusion :
+$$S = \sum_{k=0}^{+\infty} k q^k = \frac{q}{(1-q)^2}\;.$$ 
+\end{exemple}
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Critère de Cauchy}
+
+\evidence{Attention !}
+Il existe des séries $\sum_{k\ge0} u_k$ telles que $\lim_{k\to+\infty} u_k=0$,
+mais $\sum_{k\ge0} u_k$ diverge. L'exemple le plus classique est
+la \defi{série harmonique} :
+\mybox{La série \quad $\displaystyle \sum_{k \ge 1} \frac{1}{k} = 1 + \frac12+\frac13+\frac14+\cdots$ \quad diverge}
+
+Plus précisément, on a $\lim_{n\to+\infty} S_n=+\infty$. Cependant
+on a $u_k = \frac{1}{k} \to 0$ (lorsque $k \to +\infty$).
+
+
+\bigskip
+
+Pour montrer que la série diverge nous allons utiliser le critère de Cauchy.
+
+
+
+\textbf{Rappel.}
+Une suite $(s_n)$ de nombres réels (ou complexes) converge 
+si et seulement si elle est une suite de Cauchy, c'est-à-dire :
+$$\forall \epsilon>0\quad \exists n_0\in\Nn \quad \forall m,n \ge n_0 \qquad |s_n-s_m|<\epsilon$$
+
+Pour les séries cela nous donne : 
+\begin{theoreme}[Critère de Cauchy]
+\label{th:cauchyserie}
+Une série  $\displaystyle\sum_{k=0}^{+\infty} u_k$ converge si et seulement si  
+$$\forall \epsilon>0 \quad \exists n_0\in\Nn \quad \forall m,n\ge n_0 \qquad \big|u_{n}+\cdots +u_m\big| < \epsilon \; .$$
+\end{theoreme}
+On le formule aussi de la façon suivante :
+$$ \forall \epsilon>0 \quad \exists n_0\in\Nn \quad
+\forall m,n \ge n_0 \qquad  \left| \sum_{k=n}^m u_k\right| <\epsilon$$
+ou encore
+$$ \forall \epsilon>0 \quad \exists n_0\in\Nn \quad
+\forall n\ge n_0 \quad \forall p\in\Nn 
+\qquad  \big|u_{n}+\cdots +u_{n+p}\big|<\epsilon$$
+
+
+
+\begin{proof}
+La preuve est simplement de dire que la suite $(S_n)$ des sommes partielles converge si
+et seulement si c'est une suite de Cauchy. Ensuite il suffit de remarquer que 
+$$\big|S_m-S_{n-1}\big|= \big|u_{n}+\cdots +u_m\big|.$$
+\end{proof}
+
+
+
+Revenons à la série harmonique $\sum_{k \ge 1} \frac{1}{k}$.
+La somme partielle est $S_n = \sum_{k=1}^{n} \frac{1}{k}$.
+Calculons la différence de deux sommes partielles, afin de conserver 
+les termes entre $n+1$ (qui joue le rôle de $n$)
+et $2n$ (qui joue le rôle de $m$) :
+$$
+S_{2n}-S_{n} = \frac{1}{n+1}+\cdots+\frac{1}{2n}\ge
+\frac{n}{2n}=\frac{1}{2} 
+$$
+La suite des sommes partielles n'est pas de Cauchy (car $\frac12$ 
+n'est pas inférieur à $\epsilon = \frac14$ par exemple), 
+donc la série ne converge pas.
+
+
+Si on souhaite terminer la démonstration sans utiliser directement le critère de Cauchy alors on raisonne par l'absurde. Supposons que $S_n \to \ell \in \Rr$ (lorsque $n \to +\infty$).
+Alors on a aussi $S_{2n} \to \ell$ (lorsque $n \to +\infty$) et donc 
+$S_{2n}-S_{n}  \to \ell - \ell = 0$. Ce qui entre en contradiction avec l'inégalité
+$S_{2n}-S_{n} \ge \frac{1}{2}$.
+
+\bigskip
+
+
+On termine par une étude plus poussée de la série harmonique.
+
+\begin{proposition}
+Pour la série harmonique $\displaystyle \sum_{k \ge 1} \frac{1}{k}$  
+et sa somme partielle
+$\displaystyle S_n = \sum_{k = 1}^n \frac{1}{k}$, on a 
+$$\lim_{n\to+\infty} S_n=+\infty.$$
+\end{proposition}
+
+\begin{proof}
+Soit $M>0$. On choisit $m\in \Nn$ tel que $m\ge 2M$. 
+Alors pour $n\ge 2^m$ on a:
+\begin{eqnarray*}
+S_n 
+  & = & 1+\frac{1}{2}+\frac{1}{3}+\cdots+\frac{1}{2^m}+\cdots+ \frac{1}{n} \\
+  &\ge & 1+\frac{1}{2}+\frac{1}{3}+\cdots+ \frac{1}{2^m} \\
+  & = & 1 + \frac{1}{2}+ \left(\frac{1}{3}+\frac{1}{4}\right) 
+  +\left(\frac{1}{5}+\frac{1}{6}+\frac{1}{7}+ \frac{1}{8}\right) +\left(\frac{1}{9}+\cdots +\frac{1}{16}\right)+  \cdots
++\left(\frac{1}{2^{m-1}+1}+\cdots + \frac{1}{2^m}\right) \\
+ & \ge & 1+\frac{1}{2}+2 \frac{1}{4}+ 4\;\frac{1}{8}+ 8 \frac{1}{16}+\cdots +
+2^{m-1} \frac{1}{2^m} \\
+&=& 1+m \frac{1}{2}\ge M  \\
+\end{eqnarray*}
+
+L'astuce consiste à regrouper les termes. Entre chaque parenthèses il 
+y a successivement $2,4,8,...$ termes jusqu'à 
+$$2^m-(2^{m-1}+1)+1= 
+2^m-2^{m-1}=2^{m-1} \quad \text{ termes.}$$
+
+Ainsi pour tout $M>0$ il existe $n_0 \ge 0$ tel que, pour tout $n \ge n_0$, on ait $S_n \ge M$ ; ainsi
+$(S_n)$ tend vers $+\infty$. Cela reprouve bien sûr que la série harmonique diverge.
+\end{proof}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\begin{enumerate}
+  
+  \item Calculer les sommes partielles $S_n$ de la série dont le terme général est 
+  $\frac{1}{4^k}$, commençant à $k=1$. Cette série est-elle convergente ? 
+  Si c'est possible, calculer la somme $S$ et les restes $R_n$.
+  
+  \item Mêmes questions avec $\sum_{k\ge0} (-1)^k$, $\sum_{k\ge0} 3^k$, 
+  $\sum_{k\ge1} \frac{1}{10^k}$, $\sum_{k\ge2} \exp(-k)$.
+  
+ \item Pourquoi les séries suivantes sont-elles divergentes ?
+  $\sum_{k\ge1} \left( \frac1k + (-1)^k \right)$ ; $\sum_{k\ge 0} \frac{k}{k+1}$ ; 
+  $\sum_{k\ge1} \frac{1}{2k}$ ;
+  $\sum _{k\ge1} k \cos(k)$ ; $\sum_{k\ge1} \exp(\frac1k)$.
+    
+   
+  \item Calculer les sommes partielles de la série 
+  $\sum_{k\ge1} \ln\left( 1-\frac{1}{k+1} \right)$. 
+  Cette série est-elle convergente ?
+  
+  \item Montrer que $\displaystyle \sum_{k=0}^{+\infty} k^2q^k = \frac{q^2+q}{(1-q)^3}$.
+
+\end{enumerate}
+\end{miniexercices}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Séries à termes positifs}
+
+Les séries à termes positifs ou nuls se comportent comme les suites croissantes
+et sont donc plus faciles à étudier.
+
+
+%---------------------------------------------------------------
+\subsection{Convergence par les sommes partielles}
+
+\textbf{Rappels.}
+Soit $(s_n)_{n\ge0}$ une suite croissante de nombres réels.
+\begin{itemize}
+  \item Si la suite est majorée, alors la suite $(s_n)$ converge, c'est-à-dire
+  qu'elle admet une limite finie.
+  \item Sinon la suite $(s_n)$ tend vers $+\infty$.
+\end{itemize}
+
+Appliquons ceci aux séries $\sum u_k$ à \defi{termes positifs}, 
+c'est-à-dire $u_k\ge 0$ pour tout $k$.
+Dans ce cas la suite $(S_n)$ des sommes partielles, définie par 
+$S_n = \sum_{k=0}^n u_k$, est une suite croissante.
+En effet 
+$$S_{n}-S_{n-1} = u_n \ge 0.$$
+
+Par les rappels sur les suites, nous avons donc :
+\begin{proposition}
+\label{somme}
+Une série à termes positifs est une série convergente si et seulement si 
+la suite des sommes partielles est majorée.
+Autrement dit, si et seulement s'il existe $M>0$
+tel que, pour tout $n\ge 0$, $S_n \le M$.
+\end{proposition}
+
+De plus, dans le cas de convergence, la somme de la série
+$S$ vérifie bien sûr $\lim S_n = S$, 
+mais aussi $S_n \le S$, pour tout $n$.
+Les deux situations convergence/divergence sont possibles :
+$\sum_{k\ge0} q^k$ converge si $0<q<1$, et diverge si $q \ge 1$.
+
+
+
+%---------------------------------------------------------------
+\subsection{Théorème de comparaison}
+
+Quelle est la méthode générale pour trouver la nature d'une série à termes positifs ?
+On la compare avec des séries classiques simples au moyen du théorème de comparaison suivant.
+
+\begin{theoreme}[Théorème de comparaison]
+\label{th:comparaisonseries}
+Soient $\sum u_k$ et $\sum v_k$ deux séries à termes positifs ou nuls. On
+suppose qu'il existe $k_0\ge 0$ tel que, pour tout $k\ge k_0$, 
+$u_k \le v_k$.
+\begin{itemize}
+\item Si $\sum v_k$ converge alors $\sum u_k$ converge.
+\item Si $\sum u_k$ diverge alors $\sum v_k$ diverge.
+\end{itemize}
+\end{theoreme}
+
+\begin{proof}
+Comme nous l'avons observé, la convergence ne dépend pas des
+premiers termes. Sans perte de généralité on peut donc supposer $k_0=0$.
+Notons $S_n=u_0+\cdots+u_n$ et $S'_n = v_0+\cdots+v_n$. 
+Les suites $(S_n)$ et $(S'_n)$ sont croissantes, et de plus, pour tout $n \ge 0$,
+$S_n\le S'_n$. Si la série $\sum v_k$ converge, alors la suite
+$(S'_n)$ converge. Soit $S'$ sa limite. La suite $(S_n)$ est croissante
+et majorée par $S'$, donc elle converge, et ainsi la série $\sum u_k$
+converge aussi. Inversement, si la série $\sum u_k$ diverge, alors
+la suite $(S_n)$ tend vers $+\infty$, et il en est de même pour la
+suite $(S'_n)$ et ainsi la série $\sum v_k$ diverge. 
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Exemples}
+
+\begin{exemple}
+Nous avons déjà vu dans l'exemple \ref{ex:seriek2} que la
+série
+$$
+\sum_{k=0}^{+\infty} \frac{1}{(k+1)(k+2)}
+\quad\text{ converge.}
+$$
+Nous allons en déduire que
+$$
+\sum_{k=1}^{+\infty} \frac{1}{k^2}
+\quad\text{ converge.}
+$$
+En effet, on a :
+$$
+\lim_{k\to+\infty}
+\frac{\frac{1}{2k^2}}{\frac{1}{(k+1)(k+2)}}=\frac{1}{2}. 
+$$
+En particulier, il existe $k_0$ tel que pour $k \ge k_0$ :
+$$
+\frac{1}{2k^2} \le \frac{1}{(k+1)(k+2)}
+$$
+En fait c'est vrai pour $k \ge 4$, mais il est inutile de calculer une
+valeur précise de $k_0$. On en déduit que la série de terme
+général $\frac{1}{2k^2}$ converge, d'où le résultat par
+linéarité.  
+\end{exemple}
+
+
+\begin{exemple}
+Voici un exemple fondamental, la \defi{série exponentielle}.
+\mybox{$\displaystyle\text{La série} \quad \sum_{k\ge 0} \frac{1}{k!} \quad \text{converge.}$}
+Notons que $0!=1$ et que pour $k\ge 1$, $k!=1\cdot 2\cdot 3\dots \cdot k$.
+
+En effet 
+$\frac{1}{k!}\le \frac{1}{k(k-1)}$ pour $k \ge 2$,
+mais $\sum_{k \ge 2}\frac{1}{k(k-1)} = \sum_{k\ge0} \frac{1}{(k+1)(k+2)}$ (par changement d'indice)
+est une série convergente.
+Donc la série exponentielle $\sum_{k\ge 0} \frac{1}{k!}$ converge.
+
+En fait, par définition, la somme $\sum_{k=0}^{+\infty} \frac{1}{k!}$ 
+vaut le nombre d'Euler $e = \exp(1)$.
+\end{exemple}
+
+
+\begin{exemple}
+Inversement, nous avons vu que la série $\sum_{k\ge1} \frac{1}{k}$
+diverge. On en déduit facilement que les séries 
+$\sum_{k\ge1} \frac{\ln(k)}{k}$ et $\sum_{k\ge1} \frac{1}{\sqrt{k}}$ divergent également.  
+\end{exemple}
+
+
+
+
+Terminons avec une application intéressante : le développement décimal d'un réel.
+\begin{exemple}
+Soit $(a_k)_{k\ge 1}$ une suite d'entiers tous compris entre $0$ et $9$. La série
+$$
+\sum_{k=1}^{+\infty} \frac{a_k}{10^k}
+\quad\text{converge.}
+$$
+En effet, son terme général $u_k=\frac{a_k}{10^k}$ est majoré par $\frac{9}{10^k}$. 
+Mais la série géométrique $\sum \frac{1}{10^k}$ converge, car $\frac{1}{10}<1$. La série 
+$\sum \frac{9}{10^k}$ converge aussi par linéarité, d'où le résultat.
+
+Une telle somme $\sum_{k=1}^{+\infty} \frac{a_k}{10^k}$ est une écriture décimale d'un réel
+$x$, avec ici $0 \le x \le 1$.
+
+Par exemple, si $a_k = 3$ pour tout $k$ : 
+$$\sum_{k=1}^{+\infty} \frac{3}{10^k} 
+= \frac{3}{10}+\frac{3}{100}+\frac{3}{1000}+\cdots
+= 0,3+0,03+0,003+\cdots = 0,333\ldots = \frac13$$
+On retrouve bien sûr le même résultat à l'aide de la série géométrique :
+$$\sum_{k=1}^{+\infty} \frac{3}{10^k} 
+= \frac{3}{10} \sum_{k=0}^{+\infty} \frac{1}{10^k}
+=  \frac{3}{10} \cdot \frac{1}{1-\frac{1}{10}}
+=  \frac{3}{10} \cdot \frac{10}{9}
+= \frac13$$
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+\subsection{Théorème des équivalents}
+
+Nous allons améliorer le théorème de comparaison avec la notion de suites équivalentes.
+
+
+Soient $(u_k)$ et $(v_k)$ deux suites \evidence{strictement positives}. Alors les suites
+$(u_k)$ et $(v_k)$ sont \defi{équivalentes} si 
+$$\lim_{k\to+\infty} \frac{u_k}{v_k}=1.$$
+On note alors $$u_k \sim v_k.$$
+
+
+\begin{theoreme}[Théorème des équivalents]
+\label{th:equivalentseries}
+Soient $(u_k)$ et $(v_k)$ deux suites à termes strictement positifs.
+Si $u_k \sim v_k$ alors les séries $\sum u_k$ et $\sum v_k$ sont de même nature.
+\end{theoreme}
+
+Autrement dit, si les suites sont équivalentes alors elles sont soit toutes les deux convergentes,
+soit toutes les deux divergentes. Bien sûr, en cas de convergence, il n'y a aucune 
+raison que les sommes soient égales. Enfin, si les suites sont toutes les deux strictement négatives, la
+conclusion reste valable.
+
+Revenons sur un exemple qui montre que ce théorème est très pratique :
+les suites $\frac{1}{k^2}$ et $\frac{1}{(k+1)(k+2)}=\frac{1}{k^2+3k+2}$
+sont équivalentes. Comme la série $\sum \frac{1}{(k+1)(k+2)}$ converge 
+(exemple \ref{ex:seriek2}), alors
+cela implique que $\sum \frac{1}{k^2}$ converge.
+
+\begin{proof}
+Par hypothèse, pour tout $\epsilon>0$, il existe $k_0$ tel que, pour
+tout $k \ge k_0$,
+$$\left|\frac{u_k}{v_k} -1\right| < \epsilon,$$
+ou autrement dit 
+$$(1-\epsilon)v_k < u_k <(1+\epsilon) v_k.$$
+
+Fixons un $\epsilon <1$.
+Si $\sum u_k$ converge, alors par le théorème \ref{th:comparaisonseries} de comparaison, 
+$\sum(1-\epsilon) v_k$ converge, donc $\sum v_k$ également. 
+Réciproquement, si $\sum u_k$ diverge, alors
+$\sum (1+\epsilon)v_k$ diverge, et $\sum v_k$ aussi.
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Exemples}
+
+\begin{exemple}
+Les deux séries 
+$$
+\sum \frac{k^2+3k+1}{k^4+2k^3+4}
+\qquad \text{ et } \qquad 
+\sum \frac{k +\ln(k)}{k^3}
+\quad \text{ convergent.}
+$$
+Dans les deux cas, le terme général est équivalent à $\frac{1}{k^2}$, 
+et nous savons que la série $\sum \frac{1}{k^2}$ converge.  
+\end{exemple}
+
+\begin{exemple}
+Par contre
+$$
+\sum \frac{k^2+3k+1}{k^3+2k^2+4}
+\qquad \text{ et } \qquad 
+\sum \frac{k +\ln(k)}{k^2}
+\;\mbox{ divergent.}
+$$
+Dans les deux cas, le terme général est équivalent à
+$\frac{1}{k}$, et nous avons vu que la série $\sum \frac{1}{k}$
+diverge.  
+\end{exemple}
+
+Voyons un exemple plus sophistiqué.
+\begin{exemple}
+Est-ce que la série 
+$$\sum_{k \ge 1}  \ln \big(\tanh k\big) \quad \text{converge ?}$$
+
+La méthode est de chercher un équivalent simple du terme général.
+
+\begin{itemize}
+  \item Remarquons tout d'abord que, pour $k >0$, $0<\tanh k<1$.
+  
+  \item Puis évaluons $\tanh k$ :
+  $$\tanh k = \frac{\sh k}{\ch k} = \frac{e^k-e^{-k}}{e^k+e^{-k}}
+  = 1+  \frac{-2e^{-k}}{e^k+e^{-k}} = 1+\frac{-2e^{-2k}}{1+e^{-2k}}$$
+
+  
+  \item Comme $\lim_{x\to 0} \frac{\ln(1+x)}{x}=1$, alors, si
+  $u_k \to 0$, $\ln(1+u_k) \sim u_k$. Ainsi 
+  $$\ln(\tanh k) = \ln\left( 1+\frac{-2e^{-2k}}{1+e^{-2k}} \right)
+  \sim  \frac{-2e^{-2k}}{1+e^{-2k}} \sim -2e^{-2k}$$
+  
+  
+  \item La série $\sum e^{-2k}= \sum (e^{-2})^k$ converge car c'est une série géométrique de raison
+  $\frac{1}{e^2} < 1$.
+  
+  \item Les suites $\ln(\tanh k)$ et $-2e^{-2k}$ sont deux suites strictement négatives et on a vu que 
+  $\ln(\tanh k) \sim -2e^{-2k}$. Par le théorème \ref{th:equivalentseries} des équivalents, comme la série
+  $\sum -2e^{-2k}$ converge, alors la série $\sum\ln(\tanh k)$ converge également. (Si vous préférez, vous pouvez 
+  appliquer le théorème aux suites strictement positives $-\ln(\tanh k)$ et $2e^{-2k}$.)
+ 
+\end{itemize}
+
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+
+\begin{miniexercices}
+\begin{enumerate}
+
+  \item Montrer que la série 
+  $\displaystyle \sum_{k=1}^{+\infty} \frac{(\ln k)^\alpha}{k^3}$ converge, 
+  quel que soit $\alpha \in \Rr$.
+  
+  \item Montrer que, si la série à termes positifs $\sum_{k=0}^{+\infty} u_k$ converge, 
+  alors la série $\sum_{k=0}^{+\infty} u_k^2$ converge aussi.
+
+  \item Soient  $\sum_{k\ge0} u_k$ et $\sum_{k\ge0} v_k$ deux séries 
+  vérifiant $u_k>0$, $v_k>0$ et pour tout $k\ge0$ :
+  $0<m \le \frac{u_k}{v_k} \le M$.
+  Montrer que les deux séries sont de même nature.
+
+  \item Par comparaison ou recherche d'équivalent, déterminer la nature de la série
+  $\sum_{k \ge 1} \frac{\ln k}{k}$.
+  Même question avec les séries de terme général 
+  $\sin \left(\frac{1}{(k-1)(k+1)}\right)$ ;
+  $\sqrt{1+\frac{1}{k^2}}-\sqrt{1-\frac{1}{k^2}}$ ; 
+  $\ln\left(\sqrt{1-\frac{1}{\sqrt[3]{k^2}}}\right)$.
+  
+  
+  \item \'Ecrire la série associée au développement décimal $0,99999\ldots$
+  Notons $S$ la somme de cette série. Calculer la série correspondant à $10 \cdot S$. Simplifier
+  $10 \cdot S - S$. En déduire $S$. Retrouver cette valeur $S$ 
+  à l'aide d'une série géométrique.
+  
+  
+  \item Justifier que la série $\sum_{k=2}^{+\infty} \frac{1}{k^2-1}$ est convergente.
+  Décomposer $\frac{1}{k^2-1}$ en éléments simples. 
+  Déterminer une expression des sommes partielles $S_n$.
+  En déduire que $\sum_{k=2}^{+\infty} \frac{1}{k^2-1} = \frac34$.
+
+  \item Nous admettons ici que $\sum_{k=0}^{+\infty}\frac{1}{k!} = e$.
+  Sans calculs, déterminer les sommes :
+  $$\sum_{k=0}^{+\infty}\frac{k}{k!} \qquad 
+  \sum_{k=0}^{+\infty}\frac{k(k-1)}{k!} \qquad
+  \sum_{k=0}^{+\infty}\frac{k^2}{k!}$$
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Séries alternées}
+
+Il existe un autre type de série facile à étudier : les séries alternées.
+Ce sont celles où le signe du terme général change à chaque rang.
+
+%---------------------------------------------------------------
+\subsection{Critère de Leibniz}
+
+
+Soit $(u_k)_{k\ge0}$ une suite qui vérifie $u_k \ge 0$. La série $\sum_{k \ge 0} (-1)^k u_k$ 
+s'appelle une \defi{série alternée}.
+
+
+On a le critère de convergence suivant, extrêmement facile à vérifier :
+\begin{theoreme}[Critère de Leibniz]
+\label{th:seriealternee}
+Supposons que $(u_k)_{k\ge0}$ soit une suite qui vérifie :
+\begin{enumerate}
+  \item $u_k  \ge 0$ pour tout $k \ge 0$,
+  \item la suite $(u_k)$ est une suite décroissante,
+  \item et $\lim_{k\to+\infty} u_k=0$.
+\end{enumerate}
+Alors la série alternée $\displaystyle \sum_{k=0}^{+\infty} (-1)^k u_k$ converge.
+\end{theoreme}
+
+\begin{proof}
+Nous allons nous ramener à deux suites adjacentes.
+
+\begin{itemize}
+  \item La suite $(S_{2n+1})$ est croissante car 
+  $S_{2n+1}-S_{2n-1}=u_{2n}-u_{2n+1}\ge 0$.
+  
+  \item La suite $(S_{2n})$ est décroissante car
+  $S_{2n}-S_{2n-2}= u_{2n}-u_{2n-1}\le 0$.
+  
+  \item $S_{2n} \ge S_{2n+1}$ car 
+  $S_{2n+1} - S_{2n} = -u_{2n+1} \le 0$.
+  
+  \item Enfin $S_{2n+1} - S_{2n}$ tend vers $0$
+  car $S_{2n+1} - S_{2n} = -u_{2n+1} \to 0$
+  (lorsque $n\to+\infty$).
+\end{itemize}
+En conséquence $(S_{2n+1})$ et $(S_{2n})$ convergent
+et en plus convergent vers la même limite $S$.
+On conclut que $(S_n)$ converge vers $S$.
+
+En plus on a montré que $S_{2n+1} \le S \le S_{2n}$ pour tout $n$.
+
+Enfin on a aussi 
+ $$0\ge R_{2n}= S-S_{2n} \ge S_{2n+1}-S_{2n}=-u_{2n+1}$$ et
+ $$0\le R_{2n+1}= S-S_{2n+1} \le  S_{2n+2} -S_{2n+1}= u_{2n+2}.$$
+ 
+ Ainsi, quelle que soit la parité de $n$, on a 
+ $|R_n|=|S-S_n|\le  u_{n+1}$.
+ \end{proof}
+ 
+
+\begin{exemple}
+La \defi{série harmonique alternée} 
+$$\sum_{k=0}^{+\infty} (-1)^{k} \frac{1}{k+1} = 1-\frac{1}{2}+\frac{1}{3}-\frac{1}{4} + \cdots $$
+converge.
+En effet, en posant $u_k = \frac{1}{k+1}$, alors
+\begin{enumerate}
+  \item $u_k\ge0$,
+  \item $(u_k)$ est une suite décroissante,
+  \item la suite $(u_k)$ tend vers $0$.
+\end{enumerate}
+Par le critère de Leibniz (théorème \ref{th:seriealternee}), la série alternée
+$\sum_{k=0}^{+\infty} (-1)^{k} \frac{1}{k+1}$ converge.
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Reste}
+
+Non seulement le critère de Leibniz prouve la convergence de la série 
+$\sum_{k=0}^{+\infty} (-1)^k u_k$, mais la preuve nous fournit deux résultats importants supplémentaires :
+un encadrement de la somme et une majoration du reste.
+
+\begin{corollaire}
+Soit une série alternée $\displaystyle \sum_{k=0}^{+\infty} (-1)^k u_k$ vérifiant 
+les hypothèses du théorème \ref{th:seriealternee}.
+Soit $S$ la somme de cette série et soit $(S_n)$ la suite des sommes partielles.
+\begin{enumerate}
+  \item La somme $S$ vérifie les encadrements :
+  $$ S_1\le S_3\le S_5\le \cdots \le S_{2n+1} \le \cdots \le S 
+  \le  \cdots\le S_{2n} \le \cdots\le S_4\le S_2\le S_0.$$
+  \item En plus, si $\displaystyle R_n=S-S_n =\sum_{k=n+1}^{+\infty} (-1)^k u_k$ est le reste d'ordre $n$, alors on  a
+$$\big|R_n\big|\le u_{n+1}.$$  
+\end{enumerate}
+\end{corollaire}
+
+Pour une série alternée, la vitesse de convergence est donc
+dictée par la décroissance vers $0$ de la suite $(u_k)$. Celle-ci
+peut être assez lente.
+
+\begin{exemple}
+Par exemple, on a vu que la série harmonique alternée 
+$\sum_{k=0}^{+\infty} \frac{(-1)^{k}}{k+1}$ converge ;
+notons $S$ sa somme.
+Les sommes partielles sont
+$S_0 = 1$, 
+$S_1 = 1-\frac{1}{2}$,
+$S_2 = 1-\frac{1}{2}+\frac{1}{3}$,
+$S_3 = 1-\frac{1}{2}+\frac{1}{3}-\frac{1}{4}$,
+$S_4 = 1-\frac{1}{2}+\frac{1}{3}-\frac{1}{4}+\frac{1}{5}$,\ldots
+L'encadrement du corollaire s'écrit 
+$$1-\frac{1}{2} \le 1-\frac{1}{2}+\frac{1}{3}-\frac{1}{4} \le \cdots \le S_{2n+1} \le \cdots \le S 
+  \le  \cdots\le S_{2n} \le \cdots 
+  \le 1-\frac{1}{2}+\frac{1}{3}-\frac{1}{4}+\frac{1}{5}
+  \le 1-\frac{1}{2}+\frac{1}{3} \le 1$$
+On en déduit 
+$$S_3 = \frac{35}{60} \simeq 0,58333\ldots \le S \le S_4 = \frac{47}{60} \simeq 0,78333\ldots$$
+
+  
+Si on pousse les calculs plus loin, alors pour $n=200$
+on obtient 
+$$S_{201} \simeq 0,69067\ldots \le S \le S_{200} \simeq 0,69562\ldots$$
+Ce qui nous donne les deux premières décimales de $S \simeq 0,69\ldots$
+
+En plus nous avons une majoration de l'erreur commise, en utilisant l'inégalité $|R_n|\le u_{n+1}$.
+On trouve que l'erreur commise en approchant $S$ par $S_{200}$ est :
+$|S-S_{200}| = |R_{200}| \le u_{201} = \frac{1}{202} < 5 \cdot 10^{-3}$.
+
+En fait, vous verrez plus tard que $S=\ln 2 \simeq 0,69314\ldots$
+\end{exemple}
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Contre-exemple}
+
+Terminons par deux mises en garde : 
+
+\begin{enumerate}
+  \item On ne peut pas laisser tomber la condition 
+  de décroissance de la suite $(u_k)$ dans le critère
+de Leibniz.
+
+  \item Il n'est pas possible de remplacer
+$u_k$ par un équivalent à l'infini dans le théorème
+\ref{th:seriealternee}, car la décroissance n'est pas conservée par
+équivalence.   
+\end{enumerate}
+
+
+
+
+\begin{exemple}
+Voici deux séries alternées :
+$$
+\sum_{k \ge 2}  \frac{(-1)^k}{\sqrt{k}}
+\quad \text{ converge,}
+\qquad\qquad
+\sum_{k \ge 2}  \frac{(-1)^k}{\sqrt{k}+(-1)^k}
+\quad \text{ diverge.}
+$$ 
+Le critère de Leibniz (théorème \ref{th:seriealternee}) s'applique à la première :
+la suite $u_k = \frac{1}{\sqrt k}$ est une suite positive, décroissante, 
+qui tend vers $0$. Conséquence, la série alternée  
+$\sum_{k \ge 2}  \frac{(-1)^k}{\sqrt{k}}$ converge.
+
+
+Par contre le critère de Leibniz ne s'applique pas à la seconde, 
+car si la suite $v_k = \frac{1}{\sqrt{k}+(-1)^k}$ est bien
+positive (pour $k \ge 2$) et tend vers $0$, elle n'est pas
+décroissante. 
+
+Cependant, on a bien :
+$$
+v_k = \frac{1}{\sqrt{k}+(-1)^k} \ \sim \ \frac{1}{\sqrt{k}} = u_k
+$$
+
+
+Pour montrer que $\sum_{k \ge 2} \frac{(-1)^k}{\sqrt{k}+(-1)^k}$ diverge,
+calculons la différence : 
+$$
+(-1)^ku_k-(-1)^kv_k 
+=  \frac{(-1)^k}{\sqrt{k}}-\frac{(-1)^k}{\sqrt{k}+(-1)^k} 
+= (-1)^k\frac{\sqrt{k}+(-1)^k-\sqrt{k}}{k+(-1)^k\sqrt{k}} 
+=  \frac{1}{k+(-1)^k\sqrt{k}} 
+\sim  \frac{1}{k} 
+$$
+
+
+Ainsi la série de terme général $w_k = (-1)^ku_k-(-1)^kv_k$
+diverge, car son terme général est équivalent 
+à celui de la série harmonique $\sum \frac{1}{k}$
+qui diverge.
+
+Supposons maintenant par l'absurde que la série
+$\sum_{k \ge 2}(-1)^k v_k$ soit convergente.
+On sait aussi que la série $\sum_{k \ge 2} (-1)^k u_k$
+est convergente. Donc par linéarité la série
+$\sum_{k \ge 2} w_k = \sum_{k \ge 2} (-1)^k u_k - \sum_{k \ge 2} (-1)^k v_k$
+serait convergente. Ce qui est une contradiction.
+
+
+Conclusion : la série $\sum_{k \ge 2} \frac{(-1)^k}{\sqrt{k}+(-1)^k}$ diverge.  
+\end{exemple}
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\begin{enumerate}
+  \item Est-ce que le critère de Leibniz s'applique aux séries suivantes ?
+  
+  \centerline{$\displaystyle
+  \sum_{k\ge 2} \frac{(-1)^k}{\sqrt k + \ln k} \qquad
+  \sum_{k\ge 2} \frac{(-1)^k}{\frac{k+1}{k}} \qquad
+  \sum_{k\ge2} \frac{1}{(-1)^{k+1}(\sqrt k - \ln k)}
+  $}
+  
+  \centerline{$\displaystyle
+  \sum_{k\ge 2} (-1)^k\big(\ln(k+1)-\ln(k)\big) \qquad
+  \sum_{k\ge2} \frac{1}{\sqrt k + (-1)^{k}\ln k} \qquad
+  \sum_{k\ge 2} \frac{(-1)^k}{3k + (-1)^k}$}
+  
+
+  \item \`A partir de quel rang la somme partielle
+  $S_n$ de la série $\sum_{k=1}^{+\infty} \frac{(-1)^k}{k^2}$ 
+  est-elle une approximation à $0,1$ près de sa somme $S$ ?
+  Et à $0,001$ près ?
+  \`A l'aide d'une calculatrice ou d'un ordinateur, déterminer deux décimales
+  exactes après la virgule de $S$.
+  Mêmes questions avec  $\frac{(-1)^k}{2^k}$ ; $\frac{(-1)^k}{\sqrt{k}}$ ;
+  $\frac{(-1)^k}{k!}$.
+  
+\end{enumerate}
+\end{miniexercices}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Séries absolument convergentes -- Règle de d'Alembert}
+
+%---------------------------------------------------------------
+\subsection{Séries absolument convergentes}
+
+
+\begin{definition}
+On dit qu'une série $\sum_{k\ge0} u_k$ de nombres réels (ou complexes) est 
+\defi{absolument convergente} si la série $\sum_{k\ge0} |u_k|$ 
+est convergente.  
+\end{definition}
+
+
+
+\begin{exemple}
+\begin{enumerate}
+  \item Par exemple la série $\sum_{k\ge1} \frac{\cos k}{k^2}$ est absolument convergente.
+  Car pour $u_k =  \frac{\cos k}{k^2}$ on a $|u_k| \le  \frac{1}{k^2}$. Comme la série
+  $\sum_{k\ge1} \frac{1}{k^2}$ converge alors $\sum_{k\ge1} |u_k|$ converge aussi.
+  
+  \item La série harmonique alternée $\sum_{k=0}^{+\infty} \frac{(-1)^k}{k+1}$ 
+  n'est pas absolument convergente. Car pour $v_k = \frac{(-1)^k}{k+1}$,
+  la série $\sum_{k\ge0} |v_k| = \sum_{k\ge0} \frac{1}{k+1}$ diverge.
+\end{enumerate}
+\end{exemple}
+
+Une série, telle que la série harmonique alternée, qui est convergente, 
+mais pas absolument convergente, s'appelle une série \defi{semi-convergente}.
+
+\medskip
+
+\^Etre absolument convergent est plus fort qu'être convergent :
+\begin{theoreme}
+Toute série absolument convergente est convergente.
+\end{theoreme}
+
+\begin{proof}
+Utilisons le critère de Cauchy.  Soit $\sum u_k$ une série absolument convergente.
+La série $\sum |u_k|$ est convergente, donc la suite des restes $(R'_n)$ avec 
+$R'_n = \sum_{k=n+1}^{+\infty} |u_k|$ est une suite 
+qui tend vers $0$, donc en particulier c'est une suite de Cauchy.
+Soit $\epsilon>0$ fixé. Il existe donc $n_0 \in \Nn$ tel que 
+pour tout $n \ge n_0$ et pour tout $p \ge 0$ :
+$$|u_n|+|u_{n+1}|+\cdots+|u_{n+p}| < \epsilon.$$
+Par suite, pour $n \ge n_0$ et  $p \ge 0$ on a :
+$$\big|u_n+u_{n+1}+\cdots+u_{n+p}\big| \le |u_n|+|u_{n+1}|+\cdots+|u_{n+p}| < \epsilon.$$
+Donc, d'après le critère de Cauchy 
+(théorème \ref{th:cauchyserie}), $\sum u_k$ est convergente.
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Règle du quotient de d'Alembert}
+
+La règle du quotient de d'Alembert est un moyen efficace de montrer 
+si une série de nombres réels ou complexes converge ou pas.
+
+\begin{theoreme}[Règle du quotient de d'Alembert]
+\label{th:regledalembert}
+Soit $\sum u_k$ une série dont les termes généraux sont des nombres réels (ou complexes) non nuls.
+\begin{enumerate}
+\item S'il existe une constante $0<q<1$ et un entier $k_0$ tels que, pour tout
+$k \ge k_0$,  
+$$
+\left|\frac{u_{k+1}}{u_k}\right| \le q <1,\quad \text{ alors }\quad\sum u_k\quad \text{converge.}
+$$
+La série est même absolument convergente.
+\item S'il existe un entier $k_0$ tel que, pour tout $k \ge k_0$, 
+$$
+\left|\frac{u_{k+1}}{u_k}\right| \ge 1,\quad \text{ alors }\quad\sum u_k \quad\text{diverge.}
+$$
+\end{enumerate}
+\end{theoreme}
+
+Le plus souvent, la situation que l'on étudie est lorsque 
+la suite $\frac{u_{k+1}}{u_k}$ converge ; la position
+de la limite par rapport à $1$ détermine alors la nature de la série.
+
+Voici une application directe et la plus utilisée, 
+pour les séries de nombres réels, strictement positifs :
+\begin{corollaire}[Règle du quotient de d'Alembert]
+Soit $\sum u_k$ une série à termes strictement positifs, telle que 
+$\frac{u_{k+1}}{u_k}$ converge vers $\ell$.
+\begin{enumerate}
+\item Si $\ell<1$ alors $\sum u_k$ converge.
+\item Si $\ell>1$ alors $\sum u_k$ diverge.
+\item Si $\ell=1$ on ne peut pas conclure en général.
+\end{enumerate}
+\end{corollaire}
+
+
+\begin{proof}
+Rappelons tout d'abord que la série géométrique $\sum q^k$
+converge si $|q|<1$, diverge sinon.
+
+Dans le premier cas du théorème, l'hypothèse $\left|\frac{u_{k+1}}{u_k}\right| \le q$
+implique $|u_{k_0+1}| \le |u_{k_0}| q$, puis $|u_{k_0+2}| \le |u_{k_0}| q^2$.
+On vérifie par récurrence que, pour tout $k\ge k_0$ :
+$$|u_k| \le |u_{k_0}| q^{-k_0} \cdot q^k = c \cdot q^k,$$
+où $c$ est une constante.
+Comme $0 < q < 1$, alors la série $\sum q^k$ converge, d'où le résultat
+par le théorème~\ref{th:comparaisonseries} de comparaison :
+la série $\sum |u_k|$ converge.
+
+\medskip
+
+Si $\left|\frac{u_{k+1}}{u_k}\right| \ge 1$, la suite $(|u_k|)$ est croissante : elle ne
+peut donc pas tendre vers $0$ et la série diverge.  
+\end{proof}
+
+\begin{exemple}
+\begin{enumerate}  
+  \item Pour tout $x \in \Rr$ fixé, la \defi{série exponentielle}
+$$\sum_{k=0}^{+\infty} \frac{x^k}{k!}\quad \text{ converge.}$$
+
+En effet pour $u_k = \frac{x^k}{k!}$ on a 
+$$\left|\frac{u_{k+1}}{u_k}\right|
+= \frac{\left|\frac{x^{k+1}}{(k+1)!}\right|}{\left|\frac{x^k}{k!}\right|}
+=\frac{|x|}{k+1} \to 0 
+\quad \text{lorsque } k \to +\infty.$$
+La limite étant $\ell = 0 < 1$ alors par la règle du quotient de d'Alembert,
+la série est absolument convergente, donc convergente.
+Par définition la somme est $\exp(x)$ : 
+$$\exp(x) = \sum_{k=0}^{+\infty} \frac{x^k}{k!}.$$
+
+
+  \item $\sum_{k\ge0} \frac{k!}{1\cdot 3\,\cdots\,(2k-1)}$ converge,
+  car $\frac{u_{k+1}}{u_k}=\frac{k+1}{2k+1}$ tend vers $\frac{1}{2}<1$.
+  
+  \item $\sum_{k\ge0} \frac{(2k)!}{(k!)^2}$ diverge, car 
+  $\frac{u_{k+1}}{u_k}=\frac{(2k+1)(2k+2)}{(k+1)^2}$ tend vers $4>1$.
+\end{enumerate}
+\end{exemple}
+
+
+\begin{remarque*}
+\begin{itemize}
+  \item Le théorème ne peut s'appliquer si certains $u_k$ sont nuls,
+  contrairement à la règle des racines de Cauchy que l'on verra après.
+  
+  \item Notez bien que le théorème ne permet pas toujours de conclure.
+  Faites aussi bien attention que l'hypothèse est 
+  $\left|\frac{u_{k+1}}{u_k}\right| \le q <1$, ce qui est plus fort que
+  $\left|\frac{u_{k+1}}{u_k}\right| <1$.
+  
+  \item De même le corollaire ne permet pas de conclure lorsque $\frac{u_{k+1}}{u_k} \to 1$.
+  Par exemple pour les séries $\sum u_k= \sum \frac{1}{k}$ 
+  et $\sum v_k = \sum \frac{1}{k^2}$ 
+  nous avons $\frac{u_{k+1}}{u_k} = \frac{k}{k+1} \to 1$,
+  de même que $\frac{v_{k+1}}{v_k} = \frac{k^2}{(k+1)^2 } \to 1$.
+  Cependant la série $\sum \frac{1}{k}$ diverge 
+  alors que $\sum \frac{1}{k^2}$ converge.
+\end{itemize}
+\end{remarque*}
+
+Terminons par un exemple plus compliqué.
+
+\begin{exemple}
+Trouver tous les $z\in \Cc$ tels que la série 
+$\sum_{k\ge0} \binom{k}{3} z^k$ soit absolument convergente.
+\medskip
+
+Soit $u_k=\binom{k}{3} z^k$. Alors, pour $z\neq0$,
+$$\frac{|u_{k+1}|}{|u_k|}=\frac{\binom{k+1}{3}|z|^{k+1}}{\binom{k}{3}|z|^{k}}=
+\frac{\frac{(k+1)k(k-1)}{3!}}{\frac{k(k-1)(k-2)}{3!}}|z|
+=\frac{k+1}{k-2}|z|\to |z| \qquad \text{lorsque } k\to+\infty.$$ 
+
+
+Si $|z|<1$ alors pour $k$ assez grand $\frac{|u_{k+1}|}{|u_k|} < q <1$
+donc la série $\sum u_k$ est absolument convergente.
+
+Si $|z|\ge 1$ alors $\frac{|u_{k+1}|}{|u_k|}=\frac{k+1}{k-2}|z|\ge \frac{k+1}{k-2}> 1$
+pour tout $k$. Donc la série $\sum u_k$  diverge.
+
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Règle des racines de Cauchy}
+
+\begin{theoreme}[Règle des racines de Cauchy]
+\label{th:reglecauchy}
+Soit $\sum u_k$ une série de nombres réels ou complexes.
+\begin{enumerate}
+\item S'il existe une constante $0<q<1$ et un entier $k_0$ tels que, pour tout
+$k \ge k_0$,  
+$$
+\sqrt[k]{|u_k|} \le q <1,\quad \text{ alors }\quad\sum u_k\quad \text{converge.}
+$$
+La série est même absolument convergente.
+\item S'il existe un entier $k_0$ tel que, pour tout $k \ge k_0$, 
+$$
+\sqrt[k]{|u_k|} \ge 1,\quad \text{ alors }\quad\sum u_k \quad\text{diverge.}
+$$
+\end{enumerate}
+\end{theoreme}
+
+
+
+Le plus souvent vous l'appliquerez avec un terme général strictement positif.
+\begin{corollaire}[Règle des racines de Cauchy]
+Soit $\sum u_k$ une série à termes positifs, telle que 
+$\sqrt[k]{u_k}$ converge vers $\ell$.
+\begin{enumerate}
+\item Si $\ell<1$ alors $\sum u_k$ converge.
+\item Si $\ell>1$ alors $\sum u_k$ diverge.
+\item Si $\ell=1$ on ne peut pas conclure en général.
+\end{enumerate}
+\end{corollaire}
+
+Dans la pratique, il faut savoir bien manipuler les racines $k$-ème : 
+$$\sqrt[k]{u_k} = (u_k)^{\frac1k} = \exp\left(\tfrac1k \ln u_k\right)$$.
+
+\begin{proof}
+Rappelons que la nature de la série ne dépend pas de ses premiers
+termes. Dans le premier cas du théorème, $\sqrt[k]{|u_k|} \le q$
+implique  $|u_k| \le q^k$. Comme $0<q<1$, alors la série $\sum q^k$ converge, d'où le résultat
+par le théorème \ref{th:comparaisonseries} de comparaison.  
+
+Dans le second cas, $\sqrt[k]{|u_k|} \ge 1$, donc $|u_k| \ge 1$.
+Le terme général ne tend pas vers $0$, donc la série diverge.  
+
+Enfin pour le dernier point du corollaire, on pose
+$u_k=\frac{1}{k}$, $v_k=\frac{1}{k^2}$.
+On a $\sqrt[k]{u_k}\to 1$ de même que $\sqrt[k]{v_k}\to 1$.
+Mais $\sum u_k$ diverge alors que $\sum v_k$ converge.
+\end{proof}
+
+\begin{exemple}
+\begin{enumerate}
+  \item Par exemple, 
+$$\sum \left(\frac{2k+1}{3k+4}\right)^k\quad \text{ converge,}$$
+car $\sqrt[k]{u_k} = \frac{2k+1}{3k+4}$ tend vers $\frac{2}{3}<1$.
+  
+  
+  \item Par contre  
+  $$\sum \frac{2^k}{k^\alpha}\quad \text{ diverge,}$$
+  quel que soit $\alpha >0$.
+  En effet,
+  $$\sqrt[k]{u_k} = \frac{\sqrt[k]{2^k}}{\big(\sqrt[k]{k}\big)^\alpha}
+  = \frac{2}{\big(k^\frac{1}{k}\big)^\alpha}
+  = \frac{2}{\big(\exp(\frac{1}{k}\ln k)\big)^\alpha} \to 2>1.$$
+\end{enumerate}
+\end{exemple}
+
+
+\begin{exemple}
+Déterminer tous les $z\in \Cc$ tels que la série  
+$\sum_{k\ge1} \left( 1+\frac{1}{k}\right)^{k^2} z^k$ soit absolument convergente.
+\medskip
+
+Notons $u_k =\left( 1+\frac{1}{k}\right)^{k^2} z^k$.
+On a $$\sqrt[k]{|u_k|}=\left( 1+\frac{1}{k}\right)^k |z| \to e|z|.$$
+
+Cette limite vérifie $e|z| < 1$ si et seulement si $|z|<\frac{1}{e}$.
+
+\begin{itemize}
+  \item Si $|z|<\frac{1}{e}$ alors la série $\sum u_k$ est absolument 
+convergente.
+  
+  \item Si $|z|>\frac{1}{e}$, on a pour $k$ assez grand
+  $\sqrt[k]{|u_k|}>1$, donc la série $\sum u_k$ diverge.
+  
+  \item Si $|z|=\frac{1}{e}$ la règle des racines de Cauchy ne permet pas de conclure.
+  On étudie le terme général à la main.
+  On obtient:
+  $$|u_k|=\left(  1+\frac{1}{k}\right)^{k^2}\left(\frac{1}{e}\right)^k$$
+  Donc
+  \begin{eqnarray*}
+  \ln|u_k| 
+  & = & k^2\ln\left(1+\tfrac{1}{k}\right)+k\ln \tfrac{1}{e} \\
+  & = & k\left[k\ln (1+\tfrac{1}{k})-1\right] \\
+  & = & k \left[ k\left(\tfrac{1}{k}-\tfrac{1}{2}\left( \tfrac{1}{k}\right)^2+
+o\big( \tfrac{1}{k^2}\big) \right)-1\right] \\
+  & = & k\left[1-\tfrac{1}{2}\tfrac{1}{k}+o\big( \tfrac{1}{k}\big) -1\right] \\
+  & = & -\tfrac{1}{2} +o(1) \\
+  & \to & -\tfrac{1}{2}\\
+  \end{eqnarray*}
+
+Donc $|u_k| \to e^{-\frac{1}{2}}\neq 0$. Ainsi $\sum |u_k|$ diverge. 
+\end{itemize}
+
+\end{exemple}
+
+
+
+
+%---------------------------------------------------------------
+\subsection{D'Alembert vs Cauchy}
+
+Cette section peut être passée lors d'une première lecture.
+
+\medskip
+
+Nous allons comparer la règle du quotient de d'Alembert avec la règle des racines de Cauchy.
+Nous allons voir que la règle des racines de Cauchy est plus puissante que la règle du quotient de d'Alembert.
+Cependant dans la pratique la règle du quotient de d'Alembert reste la plus utilisée.
+
+
+\begin{proposition}
+\label{prop:cauchydalembert}
+Soit $(u_k)$ une suite à termes strictement positifs.
+$$
+\text{Si } \quad \lim_{k\to+\infty} \frac{u_{k+1}}{u_k} = \ell
+\qquad\text{alors}\qquad
+\lim_{k\to+\infty} \sqrt[k]{u_k} = \ell\;.
+$$
+\end{proposition} 
+Autrement dit, si on peut appliquer la règle du quotient de d'Alembert, alors on peut aussi appliquer 
+la règle des racines de Cauchy.
+
+\begin{proof}
+Pour tout $\epsilon>0$, il existe $k_0$ tel que, pour tout $k\ge k_0$,
+$$\ell-\epsilon < \frac{u_{k+1}}{u_k} < \ell+\epsilon\;.$$
+Par récurrence, on en déduit :
+$$u_{k_0}(\ell-\epsilon)^{k-k_0} \le u_k \le u_{k_0} (\ell+\epsilon)^{k-k_0}\;.$$
+Or :
+$$\lim_{k\to+\infty}\sqrt[k]{u_{k_0}(\ell-\epsilon)^{k-k_0}}
+= \ell-\epsilon
+\qquad\text{et}\qquad
+\lim_{k\to+\infty}\sqrt[k]{u_{k_0}(\ell+\epsilon)^{k-k_0}}
+= \ell+\epsilon\;.$$
+Donc il existe $k_1>k_0$ tel que, pour $k>k_1$,
+$$\ell-2\epsilon < \sqrt[k]{u_k} < \ell + 2\epsilon\;,$$
+d'où le résultat.
+\end{proof}
+
+\bigskip
+ 
+Terminons par un exemple où la règle des racines de Cauchy permet de conclure, 
+mais pas la règle du quotient de d'Alembert.
+\begin{exemple}
+Définissons la suite $u_k$ par :
+$$
+u_k = \left\{
+\begin{array}{ll}
+\frac{2^n}{3^n}&\text{ si } k=2n\\[2ex]
+\frac{2^n}{3^{n+1}}&\text{ si } k=2n+1
+\end{array}
+\right.
+$$
+Le rapport $\frac{u_{k+1}}{u_k}$ vaut $\frac{1}{3}$ si $k$ est pair,
+$2$ si $k$ est impair. La règle du quotient de d'Alembert ne s'applique donc pas. 
+Pourtant, $\sqrt[k]{u_k}$ converge vers $\sqrt{\frac{2}{3}}<1$,
+donc la règle des racines de Cauchy s'applique et la série $\sum u_k$ converge.  
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+\subsection{Règle de Raabe-Duhamel}
+
+Cette section peut être passée lors d'une première lecture.
+
+\medskip
+
+
+La règle du quotient de d'Alembert et la règle des racines de Cauchy 
+ne s'appliquent pas aux séries de Riemann  
+$$\sum_{k\ge1} \frac{1}{k^\alpha}$$
+car $\frac{k^\alpha}{(k+1)^\alpha}\to 1$
+et $\sqrt[k]{u_k} \to 1$.
+
+Il nous faut raffiner la règle de d'Alembert
+pour pouvoir conclure. Cependant nous reviendrons 
+sur la convergence des séries de Riemann par d'autres techniques.
+
+
+
+\begin{theoreme}[Règle de Raabe-Duhamel]
+Soit $(u_k)$ une suite de nombres réels (ou complexes) non nuls.
+\begin{enumerate}
+  \item Si $\forall k\geq k_0$ on a 
+  $\left|\frac{u_{k+1}}{u_k}\right|\le 1-\frac{\beta}{k}$, avec $\beta>1$,
+alors la série $\sum u_k$ est absolument convergente.
+  \item Si $\forall k\geq k_0$ on a 
+  $\left|\frac{u_{k+1}}{u_k}\right|\ge 1-\frac{1}{k}$, alors
+ la série $\sum u_k$ n'est  pas absolument convergente.
+\end{enumerate}
+\end{theoreme}
+
+\textbf{Attention !}
+Il existe des séries convergentes, 
+quoique $\left|\frac{u_{k+1}}{u_k}\right|\ge 1-\frac{1}{k}$.
+Par le deuxième point une telle série ne peut pas être 
+absolument convergente.
+
+En effet, prenons $u_k=(-1)^k \frac{1}{k}$. Alors :
+$$\frac{|u_{k+1}|}{|u_k|}= \frac{k}{k+1}= 1-\frac{1}{k+1}\ge 1-\frac{1}{k}.$$
+
+\begin{proof}
+\begin{enumerate}
+  \item L'hypothèse implique $k|u_{k+1}| \le k|u_k| - \beta |u_k|$ (pour tout $k \ge k_0$).
+  
+Ainsi 
+$$(\beta-1)|u_k| \le (k-1)|u_k|-k|u_{k+1}|.$$
+Comme $\beta>1$ alors l'inégalité ci-dessus implique
+$(k-1)|u_k|-k|u_{k+1}|>0$ et ainsi $(k-1)|u_k| > k|u_{k+1}|$.
+La suite $(k |u_{k+1}|)_{k\ge k_0}$ est décroissante et minorée par $0$ ;
+cette suite admet donc une limite.
+Ainsi la série télescopique $\sum \big[(k-1)|u_k|-k|u_{k+1}|\big]$ converge. 
+Comme 
+$$(\beta-1)|u_k| \le (k-1)|u_k|-k|u_{k+1}|,$$
+la série  $\sum(\beta-1)|u_k|$ converge et donc aussi $\sum |u_k|$.
+  
+  \item L'hypothèse implique $k|u_{k+1}| \ge (k-1)|u_k| >0$ (pour tout $k \ge k_0$).
+Donc la suite $(k|u_{k+1}|)_{k \ge k_0}$ est croissante, ainsi
+$k|u_{k+1}|\ge \epsilon>0$. Donc pour tout $k \ge k_0$, on a
+$|u_{k+1}| \ge \frac{\epsilon}{k}$. 
+Donc $\sum|u_k|$ diverge, car $\sum\frac{1}{k}$ diverge.
+\end{enumerate}
+
+\end{proof}
+
+
+Nous pouvons maintenant savoir quelles sont les séries de Riemann
+qui convergent.
+
+\begin{proposition}[Séries de Riemann]
+Soit $\alpha>0$. Alors la série $\sum_{k\ge1} \frac{1}{k^\alpha}$
+converge si et seulement si $\alpha>1$.
+\end{proposition}
+
+\begin{proof}
+Supposons $\alpha > 1$. 
+Définissons $\Delta(k) = \frac{k^\alpha}{(k+1)^\alpha}$.
+Montrons qu'il existe $\beta>1$  et $k_0$ tels que 
+$$\Delta(k) \le 1-\frac{\beta}{k}  
+\qquad \forall k \ge k_0.$$
+
+Choisissons $\beta$ quelconque vérifiant $1 < \beta < \alpha$.
+Considérons la fonction $f(x)= \frac{1}{(1+x)^\alpha} +\beta x.$
+
+La fonction $f$ est $\mathcal{C}^\infty$ sur $[0,\infty[$ et 
+$f(0)=1$.
+Comme $f'(0)=\beta-\alpha<0$, on voit que $f$ est décroissante 
+sur $[0, x_0]$ pour un certain $x_0$ avec  $0<x_0<1$.  
+Ainsi $f(x)\le 1$ sur $[0,x_0]$ ce qui entraîne que
+$\Delta(k)+\frac{\beta}{k}=f(\frac{1}{k}) \le 1$ pour $k \ge k_0$
+avec $k_0$ entier tel que $\frac{1}{k_0} \le x_0$. Donc
+$\Delta(k)\le 1-\frac{\beta}{k}$ et on peut appliquer la règle de Raabe-Duhamel pour 
+déduire que $\sum \frac1{k^{\alpha}}$ converge.
+
+\medskip
+
+Si $0 < \alpha \le 1$, alors $\frac{1}{k} \le \frac{1}{k^\alpha}$.
+Or la série $\sum \frac{1}{k}$ diverge donc la série 
+$\sum\frac{1}{k^\alpha}$ diverge aussi.
+\end{proof}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\begin{enumerate}
+
+  \item Est-ce que les séries suivantes sont convergentes ?
+  Absolument convergentes ?
+  
+  $$\sum_{k\geq 2} \frac{(-1)^{k^3}e^{\ii k}}{k^2+k}
+  \qquad
+  \sum_{k\geq 1} \frac{(-1)^k}{\sqrt{k(k+1)}}
+  \qquad
+  \sum_{k\geq 1} \frac{\sqrt k}{(-1)^k\ln k}$$
+  
+  \item \'Etudier les séries dont voici le terme général, par la règle du quotient de d'Alembert 
+  ou des racines de Cauchy :
+  $$\frac{k^{100}}{k!} \qquad \frac{k!}{(2k)!} \qquad 
+  \frac{\ln k}{2^k+1} \qquad \frac{2\cdot 4 \cdot 6 \cdots (2k)}{k^k}$$
+  $$\big(\sin \tfrac1k\big)^k \qquad 
+  \left(\frac{7k-2}{3k+1}\right)^k \qquad \frac{2^k}{e^k-1}$$
+  
+  
+  \item Appliquer la règle du quotient de d'Alembert pour $u_k = \frac{k!}{k^k}$.
+  En déduire la limite de $\sqrt[k]{u_k}$ lorsque $k$ tend vers $+\infty$.
+  
+  \item \'Etudier les séries dont voici le terme général en 
+  fonction du paramètre $\alpha > 0$ :
+  $$\frac{k}{k^{\alpha}+1} \qquad \frac{\ln k}{k^\alpha} \qquad \sqrt{k}\alpha^k \qquad 
+  \frac{\alpha^k}{k^2} \qquad \ln (1 + k^\alpha) 
+  \qquad \frac{2\cdot 4 \cdot 6 \cdots (2k)}{3\cdot 5 \cdot 7 \cdots (2k+1)}
+  $$
+\end{enumerate}
+\end{miniexercices}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Comparaison série/intégrale}
+
+
+Cette section fait la jonction entre les séries et les intégrales impropres.
+C'est un lien essentiel entre deux objets mathématiques qui sont au final assez proches.
+Pour cette partie il faut connaître les intégrales impropres $\int_0^{+\infty} f(t) \;\dd t$.
+
+
+%---------------------------------------------------------------
+\subsection{Théorème de comparaison série/intégrale}
+
+\begin{theoreme}
+\label{th:serieintegrale}
+Soit $f : [0,+\infty[ \to [0,+\infty[$ une fonction décroissante.
+Alors la série $\sum_{k \ge 0} f(k)$ (dont le terme général est $u_k = f(k)$) 
+et l'intégrale impropre $\int_0^{+\infty} f(t) \; \dd t$ sont de même nature.
+\end{theoreme}
+
+<<~De même nature~>> signifie que la série et l'intégrale du théorème sont soit
+convergentes en même temps, soit divergentes en même temps.
+
+\textbf{Attention !} Il est important que $f$ soit positive et 
+décroissante.
+
+%---------------------------------------------------------------
+\subsection{Preuve}
+
+
+Le plus simple est de bien comprendre le dessin et de refaire la démonstration
+chaque fois que l'on en a besoin.
+
+
+\begin{proof}
+Soit $k\in\Nn$. Comme $f$ est décroissante, pour $k\le t \le k+1$, 
+on a $f(k+1)\le f(t)\le f(k)$ (attention à l'ordre). En intégrant 
+sur l'intervalle $[k,k+1]$ de longueur $1$, on obtient:
+
+\begin{minipage}{0.39\textwidth}
+$$f(k+1)\le \int_k^{k+1} f(t) \; \dd t \le f(k)$$  
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+\myfigure{1.5}{
+\tikzinput{fig_series02} 
+}  
+\end{minipage}
+
+Sur le dessin cette inégalité signifie que l'aire sous la courbe, 
+entre les abscisses $k$ et $k+1$, est comprise entre l'aire du rectangle
+vert de hauteur $f(k+1)$ et de base $1$ et l'aire du rectangle bleu de hauteur
+$f(k)$ et de même base $1$.
+
+
+
+On somme ces inégalités pour $k$ variant de $0$ à $n-1$ :
+$$\sum_{k=0}^{n-1} f(k+1) \le \sum_{k=0}^{n-1} \int_{k}^{k+1} f(t) \; \dd t
+\le \sum_{k=0}^{n-1} f(k).$$
+Soit :
+$$u_1+\cdots+u_{n} \le \int_0^{n} f(t)\; \dd t \le u_0+\cdots+u_{n-1}.$$
+
+La série $\sum u_k$ converge et a pour somme $S$ 
+si et seulement si la suite des sommes
+partielles converge vers $S$.  
+Si c'est le cas $\int_0^{n} f(t)\; \dd t$ est
+majorée par $S$, et comme $\int_0^x f(t)\; \dd t$ est une fonction croissante de $x$
+(par positivité de $f$), l'intégrale converge. Réciproquement, si l'intégrale
+converge, alors $\int_0^{n} f(t)\;\dd t$ est majorée, la suite des
+sommes partielles aussi, et la série converge.
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Séries de Riemann}
+
+
+Le théorème de comparaison (théorème \ref{th:comparaisonseries}) et
+le théorème des équivalents (théorème \ref{th:equivalentseries}) 
+permettent de ramener l'étude des séries à termes positifs à un catalogue de séries 
+dont la convergence est connue. Dans ce catalogue, on trouve les séries de Riemann 
+et les séries de Bertrand.
+
+
+Commençons par les \defi{séries de Riemann} $\sum_{k\ge 1} \frac{1}{k^\alpha}$, pour $\alpha>0$
+un réel.
+
+\begin{proposition}
+\mybox{
+Si \quad $\alpha >1$ \quad alors 
+\quad $\displaystyle  \sum_{k = 1}^{+\infty} \frac{1}{k^\alpha}$ \quad converge}  
+\mybox{
+Si \quad $0 <\alpha \le1$ \quad alors 
+\quad $\displaystyle  \sum_{k \ge 1} \frac{1}{k^\alpha}$ \quad diverge}
+\end{proposition}
+
+\begin{proof}
+Dans le théorème \ref{th:serieintegrale}, rien n'oblige à démarrer de $0$ : pour $m\in\Nn$,
+la série $\sum_{k \ge m} f(k)$ 
+et l'intégrale impropre $\int_m^{+\infty} f(t) \;\dd t$ sont de même nature.
+
+Nous l'appliquons à $f : [1,+\infty[ \to [0,+\infty[$ définie par 
+$f(t)=\frac{1}{t^\alpha}$. Pour $\alpha >0$, c'est une fonction décroissante et positive.
+On peut appliquer le théorème \ref{th:serieintegrale}.
+
+On sait que :
+$$
+\int_1^{x} \frac{1}{t^\alpha}\;\dd t =
+\left\{\begin{array}{ll}
+\displaystyle{\frac{1}{1-\alpha}(x^{1-\alpha}-1)}&\mbox{si }\alpha\neq
+    1\\[1.5ex]
+\ln(x) &\mbox{si }\alpha=1
+\end{array}\right. 
+$$
+
+Pour $\alpha > 1$, $\int_1^{+\infty} \frac{1}{t^\alpha} \; \dd t $ 
+est convergente, donc la série $\sum_{k = 1}^{+\infty} \frac{1}{k^\alpha}$ converge.
+
+Pour $0<\alpha\le 1$, $\int_1^{+\infty} \frac{1}{t^\alpha} \; \dd t $ 
+est divergente, donc la série $\sum_{k \ge 1} \frac{1}{k^\alpha}$ diverge.
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Séries de Bertrand}
+
+
+Une famille de séries plus sophistiquées sont les \defi{séries de Bertrand} : 
+$\sum_{k\ge2} \frac{1}{k^\alpha(\ln k)^\beta}$
+où $\alpha > 0$ et $\beta \in \Rr$.
+
+\begin{proposition}
+Soit la série de Bertrand 
+$$\sum_{k\ge2} \frac{1}{k^\alpha(\ln k)^\beta}.$$
+\mybox{Si \quad $\alpha>1$ \quad  alors elle converge. \qquad\qquad Si \quad $0<\alpha<1$ \quad  alors elle diverge.}
+
+\mybox{Si \quad $\alpha=1$ \quad et \quad $\begin{cases} \beta>1 & \text{alors elle converge.}\\   
+\beta\le 1 & \text{alors elle diverge.}
+\end{cases}$}
+\end{proposition}
+
+
+\begin{proof}
+La démonstration est la même que pour les séries de Riemann.
+Par exemple pour le cas $\alpha=1$ : 
+$$
+\int_2^{x} \frac{1}{t(\ln t)^{\beta}}\;\dd t =
+\left\{\begin{array}{ll}
+\displaystyle{\frac{1}{1-\beta}\left((\ln x)^{1-\beta}-(\ln 2)^{1-\beta}\right)}&\text{si }\beta\neq
+    1\\[1.5ex]
+\ln(\ln x)-\ln(\ln 2) &\text{si }\beta=1
+\end{array}\right. 
+$$
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Applications}
+
+
+Nous retrouvons en particulier le fait que :
+\begin{enumerate}
+  \item $\sum \frac{1}{k^2}$ converge (prendre $\alpha=2$),
+  
+  \item alors que $\sum \frac{1}{k}$ diverge (prendre $\alpha=1$). 
+\end{enumerate}
+
+
+
+\bigskip
+
+Terminons avec deux exemples d'utilisation des équivalents 
+avec les séries de Riemann et de Bertrand.
+
+\begin{exemple}
+\begin{enumerate}
+  \item La série 
+  $$\sum_{k \ge 1} \ln\left(1+\frac{1}{\sqrt{k^3}}\right)$$ 
+  est-elle convergente ?
+  
+  Comme
+  $$\ln\left(1+\frac{1}{\sqrt{k^3}}\right) \quad \sim \quad \frac{1}{\sqrt{k^3}}$$
+  et que la série de Riemann $\sum \frac{1}{\sqrt{k^3}}=\sum \frac{1}{k^{\frac32}}$ 
+  converge (car $\frac32>1$) alors par le théorème des équivalents la série 
+  $\sum_{k=1}^{+\infty} \ln\left(1+\frac{1}{\sqrt{k^3}}\right)$
+  converge également.
+  
+  \item La série
+$$\sum_{k \ge 1} 
+\frac{1-\cos\left(\frac{1}{k\sqrt{\ln k}}\right)}{\sin\left(\frac{1}{k}\right)}$$
+  est-elle convergente ?
+  
+On cherche un équivalent du terme général (qui est positif) :  
+$$\frac{1-\cos\left(\frac{1}{k\sqrt{\ln k}}\right)}
+{\sin\left(\frac{1}{k}\right)} \quad \sim \quad \frac{1}{2k\ln k}$$
+Or la série de Bertrand $\sum \frac{1}{k\ln k}$ diverge, donc
+notre série diverge aussi.
+\end{enumerate}
+
+\end{exemple}
+
+
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\begin{enumerate}
+  \item Notons $H_n = \sum_{k=1}^{n} \frac 1k$ la somme partielle de la série harmonique.
+  Et soit $f : [1,+\infty[\to[0,+\infty[$ définie par $f(t)=\frac1t$.
+  \begin{enumerate}
+    \item Donner un encadrement simple de $\int_k^{k+1} f(t) \;\dd t$.
+    \item Faire la somme de ces inégalités pour $k$ variant de $1$ à $n-1$, puis $k$ variant de $1$
+  à $n$, pour obtenir :
+ $$\ln(n+1) \le H_n \le1 + \ln n$$
+    \item En déduire $H_n \sim \ln n$.
+    \item La série harmonique converge-t-elle ?
+   \end{enumerate}
+  
+  \item Reprendre le schéma d'étude précédent pour montrer que, pour la série de Riemann 
+  et $0\le \alpha <1$,
+  $$\sum_{k=1}^{n} \frac{1}{k^\alpha} \sim \frac{n^{1-\alpha}}{1-\alpha}.$$
+  
+  \item Reprendre le schéma d'étude précédent, mais cette fois pour le reste
+  $R_n = \sum_{k=n+1}^{\infty} \frac{1}{k^2}$, afin de montrer que
+  $$R_n \sim \frac{1}{n}.$$
+  Calculer $R_{100}$. Quelle approximation cela fournit-il de la somme de la série ?
+  
+  \item \'Etudier la convergence des séries suivantes en fonction des paramètres $\alpha>0$ et $\beta \in \Rr$ :
+  $$\sum \sqrt{k^\alpha+1}-\sqrt{k^\alpha} \qquad
+  \sum \sin\left(\frac{k^\alpha}{\ln k}\right) \qquad
+  \sum \ln \left(1+\frac{1}{k(\ln k)^\beta}\right)$$
+  
+  
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Produits de deux séries}
+
+Cette section consacrée au produit de deux séries 
+peut être passée lors d'une première lecture.
+
+%---------------------------------------------------------------
+\subsection{Motivation}
+
+Pour un produit de sommes, il y a plusieurs façons d'ordonner les termes 
+une fois le produit développé. Dans le cas d'une somme finie l'ordre des termes n'a pas d'importance, 
+mais dans le cas d'une série c'est essentiel.
+On choisit de regrouper les termes en fonction des indices, de la façon suivante :
+
+$$\big(a_0+a_1\big)\big(b_0+b_1\big)=
+\underbrace{a_0b_0}_{\text{somme des indices}=0}
++\underbrace{a_0b_1 + a_1b_0}_{\text{somme des indices}=1}
++\underbrace{a_1b_1}_{\text{somme des indices}=2}$$
+\begin{align*}
+\big(a_0+a_1+a_2\big)\big(b_0+b_1+b_2\big) & =
+\underbrace{a_0b_0}_{\text{somme des indices}=0}
++\underbrace{a_0b_1 + a_1b_0}_{\text{somme des indices}=1} \\
+& +\underbrace{a_0b_2+a_1b_1+a_2b_0}_{\text{somme des indices}=2}
++\underbrace{a_1b_2+a_2b_1}_{\text{somme des indices}=3}
++\underbrace{a_2b_2}_{\text{somme des indices}=4}  
+\end{align*}
+
+
+
+
+Plus généralement, voici différentes façons d'écrire un produit de deux sommes :
+$$\left(\sum_{i=0}^n a_i\right)\; \left(\sum_{j=0}^n b_j\right)= 
+\sum_{i=0}^n \sum_{j=0}^n a_ib_j
+= \sum_{0 \le k \le 2n} \sum_{i+j=k} a_ib_j
+= \sum_{0 \le k \le 2n} \sum_{0 \le i \le k} a_ib_{k-i}.$$
+Les deux dernières formes correspondent à notre décomposition en fonction de la somme des indices.
+
+
+
+%---------------------------------------------------------------
+\subsection{Le produit de Cauchy}
+
+
+\begin{definition}
+Soient $\sum_{i \ge 0} a_i$ et $\sum_{j \ge 0} b_j$ deux séries.
+On appelle \defi{série produit} ou \defi{produit de Cauchy}
+la série $\sum_{k \ge 0} c_k$
+o\`u \mybox{$\displaystyle c_k=\sum_{i=0}^k a_i b_{k-i}$} 
+\end{definition}
+
+Une autre façon d'écrire le coefficient $c_k$ est :
+\mybox{$\displaystyle c_k=\sum_{i+j=k} a_i b_j$}
+
+\begin{theoreme}
+Si les séries $\sum_{i=0}^{+\infty} a_i$ et $\sum_{j=0}^{+\infty} b_j$ de nombres réels (ou complexes)
+sont absolument convergentes, alors la série produit 
+$$\sum_{k=0}^{+\infty} c_k = \sum_{k=0}^{+\infty} \left(\sum_{i=0}^k a_ib_{k-i}\right)$$
+est absolument convergente et l'on a:
+$$\sum_{k=0}^{+\infty} c_k = \left(\sum_{i=0}^{+\infty} a_i\right)\ \times\ \left(\sum_{j=0}^{+\infty} b_j\right).$$
+\end{theoreme}
+
+\begin{proof}
+\textbf{Notations.}
+
+\begin{itemize}
+  \item $S_n=a_0+\dots+a_n$, $S_n\to S$,
+  
+  \item $T_n=b_0+\dots +b_n$, $T_n\to T$,
+  
+  \item $P_n= c_0+\dots+c_n$.
+\end{itemize}
+
+On doit montrer que $P_n \to S\cdot T$.
+
+\medskip
+\textbf{Premier cas.} $a_k\ge 0, b_k \ge 0$ ($\forall k$). 
+
+Dans ce cas $c_k\ge 0$ et on a 
+$$P_n \le S_n \cdot T_n\le S \cdot T.$$ 
+
+La suite $(P_n)$ est croissante et majorée, donc convergente : $P_n\to P$.
+
+Or on a aussi 
+$$P_n \le S_n \cdot T_n \le P_{2n}.$$
+
+\myfigure{1}{
+\tikzinput{fig_series03} 
+}
+Le dessin représente le point correspondant aux indices $(i,j)$.
+Le triangle rouge représente  $P_n$ (avec le regroupement des termes correspondant aux diagonales),
+le carré vert correspond au produit $S_n \cdot T_n$,
+le triangle bleu représente  $P_{2n}$. Le fait que le carré soit compris entre les deux triangles
+traduit la double inégalité $P_n \le S_n \cdot T_n \le P_{2n}$.
+
+\medskip
+
+Donc en faisant $n\to+\infty$, on a: $P\le S \cdot T\le P$. Donc $P_n\to S \cdot T$.
+
+\medskip
+\textbf{Second cas.} $a_k\in\Cc, b_k \in \Cc$ ($\forall k$).
+
+On pose :
+\begin{itemize}
+  \item $S_n'=|a_0|+\dots+|a_n|$, $S_n'\to S'$,
+  
+  \item $T_n'=|b_0|+\dots+|b_n|$, $T_n'\to T'$,
+  
+  \item $P_n'= c_0'+\dots+ c_n'$ o\`u $c_k'=\sum_{i=0}^k|a_ib_{k-i}|$.
+\end{itemize}
+
+
+D'après le premier cas, $P_n'\to P'$ avec $P'=S' \cdot T'$. Ainsi
+
+$$|S_n \cdot T_n - P_n|= \bigl|\sum_{\stackrel{0\le i,j\le n}{i+j>n}} a_ib_j\bigr|\le
+\sum_{\stackrel{0\le i,j\le n}{i+j>n}} |a_ib_j| = S_n' \cdot T_n'-P_n' \to S' \cdot T'-P'=0.
+$$
+
+Ainsi $P_n=S_n \cdot T_n-(S_n \cdot T_n-P_n)\to S \cdot T-0=S \cdot T$.
+
+Donc la série $\sum c_k$ est convergente et sa somme est $S \cdot T$. 
+De plus, $|c_k|\le c_k'$. La convergence de $\sum c_k'$ implique 
+donc la convergence absolue de $\sum c_k$.
+\end{proof}
+
+%---------------------------------------------------------------
+\subsection{Exemple}
+
+\begin{exemple}
+Soit $\sum_{i=0}^{+\infty} a_i$ une série absolument convergente
+et soit $\sum_{j=0}^{+\infty} b_j$ la série définie par $b_j = \frac{1}{2^j}$.
+La série $\sum b_j$ est absolument convergente.
+
+Notons
+$$c_k = \sum_{i=0}^k a_ib_{k-i} = \sum_{i=0}^k a_i \times \frac{1}{2^{k-i}}.$$
+
+Alors la série $\sum c_k$ converge absolument et
+$$\sum_{k=0}^{+\infty} c_k 
+= \left(\sum_{i=0}^{+\infty} a_i\right)\ \times\ \left(\sum_{j=0}^{+\infty} b_j\right)
+= 2 \sum_{i=0}^{+\infty} a_i.$$
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Contre-exemple}
+
+Si les séries $\sum a_i$ et $\sum b_j$ ne sont pas absolument 
+convergentes, mais seulement convergentes,
+alors la série de Cauchy peut être divergente.
+
+\begin{exemple}
+Soient $a_i=b_i=\frac{(-1)^{i}}{\sqrt {i+1}}, i\ge 0$.
+Alors $\sum a_i$ et $\sum b_j$ sont convergentes par le critère de Leibniz, 
+mais ne sont pas absolument convergentes. On a
+$$c_k = \sum_{i=0}^k a_i b_{k-i} 
+= \sum_{i=0}^k \frac{(-1)^{i}}{\sqrt {i+1}} \frac{(-1)^{k-i}}{\sqrt{k-i+1}} 
+= (-1)^{k} \sum_{i=0}^k \frac{1}{\sqrt{(i+1)(k-i+1)}}$$
+
+Or, pour $x\in\Rr$, $(x+1)(k-x+1)=-x^2+kx+(k+1) \le \frac{(k+2)^2}{4}$ (valeur au sommet de la parabole). 
+D'o\`u $\sqrt{(i+1)(k-i+1)} \le \frac{(k+2)}{2}$.
+Ainsi
+$$|c_k|=\sum_{i=0}^k\frac{1}{\sqrt{(i+1)(k-i+1)}} \ge \sum_{i=0}^k \frac{2}{k+2} = \frac{2(k+1)}{k+2} \to 2.$$
+Donc le terme général $c_k$ ne peut pas tendre $0$, donc la série $\sum c_k$ diverge.
+\end{exemple}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\begin{enumerate}
+  \item Trouver une expression simple du terme général de la série produit
+  $$\sum_{i=0}^{+\infty} \frac{1}{3^i} \times \sum_{j=0}^{+\infty} \frac{1}{3^j}.$$
+  Calculer la somme de cette série produit.
+  \item On admet ici que, pour $x\in \Rr$, la série $\sum_{k=0}^{+\infty} \frac{x^k}{k!}$ converge et vaut
+  $\exp(x)$.
+  Que vaut la série produit associée à $\exp(a) \times \exp(b)$ ?
+  (Vous utiliserez la formule du binôme de Newton.)
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Permutation des termes}
+
+
+Cette section consacrée à la permutation de termes
+peut être passée lors d'une première lecture.
+
+\begin{theoreme}
+Soit $\sum_{k=0}^{+\infty} u_k$ une série absolument convergente et soit $S$ sa somme.
+Soit $\sigma : \Nn \to \Nn$ une bijection de l'ensemble des indices.
+Alors la série $\displaystyle \sum_{k=0}^{+\infty} u_{\sigma(k)}$ converge
+et $$\sum_{k=0}^{+\infty} u_{\sigma(k)} = S.$$
+\end{theoreme}
+
+Remarque : la condition de convergence absolue est indispensable.
+Il se trouve que, pour une série convergente, mais pas absolument convergente, 
+on peut permuter les termes pour obtenir n'importe quelle valeur !
+
+Comme exemple de permutation, on peut réordonner les termes $u_0,u_1,u_2,u_3,\ldots$ 
+en prenant deux termes de rang pair puis un terme de rang impair, ce qui donne :
+$$u_0, u_2, u_1, u_4, u_6, u_3, u_8, u_{10}, u_5,\ldots$$
+Par contre il \emph{n'est pas autorisé} de regrouper tous les termes pairs d'abord et 
+les termes impairs ensuite :
+$$u_0,u_2, u_4,\ldots, u_{2k},\ldots,u_1,u_3,\ldots, u_{2k+1},\ldots$$
+
+
+\begin{proof}
+Par hypothèse $\sum_{k=0}^{+\infty} |u_k|$ converge. 
+D'après le critère de Cauchy,
+$$\forall \epsilon>0\quad \exists n_0\in\Nn \qquad \sum_{n=n_0+1}^{+\infty} |u_k|<\epsilon.$$
+Soit $S=\sum_{k=0}^{+\infty} u_k$. Fixons $\epsilon>0$. 
+Choisissons $k_0\in\Nn$ tel que 
+$\big\{0, 1,2,\dots,n_0\big\} \subset \big\{\sigma(0),\sigma(1),\ldots, \sigma(k_0)\big\}$.  
+Pour $n\geq k_0$ on a :
+$$\left|S-\sum_{k=0}^n u_{\sigma(k)}\right| \le
+\left|S-\sum_{k=0}^{n_0} u_k\right|+\left|\sum_{k=0}^{n_0} u_k- 
+\sum_{k=0}^n u_{\sigma(k)}\right|$$
+Pour le premier terme on a 
+$$\left|S-\sum_{k=0}^{n_0} u_k\right| = \left| \sum_{k=n_0+1}^{+\infty} u_k\right| 
+\le \sum_{k=n_0+1}^{+\infty} |u_k|
+\le \epsilon.$$
+
+Pour le second terme :
+$$\left|\sum_{k=0}^n u_{\sigma(k)}-\sum_{k=0}^{n_0} u_k\right|
+= \left|\sum_{k \in \{\sigma(0),\ldots,\sigma(n)\}\setminus\{0,\ldots,n_0\}} u_k \right|
+\le \sum_{k \in \{\sigma(0),\ldots,\sigma(n)\}\setminus\{0,\ldots,n_0\}} |u_k| 
+\le \sum_{k > n_0} |u_k| 
+= \sum_{k=n_0+1}^{+\infty} |u_k|
+\le \epsilon.$$
+Ce qui prouve $\left|S-\sum_{k=0}^n u_{\sigma(k)}\right| \le 2\epsilon$ et donne le résultat.
+\end{proof}
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+
+\begin{miniexercices}
+Le but de cet exercice est de comprendre que si la série n'est pas absolument convergente,
+des phénomènes étranges apparaissent.
+Souvenez-vous que la série harmonique alternée converge :
+$$\sum_{k=0}^{+\infty} (-1)^{k} \frac{1}{k+1} 
+= 1-\frac{1}{2}+\frac{1}{3}-\frac{1}{4} +\cdots $$
+Notons $S$ sa somme. (En fait $S = \ln 2$.)
+
+Si on regroupe les termes de cette série par paquets de $3$, et si l'on simplifie, alors
+on trouve la moitié de la somme !
+
+
+\begin{align*}
+& \left(1-\frac{1}{2}-\frac{1}{4} \right)+
+  \left(\frac{1}{3}-\frac{1}{6}-\frac{1}{8} \right)+
+  \left(\frac{1}{5}-\frac{1}{10}-\frac{1}{12} \right)+\cdots+ 
+  \left(\frac{1}{2k-1}-\frac{1}{4k-2}-\frac{1}{4k} \right)+\cdots   \\
+= &  \left(\frac{1}{2}-\frac{1}{4} \right)+
+  \left(\frac{1}{6}-\frac{1}{8} \right)+
+  \left(\frac{1}{10}-\frac{1}{12} \right)+\cdots+ 
+  \left(\frac{1}{4k-2}-\frac{1}{4k} \right)+\cdots   \\ 
+= & \frac12  \left( 1-\frac{1}{2}+\frac{1}{3}-\frac{1}{4} + \cdots \right) \\
+= & \frac12 S
+\end{align*}
+
+Surprenant, non ?
+
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Sommation d'Abel}
+
+Cette section consacrée à la sommation d'Abel
+peut être passée lors d'une première lecture.
+
+%---------------------------------------------------------------
+\subsection{Théorème de sommation d'Abel}
+
+
+Le théorème de sommation d'Abel s'applique à certaines séries
+convergentes mais qui ne sont pas absolument convergentes.
+C'est un théorème qui s'applique aux séries de la forme $\sum a_kb_k$
+et est plus fort que le critère de Leibniz pour les séries alternées,
+mais il est aussi plus difficile à mettre en \oe uvre.
+
+\begin{theoreme}[Théorème de sommation d'Abel]
+\label{th:abelserie}
+Soient $(a_k)_{k\ge0}$ et $(b_k)_{k\ge0}$ deux suites telles que :
+\begin{enumerate}
+\item La suite $(a_k)_{k\ge0}$ est une suite décroissante de
+réels positifs qui tend vers $0$.
+\item Les sommes partielles de la suite $(b_k)_{k\ge0}$ sont bornées :
+$$\exists M\quad\forall n\in \Nn\qquad
+\big|b_0+\cdots+b_n\big|\le M.$$
+Alors la série $\sum_{k\ge0} a_kb_k$ converge.
+\end{enumerate}
+\end{theoreme}
+
+Le critère de Leibniz concernant les séries alternées est un cas spécial :
+en effet, si $b_k=(-1)^k$ alors $\big|\sum_{k=0}^n b_k\big|\le 1$.
+Donc si $(a_k)$ est une suite positive, décroissante, qui tend vers $0$, alors 
+$\sum a_k b_k$ converge.
+
+
+\begin{proof}
+L'idée de la démonstration est d'effectuer un changement dans la
+sommation, qui s'apparente à une intégration par parties. Pour
+tout $n\ge0$, posons $B_n=b_0+\cdots+b_n$. Par hypothèse, la suite
+$(B_n)$ est bornée. Nous écrivons les sommes partielles de la
+série $\sum a_k b_k$ sous la forme suivante :
+$$
+\begin{array}{rcl}
+S_n & = & a_0b_0+a_1b_1+\cdots+a_{n-1}b_{n-1}+a_nb_n \\
+&=& a_0B_0+a_1(B_1-B_0)+\cdots +a_{n-1}(B_{n-1}-B_{n-2}) + a_n(B_n-B_{n-1})\\
+&=& B_0(a_0-a_1)+B_1(a_1-a_2)+\cdots+B_{n-1}(a_{n-1}-a_n)+B_na_n\;.
+\end{array}
+$$
+Comme $(B_n)$ est bornée, et $a_n$ tend vers $0$, le dernier terme $B_na_n$
+tend vers $0$. Nous allons montrer que la série $\sum B_k(a_k-a_{k+1})$ 
+est absolument convergente. En effet,
+$$
+\big|B_k(a_k-a_{k+1})\big| = \big|B_k\big|(a_k-a_{k+1})\le M(a_k-a_{k+1})\;,
+$$
+car la suite $(a_k)$ est une suite de réels positifs,
+décroissante, et $|B_k|$ est borné par $M$. Or
+$$
+M(a_0-a_1)+\cdots+M(a_n-a_{n+1}) = M(a_0-a_{n+1})\;,
+$$
+qui tend vers $Ma_0$ puisque $(a_k)$ tend vers $0$.
+La série $\sum M(a_k-a_{k+1})$ converge, donc la série
+$\sum\big|B_k(a_k-a_{k+1})\big|$ aussi, par le théorème 
+\ref{th:comparaisonseries} de comparaison. Donc la série $\sum B_k(a_k-a_{k+1})$
+est convergente, donc la suite $(S_n)$ est convergente, ce qui prouve que la série 
+$\sum a_k b_k$ converge.
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Séries de Fourier}
+
+Le cas d'application le plus fréquent est celui où
+$b_k=e^{\ii k\theta}$.
+
+\begin{corollaire}
+Soit $\theta$ un réel, tel que $\theta \neq 2n\pi$ (pour tout $n \in\Zz$). 
+Soit $(a_k)$ une suite de réels positifs, décroissante,
+tendant vers $0$. Alors les \defi{séries de Fourier} :
+\mybox{$\displaystyle 
+\sum a_k e^{\ii k\theta} \qquad 
+\sum a_k\cos(k\theta) \qquad 
+\sum a_k\sin(k \theta)
+\quad \text{ convergent}
+$} 
+\end{corollaire}
+
+
+
+
+\begin{proof}
+Pour appliquer le théorème de sommation d'Abel (théorème \ref{th:abelserie}) avec 
+$b_k=e^{\ii k\theta}$, nous devons
+vérifier que les sommes partielles de la suite $(e^{\ii k\theta})$ sont
+bornées. Or $e^{\ii k\theta}=(e^{\ii \theta})^k$, et par hypothèse 
+$e^{\ii \theta}$ est différent de $1$. On
+a donc la somme d'une suite géométrique :
+$$
+\big|1+e^{\ii \theta}+\cdots+e^{\ii k\theta}\big| =
+ \left|\frac{1-e^{\ii (k+1)\theta}}{1-e^{\ii \theta}}\right|\le
+\left|\frac{2}{1-e^{\ii \theta}}\right|\;.$$
+D'où le résultat. 
+
+Comme $\sum a_k e^{\ii k\theta} = \sum a_k\cos(k\theta) + \ii \sum a_k\sin(k \theta)$,
+la convergence des séries
+$\sum a_k\cos(k\theta)$ et $\sum a_k\sin(k \theta)$ est une
+conséquence directe de la proposition \ref{prop:reimseries}.
+\end{proof}
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+
+\begin{miniexercices}
+\begin{enumerate}
+  \item Justifier que les sommes $\sum_{k=0}^n (-1)^k$, $\sum_{k=0}^n \cos(k\theta)$
+  et $\sum_{k=0}^n \sin(k\theta)$ sont bornées, pour $\theta \neq 0 \pmod{2\pi}$.
+ 
+  \item Montrer que les séries suivantes convergent par le critère de sommation d'Abel :
+  $$\sum \frac{(-1)^k \cos k}{k} \qquad \sum \frac{\sqrt{k+1}}{k} \sin (k\theta)
+  \qquad \frac{1}{e^{\ii k \theta}\ln k}$$
+  pour $\theta \neq 0 \pmod{2\pi}$.
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+
+
+\auteurs{
+\begin{itemize}
+  \item[$\bullet$] D'après un cours de Raymond Mortini, de l'université de Lorraine,
+
+  \item[$\bullet$] et un cours de Luc Rozoy et Bernard Ycart de l'université de Grenoble
+  pour le site \texttt{\href{http://ljk.imag.fr/membres/Bernard.Ycart/mel/}{M\at ths en Ligne}}.
+ 
+  \item[$\bullet$] mixé, révisé par Arnaud Bodin. Relu par Stéphanie Bodin et Vianney Combet.
+\end{itemize}
+}
+
+\finchapitre
+\end{document}
+

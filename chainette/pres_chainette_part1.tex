@@ -1,0 +1,346 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={0,0,102}]{structure}
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf La chaînette}}
+\subtitle{Le cosinus hyperbolique}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Introduction
+    \item<4-> Définition
+    \item<5-> Fonctions réciproques
+    \item<6-> Dérivée des physiciens, dérivée des mathématiciens
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+\begin{frame}
+\begin{minipage}{0.39\textwidth}
+La \defi{chaînette}
+
+
+\bigskip
+
+\uncover<2->{$\displaystyle y = a \ch\left( \frac x a \right)$}
+
+\bigskip
+
+\uncover<7->{$\displaystyle  y =  a \; \frac{e^{\frac x a} + e^{-\frac x a}}{2}$}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\myfigure{0.9}{
+\tikzinput{fig_chainette03-pres}
+}  
+\end{minipage}
+
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\only<1,2>{
+\begin{tikzpicture}
+    \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[height=5cm]{figures/Chainette_by_fdecomite.jpg}};
+    %\begin{scope}[x={(image.south east)},y={(image.north west)}]
+     \only<2>{  
+        \begin{scope}[shift={(+4.5,-2.77)}, rotate=-0.2]
+          \def\a{5.4};
+          \draw [very thick, color=red,samples=20,smooth,domain=-3.2:3.4] plot(\x,{\a*(exp(\x/\a)+exp(-\x/\a))/2});
+        \end{scope}
+     }
+    %\end{scope}
+\end{tikzpicture} 
+}
+\only<3,4>{
+\begin{tikzpicture}
+    \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[height=5cm]{figures/Bulle_Savon_by_soapbubble.jpg}};
+    %\begin{scope}[x={(image.south east)},y={(image.north west)}]
+       \only<4>{
+        \begin{scope}[shift={(+3.21,+2.5)}, rotate=-90]
+          \def\a{1.4};
+          \draw [very thick, color=red,samples=20,smooth,domain=-1.7:1.7] plot(\x,{\a*(exp(\x/\a)+exp(-\x/\a))/2});
+        \end{scope}
+       }
+    %\end{scope}
+\end{tikzpicture} 
+}
+\only<5,6>{
+\begin{tikzpicture}
+    \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[height=5cm]{figures/Gaudi_by_Naveen_Jamal.jpg}};
+    %\begin{scope}[x={(image.south east)},y={(image.north west)}] 
+   \only<6>{
+        \begin{scope}[shift={(3.02,3)}, rotate=180, scale=0.3]
+          \def\a{1.3};
+          \draw [very thick, color=red,samples=20,smooth,domain=-3.31:3.41] plot(\x,{\a*(exp(\x/\a)+exp(-\x/\a))/2});
+        \end{scope}
+    }
+    %\end{scope}
+\end{tikzpicture} 
+}
+\end{center}
+
+
+
+
+%   \begin{center}
+%   \only<1>{\includegraphics[height=5cm]{Chainette_by_fdecomite.jpg}}
+%   \only<2>{\includegraphics[height=5cm]{Bulle_Savon_by_soapbubble.jpg}} 
+%   \only<3>{\includegraphics[height=5cm]{Gaudi_by_Naveen_Jamal.jpg}}     
+%   \end{center}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définition}
+
+\begin{frame}
+
+$$\ch x = \frac{e^x + e^{-x}}{2} \qquad\qquad \uncover<4->{\sh x = \frac{e^x - e^{-x}}{2}}$$
+\vspace*{-2ex}
+%\centerline{\defi{cosinus hyperbolique}  \qquad\qquad \uncover<3->{\defi{sinus hyperbolique}} }
+\myfigure{0.8}{
+\uncover<3->{\tikzinput{fig_chainette01}}
+\qquad
+\uncover<2->{\tikzinput{fig_chainette02}}
+}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{proposition}
+\label{prop:chainette1}
+\begin{enumerate}
+ \item $\ch^2 x - \sh^2 x = 1$ \quad  pour tout $x \in \Rr$
+ \pause
+ \medskip
+ \item $\ch ' x = \sh x$ \quad et \quad $\sh' x = \ch x$
+\end{enumerate}
+\vspace*{1ex}
+\end{proposition}
+
+ \pause
+ 
+\begin{proof}
+\begin{enumerate}
+  \item
+ $\begin{array}{rcl}
+  \ch^2 x- \sh^2 x 
+   \pause&=& \frac14 \big[ (e^x+e^{-x})^2 - (e^x-e^{-x})^2 \big] \\[3mm]
+   \pause&=& \frac14 \big[ (e^{2x}+2+e^{-2x}) - (e^{2x}-2+e^{-2x})  \big] \\[3mm]
+   \pause&=& 1 \\  
+  \end{array}
+$
+  \pause
+  \medskip
+  \item  
+  $\begin{array}{rcl}
+   \frac{d}{dx}(\ch x) 
+   \pause&=& \displaystyle \frac{d}{dx} \frac{e^x+e^{-x}}{2} \\[3mm]
+   \pause&=& \displaystyle \frac{e^x-e^{-x}}{2} \\[3mm]
+   \pause&=& \sh x \\ 
+   \end{array}$
+\end{enumerate}
+\vspace*{-2ex}
+  
+\end{proof}
+
+\end{frame}
+
+
+\begin{frame}
+\vspace*{-1ex}
+$$\cos x = \frac{e^{\ii x} + e^{-\ii x}}{2} \qquad\qquad \sin x = \frac{e^{\ii x} - e^{-\ii x}}{2\ii}$$
+\pause
+\vspace*{-3ex}
+\myfigure{0.8}{
+\tikzinput{fig_chainette04}
+\quad
+\uncover<7->{
+\tikzinput{fig_chainette05}
+}
+}
+\vspace*{-2ex}
+\pause
+\begin{minipage}{0.49\textwidth}
+\small
+\begin{itemize}
+  \item $(x(t) = \cos t,y(t) = \sin t)$
+  \pause
+  \item $x(t)^2+y(t)^2 = \cos^2 t + \sin^2 t =1$
+  \pause
+  \item \evidence{Cercle}
+\end{itemize}
+\end{minipage}
+\pause
+\begin{minipage}{0.49\textwidth}
+\small
+\begin{itemize}  
+  \item $(x(t) = \ch t, y(t) = \sh t)$
+  \pause\pause
+  \item $x(t)^2 - y(t)^2 = \ch^2 t - \sh^2 t = 1$
+  \pause
+  \item \evidence{Hyperbole}
+\end{itemize}
+
+\end{minipage}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Fonctions réciproques}
+
+\begin{frame}
+\vspace*{-1ex}
+\begin{proposition}
+\label{prop:chainette2}
+\begin{itemize}
+  \item 
+  \begin{itemize}
+    \item La fonction $x \mapsto \ch x$ est une bijection
+de $[0,+\infty[$ dans $[1,+\infty[$
+\pause    
+    \item Sa bijection réciproque est notée $\Argch x$
+\uncover<4->{    
+    \item $\ch\big(\Argch(x)\,\big) = x  \quad \forall x \in [1,+\infty[$
+}
+\uncover<5->{
+    \item $\Argch\big(\ch(x)\,\big) = x \quad   \forall x \in [0,+\infty[$
+}
+  \end{itemize}
+  
+\uncover<6->{
+  \item  
+  \begin{itemize}
+    \item La fonction $x \mapsto \sh x$ est une bijection de $\Rr$ dans $\Rr$
+    \item Sa bijection réciproque est notée $\Argsh x$
+    
+    \item $\sh\big(\Argsh(x)\,\big) = x  \qquad  \Argsh\big(\sh(x)\,\big) = x
+\quad   \forall x \in \Rr$
+  \end{itemize}
+} 
+\end{itemize}
+\end{proposition}
+
+\pause
+\vspace*{-2ex}
+\shorthandoff{:}
+\myfigure{0.75}{
+\tikzinput{fig_chainette06}
+\qquad
+\uncover<6->{
+\tikzinput{fig_chainette07}
+}
+}
+\shorthandon{:}
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{proposition}
+\label{prop:chainette3}
+Les fonctions $x \mapsto \Argch x$ et $x \mapsto \Argsh x$
+sont dérivables et 
+$$\Argch' x = \frac{1}{\sqrt{x^2-1}} \qquad\qquad \Argsh' x = \frac{1}{\sqrt{x^2+1}}$$
+\end{proposition}
+
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Expression logarithmique}
+
+\begin{frame}
+
+\begin{proposition}
+$$\Argch x  =  \ln\left( x+\sqrt{x^2-1} \right) \qquad \text{ pour } x\ge1$$
+$$\Argsh x  =  \ln\left( x+\sqrt{x^2+1} \right) \qquad \text{ pour } x \in \Rr$$
+\end{proposition}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Dérivée des physiciens, dérivée des mathématiciens}
+
+\begin{frame}
+
+\evidence{Dérivée des mathématiciens}
+
+\begin{itemize}
+  \item Notation $f'(x)$
+
+  \uncover<2->{
+  \item C'est la limite, lorsque $h$ tend vers $0$, de
+$$\frac{f(x+h)-f(x)}{x+h-x}$$
+}
+\vspace*{-3ex}
+\end{itemize}
+
+
+\evidence{Dérivée des physiciens}
+
+
+\begin{itemize}
+  \item Notation $\frac{df}{dx}$
+  \pause\pause
+  \item Notons $dx = h$ et $df = f(x+h)-f(x) = f(x+dx)-f(x)$
+  \pause
+  \item $\frac{f(x+h)-f(x)}{x+h-x} = \frac{df}{dx}$
+  \pause
+  \item $dx$ est infinitésimal
+  \pause
+  \item Identification de $\frac{df}{dx}$ avec sa limite lorsque $dx \to 0$
+\end{itemize}
+
+\pause
+\medskip
+\evidence{Dérivée d'une composée}
+\pause
+\begin{itemize}
+  \item $\displaystyle \frac{df}{dx} = \frac{dy}{dx}\times\frac{df}{dy}$
+  \pause  
+  \item $f \circ y \; (x) = f\big( y(x) \big)$
+  \pause
+  \item $\left(f \circ y \right)'(x) = y'(x) \times f'\big( y(x) \big)$
+\end{itemize}
+
+
+\end{frame}
+
+
+
+\end{document}

@@ -1,0 +1,316 @@
+
+\input{./preamb-pres-reels.tex}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+
+
+\title{{\bf Les nombres réels}}
+\subtitle{Borne supérieure}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Maximum, minimum
+    \item<4-> Majorants, minorants
+    \item<5-> Borne supérieure, borne inférieure
+    \item<6-> Remarques historiques
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Maximum, minimum}
+
+\begin{frame}
+\begin{mydefinition}
+\label{def:max}
+
+Soit $A$ une partie non vide de $\Rr$
+
+\begin{itemize}
+  \item Un réel $\alpha$ est un \defi{plus grand élément} de $A$ si :
+ \centerline{$\alpha \in A$ \qquad  et \qquad  $\forall x \in A \;\; x\leq \alpha$} 
+
+\pause
+
+  \item S'il existe, le plus grand élément est unique, on le note alors $\max A$
+
+\pause
+
+  \item Le \defi{plus petit élément} de $A$, noté $\min A$, s'il existe est le réel
+$\alpha$ tel que $\alpha \in A$ et $\forall x \in A \;\; x \ge \alpha$
+
+\pause
+
+  \item On parle aussi de \defi{maximum} et de \defi{minimum}
+\end{itemize}
+\end{mydefinition}
+
+
+\pause
+
+\begin{exemple}
+\begin{itemize}
+  \item $\max[a,b]=b$, $\min [a,b]=a$ 
+\pause
+  \item $]a,b[$ n'a ni plus grand élément, ni plus petit élément
+\pause
+  \item $[0,1[$ a pour plus petit élément $0$ et n'a pas de plus grand élément
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+Soit $A=\big\{ 1-\frac{1}{n} \mid n\in \Nn^* \big\}$
+ 
+\pause
+
+ \qquad $u_n=1-\frac{1}{n}$ pour $n\in \Nn^* $ \qquad $A=\big\{ u_n \mid n\in \Nn^* \big\}$
+\pause
+\vspace*{-1ex}
+\myfigure{1.5}{
+\tikzinput{fig_reels09} 
+}
+\vspace*{-4ex}
+\pause
+\begin{enumerate}
+  \item $\min A=0$ 
+\pause
+  \begin{itemize}
+    \item $u_1=0$ donc $0 \in A$
+\pause
+    \item $u_n =1-\frac{1}{n}\ge 0=u_1$ (pour tout $n\ge 1$)
+  \end{itemize}
+\pause
+  \item $A$ n'a pas de plus grand élément
+  \begin{itemize}
+\pause
+    \item Supposons qu'il existe un plus grand élément $\alpha=\max A$
+\pause
+    \item Alors $u_n \le \alpha$, pour tout $u_n$. Ainsi $1-\frac{1}{n} \le \alpha$
+\pause
+    \item Lorsque $n \to +\infty$ cela implique $\alpha \ge 1$
+\pause
+    \item Comme $\alpha$ est le plus grand élément de $A$ alors $\alpha \in A$
+\pause
+    \item Donc il existe $n_0$ tel que $\alpha = u_{n_0}$
+\pause
+    \item Mais alors $\alpha = 1-\frac{1}{n_0} <1$
+\pause
+    \item Contradiction avec $\alpha \ge 1$. Donc $A$ n'a pas de maximum
+  \end{itemize}
+\end{enumerate}
+\end{exemple}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Majorants, minorants}
+
+\begin{frame}
+
+\begin{mydefinition}
+Soit $A$ une partie non vide de $\Rr$
+\begin{itemize}
+  \item  Un réel $M$ est un 
+\defi{majorant} de $A$ si \ \ $\forall x \in A \;\; x\leq M$
+\pause
+  \item Un réel $m$ est un \defi{minorant} de $A$ si \ \ $\forall x \in A \;\; x\geq m$
+\pause
+  \item Si un majorant (resp. un minorant) de $A$ existe on dit que $A$ est \defi{majorée} (resp. \defi{minorée})
+\end{itemize}
+\end{mydefinition}
+
+\pause
+\begin{exemple}
+\begin{itemize}
+  \item $3$ est un majorant de $]0,2[$
+\pause
+  \item $-7,-\pi,0$ sont des minorants de $]0,+\infty[$, pas de majorant
+\pause
+  \item les majorants de $[0,1[$ sont exactement les éléments de $[1,+\infty[$
+\pause
+  \item les minorants de $[0,1[$ sont exactement les éléments de $]-\infty,0]$
+\pause
+\myfigure{1.5}{
+\tikzinput{fig_reels10} 
+}
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Borne supérieure, borne inférieure}
+
+\begin{frame}
+\begin{mydefinition}
+\label{def:sup-inf}
+Soit $A$ une partie non vide de $\Rr$ et $\alpha$ un réel
+\begin{itemize}
+  \item $\alpha$ est la \defi{borne supérieure} de $A$ si $\alpha$ est un majorant de $A$ et 
+si c'est le plus petit des majorants. S'il existe on le note $\sup A$
+\pause
+  \item $\alpha$ est la \defi{borne inférieure} de $A$ si $\alpha$ est un minorant de 
+$A$ et si c'est le plus grand des minorants. S'il existe on le note $\inf A$
+\end{itemize}
+\end{mydefinition}
+
+\pause
+
+\begin{exemple}
+\begin{itemize}
+  \item $\sup[a,b]=b$
+  \item $\inf[a,b]=a$
+  \item $\sup]a,b[=b$
+  \item $]0,+\infty[$ n'admet pas de borne supérieure
+  \item $\inf ]0,+\infty[ =0$
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+\begin{frame}
+
+\begin{theoreme}[$\Rr4$]
+Toute partie de $\Rr$ non vide et majorée admet une borne supérieure
+\end{theoreme}
+
+\pause
+
+Toute partie de $\Rr$ non vide et minorée admet une borne inférieure
+
+\pause
+\bigskip
+
+\begin{exemple}
+Soit $A=]0,1]$
+\pause
+\begin{enumerate}  
+  \item $\sup A=1$ \pause : en effet les majorants de $A$ sont les éléments de $[1,+\infty[$. \pause Donc le plus petit des majorants est $1$
+  \pause
+  \item $\inf A=0$  \pause: les minorants sont les éléments de $]-\infty,0]$ \pause donc le plus grand des minorants est $0$
+\end{enumerate}  
+\end{exemple}
+
+
+\end{frame}
+
+
+\begin{frame}
+\begin{proposition}[Caractérisation de la borne supérieure]
+La borne supérieure de $A$ est l'unique réel $\sup A$ tel que
+\begin{enumerate}
+\item[(i)] si $x\in A$, alors $x\leq \sup A$
+\item[(ii)] pour tout $y<\sup A$, il existe $x\in A$ tel que $y<x$
+\end{enumerate}
+\end{proposition}
+
+\pause
+
+\begin{exemple}[$A=\big\{ 1-\frac{1}{n} \mid n\in \Nn^* \big\}$]
+%\vspace*{-1ex}
+\myfigure{1}{
+\tikzinput{fig_reels09} 
+}
+\vspace*{-6ex}
+\pause
+\begin{enumerate}
+  \item $\inf A= \min A=0$
+\pause
+  \item \emph{Première méthode} pour $\sup A=1$
+  \begin{itemize}
+\pause
+    \item $M$ majorant de $A$ $\implies$ $M \ge 1-\frac 1n$ pour tout $n\ge 1$ $\implies$ $M\ge 1$
+\pause
+    \item majorants de $A$ : $[1,+\infty[$
+  \end{itemize}
+\pause
+  \item \emph{Deuxième méthode} 
+\pause
+  \begin{enumerate}
+     \item[(i)] si $x\in A$, alors $x\leq 1$
+\pause
+     \item[(ii)] pour tout $y< 1$, il existe $x\in A$ tel que $y<x$ \pause :
+pour $n$ tel que $0<\frac 1n < 1-y$ alors $y < 1-\frac 1n < 1$
+\pause donc $x=1-\frac 1n \in A$ convient
+   \end{enumerate} 
+\end{enumerate}
+\end{exemple}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Remarques historiques}
+
+\begin{frame}
+\begin{itemize}[<+->]
+  \item Les propriétés $\Rr1$, $\Rr2$, $\Rr3$ et le théorème $\Rr4$
+sont intrinsèques à la construction de $\Rr$
+
+  \item Il y a un grand saut entre $\Qq$ et $\Rr$ 
+ \og{}il y a beaucoup plus de nombres irrationnels que de nombres rationnels \fg{}
+
+
+  \item Calcul infinitésimal (Newton et Leibniz vers 1670). La construction de $\Rr$ devient 
+  une nécessité
+
+  \item Deux constructions complètes de $\Rr$ (1860-1870) : les coupures de Dedekind et les suites de Cauchy
+
+
+\end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Mini-exercices}
+
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Soit $A$ une partie de $\Rr$. On note $-A=\{-x| x\in A\}$. Montrer que $\min A=-\max(-A)$, 
+c'est-à-dire que si l'une des deux quantités a un sens, l'autre aussi, et on a égalité.
+  \item Même exercice, mais en remplaçant $\min$ par $\inf$ et $\max$ par $\sup$.
+  \item Soit $A$ une partie de $\Rr$. Montrer que $A$ admet un plus petit 
+élément si et seulement si $A$ admet une borne inférieure qui appartient à $A$.
+ % \item Soit $f:\Rr\to \Rr$ une fonction croissante. Comparer $f(\sup A)$ et $\sup f(A)$. Mêmes questions avec $\max$, $\min$, $\inf$, puis reprendre l'exercice avec $f$ décroissante.
+  \item Soit $A=\big\{(-1)^n \frac{n}{n+1}\mid n\in \Nn\big\}$. Déterminer, s'ils existent, le plus grand élément, le plus petit élément,
+les majorants, les minorants, la borne supérieure et la borne inférieure.
+  \item Même question avec $A= \big\{ \frac{1}{1+x} \mid x \in [0,+\infty[ \big\}$.
+%    \item Soit $f:[0,1]\to[0,1]$ une fonction croissante. Montrer que $A=\big\{x\in[0,1]| x\geq f(x) \big\}$ 
+% admet une borne inférieure $a$, puis que ce $a$ est en fait le minimum de $A$, et finalement que $f(a)=a$.
+  \end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+\end{document}

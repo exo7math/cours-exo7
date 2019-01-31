@@ -1,0 +1,38 @@
+\begin{tikzpicture}[scale=0.8]
+ \def\xmin{-4}; 
+ \def\xmax{+4}; 
+ \def\ymin{-0.5}; 
+ \def\ymax{+4};
+% \draw[help lines] (\xmin,\ymin) grid (\xmax,\ymax);
+%  \draw[->] (\xmin,0)--(\xmax,0);
+ % \draw[->] (0,\ymin)--(0,\ymax);
+ %\clip (\xmin,\ymin) rectangle (\xmax,\ymax);
+% \def\a{+1};
+% \draw [thick, domain=\xmin:\xmax] plot(\x,{exp(\x)});
+
+  \def\xx{+6.40}; 
+  \def\a{1.60/(6.40*6.40)}
+  \def\yy{\a*\xx*\xx};
+  \coordinate (B) at ({\xx},{\yy});
+  \coordinate (C) at ({-\xx},{\yy});
+  \coordinate (D) at (0,{\yy});
+
+ \draw[very thick, color=red] ({-\xx},0)--({\xx},0);
+
+ \draw[very thick, color=red] ({\xx},0)--({\xx},{\yy});
+ \draw[very thick, color=red] ({-\xx},0)--({-\xx},{\yy});
+
+
+   \draw [very thick, color=red, domain=-\xx:\xx] plot(\x,{\a*\x*\x});
+
+  \foreach \i in {-\xx,-6.2,...,6.4}{
+    \draw [thin, color=gray] (\i,0)--({\i},{\a*\i*\i});
+  };
+
+%  \node at (B) [above right] {$(x_0,y_0)$}; 
+%  \node at (C) [above left] {$(-x_0,y_0)$}; 
+
+%  \draw[->, thick, green] (B)-- + (0,-2);
+%  \draw[->, thick, green] (B)-- + (-1,0);
+
+\end{tikzpicture}

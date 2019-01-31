@@ -1,0 +1,1747 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Dimension finie}
+%====================================================================
+
+\insertvideo{oxTywIAVJZY}{partie 1. Famille libre}
+
+\insertvideo{pCm6msV0S18}{partie 2. Famille génératrice}
+
+\insertvideo{ctHGYBb7pP8}{partie 3. Base}
+
+\insertvideo{mMQhhHnhET4}{partie 4. Dimension d'un espace vectoriel}
+
+\insertvideo{6sIQwX6BEWo}{partie 5. Dimension des sous-espaces vectoriels}
+
+\insertfiche{fic00019.pdf}{Espaces vectoriels de dimension finie}
+
+\bigskip
+
+
+
+Les espaces vectoriels qui sont engendrés par un nombre fini de vecteurs sont appelés
+espaces vectoriels de dimension finie. Pour ces espaces, nous allons voir comment calculer
+une base, c'est-à-dire une famille minimale de vecteurs qui engendrent tout l'espace.
+Le nombre de vecteurs dans une base s'appelle la dimension et nous verrons comment calculer
+la dimension des espaces et des sous-espaces.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Famille libre}
+
+%-------------------------------------------------------
+\subsection{Combinaison linéaire (rappel)}
+
+Soit $E$ un $\Kk$-espace vectoriel.
+
+\begin{definition}
+ Soient  $v_1, v_2, \ldots, v_p$, $p \ge 1$  vecteurs d'un espace vectoriel $E$.
+ Tout vecteur de la forme
+ $$u=\lambda_1 v_1+\lambda_2v_2+ \cdots + \lambda_pv_p$$
+ (où $\lambda_1, \lambda_2, \ldots,  \lambda_p$ sont des éléments de $\Kk$)
+ est appelé \defi{combinaison linéaire}\index{combinaison lineaire@combinaison linéaire} des vecteurs $v_1, v_2, \ldots, v_p$.
+ Les scalaires $\lambda_1, \lambda_2, \ldots , \lambda_p$
+ sont appelés \defi{coefficients} de la combinaison linéaire.
+\end{definition}
+
+%-------------------------------------------------------
+\subsection{Définition}
+
+\begin{definition}
+
+Une famille $\{ v_1, v_2,\ldots, v_p \}$ de $E$ est une \defi{famille libre}\index{famille!libre} ou
+\defi{linéairement indépendante}\index{famille!lineairement independante@linéairement indépendante} si toute combinaison linéaire nulle
+$$\lambda_1 v_1+\lambda_2 v_2+\cdots+\lambda_p v_p=0$$
+est telle que tous ses coefficients sont nuls, c'est-à-dire
+$$\lambda_1=0, \quad \lambda_2=0, \quad \ldots \quad \lambda_p=0.$$
+\end{definition}
+
+Dans le cas contraire,
+c'est-à-dire s'il existe une combinaison linéaire nulle
+à coefficients non tous nuls,
+on dit que la famille est \defi{liée}\index{famille!liee@liée} ou \defi{linéairement dépendante}.
+Une telle combinaison linéaire s'appelle alors
+une \defi{relation de dépendance linéaire} entre les $ v_j$.
+
+%-------------------------------------------------------
+\subsection{Premiers exemples}
+
+Pour des vecteurs de $\Rr^n$, décider si une famille
+$\{v_1,\ldots,v_p\}$ est libre ou liée revient à résoudre un système linéaire.
+
+
+
+
+\begin{exemple}
+Dans le $\Rr$-espace vectoriel $\Rr^3$, considérons la famille
+$$\left\{\begin{pmatrix}
+1\\2\\3
+\end{pmatrix},
+\begin{pmatrix}
+4\\5\\6
+\end{pmatrix},
+\begin{pmatrix}
+2\\1\\0
+\end{pmatrix}\right\}.$$
+On souhaite déterminer si elle est libre ou liée.
+On cherche des scalaires $(\lambda_1, \lambda_2, \lambda_{3})$ tels que
+$$\lambda_1\left(\begin{smallmatrix}
+1\\2\\3
+\end{smallmatrix}\right)
++\lambda_2\left(\begin{smallmatrix}
+4\\5\\6
+\end{smallmatrix}\right)
++\lambda_3\left(\begin{smallmatrix}
+2\\1\\0
+\end{smallmatrix}\right) =
+\left(\begin{smallmatrix}
+0\\0\\0
+\end{smallmatrix}\right)$$
+ce qui équivaut au système :
+$$\left \{ \begin{matrix}
+\lambda_1&+&4\lambda_2&+&2 \lambda_{3}&=&0 \cr
+2\lambda_1&+&5\lambda_2&+&\lambda_{3}&=&0\cr
+3\lambda_1&+&6\lambda_2&&&=&0\cr
+\end{matrix}\right .$$
+
+On calcule (voir un peu plus bas) que ce système est équivalent à :
+$$\left \{ \begin{matrix}
+\lambda_1&& &-&2 \lambda_{3}&=&0 \cr
+&&\lambda_2&+&\lambda_{3}&=&0\cr
+\end{matrix}\right .$$
+Ce système a une infinité de solutions et en prenant par exemple $\lambda_3=1$
+on obtient $\lambda_1=2$ et $\lambda_2=-1$, ce qui fait que
+$$2\begin{pmatrix}
+1\\2\\3
+\end{pmatrix} -\begin{pmatrix}
+4\\5\\6
+\end{pmatrix} +\begin{pmatrix}
+2\\1\\0
+\end{pmatrix}=
+\begin{pmatrix}0\cr 0\cr 0\cr \end{pmatrix}.$$
+La famille
+$$\left\{\begin{pmatrix}
+1\\2\\3
+\end{pmatrix},
+\begin{pmatrix}
+4\\5\\6
+\end{pmatrix},
+\begin{pmatrix}
+2\\1\\0
+\end{pmatrix}\right\}$$ est donc une famille liée.
+
+Voici les calculs de la réduction de Gauss sur la matrice associée au système :
+$$\begin{pmatrix}
+1&4&2\\2&5&1\\3&6&0
+\end{pmatrix}\sim
+\begin{pmatrix}
+1&4&2\\0&-3&-3\\0&-6&-6
+\end{pmatrix}\sim
+\begin{pmatrix}
+1&4&2\\0&-3&-3\\0&0&0
+\end{pmatrix}\sim
+\begin{pmatrix}
+1&4&2\\0&1&1\\0&0&0
+\end{pmatrix}\sim
+\begin{pmatrix}
+1&0&-2\\0&1&1\\0&0&0
+\end{pmatrix}$$
+\end{exemple}
+
+
+\begin{exemple}
+Soient
+$v_1=\left(\begin{smallmatrix}  1\\1\\1 \end{smallmatrix}\right)$,
+$v_2 = \left(\begin{smallmatrix} 2\\-1\\0 \end{smallmatrix}\right)$,
+$v_3 = \left(\begin{smallmatrix} 2\\1\\1  \end{smallmatrix}\right)$.
+Est-ce que la famille $\{v_1, v_2, v_3\}$ est libre ou liée ?
+Résolvons le système linéaire correspondant à l'équation
+$\lambda_1 v_1+ \lambda_2 v_2 + \lambda_3 v_3 = 0$ :
+$$\left \{ \begin{matrix}
+\lambda_1&+&2\lambda_2&+& 2\lambda_{3}&=&0 \cr
+\lambda_1&-&\lambda_2&+&\lambda_{3}&=&0\cr
+\lambda_1&&&+&\lambda_{3}&=&0\cr
+\end{matrix}\right .$$
+On résout ce système et on trouve comme seule solution
+$\lambda_1=0$, $\lambda_2=0$, $\lambda_{3}=0$.
+La famille $\{v_1, v_2, v_3\}$ est donc une famille libre.
+\end{exemple}
+
+\begin{exemple}
+Soient $v_1=\left(\begin{smallmatrix}2\\ -1\\ 0\\3\end{smallmatrix}\right)$,
+$v_2=\left(\begin{smallmatrix}1\\2\\5\\ -1\end{smallmatrix}\right)$ et
+$v_3 = \left(\begin{smallmatrix}7\\ -1\\     5\\8\end{smallmatrix}\right)$.
+Alors $\{v_1, v_2, v_3\}$ forme une famille liée, car
+$$3v_1 + v_2 - v_3 = 0.$$
+\end{exemple}
+
+%-------------------------------------------------------
+\subsection{Autres exemples}
+
+\begin{exemple}
+Les polyn\^omes $P_1(X)=1-X$, $P_2(X)=5+3X-2X^2$ et  $P_3(X)=1+3X-X^2$
+forment une famille liée dans l'espace vectoriel $\Rr[X]$, car
+$$3P_1(X) - P_2(X) + 2P_3(X) = 0.$$
+\end{exemple}
+
+
+\begin{exemple}
+Dans le $\Rr$-espace vectoriel $\mathcal{F}(\Rr ,\Rr)$ des fonctions de $\Rr$
+dans $\Rr$, on considère la famille $\{\cos, \sin\}$.
+Montrons que c'est une famille libre.
+Supposons que l'on ait $\lambda \cos+\mu \sin =0$. Cela équivaut à
+$$\forall x \in \Rr \qquad \lambda \cos(x) + \mu \sin(x)=0.  $$
+En particulier, pour $x=0$, cette égalité donne $\lambda =0$. Et pour
+$x=\frac{\pi}2$, elle donne $\mu=0$. Donc la famille
+$\{\cos , \sin\}$ est libre.
+En revanche la famille $\{\cos^2, \sin^2,1\}$ est liée car on a
+la relation de dépendance linéaire $\cos ^2 + \sin^2 -1 =0$.
+Les coefficients de dépendance linéaire sont $\lambda_1=1, \lambda_2=1, \lambda_3=-1$.
+\end{exemple}
+
+
+
+%-------------------------------------------------------
+\subsection{Famille liée}
+
+Soit $E$ un $\Kk$-espace vectoriel.
+Si $v\neq  0$, la famille à un seul vecteur $\{v\}$ est libre (et liée si $v= 0$).
+Considérons le cas particulier d'une famille de deux vecteurs.
+\begin{proposition}
+La famille $\{ v_1, v_2\}$ est liée si
+et seulement si $v_1$ est un multiple de $v_2$ ou
+$v_2$ est un multiple de $v_1$.
+\end{proposition}
+Ce qui se reformule ainsi par contraposition :
+\og La famille $\{ v_1, v_2\}$ est libre si
+et seulement si $v_1$ n'est pas un multiple de $v_2$ et
+$v_2$ n'est pas un multiple de $v_1$. \fg
+
+\begin{proof}
+~
+\begin{itemize}
+  \item Supposons la famille $\{ v_1, v_2\}$ liée, alors il existe
+$\lambda_1,\lambda_2$ non tous les deux nuls tels que
+$\lambda_1 v_1+\lambda_2 v_2= 0$. Si c'est $\lambda_1$ qui n'est
+pas nul, on peut diviser par $\lambda_1$, ce qui donne
+$ v_1=-\frac{\lambda_2}{\lambda_1} v_2$ et $ v_1$ est un multiple de $v_2$.
+Si c'est $\lambda_2$ qui n'est pas nul, alors de même $v_2$ est un multiple de $ v_1$.
+
+  \item Réciproquement, si $ v_1$ est un multiple de $ v_2$, alors il
+existe un scalaire $\mu$ tel que $ v_1=\mu  v_2$, soit $1 v_1+(-\mu)
+v_2= 0$, ce qui est une relation de dépendance linéaire entre $v_1$ et $ v_2$
+puisque $1\neq 0$ : la famille $\{ v_1, v_2\}$ est alors liée.
+Même conclusion si c'est $v_2$ qui est un multiple de $ v_1$.
+\end{itemize}
+\end{proof}
+
+Généralisons tout de suite cette proposition à une famille
+d'un nombre quelconque de vecteurs.
+\begin{theoreme}
+\label{carac liee}
+Soit $E$ un $\Kk$-espace vectoriel.
+Une famille $\mathcal{F}=\{v_1, v_2,\ldots, v_p\}$ de $p\ge 2$
+vecteurs de $E$ est une famille liée si et seulement si
+au moins un des vecteurs de $\mathcal{F}$ est combinaison linéaire
+des autres vecteurs de $\mathcal{F}$.
+\end{theoreme}
+
+
+
+\begin{proof}
+C'est essentiellement la même démonstration que ci-dessus.
+\begin{itemize}
+  \item Supposons d'abord $\mathcal{F}$ liée.
+  Il existe donc une relation de dépendance linéaire
+$$\lambda_1 v_1+\lambda_2 v_2+\cdots+\lambda_p v_p=0,$$
+avec $\lambda_k\neq 0$ pour au moins un indice $k$.
+Passons tous les autres termes à droite du signe égal. Il vient
+$$\lambda_k v_k=-\lambda_1 v_1-\lambda_2 v_2-\cdots-\lambda_p v_p,$$
+où $ v_k$ ne figure pas au second membre. Comme $\lambda_k\neq 0$, on peut diviser cette égalité par $\lambda_k$ et l'on obtient
+$$ v_k=-\frac{\lambda_1}{\lambda_k} v_1-\frac{\lambda_2}{\lambda_k} v_2-\cdots-\frac{\lambda_p}{\lambda_k} v_p,$$
+c'est-à-dire que $v_k$ est combinaison linéaire des autres
+vecteurs de $\mathcal{F}$, ce qui peut encore s'écrire
+$ v_k \in \Vect \big( \mathcal{F}\setminus\{v_k\} \big)$
+(avec la notation ensembliste $A\setminus B$ pour l'ensemble des éléments
+de $A$ qui n'appartiennent pas à $B$).
+
+  \item Réciproquement, supposons que pour un certain $k$, on ait
+$ v_k \in \Vect \big(\mathcal{F}\setminus\{v_k\}\big)$.
+Ceci signifie que l'on peut écrire
+$$ v_k=\mu_1 v_1+\mu_2 v_2+\cdots+\mu_p v_p,$$
+où $v_k$ ne figure pas au second membre.
+Passant $v_k$ au second membre, il vient
+$$ 0=\mu_1 v_1+\mu_2 v_2+\cdots- v_k+\cdots+\mu_p v_p,$$
+ce qui est une relation de dépendance linéaire
+pour $\mathcal{F}$ (puisque $-1\neq 0$) et ainsi
+la famille $\mathcal{F}$ est liée.
+
+\end{itemize}
+
+
+\end{proof}
+
+
+
+%-------------------------------------------------------
+\subsection{Interprétation géométrique de la dépendance linéaire}
+
+\begin{itemize}
+\item Dans $\Rr^2$ ou $\Rr^3$, deux vecteurs sont linéairement dépendants si et seulement s'ils sont colinéaires.
+Ils sont donc sur une même droite vectorielle.
+\item Dans $\Rr^3$, trois vecteurs sont linéairement dépendants si et seulement s'ils sont coplanaires.
+Ils sont donc dans un même plan vectoriel.
+\end{itemize}
+\myfigure{.4}{
+\tikzinput{fig_dimension04}
+}
+\pause
+\myfigure{.8}{
+\tikzinput{fig_dimension05bis}
+}
+
+\begin{proposition}
+  Soit $\mathcal{F}=\{ v_1, v_2,\ldots ,v_p\}$ une famille de vecteurs de $\Rr^n$. Si
+  $\mathcal{F}$ contient plus de $n$ éléments (c'est-à-dire $p > n$), alors
+  $\mathcal{F}$ est une famille liée.
+\end{proposition}
+
+\begin{proof}
+  Supposons que
+  \[v_1=\begin{pmatrix}v_{11} \\ v_{21}\\\vdots\\ v_{n1}\end{pmatrix}\qquad
+  v_2=\begin{pmatrix}v_{12}\\ v_{22}\\\vdots\\ v_{n2}\end{pmatrix}\quad\dots\quad
+  v_p=\begin{pmatrix}v_{1p}\\ v_{2p}\\\vdots\\ v_{np}\end{pmatrix}.\]
+  L'équation $$ x_1v_1 + x_2 v_2 + \dots + x_p v_p = 0 $$
+  donne alors le système suivant
+$$
+\left\{\begin{array}{ccl}
+v_{11} x_1 + v_{12} x_2 + \dots + v_{1p} x_p & = & 0\\
+v_{21} x_1 + v_{22} x_2 + \dots + v_{2p} x_p & = & 0\\
+\vdots  &&\\
+v_{n1} x_1 + v_{n2} x_2 + \dots + v_{np} x_p & = & 0
+\end{array}\right.
+$$
+
+C'est un système homogène de $n$ équations à $p$ inconnues.
+Lorsque $p > n$, ce système a des solutions non triviales
+(voir le chapitre \og Systèmes linéaires \fg{}, dernier théorème)
+ce qui montre que la famille $\mathcal{F}$ est une famille liée.
+\end{proof}
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Pour quelles valeurs de $t\in\Rr$,
+  $\left\{
+  \left(\begin{smallmatrix} -1 \\ t \end{smallmatrix}\right),
+  \left(\begin{smallmatrix} t^2 \\ -t \end{smallmatrix}\right)
+  \right\}$
+  est une famille libre de $\Rr^2$ ?
+  Même question avec la famille
+  $\left\{
+  \left(\begin{smallmatrix} 1 \\ t \\ t^2 \end{smallmatrix}\right)
+  \left(\begin{smallmatrix} t^2 \\ 1 \\ 1 \end{smallmatrix}\right)
+  \left(\begin{smallmatrix} 1 \\ t \\ 1 \end{smallmatrix}\right)
+  \right\}$ de $\Rr^3$.
+
+
+  \item Montrer que toute famille contenant une famille liée est liée.
+
+  \item Montrer que toute famille inclue dans une famille libre est libre.
+
+  \item Montrer que si $f : E \to F$ est une application linéaire et que
+  $\{ v_1, \ldots, v_p \}$ est une famille liée de $E$, alors
+  $\{ f(v_1), \ldots, f(v_p) \}$ est une famille liée de $F$.
+
+  \item Montrer que si $f : E \to F$ est une application linéaire \emph{injective}
+  et que $\{ v_1, \ldots, v_p \}$ est une famille libre de $E$, alors
+  $\{ f(v_1), \ldots, f(v_p) \}$ est une famille libre de $F$.
+
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Famille génératrice}
+
+Soit $E$ un espace vectoriel sur un corps $\Kk$.
+
+%-------------------------------------------------------
+\subsection{Définition}
+
+\begin{definition}
+Soient $v_1,\dots ,v_p$ des vecteurs de $E$.
+La famille $\{v_1,\dots ,v_p\}$ est une \defi{famille génératrice}\index{famille!generatrice@génératrice} de l'espace vectoriel $E$
+si tout vecteur de $E$ est une combinaison linéaire des vecteurs $v_1,\dots ,v_p$.
+
+Ce qui peut s'écrire aussi :
+$$\forall v \in E  \qquad \exists \lambda_1, \ldots,\lambda_p \in \Kk \qquad
+v=\lambda_1 v_1+\cdots + \lambda_p v_p$$
+\end{definition}
+
+On dit aussi que la famille $\{v_1,\dots ,v_p\}$ \defi{engendre}\index{sous-espace vectoriel!engendre@engendré} l'espace vectoriel $E$.
+
+Cette notion est bien sûr liée à la notion de sous-espace vectoriel engendré :
+les vecteurs $\{v_1,\dots ,v_p\}$ forment une famille génératrice de $E$
+si et seulement si $E=\Vect (v_1,\ldots,v_p)$.
+
+%-------------------------------------------------------
+\subsection{Exemples}
+
+\begin{exemple}
+Considérons par exemple les vecteurs
+$v_1=\left(\begin{smallmatrix}1\\0\\0\end{smallmatrix}\right)$ ,
+$v_2=\left(\begin{smallmatrix}0\\1\\0\end{smallmatrix}\right)$ et
+$v_3=\left(\begin{smallmatrix}0\\0\\1\end{smallmatrix}\right)$
+de $E=\Rr^3$.
+La famille $\{v_1,v_2,v_3\}$ est génératrice car tout
+vecteur
+$v=\left(\begin{smallmatrix}x\\y\\z\end{smallmatrix}\right)$ de $\Rr^3$ peut s'écrire
+$$\left(\begin{smallmatrix}x\\y\\z\end{smallmatrix}\right)
+=x\left(\begin{smallmatrix}1\\0\\0\end{smallmatrix}\right)
++y\left(\begin{smallmatrix}0\\1\\0\end{smallmatrix}\right)
++z\left(\begin{smallmatrix}0\\0\\1\end{smallmatrix}\right).$$
+Les coefficients sont ici $\lambda_1=x$, $\lambda_2=y$, $\lambda_3=z$.
+\end{exemple}
+
+\begin{exemple}
+Soient maintenant les vecteurs
+$v_1=\left(\begin{smallmatrix}1\\1\\1\end{smallmatrix}\right)$,
+$v_2=\left(\begin{smallmatrix}1\\2\\3\end{smallmatrix}\right)$ de $E=\Rr^3$.
+Les vecteurs $\{ v_1,v_2\}$ \emph{ne forment pas} une famille génératrice de $\Rr^3$.
+Par exemple, le vecteur $v=\left(\begin{smallmatrix}0\\1\\0\end{smallmatrix}\right)$ n'est pas dans $\Vect (v_1,v_2)$.
+En effet, si c'était le cas, alors il existerait $\lambda_1,\lambda_2 \in \Rr$ tels que
+$v=\lambda_1 v_1 + \lambda_2 v_2$.
+Ce qui s'écrirait aussi $\left(\begin{smallmatrix}0\\1\\0\end{smallmatrix}\right)=
+\lambda_1 \left(\begin{smallmatrix}1\\1\\1\end{smallmatrix}\right) +
+\lambda_2 \left(\begin{smallmatrix}1\\2\\3\end{smallmatrix}\right)$,
+d'où le système linéaire :
+$$
+\left\{\begin{array}{rcl}
+\lambda_1 + \lambda_2 & = & 0\\
+\lambda_1 + 2\lambda_2 & = & 1\\
+\lambda_1 + 3\lambda_2 & = & 0
+\end{array}\right.
+$$
+Ce système n'a pas de solution. (La première et la dernière ligne
+impliquent $\lambda_1=0,\lambda_2=0$, ce qui est incompatible avec la deuxième.)
+\end{exemple}
+
+\begin{exemple}
+Soit $E=\Rr^2$.
+\begin{itemize}
+  \item Soient $v_1=\left(\begin{smallmatrix}1\\0\end{smallmatrix}\right)$ et
+  $v_2=\left(\begin{smallmatrix}0\\1\end{smallmatrix}\right)$.
+  La famille $\{v_1,v_2\}$ est génératrice de $\Rr^2$ car
+  tout vecteur de $\Rr^2$ se décompose comme
+  $\left(\begin{smallmatrix}x\\y\end{smallmatrix}\right)=
+  x\left(\begin{smallmatrix}1\\0\end{smallmatrix}\right)
+  +y\left(\begin{smallmatrix}0\\1\end{smallmatrix}\right)$.
+
+  \item Soient maintenant $v'_1=\left(\begin{smallmatrix}2\\1\end{smallmatrix}\right)$
+et $v'_2 = \left(\begin{smallmatrix}1\\1\end{smallmatrix}\right)$. Alors
+  $\{v_1',v_2'\}$ est aussi une famille génératrice.
+  En effet, soit  $v=\left(\begin{smallmatrix}x\\y\end{smallmatrix}\right)$ un élément quelconque de $\Rr^2$.
+  Montrer que $v$ est combinaison linéaire de $v_1'$ et $v_2'$
+  revient à démontrer l'existence de deux réels  $\lambda$ et $\mu$  tels que
+$v=\lambda v_1' +\mu v_2'$.
+Il s'agit donc d'étudier l'existence de solutions au système :
+$$\left \{ \begin{array}{rcl}
+2\lambda + \mu &=& x\\
+\lambda+\mu &=& y
+\end{array}\right .$$
+Il a pour solution $\lambda =x -y$ et $\mu =-x+2y$,
+et ceci, quels que soient les réels $x$ et $y$.
+\end{itemize}
+Ceci prouve qu'il peut exister plusieurs familles finies différentes,
+non incluses les unes dans les autres, engendrant le même espace vectoriel.
+\end{exemple}
+
+
+
+\begin{exemple}
+Soit $\Rr_n[X]$ l'espace vectoriel des polynômes de degré $\le n$.
+Alors les polyn\^omes $\{1, X, \dots , X^n\}$ forment une famille génératrice.
+Par contre, l'espace vectoriel $\Rr[X]$ de tous les polynômes
+ne possède pas de famille finie génératrice.
+\end{exemple}
+
+%-------------------------------------------------------
+\subsection{Liens entre familles génératrices}
+
+La proposition suivante est souvent utile :
+
+\begin{proposition}
+Soit $\mathcal{F} = \left\{ v_1, v_2, \dots , v_p\right\}$ une famille génératrice de $E$.
+Alors $\mathcal{F}' = \left\{ v_1', v_2', \dots , v_q'\right\}$ est aussi une famille
+génératrice de $E$ si et seulement si tout vecteur de $\mathcal{F}$
+est une combinaison linéaire de vecteurs de $\mathcal{F}'$.
+\end{proposition}
+
+\begin{proof}
+C'est une conséquence immédiate de la définition
+de $\Vect \mathcal{F}$ et de $\Vect \mathcal{F}'$.
+\end{proof}
+
+\bigskip
+
+Nous chercherons bientôt à avoir un nombre minimal de générateurs.
+Voici une proposition sur la réduction d'une famille génératrice.
+\begin{proposition}
+Si la famille de vecteurs  $\{v_1,\ldots,v_p\}$ engendre $E$ et si l'un des vecteurs,
+par exemple $v_p$, est combinaison linéaire des autres, alors la famille
+$\{v_1,\dots ,v_p\} \setminus \{v_p\}= \{v_1,\dots ,v_{p-1}\}$
+est encore une famille génératrice de $E$.
+\end{proposition}
+
+\begin{proof}
+En effet, comme les vecteurs  $v_1,\dots ,v_p$ engendrent $E$,
+alors pour tout élément $v$ de $E$, il existe des scalaires
+$\lambda_1,\ldots ,\lambda_p$ tels que
+$$v=\lambda_1 v_1+ \cdots + \lambda_p v_p.$$
+
+Or l'hypothèse $v_p$ est combinaison linéaire des vecteurs
+$v_1,\dots ,v_{p-1}$ se traduit par l'existence de scalaires
+$\alpha_1, \ldots, \alpha_{p-1}$ tels que
+$$v_p = \alpha_1 v_1 + \cdots + \alpha_{p-1}v_{p-1}.$$
+Alors, le vecteur $v$ s'écrit :
+$$v = \lambda_1 v_1+ \cdots + \lambda_{p-1}v_{p-1} + \lambda_{p}
+\left( \alpha_1 v_1+\cdots+\alpha_{p-1}v_{p-1} \right).$$
+Donc
+ $$v=\left ( \lambda_1+\lambda_{p}\alpha_1\right )v_1+\dots +
+ \left ( \lambda_{p-1}+\lambda_{p}\alpha_{p-1}\right )v_{p-1},$$
+ce qui prouve que $v$ est combinaison linéaire des vecteurs
+$v_1, \ldots ,v_{p-1}$. Ceci achève la démonstration.
+Il est clair que si l'on remplace $v_p$ par n'importe lequel des
+vecteurs $v_i$, la démonstration est la même.
+\end{proof}
+
+
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item \`A quelle condition sur $t\in\Rr$, la famille
+$\left\{
+  \left(\begin{smallmatrix} 0 \\ t-1 \end{smallmatrix}\right),
+  \left(\begin{smallmatrix} t \\ -t \end{smallmatrix}\right)
+  \left(\begin{smallmatrix} t^2-t \\ t-1 \end{smallmatrix}\right)
+  \right\}$
+  est une famille génératrice de $\Rr^2$ ?
+
+  \item   Même question avec la famille
+  $\left\{
+  \left(\begin{smallmatrix} 1 \\ 0 \\ t \end{smallmatrix}\right)
+  \left(\begin{smallmatrix} 1 \\ t \\ t^2 \end{smallmatrix}\right)
+  \left(\begin{smallmatrix} 1 \\ t^2 \\ 1 \end{smallmatrix}\right)
+  \right\}$ de $\Rr^3$.
+
+  \item Montrer qu'une famille de vecteurs contenant une famille
+  génératrice est encore une famille génératrice de $E$.
+
+  \item Montrer que si $f : E \to F$ est une application linéaire \emph{surjective}
+  et que $\{ v_1, \ldots, v_p \}$  est une famille génératrice de $E$ ,
+  alors $\big\{ f(v_1), \ldots, f(v_p) \big\}$ est une famille génératrice de $F$.
+\end{enumerate}
+\end{miniexercices}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Base}
+
+La notion de base généralise la notion de repère.
+Dans $\Rr^2$, un repère est donné par un couple de vecteurs
+non colinéaires. Dans $\Rr^ 3$, un repère est donné par un
+triplet de vecteurs non coplanaires.  Dans un repère,
+un vecteur se décompose suivant les vecteurs d'une base.
+Il en sera de même pour une base d'un espace vectoriel.
+\myfigure{1.2}{
+\tikzinput{fig_dimension01}
+}
+
+%-------------------------------------------------------
+\subsection{Définition}
+
+\begin{definition}[Base d'un espace vectoriel]
+Soit $E$ un $\Kk$-espace vectoriel.
+Une famille $\mathcal{B}= (v_1, v_2, \dots , v_n)$ de vecteurs de $E$
+est une \defi{base}\index{base} de $E$
+si $\mathcal{B}$ est une famille libre \evidence{et} génératrice.
+\end{definition}
+
+\begin{theoreme}
+\label{th:coordonnees}
+Soit $\mathcal{B} = (v_1, v_2, \dots , v_n)$ une base de l'espace vectoriel $E$.
+Tout vecteur $v \in E$ s'exprime de façon unique comme combinaison
+linéaire d'éléments de $\mathcal{B}$.
+Autrement dit, il \evidence{existe} des scalaires $\lambda_1,\ldots,\lambda_n \in \Kk$
+\evidence{uniques} tels que :
+$$v = \lambda_1 v_1 + \lambda_2 v_2 + \dots + \lambda_n v_n.$$
+\end{theoreme}
+
+\begin{remarque*}
+\sauteligne
+\begin{enumerate}
+  \item $(\lambda_1, \dots , \lambda_n)$ s'appellent les \defi{coordonnées}\index{coordonnees@coordonnées} du vecteur $v$
+dans la base $\mathcal{B}$.
+
+  \item Il faut observer que pour une base $\mathcal{B} = (v_1, v_2, \dots , v_n)$
+on introduit un \evidence{ordre} sur les vecteurs.
+Bien sûr, si on permutait les vecteurs on obtiendrait toujours une base,
+mais il faudrait aussi permuter les coordonnées.
+
+  \item Notez que l'application
+$$\begin{array}{rcl}
+\phi \quad : \quad  \Kk^n & \to & E\\
+(\lambda_1, \lambda_2, \dots , \lambda_n) & \mapsto & \lambda_1v_1+ \lambda_2v_2+ \dots +
+\lambda_nv_n
+  \end{array}$$
+  est un isomorphisme de l'espace vectoriel $\Kk^n$ vers l'espace vectoriel $E$.
+\end{enumerate}
+\end{remarque*}
+
+
+
+
+
+
+
+
+\begin{proof}[Preuve du théorème \ref{th:coordonnees}]
+~
+\begin{itemize}
+  \item Par définition, $\mathcal{B}$ est une famille génératrice de $E$,
+  donc pour tout $v \in E$ il existe $\lambda_1, \ldots , \lambda_n \in \Kk$ tels que
+  $$v = \lambda_1 v_1 + \lambda_2 v_2 + \cdots + \lambda_n v_n.$$
+  Cela prouve la partie existence.
+
+  \item Il reste à montrer l'unicité des $\lambda_1, \lambda_2, \ldots , \lambda_n$.
+  Soient $\mu_1, \mu_2, \dots , \mu_n \in \Kk$ d'autres scalaires tels que
+  $v = \mu_1 v_1 + \mu_2 v_2 + \cdots + \mu_n v_n.$
+  Alors, par différence on a :
+  $ (\lambda_1 - \mu_1) v_1 + (\lambda_2 - \mu_2)v_2 + \cdots + (\lambda_n - \mu_n) v_n = 0.$
+  Comme $\mathcal{B} = \{v_1, \dots , v_n\}$ est une famille libre, ceci implique
+  $ \lambda_1 - \mu_1 = 0,\quad \lambda_2 - \mu_2 = 0,\quad \dots , \quad \lambda_n - \mu_n = 0$ et donc
+  $\lambda_1 = \mu_1,\quad \lambda_2 = \mu_2,\quad \dots , \lambda_n = \mu_n.$
+\end{itemize}
+
+\end{proof}
+
+
+
+%-------------------------------------------------------
+\subsection{Exemples}
+
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+  \item Soient les vecteurs
+  $e_1=\left(\begin{smallmatrix}1\\0\end{smallmatrix}\right)$ et
+  $e_2 = \left(\begin{smallmatrix}0\\1\end{smallmatrix}\right)$.
+Alors $(e_1,e_2)$ est une base de $\Rr^2$, appelée \defi{base canonique}\index{base canonique} de $\Rr^2$.
+
+  \item Soient les vecteurs $v_1=\left(\begin{smallmatrix}3\\1\end{smallmatrix}\right)$
+  et $v_2=\left(\begin{smallmatrix}1\\2\end{smallmatrix}\right)$.
+Alors $(v_1,v_2)$ forment aussi une base de $\Rr^2$.
+
+\myfigure{1.1}{
+\tikzinput{fig_dimension06bis}
+\qquad\qquad
+\tikzinput{fig_dimension03}
+}
+  \item De même dans $\Rr^3$, si
+  $e_1 = \left(\begin{smallmatrix}1\\0\\0\end{smallmatrix}\right)$,
+  $e_2 = \left(\begin{smallmatrix}0\\1\\0\end{smallmatrix}\right)$,
+  $e_3 = \left(\begin{smallmatrix}0\\0\\1\end{smallmatrix}\right)$,
+  alors $(e_1,e_2,e_3)$ forment la \defi{base canonique} de $\Rr^3$.
+
+\end{enumerate}
+\end{exemple}
+
+\begin{exemple}
+\label{ex:baser3}
+  Soient
+  $v_1 = \left(\begin{smallmatrix}1\\2\\1\end{smallmatrix}\right)$,
+  $v_2 = \left(\begin{smallmatrix}2\\9\\0\end{smallmatrix}\right)$ et
+  $v_3 = \left(\begin{smallmatrix}3\\3\\4\end{smallmatrix}\right)$.
+  Montrons que la famille $\mathcal{B} = (v_1, v_2, v_3)$ est une base de $\Rr^3$.
+
+  Dans les deux premiers points, nous ramenons le problème à l'étude d'un système linéaire.
+  \begin{enumerate}
+    \item   Montrons d'abord que $\mathcal{B}$ est une famille génératrice de $\Rr^3$.
+    Soit $v = \left(\begin{smallmatrix}a_1\\ a_2\\ a_3\end{smallmatrix}\right)$ un vecteur
+  quelconque de $\Rr^3$. On cherche $\lambda_1, \lambda_2, \lambda_3 \in \Rr$ tels que
+  $$v = \lambda_1 v_1+ \lambda_2 v_2 + \lambda_3  v_3.$$
+  Ceci se reformule comme suit :
+$$
+    \begin{pmatrix}a_1\\ a_2\\ a_3\end{pmatrix} = \lambda_1 \begin{pmatrix}1\\2\\1\end{pmatrix} + \lambda_2
+      \begin{pmatrix}2\\9\\0\end{pmatrix} + \lambda_3 \begin{pmatrix}3\\3\\4\end{pmatrix}
+      = \begin{pmatrix}\lambda_1 + 2\lambda_2 + 3\lambda_3\\ 2\lambda_1 + 9
+      \lambda_2 + 3\lambda_3\\ \lambda_1 + 4\lambda_3\end{pmatrix}.
+$$
+  Ceci conduit au système suivant:
+\begin{equation}
+\left\{
+\begin{array}{ccccccc}
+\lambda_1 &+ &2\lambda_2 &+ &3\lambda_3 & = & a_1\\
+2\lambda_1 &+ &9\lambda_2 &+ &3\lambda_3 & = & a_2\\
+\lambda_1 &&& + &4\lambda_3 & = & a_3.\\
+\end{array} \right.
+\label{eq:syslingen}
+\tag{S}
+\end{equation}
+Il nous restera à montrer que ce système a une solution $\lambda_1, \lambda_2, \lambda_3$.
+
+    \item  Pour montrer que $\mathcal{B}$ est une famille libre,
+    il faut montrer que l'unique solution de
+$$\lambda_1 v_1 + \lambda_2v_2 + \lambda_3v_3 = 0$$ est
+$$\lambda_1 = \lambda_2 = \lambda_3 = 0.$$
+
+Ceci équivaut à montrer que le  système
+\begin{equation}
+\left\{
+\begin{array}{ccccccc}
+\lambda_1 &+ &2\lambda_2 &+ &3\lambda_3 & = & 0\\
+2\lambda_1 &+ &9\lambda_2 &+ &3\lambda_3 & = & 0\\
+\lambda_1 && &+ &4\lambda_3 & = & 0
+\end{array}
+\right.
+\label{eq:syslinlibre}
+\tag{S'}
+\end{equation}
+
+
+
+a une  unique solution
+$$ \lambda_1 = \lambda_2 = \lambda_3 = 0.$$
+
+  \item Nous pouvons maintenant répondre à la question sans explicitement résoudre les systèmes.
+
+  Remarquons que les deux systèmes ont la même matrice de coefficients.
+  On peut donc montrer simultanément que $\mathcal{B}$ est une famille génératrice
+  et une famille libre de $\Rr^3$ en montrant que la matrice des
+  coefficients est inversible.
+  En effet, si la matrice des coefficients est inversible, alors (\ref{eq:syslingen})
+  admet une solution $(\lambda_1,\lambda_2,\lambda_3)$ quel que soit $(a_1,a_2,a_3)$
+  et d'autre part (\ref{eq:syslinlibre})
+  admet la seule solution $(0,0,0)$.
+
+  Cette matrice est
+$$
+A = \begin{pmatrix}
+1 & 2 & 3\\
+2 & 9 & 3\\
+1 &0 & 4\end{pmatrix}.$$
+Pour montrer qu'elle est inversible, on peut calculer son inverse
+ou seulement son déterminant qui vaut $\det A = -1$
+(le déterminant étant non nul la matrice est inversible).
+
+Conclusion : $\mathcal{B}$ est une famille libre et génératrice ; c'est une base de $\Rr^3$.
+\end{enumerate}
+
+\end{exemple}
+
+
+
+\begin{exemple}\label{ex:basern}
+Les vecteurs de $\Kk^n$ :
+$$
+e_1 = \begin{pmatrix}1\\0\\\vdots\\0\end{pmatrix} \quad
+e_2 = \begin{pmatrix}0\\1\\\vdots\\0\end{pmatrix} \quad \ldots  \quad
+e_n = \begin{pmatrix}0\\\vdots\\0\\1\end{pmatrix}$$
+forment une base de $\Kk^n$, appelée la \defi{base canonique}\index{base canonique} de $\Kk^n$.
+\end{exemple}
+
+
+
+
+\begin{remarque*}
+L'exemple \ref{ex:baser3} se généralise de la façon
+suivante. Pour montrer que $n$ vecteurs de $\Rr^n$ forment une base
+de $\Rr^n$, il suffit de montrer la chose suivante : la matrice $A$
+constituée des composantes de ces vecteurs (chaque vecteur formant
+une colonne de $A$) est inversible.
+
+\bigskip
+
+Application : montrer que les vecteurs
+$$
+v_1 = \left(\begin{smallmatrix}1\\0\\0\\\vdots\\0\end{smallmatrix}\right) \qquad
+v_2 = \left(\begin{smallmatrix}1\\2\\0\\\vdots\\0\end{smallmatrix}\right) \qquad \ldots \qquad
+v_n = \left(\begin{smallmatrix}1\\2\\3\\\vdots\\n\end{smallmatrix}\right)$$
+forment aussi une base de $\Rr^n$.
+\end{remarque*}
+
+\bigskip
+
+Voici quelques autres exemples :
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+  \item La base canonique de $\Rr_n[X]$ est $\mathcal{B} = (1,X,X^2, \ldots , X^n)$.
+  Attention, il y a $n+1$ vecteurs !
+
+  \item Voici une autre base de $\Rr_n[X]$ :
+  $(1,1+X,1+X+X^2,\ldots,1+X+X^2+\cdots+X^n)$.
+
+  \item L'espace vectoriel $M_2(\Rr)$ des matrices $2\times2$ admet une base formée
+  des vecteurs :
+$$
+M_1 = \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix} \qquad
+M_2 = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} \qquad
+M_3 = \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix} \qquad
+M_4 = \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}.
+$$
+En effet, n'importe quelle matrice
+$M=\left(\begin{matrix}a & b\\ c & d\end{matrix}\right)$
+de $M_2(\Rr)$ se décompose de manière unique en
+$$M = a M_1 + bM_2 +  c M_3 + d M_4.$$
+
+  \item C'est un bon exercice de prouver que les quatre matrices suivantes
+  forment aussi une base de $M_2(\Rr)$ :
+$$M'_1=\begin{pmatrix}
+1 & 0 \cr
+1 & 0 \cr
+\end{pmatrix} \qquad
+M'_2=\begin{pmatrix}
+1 & 0 \cr
+0 & 1 \cr
+\end{pmatrix} \qquad
+M'_3=\begin{pmatrix}
+0 & 1 \cr
+1 & 0 \cr
+\end{pmatrix} \qquad
+M'_4=\begin{pmatrix}
+1 & 3 \cr
+4 & 2 \cr
+\end{pmatrix}.$$
+\end{enumerate}
+
+\end{exemple}
+
+
+
+
+%-------------------------------------------------------
+\subsection{Existence d'une base}
+
+Voyons maintenant un théorème d'existence d'une base finie. Dans la suite,
+les espaces vectoriels sont supposés non réduits à $\{0\}$.
+\begin{theoreme}[Théorème d'existence d'une base]
+\label{th:existencebase}
+Tout espace vectoriel admettant une famille finie génératrice admet une base.
+\end{theoreme}
+
+
+%-------------------------------------------------------
+\subsection{Théorème de la base incomplète}
+
+Une version importante et plus générale de ce qui précède est le théorème suivant :
+\begin{theoreme}[Théorème de la base incomplète]
+\label{th:baseincomplete}
+Soit $E$ un $\Kk$-espace vectoriel admettant une famille génératrice finie.
+\begin{enumerate}
+  \item \emph{Toute famille libre $\mathcal{L}$ peut être complétée en une base.}
+  C'est-à-dire qu'il existe une famille $\mathcal{F}$ telle que
+  $\mathcal{L} \cup \mathcal{F}$ soit une famille libre et génératrice de $E$.
+
+  \item \emph{De toute famille génératrice $\mathcal{G}$ on peut extraire une base de $E$.}
+  C'est-à-dire qu'il existe une famille $\mathcal{B} \subset \mathcal{G}$ telle que
+  $\mathcal{B}$ soit une famille libre et génératrice de $E$.
+\end{enumerate}
+\end{theoreme}
+
+
+
+
+%-------------------------------------------------------
+\subsection{Preuves}
+
+Les deux théorèmes précédents sont la conséquence d'un résultat encore plus général :
+\begin{theoreme}
+\label{th:superbaseincomplete}
+Soit $\mathcal{G}$ une famille génératrice finie de $E$
+et $\mathcal{L}$ une famille libre de $E$.
+Alors il existe une famille $\mathcal{F}$ de $\mathcal{G}$ telle que
+$\mathcal{L} \cup \mathcal{F}$ soit une base de $E$.
+\end{theoreme}
+
+
+Le théorème \ref{th:baseincomplete} de la base incomplète se déduit du
+théorème \ref{th:superbaseincomplete} ainsi :
+\begin{enumerate}
+  \item On sait qu'il existe une famille génératrice de $E$ : notons-la $\mathcal{G}$.
+  On applique le théorème \ref{th:superbaseincomplete} avec ce $\mathcal{L}$ et ce $\mathcal{G}$.
+
+  \item On applique le théorème \ref{th:superbaseincomplete} avec $\mathcal{L}=\varnothing$
+  et la famille $\mathcal{G}$ de l'énoncé.
+\end{enumerate}
+
+En particulier, le théorème \ref{th:existencebase} d'existence d'une base
+se démontre comme le point (2) ci-dessus avec $\mathcal{L}=\varnothing$
+  et  $\mathcal{G}$ une famille génératrice de $E$.
+
+%-------------------------------------------------------
+\subsection{Preuves (suite)}
+
+Nous avons :
+Théorème \ref{th:superbaseincomplete} $\implies$
+Théorème \ref{th:baseincomplete} $\implies$
+Théorème \ref{th:existencebase}.
+
+Il nous reste donc à prouver le théorème \ref{th:superbaseincomplete}.
+La démonstration que nous en donnons est un algorithme.
+
+\begin{proof}
+~
+\begin{itemize}
+  \item \'Etape 0. Si $\mathcal{L}$ est une famille génératrice de $E$,
+  on pose $\mathcal{F} = \varnothing$ et c'est fini puisque
+  $\mathcal{L}$ est une famille génératrice et libre, donc une base.
+  Sinon on passe à l'étape suivante.
+
+  \item \'Etape 1. Comme $\mathcal{L}$ n'est pas une famille génératrice,
+  alors il existe au moins un élément
+  $g_1$ de $\mathcal{G}$ qui n'est pas
+  combinaison linéaire des éléments de $\mathcal{L}$. (En effet, par l'absurde, si tous les éléments
+  de $\mathcal{G}$ sont dans $\Vect \mathcal{L}$, alors $\mathcal{L}$ serait aussi une famille génératrice.)
+  On pose $\mathcal{L}_1 = \mathcal{L} \cup \{ g_1 \}$.
+    Alors la famille $\mathcal{L}_1$ vérifie les propriétés suivantes :
+    \begin{itemize}
+      \item[(i)] $\mathcal{L} \subsetneq  \mathcal{L}_1 \subset E$ : la famille
+      $\mathcal{L}_1$ est strictement plus grande que $\mathcal{L}$.
+
+      \item[(ii)] $\mathcal{L}_1$ est une famille libre. (En effet, si
+      $\mathcal{L}_1$ n'était pas une famille libre, alors une combinaison linéaire nulle impliquerait
+      que $g_1 \in \Vect \mathcal{L}$.)
+    \end{itemize}
+
+  On recommence le même raisonnement à partir de $\mathcal{L}_1$ :
+  si $\mathcal{L}_1$ est une famille génératrice de $E$, alors on pose
+  $\mathcal{F} = \{ g_1 \}$ et on s'arrête.
+  Sinon on passe à l'étape suivante.
+
+  \item \'Etape 2. Il existe au moins un élément $g_2$ de $\mathcal{G}$
+  qui n'est pas combinaison linéaire des éléments de $\mathcal{L}_1$.
+  Alors la famille $\mathcal{L}_2 = \mathcal{L}_1 \cup \{g_2\} = \mathcal{L} \cup \{g_1,g_2\}$
+  est strictement plus grande que $\mathcal{L}_1$ et est encore une famille libre.
+
+  Si $\mathcal{L}_2$ est une famille génératrice, on pose $\mathcal{F} = \{ g_1, g_2 \}$
+  et c'est fini. Sinon on passe à l'étape d'après.
+
+  \item ...
+
+\end{itemize}
+
+L'algorithme consiste donc à construire une suite,
+strictement croissante pour l'inclusion,
+de familles libres, où,
+si $\mathcal{L}_{k-1}$ n'engendre pas $E$, alors
+$\mathcal{L}_{k}$ est construite partir de $\mathcal{L}_{k-1}$
+en lui ajoutant un vecteur $g_k$ de $\mathcal{G}$,
+de sorte que $\mathcal{L}_{k} = \mathcal{L}_{k-1} \cup \{g_{k}\}$ reste une famille libre.
+
+\begin{itemize}
+  \item L'algorithme se termine. Comme la famille $\mathcal{G}$ est finie,
+  le processus s'arrête en moins d'étapes qu'il y a d'éléments dans $\mathcal{G}$.
+  Notez que, comme $\mathcal{G}$ est une famille génératrice, dans le pire des cas
+  on peut être amené à prendre $\mathcal{F}=\mathcal{G}$.
+
+  \item L'algorithme est correct. Lorsque l'algorithme s'arrête, disons à l'étape $s$ :
+  on a  $\mathcal{L}_s = \mathcal{L} \cup \mathcal{F}$ où
+  $\mathcal{F} = \{g_1,\ldots,g_s\}$. Par construction, $\mathcal{L}_s$ est une famille finie, libre
+  et aussi génératrice (car c'est la condition d'arrêt). Donc $\mathcal{L} \cup \mathcal{F}$
+  est une base de $E$.
+\end{itemize}
+\end{proof}
+
+
+
+\begin{exemple}
+Soit $\Rr[X]$ le $\Rr$-espace vectoriel des polynômes réels et
+$E$ le sous-espace de $\Rr[X]$ engendré par la famille
+$\mathcal{G} = \{P_1, P_2, P_3, P_4, P_5\}$  définie par :
+$$P_1(X)=1 \qquad P_2(X)=X \qquad P_3(X)=X+1 \qquad
+P_4(X)=1+X^3 \qquad P_5(X)=X-X^3$$
+Partons de $\mathcal{L} = \varnothing$ et cherchons
+$\mathcal{F} \subset \mathcal{G}$ telle que $\mathcal{F}$ soit une base de $E$.
+
+\begin{itemize}
+  \item \'Etape 0. Comme $\mathcal{L}$ n'est pas génératrice (vu que $\mathcal{L} = \varnothing$),
+  on passe à l'étape suivante.
+
+
+  \item \'Etape 1. On pose $\mathcal{L}_1 = \mathcal{L} \cup \{ P_1 \} = \{ P_1 \}$.
+  Comme  $P_1$ est non nul, $\mathcal{L}_1$ est une famille libre.
+
+  \item \'Etape 2. Considérons $P_2$.
+  Comme les éléments $P_1$ et $P_2$ sont linéairement indépendants,
+  $\mathcal{L}_2 = \{ P_1, P_2 \}$ est une famille libre.
+
+  \item \'Etape 3. Considérons $P_3$ :
+  ce vecteur est combinaison linéaire des vecteurs  $P_1$ et $P_2$ car
+  $P_3(X) = X+1 = P_1(X) + P_2(X)$ donc $\{P_1, P_2, P_3 \}$ est une famille liée.
+  Considérons alors $P_4$.  Un calcul rapide prouve que les vecteurs $P_1$, $P_2$  et
+  $P_4$ sont linéairement indépendants. Alors  $\mathcal{L}_3 = \{P_1, P_2, P_4\}$
+  est une famille libre.
+
+  Il ne reste que le vecteur $P_5$ à considérer.
+  Il s'agit, pour pouvoir conclure, d'étudier l'indépendance linéaire des vecteurs
+  $P_1, P_2, P_4, P_5$. Or un calcul rapide montre l'égalité
+  $$P_1+P_2-P_4-P_5=0,$$
+  ce qui prouve que la famille  $\{P_1, P_2, P_4, P_5\}$ est liée.
+  Donc avec les notations de l'algorithme, $s=3$ et
+  $\mathcal{L}_{3}=\{P_1, P_2, P_4\}$ est une base de $E$.
+\end{itemize}
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Trouver toutes les façons d'obtenir une base de $\Rr^2$
+  avec les vecteurs suivants :
+  $v_1=\left(\begin{smallmatrix}-1\\-3\end{smallmatrix}\right)$,
+  $v_2=\left(\begin{smallmatrix}3\\3\end{smallmatrix}\right)$,
+  $v_3=\left(\begin{smallmatrix}0\\0\end{smallmatrix}\right)$,
+  $v_4=\left(\begin{smallmatrix}2\\0\end{smallmatrix}\right)$,
+  $v_5=\left(\begin{smallmatrix}2\\6\end{smallmatrix}\right)$.
+
+
+  \item Montrer que la famille $\{ v_1, v_2, v_3, v_4\}$ des vecteurs
+  $v_1=\left(\begin{smallmatrix}2\\1\\-3\end{smallmatrix}\right)$,
+  $v_2=\left(\begin{smallmatrix}2\\3\\-1\end{smallmatrix}\right)$,
+  $v_3=\left(\begin{smallmatrix}-1\\2\\4\end{smallmatrix}\right)$,
+  $v_4=\left(\begin{smallmatrix}1\\1\\-1\end{smallmatrix}\right)$
+  est une famille génératrice du sous-espace vectoriel d'équation $2x-y+z=0$ de $\Rr^3$.
+  En extraire une base.
+
+  \item Déterminer une base du sous-espace vectoriel $E_1$ de $\Rr^3$ d'équation
+  $x+3y-2z=0$. Compléter cette base en une base de $\Rr^3$.
+  Idem avec $E_2$ vérifiant les deux équations $x+3y-2z=0$ et $y=z$.
+
+  \item Donner une base de l'espace vectoriel des matrices $3\times 3$ ayant une diagonale
+  nulle. Idem avec l'espace vectoriel des polynômes $P \in \Rr_n[X]$ vérifiant
+  $P(0)=0$, $P'(0)=0$.
+
+\end{enumerate}
+\end{miniexercices}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Dimension d'un espace vectoriel}
+
+%-------------------------------------------------------
+\subsection{Définition}
+
+\begin{definition}
+Un $\Kk$-espace vectoriel $E$ admettant une base ayant un nombre fini
+d'éléments est dit de \defi{dimension finie}.
+\end{definition}
+Par le théorème \ref{th:existencebase} d'existence d'une base, c'est équivalent à l'existence d'une
+famille finie génératrice.
+
+
+On va pouvoir parler de \evidence{la} dimension d'un espace vectoriel grâce au théorème suivant :
+\begin{theoreme}[Théorème de la dimension]
+\label{th:dimension}
+Toutes les bases d'un espace vectoriel $E$ de dimension
+finie ont le même nombre d'éléments.
+\end{theoreme}
+
+Nous détaillerons la preuve un peu plus loin.
+
+\begin{definition}
+La \defi{dimension}\index{dimension}\index{espace vectoriel!dimension} d'un espace vectoriel de dimension finie $E$,
+notée $\dim E$, est par définition le nombre d'éléments d'une base de $E$.
+\end{definition}
+
+\textbf{Méthodologie.}
+ Pour déterminer la dimension d'un espace vectoriel, il suffit de trouver une base de $E$
+(une famille à la fois libre et génératrice) : le cardinal (nombre d'éléments) de cette famille donne la dimension de $E$.
+Le théorème \ref{th:dimension} de la dimension prouve que même si on choisissait
+une base différente alors ces deux bases auraient le même nombre d'éléments.
+
+\textbf{Convention.} On convient d'attribuer à l'espace vectoriel $\{0\}$ la dimension $0$.
+
+
+%-------------------------------------------------------
+\subsection{Exemples}
+
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+  \item La base canonique de $\Rr^2$ est
+$\left(
+\left(\begin{smallmatrix} 1\\0 \end{smallmatrix}\right),
+\left(\begin{smallmatrix} 0\\1 \end{smallmatrix}\right)
+\right)$. La dimension de $\Rr^2$ est donc $2$.
+
+  \item Les vecteurs $\left(
+  \left(\begin{smallmatrix}2\\1\end{smallmatrix}\right),
+  \left(\begin{smallmatrix}1\\1\end{smallmatrix}\right) \right)$
+  forment aussi une base de $\Rr^2$, et illustrent qu'une autre base contient
+  le même nombre d'éléments.
+
+  \item Plus généralement, $\Kk^n$ est de dimension $n$, car par exemple sa base canonique
+  $(e_1,e_2, \ldots ,e_n)$ contient $n$ éléments.
+
+  \item $\dim \Rr_n[X] = n+1$ car une base de $\Rr_n[X]$ est
+  $(1,X,X^2,\ldots,X^n)$, qui contient $n+1$ éléments.
+\end{enumerate}
+
+\end{exemple}
+
+
+\begin{exemple}
+Les espaces vectoriels suivants ne sont pas de dimension finie :
+\begin{itemize}
+  \item $\Rr[X]$ : l'espace vectoriel de tous les polynômes,
+  \item $\mathcal{F}(\Rr,\Rr)$ : l'espace vectoriel des fonctions de $\Rr$ dans $\Rr$,
+  \item $\mathcal{S} = \mathcal{F}(\Nn, \Rr)$ : l'espace vectoriel des suites réelles.
+\end{itemize}
+\end{exemple}
+
+\begin{exemple}
+Nous avons vu que l'ensemble des solutions d'un système
+d'équations linéaires \evidence{homogène} est un espace vectoriel.
+On considère par exemple le système
+\[ \left\{
+\begin{array}{ccccccccccc}
+2x_1 &+ &2x_2 &- &x_3 &&&+ &x_5 & = & 0\\
+-x_1 &- &x_2 &+ &2x_3 &- &3x_4 &+ &x_5 & = &0\\
+x_1 &+ &x_2 &- &2x_3 &&&- &x_5 & = & 0\\
+&&&&x_3 &+ &x_4 &+ &x_5 & = & 0.
+\end{array} \right.
+\]
+On vérifie que la solution générale de ce système est
+$$ x_1 = -s-t\qquad x_2 = s\qquad x_3 = -t\qquad x_4 = 0\qquad x_5 = t\, .$$
+
+Donc les vecteurs solutions s'écrivent sous la forme
+$$ \left( \begin{smallmatrix} x_1\\x_2\\x_3\\x_4\\x_5\end{smallmatrix}\right)
+=  \left( \begin{smallmatrix} -s-t\\s\\-t\\ 0\\t\end{smallmatrix}\right)
+=  \left( \begin{smallmatrix} -s\\s\\0\\0\\0\end{smallmatrix}\right)
++  \left( \begin{smallmatrix} -t\\0\\-t\\0\\t\end{smallmatrix}\right)
+= s  \left( \begin{smallmatrix} -1\\1\\0\\0\\0\end{smallmatrix}\right)
++ t \left( \begin{smallmatrix} -1\\0\\-1\\0\\1\end{smallmatrix}\right)\, .$$
+
+Ceci montre que les vecteurs
+$$ v_1 = \left( \begin{smallmatrix} -1\\1\\0\\0\\0\end{smallmatrix}\right)
+\quad \text{ et } \quad
+v_2 =  \left( \begin{smallmatrix} -1\\0\\-1\\0\\1\end{smallmatrix}\right)$$
+engendrent l'espace des solutions du système.
+D'autre part, on vérifie que $v_1$ et $v_2$ sont linéairement indépendants.
+Donc $(v_1, v_2)$ est une base de l'espace des solutions du système.
+Ceci montre que cet espace vectoriel est de dimension $2$.
+\end{exemple}
+
+
+%-------------------------------------------------------
+\subsection{Compléments}
+
+Lorsqu'un espace vectoriel est de dimension finie,
+le fait de connaître sa dimension est une information très riche ;
+les propriétés suivantes montrent comment exploiter cette information.
+
+Le schéma de preuve sera :
+Lemme \ref{lem:dimension} $\implies$
+Proposition \ref{prop:dimension} $\implies$
+Théorème \ref{th:dimension}.
+
+\begin{lemme}
+\label{lem:dimension}
+Soit $E$ un espace vectoriel.
+Soit $\mathcal{L}$ une famille libre et soit
+$\mathcal{G}$ une famille génératrice finie de $E$.
+Alors $\Card \mathcal{L} \le \Card \mathcal{G}$.
+\end{lemme}
+
+\bigskip
+
+Ce lemme implique le résultat important :
+\begin{proposition}
+\label{prop:dimension}
+Soit $E$ un $\Kk$-espace vectoriel admettant une base ayant $n$ éléments. Alors :
+\begin{enumerate}
+  \item Toute famille libre de $E$ a au plus $n$ éléments.
+
+  \item Toute famille génératrice de $E$ a au moins $n$ éléments.
+\end{enumerate}
+\end{proposition}
+
+En effet, soit $\mathcal{B}$ une base de $E$ telle que $\Card \mathcal{B}=n$.
+\begin{enumerate}
+  \item On applique le lemme \ref{lem:dimension} à la famille $\mathcal{B}$ considérée
+génératrice ; alors une famille libre $\mathcal{L}$ vérifie
+$\Card\mathcal{L} \le \Card \mathcal{B}=n$.
+
+  \item On applique le lemme \ref{lem:dimension} à la famille $\mathcal{B}$ considérée
+maintenant comme une famille libre, alors une famille génératrice $\mathcal{G}$ vérifie
+$n=\Card\mathcal{B} \le \Card \mathcal{G}$.
+\end{enumerate}
+
+
+\bigskip
+
+
+Cette proposition impliquera bien le théorème \ref{th:dimension} de la dimension :
+\begin{corollaire}
+Si $E$ est un espace vectoriel admettant une base ayant $n$ éléments,
+alors toute base de $E$ possède $n$ éléments.
+\end{corollaire}
+
+La preuve du corollaire (et donc du théorème \ref{th:dimension} de la dimension) est la suivante :
+par la proposition~\ref{prop:dimension}, si $\mathcal{B}$ est une base quelconque de $E$,
+alors $\mathcal{B}$ est à la fois une famille libre et génératrice, donc
+possède à la fois au plus $n$ éléments et au moins $n$ éléments, donc exactement
+$n$ éléments.
+
+
+
+\bigskip
+
+Il reste à énoncer un résultat important et très utile :
+\begin{theoreme}
+\label{th:equivbase}
+Soient $E$ un $\Kk$-espace vectoriel de dimension $n$, et
+$\mathcal{F}=(v_1,\ldots,v_n)$ une famille de \evidence{$n$} vecteurs de $E$.
+Il y a équivalence entre :
+\begin{itemize}
+  \item[(i)] $\mathcal{F}$ est une base de $E$,
+
+  \item[(ii)] $\mathcal{F}$ est une famille libre de $E$,
+
+  \item[(iii)] $\mathcal{F}$ est une famille génératrice de $E$.
+\end{itemize}
+\end{theoreme}
+La preuve sera une conséquence du théorème \ref{th:dimension} de la dimension et du
+théorème \ref{th:baseincomplete} de la base incomplète.
+
+Autrement dit, lorsque le nombre de vecteurs considéré est
+exactement égal à la dimension de l'espace vectoriel,
+l'une des deux conditions --~être libre ou bien génératrice~--
+suffit pour que ces vecteurs déterminent une base de $E$.
+
+\begin{proof}
+~
+\begin{itemize}
+  \item Les implications (i) $\implies$ (ii) et
+  (i) $\implies$ (iii) découlent de la définition d'une base.
+
+
+  \item Voici la preuve de (ii) $\implies$ (i).
+
+Si $\mathcal{F}$ est une famille libre ayant $n$ éléments, alors par le théorème de la base incomplète
+(théorème \ref{th:baseincomplete}) il existe une famille $\mathcal{F}'$ telle que
+$\mathcal{F} \cup \mathcal{F}'$ soit une base de $E$. D'une part
+$\mathcal{F} \cup \mathcal{F}'$ est une base de $E$ qui est de dimension $n$, donc
+par le théorème \ref{th:dimension}, $\Card \big(\mathcal{F} \cup \mathcal{F}'\big)=n$.
+Mais d'autre part $\Card \big(\mathcal{F} \cup \mathcal{F}'\big) = \Card \mathcal{F} + \Card \mathcal{F}'$
+(par l'algorithme du théorème \ref{th:baseincomplete}) et par hypothèse
+$\Card \mathcal{F}=n$. Donc $\Card \mathcal{F}'=0$, ce qui implique que  $\mathcal{F}'=\varnothing$ et donc que
+$\mathcal{F}$ est déjà une base de~$E$.
+
+  \item Voici la preuve de (iii) $\implies$ (i).
+
+Par hypothèse, $\mathcal{F}$ est cette fois une famille génératrice.
+Toujours par le théorème \ref{th:baseincomplete},
+on peut extraire de cette famille une base $\mathcal{B} \subset \mathcal{F}$.
+Puis par le théorème \ref{th:dimension}, $\Card \mathcal{B}=n$, donc
+$n = \Card \mathcal{B} \le \Card \mathcal{F}=n$. Donc $\mathcal{B} = \mathcal{F}$ et
+$\mathcal{F}$ est bien une base.
+\end{itemize}
+
+
+\end{proof}
+
+
+
+\begin{exemple}
+Pour quelles valeurs de $t\in\Rr$ les vecteurs $(v_1,v_2,v_3)$ suivants forment une base de $\Rr^3$ ?
+$$v_1 = \begin{pmatrix}1\\1\\4\end{pmatrix} \qquad
+v_2 = \begin{pmatrix}1\\3\\t\end{pmatrix} \qquad
+v_3 = \begin{pmatrix}1\\1\\t\end{pmatrix}$$
+\begin{itemize}
+  \item Nous avons une famille de $3$ vecteurs dans l'espace $\Rr^3$ de dimension $3$.
+  Donc pour montrer que la famille  $(v_1,v_2,v_3)$ est une base, par le théorème \ref{th:equivbase},
+  il suffit  de montrer que la famille est libre ou bien de montrer qu'elle est génératrice.
+  Dans la pratique, il est souvent plus facile de vérifier qu'une famille est libre.
+
+  \item \`A quelle condition la famille $\{ v_1,v_2,v_3 \}$ est libre ?
+  Soient $\lambda_1,\lambda_2,\lambda_3 \in \Rr$ tels que $\lambda_1 v_1 + \lambda_2 v_2 + \lambda_3 v_3 = 0$.
+  Cela implique le système
+  $$\left\{ \begin{array}{rcl}
+  \lambda_1 + \lambda_2 + \lambda_3 &=& 0 \\
+  \lambda_1 + 3 \lambda_2 + \lambda_3 &=& 0 \\
+  4\lambda_1 + t\lambda_2 + t \lambda_3 &=& 0
+  \end{array}  \right..$$
+  Ce système est équivalent à :
+  $$\left\{ \begin{array}{rcl}
+  \lambda_1 + \lambda_2 + \lambda_3 &=& 0 \\
+  2 \lambda_2 &=& 0 \\
+  (t-4)\lambda_2 + (t-4) \lambda_3 &=& 0
+  \end{array} \right.
+  \iff
+  \left\{ \begin{array}{rcl}
+  \lambda_1 + \lambda_3 &=& 0 \\
+  \lambda_2 &=& 0 \\
+  (t-4) \lambda_3 &=& 0
+  \end{array} \right.$$
+
+  \item Il est clair que si $t\neq 4$, alors la seule solution est
+  $(\lambda_1,\lambda_2,\lambda_3)=(0,0,0)$ et donc
+  $\{ v_1,v_2,v_3 \}$ est une famille libre.
+  Si $t = 4$, alors par exemple $(\lambda_1,\lambda_2,\lambda_3)=(1,0,-1)$ est une solution
+  non nulle, donc la famille n'est pas libre.
+
+  \item Conclusion : si $t\neq 4$ la famille est libre, donc par le théorème \ref{th:equivbase}
+  la famille $(v_1,v_2,v_3)$ est en plus génératrice, donc c'est une base de $\Rr^3$.
+  Si $t=4$, la famille n'est pas libre et n'est donc pas une base.
+\end{itemize}
+
+\end{exemple}
+
+%-------------------------------------------------------
+\subsection{Preuve}
+
+Il nous reste la preuve du lemme \ref{lem:dimension}. La démonstration est délicate et hors-programme.
+\begin{proof}
+La preuve de ce lemme se fait en raisonnant par récurrence.
+
+On démontre par récurrence que, pour tout $n \ge 1$, la propriété suivante est vraie :
+\og Dans un espace vectoriel engendré par $n$ vecteurs,
+toute famille ayant $n+1$ éléments est liée. \fg
+
+\textbf{Initialisation.} On vérifie que la propriété est vraie pour $n=1$.
+Soit $E$ un espace vectoriel engendré par un vecteur noté $g_1$,
+et soit $\{v_1,v_2\}$ une famille de $E$ ayant deux éléments.
+Les vecteurs $v_1$ et $v_2$ peuvent s'écrire comme combinaisons linéaires du vecteur
+$g_1$ ; autrement dit, il existe des scalaires $\alpha_1$, $\alpha_2$ tels que
+$v_1=\alpha_1g_1$ et $v_2=\alpha_2g_1$,
+ce qui donne la relation : $\alpha_2v_1-\alpha_1v_2=0_{E}$.
+En supposant $v_2$ non nul (sinon il est évident que  $\{v_1,v_2\}$ est liée),
+le scalaire $\alpha_2$ est donc non nul. On a trouvé une combinaison linéaire nulle des
+vecteurs $v_1,v_2$, avec des coefficients non tous nuls. Donc la famille
+$\{v_1,v_2\}$ est liée.
+
+\bigskip
+
+\textbf{Hérédité.} On démontre maintenant que si la propriété est vraie au rang $n-1$ ($n \geq 2$),
+alors elle vraie au rang $n$.
+Soit $E$ un espace vectoriel engendré par $n$ vecteurs notés $g_1,g_2, \dots ,g_n$,
+et soit $\{v_1,v_2, \dots ,v_n,v_{n+1}\}$ une famille de $E$ ayant $n+1$ éléments.
+Tout vecteur $v_j$, pour $j=1,2,\ldots ,n+1$, est combinaison linéaire de
+$g_1,g_2, \dots ,g_n$, donc il existe des scalaires
+$\alpha_1^j, \alpha_2^j, \ldots, \alpha_n^j$ tels que :
+$$v_j=\alpha_1^jg_1+\alpha_2^jg_2+ \dots + \alpha_n^jg_n.$$
+
+\emph{Remarque.} On est contraint d'utiliser ici deux indices $i, j$ pour les scalaires
+(attention ! $j$ n'est pas un exposant) car deux informations sont nécessaires :
+l'indice $j$ indique qu'il s'agit de la décomposition du vecteur $v_j$,
+et $i$ indique à quel vecteur de la famille génératrice  est associé ce coefficient.
+
+\medskip
+
+En particulier, pour $j=n+1$, le vecteur  $v_{n+1}$ s'écrit :
+$$v_{n+1}=\alpha_1^{n+1}g_1+\alpha_2^{n+1}g_2+ \dots + \alpha_n^{n+1}g_n.$$
+
+Si  $v_{n+1}$ est nul, c'est terminé, la famille est liée ; sinon,
+$v_{n+1}$ est non nul, et au moins un des coefficients  $\alpha_j^{n+1}$ est non nul.
+On suppose, pour alléger l'écriture, que  $\alpha_n^{n+1}$ est non nul
+(sinon il suffit de changer l'ordre des vecteurs).
+On construit une nouvelle famille de $n$ vecteurs de $E$ de
+telle sorte que ces vecteurs soient combinaisons linéaires de $g_1,g_2, \ldots ,g_{n-1}$,
+c'est-à-dire appartiennent au sous-espace engendré par $\{g_1,g_2, \dots ,g_{n-1}\}$.
+Pour $j=1,2, \ldots, n$, on définit $w_j$ par :
+  $$w_j=\alpha_n^{n+1}v_j-\alpha_n^jv_{n+1}=
+\sum_{k=1}^n(\alpha _n^{n+1}\alpha_{k}^j-\alpha_n^j\alpha_{k}^{n+1} )g_{k}.$$
+Le coefficient de $g_n$ est nul. Donc $w_j$ est bien combinaison linéaire de
+$g_1,g_2, \dots ,g_{n-1}$.
+On a $n$ vecteurs qui appartiennent à un espace vectoriel engendré par
+$n-1$ vecteurs ; on peut appliquer l'hypothèse de récurrence : la  famille
+$\{w_1, w_2, \dots ,w_n\}$ est liée.
+Par conséquent, il existe des scalaires non tous nuls $\lambda_1$, $\lambda_2$,
+$\ldots$, $\lambda_n$ tels que
+  $$\lambda_1w_1+\lambda_2w_2+\dots + \lambda_nw_n=0.$$
+En remplaçant les $w_j$ par leur expression en fonction des vecteurs $v_i$,
+on obtient :
+  $$\alpha_n^{n+1}\lambda_1v_1+\alpha_n^{n+1}\lambda_2v_2+ \dots +
+  \alpha_n^{n+1}\lambda_nv_n-
+  (\lambda_1\alpha_n^1+ \dots + \lambda_n\alpha_n^n)v_{n+1}=0_{E}$$
+Le coefficient $\alpha_n^{n+1}$ a été supposé non nul et au moins un des scalaires
+$\lambda_1, \lambda_2, \ldots ,\lambda_n$
+ est non nul ; on a donc une combinaison linéaire nulle des vecteurs
+ $v_1,v_2,\dots,v_n,v_{n+1}$
+ avec des coefficients qui ne sont pas tous nuls, ce qui prouve que ces vecteurs
+ forment une famille liée.
+
+\bigskip
+
+\textbf{Conclusion.} La démonstration par récurrence est ainsi achevée.
+\end{proof}
+
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+Dire si les assertions suivantes sont vraies ou fausses.
+Justifier votre réponse par un résultat du cours ou un contre-exemple :
+\begin{enumerate}
+  \item Une famille de $p \ge n$ vecteurs dans un espace vectoriel
+  de dimension $n$ est génératrice.
+
+  \item Une famille de $p > n$ vecteurs dans un espace vectoriel
+  de dimension $n$ est liée.
+
+  \item Une famille de $p < n$ vecteurs dans un espace vectoriel
+  de dimension $n$ est libre.
+
+  \item Une famille génératrice de $p \le n$ vecteurs dans un espace vectoriel
+  de dimension $n$ est libre.
+
+  \item Une famille de $p \neq n$ vecteurs dans un espace vectoriel
+  de dimension $n$ n'est pas une base.
+
+  \item Toute famille libre à $p$ éléments d'un espace vectoriel de dimension $n$
+  se complète par une famille ayant exactement $n-p$ éléments en une base de $E$.
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Dimension des sous-espaces vectoriels}
+
+Tout sous-espace vectoriel $F$ d'un $\Kk$-espace vectoriel $E$ étant lui même
+un $\Kk$-espace vectoriel, la question est de savoir
+s'il est de dimension finie ou s'il ne l'est pas.
+
+Prenons l'exemple de l'espace vectoriel $E = \mathcal{F}(\Rr,\Rr)$
+des fonctions de $\Rr$ dans $\Rr$ :
+\begin{itemize}
+  \item il contient le sous-espace vectoriel $F_1 = \Rr_n[X]$
+  des (fonctions) polynômes de degré $\le n$, qui est de dimension finie ;
+
+  \item et aussi le sous-espace vectoriel $F_2=\Rr[X]$ de l'ensemble des
+  (fonctions) polynômes, qui lui est de dimension infinie.
+\end{itemize}
+
+
+%-------------------------------------------------------
+\subsection{Dimension d'un sous-espace vectoriel}
+
+\index{sous-espace vectoriel!dimension}
+
+Nous allons voir par contre que lorsque $E$ est de dimension finie alors $F$ aussi.
+\begin{theoreme}
+\label{th:dimsev}
+Soit $E$ un $\Kk$-espace vectoriel de dimension finie.
+\begin{enumerate}
+  \item Alors tout sous-espace vectoriel $F$ de $E$ est de dimension finie ;
+
+  \item $\dim F \le \dim E$ ;
+
+  \item $F=E \iff \dim F = \dim E$.
+\end{enumerate}
+\end{theoreme}
+
+\begin{proof}
+~
+\begin{itemize}
+  \item Soit $E$ un espace vectoriel de dimension $n$ et soit $F$ un sous-espace vectoriel de $E$.
+Si $F = \{0\}$ il n'y a rien à montrer. On suppose donc $F \neq \{0\}$ et
+soit $v$ un élément non nul de $F$.
+La famille  $\{v\}$ est une famille libre de $F$, donc $F$ contient des familles libres.
+Toute famille libre d'éléments de $F$ étant une famille libre d'éléments de $E$
+(voir la définition des familles libres), alors comme $E$ est de dimension $n$,
+toutes les familles libres de $F$ ont au plus $n$ éléments.
+
+  \item On considère l'ensemble $K$ des entiers $k$ tels qu'il existe une famille libre de $F$ ayant $k$~éléments :
+$$K = \Big\{ k \in \Nn \mid \exists \{v_1,v_2, \ldots ,v_k\} \subset F
+\ \text{ et } \  \{v_1, v_2, \ldots, v_k \} \text{ est une famille libre de } F \Big\}$$
+
+Cet ensemble $K$ est non vide (car $1 \in K$) ; $K$ est un sous-ensemble borné de $\Nn$
+(puisque tout élément de $K$ est compris entre $1$ et $n$) donc $K$ admet un maximum.
+Notons $p$ ce maximum et soit $\{v_1,v_2,\dots ,v_p\}$ une famille libre de $F$ ayant $p$ éléments.
+
+  \item Montrons que $\{v_1,v_2,\dots ,v_p\}$ est aussi génératrice de $F$.
+Par l'absurde, s'il existe $w$ un élément de $F$ qui n'est pas dans $\Vect (v_1,\ldots,v_p)$,
+alors la famille $\{v_1,\ldots,v_p,w\}$ ne peut pas être libre (sinon $p$ ne serait pas le maximum de $K$).
+La famille $\{v_1,\ldots,v_p,w\}$ est donc liée, mais alors la relation de dépendance linéaire implique
+que $w \in \Vect(v_1,\ldots,v_p)$, ce qui est une contradiction.
+
+Conclusion : $(v_1,\ldots,v_p)$ est une famille libre et génératrice, donc est une base de $F$.
+
+
+  \item On a ainsi démontré simultanément que :
+  \begin{itemize}
+    \item $F$ est de dimension finie (puisque  $(v_1,v_2,\dots ,v_p)$ est une base de $F$).
+
+    \item Ainsi $\dim F = p$, donc $\dim F \leq \dim E$ (puisque toute famille libre de $F$ a au plus $n$ éléments).
+
+    \item De plus, lorsque $p=n$, le $p$-uplet $(v_1,v_2,\dots ,v_p)$,
+    qui est une base de $F$, est aussi une base de $E$ (car $\{v_1,v_2,\dots ,v_p\}$
+   est alors une famille libre de $E$ ayant exactement $n$ éléments, donc est une base de $E$).
+   Tout élément de $E$ s'écrit comme une combinaison linéaire de $v_1,v_2,\dots ,v_p$,
+   d'où $E=F$.
+  \end{itemize}
+
+
+\end{itemize}
+
+
+
+
+
+
+
+\end{proof}
+
+%-------------------------------------------------------
+\subsection{Exemples}
+
+\begin{exemple}
+Si $E$ est un $\Kk$-espace vectoriel de dimension $2$,
+les sous-espaces vectoriels de $E$ sont :
+\begin{itemize}
+  \item soit de dimension $0$ : c'est alors le sous-espace $\{0\}$ ;
+
+  \item soit de dimension $1$ : ce sont les droites vectorielles, c'est-à-dire
+  les sous-espaces $\Kk u = \Vect \{ u \}$ engendrés par les vecteurs non nuls
+  $u$ de $E$ ;
+
+  \item soit de dimension $2$ : c'est alors l'espace $E$ tout entier.
+\end{itemize}
+\end{exemple}
+
+\textbf{Vocabulaire.}
+Plus généralement, dans un $\Kk$-espace vectoriel $E$ de dimension $n$ ($n \geq 2$),
+tout sous-espace vectoriel de $E$ de dimension $1$ est
+appelé \defi{droite vectorielle}\index{droite vectorielle} de $E$ et tout sous-espace vectoriel de
+$E$ de dimension $2$ est appelé \defi{plan vectoriel}\index{plan vectoriel} de $E$.
+Tout sous-espace vectoriel de $E$ de dimension $n-1$ est
+appelé \defi{hyperplan}\index{hyperplan} de $E$.
+Pour $n=3$, un hyperplan est un plan vectoriel ; pour $n=2$,
+un hyperplan est une droite vectorielle.
+
+
+\bigskip
+
+Le théorème \ref{th:dimsev} précédent permet de déduire le corollaire suivant :
+\begin{corollaire}
+Soit $E$ un $\Kk$-espace vectoriel.
+Soient $F$ et $G$ deux sous-espaces vectoriels de $E$. On suppose que $F$ est de dimension finie
+et que $G \subset F$.
+Alors :
+$$F=G \iff \dim F = \dim G$$
+\end{corollaire}
+Autrement dit, sachant qu'un sous-espace est inclus dans un autre, alors
+pour montrer qu'ils sont égaux il suffit de montrer l'égalité des dimensions.
+
+\begin{exemple}
+Deux droites vectorielles $F$ et $G$ sont soit égales,
+soit d'intersection réduite au vecteur nul.
+\end{exemple}
+
+\begin{exemple}
+Soient les sous-espaces vectoriels de $\Rr^3$ suivants :
+$$F=\big\{\left(\begin{smallmatrix}x\\y\\z\end{smallmatrix}\right) \in \Rr^{3}\mid 2x-3y+z=0\big\} \quad \text{ et } \quad
+G = \Vect (u,v)\quad  \text{ où }
+u=\left(\begin{smallmatrix}1\\1\\1\end{smallmatrix}\right) \text{ et }
+v=\left(\begin{smallmatrix}2\\1\\-1\end{smallmatrix}\right).$$
+
+Est-ce que $F=G$ ?
+
+\begin{enumerate}
+  \item On remarque que les vecteurs $u$ et $v$ ne sont pas colinéaires,
+donc $G$ est de dimension $2$, et de plus ils appartiennent à $F$,
+donc $G$ est contenu dans $F$.
+
+  \item Pour trouver la dimension de $F$, on pourrait déterminer une base
+de $F$ et on montrerait alors que la dimension de $F$ est $2$.
+Mais il est plus judicieux ici de remarquer que $F$ est contenu strictement dans $\Rr^3$
+(par exemple le vecteur $\left(\begin{smallmatrix}1\\0\\0\end{smallmatrix}\right)$
+de $\Rr^3$ n'est pas dans $F$),
+donc $\dim F < \dim \Rr^3 = 3$ ;
+mais puisque $F$ contient $G$ alors $\dim F \ge \dim G = 2$,
+donc la dimension de $F$ ne peut être que $2$.
+
+  \item On a donc démontré que $G \subset F$ et que $\dim G = \dim F$,
+  ce qui entraîne $G=F$.
+\end{enumerate}
+\end{exemple}
+
+%-------------------------------------------------------
+\subsection{Théorème des quatre dimensions}
+
+\begin{theoreme}[Théorème des quatre dimensions]
+\index{theoreme@théorème!des quatre dimensions}
+\label{th:4dim}
+Soient $E$ un espace vectoriel de dimension finie
+et $F,G$ des sous-espaces vectoriels de $E$.
+Alors~:
+\mybox{$\dim(F+G) = \dim F + \dim G - \dim (F\cap G)$}
+\end{theoreme}
+
+\begin{corollaire}
+Si $E = F \oplus G$, alors $\dim E = \dim F + \dim G$.
+\end{corollaire}
+
+\begin{exemple}
+Dans un espace vectoriel $E$ de dimension $6$, on considère deux sous-espaces $F$ et $G$ avec
+$\dim F=3$ et $\dim G=4$. Que peut-on dire de $F\cap G$ ? de $F+G$ ? Peut-on avoir $F\oplus G=E$ ?
+\begin{itemize}
+  \item $F \cap G$ est un sous-espace vectoriel inclus dans $F$, donc
+  $\dim (F \cap G) \le \dim F=3$. Donc les dimensions possibles pour $F \cap G$ sont
+  pour l'instant $0,1,2,3$.
+
+  \item $F+G$ est un sous-espace vectoriel contenant $G$ et inclus dans $E$, donc
+  $4=\dim G \le \dim(F+G) \le \dim E=6$. Donc les dimensions possibles
+  pour $F + G$ sont $4,5,6$.
+
+  \item Le théorème \ref{th:4dim} des quatre dimensions nous donne la relation :
+  $\dim(F\cap G) =  \dim F + \dim G - \dim(F+G) = 3+4-\dim(F+G) =  7-\dim(F+G)$.
+  Comme $F + G$ est de dimension $4$, $5$ ou $6$, alors la dimension de $F\cap G$ est
+  $3$, $2$ ou $1$.
+
+  \item Conclusion : les dimensions possibles pour $F+G$ sont $4$, $5$ ou $6$ ;
+  les dimensions correspondantes pour $F \cap G$ sont alors $3$, $2$ ou $1$.
+  Dans tous les cas, $F \cap G \neq \{0\}$ et en particulier $F$ et $G$ ne sont jamais en somme directe
+  dans $E$.
+\end{itemize}
+
+\end{exemple}
+
+La méthode de la preuve du théorème \ref{th:4dim} des quatre dimensions implique aussi :
+\begin{corollaire}
+Tout sous-espace vectoriel $F$ d'un espace vectoriel $E$
+de dimension finie admet un supplémentaire.
+\end{corollaire}
+
+
+\begin{proof}[Preuve du théorème \ref{th:4dim}]
+~
+\begin{itemize}
+  \item Notez l'analogie de la formule avec la formule pour les ensembles finis :
+$$\Card (A\cup B) = \Card A + \Card B - \Card (A\cap B).$$
+
+  \item Nous allons partir d'une base $\mathcal{B}_{F \cap G} = \{u_1,\ldots,u_p\}$ de $F \cap G$.
+On commence par compléter $\mathcal{B}_{F\cap G}$ en une base
+$\mathcal{B}_F = \{u_1,\ldots,u_p,v_{p+1},\ldots,v_q\}$ de $F$.
+On complète ensuite $\mathcal{B}_{F\cap G}$ en une base
+$\mathcal{B}_G = \{u_1,\ldots,u_p,w_{p+1},\ldots,w_r\}$ de $G$.
+
+
+  \item Nous allons maintenant montrer que la famille
+  $$\{ u_1,\ldots,u_p,v_{p+1},\ldots,v_q,w_{p+1},\ldots,w_r\}$$
+  est une base de $F+G$.
+  Il est tout d'abord clair que c'est une famille génératrice de $F+G$ (car $\mathcal{B}_F$
+  est une famille génératrice de $F$ et $\mathcal{B}_G$ est une famille génératrice de $G$).
+
+  \item Montrons que cette famille est libre. Soit une combinaison linéaire nulle :
+  \begin{equation}
+  \sum_{i=1}^p \alpha_i u_i + \sum_{j=p+1}^q \beta_j v_j + \sum_{k=p+1}^r \gamma_k w_k = 0
+  \label{eq:comblin}
+  \end{equation}
+  On pose $u=\sum_{i=1}^p \alpha_i u_i$, $v=\sum_{j=p+1}^q \beta_j v_j$, $w=\sum_{k=p+1}^r \gamma_k w_k$.
+  Alors d'une part $u+v \in F$ (car $\mathcal{B}_F$ est une base de $F$) mais comme l'équation (\ref{eq:comblin})
+  équivaut à $u+v+w=0$, alors $u+v = -w \in G$ (car $w\in G$).
+  Maintenant $u+v \in F\cap G$ et aussi bien sûr $u\in F\cap G$, donc
+  $v = \sum_{j=p+1}^q \beta_j v_j \in F\cap G$. Cela implique $\beta_j=0$ pour tout $j$ (car les $\{v_j\}$ complètent la base de $F\cap G$).
+
+  La combinaison linéaire nulle (\ref{eq:comblin}) devient
+  $\sum_{i=1}^p \alpha_i u_i  + \sum_{k=p+1}^r \gamma_k w_k = 0$.
+  Or $\mathcal{B}_G$ est une base de $G$, donc $\alpha_i=0$ et $\gamma_k=0$ pour tout $i,k$.
+  Ainsi $\mathcal{B}_{F+G} = \{ u_1,\ldots,u_p,v_{p+1},\ldots,v_q,w_{p+1},\ldots,w_r\}$ est une base de $F+G$.
+
+  \item Il ne reste plus qu'à compter le nombre de vecteurs de chaque base :
+  $\dim F\cap G = \Card \mathcal{B}_{F\cap G} = p$,
+  $\dim F = \Card \mathcal{B}_{F} = q$,
+  $\dim G = \Card \mathcal{B}_{G} = r$,
+  $\dim (F+G) = \Card \mathcal{B}_{F+G} = q+r-p$.
+  Ce qui prouve bien $\dim(F+G) = \dim F + \dim G - \dim (F\cap G)$.
+\end{itemize}
+\end{proof}
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soient
+  $F = \Vect \left( \left(\begin{smallmatrix}1\\2\\3\end{smallmatrix}\right),
+  \left(\begin{smallmatrix}3\\-1\\2 \end{smallmatrix}\right)\right)$
+  et $G = \Vect \left( \left(\begin{smallmatrix}-7\\7\\0\end{smallmatrix}\right),
+  \left(\begin{smallmatrix}6\\5\\11 \end{smallmatrix}\right)\right)$.
+  Montrer que $F=G$.
+
+  \item Dans $\Rr^3$, on considère
+  $F = \Vect \left( \left(\begin{smallmatrix}1\\t\\-1\end{smallmatrix}\right),
+  \left(\begin{smallmatrix}t\\1\\1 \end{smallmatrix}\right)\right)$,
+  $G=\Vect \left(\begin{smallmatrix}1\\1\\1 \end{smallmatrix}\right)$. Calculer les dimensions
+  de $F,G,F\cap G,F+G$ en fonction de $t\in \Rr$.
+
+  \item Dans un espace vectoriel de dimension $7$, on considère des sous-espaces $F$ et $G$ vérifiant
+  $\dim F=3$ et $\dim G \le 2$. Que peut-on dire pour $\dim (F\cap G)$ ? Et pour $\dim (F+G)$ ?
+
+  \item Dans un espace vectoriel $E$ de dimension finie, montrer l'équivalence entre :
+  (i) $F\oplus G = E$~;
+  (ii) $F+G=E$ et $\dim F + \dim G = \dim E$ ;
+  (iii) $F \cap G = \{0_E\}$ et $\dim F + \dim G = \dim E$.
+
+  \item Soit $H$ un hyperplan dans un espace vectoriel de dimension finie $E$. Soit $v\in E\setminus H$.
+  Montrer que $H$ et $\Vect(v)$ sont des sous-espaces supplémentaires dans $E$.
+
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bigskip
+\bigskip
+
+\auteurs{
+\begin{itemize}
+  \item D'après un cours de Sophie Chemla de l'université Pierre et Marie Curie,
+  reprenant des parties d'un cours de H. Ledret et d'une équipe de
+  l'université de Bordeaux animée par J.~Queyrut,
+
+  \item et un cours de Eva Bayer-Fluckiger, Philippe Chabloz, Lara Thomas
+  de l'\'Ecole Polytechnique Fédérale de Lausanne,
+
+  \item mixé, révisé et complété par Arnaud Bodin. Relu par Vianney Combet.
+\end{itemize}
+}
+
+\finchapitre
+\end{document}
+
+

@@ -1,0 +1,515 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons voir comment le calcul formel peut nous aider à comprendre et résoudre des équations différentielles.
+
+
+\change
+
+\change
+
+Nous commencerons par des équations différentielles du premier ordre du type 
+ $y' = f(x,y)$
+
+\change
+Nous visualiserons ce que signifie résoudre des équations différentielles.
+
+\change
+Et nous terminerons par des équations différentielles du second ordre.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voici notre premier travail : résoudre plusieurs équations différentielles du premier ordre.
+
+%Tout d'abord résoudre 
+On s'intéresse d'abord à l'équation différentielle :
+  $y' = y + x + 1.$
+  
+  Ici $y$ est une fonction inconnue de la variable $x$.
+
+Si %on exige 
+nous imposons une condition initiale $y(0)=1$, alors nous ne devrions trouver qu'une unique solution.
+  
+
+Nous ferons un travail similaire pour l'équation $x^2y' = (x-1)y$.
+
+Enfin, en insistant un peu  nous obtiendrons une solution de 
+l'équation différentielle $y'= y(1-y) - 1.$
+
+\change
+Vous pouvez bien sûr faire les calculs à la main ou demander à la machine de le faire !
+C'est la commande \codeinline{desolve} qui permet de résoudre formellement des équations différentielles.
+
+
+Consultez la documentation, accessible par \codeinline{help(desolve)}.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo 
+
+
+On commence par l'équation différentielle :
+  $y' = y + x + 1.$
+
+\change
+On déclare la variable $x$. 
+
+\change
+Mais ici on doit aussi déclarer la fonction qui sera notre fonction inconnue $x \mapsto y(x)$ à déterminer.
+
+\change
+Pour définir l'équation différentielle nous aurons aussi besoin de la dérivée $y'(x)$, définie 
+par  \codeinline{diff(y,x)}. 
+
+Nous prendrons ici la convention de noter $y'$ par \codeinline{yy}.
+
+\change
+L'équation différentielle $y' = y + x + 1$
+s'écrit donc \codeinline{yy == y+x+1}.
+
+On peut maintenant demander à Sage de résoudre l'équation différentielle par la commande  
+\codeinline{desolve}. Les arguments sont  
+l'équation différentielle à résoudre ainsi que la fonction inconnue, qui est ici $y$. 
+
+\change
+Sage\ renvoie : $-\left((x + 1)*e^{(-x)} - \_C + e^{(-x)}\right)*e^x$
+
+\change
+\codeinline{$\_C$} désigne une constante.
+
+\change
+Après simplification évidente, les solutions sont les :
+$$y(x) = -x-2 + C \exp(x) \quad \text{ où } \quad C \in \Rr.$$
+
+\change
+Il est également possible de préciser une condition 
+initiale grâce à l'argument optionnel \codeinline{ics} 
+
+[voir la dernière ligne du code], 
+
+ici on 
+spécifie donc que l'on cherche la solution vérifiant $y(0)=1$.
+
+
+\change
+L'unique solution est alors : $y(x) = -x-2 + 3\exp(x)$, c'est-à-dire $C=3$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo 
+
+Voici l'équation différentielle $x^2y' = (x-1)y$.
+
+\change
+Et voici comment la résoudre sur les réels strictement positifs :
+
+
+%\change
+
+Ici l'équation différentielle, avec toujours notre notation $yy$ pour $y'(x)$
+
+On fait l'hypothèse que les $x$ sont strictement positifs, puis on résout l'équation différentielle.
+
+\change
+La solution est $y(x) = Cx \exp(\frac1x)$, $C\in \Rr$.
+  
+
+\change 
+La solution vérifiant $y(1)=2$...
+
+
+\change
+est $y(x) = 2x \exp(\frac1x - 1)$.
+
+\change
+Sur $\Rr_-^*$ c-à-d pour les $x<0$, 
+on résout aussi l'équation différentielle.
+
+\change
+Les solutions sont aussi de la forme $y(x) = Cx \exp(\frac1x)$.
+
+\change
+    La seule solution définie sur $\Rr$ est donc la fonction nulle $y(x) = 0$ (c'est-à-dire $C=0$). 
+    En effet, si $C \neq 0$ il n'y a pas de limite finie en $0$.
+    
+    
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo 
+
+Résolvons l'équation différentielle $y'= y(1-y) - 1.$  
+
+\change
+On définit donc notre équation différentielle, notez encore une fois la différence entre l'affectation de la variable "equadiff" et l'équation qu'elle contient avec ici le double signe "=".
+
+\change
+Si on demande de résoudre cette équation, alors Sage\ ne donne pas directement la solution.
+
+\change  
+En effet, c'est une nouvelle équation vérifiée par $y$ qui est renvoyée : 
+$$
+  \frac{2}{3} \, \sqrt{3} \arctan\left(\frac{1}{3} \, \sqrt{3} {\big(2 \, y\left(x\right) - 1\big)}\right) = C + x.
+$$
+  
+Même si ce n'est pas la réponse souhaitée, c'est un progrès. En effet, ce n'est plus une équation différentielle.
+% (il n'y a plus $y'$).
+
+\change
+Il suffit alors de résoudre cette dernière équation 
+
+\change
+pour obtenir :
+$$  y\left(x\right) = -\frac{\sqrt{3}}{2} \tan\left(\frac{\sqrt{3}}{2} C + \frac{\sqrt{3}}{2}  x\right) + \frac{1}{2}.
+$$
+  
+  
+
+Attention, notez que l'équation vérifiée par $y$ est valide pour tout $x$, tandis que la solution formulée ici ne l'est pas, il est nécessaire de préciser l'ensemble de définition.
+
+%  L'équation (1) a l'avantage d'être valide pour tout $x$, alors 
+%  que pour l'équation (2) il faudrait préciser l'intervalle de définition.
+  
+  
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo 
+
+
+Pour bien comprendre les équations différentielles, il est utile de 
+%bien comprendre
+s'intéresser à leur l'interprétation géométrique.
+
+Considérons une équation différentielle du type $y' = f(x,y)$.
+
+
+%Le plus important sont
+La notion la plus importante pour interpréter géométriquement cette équation est celle de courbe intégrale. 
+Les \defi{courbes intégrales} 
+%qui 
+sont simplement les graphes des solutions.
+%de cette équation.
+
+
+\change
+ \`A chaque point d'une courbe intégrale, on associe un vecteur tangent.
+ 
+ 
+ Comme ici, la courbe intégrale en bleue et quelques vecteurs tangents en rouge.
+ 
+Calculons les coordonnées de ces vecteurs tangents.  
+  
+Si $y(x)$ est une solution de l'équation différentielle, alors
+au point de coordonnées $(x,y(x))$, la tangente est portée par le vecteur $(x',y'(x))$.
+Mais, d'une part, $x' = 1$ et d'autre part, comme $y$ est solution de l'équation différentielle,
+$y'(x) = f(x,y)$. Ainsi un \defi{vecteur tangent} en $(x,y)$ est $\big( 1 , f(x,y) \big)$.
+
+
+\change
+On peut également faire le cheminement inverse. On part toujours d'une équation différentielle $y' = f(x,y)$, et cette fois on définit d'abord les vecteurs tangents.
+
+Plus exactement, le  \defi{champ de vecteurs} associé à l'équation différentielle est, en chaque point $(x,y)$ du plan, 
+le vecteur $\big( 1 , f(x,y) \big)$.
+
+
+\change
+Suite à ces considérations, comment pouvons nous interpréter la résolution d'une équation différentielle ?
+
+Eh bien, partant d'une équation différentielle, on lui associe 
+%tout un tas de vecteurs.
+un champ de vecteurs, 
+%En fait 
+c'est-à-dire qu'à chaque point du plan, on associe un vecteur. 
+
+Il s'agit maintenant de trouver une courbe intégrale,
+c'est-à-dire une courbe qui en chacun de ses points possède une tangente dirigée par un des vecteurs du champ.
+
+
+%est tangente en chacun de ces points à l'un de ces vecteurs.
+
+%à tous ces  vecteurs.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo 
+
+
+
+Nous allons faire l'étude graphique présentée précédemment sur l'équation différentielle suivante : 
+  $$y' = -xy.$$
+  
+  
+Nous commencerons par dessiner le champ de vecteurs associé à cette équation différentielle.
+
+
+
+Puis après avoir résolu l'équation, nous tracerons des courbes intégrales, 
+
+
+et enfin, quelques isoclines.
+
+
+\change
+Les \defi{isoclines} sont les courbes 
+définies par l'équation $f(x,y) = c$.
+%$\big\lbrace (x,y) \in \Rr^2 \mid f(x,y) = c \big\rbrace.$
+
+Les courbes solutions de l'équation différentielle coupant une isocline donnée possèdent donc toutes en leur point d'intersection avec l'isocline un vecteur tangent de même direction.
+%En chaque point d'une isocline, la 
+%%solution 
+%courbe intégrale passant par ce point croise cette isocline avec une pente $c$ fixée. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo 
+
+Voici les graphes que vous devriez avoir obtenus.
+
+Tout d'abord le champ de vecteurs : à chaque point du plan, on associe un vecteur. Bien sûr, on ne dessine pas tous les vecteurs, mais seulement  ceux partant de points d'une grille.
+
+\change
+Voici les courbes intégrales, chaque courbe est le graphe d'une solution de notre équation différentielle. Chaque courbe correspond à une condition initiale, par exemple si on impose $y(0)=1$ alors on obtient cette solution.
+
+Si on impose $y(0)=0$ alors on obtient ici la solution identiquement nulle.
+
+\change
+%Les courbes intégrales (en bleu).
+Voici le champ de vecteurs superposé aux courbes intégrales : 
+
+%nous avons bien résolu l'équation différentielle: partant du champ de vecteur (en rouge) nous avons trouvé les courbes qui sont tangentes en chaque point à ces vecteurs. 
+
+%Regardez 
+Observez comme chaque vecteur est bien tangent à une courbe intégrale et réciproquement.
+
+\change
+Voici les isoclines (en vert). 
+
+Pour une isocline fixée, on vérifie graphiquement que chaque intersection 
+  avec les courbes intégrales se fait en des points où la tangente a toujours la même pente.
+  
+Par exemple en tout ces points [montrer] de cette isocline verte,
+
+la pente des courbes intégrales bleues est toujours la même.
+
+Sur cette isocline particulière, [la droite verticale] les courbes intégrales ont toute une tangente horizontale.
+
+
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo 
+Voici comment tracer le champ de vecteurs associé à $y' = f(x,y)$.
+  
+On commence par définir une grille de points, les origines de nos vecteurs.
+
+L'indice $i$ définit les abscisses, l'indice $j$ les ordonnées, 
+espacés du pas $\delta$. 
+%ce qui définit des points dans une grille avec un pas $\delta$.
+
+Voici un point de la grille, considéré comme un vecteur pour faciliter les manipulations.
+
+Voici le vecteur du champ en ce point, il est en effet défini par $\big( 1 , f(x,y) \big)$.
+
+Pour chaque point, on trace ce vecteur : c'est une flèche d'origine notre point $pt$.
+% et va jusqu'au point défini par notre point plus le vecteur tangent.
+
+\change
+On suppose que les variables utilisées pour définir la fonction $f$ sont ici $u$ et $v$, ceci afin de ne pas interférer avec la variable $x$ et la fonction $y$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo   
+
+Voici le champ de vecteurs pour l'équation différentielle $y' = -xy$.
+
+Il peut être nécessaire de renormaliser les vecteurs $v$ pour plus de lisibilité. % (par exemple en $v/10$) 
+
+~
+
+En fait, il existe déjà une fonction de Sage qui trace les champs de vecteurs : il s'agit de (\codeinline{plot\_vector\_field}).
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo   
+ 
+\change
+Les solutions de l'équation $y' = -xy$ sont définies par :
+    $$y(x) = C \exp\left(-\frac{x^2}{2}\right) \quad \text{ où } \quad C \in \R.$$
+    
+\change
+ Le code suivant résout l'équation différentielle et trace la solution 
+    qui vérifie la condition initiale $y(0)=k$.
+    
+ La boucle permet de faire varier ce paramètre $k$ entre une valeur minimale et une valeur maximale   
+    avec un pas de \codeinline{delta}.
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo    
+
+Les courbes intégrales forment une partition 
+de l'espace : par un point du plan, il passe une et une seule courbe intégrale. 
+
+C'est la reformulation géométrique du théorème d'existence et d'unicité de Cauchy-Lipschitz. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo    
+
+ Les isoclines sont définies par l'équation $f(x,y) = c$.
+
+\change
+Elles se tracent comme des courbes définies par une équation implicite par la commande \codeinline{implicit\_plot()} que nous avons déjà eu l'occasion d'utiliser.
+ 
+\change 
+  Ici les isoclines ont pour équation $-xy=c$, ce sont donc des hyperboles.
+  
+  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous terminons par la résolution d'une équation différentielle linéaire du second ordre
+à coefficients constants.
+
+~
+
+Cette équation modélisera la situation suivante : 
+
+On considère une masse posée sur le sol et attachée à un ressort. On écarte la masse de sa position d'équilibre puis on la lâche.
+
+Se pose alors la question de savoir quel est le mouvement de la masse.
+
+%Une masse  est attachée à un ressort, on lâche la masse et nous allons étudier son mouvement.
+
+On peut montrer que ce mouvement est décrit par l'équation différentielle
+$$x''(t) +f x'(t)+ \frac{k}{m} x(t) = 0$$ 
+
+où 
+
+$x$, la fonction inconnue, représente la position de la masse en fonction du temps $t$.
+
+[petit] $m$ est la masse,
+
+$k0$ est une constante strictememnt positive liée au ressort,
+
+et enfin $f$ est le coefficient de frottement de la masse sur le sol.
+
+~
+
+
+Nous allons résoudre cette équation en prenant par exemple $m=1$, $k=1$ et faire varier le coefficient de frottement en prenant par exemple quelques valeurs.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Intéressons nous aux cas particuliers où le coefficient de frottements vaut $0$, $1$ et $2$.
+
+~
+
+Voici la courbe représentative de la solution dans le cas $f=0$, c'est-à-dire lorsqu'il n'y a pas de frottement.
+
+En abscisse le temps $t$ et en ordonnée la position $x(t)$ de la masse.
+
+Nous obtenons sans surprise un mouvement périodique.
+
+\change
+
+Maintenant $f=1$. Les frottements sont faibles.
+
+Nous obtenons un mouvement oscillant amorti autour de la position d'origine $x=0$.
+ 
+Notez que la solution vérifie bien la condition initiale $x(0)=1$ et $x'(0)=0$ car la tangente à l'origine est horizontale. 
+ 
+\change
+
+Enfin pour de plus grandes valeurs du coefficient de frottement,
+%les frottements sont forts. 
+il n'y a plus d'oscillations autour de la position d'origine.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Pour une valeur de $f$, l'équation se résout par la commande suivante :
+
+ici l'équation différentielle [montrer pas à pas] 
+
+$$x''(t) +f x'(t)+ \frac{k}{m} x(t) = 0$$
+
+ici la condition initiale 
+
+en $0$, $x(0) = 1$ et aussi en $0$, $x'(0)=0$.
+
+%on demande à Sage de résoudre cette équation.
+
+\change
+ Dans le cas où $f=0$, il n'y a pas de frottement. 
+
+\change 
+ L'équation différentielle s'écrit
+  $x''+ \frac{k}{m} x = 0$. 
+  
+\change
+On fixe par exemple  $k=1$, $m=1$. L'équation devient alors
+  $x''+ x = 0$ ...
+  
+\change  
+ ...  équation dont les solutions sont de la forme $\lambda \cos t + \mu \sin t$ avec $\lambda$ et $\mu$ réels.
+  
+\change
+Si on impose de plus les conditions initiales $x(0)=1$ et $x'(0)=0$, 
+
+\change 
+l'unique solution est $x(t) = \cos t$.
+ 
+\change 
+Il s'agit bien du mouvement périodique annoncé.
+
+
+\change
+Pour de petit frottements, par exemple $f=1$.
+
+
+\change 
+La solution qui vérifie les conditions initiales est un peu plus compliquée
+  $$\left(\frac{\sqrt{3}}{3} \sin\left(\frac{\sqrt{3}}{2} t\right) + 
+   \cos\left(\frac{\sqrt{3}}{2} t\right)\right)
+  e^{-\frac{1}{2} t}. $$
+
+\change  
+  L'exponentielle amortit le mouvement qui oscille autour de la position d'origine.
+  
+\change 
+Pour des frottements plus importants, par exemple $f=2$,
+
+\change 
+la solution qui vérifie toujours les mêmes conditions initiales est 
+  $$x(t) = (t + 1)e^{-t}.$$
+  
+\change 
+  Il n'y a plus d'oscillations autour de la position d'origine.
+
+
+
+\end{document}

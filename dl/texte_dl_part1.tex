@@ -1,0 +1,620 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Ce chapitre sur les développements limités commence par une partie théorique : les formules de Taylor.
+Nous allons énoncer trois formule de Taylor :
+
+\change
+
+la formule de Taylor avec reste intégral
+
+\change
+
+la formule de Taylor avec reste $f^{(n+1)}(c)$
+
+\change
+   
+et enfin la formule de Taylor-Young
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Avant les formules de Taylor motivons sur un exemple les développement limités.
+Prenons l'exemple de la fonction exponentielle.
+
+On souhaite avoir une idée du comportement de $\exp x$ autour de $x=0$ 
+
+
+\change
+
+La meilleure droite qui approxime le graphe de la fonction en $x=0$
+est la tangente.
+
+\change
+
+Son équation  est $y=1+x$.
+
+\change
+
+Si l'on souhaite faire mieux, quelle parabole d'équation $y = c_0 + c_1x + c_2 x^2$ approche le mieux 
+le graphe de $f$ autour de $x=0$ ? 
+
+\change
+
+
+Voici le dessin
+
+\change
+
+
+c'est la parabole d'équation $y=1+x+\frac12 x^2$. 
+
+
+\change
+
+Si on note $g(x)=\exp x - \big(1+x+\frac12 x^2\big)$ alors
+cette équation à la propriété remarquable qu'alors
+$g(0)=0$, $g'(0)=0$ et $g''(0)=0$. 
+
+
+\change
+
+Trouver l'équation de cette parabole c'est faire un développement limité à l'ordre $2$
+de la fonction $f$.
+
+\change
+
+Bien sûr si l'on veut être plus précis, on continuerait avec une courbe du troisième degré 
+qui serait en fait celle-ci.
+
+\change
+
+C'est exactement cela la notion de développement limité : trouver le polynôme qui approche au mieux une fonction
+autour d'un point.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Sans plus attendre, voici une  formule, dite formule de Taylor-Young :
+$$f(x)= f(0)+f'(0)x+f''(0)\frac{x^2}{2!}+\cdots
++f^{(n)}(0)\frac{x^n}{n!} + x^n\epsilon(x).$$
+Dans ce chapitre, pour n'importe quelle fonction, nous allons trouver le polynôme de degré $n$
+qui approche le mieux la fonction. 
+
+\change
+
+La partie polynomiale $f(0)+f'(0)x+\cdots+f^{(n)}(0)\frac{x^n}{n!}$
+est le polynôme de degré $n$ qui approche le mieux $f(x)$ autour de $x=0$.
+
+\change
+
+Les résultats ne sont valables que pour $x$ autour d'une valeur
+fixée (ici autour de $x=0$). 
+
+
+\change
+
+Ce polynôme sera calculé à partir des dérivées successives au point
+considéré. 
+
+\change
+
+La partie $x^n\epsilon(x)$ est le <<reste>>  dans lequel $\epsilon(x)$ est une fonction 
+qui tend vers $0$ (quand $x$ tend vers $0$) et qui est négligeable 
+devant la partie polynomiale.
+
+\change
+
+Nous allons voir trois formules de Taylor, elles auront toutes la même partie polynomiale
+mais donnent plus ou moins d'informations sur le reste. 
+
+\change
+
+Nous commencerons par la formule de
+Taylor avec reste intégral qui donne une expression exacte du reste.
+
+\change
+
+ Puis la formule de Taylor avec
+reste $f^{(n+1)}(c)$ qui permet d'obtenir un encadrement du reste 
+
+
+\change
+
+nous terminons avec la formule de Taylor-Young
+très pratique si l'on n'a pas besoin d'information sur le reste.
+
+\change
+
+On rappelle enfin qu'une fonction $f$ est dites de \defi{classe $\mathcal{C}^n$}
+si $f$ est $n$ fois dérivable sur l'intervalle $I$ et la dérivée $n$-ième est continue.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Soit $I$ un intervalle ouvert et fixons $n$ un entier.
+Soit $f : I\to\Rr$ une fonction de classe $\mathcal{C}^{n+1}$
+et soit $a,x$ deux points de l'intervalle $I$.
+
+La formule de Taylor avec reste intégral s'écrit :
+$
+f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\cdots
++\frac{f^{(n)}(a)}{n!}(x-a)^n$
+
+\change
+
+avec comme reste 
+$\int_a^x \frac{f^{(n+1)}(t)}{n!}(x-t)^ndt.$
+
+\change
+
+\change
+
+Par exemple la fonction $f(x)=\exp x$ est de indéfiniment dérivable donc de classe $\mathcal{C}^{n+1}$ pour tout $n$, 
+
+ceci sur l'intervalle $I=\Rr$. 
+
+\change
+
+Comme $f'(x)=\exp x$, $f''(x)=\exp x$,\ldots alors pour $a$ fixé et pour tout $x$ on a
+
+\change
+
+$$\exp x=\exp a+\exp a \cdot (x-a)+\cdots+\frac{\exp a}{n!}(x-a)^n+\int_a^x\frac{\exp t}{n!}(x-t)^ndt.$$
+
+\change
+
+Bien sûr si l'on se place en $a=0$ alors on retrouve le début de notre approximation de la fonction
+exponentielle en $x=0$ : $\exp x=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\cdots$
+
+(pause)
+
+La preuve du théorème sera vue à la fin de cette leçon.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Repartons d'une fonction $f : I\to\Rr$ de classe $\mathcal{C}^{n+1}$
+et soit $a,x \in I$.
+
+Alors :
+$f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\cdots
++\frac{f^{(n)}(a)}{n!}(x-a)^n +...$
+
+\change
+
+La partie polynomiale est la même qu'auparavant.
+Mais cette fois le reste est 
+$\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}$
+pour un certain réel $c$ entre $a$ et $x$.
+
+\change
+
+\change
+
+Reprenons l'exemple de l'exponentielle :
+ il existe $c$ entre $a$ et $x$ tel que 
+$\exp x=\exp a+\exp a \cdot (x-a)+\cdots+\frac{\exp a}{n!}(x-a)^n+\frac{\exp c}{(n+1)!}(x-a)^{n+1}.$  
+
+
+\change
+
+Ce théorème de Taylor est une généralisation du théorème des accroissements finis.
+
+\change
+
+En effet pour $n=0$  l'énoncé du théorème entre $a$ et $b$ devient
+il existe $c$ entre $a$ et $b$ tel que $f(b)=f(a)+f'(c)(b-a)$.
+
+
+C'est exactement l'énoncé du théorème des accroissements finis.
+
+(pause) [[désigner la formule du haut]]
+
+Notez au passage la phrase 
+ <<le réel $c$ est entre $a$ et $x$>> signifie <<$c$ appartient à l'intervalle $]a,x[$ ou $c$ appartient 
+à l'intervalle $]x,a[$>> selon que  $a$ est plus petit (ou plus grand) que $x$.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans la plupart des cas on ne connaîtra pas le $c$ du théorème précédent. Mais le théorème permet d'encadrer le reste.
+Ceci s'exprime par le corollaire suivant :
+
+
+Si en plus d'être de classe $\mathcal{C}^{n+1}$
+la fonction $f^{(n+1)}$ est majorée sur l'intervalle $I$ par un réel $M$, 
+alors pour tout $a, x$ de l'intervalle $I$, on a : 
+\[
+\big|f(x)-T_n(x)\big|\le M\frac{|x-a|^{n+1}}{(n+1)! \ } \cdotp
+\]
+
+où $T_n(x)$ désigne la partie polynomiale de nos formules de Taylor.
+
+\change
+
+Nous allons illustrer ceci en calculant un approximation de $\sin(0,01)$.
+
+Notons $f(x)$ la fonction $\sin x$. 
+
+\change
+
+Alors $f'(x)=\cos x$, $f''(x)=-\sin x$, $f^{(3)}(x)=-\cos x$, $f^{(4)}(x)=\sin x$.
+
+\change
+
+On obtient donc $f(0)=0$, $f'(0)=1$, $f''(0)=0$, $f^{(3)}(0)=-1$.
+
+\change
+
+La formule de Taylor avec reste $f^{(n+1)}(c)$ à l'ordre $3$ en $0$ 
+donne 
+
+$f(x)=0+1\cdot x +0\cdot \frac{x^2}{2!}-1\frac{x^3}{3!} + f^{(4)}(c)\frac{x^4}{4!}$
+
+\change
+
+c'est-à-dire 
+$x -\frac{x^3}{6} + f^{(4)}(c)\frac{x^4}{24}$
+
+\change
+
+Appliquons ceci à la valeur  $0,01$ 
+
+en substituant $x$ par $0,01$ on trouve que
+
+ $\sin(0,01)$ vaut environ $0,01 - \frac{(0,01)^3}{6}$ donc environ $0,00999983333\ldots$
+
+\change
+
+Mais quelle est la précision de cette valeur approchée ?
+
+La formule de Taylor, ou plus précisément le corollaire,
+permet d'estimer l'erreur commise.
+
+Comme $f^{(4)}(x)=\sin x$ alors 
+$|f^{(4)}(c)|\le 1$ alors 
+
+$\big|f(x) - \big(x -\frac{x^3}{6} \big) \big| \le \frac{x^4}{24}$
+
+\change
+
+Pour notre calcul cela signifie que l'écart entre $\sin(0,01)$
+et notre approximation $0,01 - \frac{(0,01)^3}{6}$
+est moins de $\frac{(0,01)^4}{24}$.
+
+\change
+
+Et donc notre approximation donne la certitude d'avoir au moins $8$ chiffres exacts après la virgule.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons à notre dernière formule : la formule de Taylor-Young.
+
+On part cette fois d'une fonction $f$ de classe $\mathcal{C}^n$.
+
+$f(x)$ s'écrit encore fois comme la somme de la partie polynomiale (toujours la même)
+et d'un reste
+qui est $(x-a)^n\epsilon(x)$
+où $\epsilon$ est une fonction qui tend vers $0$ lorsque $x$ tend vers $a$.
+
+La seule information que donne cette fonction $\epsilon$ est que le reste
+est négligeable devant la partie polynomiale, c'est-à-dire le reste tend plus vite vers
+$0$ que chacun des monômes du polynôme de Taylor.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Attardons sur un exemple que nous traitons en détails.
+
+Soit $f$ la fonction définie par $f(x)= \ln(1+x)$
+
+\change 
+
+
+Voici le graphe de $f$.
+
+\change
+
+
+Cette fonction est définie sur l'intervalle $]-1,+\infty[$ et  $f$ y est infiniment dérivable.
+
+Nous allons calculer les formules de Taylor en $0$ pour les premiers ordres.
+
+\change
+
+Tous d'abord $f(0)=0$. 
+
+\change
+
+Donc le polynôme de Taylor d'ordre $0$ est $T_0(x)=0$
+
+\change
+
+Approcher notre fonction par une droite horizontale n'est pas très probant.
+
+\change
+
+On continue avec $f'(x)=\frac{1}{1+x}$ donc $f'(0)=1$.
+
+\change
+
+$T_1(x) = f(0) + f'(0)x = x$
+
+\change
+
+Bien sûr c'est l'équation de la tangente en $0$.
+
+\change
+
+On continue avec $f''(x) = -\frac{1}{(1+x)^2}$ donc $f''(0)=-1$.
+
+\change
+
+Le polynôme de Taylor de degré $2$ est donc $T_2(x) = f(0) + f'(0)x+f''(0)\frac{x^2}{2!} =x -\frac{x^2}{2}$
+
+\change
+
+Nous avons maintenant un bonne approximation de notre courbe par une parabole.
+
+\change
+
+Enfin on calcule la dérivée troisième.
+
+\change
+
+Le monôme de degré $3$ est $\frac{x^3}{3!}f'''(0)$
+et donc le polynôme de Taylor de degré $3$ est $T_3(x) = x -\frac{x^2}{2} + \frac{x^3}{3}$
+
+\change
+
+Notre approximation est excellente autour de $0$.
+
+\change
+
+On remarque sur cet exemple que
+plus $n$ est grand meilleur est notre approximation.
+Cela s'explique car le reste est de plus en plus en petit.
+
+Sur le dessin les graphes des polynômes $T_0, T_1, T_2, T_3$ s'approchent de plus en plus du graphe de $f$.
+
+Mais il faut bien être conscient que cette approximation n'est valable que autour 
+de $0$, c'est-à-dire pour des $x$ assez petits.
+Cela se voit tout de suite en regardant le comportement pour des grandes valeurs de $x$,
+le log croit très doucement devant les fonctions polynomiales. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Continuons avec notre exemple de la fonction $\ln(1+x)$
+
+et essayons d'obtenir les termes suivants.
+
+\change
+
+Nous avons vu que sa dérivée était $\frac{1}{1+x}$
+
+\change
+
+Par récurrence on montre que $f^{(n)}(x) = (-1)^{n-1} (n-1)!\frac{1}{(1+x)^n}$
+et donc $f^{(n)}(0)= (-1)^{n-1} (n-1)!$.
+
+\change
+
+Maintenant pour obtenir le coefficient du polynôme de Taylor
+on divise par $n!$ et donc $(n-1)!$ divisé par $n!$ donne $1/n$.
+et donc le monôme de degré $n$ est $(-1)^{n-1}\frac{x^n}{n}$.
+
+\change
+
+Voici donc le polynôme de Taylor en $0$ de $\ln(1+x)$ à l'ordre $n$.
+
+$T_n(x)=\sum_{k=1}^n (-1)^{n-1}\frac{x^n}{n}$
+autrement dit c'est
+
+$x-\frac{x^2}{2} + \frac{x^3}{3}-\frac{x^4}{4}+ \cdots + (-1)^{n-1}\frac{x^n}{n}$
+
+Pour les formule de Taylor n'oubliez pas d'ajouter le reste.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Il y a donc trois formules de Taylor qui s'écrivent toutes sous la forme
+
+$f(x) = T_n(x) + R_n(x)$
+
+\change
+
+où $T_n(x)$ est toujours le même polynôme de Taylor :
+
+$$T_n(x) =f(a)+f'(a)(x-a)+\cdots
++\frac{f^{(n)}(a)}{n!}(x-a)^n.$$
+
+C'est l'expression du reste $R_n(x)$ qui change (attention ! le reste n'a aucune raison d'être un polynôme). 
+
+\change
+
+
+\begin{align*}
+R_n(x) & = \int_a^x \frac{f^{(n+1)}(t)}{n!}(x-t)^ndt 
+ & \quad   \text{Taylor avec reste intégral} \\
+R_n(x) & =\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}   
+ & \quad   \text{Taylor avec reste } f^{(n+1)}(c),\   c \text{ entre } a \text{ et } x \\
+R_n(x) & = (x-a)^n\epsilon(x) 
+ & \quad \text{Taylor-Young avec } \epsilon(x) \xrightarrow[x\to a]{} 0 \\
+\end{align*}
+
+\change
+
+\change
+
+
+
+Selon les situations l'une des formulations est plus adaptée que les autres.
+
+
+Notons que les trois formules ne requièrent pas exactement les mêmes hypothèses
+ on manipule le plus souvent des fonctions de classe $\mathcal{C}^\infty$
+et les trois formules sont alors valides quelque soit $n$.
+
+\change
+
+Pour terminer, à l'aide du changement de variable $x=a+h$ 
+on réécrit les formules de Taylor sous une forme parfois plus pratique.
+
+Par exemple la formule de Taylor-Young devient 
+
+$$f(a+h)=f(a)+f'(a)h+\cdots
++\frac{f^{(n)}(a)}{n!}h^n+h^n \epsilon(h)$$
+
+où $\epsilon(h) \xrightarrow[h\to 0]{} 0$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Bien souvent nous n'avons pas besoin de beaucoup d'information sur le reste et 
+c'est donc la formule de Taylor-Young qui sera la plus utile.
+
+En plus on se ramène souvent à étudier la fonction autour de $x=0$.
+
+Donc si vous ne deviez retenir qu'une seule formule ce serait celle-là 
+
+$f(x)= f(0)+f'(0)x+f''(0)\frac{x^2}{2!}+\cdots
++f^{(n)}(0)\frac{x^n}{n!} + x^n\epsilon(x)$
+où \ $\lim_{x\to0}\epsilon (x)=0$
+
+
+\change
+
+Le terme $x^n\epsilon(x)$ où $\epsilon(x) \xrightarrow[x\to 0]{} 0$
+est souvent abrégé en <<\defi{petit o}>> de $x^n$ .
+
+Il faut s'habituer à cette notation qui simplifie les écritures, 
+mais il faut toujours garder à l'esprit ce qu'elle signifie.
+
+
+\change
+
+Avec la notation <<petit o>> 
+la formule de Taylor-Young en zéro s'écrit
+la partie polynomiale + un <<petit o>> de $x^n$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Prouvons une des formules de Taylor.
+
+\change
+
+Nous prouvons la formule de Taylor avec reste intégral.
+Les deux autres formules se démontrent à partir de celle-ci.
+
+\change
+
+Nous allons prouver cette formule par récurrence sur $n$.
+
+Pour éviter les confusions entre ce qui varie et ce qui est fixe dans cette
+preuve on a remplacé $x$ par $b$.
+
+Nous supposons que $f$ est une fonction de classe $\mathcal{C}^{n+1}$.
+
+
+\change
+
+Pour $n=0$, une primitive de $f'(t)$ est $f(t)$ donc 
+$\int_a^b f'(t) \, dt=f(b)-f(a)$, 
+
+donc $f(b)=f(a)+\int_a^b f'(t) \, dt$. 
+
+
+On rappelle que par convention $(b-t)^0=1$ et $0!=1$.
+
+\change
+
+Passons à l'hérédité et supposons la formule vraie au rang $n-1$ 
+
+on a donc cette formule là.
+
+\change
+
+Nous allons effectuer une intégration par parties dans l'intégrale du reste
+
+en posant 
+
+$u =f^{(n)}(t)$ et $v' = \frac{(b-t)^{n-1}}{(n-1)!}$
+
+\change
+
+Donc on a $u'= f^{(n+1)}(t)$ et $v = - \frac{(b-t)^{n}}{n!}$
+
+\change 
+
+On applique maintenant la formule d'intégration par parties :
+
+intégrale de $uv'$... 
+
+\change
+
+...égale $uv$ moins intégrale de $u'v$.
+
+\change
+
+Lorsque l'on évalue le crochet en $b$ cela donne $0$,
+et évaluer le crochet en $a$ donne ceci.
+
+On reconnaît exactement le monôme de degré $n$ du polynôme de Taylor
+plus le reste intégral au rang d'après.
+
+
+\change
+
+On vient donc de prouver la formule au rang $n$
+
+Et ainsi par le principe de récurrence la formule de Taylor est vraie 
+pour tous les entiers $n$ pour lesquels $f$ est classe $\mathcal{C}^{n+1}$.  
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Après avoir appris le cours passez à la pratique 
+avec ces exercices d'applications !
+
+
+\end{document}

@@ -1,0 +1,448 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={192,41,0}]{structure}
+
+% Commande spécifique à ce chapitre
+
+\newcommand{\Python}{\texttt{Python}}
+\renewcommand{\evidence}[1]{{\color{blue}\textbf{#1}}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Algorithmes et mathématiques}}
+\subtitle{Arithmétique -- Algorithmes récursifs}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Algorithmes récursifs
+    \item<4-> L'algorithme d'Euclide
+    \item<5-> Nombres premiers
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Algorithmes récursifs}
+
+
+\begin{frame}[fragile]
+
+\begin{algo}[iteratif.py]
+\begin{lstlisting}
+def factorielle_classique(n):
+    produit = 1
+    for i in range(1,n+1):
+        produit = i * produit
+    return produit
+\end{lstlisting}  
+\end{algo}
+
+\pause
+\bigskip
+
+\codeinline{factorielle_classique(5)}
+
+\pause
+
+\codeinline{produit = 1}
+\pause
+
+\codeinline{produit = 1 * produit = 1}
+
+\pause
+
+\codeinline{produit = 2 * produit = 2}
+
+\pause
+
+\codeinline{produit = 3 * produit = 6}
+
+\pause
+
+\codeinline{produit = 4 * produit = 24}
+
+\pause
+
+\codeinline{produit = 5 * produit = 120 } \pause \codeinline{ = 5!}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{algo}[recursif.py (1)]
+\begin{lstlisting}
+def factorielle(n):
+    if (n==1): 
+        return 1
+    else:
+        return n * factorielle(n-1)
+\end{lstlisting}  
+\end{algo}
+
+\pause
+\bigskip
+
+\codeinline{factorielle(5)}
+
+\pause
+
+\codeinline{factorielle(5) = 5 * factorielle(4)}
+
+\pause
+
+\codeinline{factorielle(5) = 5 * 4 * factorielle(3)}
+
+\pause
+
+\codeinline{factorielle(5) = 5 * 4 * 3 * factorielle(2)}
+
+\pause
+
+\codeinline{factorielle(5) = 5 * 4 * 3 * 2 *  factorielle(1)}
+
+\pause
+
+\codeinline{factorielle(5) = 5 * 4 * 3 * 2 * 1 }\pause\ \codeinline{ = 5!}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{itemize}
+  \item Une \defi{fonction récursive} est une fonction qui 
+  s'appelle elle-même lorsque elle s’exécute 
+\pause  
+  \item Analogie avec la récurrence
+\pause  
+  \item $u_n = n!$ \pause \hfill $u_1 = 1 \quad \text{ et } \quad u_{n} = n \times u_{n-1} \text{ si } n \ge 2$
+\pause  
+  \item 
+  \begin{itemize}
+    \item \evidence{initialisation} \pause \qquad  \codeinline{if (n==1): return 1}
+\pause 
+    \item \evidence{hérédité} \pause \qquad\qquad  \codeinline{return n * factorielle(n-1)}
+  \end{itemize}  
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\hfill\hfill\textbf{Nombres de Fibonacci}
+
+$$1 \quad 1 \quad 2 \quad 3 \quad 5 \quad 8 \quad 13 \quad 21 \quad 34 \quad \ldots$$
+
+\pause
+
+$$F_0 = 1, \ F_1 = 1 \quad \text{ et } \quad F_{n} = F_{n-1} + F_{n-2} \quad  \text{ si } n \ge 2$$
+
+\pause
+
+
+\begin{algo}[recursif.py (2)]
+\begin{lstlisting}
+def fibonacci(n):
+    if (n==0) or (n==1):
+        return 1           |\pause|
+    else: 
+        return fibonacci(n-1)+fibonacci(n-2)
+\end{lstlisting}  
+\end{algo}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L'algorithme d'Euclide}
+
+\begin{frame}
+
+\hfill\hfill\textbf{Algorithme d'Euclide}
+
+$$\text{si } b | a \text{ alors } \pgcd(a,b)=b  \qquad \text{ sinon } \pgcd(a,b) = \pgcd(b, a \bmod b)$$
+
+\pause
+
+\begin{tp}
+\begin{enumerate}
+  \item Créer une fonction récursive \codeinline{pgcd(a,b)} qui calcule le pgcd.
+  \item On note $p_n$ la probabilité que deux entiers $a,b$ tirés au hasard dans 
+  ${1,2,\ldots,n}$ soient premiers entre eux. Faire une fonction qui approxime $p_n$.
+  Lorsque $n$ devient grand, comparer $p_n$ et $\frac{6}{\pi^2}$.
+\end{enumerate}  
+\end{tp}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{algo}[arith.py (1)]
+\begin{lstlisting}
+def pgcd(a,b):
+    if a%b == 0:
+        return b    |\pause|
+    else:
+        return pgcd(b, a%b)
+\end{lstlisting}  
+\end{algo}
+\end{frame}
+
+\begin{frame}[fragile]
+
+\centerline{$a,b$ sont \defi{premiers entre eux} si $\pgcd(a,b)=1$}
+
+\pause
+
+\begin{algo}[arith.py (2)]
+\small
+\begin{lstlisting}
+def nb_premiers_entre_eux(n,nbtirages):
+    i = 1
+    nbpremiers = 0
+    while i <= nbtirages:
+        i = i+1
+        a = random.randint(1,n)
+        b = random.randint(1,n)
+        if pgcd(a,b)==1:
+            nbpremiers = nbpremiers + 1
+    return nbpremiers
+\end{lstlisting}  
+\end{algo}
+
+\pause
+
+\begin{itemize}
+  \item Exemple : $n=1000$, $10\,000$ tirages $1 \le a,b \le 1000$
+\pause  
+  \item Probabilité \codeinline{nbpremiers/nbtirages} $\simeq 0,60\ldots$
+\pause  
+  \item $n$ tend vers $+\infty$ alors $p_n \to \frac{6}{\pi^2} = 0,607927\ldots$ 
+\pause  
+  \item \og La probabilité que deux entiers tirés au hasard soient premiers entre eux est $\frac{6}{\pi^2}$ \fg
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+Commentaires sur les algorithmes récursifs
+\pause
+\begin{itemize}
+  \item 
+  \begin{itemize}
+    \item Code très court
+\pause
+    \item Proche de la formulation mathématique d'une récurrence
+  \end{itemize}
+ \pause 
+  
+  \item Il peut y avoir des problèmes de mémoire
+ \pause 
+  
+  \item Bien poser la condition initiale
+ \pause 
+  \item Il n'existe pas des algorithmes récursifs pour tout !
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Nombres premiers}
+
+
+\begin{frame}
+
+\begin{tp}
+\begin{enumerate}
+  \item \'Ecrire une fonction qui détecte si un nombre $n$ est premier ou pas en testant s'il existe des entiers 
+  $k$ qui divise $n$. (On se limitera aux entiers $2 \le k \le \sqrt{n}$, pourquoi ?).
+  \item Faire un algorithme pour le crible d'Eratosthène : écrire tous les entiers de $2$ à $n$,
+  conserver $2$ (qui est premier) et barrer tous les multiples suivants de $2$. Le premier nombre non barré (c'est $3$) est premier.
+  Barrer tous les multiples suivants de $3$,...
+  \item Dessiner la spirale d'Ulam : on place les nombres entiers en spirale, et on colorie en rouge les nombres premiers.
+  $$\begin{matrix} & & \cdots & \cdots \\ 5 & 4 & 3 & \vdots \\ 6 & 1 & 2 & 11 \\ 7 & 8 & 9 & 10 \\\end{matrix}$$
+\end{enumerate}  
+\end{tp}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\begin{algo}[arith.py (3)]
+\begin{lstlisting}
+def est_premier(n):
+    if (n<=1): return False  |\pause|
+    k = 2
+    while k*k <= n:
+        if n%k==0:            
+            return False     |\pause|
+        else: 
+            k = k +1         |\pause|
+    return True              
+\end{lstlisting}  
+\end{algo}
+
+\pause
+
+\begin{itemize}
+  \item $n$ n'est pas premier alors $n=a\times b$ avec $a,b \ge 2$
+\pause  
+  \item $a \le \sqrt n$ ou $b \le \sqrt n$ \pause : il suffit de tester les diviseurs $2 \le k \le \sqrt{n}$
+\pause  
+  \item \codeinline{k*k <= n} \pause plus rapide que \codeinline{k <= sqrt(n)}
+ \pause 
+  \item \defi{Booléen} est une variable qui vaut soit Vrai, soit Faux 
+\end{itemize}
+
+ 
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+
+\begin{algo}[arith.py (4)]{\small
+\begin{lstlisting}
+def eratosthene(n):
+    liste_entiers = list(range(n+1))     # tous les entiers  |\pause|
+    liste_entiers[1] = 0              # 1 n'est pas premier  |\pause|
+    k = 2                                  # multiples de 2  
+    while k*k <= n:                                      
+        if liste_entiers[k] != 0:    # si k n'est pas barré  
+            i = k                         # i multiple de k
+            while i <= n-k:
+                i = i+k
+                liste_entiers[i] = 0    # barrer mult. de k  
+        k = k +1                                          |\pause| 
+    liste_premiers = [k for k in liste_entiers if k !=0]
+    return liste_premiers
+\end{lstlisting}  }
+\end{algo}
+
+\pause
+
+\codeinline{[0,0,2,3,4,5,6,7,8,9,10,11,12,13,...]}
+
+\pause
+
+\codeinline{[0,0,2,3,0,5,0,7,0,9,0,11,0,13,...]}
+
+\pause
+
+\codeinline{[0,0,2,3,0,5,0,7,0,0,0,11,0,13,...]}
+
+\pause
+
+\codeinline{[2,3,5,7,11,13,...]}
+
+\end{frame}
+
+
+\begin{frame}
+
+\hfill\hfill\textbf{Spirale d'Ulam}
+
+\bigskip
+
+\begin{center}
+\includegraphics[scale=0.23]{figures/ulam1}
+\qquad \pause
+\includegraphics[scale=0.14]{figures/ulam2}
+\end{center}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\small\vspace*{-1ex}
+\begin{miniexercice}
+\vspace*{-1ex}
+\begin{enumerate}
+\setlength{\itemsep}{0pt}
+  \item \'Ecrire une version itérative et une version récursive pour les fonctions suivantes : 
+  (a) la somme des carrés des entiers de $1$ à $n$ ; 
+  (b) $2^n$ (sans utiliser d'exposant) ;
+  (c) la partie entière d'un réel $x\ge0$ ;
+  (d) le quotient de la division euclidienne de $a$ par $b$ (avec $a \in \Nn$, $b \in \Nn^*$) ;
+  (e) le reste de cette division euclidienne (sans utiliser les commandes \codeinline{\%} ni \codeinline{//}).
+  
+
+  \item \'Ecrire une version itérative de la suite de Fibonacci.
+  
+  \item \'Ecrire une version itérative de l'algorithme d'Euclide. 
+  Faire une version qui calcule les coefficients de Bézout. 
+  
+  \item \'Ecrire une fonction itérative, puis récursive, qui pour un entier $n$ renvoie la liste de ses diviseurs.
+  Dessiner une spirale d'Ulam, dont l'intensité de la couleur dépend du nombre de diviseurs.
+  
+  \item Une suite de Syracuse est définie ainsi : partant d'un entier s'il est pair on le divise par deux,
+  s'il est impair on le multiplie par $3$ et on ajoute $1$. On itère ce processus. Quelle conjecture peut-on faire
+  sur cette suite ?
+  
+  \item Dessiner le triangle de Pascal 
+  {\tiny $\begin{smallmatrix} & & 1 & & \\  & 1 & & 1 & \\ 1 & & 2 & & 1 \\ & & \cdots & & \end{smallmatrix}$ }
+  Ensuite effacer les coefficients pairs (ou mieux : remplacer les coefficients pairs 
+  par un carré blanc et les coefficients impairs par un carré rouge). Quelle figure reconnaissez-vous ?
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

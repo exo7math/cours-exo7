@@ -1,0 +1,70 @@
+\begin{tikzpicture}[scale=4.3,cap=round,>=latex]
+ % Unit circle
+% Author: Supreme Aryal
+% Modified by Arnaud Bodin
+% A unit circle with cosine and sine values for some
+% common angles.
+
+        % draw the coordinates
+       \draw[->] (1cm,0cm) -- (1.2cm,0cm);% node[below] {$x$};
+        \draw[->] (0cm,1cm) -- (0cm,1.2cm);% node[left] {$y$};
+
+        % draw the unit circle
+        \draw[thick] (1cm,0cm) arc(0:90:1);
+
+        \foreach \x in {30,60} {
+                % lines from center to point
+                \draw[gray] (0cm,0cm) -- (\x:0.5cm);
+                \draw[gray] (\x:0.7cm) -- (\x:0.78cm);
+                \draw[gray] (\x:0.92cm) -- (\x:1cm);
+                % dots at each point
+                \filldraw[black] (\x:1cm) circle(0.4pt);
+                % draw each angle in degrees
+                \draw (\x:0.6cm) node {$\x^\circ$};
+        }
+        \foreach \x in {0,45,90} {
+                % lines from center to point
+                \draw[gray] (0cm,0cm) -- (\x:0.5cm);
+                \draw[gray] (\x:0.7cm) -- (\x:0.78cm);
+                \draw[gray] (\x:0.92cm) -- (\x:1cm);
+                % dots at each point
+                \filldraw[black] (\x:1cm) circle(0.4pt);
+                % draw each angle in degrees
+               \draw (\x:0.6cm) node {$\x^\circ$};
+        }
+        % draw each angle in radians
+        \foreach \x/\xtext in {
+            0/0,
+            30/\dfrac{\pi}{6},
+            45/\dfrac{\pi}{4},
+            60/\dfrac{\pi}{3},
+            90/\dfrac{\pi}{2}}
+                \draw (\x:0.85cm) node {$\xtext$};
+
+        \foreach \x/\xtext/\y in {
+            % the coordinates for the first quadrant
+            30/\frac{\sqrt{3}}{2}/\frac{1}{2},
+            45/\frac{\sqrt{2}}{2}/\frac{\sqrt{2}}{2},
+            60/\frac{1}{2}/\frac{\sqrt{3}}{2}}
+            % the coordinates for the second quadrant
+%             150/-\frac{\sqrt{3}}{2}/\frac{1}{2},
+%             135/-\frac{\sqrt{2}}{2}/\frac{\sqrt{2}}{2},
+%             120/-\frac{1}{2}/\frac{\sqrt{3}}{2},
+%             % the coordinates for the third quadrant
+%             210/-\frac{\sqrt{3}}{2}/-\frac{1}{2},
+%             225/-\frac{\sqrt{2}}{2}/-\frac{\sqrt{2}}{2},
+%             240/-\frac{1}{2}/-\frac{\sqrt{3}}{2},
+%             % the coordinates for the fourth quadrant
+%             330/\frac{\sqrt{3}}{2}/-\frac{1}{2},
+%             315/\frac{\sqrt{2}}{2}/-\frac{\sqrt{2}}{2},
+%             300/\frac{1}{2}/-\frac{\sqrt{3}}{2}}
+                \draw (\x:1.15cm) node {$\left(\xtext,\y\right)$};
+
+        % draw the horizontal and vertical coordinates
+        % the placement is better this way
+        \draw %(-1.25cm,0cm) node[above=1pt] {$(-1,0)$}
+              (1cm,0cm)  node[above right] {$(1,0)$}
+%              (0cm,-1.25cm) node[fill=white] {$(0,-1)$}
+              (0cm,1cm)  node[above right] {$(0,1)$};
+
+\end{tikzpicture}

@@ -1,0 +1,357 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={192,41,0}]{structure}
+
+% Commande spécifique à ce chapitre
+
+\newcommand{\Python}{\texttt{Python}}
+\renewcommand{\evidence}[1]{{\color{blue}\textbf{#1}}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Algorithmes et mathématiques}}
+\subtitle{Calculs de sinus, cosinus, tangente}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Calcul de $\Arctan x$
+    \item<4-> Calcul de $\tan x$
+    \item<5-> Calcul de $\sin x$ et $\cos x$
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Calcul de $\Arctan x$}
+
+\begin{frame}
+
+
+\begin{itemize}
+  \item $\Arctan (10^{-i})$, pour $i=0,\ldots,8$
+\pause
+  \item Angle \ $\theta_i \in \ ]-\frac\pi2,\frac\pi2[$ \ tels que $\tan \theta_i = 10^{-i}$
+\end{itemize}
+
+\pause
+
+$$\Arctan x = \sum_{k=0}^{+\infty} (-1)^k\frac{x^{2k+1}}{2k+1} = 
+x - \frac{x^3}{3}+ \frac{x^5}{5}-\frac{x^7}{7}+\cdots$$
+
+\pause
+
+\begin{tp}
+\begin{enumerate}
+  \item Calculer $\Arctan 1$.
+  \item Calculer $\theta_i = \Arctan 10^{-i}$ (avec $8$ chiffres après la virgule) pour $i =1,\ldots,8$.
+  \item Pour quelles valeurs de $i$, l'approximation $\Arctan x \simeq x$ était-elle suffisante ?
+\end{enumerate}  
+\end{tp}
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{algo}[tangente.py (1)]
+\begin{lstlisting}
+def mon_arctan(x,n):
+    somme = 0
+    for k in range(0,n+1):
+        if (k%2 == 0):  # si k est pair signe +
+            somme = somme + 1/(2*k+1) * (x ** (2*k+1))  
+        else:           # si k est impair signe -
+            somme = somme - 1/(2*k+1) * (x ** (2*k+1))
+    return somme
+\end{lstlisting}  
+\end{algo}
+
+\pause
+
+\begin{itemize}
+  \item 
+  \begin{itemize}
+    \item $\Arctan x= \sum_{k=0}^{+\infty} (-1)^k\frac{x^{2k+1}}{2k+1}= x - \frac{x^3}{3}+ \frac{x^5}{5}-\frac{x^7}{7}+\cdots$
+\pause
+    \item  $\tan \pi/4 = 1 \implies \Arctan 1 = \pi/4$   
+\pause
+    \item si $0 \le x \le \frac 1{10}$ alors $x^{2k+1} \le \frac{1}{10^{2k+1}}$
+\pause
+    \item pour $k \ge 4$,  $\left| (-1)^k\frac{x^{2k+1}}{2k+1} \right| < 10^{-9}$
+  \end{itemize}
+
+\pause
+  \item $\Arctan x \simeq  x - \frac{x^3}{3}+ \frac{x^5}{5}-\frac{x^7}{7}$
+
+\pause 
+  \item Pour $i \ge 4$, $\Arctan x \simeq x$ donne déjà $8$ chiffres après la virgule !
+
+\pause  
+  \item Liste \codeinline{theta} contenant les angles $\theta_i$
+\end{itemize}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Calcul de $\tan x$}
+
+\begin{frame}
+
+\myfigure{1.5}{
+\tikzinput{fig_algo04} 
+}
+
+\end{frame}
+
+\begin{frame}
+\myfigure{1}{
+\tikzinput{fig_algo03} 
+} 
+\vspace*{-4ex}
+\pause
+\begin{itemize}
+  \item $M(x,y)$ un point
+\pause
+  \item $N(x',y')$ image de $M$ par la rotation centrée à l'origine et d'angle $\theta$
+\pause
+ $$\begin{pmatrix} x' \\ y' \end{pmatrix}
+= \begin{pmatrix} \cos \theta & - \sin \theta \\ \sin \theta & \cos \theta \end{pmatrix}
+\begin{pmatrix} x \\y \end{pmatrix}
+\qquad
+\pause
+\left\{ \begin{array}{rcl} 
+        x' = x \cos \theta - y \sin \theta \\
+        y' = x \sin \theta + y \cos \theta \\
+        \end{array}
+\right. $$
+\pause
+  \item $M'$ le point de la demi-droite $[ON)$ tel que  $(OM)\perp(MM')$ 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+
+\myfigure{0.6}{
+\tikzinput{fig_algo03} \qquad \tikzinput{fig_algo04} \qquad \tikzinput{fig_algo04bis} 
+}
+\vspace*{-2ex}
+\begin{tp}
+\begin{enumerate}
+  \item
+  \begin{itemize}
+    \item Calculer la longueur $OM'$. 
+    \item En déduire les coordonnées de $M'$. 
+    \item Exprimez-les uniquement en fonction de $x,y$ et $\tan \theta$.
+  \end{itemize}
+  
+  \item Faire une boucle qui décompose l'angle $a$ en somme d'angles $\theta_i$ (à une précision de $10^{-8}$ ; 
+  avec un minimum d'angles, les angles pouvant se répéter).
+  
+  \item Partant de $M_0 = (1,0)$ calculer les coordonnées des différents $M_k$, 
+  jusqu'au point $M_n(x_n,y_n)$ correspondant à l'approximation de l'angle $a$. 
+  Renvoyer la valeur $\frac{y_n}{x_n}$ comme approximation de $\tan a$.
+\end{enumerate}  
+\end{tp}
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{algo}[tangente.py (2)]
+\begin{lstlisting}
+i = 0
+while (a > precision):   # boucle precision pas atteinte
+    while (a < theta[i]):   # choix du bon angle theta_i
+        i = i+1
+    a = a - theta[i]         # on retire l'angle theta_i
+\end{lstlisting}  
+\end{algo}
+
+\end{frame}
+
+
+\begin{frame}
+
+\myfigure{0.7}{
+\tikzinput{fig_algo03} 
+}
+\vspace*{-4ex}
+\pause
+  \begin{itemize}
+    \item $\cos \theta = \frac{OM}{OM'}$ \pause \quad donc $OM' = \frac{OM}{\cos \theta}$  \pause \quad ; \quad $OM=ON$
+\pause    
+    \item $M'(x'',y'')$ 
+\end{itemize}
+\pause
+$$ \left\{ \begin{array}{l} 
+        \vphantom{\displaystyle\int}x'' = \frac{1}{\cos \theta} x' 
+        \uncover<7->{= \frac{1}{\cos \theta} \big( x \cos \theta - y \sin \theta \big)} 
+        \uncover<9->{= x - y \tan \theta} \\
+         y'' = \frac{1}{\cos \theta} y' 
+         \uncover<8->{= \frac{1}{\cos \theta} \big(x \sin \theta + y \cos \theta \big)} 
+         \uncover<10->{= x \tan \theta + y} \\
+        \end{array}        
+\right. $$ 
+\pause\pause\pause\pause\pause
+$$\begin{pmatrix} x'' \\ y'' \end{pmatrix}
+= \begin{pmatrix} 1 & - \tan \theta \\ \tan \theta & 1 \end{pmatrix}
+\begin{pmatrix} x \\y \end{pmatrix}$$
+ 
+\end{frame}
+
+
+
+
+\begin{frame}
+\myfigure{1}{
+\hfill\tikzinput{fig_algo04} 
+}
+\vspace*{-15mm}\pause
+\begin{itemize}
+  \item $x_0 = 1$, $y_0=0$ et $M_0=\begin{pmatrix}x_0\\y_0\end{pmatrix}$
+\pause  
+  \item $M_{k+1} = P(\theta_i) \cdot M_k$ \pause
+   \quad où \quad $P(\theta) = \begin{pmatrix} 1 & - \tan \theta \\ \tan \theta & 1 \end{pmatrix}$
+\pause   
+  \item $\tan \theta_i = 10^{-i}$
+\pause 
+        $$ \left\{ \begin{array}{l} 
+        x_{k+1} = x_k - y_k \cdot 10^{-i} \\
+        y_{k+1} = x_k \cdot 10^{-i}+ y_k \\
+        \end{array}
+\right. $$ 
+\pause
+  \item $\frac{y_n}{x_n}$  est la tangente de la somme des $\theta_i$ 
+  \pause : approximation de $\tan a$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{algo}[tangente.py (3)]
+\begin{lstlisting}
+def ma_tan(a):
+    precision = 10**(-9)
+    i = 0 ; x = 1 ; y = 0   |\pause|
+    while (a > precision):      
+        while (a < theta[i]):   
+            i = i+1               
+        newa = a - theta[i]  # on retire l'angle theta_i     |\pause|
+        newx = x - (10**(-i))*y          # nouveau point
+        newy = (10**(-i))*x + y                                   |\pause|
+        x = newx                              
+        y = newy
+        a = newa                                                  |\pause|
+    return y/x                  # on renvoie la tangente
+\end{lstlisting}  
+\end{algo}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Calcul de $\sin x$ et $\cos x$}
+
+
+\begin{frame}
+
+
+\begin{tp}
+Pour $0 \le x \le \frac \pi2$, calculer $\sin x$ et $\cos x$ en fonction de $\tan x$.
+En déduire comment calculer les sinus et cosinus de $x$.
+\end{tp}
+
+\pause
+\bigskip
+
+$$\cos x = \frac{1}{\sqrt{1+\tan^2 x}} \qquad
+\pause \sin x = \frac{\tan x}{\sqrt{1+\tan^2 x}} \qquad
+\pause 0 \le x \le \frac \pi2$$
+\pause
+$$\cos^2+\sin^2 x = 1 
+\pause \implies 1+\tan^2 x = \frac{1}{\cos^2 x}
+\pause \implies \cos x = \frac{1}{\sqrt{1+\tan^2 x}} $$
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+ 
+  \item On dispose de billets de $1$, $5$, $20$ et $100$ euros. Trouvez la façon de payer une somme de
+  $n$ euros avec le minimum de billets.
+ 
+  \item Faire un programme qui pour \emph{n'importe quel} $x \in \Rr$, calcule $\sin x$, $\cos x$, $\tan x$. 
+  
+  \item Pour $t = \tan \frac x2$ montrer que $\tan x = \frac{2t}{1-t^2}$. 
+  En déduire une fonction qui calcule $\tan x$. (Utiliser que pour $x$ assez petit $\tan x \simeq x$).
+  
+  \item Modifier l'algorithme de la tangente pour qu'il calcule aussi directement
+  le sinus et le cosinus.
+
+\end{enumerate}
+
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

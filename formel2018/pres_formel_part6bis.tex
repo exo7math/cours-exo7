@@ -1,0 +1,428 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={192,41,0}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcommand{\vect}{\overrightarrow}
+
+\newcommand{\Sage}{\texttt{Sage}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||,
+  breaklines=true,
+  postbreak=\raisebox{0ex}[0ex][0ex]{\qquad\ensuremath{\color{red}\hookrightarrow\space}},
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+\renewcommand*{\theenumii}{\alph{enumii}}
+
+\title{{\bf Calcul formel}}
+\subtitle{Courbes et surfaces (2)}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> \'Etude d'une courbe paramétrée
+    \item<4-> La projection stéréographique
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\'Etude d'une courbe paramétrée}
+
+\begin{frame}
+\begin{tp}
+\'Etudier en détail la courbe paramétrée du plan définie par 
+  $$\left\{
+  \begin{array}{l}
+  x(t) =  t^3-2t\\[1mm]
+  y(t) =  t^2-t
+  \end{array}
+  \right.\qquad  t \in \Rr.$$
+\begin{enumerate}
+  \item Tracer la courbe.
+  
+  \item Trouver les points d'intersection de la courbe avec l'axe des ordonnées.
+  
+  \item Trouver les points en lesquels la tangente est verticale, puis horizontale.
+  
+  \item Trouver les coordonnées des points doubles.
+\end{enumerate}
+\end{tp}
+\end{frame}
+
+
+\begin{frame}
+\begin{enumerate} 
+  \item ~
+\end{enumerate}
+\vspace*{-2ex}
+\begin{center}
+  \includegraphics[scale=0.52]{figures/courbe.png} 
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{enumerate}  
+  \setcounter{enumi}{1}
+  \item 
+  \begin{itemize}
+    \item \codeinline{x = t^3-2*t}
+    \item \codeinline{y = t^2-t}
+    \pause
+    \item $x(t)=0$ :  valeurs de $t$ correspondant aux points d'intersection de la courbe avec l'axe $(x=0)$
+    \pause
+    \item \codeinline{solve(x==0,t)}
+    \pause
+    \item trois solutions $t \in \{-\sqrt2,0,+\sqrt2\}$
+    \pause
+    \item trois points
+$\{(0,2+\sqrt2),(0,0),(0,2-\sqrt2)\}$
+  \end{itemize}
+
+\bigskip
+\pause
+  
+  \item
+  \begin{itemize}
+    \item \codeinline{xx = diff(x,t)} définit la dérivée $x'(t)$
+    
+    \item \codeinline{yy = diff(y,t)} définit la dérivée $y'(t)$
+    \pause
+    \item $x'(t)=0$ : valeurs de $t$ pour lesquelles la tangente à la courbe est verticale
+    \pause
+    \item \codeinline{solve(xx==0,t)}   
+    \pause
+    \item \codeinline{solve(yy==0,t)}     
+  \end{itemize}    
+\end{enumerate}  
+\end{frame}
+
+
+\begin{frame} 
+ \begin{enumerate}
+  \setcounter{enumi}{3}
+  \item
+  \begin{itemize}
+    \item 
+  Trouver les points doubles, c'est résoudre le système :
+   $$\left\{
+  \begin{array}{l}
+  x(s) =  x(t)\\[2mm]
+  y(s) =  y(t)
+  \end{array}
+  \right.\qquad  s,t \in \Rr$$ 
+  \pause
+    \item Il faut exclure la solution évidente $t=s$
+   \pause 
+    \item Cela signifie
+  que $(s-t)$ divise les polynômes de deux variables $x(s)-x(t)$ et
+  $y(s)-y(t)$
+  \pause
+    \item Le système devient :
+   $$\left\{
+  \begin{array}{l}
+  \dfrac{x(s)-x(t)}{s-t} = 0  \\[3mm]
+  \dfrac{y(s)-y(t)}{s-t} = 0
+  \end{array}
+  \right.\qquad  s,t \in \Rr$$   
+  \end{itemize}
+
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  %\insertcode{formel/Algos/courbe-tex.sage}{courbe.sage} 
+\small
+\begin{algo}[courbe.sage]
+\begin{lstlisting} 
+var('s,t')
+x = t^3-2*t
+y = t^2-t|\pause|
+eqx = x.subs(t=s) - x                    # Equation x(s)-x(t)|\pause|
+eqxs = (eqx/(s-t)).simplify_rational()    # (x(s)-x(t))/(s-t)|\pause|
+eqy = y.subs(t=s) - y                    # Equation y(s)-y(t)
+eqys = (eqy/(s-t)).simplify_rational()    # (y(s)-y(t))/(s-t)|\pause|
+points_double = solve([eqxs==0,eqys==0], s,t)     # Solutions
+\end{lstlisting}
+\end{algo}  
+
+\bigskip
+\pause
+
+Fournit la solution 
+  $(s,t) = \big(\frac{1-\sqrt5}{2}, \frac{1+\sqrt5}{2}\big)$ : il y a un unique 
+  point double ayant pour coordonnées $(1,1)$
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{La projection stéréographique}
+
+\begin{frame}
+\begin{tp}
+Soit $ \mathcal{S}$ la sphère centrée à l'origine de $\Rr^3$ et de rayon $1$.
+On note $N = (0,0,1)$ le pôle Nord. Soit $\mathcal{P}$ le plan
+équatorial d'équation $(z=0)$. La \defi{projection stéréographique}
+est l'application $\Phi : \mathcal{S} \setminus \{N\} \to \mathcal{P}$
+qui à un point $S$ de la sphère associe le point $P = (NS) \cap \mathcal{P}$
+défini par l'intersection de la droite $(NS)$ avec le plan $\mathcal{P}$.
+
+\begin{center}
+\includegraphics[scale=0.3]{figures/stereo1bis.jpg} 
+\end{center}
+\end{tp}
+\end{frame}
+
+
+\begin{frame}
+\begin{tp}
+\begin{enumerate}
+  \item En écrivant la relation $\vect{NP} = k \vect{NS}$ et sachant que $P \in \mathcal{P}$, trouver
+  $k$ et en déduire $P$.
+  
+  Vérifier ainsi que l'application $\Phi$ est définie par :
+  
+  \vspace*{-2ex}
+  $$\Phi : \mathcal{S} \setminus \{N\} \to \mathcal{P} \qquad 
+  \Phi(x,y,z) = \left( \frac{x}{1-z}, \frac{y}{1-z} \right)$$
+  \vspace*{-2ex}
+  
+  Définir la fonction correspondante avec \Sage.
+  
+  \item  Définir et vérifier que l'application inverse est $\Psi : \mathcal{P} \to \mathcal{S}\setminus \{N\}$ :
+  
+  \vspace*{-2ex}
+  $$\Psi (X,Y) = \left( \frac{2X}{\rho},\frac{2Y}{\rho},1-\frac{2}{\rho}  \right) \quad \text{ avec } \rho = 1+X^2+Y^2$$
+  \vspace*{-2ex}
+  
+ \end{enumerate}
+
+\end{tp}
+\end{frame}
+
+
+\begin{frame}
+\begin{tp}
+\begin{enumerate}   
+\setcounter{enumi}{2} 
+  \item \'Ecrire une fonction qui dessine une courbe paramétrée $\mathcal{C}'$ : $\big( x(t),y(t) \big)$, $t\in[a,b]$
+  du plan $\mathcal{P}$, et qui dessine aussi l'image inverse de la courbe sur la sphère, $\mathcal{C} = 
+  \Psi(\mathcal{C}')$.
+ 
+  
+  \item Vérifier graphiquement deux propriétés fondamentales de la projection stéréographique :
+  \begin{enumerate}
+    \item \og La projection stéréographique envoie les cercles de la sphère sur des cercles ou des droites du plan.\fg
+    \item \og La projection stéréographique préserve les angles.\fg\ En particulier, deux courbes qui se coupent
+    à angle droit, s'envoient sur deux courbes qui se coupent à angle droit.
+  \end{enumerate}
+  
+  \item Soit $\mathcal{C}'$ la spirale logarithmique d'équation
+  $\big( e^t \cos t, e^t \sin t \big)$, $t \in \Rr$.
+  Tracer la loxodromie de la sphère qui est $\mathcal{C} = 
+  \Psi(\mathcal{C}')$. 
+  
+  \item  Soit la courbe $\mathcal{C} \subset \mathcal{S}$
+  définie par $\frac{1}{13t^2 - 6t + 2}\big(4t, -6t + 2, 13t^2 - 6t\big)$.
+  Montrer que son image $\mathcal{C}' = \Phi(\mathcal{C}) \subset \mathcal{P}$
+  est une droite, dont vous déterminerez une équation.
+  
+\end{enumerate}
+
+\end{tp}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\begin{enumerate}
+  \item ~
+
+\vspace*{-3ex}
+  
+\begin{minipage}{0.53\textwidth}
+\begin{itemize}
+  \item $\vect{NP} = k \vect{NS}$ ($k\in \Rr$)
+  
+  \uncover<2->{\item en plus $P \in \mathcal{P}$, c-à-d $z_P = 0$}
+  \uncover<3->{\item \Sage\ calcule $k = \dfrac{1}{1-z}$}
+  \uncover<4->{\item $P = N + k\vect{NS}= \left( \dfrac{x}{1-z}, \dfrac{y}{1-z}, 0 \right)$}
+\end{itemize}
+\end{minipage} 
+\begin{minipage}{0.3\textwidth}
+\begin{center}
+  \includegraphics[scale=0.13]{figures/stereo1bis.jpg} 
+\end{center}
+\end{minipage}  
+ 
+\vspace*{-1ex} 
+\pause\pause\pause\pause
+ 
+% \insertcode{formel/Algos/stereographic-tex1.sage}{stereographic.sage (1)} 
+\begin{algo}[stereographic.sage (1)]
+\begin{lstlisting}  
+var('x,y,z,X,Y,k')              
+N = vector([0,0,1])    # Points N,S,P comme des vecteurs
+S = vector([x,y,z])
+P = vector([X,Y,0])
+V = (P-N)-k*(S-N)                 # Le vecteur NP - k NS 
+eq = V[2]           # On veut troisième coordonnée nulle
+sol = solve(eq==0,k)                     # Equation en k
+k = sol[0].rhs()                            # Solution k
+P = N + k*(S-N)                             # Le point P
+\end{lstlisting}
+\end{algo} 
+
+\end{enumerate}
+
+\end{frame}  
+  
+  
+  
+\begin{frame}[fragile]
+\begin{enumerate}
+  \item  
+  
+  $\Phi(x,y,z) = \left( \frac{x}{1-z}, \frac{y}{1-z} \right)$
+  
+  
+%\insertcode{formel/Algos/stereographic-tex2.sage}{stereographic.sage (2)}  
+\begin{algo}[stereographic.sage (2)]
+\begin{lstlisting}  
+def stereo(x,y,z):  
+    X = x/(1-z)
+    Y = y/(1-z)
+    return X,Y
+\end{lstlisting}
+\end{algo}   
+
+
+\end{enumerate}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\begin{enumerate}
+\setcounter{enumi}{1} 
+  \item 
+  
+  $\Psi (X,Y) = \left( \frac{2X}{\rho},\frac{2Y}{\rho},1-\frac{2}{\rho}  \right) \quad \text{ avec } \rho = 1+X^2+Y^2$
+
+%\insertcode{formel/Algos/stereographic-tex3.sage}{stereographic.sage (3)}  
+\begin{algo}[stereographic.sage (3)]
+\begin{lstlisting}  
+def inverse_stereo(X,Y):
+    r = 1+X^2+Y^2
+    x = 2*X/r
+    y = 2*Y/r
+    z = 1-2/r
+    return x,y,z
+\end{lstlisting}
+\end{algo}   
+
+\pause
+C'est bien la bijection réciproque, c'est-à-dire
+  $\Phi\big( \Psi(X,Y) \big) = (X,Y)$ pour tout $(X,Y) \in \Rr^2$ :
+
+\pause
+%\insertcode{formel/Algos/stereographic-tex4.sage}{stereographic.sage (4)}
+\begin{algo}[stereographic.sage (4)]
+\begin{lstlisting}  
+newx,newy,newz = inverse_stereo(X,Y)
+newX,newY = stereo(newx,newy,newz)
+\end{lstlisting}
+\end{algo} 
+
+\pause
+ et comme \codeinline{newX = X} et \codeinline{newY = Y}, cela prouve le résultat
+ 
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\begin{enumerate}
+\setcounter{enumi}{2} 
+  \item   ~
+ %\insertcode{formel/Algos/stereographic-tex5.sage}{stereographic.sage (5)} 
+
+\begin{algo}[stereographic.sage (5)]
+\begin{lstlisting} 
+def courbes(X,Y,a,b):
+    XYtab = [ [X.subs(t=myt),Y.subs(t=myt),0] for myt in srange(a,b,0.1) ]
+    xyztab = [ inverse_stereo(coord[0],coord[1]) for coord in XYtab ]
+    G = sphere((0,0,0),1)
+    G = G + line(XYtab)    
+    G = G + line(xyztab)    
+   return G
+\end{lstlisting}
+\end{algo} 
+
+\pause
+
+ Exemple : \codeinline{G = courbes(t^3,t^2,-2,2)}, trace la courbe
+ du plan $\big(t^3,t^2\big)$, $t\in[-2,2]$ et son image 
+ par la projection stéréographique inverse
+
+\end{enumerate}
+
+\end{frame}
+
+
+\begin{frame} 
+
+\begin{center}
+  \only<1>{\includegraphics[scale=0.27]{figures/stereo2.jpg}}
+  \only<2>{\includegraphics[scale=0.27]{figures/stereo3.jpg}}
+\end{center}
+
+\end{frame}
+
+\end{document}
+

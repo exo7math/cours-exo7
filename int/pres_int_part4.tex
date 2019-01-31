@@ -1,0 +1,324 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={0,45,179}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+
+
+\title{{\bf Intégrales}}
+\subtitle{Intégration par parties -- Changement de variable}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Intégration par parties
+    \item<4-> Changement de variable
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%---------------------------------------------------------------
+\section*{Intégration par parties}
+
+
+\begin{frame}
+\begin{theoreme}
+Soient $u$ et $v$ deux fonctions de classe $\mathcal{C}^1$ sur un intervalle $[a,b]$
+
+\mybox{$\displaystyle\int_a^b u(x) \, v'(x)\;dx= \big[uv\big]_a^b - \int_a^b u'(x) \, v(x)\;dx$}
+\end{theoreme} 
+
+\pause
+
+\textbf{Notation.}  $\big[F\big]_a^b=F(b)-F(a)$
+
+\pause
+
+$$\int u(x)v'(x)\;dx= \big[uv\big] - \int u'(x)v(x)\;dx$$
+
+\pause
+
+\textbf{Notation.}  $\big[F\big]$ désigne la fonction $F+c$
+
+\pause
+
+\begin{proof}
+$(uv)'=u'v+uv'$  \pause donc $\int_a^b (u'v+uv')=\int_a^b (uv)' \pause =\big[uv\big]_a^b$
+
+\pause
+
+Ainsi $\int_a^b uv'= \big[uv\big]_a^b - \int_a^b u'v$
+\end{proof}
+
+\end{frame}
+
+
+
+\begin{frame}
+\begin{exemple}[Calcul de $\int_0^1 x e^x \; dx$]
+
+\pause
+
+\begin{minipage}{0.66\textwidth}
+$$
+\begin{array}{rcl@{\vrule depth 3ex height 1.5ex width 0mm \ }}
+\displaystyle \int_0^1 x e^x \; dx & = & \uncover<3->{\displaystyle \int_0^1 u(x)v'(x)\;dx} \\ 
+\uncover<7->{ & = &\displaystyle \big[u(x)v(x)\big]_0^1 - \int_0^1 u'(x)v(x)\;dx \\}
+\uncover<8->{   & = &\displaystyle \big[x e^x\big]_0^1 \ \  - \  \int_0^1 1\cdot e^x \;dx \\}
+\uncover<9->{   & = & \big(1\cdot e^1-0\cdot e^0\big) - \uncover<10->{\pause \big[e^x\big]_0^1} \\}
+\uncover<11->{   & = & e -(e^1-e^0) \\}
+\uncover<12->{   & = & 1 }
+\end{array}
+$$  
+\end{minipage}
+\begin{minipage}{0.32\textwidth}
+$$\begin{array}{cc@{\vrule depth 3ex height 1.5ex width 0mm \ }}  
+\uncover<4->{\textcolor{blue}{u =x}}       & \uncover<5->{\textcolor{orange}{u' = 1}} \\
+\uncover<4->{\textcolor{blue}{v'=e^x}}     & \uncover<6->{\textcolor{orange}{v=e^x}} \\
+\end{array}$$ 
+\vspace*{3.5cm} 
+\end{minipage}
+\end{exemple}
+\end{frame}
+
+
+
+\begin{frame}
+\begin{exemple}[Calcul de $\int_1^e x\ln x \; dx$]
+\pause
+\begin{minipage}{0.66\textwidth}
+$$\begin{array}{rcl@{\vrule depth 3ex height 1.5ex width 0mm \ }}
+\displaystyle\int_1^e \ln x \cdot  x\; dx 
+\uncover<3->{ & =  & \displaystyle\int_1^e  uv'} \uncover<7->{ = \big[uv\big]_1^e - \int_1^e u'v} \\
+\uncover<8->{ & = &\displaystyle \big[\ln x \cdot\tfrac{x^2}{2}\big]_1^e -\int_1^e \tfrac 1x \tfrac{x^2}{2} \; dx \\}
+\uncover<9->{ & = &\displaystyle \big(\ln e \tfrac{e^2}{2} - \ln 1 \tfrac{1^2}{2} \big) - } \uncover<10->{\tfrac12 \int_1^e x  \; dx \\}
+\uncover<11->{ & = & \tfrac{e^2}{2} -\frac12 \left[ \tfrac{x^2}{2} \right]_1^e \\}
+\uncover<12->{ & = & \tfrac{e^2}{2} - \tfrac{e^2}{4} + \tfrac{1}{4} = \tfrac{e^2+1}{4}\\  }
+\end{array}  $$
+\end{minipage}
+\begin{minipage}{0.32\textwidth}
+$$\begin{array}{cc@{\vrule depth 3ex height 1.5ex width 0mm \ }}  
+\uncover<4->{\textcolor{blue}{u = \ln x}} & \uncover<5->{\textcolor{orange}{u' = \frac1x}} \\
+\uncover<4->{\textcolor{blue}{v'= x}}     & \uncover<6->{\textcolor{orange}{v= \frac{x^2}{2}}} \\
+\end{array}$$ 
+\vspace*{3.2cm} 
+\end{minipage}
+\end{exemple}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}[Calcul de $\int \arcsin x \; dx$]
+
+
+\pause
+$$\int 1\cdot \arcsin x \; dx  \uncover<5->{= \big[x\arcsin x\big] - \int \frac{x}{\sqrt{1-x^2}} \; dx}$$
+$$\uncover<6->{=  \big[x\arcsin x\big] - \big[-\sqrt {1-x^2}\big]}  \uncover<7->{= x\arcsin x+ \sqrt {1-x^2}+c}$$
+\hfil\hfil \uncover<3->{$\textcolor{blue}{u=\arcsin x}$, $\textcolor{blue}{v'=1}$ }
+\uncover<4->{(donc $\textcolor{orange}{u'=\frac{1}{\sqrt{1-x^2}}}$ et $\textcolor{orange}{v=x}$)}
+\end{exemple}
+
+\pause\pause\pause\pause\pause\pause
+
+\begin{exemple}[Calcul de $\int x^2e^x \; dx$]
+\pause
+\begin{itemize}
+  \item $\displaystyle\int x^2e^x \; dx \uncover<11->{= \big[ x^2e^x \big] - 2\int x e^x \; dx }
+\qquad \uncover<10->{\textcolor{blue}{u=x^2} \text{ et } \textcolor{blue}{v'=e^x}}$
+\pause \pause \pause
+  \item $\displaystyle\int x e^x \; dx \pause = \big[x e^x\big] - \int e^x \; dx \pause= (x-1)e^x+c$
+\pause
+  \item $\displaystyle\int x^2e^x \; dx = (x^2-2x+2) e^x + c$
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+
+
+
+%---------------------------------------------------------------
+\section*{Changement de variable}
+
+\begin{frame}
+\begin{theoreme}
+Soit $f : I \to \Rr$ et $\varphi : J \to I$ une bijection $\mathcal{C}^1$
+
+Pour tout $a,b\in J$ 
+\mybox{$\displaystyle\int_{\varphi(a)}^{\varphi(b)} f(x) \; dx \ \  = \ \ \int_a^b f\big(\varphi(t)\big)\cdot\varphi'(t) \; dt$}
+\end{theoreme} 
+
+\vfill
+\pause
+
+\centerline{$x=\varphi(t) \pause \implies \frac{dx}{dt} = \varphi'(t) \pause \implies dx = \varphi'(t) \; dt$}
+\pause
+\medskip
+\centerline{$\implies f(x) \; dx = f(\varphi(t)) \; \varphi'(t) \; dt$}
+\pause
+\medskip
+\centerline{$\implies \int_{\varphi(a)}^{\varphi(b)} f(x) \; dx = \int_a^b f(\varphi(t)) \; \varphi'(t) \; dt$}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\begin{exemple}
+\[
+F=\int \tan t \; dt \pause = \int \frac{\sin t}{\cos t} \; dt \;
+\]
+\pause
+\begin{itemize}
+  \item Forme $\frac{u'}{u}$ (avec $u=\cos t$ et $u'=-\sin t$), \pause primitive est $\ln|u|$
+
+\pause
+
+Donc $F = \int -\frac{u'}{u} = -\big[\ln |u| \big] = -\ln|u|+c = -\ln|\cos t|+c$
+
+
+\pause
+
+  \item Changement de variable $x = \varphi(t)= \cos t$, \pause $dx = -\sin t \; dt$
+\pause
+$$
+F = \int \tan t \; dt \pause = \int -\frac{\varphi'(t)}{\varphi(t)} \; dt
+$$
+\pause
+$$f(x)=\frac1x \pause \qquad F = - \int \varphi'(t) f(\varphi(t))\; dt \pause = -\int f(x) \; dx$$
+\pause
+ $$\qquad\qquad\qquad\qquad=-\int \frac1x \;dx \pause = -\ln|x|+c \; \pause = -\ln|\cos t| + c$$
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+
+\begin{frame}
+\begin{exemple}
+
+\hfil\hfil Calcul de $\displaystyle \int_0^{1/2}\frac{x}{(1-x^2)^{3/2}} \;dx$
+
+\pause
+
+\begin{itemize}
+  \item Changement de variable $u=\varphi(x) = 1-x^2$
+\pause 
+  \item Alors $du = \varphi'(x) \; dx = -2x \; dx$
+
+\uncover<6->{  \item Pour \textcolor{blue}{$x=0$} on a \textcolor{blue}{$u=\varphi(0)=1$}} 
+
+\uncover<9->{  \item Pour \textcolor{orange}{$x=\frac12$} on a \textcolor{orange}{$u=\varphi(\frac{1}{2})=\frac34$}}
+
+\end{itemize}
+
+\pause
+$$\int_{\uncover<7->{\textcolor{blue}{0}}}^{\uncover<10->{\raise1ex\hbox{\scriptsize \textcolor{orange}{1/2}}}}\frac{x \; dx}{(1-x^2)^{3/2}} 
+\pause= \int_{\uncover<8->{\textcolor{blue}{1}}}^{\uncover<11->{\raise1ex\hbox{\scriptsize \textcolor{orange}{3/4}}}} \frac{-\tfrac12 \; du}{u^{3/2}} 
+\pause\pause\pause\pause\pause\pause\pause = -\tfrac12\int_1^{3/4} u^{-3/2}\;du$$
+\pause 
+$$
+= -\tfrac12\big[-2u^{-1/2}\big]_1^{3/4}
+\pause
+=\big[\frac1{\sqrt{u}}\big]_1^{3/4} \pause = \frac1{\sqrt{\frac34}}-1\pause = \frac{2}{\sqrt3}-1$$
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\hfil\hfil Calcul de $\displaystyle \int_0^{1/2}\frac{1}{(1-x^2)^{3/2}} \;dx$
+
+\pause
+
+\begin{itemize}
+  \item Changement de variable $x=\varphi(t) = \sin t$ \pause \quad $1-x^2=\cos^2t$
+\pause
+  \item $dx = \cos t \; dt$
+\pause
+  \item $t=\arcsin x$ donc pour $x=0$ on a $t=\arcsin(0)=0$
+\pause
+  \item Pour $x=\frac12$ on a $t=\arcsin(\frac12)=\frac\pi6$
+\end{itemize}
+
+\pause
+
+\[
+\int_0^{1/2} \frac{dx}{(1-x^2)^{3/2}}
+\pause
+= \int_0^{\pi/6}\frac{\cos t \; dt}{(1-\sin^2 t)^{3/2}}
+\pause
+= \int_0^{\pi/6}\frac{\cos t \; dt}{(\cos^2 t)^{3/2}} 
+\]
+\pause
+\[
+= \int_0^{\pi/6}\frac{\cos t}{\cos^3 t} \;dt 
+\pause
+=  \int_0^{\pi/6}\frac{1}{\cos^2 t} \;dt 
+\pause
+= \big[\tan t\big]_0^{\pi/6}
+\pause
+=\frac{1}{\sqrt{3}} 
+\]
+\end{exemple}
+\end{frame}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Mini-exercices}
+
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Calculer les intégrales à l'aide d'intégrations par parties: 
+  $\int_0^{\pi/2} t \sin t \; dt$, $\int_0^{\pi/2} t^2 \sin t \; dt$, puis par récurrence
+  $\int_0^{\pi/2} t^n \sin t \; dt$.
+
+  \item Déterminer les primitives à l'aide d'intégrations par parties:
+  $\int t \sh t \; dt$, $\int t^2 \sh t \; dt$, puis par récurrence
+  $\int t^n \sh t \; dt$.
+
+  \item Calculer les intégrales à l'aide de changements de variable:
+  $\int_0^a \sqrt{a^2 - t^2} \; dt$ ;
+  $\int_{-\pi}^\pi \sqrt{1+\cos t} \; dt$ (pour ce dernier poser deux changements de variables : 
+  $u = \cos t$, puis $v=1-u$). 
+
+  \item Déterminer les primitives suivantes à l'aide de changements de variable :
+  $\int \tanh t \; dt$ où $\tanh t = \frac{\sh t}{\ch t}$,
+  $\int e^{\sqrt{t}} \; dt$.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+\end{document}

@@ -1,0 +1,385 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={142,35,35}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcommand{\ppcm}{\mathop{\text{ppcm}}\nolimits}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Polynômes}}
+\subtitle{Arithmétique des polynômes}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Division euclidienne
+    \item<4-> pgcd
+    \item<5-> Théorème de Bézout
+%    \item<6-> ppcm    
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%---------------------------------------------------------------
+\section{Division euclidienne}
+
+\begin{frame}
+Soient $A,B \in\Kk[X]$
+\begin{mydefinition}
+$B$ \defi{divise} $A$ s'il existe  $Q\in\Kk[X]$ tel que $A=BQ$
+\end{mydefinition}
+
+\pause
+
+\begin{itemize}
+  \item On note $B|A$
+  \item $A$ est multiple de $B$
+  \item $A$ est divisible par $B$
+\end{itemize}
+
+\pause
+
+\begin{proposition}
+\begin{enumerate}[<+->]
+  \item $A|A$, $1|A$ et $A|0$
+  \item Si $A|B$ et $B|A$, alors il existe $\lambda \in\Kk^*$ tel que $A=\lambda B$
+  \item Si $A|B$ et $B|C$ alors $A|C$
+  \item Si $C|A$ et $C|B$ alors  $C|(AU+BV)$, pour tout $U,V \in\Kk[X]$
+\end{enumerate}  
+\end{proposition}
+\end{frame}
+
+
+\begin{frame}
+\begin{theoreme}[Division euclidienne]
+Soient $A,B \in\Kk[X]$, avec $B \neq 0$
+
+Il \evidence{existe} des polynômes $Q$ et $R$ \evidence{uniques} tels que :
+\mybox{$A=BQ+R \quad \text{ et } \quad \deg R < \deg B$}
+\end{theoreme}
+
+\pause
+\bigskip
+
+\begin{itemize}[<+->]
+  \item $Q$ est le \defi{quotient} et $R$ le \defi{reste} de la \defi{division euclidienne}
+  \item $\deg R < \deg B \iff R=0 \text{ ou } 0 \le \deg R < \deg B$
+  \item $R=0 \iff  B|A$
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+  \item $A=2X^4-X^3-2X^2+3X-1$ \quad et \quad  $B=X^2-X+1$
+\pause  
+  \item $Q= 2X^2+X-3$ \quad et \quad $R=-X+2$
+\pause  
+  \item $A=BQ+R$ et $\deg R < \deg B$
+\end{itemize}
+\pause  
+\myfigure{1.2}{
+\tikzinput{fig_polynome01-pres}
+}
+
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+  \item $A=X^4-3X^3+X+1$ \quad et \quad  $B=X^2+2$
+ 
+\uncover<10->{  \item $Q=X^2-3X-2$ \quad et \quad $R=7X+5$}
+\end{itemize}
+\pause
+\pause
+\myfigure{1.2}{
+\tikzinput{fig_polynome02-pres}
+}
+\end{exemple}
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+\section{pgcd}
+
+\begin{frame}
+Soient  $A,B \in\Kk[X]$, avec $A \neq 0$ ou $B \neq 0$
+\begin{proposition} 
+\label{prop_pgcd1}
+Il existe un unique polynôme unitaire de plus grand degré qui divise à la fois $A$ et $B$.
+\pause
+On le note \defi{$\pgcd(A,B)$}
+\end{proposition}
+
+
+\bigskip
+\pause
+
+\begin{remarque}
+\begin{itemize}
+  \item $\pgcd(A,B)$ est un polynôme unitaire
+\pause 
+  \item Si $A=BQ+R$ alors $\pgcd(A,B) = \pgcd(B,R)$
+\end{itemize}
+\end{remarque}
+
+
+\end{frame}
+
+\begin{frame}
+\textbf{Algorithme d'Euclide}
+
+\pause
+
+$$\begin{array}{ll}
+A = B Q_1+R_1 \quad \quad & \deg R_1 < \deg B \\
+\pause
+B = R_1 Q_2 + R_2  & \deg R_2 < \deg R_1 \\
+\pause
+R_1=R_2Q_3+R_3 & \deg R_3 < \deg R_2 \\
+\pause
+\vdots & \\
+\pause
+R_{k-2}=R_{k-1}Q_{k}+R_k  & \deg R_k < \deg R_{k-1} \\
+\pause
+R_{k-1}=R_kQ_{k+1} & \\
+\end{array}$$
+
+\pause
+
+\begin{itemize}[<+->]
+  \item Le pgcd est le dernier reste non nul $R_k$ (rendu unitaire)
+  \item Divisions euclidiennes successives
+  \item Le degré du reste diminue à chaque division
+  \item L'algorithme se termine lorsque le reste est nul
+  \item {\small $\pgcd(A,B)=\pgcd(B,R_1)=\pgcd(R_1,R_2)=\cdots =\pgcd(R_k,0)=R_k$}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+Calculons le pgcd de  $A=X^4-1$ et $B=X^3-1$
+
+\pause
+\medskip
+
+On applique l'algorithme d'Euclide
+$$\begin{array}{rcl}
+X^4-1 & = & (X^3-1) \times X + X-1 \\
+\pause
+X^3-1 & = & (X-1)\times (X^2+X+1) + 0 \\
+\end{array}$$
+
+\pause
+\medskip
+
+Le pgcd est le dernier reste non nul
+
+$$\pgcd(X^4-1, X^3-1)=X-1$$
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+Pgcd de  $A=X^5+X^4+2X^3+X^2+X+2$ et $B=X^4+2X^3+X^2-4$
+
+\medskip
+\pause
+
+{\footnotesize
+$$\begin{array}{rcl}
+\!\!\!\!\!\!X^5+X^4+2X^3+X^2+X+2 & \!\!\!\! = \!\!\!\! & (X^4+2X^3+X^2-4)  (X\!-\!1)  + 3X^3+2X^2+5X-2\\
+\pause
+X^4+2X^3+X^2-4 & \!\!\!\! = \!\!\!\! & (3X^3+2X^2+5X-2) \frac19(3X+4) - \frac{14}{9}(X^2+X+2) \\
+\pause
+3X^3+2X^2+5X-2 & \!\!\!\! = \!\!\!\!  & (X^2+X+2) (3X-1) + 0 \\
+\end{array}$$
+}
+
+\medskip
+\pause
+
+Ainsi $\pgcd(A,B)=X^2+X+2$
+\end{exemple}
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Théorème de Bézout}
+
+\begin{frame}
+
+Soit $D=\pgcd(A,B)$
+
+\begin{theoreme}[de Bézout]
+\label{thm_Bezout}
+Il existe $U, V\in \Kk[X]$ tels que \myboxinline{$AU+BV=D$}
+\end{theoreme}
+
+\pause
+
+\begin{exemple}
+\begin{itemize}[<+->]
+  \item $\pgcd(X^4-1, X^3-1) = X-1$
+  \item $X^4-1  =  (X^3-1) \times X + X-1$
+  \item $X-1 = (X^4-1)\times 1 + (X^3-1) \times (-X)$
+  \item $U=1$ et $V=-X$
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}  
+\setlength{\itemsep}{7pt} 
+  \item $A=X^5+X^4+2X^3+X^2+X+2$ et $B=X^4+2X^3+X^2-4$
+  \item $D= \pgcd(A,B)=X^2+X+2$
+\end{itemize}
+\pause
+{\footnotesize
+$$\begin{array}{rcl}
+A & =  & B \times  (X\!-\!1)  + 3X^3+2X^2+5X-2\\
+B &  =  & (3X^3+2X^2+5X-2) \frac19(3X+4) - \frac{14}{9}(X^2+X+2) \\
+3X^3+2X^2+5X-2 &  =   & (X^2+X+2) (3X-1) + 0 \\
+\end{array}$$
+}
+\pause
+\begin{itemize}
+\setlength{\itemsep}{7pt}
+  \item $- \frac{14}{9} D = B - (3X^3+2X^2+5X-2)\times \frac19(3X+4)$
+\pause
+  \item $- \frac{14}{9} D = B - \big(A-B\times(X-1)\big)\times \frac19(3X+4)$
+\pause
+  \item $- \frac{14}{9}D = -A\times \frac19(3X+4) + B\big(1+(X-1)\times \frac19(3X+4)\big)$  
+\pause
+  \item {\small $U=\frac{1}{14}(3X+4)$  et  $V= -\frac{1}{14}\big(9+(X-1)(3X+4)\big)=-\frac{1}{14}(3X^2+X+5)$}
+\pause
+  \item $AU+BV=D$
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{mydefinition}
+$A$ et $ B$ sont \defi{premiers entre eux} si  $\pgcd(A,B)=1$
+\end{mydefinition}
+
+\pause
+\bigskip
+
+Si  $\pgcd(A,B)=D$ alors $A=DA'$, $B=DB'$ avec $\pgcd(A',B')=1$
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{corollaire}
+$A$ et $B$ sont premiers entre eux si et seulement s'il existe deux polynômes $U$ et $V$ tels que 
+\mybox{$AU+BV=1$}
+\end{corollaire}
+
+\pause
+
+\begin{corollaire}
+Si $C|A$ et $C|B$ alors $C|\pgcd(A,B)$
+\end{corollaire}
+
+\pause
+
+\begin{corollaire}[Lemme de Gauss]
+Si $A|BC$ et $\pgcd(A,B)=1$ alors $A|C$
+\end{corollaire}
+
+\end{frame}
+
+% %---------------------------------------------------------------
+% \section{ppcm}
+% 
+% 
+% \begin{frame}
+% 
+% $A, B\in \Kk[X]$ des polynômes non nuls
+% \begin{proposition}
+% Il existe un unique polynôme unitaire $M$ de plus petit degré tel que $A|M$ et $B|M$
+% \end{proposition}
+% 
+% \pause
+% 
+% Ce polynôme est le \defi{ppcm} de $A$ et $B$ 
+% 
+% \pause
+% 
+% \begin{exemple}
+%  $\ppcm  \big( X(X-2)^2(X^2+1)^4, (X+1)(X-2)^3(X^2+1)^3 \big)$ \\
+%  \hfill $=  X(X+1)(X-2)^3(X^2+1)^4$
+% \end{exemple}
+% 
+% \pause
+% 
+% \begin{proposition}
+% Si $C\in\Kk[X]$ est un polynôme tel que $A|C$ et $B|C$, alors $\ppcm(A,B)|C$
+% \end{proposition}
+% 
+% \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Trouver les diviseurs de $X^4+2X^2+1$ dans $\Rr[X]$, puis dans $\Cc[X]$.
+
+  \item Montrer que $X-1|X^n-1$ (pour $n\ge 1$).
+
+  \item Calculer les divisions euclidiennes de $A$ par $B$ avec $A=X^4-1$, $B=X^3-1$.
+Puis $A = 4X^3+2X^2-X-5$ et $B = X^2+X$ ; $A= 2X^4-9X^3+18X^2-21X+2$ et $B=X^2-3X+1$ ;
+$A=X^ 5-2X^4+6X^3$ et $B=2X^3+1$.
+
+  \item Déterminer le pgcd de $A=X^5+X^3+X^2+1$ et $B=2X^3+3X^2+2X+3$.
+Trouver les coefficients de Bézout $U,V$.
+Mêmes questions avec $A=X^5-1$ et $B=X^4+X+1$.
+
+  \item Montrer que si $AU+BV=1$ avec $\deg U < \deg B$ et $\deg V < \deg A$ 
+  alors les polynômes $U,V$ sont uniques.
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

@@ -1,0 +1,562 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+\change
+
+Dans cette partie sur les suites, nous donnons la définition 
+précise de la limite (finie ou infinie) pour une suite de réels,
+
+\change
+
+après quoi nous discuterons des propriétés des limites.
+
+\change
+
+Après avoir donné quelques preuves, 
+
+\change 
+
+nous conclurons en précisant les liens entre limites et inégalités.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \diapo
+% 
+% Commençons par un exemple concret de limite de suite.
+% 
+% \change
+% 
+% On achète un abonnement de train qui permet de payer les billets à 
+% $50\%$ du prix normal soit $10$ euros au lieu de $20$ euros. 
+% 
+% \change
+% 
+% L'abonnement vaut lui-même $50$ euros.
+% 
+%  \change 
+% 
+%  Pour calculer la réduction réelle, on considère deux suites,
+%  
+%  tout d'abord une suite  $u_n$ correspondant au prix payés au bout de $n$ d'achats sans réduction.
+%  
+%  $ u_n=20n$
+%  
+%  \change
+% 
+%  et $v_n$ calculant le prix payé au bout de $n$ d'achats avec réduction en incluant le prix de l'abonnement.
+%  
+%   $v_n=10n+50$
+% 
+%  \change 
+% 
+%  Le pourcentage de la réduction réelle entre ces deux options : 
+% 
+%  est 
+%  $1-\frac{v_n}{u_n}$
+%  
+%  \change
+%  
+%  ce qui se réécrit  $=\frac{u_n-v_n}{u_n}$
+%  
+%  \change
+%  
+%  on remplace par les valeurs des termes pour obtenir $\frac{10n-50}{20n}$
+%  
+%  \change
+%  
+%  Ce qui donne  $0,5 -\frac{5}{2n}$
+%  
+%  \change
+%  
+%  Lorsque $n$ devient grand la réduction s'approche de $0,5$.
+% 
+% 
+%  La vraie réduction \emph{tend} vers $50\%$ pour un nombre infini d'achats, 
+%  tout en lui restant toujours inférieure. 
+% 
+%  
+%  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici la définition mathématique de limite.
+
+\change
+
+[petit n, grand N]
+
+La suite $(u_n)$ a pour \defi{limite} $\ell\in \Rr$ si : 
+pour tout $\epsilon >0$, il existe un entier 
+$N$ tel que dès que l'entier $n$ est $\geq N$ alors $\lvert u_n-\ell\rvert\leq\epsilon$. 
+
+\change
+
+voici la phrase mathématique :
+
+pour tout $\epsilon >0$, il existe un entier naturel $N$ 
+tel que si $n\geq N$ alors $\lvert u_n-\ell\rvert\leq\epsilon$
+
+Autrement dit : $u_n$ est aussi proche que l'on veut de $\ell$, à partir d'un certain rang.
+
+\change
+
+Si elle existe on note "limite de $u_n$ égale $\ell$ lorsque $n$ tend vers $+\infty$"
+
+ou aussi "$u_n$ tend vers $\ell$ lorsque $n$ tend vers $+\infty$".
+
+\change
+
+L'inégalité $|u_n-\ell| \le \epsilon$ équivaut à l'encadrement 
+$\ell-\epsilon \le u_n \le \ell +\epsilon$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici une figure pour vous aidez à comprendre et retenir la définition
+de $u_n\to \ell$, lorsque $n\to +\infty$.
+
+\change
+
+
+La suite est représentée en bleue.
+
+
+
+Tout choix de $\epsilon$, qui moralement est très petit,
+définie une bande horizontale, entre ces deux trais rouge, qui correspond aux ordonnées compris
+entre $\ell-\epsilon$ et $\ell+\epsilon$.
+
+Nous devons alors trouver un rang grand $N$, tel que pour tout les indices petit $n$
+supérieurs à ce grand $N$, alors $u$ indice petit $n$ est dans la bande, c-à-d compris entre 
+$\ell-\epsilon$ et $\ell+\epsilon$.
+
+Sur cet exemple, j'ai choisi cette valeur pour grand $N$, 
+et effectivement toutes les valeurs suivantes sont dans la bande.
+C'est le cas en particulier pour cette valeur de $u_n$.
+
+Bien sûr si on me donne $\epsilon$ plus petit, la bande sera plus fine ; 
+alors ce grand $N$ ne convient plus et je dois en trouver un beaucoup plus grand.
+
+Si pour tout les epsilon je peux trouver un tel grand $N$, alors par définition
+$u_n \to \ell$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La suite $(u_n)_{n\in \Nn}$ \defi{tend vers $+\infty$} si :
+pour tout $A >0$, il existe un entier naturel $N$ tel que si $n\geq N$ alors $u_n\geq A$ . 
+
+Autrement dit : $u_n$ est aussi grand que l'on veut, à partir d'un certain rang.
+
+\change
+
+Sur ce graphique, pour chaque $A$, qui moralement est très grand,
+on doit trouver un rang grand $N$ tel que, pour des indices plus grands 
+que $N$ alors les termes sont supérieurs à $A$.
+
+\change
+
+On obtient la définition de $(u_n)_{n\in \Nn}$ 
+\defi{tend vers $-\infty$} en inversant le signe et le sens 
+de l'inégalité pour la constante $A$, 
+ce qui revient à dire pour faire bref que la suite $(-u_n)_{n\in \Nn}$ tend vers $+\infty$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Enfin, une suite $(u_n)_{n\in \Nn}$ est dite \defi{convergente} 
+si elle admet une limite \evidence{finie}.
+
+Sinon on dit que la suite est \defi{divergente} :
+
+c'est-à-dire soit la suite tend vers $\pm \infty$, soit elle n'admet pas de limite.
+
+\change
+
+Voici une proposition importante :
+
+"Si une suite est convergente, sa limite est unique"
+
+Il y a donc \emph{unicité} de la limite d'une suite.
+
+
+Autrement dit, si une limite existe, elle est unique.
+et on parle de *\evidence{la}* limite.
+% 
+% 
+% \change
+% 
+%  On raisonne par l'absurde : soit donc $(u_n)_{n\in \Nn}$ une suite convergente ayant deux limites $\ell\neq \ell'$. 
+%  
+% \change
+% 
+% On choisit un nombre $\epsilon >0$ strictement plus petit que la moitié de la distance entre les deux limites $l$ et $l'$. 
+% 
+% \change
+% 
+% Comme $\lim_{n\to +\infty}u_n=\ell$, il existe un entier naturel $N_1$ tel que $n\geq N_1$ implique que la distance de $ u_n$ à $\ell$ soit plus petite que $\epsilon$. 
+% 
+% \change
+% 
+% De même comme $\lim_{n\to +\infty}u_n=\ell'$, il existe $N_2$ tel que $n\geq N_2$ implique que la distance de $ u_n$ à $\ell'$ soit plus petite que $\epsilon$. 
+% 
+% 
+% \change 
+% 
+% Alors pour $N$ assez grand, par exemple pour $N=\max(N_1,N_2)$, on a que les distances de  $ u_n$ à $l$ et à $l'$ sont plus petites que $\epsilon$. 
+% 
+% \change
+% 
+% 
+% 
+% Alors l'inégalité triangulaire implique que la distance de $l$ à $l'$ est plus petite que $2\epsilon$.
+% 
+% \change
+% 
+% Ceci contredit notre choix de $\epsilon$ et conclut la démonstration.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \diapo
+
+ On rassemble ici quelques opérations usuelles sur les limites.
+
+ On commence par les limites \emph{finies}.
+ 
+ Si une suite $(u_n)$ tend vers un réel $\ell$ alors
+ la suite $(\lambda u_n)$, où chaque terme est multiplié par 
+ le réel $\lambda$ a pour limite $\lambda \ell$.
+
+ \change 
+ 
+ Si on a une suite qui tend vers $\ell$ et une autre qui tend vers $\ell'$ alors
+ la somme tend vers $\ell+\ell'$.
+ 
+ Autrement dit : "La limite d'une somme est la somme des limites".
+ 
+ 
+\change
+
+C'est pareil pour le produit :
+"La limite d'un produit est le produit des limites".
+
+Si $u_n \to \ell$ et $v_n \to \ell'$ alors la suite dont le terme général
+est le produit $u_n \times v_n$ tend vers $\ell \times \ell'$.
+
+\change
+
+C'est deux propriétés sont utiles continuellement.
+
+\change
+
+Soit une suite $(u_n)$ qui a pour limite $\ell$ un réel *non nul*
+alors 
+
+ * premièrement  à partir d'un certain rang la suite $u_n$ ne s'annule pas,
+ 
+ * deuxièmement la suite des termes $1/u_n$ tend vers $1/\ell$.
+ 
+ \change
+ 
+Nous utilisons ces propriétés, le plus souvent sans nous en rendre compte.
+
+Par exemple si $u_n \to \ell$ avec $\ell \neq \pm 1$, alors 
+$$u_n(1-3u_n)-\frac{1}{u_n^2-1} \to \ell(1-3\ell) - \frac{1}{\ell^2-1}$$
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On passe maintenant aux limites \emph{infinies}.
+
+Si $u_n$ tend vers $+\infty$ alors la suite des $1/u_n$ tend vers $0$.
+
+
+\change 
+
+Réciproquement si $u_n$ tend vers $0$ et que les $u_n$ sont strictement positifs alors 
+$1/u_n$ tend vers $+\infty$.
+
+\change 
+
+Une somme de suites dont l'une tend vers $+\infty$ et l'autre 
+est minorée tend vers $+\infty$.
+
+\change
+
+La même propriété a lieu avec le produit si l'une des suites 
+tend vers $+\infty$ et l'autre est minorée par un nombre $>0$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \diapo
+
+ On va maintenant prouver complètement l'affirmation 
+ "la limite d'un produit est le produit des limites".
+
+ On commence par la proposition suivante, qui affirme qu'une suite convergente est nécessairement \emph{bornée}.
+
+ \change
+
+ Soit donc $(u_n)$ une suite qui converge, on note $\ell$ sa limite.
+ 
+ \change
+ 
+ Pour montrer cette proposition, on applique la définition de limite finie 
+ en prenant une précision arbitraire, par exemple $\epsilon=1$. 
+
+ Voici une représentation graphique.
+ 
+ 
+ \change 
+
+ Donc à partir d'une certain rang $N$, la suite $u_n$ est à distance au plus $1$ de la limite $\ell$ :
+ c-à-d $|u_n-\ell| \le 1$.
+
+ \change
+
+ Nous allons majorer $u_n$ en valeur absolue :
+ 
+ \change
+ 
+ Tout d'abord on réécrit $u_n$ comme étant $\ell + (u_n-\ell)$.
+ 
+ \change
+ 
+ 
+ En appliquant l'inégalité triangulaire, on majore la valeur absolue de $u_n$ par celle de $\ell$ plus 
+ celle de $u_n-\ell$.
+
+ \change
+ 
+ Mais $|u_n-\ell| \le 1$ donc on obtient que $|u_n| \le |\ell|+1$.
+ 
+ On vient de prouver que la suite est bornée à partir d'un certain rang $N$.
+
+\change
+
+Mais comme les premiers termes de la suite 
+$u_0, u_1,\ldots,u_{N-1}$ sont en nombre fini, 
+ils forment un ensemble également borné.
+
+On pose $M$ le maximum des valeurs absolues des premiers termes, 
+et de la valeur absolue de $\ell \quad +1$, obtenue pour les autres.
+
+\change
+
+
+On obtient un majorant pour $|u_n|$ quelque soit $n$.
+
+Ce qui prouve exactement que la suite est bornée.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \diapo
+
+Dans une deuxième étape, on prouve une nouvelle proposition : 
+le produit d'une suite bornée et d'une suite qui tend vers $0$ est une suite qui tend vers $0$.
+
+\change
+
+Comme application directe, on peut prendre par exemple la suite $u_n=\cos(n)$ 
+et la suite $v_n=\frac{1}{\sqrt{n}}$ :
+alors la suite $\frac{\cos n}{\sqrt n}$ tend vers $0$ (lorsque $n \to +\infty$).
+
+\change
+Donnons la preuve de la proposition.
+Comme la suite $(u_n)_{n\in \Nn}$ est bornée, on peut donc trouver par définition 
+un réel $M>0$ tel que pour tout $n$ on ait $\lvert u_n \rvert\leq M$. 
+
+\change
+
+On nous donne un $\epsilon >0$. On doit montrer que pour $n$ assez grand, on a  $\lvert u_nv_n \rvert<\epsilon$.
+
+\change 
+
+On applique la  définition de limite à la suite $(v_n)_{n\in \Nn}$ 
+
+\change
+
+pour  la précision $\epsilon'=\frac{\epsilon}{M}$.  
+
+\change
+
+Il existe donc un entier naturel $N$ tel que 
+$n\geq N$ implique $$ \lvert v_n  \rvert\leq  \epsilon'$$ 
+
+
+\change
+
+On en déduit que pour  $n\geq N$ on a :
+\[ \lvert u_nv_n \rvert= \lvert u_n \rvert \lvert v_n \rvert \leq M\times \epsilon'=\epsilon .\]
+
+\change
+
+Pour tout $\epsilon$ on a trouvé un rang $N$ tel que pour $n\ge N$ alors $|u_n v_n| \le \epsilon$.
+
+On a bien montré que $\lim_{n\to +\infty}\left(u_n\times v_n\right)=0$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \diapo
+
+On peut à présent prouver le résultat : la limite d'un produit de suites convergentes existe et est le produit des limites.
+%de chacun des termes du produit.
+
+\change
+
+On commence par écrire l'égalité 
+  \[
+    u_nv_n-\ell\ell'=(u_n-\ell)v_n+\ell(v_n-\ell')
+  \]
+
+  \change
+
+  La suite $\ell(v_n-\ell')$ tend vers $0$ car $\ell$ est une constante et $v_n\to \ell'$. 
+
+  \change
+
+  D'après la proposition précédente, c'est aussi le cas pour la suite $(u_n-\ell)v_n$, 
+
+  \change
+   
+   Tout d'abord $u_n \to \ell$ donc $u_n-\ell \to 0$
+   
+   \change
+   
+ la suite $(v_n)$ est bornée, car $(v_n)$ est convergente
+ 
+ \change
+ 
+ donc par la proposition de la page précédente $(u_n-\ell)v_n \to 0$.
+
+\change
+
+Ainsi chacun de ces deux termes tendent tend vers $0$.
+
+On en déduit $u_nv_n-\ell\ell' \to 0$, 
+ce qui n'est rien d'autre que le résultat voulu :  $\lim_{n\to +\infty} u_nv_n=\ell\ell'$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \diapo
+
+Lorsqu'on est dans une situation où les règles précédentes 
+concernant les opérations sur les limites ne s'appliquent pas, 
+on parle de \emph{forme indéterminée}.
+
+\change
+
+Une forme indéterminée des plus courantes est \og{}$+\infty-\infty$\fg{} 
+
+
+Cela signifie que si $u_n \to + \infty$ et $v_n \to + \infty$
+alors on ne peut rien dire de général sur la limite de la différence 
+$(u_n-v_n)$
+
+Voici trois exemples où $u_n \to + \infty$ et $v_n \to + \infty$
+mais avec des comportement pour $u_n-v_n$ différents.
+
+\change
+
+Premier exemple $u_n = e^n$  et $v_n=\ln(n)$ qui tendent toutes deux vers $+\infty$
+et ici la différence $u_n-v_n$ tend vers $+\infty$.
+
+\change
+
+Deuxième exemple $u_n = n$  et $v_n=n^2$ qui tendent encore toutes deux vers $+\infty$
+mais cette fois $u_n-v_n$ tend vers $-\infty$.
+
+\change
+
+Enfin pour ce troisième exemple $u_n = n+1/n$  et $v_n=n$
+la différence vaut $1/n$ et tend donc vers $0$.
+
+\change
+
+Autre situation fréquente : une forme indéterminée du type \og{} $0\times \infty$\fg{}
+
+\change
+
+Voici des exemples qui montrent que tout type de résultat 
+est possible.
+
+\change
+
+Voici encore d'autres formes indéterminées possibles.
+
+Lorsque l'on est en présence d'une forme indéterminée, 
+une étude plus approfondie au cas par cas 
+s'impose pour déterminer la limite.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On conclut cette partie du chapitre sur les suites par une proposition reliant limites et inégalités.
+
+Si deux suites convergentes sont dans un certain ordre, alors leurs limites sont dans le même ordre.
+
+Autrement dit si on a $u_n \le v_n$ pour tout $n$ et que les deux suites admettent une limite alors
+$\lim u_n \le \lim v_n$.
+
+\change
+
+Une variante existe dans le cas 
+où $u_n$ tend vers $+\infty$ et que $v_n$ est plus grand que $u_n$ pour tout $n$ alors
+la suite $(v_n)$ tend aussi vers $+\infty$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Enfin le théorème des  \og{}gendarmes  \fg{} 
+
+
+\change
+
+[image]
+
+affirme que si une suite est coincée 
+entre deux autres tendant vers une *même* limite, alors la suite du milieu tend elle-même vers la limite commune.
+
+Plus précisément : nous avons trois suites $(u_n)$, $(v_n)$, $(w_n)$
+telles que $v_n$ soit comprise entre $u_n$ et $w_n$ (ceci pour tout $n$)
+
+On suppose de plus que les deux suites encadrantes, $u_n$ et $w_n$ tendent vers une même limite $\ell$.
+
+Alors la conclusion est double :
+
+tout d'abord $v_n$ est une suite convergente (ce que l'on ne savait pas au départ)
+
+et en plus sa limite est aussi $\ell$.
+
+
+\change
+Il est intuitif de deviner quelle est la limite de la suite $u_n =2 +\frac{(-1)^n}{1+n+n^2}$.
+
+A l'aide du théorème des gendarmes il est facile de prouver que l'intuition est juste.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+ Vous pouvez à présent vous exercer avec les énoncés suivants.
+
+
+
+\end{document}

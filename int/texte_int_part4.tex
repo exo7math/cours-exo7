@@ -1,0 +1,603 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Pour trouver une primitive d'une fonction on peut avoir la chance de reconnaître 
+que c'est la dérivée d'une fonction bien connue. C'est malheureusement très rarement le cas : 
+on ne connaît pas les primitives de la plupart des fonctions. 
+
+\change
+
+Nous allons 
+voir deux techniques qui permettent des calculer des intégrales et des primitives : 
+l'intégration par parties 
+
+\change
+
+et le changement de variable.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici la formule d'intégration par parties :
+
+pour $u$ et $v$ deux fonctions de classe $\mathcal{C}^1$ 
+c'est-à-dire dérivable et de dérivée continue alors on a l'égalité :
+
+$\int_a^b u(x) \, v'(x)\;dx= \big[uv\big]_a^b - \int_a^b u'(x) \, v(x)\;dx$
+
+\change
+ Le crochet $\big[F\big]_a^b$ est la notation pour $F(b)-F(a)$.
+
+En particulier $\big[uv\big]_a^b = u(b)v(b)-u(a)v(a)$.
+
+\change
+
+La formule d'intégration par parties pour les primitives est la même mais sans les bornes :
+$$\int u(x)v'(x)\;dx= \big[uv\big] - \int u'(x)v(x)\;dx.$$
+
+\change
+
+Ici le crochet sans les bornes $\big[F\big]$ désigne la fonction $F+c$ où $c$ est une constante quelconque.
+
+
+\change
+
+
+La preuve est très simple, elle est basée sur la formule de la dérivée du produit :
+
+Partons de $(uv)'=u'v+uv'$.
+
+\change
+
+Lorsque l'on intègre cette égalité de part et d'autre alors on obtient l'égalité 
+$\int_a^b (u'v+uv')=\int_a^b (uv)'$
+
+\change
+
+Mais intégrer une dérivée c'est évaluer la fonction entre $a$ et $b$ :
+
+c-à-d $\big[uv\big]_a^b$
+
+\change
+
+D'où la formule $\int_a^b uv'= \big[uv\big]_a^b - \int_a^b u'v$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+% Lorsque l'on ne sait pas calculer directement l'intégrale d'une fonction $f$ s'écrivant 
+% 
+% on peut essayer d'écrire la fonction sous la forme d'un produit $f(x)=u(x)v'(x)$ 
+% 
+% et utiliser la formule d'intégration par parties pour calculer l'intégrale de $f$
+% 
+% il faut bien sûr pour cela calculer cette fois l'intégrale $u'(x)v(x)$ que l'on espère plus simple !
+
+Nous allons voir plusieurs exemples d'intégration par parties.
+
+\change
+
+Commençons par le calcul de $\int_0^1 x e^x \; dx$.
+
+\change
+
+On doit l'écrire sous la forme $uv'$
+
+\change
+
+On va donc poser ici $u=x$ et $v'=e^x$.
+
+\change
+
+
+Nous aurons besoin de savoir que $u'(x)=1$ 
+
+\change
+
+Nous aurons besoin d'une primitive de $v'$ 
+et on prend simplement $v(x)=e^x$.
+
+\change
+
+
+La formule d'intégration par parties donne :
+$\int_0^1 u(x)v'(x)\;dx  =  \big[u(x)v(x)\big]_0^1 - \int_0^1 u'(x)v(x)\;dx$
+
+\change
+
+Donc en remplaçant par nos fonctions on obtient :
+
+$\big[x e^x\big]_0^1 \ \  - \  \int_0^1 1\cdot e^x \;dx$
+
+\change
+
+Le crochet c'est  $x e^x$ évaluer en $1$ moins $xe^x$ évaluer en $0$ c'est donc 
+$1\cdot e^1-0\cdot e^0$
+
+\change
+
+Maintenant le point crucial c'est que la nouvelle intégrale que l'on doit calculer est beaucoup plus simple.
+Il s'agit d'intégrer la fonction $e^x$ dont une primitive est $e^x$.
+
+Donc l'intégrale vaut $\big[e^x\big]_0^1$
+
+\change
+
+Ce second crochet vaut $e^1-e^0$
+
+\change
+
+Donc l'intégrale vaut 
+$e-(e-1)$ donc $1$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On prend un nouvel exemple : il s'agit de calculer  $\int_1^e x\ln x \; dx$.
+
+
+Le problème de l'intégration par partie est de choisir quelle fonction va être $u$ et quelle fonction
+va être $v'$. 
+
+\change
+
+\change
+
+Il n'y a pas de méthode miracle : c'est la pratique et les différents essais
+qui conduisent à la solutions 
+
+\change
+
+Cependant on doit se ramener à une intégrale plus simple 
+
+
+Ici on va poser $u=\ln x$ et $v'=x$.
+C'est-à-dire on dérive $\ln x$ et on intègre $x$.
+
+
+\change
+
+Ainsi 
+$u'=\frac1x$ 
+
+\change
+
+et $v=\frac{x^2}{2}$.
+
+\change
+
+Par la formule d'IPP 
+
+\change
+
+l'intégrale vaut 
+$\big[\ln x \cdot\tfrac{x^2}{2}\big]_1^e - \int_1^e \tfrac 1x \tfrac{x^2}{2} \; dx$
+
+\change
+
+Le crochet vaut $\ln e \tfrac{e^2}{2} - \ln 1 \tfrac{1^2}{2}$ 
+
+\change
+
+Et la deuxième intégrale est $\tfrac12 \int_1^e x  \; dx $
+
+\change
+
+Comme $\ln 1=0$ alors le crochet vaut $\tfrac{e^2}{2}$
+
+
+et pour l'intégrale une primitive de $x$ est $\frac{x^2}{2}$ qu'il faut évaluer entre $1$ et $e$.
+
+\change
+
+Notre intégrale vaut donc $ \tfrac{e^2}{2} - \tfrac{e^2}{4} + \tfrac{1}{4}$
+
+ou encore $\tfrac{e^2+1}{4}$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On continue avec la primitive de  $\arcsin x$. 
+
+Problème : il n'y a qu'une fonction, comment peut-on trouver un produit $u \times v'$.
+
+\change
+
+L'astuce est toute simple on considère que la fonction
+c'est $1 \cdot \arcsin x$
+
+\change
+
+
+On prend donc  $u=\arcsin x$, $v'=1$ 
+
+\change 
+
+la dérivée de $\arcsin$ est $u'=\frac{1}{\sqrt{1-x^2}}$ et une primitive de $1$ est $v=x$.
+
+\change 
+
+la formule d'intégration par parties donne donc 
+
+$\int 1\cdot \arcsin x \; dx = \big[x\arcsin x\big] - \int \frac{x}{\sqrt{1-x^2}} \; dx$
+
+cette fonction est presque de la forme $u'/\sqrt{u}$ dont une primitive est $2\sqrt{u}$.
+
+\change
+
+Donc ici une primitive de $\frac{x}{\sqrt{1-x^2}}$ est $-\sqrt {1-x^2}$
+
+\change
+
+Le crochet c'est la fonction $x\arcsin x$ plus une constante,
+le second crochet c'est $-\sqrt {1-x^2}$ plus une constante 
+
+ainsi les primitives de $\arcsin$ sont les 
+ $x\arcsin x+ \sqrt {1-x^2}+c$
+
+
+\change
+
+Autre exemple à calculer : 
+
+\change
+
+les primitives de $\int x^2e^x \; dx$.
+
+\change
+
+On va dériver $x^2$ et intégrer $e^x$ c'est à dire on pose 
+On pose $u=x^2$ et $v'=e^x$ 
+
+\change
+
+$\int x^2e^x \; dx = \big[ x^2e^x \big] - \int 2x e^x \; dx$
+[lire $-\int$ dérivée de $x^2$ fois primitive de $e^x$.]
+
+\change
+
+A-t-on vraiment progresser ? car on a encore une intégrale qui ne s'intègre pas
+au premier coup d’oeil
+
+\change
+
+On ne se décourage pas et on fait une deuxième intégration par partie
+
+On dérive $x$ et on intègre $e^x$.
+On obtient  
+$\int x e^x \; dx = \big[x e^x\big] - \int e^x \; dx$ 
+
+qui cette fois se calcule immédiatement et vaut $xe^x - e^x$ autrement dit $(x-1)e^x+c$.
+
+\change
+
+On injecte cette formule dans notre première IPP et on 
+conclue :
+$\int x^2e^x \; dx = (x^2-2x+2) e^x + c.$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici le théorème de changement de variable :
+
+
+Soit $f$ une fonction définie sur un intervalle $I$ et $\varphi : J \to I$ une bijection de classe $\mathcal{C}^1$. 
+
+Alors pour tout $a,b\in J$ 
+
+$\int_{\varphi(a)}^{\varphi(b)} f(x) \; dx = \int_a^b f\big(\varphi(t)\big)\cdot\varphi'(t) \; dt$
+
+\change
+
+
+Voici un moyen simple de s'en souvenir. 
+Si l'on note $x=\varphi(t)$ 
+
+\change
+
+alors par dérivation on obtient $\frac{dx}{dt} = \varphi'(t)$
+
+\change
+
+ce qui conduit à l'écriture $dx = \varphi'(t) \; dt$. 
+
+\change 
+
+si l'on remplace $x$ par $\varphi(t)$ alors 
+
+$f(x) \; dx$ devient $f(\varphi(t)) \; \varphi'(t) \; dt$
+
+\change
+
+Que l'on intègre en faisant attention aux bornes
+
+$\int_{\varphi(a)}^{\varphi(b)} f(x) \; dx = \int_a^b f(\varphi(t)) \; \varphi'(t) \; dt$.
+
+Une façon plus rigoureuse de faire cette preuve repose
+sur la formule de la dérivée d'une composition.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Commençons par un exemple : on souhaite calculer la primitive $\tan t$.
+
+\change
+
+Lorsque l'on écrit $\tan t$ sous la forme  $\frac{\sin t}{\cos t}$ 
+
+
+\change
+
+on reconnaît une forme du type $\frac{u'}{u}$ (au signe près)
+
+avec ici $u=\cos t$ et $u'=-\sin t$.
+
+\change
+
+Une primitive de $\frac{u'}{u}$est $\ln|u|$.
+
+\change
+
+Donc notre primitive $F$ vaut ici $-\ln|u|$ plus une une constante.
+
+Mais comme $u=\cos t$ alors $F = -\ln|\cos t|+c$.
+
+\change
+
+Ce que nous avons fait, sans le dire c'est un changement de variable.
+
+Si on note $\varphi$ la fonction $\cos t$
+
+\change 
+
+alors $\varphi'(t) = -\sin t$
+
+Donc $dx = -\sin t \; dt$.
+
+Notre primitive s'écrit donc 
+
+\change
+
+$F = \int \tan t \; dt$
+
+\change
+
+$= \int -\frac{\varphi'(t)}{\varphi(t)} \; dt$
+
+\change
+
+Si on appelle petit $f$ la fonction $f(x)=\frac1x$
+
+\change
+
+alors $F = - \int \varphi'(t) f(\varphi(t))\; dt$
+
+\change
+
+ on reconnaît exactement la formule du changement de variable,
+
+par conséquent 
+$F = -\int f(x) \; dx$
+
+
+\change
+
+On s'est ramené à une fonction beaucoup plus simple :
+il s'agit d'intégrer $-1/x$
+
+\change
+
+dont une primitive est bien sûr $- \ln|x|+c $
+
+\change
+
+et on remplace $x$ par $\cos t$.
+
+Pour retrouver que $F(t) = \ln|\cos t| + c$
+
+C'est primitive sont définies sur des intervalles du type 
+$]-\frac{\pi}{2}, \frac{\pi}{2}[$ translaté de $k\pi$.
+Mais attention la constante $c$ peut être différente sur des intervalles différents.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Calculons $\int_0^{1/2}\frac{x}{(1-x^2)^{3/2}} \;dx$ par changement de variable.
+
+
+\change
+
+
+Nous allons poser $u=\varphi(x) = 1-x^2$
+
+\change
+
+Alors $du = -2x \; dx$. 
+
+\change
+
+Que devient notre intégrale ?
+
+\change
+
+Le dénominateur $(1-x^2)^{3/2}$ devient $u^{3/2}$
+
+et le numérateur $x dx$ devient simplement $-\frac12 du$.
+
+On a bien une intégrale beaucoup plus facile à calculer.
+
+
+Occupons nous-maintenant des bornes !
+
+\change
+
+L'intégrale de départ varie entre $x=0$ et $x=1/2$.
+
+
+Pour $x=0$, alors que vaut $u$ ? Pour $x=0$ on a $u=\varphi(0)=1-0^2=1$.
+
+\change
+
+Notre intégrale en $x$ démarre en $0$ 
+
+\change
+
+donc notre intégrale en $u$ démarre en $1$.
+
+\change
+
+Pour $x=1/2$ alors $u=\varphi(\frac{1}{2})=1-(\frac12)^2=\frac34$.
+
+\change
+
+Notre intégrale en $x$ finit en $1/2$
+
+\change
+
+donc notre intégrale en $u$ finit en $\frac34$.
+
+Donc l'intégrale de départ vaut  maintenant $\int_1^{3/4}\frac{-\tfrac12 \; du}{u^{3/2}} $
+
+L'ordre des bornes est important.
+
+\change
+
+On peut sortir le $-1/2$ pour obtenir l'intégrale de $u^{-3/2}$.
+
+\change
+
+Une primitive de $u^{-3/2}$ est $-2u^{-1/2}$
+
+\change
+
+qu'il faut évaluer entre $1$ et $3/4$.
+
+\change
+
+Donc notre intégrale vaut$\frac1{\sqrt{\frac34}}-1$
+
+\change
+
+ou encore $\frac{2}{\sqrt3}-1$
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+On continue avec un dernier exemple.
+Il s'agit de calculer $\int_0^{1/2}\frac{1}{(1-x^2)^{3/2}} \;dx$.
+
+
+Attention par rapport à l'exemple précédent le dénominateur est le même mais ici le numérateur vaut $1$.
+
+Vous allez voir que le changement de variable est complètement différent !
+
+Il n'y a pas de méthode générale pour savoir quel changement 
+de variable effectuer : il faut tester plusieurs possibilités et avec pas mal de pratique
+on arrive à trouver celui qui convient.
+
+
+Ici il faut essayer de simplifier le dénominateur : est-ce que l'on ne connaît pas une fonction
+qui simplifierait l'équation $1-x^2$ ?
+
+\change
+
+Essayons le changement de variable $x=\varphi(t) = \sin t$.
+L'intérêt est que alors $1-x^2$ devient $1-\sin^2 t$ c'est-à-dire simplement $\cos^2 t$.
+
+\change
+
+On a alors $dx = \cos t \; dt$.
+
+\change
+
+Sur l'intervalle $[0,1/2]$ sinus est un bijection, sa réciproque est arcsin donc
+on a $t=\arcsin x$.  
+
+Pour $x=0$ on a $t=\arcsin(0)=0$
+
+
+\change
+
+et pour $x=\frac12$ on a $t=\arcsin(\frac12)=\frac\pi6$
+
+
+
+\change
+
+
+Allons-y pour le calcul de l'intégrale :
+
+\change
+
+on remplace $x$ par $sin t$,
+
+$dx$ par $\cos t dt$
+
+et on fait attention de changer aussi le borne 
+
+$t$ varie de $0$ à $\pi/6$.
+
+\change
+
+On a déjà dit que le point clé c'est que le dénominateur se simplifie 
+en $(\cos^2 t)^{3/2}$.
+
+\change
+
+ce qui donne $\cos^3 t$ en bas
+
+\change
+
+qui va simplifie avec le $\cos t$ du haut.
+
+On trouve donc l'intégrale de $1/\cos^2 t$.
+
+\change
+
+Mais $1/\cos^2 t$ est la dérivée de $\tan t$.
+
+Donc nous évaluons la primitive $\tan t$ entre $0$ et $\pi/6$.
+
+
+\change
+
+Donc notre intégrale vaut $1/\sqrt3$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+L'intégration par parties et le changement de variable sont deux outils incontournables
+pour le calcul d'intégrales. Nous avons vu quelques exemples
+C'est maintenant à vous de vous entraîner d'abord sur ces exemples simples
+avant de passer à des exercices plus compliqués.
+
+
+\end{document}

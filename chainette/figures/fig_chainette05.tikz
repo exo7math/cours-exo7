@@ -1,0 +1,26 @@
+\begin{tikzpicture}
+  \def\xmin{-3}; 
+  \def\xmax{+3}; 
+  \def\ymin{-3}; 
+  \def\ymax{+3};
+% \draw[help lines] (\xmin,\ymin) grid (\xmax,\ymax);
+  \draw[->,>=latex,thick,gray] (\xmin,0)--(\xmax,0);
+  \draw[->,>=latex,thick,gray] (0,\ymin)--(0,\ymax);
+  \clip (\xmin,\ymin) rectangle (\xmax,\ymax);
+
+  \draw [thick,samples=20,smooth, color=orange] plot({(exp(\x)+exp(-\x))/2},{(exp(\x)-exp(-\x))/2});  
+  \draw [thick,samples=20,smooth, color=brown] plot({-1*(exp(\x)+exp(-\x))/2},{-(exp(\x)-exp(-\x))/2});  
+
+ \draw[thin] (\xmin,\xmin)--(\xmax,\xmax);
+ \draw[thin] (-\xmin,\xmin)--(-\xmax,\xmax);
+
+  \coordinate (M) at ({(exp(1)+exp(-1))/2},{(exp(1)-exp(-1))/2});
+  \fill (M) circle (1.5pt);
+  \node at (M) [right] {$M_t$};  
+
+ \draw[dashed] ({(exp(1)+exp(-1))/2},0)--(M);
+ \draw[dashed] (0,{(exp(1)-exp(-1))/2})--(M); 
+  
+  \node at ({(exp(1)+exp(-1))/2},0) [below] {$\text{ch}\,t$};   
+  \node at (0,{(exp(1)-exp(-1))/2}) [left] {$\text{sh}\,t$};  
+\end{tikzpicture}

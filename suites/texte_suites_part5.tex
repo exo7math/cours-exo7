@@ -1,0 +1,522 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+\change
+
+Cette partie est consacrée aux suites définies par une relation de récurrence
+à l'aide d'une fonction
+
+Après des résultats généraux,
+
+\change
+
+On consacre l'essentiel de notre travail au cas où la fonction est croissante,
+
+\change
+
+Puis au cas où la fonction est décroissante.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour définir une suite récurrente il faut 
+
+\change
+
+une fonction $f : \Rr \to \Rr$,
+
+\change
+
+son premier terme $u_0$
+
+\change
+
+et une relation permettant de calculer les termes de proche en proche.
+
+\change
+
+La suite s'écrit ainsi :
+le terme initial $u_0$ 
+
+\change
+
+$u_1 = f(u_0),$
+
+\change
+
+$u_2 = f(u_1) =f(f(u_0))$
+
+\change
+
+$u_3 = f(u_2)=f(f(u_1)) =f(f(f(u_0))),\ldots$
+
+\change
+
+Que l'on résume ainsi :
+terme initial et relation de récurrence.
+
+\change
+
+
+
+Soit la fonction définie par $f(x)=1+\sqrt{x}$. 
+
+\change
+
+Fixons $u_0= 2$ 
+
+\change
+
+et définissons pour $n\ge0$ :
+$u_{n+1}=f(u_n)  $. C'est-à-dire $u_{n+1}=1+\sqrt{u_n}$.
+
+\change
+
+Alors les premiers termes de la suite sont :
+
+$2$,
+
+\change
+
+$f(2)=1+\sqrt{2}$, 
+
+\change
+
+$f(f(2))= 1+\sqrt{1+\sqrt{2}}$
+
+\change
+
+Puis $1+\sqrt{1+\sqrt{1+\sqrt{2}}}$
+
+\change 
+
+etc...
+
+Comme vous le voyez le comportement peut très vite devenir complexe.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici un résultat essentiel concernant la limite si elle existe.
+
+
+Si $f$ est une fonction continue et la suite récurrente $(u_n)$ converge vers un réel $\ell$, alors
+$\ell$ est une solution de l'équation :
+$f(\ell)=\ell$  
+
+\change
+
+Une valeur $\ell$, vérifiant $f(\ell)=\ell$ s'appelle un \defi{point fixe} de la fonction $f$.
+
+Graphiquement pour trouver les points fixes :
+on trace le graphe de $f$ ainsi que la bissectrice d'équation $(y=x)$.
+
+On obtient ici $3$ points d'intersections,
+
+et les points fixes sont les abscisses de ces points d'intersection.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Revenons sur cette proposition :
+
+si la limite existe alors c'est un point fixe de $f$.
+
+Ainsi, si on arrive à montrer que la limite existe alors cette proposition permet 
+de calculer des candidats à être cette limite.
+
+La preuve est très simple et mérite d'être refaite à chaque fois. 
+
+\change
+
+
+Lorsque $n\to +\infty$, $u_n\to \ell$ et donc aussi $u_{n+1} \to \ell$
+car $(u_{n+1})$ est la même suite que $(u_n)$ mais avec un décalage d'un rang.
+
+
+\change
+
+Comme $u_n\to \ell$ et que la fonction $f$ est continue alors 
+la suite $(f(u_n)) \to f(\ell)$.
+
+\change
+
+La relation de récurrence $u_{n+1} = f(u_n)$ devient à la limite (lorsque $n\to+\infty$) : $\ell=f(\ell)$.
+
+Ainsi $\ell$ est un point fixe.
+
+Nous allons maintenant étudier en détail deux cas particuliers fondamentaux : lorsque la fonction est croissante, 
+puis lorsque la fonction est décroissante.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Commençons par remarquer que pour une fonction croissante, le comportement de la suite 
+$(u_n)$ définie par récurrence est assez simple.
+
+Si $f : [a,b] \to [a,b]$ est une fonction continue et croissante, 
+alors quelque soit $u_0 \in [a,b]$, la suite récurrente $(u_n)$ est
+monotone (c-à-d croissante ou bien décroissante) et converge vers $\ell \in [a,b]$ qui vérifie comme on l'a vu 
+$f(\ell)=\ell$.
+
+On sait donc que pour le cas d'une fonction croissante la suite converge vers un point fixe.
+
+\change
+
+Il y a cependant  une hypothèse importante qui est un peu cachée : $f$ va de l'intervalle $[a,b]$ dans
+lui-même.
+
+\change
+
+Dans la pratique, pour appliquer cette proposition, il faut commencer par trouver comme ici un intervalle fermé et borné
+$[a,b]$ et vérifier que $f([a,b]) \subset [a,b]$.
+
+\change
+
+On peut savoir comment varie la suite :
+
+Si $u_1\ge u_0$ alors comme $f$ est croissante $u_2 = f(u_1)\ge f(u_0)=u_1$,
+Partant de $u_2\ge u_1$ on en déduit $u_3 \ge u_2$,...
+
+La suite  est alors croissante.
+ 
+ 
+\change
+
+ Si $u_1 \le u_0$ alors on montre de la même façon que la suite est décroissante.
+ 
+ \change
+ 
+
+La preuve de cette proposition est une conséquence des résultats précédents. 
+Par exemple si $u_1\ge u_0$ alors la suite $(u_n)$ est croissante, elle est majorée par 
+l'extrémité $b$, donc elle converge vers un réel $\ell$. 
+
+\change
+
+Par la proposition de la page précédente, alors $f(\ell)=\ell$.
+
+
+Si $u_1 \le u_0$, alors $(u_n)$ est une décroissante et minorée par l'extrémité $a$, et la conclusion est la même.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons étudier un exemple en détails.
+
+$f$ est la fonction définie par $f(x)=\frac14(x^2-1)(x-2)+x$ et $u_0$ le terme initial est un élément de $[0,2]$.
+
+La suite $(u_n)$ est définie par récurrence : $u_{n+1}=f(u_n)$.
+
+\change
+
+La première chose à faire est d'étudier la fonction et tracer son graphe.
+
+\change
+
+Ici $f$ est une fonction continue sur $\Rr$.
+
+\change
+
+Elle est même dérivable sur $\Rr$ et on vérifie que sa dérivée est strictement positive.
+
+\change
+
+Ce qui fait que $f$ est strictement croissante.
+
+\change
+
+N'oubliez pas que l'on doit trouver un intervalle fermé et borné $[a,b]$ tel que 
+$f([a,b]) \subset [a,b]$.
+
+Comme $f(0)=\frac12$ et $f(2)=2$ et que la fonction est croissante alors $f([0,2]) \subset [0,2]$.
+
+On restreint donc notre fonction à l'intervalle $[0,2]$ au départ et à l'arrivée.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voici comment tracer la suite : on trace le graphe de $f$ et la bissectrice $(y=x)$.
+On part d'une valeur $u_0$ (en rouge) sur l'axe des abscisses, la valeur $u_1=f(u_0)$ se lit
+sur l'axe des ordonnées, mais on reporte la valeur de $u_1$ sur l'axe des 
+abscisses par symétrie par rapport à la bissectrice.
+On recommence : $u_2=f(u_1)$ se lit sur l'axe des ordonnées et on le reporte sur l'axe des abscisses, etc.
+On obtient ainsi une sorte d'escalier, et graphiquement on conjecture que la suite est croissante et tend vers $1$.
+Si on part d'une autre valeur initiale $u_0'$ (en vert), c'est le même principe, mais cette fois on obtient
+un escalier qui descend.
+
+
+
+Le graphe de $f$ joue un rôle très important, il faut le tracer même si on ne le demande pas explicitement. 
+Il permet de se faire une idée très précise du comportement de la suite :
+Est-elle croissante ? Est-elle positive ? Semble-t-elle converger ? Vers quelle limite ? 
+Ces indications sont essentielles pour savoir ce qu'il faut montrer lors de l'étude de la suite.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+L'étape suivante est de calculer les points fixes.
+
+\change
+
+Il s'agit donc de trouver les valeurs $x$ qui vérifient l'équation $(f(x)=x)$.
+autrement dit $(f(x)-x=0)$, mais 
+
+\change
+
+comme $f(x)-x=\frac14 (x^2-1)(x-2)$
+
+\change
+alors les points fixes sont les $\{-1,1,2\}$.
+
+\change
+
+La limite de $(u_n)$, si elle existe est donc à chercher parmi ces $3$ valeurs.
+
+\change
+
+Débarrassons nous d'un cas trivial :
+si $u_0=1$ ou bien si $u_0=2$.
+  
+  
+\change
+
+  Alors $u_1=f(u_0)=u_0$ et par récurrence la suite $(u_n)$ est constante (et converge 
+  donc vers $u_0$).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le deuxième cas à étudier c'est lorsque $0 \le u_0 <1$. 
+
+\change
+
+Comme $f([0,1])\subset [0,1]$, la fonction $f$ se restreint en une fonction
+    $f : [0,1] \to [0,1]$.
+
+    \change
+    
+De plus sur $[0,1]$, $f(x)-x\ge0$. Cela se déduit de l'étude de $f$ ou 
+    directement de l'expression de $f(x)-x$ vu auparavant.
+    
+\change
+    
+Pour le terme initial $u_0 \in [0,1[$, alors $u_1 = f(u_0) \ge u_0$ d'après le point précédent. 
+
+Et maintenant comme $f$ est croissante, par récurrence, la suite $(u_n)$ est croissante.
+
+\change
+
+La suite $(u_n)$ est croissante et majorée par l'extrémité $1$ de l'intervalle, 
+donc elle converge. J'appelle $\ell$ sa limite.
+ 
+\change
+
+D'une part $\ell$ doit être un point fixe de $f$ : $f(\ell)=\ell$. Donc $\ell \in \{-1,1,2\}$.
+
+\change
+
+D'autre part la suite $(u_n)$ étant croissante avec $u_0\ge0$ et majorée par $1$, donc $\ell \in [0,1]$.
+
+\change
+
+Il n'y a qu'une seule possibilité !
+
+Conclusion : si $0\le u_0<1$ alors $(u_n)$ converge vers $\ell = 1$. 
+
+
+\change
+
+\change
+
+Le troisième cas, pour lequel $1 < u_0 < 2$ 
+se traite de manière tout à fait similaire.
+
+\change
+
+  La fonction $f$ se restreint en $f : [1,2] \to [1,2]$. Sur l'intervalle $[1,2]$, $f$ est croissante
+  mais cette fois $f(x) \le x$. 
+  
+\change
+
+Donc $u_1 \le u_0$, et la suite $(u_n)$ est décroissante.
+  La suite $(u_n)$ étant minorée par $1$, elle converge.
+
+\change
+
+Il n'y a encore qu'une possibilité : $(u_n)$ converge vers $\ell=1$.
+  
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons au cas où la fonction $f$ est décroissante,
+qui est un peu plus compliqué.
+
+On part de $f : [a,b] \to [a,b]$ une fonction continue et décroissante.
+Soit $u_0 \in [a,b]$ et la suite récurrente $(u_n)$ définie par $u_{n+1}=f(u_n)$.
+
+Alors :
+
+(1) La sous-suite $(u_{2n})$ des termes de rang pair converge vers une limite $\ell$  vérifiant $f\circ f(\ell)=\ell$.
+
+(2) La sous-suite $(u_{2n+1})$ des termes de rang impair converge vers une limite $\ell'$ vérifiant $f\circ f(\ell')=\ell'$.
+
+
+Il se peut (ou pas !) que $\ell=\ell'$.
+
+La preuve se déduit du cas croissant.
+La fonction $f$ étant décroissante, la fonction $f\circ f$ est croissante.
+Et on applique les résultats précédent à la fonction $f\circ f$ et 
+à la sous-suite des termes de rang pair, puis à la sous-suite des termes de rang impair.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici un exemple pour la cas décroissant.
+
+La fonction est $f(x)=1+\frac1x$
+
+le terme initial est une valeur strictement positive.
+
+Et la suite est définie par récurrence : $u_{n+1} = 1 + \frac{1}{u_n}$.
+
+\change
+
+On commence par une étude de la fonction $f$
+
+La fonction $f : ]0,+\infty[\to ]0,+\infty[$ est 
+  une fonction continue et strictement décroissante.
+  
+
+  \change
+  
+  On veut ensuite calculer les  points fixes de $f\circ f$.
+  
+  On commence par calculer $f\circ f$ :
+  
+  $$f\circ f(x)= f\big( f(x)\big)= f\big(1+\frac1x\big)= 1+ \frac{1}{1+\frac1x}=1+\frac{x}{x+1} = \frac{2x+1}{x+1}$$
+  
+  
+  \change
+  
+  Donc 
+  $$f\circ f(x)=x \iff  \frac{2x+1}{x+1} = x \iff x^2-x-1=0 \iff x \in 
+\left\{\frac{1-\sqrt{5}}{2},\frac{1+\sqrt{5}}{2}\right\}$$
+  
+  \change
+  
+  Comme la suite est positive, la limite doit être positive, et le seul point fixe à considérer est $\ell=\frac{1+\sqrt{5}}{2}$.
+  
+  Attention ! Il y a un unique point fixe, mais on ne peut pas conclure 
+  à ce stade car $f$ est définie sur $]0,+\infty[$ qui n'est pas un intervalle fermé bornée.
+   
+  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le principe pour tracer la suite est le même qu'auparavant : on place $u_0$,
+on trace $u_1=f(u_0)$ sur l'axe des ordonnées et on le reporte par symétrie sur l'axe des abscisses,...
+On obtient ainsi une sorte d'escargot, et graphiquement on conjecture que la suite converge
+vers le point fixe de $f$. En plus on note que la suite des termes de rang pair semble une suite croissante,
+alors que la suite des termes de rang impair semble décroissante.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour l'étude de la convergence on distingue deux cas.
+
+ Premier cas $0 < u_0 \le \ell = \frac{1+\sqrt{5}}{2}$.
+ 
+ \change
+ 
+  Comme $f$ est décroissante  $u_1 = f(u_0) \ge f(\ell)=\ell$ ; et par une étude de $f\circ f(x)-x$, on obtient que  :  
+  $u_2 = f\circ f(u_0) \ge u_0$.
+
+  \change
+  
+  Comme $u_2 \ge u_0$ et $f\circ f$ est croissante, la suite $(u_{2n})$ des termes de rangs pairs, est croissante. 
+
+  \change
+   De même $u_3  \le u_1$, donc la suite $(u_{2n+1})$ est décroissante. 
+   
+   \change
+   
+  De plus comme  $u_0 \le u_1$, en appliquant $f\circ f$, on obtient que $u_{2n} \le u_{2n+1}$.
+  
+  \change
+  
+  La situation est donc la suivante :
+  $$u_0 \le u_2 \le \cdots \le u_{2n} \le \cdots \le u_{2n+1} \le \cdots \le u_3 \le u_1$$
+  
+  \change
+  
+  La suite $(u_{2n})$ est croissante et majorée par $u_1$, donc elle converge. 
+  
+  \change
+  
+  Sa limite ne peut
+  être que l'unique point fixe de $f\circ f$: $\ell = \frac{1+\sqrt{5}}{2}$.
+  
+  \change
+  
+   La suite $(u_{2n+1})$ est décroissante et minorée par $u_0$, donc elle converge aussi vers 
+   $\ell = \frac{1+\sqrt{5}}{2}$.
+   
+
+\change
+   
+   On en conclut que la suite $(u_{n})$ converge vers $\ell = \frac{1+\sqrt{5}}{2}$.
+   
+\change
+
+\change
+
+Le deuxième cas, c'est lorsque $u_0 \ge \ell = \frac{1+\sqrt{5}}{2}$.
+
+\change  
+
+  On montre de la même façon que $(u_{2n})$ est décroissante et converge vers $\ell$,
+  et que $(u_{2n+1})$ est croissante et converge aussi vers $\ell$.
+  
+
+Dans tous les cas $(u_n)$ tend vers $\frac{1+\sqrt{5}}{2}$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Les suites récurrentes jouent un rôle essentiel en mathématiques et sont très utiles pour les
+applications, par exemple pour les calculs approchés de solution d'équation.
+
+
+\end{document}

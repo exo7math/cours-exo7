@@ -1,0 +1,313 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={191,146,10}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\title{{\bf Matrices}}
+\subtitle{Inverse d'une matrice : définition}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition
+    \item<4-> Exemples
+    \item<5-> Propriétés
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définition}
+
+\begin{frame}
+\begin{mydefinition}%[Matrice inverse]
+Soit $A\in M_n(\Kk)$
+
+\pause
+S'il existe $B\in M_n(\Kk)$ telle que
+ $$ AB = \Id \qquad \text{et} \qquad BA = \Id $$
+alors $A$ est dite \defi{inversible}. \pause On appelle $B$ l'\defi{inverse de $A$}, noté $A^{-1}$
+\end{mydefinition}
+
+\begin{itemize}
+\item\pause Il suffit en fait de vérifier $AB=\Id$ ou bien $BA=\Id$
+\item\pause Quand $A$ est inversible, pour $p\in \Nn$, on note  
+$$A^{-p}=(A^{-1})^p = \underbrace{A^{-1} A^{-1} \cdots A^{-1}}_{{p \text{ facteurs}}}$$
+\item\pause L'ensemble des matrices inversibles de $M_{n}(\Kk)$ est noté $GL_{n}(\Kk)$
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exemples}
+
+\begin{frame}
+\begin{exemple} 
+\begin{itemize}
+  \item Soit $A=\left(\begin{smallmatrix}
+1 & 2 \cr
+0 & 3 \cr
+\end{smallmatrix}\right)$
+
+  \item\pause
+Cherchons $B= \left(\begin{smallmatrix}
+a & b \cr
+c & d\cr
+\end{smallmatrix}\right)$ telle que $AB=I_2$ et $BA=I_2$
+  
+  \item\pause Or $AB=\begin{pmatrix}
+1 & 2 \cr
+0 & 3\cr
+\end{pmatrix}
+\begin{pmatrix}
+a & b \cr
+c & d\cr
+\end{pmatrix}
+=\begin{pmatrix}
+a+2c & b+2d \cr
+3c & 3d\cr
+\end{pmatrix}$
+  
+  \item\pause 
+\vspace{-.2cm}
+{\small
+$
+AB=I_2 \iff
+\begin{pmatrix}
+a+2c & b+2d \cr
+3c & 3d\cr
+\end{pmatrix}
+=\begin{pmatrix}
+1 & 0 \cr
+0 & 1\cr
+\end{pmatrix}
+\pause
+ \iff 
+\left\{ \begin{array}{l}
+a+2c=1\\        
+b+2d=0\\
+3c=0\\
+3d=1\\
+\end{array} \right.
+$}
+  
+  \item\pause Il y a une unique solution $B=\left(\begin{smallmatrix}
+1 & - \sfrac{2}{3} \cr
+0 & \sfrac{1}{3}\cr
+\end{smallmatrix}\right)$
+  
+  \item\pause Pour prouver que $B=A^{-1}$, il faut aussi montrer l'égalité $BA=I_2$
+  
+  \item\pause La matrice $A$ est donc inversible et $A^{-1}= \begin{pmatrix}
+1 & -\frac23 \cr
+0 & \frac13\cr
+\end{pmatrix}$
+\end{itemize}
+
+
+\end{exemple}
+\end{frame}
+
+%--------------------------------------------------------------
+
+\begin{frame}
+\begin{exemple}
+$ A = \left(\begin{smallmatrix}
+3 & 0\\
+5 & 0\end{smallmatrix}\right)$
+n'est pas inversible
+
+\pause
+En effet, pour 
+$B= \left( \begin{smallmatrix}
+a & b \cr
+c & d\cr
+\end{smallmatrix} \right)$ 
+$$
+BA = 
+\begin{pmatrix}
+a & b \cr
+c & d\cr
+\end{pmatrix}
+\begin{pmatrix}
+3 & 0\\
+5 & 0   
+\end{pmatrix}
+=
+\begin{pmatrix}
+3a+5b & 0\\
+3c+5d      & 0
+\end{pmatrix} \pause \quad \neq \quad
+\begin{pmatrix}
+1 & 0 \cr
+0 & 1\cr
+\end{pmatrix}$$
+\end{exemple}
+
+\pause
+\begin{exemple}
+\begin{itemize}
+  \item $I_{n}$ est inversible et $I_n^{-1}=I_n$, par l'égalité 
+ $I_{n}I_{n}=I_{n}$
+ 
+  \item\pause La matrice nulle $0_n$ n'est pas inversible : 
+  
+  pour tout $B\in M_{n}(\Kk)$, on a $B0_n=0_n \ \neq \ I_n$
+\end{itemize}
+  \end{exemple}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Propriétés}
+
+\begin{frame}
+
+\begin{proposition}%[Unicité]
+Si $A$ est inversible, alors son inverse est unique
+\end{proposition}
+
+\pause
+\begin{proof} 
+Supposons qu'il existe $B_{1}$ telle que $AB_{1}=B_{1}A=I_{n}$ et $B_{2}$ telle que 
+$AB_{2}=B_{2}A=I_{n}$
+
+\begin{itemize}
+\item\pause Calculons $B_{2}(AB_{1})$
+\item\pause D'une part, $B_{2}(AB_{1})=B_{2} I_n \pause = B_2$
+\item\pause D'autre part, $B_{2}(AB_{1})=(B_{2}A)B_{1}\pause=I_{n}B_{1}=B_{1}$
+\item\pause Donc $B_{1}=B_{2}$
+\end{itemize}
+\end{proof}
+\end{frame}
+
+%--------------------------------------------------------------
+
+\begin{frame}
+
+\begin{proposition}%[Inverse de l'inverse]
+Soit $A$ une matrice inversible. Alors 
+$A^{-1}$ est aussi inversible 
+\pause
+et
+\mybox{$(A^{-1})^{-1}=A$}
+\end{proposition}
+
+% \pause
+% \bigskip
+
+% Cohérent avec la notation puissance:
+% \[
+% \big( A^{-1} \big)^{-1} = A^{(-1) \times (-1)} = A
+% \]
+
+\end{frame}
+
+%--------------------------------------------------------------
+
+\begin{frame}
+
+\begin{proposition}%[Inverse d'un produit]
+ $A$ et $B$ deux matrices inversibles de même taille. Alors
+ $AB$ est inversible 
+ \pause
+ et  \vspace*{-2ex}
+ \mybox{$\displaystyle (AB)^{-1} = B^{-1} A^{-1}$}
+\end{proposition}
+
+\medskip
+\pause
+\evidence{Attention à l'inversion de l'ordre !}
+\medskip
+
+\pause
+\begin{proof}
+\begin{itemize}
+\item Montrons que $(B^{-1}A^{-1}) (AB) = \Id$
+
+\pause
+\centerline{$
+   (B^{-1}A^{-1}) (AB) = B^{-1}(A^{-1}A)B \pause= B^{-1}\Id B\pause=B^{-1}B\pause=\Id
+$}
+\item\pause De même $(AB) (B^{-1} A^{-1})=A(BB^{-1})A^{-1} = A A^{-1} =  \Id$ \qedhere
+ \end{itemize}
+\end{proof}
+ 
+\pause
+De façon analogue, si $A_1, \dots , A_m$ sont inversibles, alors
+\[
+(A_1 A_2 \cdots A_m)^{-1} = A_m^{-1} A_{m-1}^{-1} \cdots A^{-1}_1
+\]
+\end{frame}
+
+
+%--------------------------------------------------------------
+
+\begin{frame}
+
+Rappel : en général  $AC=BC$ n'implique pas $A=B$
+\medskip
+
+\pause
+\begin{proposition}%[Simplification par une matrice inversible]
+Soient $A, B\in M_{n}(\Kk)$ et $C$ une matrice \evidence{inversible} de $M_{n}(\Kk)$
+
+\smallskip
+\pause
+\centerline{Si $AC=BC$ alors $A=B$}
+\end{proposition}
+
+\pause
+\begin{proof} 
+$$\begin{array}{rcl}
+AC=BC 
+\pause&\implies& (AC)C^{-1}=(BC)C^{-1}\\
+\pause&\implies& A(CC^{-1})=B(CC^{-1})\\
+\pause&\implies& A\Id=B\Id\\
+\pause&\implies& A=B
+\end{array}$$
+\end{proof} 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Soient $A=\left(\begin{smallmatrix}-1 & -2 \\ 3  & 4 \end{smallmatrix}\right)$
+  et $B = \left(\begin{smallmatrix}2 & 1 \\ 5  & 3 \end{smallmatrix}\right)$. Calculer
+  $A^{-1}$, $B^{-1}$ , $(AB)^{-1}$, $(BA)^{-1}$, $A^{-2}$.
+  
+  \item Calculer l'inverse de $\left(\begin{smallmatrix}1&0&0\\0&2&0\\1&0&3\end{smallmatrix}\right)$.
+  
+  \item Soit $A=\left(\begin{smallmatrix}-1&-2&0\\2&3&0\\0&0&1\end{smallmatrix}\right)$.
+  Calculer $2A-A^2$. Sans calculs, en déduire $A^{-1}$.
+
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

@@ -1,0 +1,650 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+Nous allons voir qu'il existe un lien étroit entre 
+les matrices et les applications linéaires.
+
+\change
+\`A une matrice on associe naturellement une application linéaire. 
+
+
+\change
+Nous verrons le lien entre les opérations sur les matrices et les opérations
+sur les applications linéaires.
+
+\change
+Deux cas particuliers sont importants :
+la matrice d'un endomorphisme
+
+\change
+et la matrice d'un isomorphisme.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Soient $E$ et $F$ deux $\Kk$-espaces vectoriels de dimension finie.
+
+D'ailleurs dans cette partie tous les espaces vectoriels sont de dimension finie.
+
+\change
+Soit $p$ la dimension de $E$ et on fixe $\mathcal{B}=(e_1, \dots ,e_p)$
+une base de $E$.
+
+\change
+Soit $n$ la dimension de $F$ et on fixe 
+$\mathcal{B}'=(f_1, \dots ,f_n)$ une base de $F$.
+
+\change
+Enfin soit $f : E \to F$ une application linéaire.
+
+
+\change
+Les propriétés des applications linéaires entre deux espaces
+de dimension finie permettent d'affirmer plusieurs choses :
+
+
+(1) l'application linéaire $f$ est déterminée de façon unique par l'image
+d'une base de $E$, donc $f$ est déterminée seulement par les vecteurs 
+
+$f(e_1), f(e_2), \ldots, f(e_p)$.
+
+\change
+(2) Pour $j$ compris entre $1$ et $p$, 
+$f(e_j)$ est un vecteur de $F$ et donc s'écrit de manière unique comme combinaison
+linéaire des vecteurs de la base $\mathcal{B}'$ de $F$.
+
+\change
+Il existe donc $n$ scalaires uniques $a_{1,j},a_{2,j}, \ldots , a_{n,j}$
+tels que 
+$f (e_j)=a_{1,j}f_1+a_{2,j}f_2+\dots +a_{n,j}f_n$
+
+\change
+On note $f(e_j)$ sous la forme d'un vecteur colonne, en rappelant que cette décomposition
+dépend de la base $\mathcal{B}'$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On vient de voir qu'une application linéaire $f$ est entièrement déterminée par 
+les $f(e_j)$ donc par 
+les coefficients $(a_{i,j})$ où $i$ varie de $1$ à $n$, et $j$ de $1$ à $p$.
+
+\change
+Il est donc
+naturel d'introduire la définition suivante : 
+
+la matrice de l'application linéaire $f$ par
+rapport à la base  ${\color{blue}\mathcal{B}}$ de l'espace de départ 
+et la base $\mathcal{B}'$ de l'espace d'arrivée est la matrice des coefficients $(a_{i,j})$.
+
+C'est donc une matrice ayant $n$ lignes et $p$ colonnes.
+
+\change
+Voici comment retrouver cette matrice
+
+On va compléter la matrice colonne par colonne.
+
+\change
+La première colonne c'est l'écriture du vecteur $f(e_1)$,
+l'image par $f$ du premier vecteur de la base $\mathcal{B}$
+
+\change
+que l'on décompose dans la base $\mathcal{B}'$ constituée des vecteurs $f_1,f_2,...$.
+
+\change
+La première colonne est donc bien formée des coefficients :
+$a_{11}, a_{21},..., a_{n1}$.
+
+On décompose ensuite $f(e_2)$ dans cette même base $f_1,f_2,...$.
+
+\change
+Pour le vecteur $f(e_j)$, 
+
+\change
+les coefficients sont :  
+$a_{1j}, a_{2j}, ..., a_{nj}$.
+
+On est bien en train d'écrire la matrice des coefficients $(a_{ij})$.
+
+\change
+Et voici la dernière colonne.
+
+Notez notre code de couleur : bleu pour la base de départ et vert pour la base d'arrivée.
+
+\change
+Reprenons : la première colonne est constituée par les coordonnées du vecteur
+$f({\color{blue}e_1})$ dans la base $\mathcal{B}'$,
+
+la deuxième colonne est constituée par les coordonnées du vecteur
+$f({\color{blue}e_2})$ dans la base $\mathcal{B}'$,...
+
+\change
+On résume cela en disant que la matrice de l'application linéaire $f$ par
+rapport aux bases ${\color{blue}\mathcal{B}}$ et $\mathcal{B}'$ est la matrice dont les vecteurs colonnes 
+sont l'image par $f$ des vecteurs de la base de départ $\mathcal{B}$, 
+exprimée dans la base d'arrivée $\mathcal{B}'$.
+
+
+Quelques remarques :
+  - tout d'abord retenez la notation : matrice de $f$ par
+rapport aux bases ${\color{blue}\mathcal{B}}$ et $\mathcal{B}'$
+[Montrer $\Mat_{\mathcal{B},\mathcal{B}'}(f)$.]
+
+  - La taille de cette matrice dépend
+  uniquement de la dimension de l'espace de départ et de l'espace d'arrivée.
+  
+  -  Par contre, les coefficients de la matrice dépendent 
+  du choix de la base $\mathcal{B}$ de $E$ et aussi de la base $\mathcal{B}'$ de $F$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Calculons un exemple de matrice.
+
+
+Soit $f$ l'application linéaire de $\Rr^3$ dans $\Rr^2$ définie
+par 
+$f(x_1,x_2,x_3)=(x_1+x_2-x_3, x_1-2x_2+3x_3)$.
+
+\change
+Il est utile d'identifier vecteurs lignes et vecteurs colonnes ; 
+ainsi on peut écrire en colonne  
+$f \left(\begin{smallmatrix} x_1\\x_2\\x_3 \end{smallmatrix}\right) 
+= \left(\begin{smallmatrix} x_1+x_2-x_3 \\ x_1-2x_2+3x_3 \end{smallmatrix}\right)$.
+
+\change
+Pour la base de départ on choisit $\mathcal{B}$ la base canonique de $\Rr^3$.
+
+\change
+Et pour la base d'arrivée on choisit $\mathcal{B}'$ 
+la base canonique de $\Rr^2$. 
+
+\change
+Voici les trois vecteurs de la base départ
+
+\change
+et les deux de la base d'arrivée.
+
+\change
+Comment se calcule la matrice de $f$ dans les bases $\mathcal{B}$ et $\mathcal{B}'$ ?
+
+\change
+Il faut calculer les images de la base de départ et les exprimer dans la base d'arrivée.
+
+\change
+$f(e_1)$ c'est $f(1,0,0)$
+
+\change
+par la définition de $f$ cela vaut $(1,1)$
+
+\change
+ce qui s'exprime dans la base d'arrivée $f_1+f_2$. 
+
+\change
+De même $f(e_2) = f(0,1,0) =(1,-2)=f_1-2f_2$.
+
+\change
+Enfin $f(e_3) = f(0,0,1) =(-1,3)=-f_1+3f_2$.
+
+\change
+On peut maintenant compléter la matrice de $f$ :
+
+\change
+La première colonne c'est $f(e_1)$
+
+\change
+exprimer dans la base $(f_1,f_2)$.
+
+\change
+Par notre calcul la première colonne de la matrice 
+    est donc $\left(\begin{smallmatrix}1\cr1\cr\end{smallmatrix}\right)$
+    pour $1 f_1 + 1 f_2$.
+    
+\change
+Pour $f(e_2)$ 
+
+\change
+c'est $f_1-2f_2$
+donc la deuxième colonne de la matrice 
+est $\left(\begin{smallmatrix}1\cr-2\cr\end{smallmatrix}\right)$.
+    
+\change
+Comme $f(e_3) = -f_1+3f_2$
+
+
+\change
+La troisième colonne 
+    est  $\left(\begin{smallmatrix}-1\cr3\cr\end{smallmatrix}\right)$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On reprend l'exemple précédent avec la même application linéaire $f$ mais on va maintenant changer les bases de l'espace de départ et de l'espace d'arrivée.
+
+\change
+Soient les vecteurs de $\Rr ^3$
+$$\epsilon_1 = \begin{pmatrix}1\\1\\0\end{pmatrix} \quad
+\epsilon_2 = \begin{pmatrix}1 \\ 0 \\ 1 \end{pmatrix} \quad
+\epsilon_3 = \begin{pmatrix}0 \\ 1 \\ 1 \end{pmatrix}$$
+
+
+\change
+et $\phi_1$ et $\phi_2$  ces deux vecteurs de $\Rr^2$.
+
+\change
+On montre facilement que $\mathcal{B}_0 =(\epsilon_1,\epsilon_2,\epsilon_3)$ 
+est une base de $\Rr^3$.
+Ce sera notre nouvelle base de départ.
+
+\change
+Pour la base d'arrivée on choisit la base formée des deux vecteurs $(\phi_1,\phi_2)$.
+
+
+\change
+Comment calculer la matrice de $f$ dans les bases $\mathcal{B}_0$
+et $\mathcal{B}_0'$ ?
+
+\change
+C'est la même méthode qu'auparavant mais cette fois il faut
+exprimer les $f(\epsilon_i)$ dans la base $(\phi_1,\phi_2)$.
+
+
+On commence par $f(\epsilon_1)$ qui est donc $f(1,1,0)$
+
+\change
+on calcule que cela fait $(2,-1)$ 
+
+\change
+qu'il faut exprimer en fonction de $\phi_1$ et $\phi_2$.
+On trouve que c'est $3\phi_1-\phi_2$.
+
+\change
+Même chose pour $f(\epsilon_2)$ 
+
+\change
+et $f(\epsilon_3)$.
+
+\change
+On remplit la matrice colonne par colonne :
+$(3,-1)$, $(-4,4)$, $(-1,1)$.
+
+Cet exemple illustre bien le fait que la matrice de $f$ dépend du choix des
+bases.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Soient $f,g : E \to F$ deux applications linéaires 
+
+\change
+et soient $\mathcal{B}$ une base de $E$ 
+
+\change
+et $\mathcal{B}'$ une base de $F$.
+
+
+\change
+Alors :
+$\Mat_{\mathcal{B},\mathcal{B}'} (f+g) = \Mat_{\mathcal{B},\mathcal{B}'} (f)
+  + \Mat_{\mathcal{B},\mathcal{B}'} (g)$ :
+  
+la matrice associée à la somme de deux applications linéaires est la
+somme des matrices, à condition de considérer la même base sur l'espace de départ 
+pour les deux applications et la même base sur l'espace d'arrivée. 
+
+\change
+Et $\Mat_{\mathcal{B},\mathcal{B}'} ( \lambda f) = \lambda \Mat_{\mathcal{B},\mathcal{B}'} (f)$ :
+la matrice de $\lambda f$ est $\lambda$ fois la matrice de $f$.
+
+\change
+Voyons une autre façon d'écrire cette proposition.
+
+On note : $A = \Mat_{\mathcal{B},\mathcal{B}'} (f)$
+et  $B = \Mat_{\mathcal{B},\mathcal{B}'} (g)$
+
+\change
+Si on pose $C = \Mat_{\mathcal{B},\mathcal{B}'} (f+g)$
+
+et $D = \Mat_{\mathcal{B},\mathcal{B}'} (\lambda f)$
+
+\change
+Alors le premier  point de la proposition 
+signifie 
+
+$C = A+B$
+
+\change
+et le second point signifie $D = \lambda A$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Ce qui est le plus important va être la composition des applications linéaires.
+
+\change
+Soient $f : E \to F$  et $g : F \to G$ deux applications linéaires 
+
+\change
+et soient
+$\mathcal{B}$ une base de $E$, 
+
+$\mathcal{B}'$ une base de $F$
+
+et $\mathcal{B}''$ une base de $G$.
+
+\change
+Alors :
+$\Mat_{\mathcal{B},\mathcal{B}''} (g \circ f)
+= \Mat_{\mathcal{B}',\mathcal{B}''} (g) \times \Mat_{\mathcal{B},\mathcal{B}'} (f)$.
+
+Autrement dit, à condition de bien choisir les bases, la matrice
+associée à la composition de deux applications linéaires est le
+produit des matrices associées à chacune d'elles, dans le même ordre.
+
+\change
+Une autre façon de le dire, si on note :
+$A = \Mat_{\mathcal{B},\mathcal{B}'} (f)$
+
+$B = \Mat_{\mathcal{B}',\mathcal{B}''} (g)$
+
+$C = \Mat_{\mathcal{B},\mathcal{B}''} (g \circ f)$
+
+Alors $C = B\times A$.
+
+En fait, le produit de matrices, qui semble compliqué au premier abord,
+est défini afin de correspondre à la composition des applications linéaires.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons un exemple de composition d'application linéaire.
+
+On considère d'abord 
+$f : \Rr^2 \to \Rr^3$ 
+dont la matrice dans des bases $\mathcal{B},\mathcal{B}'$
+est cette matrice $A$.
+
+\change
+Puis $g : \Rr^3 \to \Rr^2$
+dont voici la matrice $B$ entre les bases $\mathcal{B}',\mathcal{B}''$.
+
+\change
+Calculons la matrice associée à $g \circ f : \Rr^2 \to \Rr^2$.
+
+\change
+Cette matrice $\Mat_{\mathcal{B},\mathcal{B}''} (g \circ f)$
+
+\change
+que l'on note $C$ 
+
+\change
+est le produit des matrices $B \times A$. 
+
+\change
+Il ne reste plus qu'à calculer le produit de ces deux matrices.
+
+\change
+Pour obtenir la matrice $g\circ f$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans cette section, on étudie la cas où l'espace de départ et l'espace d'arrivée 
+sont identiques :
+$f : E \to E$ est un endomorphisme. 
+
+\change
+On pourrait choisir une base de départ différente de la base d'arrivée,
+
+\change
+mais on va se placer dans le cas spécifique où
+on choisit la même base $\mathcal{B}$ au départ et à l'arrivée.
+
+Alors on note  simplement $\Mat_{\mathcal{B}} (f)$ la matrice associée à $f$.
+  
+  
+ \change
+ Voyons quelques exemples. Tout d'abord l'identité, qui bien sûr à $x$ associe $x$ :
+ 
+ \change
+ alors quelle que soit la base $\mathcal{B}$ de $E$, 
+ la matrice associée est la matrice identité.
+ 
+ Attention ! Ce n'est plus vrai 
+  si la base d'arrivée est différente de la base de départ.
+  
+ \change  
+  Une homothétie de rapport $\lambda$ 
+  envoie $x$ sur $\lambda x$.
+  
+  \change
+  Sa matrice dans toute base est $\lambda I_n$.
+  
+  \change
+  La symétrie centrale envoie $x$ sur $-x$
+  
+  \change
+  sa matrice est moins l'identité.
+  
+  \change
+  On termine par une rotation du plan.
+  
+  \change
+  Soit $r_\theta$ la rotation d'angle $\theta$, centrée à l'origine.
+  
+  \change
+  L'espace vectoriel est $\Rr^2$ muni de la base canonique.
+  
+  \change
+  La rotation associe à $(x,y)$ le 
+  couple 
+  
+  $(x \cos  \theta - y \sin\theta,x\sin \, \theta + y \cos\theta)$.
+  
+  \change
+  Cela permet de calculer l'image du vecteur $(1,0)$ et du vecteur $(0,1)$
+  et donne la matrice de la rotation :
+  $\begin{pmatrix}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{pmatrix}.$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici le cas particulier de la puissance d'un endomorphisme de $E$
+
+Soient $E$ un espace vectoriel de dimension finie et $\mathcal{B}$ une base de $E$.
+Soit $f :  E \to E$ une application linéaire avec donc la même base
+$\mathcal{B}$ au départ et à l'arrivée.
+
+
+Alors
+$\Mat_{\mathcal{B}} (f^p) = \big( \Mat_{\mathcal{B}} (f) \big)^p$
+
+\change
+Rappelons que $f^p$ désigne $f \circ f \circ\cdots \circ f$,
+avec $p$ facteurs.
+
+Si $A$ est la matrice associée à $f$,
+alors $A^p$ est la matrice associée à $f^p$.
+
+Par contre $A^p$ est bien le produit de $A\times A \cdots$,
+avec $p$ facteurs.
+
+\change
+Voici un exemple avec  $r_\theta$ la matrice de la rotation d'angle $\theta$ dans le plan.
+
+
+\change
+La matrice de l'itération $r_\theta^p$  est donc
+la matrice de $r_\theta$ à la puissance $p$.
+
+\change
+C'est donc $\begin{pmatrix}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{pmatrix}^p$
+
+
+\change
+Un calcul par récurrence montre ensuite 
+que cela vaut $= \begin{pmatrix}
+\cos(p\theta) & -\sin(p\theta)\\
+\sin(p\theta) & \cos(p\theta)
+\end{pmatrix},$
+
+ce qui est bien la matrice de la rotation d'angle $p \theta$ :  on vient de justifier par le calcul que 
+composer $p$ fois la rotation d'angle $\theta$ revient à 
+effectuer une rotation d'angle $p\theta$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons maintenant aux isomorphismes. 
+Rappelons que $f : E \to F$ est appelé un isomorphisme 
+si c'est une application linéaire bijective. Nous avons vu que cela entraîne 
+$\dim E = \dim F$.
+
+\change
+Voici une caractérisation  des isomorphismes par leur matrice.
+
+
+Les hypothèses sont les suivantes :
+
+$E$ et $F$ sont deux espaces vectoriels de *même* dimension finie.
+
+$f$ est une application linéaire de $E \to F$. 
+
+$\mathcal{B}$ est une base de $E$,
+
+
+$\mathcal{B}'$ est une base de $F$ 
+
+et enfin $A$ désigne la matrice de $f$ entre les bases $\mathcal{B}$ et $\mathcal{B}'$.
+
+
+\change
+Premier résultat :
+
+$f$ est bijective si et seulement si la matrice $A$ est inversible.
+
+  Autrement dit, $f$ est un isomorphisme si et seulement si sa matrice associée 
+   est inversible.
+
+\change
+Deuxième résultat :
+
+  Dans le cas où $f$ est bijective, 
+  
+  alors la matrice de l'application linéaire
+  $f^{-1}$ est la matrice $A^{-1}$. 
+  
+  \change
+  Autrement dit, la matrice de l'inverse est l'inverse de la matrice.
+  
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici le cas particulier très important d'un endomorphisme $f : E \to E$ où
+$E$ est muni de la même base $\mathcal{B}$ au départ et à l'arrivée. On note $A = \Mat_{\mathcal{B}}(f)$.
+
+\change
+(1) $f$ est bijective si et seulement si $A$ est inversible.
+  
+(2) Si $f$ est bijective, alors la matrice associée à $f^{-1}$ 
+dans la base $\mathcal{B}$ est $A^{-1}$.
+
+\change
+Ce qui se reformule 
+$\Mat_{\mathcal{B}}(f^{-1}) = \big(\Mat_{\mathcal{B}}(f) \big)^{-1}$.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Soit $r : \Rr^2 \to \Rr^2$ la rotation d'angle $\frac\pi6$ (centrée à l'origine).
+
+\change
+Sa matrice dans la base canonique est donnée par la matrice de rotation
+$
+  \begin{pmatrix}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{pmatrix}$
+
+\change
+avec $\theta = \frac\pi6$,
+voici la matrice de $r$.
+
+\change
+Maintenant on note $s$ la réflexion par rapport à la droite d'équation $(y=x)$. 
+
+\change
+Sa matrice est $B = \Mat_{\mathcal{B}} (s) = \begin{pmatrix} 0&1\\1&0 \end{pmatrix}$
+
+Quelle est la matrice associée à $(s \circ r)^{-1}$ ?
+
+
+\change
+On commence par la matrice $s \circ r$ 
+
+\change
+qui est le produit $B \times A$
+
+\change
+on trouve 
+$= \begin{pmatrix}
+\frac12&\frac{\sqrt{3}}{2} & \\
+\frac{\sqrt{3}}{2}&-\frac12& 
+\end{pmatrix}$.
+
+\change
+Maintenant la matrice de $(s \circ r)^{-1}$ est 
+
+\change
+l'inverse de la matrice de $s \circ r$.
+
+\change
+On calcule l'inverse de la matrice
+
+\change
+pour obtenir la matrice de $(s \circ r)^{-1}$.
+
+On note que la matrice $BA$ est égale à son inverse.
+
+En termes d'applications linéaires, cela signifie que $s\circ r$ est son propre inverse.
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici quelques exercices où il s'agit d'écrire les matrices associées à des transformations géométriques.
+
+
+
+\end{document}

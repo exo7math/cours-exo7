@@ -1,0 +1,377 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={204,0,0}]{structure}
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Déterminants}}
+\subtitle{Déterminants en dimension 2 et 3}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+   \item<3-> Matrice $2\times2$ 
+   \item<4-> Matrice $3\times3$
+   \item<5-> Interprétation géométrique
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Matrice $2\times2$}
+
+\begin{frame}
+
+$\Kk=\Rr$ ou $\Kk=\Cc$
+
+\pause
+
+\bigskip
+
+
+\evidence{Matrice $2\times2$}
+
+
+$$\det \begin{pmatrix}a&b\\c&d\end{pmatrix} = ad-bc$$
+
+
+\pause 
+
+\myfigure{2}{
+\tikzinput{fig_determinants01} 
+}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Matrice $3\times3$}
+
+\begin{frame}
+
+\evidence{Matrice $3\times3$}
+
+\begin{itemize}
+  \item Soit $A = \begin{pmatrix}
+      a_{11} & a_{12} & a_{13} \\
+      a_{21} & a_{22} & a_{23} \\
+      a_{31} & a_{32} & a_{33} \\      
+      \end{pmatrix}$
+  \pause 
+  
+  \item $\displaystyle 
+\begin{array}{rcl}
+\text{ }
+\\
+\det A & = &
+\color<4,6->{blue!100}{a_{11} a_{22} a_{33} 
++ a_{12} a_{23} a_{31} 
++ a_{13} a_{21} a_{32} }\\
+&& \quad \color<5,6->{orange!100}{- a_{31} a_{22} a_{13} 
+- a_{32} a_{23} a_{11} 
+- a_{33} a_{21} a_{12}}
+\end{array}$
+
+  \item \pause La \defi{règle de Sarrus}
+\myfigure{2}{
+\tikzinput{fig_determinants02beamer} 
+}
+\pause\pause\pause
+\item\pause Uniquement pour les matrices $3\times 3$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+
+\begin{itemize}
+  \item Calculons le déterminant de
+$A = 
+\begin{pmatrix}
+ 2 & 1  & 0\\
+ 1 & -1 & 3\\
+ 3 & 2  & 1  
+\end{pmatrix}
+$
+
+  \item\pause Par la règle de Sarrus: \pause
+\[
+\begin{aligned}
+\det A & = 
+ {\color<3->{blue!100} 2\times (-1) \times 1 }
+\pause+{\color<4->{blue!70} 1\times 3 \times  3 }
+\pause+{\color<5->{blue!50} 0\times 1 \times 2 }\\
+&\pause\quad  -{\color<6->{orange!100} 3\times (-1) \times 0 } 
+-{\color<6->{orange!70} 2\times 3 \times 2 }
+-{\color<6->{orange!50} 1\times 1 \times 1 }\\
+\pause &= -6
+\end{aligned}
+\]
+\onslide<2->
+\myfigure{2}{
+\tikzinput{fig_determinants03bis} 
+} 
+\end{itemize}
+
+\end{exemple}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Interprétation géométrique}
+
+\begin{frame}
+
+\begin{itemize}
+  \item<2-> Donnons nous deux vecteurs 
+$v_1= \left(\begin{smallmatrix}a\\c\end{smallmatrix}\right)$ et 
+$v_2= \left(\begin{smallmatrix}b\\d\end{smallmatrix}\right)$             
+du plan $\Rr^2$ 
+
+  \item<3->
+$v_1,v_2$ déterminent un parallélogramme
+\end{itemize}
+\myfigure{1}{
+\tikzinput{fig_determinants04} 
+}
+\onslide<4->{
+\begin{proposition}
+L'aire du parallélogramme est égale à la valeur absolue du déterminant
+$$\mathcal{A} 
+= \Big|\det(v_1,v_2)\Big| 
+= \Big|\det
+\begin{pmatrix}
+a & b \\
+c & d
+\end{pmatrix}\Big|
+ = | a d - b c |
+$$
+\end{proposition}
+}
+\end{frame}
+
+%--------------------------------------------------------------
+
+\begin{frame}
+
+%\begin{itemize}
+  %\item 
+  Trois vecteurs
+$
+v_1=\begin{pmatrix}a_{11}\\a_{21}\\a_{31}\end{pmatrix} \
+v_2=\begin{pmatrix}a_{12}\\a_{22}\\a_{32}\end{pmatrix} \
+v_3=\begin{pmatrix}a_{13}\\a_{23}\\a_{33}\end{pmatrix}$ \
+ de $\Rr^3$
+\pause
+\medskip
+
+définissent un parallélépipède
+
+\myfigure{1}{
+\tikzinput{fig_determinants05} 
+}
+
+\pause
+  %\item $v_1,v_2,v_3$ définissent 
+  et une matrice %et un déterminant
+\[ 
+%\det(v_1,v_2,v_3)=\det
+\begin{pmatrix}
+a_{11}&a_{12}&a_{13}\\
+a_{21}&a_{22}&a_{23}\\
+a_{31}&a_{32}&a_{33}
+\end{pmatrix}
+\]
+%\end{itemize}
+
+\end{frame}
+
+%%%%%%%
+
+\begin{frame}
+
+\begin{minipage}{0.68\textwidth}
+\begin{proposition}
+Le volume du parallélépipède est égal à la valeur absolue du déterminant
+\[
+\mathcal{V} = \Big|\det(v_1,v_2,v_3)\Big|
+ = \Big| \det \begin{pmatrix}
+a_{11}&a_{12}&a_{13}\\
+a_{21}&a_{22}&a_{23}\\
+a_{31}&a_{32}&a_{33}
+\end{pmatrix}
+\Big|
+\]
+\end{proposition}  
+\end{minipage}\hspace*{0.5em}
+\begin{minipage}{0.29\textwidth}
+\myfigure{0.8}{
+\tikzinput{fig_determinants05} 
+}  
+\end{minipage}
+
+
+\bigskip
+
+\begin{itemize}
+  \item\pause unité d'aire dans $\Rr^2$ = aire du carré unité de côtés $\left(\left(\begin{smallmatrix} 1 \\ 0 \end{smallmatrix} \right),
+\left(\begin{smallmatrix} 0 \\ 1 \end{smallmatrix} \right)\right)$
+  \item\pause unité de volume dans $\Rr^3$ = volume du cube unité
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%
+
+
+\begin{frame}
+
+\begin{proof}
+
+\begin{itemize}
+  \item On traite le cas de la dimension $2$
+  \item\pause Le résultat est vrai si 
+$v_1=\left(\begin{smallmatrix}a\\0\end{smallmatrix}\right)$ et 
+$v_2=\left(\begin{smallmatrix}0\\d\end{smallmatrix}\right)$\pause.  En effet
+\begin{itemize}
+  \item on a un rectangle de côtés $|a|$ et $|d|$ donc d'aire $|ad|$
+  \item\pause $\det \begin{pmatrix}
+	a&0\\0&d
+\end{pmatrix} =ad$
+\end{itemize}
+\vspace{-.6cm} 
+\onslide<2->{
+\hfill
+\begin{minipage}{0.7\textwidth}
+\myfigure{1}{
+\tikzinput{fig_determinants06} 
+}  
+\end{minipage}
+}
+
+
+  \item \pause Si $v_1$ et $v_2$ sont colinéaires alors
+le parallélogramme est d'aire nulle
+
+ \pause
+Or le déterminant de deux vecteurs colinéaires est nul
+
+  \item \pause Dans la suite on suppose que les vecteurs ne sont pas colinéaires
+  
+\end{itemize}
+\noqed\vspace*{-4ex}
+\end{proof}
+\end{frame}
+
+%%%%%%%%
+
+\begin{frame}
+\begin{proof}
+
+\begin{itemize}
+  \item Notons $v_1= \left(\begin{smallmatrix}a\\c\end{smallmatrix}\right)$ et 
+$v_2= \left(\begin{smallmatrix}b\\d\end{smallmatrix}\right)$
+  \item \pause Si $a\neq0$ alors $v'_2=v_2-\frac{b}{a}v_1 = \left(\begin{smallmatrix}0\\d-\frac{b}{a}c\end{smallmatrix}\right)$ est vertical
+
+ \item \pause En remplaçant $v_2$ par $v_2'$ 
+\begin{itemize}   
+  \item \pause on ne change pas l'aire du parallélogramme
+\myfigure{1}{
+\tikzinput{fig_determinants06b} 
+}
+  \item \pause on ne change pas le déterminant
+$$\det (v_1,v_2')= 
+\det \begin{pmatrix}
+a & 0 \\ b & d-\frac{b}{a}c
+\end{pmatrix}
+=ad-bc=\det(v_1,v_2)$$
+\end{itemize}
+\end{itemize}
+\noqed\vspace*{-3ex}
+\end{proof}
+\end{frame}
+
+\begin{frame}
+\begin{proof}
+
+\begin{itemize}
+  \item $v'_1= \left(\begin{smallmatrix}a\\0\end{smallmatrix}\right)$ vecteur horizontal
+  
+  \item \pause En remplaçant $v_1$ par $v_1'$ 
+\begin{itemize}   
+  \item \pause on ne change pas l'aire du parallélogramme
+  \myfigure{1}{
+\tikzinput{fig_determinants06c} 
+}
+\vspace*{-1ex}
+  \item \pause ni le déterminant $$\det(v_1',v_2')=
+\det \begin{pmatrix}
+a&0\\
+0&d-\frac{b}{a}c
+\end{pmatrix}
+=ad-bc=\det(v_1,v_2)$$
+\end{itemize}
+  \item \pause On s'est donc ramené au  cas d'un rectangle aux côtés parallèles aux axes \qedhere
+\end{itemize}
+\vspace*{-2ex}
+\end{proof}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Pour $A = \begin{pmatrix}1&2\\5&3\end{pmatrix}$
+  et $B = \begin{pmatrix}-7&8\\-9&5\end{pmatrix}$
+  calculer les déterminants de $A$, $B$, $A \times B$, $A+B$, $A^{-1}$,
+  $\lambda A$, $A^T$.
+
+  \item Mêmes questions pour $A = \begin{pmatrix}a&b\\c&d\end{pmatrix}$
+  et $B = \begin{pmatrix}a'&0\\c'&d'\end{pmatrix}$.
+  
+  \item Mêmes questions pour 
+  $A = \begin{pmatrix}2&0&1\\2&-1&2\\3&1&0\end{pmatrix}$
+  et $B = \begin{pmatrix}1&2&3\\0&2&2\\0&0&3\end{pmatrix}$.
+  
+  \item Calculer l'aire du parallélogramme défini par les vecteurs
+  
+  $\left(\begin{smallmatrix}7\\3\end{smallmatrix}\right)$
+  et $\left(\begin{smallmatrix}1\\4\end{smallmatrix}\right)$.
+  
+  \item Calculer le volume du parallélépipède défini 
+  par les vecteurs 
+  
+  $\left(\begin{smallmatrix}2\\1\\1\end{smallmatrix}\right)$,
+  $\left(\begin{smallmatrix}1\\1\\4\end{smallmatrix}\right)$ et
+  $\left(\begin{smallmatrix}1\\3\\1\end{smallmatrix}\right)$.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

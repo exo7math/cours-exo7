@@ -1,0 +1,359 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={102,51,102}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Intégrales impropres}}
+\subtitle{Définitions et premières propriétés}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Points incertains
+    \item<4-> Convergence/divergence
+    \item<5-> Relation de Chasles et linéarité
+    \item<6-> Positivité
+    \item<7-> Critère de Cauchy
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Points incertains}
+
+\begin{frame}
+
+\begin{itemize}
+\item $t\mapsto f(t) = \frac{\sin |t|}{|t|^{3/2}}$ \quad sur  \quad
+$]-\infty,0[ \ \cup\ ]0,+\infty[$
+
+\myfigure{0.6}{
+\tikzinput{fig_intimp01} 
+} 
+
+\pause
+
+\item \evidence{Points incertains} : ici $-\infty$, $+\infty$ et $0$  
+
+\end{itemize}
+
+\pause
+$$
+\int_{-\infty}^{+\infty} f(t)\;\dd t
+=
+\int_{-\infty}^{-1} f(t)\;\dd t+
+\int_{-1}^{0} f(t)\;\dd t+
+\int_{0}^{1} f(t)\;\dd t+
+\int_{1}^{+\infty} f(t)\;\dd t\;
+$$
+
+
+\end{frame}
+
+\section*{Convergence/divergence}
+\begin{frame}
+
+
+Quatre types d'intervalle : $]-\infty,a]$, $]a,b]$, $[a,b[$ ou $[a,+\infty[$
+
+\pause
+
+\begin{mydefinition}
+%\label{def:intcv}
+\begin{itemize}
+\item 
+\begin{itemize}
+  \item $f$ une fonction continue sur $[a,+\infty[$
+\pause  
+  \item $\int_a^{+\infty} f(t)\;\dd t$ \defi{converge} si $\lim_{x\rightarrow+\infty} 
+\int_a^x f(t)\;\dd t$ existe et est finie
+
+ \pause Si c'est le cas, on pose :
+\mybox{$\displaystyle
+%\label{intcv1}
+\int_a^{+\infty} f(t)\;\dd t = \lim_{x\rightarrow+\infty} 
+\int_a^x f(t)\;\dd t$}
+\end{itemize}
+
+\pause
+
+\item 
+\begin{itemize}
+  \item $f$ une fonction continue sur $]a,b]$
+\pause  
+  \item $\int_a^b f(t)\;\dd t$ \defi{converge} si
+ $\lim_{x\rightarrow a^+}  \int_x^b f(t)\;\dd t\;$ existe et est finie
+ 
+ \pause
+ 
+ \item Si c'est le cas, on pose :
+\mybox{$\displaystyle
+%\label{intcv2}
+\int_a^{b} f(t)\;\dd t = \lim_{x\rightarrow a^+} 
+\int_x^b f(t)\;\dd t$}
+  \end{itemize}
+\pause
+
+\item Lorsque l'intégrale ne converge pas on dit qu'elle \defi{diverge}
+\end{itemize}
+\end{mydefinition}
+
+\end{frame}
+
+
+
+\section*{Exemples}
+
+
+\begin{frame}
+\begin{exemple}
+$$\int_0^{+\infty} \frac{1}{1+t^2}\;\dd t \quad \text{ converge}$$
+\pause
+\begin{itemize}
+  \item $\displaystyle \int_0^{x} \frac{1}{1+t^2}\;\dd t 
+  \pause=\Big[\arctan t\Big]_0^x
+  \pause=\arctan x$
+  \pause
+
+  \item $\displaystyle \lim_{x\rightarrow+\infty}\arctan x 
+    = \frac{\pi}{2}$
+  \pause
+  
+  \item $\displaystyle \int_0^{+\infty} \frac{1}{1+t^2}\;\dd t = \frac{\pi}{2}$
+\end{itemize}
+\pause
+\myfigure{0.8}{
+\tikzinput{fig_intimp07} 
+}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}
+\pause
+$$
+\int_0^1 \frac{1}{t}\;\dd t\qquad \text{ diverge}
+$$
+\pause
+$$
+\int_x^1 \frac{1}{t}\;\dd t 
+\pause
+= \Big[\ln t\Big]_x^1 
+\pause
+= -\ln x
+\pause
+\qquad \text{ et } \qquad 
+\lim_{x\rightarrow 0^+} -\ln x = +\infty
+$$  
+\end{exemple}
+\pause
+\bigskip
+
+\begin{exemple}
+$$
+\int_0^1 \ln t\;\dd t\qquad \text{ converge}
+$$ 
+\pause
+$$
+\int_x^1 \ln t\;\dd t 
+\pause
+= \Big[t\ln t-t\Big]_x^1 
+\pause
+= x-x\ln x-1
+\pause
+ \text{ et } 
+\lim_{x\rightarrow 0^+} (x-x\ln x-1) = -1
+$$
+\end{exemple}
+\end{frame}
+
+
+\section*{Relation de Chasles}
+
+\begin{frame}
+\begin{proposition}[Relation de Chasles] 
+\pause
+Soit $f : [a,+\infty[ \to \Rr$ une fonction continue et soit
+  $a' \in [a,+\infty[$. 
+  Alors les intégrales impropres $\int_a^{+\infty} f(t) \;\dd t$ 
+  et $\int_{a'}^{+\infty} f(t) \;\dd t $ sont de même nature. 
+  \pause
+  Si elles convergent, alors 
+  \mybox{$\displaystyle \int_a^{+\infty} f(t) \;\dd t = \int_{a}^{a'} f(t) \;\dd t+ \int_{a'}^{+\infty} f(t) \;\dd t$}
+\end{proposition}
+\end{frame}
+
+
+\section*{Linéarité}
+
+\begin{frame}
+\begin{proposition}[Linéarité de l'intégrale]
+\label{prop:lineariteintegralescv}
+Soient $f$ et $g$ deux fonctions continues sur
+$[a,+\infty[$, et $\lambda,\mu$ deux réels. Si
+les intégrales $\int_a^{+\infty} f(t)\;\dd t$ et 
+$\int_a^{+\infty} g(t)\;\dd t$ convergent, alors 
+$\int_a^{+\infty} \big(\lambda f(t)+\mu g(t)\big)\;\dd t$ converge et
+\mybox{$\displaystyle\int_a^{+\infty} \big(\lambda f(t) + \mu g(t)\big)\;\dd t = \lambda \int_a^{+\infty}
+f(t)\;\dd t +\mu \int_a^{+\infty} g(t)\;\dd t$}
+\end{proposition}
+\end{frame}
+
+
+\section*{Positivité}
+
+\begin{frame}
+\begin{proposition}[Positivité de l'intégrale]
+Soient $f,g : [a,+\infty[ \to \Rr$ des fonctions continues, ayant une intégrale convergente.
+\mybox{$\displaystyle \text{ Si }\quad f \le g \quad \text{ alors }\quad
+\int_a^{+\infty} f(t)\;\dd t  \le \int_a^{+\infty} g(t)\;\dd t$}
+\end{proposition} \pause
+
+\bigskip
+
+En particulier, l'intégrale d'une fonction positive est positive :
+\mybox{Si \quad $f\ge 0$ \quad alors \quad $\displaystyle \int_a^{+\infty} f(t)\;\dd t \ge 0$}
+
+\end{frame}
+
+\section*{Critère de Cauchy}
+
+\begin{frame}
+
+\evidence{Rappel} (\emph{Critère de Cauchy pour les limites de fonctions}) \\
+Soit $f : [a,+\infty[ \to \Rr$. 
+Alors $\lim_{x\to +\infty} f(x)$ existe et est finie  si et seulement si 
+$$\forall \epsilon>0\quad\exists M \ge a \qquad 
+\left( u,v \ge M \implies \big|f(u)-f(v)\big|<\epsilon\right)$$
+
+\pause
+
+ 
+\begin{theoreme}[Critère de Cauchy]
+\label{th:intimpcauchy}
+Soit $f : [a,+\infty[ \to \Rr$ une fonction continue.
+L'intégrale impropre $\int_a^{+\infty} f(t) \; \dd t$ converge
+si et seulement si
+$$\forall \epsilon>0  \quad \exists  M \ge a \qquad
+\left( u,v \ge M \implies \Bigl|\int_u^v f(t) \;\dd t\Bigr|<\epsilon\right)$$
+\end{theoreme}
+
+\pause
+
+\begin{proof}
+\begin{itemize}
+  \item Critère de Cauchy pour $F(x)=\int_a^x f(t) \; \dd t$ 
+\pause  
+  \item $\displaystyle \big|F(u)-F(v)\big|=\big|\int_u^vf(t)\; \dd t\big|$ \qedhere
+\end{itemize}
+\end{proof}
+\end{frame}
+
+
+\section*{Cas de deux points incertains}
+
+\begin{frame}
+
+Soient $a,b\in \overline{\Rr}=\Rr\cup\{-\infty,+\infty\}$ avec $a<b$
+et $f : \; ]a,b[ \to \Rr$ une fonction continue
+
+\pause
+
+
+\begin{mydefinition}
+\begin{itemize}
+  \item L'intégrale $\int_a^b f(t)\;\dd t$ \defi{converge} s'il existe
+$c \in ]a,b[$ tel que les \evidence{deux} intégrales
+impropres $\int_a^c f(t)\;\dd t$ et $\int_c^b f(t)\;\dd t$ convergent
+\pause  
+  \item La valeur de cette intégrale doublement impropre est alors
+$$\int_a^b f(t)\;\dd t = \int_a^c f(t)\;\dd t+\int_c^b f(t)\;\dd t$$
+\end{itemize}
+\end{mydefinition} 
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+\item $ \int_{-\infty}^{+\infty} \frac{1}{1+t^2}\;\dd t$ converge
+\pause
+\begin{itemize}
+  \item En effet on a vu que $ \int_0^{+\infty} \frac{1}{1+t^2}\;\dd t$ converge
+  et vaut $\frac{\pi}{2}$
+ \pause 
+  \item Par parité, il en est de même pour $\int_{-\infty}^0 \frac{1}{1+t^2}\;\dd t$
+  \pause
+  \item $ \int_{-\infty}^{+\infty} \frac{1}{1+t^2}\;\dd t = \pi$
+\end{itemize}
+\bigskip
+\pause
+\item $\int_{-\infty}^{+\infty}t\;\dd t$ diverge
+\pause
+\begin{itemize}
+  \item $\int_{0}^{x} t\;\dd t = \frac{x^2}{2}$ tend vers $+\infty$ 
+lorsque $x$ tend vers  $+\infty$
+  \pause
+  \item Donc $\int_0^{+\infty}t\;\dd t$ diverge
+  \pause
+  \item D'après la définition $\int_{-\infty}^{+\infty}t\;\dd t$ diverge
+  \pause
+  \item Bien que, pour tout $x$, on ait $\int_{-x}^{+x} t\;\dd t=0$
+\end{itemize}
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \section*{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Pour chacune des intégrales suivantes, déterminer le point incertain, dire
+  si l'intégrale converge, et si c'est le cas, calculer la valeur de l'intégrale :
+  $$
+  \int_0^1 \frac{1}{\sqrt {1-t}} \;\dd t \quad
+  \int_0^{+\infty}\cos t \;\dd t \quad
+  \int_0^1 \frac{1}{1-t} \;\dd t \quad
+  \int_{-\infty}^{\ln 2} e^t \;\dd t
+  $$
+  
+  \item Même exercice pour ces intégrales ayant deux points incertains :
+  $$
+  \int_{-\infty}^{+\infty} \frac{\dd t}{1+t^2} \quad
+  \int_{-\infty}^{1} \frac{\dd t}{(t-1)^2} \quad
+  \int_{-\infty}^{+\infty} e^{-|t|}\;\dd t \quad
+  \int_0^{+\infty} \frac1t \;\dd t$$
+  
+   \item \'Ecrire la preuve de la linéarité des intégrales impropres. Même chose 
+   pour la positivité.  
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+
+
+\end{document}

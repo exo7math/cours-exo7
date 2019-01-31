@@ -1,0 +1,426 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans cette dernière partie, nous allons voir comment 
+les techniques usuelles d'intégration se transposent 
+au cas des intégrales impropres.
+
+\change
+
+\change
+
+Nous commencerons par l'intégration par parties,
+
+\change
+
+puis nous passerons au changement de variable,
+
+\change
+
+avant de conclure en proposant un plan d'étude 
+type pour une intégrale impropre.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le théorème d'intégration par parties pour les intégrales 
+impropres est la formule suivante 
+$\int u v'= \big[uv\big] - \int u' v$.
+
+\change
+
+L'énoncé complet est le suivant :
+
+ Soient $u$ et $v$ sont deux fonctions de classe 
+ $\mathcal{C}^1$ sur l'intervalle $[a,+\infty[$.
+ 
+Il y a une hypothèse supplémentaire :
+$\lim_{t\to+\infty} u(t)v(t)$ existe et est finie.
+
+Alors d'une part les intégrales 
+$\displaystyle\int_a^{+\infty} u(t) \, v'(t)\;\dd t$
+et $\displaystyle\int_a^{+\infty} u'(t) \, v(t)\;\dd t$ 
+sont de même nature.
+
+Et le plus important : en cas de convergence la formule usuelle 
+est valide, c'est-à-dire  :
+$$\int_a^{+\infty} u(t) \, v'(t)\;\dd t 
+= \big[uv\big]_a^{+\infty} - \int_a^{+\infty} u'(t) \, v(t)\;\dd t$$
+
+\change
+
+On rappelle que la notation $\big[uv\big]_a^{+\infty}$ signifie 
+$\lim_{t\to+\infty} (uv)(t) - (uv)(a)$.
+
+
+\change
+
+Le théorème se prouve grâce à la formule usuelle d'intégration 
+par parties sur l'intervalle fermé $[a,x]$ [montrer] :
+% $$\int_a^{x} u(t) \, v'(t)\;\dd t 
+% = \big[uv\big]_a^{x} - \int_a^{x} u'(t) \, v(t)\;\dd t$$
+faire tendre $x\to +\infty$,
+en remarquant que par hypothèse le crochet a une limite finie 
+lorsque $x\to +\infty$, 
+
+% donc l'intégrale dans le membre de 
+% gauche admet une limite finie si et seulement si 
+% celle dans le membre de droite admet une limite finie. 
+% Si ces limites existent, le fait que limites et somme 
+% commutent donne bien l'égalité du théorème.
+
+Le mieux n'est pas d'appliquer ce théorème, 
+mais d'effectuer à chaque fois la preuve,
+c'est-à-dire faire une intégration par parties sur l'intervalle $[a,x]$ et
+en vérifiant bien que les objets ont une limite lorsque $x\to+ \infty$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\diapo
+
+Voici un exemple. calculons, pour $\lambda >0$ fixé, 
+l'espérance  de la loi exponentielle, qui est 
+$\int_0^{+\infty} \lambda t e^{-\lambda t}\;\dd t$.
+
+\change
+Pour cela, on effectue l'intégration par 
+parties avec $u = \lambda t$, $v' = e^{-\lambda t}$ : 
+
+\change
+$\int_0^{x} \lambda t e^{-\lambda t}\;\dd t$
+est donc $= \int_0^{x} u(t) \, v'(t)\;\dd t  $
+
+
+\change
+en effectuant l'intégration par parties on trouve 
+$\displaystyle \big[uv\big]_0^{x} - \int_0^{x} u'(t) \, v(t)\;\dd t $
+
+[montrer $u$, $v'$]
+
+ici $u(t) = \lambda t$ se dérive en $u'(t) = \lambda$
+et $v'(t) = e^{-\lambda t}$ s'intègre en 
+$v(t)= \frac{-1}{\lambda}e^{-\lambda t}$
+
+\change
+d'où en remplaçant :
+
+$$\Big[ \lambda t \cdot \frac{-1}{\lambda}e^{-\lambda t}\Big]_0^{x} 
+- \int_0^{x} \lambda \cdot  \frac{-1}{\lambda}e^{-\lambda t}\;\dd t $$
+
+\change
+En évaluant le crochet qui est nul en $0$ et en 
+simplifiant la deuxième intégrale, on obtient :
+
+ $$\int_0^{x} \lambda t e^{-\lambda t}\;\dd t  = -xe^{-\lambda x} + \int_0^{x} e^{-\lambda t} \;\dd t$$
+
+\change
+Cette dernière intégration est facile car 
+comme on l'a vu $e^{-\lambda t}$ s'intègre en 
+$\frac{-1}{\lambda}e^{-\lambda t}$, ce qui donne
+
+$$-xe^{-\lambda x} + \Big[\frac{-1}{\lambda}e^{-\lambda t}\Big]_0^{x} $$
+
+\change
+En évaluant à nouveau le crochet, on obtient 
+
+$$-xe^{-\lambda x}-\frac{1}{\lambda} \left(e^{-\lambda x} -1\right) $$
+ 
+\change
+Comme $\lambda >0$, 
+ $xe^{-\lambda x}$ et $e^{-\lambda x}$ 
+tendent vers $0$ quand $x \to +\infty $, donc 
+
+$$\int_0^{x}  \longrightarrow \ \  \frac{1}{\lambda} \qquad \text{ lorsque } x \to +\infty $$
+
+\change
+Conclusion $\int_0^{+\infty} \lambda t e^{-\lambda t}\;\dd t$
+converge et vaut $\frac{1}{\lambda}$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\diapo
+
+Le théorème de changement de variable pour les intégrales impropres 
+est la formule 
+$$\int_{a}^{+\infty} f(x) \;\dd x 
+= \int_\alpha^\beta f\big(\varphi(t)\big)\cdot\varphi'(t) \;\dd t$$
+
+\change
+Voici l'énoncé complet :
+
+On considère une fonction continue $f$ définie sur un intervalle 
+$I = [a,+\infty[$. 
+
+Soit $J= [\alpha,\beta[$ un autre intervalle avec 
+$\alpha\in \Rr$ et $\beta\in \Rr$ ou $\beta=+\infty$. 
+
+On se donne  un difféomorphisme $\varphi : J \to I$ de classe $\mathcal{C}^1$ entre ces deux intervalles.
+
+Alors l'intégrale de départ 
+c'est-à-dire $\int_{a}^{+\infty} f(x) \;\dd x$ 
+et celle obtenue après changement de variable 
+c'est-à-dire 
+$\int_\alpha^\beta f\big(\varphi(t)\big)\cdot\varphi'(t) \;\dd t$ 
+sont de même nature.
+
+Et surtout si elles convergent, elles ont la même valeur.
+%$$\int_{a}^{+\infty} f(x) \;\dd x = \int_\alpha^\beta f\big(\varphi(t)\big)\cdot\varphi'(t) \;\dd t$$
+
+\change
+On rappelle que $\varphi$ un \defi{difféomorphisme de classe $\mathcal{C}^1$}
+si $\varphi$ est une application $\mathcal{C}^1$, bijective, dont la bijection réciproque est
+aussi $\mathcal{C}^1$.
+
+La démonstration est la même que celle du théorème 
+pour le changement de variable usuel.
+
+Encore une fois, au lieu d'appliquer directement ce théorème, 
+on peut effectuer un changement de variable classique sur l'intervalle $[a,x]$,
+puis étudier la limite lorsque $x\to +\infty$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\diapo
+
+L'exemple suivant est particulièrement intéressant : 
+comme on va le voir tout de suite, l'intégrale de Fresnel  
+$\int_1^{+\infty} \sin (t^2) \; \dd t$ converge.
+
+En d'autres termes la fonction $f(t) = \sin(t^2)$ 
+a une intégrale convergente, bien qu'elle ne tende pas vers 
+$0$ lorsque $t\to+\infty$, comme on le voit sur le graphe.
+L'aire sous la courbe est finie, bien que les valeurs $+1$ et $-1$ 
+soient atteintes une infinité de fois.
+
+C'est un comportement opposé à celui des séries : 
+pour une série convergente, le terme général tend toujours vers $0$. C'est faux pour les intégrales.
+
+\change 
+Pour montrer la convergence de l'intégrale de Fresnel, 
+
+\change
+on effectue le changement de variable $u=t^2$, ce qui donne
+$t=\sqrt{u}$ et  $\dd t=\frac{\dd u}{2\sqrt u}$. 
+
+\change
+D'autre part la fonction racine carrée un difféomorphisme entre 
+les intervalles $[1,x^2]$ et $[1,x]$.
+La fonction racine carrée est bien $C^1$, sa bijection réciproque 
+est la fonction carrée qui est aussi $C^1$.
+
+
+\change 
+On applique le théorème de changement de variable :
+$\int f(t) \;\dd t 
+= \int f\big(\varphi(u)\big)\cdot\varphi'(u) \;\dd u$
+
+\change
+Plus prosaiquement on remplace $t^2$ par $u$
+et $dt$ par $du/(2\sqrt u)$.
+
+On fait bien attention aux bornes :
+$t$ varie de $1$ à $x$, ce qui fait que $u$ varie de $1$ à $x^2$ :
+
+$$\int_1^x \sin (t^2) \; \dd t = \int_1^{x^2} \sin (u) \; \frac{\dd u}{2\sqrt u}.$$
+
+\change 
+Or on vérifie immédiatement grâce au théorème d'Abel 
+que l'intégrale $\int_1^{+\infty} \frac{\sin u}{\sqrt u} \; \dd u$
+converge, 
+
+\change 
+donc  
+$\int_1^{x^2} \sin (u) \; \frac{\dd u}{2\sqrt u}$ admet 
+une limite finie lorsque $x\to+\infty$, 
+
+\change
+ce qui prouve que $\int_1^x \sin (t^2) \; \dd t$ 
+admet aussi une limite finie. 
+
+\change
+
+On a bien prouvé que $\int_1^{+\infty} \sin (t^2) \; \dd t$ converge.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\diapo
+
+
+Je vous résume maintenant l'ensemble des techniques vues dans ce chapitre
+pour l'étude des intégrales impropres, avec éventuellement plusieurs points incertains. Pour
+illustrer le plan d'étude, nous détaillerons l'exemple introductif du chapitre :
+
+Soit
+$$I = \int_{-\infty}^{+\infty} \frac{\sin |t|}{|t|^{3/2}}\;\dd t$$  
+
+
+\change
+
+La première étape 1 : est d'identifier le ou les points incertains.
+
+\change
+Ici la fonction $|t|^{-3/2}\sin |t|$ est définie sur $\Rr^*$.
+
+\change
+Elle est paire, et tend vers $0$, mais en oscillant, quand $t$ tend vers $\pm \infty$, 
+
+\change
+Par contre elle tend vers $+\infty$ en $0^-$ et en $0^+$, 
+[figure]. 
+
+\change
+Il y a donc $4$ points incertains à étudier 
+$-\infty$, $0^-$, $0^+$ et $+\infty$.  [figure]
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+\diapo
+
+La deuxième étape c'est d'isoler les points incertains :
+on découpe le domaine de définition en autant de
+sous-intervalles qu'il y a de points incertains, de manière à ce
+que les problèmes soient tous situés sur une seule borne de chaque
+intervalle.
+
+\change
+Dans notre exemple, on divisera $\R^*$ en 4 intervalles : 
+$]-\infty,-1]$, $[-1,0[$, $]0,1]$ et $[1,+\infty[$.  
+
+Je vous rappelle que le point de découpe, ici $-1$ et ici $+1$, n'a pas d'importance
+pour la convergence.
+
+\change
+On étudie chacune des intégrales obtenues  $I_1$, $I_2$, $I_3$ et $I_4$  
+séparément. 
+
+\change
+L'intégrale $I$ ne converge que si *chacun* des quatre morceaux converge, 
+
+\change
+et dans ce cas $I=I_1+I_2+I_3+I_4$, d'après la relation de Chasles.
+
+
+\change
+Ensuite on peut se ramener à une intégrale sur un intervalle du type 
+$[a,+\infty[$ ou du type $]a,b]$.
+Car c'est sur ce type d'intervalle que l'on a énoncé nos théorèmes.
+
+\change
+On utiliserait pour cela  le changement de variable 
+$t\mapsto -t$. 
+
+\change
+Dans l'exemple considéré, la fonction est paire, et donc
+$I_1=I_4$ et $I_2=I_3$, et on n'a plus que deux intégrales à étudier.
+
+  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\diapo
+
+La dernière étape c'est de déterminer si l'intégrale converge,
+ou mieux de calculer l'intégrale.
+
+
+Si c'est possible, on calculer une primitive de la fonction à intégrer.
+
+Si on a une primitive explicite, le problème est ramené à un calcul 
+de limite. 
+
+Sinon,  on passe alors à l'étape suivante pour décider de la convergence.
+
+\change
+Tout d'abord si la fonction est de signe constant :
+
+\change
+On peut utiliser le théorème des équivalents 
+ou le théorème de comparaison, en choisissant le plus adapté.
+
+\change
+Revenons à notre exemple, 
+
+\change
+$$
+t^{-3/2} \sin |t|  \;\mathop{\sim}_{0^+}\; t^{-1/2}\;.
+$$
+car $\sin t \sim t$
+
+et les fonctions positives autour de $t=0$.
+
+\change
+Comme on sait que $\int_0^1 \frac{1}{t^{1/2}}\;\dd t$ converge
+car $1/2 < 1$
+(intégrale de Riemann)
+
+\change
+alors par le théorème des équivalents,
+l'intégrale $I_3 = \int_{0}^{1} |t|^{-3/2} \sin |t| \;\dd t$ 
+converge aussi.
+
+\change 
+Enfin, voici le cas où la fonction n'est pas de signe constant.
+
+\change
+On peut commencer par étudier l'intégrale de $|f|$, 
+avec le théorème des équivalents ou le théorème de comparaison. 
+Si l'intégrale de $|f|$ converge,  l'intégrale de $f$ converge aussi.
+
+
+\change
+Si l'intégrale de $|f|$ ne converge pas,
+on peut essayer en dernier recours d'appliquer le théorème d'Abel. 
+
+\change
+Revenons à notre exemple : 
+
+(.../...) 
+
+\change
+on majore $t^{-3/2} \big|\sin |t|$ par $t^{-3/2}$.
+
+\change
+On sait que l'intégrale de Riemann 
+$\int_1^{+\infty} \frac{1}{t^{3/2}}\;\dd t$ converge.
+
+\change
+Donc grâce au théorème de comparaison :
+l'intégrale $I_4=\int_{1}^{+\infty} |t|^{-3/2} \sin |t| \;\dd t.$ 
+est absolument convergente,  donc convergente.
+
+\change
+On conclut que
+$I = \int_{-\infty}^{+\infty} \frac{\sin |t|}{|t|^{3/2}}\;\dd t
+=  I_1+I_2+I_3+I_4$
+
+$= 2 I_3 + 2 I_4$ par parité 
+
+est une intégrale convergente.
+
+
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+ \diapo
+
+ A vous de vous exercer au changement de variable 
+ et à l'intégration par parties avec ces énoncés !
+
+\end{document}

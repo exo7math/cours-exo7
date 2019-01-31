@@ -1,0 +1,269 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={150,93,42}]{structure}
+
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Dimension finie}}
+\subtitle{Famille génératrice}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition
+    \item<4-> Exemples
+    \item<5-> Liens entre familles génératrices
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définition}
+
+\begin{frame}
+Soit $E$ un $\Kk$-espace vectoriel
+
+Soient $v_1,\dots ,v_p$ des vecteurs de $E$
+
+\begin{mydefinition}
+
+La famille $\{v_1,\dots ,v_p\}$ est une \defi{famille génératrice} de $E$ 
+si tout vecteur de $E$ est une combinaison linéaire des vecteurs $v_1,\dots ,v_p$, c'est-à-dire :
+
+$${\color<2>{red}\forall v \in E } \qquad {\color<3>{red}\exists \lambda_1, \ldots,\lambda_p \in \Kk }\qquad
+{\color<4>{red}v=\lambda_1 v_1+\cdots + \lambda_p v_p}$$
+\end{mydefinition}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exemples}
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+\item
+$v_1={\color<4>{red}\left(\begin{smallmatrix}1\\0\\0\end{smallmatrix}\right)}\qquad
+v_2={\color<5>{red}\left(\begin{smallmatrix}0\\1\\0\end{smallmatrix}\right)}\qquad
+v_3={\color<6>{red}\left(\begin{smallmatrix}0\\0\\1\end{smallmatrix}\right)}$ 
+\pause
+\item
+$v=\left(\begin{smallmatrix}x\\y\\z\end{smallmatrix}\right)$
+\pause
+$
+={\color<7>{red}x}{\color<4>{red}\left(\begin{smallmatrix}1\\0\\0\end{smallmatrix}\right)}
++{\color<8>{red}y}{\color<5>{red}\left(\begin{smallmatrix}0\\1\\0\end{smallmatrix}\right)}
++{\color<9>{red}z}{\color<6>{red}\left(\begin{smallmatrix}0\\0\\1\end{smallmatrix}\right)}
+$
+\pause\pause\pause\pause\pause\pause\pause
+\item
+La famille $\{v_1,v_2,v_3\}$ est génératrice de $\Rr^3$
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+\item
+$v_1=\left(\begin{smallmatrix}1\\1\\1\end{smallmatrix}\right)\qquad
+v_2=\left(\begin{smallmatrix}1\\2\\3\end{smallmatrix}\right)$
+
+\pause
+\item 
+La famille $\{v_1, v_2\}$ est-elle g\'en\'eratrice de $\Rr^3$?
+
+\pause
+\item
+$v=\left(\begin{smallmatrix}0\\1\\0\end{smallmatrix}\right)\in\Rr^3$%\notin\Vect (v_1,v_2)$
+
+\pause
+\item
+
+$v=\lambda_1 v_1 + \lambda_2 v_2$
+
+\pause
+$\iff\left(\begin{smallmatrix}0\\1\\0\end{smallmatrix}\right)= 
+\lambda_1 \left(\begin{smallmatrix}1\\1\\1\end{smallmatrix}\right) + 
+\lambda_2 \left(\begin{smallmatrix}1\\2\\3\end{smallmatrix}\right)
+\iff
+\left\{\begin{array}{rcl} 
+\lambda_1 + \lambda_2 & = & 0\\
+\lambda_1 + 2\lambda_2 & = & 1\\
+\lambda_1 + 3\lambda_2 & = & 0
+\end{array}\right.
+$
+
+\pause
+Ce système n'a {\color{red}pas} de solution
+
+\pause
+\item
+$\{v_1, v_2\}$ \emph{n'est pas} une famille g\'en\'eratrice de $\Rr^3$ 
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+
+\begin{frame}
+\begin{exemple}
+Soit $E=\Rr^2$
+\begin{itemize}
+
+\item 
+
+\begin{itemize}
+\item
+$v_1=\left(\begin{smallmatrix}1\\0\end{smallmatrix}\right)\qquad v_2=\left(\begin{smallmatrix}0\\1\end{smallmatrix}\right)$
+ 
+ \pause
+  \item $\{v_1, v_2\}$ est g\'en\'eratrice de $\Rr^2$ car 
+  $\left(\begin{smallmatrix}x\\y\end{smallmatrix}\right)=
+  x\left(\begin{smallmatrix}1\\0\end{smallmatrix}\right)
+  +y\left(\begin{smallmatrix}0\\1\end{smallmatrix}\right)$
+
+  \end{itemize}
+  
+
+
+
+  \pause
+  \item 
+  
+  \begin{itemize}
+  \item
+  $v'_1=\left(\begin{smallmatrix}2\\1\end{smallmatrix}\right) \qquad 
+  v'_2 = \left(\begin{smallmatrix}1\\1\end{smallmatrix}\right)$
+  
+  \pause
+  \item La famille $\{v_1', v_2'\}$ est-elle g\'en\'eratrice de $\Rr^2$?
+   
+  \pause 
+  \item 
+$$v=\begin{pmatrix}x\\y\end{pmatrix}={\color<6>{red}\lambda} v_1' +{\color<6>{red}\mu} v_2'
+\iff \left \{ \begin{array}{rcl}
+2\lambda + \mu &=& x\\
+\lambda+\mu &=& y
+\end{array}\right. $$
+
+
+\pause\pause
+\item
+$\lambda =x -y\qquad \mu =-x+2y$
+
+\pause
+\item $\{v_1', v_2'\}$ est aussi une famille g\'en\'eratrice de $\Rr^2$
+\end{itemize}
+
+\pause
+\item Il existe plusieurs familles g\'en\'eratrices de $\Rr^2$
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Liens entre familles génératrices}
+
+\begin{frame}
+\begin{proposition}
+Soit $\mathcal{F} = \left\{ v_1, v_2, \dots , v_p\right\}$ une famille génératrice de $E$.
+Alors $\mathcal{F}' = \left\{ v_1', v_2', \dots , v_q'\right\}$ est aussi une famille
+génératrice de $E$ si et seulement si tout vecteur de $\mathcal{F}$ 
+est une combinaison linéaire de vecteurs de $\mathcal{F}'$
+\end{proposition}
+
+
+\end{frame}
+
+
+\begin{frame}
+\begin{proposition}
+Si la famille de vecteurs  $\mathcal{F} =\{v_1,\ldots,v_p\}$ engendre $E$ et si l'un des vecteurs, 
+par exemple $v_p$, est combinaison linéaire des autres, alors la famille 
+$\mathcal{F}  \setminus \{v_p\}= \{v_1,\dots ,v_{p-1}\}$
+est encore  génératrice de $E$
+\end{proposition}
+
+
+\pause
+\begin{proof}
+\begin{itemize}
+\item
+$v_1,\dots ,v_p$ engendrent $E$ : $\forall v \in E\quad\exists \lambda_1, \ldots, \lambda_p$
+$$v=\lambda_1 v_1+ \cdots + \lambda_p v_p$$
+
+\pause
+\item $v_p$ combinaison lin\'eaire de $\{v_1,\dots ,v_{p-1}\}$ : 
+$$v_p = \alpha_1 v_1 + \cdots + \alpha_{p-1}v_{p-1}$$
+
+
+\pause
+\item
+$v = \lambda_1 v_1+ \cdots + \lambda_{p-1}v_{p-1} + \lambda_{p}
+\left( \alpha_1 v_1+\cdots+\alpha_{p-1}v_{p-1} \right)$
+$
+\iff v=\left ( \lambda_1+\lambda_{p}\alpha_1\right )v_1+\dots + 
+ \left ( \lambda_{p-1}+\lambda_{p}\alpha_{p-1}\right )v_{p-1}$
+ \end{itemize}
+\end{proof}
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item \`A quelle condition sur $t\in\Rr$, la famille
+$\left\{ 
+  \left(\begin{smallmatrix} 0 \\ t-1 \end{smallmatrix}\right),
+  \left(\begin{smallmatrix} t \\ -t \end{smallmatrix}\right)
+  \left(\begin{smallmatrix} t^2-t \\ t-1 \end{smallmatrix}\right)
+  \right\}$ 
+  est une famille génératrice de $\Rr^2$ ?
+  
+  \item   Même question avec la famille  
+  $\left\{ 
+  \left(\begin{smallmatrix} 1 \\ 0 \\ t \end{smallmatrix}\right) 
+  \left(\begin{smallmatrix} 1 \\ t \\ t^2 \end{smallmatrix}\right) 
+  \left(\begin{smallmatrix} 1 \\ t^2 \\ 1 \end{smallmatrix}\right) 
+  \right\}$ de $\Rr^3$.  
+   
+  \item Montrer qu'une famille de vecteurs contenant une famille 
+  génératrice est encore une famille génératrice de $E$.
+    
+  \item Montrer que si $f : E \to F$ est une application linéaire \emph{surjective}
+  et que $\{ v_1, \ldots, v_p \}$  est une famille génératrice de $E$ ,
+  alors $\big\{ f(v_1), \ldots, f(v_p) \big\}$ est une famille génératrice de $F$.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,372 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={66,15,15}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Limites et fonctions continues}}
+\subtitle{Continuité en un point}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définitions
+    \item<4-> Opérations sur les fonctions continues
+    \item<5-> Prolongement par continuité
+    \item<6-> Suites et continuité
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%---------------------------------------------------------------
+\section{Définition}
+
+\begin{frame}
+
+\begin{mydefinition}
+\begin{itemize}
+  \item $f:I\to\Rr$ est \defi{continue en $x_0\in I$} si
+\vspace*{1ex}
+
+\hspace*{-1.5em}
+\begin{minipage}{\textwidth}
+\mybox{$
+\forall \epsilon>0 \quad \exists \delta>0 \quad \forall x\in I \quad \vert x-x_0\vert <\delta 
+\implies \vert f(x)-f(x_0)\vert <\epsilon$}  
+\end{minipage}
+
+\vspace*{1ex}
+\pause 
+c'est-à-dire si $f(x)$ tend vers $f(x_0)$ lorsque $x$ tend vers $x_0$
+
+  \item <4-> $f$ est \defi{continue sur $I$} si $f$ est continue en tout point de $I$
+% \vspace*{-1ex}
+ \end{itemize}
+\end{mydefinition}
+
+ \pause 
+\vspace*{-1ex}
+\myfigure{.85}{
+\tikzinput{fig_fonctions4bis}
+} 
+ 
+\end{frame}
+
+
+
+\begin{frame}
+
+\centerline{\hspace*{-2em}Les fonctions suivantes \evidence{ne sont pas continues} au point $x_0$}
+
+\myfigure{1}{
+\tikzinput{fig_fonctions6}
+}
+  
+\end{frame}
+
+
+\begin{frame}
+
+
+\begin{exemple}
+\begin{itemize}
+\item Les fonctions suivantes sont continues
+\begin{itemize}
+\item \pause fonction constante sur un intervalle
+\item \pause $x\mapsto\sqrt{x}$ sur $[0,+\infty[$
+\item \pause $\sin$ et $\cos$ sur $\Rr$
+\item \pause $x\mapsto\vert x\vert$ sur $\Rr$
+\item \pause $\exp$ sur $\Rr$ \ et \ $\ln$ sur $]0,+\infty[$
+\end{itemize}
+
+\item \pause $E$ n'est pas continue aux points $x_0\in\Z$
+
+
+Mais elle est continue en $x_0\in \Rr \setminus \Zz$
+\end{itemize}
+\end{exemple}
+\myfigure{0.6}{
+\tikzinput{fig_fonctionsA09}
+}  
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Propriétés}
+
+\begin{frame}
+
+\begin{lemme}
+Si $f$ est continue en $x_0$ et si $f(x_0)\neq 0$, alors il existe $\delta>0$ tel que
+\[
+\forall x\in ]x_0-\delta,x_0+\delta [ \quad f(x)\neq 0
+\]
+\end{lemme}
+\pause
+\myfigure{.85}{
+\tikzinput{fig_fonctionsA13}
+} 
+\pause
+\begin{proof}
+Supposons $f(x_0)>0$. \pause Par hypothèse
+
+$\forall \epsilon>0 \quad \exists \delta>0  \quad  
+x\in \, ]x_0-\delta,x_0+\delta [  \implies f(x_0)-\epsilon < f(x) <f(x_0)+\epsilon$
+
+\pause
+On fixe $\epsilon$ tel que $0<\epsilon<f(x_0)$,
+\pause
+alors
+$f(x) > f(x_0)-\epsilon >0$
+\end{proof}
+  
+\end{frame}
+
+\begin{frame}
+
+\begin{proposition}
+Soient $f$ et $g$ deux fonctions continues en $x_0\in\Rr$. \pause Alors
+\begin{itemize}
+  \item $\lambda\cdot f$ est continue en $x_0$ (pour tout $\lambda\in\R$)
+  \item\pause  $f+g$ est continue en $x_0$
+  \item\pause  $f\times g$ est continue en $x_0$
+  \item\pause  si $f(x_0)\neq 0$ alors $\frac1f$ est continue en $x_0$
+\end{itemize}
+\end{proposition}
+
+\pause 
+\begin{exemple}
+On en déduit que les fonctions suivantes sont continues
+\begin{itemize}
+\item\pause  $x\mapsto x^n$ sur $\Rr$ (comme produit $x \cdot x \cdot \ldots$)
+\item\pause  les polynômes sur $\Rr$ 
+\item\pause  les fractions rationnelles $x\mapsto \frac{P(x)}{Q(x)}$ sur tout intervalle où  $Q(x)\neq 0$
+\end{itemize}
+\end{exemple}  
+  
+\end{frame}
+
+
+\begin{frame}
+  
+\begin{proposition}
+Si $f$ est continue en $x_0$ et si $g$ est continue en $f(x_0)$
+alors $g\circ f$ est continue en $x_0$
+\end{proposition}  
+  
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Prolongement par continuité}
+
+\begin{frame}
+
+\begin{mydefinition}
+Soit $I$ un intervalle, $x_0\in I$ et $f:I\setminus\{x_0\}\to\Rr$ une fonction
+\pause 
+\begin{itemize}
+  \item $f$ est \defi{prolongeable par continuité} en $x_0$ si $f$ a une 
+  limite finie en $x_0$. \pause Notons $\ell=\displaystyle\lim_{x_0} f$
+  \item<4-> On définit alors le \defi{prolongement par continuité} de $f$ en $x_0$ par
+  \vspace*{-1ex}
+  \[
+  \tilde f(x) =
+  \begin{cases}
+  f(x) &\text{ si } x\neq x_0\\
+  \ell &\text{ si } x=x_0
+  \end{cases}
+  \] 
+  
+   \vspace*{-2ex}
+  \pause 
+ Alors $\tilde f:I\to\Rr$ est continue en $x_0$
+\end{itemize}
+\end{mydefinition}
+
+\myfigure{.9}{
+\tikzinput{fig_fonctionsA15}
+}
+  
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}
+La fonction $f:\Rr^*\to\Rr$, $f(x)=x\sin\left(\frac1x\right)$ admet-elle un prolongement par continuité en $0$ ?  \pause
+
+\medskip
+
+\centerline{$\forall x\in\Rr^* \quad \vert f(x)\vert\leq \vert x\vert  \pause \ \implies \ \displaystyle\lim_0 f = 0$}
+
+\bigskip
+
+\pause
+Donc $f$ est donc prolongeable par continuité en $0$ et $\tilde f:\Rr\to\Rr$ est
+\[
+\tilde f(x) = 
+  \begin{cases}
+  x\sin\left(\frac1x\right) &\text{ si } x\neq 0\\
+  0 &\text{ si } x=0
+  \end{cases}
+\]
+
+\end{exemple}
+  
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Suites et continuité}
+
+\begin{frame}
+
+\begin{proposition}
+Soit $f:I\to\Rr$ une fonction et $x_0\in I$. \pause Alors :
+\mybox{$f \text{ continue en } x_0 \ \iff \
+\begin{matrix}
+\text{pour toute suite $(u_n)$ qui tend vers } x_0\\
+\text{la suite $(f(u_n))$ tend vers } f(x_0)
+\end{matrix}$}
+\end{proposition}
+ 
+\pause 
+\begin{remarque}
+\'Etude des suites récurrentes :  $u_{n+1}= f(u_n)$\pause
+\mybox{si $f$ est continue et $u_n\to \ell$, alors $f(u_n)\to f(\ell)$, 
+et donc $f(\ell)=\ell$}
+\end{remarque} 
+  
+\end{frame}
+
+
+
+\begin{frame}
+
+\centerline{$f \text{ continue en } x_0 \ \iff \
+\begin{matrix}
+\text{pour toute suite $(u_n)$ qui converge vers } x_0\\
+\text{la suite $(f(u_n))$ converge vers } f(x_0)
+\end{matrix}$}
+ 
+\begin{proof}
+\begin{itemize}\pause 
+  \item[$\implies$] 
+  \emph{On suppose que $f$ est continue en $x_0$ et $u_n\to x_0$. 
+  On montre $f(u_n)\to f(x_0)$} 
+  
+\pause  
+  Soit $\epsilon >0$
+  \pause
+\begin{itemize}
+  \item Comme $f$ est continue en $x_0$
+\[
+\exists \delta>0 \quad |x-x_0|<\delta \implies |f(x)-f(x_0)|<\epsilon
+\]
+\pause 
+  \item Comme $u_n\to x_0$ 
+$$\begin{array}{rl}
+\exists N\in\Nn  \quad  n\geq N & \implies |u_n-x_0|<\delta\\
+\pause ~ & \implies |f(u_n)-f(x_0)|<\epsilon
+\end{array}$$
+\pause
+\item  Donc $f(u_n)\to f(x_0)$
+\end{itemize}
+\end{itemize}
+\end{proof}
+\end{frame}
+
+
+\begin{frame} 
+
+\centerline{$f \text{ continue en } x_0 \ \iff \
+\begin{matrix}
+\text{pour toute suite $(u_n)$ qui converge vers } x_0\\
+\text{la suite $(f(u_n))$ converge vers } f(x_0)
+\end{matrix}$}
+
+
+
+\begin{proof}  \pause
+\begin{itemize}
+  \item[$\Longleftarrow$] \emph{On suppose que $f$ n'est pas continue en $x_0$. 
+  On montre qu'il existe $(u_n)$ qui converge vers $x_0$ et 
+  telle que $(f(u_n))$ ne converge pas vers $f(x_0)$} 
+
+  \pause 
+  \begin{itemize}
+  \item Comme $f$ n'est pas continue en $x_0$ 
+\[
+\exists \epsilon_0>0 \quad \forall\delta>0 \quad \exists x_\delta \in I \quad |x_\delta-x_0|<\delta \text{ et } |f(x_\delta)-f(x_0)|>\epsilon_0
+\]
+\pause
+  \item pour tout $n\in \Nn^*$, 
+on choisit $\delta=1/n$. \pause Alors il existe $u_n$ tel que 
+\[
+|u_n-x_0|<\frac1n \quad \text{et} \quad |f(u_n)-f(x_0)|>\epsilon_0
+\] 
+\pause
+  \item $(u_n)$ tend vers $x_0$ mais $(f(u_n))$ ne tend pas vers $f(x_0)$
+
+  \end{itemize}
+\end{itemize}
+\end{proof}
+
+  
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Déterminer le domaine de définition et de continuité de
+$f(x) = 1/\sin x$, $g(x) = 1/\sqrt{x+\frac12}$ et $h(x) = \ln(x^2+x-1)$.  
+  
+  \item Trouver les couples $(a,b)\in\Rr^2$ tels que la fonction $f$ définie sur $\Rr$ par 
+  $f(x) = ax+b$ si $x< 0$ et $f(x) = \exp(x)$  si $x\geq 0$ soit continue sur $\Rr$. 
+  Et si on avait $f(x) = \frac{a}{x-1}+b$ pour $x<0$ ?
+
+  \item Soit $f$ une fonction continue telle que $f(x_0)=1$. Montrer qu'il existe $\delta>0$ tel que : 
+  pour tout $x\in ]x_0 - \delta, x_0+\delta[ \quad f(x) > \frac12$.
+  
+  \item \'Etudier la continuité de $f : \Rr \to \Rr$ définie par : $f(0)=0$ et
+  $f(x) = \sin(x)\cos\left(\frac1x\right)$ si $x\neq 0$.
+  Et pour $g(x)=xE(x)$ ?
+
+  \item La fonction définie par $f(x)=\frac{x^3+8}{|x+2|}$ admet-elle 
+  un prolongement par continuité en $-2$ ?
+  
+  \item Soit la suite définie par $u_0>0$ et $u_{n+1}=\sqrt{u_n}$. Montrer que $(u_n)$ 
+  admet une limite $\ell \in \Rr$ lorsque $n\to+\infty$. \`A l'aide de la fonction 
+  $f(x)=\sqrt{x}$ calculer cette limite.
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

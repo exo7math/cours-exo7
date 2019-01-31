@@ -1,0 +1,631 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Dans cette leçon nous allons intégrer une famille complète de fonctions : les fractions rationnelles.
+
+\change
+
+On se concentre dans un premier temps sur trois types de fractions qui sont les plus fréquentes.
+
+\change
+
+On passe ensuite au cas général : l'intégration des éléments simples.
+
+\change
+
+Et on termine avec une application : l'intégration des fonctions qui ont la forme d'un polynôme ou d'une fraction rationnelle
+en sinus et cosinus.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Avant de passer aux fractions rationnelles remarquons que 
+nous savons déjà intégrer beaucoup de fonctions simples. 
+
+Par exemple pour une fonction polynomiale : si $f(x)=a_0+a_1x+\cdots+ a_n x^n$
+
+\change
+
+alors les primitives sont $a_0x+a_1\frac{x^2}{2}+\cdots+a_n\frac{x^{n+1}}{n+1}+c$.
+
+\change
+
+On pourrait croire que toutes les fonctions s'intègrent facilement, ou du moins que toute fonction <<simple>>
+s'intègrent. Il n'en est rien !
+
+
+
+Prenons par exemple la fonction $f(t)=\sqrt{a^2\cos^2 t+ b^2 \sin^2 t}$ 
+
+\change
+
+alors
+l'intégrale $\int_0^{2\pi} f(t) \; dt$ ne peut *pas* s'exprimer 
+comme somme, produit, inverse ou composition de fonctions que vous connaissez.
+
+\change
+
+En fait cette intégrale vaut la longueur d'une ellipse
+d'équation  $(a\cos t, b\sin t)$ ; 
+
+il n'y a donc pas de formule 
+pour le périmètre d'une ellipse 
+(sauf bien sûr si $a=b$ auquel cas l'ellipse est un cercle !).
+
+\change
+
+Dans cette exemple c'est la racines carrées qui pose problème.
+
+
+Qu'en est-t-il pour les fractions rationnelles ?
+
+De façon remarquable nous allons voir maintenant comment intégrer toutes les fractions rationnelles.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Avant de passer au cas général on s'occupe de la fraction rationnelle 
+ $\frac{\alpha x + \beta}{a x^2+b x+c}$
+
+ou $\alpha, \beta, a, b, c$ sont des constantes réelles et  $a$ est non nul.
+
+On distingues trois cas.
+
+
+\change
+
+Premier cas. Le dénominateur $a x^2+b x+c$ possède deux racines réelles distinctes $x_1,x_ 2\in \Rr$.
+C'est-à-dire le discriminant $\Delta=b^2-4ac$ est strictement positif.
+
+
+\change
+
+On factorise le dénominateur et on décompose la fractions en éléments simples :
+
+\change
+
+il existe deux constantes $A$ et $B$ telles que $f(x)=\frac{A}{x - x_1}+\frac{B}{x -x_2}$.
+
+Il est maintenant facile d'intégrer $f$ avec des logarithmes :
+
+\change
+
+Les primitives de $f$ sont de la forme $A \ln|x - x_1|+B\ln|x -x_2|+cst$.
+
+Chaque primitive est définie sur un intervalle ouvert $]-\infty,x_1[$ ou  $]x_1,x_2[$
+ou bien $]x_2,+\infty[$.
+
+\change
+
+Considérons maintenant le deuxième cas dans lequel $\Delta=0$ c'est-à-dire que $a x^2+b x+c$ possède une racine 
+double réelle $x_0$.
+
+\change
+
+La fraction s'écrit alors $\frac{\alpha x + \beta}{a(x -x_0)^2}$ et 
+
+\change
+
+se décompose sous la forme 
+$\frac{A}{(x - x_0)^2}+\frac{B}{x - x_0}$. 
+
+\change
+
+Les primitives de $f$ sont alors les
+$$-\frac{A}{x - x_0} + B\ln|x - x_0|+cst$$ 
+
+Elles sont définies sur l'intervalle
+$]-\infty,x_0[$ ou bien sur l'intervalle $]x_0,+\infty[$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Passons au troisième et dernier cas qui est plus compliqué.
+
+C'est le cas ou le discriminant est strictement négatif 
+et donc le dénominateur $a x^2+b x+c$ ne possède pas de racine réelle.
+
+
+\change
+
+Voyons comment calculer primitives et intégrales dans cette situation
+en considérant l'exemple de la fraction 
+$f(x)=\frac{x+1}{2x^2+x+1}$.
+
+On vérifie d'abord que le discriminant $\Delta$ est strictement négatif ;
+il n'y a donc pas de racines réelles.
+
+\change
+
+Dans un premier temps on fait apparaître une fraction du type $\frac{u'}{u}$ 
+
+Pourquoi ? Tout simplement parce que l'on sait intégrer ce type de fraction :
+une primitive de $\frac{u'}{u}$ est $\ln|u|$.
+
+\change
+
+Le dénominateur est $2x^2+x+1$, je vais donc faire apparaître $4x+1$ 
+(la dérivée de $2x^2+x+1$) au numérateur.
+
+
+Bien sûr je suis obligé de compenser.
+
+\change
+
+Je sépare ma fraction en deux.
+
+\change
+
+J'ai tout fais pour que la première fraction soit du type $u'/u$.
+
+\change
+
+On peut donc intégrer la première moitié de la fraction :
+$\frac{4x+1}{2x^2+x+1} \; dx$
+
+\change
+
+qui est de la forme $\frac{u'(x)}{u(x)}$
+
+\change
+
+Dont les  primitives sont les 
+$\ln \big| 2x^2+x+1 \big|+c$
+
+On a ainsi intégrer la première moitié.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On continue avec notre fraction.
+On a intégré la première partie de la décomposition.
+
+Occupons nous maintenant de l'autre partie $\frac{1}{2x^2+x+1}$, 
+
+\change
+
+nous allons l'écrire sous la forme
+$\frac{1}{u^2+1}$.
+
+\change
+
+Pourquoi ? Car nous connaissons un primitive de 
+$\frac{1}{u^2+1}$ c'est $\arctan u$.
+
+\change
+
+On écrit le dénominateur sous la forme canonique est faisant
+artificiellement apparaître le début d'un carré.
+
+\change
+
+$2x^2+x+1 = 2(x+\frac 14)^2+\frac78$.
+
+\change
+
+On écrit donc la fraction sous la forme $1/(u^2+1)$
+
+\change 
+
+où $u = \frac{4}{\sqrt7}(x+\frac 14)$
+
+\change
+
+C'est notre changement de variable !
+
+\change
+
+On a $du = \frac{4}{\sqrt7} dx$
+
+\change
+
+On calcule la primitive de notre seconde fraction :
+$\frac{dx}{2x^2+x+1} $
+
+\change
+
+\change
+
+s'écrit $du/(u^2+1)$
+
+\change
+
+Une primitive est $\arctan u$
+
+\change 
+
+On remplace $u$ par son expression en fonction de $x$.
+
+Et c'est tout bon !
+
+
+\change
+
+Il ne reste plus qu'à conclure,
+nous avons calculer les primitives de chacune des deux fractions.
+
+\change
+
+\change
+
+Nous obtenons donc les primitives de $f$ !
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous savons donc comment intégrer un type de fraction rationnelle,
+
+voyons comment intégrer toutes les fractions rationnelles !
+
+
+Prenons  $\frac{P(x)}{Q(x)}$ une fraction rationnelle quelconque.
+
+$P(x),Q(x)$ sont des polynômes à coefficients réels.
+
+La première choses à faire est de décomposer la fraction $\frac{P(x)}{Q(x)}$ en éléments simples 
+
+\change
+
+$\frac{P(x)}{Q(x)}$ 
+s'écrit comme somme d'un polynôme $E(x)$ (qui s'appelle la partie entière)
+
+\change
+
+et d'éléments simples :
+
+Il y a deux sortes d'éléments simples :
+
+\change
+
+ceux de la forme $\frac{\gamma}{(x - x_0)^k}$
+
+\change
+
+et ceux de la forme  $\frac{\alpha x+\beta}{(a x^2+b x+c)^k}$
+avec $b^2-4ac < 0$
+
+Il n'y a bien sûr pas de problème pour intégrer le polynôme.
+
+
+\change
+
+Intégrons l'élément simple $\frac{\gamma}{(x - x_0)^k}$.
+
+\change
+
+Si $k=1$ alors c'est du type $1/u$ donc $\int \frac{\gamma \; dx}{x - x_0} = \gamma \ln|x - x_0|+c$.
+
+\change
+
+Si $k\ge 2$ alors c'est du type $1/u^k$ donc  $\int \frac{\gamma \; dx}{(x - x_0)^k} = 
+\frac{\gamma}{-k+1}(x - x_0)^{-k+1}+c$. 
+
+
+\change
+
+Passons à l'intégration de l'élément simple $\frac{\alpha x+\beta}{(a x^2+b x+c)^k}$.
+
+\change
+
+On écrit cette fraction comme somme de deux fractions 
+
+\change
+
+Nous nous sommes débrouillés pour que la première fraction 
+
+\change
+
+soit de la forme $u'/u^k$
+
+\change
+
+qui s'intègre en $\frac{1}{-k+1}u(x)^{-k+1}$.
+
+\change
+
+\change
+
+Passons à la deuxième fraction :
+
+Si $k=1$, calculons de $\int \frac{1}{a x^2+b x+c}\; dx$. On écrit le dénominateur sous la forme canonique. 
+
+\change
+
+Puis par un changement de variable $u= px+q$ on se ramène à 
+calculer une primitive du type 
+$\int \frac{du}{u^2+1}=\arctan u + c$.
+
+
+\change
+
+Si $k\ge 2$, c'est plus délicat :
+
+\change
+
+ On effectue le même changement de variable 
+
+\change
+
+qu'au dessus pour
+ se ramener au calcul de $I_k =\int \frac{du}{(u^2+1)^k}$.
+
+\change
+
+On calcule ces primitives par récurrence, en effet une
+ intégration par parties permet de passer de $I_k$ à $I_{k-1}$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons comment calculer la primitive $I_2= \int \frac{du}{(u^2+1)^2}$
+
+\change
+
+\`A partir de  $I_1=\int \frac{du}{u^2+1}$.
+
+\change
+
+On effectue une IPP pour laquelle on pose 
+$f=\frac{1}{u^2+1}$ et $g'=1$. 
+
+\change
+
+On a donc $f'=-\frac{2u}{(u^2+1)^2}$ et $g=u$.
+
+\change 
+
+La formule d'intégration par parties $\int f g'=[f g]-\int f' g$ donne
+
+\change
+
+$I_1 =  \left[ \frac{u}{u^2+1} \right] + \int \frac{2u^2 \; du}{(u^2+1)^2}$
+
+\change
+
+On sépare la primitive qui apparaît en deux afin de faire apparaître $I_2$.
+
+\change
+
+\change
+
+On reconnaît $2I_1-2I_2$.
+
+\change
+
+Cela nous donne une relation entre $I_1$ et $I_2$ qui fournit l'égalité :
+$I_2 = \frac12 I_1 + \frac12\frac{u}{u^2+1} + c$.
+
+\change
+
+
+Mais comme $I_1=\arctan u$ alors
+
+\change
+
+$I_2  =  \frac12 \arctan u + \frac12\frac{u}{u^2+1} + c.$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Après les fractions rationnelles nous allons
+calculer les primitives de la forme $\int P(\cos x,\sin x)\;dx$ 
+
+où $P$ est un polynôme en cosinus et sinus par exemple $\cos^2x*\sin^3x$.
+
+\change
+
+
+et aussi les primitives des fonctions
+$ \frac{P(\cos x,\sin x)}{Q(\cos x, \sin x)}\;dx$
+où $P$ et $Q$ sont des polynômes,
+
+Par exemple $\cos x/(\sin x + \cos x)$
+
+ en se ramenant à intégrer une fraction rationnelle.
+
+
+
+Il existe deux méthodes : 
+\begin{itemize}
+  \item les règles de Bioche sont assez efficaces mais ne fonctionnent pas toujours ;
+
+
+  \item le changement de variable $t = \tan \frac x2$ fonctionne tout le temps mais conduit à davantage de calculs.
+\end{itemize}
+
+\change
+
+Commençons par les règles de Bioche.
+
+\change
+
+On note $\omega(x) = f(x)\;dx$.
+
+\change
+
+On a alors $\omega(-x)= f(-x)\;d(-x)=-f(-x)\;dx$ et
+
+\change
+
+$\omega (\pi-x)= f(\pi-x)\;d(\pi-x)=-f(\pi-x)\;dx$.
+
+\change
+
+Voici trois règles simples pour savoir quel changement de variable 
+va permettre de calculer la primitive :
+
+\begin{itemize}
+  \item Si $\omega(-x)=\omega(x)$ 
+
+\change
+
+alors on effectue le changement de variable $u=\cos x$.
+
+\change
+
+  \item Si $\omega(\pi-x)=\omega(x)$ alors on effectue le changement de variable $u=\sin x$.
+
+\change
+
+  \item Si $\omega(\pi + x)=\omega(x)$ alors on effectue le changement de variable $u=\tan x$.
+\end{itemize}
+
+\change
+
+Voyons comment cela marche sur un exemple.
+
+avec $\int \frac{\cos x \; dx}{2-\sin^2 x}$
+
+\change
+
+On note $\omega(x)= \frac{\cos x \; dx}{2-\cos^2 x}$ (on n'oublie pas le $dx$)
+
+\change
+
+On teste chacune des possibilité et on remarque que 
+
+
+$\omega(\pi-x)=\frac{\cos(\pi-x) \; d(\pi-x)}{2-\cos^2 (\pi-x)} = \frac{(-\cos x) \; (-dx)}{2-\cos^2 x} 
+= \omega(x)$
+
+\change
+
+Le changement de variable qui convient est donc $u = \sin x$
+
+\change
+
+pour lequel $du= \cos x \; dx$. 
+
+\change
+
+Notre fraction rationnelle 
+$\int \frac{\cos x \; dx}{2-\cos^2 x}$
+
+\change
+
+se réécrit $= \int \frac{\cos x \; dx}{2-(1-\sin^2 x)}$
+
+\change
+
+on a donc fait apparaître $du$ au numérateur et le dénominateur est 
+$1+u^2$.
+
+
+\change
+
+C'est une fraction rationnelle que l'on sait intégrer 
+
+en $\arctan u$
+
+\change
+
+Donc en remplaçant $u$ par $\sin x$ on trouve que notre primitive est 
+$\arctan (\sin x) + cst$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Les règles de Bioche sont très pratiques mais ne fonctionnent pas toujours.
+
+Le changement de variable $t=\tan \frac x2$
+transforme toujours une fractionnelle en cosinus(x) et sinus(x) en une fraction rationnelle en t,
+mais le calculs peuvent être plus compliqués.
+
+\change
+
+
+Les formules de la <<tangente de l'arc moitié>> permettent d'exprimer sinus, cosinus et tangente
+en fonction de $\tan \frac x2$. 
+
+Si on pose $ t=\tan \frac{x}{2}$  
+
+alors on a 
+$\cos x = \frac {1-t^2}{1+t^2}$
+
+\change
+
+$\sin x = \frac{2t}{1+t^2}$
+
+\change
+
+$\tan x = \frac{2t}{1-t^2}$
+
+\change
+
+$dx=\dfrac{2\;dt}{1+t^2}$
+
+\change
+
+\change
+
+Calculons par exemple $\int_{-\pi/2}^0 \frac{dx}{1-\sin x}$.
+
+\change
+
+On pose le changement de variable $t=\tan \frac{x}{2}$ 
+
+\change
+
+définit une bijection de $[-\frac\pi2,0]$ vers $[-1,0]$ 
+
+(pour $x=-\frac\pi2$, $t=-1$ et pour $x=0$, $t=0$). 
+
+\change
+
+Les formules nous donnent $\sin x = \frac{2t}{1+t^2}$
+et $dx=\frac{2\;dt}{1+t^2}$.
+
+[montrer du doigt]
+
+\change
+
+\change
+
+\change
+
+Ce qui se simplifie en $2\int_{-1}^0 \frac{dt}{(1-t)^2} $
+
+\change
+
+que l'on intègre ainsi :
+
+\change
+
+\change
+
+Et donc l'intégrale vaut $1$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+N'oubliez pas que vous devez passer beaucoup 
+de temps à travailler par vous même devant une feuille blanche
+à résoudre des exercices.
+
+
+\end{document}

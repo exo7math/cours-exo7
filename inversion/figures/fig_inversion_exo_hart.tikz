@@ -1,0 +1,37 @@
+    \begin{tikzpicture}[scale=0.7]
+    
+      \coordinate (B) at (-5,0);
+      \coordinate (C) at (5,0);
+      \coordinate (A) at (-3,3);
+      \coordinate (D) at (3,3);
+      
+      \coordinate (E) at (-5,1);
+      \coordinate (F) at (5,1);
+      
+      \draw[thick] (A)--(B)--(D)--(C)--cycle;
+      
+      \draw[dashed] (A)--(D);
+      \draw[dashed] (B)--(C);     
+
+      \coordinate (Omega) at (intersection cs:
+        first line={(A)--(B)},
+        second line={(E)--(F)});
+      \fill (Omega) circle (2pt);
+      \node at (Omega) [above left] {$\Omega$};
+      \coordinate (P) at (intersection cs:
+       first line={(D)--(B)},
+       second line={(-5,1)--(5,1)});
+      \fill (P) circle (2pt);
+      \node at (P) [above left] {$P$}; 
+      \coordinate (PP) at (intersection cs:
+       first line={(A)--(C)},
+       second line={(-5,1)--(5,1)});
+      \fill (PP) circle (2pt);
+      \node at (PP) [above right] {$P'$}; 
+      
+      \node at (A) [left] {$A$};
+      \node at (B) [left] {$B$};
+      \node at (C) [right] {$C$};
+      \node at (D) [right] {$D$};      
+   \end{tikzpicture}
+   

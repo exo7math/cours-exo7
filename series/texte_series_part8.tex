@@ -1,0 +1,198 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous terminons le chapitre sur les séries par une leçon consacrée à la sommation d'Abel. 
+Cette leçon peut être passée lors d'une première approche sur les séries.
+
+\change
+\change
+Nous commencerons par énoncer et démontrer le théorème de sommation d'Abel,
+
+\change
+puis nous l'appliquerons au cas des séries de Fourier.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le théorème de sommation d'Abel s'applique à certaines séries
+convergentes mais qui ne sont pas absolument convergentes.
+C'est un théorème qui s'applique aux séries de la forme $\sum a_kb_k$
+et qui est plus fort que le critère de Leibniz pour les séries alternées. Mais il est aussi plus difficile à mettre en \oe uvre.
+
+\change
+Théorème.
+
+Soient $(a_k)_{k\ge0}$ et $(b_k)_{k\ge0}$ deux suites telles que :
+
+\change
+1) La suite $(a_k)_{k\ge0}$ est une suite décroissante de
+réels positifs qui tend vers $0$.
+
+\change
+2) Les sommes partielles de la série $\sum b_k$ sont bornées :
+$$\exists M\quad\forall n\in \Nn\qquad
+\big|b_0+\cdots+b_n\big|\le M.$$
+
+\change
+Alors la série $\sum_{k\ge0} a_kb_k$ converge.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Le critère de Leibniz concernant les séries alternées est un cas particulier de ce théorème :
+
+\change
+en effet, si $(a_k)$ est une suite positive, décroissante, qui tend vers $0$, 
+
+\change
+et si $b_k$ est définie par $b_k=(-1)^k$ alors $\big|\sum_{k=0}^n b_k\big|\le 1$.
+
+
+\change
+alors par le théorème de sommation d'Abel on retrouve que la série $\sum a_k b_k$ converge.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+[grand B]
+
+Démontrons le théorème de sommation d'Abel.
+
+L'idée de la démonstration est d'effectuer un changement dans la
+sommation, qui s'apparente à une intégration par parties. 
+
+\change
+Pour tout $n\ge0$, posons $B_n=b_0+\cdots+b_n$. Par hypothèse, la suite
+$(B_n)$ est bornée. 
+
+\change
+Nous écrivons les sommes partielles de la série $\sum a_k b_k$ sous la forme suivante.
+
+Par définition
+$$
+S_n = a_0b_0+a_1b_1+\cdots+a_{n-1}b_{n-1}+a_nb_n
+$$
+
+\change
+ce qui est égal à 
+$$
+ a_0B_0+a_1(B_1-B_0)+\cdots +a_{n-1}(B_{n-1}-B_{n-2}) + a_n(B_n-B_{n-1})\\
+$$
+
+\change
+Regroupons ainsi les termes :
+$$
+B_0(a_0-a_1)+B_1(a_1-a_2)+\cdots+B_{n-1}(a_{n-1}-a_n)+B_na_n .
+$$
+
+\change
+Comme $(B_n)$ est bornée, et $a_n$ tend vers $0$, le dernier terme $B_na_n$
+tend vers $0$. 
+
+\change
+Intéressons nous à présent aux premiers termes. Nous allons montrer que la série $\sum B_k(a_k-a_{k+1})$ est absolument convergente. 
+
+\change
+En effet, comme  la suite $(a_k)$ est une suite de réels positifs,
+décroissante, et $|B_k|$ est borné par $M$, 
+
+\change
+on peut écrire
+$$
+\big|B_k(a_k-a_{k+1})\big| = \big|B_k\big|(a_k-a_{k+1})\le M(a_k-a_{k+1})
+$$
+
+\change
+Or
+$$
+M(a_0-a_1)+\cdots+M(a_n-a_{n+1}) = M(a_0-a_{n+1})
+$$
+
+\change
+qui tend vers $Ma_0$ puisque $(a_k)$ tend vers $0$.
+
+\change
+La série $\sum M(a_k-a_{k+1})$ converge, donc la série
+$\sum\big|B_k(a_k-a_{k+1})\big|$ aussi, par le théorème de comparaison. 
+
+\change
+La série $\sum B_k(a_k-a_{k+1})$ converge, donc la suite $(S_n)$ est convergente, ce qui prouve que la série $\sum a_k b_k$ converge.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le cas d'application le plus fréquent est celui où
+$b_k=e^{\ii k\theta}$.
+
+\change
+Corollaire.
+
+Soit $\theta$ un réel, tel que $\theta \neq 2n\pi$ (pour tout $n \in\Zz$). 
+
+\change
+Soit $(a_k)$ une suite de réels positifs, décroissante,
+tendant vers $0$. 
+
+\change
+Alors les séries de Fourier :
+$$
+\sum a_k e^{\ii k\theta} \qquad 
+\sum a_k\cos(k\theta) \qquad 
+\sum a_k\sin(k \theta)
+$$
+convergent.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Démontrons le résultat précédent.
+
+On souhaite appliquer le théorème de sommation d'Abel avec $b_k=e^{\ii k\theta}$, mais nous devons
+d'abord vérifier que les sommes partielles de la suite $(e^{\ii k\theta})$ sont
+bornées. 
+
+\change
+Or $e^{\ii k\theta}=(e^{\ii \theta})^k$, et par hypothèse 
+$e^{\ii \theta}$ est différent de $1$. 
+
+\change
+On a donc la somme d'une suite géométrique :
+$$
+\big|1+e^{\ii \theta}+\cdots+e^{\ii k\theta}\big| =
+ \left|\frac{1-e^{\ii (k+1)\theta}}{1-e^{\ii \theta}}\right|
+ $$
+ 
+\change
+qui est inférieur ou égal à 
+$$
+\left|\frac{2}{1-e^{\ii \theta}}\right|\;.$$
+
+\change
+D'où le résultat. 
+
+\change
+Comme $\sum a_k e^{\ii k\theta} = \sum a_k\cos(k\theta) + \ii \sum a_k\sin(k \theta)$,
+
+\change
+les séries $\sum a_k\cos(k\theta)$ et $\sum a_k\sin(k \theta)$ sont convergentes en tant que partie réelle et partie imagniaire
+d'une série complexe convergente.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Entraînez-vous avec ces exercices pour vérifier que vous avez bien compris le cours.
+
+\end{document}

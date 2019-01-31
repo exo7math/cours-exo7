@@ -1,0 +1,70 @@
+
+% Les similitudes : shift=translation, scale = homothÃ©tie, rotate = angle (en degrÃ©)
+\newcommand\simone{\begin{scope}[shift={(0,0)}, scale=.5, rotate=0]}
+\newcommand\simtwo{\begin{scope}[shift={(.5,0)}, scale=.5, rotate=0]}
+\newcommand\simthree{\begin{scope}[shift={(.25,0.433)}, scale=.5, rotate=0]}
+
+% La figure initiale
+\newcommand\initfigure{\fill (0,0)--++(0:1)--++(120:1)--cycle;}
+%\newcommand\initfigure{\fill (0.5,0.433) circle (1.3cm);}
+%\newcommand\initfigure{\fill (0,0)--++(0,1)--++(1,0)--++(0,-1)--cycle;}
+%\newcommand\initfigure{\fill (0,0)--++(0,0.5)--++(0.5,0)--++(0,-0.5)--cycle;}
+
+% Le programme rÃ©cursif
+\newcommand{\ifs}[2]{% #1 the counter, #2 the instructions
+                          \ifnum #1 < 0% stop now
+                          #2%
+                          %\relax% Relax, max, on ne fait rien, c'est terminÃ©.
+                          \else%
+                          \count255=#1%
+                          \advance\count255 by -1%
+                          \simone
+                             \ifs{\number\count255}{#2};                          
+                          \end{scope};
+
+                          \simtwo
+                             \ifs{\number\count255}{#2};                          
+                          \end{scope};
+
+                          \simthree
+                             \ifs{\number\count255}{#2};                          
+                          \end{scope};
+                          \fi%
+}
+\begin{tikzpicture}[scale=2]
+\ifs{-1}{\initfigure};
+\begin{scope}[xshift=1.5cm]
+  \ifs{0}{\initfigure};
+\end{scope}
+\begin{scope}[xshift=3cm]
+  \ifs{1}{\initfigure};
+\end{scope}
+
+  \draw[->,>=latex, red] (0.80,0.4) to[bend left=20] (1.6,0.25); 
+   \draw[->,>=latex, blue] (0.77,0.45) to[bend left=30] (2.1,0.20);
+  \draw[->,>=latex, green] (0.75,0.50) to[bend left=40] (1.9,0.70); 
+  
+  \node[scale=1,red] at (1.2,0.3) {$f_0$};
+  \node[scale=1,blue] at (1.45,0.62) {$f_1$};    
+  \node[scale=1,green] at (1.2,0.90) {$f_2$}; 
+
+\end{tikzpicture}
+
+%\begin{tikzpicture}[scale=7]
+%  \ifs{1}{\initfigure}
+%\end{tikzpicture}
+%\begin{tikzpicture}[scale=7]
+%  \ifs{2}{\initfigure}
+%\end{tikzpicture}
+
+% \begin{tikzpicture}[scale=7]
+%   \ifs{3}{\initfigure}
+% \end{tikzpicture}
+% \begin{tikzpicture}[scale=7]
+%   \ifs{4}{\initfigure}
+% \end{tikzpicture}
+% 
+% 
+% \begin{tikzpicture}[scale=7]
+%   \ifs{5}{\initfigure}
+% \end{tikzpicture}

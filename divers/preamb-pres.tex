@@ -1,0 +1,417 @@
+%%%%%%%%%%%%%%%%%% PREAMBULE %%%%%%%%%%%%%%%%%%
+
+\documentclass[aspectratio=169,utf8]{beamer}
+%\documentclass[aspectratio=169,handout]{beamer}
+
+\usetheme{Boadilla}
+%\usecolortheme{seahorse}
+\usecolortheme[RGB={245,66,24}]{structure}
+\useoutertheme{infolines}
+
+% packages
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage[francais]{babel}
+\usepackage{fancybox}
+\usepackage{graphicx}
+
+\usepackage{float}
+\usepackage{xfrac}
+
+%\usepackage[usenames, x11names]{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{datetime}
+
+
+
+%-----  Package unités -----
+\usepackage{siunitx}
+\sisetup{locale = FR,detect-all,per-mode = symbol}
+
+%\usepackage{mathptmx}
+%\usepackage{fouriernc}
+%\usepackage{newcent}
+%\usepackage[mathcal,mathbf]{euler}
+
+%\usepackage{palatino}
+%\usepackage{newcent}
+% \usepackage[mathcal,mathbf]{euler}
+
+
+
+% \usepackage{hyperref}
+% \hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue,
+% pdftitle={Exo7 - Exercices de mathématiques}, pdfauthor={Exo7}}
+
+
+%section
+% \usepackage{sectsty}
+% \allsectionsfont{\bf}
+%\sectionfont{\color{Tomato3}\upshape\selectfont}
+%\subsectionfont{\color{Tomato4}\upshape\selectfont}
+
+%----- Ensembles : entiers, reels, complexes -----
+\newcommand{\Nn}{\mathbb{N}} \newcommand{\N}{\mathbb{N}}
+\newcommand{\Zz}{\mathbb{Z}} \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Qq}{\mathbb{Q}} \newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Rr}{\mathbb{R}} \newcommand{\R}{\mathbb{R}}
+\newcommand{\Cc}{\mathbb{C}} 
+\newcommand{\Kk}{\mathbb{K}} \newcommand{\K}{\mathbb{K}}
+
+%----- Modifications de symboles -----
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\Re}{\mathop{\text{Re}}\nolimits}
+\renewcommand{\Im}{\mathop{\text{Im}}\nolimits}
+%\newcommand{\llbracket}{\left[\kern-0.15em\left[}
+%\newcommand{\rrbracket}{\right]\kern-0.15em\right]}
+
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\epsilon}{\varepsilon}
+
+%----- Fonctions usuelles -----
+\newcommand{\ch}{\mathop{\text{ch}}\nolimits}
+\newcommand{\sh}{\mathop{\text{sh}}\nolimits}
+\renewcommand{\tanh}{\mathop{\text{th}}\nolimits}
+\newcommand{\cotan}{\mathop{\text{cotan}}\nolimits}
+\newcommand{\Arcsin}{\mathop{\text{arcsin}}\nolimits}
+\newcommand{\Arccos}{\mathop{\text{arccos}}\nolimits}
+\newcommand{\Arctan}{\mathop{\text{arctan}}\nolimits}
+\newcommand{\Argsh}{\mathop{\text{argsh}}\nolimits}
+\newcommand{\Argch}{\mathop{\text{argch}}\nolimits}
+\newcommand{\Argth}{\mathop{\text{argth}}\nolimits}
+\newcommand{\pgcd}{\mathop{\text{pgcd}}\nolimits} 
+
+
+%----- Commandes divers ------
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\dd}{\text{d}}
+\newcommand{\id}{\mathop{\text{id}}\nolimits}
+\newcommand{\Ker}{\mathop{\text{Ker}}\nolimits}
+\newcommand{\Card}{\mathop{\text{Card}}\nolimits}
+\newcommand{\Vect}{\mathop{\text{Vect}}\nolimits}
+\newcommand{\Mat}{\mathop{\text{Mat}}\nolimits}
+\newcommand{\rg}{\mathop{\text{rg}}\nolimits}
+\newcommand{\tr}{\mathop{\text{tr}}\nolimits}
+
+
+%----- Structure des exercices ------
+
+\newtheoremstyle{styleexo}% name
+{2ex}% Space above
+{3ex}% Space below
+{}% Body font
+{}% Indent amount 1
+{\bfseries} % Theorem head font
+{}% Punctuation after theorem head
+{\newline}% Space after theorem head 2
+{}% Theorem head spec (can be left empty, meaning ‘normal’)
+
+%\theoremstyle{styleexo}
+\newtheorem{exo}{Exercice}
+\newtheorem{ind}{Indications}
+\newtheorem{cor}{Correction}
+
+
+\newcommand{\exercice}[1]{} \newcommand{\finexercice}{}
+%\newcommand{\exercice}[1]{{\tiny\texttt{#1}}\vspace{-2ex}} % pour afficher le numero absolu, l'auteur...
+\newcommand{\enonce}{\begin{exo}} \newcommand{\finenonce}{\end{exo}}
+\newcommand{\indication}{\begin{ind}} \newcommand{\finindication}{\end{ind}}
+\newcommand{\correction}{\begin{cor}} \newcommand{\fincorrection}{\end{cor}}
+
+\newcommand{\noindication}{\stepcounter{ind}}
+\newcommand{\nocorrection}{\stepcounter{cor}}
+
+\newcommand{\fiche}[1]{} \newcommand{\finfiche}{}
+\newcommand{\titre}[1]{\centerline{\large \bf #1}}
+\newcommand{\addcommand}[1]{}
+\newcommand{\video}[1]{}
+
+% Marge
+\newcommand{\mymargin}[1]{\marginpar{{\small #1}}}
+
+\def\noqed{\renewcommand{\qedsymbol}{}}
+
+
+%----- Presentation ------
+\setlength{\parindent}{0cm}
+
+%\newcommand{\ExoSept}{\href{http://exo7.emath.fr}{\textbf{\textsf{Exo7}}}}
+
+\definecolor{myred}{rgb}{0.93,0.26,0}
+\definecolor{myorange}{rgb}{0.97,0.58,0}
+\definecolor{myyellow}{rgb}{1,0.86,0}
+
+\newcommand{\LogoExoSept}[1]{  % input : echelle
+{\usefont{U}{cmss}{bx}{n}
+\begin{tikzpicture}[scale=0.1*#1,transform shape]
+  \fill[color=myorange] (0,0)--(4,0)--(4,-4)--(0,-4)--cycle;
+  \fill[color=myred] (0,0)--(0,3)--(-3,3)--(-3,0)--cycle;
+  \fill[color=myyellow] (4,0)--(7,4)--(3,7)--(0,3)--cycle;
+  \node[scale=5] at (3.5,3.5) {Exo7};
+\end{tikzpicture}}
+}
+
+
+\newcommand{\debutmontitre}{
+  \author{} \date{} 
+  \thispagestyle{empty}
+  \hspace*{-10ex}
+  \begin{minipage}{\textwidth}
+    \titlepage  
+  \vspace*{-2.5cm}
+  \begin{center}
+    \LogoExoSept{2.5}
+  \end{center}
+  \end{minipage}
+
+  \vspace*{-0cm}
+  
+  % Astuce pour que le background ne soit pas discrétisé lors de la conversion pdf -> png
+\begin{tikzpicture}
+        \fill[opacity=0,green!60!black] (0,0)--++(0,0)--++(0,0)--++(0,0)--cycle; 
+\end{tikzpicture}
+
+% toc S'affiche trop tot :
+% \tableofcontents[hideallsubsections, pausesections]
+}
+
+\newcommand{\finmontitre}{
+  \end{frame}
+  \setcounter{framenumber}{0}
+} % ne marche pas pour une raison obscure
+
+%----- Commandes supplementaires ------
+
+% \usepackage[landscape]{geometry}
+% \geometry{top=1cm, bottom=3cm, left=2cm, right=10cm, marginparsep=1cm
+% }
+% \usepackage[a4paper]{geometry}
+% \geometry{top=2cm, bottom=2cm, left=2cm, right=2cm, marginparsep=1cm
+% }
+
+%\usepackage{standalone}
+
+
+% New command Arnaud -- november 2011
+\setbeamersize{text margin left=24ex}
+% si vous modifier cette valeur il faut aussi
+% modifier le decalage du titre pour compenser
+% (ex : ici =+10ex, titre =-5ex
+
+\theoremstyle{definition}
+%\newtheorem{proposition}{Proposition}
+%\newtheorem{exemple}{Exemple}
+%\newtheorem{theoreme}{Théorème}
+%\newtheorem{lemme}{Lemme}
+%\newtheorem{corollaire}{Corollaire}
+%\newtheorem*{remarque*}{Remarque}
+%\newtheorem*{miniexercice}{Mini-exercices}
+%\newtheorem{definition}{Définition}
+
+% Commande tikz
+\usetikzlibrary{calc}
+\usetikzlibrary{patterns,arrows}
+\usetikzlibrary{matrix}
+\usetikzlibrary{fadings} 
+
+%definition d'un terme
+\newcommand{\defi}[1]{{\color{myorange}\textbf{\emph{#1}}}}
+\newcommand{\evidence}[1]{{\color{blue}\textbf{\emph{#1}}}}
+\newcommand{\assertion}[1]{\emph{\og#1\fg}}  % pour chapitre logique
+%\renewcommand{\contentsname}{Sommaire}
+\renewcommand{\contentsname}{}
+\setcounter{tocdepth}{2}
+
+
+
+%------ Figures ------
+
+\def\myscale{1} % par défaut 
+\newcommand{\myfigure}[2]{  % entrée : echelle, fichier figure
+\def\myscale{#1}
+\begin{center}
+\footnotesize
+{#2}
+\end{center}}
+
+
+%------ Encadrement ------
+
+\usepackage{fancybox}
+
+
+\newcommand{\mybox}[1]{
+\setlength{\fboxsep}{7pt}
+\begin{center}
+\shadowbox{#1}
+\end{center}}
+
+\newcommand{\myboxinline}[1]{
+\setlength{\fboxsep}{5pt}
+\raisebox{-10pt}{
+\shadowbox{#1}
+}
+}
+
+%--------------- Commande beamer---------------
+\newcommand{\beameronly}[1]{#1} % permet de mettre des pause dans beamer pas dans poly
+
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}  % tiré du fichier beamerouterinfolines.sty
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    % \usebeamerfont{author in head/foot}\insertshortauthor%~~(\insertshortinstitute)
+    \usebeamerfont{section in head/foot}{\bf\insertshorttitle}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{section in head/foot}{\bf\insertsectionhead}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    % \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+
+\definecolor{mygrey}{rgb}{0.5,0.5,0.5}
+\setlength{\parindent}{0cm}
+%\DeclareTextFontCommand{\helvetica}{\fontfamily{phv}\selectfont}
+
+% background beamer
+\definecolor{couleurhaut}{rgb}{0.85,0.9,1}  % creme
+\definecolor{couleurmilieu}{rgb}{1,1,1}  % vert pale
+\definecolor{couleurbas}{rgb}{0.85,0.9,1}  % blanc
+\setbeamertemplate{background canvas}[vertical shading]%
+[top=couleurhaut,middle=couleurmilieu,midpoint=0.4,bottom=couleurbas] 
+%[top=fondtitre!05,bottom=fondtitre!60]
+
+
+
+\makeatletter
+\setbeamertemplate{theorem begin}
+{%
+  \begin{\inserttheoremblockenv}
+  {%
+    \inserttheoremheadfont
+    \inserttheoremname
+    \inserttheoremnumber
+    \ifx\inserttheoremaddition\@empty\else\ (\inserttheoremaddition)\fi%
+    \inserttheorempunctuation
+  }%
+}
+\setbeamertemplate{theorem end}{\end{\inserttheoremblockenv}}
+
+\newenvironment{theoreme}[1][]{%
+   \setbeamercolor{block title}{fg=structure,bg=structure!40}
+   \setbeamercolor{block body}{fg=black,bg=structure!10}
+   \begin{block}{{\bf Th\'eor\`eme }#1}
+}{%
+   \end{block}%
+}
+
+
+\newenvironment{proposition}[1][]{%
+   \setbeamercolor{block title}{fg=structure,bg=structure!40}
+   \setbeamercolor{block body}{fg=black,bg=structure!10}
+   \begin{block}{{\bf Proposition }#1}
+}{%
+   \end{block}%
+}
+
+\newenvironment{corollaire}[1][]{%
+   \setbeamercolor{block title}{fg=structure,bg=structure!40}
+   \setbeamercolor{block body}{fg=black,bg=structure!10}
+   \begin{block}{{\bf Corollaire }#1}
+}{%
+   \end{block}%
+}
+
+\newenvironment{mydefinition}[1][]{%
+   \setbeamercolor{block title}{fg=structure,bg=structure!40}
+   \setbeamercolor{block body}{fg=black,bg=structure!10}
+   \begin{block}{{\bf Définition} #1}
+}{%
+   \end{block}%
+}
+
+\newenvironment{lemme}[0]{%
+   \setbeamercolor{block title}{fg=structure,bg=structure!40}
+   \setbeamercolor{block body}{fg=black,bg=structure!10}
+   \begin{block}{\bf Lemme}
+}{%
+   \end{block}%
+}
+
+\newenvironment{remarque}[1][]{%
+   \setbeamercolor{block title}{fg=black,bg=structure!20}
+   \setbeamercolor{block body}{fg=black,bg=structure!5}
+   \begin{block}{Remarque #1}
+}{%
+   \end{block}%
+}
+
+
+\newenvironment{exemple}[1][]{%
+   \setbeamercolor{block title}{fg=black,bg=structure!20}
+   \setbeamercolor{block body}{fg=black,bg=structure!5}
+   \begin{block}{{\bf Exemple }#1}
+}{%
+   \end{block}%
+}
+
+
+\newenvironment{miniexercice}[0]{%
+   \setbeamercolor{block title}{fg=structure,bg=structure!20}
+   \setbeamercolor{block body}{fg=black,bg=structure!5}
+   \begin{block}{Mini-exercices}
+}{%
+   \end{block}%
+}
+
+
+\newenvironment{tp}[0]{%
+   \setbeamercolor{block title}{fg=structure,bg=structure!40}
+   \setbeamercolor{block body}{fg=black,bg=structure!10}
+   \begin{block}{\bf Travaux pratiques}
+}{%
+   \end{block}%
+}
+\newenvironment{exercicecours}[1][]{%
+   \setbeamercolor{block title}{fg=structure,bg=structure!40}
+   \setbeamercolor{block body}{fg=black,bg=structure!10}
+   \begin{block}{{\bf Exercice }#1}
+}{%
+   \end{block}%
+}
+\newenvironment{algo}[1][]{%
+   \setbeamercolor{block title}{fg=structure,bg=structure!40}
+   \setbeamercolor{block body}{fg=black,bg=structure!10}
+   \begin{block}{{\bf Algorithme}\hfill{\color{gray}\texttt{#1}}}
+}{%
+   \end{block}%
+}
+
+
+\setbeamertemplate{proof begin}{
+   \setbeamercolor{block title}{fg=black,bg=structure!20}
+   \setbeamercolor{block body}{fg=black,bg=structure!5}
+   \begin{block}{{\footnotesize Démonstration}}
+   \footnotesize
+   \smallskip}
+\setbeamertemplate{proof end}{%
+   \end{block}}
+\setbeamertemplate{qed symbol}{\openbox}
+
+
+\makeatother

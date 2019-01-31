@@ -1,0 +1,23 @@
+\begin{tikzpicture}[scale=1.3]
+
+
+     \draw[->,>=latex,thick, gray] (-0.5,0)--(3.5,0) node[below,black] {$x$};
+     \draw[->,>=latex,thick, gray] (0,-2.5)--(0,2.5) node[right,black] {$y$};
+     \draw [very thick, color=blue,samples=100,smooth, domain=-1:1] plot({3*\x*\x},{2*\x*\x*\x});
+
+   \def\x{0.6};
+  \coordinate (M) at ({3*\x*\x},{2*\x*\x*\x});
+  \coordinate (N) at ({2*\x},{2*\x*\x});
+
+  \beameronly{\uncover<11->}{
+  \draw[very thick, red] (-1,0)--(3,0);
+}
+
+  \beameronly{\uncover<2->}{
+ \draw[->,>=latex, very thick, red] (M)--+(N);
+  \node[below] at (2,0.8) {$\overrightarrow{\frac{\dd M}{\dd t}}(t)$};
+
+    \fill (M) circle (1pt) node[above left] {$M(t)$};
+}
+    \fill (0,0) circle (1pt) node[above left] {$O$};
+\end{tikzpicture}

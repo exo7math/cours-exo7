@@ -1,0 +1,1035 @@
+
+\documentclass[11pt, class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+% Commandes spécifiques à ce chapitre
+%\newcommand{\Sp}{\text{sp}}
+%\newcommand{\GL}{GL}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Valeurs propres, vecteurs propres}
+%====================================================================
+
+
+Dans ce chapitre, nous allons définir et étudier les valeurs propres et 
+les vecteurs propres d'une matrice.
+Ce chapitre peut être vu comme un cours minimal pour comprendre la diagonalisation ou comme une 
+introduction à la théorie de la réduction des endomorphismes.
+
+\bigskip
+
+\textbf{Notations.}
+
+
+$\Kk$ est un corps. Dans les exemples de ce chapitre, $\Kk$ sera $\Rr$ ou $\Cc$.
+Les matrices seront des éléments de $M_n(\Kk)$, c'est-à-dire des matrices carrées, de taille $n\times n$, à coefficients dans $\Kk$. 
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Valeurs propres et vecteurs propres}
+
+
+%----------------------------------------------------
+\subsection{Motivation}
+
+Voici deux transformations simples définies par une matrice :
+
+\begin{enumerate}
+  \item $$h  : \begin{pmatrix}x\cr y\end{pmatrix} 
+\mapsto \begin{pmatrix}2&0\cr0&2\end{pmatrix} \begin{pmatrix}x\cr y\end{pmatrix}
+= \begin{pmatrix}2x\cr 2y\end{pmatrix}$$
+
+L'application $h$ est une homothétie de $\Rr^2$ (centrée à l'origine). Si $D$ est une droite passant par l'origine, alors elle est globalement invariante par cette transformation, c'est-à-dire si
+$P \in D$ alors $h(P) \in D$ (mais on n'a pas $h(P)=P$). 
+On retient ici que n'importe quel vecteur $\left(\begin{smallmatrix}x\cr y\end{smallmatrix}\right)$ est envoyé sur son double $2\left(\begin{smallmatrix}x\cr y\end{smallmatrix}\right)$.
+
+  \item $$k  : \begin{pmatrix}x\cr y\end{pmatrix} 
+\mapsto \begin{pmatrix}2&0\cr0&3\end{pmatrix} \begin{pmatrix}x\cr y\end{pmatrix}
+= \begin{pmatrix}2x\cr 3y\end{pmatrix}$$
+L'application $k$ n'est plus une homothétie. Cependant l'axe $(Ox)$ est globalement invariant par $k$ ; 
+de même, l'axe $(Oy)$ est globalement invariant.
+On retient qu'un vecteur du type $\left(\begin{smallmatrix}x\cr 0\end{smallmatrix}\right)$ est envoyé sur son double $2\left(\begin{smallmatrix}x\cr 0\end{smallmatrix}\right)$, alors qu'un vecteur du type $\left(\begin{smallmatrix}0\cr y\end{smallmatrix}\right)$ est envoyé sur son triple $3\left(\begin{smallmatrix}0\cr y\end{smallmatrix}\right)$.
+\end{enumerate}
+
+
+Pour une matrice quelconque, il s'agit de voir comment on se ramène à ces situations géométriques simples. C'est ce qui nous amène à la notion de vecteurs propres et valeurs propres.
+
+
+%----------------------------------------------------
+\subsection{Définitions}
+
+
+
+\begin{definition}
+Soit $A \in M_n(\Kk)$.
+
+\begin{itemize}
+  \item $\lambda$ est dite \defi{valeur propre} de la matrice $A$ s'il
+existe un vecteur non nul $X \in \Kk^n$ tel que 
+\mybox{$AX = \lambda X$.}
+  
+  \item Le vecteur $X$ est alors appelé \defi{vecteur propre} de $A$ associé à la valeur propre $\lambda$.
+\end{itemize}
+\end{definition}
+
+%----------------------------------------------------
+\subsection{Exemples}
+ 
+ 
+\begin{exemple}
+Soit $A \in M_3(\Rr)$ la matrice 
+$$A = \begin{pmatrix}
+1 & 3 & 3 \\
+-2 & 11 & -2 \\
+8 & -7 & 6
+\end{pmatrix}.$$
+\begin{itemize}
+  \item Vérifions que $X_1 = \begin{pmatrix}-1\\0\\1\end{pmatrix}$ 
+  est vecteur propre de $A$.
+  
+  En effet,
+ $$A X_1 = \begin{pmatrix}
+1 & 3 & 3 \\
+-2 & 11 & -2 \\
+8 & -7 & 6
+\end{pmatrix} 
+\begin{pmatrix}-1\\0\\1\end{pmatrix}
+= \begin{pmatrix}2\\0\\-2\end{pmatrix}
+= -2 \begin{pmatrix}-1\\0\\1\end{pmatrix}
+= -2 X_1.$$
+
+Donc $X_1$ est un vecteur propre de $A$ associé à la valeur propre $\lambda_1 = -2$.
+
+ \item Vérifions que $X_2 = \begin{pmatrix}0\\1\\-1\end{pmatrix}$ 
+  est vecteur propre de $A$.
+  
+  On calcule $AX_2$ et on vérifie que :
+  $$AX_2 = 13 X_2$$
+  Donc $X_2$ est un vecteur propre de $A$ associé à la valeur propre $\lambda_2 = 13$.
+
+  \item Vérifions que $\lambda_3 = 7$ est valeur propre de $A$.
+  
+  Il s'agit donc de trouver un vecteur $X_3 = \begin{pmatrix}x_1\\x_2\\x_3\end{pmatrix}$
+  tel que $AX_3 = 7 X_3$.
+  
+  \begin{align*}
+  AX_3 = 7 X_3 
+    & \iff  \begin{pmatrix}
+1 & 3 & 3 \\
+-2 & 11 & -2 \\
+8 & -7 & 6
+\end{pmatrix} 
+\begin{pmatrix}x_1\\x_2\\x_3\end{pmatrix}
+= 7\begin{pmatrix}x_1\\x_2\\x_3\end{pmatrix} \\
+    & \iff  
+\begin{pmatrix}
+x_1 + 3x_2 + 3x_3 \\
+-2x_1 + 11x_2  -2x_3 \\
+8x_1 -7x_2 + 6x_3\end{pmatrix}
+= \begin{pmatrix}7x_1\\7x_2\\7x_3\end{pmatrix} \\
+& \iff  
+\left\{ 
+\begin{array}{rcl}
+-6x_1 + 3x_2 + 3x_3 &=& 0\\
+-2x_1 + 4x_2 - 2x_3 &=& 0\\
+8x_1 -7x_2 - x_3 &=& 0
+\end{array}
+\right.
+\end{align*}
+
+On résout ce système linéaire et on trouve comme ensemble de solutions :
+$\left\{ 
+\left(\begin{smallmatrix} t \\ t \\ t \end{smallmatrix}\right) \mid t \in \Rr
+\right\}$.
+Autrement dit, les solutions sont engendrées par le vecteur 
+$X_3 = \begin{pmatrix}1\\1\\1\end{pmatrix}$.
+
+On vient de calculer que $AX_3 = 7X_3$.
+Ainsi $X_3$ est un vecteur propre de $A$ associé à la valeur propre $\lambda_3 = 7$.
+\end{itemize}  
+\end{exemple}
+  
+
+
+\begin{exemple}
+Soit
+$$A = \begin{pmatrix}0 & 1\\1 &1\end{pmatrix}.$$
+Le réel $\alpha =\frac{1+\sqrt{5}}{2}$ est une valeur propre de $A$. En effet :
+\[A\begin{pmatrix}1\\\alpha\end{pmatrix}
+= \alpha \begin{pmatrix}1\\\alpha\end{pmatrix}\]
+\end{exemple}
+
+
+
+\begin{exemple}
+Soit 
+$$A_\theta = \begin{pmatrix}
+\cos\theta & -\sin\theta & 0 \\
+\sin\theta &  \cos\theta & 0 \\
+0          & 0           & 1 \\
+\end{pmatrix}$$
+la matrice de la rotation de l'espace d'angle $\theta$ et d'axe $(Oz)$.
+Soit $X_3 = \left( \begin{smallmatrix} 0 \\ 0 \\ 1 \end{smallmatrix}\right)$.  
+Alors $A_\theta X_3=X_3$. Donc $X_3$ est un vecteur propre de $A_\theta$ et la valeur propre associée est $1$.
+\end{exemple}
+
+
+\begin{exemple}
+Soit
+$$A = \begin{pmatrix}0 & 1\\-1 &-1\end{pmatrix}.$$
+Le complexe $j =-\frac{1}{2} + \ii \frac{\sqrt{3}}{2} = e^{\ii\frac{2\pi}{3}}$ est une valeur propre de $A$. En effet :
+\[A\begin{pmatrix}1\\j\end{pmatrix} 
+= j\begin{pmatrix}1\\j\end{pmatrix}\]
+\end{exemple}
+
+
+%----------------------------------------------------
+\subsection{Cas d'une matrice diagonale}
+
+
+Le cas idéal est celui d'une matrice diagonale. 
+Il est en effet très facile de lui trouver des valeurs propres et des vecteurs propres. 
+%Il n'y a rien à faire pour trouver les valeurs propres et les vecteurs propres. 
+C'est le but de la \og{}diagonalisation\fg{} de se ramener à ce cas !  
+
+\begin{exemple}[Cas d'une matrice diagonale]
+Soit $A$ la matrice diagonale 
+$$A=\begin{pmatrix}
+\lambda_{1}& 0& \cdots &  \cdots & 0\cr
+0& \lambda_{2}& 0&  \cdots &0\cr
+\vdots & \ddots & \ddots & \ddots & \vdots \cr
+0& \cdots & 0 & \lambda_{n-1} & 0 \cr
+0& \cdots & \cdots & 0 & \lambda_{n}\cr
+\end{pmatrix}.$$
+Alors les scalaires $\lambda_1, \ldots,\lambda_n$ sont des valeurs propres de $A$, admettant respectivement comme vecteurs propres associés : 
+$$X_1 = \begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} \qquad \cdots \qquad
+X_n = \begin{pmatrix} 0 \\ \vdots \\ 0 \\ 1\end{pmatrix}.$$
+
+La preuve est immédiate. Le vecteur $X_i = \left(\begin{smallmatrix}\vdots\\0\\1\\0 \\\vdots\end{smallmatrix}\right) $ (où toutes les coordonnées sont nulles, sauf $1$ en position $i$) vérifie en effet
+$$AX_i = 
+\begin{pmatrix}
+\lambda_{1}& 0& \cdots &  \cdots & 0\cr
+0& \lambda_{2}& 0&  \cdots &0\cr
+\vdots & \ddots & \ddots & \ddots & \vdots \cr
+0& \cdots & 0 & \lambda_{n-1} & 0 \cr
+0& \cdots & \dots & 0 & \lambda_{n}\cr
+\end{pmatrix} 
+\begin{pmatrix}
+\vdots\\0\\1\\0 \\\vdots
+\end{pmatrix}
+= 
+ \begin{pmatrix}
+\vdots\\0\\\lambda_i\\0 \\\vdots
+\end{pmatrix}
+= \lambda_i X_i.$$
+
+Conclusion : les éléments diagonaux sont des valeurs propres de $A$ ! On verra plus loin dans ce chapitre qu'il n'y a pas d'autres valeurs propres.
+\end{exemple} 
+
+%----------------------------------------------------
+\subsection{Les vecteurs propres forment une famille libre}
+
+\begin{theoreme}
+\label{th:vplibre}
+Soit $A \in M_n(\Kk)$.
+Soient $\lambda_1,\lambda_2,\dots,\lambda_r$ des valeurs propres distinctes de 
+$A$, et soit $X_i$ un vecteur propre associé à $\lambda_i$ (pour $1\leq i\leq r$).
+Alors les vecteurs $X_1,X_2,\dots,X_r$ sont linéairement indépendants.
+\end{theoreme}
+
+
+
+\begin{proof}
+Raisonnons par récurrence sur $r$, le nombre de valeurs propres.
+
+\begin{itemize}
+  \item \textbf{Initialisation.}
+    Pour $r=1$, la famille constituée du seul vecteur $\{X_1\}$ est toujours une famille libre, car $X_1$ est non nul.
+  
+  
+  \item \textbf{Hérédité.}
+    Supposons que $X_1,X_2,\dots,X_{r-1}$ soient des vecteurs propres linéairement indépendants (où $r\ge 2$ est fixé). Soit $\lambda_r$ une autre valeur propre, et soit $X_r$ un vecteur propre associé. 
+  Soient $\alpha_1,\alpha_2,\ldots,\alpha_{r-1}, \alpha_r \in \Kk$ tels que
+\begin{equation}
+\label{eq:vp1}
+\alpha_1 X_1 + \alpha_2 X_2 +\cdots + \alpha_{r-1} X_{r-1} + \alpha_r X_r = 0.
+\end{equation}
+Ainsi
+$$A \big(\alpha_1 X_1 + \alpha_2 X_2 +\cdots + \alpha_{r-1} X_{r-1} + \alpha_r X_r \big) = 0 $$
+donc
+$$\alpha_1 A X_1 + \alpha_2 A X_2 +\cdots + \alpha_{r-1} A X_{r-1} + \alpha_r A X_r  = 0.$$
+Comme les $X_i$ sont des vecteurs propres, alors
+\begin{equation}
+\label{eq:vp2}
+\alpha_1 \lambda_1 X_1 + \alpha_2 \lambda_2 X_2 +\cdots + \alpha_{r-1} \lambda_{r-1} X_{r-1} + \alpha_r \lambda_r X_r  = 0.
+\end{equation}
+
+\`A partir des équations (\ref{eq:vp1}) et (\ref{eq:vp2}), on calcule
+l'expression $(\ref{eq:vp2}) - \lambda_r (\ref{eq:vp1})$ :
+\begin{equation}
+\label{eq:vp3}
+\alpha_1 (\lambda_1-\lambda_r)  X_1 + \alpha_2 (\lambda_2-\lambda_r) X_2 +\cdots + \alpha_{r-1} (\lambda_{r-1}-\lambda_{r}) X_{r-1} = 0
+\end{equation}
+(le vecteur $X_r$ n'apparaît plus dans cette identité).
+Comme la famille $\{ X_1,X_2,\dots,X_{r-1}\}$ est une famille libre, alors la combinaison linéaire nulle (\ref{eq:vp3}) implique que tous ses coefficients sont nuls :
+$$\alpha_1 (\lambda_1-\lambda_r) = 0 \qquad \alpha_2 (\lambda_2-\lambda_r) = 0 \qquad 
+\cdots \qquad \alpha_{r-1} (\lambda_{r-1}-\lambda_{r}) = 0$$
+Mais comme les valeurs propres sont distinctes alors $\lambda_i - \lambda_r \neq 0$ (pour $i=1,\ldots,r-1$).
+Ainsi 
+$$\alpha_1  = 0 \qquad \alpha_2 = 0 \qquad 
+\cdots \qquad \alpha_{r-1} =0.$$
+
+En se souvenant qu'un vecteur propre n'est pas le vecteur nul, alors l'équation (\ref{eq:vp1}) implique en plus
+$$\alpha_r = 0.$$
+
+Bilan : on vient de prouver que la famille $\{ X_1,X_2,\dots,X_r\}$ est une famille libre.
+
+  \item \textbf{Conclusion.} Par le principe de récurrence, des vecteurs propres associés à des valeurs propres distinctes sont linéairement indépendants.
+   
+\end{itemize}
+
+
+\end{proof}
+
+
+ 
+ 
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soit $A = \left(\begin{smallmatrix}2 & 5 \\3 & 4 \end{smallmatrix}\right)$.
+  Montrer que $X_1 = \left(\begin{smallmatrix}1\\1 \end{smallmatrix}\right)$ et
+  $X_2 = \left(\begin{smallmatrix}5\\-3 \end{smallmatrix}\right)$ sont des vecteurs propres de $A$. Quelles sont les valeurs propres associées ?
+  Même question avec 
+  $A = \left(\begin{smallmatrix} 2 & -1 \\-1 & 3\end{smallmatrix}\right)$, 
+  $X_1 = \left(\begin{smallmatrix}2\\ \sqrt{5}-1\end{smallmatrix}\right)$,
+  $X_2 = \left(\begin{smallmatrix}2\\ -\sqrt{5}-1\end{smallmatrix}\right)$.
+  
+  \item Soit $A = \left(\begin{smallmatrix}
+  -1 & -1 & 0 \\
+0 & -2 & 0 \\
+-1 & 0 & 0\end{smallmatrix}\right)$.
+Montrer que $\lambda_1 = -2$, $\lambda_2 = -1$ et $\lambda_3 = 0$ sont valeurs propres de $A$.
+Pour chaque valeur propre, trouver un vecteur propre associé.
+    
+  \item Quelles sont les valeurs propres et les vecteurs propres de la matrice identité
+  $I_n$ ? Et de la matrice nulle $0_n$ ?
+  
+  \item Montrer qu'une matrice $A \in M_n(\Kk)$ a au plus $n$ valeurs propres distinctes (utiliser un résultat du cours).
+  
+  \item Soit $A = \left(\begin{smallmatrix}
+  5 & -7 & 7 \\
+0 & 5 & 0 \\
+0 & 7 & -2\end{smallmatrix}\right)$.
+  Montrer que les vecteurs 
+  $X_1 = \left(\begin{smallmatrix}3\\-1\\-1 \end{smallmatrix}\right)$, $X_2 = \left(\begin{smallmatrix}0\\2\\2\end{smallmatrix}\right)$, $X_3 =  \left(\begin{smallmatrix}5\\1\\1\end{smallmatrix}\right)$ 
+  sont vecteurs propres de $A$. Montrer que 
+  $\{X_1 , X_2 , X_3\}$ \emph{ne forme pas} une famille libre. Est-ce que cela contredit un résultat
+  du cours ? 
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Polynôme caractéristique}
+
+Comment trouver les valeurs propres d'une matrice parmi tous les éléments de $\Kk$  ?
+
+%----------------------------------------------------
+\subsection{Caractérisation des valeurs propres}
+
+Voici le résultat fondamental pour déterminer les valeurs propres.
+
+\begin{proposition}
+\label{prop:vprac}
+Soient $A \in M_n(\Kk)$ et $\lambda \in \Kk$. Alors :
+\[\lambda \text{ est une valeur propre de $A$ } \iff \det (A-\lambda I_n) = 0 .\]
+\end{proposition}
+
+Rappel : $I_n$ est la matrice identité de taille $n\times n$ ; quel que soit le vecteur $X \in \Kk^n$,
+$I_n \cdot X = X$.
+
+\begin{proof}
+
+\begin{align*}
+\lambda \text{ est une valeur propre de } A
+&\quad\iff\quad \exists X \in \Kk^n \setminus\{0\}, \quad AX = \lambda X \\
+&\quad\iff\quad \exists X \in \Kk^n \setminus\{0\}, \quad  (A -\lambda I_n)X = 0 \\
+&\quad\iff\quad \Ker(A-\lambda I_n) \neq \{0\} \\
+&\quad\iff\quad A- \lambda I_n \text{ n'est pas injective} \\
+&\quad\iff\quad A -\lambda I_n \text{ n'est pas inversible} \\
+&\quad\iff\quad \det (A-\lambda I_n) = 0 .
+\end{align*}
+
+\end{proof}
+
+
+%----------------------------------------------------
+\subsection{Polynôme caractéristique}
+
+Nous transformons la caractérisation précédente en un outil pratique :
+
+\begin{definition}
+Soit $ A \in M_n(\Kk)$.
+Le \defi{polynôme caractéristique} de $A$ est
+\mybox{$\chi_A(X) = \det(A - XI_n).$ }
+\end{definition}
+
+
+
+La proposition \ref{prop:vprac} devient alors :
+\mybox{$\lambda \text{ valeur propre de } A \quad \iff \quad
+\chi_A(\lambda) = 0$}
+
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+  \item La matrice $A - XI_n$ est à coefficients dans $\Kk[X]$, donc son déterminant $\chi_A(X)$ appartient à $\Kk[X]$. 
+  
+  \item On notera aussi souvent $\chi_A(\lambda) = \det(A - \lambda I_n)$ comme un polynôme
+  en $\lambda$, plutôt que $\chi_A(X)$.
+    
+  \item Pour tout $\lambda \in \Kk$, $\det (\lambda I_n-A) = (-1)^n\chi_A(\lambda)$.
+\end{itemize}
+\end{remarque*}
+
+
+\medskip
+
+
+La matrice $A$ étant de taille $n \times n$, alors le polynôme 
+caractéristique de $A$ est un polynôme de degré $n$. Cela conduit aux propriétés suivantes :
+\begin{corollaire}
+\sauteligne
+\begin{itemize}
+  \item Soit $A \in M_n(\Kk)$. Alors $A$ admet au plus $n$ valeurs propres.
+  
+  \item Si le corps $\Kk=\Cc$, alors toute matrice $A \in M_n(\Cc)$ admet 
+au moins une valeur propre.
+\end{itemize}
+\end{corollaire}
+ 
+En effet, nous savons qu'un polynôme de degré $n$ a au plus $n$ racines. Et sur $\Cc$ un polynôme non constant admet toujours au moins une racine.
+
+
+\begin{proposition}
+Deux matrices semblables ont le même polynôme caractéristique.
+Autrement dit, si $B = P^{-1}AP$ alors $\chi_A(X) = \chi_B(X)$.
+\end{proposition}
+
+
+\begin{proof}
+On écrit 
+$$B-XI_n=P^{-1}AP-X(P^{-1}I_nP)=P^{-1}(A-XI_n)P.$$
+Mais on sait que le déterminant vérifie $\det(MN) = \det(M)\cdot\det(N)$ pour toutes matrices $M$ et $N$
+et $\det(M^{-1}) = \frac{1}{\det(M)}$ pour une matrice $M$ inversible.
+Donc
+$$\chi_B(X) 
+= \det(B-XI_n)
+= \frac{1}{\det(P)} \cdot \det(A-XI_n) \cdot \det(P)
+= \det(A-XI_n) 
+= \chi_A(X).$$
+\end{proof}
+
+%----------------------------------------------------
+\subsection{Exemples}
+
+Reprenons les exemples du début de ce chapitre et traitons-les en utilisant le polynôme caractéristique.
+
+\begin{exemple}
+$$A = \begin{pmatrix}
+1 & 3 & 3 \\
+-2 & 11 & -2 \\
+8 & -7 & 6
+\end{pmatrix}$$
+Alors 
+
+\begin{align*}
+\chi_A(X) 
+ & = \det(A-XI_3) \\ 
+ & =  \det \left(
+\begin{pmatrix}
+1 & 3 & 3 \\
+-2 & 11 & -2 \\
+8 & -7 & 6
+\end{pmatrix}
+- X 
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix}
+\right) \\
+ & = \begin{vmatrix}
+1-X & 3 & 3 \\
+-2 & 11-X & -2 \\
+8 & -7 & 6-X
+\end{vmatrix} \\
+ & = \cdots \\
+ & = -X^3 + 18X^2 -51X - 182 \\
+ & = -(X+2)(X-7)(X-13).
+ \end{align*}
+Donc les valeurs propres sont :
+$$-2, \ \ 7\  \text{ et }\  13.$$ 
+\end{exemple}
+
+\begin{exemple}
+$$A = \begin{pmatrix}0 & 1\\1 &1\end{pmatrix}$$
+Alors 
+\[\chi_A(X) 
+= \begin{vmatrix}0-X\  & \ 1\\1\  & \ 1-X\end{vmatrix}
+= X^2 -X -1 
+= \left(X-\frac{1-\sqrt{5}}{2}\right)\left(X-\frac{1+\sqrt{5}}{2}\right)\]
+donc les valeurs propres sont :
+$$\frac{1-\sqrt{5}}{2} \qquad \text{ et } \qquad \frac{1+\sqrt{5}}{2}.$$ 
+\end{exemple}
+
+
+\begin{exemple}
+$$A = \begin{pmatrix}0 & 1\\-1 &-1\end{pmatrix}$$
+Alors :
+\[\chi_A(X) 
+= \begin{vmatrix}0-X\  & \ 1\\-1\  & \ -1 -X\end{vmatrix}
+= X^2 + X +1 
+= (X-j)(X-\bar j)\]
+où $j = -\frac{1}{2}+\ii\frac{\sqrt{3}}{2}$. 
+Bilan :
+\begin{itemize}
+  \item sur $\Kk = \Rr$, la matrice $A$ n'a aucune valeur propre,
+  \item sur $\Kk = \Cc$, la matrice $A$ a deux valeurs propres : $j$ et $\bar j$. 
+\end{itemize}
+\end{exemple}
+
+
+\begin{exemple}
+$$A = \begin{pmatrix}
+\cos \theta & -\sin \theta\\
+\sin \theta &\cos \theta
+\end{pmatrix}$$
+Alors :
+\[\chi_A(X) 
+= \begin{vmatrix}
+\cos \theta -X \  & \ -\sin \theta\\
+\sin \theta \  & \ \cos \theta-X
+\end{vmatrix}
+= X^2-2\cos(\theta) X +1 
+= (X-e^{\ii\theta}) (X-e^{-\ii\theta}).\]
+Sur $\Cc$, les valeurs propres sont $e^{-\ii\theta}$ et $e^{\ii\theta}$.
+\end{exemple}
+
+
+\begin{exemple}[Cas des matrices triangulaires]
+Soit $A$ une matrice triangulaire supérieure
+$$A = 
+\begin{pmatrix}
+a_{11} & a_{12} &\cdots&\cdots&\cdots & a_{1n}\\
+0&a_{22}&\cdots&\cdots&\cdots&a_{2n}\\
+\vdots&\ddots&\ddots&&&\vdots\\
+\vdots&&\ddots&\ddots&&\vdots\\
+\vdots & &&\ddots&\ddots&\vdots\\
+0&\cdots&\cdots&\cdots&0&a_{nn}
+\end{pmatrix}.
+$$
+Alors 
+$$\chi_A(X)
+= \begin{vmatrix}
+a_{11}-X & a_{12} &\cdots&\cdots&\cdots & a_{1n}\\
+0&a_{22}-X&\cdots&\cdots&\cdots&a_{2n}\\
+\vdots&\ddots&\ddots&&&\vdots\\
+\vdots&&\ddots&\ddots&&\vdots\\
+\vdots & &&\ddots&\ddots&\vdots\\
+0&\cdots&\cdots&\cdots&0&a_{nn}-X
+\end{vmatrix}
+= \prod_{i=1}^n(a_{ii}-X) =  (-1)^n \prod_{i=1}^n(X-a_{ii}).$$
+Le calcul de ce déterminant se fait d'abord en développant la première colonne, puis par récurrence.
+L'ensemble des valeurs propres est donc $\left\{a_{ii} \mid 1\le i \le n\right\}$.
+On retient :
+\mybox{Les valeurs propres d'une matrice triangulaire sont exactement ses éléments diagonaux.}
+\end{exemple}
+
+
+
+%----------------------------------------------------
+\subsection{Coefficients du polynôme caractéristique}
+
+La somme et le produit des valeurs propres peuvent se calculer facilement à partir de la matrice.
+
+\begin{proposition}
+\label{prop:vptrdet}
+Si une matrice $A \in M_n(\Kk)$ admet $n$ valeurs propres alors :
+
+\mybox{La somme des valeurs propres vaut $\tr A$.}
+
+\mybox{Le produit des valeurs propres vaut $\det A$.}
+\end{proposition}
+
+Rappel : la \defi{trace} de $A$, $\tr A$, est la somme des coefficients diagonaux de $A$.
+
+
+Cette proposition est évidente pour une matrice diagonale. Elle se démontre aussi facilement si la matrice est diagonalisable. Nous allons ici déduire cette proposition 
+d'un résultat plus général sur les coefficients du polynôme caractéristique.
+
+
+\begin{proposition}
+\label{prop:polcartrdet}
+Soit $A \in M_n(\Kk)$. Soit $\chi_A(X)$ son polynôme caractéristique.
+C'est un polynôme de degré $n$ qui vérifie :
+$$\chi_A(X)=(-1)^n X^n + (-1)^{n-1}(\tr A)X^{n-1}+\dots+\det A.$$
+\end{proposition} 
+
+
+\begin{exemple}
+Voici le cas $n=2$. Soit $A=\left(\begin{matrix}a&b\cr c&d\end{matrix}\right)$.
+On a $$\chi_A(X)=\left|\begin{matrix}a-X&b\cr c& d-X\end{matrix}\right|
+=(a-X)(d-X)-bc=X^2 -\underbrace{(a+d)}_{\tr A}X+
+\underbrace{ad-bc}_{\det A}.$$
+\end{exemple}
+
+
+
+\begin{exemple}
+Si $\lambda_1,\lambda_2,\ldots,\lambda_n \in \Kk$ sont les valeurs propres de $A$, alors le polynôme caractéristique s'écrit aussi
+$$\chi_A(X) = (-1)^n (X-\lambda_1)(X-\lambda_2)\cdots(X-\lambda_n).$$
+En développant cette expression, on trouve
+$$\chi_A(X) = (-1)^n \Big(X^n - (\lambda_1+\cdots+\lambda_n) X^{n-1}+\cdots + (-1)^n(\lambda_1\cdot\lambda_2\cdots\lambda_n)\Big).$$
+En identifiant ce polynôme avec l'expression de la proposition \ref{prop:polcartrdet}, on obtient la proposition \ref{prop:vptrdet}.
+\end{exemple}
+
+Voici les grandes lignes de la preuve de la proposition \ref{prop:polcartrdet} (on reviendra sur cette preuve dans le chapitre suivant \og{}Diagonalisation\fg{}).
+\begin{proof}
+Si $A=(a_{ij})_{1\le i,j\le n}$, on a
+$$\chi_A(X)
+= \begin{vmatrix}
+a_{11}-X&a_{12}&\cdots&a_{1n}\cr 
+a_{21}&a_{22}-X& \cdots & a_{2n} \cr
+\vdots& \vdots & \ddots &  \vdots \cr 
+a_{n1}&a_{n2} &\cdots&a_{nn}-X\end{vmatrix}.$$
+On a alors :
+\begin{itemize}
+  \item Le polynôme $\chi_A(X)$ est de degré $n$.
+  \item Les termes de degré $n$ et $n-1$ proviennent du produit 
+$$(a_{11}-X)\cdots(a_{nn}-X)=(-1)^nX^n+(-1)^{n-1}(\tr A)X^{n-1}+\cdots$$   
+  \item Le terme constant, quant à lui, est donné par $\chi_A(0)=\det A$.
+\end{itemize}
+\end{proof}
+
+
+
+%----------------------------------------------------
+\subsection{Matrice compagnon}
+
+
+Est-ce que n'importe quel polynôme peut être réalisé comme polynôme caractéristique ? La réponse est oui !
+
+\begin{proposition}
+Soit $P(X) = X^n+c_{n-1}X^{n-1}+ \cdots +c_1X+c_0 \in \Kk[X]$.
+Soit $A \in M_n(\Kk)$ la \defi{matrice compagnon} du polynôme $P$ :
+$$A = 
+\begin{pmatrix}
+0&\cdots&\cdots&0&-c_{0}\\
+1&\ddots&&\vdots&\vdots\\
+0&\ddots&\ddots&\vdots&\vdots\\
+\vdots&\ddots&\ddots&0&\vdots\\
+0&\cdots&0&1&-c_{n-1}
+\end{pmatrix}$$
+Alors 
+\mybox{$\chi_{A}(X) = (-1) ^n P(X) .$}
+\end{proposition}
+
+
+\begin{proof}
+La preuve est par récurrence sur $n \ge 1$. 
+
+\textbf{Initialisation.}
+Si $n=1$ alors la matrice compagnon
+est la matrice $A = (-c_0)$, de taille $1 \times 1$. Ainsi $\det(A-XI_1) = \det (-c_0-X) = -X-c_0 = -P(X)$.
+
+
+\textbf{Hérédité.} Fixons $n\ge2$ et supposons la formule vraie pour des matrices compagnons de taille $(n-1)\times(n-1)$.
+Alors :
+\begin{align*}
+\chi_{A}(X)
+ & \quad = \quad \det(A-XI_n) \\
+ & \quad =  \quad\begin{vmatrix}
+-X&0&\cdots&0&-c_{0}\\
+1&\ddots&\ddots&\vdots&\vdots\\
+0&\ddots&\ddots&0&\vdots\\
+\vdots&\ddots&\ddots&-X&\vdots\\
+0&\cdots&0&1&-X-c_{n-1}
+\end{vmatrix} \qquad \text{on développe par rapport à la première ligne :} \\
+& \quad = \quad (-X)  
+\underbrace{\begin{vmatrix}
+-X&0&\cdots&0&-c_{1}\\
+1&\ddots&\ddots&\vdots&\vdots\\
+0&\ddots&\ddots&0&\vdots\\
+\vdots&\ddots&\ddots&-X&\vdots\\
+0&\cdots&0&1&-X-c_{n-1}
+\end{vmatrix}}_{
+\substack{\text{ polynôme caractéristique associé à une }\\
+\text{ matrice compagnon de taille  $(n-1)\times(n-1)$}}
+}
++(-1)^{n} c_0
+\underbrace{
+\begin{vmatrix}
+1&-X&0&\cdots&0\\
+0&\ddots&\ddots&\ddots&\vdots\\
+\vdots&\ddots&\ddots&\ddots&0\\
+\vdots&&\ddots&\ddots&-X\\
+0&\cdots&\cdots&0&1
+\end{vmatrix}}_{ = 1 }\\
+& \quad  = \quad (-X)\Big( (-1) ^{n-1}(X^{n-1}+c_{n-1}X^{n-2}+\cdots+c_1 ) \Big) + (-1)^{n} c_0  \times 1 \qquad \text{ par hypothèse de récurrence} \\
+& \quad  = \quad (-1)^n(X^n + c_{n-1}X^{n-1} + \cdots +c_1 X + c_0) \\
+& \quad = \quad (-1) ^n P(X)
+\end{align*}
+
+\textbf{Conclusion.}
+Par le principe de récurrence, la proposition est vérifiée pour tout $n\ge1$.
+
+\end{proof}
+
+\begin{exemple}
+Soit $A$ la matrice :
+$$A = 
+\begin{pmatrix}
+0&\cdots&\cdots&0&1\\
+1&\ddots&&\vdots&0\\
+0&\ddots&\ddots&\vdots&\vdots\\
+\vdots&\ddots&\ddots&0&\vdots\\
+0&\cdots&0&1&0
+\end{pmatrix}
+\in M_n(\Cc)
+$$
+Alors $\chi_A(X) = (-1)^n(X^n-1)$.
+Les valeurs propres de $A$ sont donc les racines $n$-ièmes de l'unité.
+\end{exemple}
+
+
+
+
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Calculer le polynôme caractéristique des matrices suivantes, et en déduire leurs valeurs propres : 
+  $A = \left(\begin{smallmatrix}2 & 3 \\7 & 4 \end{smallmatrix}\right)$,
+  $B = \left(\begin{smallmatrix}-6 & 3 & -7 \\5 & 0 & 5 \\5 & -1 & 6 \end{smallmatrix}\right)$,   
+  $C = \left(\begin{smallmatrix}-3 & -1 & 0 & 0 \\1 & -3 & 0 & 0 \\0 & 0 & -1 & 2 \\0 & 0 & 5 & 2 \end{smallmatrix}\right)$. 
+   
+  \item Calculer, à la main, les coefficients du polynôme caractéristique d'une matrice $A$ de taille
+  $3\times3$ :
+  $A = \left(\begin{smallmatrix}a_{11}&a_{12}&a_{13}\\a_{21}&a_{22}&a_{23}\\a_{31}&a_{32}&a_{33}\\ \end{smallmatrix}\right)$. 
+  
+  \item Trouver plusieurs matrices de taille $2\times2$ dont la somme des valeurs propres fait $6$ et le produit des valeurs propres fait $2$.
+  
+  \item Trouver une matrice, ni diagonale ni triangulaire, dont le polynôme caractéristique est 
+  $(X-1)^2(X^2+X+1)$. 
+  Trouver une matrice, ni diagonale ni triangulaire, dont l'ensemble des valeurs propres est $\{0,1,-1,\ii,-\ii\}$.
+
+\end{enumerate}
+\end{miniexercices}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Diagonaliser à la main}
+
+Nous avons vu qu'une matrice $A$ et une matrice semblable $P^{-1}AP$ ont le même polynôme caractéristique, donc les mêmes valeurs propres. Nous allons voir un critère simple (mais pas le plus général) pour obtenir une matrice $P^{-1}AP$ qui est diagonale, les coefficients diagonaux étant les valeurs propres de $A$.
+
+%----------------------------------------------------
+\subsection{Matrice diagonalisable}
+
+
+\begin{definition}
+Soit $A \in M_n(\Kk)$. On dit que $A$ est \defi{diagonalisable} 
+sur $\Kk$ s'il existe une matrice $P \in M_n(\Kk)$ inversible telle que 
+$P^{-1}AP$ soit une matrice diagonale.
+\end{definition} 
+
+
+Il y a beaucoup d'intérêt à se ramener à une matrice diagonale. Voici juste une application.
+
+\begin{exemple}
+Soient 
+$$A = \begin{pmatrix}
+1 & 2 \\
+3 & -4
+\end{pmatrix}\qquad
+P = \begin{pmatrix}
+1 & 1 \\
+-3 & \frac{1}{2}
+\end{pmatrix}\qquad
+P^{-1}=\begin{pmatrix}
+\frac{1}{7} & -\frac{2}{7} \\
+\frac{6}{7} & \frac{2}{7}
+\end{pmatrix}.$$
+Alors 
+$$D = P^{-1}AP =
+\begin{pmatrix}
+-5 & 0 \\
+0 & 2
+\end{pmatrix}
+\qquad \text{ donc } \qquad
+D^k=\begin{pmatrix}
+(-5)^k & 0 \\
+0 & 2^k
+\end{pmatrix}.
+$$
+La matrice $D$ étant diagonale, la matrice $A$ est diagonalisable.
+Calculons maintenant $A^k$.
+
+Comme $D = P^{-1}AP$ alors $A = PDP^{-1}$, donc
+$$A^k = (PDP^{-1})^k = \underbrace{(PDP^{-1})(PDP^{-1}) \cdots (PDP^{-1})}_{k \text{ occurrences}} = P D^k P^{-1}.$$
+D'où
+$$A^k=
+\begin{pmatrix}
+\frac{6}{7} \times 2^{k} + \frac{1}{7} \times \left(-5\right)^{k} &
+\frac{2}{7} \times 2^{k} - \frac{2}{7} \times \left(-5\right)^{k} \\
+\frac{3}{7} \times 2^{k} - \frac{3}{7} \times \left(-5\right)^{k} &
+\frac{1}{7} \times 2^{k} + \frac{6}{7} \times \left(-5\right)^{k}
+\end{pmatrix}.
+$$
+\end{exemple}
+
+
+%----------------------------------------------------
+\subsection{Un critère pour diagonaliser}
+
+Comment trouver cette matrice $P$ qui permet de diagonaliser ?
+
+Nous allons donner une méthode sous l'hypothèse que la matrice admette $n$ valeurs propres distinctes.
+Nous verrons des critères plus puissants dans les chapitres suivants.
+
+\begin{proposition}
+\label{prop:diagvpdis}
+Soit $A \in M_n(\Kk)$ une matrice. Supposons que $A$ admette $n$ valeurs propres distinctes $\lambda_1,\ldots,\lambda_n \in \Kk$. Soient $X_1,\ldots,X_n$ des vecteurs propres associés. Alors :
+\begin{itemize}
+  \item La matrice $A$ est diagonalisable.
+  
+  \item Si on note $P$ la matrice dont les vecteurs colonnes sont les $(X_1,\ldots,X_n)$, alors $D=P^{-1}AP$ est la matrice diagonale formée des valeurs propres de $A$.
+\end{itemize}
+\end{proposition}
+
+\begin{proof}~
+
+\begin{itemize}
+  \item Par le théorème \ref{th:vplibre}, la famille $(X_1,\ldots,X_n)$ est une famille libre, car les valeurs propres sont distinctes. Comme cette famille possède $n$ éléments, c'est une base de $\Kk^n$.
+  
+  \item La matrice $P$ est inversible car ses vecteurs colonnes forment une base de $\Kk^n$.
+  On pose $D=P^{-1}AP$.
+  
+  \item Notons $(Y_1,\ldots,Y_n)$ la base canonique de $\Kk^n$ :  $Y_i = \left(\begin{smallmatrix}\vdots\\0\\1\\0 \\\vdots\end{smallmatrix}\right)$ (où le $1$ est en position $i$).
+ On remarque que la multiplication $M Y_i$ renvoie la $i$-ème colonne de la matrice $M$. En particulier, $PY_i = X_i$ et donc $Y_i = P^{-1}X_i$. 
+  
+  Calculons $DY_i$ pour chaque $1\le i \le n$ :  
+  \begin{align*}
+  DY_i & = (P^{-1}AP) Y_i 
+        = (P^{-1}A)P Y_i \\
+       & = (P^{-1}A)X_i 
+        = P^{-1} (AX_i) \\
+       & = P^{-1} (\lambda_i X_i) 
+        = \lambda_i P^{-1} X_i \\
+       &= \lambda_i Y_i
+  \end{align*}
+  Nous avons utilisé le fait que $X_i$ est un vecteur propre associé à la valeur propre $\lambda_i$.
+  Ainsi on vient de prouver que la $i$-ème colonne de $D$, qui est $DY_i$, est aussi
+  $\lambda_i Y_i = \left(\begin{smallmatrix}\vdots\\0\\\lambda_i\\0 \\\vdots\end{smallmatrix}\right)$.
+  
+  La matrice $D$ est donc bien la matrice diagonale dont les coefficients sont les $\lambda_i$ :
+  $$D = \begin{pmatrix}
+\lambda_{1}&0&\cdots&0 \cr
+0&\lambda_{2}&\ddots&\vdots\cr
+\vdots&\ddots& \ddots &0\cr
+0&\cdots&0& \lambda_{n}
+\end{pmatrix}$$ 
+\end{itemize}
+
+\end{proof}
+
+%----------------------------------------------------
+\subsection{Méthode pour diagonaliser}
+
+
+Soit $A \in M_n(\Kk)$ une matrice carrée $n \times n$. 
+Pour essayer de la diagonaliser :
+\begin{enumerate}
+  \item On calcule d'abord son polynôme caractéristique $\chi_A(X)$.
+  \item On cherche les racines de $\chi_A(X)$ : ce sont les valeurs propres de $A$.
+\end{enumerate} 
+
+
+\emph{On suppose ici que l'on a trouvé $n$ valeurs propres distinctes : $\lambda_1,\ldots,\lambda_n$.}
+
+\begin{enumerate}  
+  \setcounter{enumi}{2}
+  \item Pour chaque valeur propre $\lambda_i$ de $A$, on cherche un vecteur propre $X_i$.
+  
+  \item Soit $P$ la matrice dont les vecteurs colonnes sont les $(X_1,\ldots,X_n)$.
+  Alors $D=P^{-1}AP$ est la matrice diagonale :
+  $$D = \begin{pmatrix}
+\lambda_{1}&0&\cdots&0 \cr
+0&\lambda_{2}&\ddots&\vdots\cr
+\vdots&\ddots& \ddots &0\cr
+0&\cdots&0& \lambda_{n}
+\end{pmatrix}$$
+ 
+ 
+ \end{enumerate} 
+ 
+
+%----------------------------------------------------
+\subsection{Exemples}
+
+\begin{exemple}
+Diagonalisons la matrice 
+$$A=\begin{pmatrix}4&-2\cr1&1\cr\end{pmatrix}.$$
+\begin{enumerate}
+  \item Pour cela, on détermine ses valeurs propres :
+$$\det(A-\lambda I)=\begin{vmatrix}4-\lambda &-2\cr1&1-\lambda\end{vmatrix}=(4-\lambda)(1-\lambda)+2=\lambda^2-5\lambda+6=(\lambda-2)(\lambda-3).$$
+  
+  \item Ainsi, la matrice $A$ admet deux valeurs propres distinctes, qui sont $\lambda_1=2$ et $\lambda_2=3$. Par la proposition \ref{prop:diagvpdis}, elle est diagonalisable.
+  
+  \item Déterminons une base de vecteurs propres. Tout d'abord pour $\lambda_1 = 2$ :
+$$\begin{pmatrix}4&-2\cr1&1\cr\end{pmatrix}\begin{pmatrix}x\cr y\end{pmatrix}=
+\begin{pmatrix}2x\cr 2y\end{pmatrix}\iff x=y,$$
+d'où le vecteur propre $X_1=\left(\begin{smallmatrix}1\\1\end{smallmatrix}\right)$ associé à la valeur propre $\lambda_1=2$. 
+Pour la valeur propre $\lambda_2=3$ : 
+$$\begin{pmatrix}4&-2\cr1&1\cr\end{pmatrix}\begin{pmatrix}x\cr y\end{pmatrix}=
+\begin{pmatrix}3x\cr 3y\end{pmatrix}\iff x=2y,$$
+d'où le vecteur propre $X_2=\left(\begin{smallmatrix}2\\1\end{smallmatrix}\right)$ associé à la valeur propre $\lambda_2=3$.
+  
+  \item Dans la base $(X_1, X_2)$, la matrice s'écrit
+$$D=\left(\begin{matrix}2&0\cr0&3\cr\end{matrix}\right).$$
+Plus précisément $D = P^{-1}AP$, où
+$$P=\begin{pmatrix}1&2\cr1&1\cr\end{pmatrix}
+\quad \text{ et } \quad 
+P^{-1}=\begin{pmatrix}-1&2\cr1&-1\cr\end{pmatrix}.$$
+  
+\end{enumerate}
+\end{exemple}
+
+
+\begin{exemple}
+Soit 
+$$A=
+\begin{pmatrix}
+1 & 0 & 0 \\
+5 & -4 & 0 \\
+6 & -6 & 2
+\end{pmatrix}.$$
+Démontrons que $A$ est diagonalisable et trouvons une matrice $P$ telle que $P^{-1}AP$ soit diagonale.
+
+
+\begin{enumerate}
+  \item Commençons par calculer le polynôme caractéristique de $A$ :
+$$\chi_A(X)=\begin{vmatrix}
+1-X & 0 & 0 \\
+5 & -4-X & 0 \\
+6 & -6 & 2-X
+\end{vmatrix}
+=-(X-1)(X+4)(X-2)$$
+
+
+  \item Les racines du polynôme caractéristique, et donc les valeurs propres de $A$, sont les réels 
+  $\lambda_1 = 1$, $\lambda_2 = -4$ et $\lambda_3 = 2$. Il y a trois valeurs propres distinctes, et donc par la proposition \ref{prop:diagvpdis}, la matrice est diagonalisable.
+  
+  \item  Déterminons des vecteurs propres associés.
+Par exemple, pour $\lambda_2 = -4$ :
+$$\begin{pmatrix}
+1 & 0 & 0 \\
+5 & -4 & 0 \\
+6 & -6 & 2
+\cr\end{pmatrix}\begin{pmatrix}x\cr y \cr z\end{pmatrix}=
+\begin{pmatrix}-4x\cr -4y \cr -4z\end{pmatrix}
+\iff 
+\left\{ 
+\begin{array}{rcl}
+5x &=& 0 \\
+5x &=& 0 \\
+6x-6y+6z &=& 0 \\ 
+\end{array}
+\right.
+\iff 
+\left\{ 
+\begin{array}{rcl}
+x &=& 0 \\
+y &=& z \\ 
+\end{array}
+\right.$$
+L'ensemble des solutions est donc 
+$\left\{ \left(\begin{smallmatrix}0\\t\\t\end{smallmatrix}\right) \mid t \in \Rr \right\}$.
+D'où le vecteur propre $X_2=\left(\begin{smallmatrix}0\\1\\1\end{smallmatrix}\right)$ associé à la valeur propre $\lambda_2=-4$.   
+  
+  
+De même, on trouve $X_1$ (associé à $\lambda_1 = 1$) et $X_3$ (associé à $\lambda_3 = 2$) :
+ $$
+ X_1 = \begin{pmatrix}1\\1\\0\end{pmatrix}\qquad
+ X_2 = \begin{pmatrix}0\\1\\1\end{pmatrix}\qquad 
+ X_3 = \begin{pmatrix}0\\0\\1\end{pmatrix}$$
+ 
+  \item  
+ La base $(X_1, X_2,X_3)$ diagonalise la matrice $A$, c'est-à-dire
+ $D = P^{-1}AP$ avec  
+$$D=\begin{pmatrix}1&0&0\cr0&-4&0\cr0&0&2\end{pmatrix} \quad \text{ et  } \quad 
+P=\begin{pmatrix}
+1 & 0 & 0 \\
+1 & 1 & 0 \\
+0 & 1 & 1
+\end{pmatrix}
+\quad
+P^{-1}=\begin{pmatrix}
+1 & 0 & 0 \\
+-1 & 1 & 0 \\
+1 & -1 & 1
+\end{pmatrix}
+.$$    
+\end{enumerate}  
+\end{exemple}
+
+
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item 
+  Soit $A=\left(\begin{smallmatrix}
+-4 & 5 & 0 \\
+0 & 1 & 0 \\
+-7 & 7 & 3  
+\end{smallmatrix}\right)$. Calculer les valeurs propres de $A$. Trouver un vecteur propre pour chaque valeur propre. Trouver une matrice $P$ telle que $D = P^{-1} A P$ soit une matrice diagonale. Calculer $P^{-1}$. Calculer $D^k$ ($k\in\Nn$). En déduire $A^k$.
+  
+  \item Même exercice avec $A = \left(\begin{smallmatrix}
+  1 & -2 & 0 & 0 \\
+-1 & 1 & 0 & 0 \\
+0 & 0 & 1 & -3 \\
+0 & 0 & -3 & 1
+ \end{smallmatrix}\right)$.
+ 
+  \item Dans le cas d'une matrice $A \in M_n(\Kk)$ ayant $n$ valeurs propres distinctes, donner une nouvelle preuve des assertions : \og{}La somme des valeurs propres vaut $\tr A$.\fg{}
+  et \og{}Le produit des valeurs propres vaut $\det A$.\fg{}
+  
+  \item Soit $T$ une matrice triangulaire, non diagonale, dont les coefficients sur la diagonale sont tous $1$. Montrer qu'elle n'est pas diagonalisable. Indications : (a) Quelles sont les valeurs propres de $T$ ? (b) Si $T$ était diagonalisable en une matrice $D$, que vaudrait $D$ ? (c) \`A quoi pourrait être semblable cette matrice $D$ ? 
+\end{enumerate}
+\end{miniexercices}
+
+
+
+\auteurs{
+\\
+D'après un cours de Sandra Delaunay et un cours d'Alexis Tchoudjem.
+
+Revu et augmenté par Arnaud Bodin.
+
+Relu par Stéphanie Bodin et Vianney Combet.
+}
+
+
+\finchapitre 
+\end{document}
+
+

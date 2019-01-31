@@ -1,0 +1,27 @@
+\begin{tikzpicture}[scale=0.9]
+
+      \draw[->,>=latex, gray] (-3,0)--(5,0);
+      \draw[->,>=latex, gray] (0,-1.7)--(0,4);
+
+
+       \node at (2.5,0) [below,black] {$x$};
+       \node at (0,0.95) [left,green!60!black] {$f(x)$};
+       \node at (0,1.75) [left,blue] {$g(x)$};
+       \node at (0,2.7) [left,myred] {$(f+g)(x)$};
+
+
+       \draw[dashed, thick] (2.5,0)--(2.5,0.95)--(0,0.95);
+       \draw[dashed, thick] (2.5,0)--(2.5,1.75)--(0,1.75);
+       \draw[dashed, thick] (2.5,0)--(2.5,2.7)--(0,2.7);
+
+       \fill (0,0.95) circle (2pt);
+       \fill (0,1.75) circle (2pt);
+       \fill (0,2.7) circle (2pt);
+
+      \draw[ultra thick, color=blue,domain=-3:4,smooth] plot (\x,{0.3*\x+sin(1*(\x-1) r)}) node[right] {$g$};
+
+      \draw[ultra thick, color=green!60!black,domain=-3:4,smooth] plot (\x,{0.3+0.1*\x*\x)}) node[right] {$f$};
+
+      \draw[ultra thick, color=myred,domain=-3:4,smooth] plot (\x,{0.3*\x+sin(1*(\x-1) r) +0.3+0.1*\x*\x }) node[right] {$f+g$};
+
+\end{tikzpicture}

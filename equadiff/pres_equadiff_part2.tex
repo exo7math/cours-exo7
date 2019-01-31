@@ -1,0 +1,558 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={51,102,51}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf \'Equations différentielles}}
+\subtitle{\'Equation différentielle linéaire du premier ordre}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> $y'=ay$
+    \item<4-> $y'=a(x)y$
+    \item<5-> $y' = a(x)y+b(x)$
+    \item<6-> Théorème de Cauchy-Lipschitz
+    \item<7-> Courbes intégrales
+    \item<8-> Exemples
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Définition}
+
+\begin{frame}
+\begin{mydefinition}
+Une équation différentielle \defi{linéaire du premier ordre} est une équation du type : 
+\begin{equation}
+  y'=a(x)y + b(x)   
+  \label{eq:eqdifflinordre1}
+  \tag{$E$}
+\end{equation}
+où $a$ et $b$ sont des fonctions définies sur un intervalle ouvert $I$ de $\Rr$
+\end{mydefinition}
+
+\pause
+
+\begin{itemize}
+  \item $a$ et $b$ sont des fonctions continues sur $I$
+  \pause
+  \item Variante $\alpha (x)y'+\beta (x)y=\gamma (x)$
+  \pause
+  \begin{itemize}
+    \item $\alpha (x)\neq 0$ pour tout $x\in I$
+    \pause
+    \item division par $\alpha$ pour retrouver la forme (\ref{eq:eqdifflinordre1})
+  \end{itemize}
+  
+\end{itemize}
+\pause
+\begin{enumerate}
+  \item $a$ est une constante et $b=0$
+  \pause
+  \item $a$ est une fonction et $b=0$
+  \pause
+  \item $a$ et $b$ sont deux fonctions
+\end{enumerate}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{$y'=ay$}
+
+\begin{frame}
+\begin{theoreme}
+\label{th:eqdifflinordre1cst}
+Soit $a$ un réel. Soit l'équation différentielle :
+\vspace*{-2ex}\begin{equation}
+   y' = a y   
+  \label{eq:eqdifflinordre1cst}
+  \tag{$E$}
+\end{equation}
+\vspace*{-4ex}
+
+Les solutions de (\ref{eq:eqdifflinordre1cst}), sur $\Rr$, sont les fonctions $y$ définies par :
+
+\pause
+\vspace*{-1ex}
+\mybox{$y(x) = k e^{ax}$}
+\vspace*{-2ex}
+
+\pause
+où $k\in \Rr$ est une constante quelconque
+\end{theoreme}
+\pause
+Exemple : \\
+\qquad $3y' - 5y = 0 \pause \iff y' = \frac53 y$. \pause Solutions : $y(x) = k e^{\frac53x}$, où $k \!\in\! \Rr$
+
+\medskip
+
+\pause
+Preuve rapide  : 
+\pause
+\begin{itemize}[<+->]
+  \item $\frac{y'}{y} =  a$
+  \item On intègre : $\ln |y(x)| = ax+b$
+  \item On compose par l'exponentielle $|y(x)| = e^{ax+b} = e^{ax}\cdot e^b$
+  \item Avec $k = \pm e^b$, on obtient $y(x) = k e^{ax}$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+~
+
+{
+\begin{minipage}{0.73\textwidth}
+\mybox{$y(x) = k e^{ax}$}
+\end{minipage}
+}
+
+\vspace*{-3ex}
+
+  \myfigure{0.5}{
+    \hspace*{-3cm}
+    \tikzinput{fig_equadiff03a}
+    \quad
+    \tikzinput{fig_equadiff03b}
+  }
+  \end{frame}
+
+
+
+
+
+
+
+
+\begin{frame}
+\begin{theoreme}
+Les solutions de $y' = a y$ sont les \myboxinline{$y(x) = k e^{ax}$}
+où $k\in \Rr$
+\end{theoreme}
+\begin{proof}
+\pause
+{\small\begin{enumerate}
+  \item Les fonctions proposées sont bien solutions car $y'(x) = ake^{ax} = a y(x)$
+ \pause 
+  \item Montrons que ce sont les seules solutions
+  \pause
+  \begin{itemize}[<+->]
+    \item Soit $y$ une solution quelconque de $y' = a y$
+    
+    \item Considérons la fonction $z$ définie par : $z(x) = y(x) e^{-ax}$
+    
+    \item Alors 
+    $z'(x) = y'(x)e^{-ax} +  y(x)\big(-ae^{-ax}\big) =  e^{-ax}\big(y'(x)-ay(x)\big)$
+    
+    \item Comme $y'(x) - ay(x) = 0$ alors $z'(x) = 0$
+    
+    \item Il existe une constante $k$ telle que $z(x)=k$ pour tout $x\in \Rr$
+ 
+    \item $z(x)= k \quad\text{donc}\quad  y(x) e^{-ax} = k \quad\text{donc}\quad  
+  y(x) = ke^{ax}$
+   \qedhere 
+  \end{itemize}
+ 
+\end{enumerate}
+ }  
+  
+\end{proof}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{$y'=a(x)y$}
+
+\begin{frame}
+
+\begin{theoreme}
+\label{th:eqdifflinordre1}
+Soit $a : I \to \Rr$ une fonction continue. Soit $A : I \to \Rr$ une primitive de $a$.
+Soit l'équation différentielle :
+
+\vspace*{-2ex}
+\begin{equation}
+   y' = a(x) y   
+  \label{eq:eqdifflinordre1}
+  \tag{$E$}
+\end{equation}
+\vspace*{-2ex}
+\pause
+
+Les solutions de (\ref{eq:eqdifflinordre1}) sur $I$ sont les fonctions $y$ définies par :
+\mybox{$y(x) = k e^{A(x)}$}
+\vspace*{-2ex}
+où $k\in \Rr$ est une constante quelconque
+\end{theoreme} 
+\end{frame}
+
+
+\begin{frame}
+\begin{theoreme}
+Les solutions de $y' = a(x) y$ sont les \myboxinline{$y(x) = k e^{A(x)}$}
+où $k\in \Rr$ et $A$ est une primitive de $a$
+\end{theoreme}
+\pause
+\vspace*{-2ex}
+%Preuve rapide 
+\begin{eqnarray*}
+&\frac{y'}{y} =  a(x)
+\pause
+\iff \ln |y(x)| = A(x) + b
+\pause
+\iff |y(x)| = e^{A(x)+b} \\
+\pause
+\iff& y(x) = \pm e^b e^{A(x)}
+\pause
+\iff y(x) = k e^{A(x)} \quad \text{ avec } k = \pm e^b  
+\end{eqnarray*}
+
+\pause
+\begin{exemple}
+$$x^2y'=y$$
+\pause
+\vspace*{-4ex}
+\begin{itemize}
+\item Sur $I_+=\,]0,+\infty[$ ou $I_-=\,]-\infty,0[$
+\pause
+\item L'équation devient $y'= \frac{1}{x^2}y$ (ou encore $\frac{y'}{y}= \frac{1}{x^2}$)
+\pause
+\item Ici $a(x)=\frac{1}{x^2}$ dont une primitive est
+$A(x)=-\frac1x$
+\pause
+\item Les solutions sont $y(x) = k e^{-\frac1x}$, où $k\in\Rr$
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{$y' = a(x)y+b(x)$}
+
+\begin{frame}
+\evidence{\'Equation différentielle linéaire d'ordre $1$ 
+avec second membre}
+\begin{equation}
+   y' = a(x) y  + b(x)
+  \label{eq:eqdifflinordre1scnd}
+  \tag{$E$}
+\end{equation}
+où $a : I \to \Rr$ et $b: I \to \Rr$ sont des fonctions continues
+
+\pause
+L'équation homogène associée est :
+\begin{equation}
+   y' = a(x) y
+  \label{eq:eqdifflinordre1scndhomo}
+  \tag{$E_0$}
+\end{equation}
+
+\pause
+\begin{proposition}
+Si $y_0$ est une solution de (\ref{eq:eqdifflinordre1scnd}), 
+alors les solutions de (\ref{eq:eqdifflinordre1scnd}) sont les
+fonctions $y : I \to \Rr$ définies par : 
+
+\vspace*{-2ex}
+$$y(x)= y_0(x)+k e^{A(x)} \qquad \text{ avec }  k \in \Rr$$
+\vspace*{-3ex}
+
+où $x\mapsto A(x)$ est une primitive de $x \mapsto a(x)$
+\end{proposition} 
+
+\pause
+\evidence{Solution évidente}
+\pause
+\begin{itemize}
+  \item L'équation différentielle $y'=2xy+4x$
+  \pause
+  \item Solution particulière : $y_0(x)=-2$
+  \pause
+  \item Solutions :  $y(x) = -2 + ke^{x^2}$, où $k\in\Rr$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+\evidence{Variation de la constante}
+
+ \pause
+\begin{itemize}
+
+  \item (\ref{eq:eqdifflinordre1scnd}) $y' = a(x) y  + b(x)$
+   \pause
+  \item La solution générale de (\ref{eq:eqdifflinordre1scndhomo}) 
+  $y' = a(x) y$, est donnée par $y(x)=ke^{A(x)}$, avec $k\in \Rr$
+   \pause
+  \item Chercher une solution particulière sous la 
+  forme $y_0(x)=k(x)e^{A(x)}$
+   \pause
+  \item Puisque $A'=a$, on a : 
+  $y_0'(x)=a(x)k(x)e^{A(x)} + k'(x)e^{A(x)}= a(x)y_0(x) + k'(x)e^{A(x)}$
+   \pause  
+  \item $y_0'(x) - a(x)y_0(x) = k'(x)e^{A(x)}$ 
+   \pause
+  \item Donc $y_0$ est une solution de (\ref{eq:eqdifflinordre1scnd}) si
+  et seulement si
+ $\begin{array}{rcl}
+ k'(x)e^{A(x)}=b(x) 
+    \pause&\iff& k'(x)=b(x)e^{-A(x)} \\
+    \pause&\iff& k(x)=\int b(x)e^{-A(x)}\dd x
+ \end{array}$
+  \pause
+ \item Ce qui donne une solution particulière 
+$y_0(x) = \left(\int b(x)e^{-A(x)}\dd x \right)e^{A(x)}$ de (\ref{eq:eqdifflinordre1scnd}) 
+sur $I$
+ \pause
+  \item La solution générale de (\ref{eq:eqdifflinordre1scnd}) 
+  est donnée par $y(x) = y_0(x) + ke^{A(x)}$, $k\in \Rr$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}
+\label{ex:eqdifflinordre1scnd}
+Résoudre $y'+y = e^x+1$ \quad (\ref{eq:eqdifflinordre1scnd})
+
+\pause
+\begin{itemize}
+  \item $y'=-y$ (\ref{eq:eqdifflinordre1scndhomo}), solutions : $y(x) = k e^{-x}$, $k\in\Rr$
+  \pause
+  \item Recherche d'une solution particulière de (\ref{eq:eqdifflinordre1scnd}) sous la forme 
+  $y_0(x) = k(x) e^{-x}$
+  \pause
+  \item On doit trouver $k(x)$ afin que $y_0$ vérifie $y'+y = e^x+1$
+  \pause
+  \item $\begin{array}{rcl}
+        && y_0'+y_0 = e^x+1  \\
+ \pause       
+ & \iff & \left(k'(x) e^{-x} - k(x) e^{-x} \right) + k(x) e^{-x} = e^x+1 \\
+ \pause  
+ & \iff & k'(x)e^{-x} = e^x+1 \\
+ \pause 
+ & \iff & k'(x) = e^{2x}+e^x \\
+ \pause 
+ & \iff & k(x) = \frac12e^{2x}+e^x + c \\
+\end{array}$
+  \pause 
+  \item $y_0(x) =  k(x) e^{-x} = \left(\frac12e^{2x}+e^x\right)e^{-x} = \frac12e^{x}+1$
+  \pause 
+  \item Solutions générales de (\ref{eq:eqdifflinordre1scnd}) : $y(x) = \frac12e^{x}+1 + k e^{-x}$, $k\in\Rr$
+\end{itemize}
+
+\end{exemple}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Théorème de Cauchy-Lipschitz}
+
+\begin{frame}
+
+\begin{theoreme}[de Cauchy-Lipschitz]
+\label{th:cauchylipschitzord1}
+Soit $y'=a(x)y + b(x)$ une équation différentielle linéaire du premier ordre,
+où $a,b : I \to \Rr$ sont des fonctions continues sur un intervalle ouvert $I$
+
+
+Alors, pour tout $x_0 \in I$ et pour tout $y_0 \in \Rr$, il existe une et une 
+seule solution $y$ telle que $y(x_0)=y_0$
+\end{theoreme}
+
+\bigskip
+\pause
+
+Cette solution est :  
+$$y(x) = \left(\int_{x_0}^x b(t)e^{-A(t)}\dd t \right)e^{A(x)} + y_0e^{A(x)}$$
+où $A$ est la primitive de $a$ s'annulant en $x_0$, et cette solution vérifie bien $y(x_0)=y_0$
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}
+Trouver la solution de $y'+y = e^x+1$ vérifiant $y(1)=2$
+
+\pause
+\begin{itemize}
+  \item Les solutions générales sont $y(x) = \frac12e^{x}+1 + k e^{-x}$
+  \pause
+  \item Déterminer $k$ afin que $y(1)=2$
+  \pause
+  \item 
+  $\begin{array}{rcl}
+   y(1)=2 
+   \pause
+     & \iff & \frac12e^{1}+1 + k e^{-1} = 2 \\
+    \pause 
+     & \iff & \frac{k}{e} = 1 - \frac{e}{2} \\
+    \pause 
+     & \iff & k = e - \frac{e^2}{2}  
+   \end{array}
+$
+\pause
+  \item La solution cherchée est $y(x) = \frac12e^{x}+1 + \left(e - \frac{e^2}{2}\right)e^{-x}$
+\end{itemize}
+
+\end{exemple}
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Courbes intégrales}
+
+\begin{frame}
+\begin{itemize}
+  \item Une \defi{courbe intégrale} d'une équation différentielle $(E)$
+est le graphe d'une solution de $(E)$
+
+\bigskip
+\pause
+
+  \item Théorème de Cauchy-Lipschitz pour les équations 
+différentielle linéaire du premier ordre $y'=a(x)y + b(x)$ :
+\mybox{
+\begin{minipage}{0.7\textwidth}
+\center
+\og Par chaque point $(x_0,y_0) \in I \times \Rr$
+passe une et une seule courbe intégrale \fg  
+\end{minipage}
+}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{itemize}
+  \item Exemple : équation différentielle
+$y'+y=x$
+  \uncover<2->{\item Solutions $y(x) = x-1 + ke^{-x}, \quad k \in\Rr$}
+  \uncover<3->{\item Pour chaque point $(x_0,y_0) \in \Rr^2$, il existe une unique solution
+$y$, telle que $y(x_0)=y_0$}
+\end{itemize}
+
+\vspace*{-3ex}
+  \myfigure{0.8}{
+   \qquad\qquad\qquad\qquad\tikzinput{fig_equadiff04}
+  }  
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Exemples}
+
+\begin{frame}
+\begin{exemple}
+Résoudre $(E) : \quad x^3y'+(2-3x^2)y=x^3$
+\pause
+
+\begin{enumerate}
+  \item \evidence{Solution de l'équation homogène} $(E_0)$ : $x^3y'+(2-3x^2)y=0$
+  \pause
+    \begin{itemize}
+      \item pour $x\neq 0$, on a $y'=-\frac{2-3x^2}{x^3}y$
+     \pause 
+      \item $y(x)=k e^{\int -\frac{2-3x^2}{x^3}\dd x}
+=k e^{3\ln |x|}e^{1/x^2}=k|x|^3e^{1/x^2}$
+\pause
+      \item sur $]0,+\infty[$, $y(x)= k_1 x^3e^{1/x^2}$ \quad ($k_1 \in \Rr$)
+     \pause 
+      \item sur $]-\infty,0[$, $y(x)= k_2 x^3e^{1/x^2}$ \quad ($k_2 \in \Rr$)
+    
+    \end{itemize}
+  
+\pause
+  \item \evidence{Solution particulière} 
+  \pause
+  \begin{itemize}
+    \item sous la forme $y(x)=k(x)x^3e^{1/x^2}$
+    \pause
+    \item on obtient $k'(x) x^3e^{1/x^2} =1$
+    \pause
+    \item donc $k(x)=\int \frac{e^{-1/x^2}}{x^3}\dd x
+    =\frac{1}{2}e^{-1/x^2}+c$
+    \pause
+    \item solution particulière $y_0(x)=k(x)x^3e^{1/x^2} =\frac{1}{2}x^3$
+  \end{itemize}
+    
+    \pause
+    \item \evidence{Solution générale}
+    \pause
+    \begin{itemize}
+      \item sur $]0,+\infty[$, $y(x)=\frac{1}{2}x^3+k_1x^3e^{1/x^2}$ \quad ($k_1 \in \Rr$)
+      \pause
+      \item sur $]-\infty,0[$, $y(x)=\frac{1}{2}x^3+k_2x^3e^{1/x^2}$ \quad ($k_2 \in \Rr$)
+    \end{itemize}
+
+  \end{enumerate}
+  
+\end{exemple}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate} 
+  \item Résoudre l'équation différentielle $y'+ y \ln 2 = 0$.
+  Tracer les courbes intégrales. Trouver la solution vérifiant $y(1)=\frac12$.
+  
+  \item Résoudre l'équation différentielle $2y'+3y=5$.
+  Trouver la solution vérifiant $y(0)=-\frac13$. Tracer la courbe intégrale.
+  
+  \item Trouver une solution évidente, puis résoudre l'équation 
+  différentielle $2xy'+y=1$. Trouver la solution
+  vérifiant $y(1)=2$. Tracer la courbe intégrale.
+  Même travail avec l'équation $xy'-y=x^2$.
+  
+  \item Par la méthode de variation de la constante, trouver une solution
+  particulière de l'équation différentielle $y'-2xy=3xe^{x^2}$.
+  Même travail avec $y'+2y = \sin(3x)e^{-2x}$.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+
+
+\end{document}

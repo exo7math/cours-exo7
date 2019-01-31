@@ -1,0 +1,625 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{coul_prive}{rgb}{0.93,0.26,0}
+\definecolor{coul_public}{rgb}{0.06,0.63,0}
+
+\newcommand{\prive}[1]{{\bf\color{coul_prive} #1}}
+\newcommand{\public}[1]{{\bf\color{coul_public} #1}}
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous avons tout préparer pour arriver au but de ce cours : présenter et comprendre le système de chiffrement à clé publique RSA.
+
+\change
+
+Nous allons détaillé son principe :
+
+\change
+
+comment calculer une clé publique et une clé privée,
+
+\change
+
+comment chiffrer un message,
+
+\change
+
+et bien sûr comment le déchiffrer.
+
+%\change
+
+%Nous dirons quelques mot sur la sécurité du code RSA
+
+\change
+
+Efin, nous présenterons les algorithmes, qui sont particulièrement simples.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+
+%Voici le but ultime de ce cours : la chiffrement RSA.
+Il est temps de relire l'introduction du 
+chapitre \og Arithmétique \fg\ pour s'apercevoir
+que nous sommes prêts à découvrir le système de chiffrement RSA !
+
+Ce protocole, sans aucun doute le plus utilisé actuellement, a été présenté pour la première fois en 1977 par Ronald Rivest, Adi Shamir et Leonard Adleman.
+
+=
+
+Voyons tout d'abord les outils que nous avons étudiés et qui interviendront dans la mise en place de ce système de chiffrement à clé publique.
+
+Nous avons besoin :
+
+
+d'un problème difficile 
+
+=
+
+nous avons abordé celui de la factorisation d'entiers et pris conscience que pour des entiers de plusieurs centaines de chiffres décimaux c'était un problème très difficile.
+
+\change
+
+La clé secrète et la clé publique seront calculées à l'aide de l'\evidence{algorithme d'Euclide} 
+et des \evidence{coefficients de Bézout}.
+
+\change
+
+Tous ces calculs se feront \evidence{modulo} un entier
+
+\change
+
+et le fait que le déchiffrement fournisse le message initial sera établi grâce au \evidence{petit théorème de Fermat}.
+
+\change
+
+=
+
+|| Lorsque Bruno souhaite envoyer un message  à Alice, le processus se décompose en trois étapes : 
+
+\change
+
+Première étape  : Alice prépare une clé publique et une clé privée,
+
+\change
+
+Deuxième étape  : Bruno utilise la clé publique d'Alice pour crypter son message,
+
+\change
+
+Enfin, troisième étape : Alice reçoit le message crypté et le déchiffre grâce à sa clé privée.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Afin de permettre à ses correspondants de lui envoyer des messages cryptés, 
+Alice doit préparer sa clé publique qu'elle diffusera
+à tout le monde.
+
+Elle prépare également sa clé privée qu'elle sera seule à connaître et qui lui permettra de déchiffrer les messages qu'on lui enverra.
+
+\change
+Pour produire ses clés publiques et privées, Alice effectue, une fois pour toutes, les opérations suivantes :
+
+\begin{itemize}
+\item elle choisit deux nombres premiers distincts $p$ et $q$ 
+(dans la pratique ce sont de très grands nombres,
+  jusqu'à plusieurs centaines de chiffres décimaux),
+  
+
+\item puis elle calcule ${\color{coul_public}n} = p \times q$,
+
+\item et enfin elle calcule $\varphi(n) = (p-1) \times (q-1)$.
+\end{itemize}
+
+|| Vous noterez que le calcul de $\varphi(n)$ n'est possible que si la décomposition de $n$ sous la forme $p\times q$ est connue.
+
+\change
+
+Voici un exemple simple, que nous allons suivre tout au long de l'exposé, pour lequel nous pourrons effectuer touts     les calculs à la main :
+
+\begin{itemize}
+\item On choisit $p = 5$ et $q = 17$ 
+  
+\item alors ${\color{coul_public}n} = p \times q = 85$
+  
+\item et $\varphi(n) = (p-1) \times (q-1) = 4\times 16 = 64$
+\end{itemize}
+
+
+%% \change
+%% Le deuxième exemple sera plus compliqué et les calculs seront fait à la calculatrice ou à
+%% l'ordinateur.
+
+%% On choisit $p = 101$ et $q = 103$ 
+  
+%% Alors ${\color{coul_public}n} = p \times q = 10\;403$
+ 
+%% et $\varphi(n) = (p-1) \times (q-1) = 10\;200$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici la suite de la première étape qui est l'étape de préparation des clés :
+
+
+Alice poursuit cette préparation en choisissant un entier qui sera utilisé comme exposant.
+
+\change
+
+Précisément : Alice choisit un exposant ${\color{coul_public}e}$ 
+tel que $\pgcd(e,\varphi(n))=1$ c'est-à-dire tel que $e$ et $\varphi(n)$ soient premiers entre eux.
+
+
+Elle calcule ensuite l'inverse ${\color{coul_prive}d}$ de ${\color{coul_public}e}$ module $\varphi(n)$ :
+
+c'est-à-dire l'entier $d$ vérifiant $d \times e \equiv 1 \pmod {\varphi(n)}$. 
+
+Ce calcul se fait bien sûr à l'aide de l'algorithme d'Euclide étendu.
+
+\change
+
+Choisissons pour notre exemple 
+${\color{coul_public}e} = 5$ qui est bien premier avec $\varphi(n)$ qui vaut $64$.
+
+\change
+
+Alice applique l'algorithme d'Euclide étendu pour calculer les coefficients de Bézout correspondant à  
+l'égalité  $\pgcd(e,\varphi(n))=1$. 
+
+Elle trouve   $5 \times 13 + 64 \times (-1) = 1$ 
+
+Donc $5 \times 13 \equiv 1 \pmod {64}$
+
+et l'inverse de $e$ modulo $\varphi(n)$ est ${\color{coul_prive}d} = 13$.
+ 
+%% \change
+
+%% Pour l'exemple plus compliqué on choisit ${\color{coul_public}e} = 7$ 
+
+%% et on bien  $\pgcd(e,\varphi(n)) = \pgcd(7,10\;200)=1$,
+  
+%% \change
+
+%% L'algorithme d'Euclide étendu les coefficients de Bézout pour $\pgcd(e,\varphi(n))=1$ donne
+
+%%   $7 \times (-1457) + 10\; 200 \times 1 = 1$. 
+  
+%%   On cherche un bon représentant et comme 
+%%    $-1457 \equiv 8743\pmod{\varphi(n)}$, 
+%%   alors pour ${\color{coul_prive}d} = 8743 $
+  
+%%   on a   $d \times e \equiv 1 \pmod {\varphi(n)}$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La première étape est presque finie :
+
+La \defi{clé publique} d'Alice est constituée des deux nombres :
+{${\color{coul_public}n}$ \  et \  ${\color{coul_public}e}$}
+
+Et comme son nom l'indique Alice peut la communiquer à ses correspondants.
+
+\change
+
+
+Alice garde pour elle sa \defi{clé privée} :
+{\ ${\color{coul_prive}d}$\ }
+
+=
+
+|| Alice peut maintenant détruire $p$, $q$ et $\varphi(n)$ qui ne sont plus utiles.
+
+
+\change
+
+Pour notre exemple nous avons donc 
+ ${\color{coul_public}n} = 85$ et ${\color{coul_public}e} = 5$
+ qui constituent la clé publique
+
+et ${\color{coul_prive}d} = 13$
+qui est la clé privée.
+
+%%  \change
+ 
+%%  et pour l'exemple plus compliqué : ${\color{coul_public}n} = 10\;403$ et ${\color{coul_public}e} = 7$
+
+%% et ${\color{coul_prive}d} = 8743$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La deuxième étape présente maintenant l'opération de chiffrement.
+
+\change
+
+Rappelons que Bruno veut envoyer un message secret à Alice.
+
+\change
+
+Il commence par numériser son message, il le transforme en un entier $m$ (le plus souvent en plusieurs)
+
+\change
+
+car il faut qu'il soit strictement inférieur à $n$.
+
+En effet, nous allons travailler modulo $n$.
+
+\change
+
+Choisissons comme message pour notre exemple : $m=10$.
+
+%% et pour l'exemple 2 c'est $m=1234$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous avons tous les éléments pour passer au chiffrement du message.
+
+\change
+
+Bruno commence par se procurer la clé publique d'Alice : ${\color{coul_public}n}$ et ${\color{coul_public}e}$
+
+\change
+avec laquelle il calcule, à l'aide de l'algorithme d'exponentiation rapide, le message chiffré :
+
+$$x \equiv m^{\color{coul_public}e} \pmod{{\color{coul_public}n}}$$
+
+\change
+
+Bruno transmet ce message $x$ à Alice
+
+\change
+
+Pour l'exemple nous avons  $m = 10$, ${\color{coul_public}n} = 85$ et ${\color{coul_public}e} = 5$
+
+\change
+donc le message secret s'obtient comme 
+$$x \equiv m^e \pmod n \equiv 10^{5} \pmod {85}$$
+
+\change
+
+On peut ici faire les calculs à la main :
+$10^2 = 100 \equiv 15 \pmod {85}$
+
+\change
+
+$10^4 = (10^2)^2 \equiv 15^2 \equiv 225 \equiv 55 \pmod{85}$
+
+\change 
+
+Donc puisque $5=4+1$ nous avons $10^5 = 10^4 \times 10 \equiv 55 \times 10 = 550 \equiv 40 \pmod{85}$
+
+\change
+
+
+Le message chiffré que Bruno transmet à Alice est donc $x=40$.
+
+%% \change
+
+%% Pour l'autre exemple $m = 1234$, ${\color{coul_public}n} = 10\;403$ et ${\color{coul_public}e} = 7$
+%% donc 
+%% $x \equiv m^e \pmod n$
+
+%% donc $x \equiv 1234^{7} \pmod {10\;403}$
+
+%% On utilise l'ordinateur pour obtenir que $x= 10 \; 378$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici la dernière étape du protocole : le déchiffrement du message.
+
+\change
+
+Alice reçoit donc le message $x$, chiffré par Bruno,
+
+\change
+
+elle va le décrypter à l'aide de sa clé privée ${\color{coul_prive}d}$,
+
+
+\change
+grâce au calcul :
+$$m = x^{\color{coul_prive}d} \pmod{\color{coul_public}n}$$
+
+qui utilise encore une fois l'algorithme d'exponentiation rapide.
+
+Nous allons prouver dans quelques instants, que par cette opération Alice 
+retrouve bien le message original $m$ de Bruno.
+
+
+\change
+
+
+Dans notre exemple, Alice possède les éléments suivants : 
+
+$x = 40$, ${\color{coul_prive}d} = 13$ et ${\color{coul_public}n} = 85$ 
+
+\change
+
+et doit calculer 
+
+$$40^{13} \pmod{85}.$$
+
+\change
+ce que nous allons faire maintenant :
+
+$40^2 = 1600 \equiv 70 \pmod{85} $
+
+$40^4 = (40^2)^2 \equiv 70^2 \equiv 4900 \equiv 55 \pmod{85}$
+
+$40^8 = (40^4)^2 \equiv 55^2 \equiv 3025 \equiv 50 \pmod{85}$
+
+\change
+On note que l'exposant $13$ se décompose en base $2$ : $13 = 8 + 4 + 1$,
+donc
+$$40^{13} = 40^8 \times 40^4 \times 40 \equiv 50 \times 55 \times 40 \equiv 10 \pmod{85}$$ 
+
+\change
+qui est bien le message $m$ de Bruno.
+
+%% \change
+
+%% \textbf{Exemple 2.} $x = 10 \; 378$, ${\color{coul_prive}d} = 8743$, ${\color{coul_public}n} = 10\;403$.
+
+%% \change
+%% On calcule par ordinateur $x^d \equiv (10 \; 378)^{8743} \pmod{10\;403}$
+%% qui vaut exactement le message original de Bruno $m=1234$. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici une vue synthétique du système de chiffrement RSA.
+
+Tout d'abord, les clés publique et privée d'Alice.
+
+Le chiffrement du message $m$ à l'aide de la clé publique $n$, $e$ : $m^e\pmod{n}$
+
+et le déchiffrement du message reçu $x$ à l'aide de la clé privée $d$ : $x^d\pmod{n}$
+
+qui redonne le message $m$ de départ.
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \diapo
+% 
+% Le principe de déchiffrement du système RSA repose sur le petit théorème de Fermat amélioré.
+% 
+% Nous énonçons le résultat sous la forme d'un lemme : 
+% 
+% "Soit $d$ l'inverse de $e$ modulo $\varphi(n)$ où $n$ est produit de deux nombres premiers.
+% 
+% {Si $x \equiv m^e \pmod n$ alors $m \equiv x^d \pmod n$.}"
+% 
+% 
+% Ce lemme assure que le message original $m$ de Bruno, 
+% 
+% chiffré par clé publique d'Alice $(e,n)$, 
+% 
+% peut-être retrouvé par Alice à l'aide de sa clé secrète $d$ par le calcul indiqué précédemment.
+% 
+% \change
+% 
+% Passons à la preuve de ce résultat.
+% 
+% Que $d$ soit l'inverse de $e$ modulo $\varphi(n)$ signifie 
+% 
+% \change
+% 
+% que $d \cdot e \equiv 1 \pmod {\varphi(n)}$.
+% 
+% \change
+% 
+% Autrement dit, il existe
+% $k \in \Zz$ tel que $d \cdot e = 1 + k \cdot \varphi(n)$.
+% 
+% \change
+%  On rappelle que par le petit théorème de Fermat amélioré, 
+%  
+% \change
+%   $m^{\varphi(n)}\equiv m^{(p-1)(q-1)} \equiv 1 \pmod n$.
+% 
+%   \change
+%   
+% Si $x \equiv m^e \pmod n$ alors
+% 
+% \change
+% 
+% $x^d \equiv (m^e)^d$
+% 
+% \change
+% $\equiv m^{e\cdot d}$
+% 
+% \change
+% $\equiv m^{1+k \cdot \varphi(n)}$
+% 
+% \change
+% $\equiv m \cdot m^{k \cdot \varphi(n)}$
+% 
+% \change
+% $\equiv m \cdot (m^{\varphi(n)})^k$
+% 
+% \change
+% $\equiv m \cdot (1)^k$
+%        
+% \change
+% $\equiv m \pmod {n}$     
+%       
+% ce qui achève la preuve du lemme.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+%FRFRFRFRFR
+
+
+Le principe de déchiffrement du système RSA repose sur le petit théorème de Fermat amélioré.
+
+Nous énonçons le résultat sous la forme d'un lemme de déchiffrement : 
+
+"Soit $d$ l'inverse de $e$ modulo $\varphi(n)$ où $n$ est produit de deux nombres premiers.
+
+{Si $x \equiv m^e \pmod n$ alors $m \equiv x^d \pmod n$.}"
+
+
+Ce lemme assure que le message original $m$ de Bruno, 
+
+chiffré par clé publique d'Alice $(e,n)$, 
+
+peut-être retrouvé par Alice à l'aide de sa clé secrète $d$ par le calcul indiqué précédemment.
+
+\change
+
+Passons à la preuve de ce résultat.
+
+Que $d$ soit l'inverse de $e$ modulo $\varphi(n)$ signifie 
+
+\change
+
+que $d \cdot e \equiv 1 \pmod {\varphi(n)}$.
+
+\change
+
+Autrement dit, il existe
+$k \in \Zz$ tel que $d \cdot e = 1 + k \cdot \varphi(n)$.
+
+\change
+ On rappelle que par le petit théorème de Fermat amélioré, 
+ 
+\change
+  lorsque $m$ est premier à $n$, $m^{\varphi(n)}$  $= m^{(p-1)(q-1)} \equiv 1 \pmod n$.
+
+  \change
+  
+Si $\pgcd(m,n)=1$, c'est-à-dire que nous pouvons utiliser le théorème de Fermat amélioré, alors modulo $n$ : 
+
+\change
+
+$(m^e)^d$
+
+\change
+$\equiv m^{1+k \cdot \varphi(n)}$
+
+\change
+$\equiv m \cdot m^{k \cdot \varphi(n)}$
+
+\change
+$\equiv m \cdot (m^{\varphi(n)})^k$
+
+\change
+$\equiv m \cdot (1)^k$
+       
+\change
+$\equiv m \pmod {n}$     
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+%FRFRFRFRFR
+
+Poursuivons la preuve du lemme en étudiant maintenant le cas où le $\pgcd(m,n)\not=1$. 
+
+Comme $n$ est le produit des deux nombres premiers $p$ et $q$ et que $m$ 
+est strictement plus petit que $n$
+
+alors si $m$ et $n$ ne sont pas premiers entre eux cela implique que 
+
+$p$ divise $m$ ou bien $q$ divise $m$ (mais pas les deux en même temps).
+
+
+Faisons l'hypothèse $\pgcd(m,n)=p$ et  $\pgcd(m,q)=1$, le cas  $\pgcd(m,n)=q$  et $\pgcd(m,p)=1$ se traiterait de la même manière.
+
+\change
+
+Etudions $(m^e)^d$ à la fois modulo $p$ et modulo $q$ 
+à l'image de ce que nous avons fait dans la preuve du théorème de Fermat amélioré.
+
+%Modulo $p$ : 
+Puisque $p$ divise $m$, $m$ est nul modulo $p$,
+
+\change 
+
+et comme $p$ divise également $(m^e)^d$, 
+$(m^e)^d$ est aussi nul modulo $p$.
+
+\change 
+
+Nous avons donc $(m^e)^d \equiv  m \pmod{p}$
+
+\change 
+
+Modulo $q$ maintenant : puisque $q$ ne divise pas $m$, 
+il suffit de réécrire comme précédemment :
+ 
+$$(m^e)^d \equiv m \cdot (m^{\varphi(n)})^k \equiv (m^{q-1})^{(p-1)k} \equiv m \pmod {q}$$
+      
+et donc $(m^e)^d \equiv  m \pmod{q}$
+
+\change
+
+Bilan : $(m^e)^d \equiv  m \pmod{p}$ et $(m^e)^d \equiv  m \pmod{q}$,
+
+comme $p$ et $q$ sont deux nombres premiers distincts, ils sont premiers entre eux 
+et on peut écrire comme dans la preuve du petit théorème de Fermat amélioré que  
+$$(m^e)^d  \equiv  m \pmod{n}$$
+
+=
+||ce qui achève la preuve du lemme.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La mise en \oe uvre sur machine est maintenant très simple. 
+
+=
+
+Tout d'abord -étape 1- Alice choisit 
+deux nombres premiers $p$ et $q$ et un exposant $e$ premier à $(p-1)(q-1)$.
+
+Le calcul de la clé privée qui est l'inverse de $e$ modulo $(p-1)\times (q-1)$ est réalisé par la fonction cle\_privee dans laquelle : 
+
+on calcule $n=p\times q$, puis $\phi=(p-1)(q-1)$, 
+
+les coefficients de Bezout sont calculés par l'algorithme d'Euclide étendu avec notre fonction euclide\_etendu
+
+et la valeur l'inverse de $e$ modulo $\phi$ est renvoyé par la fonction.
+
+\change
+
+Le chiffrement d'un message $m$, sous forme d'une nombre, est possible par tout le monde, 
+connaissant la clé publique $(n,e)$.
+
+C'est juste $m^e$ modulo $n$.
+
+
+\change
+
+Seule Alice peut déchiffrer ce message crypté $x$, à l'aide de sa clé privée $d$ et bien sûr de $n$
+
+par le calcul de $x^d$ modulo $n$.
+
+et ainsi retrouver le message initial que souhaitait lui transmettre Bruno.
+
+\end{document}

@@ -1,0 +1,79 @@
+\newcommand{\escaliersqcq}[1]{
+
+\pgfmathparse{divide(1,#1+1)}
+\let\dx\pgfmathresult
+  
+% tracÃ© de la courbe et des axes
+%\draw[ultra thick, color=black,domain=-0.05:1.1, samples=100] plot (\x,{qcq(\x)}) node[right] {$y=f(x)$};
+\draw[gray,->] (-0.30,0) -- (1.25,0) node[below,black] {$x$};
+\draw[gray,->] (-0.25,-0.05) -- (-0.25,1.45) node[right,black] {$y$};
+
+\pgfmathparse{0}
+\let\xold\pgfmathresult
+  \foreach \j in {1,...,#1}
+  {
+  \pgfmathparse{(\j+0.6*rnd)*\dx}
+  \let\x\pgfmathresult
+  \pgfmathparse{qcqp(\xold,\x)}
+  \let\y\pgfmathresult
+  \filldraw[fill=orange!20,draw=gray] (\xold,0) rectangle (\x,\y);
+  \draw[very thick,myred] (\xold,\y) -- (\x,\y);
+  \pgfmathparse{\x}
+  \global\let\xold\pgfmathresult
+  }
+  \pgfmathparse{1}
+  \let\x\pgfmathresult
+  \pgfmathparse{qcqp(\xold,\x)}
+  \let\y\pgfmathresult
+  \filldraw[fill=orange!20,draw=gray] (\xold,0) rectangle (\x,\y);
+  \draw[very thick,myred] (\xold,\y) -- (\x,\y) node[right,myred] {$\phi\geq f$};
+
+  
+\pgfmathparse{0}
+\let\xold\pgfmathresult
+  \foreach \j in {1,...,#1}
+  {
+  \pgfmathparse{(\j+0.6*rnd)*\dx}
+   \let\x\pgfmathresult
+  \pgfmathparse{qcqm(\xold,\x)}
+  \let\y\pgfmathresult
+  \filldraw[fill=green!20,draw=gray] (\xold,0) rectangle (\x,\y);
+  \draw[very thick,green!50!black] (\xold,\y) -- (\x,\y);
+  \pgfmathparse{\x}
+  \global\let\xold\pgfmathresult
+  }
+  \pgfmathparse{1}
+  \let\x\pgfmathresult
+  \pgfmathparse{qcqm(\xold,\x)}
+  \let\y\pgfmathresult
+  \filldraw[fill=green!20,draw=gray] (\xold,0) rectangle (\x,\y);
+  \draw[very thick,green!50!black] (\xold,\y) -- (\x,\y);
+  \pgfmathparse{qcqm(0,\dx)}
+  \let\y\pgfmathresult
+  \node[green!50!black,left] at (0,\y) {$\phi\leq f$};
+   
+% du texte
+  \draw (0 cm,1pt) -- (0 cm,-1pt) node[below] {$a$};
+  \draw (1 cm,1pt) -- (1 cm,-1pt) node[below right] {$b$};   
+    
+  % tracÃ© de la courbe par-dessus les rectangles
+  %\draw[color=myred,domain=0:1,thick] plot (\x,{qcq(\x)});
+   \draw[ultra thick, color=black,domain=-0.05:1.1, samples=100] plot (\x,{qcq(\x)}) node[right] {$y=f(x)$};
+}
+
+
+\shorthandoff{?;:!}
+\begin{tikzpicture}[scale=3,xscale=2]
+\tikzset{
+	declare function={
+		qcq(\t) = 1 - \t - 0.5*sin(6*(\t+1.05) r) + 0.3*\t^2 + 0.1;
+		qcqm(\t,\u) = qcq(\u) - (\u-\t)*(1+3*abs(cos(6*(\u+1.05) r))+0.6*\u);
+		qcqp(\t,\u) = qcq(\t) + (\u-\t)*(1+3*abs(cos(6*(\u+1.05) r))+0.6*\u);
+	}
+}
+\beameronly{\only<1>}{\escaliersqcq{5}};
+\beameronly{\only<2>}{\escaliersqcq{10}};
+\beameronly{\only<3>}{\escaliersqcq{20}};
+\beameronly{\only<4>}{\escaliersqcq{50}};
+\end{tikzpicture}
+\shorthandoff{?;:!}

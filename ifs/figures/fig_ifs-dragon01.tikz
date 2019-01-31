@@ -1,0 +1,66 @@
+
+
+% Les similitudes : shift=translation, scale = homothÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©tie, rotate = angle (en degrÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©)
+\newcommand\simone{\begin{scope}[shift={(0,0)}, scale={sqrt(2)/2}, rotate=45]}
+\newcommand\simtwo{\begin{scope}[shift={(1,0)}, scale={sqrt(2)/2}, rotate=135]}                   
+
+
+% La figure initiale
+%\newcommand\initfigure{\fill (0,0)--++(0:1)--++(120:1)--cycle;}
+%\newcommand\initfigure{\fill (0.5,0.433) circle (1.3cm);}
+\newcommand\initfigure{\draw (0,0)--++(0,.01)--++(1,0)--++(0,-.01)--cycle;\fill[red] (0.25,0)--+(0.1,0)--+(0.05,0.1)--cycle;}
+%\newcommand\initfigure{\fill (0,0)--++(0,0.5)--++(0.5,0)--++(0,-0.5)--cycle;}
+
+% Le programme rÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©cursif
+\newcommand{\ifs}[2]{% #1 the counter, #2 the instructions
+                          \ifnum #1 < 0% stop now
+                          #2%
+                          %\relax% Relax, max, on ne fait rien, c'est terminÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©.
+                          \else%
+                          \count255=#1%
+                          \advance\count255 by -1%
+                          \simone
+                             \ifs{\number\count255}{#2};                          
+                          \end{scope};
+
+                          \simtwo
+                             \ifs{\number\count255}{#2};                          
+                          \end{scope};
+
+                          \fi%
+}
+
+\begin{tikzpicture}[scale=3]
+  \fill (0,0)--++(0,.01)--++(1,0)--++(0,-.01)--cycle;
+ \fill[red] (0.25,0)--+(0.1,0)--+(0.05,0.1)--cycle;
+
+  \begin{scope}[xshift=1.5cm]
+    \ifs{0}{\initfigure}
+  \end{scope}
+
+%   \draw[->,>=latex, red] (0.35,-0.01) to[bend right=10] (0.15,-0.30) node[midway, left] {$f_1$};
+%    \draw[->,>=latex, blue] (0.6,-0.01) to[bend left=50] (0.6,-0.20) node[midway, right] {$f_3$};
+%   \draw[->,>=latex, green] (0.4,-0.01) to[bend right=50] (0.4,-0.20) node[midway, left] {$f_2$};
+%    \draw[->,>=latex, orange] (0.65,-0.01) to[bend left=10] (0.85,-0.30) node[midway, right] {$f_4$};
+% %   \draw[->,>=latex] (40:1.05) to[bend right=10] (88:0.95);
+    \begin{scope}[xshift=3cm]
+    \ifs{1}{\initfigure}
+  \end{scope}
+
+    \begin{scope}[xshift=0cm,yshift=-1cm]
+    \ifs{2}{\initfigure}
+  \end{scope}
+
+    \begin{scope}[xshift=1.5cm,yshift=-1cm]
+    \ifs{3}{\initfigure}
+  \end{scope}
+
+    \begin{scope}[xshift=3cm,yshift=-1cm]
+    \ifs{4}{\initfigure}
+  \end{scope}
+
+    \begin{scope}[xshift=1.5cm,yshift=-2.5cm]
+    \ifs{9}{\initfigure}
+  \end{scope}
+ % \ifs{4}{\initfigure}
+\end{tikzpicture}

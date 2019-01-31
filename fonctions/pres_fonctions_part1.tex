@@ -1,0 +1,343 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={66,15,15}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Limites et fonctions continues}}
+\subtitle{Notions de fonction}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définitions
+    \item<4-> Opérations sur les fonctions
+    \item<5-> Fonctions croissantes, décroissantes
+    \item<6-> Parité et périodicité
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Motivation}
+
+
+\begin{frame}
+
+\begin{itemize}
+  \item \'Equation $x+\exp x=0$
+\pause
+  \item Fonction $f(x)=x + \exp x$
+\pause
+  \item \'Equation $x+\exp x=y$ 
+\pause  
+  \begin{itemize}
+    \item pour chaque $y \in \Rr$ l'équation admet une solution $x$
+\pause
+    \item cette solution est unique
+\pause    
+    \item nous saurons dire comment varie $x$ en fonction de $y$
+  \end{itemize}  
+\end{itemize}
+
+
+\onslide<2->\myfigure{0.8}{
+\tikzinput{fig_fonctionsA01}
+}
+
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Définitions}
+
+\begin{frame}
+
+\begin{mydefinition}
+Une \defi{fonction} d'une variable réelle à valeurs réelles est une application 
+$f:U\to \Rr$
+
+\pause
+$U\subset\Rr$ est le \defi{domaine de définition}
+\end{mydefinition}
+
+\pause 
+Le \defi{graphe} de $f$  \[
+\Gamma_f=\big\{(x,f(x)) \ \vert \ x\in U\big\}\subset\Rr^2
+\] 
+
+\pause
+
+\myfigure{1}{
+\tikzinput{fig_fonctionsA03}
+} 
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{exemple}
+\[
+\begin{array}{ccc}
+f: \ ]-\infty,0[ \,\cup \, ]0,+\infty[ &\longrightarrow& \Rr \\
+ x &\longmapsto& \dfrac1x
+ \end{array}
+\]
+\end{exemple}
+
+\pause
+
+\myfigure{1}{
+\tikzinput{fig_fonctionsA02}
+}
+  
+\end{frame}
+%---------------------------------------------------------------
+\section{Opérations sur les fonctions}
+
+\begin{frame}
+Soient $f,g:U\to \Rr$ deux fonctions
+\begin{mydefinition}
+
+\begin{itemize}
+  \item<1-> La \defi{somme} de $f$ et $g$ est la fonction $f+g:U\to \Rr$ 
+  définie par $(f+g)(x) = f(x) + g(x)$ pour tout $x\in U$ 
+  \item<3-> Le \defi{produit} de $f$ et $g$ est $f\times g:U\to \Rr$ défini par 
+  $(f\times g)(x) = f(x) \times g(x)$
+  \item<4-> La \defi{multiplication par un scalaire} $\lambda\in\Rr$ 
+  de $f$ est $\lambda\cdot f:U\to \Rr$
+\end{itemize}
+\end{mydefinition}
+
+\onslide<2->\myfigure{0.9}{
+\tikzinput{fig_fonctionsA04}
+}
+  
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Fonctions majorées, minorées, bornées}
+
+\begin{frame}
+
+\begin{mydefinition}
+Une fonction $f:U\to \Rr$ est dite
+\begin{itemize}
+  \item \defi{majorée} sur $U$ si \quad $\exists M\in\Rr \quad \forall x\in U \quad \ f(x)\leq M$ 
+\pause
+  \item \defi{minorée} sur $U$ si \quad $\exists m\in\Rr \quad \forall x\in U \quad \ f(x)\geq m$ 
+\pause
+  \item \defi{bornée} sur $U$ si \quad $\exists M\in\Rr \quad \forall x\in U \quad \ |f(x)|\leq M$
+\end{itemize}
+\end{mydefinition}
+ 
+ \pause
+ 
+\myfigure{0.9}{
+\tikzinput{fig_fonctions1}
+} 
+  
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+\section{Fonctions croissantes, décroissantes}
+
+\begin{frame}  
+\begin{mydefinition}
+Une fonction $f:U\to \Rr$ est dite
+\medskip
+\begin{itemize}
+  \item \defi{croissante} si 
+\myboxinline{$\forall x,y\in U \quad x\leq y \implies f(x)\leq f(y)$}
+  
+  \medskip
+  
+\pause  \pause 
+  
+  \item \defi{strictement croissante} si \ \ 
+  $\forall x,y\in U \quad  x< y \implies f(x)< f(y)$
+\end{itemize}
+\end{mydefinition}
+
+\onslide<2->\myfigure{0.8}{
+\tikzinput{fig_fonctions2}
+}
+  
+\end{frame}
+
+\begin{frame}
+
+\begin{mydefinition}
+\begin{itemize}  
+  \item $f$ est \defi{décroissante}  si \ \ 
+  $\forall x,y\in U \quad  x\leq y \implies f(x)\geq f(y)$
+  
+  \item $f$ est \defi{strictement décroissante} si 
+  
+  \hfill
+  $\forall x,y\in U \quad  x< y \implies f(x)> f(y)$
+  
+\pause
+  
+ \item $f$ est \defi{monotone} (resp. \defi{strictement monotone}) sur $U$ si 
+ $f$ est croissante ou décroissante (resp. strictement croissante ou 
+ strictement décroissante) sur $U$
+\end{itemize}
+\end{mydefinition}
+  
+\end{frame}
+
+\begin{frame}
+
+\begin{exemple}
+\begin{itemize}
+  \item $x\mapsto \sqrt x$ est strictement croissante sur $[0,+\infty[$
+\pause
+  \item $\exp: \Rr\to\Rr$ et $\ln :]0,+\infty[\to\Rr$ sont strictement croissantes
+\pause  
+  \item $\begin{cases} \Rr \longrightarrow \Rr \\ x\longmapsto |x| \end{cases}$ 
+  n'est pas monotone
+\pause  
+  \item $\begin{cases} [0,+\infty[ \longrightarrow \Rr \\ x\longmapsto |x| \end{cases}$ 
+  est strictement croissante
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+\section{Parité et périodicité}
+
+\begin{frame}
+
+\begin{mydefinition}
+Soit $I=]-a,a[$ ou $[-a,a]$ ou $\Rr$. On dit que $f:I\to \Rr$ est
+\begin{itemize}
+  \item \defi{paire} si \ \ $\forall x\in I \quad f(-x)=f(x)$
+\pause
+  \item \defi{impaire} si \ \ $\forall x\in I \quad f(-x)=-f(x)$
+\end{itemize}
+\end{mydefinition}
+
+\pause 
+
+\begin{itemize}
+  \item le graphe d'une fonction paire est symétrique par rapport à l'axe des ordonnées
+  \item le graphe d'une fonction impaire est symétrique par rapport à l'origine
+\end{itemize}
+
+\myfigure{0.8}{
+\tikzinput{fig_fonctions3}
+}  
+\end{frame}
+
+\begin{frame}
+
+\begin{exemple}
+\begin{itemize}
+  \item $x\mapsto x^{2n}$ est paire sur $\Rr$ ($n\in\Nn$)
+\pause  
+  \item $x\mapsto x^{2n+1}$ est impaire sur $\Rr$ ($n\in\Nn$)
+\pause  \pause
+  \item $\cos :\Rr\to\Rr$ est paire, \ $\sin :\Rr\to\Rr$ est impaire
+\end{itemize} 
+\end{exemple}
+
+\onslide<3->
+\myfigure{0.8}{
+\tikzinput{fig_fonctionsA05}
+}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{mydefinition}
+Soit $T>0$. Une fonction $f:\Rr \to \Rr$ est \defi{périodique} de période $T$ si 
+\mybox{$\forall x\in\Rr \quad \ f(x+T)=f(x)$}
+\end{mydefinition}
+
+\pause
+Le graphe est invariant par la translation de vecteur $T \vec{i}$
+
+\myfigure{1}{
+\tikzinput{fig_fonctionsA06}
+}
+
+\end{frame}
+
+\begin{frame}
+
+
+
+\begin{exemple}
+\begin{itemize}
+  \item $\cos :\Rr\to\Rr$ et $\sin :\Rr\to\Rr$ sont $2\pi$-périodiques
+  \item tangente est $\pi$-périodique
+\end{itemize}
+\end{exemple}
+
+\bigskip
+
+
+\myfigure{0.57}{
+\tikzinput{fig_fonctionsA07}
+}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Soit $U=]-\infty,0[$ et $f : U \to \Rr$ définie par $f(x)= 1/x$. $f$ est-elle  monotone ?
+  Et sur $U=]0,+\infty[$ ? Et sur $U = ]-\infty,0[\,\cup \, ]0,+\infty[$ ?
+  
+  \item Pour deux fonctions paires que peut-on dire sur la parité de la somme ? du produit ? et de la 
+  composée ? Et pour deux fonctions impaires ? Et si l'une est paire et l'autre impaire ?
+  
+  \item On note $\{x\}=x-E(x)$ la partie fractionnaire de $x$. 
+  Tracer le graphe de la fonction $x\mapsto\{x\}$ et montrer qu'elle est périodique.
+  
+  \item Soit $f:\Rr\to\Rr$ la fonction définie par $f(x)=\frac{x}{1+x^2}$. 
+  Montrer que $|f|$ est majorée par $\frac12$, étudier les variations de $f$ 
+  (sans utiliser de dérivée) et tracer son graphe.
+  
+  \item On considère la fonction $g:\Rr\to\Rr$, $g(x)=\sin\big(\pi f(x)\big)$, 
+  où $f$ est définie à la question précédente. Déduire de l'étude de $f$ les variations, 
+  la parité, la périodicité de $g$ et tracer son graphe.
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

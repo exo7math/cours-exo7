@@ -1,0 +1,362 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={142,35,35}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\title{{\bf Polynômes}}
+\subtitle{Racine d'un polynôme, factorisation}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Racines d'un polynôme
+    \item<4-> Théorème de d'Alembert-Gauss
+    \item<5-> Polynômes irréductibles
+    \item<6-> Théorème de factorisation
+    \item<7-> Factorisation dans $\Cc[X]$ et $\Rr[X]$   
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%---------------------------------------------------------------
+\section{Racines d'un polynôme}
+
+\begin{frame}
+
+Soit $P\in\Kk[X]$ et $\alpha\in\Kk$
+\begin{mydefinition}
+\centerline{$\alpha$ est une \defi{racine} (ou un \defi{zéro}) de $P$ si $P(\alpha)=0$}
+\end{mydefinition}
+
+\bigskip
+\pause
+
+
+\begin{proposition}
+\centerline{$P(\alpha)=0 \quad \iff \quad X-\alpha \text{ divise } P$}
+\end{proposition}
+\pause
+
+\begin{proof}
+\begin{itemize}
+  \item Division euclidienne de $P$ par $X-\alpha$ 
+\pause
+  \item $P=Q\cdot(X-\alpha)+R$ \pause où $\deg R < \deg (X-\alpha) =1$
+\pause
+  \item $R$ est constant
+\pause  
+  \item $P(\alpha)=0 \iff R(\alpha) =0 \pause \iff R=0 \pause \iff P=Q\cdot(X-\alpha) \pause \iff X-\alpha | P$
+\end{itemize}
+\end{proof}
+\end{frame}
+
+
+\begin{frame}
+\begin{mydefinition}
+\begin{itemize}
+  \item $\alpha$ est une \defi{racine de multiplicité $k$}
+ de $P$ si $(X-\alpha )^k$ divise $P$ alors que $(X- \alpha )^{k+1}$ ne divise pas $P$
+\pause
+  \item Lorsque $k=1$ on parle d'une \defi{racine simple}
+\pause 
+  \item Lorsque $k=2$ d'une \defi{racine double}
+\end{itemize}
+\end{mydefinition}
+
+\pause
+
+\begin{proposition}
+\label{prop:racmul}
+Il y a équivalence entre :
+\begin{itemize}
+  \item[(i)] $\alpha$ est une racine de multiplicité $k$ de $P$
+\pause
+  \item[(ii)] Il existe  $Q \in\Kk[X]$ tel que $P=(X-\alpha)^kQ,$ avec $Q(\alpha) \neq 0$
+\pause
+  \item[(iii)] $P(\alpha)= P'(\alpha)=\cdots=P^{(k-1)}(\alpha)=0$ et $P^{(k)}(\alpha) \neq 0$
+\end{itemize}
+\end{proposition}
+
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Théorème de d'Alembert-Gauss}
+
+\begin{frame}
+
+\begin{theoreme}[de d'Alembert-Gauss]  
+\begin{itemize}
+  \item Tout polynôme à coefficients complexes de degré $n \ge 1$  
+a au moins une racine dans $\Cc$
+\pause
+  \item Il admet exactement $n$ racines si on compte chaque racine
+avec multiplicité
+\end{itemize}
+\end{theoreme}
+
+\pause
+
+\begin{exemple}
+$P(X)=3X^3-2X^2+6X-4$
+\pause
+\begin{itemize}
+  \item sur $\Qq$ ou $\Rr$ 
+  \begin{itemize}
+    \item $P$ a une seule racine (qui est simple) $\alpha = \frac23$
+\pause
+    \item $P(X)=3(X-\frac23)(X^2+2)$
+    \end{itemize}
+\pause
+  \item sur $\Cc$
+  \begin{itemize} 
+    \item $P$ a $3$ racines simples
+\pause 
+    \item $P(X)=3(X-\frac23)(X-\ii\sqrt2)(X+\ii\sqrt2)$
+  \end{itemize}
+\end{itemize}
+
+\end{exemple}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+Soit $P(X)=aX^2+bX+c$ à coefficients réels : $a,b,c \in \Rr$ et $a\neq 0$
+\pause
+\begin{itemize}
+  \item Si $\Delta = b^2-4ac > 0$ alors $P$ admet $2$ racines réelles distinctes 
+  \mybox{$\frac{-b+\sqrt{\Delta}}{2a}$ \ \ et \ \ $\frac{-b-\sqrt{\Delta}}{2a}$}
+\pause
+  \item Si $\Delta < 0$ alors $P$ admet $2$ racines complexes distinctes 
+  \mybox{$\frac{-b+\ii\sqrt{|\Delta|}}{2a}$ \ \ et \ \ $\frac{-b-\ii\sqrt{|\Delta|}}{2a}$}
+\pause
+  \item Si $\Delta = 0$ alors $P$ admet une racine réelle double \myboxinline{$\frac{-b}{2a}$}
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+$P(X)=X^n-1$ admet $n$ racines distinctes
+\pause
+\begin{itemize}
+  \item D'Alembert-Gauss : $P$  admet $n$ racines comptées avec multiplicité
+\pause
+  \item Montrer que ce sont des racines simples
+\pause
+  \begin{itemize}
+    \item Par l'absurde
+\pause    
+    \item Supposons que $\alpha \in \Cc$ soit une racine de multiplicité $\ge 2$
+\pause
+    \item \uncover<6->{$P(\alpha)=0$} \uncover<8->{$\implies  \alpha^n-1=0$} \uncover<9->{$\implies \alpha \neq 0$}
+
+    \item \uncover<7->{$P'(\alpha)=0$}  \uncover<10->{$\implies n\alpha^{n-1}=0$} \uncover<11->{$\implies \alpha = 0$}
+\pause \pause \pause \pause \pause \pause
+    \item Contradiction
+  \end{itemize}
+\pause 
+  \item Donc toutes les racines sont simples
+\pause 
+  \item Ainsi les $n$ racines sont distinctes
+\end{itemize}
+\end{exemple}
+
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Polynômes irréductibles}
+
+\begin{frame}
+Soit  $P \in\Kk[X]$ de degré $\ge 1$
+\begin{mydefinition}
+$P$ est \defi{irréductible} si pour tout $Q \in\Kk[X]$ divisant $P$, alors
+\begin{itemize}
+  \item soit $Q \in\Kk^*$
+  \item soit il existe $\lambda \in\Kk^*$ tel que $Q=\lambda P$
+\end{itemize}
+\end{mydefinition}
+
+\pause
+
+$P$ est \defi{réductible} : $P=A\times B$, avec $A, B \in \Kk[X]$,
+ $\deg A \ge 1$, $\deg B \ge 1$
+
+\medskip
+\pause 
+
+\begin{exemple}
+\begin{itemize}
+  \item $X^2-1=(X-1)(X+1)\in\Rr[X]$ est réductible
+\pause 
+  \item $X^2+1=(X-\ii)(X+\ii)$ est réductible dans $\Cc[X]$ mais est irréductible dans $\Rr[X]$
+\pause 
+  \item $X^2-2=(X-\sqrt2)(X+\sqrt2)$ est réductible dans $\Rr[X]$ mais est irréductible dans $\Qq[X]$ 
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Théorème de factorisation}
+
+\begin{frame}
+\begin{theoreme}
+\begin{enumerate}
+  \item Tout polynôme non constant $A\in\Kk[X]$ s'écrit comme un produit de polynômes
+irréductibles unitaires :
+$$A= \lambda  P_1^{k_1}P_2^{k_2} \cdots P_r^{k_r}$$
+ où $\lambda\in\Kk^*$, $r \in \Nn^*$, $k_i \in \Nn^*$ \\
+et les $P_i$ sont des polynômes irréductibles distincts
+\pause   
+  \item De plus cette décomposition est unique à l'ordre près des facteurs
+\end{enumerate}
+\end{theoreme}
+
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Factorisation dans $\Cc[X]$ et $\Rr[X]$}
+
+\begin{frame}
+
+\begin{theoreme}
+Les polynômes irréductibles de $\Cc[X]$ sont les polynômes de degré $1$
+\end{theoreme}
+
+\pause 
+$$P=\lambda (X-\alpha_1)^{k_1}(X- \alpha_2)^{k_2}\cdots(X- \alpha_r)^{k_r}$$
+\end{frame}
+
+
+\begin{frame}
+
+\begin{theoreme}
+Les polynômes irréductibles de $\Rr[X]$
+sont les polynômes de degré $1$ ainsi que les polynômes de degré $2$ ayant
+un discriminant $\Delta<0$
+\end{theoreme}
+
+\pause 
+
+$$P=\lambda(X-\alpha_1)^{k_1}(X-\alpha_2)^{k_2}\cdots(X-\alpha_r)^{k_r}
+Q_1^{\ell_1}\cdots Q_s^{\ell_s}$$
+
+\pause
+
+\begin{itemize}
+  \item $\alpha_i$ sont exactement les racines réelles distinctes, de multiplicité $k_i$
+\pause  
+  \item les $Q_i$ sont des polynômes irréductibles de degré $2$ :
+$Q_i=X^2+\beta_iX+\gamma_i$ avec $\Delta = \beta_i^2-4\gamma_i<0$
+\end{itemize}
+
+\bigskip
+\pause
+
+\begin{exemple}
+\begin{itemize}
+  \item $P(X)=2X^4(X-1)^3(X^2+1)^2(X^2+X+1)$ est déjà décomposé en facteurs irréductibles dans $\Rr[X]$
+\pause
+  \item $P(X)=2X^4(X-1)^3(X-\ii)^2(X+\ii)^2(X-j)(X-j^2)$ dans $\Cc[X]$, avec $j=e^{\frac{2\ii\pi}{3}}=\frac{-1+\ii\sqrt3}{2}$
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+$P(X)=X^4+1$ 
+\pause
+\begin{itemize}
+  \item Sur $\Cc$ 
+  \pause
+  \begin{itemize}
+  \setlength{\itemsep}{6pt} 
+    \item $P(X)=(X^2+\ii)(X^2-\ii)$
+\pause
+    \item Racines de $P$ : racines carrées complexes de $\ii$ et $-\ii$
+\pause
+    \item $P(X)=\big(X-\tfrac{\sqrt2}{2}(1+\ii)\big)\big(X+\tfrac{\sqrt2}{2}(1+\ii)\big)\big(X-\tfrac{\sqrt2}{2}(1-\ii)\big)
+\big(X+\tfrac{\sqrt2}{2}(1-\ii)\big)$
+  \end{itemize} 
+  
+\pause
+\medskip
+
+  \item Sur $\Rr$
+\pause
+  \begin{itemize}
+  \setlength{\itemsep}{6pt} 
+    \item Pour un polynôme à coefficient réels, si $\alpha$ est racine alors $\bar \alpha$ aussi
+\pause
+    \item {\scriptsize $P \!=\!\left[\big(X-\tfrac{\sqrt2}{2}(1+\ii)\big)\big(X-\tfrac{\sqrt2}{2}(1-\ii)\big)\right]
+\left[\big(X+\tfrac{\sqrt2}{2}(1+\ii)\big)\big(X+\tfrac{\sqrt2}{2}(1-\ii)\big)\right]$}
+\pause
+    \item $P(X)= \big[X^2+\sqrt2X+1\big]\big[X^2-\sqrt2X+1\big]$
+  \end{itemize}
+\end{itemize} 
+\end{exemple}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Trouver un polynôme $P(X) \in \Zz[X]$ de degré minimal tel que : $\frac 12$ soit une racine simple,
+$\sqrt 2$ soit une racine double et $\ii$ soit une racine triple.
+
+  \item Montrer cette partie de la proposition :
+\og$P(\alpha)=0$ et $P'(\alpha)=0$  $\iff$ $\alpha$ est une racine de multiplicité $\ge 2$\fg.
+
+  \item Montrer que pour $P\in\Cc [X]$ :
+\og$P$ admet une racine de multiplicité $\ge 2$ $\iff$ $P$ et $P'$ ne sont pas premiers entre eux\fg.
+
+  \item Factoriser $P(X) = (2X^2+X-2)^2(X^4-1)^3$ et $Q(X)=3(X^2-1)^2(X^2-X+\frac14)$ dans $\Cc[X]$.
+En déduire leur pgcd et leur ppcm. Mêmes questions dans $\Rr[X]$.
+
+  \item Si $\pgcd(A,B)=1$ montrer que $\pgcd(A+B,A\times B)=1$.
+
+  \item Soit $P\in \Rr[X]$ et $\alpha \in \Cc\setminus\Rr$ tel que $P(\alpha)=0$.
+Vérifier que $P(\bar \alpha)=0$. Montrer que $(X-\alpha)(X-\bar\alpha)$ est un polynôme irréductible de $\Rr[X]$
+et qu'il divise $P$ dans $\Rr[X]$.
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

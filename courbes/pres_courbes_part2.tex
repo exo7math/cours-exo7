@@ -1,0 +1,310 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={102,102,0}]{structure}
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Courbes paramétrées}}
+\subtitle{Tangente}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Tangente à une courbe
+    \item<4-> Vecteur dérivé
+    \item<5-> Tangente en un point régulier
+    \item<6-> Dérivation d'expressions usuelles   
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Tangente à une courbe}
+
+
+
+\begin{frame}
+
+\begin{itemize}
+  \item Soit $f : t\mapsto M(t)$ une courbe
+  \item Soit $t_0\in D$. On veut définir la tangente en $M(t_0)$
+\myfigure{0.8}{
+\tikzinput{fig_courbes_part2_01} 
+\tikzinput{fig_courbes_part2_02}
+}
+
+  \pause\pause\pause
+  \item On supposera que la courbe est 
+\defi{localement simple en $t_0$}
+\pause
+  \item C'est-à-dire qu'il existe un intervalle $I$
+(ouvert non vide de centre $t_0$) tel que l'équation $M(t)=M(t_0)$ 
+admette une et une seule solution dans $D\cap I$, à savoir $t=t_0$
+\end{itemize}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\begin{mydefinition}
+On dit que la courbe admet une tangente en $M(t_0)$ si la droite $(M(t_0)M(t))$ 
+admet une position limite quand $t$ tend vers $t_0$. Dans ce cas, 
+la droite limite est la \defi{tangente} en $M(t_0)$ 
+\end{mydefinition}
+
+\myfigure{1.2}{
+\tikzinput{fig_courbes_part2_03}
+}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Vecteur dérivé}
+
+\begin{frame}
+Soient $t\mapsto M(t)=(x(t),y(t))$, $t\in D\subset\Rr$, une courbe paramétrée 
+\pause
+\begin{mydefinition}
+\begin{itemize}
+  \item La courbe est \defi{dérivable en $t_0$} si les fonctions 
+$x$ et $y$ le sont
+  \pause
+  \item Dans ce cas, le \defi{vecteur dérivé} de la courbe en $t_0$ est 
+$\left(
+\begin{array}{c}
+x'(t_0)\\
+y'(t_0)
+\end{array}
+\right)$
+  \pause
+  \item Ce vecteur se note $\overrightarrow{\dfrac{\dd M}{\dd t}}(t_0)$
+\end{itemize}
+
+\end{mydefinition}
+
+\pause
+
+\myfigure{0.9}{
+\tikzinput{fig_courbes_part2_04}
+}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Tangente en un point régulier}
+
+\begin{frame}
+Soit $t\mapsto M(t)$, $t\in D\subset\Rr$, une courbe dérivable sur 
+$D$ et soit $t_0 \in D$
+\begin{mydefinition}
+
+\begin{itemize}
+  \item Si $\overrightarrow{\frac{\dd M}{\dd t}}(t_0)\neq\vec{0}$, 
+le point $M(t_0)$ est dit \defi{régulier}
+ 
+ \medskip
+ \pause
+ 
+  \item Si $\overrightarrow{\frac{\dd M}{\dd t}}(t_0)=\vec{0}$, 
+  le point $M(t_0)$ est dit \defi{singulier}
+  
+  \medskip
+ \pause 
+  
+  \item Une courbe dont tous les points sont réguliers est 
+appelée \defi{courbe régulière}  
+
+
+\end{itemize} 
+\end{mydefinition}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{theoreme}
+\begin{itemize}
+  \item En tout point régulier la courbe admet une tangente
+  
+  \item La tangente en un point régulier est dirigée par le vecteur dérivé
+\end{itemize}
+\end{theoreme}
+
+\myfigure{0.7}{
+\tikzinput{fig_courbes_part2_05}
+}
+
+\pause
+
+\mybox{
+$M(x,y)\in T_0 \iff \left|
+\begin{array}{cc}
+x-x(t_0)&x'(t_0)\\
+y-y(t_0)&y'(t_0)
+\end{array}
+\right|= 0$
+}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+Trouver les points où la tangente à la courbe de Lissajous 
+$\left\{
+\begin{array}{l}
+x(t)=\sin(2t)\\
+y(t)=\sin(3t)
+\end{array}
+\right.$, $t\in [-\pi,\pi]$,
+est verticale, puis horizontale
+
+\uncover<2->{
+
+\bigskip
+\textbf{Solution}
+
+\vspace*{-6ex}
+}
+\begin{minipage}{0.55\textwidth}
+\begin{itemize}
+\uncover<3->{
+  \item $\overrightarrow{\frac{\dd M}{\dd t}}
+= \left(\begin{matrix} x'(t) \\ y'(t) \end{matrix}\right)
+= \left(\begin{matrix} 2\cos(2t) \\ 3\cos(3t)\end{matrix}\right)$
+\medskip
+}
+\uncover<4->{
+  \item $x'(t) = 0 \iff t = \frac\pi4$
+\medskip 
+}
+\uncover<6->{
+  \item $y'(t) = 0 \iff t \in \left\{ \frac\pi6  ,\frac\pi2\right\} $
+}
+\end{itemize}  
+\end{minipage}
+\begin{minipage}{0.39\textwidth}
+\vspace*{4ex}
+\myfigure{0.9}{
+\tikzinput{fig_courbes_part2_06}
+}  
+\end{minipage}
+
+\vspace*{-2ex}
+
+\end{exemple}
+	
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Dérivation d'expressions usuelles}
+
+\begin{frame}
+Soient $f$ et $g$ deux applications à valeurs dans $\Rr^2$ dérivables en $t_0$
+
+\begin{theoreme}
+
+\pause
+\begin{enumerate}
+\item L'application 
+$t\mapsto \big\langle \overrightarrow{f(t)} \mid \overrightarrow{g(t)} \big\rangle$ 
+est dérivable en $t_0$ et 
+$$\frac{\dd \big\langle \overrightarrow{f} \mid \overrightarrow{g} \big\rangle}{\dd t}(t_0)
+=\big\langle \overrightarrow{\frac{\dd f}{\dd t}}(t_0) \mid \overrightarrow{g(t_0)}\big\rangle+
+\big\langle \overrightarrow{f(t_0)} \mid \overrightarrow{\frac{\dd g}{\dd t}}(t_0)\big\rangle$$ 
+\pause
+
+\item Si $\overrightarrow{f(t_0)}\neq\vec{0}$, l'application 
+$t\mapsto\|\overrightarrow{f(t)}\|$ est dérivable en $t_0$ et
+$$\frac{\dd\|\overrightarrow{f}\|}{\dd t}(t_0)
+=\frac{\big\langle \overrightarrow{f(t_0)} \mid 
+\overrightarrow{\frac{\dd f}{\dd t}}(t_0)\big\rangle}{\|\overrightarrow{f(t_0)}\|}$$
+\end{enumerate}
+\end{theoreme}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+  \item Soit  $t\mapsto M(t)=(\cos t,\sin t)$ une paramétrisation du cercle 
+  % de centre $O$ et de rayon $1$
+  \uncover<2->{
+  \smallskip
+  \item Pour tout 
+réel $t$, on a $OM(t)=1$ ou encore $\|\overrightarrow{OM(t)}\|=1$
+  }
+  \uncover<3->{
+  \smallskip
+  \item En dérivant :  
+$\big\langle \overrightarrow{OM(t)} \mid \overrightarrow{\frac{\dd M}{\dd t}}(t) \big\rangle =0$ 
+  }
+  \uncover<4->{  
+  \smallskip
+  \item La tangente au point $M(t)$ est orthogonale au rayon $\overrightarrow{OM(t)}$
+  }
+\end{itemize}
+
+\vspace*{-3ex}
+\myfigure{0.8}{
+\hspace*{7ex}\tikzinput{fig_courbes_part2_07}
+}
+\end{exemple}
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Soit la courbe définie par $x(t)= t^5-4t^3$, $y(t)=t^2$. 
+  Calculer le vecteur dérivé en chaque point. Déterminer le point singulier.
+  Calculer une équation de la tangente au point $(3,1)$.
+  Calculer les équations de deux tangentes au point $(0,4)$.
+  
+  \item Soit $f$ une fonction dérivable de $D \subset \Rr$ dans $\Rr^2$.
+  Calculer la dérivée de l'application $t \mapsto \| f(t) \|^2$.
+  
+  \item Calculer le vecteur dérivé en tout point de l'astroïde définie par $x(t) = \cos^3 t$,
+  $y(t) = \sin^3 t$. Quels sont les points singuliers ? Trouver une expression simple pour 
+  la pente de tangente en un point régulier.
+  
+  \item Calculer le vecteur dérivé en tout point de la cycloïde définie par 
+  $x(t) = r(t-\sin t)$,  $y(t) = r(1-\cos t)$. Quels sont les points singuliers ?
+  En quels points la tangente est-elle horizontale ? En quels points la tangente est-elle
+  parallèle à la bissectrice d'équation $(y=x)$ ? 
+  
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

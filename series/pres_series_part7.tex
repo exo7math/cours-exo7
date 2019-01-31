@@ -1,0 +1,127 @@
+
+\input{../preamb-pres.tex}
+% Couleur à définir
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Séries}}
+\subtitle{Permutation des termes}
+
+\begin{frame}
+  
+  \debutmontitre
+
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Permutation des termes}
+
+\begin{frame}
+\begin{theoreme}
+Soit $\displaystyle\sum_{k=0}^{+\infty} u_k$ une série absolument convergente de somme $S$
+
+\pause
+Soit $\sigma : \Nn \to \Nn$ une bijection de l'ensemble des indices
+
+\pause
+Alors la série $\displaystyle \sum_{k=0}^{+\infty} u_{\sigma(k)}$ converge
+\pause et $$\sum_{k=0}^{+\infty} u_{\sigma(k)} = S$$
+\end{theoreme}
+
+\pause
+La condition de convergence absolue est indispensable
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+\item Exemple de permutation : on peut réordonner les termes $u_0,u_1,u_2,u_3,\ldots$ 
+en prenant deux termes de rang pair puis un terme de rang impair :
+$$u_0, u_2, u_1, u_4, u_6, u_3, u_8, u_{10}, u_5,\ldots$$
+\item\pause Par contre il \emph{n'est pas autorisé} de regrouper tous les termes pairs d'abord et 
+les termes impairs ensuite :
+$$u_0,u_2, u_4,\ldots, u_{2k},\ldots,u_1,u_3,\ldots, u_{2k+1},\ldots$$
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\begin{proof}
+\begin{itemize}
+\item Par hypothèse $\sum_{k=0}^{+\infty} |u_k|$ converge. \pause 
+D'après le critère de Cauchy
+$$\forall \epsilon>0\quad \exists n_0\in\Nn \qquad \sum_{n=n_0+1}^{+\infty} |u_k|<\epsilon$$
+\item\pause Fixons $\epsilon>0$
+
+Choisissons $k_0\in\Nn$ tel que 
+$\big\{0, 1,\dots,n_0\big\} \subset \big\{\sigma(0),\sigma(1),\ldots, \sigma(k_0)\big\}$
+
+\pause
+Pour $n\geq k_0$ on a :
+$$
+\left|S-\sum_{k=0}^n u_{\sigma(k)}\right| 
+\pause \le \left|S-\sum_{k=0}^{n_0} u_k\right|+\left|\sum_{k=0}^{n_0} u_k- 
+\sum_{k=0}^n u_{\sigma(k)}\right|
+$$
+\item\pause Pour le premier terme on a 
+$$\left|S-\sum_{k=0}^{n_0} u_k\right| = \left| \sum_{k=n_0+1}^{+\infty} u_k\right| 
+\pause \le \sum_{k=n_0+1}^{+\infty} |u_k|
+\pause \le \epsilon$$
+\noqed\qedhere
+\end{itemize}
+\end{proof}
+\end{frame}
+
+\begin{frame}
+\begin{proof}
+\begin{itemize}
+\item Pour le second terme :
+\begin{eqnarray*}
+\left|\sum_{k=0}^n u_{\sigma(k)}-\sum_{k=0}^{n_0} u_k\right|
+\pause =& \left|\displaystyle\sum_{k \in \{\sigma(0),\ldots,\sigma(n)\}\setminus\{0,\ldots,n_0\}} u_k \right| \\
+\pause  \le& \displaystyle\sum_{k \in \{\sigma(0),\ldots,\sigma(n)\}\setminus\{0,\ldots,n_0\}} |u_k| \\
+\pause \le &\displaystyle\sum_{k=n_0+1}^{+\infty} |u_k| \\
+\pause \le &\epsilon
+\end{eqnarray*}
+\item\pause Ce qui prouve $\left|S-\sum_{k=0}^n u_{\sigma(k)}\right| \le 2\epsilon$ et donne le résultat
+\qedhere
+\end{itemize}
+\end{proof}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+Lorsque la série n'est pas absolument convergente,
+des phénomènes étranges apparaissent.
+Souvenez-vous que la série harmonique alternée converge :
+$$\sum_{k=0}^{+\infty} (-1)^{k} \frac{1}{k+1} 
+= 1-\frac{1}{2}+\frac{1}{3}-\frac{1}{4} +\cdots $$
+Notons $S$ sa somme (en fait $S = \ln 2$). Regroupons les termes par paquets de $3$. En simplifiant, on trouve la moitié de la somme !
+\begin{align*}
+& \left(1-\tfrac{1}{2}-\tfrac{1}{4} \right)+
+  \left(\tfrac{1}{3}-\tfrac{1}{6}-\tfrac{1}{8} \right)+\cdots+ 
+  \left(\tfrac{1}{2k-1}-\tfrac{1}{4k-2}-\tfrac{1}{4k} \right)+\cdots   \\
+= &  \left(\tfrac{1}{2}-\tfrac{1}{4} \right)+
+  \left(\tfrac{1}{6}-\tfrac{1}{8} \right)+
+  \left(\tfrac{1}{10}-\tfrac{1}{12} \right)+\cdots+ 
+  \left(\tfrac{1}{4k-2}-\tfrac{1}{4k} \right)+\cdots   \\ 
+= & \tfrac12  \left( 1-\tfrac{1}{2}+\tfrac{1}{3}-\tfrac{1}{4} + \cdots \right) \\
+= & \tfrac12 S
+\end{align*}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

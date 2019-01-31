@@ -1,0 +1,22 @@
+\begin{tikzpicture}[scale=1]
+
+% Centre
+\coordinate (P)  at (-10,0);
+\fill[blue] (P) circle (3pt)node[below left]{$P$};
+
+% Centre
+\coordinate (S)  at (0,0);
+\fill[red] (S) circle (3pt) node[below]{$S$};
+
+\begin{scope}
+    \clip (-10.5,-1) rectangle (-0.5,1);
+% Les arcs
+\foreach \r in {1,...,10} {
+  \draw[red,thick] (-\r,0) arc (0:40:-\r cm);
+  \draw[red,thick] (-\r,0) arc (0:-40:-\r cm);
+}
+\end{scope}
+
+\node[above] at (-10.1,1.1)  {$1^{\text{er}}$ bip};
+\node[above] at (-8.9,1.1)  {$2^{\text{nd}}$ bip};
+\end{tikzpicture}

@@ -1,0 +1,335 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={0,127,0}]{structure}
+
+% Commande spécifique à ce chapitre
+
+\newcommand{\Python}{\texttt{Python}}
+\renewcommand{\evidence}[1]{{\color{blue}\textbf{#1}}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Zéros des fonctions}}
+\subtitle{La méthode de la sécante}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Principe de la sécante
+    \item<4-> Résultats numériques pour $\sqrt{10}$
+    \item<5-> Résultats numériques pour $(1,10)^{1/12}$
+    \item<6-> Calcul de l'erreur
+    \item<7-> Algorithme    
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Principe de la sécante}
+
+\begin{frame}
+
+
+\myfigure{1.5}{
+\tikzinput{fig_zeros06-pres}
+}
+
+\end{frame}
+
+\begin{frame}
+\begin{proposition}
+ Soit $f : [a,b] \to \Rr$ une fonction continue, strictement croissante et convexe telle
+ que $f(a) \le 0$, $f(b) > 0$.
+ Alors la suite définie par
+ \mybox{$a_0=a \qquad \text{ et } \qquad a_{n+1} = a_n - \frac{b-a_n}{f(b)-f(a_n)}f(a_n)$}
+ est croissante et converge vers la solution $\ell$ de $(f(x)=0)$
+\end{proposition}  
+\end{frame}
+
+
+\begin{frame}
+L'hypothèse $f$ \defi{convexe} signifie exactement que 
+pour tout $x,x'$ dans $[a,b]$ la sécante (ou corde) entre 
+$(x,f(x))$ et $(x',f(x'))$ est au-dessus du graphe de $f$
+
+\myfigure{1}{
+\tikzinput{fig_zeros07}
+}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{minipage}{0.62\textwidth}
+\mybox{$a_0=a \quad \text{et} \quad a_{n+1} = a_n - \frac{b-a_n}{f(b)-f(a_n)}f(a_n)$}  
+\end{minipage}
+\pause
+\begin{minipage}{0.3\textwidth}
+\myfigure{0.7}{
+\tikzinput{fig_zeros06-pres-bis}
+}  
+\end{minipage}
+\vspace*{-3ex}
+\pause
+\begin{proof}
+\begin{enumerate}
+  \item \textbf{Construction de la suite}
+
+  \pause
+  
+  \begin{itemize}
+    \item L'équation de la droite passant par les deux points $(a,f(a))$ et $(b,f(b))$ est 
+$$y=(x-a) \frac{f(b)-f(a)}{b-a} + f(a)$$
+
+\pause
+
+    \item Cette droite intersecte l'axe des abscisses en $(a',0)$ qui vérifie donc 
+$0=(a'-a) \frac{f(b)-f(a)}{b-a} + f(a)$, donc $a'=a - \frac{b-a}{f(b)-f(a)}f(a)$ \qedhere
+  \end{itemize}
+\end{enumerate}
+\end{proof}
+\end{frame} 
+
+\begin{frame}
+\begin{proof}
+\begin{enumerate}  
+  \setcounter{enumi}{1}
+  \item \textbf{Croissance de $(a_n)$}
+  
+\pause  
+
+ 
+  \begin{itemize}\setlength{\itemsep}{4pt}
+    \item Comme $f$ est convexe : $f(a_n)\le 0$ 
+\pause     
+    \item Formule de récurrence $a_{n+1} = a_n - \frac{b-a_n}{f(b)-f(a_n)}f(a_n)$
+\pause 
+    \item Ainsi $a_{n+1} \ge a_n$
+  \end{itemize}
+  
+\pause
+\bigskip
+
+  \item \textbf{Convergence de $(a_n)$}
+\pause    
+  \begin{itemize}\setlength{\itemsep}{4pt}
+    \item La suite $(a_n)$ est croissante et majorée par $b$, donc elle converge
+\pause    
+    \item Notons $\ell<b$ sa limite
+\pause    
+    \item $a_n \to \ell$, $a_{n+1} \to \ell$, $f(a_n)\to f(\ell)$
+\pause    
+    \item L'égalité $a_{n+1} = a_n - \frac{b-a_n}{f(b)-f(a_n)}f(a_n)$ devient 
+  $\ell = \ell - \frac{b-\ell}{f(b)-f(\ell)} f(\ell)$
+\pause  
+    \item Ce qui implique $f(\ell)=0$ \qedhere
+  \end{itemize}
+  
+\end{enumerate}
+
+\end{proof}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Résultats numériques pour $\sqrt{10}$}
+
+\begin{frame}
+\begin{itemize}
+  \item Approximation de $\sqrt{10}$
+
+\pause
+
+  \item $f$ définie par $f(x)=x^2 - 10$, $f$ continue, strictement croissante et convexe sur $[0,+\infty[$
+
+\pause
+
+  \item Intervalle $[3,4]$ : $f(3) \le 0$ et $f(4) \ge 0$, donc $\sqrt{10} \in [3,4]$
+\end{itemize}
+
+\pause
+
+$$
+\begin{array}{l|l}
+  a_0 = 3                          & \epsilon_0 \le 0,1666\ldots \\
+  a_1 = 3,14285714285\ldots    & \epsilon_1 \le 0,02040\ldots \\
+  a_2 = 3,16000000000\ldots    & \epsilon_2 \le 0,00239\ldots \\
+  a_3 = 3,16201117318\ldots   & \epsilon_3 \le 0,00028\ldots \\
+  a_4 = 3,16224648985\ldots   & \epsilon_4 \le 3,28\ldots \cdot 10^{-5} \\
+  a_5 = 3,16227401437\ldots    & \epsilon_5 \le 3,84\ldots \cdot 10^{-6}\\
+  a_6 = 3,16227723374\ldots    & \epsilon_6 \le 4,49\ldots \cdot 10^{-7} \\
+  a_7 = 3,16227761029\ldots   & \epsilon_7 \le 5,25\ldots \cdot 10^{-8} \\
+  a_8 = 3,16227765433\ldots   & \epsilon_8 \le 6,14\ldots \cdot 10^{-9} \\
+\end{array}
+$$
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Résultats numériques pour $(1,10)^{1/12}$}
+
+
+ 
+\begin{frame}
+Approximation de $(1,10)^{1/12}$ avec $f(x) = x^{12} - 1,10$, $a=1$ et $b=1,1$
+
+\bigskip
+
+$$
+\begin{array}{l|l}
+  a_0 = 1                          & \epsilon_0 \le 0,0083\ldots \\
+  a_1 = 1,00467633\ldots   & \epsilon_1 \le 0,0035\ldots \\
+  a_2 = 1,00661950\ldots   & \epsilon_2 \le 0,0014\ldots \\
+  a_3 = 1,00741927\ldots   & \epsilon_3 \le 0,00060\ldots \\
+  a_4 = 1,00774712\ldots    & \epsilon_4 \le 0,00024\ldots \\
+  a_5 = 1,00788130\ldots    & \epsilon_5 \le 0,00010\ldots\\
+  a_6 = 1,00793618\ldots   & \epsilon_6 \le 4,14\ldots \cdot 10^{-5} \\
+  a_7 = 1,00795862\ldots   & \epsilon_7 \le 1,69\ldots \cdot 10^{-5} \\
+  a_8 = 1,00796779\ldots   & \epsilon_8 \le 6,92\ldots \cdot 10^{-6} \\
+\end{array}
+$$
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Calcul de l'erreur}
+
+\begin{frame}
+
+\begin{proposition}
+ Soit $f : I \to \Rr$ une fonction dérivable et $\ell$ tel que $f(\ell)=0$.
+ S'il existe une constante $m>0$ telle que pour tout $x\in I$, $|f'(x)| \ge m$ alors
+ $$|x-\ell| \le \frac{|f(x)|}{m} \qquad \text{ pour tout } x \in I$$
+\end{proposition}
+
+\pause
+
+\begin{proof}
+  Par l'inégalité des accroissement finis entre $x$ et $\ell$ :
+  $$|f(x)-f(\ell)| \ge m |x-\ell|$$
+  mais $f(\ell)=0$, d'où la majoration
+\end{proof}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}[Erreur pour $\sqrt{10}$]
+\begin{itemize}\setlength{\itemsep}{4pt}
+  \item Soit $f(x)=x^2-10$ et l'intervalle $I=[3,4]$
+\pause
+  \item Alors $f'(x)=2x$ donc $|f'(x)| \ge 6$ sur $I$
+\pause  
+  \item On pose donc $m=6$, $\ell=\sqrt{10}$, $x=a_n$
+\pause  
+  \item Estimation de l'erreur $\epsilon_n = |\ell-a_n| \le \frac{|f(a_n)|}{m} = \frac{|a_n^2 - 10|}{6}$
+\pause  
+  \item Exemple : $a_2 = 3,16... \le 3,17$ donc $\sqrt{10}-a_2 \le \frac{|3,17^2-10|}{6} = 0,489$
+\pause  
+  \item Exemple : $a_8=3,1622776543347473\ldots$ donc \\ \hfill $\sqrt{10}-a_8 \le \frac{|a_8^2-10|}{6} = 6,14\ldots \cdot 10^{-9}$
+\end{itemize}
+
+\end{exemple}
+
+\medskip
+\pause
+
+\begin{center}
+\begin{tabular}{ll}
+  $10^{-10}$ ($\sim 10$ décimales) &  $10$ itérations \\
+  $10^{-100}$ ($\sim 100$ décimales) &  $107$ itérations \\ 
+  $10^{-1000}$ ($\sim 1000$ décimales) &  $1073$ itérations \\ 
+\end{tabular}  
+\end{center}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Algorithme}
+
+\begin{frame}[fragile]
+
+\begin{algo}[secante.py]
+\begin{lstlisting}
+def secante(a,b,n):  
+    for i in range(n):
+        a = a-f(a)*(b-a)/(f(b)-f(a))
+    return a
+\end{lstlisting}  
+\end{algo}   
+    
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item \`A la main, calculer un encadrement à $0,1$ près de $\sqrt{3}$.
+  Idem avec $\sqrt[3]{2}$. 
+  
+  \item Calculer une approximation des solutions de l'équation $x^3+1=3x$.
+  
+  \item Calculer une approximation de la solution de l'équation $(\cos x = 0)$ sur $[0,\pi]$.   
+  Idem avec $(\cos x = 2\sin x)$.
+  
+  \item \'Etudier l'équation $(\exp(-x) = - \ln(x))$. Donner une approximation de la (ou des) 
+  solution(s) et une majoration de l'erreur correspondante.
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

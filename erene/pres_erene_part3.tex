@@ -1,0 +1,365 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={205,100,0}]{structure}
+
+% Commande spécifique à ce chapitre
+%\newcommand{\Mat}{\mathop{\text{Mat}}\nolimits}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf L'espace vectoriel $\Rr^n$}}
+\subtitle{Propriétés des applications linéaires}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Composition d'applications linéaires et produit de matrices
+    \item<4-> Application linéaire bijective et matrice inversible
+    \item<5-> Caractérisation des applications linéaires
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Composition et produit}
+
+\begin{frame}
+Soient deux applications linéaires
+$$f : \Rr^p \longrightarrow \Rr^n \qquad \text{ et } \qquad g : \Rr^q \longrightarrow \Rr^p$$
+\pause
+Et leur composition :
+$$\Rr^q \overset{g}{\longrightarrow} \Rr^p\overset{f}{\longrightarrow} \Rr^n
+ \qquad \qquad
+f \circ g :  \Rr^q \longrightarrow \Rr^n
+$$
+
+\pause
+
+L'application $f \circ g$ est une application linéaire.
+\pause
+Notons : 
+\begin{itemize}
+  \item $A = \Mat(f) \in M_{n,p}(\Rr)$ la matrice associée à $f$ : $X \mapsto AX$
+  \pause
+  \item $B = \Mat(g) \in M_{p,q}(\Rr)$ la matrice associée à $g$ : $X \mapsto BX$
+  \pause
+  \item $C = \Mat(f \circ g) \in M_{n,q}(\Rr)$ la matrice associée à $f \circ g$
+\end{itemize}
+\pause
+Alors $C = AB$
+\pause
+\mybox{$\Mat(f \circ g) = \Mat (f) \times \Mat (g)$}
+
+\pause
+Preuve. Pour $X \in \Rr^q$ :
+$$(f \circ g)(X)  =  f \big(g(X)\big) = f\big( BX \big) = A(BX) = (AB)X$$
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}[<+->]\setlength{\itemsep}{8pt}
+  \item Soit $f: \Rr^2 \longrightarrow \Rr^2$ 
+  la réflexion par rapport à la droite $(y = x)$
+  
+  \item $A = \Mat(f) = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$
+  
+  \item Soit $g: \Rr^2 \longrightarrow \Rr^2$ 
+la rotation d'angle $\theta=\frac\pi3$ (centrée à l'origine)
+  
+  \item $B = \Mat(g) =  
+\begin{pmatrix}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{pmatrix}
+=
+\begin{pmatrix} 
+\frac12 & -\frac{\sqrt3}{2} \\  
+\frac{\sqrt3}{2} & \frac12
+\end{pmatrix}
+$
+  
+  \item $C = \Mat (f\circ g)  = \Mat (f) \times \Mat (g)$
+
+  \item $C =\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} \times  
+\begin{pmatrix} \frac12 & -\frac{\sqrt3}{2} \\ \frac{\sqrt3}{2} & \frac12 \end{pmatrix}
+= \begin{pmatrix} \frac{\sqrt3}{2} & \frac12  \\ \frac12 & -\frac{\sqrt3}{2}\end{pmatrix}
+$
+\end{itemize}
+
+\end{exemple} 
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+Voici pour $X=\left(\begin{smallmatrix}1\\0\end{smallmatrix} \right)$ les images
+$f(X)$, $g(X)$, $f\circ g(X)$, $g\circ f(X)$ :
+\myfigure{1.2}{
+\tikzinput{fig_erene13} 
+} 
+
+
+\end{exemple} 
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}[<+->]\setlength{\itemsep}{8pt}
+  \item Pour $g\circ f$ : $D = \Mat (g \circ f)  = \Mat (g) \times \Mat (f)$
+  \item $D = \begin{pmatrix} \frac12 & -\frac{\sqrt3}{2} \\ \frac{\sqrt3}{2} & \frac12 \end{pmatrix}
+ \times  \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
+= \begin{pmatrix}-\frac{\sqrt3}{2} & \frac12 \\  \frac12 & \frac{\sqrt3}{2} \end{pmatrix}
+$
+  \item $C=AB$ différent de $D=BA$
+  \item La composition d'applications linéaires, 
+  comme la multiplication des matrices, n'est pas commutative
+\end{itemize}
+\end{exemple} 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Bijection et inverse}
+
+\begin{frame}
+
+\begin{theoreme}
+\label{th:matinv}
+Une application linéaire $f : \Rr^n \to \Rr^n$ est bijective
+si et seulement si sa matrice associée $A= \Mat(f) \in M_n(\Rr)$ 
+est inversible
+\end{theoreme}
+
+\pause
+\mybox{$\Mat(f^{-1}) = \big(\Mat (f) \big)^{-1}$}
+
+\pause
+
+\begin{itemize}[<+->]
+  \item $f$ est définie par $f(X) = AX$
+  \item Supposons $f$ est bijective
+  \item $f(X)=Y \iff X = f^{-1}(Y)$
+  \item $AX=Y \iff X = A^{-1}Y$
+  \item Donc $f^{-1}(Y)=A^{-1}Y$
+  \item Conséquence : la matrice de $f^{-1}$ est $A^{-1}$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}
+\begin{itemize}[<+->]\setlength{\itemsep}{8pt}
+  \item Soit $f: \Rr^2 \longrightarrow \Rr^2$ la rotation d'angle $\theta$
+  
+  \item $\Mat(f) = 
+\begin{pmatrix}
+\cos\, \theta & & -\sin \theta\\
+\sin\, \theta &&\cos\, \theta  
+\end{pmatrix}$
+  
+  \item Alors $f^{-1}: \Rr^2 \longrightarrow \Rr^2$ est la rotation d'angle $-\theta$
+  
+  \item $\Mat(f^{-1}) = \big(\Mat (f) \big)^{-1}$
+
+  \item $\Mat(f^{-1}) = \begin{pmatrix}
+\cos\, \theta &&\sin \,\theta\\
+-\sin\, \theta && \cos\,\theta    
+\end{pmatrix}
+= \begin{pmatrix}
+\cos\, (-\theta ) && -\sin\, (-\theta )\\
+\sin\, (-\theta ) && \cos (-\theta )    
+  \end{pmatrix}
+$
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+
+% \begin{frame}
+% \begin{exemple}
+% \myfigure{1}{
+% \input{Fig-erene/fig_erene12.tex} 
+% }
+% \vspace*{-4ex}
+% \begin{itemize}\setlength{\itemsep}{4pt}
+%   \item Soit $f: \Rr^2 \longrightarrow \Rr^2$ la projection sur l'axe $(Ox)$
+%   
+%   \item
+%   \begin{itemize}
+%     \item $f$ n'est pas injective
+%     \item Pour $x$ fixé et tout $y\in \Rr$,
+% $f\left(\begin{smallmatrix}x\\y\end{smallmatrix}\right) 
+% = \left(\begin{smallmatrix}x\\0\end{smallmatrix}\right)$
+%     \item $f$ n'est pas non plus surjective
+%   \end{itemize}
+%   
+%   \item La matrice de $f$ est 
+% $\left(\begin{smallmatrix}
+% 1 & 0\\
+% 0 & 0\end{smallmatrix}\right)$
+% 
+%   \item La matrice n'est pas inversible
+%   
+% \end{itemize}
+% 
+% \end{exemple}
+% \end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Caractérisation}
+
+
+\begin{frame}
+\begin{theoreme}
+\label{th:applinrn}
+Une application $f: \Rr^p \longrightarrow \Rr^n$ est linéaire si et seulement si  
+pour tous les vecteurs $u$, $v$ de $\Rr^p$ et pour tout scalaire $\lambda \in \Rr$,
+on a
+\begin{enumerate}
+  \item[(i)]  $f(u+v) = f(u) + f(v)$
+  \item[(ii)] $ f(\lambda u) = \lambda f(u)$
+\end{enumerate} 
+\end{theoreme}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{mydefinition}
+Les \defi{vecteurs de la base canonique} de $\Rr^p$ sont
+$$
+e_1 = \begin{pmatrix} 1\\0\\0\\\vdots\\0\end{pmatrix}\qquad 
+e_2 = \begin{pmatrix} 0\\1\\0\\\vdots\\0\end{pmatrix}\qquad\cdots\qquad
+e_p = \begin{pmatrix} 0\\0\\\vdots\\0\\1\end{pmatrix}
+$$
+\end{mydefinition}
+
+\pause
+
+\begin{corollaire}
+Soit $f: \Rr^p \longrightarrow \Rr^n$ une application linéaire. 
+Alors la matrice de $f$ (dans les bases canoniques 
+de $\Rr^p$ vers $\Rr^n$) est donnée par 
+$$\Mat(f) = \begin{pmatrix} f(e_1)&f(e_2)& \cdots& f(e_p)\end{pmatrix}$$
+\end{corollaire}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}[<+->]\setlength{\itemsep}{4pt}
+  \item Considérons l'application linéaire $f : \Rr^3 \to \Rr^4$ définie par 
+$$ \left\{\begin{array}{ccccccc}
+y_1 & = & 2x_1  &+ x_2   & -  x_3\\
+y_2 & = & -x_1 &-  4x_2 &         \\
+y_3 & = & 5x_1  &+  x_2  & +  x_3 \\
+y_4 & = &       & 3x_2  & +  2x_3
+\end{array}\right.
+$$
+  
+  \item La base canonique   
+  $\left(\begin{smallmatrix} 1 \\ 0 \\ 0 \end{smallmatrix} \right)$,
+  $\left(\begin{smallmatrix} 0 \\ 1 \\ 0 \end{smallmatrix} \right)$,
+  $\left(\begin{smallmatrix} 0 \\ 0 \\ 1 \end{smallmatrix} \right)$
+  
+  \item $f\left(\begin{smallmatrix} 1 \\ 0 \\ 0 \end{smallmatrix}\right) = \left(\begin{smallmatrix} 2 \\ -1 \\ 5 \\ 0 \end{smallmatrix}\right)\qquad 
+  f\left(\begin{smallmatrix} 0 \\ 1 \\ 0 \end{smallmatrix}\right) = \left(\begin{smallmatrix} 1 \\ -4 \\ 1 \\ 3 \end{smallmatrix}\right)\qquad
+  f\left(\begin{smallmatrix} 0 \\ 0 \\ 1 \end{smallmatrix}\right) = \left(\begin{smallmatrix} -1 \\ 0 \\ 1 \\ 2 \end{smallmatrix}\right)
+  $
+  
+  \item Donc la matrice de $f$ est 
+$\Mat(f) = 
+\begin{pmatrix}
+2 & 1 & -1 \\
+-1& -4& 0  \\
+ 5& 1 & 1 \\
+ 0 & 3 & 2 \\              
+\end{pmatrix}$
+\end{itemize}
+
+  
+
+\end{exemple}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}[<+->]\setlength{\itemsep}{4pt}
+  \item Soit $f : \Rr^2 \to \Rr^2$ la réflexion par rapport à la droite $(y=x)$
+  
+  \item Soit $g$ la rotation du plan d'angle $\frac\pi3$ centrée à l'origine
+  
+  \item Calculons la matrice de l'application $f\circ g$
+  
+  \item La base canonique de $\Rr^2$ est formée des vecteurs
+$\left(\begin{smallmatrix} 1 \\ 0 \end{smallmatrix} \right)$ 
+et $\left(\begin{smallmatrix} 0 \\ 1 \end{smallmatrix} \right)$
+  
+  \item $f\circ g \begin{pmatrix} 1 \\ 0 \end{pmatrix}
+= f \begin{pmatrix} \frac12 \\ \frac{\sqrt{3}}{2} \end{pmatrix}
+= \begin{pmatrix} \frac{\sqrt{3}}{2} \\ \frac12 \end{pmatrix}$
+
+  \item $f\circ g \begin{pmatrix} 0 \\ 1 \end{pmatrix}
+= f \begin{pmatrix}  -\frac{\sqrt{3}}{2} \\ \frac12  \end{pmatrix}
+= \begin{pmatrix} \frac12 \\ -\frac{\sqrt{3}}{2}  \end{pmatrix}$
+
+  \item La matrice de $f \circ g$ est :
+$\Mat(f) = 
+\begin{pmatrix}
+\frac{\sqrt{3}}{2} &  \frac12  \\
+\frac12& -\frac{\sqrt{3}}{2}\\            
+\end{pmatrix}$
+
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Soit $f$ la réflexion du plan par rapport à l'axe $(Ox)$ et soit $g$
+  la rotation d'angle $\frac{2\pi}{3}$ centrée à l'ori\-gine. Calculer la matrice de 
+  $f\circ g$ de deux façons différentes (produit de matrices et image de la base canonique).
+  Cette matrice est-elle inversible ? Si oui, calculer l'inverse. Interprétation géométrique.
+  Même question avec $g\circ f$.
+  
+  \item Soit $f$ la projection orthogonale de l'espace sur le plan $(Oxz)$ et soit $g$
+  la rotation d'angle $\frac{\pi}{2}$ d'axe $(Oy)$. Calculer la matrice de 
+  $f\circ g$ de deux façons différentes (produit de matrices et image de la base canonique).
+  Cette matrice est-elle inversible ? Si oui, calculer l'inverse. Interprétation géométrique.
+  Même question avec $g\circ f$.  
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

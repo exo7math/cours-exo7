@@ -1,0 +1,503 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+\change
+
+Maintenant que  nous savons ce que sont des groupes, nous allons étudier les fonctions
+entre les groupes : ce sont les morphismes de groupes.
+
+Le programme est le suivant :
+
+\change
+
+la définition d'un morphisme,
+
+\change
+
+quelques propriétés,
+
+\change
+
+l'étude du noyau et de l'image,
+
+\change
+
+des exemples.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Considérons un groupe $G$ avec un loi $\star$
+
+et un groupe $G'$ avec un loi $\diamond$ [[losange]]
+
+et soit $f$ de $G $ vers $G'$ une application.
+
+\change
+
+Par définition $f$ est un morphisme entre le groupe $G$ et le groupe $G'$ si
+
+$\text{pour tout } x,x' \in G  \qquad f(x \star x') = f(x) \diamond f(x')$
+
+\change
+
+Voici un exemple que vous connaissez déjà :
+
+$G$ est le groupe $(\Rr,+)$
+
+$G'$ est le groupe $(\Rr_+^*,\times)$
+
+et $f$ est juste l'application que a $x$ associe exponentielle $x$.
+
+\change
+
+Alors $f$ est bien un morphisme de groupes car
+
+$f(x+x') =\exp(x+x')= \exp(x) \times \exp(x') = f(x) \times f(x')$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici deux propriétés faciles à démontrer en utilisant la définition :
+
+tout d'abord l'élément neutre s'envoie par $f$ sur l'élément neutre :
+
+$f(e_G) = e_{G'}$
+
+\change
+
+Deuxième propriété $f(x^{-1}) = \big(f(x)\big)^{-1}$
+
+l'image de l'inverse est l'inverse de l'image !
+
+Il faut bien être conscient que $x^{-1}$ est l'inverse de
+$x$ dans le groupe $G$, 
+
+alors que $\big(f(x)\big)^{-1}$
+est l'inverse de $f(x)$ dans le groupe $G'$.
+
+
+\change
+
+Voyons ce que cela donne sur notre morphisme définie par $\exp(x)$.
+
+\change
+
+Nous avons $f(0)=1$,
+
+$0$ est l'élément neutre du groupe $(\Rr,+)$
+est envoyé sur $1$, l'élément neutre du groupe $(\Rr_+^*,\times)$.
+
+\change
+
+Calculons l'image de $f(-x)$
+
+c'est $f(-x)=\exp(-x)= \frac{1}{\exp(x)}=\frac{1}{f(x)}$
+
+Donc l'image de l'inverse de $x$ qui est ici $-x$
+
+est bien l'inverse de $f(x)$ qui est ici $\frac{1}{f(x)}$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici une proposition que je vous encourage à démontrer tout seul :
+
+Si l'on a deux morphismes groupes 
+
+$f : G \longrightarrow G'$ et $g : G'  \longrightarrow G''$
+
+Alors $g \circ f $ est un morphisme de groupes de
+ $G$ vers $G''$.
+
+\change
+
+Voici une autre proposition concernant la bijection réciproque
+d'un morphisme :
+
+Si $f : G \longrightarrow G'$ est un morphisme de groupe et est bijectif 
+
+alors sa bijection réciproque  $f^{-1}$ est aussi un morphisme du groupe
+$G'$ vers le groupe $G$.
+
+\change
+
+Prouvons cette deuxième proposition
+
+Notons $\star$ le loi du groupe $G$ et $\diamond$ celle de $G'$.
+
+\change
+
+$f^{-1}$ va de $G'$ vers $G$
+
+\change
+
+Partons de deux éléments $y,y'$ de $G'$
+
+Comme $f$ est bijective, elle en particulier surjective donc
+
+il existe $x \in G$ tel que $f(x)=y$ 
+
+et aussi $x' \in G$ tel que $f(x')=y'$
+
+
+Il nous reste à calculer 
+$f^{-1}(y\diamond y') $
+
+
+
+
+\change
+
+C'est parti !
+
+$f^{-1}(y\diamond y') =  f^{-1}\big(f(x)\diamond f(x') \big)$
+
+\change
+
+égal $f^{-1}\big(f(x \star x') \big) $
+
+car $f$ est morphisme de groupe 
+
+\change
+
+qui vaut $ x\star x'$
+
+car $f^{-1}$ est la bijection réciproque de $f$
+
+\change
+
+Mais comme $f(x)=y$ alors $x=f^{-1}(y)$
+et de même $x'=f^{-1}(y')$
+
+Ce qui nous donne 
+$f^{-1}(y)\star f^{-1}(y')$
+
+C'est exactement la formule qui nous dit
+que $f^{-1}$ est un morphisme de $G'$ vers $G$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Un morphisme bijectif s'appelle un isomorphisme
+
+
+et on dit alors que les groupes $G, G'$ sont isomorphes
+
+\change
+
+
+Reprenons notre exemple avec le morphisme défini par l'exponentielle
+
+\change
+
+
+En plus d'être un morphisme c'est aussi une application bijective
+
+\change
+
+Dont nous connaissons la bijection réciproque, c'est le logarithme.
+
+\change
+
+Une des propriétés de la page précédente nous affirme que $f^{-1}$ est aussi un morphisme.
+
+
+C'est-à-dire ici que $f^{-1}(x\times x')=f^{-1}(x) + f^{-1}(x')$
+
+En remplaçant $f^{-1}$ par le logarithme, nous retrouvons la formule bien connue :
+
+$\ln(x \times x') = \ln(x) + \ln(x')$
+
+
+\change
+
+Ainsi $f$ est un isomorphisme
+
+et donc les groupes $\Rr$ muni de l'addition  et $\Rr_+^*$ muni de la multiplication sont
+isomorphes.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Soit $f$ un morphisme entre deux groupes $G$ et $G'$.
+
+Le noyau de $f$ est par définition l'ensemble des éléments de $G$
+tel $f(x)=e_{G'}$ l'élément neutre de $G'$.
+
+C'est un ensemble important pour l'étude des morphismes.
+
+\change
+
+Quelques remarques :
+
+$\Ker f$ est une partie de l'ensemble de départ $G$.
+
+\change
+
+En terme d'image réciproque $\Ker f$ est l'image réciproque du singleton $\{ e_{G'}\}$.
+
+\change
+
+En français le noyau est l'ensemble des éléments de $G$ qui s'envoient 
+par $f$ sur l'élément neutre de $G'$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+[plusieurs prises]
+
+
+Voici deux propriétés importantes concernant le noyau.
+
+
+Premièrement le noyau $\Ker f$ est plus qu'une partie de $G$, 
+c'est un sous-groupe de $G$.
+
+\change
+
+Deuxièmement le morphisme de groupes
+$f$ est injectif si et seulement si $\Ker f$
+ne contient que le singleton $\{e\}$, l'élément neutre de l'ensemble de départ.
+
+La premier point permet de construire facilement des sous-groupes,
+
+le second permet de tester si une application est injective ou pas.
+
+\change
+
+Voici la démonstration que vous pouvez passer en première lecture.
+
+Pour le premier point il s'agit de vérifier que $\Ker f$
+est bien un sous-groupe de $G$.
+
+
+Nous avons vu que $f(e_G)=e_{G'}$ 
+
+c'est donc que $e_G$ appartient au noyau.
+
+\change
+
+Si l'on prend deux éléments $x$ et $x'$ du noyau
+
+ $f(x\star x') = f(x) \diamond f(x')= e_{G'} \diamond e_{G'} = e_{G'}$
+
+et donc $x \star x'$ est dans le noyau.
+
+\change
+
+Enfin si $x$ appartient au noyau alors
+
+$f(x^{-1}) = f(x)^{-1}=e_{G'}^{-1} = e_{G'}$
+
+et donc $x^{-1}$ est aussi dans le noyau.
+
+Cela fait bien de $\Ker f$ un sous-groupe de $G$.
+
+\change
+
+Pour le deuxième point nous allons montrer l'équivalence par double implications.
+
+Tout d'abord supposons $f$ injective.
+
+Supposons que $x$ soit un élément du noyau, 
+cela signifie  $f(x)=e_{G'}$ ce qui revient à l'égalité $f(x)=f(e_G)$
+
+Mais comme $f$ est injective, alors cela implique $x=e_G$.
+
+Le seul élément pouvant appartenir au noyau est donc $x=e$.
+
+Le noyau est donc le singleton $\{e_G\}$.
+
+\change
+
+Réciproquement, nous supposons que le noyau est réduit au singleton $\{e_G\}$.
+
+Prenons deux élément $x,x'$ tels que $f(x)=f(x')$,
+
+en composant cette égalité par $\big( f(x') \big)^{-1}$ de chaque coté
+
+on obtient $f(x)\diamond \big( f(x') \big)^{-1} = e_{G'}$ 
+
+et comme $f$ est un morphisme
+
+alors [[skip une formule]]
+
+ $f(x \star x'^{-1}) = e_{G'}$
+
+
+Mais ceci veut exactement dire que $x \star x'^{-1}$ appartient à $\Ker f$
+
+Comme $\Ker f$ ne contient que $e_G$
+
+alors $x \star x'^{-1} = e_G$ 
+
+et donc $x=x'$. 
+
+Conclusion si $f(x)=f(x')$ alors $x=x'$, ainsi $f$ est injective.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Continuons avec notre morphisme $f: G \longrightarrow G'$
+
+L'image de $f$ est l'ensemble des $f(x)$ pour $x$ parcourant $G$.
+
+\change
+
+c'est une partie de l'ensemble d'arrivée $G'$
+
+en terme d'image direct on écrirait $\Im f = f(G)$
+
+en terme d'antécédents  $\Im f$ est l'ensemble 
+des éléments de $G'$ qui ont (au moins) un antécédent par~$f$
+
+\change
+
+Voici deux propriétés :
+
+$\Im f$ est un sous-groupe de $G'$
+
+ce qui fournit une nouvelle façon de construire des sous-groupes.
+
+Enfin pour rappel $f$ surjective $\iff$ $\Im f = G'$, 
+ce qui est vrai pour toutes les applications et en particulier pour notre morphisme.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Soit $\Zz$ muni de l'addition.
+
+L'application qui à $k$ associe $3k$...
+
+\change
+
+est bien un morphisme de groupe.
+
+\change
+
+  $f(k+k')$ c'est $3(k+k')$ donc $3k + 3k'$ qui est bien $f(k)+f(k')$
+
+\change
+
+Le noyau de $f$ c'est l'ensemble des $k$ tel que $f(k)=0$.
+
+\change
+
+Mais  $f(k)=0$ équivaut à $3k=0$ équivaut à $k=0$
+
+donc le seul élément du noyau est $k=0$.
+
+\change
+
+Ainsi par la proposition sur les noyaux $f$ est injective
+
+\change
+
+L'image de $f$ est l'ensemble des $f(k)$ pour $k$ parcourant $\Zz$.
+
+C'est donc l'ensemble des $3k$, c'est-à-dire l'ensemble des multiples de $3$.
+
+\change
+
+Comme l'image d'un morphisme est un sous-groupe,
+nous retrouvons que $3\Zz$ est un sous-groupe de $\Zz$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Etudions maintenant l'application qui a $t$ associe $e^{it}$.
+
+L'ensemble de départ est le groupe $\Rr$ muni de l'addition.
+L'ensemble d'arrivée est le groupe formé des nombres complexes de module $1$.
+muni de la multiplication.
+
+
+\change
+
+$f$ est bien un morphisme car $f(t+t')=e^{\ii (t+t')}= e^{\ii t} \times e^{\ii t'} = f(t)\times f(t')$
+
+\change
+
+Déterminons le noyau $\Ker f$ : c'est l'ensemble des $t$ tels que 
+$f(t)$ vaut $1$, l'élément neutre de $\mathbb{U}$.
+
+$f(t) = 1$ ssi $e^{it}=1$ ssi $t=0$ modulo $2\pi$.
+
+Le noyau est donc l'ensemble des $2k\pi$, c'est-à-dire ce sont les multiples de $2\pi$.
+
+\change
+
+Comme le noyau contient d'autres éléments que $0$, $f$ n'est pas injective.
+
+\change
+
+Enfin tout nombre complexe de module $1$ s'écrit sous la forme $f(t)=e^{\ii t}$
+donc $f$ est surjective et l'image de $f$ est $\mathbb{U}$ tout entier.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Les notations suivantes ne doivent pas être confondues.
+
+\change
+
+ $x^{-1}$ est l'inverse de $x$ dans un groupe $(G,\star)$
+
+
+
+Si le groupe est $(\Rr^*,\times)$ alors la notation est cohérente avec ce que vous utilisiez car alors $x^{-1}=\frac 1 x$
+
+\change
+
+Pour une application bijective $f^{-1}$ désigne sa bijection réciproque
+
+c'est donc une application qui n'a rien à voir avec $1/f$.
+
+\change
+
+Enfin pour une application quelconque, bijective ou pas,
+
+
+l'ensemble $f^{-1}(B)$ est  l'image réciproque de $B$
+
+c'est l'ensemble des $x$ de l'ensemble de départ dont l'image par $f$ est dans $B$
+
+En particulier le noyau est l'image réciproque  du singleton $e_{G'}$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Utilisez vos connaissance pour répondre aux questions suivantes.
+
+
+
+
+\end{document}

@@ -1,0 +1,324 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Continuons notre exploration des sous-espaces vectoriels.
+
+\change
+
+Nous allons définir les combinaisons linéaires
+
+\change 
+
+et ainsi caractériser les sous-espaces vectoriels
+
+\change
+
+On termine avec l'intersection de deux sous-espaces vectoriels
+qui reste un sous-espace vectoriel.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Fixons  $v_1, v_2, \ldots, v_n$, $n$ vecteurs d'un espace vectoriel $E$
+
+On appelle \defi{combinaison linéaire} des vecteurs $v_1, v_2, \ldots, v_n$
+tout vecteur de la forme  
+ $$\lambda_1 v_1+\lambda_2v_2+ \cdots + \lambda_nv_n$$
+ 
+\change
+
+Les scalaires $\lambda_1, \lambda_2, \ldots , \lambda_n$ sont des éléments de $\Kk$
+    et s'appelle les \defi{coefficients} de la combinaison linéaire
+
+\change
+
+Cela généralise une notion que vous connaissez déjà : dans le cas particulier où
+$n=1$, alors $u=\lambda_1 v_1$ et on dit que $u$ est \defi{colinéaire} à $v_1$. 
+ 
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici quelques exemples simples.
+
+
+Tout d'abord dans le $\Rr$-espace vectoriel $\Rr^3$, 
+le vecteur $(3,3,1)$ est combinaison linéaire des vecteurs 
+ $(1,1,0)$ et $(1,1,1)$, 
+ tout simplement car on a l'égalité  
+ $$(3,3,1)=2(1,1,0)+(1,1,1).$$
+Le coefficient $\lambda_1$ vaut $2$ et le coefficient $\lambda_2$ vaut $1$.
+
+\change
+
+Par contre dans $\Rr^2$, le vecteur
+$u=(2,1)$ \emph{n'est pas} colinéaire au vecteur $v_1=(1,1)$
+car s'il l'était, il existerait un réel $\lambda_1$ tel que $u=\lambda_1 v_1$, ce qui est impossible.
+
+\change
+
+Passons maintenant à l'espace vectoriel des fonctions réelles.
+Fixons quatre fonctions $f_0$, $f_1$, $f_2$ et $f_3$
+ définies par : 
+ $$f_0(x)=1, \;\;f_1(x)=x,\;\; f_2(x)=x^2,\;\; f_3(x)=x^3.$$
+ 
+\change
+
+ Alors la fonction $f$ définie par 
+ $$f(x)=x^3-2x ^2-7x-4$$
+ est combinaison linéaire des fonctions $f_0, f_1, f_2, f_3$ puisque l'on a l'égalité 
+ $$f=f_{3}-2f_2-7f_1-4f_0.$$ 
+ 
+ Et plus généralement n'importe quel polynômes de degré $\le 3$ peut s'écrire 
+ comme combinaison linéaire de ces quatre fonctions.
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons à un exemple en détails.
+
+Soient $u = \left(\begin{smallmatrix}1\\ 2\\ -1\end{smallmatrix}\right)$ et $v =
+   \left(\begin{smallmatrix}6\\4\\2\end{smallmatrix}\right)$ deux vecteurs de $\R^3$
+
+   \change
+   
+  Il s'agit de montrer que $w =
+   \left(\begin{smallmatrix}9\\ 2\\ 7\end{smallmatrix}\right)$ est combinaison linéaire de $u$ et $v$
+   
+   \change
+   
+   Cela signifie que l'on doit trouver deux réels $\lambda$ et $\mu$ tels que $w=\lambda u + \mu v$
+  
+  \change 
+  
+  Ce qui s'écrit $\left(\begin{matrix}9\\2\\7\end{matrix}\right) 
+ =  \lambda \left(\begin{matrix}1\cr 2\cr -1\end{matrix}\right) + \mu \left(\begin{matrix}6\\4\\2\end{matrix}\right)$
+ 
+ \change
+ 
+ qui vaut  $  =  \left(\begin{matrix}\lambda\\ 2\lambda\\ -\lambda\end{matrix}\right) 
+     + \left(\begin{matrix}6\mu\\ 4\mu\\ 2\mu\end{matrix}\right)$
+   
+   \change 
+   
+ ou encore $ =  \left(\begin{matrix}\lambda + 6\mu\\ 2\lambda + 4\mu\\ -\lambda + 2\mu\end{matrix}\right)$  
+   
+   \change 
+  
+  Trouver $\lambda$ et $\mu$ tels que $w=\lambda u + \mu v$ équivaut donc à résoudre le système 
+  à $3$ équations et $2$ inconnues 
+  $\left\{
+\begin{array}{rcl}
+9 & = & \lambda + 6\mu\\ 2 & = & 2\lambda + 4\mu\\ 7 & = & -\lambda + 2\mu 
+\end{array}\right.
+$
+
+  \change
+  
+  On résout ce système et on trouve  $(\lambda = -3, \mu = 2)$,
+  
+  \change
+  
+ainsi  $w$ est bien combinaison linéaire de $u$ et $v$
+
+  \change 
+  
+  et on a 
+
+  $\left(\begin{smallmatrix}9\\2\\7\end{smallmatrix}\right)
+=  -3\left(\begin{smallmatrix}1\\2\\-1\end{smallmatrix}\right) 
++ 2\left(\begin{smallmatrix}6\\4\\2\end{smallmatrix}\right)$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Continuons avec un exemple un peu différent.
+
+Soient $u = \left(\begin{smallmatrix}1\\ 2\\ -1\end{smallmatrix}\right)$ et $v =
+  \left(\begin{smallmatrix}6\\4\\2\end{smallmatrix}\right)$
+
+  \change
+  
+Nous allons montrer que $ w = \left(\begin{smallmatrix}4\\ -1\\ 8\end{smallmatrix}\right)$
+  n'est pas combinaison linéaire de $u$ et $v$
+  
+  \change
+
+  Etre combinaison linéaire s'écrit $w=\lambda u + _mu v$.
+  
+  \change
+  
+  ce qui équivaut au système 
+
+  $
+\left\{\begin{array}{rcl}
+4 & = &\lambda + 6 \mu\\ -1 & = &2\lambda + 4\mu\\ 8 & = & -\lambda + 2\mu
+\end{array}\right.$
+  
+  \change
+  
+  Ici on calcule que ce système n'a aucune solution.
+  
+  Donc il n'existe pas $\lambda,\mu \in \Rr$ tels que $w=\lambda u + \mu v$
+  
+  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Les combinaisons linéaires donnent une caractérisation
+d'être (ou pas) un sous-espace vectoriel.
+
+
+Soient $E$ un $\Kk$-espace vectoriel et $F$ une partie non vide de $E$.
+
+
+$F$ est un sous-espace vectoriel de $E$ si et seulement si
+$$\lambda u + \mu v \in F \qquad \text{pour tous } u,v \in F \quad \text{ et tous } \lambda, \mu \in \Kk.$$
+
+\change
+
+
+Autrement dit $F$ est un sous-espace vectoriel de $E$ si et seulement si toute combinaison linéaire de deux éléments 
+de $F$ appartient à $F$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Montrons à présent que l'intersection de deux sous-espaces vectoriels est un sous-espace vectoriel.
+
+Précisément si $F,G$ sont deux sous-espaces vectoriels d'un $\Kk$-espace vectoriel $E$.
+alors l'intersection $F \cap G$ est aussi un sous-espace vectoriel de $E$.
+
+\change
+
+On démontrerait de même que l'intersection $F_1 \cap F_2 \cap F_3 \cap \cdots \cap F_n$ 
+d'une famille quelconque de sous-espaces vectoriels de $E$ est un sous-espace 
+vectoriel de $E$. 
+
+\change
+
+Passons à la preuve : soient $F$ et $G$ deux sous-espaces vectoriels de $E$. 
+
+Il y a trois points à vérifier :
+
+$0_E \in F$, $0_E\in G$ car $F$ et $G$ sont des sous-espaces vectoriels de $E$ ;
+  donc $0_E \in F \cap G$.
+  
+\change
+
+Montrons que $F \cap G$ est stable par addition :
+
+Soient $u$ et $v$ deux vecteurs de  $F \cap G$.
+Comme $F$ est un sous-espace vectoriel, alors $u,v \in F$ implique $u+v\in F$.
+  De même $u,v \in G$ implique $u+v \in G$. Donc $u+v \in F \cap G$.
+  
+\change
+
+Montrons que $F \cap G$ est stable par multiplication par un scalaire.
+
+
+Soient $u \in F\cap G$ et $\lambda  \in \Kk$. 
+Comme $F$ est un sous-espace vectoriel, 
+  alors $u \in F$ implique $\lambda u \in F$. 
+  De même $u \in G$ implique $\lambda u \in G$. 
+  Donc $\lambda u \in F \cap G$.  
+
+  
+\change
+
+
+On vient de vérifier que $F\cap G$ est un sous-espace vectoriel de $E$.
+
+\change
+
+On aurait pu regrouper ces deux points en montrant que
+pour tout $u,v\in F$ toute combinaison linéaire $\lambda u + \mu v$ reste dans $F$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Soit $\mathcal{D}$ le sous-ensemble de $\Rr^3$ défini par :
+$$\mathcal{D}= \big\{ (x,y,z) \in \Rr^3\mid x+3y+z =0 \;\; \text{ et } \;\; x-y+2z=0 \big\}.$$
+
+Est-ce que $\mathcal{D}$ est sous-espace vectoriel de $\Rr^3$ ?
+
+\change
+
+
+L'ensemble $\mathcal{D}$ est l'intersection de $F$ et $G$, 
+les sous-ensembles de $\Rr^3$ définis par :
+$$F=\big\{ (x,y,z) \in \Rr^3\mid x+3y+z =0 \big\}$$
+
+\change
+
+et $$G=\big\{ (x,y,z) \in \Rr^3 \mid x-y+2z =0 \big\}$$
+
+
+\change
+
+
+Ce sont deux plans passant par l'origine, donc des sous-espaces vectoriels de $\Rr^3$.
+
+\change
+
+Ainsi $\mathcal{D} =F \cap G$ est un sous-espace vectoriel de $\Rr^3$, c'est une droite vectorielle.
+
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On termine par un avertissement : 
+
+La réunion de deux sous-espaces vectoriels de $E$ n'est pas en général 
+un sous-espace vectoriel de $E$.
+
+\change
+
+Prenons par exemple $E$ l'espace vectoriel $\Rr^2$. Considérons les sous-espaces vectoriels
+$F=\big\{(x,y)\mid x=0\big\}$ et $G=\big\{(x,y)\mid y=0\big\}$.
+
+Alors $F\cup G$ n'est pas un sous-espace vectoriel de $\Rr^2$.
+
+\change
+
+Par exemple, $(0,1)$ est un élément de $F$,
+$(1,0)$ est un élément de $G$, donc ces deux vecteurs sont dans $F\cup G$.
+
+\change
+
+Mais leur somme, le vecteur $(1,1)$  n'est pas dans $F\cup G$.
+
+\change
+
+L'union de deux sous-espaces vectoriels n'est pas en général 
+un sous-espace vectoriel.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici deux petits exercices pour vous entraîner !
+
+\end{document}

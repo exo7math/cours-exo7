@@ -1,0 +1,404 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\deter}{déter\-mi\-nant\ }
+\newcommand{\deters}{déter\-mi\-nants\ }
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Cette leçon est consacrée à la définition générale du \deter.
+La définition du \deter est assez abstraite et il faudra attendre encore un peu pour pouvoir vraiment calculer des \deters.
+
+\change
+Nous commencerons tout de suite par donner la définition du \deter
+
+\change
+et ses premières propriétés.
+
+\change
+Nous verrons ensuite comment appliquer cette définition en calculant explicitement le \deter
+de matrices particulières.
+
+\change
+Enfin, nous donnerons la démonstration de l'existence du \deter.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Nous allons caractériser le \deter comme une application, 
+qui à une matrice carrée $M \in M_n(\Kk)$ associe un scalaire 
+$\det(M) \in \Kk$.
+
+\change
+Théorème : il existe une unique application de $M_n(\Kk)$ dans $\Kk$, 
+appelée \defi{\deter}, telle que:
+
+\change
+Premièrement, le \deter est linéaire par rapport à chaque
+vecteur colonne, les autres étant fixés
+
+\change
+Deuxièmement, si une matrice $A$ a deux colonnes identiques, 
+alors son \deter est nul
+
+\change
+$3^\text{èmement}$, le \deter de la matrice identité $I_n$ vaut $1$.
+
+\change
+Quelques remarques. Une application de $M_n(\Kk)$ dans $\Kk$ qui satisfait la propriété
+(i) est appelée \defi{forme multilinéaire}. 
+
+\change
+Si elle satisfait (ii), on dit qu'elle est \defi{alternée}.
+
+Le \deter est donc la seule forme multilinéaire alternée qui prend 
+comme valeur $1$ sur la matrice identité. 
+%Les autres formes multilinéaires alternées sont les multiples scalaires du déterminant.  \\
+
+On verra plus loin comment on
+peut calculer en pratique les \deters.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On note le  \deter d'une matrice $A = (a_{ij})$ par $\det A$ ou bien comme une matrice 
+avec ses coefficients, mais en remplaçant
+%ainsi : les coefficients sont ceux de la matrice $A$, mais on a remplacé 
+les parenthèses par des barres verticales.
+
+\change
+Si on note $C_{i}$ la $i$-ème colonne de $A$, alors on écrit le \deter de $A$ 
+comme le \deter des vecteurs colonnes $C_1,C_2,\ldots,C_n$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Avec cette notation, la propriété (i) de linéarité par rapport à la $j$-ème colonne s'écrit:
+
+\change
+pour tout $\lambda,\mu \in \Kk$,  $\det (C_1,\ldots,\lambda C_j + \mu C'_j,\ldots, C_n) $
+
+\change
+$= \lambda  \det (C_1,\ldots,C_j,\ldots, C_n)+ \mu \det (C_1,\ldots,C_j',\ldots, C_n)$,
+
+\change
+soit, si on utilise la notation avec les coefficients, ce \deter...
+%$$\begin{vmatrix}
+%a_{11} & \cdots & \lambda a_{1j}+\mu a_{1j}' & \cdots & a_{1n} \\
+%\vdots &        &       \vdots                &        & \vdots\\
+%a_{i1} & \cdots & \lambda a_{ij}+\mu a_{ij}' & \cdots & a_{in} \\
+%\vdots &        &       \vdots                &        & \vdots\\
+%a_{n1} & \cdots & \lambda a_{nj}+\mu a_{nj}' & \cdots & a_{nn} \\
+%\end{vmatrix} 
+%$$
+
+\change
+... vaut $\lambda$ fois ce \deter, plus $\mu$ fois celui-ci.
+
+%$$
+%=
+%\lambda \begin{vmatrix}
+%a_{11} & \cdots &  a_{1j} & \cdots & a_{1n} \\
+%\vdots &        &       \vdots                &        & \vdots\\
+%a_{i1} & \cdots & a_{ij} & \cdots & a_{in} \\
+%\vdots &        &       \vdots                &        & \vdots\\
+%a_{n1} & \cdots & a_{nj} & \cdots & a_{nn} \\
+%\end{vmatrix}
+% +
+%\mu \begin{vmatrix}
+%a_{11} & \cdots & a_{1j}' & \cdots & a_{1n} \\
+%\vdots &        &       \vdots                &        & \vdots\\
+%a_{i1} & \cdots & a_{ij}' & \cdots & a_{in} \\
+%\vdots &        &       \vdots                &        & \vdots\\
+%a_{n1} & \cdots & a_{nj}' & \cdots & a_{nn} \\
+%\end{vmatrix}.
+%$$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Considérons ce \deter.  Comme la seconde colonne est un multiple de $5$,
+
+\change
+il est à égal à $5$ fois cet autre \deter
+%$$
+%5\times\begin{vmatrix}
+%6&1&4\\7&-2&-3\\12&5&-1    
+%  \end{vmatrix} $$
+dans lequel la première et la dernière colonnes n'ont pas changé, 
+et la deuxième colonne a été divisée par $5$. \\
+On a donc factorisé par $5$ sur la deuxième colonne.
+
+\change
+Dans cet autre exemple, on peut écrire la troisième colonne comme différence de deux colonnes.
+
+\change
+Par linéarité (sur la troisième colonne) on peut écrire
+le \deter comme différence de deux \deters.
+%$$\begin{vmatrix}
+%3&2&4-3\\7&-5&3-2\\9&2&10-4\\   
+%  \end{vmatrix}
+%$$
+%
+%\change
+%$$=
+%\begin{vmatrix}
+%3&2&4\\7&-5&3\\9&2&10\\   
+%  \end{vmatrix}
+%  - \begin{vmatrix}
+%3&2&3\\7&-5&2\\9&2&4\\   
+%  \end{vmatrix}
+%$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Nous connaissons déjà le \deter de deux matrices: 
+
+\change
+le \deter de la matrice nulle $0_n$ vaut $0$ (par la propriété (ii)),
+
+\change
+le \deter de la matrice identité $I_n$ vaut $1$ (par la propriété (iii)).
+
+Donnons maintenant quelques propriétés importantes du \deter: comment se comporte le \deter face aux opérations élémentaires sur les colonnes ?
+
+\change
+Proposition : Soit $A \in M_n(\Kk)$ une matrice ayant les colonnes $C_1, C_2, \ldots, C_n$.
+
+\change
+On note $A'$ la matrice obtenue par une des opérations élémentaires sur les colonnes, qui sont :
+
+\change
+(1) $A'$ est obtenue en multipliant une colonne de $A$ par un scalaire $\lambda$ non nul \\
+ce qui se note $C_i \leftarrow \lambda C_i$. 
+  
+\change
+Alors $\det A' = \lambda \det A$.
+  
+\change
+(2) $A'$ est obtenue en ajoutant à une colonne de $A$ un multiple d'une autre colonne de $A$,
+ce qui se note $C_i \leftarrow C_i+\lambda C_j$ avec $\lambda \in \Kk$ (et $j\neq i$).
+
+\change
+Alors $\det A' = \det A$.
+  
+\change
+(3) $A'$ est obtenue en échangeant deux colonnes distinctes de $A$, ce qui se note 
+$C_i$ échangé avec $C_j$.
+
+\change
+Alors $\det A' = **-** \det A$.
+
+\change
+Plus généralement pour (2): l'opération d'ajouter à une colonne une combinaison linéaire 
+des autres colonnes con\-serve le \deter.\\
+
+% Attention ! [montrer (3)] \'Echanger deux colonnes change le signe du déterminant.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Démontrons par exemple le point (2) de la proposition précédente.
+
+\change
+Soit $A=\begin{pmatrix}
+C_1&\cdots&C_i&\cdots&C_j&\cdots&C_n
+\end{pmatrix}$ une matrice représentée par ses vecteurs colonnes $C_k$. 
+
+\change
+L'opération $C_i \leftarrow C_i+\lambda C_j$ transforme la matrice $A$ en 
+%la matrice 
+$A'=\begin{pmatrix}
+C_1&\cdots&\displaystyle C_i+\lambda C_j \text{ (en ième position) }
+&\cdots&C_j&\cdots&C_n\end{pmatrix}$
+
+\change
+Par linéarité par rapport à la colonne $i$, on sait que 
+
+$\det A'=\det A+\lambda \det \begin{pmatrix} C_1&\cdots&C_j&\cdots&C_j&\cdots&C_n
+\end{pmatrix}.$
+
+\change
+Or les colonnes $i$ et $j$ de cette matrice 
+
+sont identiques.
+
+\change
+Son \deter est donc nul. 
+
+\change
+On a bien alors que les \deters des matrices $A$ et $A'$ sont égaux, ce qui conclut la démonstration.
+
+\change
+On déduit de la proposition le corollaire suivant: 
+si une colonne $C_i$ de la matrice $A$ est combinaison linéaire des autres colonnes, alors $\det A=0$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Calculer des \deters n'est pas toujours facile. Mais c'est facile si
+la matrice est triangulaire.
+
+
+Proposition: Le \deter d'une matrice triangulaire supérieure (ou inférieure)
+est égal au produit des termes diagonaux.
+
+\change
+Autrement dit, pour une matrice triangulaire $A = (a_{ij})$  on a que $\det A$ est égal
+
+\change
+au produit $ a_{11}\cdot a_{22} \ \cdots\  a_{nn}.$
+
+\change
+Comme cas particulier important, on obtient le corollaire suivant: 
+le \deter d'une matrice diagonale est égal au produit des termes diagonaux. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Démontrons que pour une matrice triangulaire supérieure
+le \deter est égal au produit des termes diagonaux.
+\\
+Soit donc $A$ une matrice triangulaire supérieure.
+
+\change
+La façon de procéder utilise l'algorithme du pivot de Gauss sur les colonnes.
+
+% (alors qu'il est en général défini sur les lignes).
+
+\change
+Par linéarité par rapport à la première colonne, on peut factoriser par $a_{11}$ 
+et obtenir le \deter suivant
+%$$\det A=a_{11}\left|\begin{matrix}
+%1&a_{12}&a_{13}&\cdots&a_{1n}\\
+%0&{a_{22}}&a_{23}&\cdots&a_{2n}\\
+%0&0&{a_{33}}&\cdots&a_{3n}\\
+%\vdots&\vdots&\vdots&\ddots&\vdots\\
+%0&0&0&\cdots&{a_{nn}}
+%\end{matrix}\right|$$
+\\
+(et si $a_{11}$ est nul, le résultat est encore vrai, de façon évidente).
+
+\change
+On soustrait maintenant de chaque colonne $C_j$, pour $j\ge 2$, la nouvelle colonne $C_1$ multipliée 
+par $-a_{1j}$.
+%C'est l'opération élémentaire $C_j \leftarrow C_j - a_{1j}C_1$. 
+Ceci ne modifie pas le \deter d'après la section précédente,
+
+\change
+et a pour effet de placer des $0$ sur tout le reste de la première ligne.
+
+%Il vient donc
+%$$\det A=a_{11}\left|\begin{matrix}
+%1&0&0&\cdots&0\\
+%0&{a_{22}}&a_{23}&\cdots&a_{2n}\\
+%0&0&{a_{33}}&\cdots&a_{3n}\\
+%\vdots&\vdots&\vdots&\ddots&\vdots\\
+%0&0&0&\cdots&{a_{nn}}
+%\end{matrix}\right|.$$
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Par linéarité par rapport à la deuxième colonne, on factorise par $a_{22}$
+
+et on obtient $det A = a_{11} \times a_{22} \times$ ce nouveau \deter, qui est plus simple.
+%$$\det A=a_{11} \cdot a_{22}\left|\begin{matrix}
+%1&0&0&\cdots&0\\
+%0&1&a_{23}&\cdots&a_{2n}\\
+%0&0&{a_{33}}&\cdots&a_{3n}\\
+%\vdots&\vdots&\vdots&\ddots&\vdots\\
+%0&0&0&\cdots&{a_{nn}}
+%\end{matrix}\right|,$$
+
+
+\change
+et l'on continue ainsi jusqu'à avoir parcouru toutes les colonnes de la matrice.  
+
+Au bout de $n$ étapes, on a obtenu ceci
+
+%$$\det A=a_{11} \cdot a_{22} \cdot a_{33}\cdots{a_{nn}}\left|\begin{matrix}
+%1&0&0&\cdots&0\\
+%0&1&0&\cdots&0\\
+%0&0&1&\cdots&0\\
+%\vdots&\vdots&\vdots&\ddots&\vdots\\
+%0&0&0&\cdots&1
+%\end{matrix}\right|
+%$$
+
+\change
+Ce qui donne finalement que 
+\\
+ $\det A = a_{11} \times a_{22} \times a_{33}\times \cdots \times {a_{nn}} \times \det I_n$
+
+\change
+d'où le résultat, car le \deter de la matrice identité vaut $1$ par définition.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+La démonstration du théorème d'existence du \deter est ardue. Nous allons voir ici, 
+sans le démontrer, le résultat sur lequel est basée cette démonstration. 
+Par ailleurs, l'unicité du \deter, plus difficile, est admise.
+
+Nous avons besoin d'une notation. \\
+Soit $A \in M_n(\Kk)$ une matrice carrée de taille $n \times n$. 
+Il est évident que si l'on supprime une ligne et une colonne dans $A$, 
+la matrice obtenue a $n-1$ lignes et $n-1$ colonnes. 
+
+\change
+On note $A_{i,j}$ la matrice obtenue en supprimant la $i$-ème ligne et la $j$-ème
+colonne de $A$. 
+
+%\change
+%Il s'agit donc de démontrer l'existence d'une application satisfaisant aux conditions (i), (ii), (iii) caractérisant le \deter. 
+
+\change
+Le théorème d'existence peut s'énoncer ainsi.
+
+Les formules suivantes définissent par récurrence, pour $n\ge 1$, 
+une application de $M_n(\Kk)$ dans $\Kk$ qui satisfait aux propriétés
+(i), (ii), (iii) caractérisant le \deter :
+
+\change
+Pour une matrice $1\times 1$, composée d'un seul élément, égal à petit $a$, $\det A = \text{(petit)} a$.
+  
+\change
+(...)
+\newpage
+Et la formule de récurrence :
+
+Si $A=(a_{i,j})$ est une matrice carrée de taille $n \times n$, alors pour tout $i$ fixé
+$$\det A = (-1)^{i+1}a_{i,1}\det A_{i,1} +\dots + (-1)^{i+n}a_{i,n}\det A_{i,n}.$$  
+
+On retrouvera plus loin dans le chapitre cette formule, 
+dite de développement par rapport à une ligne (ici la ligne numéro $i$). 
+Elle nous offre une méthode de calcul par récurrence du \deter d'une matrice
+en fonction de \deters de matrices de taille plus petite.
+\\
+
+La formule donnée ci-dessus semble dépendre du choix d'un indice $i$ de ligne. 
+% On peut se demander ce qui se passerait si l'on prenait une autre valeur de $i$. \\
+Mais grâce à l'unicité du \deter d'une matrice, le résultat est le même, quel que soit l'indice.   
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici enfin quelques petits exercices, pour tester votre compréhension. 
+
+\end{document}

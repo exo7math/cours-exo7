@@ -1,0 +1,430 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={205,100,0}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\title{{\bf Systèmes linéaires}}
+\subtitle{Résolution par la méthode du pivot de Gauss}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Systèmes échelonnés
+    \item<4-> Opérations sur les équations d'un système
+    \item<5-> Méthode du pivot de Gauss
+    \item<6-> Systèmes homogènes  
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Systèmes échelonnés}
+
+
+\begin{frame}
+\begin{mydefinition}~\\
+Un système est \defi{échelonné} si :
+\begin{enumerate}
+  \item le nombre de coefficients nuls commençant une ligne croît strictement ligne après ligne
+\end{enumerate}  
+
+\pause
+
+Il est \defi{échelonné réduit} si en plus : 
+\begin{enumerate}
+\setcounter{enumi}{1} 
+  \item le premier coefficient non nul d'une ligne vaut $1$
+
+  \item et c'est le seul élément non nul de sa colonne
+\end{enumerate}
+\end{mydefinition}
+\pause
+
+
+\begin{itemize}
+  \item $\left\{\begin{array}{cccccc}
+2x_1&+3x_2&+2x_3&-x_4&=&5\\
+&-x_2&-2x_3&&=&4\\
+&&&3x_4&=&1
+\end{array}\right.
+$ est échelonné (non réduit)
+
+\pause  
+  \item $\left\{\begin{array}{cccccc}
+2x_1&+3x_2&+2x_3&-x_4&=&5\\
+&&-2x_3&&=&4\\
+&&x_3&+x_4&=&1
+\end{array}\right.
+$ n'est pas échelonné  
+  
+\end{itemize}
+  
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}
+\label{syslin:exsysechel} 
+\begin{itemize}
+  \item Le système linéaire suivant à $3$ équations et $4$ inconnues est échelonné et réduit
+$$\left\{\begin{array}{cccccc}
+x_1&&+2x_3&&=&25\\
+&x_2&-2x_3&&=&16\\
+&&&x_4&=&1
+\end{array}\right.
+$$
+\pause
+  
+  \item Ce système se résout en
+$$\left\{\begin{array}{ccc}
+x_1&=&25-2x_3\\
+x_2&=&16+2x_3\\
+x_4&=&1
+\end{array}\right.
+$$
+
+\pause
+  
+  \item L'ensemble des solutions :
+$$\mathcal{S}=\big\{(25-2x_3,16+2x_3,x_3,1) \mid x_3\in \Rr \big\}$$
+  
+\end{itemize}
+
+\end{exemple}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Opérations sur les équations d'un système}
+
+
+\begin{frame}
+
+Nous allons utiliser trois opérations
+élémentaires sur les équations : 
+\medskip
+
+\pause
+\begin{enumerate}\setlength{\itemsep}{8pt}
+  \item $L_i \leftarrow \lambda L_i$ avec $\lambda \neq 0$ : 
+  \pause
+  on peut multiplier une équation par un réel non nul
+   
+  \pause
+  \item $L_i \leftarrow L_i+\lambda L_j$ avec $\lambda \in \Rr$ (et $j\neq i$) :
+  \pause
+  on peut ajouter à l'équation $L_i$ un multiple d'une autre équation $L_j$
+  
+  \pause
+  \item $L_i \leftrightarrow L_j$ : 
+  \pause
+  on peut échanger deux équations
+\end{enumerate}
+
+\bigskip
+\pause
+
+Ces opérations élémentaires transforment un système linéaire en un système linéaire équivalent
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple} 
+\[ \left\{
+\begin{array}{cccccr}
+x  & + y & +7z & = & -1 & {\scriptstyle \quad (L_1)}\\
+2x & - y & +5z & = & -5 & {\scriptstyle \quad (L_2)}\\
+-x & -3y & -9z & = & -5 & {\scriptstyle \quad (L_3)}
+\end{array} \right.
+\]
+\pause
+\[\iff \left\{
+\begin{array}{cccccr}
+x  & + y & +7z & = & -1 & \\
+\uncover<4->{   & -3y & -9z & = & -3} & \uncover<3->{\scriptstyle \quad L_2 \leftarrow L_2 - 2L_1}\\
+-x & -3y & -9z & = & -5 & 
+\end{array} \right.
+\]
+\pause\pause\pause
+\[\iff  \left\{
+\begin{array}{cccccr}
+x  & + y & +7z & = & -1 & \\
+   & -3y & -9z & = & -3 & \\
+\uncover<7->{   & -2y & -2z & = & -6} & \uncover<6->{\scriptstyle \quad L_3 \leftarrow L_3 + L_1}
+\end{array} \right.
+\]
+\pause\pause\pause
+\[\iff  \left\{
+\begin{array}{cccccr}
+x  & + y & +7z & = & -1 & \\
+\uncover<9->{   &  y  & +3z & = & 1} & \uncover<8->{\scriptstyle \quad L_2 \leftarrow \ -\frac13 L_2}\\
+   & -2y & -2z & = & -6 & 
+\end{array} \right.
+\]
+
+\end{exemple}
+\end{frame}
+
+\begin{frame}
+\begin{exemple}
+\[ \left\{
+\begin{array}{cccccr}
+x  & + y & +7z & = & -1 & \\
+   &  y  & +3z & = & 1 & \\
+   & -2y & -2z & = & -6 & 
+\end{array} \right.
+\]
+\pause
+\[\iff  \left\{
+\begin{array}{cccccr}
+x  & + y & +7z & = & -1 & \\
+   &  y  & +3z & = & 1 & \\
+\uncover<4->{  &     & 4z  & = & -4}& \uncover<3->{\scriptstyle \quad L_3 \leftarrow L_3+2 L_2}
+\end{array} \right.\]
+\pause\pause\pause
+\[\iff  
+\left\{
+\begin{array}{cccccr}
+x  & + y & +7z & = & -1 & \\
+   &  y  & +3z & = & 1 & \\
+\uncover<7->{   &     & z  & = & -1}& \uncover<6->{\scriptstyle \quad L_3 \leftarrow \frac14L_3}
+\end{array} \right.
+\]
+\pause\pause\pause
+
+$$\mathcal S =\left\{(2,4,-1)\right\}$$	
+\end{exemple}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Méthode du pivot de Gauss}
+
+\begin{frame}
+\hfill\evidence{Méthode du pivot de Gauss}
+
+\uncover<2->{\textbf{\textcolor{myred}{Partie A. Passage à une forme échelonnée}}}
+
+Soit le système à résoudre :
+ \[\left\{\begin{array}{ccccccr}
+ & -x_2 &+2x_3& +13x_4 &=& 5  & \\
+x_1 &-2x_2&+3x_3& +17x_4 &=& 4 & \\
+-x_1& +3x_2    &-3x_3  & -20x_4  &=& -1 & 
+\end{array} \right.\] 
+\pause\pause
+\[\iff \left\{\begin{array}{ccccccr}
+\uncover<5->{x_1 &-2x_2&+3x_3& +17x_4  &=& 4} & \uncover<4->{\scriptstyle \quad L_1 \leftrightarrow L_2} \\
+\uncover<5->{    & -x_2 &+2x_3& +13x_4 &=& 5}  &  \\
+-x_1& +3x_2    &-3x_3  & -20x_4  &=& -1 & 
+\end{array} \right.\] 
+\pause\pause\pause
+\[\iff \left\{\begin{array}{ccccccr}
+x_1 &-2x_2&+3x_3& +17x_4 &=& 4 & \\
+    & -x_2 &+2x_3& +13x_4 &=& 5  &  \\
+\uncover<8->{    & x_2    &  & -3x_4  &=& 3} & \uncover<7->{\scriptstyle \quad L_3 \leftarrow L_3+L_1}
+\end{array} \right.\]
+
+\end{frame}
+
+
+\begin{frame}
+\[\iff 
+\left\{\begin{array}{ccccccr}
+x_1 &-2x_2&+3x_3& +17x_4 &=& 4 & \\
+    & x_2 &-2x_3& -13x_4 &=& -5  &  {\scriptstyle \quad L_2 \leftarrow \ -L_2}\\
+    & x_2    &  & -3x_4  &=& 3 & 
+\end{array} \right.
+ \] 
+ \pause
+\[
+\iff \left\{\begin{array}{ccccccr}
+x_1 &-2x_2&+3x_3& +17x_4 &=& 4 & \\
+    & x_2 &-2x_3& -13x_4 &=& -5  & \\
+\uncover<4->{    &     & 2x_3 & +10x_4  &=& 8} & \uncover<3->{\scriptstyle \quad L_3 \leftarrow L_3 -L_2}
+\end{array} \right.\]
+\pause\pause\pause
+\[
+\iff \left\{\begin{array}{ccccccr}
+x_1 &-2x_2&+3x_3& +17x_4 &=& 4 & \\
+    & x_2 &-2x_3& -13x_4 &=& -5  & \\
+ \uncover<7->{   &     & x_3 & +5x_4  &=& 4}  & \uncover<6->{\scriptstyle \quad L_3 \leftarrow \frac12 L_3}
+\end{array} \right. \] 
+
+ 
+\end{frame}
+
+\begin{frame}
+\textbf{\textcolor{myred}{Partie B. Passage à une forme réduite}}
+\[
+\left\{\begin{array}{ccccccr}
+x_1 &-2x_2&+3x_3& +17x_4 &=& 4 & \\
+    & x_2 &-2x_3& -13x_4 &=& -5  & \\
+    &     & x_3 & +5x_4  &=& 4  &
+\end{array} \right. \] 
+\pause
+\[\iff \left\{\begin{array}{ccccccr}
+x_1 &-2x_2&+3x_3& +17x_4 &=& 4 & \\
+\uncover<4->{   & x_2 &     & -3x_4  &=& 3} & \uncover<3->{\scriptstyle \quad L_2 \leftarrow L_2 + 2L_3}\\
+    &     & x_3 & +5x_4  &=& 4  &
+\end{array} \right.\]
+\pause\pause\pause
+\[\iff \left\{\begin{array}{ccccccr}
+\uncover<7->{x_1 &-2x_2&     & 2x_4 &=& -8} & \uncover<6->{\scriptstyle \quad L_1 \leftarrow L_1 -3 L_3}\\
+    & x_2 &     & -3x_4 &=& 3  & \\
+    &     & x_3 & +5x_4  &=& 4  &
+\end{array} \right. \] 
+\pause\pause\pause
+\[\iff \left\{\begin{array}{ccccccr}
+\uncover<10->{x_1 &     &     & -4x_4 &=& -2} & \uncover<9->{\scriptstyle \quad L_1 \leftarrow L_1 + 2L_2}\\
+    & x_2 &     & -3x_4 &=& 3  & \\
+    &     & x_3 & +5x_4 &=& 4  & 
+\end{array} \right. \]
+
+\end{frame}
+
+\begin{frame}
+
+\textbf{\textcolor{myred}{Partie C. Solutions}}
+
+	\[\left\{\begin{array}{ccccccr}
+x_1 &     &     & -4x_4 &=& -2 & \\
+    & x_2 &     & -3x_4 &=& 3  & \\
+    &     & x_3 & +5x_4 &=& 4  & 
+\end{array} \right. \]
+\pause
+
+$$\iff \quad x_1=4x_4-2, \quad x_2 = 3x_4+3,\quad x_3=-5x_4+4$$
+\pause
+
+$$\mathcal{S}= \Big\lbrace (4x_4-2,3x_4+3,-5x_4+4,x_4) \mid x_4 \in \Rr \Big\rbrace$$
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Systèmes homogènes}
+
+\begin{frame}
+\begin{theoreme}
+Tout système \evidence{homogène} d'équations linéaires dont le nombre d'inconnues est strictement 
+plus grand que le nombre d'équations a une infinité de solutions
+\end{theoreme}
+\pause
+
+\[\left\{
+ \begin{array}{ccccccccccc}
+3x_1 &+ &3x_2 &- &2x_3 &&&- &x_5 & = & 0\\
+ -x_1 &- &x_2 &+ &x_3 &+ &3x_4 &+ &x_5 & = & 0\\
+ 2x_1 &+ &2x_2 &- &x_3 &+ &2x_4 &+ &2x_5 & = & 0\\
+ &&&&x_3 &+ &8x_4 &+ &4x_5 & = & 0
+\end{array} \right.
+\] 
+\pause
+\[ \iff \left\{
+\begin{array}{ccccccccc}
+x_1 &+ &x_2 &&& + &13x_5 & = & 0\\
+&&&x_3 & &+ &20x_5 & = & 0\\
+&&&&x_4  &-&2x_5 & = & 0
+\end{array} \right.
+\]
+\pause
+$$\mathcal{S}= \Big\lbrace (-x_2-13x_5, x_2,-20x_5, 2x_5, x_5) \mid x_2,x_5 \in \Rr \Big\rbrace$$
+
+
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item \'Ecrire un système linéaire à $4$ équations et $5$ inconnues qui soit
+  échelonné mais pas réduit. Idem avec échelonné, non réduit, dont tous les coefficients sont
+  $0$ ou $+1$. Idem avec échelonné et réduit.
+  
+ \item Résoudre les systèmes échelonnés suivants :
+$\left \{ \begin{array}{cccccc}
+2x_1 & -x_2&      & +x_4 &=& 1 \\
+    & x_2 & +x_3 &-2x_4 &=& 3 \\
+    &     & 2x_3 & +x_4 &=& 4 \\
+    &     &      & x_4  &=& -2 \\ 
+\end{array} \right.$ 
+
+$\left \{ \begin{array}{cccccc}
+x_1 & +x_2&      & +x_4 &=& 0 \\
+    & x_2 & +x_3 &     &=& 0 \\
+    &     & 2x_3 & +x_4 &=& 0 \\
+\end{array} \right.$ \qquad
+$\left \{ \begin{array}{cccccc}
+x_1 & +2x_2&      & +x_4   &=& 0 \\
+    &     & 2x_3 & -3x_4 &=& 0 \\
+\end{array} \right.$ 
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}\setcounter{enumi}{2} 
+  \item Si l'on passe d'un système $(S)$ par une des trois opérations élémentaires à un système
+  $(S')$, alors quelle opération permet de passer de $(S')$ à $(S)$ ?
+    
+  \item Résoudre les systèmes linéaires suivants par la méthode du pivot :
+  $$\left\{
+\begin{array}{ccccccc}
+2x   &+&  y    &+&   z  &=&  3 \\
+x    &-&  y    &+&   3z &=&  8 \\
+x    &+&  2y   &-&   z  &=&  -3
+\end{array}\right. \qquad
+\left\{
+\begin{array}{ccccccccc} 
+2x_1 & + & 4x_2 & - & 6x_3 & - & 2x_4 & = & 2\\
+3x_1 & + & 6x_2 & - & 7x_3 & + & 4x_4 &= & 2\\
+5x_1 & + & 10 x_2 & - & 11 x_3 & + & 6x_4 &   = & 3
+\end{array}
+ \right.
+$$
+
+\vspace*{-2ex}
+  
+  \item Résoudre le système suivant, selon les valeurs de $a,b \in \Rr$ :
+$\left \{ \begin{array}{ccccc}
+x  & +y &-z   &=& a \\
+-x &    & +2z &=& b \\
+   & 2y & +2z &=& 4 \\
+\end{array} \right.$
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

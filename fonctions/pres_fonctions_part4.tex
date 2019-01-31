@@ -1,0 +1,279 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={66,15,15}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcounter{saveenumi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Limites et fonctions continues}}
+\subtitle{Continuité sur un intervalle}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Théorème des valeurs intermédiaires
+    \item<4-> Fonctions continues sur un segment
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Le théorème des valeurs intermédiaires}
+
+\begin{frame}
+\begin{theoreme}[des valeurs intermédiaires]
+Soit $f:[a,b]\to\Rr$ une fonction continue. 
+Pour tout réel $y$ compris entre $f(a)$ et $f(b)$, il existe $c\in[a,b]$ tel que $y=f(c)$
+\end{theoreme}
+
+\pause
+\myfigure{.72}{
+\tikzinput{fig_fonctions7}\pause
+\tikzinput{fig_fonctions8}
+}
+  
+\end{frame}
+
+
+
+\begin{frame}
+\begin{proof}
+Supposons $f(a)\leq y\leq f(b)$\pause
+
+\begin{enumerate}
+\item On pose
+$
+A=\Big\{ x\in [a,b] \ \vert \ f(x)\leq y \Big\}
+$
+
+\pause\onslide<4->
+$A\neq \varnothing$ et $A$ majoré \pause\onslide<5-> $\implies$ il existe $c=\sup A$ 
+
+\pause\onslide<6->
+Montrons que $f(c)=y$
+
+\setcounter{saveenumi}{\theenumi}
+\end{enumerate}
+
+\pause\onslide<3->
+\myfigure{.7}{
+\tikzinput{fig_fonctions9}
+}
+
+\end{proof}  
+\end{frame}
+
+
+\begin{frame}
+\begin{proof}
+\begin{enumerate}
+  \setcounter{enumi}{\thesaveenumi}
+ \item \pause \emph{$f(c)\leq y$ ?}
+   \begin{itemize}
+    \item\pause $c=\sup A\implies$ il existe $(u_n) \subset A$ telle que $u_n\to c$
+    \item\pause $u_n\in A\implies f(u_n)\leq y$
+    \item\pause $f$ continue en $c$ $\implies f(u_n)\to f(c)\pause \implies f(c)\leq y$
+  \end{itemize}
+  
+\item\pause \emph{$f(c)\geq y$ ? }
+   \begin{itemize}
+    \item\pause si $c=b$, on a fini
+    \item\pause si $c<b$, alors $\forall x\in]c,b] \quad f(x)>y $ \pause et donc $ f(c)\geq y$
+  \end{itemize}   
+\end{enumerate}
+\end{proof}
+
+\onslide<1->
+\myfigure{.55}{
+\tikzinput{fig_fonctions9}
+}
+ 
+  
+  
+\end{frame}
+
+
+
+
+%---------------------------------------------------------------
+\section{Applications du théorème des valeurs intermédiaires}
+
+\begin{frame}
+
+\begin{corollaire}
+Soit $f:[a,b]\to\Rr$ une fonction continue
+ 
+ \pause
+\mybox{Si $f(a)\cdot f(b)<0$, alors il existe $c\in]a,b[$ tel que $f(c)=0$}
+\end{corollaire}
+
+\pause
+Démonstration : TVI avec $y=0$
+
+\pause
+\myfigure{.8}{
+\tikzinput{fig_fonctionsA16}
+} 
+ 
+\end{frame}
+
+
+
+\begin{frame}
+
+\hfill \emph{Tout polynôme de degré impair possède au moins une racine réelle}
+
+\myfigure{0.4}{
+\tikzinput{fig_fonctionsA17}
+}
+\vspace*{-3ex}
+\begin{itemize}
+\item\pause $P(x)=a_nx^n+\cdots+a_1x+a_0$ avec $n$ un entier impair et $a_n>0$
+\item\pause Alors 
+$\displaystyle\lim_{-\infty} P = -\infty$ et $\displaystyle\lim_{+\infty} P = +\infty$
+\item\pause Donc il existe $a,  b\in \Rr$ tels que $P(a)<0$ et $P(b)>0$
+\item\pause Par le TVI la fonction $x\mapsto P(x)$ s'annule
+\end{itemize}
+
+  
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{corollaire}
+Si $f$ est continue sur un intervalle $I$, alors $f(I)$ est un intervalle
+\end{corollaire}
+
+\pause
+
+Attention ! $f\left([a,b]\right) \neq [f(a),f(b)]$
+
+\pause
+
+\myfigure{1}{
+\tikzinput{fig_fonctionsA18}
+}
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{corollaire}
+Si $f$ est continue sur un intervalle $I$, alors $f(I)$ est un intervalle
+\end{corollaire}
+
+\begin{proof}
+\begin{itemize}
+\item\pause Soient $y_1,y_2\in f(I)$, $y_1\leq y_2$
+
+A démontrer :  $[y_1,y_2]\subset f(I)$
+
+\item\pause Par hypothèse :  $y_1 =f(x_1)$, $y_2 =f(x_2)$, avec $x_1,x_2\in I$
+
+\item\pause 
+  \begin{itemize}
+    \item Donc tout $y\in [y_1,y_2]$ est compris entre $f(x_1)$ et $f(x_2)$
+\pause    
+    \item D'après le TVI, comme $f$ est continue, il existe donc $x\in I$ tel que $y=f(x)$
+\pause    
+    \item et ainsi $y\in f(I)$
+  \end{itemize}
+\end{itemize}
+\end{proof}
+  
+\end{frame}
+
+
+
+
+%---------------------------------------------------------------
+\section{Fonctions continues sur un segment}
+
+\begin{frame}
+
+\begin{theoreme}
+Soit $f:[a,b]\to\Rr$ une fonction continue
+
+ 
+Alors il existe $m, M\in \Rr$ tels que $f([a,b])=[m,M]$ 
+\end{theoreme}
+\pause
+\medskip
+
+
+\begin{minipage}{0.5\textwidth}
+\myfigure{0.8}{
+\tikzinput{fig_fonctionsA20}
+}  
+\end{minipage} \pause
+\begin{minipage}{0.49\textwidth}
+<< L'image d'un segment par une fonction continue est un segment >>  
+\end{minipage}
+
+
+
+\pause
+\vspace{.3cm}
+%$f([a,b])$ étant un intervalle, ce théorème signifie 
+\vspace{-.2cm}
+\mybox{
+\begin{tabular}{c}
+<< Si $f$ est continue sur $[a,b]$\\ 
+alors $f$ est bornée sur $[a,b]$ et elle atteint ses bornes >>
+\end{tabular}}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Soient $P(x)=x^5-3x-2$ et $f(x)=x2^x-1$ deux fonctions définies sur $\Rr$. Montrer que
+   l'équation $P(x)=0$ a au moins une racine dans $[1,2]$ ;
+   l'équation $f(x)=0$ a au moins une racine dans $[0,1]$ ;
+   l'équation $P(x)=f(x)$ a au moins une racine dans $]0,2[$.
+  
+  \item Montrer qu'il existe $x>0$ tel que $2^x+3^x=5^x$.
+  
+  \item Dessiner le graphe d'une fonction continue $f : \Rr \to \Rr$ telle que $f(\Rr) = [0,1]$.
+  Puis $f(\Rr)=]0,1[$ ; $f(\Rr) = [0,1[$ ; $f(\Rr)= ]-\infty,1]$, $f(\Rr)= ]-\infty,1[$.
+  
+  \item Soient $f,g : [0,1] \to \Rr$ deux fonctions continues. Lesquelles des fonctions suivantes
+  sont à coup sûr bornées : $f+g$, $f\times g$, $f/g$ ?  
+  
+  \item Soient $f$ et $g$ deux fonctions continues sur $[0,1]$ telles que $\forall x\in [0,1] \ f(x)<g(x)$. 
+  Montrer qu'il existe $m>0$ tel que $\forall x\in [0,1] \ f(x)+m<g(x)$. Ce résultat 
+  est-il vrai si on remplace $[0,1]$ par $\Rr$ ?
+  
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

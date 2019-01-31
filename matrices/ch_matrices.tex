@@ -1,0 +1,2323 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Matrices}
+%====================================================================
+
+\insertvideo{Sdg9O-HqSN0}{partie 1. Définition}
+
+\insertvideo{rxz6nYDwE1Q}{partie 2. Multiplication de matrices}
+
+\insertvideo{a5XQKEQnf_Y}{partie 3. Inverse d'une matrice : définition}
+
+\insertvideo{DalK5o-DHB4}{partie 4. Inverse d'une matrice : calcul}
+
+\insertvideo{G6R50olUptI}{partie 5. Inverse d'une matrice : systèmes linéaires et matrices élémentaires}
+
+\insertvideo{IWqJaBkENoQ}{partie 6. Matrices triangulaires, transposition, trace, matrices symétriques}
+
+\insertfiche{fic00157.pdf}{Calculs sur les matrices}
+
+\bigskip
+\bigskip
+\bigskip
+
+
+Les matrices sont des tableaux de nombres. La résolution d'un
+certain nombre de problèmes d'algèbre linéaire se ramène
+à des manipulations sur les matrices. Ceci est vrai en particulier
+pour la résolution des systèmes linéaires.
+
+\medskip
+
+\noindent{\bf Dans ce chapitre, $\Kk$ désigne un corps. On peut penser à $\Qq$, $\Rr$ ou $\Cc$.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définition}
+
+
+%---------------------------------------------------------------
+\subsection{Définition}
+
+\begin{definition}
+\sauteligne
+\begin{itemize}
+  \item Une \defi{matrice}\index{matrice} $A$ est un tableau rectangulaire
+d'éléments de $\Kk$.
+  \item Elle est dite de \defi{taille} $n \times p$ si le tableau
+possède $n$ lignes et $p$ colonnes.
+  \item Les nombres du tableau sont appelés les \defi{coefficients} de $A$.
+  \item Le coefficient situé à  la $i$-ème ligne et à la $j$-ème colonne
+  est noté $a_{i,j}$.
+\end{itemize}
+\end{definition}
+
+
+ Un tel tableau est représenté de la manière suivante :
+$$A=\begin{pmatrix}
+a_{1,1}& a_{1,2}& \dots & a_{1,j}& \dots & a_{1,p}\cr
+a_{2,1}& a_{2,2}& \dots & a_{2,j}& \dots &a_{2,p}\cr
+\dots & \dots & \dots & \dots & \dots & \dots \cr
+a_{i,1}& a_{i,2} & \dots & a_{i,j}& \dots &a_{i,p} \cr
+\dots & \dots & \dots & \dots & \dots & \dots \cr
+a_{n,1}& a_{n,2}& \dots & a_{n,j}& \dots & a_{n,p}\cr
+\end{pmatrix}
+\quad \text{ ou } \quad
+A= \big(a_{i,j}\big)_{\substack{1\leq i \leq n \\ 1\leq j \leq p}}
+\quad \text{ ou } \quad
+\big(a_{i,j}\big).
+$$
+
+\begin{exemple}
+$$ A  =  \left(
+ \begin{array}{ccc}
+1 & -2 & 5\\
+0 & 3  & 7
+\end{array}
+\right)$$
+est une matrice $2\times 3$ avec, par exemple, $a_{1,1}=1$ et $a_{2,3}=7$.
+ \end{exemple}
+
+Encore quelques définitions :
+\begin{definition}
+\sauteligne
+\begin{itemize}
+
+  \item Deux matrices sont \defi{égales} lorsqu'elles ont la même taille
+  et que les coefficients correspondants sont égaux.
+
+  \item L'ensemble des matrices à $n$ lignes et $p$ colonnes à
+coefficients dans $\Kk$ est noté $M_{n,p}(\Kk)$.
+Les éléments de $M_{n,p}(\mathbb{R})$ sont appelés
+\defi{matrices réelles}.
+\end{itemize}
+\end{definition}
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Matrices particulières}
+
+Voici quelques types de matrices intéressantes :
+
+\begin{itemize}
+  \item Si $n=p$ (même nombre de lignes que de colonnes), la matrice est dite 
+  \defi{matrice carrée}\index{matrice!carrée}.
+  On note $M_{n}(\Kk)$ au lieu de $M_{n,n}(\Kk)$.
+
+  \[
+\begin{pmatrix}
+ {\color{myred}a_{1,1}} & a_{1,2} & \dots & a_{1,n}\\
+ a_{2,1} & {\color{myred}a_{2,2}} & \dots & a_{2,n}\\
+ \vdots& \vdots & {\color{myred}\ddots}  & \vdots\\
+ a_{n,1} & a_{n,2} & \dots & {\color{myred}a_{n,n}}
+\end{pmatrix}
+ \]
+
+ Les éléments $a_{1,1}, a_{2,2}, \ldots, a_{n,n}$ forment la \defi{diagonale principale}\index{diagonale}
+ de la matrice.
+
+  \item  Une matrice qui n'a qu'une seule ligne ($n=1$) est appelée \defi{matrice ligne}
+  ou \defi{vecteur ligne}. On la note
+$$A=\begin{pmatrix}
+a_{1,1}& a_{1,2}&  \ldots & a_{1,p}\cr
+\end{pmatrix}.$$
+
+  \item De même, une matrice qui n'a qu'une seule colonne ($p=1$) est appelée \defi{matrice
+colonne} ou \defi{vecteur colonne}. On la note
+$$A=\begin{pmatrix}
+a_{1,1}\cr
+a_{2,1}\cr
+\enspace \vdots \hfill \cr
+a_{n,1}\cr
+\end{pmatrix}.$$
+
+
+  \item La matrice (de taille $n\times p$) dont tous les coefficients sont des zéros
+est appelée la \defi{matrice nulle} et est notée $0_{n,p}$ ou plus simplement $0$.
+Dans le calcul matriciel, la matrice nulle joue le rôle du nombre $0$ pour les réels.
+
+\end{itemize}
+
+
+%---------------------------------------------------------------
+\subsection{Addition de matrices}
+
+
+\begin{definition}[Somme de deux matrices]
+Soient $A$ et $B$ deux matrices ayant la même taille $n\times p$.
+Leur \defi{somme} $C=A+B$ est la matrice de taille $n\times p$ définie par
+\[c_{ij}=a_{ij}+b_{ij}.\]
+\end{definition}
+
+En d'autres termes, on somme coefficients par coefficients.
+Remarque : on note indifféremment $a_{ij}$ où $a_{i,j}$
+pour les coefficients de la matrice $A$.
+
+
+\begin{exemple}
+$$\text{Si} \qquad
+A  =  \begin{pmatrix}
+3 & -2\\
+1 & 7
+\end{pmatrix}
+\qquad \text{et} \qquad
+B = \begin{pmatrix}
+0 & 5 \\
+2 & -1
+    \end{pmatrix}
+\qquad \text{alors} \qquad A + B = \begin{pmatrix}
+3 & 3\\
+3 & 6
+\end{pmatrix}.
+$$
+$$
+\text{Par contre si } \qquad
+B' =  \begin{pmatrix}
+-2\\8  \end{pmatrix}
+\qquad \text{ alors } \quad A+B' \quad \text{ n'est pas définie.}
+$$
+\end{exemple}
+
+
+\begin{definition}[Produit d'une matrice par un scalaire]
+Le produit d'une matrice $A=\big(a_{ij}\big)$ de $M_{n,p}(\Kk)$
+par un scalaire $\alpha \in \Kk$ est la matrice
+$\big(\alpha a_{ij}\big)$ formée en
+multipliant chaque coefficient de $A$ par $\alpha$. Elle est notée $\alpha \cdot A$ (ou simplement $\alpha A$).
+\end{definition}
+
+\begin{exemple}
+$$
+\text{Si} \qquad
+A  = \begin{pmatrix}
+1& 2 & 3\cr
+0& 1& 0\cr
+\end{pmatrix}
+\qquad \text{et} \qquad \alpha = 2
+\qquad \text{alors} \qquad
+\alpha A =
+\begin{pmatrix}
+2& 4 & 6\cr
+0& 2& 0\cr
+\end{pmatrix}.$$
+\end{exemple}
+
+
+
+La matrice $(-1)A$ est l'\defi{opposée} de $A$ et est notée $-A$.
+La \defi{différence} $A-B$ est définie par $A + (-B)$.
+
+\begin{exemple}
+$$\text{Si} \quad A =  \begin{pmatrix}
+2 & -1 & 0\\
+4 & -5 & 2
+\end{pmatrix}
+\quad \text{et} \quad
+B  =  \begin{pmatrix}
+-1 & 4 & 2\\
+7 & -5 & 3
+\end{pmatrix}
+\quad \text{alors} \quad
+A-B  = \begin{pmatrix}
+3 & -5 & -2\\
+-3 & 0 & -1
+\end{pmatrix}.$$
+\end{exemple}
+
+L'addition et la multiplication par un scalaire se comportent sans surprises :
+\begin{proposition}
+Soient $A$, $B$ et $C$ trois matrices appartenant à $M_{n,p}(\Kk)$.
+Soient $\alpha \in \Kk$ et $\beta \in \Kk$ deux scalaires.
+\begin{enumerate}
+  \item $A + B = B + A$ : la somme est commutative,
+  \item $A + (B+C) = (A + B) + C$ : la somme est associative,
+  \item $A + 0 = A$ : la matrice nulle est l'élément neutre de l'addition,
+  \item $(\alpha + \beta )A =\alpha A + \beta A$,
+  \item $\alpha (A+B)=\alpha A + \alpha B$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Prouvons par exemple le quatrième point.
+Le terme général de $(\alpha + \beta ) A $ est égal à
+$(\alpha + \beta)a_{ij}$. D'après les règles de calcul dans $\Kk$,
+$(\alpha + \beta)a_{ij}$ est égal à  $\alpha a_{ij}+ \beta a_{ij}$
+qui est le terme général de la matrice $\alpha A + \beta A$.
+\end{proof}
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soient
+  $A=\left(\begin{smallmatrix}-7&2\\0&-1\\1&-4\end{smallmatrix}\right)$,
+  $B=\left(\begin{smallmatrix}1&2&3\\2&3&1\\3&2&1\end{smallmatrix}\right)$,
+  $C=\left(\begin{smallmatrix}21&-6\\0&3\\-3&12\end{smallmatrix}\right)$,
+  $D=\frac12\left(\begin{smallmatrix}1&0&1\\0&1&0\\1&1&1\end{smallmatrix}\right)$,
+  $E=\left(\begin{smallmatrix}1&2\\-3&0\\-8&6\end{smallmatrix}\right)$.
+  Calculer toutes les sommes possibles de deux de ces matrices.
+  Calculer $3A+2C$ et $5B-4D$. Trouver $\alpha$ tel que $A-\alpha C$ soit la matrice nulle.
+
+  \item Montrer que si $A+B=A$, alors $B$ est la matrice nulle.
+
+  \item Que vaut $0\cdot A$ ? et $1\cdot A$ ? Justifier l'affirmation : $\alpha(\beta A) = (\alpha\beta)A$.
+  Idem avec $nA = A+A+\cdots+A$ ($n$ occurrences de $A$).
+
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Multiplication de matrices}
+
+%---------------------------------------------------------------
+\subsection{Définition du produit}
+
+
+Le produit $AB$ de deux matrices $A$ et $B$ est défini si et seulement si le nombre de colonnes de
+$A$ est égal au nombre de lignes de $B$.
+
+\begin{definition}[Produit de deux matrices]
+\index{matrice!produit}
+Soient $A=(a_{ij})$ une matrice $n\times p$ et $B=(b_{ij})$ une matrice $p\times q$.
+Alors le produit $C=AB$ est une matrice $n\times q$ dont les coefficients $c_{ij}$
+sont définis par :
+
+\mybox{$\displaystyle
+c_{ij} = \sum_{k=1}^p a_{ik}b_{kj}
+$}
+\end{definition}
+
+On peut écrire le coefficient de façon plus développée, à savoir :
+$$c_{ij}=a_{i1}b_{1j}+a_{i2}b_{2j}+ \dots +
+a_{ik}b_{kj}+ \dots + a_{ip}b_{pj}.$$
+
+
+Il est commode de disposer les calculs de la
+façon suivante.
+
+$$\begin{array}{ccl}
+&\begin{pmatrix}
+&&&{\color{myred}\times}&&\\
+&&&{\color{myred}\times}&&\\
+\hphantom{-}&\hphantom{-}&\hphantom{-}&{\color{myred}\times}&\hphantom{-}&\hphantom{-}\\
+&&&{\color{myred}\times}&&
+\end{pmatrix}&\leftarrow B\\
+A\to\begin{pmatrix}
+&&&\\
+&&&\\
+{\color{myred}\times}&{\color{myred}\times}&{\color{myred}\times}&{\color{myred}\times}\\
+&&&
+\end{pmatrix}
+&\begin{pmatrix}
+&&&|&&\\
+&&&|&&\\
+-&-&-&{\color{blue}c_{ij}}&\hphantom{-}&\hphantom{-}\\
+&&&&&
+\end{pmatrix}&\leftarrow AB\\
+\end{array}
+$$
+
+
+Avec cette disposition, on considère d'abord la ligne
+de la matrice $A$ située à gauche du coefficient que l'on veut
+calculer (ligne représentée par des $\times $ dans $A$)
+et aussi la colonne de la matrice $B$ située au-dessus du coefficient
+que l'on veut calculer (colonne représentée par des ${\color{myred}\times}$ dans $B$).
+On calcule le produit du premier coefficient de la ligne par le premier coefficient
+de la colonne ($a_{i1} \times b_{1j}$), que l'on ajoute au produit du deuxième coefficient de la ligne par le deuxième coefficient
+de la colonne ($a_{i2} \times b_{2j}$), que l'on ajoute au produit du troisième\ldots
+
+
+
+%---------------------------------------------------------------
+\subsection{Exemples}
+
+\begin{exemple}
+$$A =\begin{pmatrix}
+1 & 2 & 3\cr
+2 & 3 & 4\cr
+\end{pmatrix}\qquad B =
+\begin{pmatrix}
+1&2\cr
+-1&1 \cr
+1&1\cr
+\end{pmatrix}
+$$
+
+
+On dispose d'abord le produit correctement (à gauche) : la matrice obtenue
+est de taille $2\times2$.
+Puis on calcule chacun des coefficients,
+en commençant par le premier coefficient $c_{11} = 1\times 1\ +\ 2\times(-1)\ +\ 3\times1=2$ (au milieu),
+puis les autres (à droite).
+
+$$\begin{array}{cc}
+  &  \begin{pmatrix}
+1&2\cr
+-1&1 \cr
+1&1\cr
+\end{pmatrix} \\
+\begin{pmatrix}
+1 & 2 & 3\cr
+2 & 3& 4\cr
+\end{pmatrix}
+   &\!\!
+ \begin{pmatrix} c_{11} & c_{12} \\ c_{21} & c_{22} \end{pmatrix}
+  \end{array}
+   \quad
+ \begin{array}{cc}
+  & \begin{pmatrix}
+{\color{myred}1}&2\cr
+{\color{myred}-1}&1 \cr
+{\color{myred}1}&1\cr
+\end{pmatrix}  \\
+\begin{pmatrix}
+{\color{myred}1} & {\color{myred}2} & {\color{myred}3}\cr
+2 & 3& 4\cr
+\end{pmatrix}
+   &\!\! \begin{pmatrix} {\color{blue}2} & c_{12} \\ c_{21} & c_{22} \end{pmatrix}
+  \end{array}
+  \quad
+ \begin{array}{cc}
+  &
+\begin{pmatrix}
+1&2\cr
+-1&1 \cr
+1&1\cr
+\end{pmatrix}\\
+\begin{pmatrix}
+1 & 2 & 3\cr
+2 & 3& 4\cr
+\end{pmatrix}
+   &\!\! \begin{pmatrix} 2 & 7 \cr 3 & 11 \end{pmatrix}
+  \end{array}
+ $$
+
+
+\end{exemple}
+
+\bigskip
+
+Un exemple intéressant est le produit d'un vecteur ligne par un vecteur colonne :
+$$u = \begin{pmatrix} a_1 & a_2 & \cdots & a_n \end{pmatrix} \quad
+v = \begin{pmatrix} b_1 \\ b_2 \\ \vdots \\ b_n \end{pmatrix}$$
+Alors $u \times v$ est une matrice de taille $1\times 1$ dont l'unique coefficient est
+$a_1 b_1 + a_2 b_2 + \cdots + a_n b_n$.
+Ce nombre s'appelle le \defi{produit scalaire}\index{produit scalaire} des vecteurs $u$ et $v$.
+
+\medskip
+
+Calculer le coefficient $c_{ij}$ dans le produit $A\times B$
+revient donc à calculer le produit scalaire des vecteurs formés
+par la $i$-ème ligne de $A$ et la $j$-ème colonne de $B$.
+
+
+%---------------------------------------------------------------
+\subsection{Pièges à éviter}
+
+\textbf{Premier piège. Le produit de matrices n'est pas commutatif en général.}
+
+En effet, il se peut que $AB$ soit défini mais pas $BA$, ou que $AB$ et $BA$
+soient tous deux définis mais pas de la même taille.
+Mais même dans le cas où $AB$ et $BA$ sont définis et de la même taille, on a en général $AB\neq BA$.
+
+\begin{exemple}
+$$\begin{pmatrix}
+5&1\\3&-2
+\end{pmatrix}
+\begin{pmatrix}
+2&0\\4&3
+\end{pmatrix}=
+\begin{pmatrix}
+14&3\\-2&-6
+\end{pmatrix}
+\qquad \text{ mais } \qquad
+\begin{pmatrix}
+2&0\\4&3
+\end{pmatrix}
+\begin{pmatrix}
+5&1\\3&-2
+\end{pmatrix}=
+\begin{pmatrix}
+10&2\\29&-2
+\end{pmatrix}.
+$$
+\end{exemple}
+
+\bigskip
+
+\textbf{Deuxième piège. $AB=0$ n'implique pas $A=0$ ou $B=0$.}
+
+Il peut arriver que le produit de deux matrices non nulles soit nul.
+En d'autres termes, on peut avoir $A \neq 0$ et $B \neq 0$ mais $AB  =  0$.
+\begin{exemple}
+$$
+A  = \begin{pmatrix}
+ 0 & -1\\
+ 0 & 5\end{pmatrix}\qquad B  =
+\begin{pmatrix}
+2 & -3\\
+0 & 0 \end{pmatrix}
+\qquad \text{et} \qquad
+ AB  =  \begin{pmatrix}
+ 0 & 0\\
+ 0 & 0\end{pmatrix}.
+$$
+\end{exemple}
+
+\bigskip
+
+
+\textbf{Troisième piège. $AB=AC$ n'implique pas $B=C$.}
+On peut avoir $AB  = AC$ et $B \neq C$.
+
+\begin{exemple}
+$$
+ A  =  \begin{pmatrix}
+ 0 & -1\\
+ 0 & 3\end{pmatrix}
+ \qquad
+ B  = \begin{pmatrix}
+4 & -1\\
+5 & 4 \end{pmatrix}
+ \qquad
+ C  = \begin{pmatrix}
+ 2 & 5\\
+ 5 & 4\end{pmatrix}
+ \quad  \text{et}  \quad
+ AB  = AC = \begin{pmatrix}
+  -5 & -4\\
+  15 & 12\end{pmatrix}.
+$$
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Propriétés du produit de matrices}
+
+Malgré les difficultés soulevées au-dessus, le produit vérifie les propriétés suivantes :
+\begin{proposition}
+\sauteligne
+\begin{enumerate}
+  \item $A (BC) = (AB) C$ : associativité du produit,
+
+  \item $A(B+C) = AB + AC$ \quad et \quad  $(B+C) A = BA + CA$ : distributivité du produit par rapport à la somme,
+
+  \item $A\cdot 0 = 0$ \quad et \quad $0\cdot A= 0$.
+\end{enumerate}
+\end{proposition}
+
+
+\begin{proof}
+Posons $A=(a_{ij}) \in M_{n,p}(\Kk)$, $B=(b_{ij})\in M_{p,q}(\Kk)$
+et $C=(c_{ij})\in M_{q,r}(\Kk)$.
+Prouvons que $A(BC) = (AB) C$ en montrant que les matrices $A(BC)$ et $(AB) C$
+ont les mêmes coefficients.
+
+Le terme d'indice $(i,k)$ de la matrice $AB$ est
+$x_{ik}={\displaystyle \sum_{\ell=1}^{p}}a_{i \ell}b_{\ell k}$.
+Le terme d'indice $(i,j)$ de la matrice $(AB)C$ est donc
+$$ \sum_{k=1}^{q}x_{ik}c_{kj}=\sum_{k=1}^{q}
+\left ( \sum_{\ell=1}^{p}a_{i\ell}b_{\ell k} \right )c_{kj}.$$
+Le terme d'indice $(\ell,j)$ de la matrice $BC$ est
+$y_{\ell j}={\displaystyle \sum_{k=1}^{q}}b_{\ell k}c_{kj}$.
+Le terme d'indice $(i,j)$ de la matrice $A(BC)$ est donc
+$$\sum_{\ell=1}^{p}a_{i\ell}\left (  \sum_{k=1}^{q}b_{\ell k}c_{kj}\right ).$$
+Comme dans $\Kk$ la multiplication est distributive et associative,
+les coefficients de $(AB)C$ et $A(BC)$ coïncident.
+Les autres démonstrations se font comme celle de l'associativité.
+\end{proof}
+
+%---------------------------------------------------------------
+\subsection{La matrice identité}
+
+
+La matrice carrée suivante s'appelle la \defi{matrice identité}\index{matrice!identité} :
+ \[
+ I_n = \left(
+ \begin{array}{cccc}
+1 & 0 & \dots & 0\\
+0& 1& \dots & 0\\
+ \vdots& \vdots & \ddots  & \vdots\\
+0 & 0 & \dots &1
+\end{array}
+\right)
+ \]
+
+Ses éléments diagonaux sont égaux à $1$ et tous ses autres éléments sont égaux à $0$.
+Elle se note $I_n$ ou simplement $I$.
+Dans le calcul matriciel, la matrice identité joue un rôle
+analogue à celui du nombre $1$ pour les réels.
+C'est l'élément neutre pour la multiplication. En
+d'autres termes :
+
+\begin{proposition}
+Si $A$ est une matrice $n \times p$, alors
+$$ I_n \cdot A = A \qquad \text{et} \qquad A \cdot I_p = A.$$
+\end{proposition}
+
+\begin{proof}
+Nous allons détailler la preuve.
+Soit  $A \in M_{n,p}(\Kk)$ de terme général $a_{ij}$.
+La matrice unité d'ordre $p$ est telle que tous les éléments de la
+diagonale principale sont égaux à $1$, les autres étant tous nuls.
+
+On peut formaliser cela en introduisant le symbole de Kronecker.
+Si $i$ et $j$ sont deux entiers, on appelle \defi{symbole de Kronecker}\index{symbole de Kronecker}, et on
+note $\delta_{i,j}$, le réel qui vaut $0$ si $i$ est différent de $j$,
+et $1$ si $i$ est
+égal à $j$. Donc
+$$\delta_{i,j}=\begin{cases}
+0 & \text{ si } \;\; i\neq j \\
+1 & \text{ si } \;\; i=j.
+\end{cases}$$
+
+Alors le terme général de la matrice identité $I_{p}$ est $\delta_{i,j}$
+avec $i$ et $j$ entiers, compris entre $1$ et $p$.
+
+La matrice produit $AI_{p}$
+est une matrice appartenant à $M_{n,p}(\Kk)$
+dont le terme général $c_{ij}$ est donné par la formule
+$c_{ij}={\displaystyle \sum_{k=1}^{p}a_{ik}\delta_{kj}}$.
+Dans cette somme, $i$ et $j$ sont fixés et $k$ prend toutes les valeurs
+comprises entre $1$ et $p$. Si $k\neq j$ alors $\delta_{kj}=0$,
+et si $k=j$ alors $\delta_{kj}=1$.
+Donc dans la somme qui définit $c_{ij}$,
+tous les termes correspondant à des valeurs de $k$ différentes de $j$
+sont nuls et il reste donc
+$c_{ij}=a_{ij}\delta_{jj}=a_{ij}1=a_{ij}$.
+Donc les matrices $AI_{p}$ et $A$ ont le même terme général et
+sont donc égales.
+L'égalité $I_{n}A=A$ se démontre de la même façon.
+\end{proof}
+
+%---------------------------------------------------------------
+\subsection{Puissance d'une matrice}
+
+Dans l'ensemble $M_{n}(\Kk)$ des matrices carrées de taille $n \times n$ à
+coefficients dans $\Kk$,
+la multiplication des matrices est une
+opération interne : si $A,B \in M_n(\Kk)$ alors $AB \in M_n(\Kk)$.
+
+En particulier, on peut multiplier une matrice carrée par elle-même :
+on note $A^2 = A \times A$, $A^3 = A \times A \times A$.
+
+
+On peut ainsi définir les puissances successives d'une matrice :
+\index{matrice!puissance}
+\begin{definition}
+Pour tout $A\in M_n(\Kk)$,
+on définit les puissances successives de $A$ par $A^0=I_n$ et
+$A^{p+1}=A^p \times A$ pour tout $p\in\N$.
+Autrement dit, $A^p = \underbrace{A \times A \times \cdots \times A}_{p \text{ facteurs}}$.
+\end{definition}
+
+
+\begin{exemple}
+On cherche à calculer $A^{p}$ avec
+$A=\begin{pmatrix}
+1 & 0  & 1 \cr
+0 & -1 & 0\cr
+0 & 0  & 2 \cr
+\end{pmatrix}$.
+On calcule $A^{2}$, $A^3$ et $A^{4}$ et on obtient :
+$$A^{2}= \begin{pmatrix}
+1 & 0 & 3 \cr
+0 & 1 & 0\cr
+0 & 0 & 4 \cr
+\end{pmatrix}
+\qquad
+A^{3}=A^2 \times A =
+\begin{pmatrix}
+1 & 0 & 7 \cr
+0 & -1& 0\cr
+0 & 0 & 8 \cr
+\end{pmatrix}
+\qquad
+A^{4}=A^3 \times A =
+\begin{pmatrix}
+1 & 0 & 15 \cr
+0 & 1& 0\cr
+0 & 0 & 16 \cr
+\end{pmatrix}.
+$$
+L'observation de ces premières puissances permet de penser que la formule
+est : $A^{p}= \begin{pmatrix}
+1 & 0       & 2^p-1 \cr
+0 & (-1)^{p}& 0\cr
+0 & 0       & 2^p \cr
+\end{pmatrix}$.
+Démontrons ce résultat par récurrence.
+
+Il est vrai pour $p=0$ (on trouve l'identité).
+On le suppose vrai pour un entier $p$ et on va
+le démontrer pour $p+1$. On a, d'après la
+définition,
+$$A ^{p+1}=A ^{p} \times A =
+\begin{pmatrix}
+1 & 0       & 2^p-1 \cr
+0 & (-1)^{p}& 0\cr
+0 & 0       & 2^p \cr
+\end{pmatrix} \times
+\begin{pmatrix}
+1 & 0 & 1 \cr
+0 & -1& 0\cr
+0 & 0 & 2 \cr
+\end{pmatrix}
+=\begin{pmatrix}
+1 & 0       & 2^{p+1}-1 \cr
+0 & (-1)^{p+1}& 0\cr
+0 & 0       & 2^{p+1} \cr
+\end{pmatrix}
+.$$
+Donc la propriété est démontrée.
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Formule du binôme}
+
+
+Comme la multiplication n'est pas commutative, les identités binomiales usuelles sont fausses.
+En particulier, $(A+B)^2$ ne vaut en général pas $A^2+2AB+B^2$, mais on sait seulement que
+$$(A+B)^2= A^2+{\color{myred}AB+BA}+B^2.$$
+
+
+\begin{proposition}[Calcul de $(A+B)^{p}$ lorsque $AB=BA$]
+\index{formule!du binôme de Newton}
+Soient $A$ et $B$ deux éléments de $M_{n}(\Kk)$ qui \defi{commutent}, c'est-à-dire tels que $AB=BA$.
+Alors, pour tout entier $p \ge 0$, on a la formule
+$$(A+B)^{p}= \sum_{k=0}^{p} \binom{p}{k} A^{p-k}B^{k}$$
+où $\binom{p}{k}$ désigne le coefficient du binôme.
+\end{proposition}
+
+La démonstration est similaire à celle de la formule du binôme pour $(a+b)^p$, avec $a,b \in \Rr$.
+
+
+\begin{exemple}
+Soit $A=\begin{pmatrix}
+1&1&1&1\cr
+0 & 1&2&1 \cr
+0&0&1&3 \cr
+0&0&0&1
+\end{pmatrix}$.
+On pose
+$N=A-I= \begin{pmatrix}
+0&1&1&1\cr
+0 &0&2&1 \cr
+0&0&0&3 \cr
+0&0&0&0
+\end{pmatrix}$.
+La matrice $N$ est nilpotente
+(c'est-à-dire il existe $k \in \Nn$ tel que $N^{k}=0$) comme le montrent les
+calculs suivants :
+$$N^{2}= \begin{pmatrix}
+0&0&2&4\cr
+0 &0&0&6 \cr
+0&0&0&0 \cr
+0&0&0&0
+\end{pmatrix} \qquad
+N^{3}= \begin{pmatrix}
+0&0&0&6\cr
+0 &0&0&0 \cr
+0&0&0&0 \cr
+0&0&0&0
+\end{pmatrix}\qquad \text{ et } \qquad N^{4}=0.$$
+Comme on a $A=I+N$ et les matrices $N$ et $I$ commutent (la matrice identité
+commute avec toutes les matrices), on peut
+appliquer la formule du binôme de Newton.
+On utilise que $I^k=I$ pour tout $k$ et surtout que
+$N^{k}=0$ si $k \geq 4$.
+On obtient
+$$
+A^{p} = \sum_{k=0}^{p} \binom{p}{k} N^{k} I^{p-k}
+= \displaystyle \sum_{k=0}^{{\color{myred}3}} \binom{p}{k} N^{k}
+ = I+pN+\tfrac{p(p-1)}{2!}N^{2}+ \tfrac{p(p-1)(p-2)}{3!}N^{3}.$$
+D'où
+$$A^{p}= \begin{pmatrix}
+1&p&p^{2}&p(p^{2}-p+1)\cr
+0 & 1&2p&p(3p-2) \cr
+0&0&1&3p \cr
+0&0&0&1
+\end{pmatrix}.$$
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soient
+  $A=\left(\begin{smallmatrix}0&2&-2\\6&-4&0\end{smallmatrix} \right)$,
+  $B=\left(\begin{smallmatrix}2&1&0\\0&1&0\\2&-2&-3\end{smallmatrix} \right)$,
+  $C=\left(\begin{smallmatrix}8&2\\-3&2\\-5&5\end{smallmatrix} \right)$,
+  $D=\left(\begin{smallmatrix}5\\2\\-1\end{smallmatrix} \right)$,
+  $E=\left(\begin{matrix}x&y&z\end{matrix} \right)$.
+  Quels produits sont possibles ? Les calculer !
+
+  \item Soient $A= \left(\begin{smallmatrix}0&0&1\\0&1&0\\1&1&2 \end{smallmatrix} \right)$
+  et $B=\left(\begin{smallmatrix}1&0&0\\0&0&2\\1&-1&0\end{smallmatrix} \right)$.
+  Calculer $A^2$, $B^2$, $AB$ et $BA$.
+
+  \item Soient $A= \left(\begin{smallmatrix} 2&0&0\\0&2&0\\0&0&2\end{smallmatrix} \right)$
+  et $B=\left(\begin{smallmatrix}0&0&0\\2&0&0\\3&1&0\end{smallmatrix} \right)$.
+  Calculer $A^p$ et $B^p$ pour tout $p\ge0$. Montrer que $AB=BA$. Calculer $(A+B)^p$.
+
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Inverse d'une matrice : définition}
+
+%---------------------------------------------------------------
+\subsection{Définition}
+
+
+\begin{definition}[Matrice inverse]
+\index{matrice!inverse}
+Soit $A$ une matrice  carrée de taille $n \times n$. S'il existe une matrice carrée
+$B$ de taille $n \times n$ telle que
+ $$ AB = I\qquad \text{et} \qquad BA = I, $$
+ on dit que $A$ est \defi{inversible}. On appelle $B$ l'\defi{inverse de $A$}
+ et on la note $A^{-1}$.
+\end{definition}
+
+On verra plus tard qu'il suffit en fait de vérifier une seule des
+conditions $AB=I$ ou bien $BA=I$.
+
+
+\bigskip
+
+\begin{itemize}
+  \item Plus généralement, quand $A$ est inversible, pour tout $p\in \Nn$, on note :
+$$A^{-p}=(A^{-1})^p = \underbrace{A^{-1} A^{-1} \cdots A^{-1}}_{{p \text{ facteurs}}}.$$
+
+
+  \item L'ensemble des matrices inversibles de $M_{n}(\Kk)$ est noté
+$GL_{n}(\Kk)$.
+\end{itemize}
+
+
+%---------------------------------------------------------------
+\subsection{Exemples}
+
+\begin{exemple}
+Soit $A=\left(\begin{smallmatrix}
+1 & 2 \cr
+0 & 3 \cr
+\end{smallmatrix}\right)$.
+\'Etudier si $A$ est inversible, c'est étudier l'existence d'une matrice
+$B= \left(\begin{smallmatrix}
+a & b \cr
+c & d\cr
+\end{smallmatrix}\right)$ à coefficients dans $\Kk$, telle que $AB=I$ et $BA=I$.
+Or $AB=I$ équivaut à :
+$$
+AB=I \iff
+\begin{pmatrix}
+1 & 2 \cr
+0 & 3\cr
+\end{pmatrix}
+\begin{pmatrix}
+a & b \cr
+c & d\cr
+\end{pmatrix}
+=\begin{pmatrix}
+1 & 0 \cr
+0 & 1\cr
+\end{pmatrix}
+\iff
+\begin{pmatrix}
+a+2c & b+2d \cr
+3c & 3d\cr
+\end{pmatrix}
+=\begin{pmatrix}
+1 & 0 \cr
+0 & 1\cr
+\end{pmatrix}
+$$
+Cette égalité équivaut au système  :
+$$\left \{ \begin{array}{l}
+a+2c=1\\
+b+2d=0\\
+3c=0\\
+3d=1\\
+\end{array} \right .$$
+
+Sa résolution est immédiate : $a=1$, $b=-\frac23$, $c=0$, $d=\frac13$.
+Il n'y a donc qu'une seule matrice possible, à savoir
+$B=\left(\begin{smallmatrix}
+1 & -\frac23 \cr
+0 & \frac13\cr
+\end{smallmatrix}\right)$.
+Pour prouver qu'elle convient, il faut aussi montrer l'égalité $BA=I$,
+dont la vérification est laissée au lecteur.
+La matrice $A$ est donc inversible et $A^{-1}= \begin{pmatrix}
+1 & -\frac23 \cr
+0 & \frac13\cr
+\end{pmatrix}$.
+\end{exemple}
+
+\begin{exemple}
+La matrice
+$ A = \left(\begin{smallmatrix}
+3 & 0\\
+5 & 0\end{smallmatrix}\right)$
+n'est pas inversible. En effet, soit
+$B= \begin{pmatrix}
+a & b \cr
+c & d\cr
+\end{pmatrix}$ une matrice quelconque.
+Alors le produit
+$$
+BA =
+\begin{pmatrix}
+a & b \cr
+c & d\cr
+\end{pmatrix}
+\begin{pmatrix}
+3 & 0\\
+5 & 0
+\end{pmatrix}
+=
+\begin{pmatrix}
+3a+5b & 0\\
+3c+5d      & 0
+\end{pmatrix}$$
+ne peut jamais être égal à la matrice identité.
+\end{exemple}
+
+
+\begin{exemple}
+\sauteligne
+\begin{itemize}
+  \item Soit $I_{n}$ la matrice carrée identité de taille $n\times n$.
+C'est une matrice inversible, et son inverse est elle-même par l'égalité
+ $I_{n}I_{n}=I_{n}$.
+
+  \item La matrice nulle $0_n$ de taille $n \times n$ n'est pas
+inversible. En effet on sait que, pour toute matrice $B$ de $M_{n}(\Kk)$,
+on a $B0_{n}=0_n$, qui ne peut jamais être la matrice identité.
+\end{itemize}
+
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Propriétés}
+
+
+%---------------------------------------------------------------
+\subsubsection{Unicité}
+
+
+\begin{proposition}
+Si $A$ est inversible, alors son inverse est unique.
+\end{proposition}
+
+\begin{proof}
+La méthode classique pour mener à bien une telle démonstration est de
+supposer l'existence de deux matrices $B_{1}$ et $B_{2}$
+satisfaisant aux conditions imposées et de démontrer que $B_{1}=B_{2}$.
+
+Soient donc $B_{1}$ telle que $AB_{1}=B_{1}A=I_{n}$ et $B_{2}$ telle que
+$AB_{2}=B_{2}A=I_{n}$.
+Calculons $B_{2}(AB_{1})$.
+D'une part, comme $AB_{1}=I_{n}$, on a  $B_{2}(AB_{1})=B_{2}.$
+D'autre part, comme le produit des matrices est associatif, on a
+$B_{2}(AB_{1})=(B_{2}A)B_{1}=I_{n}B_{1}=B_{1}$.
+Donc $B_{1}=B_{2}$.
+\end{proof}
+
+%---------------------------------------------------------------
+\subsubsection{Inverse de l'inverse}
+
+\begin{proposition}
+Soit $A$ une matrice inversible. Alors
+$A^{-1}$ est aussi inversible et on a :
+\mybox{$(A^{-1})^{-1}=A$}
+\end{proposition}
+
+
+%---------------------------------------------------------------
+\subsubsection{Inverse d'un produit}
+
+
+\begin{proposition}
+ Soient $A$ et $B$ deux matrices inversibles de même taille. Alors
+ $AB$ est inversible et
+ \mybox{$\displaystyle (AB)^{-1} = B^{-1} A^{-1}$}
+\end{proposition}
+
+Il faut bien faire attention à l'inversion de l'ordre !
+
+\begin{proof}
+  Il suffit de montrer $(B^{-1}A^{-1}) (AB) = I$ et $(AB) (B^{-1} A^{-1}) = I$.
+ Cela suit de
+ \begin{align*}
+   (B^{-1}A^{-1}) (AB) &= B^{-1}(A^{-1}A)B = B^{-1}IB=B^{-1}B=I,\\
+   \text{et } \quad (AB)(B^{-1} A^{-1}) &= A(BB^{-1})A^{-1} = A I A^{-1} = A A^{-1} = I.
+ \end{align*}
+\end{proof}
+
+
+De façon analogue, on montre que si $A_1, \dots , A_m$ sont inversibles, alors
+\[(A_1 A_2 \cdots A_m)^{-1} = A_m^{-1} A_{m-1}^{-1} \cdots A^{-1}_1.\]
+
+
+
+%---------------------------------------------------------------
+\subsubsection{Simplification par une matrice inversible}
+
+Si $C$ est une matrice quelconque de $M_{n}(\Kk)$, nous avons vu
+que  la relation  $AC=BC$
+où $A$ et $B$ sont des éléments de  $M_{n}(\Kk)$
+n'entraîne pas forcément l'égalité $A=B$.
+En revanche, si $C$ est une matrice inversible, on a la proposition suivante :
+
+\begin{proposition}
+Soient $A$ et $B$ deux matrices de $M_{n}(\Kk)$ et $C$ une matrice
+inversible de $M_{n}(\Kk)$.
+Alors l'égalité $AC=BC$ implique l'égalité $A=B$.
+\end{proposition}
+
+\begin{proof}
+Ce résultat est immédiat : si on multiplie à droite l'égalité
+$AC=BC$ par $C^{-1}$, on obtient l'égalité :
+$(AC)C^{-1}=(BC)C^{-1}$. En utilisant l'associativité
+du produit des matrices on a $A(CC^{-1})=B(CC^{-1})$,
+ce qui donne d'après la définition de l'inverse $AI=BI$, d'où
+$A=B$.
+\end{proof}
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soient $A=\left(\begin{smallmatrix}-1 & -2 \\ 3  & 4 \end{smallmatrix}\right)$
+  et $B = \left(\begin{smallmatrix}2 & 1 \\ 5  & 3 \end{smallmatrix}\right)$. Calculer
+  $A^{-1}$, $B^{-1}$ , $(AB)^{-1}$, $(BA)^{-1}$, $A^{-2}$.
+
+  \item Calculer l'inverse de $\left(\begin{smallmatrix}1&0&0\\0&2&0\\1&0&3\end{smallmatrix}\right)$.
+
+  \item Soit $A=\left(\begin{smallmatrix}-1&-2&0\\2&3&0\\0&0&1\end{smallmatrix}\right)$.
+  Calculer $2A-A^2$. Sans calculs, en déduire $A^{-1}$.
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Inverse d'une matrice : calcul}
+\index{matrice!inverse}
+
+Nous allons voir une méthode pour calculer l'inverse d'une matrice quelconque de manière efficace.
+Cette méthode est une reformulation de la méthode du pivot de Gauss pour les systèmes linéaires.
+Auparavant, nous commençons par une formule directe dans le cas simple des matrices $2\times 2$.
+
+%---------------------------------------------------------------
+\subsection{Matrices $2 \times 2$}
+ Considérons la matrice $2\times 2$ :
+$A = \begin{pmatrix}
+ a & b\\
+ c & d
+     \end{pmatrix}.
+$
+\begin{proposition}
+
+Si $ad - bc \not= 0$,  alors $A$ est inversible et
+\mybox{$A^{-1} = \frac{1}{ad-bc} \begin{pmatrix}
+d & -b\\
+ -c & a
+\end{pmatrix}$}
+\end{proposition}
+
+
+\begin{proof}
+On vérifie que si $B=\frac{1}{ad-bc}  \left(\begin{smallmatrix}
+d & -b\\
+ -c & a
+\end{smallmatrix}\right)$ alors $AB = \left(\begin{smallmatrix}
+ 1 & 0\\
+ 0 & 1
+ \end{smallmatrix}\right)$. Idem pour $BA$.
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Méthode de Gauss pour inverser les matrices}
+
+La méthode pour inverser une matrice $A$
+consiste à faire des opérations élémentaires sur les lignes de la matrice $A$
+jusqu'à la transformer en la matrice identité $I$.
+On fait simultanément les mêmes opérations élémentaires en partant de la matrice $I$.
+On aboutit alors à une matrice qui est $A^{-1}$. La preuve sera vue dans la section suivante.
+
+\bigskip
+
+En pratique, on fait les deux opérations en même temps en adoptant la disposition suivante :
+à côté de la matrice $A$ que l'on veut inverser, on rajoute la matrice identité
+pour former un tableau $(A\ |\ I)$.
+Sur les lignes de cette matrice augmentée, on effectue des opérations
+élémentaires jusqu'à obtenir
+le tableau $(I\ |\ B)$. Et alors $B=A^{-1}$.
+
+\bigskip
+
+Ces opérations élémentaires sur les lignes sont :
+\begin{enumerate}
+  \item $L_i \leftarrow \lambda L_i$ avec $\lambda \neq 0$ :
+  on peut multiplier une ligne par un réel non nul (ou un élément de $\Kk\setminus\{0\}$).
+
+  \item $L_i \leftarrow L_i+\lambda L_j$ avec $\lambda \in \Kk$ (et $j\neq i$) :
+  on peut ajouter à la ligne $L_i$ un multiple d'une autre ligne $L_j$.
+
+  \item $L_i \leftrightarrow L_j$ : on peut échanger deux lignes.
+\end{enumerate}
+
+\bigskip
+
+N'oubliez pas : tout ce que vous faites sur la partie gauche de la matrice augmentée,
+vous devez aussi le faire sur la partie droite.
+
+
+
+%---------------------------------------------------------------
+\subsection{Un exemple}
+
+Calculons l'inverse de
+$
+ A = \begin{pmatrix}
+ 1 & 2 & 1\\
+ 4 & 0 & -1\\
+ -1 & 2 & 2
+\end{pmatrix}\, .
+$
+
+Voici la matrice augmentée, avec les lignes numérotées :
+$$(A\ |\ I) = \left(\begin{array}{ccc|ccc}
+1 & 2 & 1 & 1 & 0 & 0\\
+4 & 0 & -1 & 0 & 1 & 0\\
+-1 & 2 & 2 & 0 & 0 & 1
+\end{array}\right)
+\begin{array}{l} {\scriptstyle L_1}  \\ {\scriptstyle L_2} \\  {\scriptstyle L_3}\end{array}
+$$
+
+On applique la méthode de Gauss pour faire apparaître des $0$ sur la première colonne,
+d'abord sur la deuxième ligne par l'opération élémentaire
+$L_2 \leftarrow L_2 - 4 L_1$ qui conduit à la matrice augmentée :
+$$
+\left(\begin{array}{ccc|ccc}
+1 & 2 & 1 & 1 & 0 & 0\\
+0 & -8 & -5 & -4 & 1 & 0\\
+-1 & 2 & 2 & 0 & 0 & 1
+\end{array}\right)
+\begin{array}{l} ~ \\  {\scriptstyle L_2 \leftarrow L_2 - 4 L_1} \\ ~ \end{array}
+$$
+Puis un $0$ sur la première colonne, à la troisième ligne, avec $L_3 \leftarrow L_3 + L_1$ :
+
+$$
+\left(\begin{array}{ccc|ccc}
+1 & 2 & 1 & 1 & 0 & 0\\
+0 & -8 & -5 & -4 & 1 & 0\\
+0 & 4 & 3 & 1 & 0 & 1
+\end{array}\right)
+\begin{array}{l} ~ \\ ~ \\ {\scriptstyle L_3 \leftarrow L_3 + L_1}   \end{array}
+$$
+On multiplie la ligne $L_2$ afin qu'elle commence par $1$ :
+$$
+\left(\begin{array}{ccc|ccc}
+1 & 2 & 1 & 1 & 0 & 0\\
+0 & 1 & \frac58 & \frac12 & -\frac18 & 0\\
+0 & 4 & 3 & 1 & 0 & 1
+\end{array}\right)
+\begin{array}{l} ~ \\  {\scriptstyle L_2 \leftarrow -\frac{1}{8} L_2} \\ ~ \end{array}
+$$
+On continue afin de faire apparaître des $0$ partout sous la diagonale,
+et on multiplie la ligne $L_3$.
+Ce qui termine la première partie de la méthode de Gauss :
+$$
+\left(\begin{array}{ccc|ccc}
+1 & 2 & 1 & 1 & 0 & 0\\
+0 & 1 & \frac58 & \frac12 & -\frac18 & 0\\
+0 & 0 & \frac12 & -1 & \frac12 & 1
+\end{array}\right)
+\begin{array}{l} \\  \\ {\scriptstyle L_3 \leftarrow L_3 -4L_2}   \end{array}
+$$
+puis
+$$
+\left(\begin{array}{ccc|ccc}
+1 & 2 & 1 & 1 & 0 & 0\\
+0 & 1 & \frac58 & \frac12 & -\frac18 & 0\\
+0 & 0 & 1 & -2 & 1 & 2
+\end{array}\right)
+\begin{array}{l}  \\  \\ {\scriptstyle L_3 \leftarrow 2L_3}   \end{array}
+$$
+
+Il ne reste plus qu'à \og remonter \fg{} pour faire apparaître des zéros au-dessus de la diagonale:
+
+
+
+$$
+\left(\begin{array}{ccc|ccc}
+1 & 2 & 1 & 1 & 0 & 0\\
+0 & 1 & 0 & \frac{7}{4} & -\frac{3}{4} & -\frac{5}{4}\\
+0 & 0 & 1 & -2 & 1 & 2
+\end{array}\right)
+\begin{array}{l} ~ \\  {\scriptstyle L_2 \leftarrow L_2-\frac{5}{8} L_3} \\ ~ \end{array}
+$$
+puis
+$$
+\left(\begin{array}{ccc|ccc}
+1 & 0 & 0 & -\frac{1}{2} & \frac{1}{2} & \frac{1}{2}\\
+0 & 1 & 0 &\frac{7}{4} & -\frac{3}{4} & -\frac{5}{4}\\
+0 & 0 & 1 & -2 & 1 & 2
+\end{array}\right)
+\begin{array}{l}  {\scriptstyle L_1 \leftarrow L_1-2L_2-L_3} \\ ~ \\ ~ \end{array}
+$$
+
+Ainsi l'inverse de $A$ est la matrice obtenue à droite et après avoir factorisé
+tous les coefficients par $\frac14$, on a obtenu :
+$$
+A^{-1} = \frac{1}{4}
+\begin{pmatrix}
+-2 & 2 & 2\\
+7 & -3 & -5\\
+-8 & 4 & 8
+\end{pmatrix}
+$$
+
+Pour se rassurer sur ses calculs,
+on n'oublie pas de vérifier rapidement que $A \times A^{-1} = I$.
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Si possible calculer l'inverse des matrices :
+  $\left(\begin{smallmatrix}3&1\\7&2\end{smallmatrix}\right)$,
+  $\left(\begin{smallmatrix}2&-3\\-5&4\end{smallmatrix}\right)$,
+  $\left(\begin{smallmatrix}0&2\\3&0\end{smallmatrix}\right)$,
+  $\left(\begin{smallmatrix}\alpha+1&1\\2&\alpha\end{smallmatrix}\right)$.
+
+  \item Soit
+  $A(\theta)=\left(\begin{smallmatrix} \cos \theta & -\sin\theta \\ \sin\theta & \cos\theta\end{smallmatrix}\right)$.
+  Calculer $A(\theta)^{-1}$.
+
+  \item Calculer l'inverse des matrices :
+  $\left(\begin{smallmatrix}1&3&0\\2&1&-1\\-2&1&1\end{smallmatrix}\right)$,
+  $\left(\begin{smallmatrix}2&-2&1\\3&0&5\\1&1&2\end{smallmatrix}\right)$,
+  $\left(\begin{smallmatrix}1&0&1&0\\0&2&-2&0\\-1&2&0&1\\0&2&1&3\end{smallmatrix}\right)$,
+  $\left(\begin{smallmatrix}2&1&1&1\\1&0&0&1\\0&1&-1&2\\0&1&1&0\end{smallmatrix}\right)$,
+  $\left(\begin{smallmatrix}1&1&1&0&0\\0&1&2&0&0\\-1&1&2&0&0\\0&0&0&2&1\\0&0&0&5&3\end{smallmatrix}\right)$.
+
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Inverse d'une matrice : systèmes linéaires et matrices élémentaires}
+
+
+%---------------------------------------------------------------
+\subsection{Matrices et systèmes linéaires}
+
+Le système linéaire
+\[ \left\{
+\begin{array}{ccccccccc}
+a_{11} \  x_1 &+& a_{12}\  x_2 &+& \cdots &+& a_{1p}\  x_p & = & b_1\\
+a_{21}\  x_1 &+& a_{22}\  x_2 &+& \cdots &+& a_{2p}\  x_p & = & b_2\\
+&&\dots  && &&\\
+a_{n1}\  x_1 &+& a_{n2}\  x_2 &+& \cdots &+& a_{np}\  x_p & = & b_n
+\end{array} \right.
+\]
+peut s'écrire sous forme matricielle :
+\begin{equation*}\begin{array}{cccc}
+\underbrace{
+\left(
+\begin{array}{ccc}
+a_{11} & \dots & a_{1p}\\
+a_{21} & \dots & a_{2p}\\
+\vdots &&\vdots\\
+a_{n1} &\dots & a_{np}
+\end{array}
+\right)
+}
+&
+\underbrace{
+\left(
+\begin{array}{c}
+x_1\\
+x_2\\
+\vdots\\
+x_p
+\end{array}
+\right)
+}
+& = &
+\underbrace{
+\left(
+\begin{array}{c}
+b_1\\
+b_2\\
+\vdots\\
+b_n
+\end{array}
+\right).
+}
+\\
+A & X & &B
+\end{array}\end{equation*}
+
+On appelle $A \in M_{n,p}(\Kk)$ la matrice des coefficients du système.
+$B\in M_{n,1}(\Kk)$ est le vecteur du second membre.
+Le vecteur $X \in M_{p,1}(\Kk)$ est une solution du système si et seulement si
+$$AX = B.$$
+
+Nous savons que :
+\begin{theoreme}
+Un système d'équations linéaires n'a soit aucune solution,
+soit une seule solution, soit une infinité de solutions.
+\end{theoreme}
+
+
+%---------------------------------------------------------------
+\subsection{Matrices inversibles et systèmes linéaires}
+
+
+Considérons le cas où le nombre d'équations égale le nombre d'inconnues :
+
+\begin{equation*}\begin{array}{cccc}
+\underbrace{
+\left(
+\begin{array}{ccc}
+a_{11} & \dots & a_{1n}\\
+a_{21} & \dots & a_{2n}\\
+\vdots &&\vdots\\
+a_{n1} &\dots & a_{nn}
+\end{array}
+\right)
+}
+&
+\underbrace{
+\left(
+\begin{array}{c}
+x_1\\
+x_2\\
+\vdots\\
+x_n
+\end{array}
+\right)
+}
+& = &
+\underbrace{
+\left(
+\begin{array}{c}
+b_1\\
+b_2\\
+\vdots\\
+b_n
+\end{array}
+\right).
+}
+\\
+A & X & & B
+\end{array}\end{equation*}
+
+
+Alors $A \in M_n(\Kk)$ est une matrice carrée et
+$B$ un vecteur de $M_{n,1}(\Kk)$.
+Pour tout second membre, nous pouvons utiliser les matrices
+pour trouver la solution du système linéaire.
+\begin{proposition}
+Si la matrice $A$ est inversible, alors
+la solution du système $AX=B$ est unique et est :
+\mybox{$X = A^{-1}B$.}
+\end{proposition}
+
+La preuve est juste de vérifier que si $X = A^{-1}B$,
+alors $AX = A\big(A^{-1}B\big) = \big(AA^{-1}\big)B = I \cdot B=B$.
+Réciproquement si $AX=B$, alors nécessairement $X= A^{-1}B$.
+Nous verrons bientôt que si la matrice n'est pas inversible,
+alors soit il n'y a pas de solution, soit une infinité.
+
+%---------------------------------------------------------------
+\subsection{Les matrices élémentaires}
+\index{matrice!elementaire@élémentaire}
+
+Pour calculer l'inverse d'une matrice $A$, et aussi pour résoudre des systèmes linéaires, nous avons utilisé trois opérations
+ élémentaires sur les lignes qui sont :
+\begin{enumerate}
+  \item $L_i \leftarrow \lambda L_i$ avec $\lambda \neq 0$ :
+  on peut multiplier une ligne par un réel non nul (ou un élément de $\Kk\setminus\{0\}$).
+
+  \item $L_i \leftarrow L_i+\lambda L_j$ avec $\lambda \in \Kk$ (et $j\neq i$) :
+  on peut ajouter à la ligne $L_i$ un multiple d'une autre ligne $L_j$.
+
+  \item $L_i \leftrightarrow L_j$ : on peut échanger deux lignes.
+\end{enumerate}
+
+Nous allons définir trois matrices élémentaires
+$E_{L_i \leftarrow \lambda L_i}$, $E_{L_i \leftarrow L_i+\lambda L_j}$,
+$E_{L_i \leftrightarrow L_j}$
+correspondant à ces opérations. Plus précisément, le produit $E\times A$ correspondra
+à l'opération élémentaire sur $A$. Voici les définitions accompagnées d'exemples.
+
+
+\begin{enumerate}
+  \item La matrice $E_{L_i \leftarrow \lambda L_i}$ est la matrice obtenue en
+    multipliant par $\lambda$ la $i$-ème ligne de la matrice identité $I_n$,
+    où $\lambda$ est un nombre réel non nul.
+
+
+    $$ E_{L_2 \leftarrow 5 L_2}=
+    \begin{pmatrix}
+    1 & 0 & 0 & 0\\
+    0 & 5 & 0 & 0\\
+    0 & 0 & 1 & 0\\
+    0 & 0 & 0 & 1\end{pmatrix}$$
+
+
+\item  La matrice $E_{L_i \leftarrow L_i+\lambda L_j}$ est la  matrice
+obtenue en ajoutant $\lambda$ fois la $j$-ème ligne de $I_n$ à la $i$-ème ligne de $I_n$.
+
+
+ $$  E_{L_2 \leftarrow L_2 -3 L_1}=
+    \begin{pmatrix}
+    1 & 0 & 0 & 0\\
+    -3 & 1 & 0 & 0\\
+    0 & 0 & 1 & 0\\
+    0 & 0 & 0 & 1
+    \end{pmatrix}$$
+
+
+
+   \item La matrice  $E_{L_i \leftrightarrow L_j}$ est la matrice obtenue
+   en permutant les $i$-ème et $j$-ème lignes de $I_n$.
+
+   $$ E_{L_2 \leftrightarrow L_4} = E_{L_4 \leftrightarrow L_2} =
+   \begin{pmatrix}
+    1 & 0 & 0 & 0\\
+    0 & 0 & 0 & 1\\
+    0 & 0 & 1 & 0\\
+    0 & 1 & 0 & 0
+    \end{pmatrix}$$
+
+\end{enumerate}
+
+
+Les opérations élémentaires sur les lignes sont réversibles,
+ce qui entraîne l'inversibilité des matrices élémentaires.
+
+\bigskip
+
+Le résultat de la multiplication d'un matrice élémentaire $E$ par $A$
+est la matrice obtenue en effectuant
+l'opération élémentaire correspondante sur $A$.
+Ainsi :
+\begin{enumerate}
+  \item La matrice $E_{L_i \leftarrow \lambda L_i} \times A$ est la matrice obtenue en
+    multipliant par $\lambda$ la $i$-ème ligne de $A$.
+
+  \item La matrice $E_{L_i \leftarrow L_i+\lambda L_j} \times A$ est la  matrice obtenue
+  en ajoutant $\lambda$ fois la $j$-ème ligne de $A$ à la $i$-ème ligne de $A$.
+
+  \item La matrice  $E_{L_i \leftrightarrow L_j} \times A$ est la matrice obtenue
+   en permutant les $i$-ème et $j$-ème lignes de $A$.
+\end{enumerate}
+
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+    \item
+$$E_{L_2 \leftarrow \frac13 L_2}  \times A
+= \begin{pmatrix}
+  1&0&0\\0&\frac13&0\\0&0&1
+  \end{pmatrix}
+  \times
+  \begin{pmatrix}
+  x_1&x_2&x_3\\y_1&y_2&y_3\\z_1&z_2&z_3
+  \end{pmatrix}
+  =   \begin{pmatrix}
+  x_1&x_2&x_3\\ \frac13y_1&\frac13y_2&\frac13y_3\\z_1&z_2&z_3
+  \end{pmatrix}
+$$
+
+  \item
+$$\hspace*{-1.1em}E_{L_1 \leftarrow L_1-7 L_3}  \times A
+= \begin{pmatrix}
+  1&0&-7\\0&1&0\\0&0&1
+  \end{pmatrix}
+  \times
+  \begin{pmatrix}
+  x_1&x_2&x_3\\y_1&y_2&y_3\\z_1&z_2&z_3
+  \end{pmatrix}
+  \!=\!   \begin{pmatrix}
+  x_1-7z_1&x_2-7z_2&x_3-7z_3\\ y_1&y_2&y_3\\z_1&z_2&z_3
+  \end{pmatrix}
+$$
+
+   \item
+$$E_{L_2 \leftrightarrow L_3}  \times A
+= \begin{pmatrix}
+  1&0&0\\0&0&1\\0&1&0
+  \end{pmatrix}
+  \times
+  \begin{pmatrix}
+  x_1&x_2&x_3\\y_1&y_2&y_3\\z_1&z_2&z_3
+  \end{pmatrix}
+  =   \begin{pmatrix}
+  x_1&x_2&x_3\\z_1&z_2&z_3\\ y_1&y_2&y_3
+  \end{pmatrix}
+$$
+\end{enumerate}
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+\subsection{\'Equivalence à une matrice échelonnée}
+
+
+\begin{definition}
+Deux matrices $A$ et $B$ sont dites \defi{équivalentes par lignes} si l'une
+peut être obtenue à partir de l'autre par une suite d'opérations
+élémentaires sur les lignes. On note $A \sim B$.
+\end{definition}
+
+\begin{definition}
+Une matrice est \defi{échelonnée}\index{matrice!echelonnee@échelonnée} si :
+\begin{itemize}
+  \item le nombre de zéros commençant une ligne croît strictement ligne par ligne
+  jusqu'à ce qu'il ne reste plus que des zéros.
+\end{itemize}
+
+Elle est \defi{échelonnée réduite}\index{matrice!reduite@réduite} si en plus :
+\begin{itemize}
+\setcounter{enumi}{1}
+  \item le premier coefficient non nul d'une ligne (non nulle) vaut $1$ ;
+
+  \item et c'est le seul élément non nul de sa colonne.
+\end{itemize}
+\end{definition}
+
+Exemple d'une matrice échelonnée (à gauche) et échelonnée réduite (à droite) ;
+les $*$ désignent des coefficients quelconques, les $+$ des coefficients non nuls :
+$$
+\begin{pmatrix}
++ & * & * & * & * & * & * \\
+0 & 0 & + & * & * & * & * \\
+0 & 0 & 0 & + & * & * & * \\
+0 & 0 & 0 & 0 & 0 & 0 & + \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\end{pmatrix}
+\qquad \qquad
+\begin{pmatrix}
+1 & * & 0 & 0 & * & * & 0 \\
+0 & 0 & 1 & 0 & * & * & 0 \\
+0 & 0 & 0 & 1 & * & * & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\end{pmatrix}
+$$
+
+\begin{theoreme}\label{Gauss}
+\'Etant donnée une matrice $A\in M_{n,p}(\Kk)$, il existe une unique
+matrice échelonnée réduite $U$ obtenue à partir de $A$
+par des opérations élémentaires sur les lignes.
+\end{theoreme}
+
+Ce théorème permet donc de se ramener par des opérations élémentaires
+à des matrices dont la structure est beaucoup plus simple :
+les matrices échelonnées réduites.
+
+\begin{proof}
+Nous admettons l'unicité.
+
+L'existence se démontre grâce à
+l'algorithme de Gauss. L'idée générale consiste à utiliser des substitutions de
+lignes pour placer des zéros là où il faut de façon à
+créer d'abord une forme échelonnée, puis une forme
+échelonnée réduite.
+
+
+\bigskip
+
+Soit $A$ une matrice $n\times p$ quelconque.
+
+\bigskip
+
+\textbf{Partie A. Passage à une forme échelonnée.}
+
+\textbf{\'Etape A.1.}  \emph{Choix du pivot.}
+
+On commence par inspecter la
+première colonne. Soit elle ne contient que des zéros,
+auquel cas on passe directement à l'étape A.3,
+soit elle contient au moins un terme non nul.
+On choisit alors un tel terme, que l'on appelle le \defi{pivot}\index{pivot}.
+Si c'est le terme $a_{11}$, on passe directement à l'étape A.2 ;
+si c'est un terme $a_{i1}$ avec $i\neq1$, on échange les lignes $1$
+et $i$ ($L_1 \leftrightarrow L_i$) et on passe à l'étape A.2.
+
+Au terme de l'étape A.1, soit la matrice $A$ a sa première colonne nulle (à gauche)
+ou bien on obtient une matrice équivalente dont le premier coefficient $a'_{11}$ est non nul (à droite) :
+$$\begin{pmatrix}
+0&a_{12}&\cdots&a_{1j}&\cdots&a_{1p}\\
+0&a_{22}&\cdots&a_{2j}&\cdots&a_{2p}\\
+\vdots&\vdots&&\vdots&&\vdots\\
+0&a_{i2}&\cdots&a_{ij}&\cdots&a_{ip}\\
+\vdots&\vdots&&\vdots&&\vdots\\
+0&a_{n2}&\cdots&a_{nj}&\cdots&a_{np}\\
+\end{pmatrix}=A
+\quad \text{ou} \quad
+\begin{pmatrix}
+a'_{11}&a'_{12}&\cdots&a'_{1j}&\cdots&a'_{1p}\\
+a'_{21}&a'_{22}&\cdots&a'_{2j}&\cdots&a'_{2p}\\
+\vdots&\vdots&&\vdots&&\vdots\\
+a'_{i1}&a'_{i2}&\cdots&a'_{ij}&\cdots&a'_{ip}\\
+\vdots&\vdots&&\vdots&&\vdots\\
+a'_{n1}&a'_{n2}&\cdots&a'_{nj}&\cdots&a'_{np}\\
+\end{pmatrix}\sim A.
+$$
+
+\medskip
+\textbf{\'Etape A.2.}  \emph{\'Elimination.}
+
+
+On ne touche plus à la ligne $1$, et on se sert du pivot $a'_{11}$
+pour éliminer tous les termes $a'_{i1}$ (avec $i\ge 2$) situés sous le pivot.
+Pour cela, il suffit de remplacer la ligne $i$ par
+elle-même moins $\frac{a'_{i1}}{a'_{11}}\times$ la ligne $1$, ceci pour $i=2,\ldots,n$ :
+$L_2 \leftarrow L_2 - \frac{a'_{21}}{a'_{11}}L_1$,
+$L_3 \leftarrow L_3 - \frac{a'_{31}}{a'_{11}}L_1$,\ldots
+
+Au terme de l'étape A.2, on a obtenu une matrice de la forme
+$$\begin{pmatrix}
+a'_{11}&a'_{12}&\cdots&a'_{1j}&\cdots&a'_{1p}\\
+0&a''_{22}&\cdots&a''_{2j}&\cdots&a''_{2p}\\
+\vdots&\vdots&&\vdots&&\vdots\\
+0&a''_{i2}&\cdots&a''_{ij}&\cdots&a''_{ip}\\
+\vdots&\vdots&&\vdots&&\vdots\\
+0&a''_{n2}&\cdots&a''_{nj}&\cdots&a''_{np}\\
+\end{pmatrix}\sim A.
+$$
+
+\medskip
+\textbf{\'Etape A.3.}  \emph{Boucle.}
+
+Au début de l'étape A.3, on a obtenu dans tous les cas de figure une matrice de la forme
+$$\begin{pmatrix}
+a^1_{11}&a^1_{12}&\cdots&a^1_{1j}&\cdots&a^1_{1p}\\
+0&a^1_{22}&\cdots&a^1_{2j}&\cdots&a^1_{2p}\\
+\vdots&\vdots&&\vdots&&\vdots\\
+0&a^1_{i2}&\cdots&a^1_{ij}&\cdots&a^1_{ip}\\
+\vdots&\vdots&&\vdots&&\vdots\\
+0&a^1_{n2}&\cdots&a^1_{nj}&\cdots&a^1_{np}\\
+\end{pmatrix}\sim A
+$$
+dont la première colonne est bien celle d'une matrice échelonnée.
+On va donc conserver cette première colonne. Si $a^1_{11}\neq0$,
+on conserve aussi la première ligne, et l'on repart avec l'étape A.1
+en l'appliquant cette fois à la sous-matrice $(n-1)\times(p-1)$
+(ci-dessous à gauche : on \og oublie \fg{} la première ligne et la première colonne de $A$) ;
+si $a^1_{11}=0$, on repart avec l'étape A.1 en l'appliquant à la sous-matrice
+$n\times(p-1)$ (à droite, on \og oublie \fg{} la première colonne) :
+$$\begin{pmatrix}
+a^1_{22}&\cdots&a^1_{2j}&\cdots&a^1_{2p}\\
+\vdots&&\vdots&&\vdots\\
+a^1_{i2}&\cdots&a^1_{ij}&\cdots&a^1_{ip}\\
+\vdots&&\vdots&&\vdots\\
+a^1_{n2}&\cdots&a^1_{nj}&\cdots&a^1_{np}\\
+\end{pmatrix}
+\qquad \qquad
+\begin{pmatrix}
+a^1_{12}&\cdots&a^1_{1j}&\cdots&a^1_{1p}\\
+a^1_{22}&\cdots&a^1_{2j}&\cdots&a^1_{2p}\\
+\vdots&&\vdots&&\vdots\\
+a^1_{i2}&\cdots&a^1_{ij}&\cdots&a^1_{ip}\\
+\vdots&&\vdots&&\vdots\\
+a^1_{n2}&\cdots&a^1_{nj}&\cdots&a^1_{np}\\
+\end{pmatrix}
+$$
+
+Au terme de cette deuxième itération de la boucle, on aura obtenu une matrice de la forme
+$$\begin{pmatrix}
+a^1_{11}&a^1_{12}&\cdots&a^1_{1j}&\cdots&a^1_{1p}\\
+0&a^2_{22}&\cdots&a^2_{2j}&\cdots&a^2_{2p}\\
+\vdots&\vdots&&\vdots&&\vdots\\
+0&0&\cdots&a^2_{ij}&\cdots&a^2_{ip}\\
+\vdots&\vdots&&\vdots&&\vdots\\
+0&0&\cdots&a^2_{nj}&\cdots&a^2_{np}\\
+\end{pmatrix}\sim A,
+$$
+et ainsi de suite.
+
+Comme chaque itération de la boucle travaille sur une matrice qui a
+une colonne de moins que la précédente, alors au bout d'au
+plus $p-1$ itérations de la boucle, on aura obtenu une
+matrice échelonnée.
+
+\bigskip
+
+\textbf{Partie B. Passage à une forme échelonnée réduite.}
+
+\textbf{\'Etape B.1.}  \emph{Homothéties.}
+
+On repère le premier élément non nul de chaque ligne non nulle,
+et on multiplie cette ligne par l'inverse de cet élément.
+Exemple : si le premier élément non nul de la ligne $i$ est $\alpha\neq0$, alors
+on effectue $L_i \leftarrow \frac1\alpha L_i$.
+Ceci crée une matrice échelonnée avec des $1$ en position de pivots.
+
+
+\medskip
+\textbf{\'Etape B.2.}  \emph{\'Elimination.}
+
+On élimine les termes situés au-dessus des positions de pivot
+comme précédemment, en procédant à partir du bas à droite de la matrice.
+Ceci ne modifie pas la structure échelonnée de la matrice en raison de
+la disposition des zéros dont on part.
+
+\end{proof}
+
+
+\begin{exemple}
+Soit
+$$A=\begin{pmatrix}1&2&3&4\\
+0&2&4&6\\
+-1&0&1&0
+\end{pmatrix}.$$
+
+\textbf{A. Passage à une forme échelonnée.}
+
+Première itération de la boucle, étape A.1. Le choix du pivot est tout fait,
+on garde $a_{11}^1=1$.
+
+Première itération de la boucle, étape A.2. On ne fait rien sur la ligne $2$ qui contient
+déjà un zéro en bonne position et on remplace la ligne 3 par $L_3 \leftarrow L_3 + L_1$.
+On obtient
+$$A\sim\begin{pmatrix}1&2&3&4\\
+0&2&4&6\\
+0&2&4&4
+\end{pmatrix}.$$
+
+Deuxième itération de la boucle, étape A.1. Le choix du pivot est tout fait,
+on garde $a^2_{22}=2$.
+
+Deuxième itération de la boucle, étape A.2. On remplace  la ligne $3$ avec
+l'opération $L_3 \leftarrow L_3 - L_2$. On obtient
+$$A\sim\begin{pmatrix}1&2&3&4\\
+0&2&4&6\\
+0&0&0&-2
+\end{pmatrix}.$$
+Cette matrice est échelonnée.
+
+\medskip
+
+\textbf{B. Passage à une forme échelonnée réduite.}
+
+\'Etape B.1, homothéties. On multiplie la ligne $2$ par $\frac12$
+et la ligne $3$ par $-\frac12$ et l'on obtient
+$$A\sim\begin{pmatrix}1&2&3&4\\
+0&1&2&3\\
+0&0&0&1
+\end{pmatrix}.$$
+
+{\'E}tape B.2, première itération.
+On ne touche plus à la ligne $3$ et on remplace la ligne $2$ par
+$L_2 \leftarrow L_2-3L_3$ et $L_1 \leftarrow L_1 - 4L_3$.
+On obtient
+$$A\sim\begin{pmatrix}1&2&3&0\\
+0&1&2&0\\
+0&0&0&1
+\end{pmatrix}.$$
+
+{\'E}tape B.2, deuxième itération. On ne touche plus à la ligne $2$
+et on remplace la ligne $1$ par $L_1 \leftarrow L_1-2L_2$. On obtient
+$$A\sim\begin{pmatrix}1&0&-1&0\\
+0&1&2&0\\
+0&0&0&1
+\end{pmatrix}$$
+qui est bien échelonnée et réduite.
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Matrices élémentaires et inverse d'une matrice}
+
+
+\begin{theoreme}
+\label{th:invequi}
+Soit $A\in M_{n}(\Kk)$.
+La matrice $A$ est inversible si et seulement si sa forme échelonnée réduite
+est la matrice identité $I_n$.
+\end{theoreme}
+
+\begin{proof}
+Notons $U$ la forme échelonnée réduite de $A$.
+Et notons $E$ le produit de matrices élémentaires tel que $EA=U$.
+\begin{itemize}
+  \item[$\Longleftarrow$] Si $U=I_n$ alors $EA=I_n$. Ainsi par définition, $A$ est inversible et
+  $A^{-1}= E$.
+
+  \item[$\Longrightarrow$] Nous allons montrer que si $U\neq I_n$, alors $A$ n'est pas inversible.
+  \begin{itemize}
+    \item Supposons $U\neq I_n$. Alors la dernière ligne de $U$ est nulle (sinon il y aurait un pivot
+    sur chaque ligne donc ce serait $I_n$).
+    \item Cela entraîne que $U$ n'est pas inversible : en effet, pour tout matrice
+     carrée $V$, la dernière ligne de $UV$ est nulle ; on n'aura donc jamais $UV=I_{n}$.
+    \item Alors, $A$ n'est pas inversible non plus : en effet, si $A$ était inversible, on
+aurait $U=EA$ et $U$ serait inversible comme produit de matrices inversibles
+($E$ est inversible car c'est un produit de matrices élémentaires qui sont inversibles).
+  \end{itemize}
+\end{itemize}
+\end{proof}
+
+\begin{remarque*}
+Justifions maintenant notre méthode pour calculer $A^{-1}$.
+
+Nous partons de $(A|I)$ pour arriver par des opérations élémentaires sur les lignes
+à $(I|B)$. Montrons que $B=A^{-1}$.
+Faire une opération élémentaire signifie multiplier à gauche par une des matrices
+élémentaires. Notons $E$ le produit de ces matrices élémentaires.
+Dire que l'on arrive à la fin du processus à $I$ signifie $EA=I$. Donc $A^{-1}=E$.
+Comme on fait les mêmes opérations sur la partie droite du tableau, alors on obtient
+$EI = B$. Donc $B=E$. Conséquence : $B=A^{-1}$.
+\end{remarque*}
+
+
+\begin{corollaire}
+Les assertions suivantes sont équivalentes :
+\begin{itemize}
+  \item[(i)] La matrice $A$ est inversible.
+
+  \item[(ii)] Le système linéaire $AX=\left(\begin{smallmatrix} 0 \\ \vdots \\ 0\end{smallmatrix}\right)$ a une unique solution
+  $X=\left(\begin{smallmatrix} 0 \\ \vdots \\ 0\end{smallmatrix}\right)$.
+
+  \item[(iii)] Pour tout second membre $B$, le système linéaire $AX=B$
+  a une unique solution $X$.
+\end{itemize}
+\end{corollaire}
+
+\begin{proof}
+Nous avons déjà vu $(i)  \implies (ii)$ et
+$(i) \implies (iii)$.
+
+Nous allons seulement montrer $(ii) \implies (i)$.
+Nous raisonnons par contraposée : nous allons montrer
+la proposition équivalente $\text{non} (i) \implies \text{non} (ii)$.
+Si $A$ n'est pas inversible, alors sa forme échelonnée réduite $U$ contient
+un premier zéro sur sa diagonale, disons à la place $\ell$.
+Alors $U$ à la forme suivante
+\[\left( \begin{array}{ccccccc}
+1 & 0 & \cdots & c_1 & * & \cdots& * \\
+0& \ddots  & 0 &\vdots &&\cdots & * \\
+0 & 0 & 1 & c_{\ell-1} && \cdots &* \\
+0 & \cdots & 0 & {\color{myred}0} &*&\cdots &*\\
+0 & \cdots & 0& 0& * & \cdots &*  \\
+\vdots & \vdots & \vdots & \cdots &0&\ddots & \vdots \\
+0& \cdots &&&\cdots&0&*
+\end{array}\right).
+\qquad \text{On note} \qquad
+X = \begin{pmatrix} -c_1 \\ \vdots \\ -c_{\ell-1} \\ 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix}.
+\]
+
+Alors $X$ n'est pas le vecteur nul, mais $UX$ est le vecteur nul.
+Comme $A = E^{-1}U$, alors $AX$ est le vecteur nul. Nous avons donc trouvé
+un vecteur non nul $X$ tel que $AX=0$.
+\end{proof}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Exprimer les systèmes linéaires suivants sous forme matricielle
+  et les résoudre en inversant la matrice :
+  $\left\{\begin{array}{l}2x+4y=7\\-2x+3y=-14\end{array} \right.$,\quad
+  $\left\{\begin{array}{l}x+z=1\\-2y+3z=1\\x+z=1\end{array} \right.$,\quad
+  $\left\{\begin{array}{l}x+t=\alpha\\x-2y=\beta\\x+y+t=2\\y+t=4\end{array} \right.$.
+
+
+  \item \'Ecrire les matrices $4\times 4$ correspondant aux opérations élémentaires :
+  $L_2 \leftarrow \frac13 L_2$, $L_3 \leftarrow L_3-\frac14 L_2$, $L_1 \leftrightarrow L_4$.
+  Sans calculs, écrire leurs inverses. \'Ecrire la matrice $4\times 4$
+  de l'opération $L_1 \leftarrow L_1-2L_3+3L_4$.
+
+  \item \'Ecrire les matrices suivantes sous forme échelonnée, puis échelonnée réduite :
+  $\left(\begin{smallmatrix}1&2&3\\1&4&0\\-2&-2&-3\end{smallmatrix}\right)$,
+  $\left(\begin{smallmatrix}1&0&2\\1&-1&1\\2&-2&3\end{smallmatrix}\right)$,
+  $\left(\begin{smallmatrix}2&0&-2&0\\0&-1&1&0\\1&-2&1&4\\-1&2&-1&-2\end{smallmatrix}\right)$.
+
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Matrices triangulaires, transposition, trace, matrices symétriques}
+
+%---------------------------------------------------------------
+\subsection{Matrices triangulaires, matrices diagonales}
+
+\index{matrice!triangulaire}
+
+Soit $A$ une matrice de taille $n \times n$. On dit que $A$ est \defi{triangulaire inférieure}
+si ses éléments au-dessus de la diagonale sont nuls, autrement dit :
+$$
+ i < j \  \Longrightarrow \ a_{ij} = 0.$$
+
+Une matrice triangulaire inférieure a la forme suivante:
+$$\begin{pmatrix}
+a_{11} & 0 &\cdots&\cdots& 0\\
+a_{21}&a_{22}&\ddots&&\vdots\\
+\vdots&\vdots&\ddots&\ddots&\vdots\\
+\vdots & \vdots &&\ddots&0\\
+a_{n1}&a_{n2}&\cdots&\cdots&a_{nn}
+\end{pmatrix}
+$$
+
+\bigskip
+
+On dit que $A$ est \defi{triangulaire supérieure} si ses éléments en-dessous
+de la diagonale sont nuls,  autrement dit :
+$$
+i > j \ \Longrightarrow \ a_{ij} = 0. $$
+
+Une matrice triangulaire supérieure a la forme suivante:
+$$\begin{pmatrix}
+a_{11} & a_{12} &\dots&\dots&\dots & a_{1n}\\
+0&a_{22}&\dots&\dots&\dots&a_{2n}\\
+\vdots&\ddots&\ddots&&&\vdots\\
+\vdots&&\ddots&\ddots&&\vdots\\
+\vdots & &&\ddots&\ddots&\vdots\\
+0&\dots&\dots&\dots&0&a_{nn}
+  \end{pmatrix}
+$$
+
+
+ \begin{exemple}
+Deux matrices triangulaires inférieures (à gauche), une matrice triangulaire supérieure (à droite) :
+$$
+\begin{pmatrix}
+ 4 & 0 & 0\\
+ 0 & -1 & 0\\
+ 3 & -2 & 3
+\end{pmatrix}\qquad\qquad
+\begin{pmatrix}
+ 5 & 0\\
+ 1 & -2
+\end{pmatrix}\qquad\qquad
+\begin{pmatrix}
+ 1 & 1 & -1\\
+ 0 & -1 & -1\\
+ 0 & 0 & -1
+\end{pmatrix}
+$$
+  \end{exemple}
+
+
+Une matrice qui est triangulaire inférieure \evidence{et} triangulaire supérieure
+est dite \defi{diagonale}\index{matrice!diagonale}.
+Autrement dit : $i\neq j \ \Longrightarrow \ a_{ij} = 0$.
+
+
+\begin{exemple} Exemples de matrices diagonales:
+$$\begin{pmatrix}
+ -1 &  0 &0\\
+ 0 & 6 & 0\\
+ 0 & 0 &0
+ \end{pmatrix} \qquad \text{ et } \qquad
+ \begin{pmatrix}
+ 2 & 0\\
+ 0 & 3
+\end{pmatrix}$$
+\end{exemple}
+
+
+\begin{exemple}[Puissances d'une matrice diagonale]
+Si $D$ est une matrice diagonale, il est très facile de calculer ses puissances $D^p$
+(par récurrence sur $p$) :
+$$D=\begin{pmatrix}
+\alpha_{1}& 0& \dots &  \dots & 0\cr
+0& \alpha_{2}& 0&  \dots &0\cr
+\vdots & \ddots & \ddots & \ddots & \vdots \cr
+0& \dots & 0 & \alpha_{n-1} & 0 \cr
+0& \dots & \dots & 0 & \alpha_{n}\cr
+\end{pmatrix}
+\qquad \implies \qquad
+D^{p}=\begin{pmatrix}
+\alpha_{1}^{p}& 0& \dots &  \dots & 0\cr
+0& \alpha_{2}^{p}& 0&  \dots &0\cr
+\vdots & \ddots & \ddots & \ddots & \vdots \cr
+0& \dots & 0 & \alpha_{n-1}^{p} & 0 \cr
+0& \dots & \dots & 0 & \alpha_{n}^{p}\cr
+\end{pmatrix}$$
+\end{exemple}
+
+
+
+\begin{theoreme}
+Une matrice $A$ de taille $n\times n$, triangulaire, est inversible
+si et seulement si ses éléments diagonaux sont tous non nuls.
+\end{theoreme}
+
+\begin{proof}
+Supposons que $A$ soit triangulaire supérieure.
+
+\begin{itemize}
+  \item Si les éléments de la diagonale sont tous non nuls, alors
+  la matrice $A$ est déjà sous la forme échelonnée.
+En multipliant chaque ligne $i$ par l'inverse de l'élément diagonal $a_{ii}$,
+on obtient des $1$ sur la diagonale.
+De ce fait, la forme échelonnée réduite de $A$ sera la matrice identité.
+Le théorème \ref{th:invequi} permet de conclure que $A$ est inversible.
+
+  \item Inversement, supposons qu'au moins l'un des éléments diagonaux soit nul et notons $a_{\ell\ell}$
+le premier élément nul de la diagonale. En multipliant les lignes $1$ à
+$\ell-1$ par l'inverse de leur élément diagonal, on obtient une matrice de la forme
+\[\left( \begin{array}{ccccccc}
+1 & * & \cdots &&& \cdots& * \\
+0& \ddots  & * &\cdots &&\cdots & * \\
+0 & 0 & 1 & * && \cdots &* \\
+0 & \cdots & 0 & {\color{myred}0} &*&\cdots &*\\
+0 & \cdots & 0& 0& * & \cdots &*  \\
+\vdots & \vdots & \vdots & \cdots &0&\ddots & \vdots \\
+0& \cdots &&&\cdots&0&*
+\end{array}\right).\]
+
+
+Il est alors clair que la colonne numéro $\ell$ de la forme échelonnée réduite ne
+contiendra pas de $1$ comme pivot. La forme échelonnée réduite de $A$
+ne peut donc pas être $I_n$ et par le théorème \ref{th:invequi},
+$A$ n'est pas inversible.
+\end{itemize}
+
+Dans le cas d'une matrice triangulaire inférieure, on utilise
+la transposition (qui fait l'objet de la section suivante) et on
+obtient une matrice triangulaire supérieure. On applique alors
+la démonstration ci-dessus.
+\end{proof}
+
+
+
+%---------------------------------------------------------------
+\subsection{La transposition}
+
+Soit $A$ la matrice de taille $n\times p$
+$$
+A = \left(
+\begin{array}{cccc}
+a_{11} & a_{12} & \dots & a_{1p}\\
+a_{21} & a_{22} & \dots & a_{2p}\\
+\vdots & \vdots &&\vdots\\
+a_{n1} & a_{n2} & \dots & a_{np}
+\end{array}\right).
+$$
+
+\begin{definition}
+On appelle \defi{matrice transposée}\index{matrice!transposee@transposée}\index{transposee@transposée} de $A$ la matrice $A^T$ de taille $p \times n$
+définie par :
+$$
+A^T = \left(
+\begin{array}{cccc}
+a_{11} & a_{21} & \dots & a_{n1}\\
+a_{12} & a_{22} & \dots & a_{n2}\\
+\vdots & \vdots &&\vdots\\
+a_{1p} & a_{2p} &\dots & a_{np}
+\end{array}\right)\, .
+$$
+\end{definition}
+
+Autrement dit : le coefficient à la place $(i,j)$ de $A^T$  est $a_{ji}$.
+Ou encore la $i$-ème ligne de $A$ devient la $i$-ème colonne de $A^{T}$
+(et réciproquement la $j$-ème colonne de $A^T$ est la $j$-ème ligne de $A$).
+
+\bigskip
+
+{\bf Notation :} La transposée de la matrice $A$ se note aussi souvent $^{t\!}A$.
+
+\begin{exemple}
+
+$$
+\begin{pmatrix}
+1&2&3\\
+4&5&-6\\
+-7&8&9\\
+\end{pmatrix}^T
+=
+\begin{pmatrix}
+1&4&-7\\
+2&5&8\\
+3&-6&9\\
+\end{pmatrix}$$
+$$\begin{pmatrix}
+ 0 & 3\\
+ 1 & -5\\
+ -1 & 2
+\end{pmatrix}^T=
+\begin{pmatrix}
+ 0 & 1 & -1\\
+ 3 &-5 & 2
+\end{pmatrix}
+\qquad\qquad
+(1\quad -2\quad 5)^T  =
+\begin{pmatrix}
+ 1 \\
+ -2\\
+ 5
+\end{pmatrix}
+$$
+\end{exemple}
+
+L'opération de transposition obéit aux règles suivantes:
+\begin{theoreme}
+\sauteligne
+ \begin{enumerate}
+    \item $(A + B)^T = A^T + B^T$
+    \item $(\alpha A)^T = \alpha A^T $
+    \item $(A^T)^T = A$
+    \item \myboxinline{$(AB)^T = B^T A^T$}
+    \item Si $A$ est inversible, alors $A^T$ l'est aussi et on a $(A^T)^{-1}=(A^{-1})^T$.
+  \end{enumerate}
+\label{theotranspo}
+\end{theoreme}
+
+Notez bien l'inversion : $(AB)^T = B^T A^T$,
+comme pour $(AB)^{-1} = B^{-1} A^{-1}$.
+
+%---------------------------------------------------------------
+
+\subsection{La trace}
+
+Dans le cas d'une matrice carrée de taille $n\times n$,
+les éléments $a_{11}$, $a_{22}, \ldots, a_{nn}$ sont appelés les \defi{éléments diagonaux}.
+
+Sa \defi{diagonale principale}\index{diagonale} est la
+diagonale $(a_{11},a_{22}, \ldots, a_{nn})$.
+  \[
+\begin{pmatrix}
+ {\color{myred}a_{11}} & a_{12} & \dots & a_{1n}\\
+ a_{21} & {\color{myred}a_{22}} & \dots & a_{2n}\\
+ \vdots& \vdots & {\color{myred}\ddots}  & \vdots\\
+ a_{n1} & a_{n2} & \dots & {\color{myred}a_{nn}}
+\end{pmatrix}
+ \]
+
+
+\begin{definition}
+La \defi{trace}\index{trace}\index{matrice!trace} de la matrice $A$ est
+le nombre obtenu en additionnant les éléments diagonaux de $A$.
+Autrement dit,
+\mybox{$\tr A = a_{11} + a_{22} + \cdots +a_{nn}.$}
+\end{definition}
+
+\begin{exemple}
+\sauteligne
+\begin{itemize}
+  \item Si
+$ A = \left( \begin{smallmatrix}
+2 & 1\\
+0& 5
+\end{smallmatrix}\right)$,
+alors $\tr A = 2 + 5 = 7$.
+
+  \item Pour $B = \left(\begin{smallmatrix}
+1 & 1 &2\\
+5&2&8\\
+11 & 0 & -10
+\end{smallmatrix}\right)$,  $\tr B = 1 + 2 -10 =-7$.
+\end{itemize}
+\end{exemple}
+
+\begin{theoreme}
+Soient $A$ et $B$ deux matrices $n \times n$. Alors :
+\begin{enumerate}
+\item $\tr(A + B)$ = $\tr A$ + $\tr B$,
+\item $\tr(\alpha A)$ = $\alpha$ $\tr A$ pour tout $\alpha \in \Kk$,
+\item $\tr(A^T)$ = $\tr A $,
+\item $\tr(AB)$ = $\tr(BA)$.
+\end{enumerate}
+\end{theoreme}
+
+
+\begin{proof}
+~
+\begin{enumerate}
+\item Pour tout $1 \leq i \leq n$, le coefficient $(i,i)$ de $A+B$ est $a_{ii} + b_{ii}$.
+Ainsi, on a bien $\tr(A + B)$ = $\tr(A)$ + $\tr(B)$.
+
+\item On a $\tr(\alpha A) = \alpha a_{11} +\dots+ \alpha a_{nn}
+= \alpha (a_{11} +\dots+ a_{nn})= \alpha \tr A$.
+
+\item \'Etant donné que la transposition ne change pas les éléments diagonaux,
+la trace de $A$ est égale à la trace de $A^T$.
+
+\item Notons $c_{ij}$ les coefficients de $AB$.
+Alors par définition
+$$c_{ii} = a_{i1}b_{1i} + a_{i2}b_{2i} +\dots+ a_{in}b_{ni}.$$
+Ainsi,
+$$\begin{array}{cccccc}
+\tr(AB) & = & a_{11}b_{11} & + a_{12}b_{21} & +\cdots &+ a_{1n}b_{n1}\\
+ & &+ a_{21}b_{12} & + a_{22}b_{22}& +\cdots & + a_{2n}b_{n2}\\
+& & \vdots &&&\\
+& & +a_{n1}b_{1n} & + a_{n2}b_{2n}& +\cdots & + a_{nn}b_{nn}.
+\end{array}$$
+
+On peut réarranger les termes pour obtenir
+
+$$\begin{array}{cccccc}
+\tr(AB) &=& a_{11}b_{11} & + a_{21}b_{12} & +\cdots &+ a_{n1}b_{1n}\\
+&&+  a_{12}b_{21} & + a_{22}b_{22}& +\cdots & + a_{n2}b_{2n}\\
+ && \vdots &&\\
+ &&+ a_{1n}b_{n1} & + a_{2n}b_{n2}& +\cdots & + a_{nn}b_{nn}.
+\end{array}$$
+
+En utilisant la commutativité de la multiplication dans $\Kk$, la première ligne devient
+$$b_{11}a_{11} + b_{12}a_{21} +\dots+ b_{1n}a_{n1}$$
+qui vaut le coefficient $(1,1)$ de $BA$. On note $d_{ij}$ les coefficients de $BA$.
+En faisant de même avec les
+autres lignes, on voit finalement que
+$$\tr(AB) = d_{11} +\dots+ d_{nn} = \tr(BA).$$
+\end{enumerate}
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Matrices symétriques}
+
+
+\begin{definition}
+Une matrice $A$ de taille $n \times n$ est \defi{symétrique}\index{matrice!symetrique@symétrique} si elle est égale
+à sa transposée, c'est-à-dire si
+$$A = A^T,$$
+ou encore si $a_{ij}=a_{ji}$ pour tout $i,j=1, \ldots, n$.
+Les coefficients sont donc symétriques par rapport à la diagonale.
+\end{definition}
+
+\begin{exemple} Les matrices suivantes sont symétriques :
+ $$ \begin{pmatrix}
+ 0 & 2\\
+ 2 & 4\end{pmatrix} \qquad
+\begin{pmatrix}
+ -1 & 0 & 5\\
+ 0 & 2 & -1\\
+ 5 & -1 & 0\end{pmatrix}
+$$
+\end{exemple}
+
+\begin{exemple}
+Pour une matrice $B$ quelconque, les matrices $B \cdot B^T$ et $B^T \cdot B$ sont symétriques.
+
+Preuve : $(BB^T)^T = (B^T)^T B^T = BB^T$. Idem pour $B^TB$.
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Matrices antisymétriques}
+
+\begin{definition}
+Une matrice $A$ de taille $n \times n$ est \defi{antisymétrique}\index{matrice!antisymetrique@antisymétrique} si
+$$A^T = -A,$$
+c'est-à-dire si $a_{ij} = -a_{ji}$ pour tout $i,j=1, \ldots, n.$
+\end{definition}
+
+\begin{exemple}
+$$\begin{pmatrix}
+0 & -1\\
+1 & 0
+\end{pmatrix} \qquad
+\begin{pmatrix}
+0 & 4 & 2\\
+-4 & 0 & -5\\
+-2 & 5 & 0
+\end{pmatrix}$$
+\end{exemple}
+
+Remarquons que les éléments diagonaux d'une matrice antisymétrique sont toujours tous nuls.
+
+\begin{exemple}
+Toute matrice est la somme d'une matrice symétrique et d'une matrice antisymétrique.
+
+\medskip
+
+Preuve :
+Soit $A$ une matrice. Définissons $B=\frac12(A+A^T)$ et $C=\frac12(A-A^T)$.
+Alors d'une part $A=B+C$ ; d'autre part $B$ est
+symétrique, car $B^T=\frac12(A^T+(A^T)^T)=\frac12(A^T+A)=B$ ; et enfin $C$ est
+antisymétrique, car $C^T=\frac12(A^T-(A^T)^T)=-C$.
+
+Exemple :
+$$\text{ Pour } \quad A=\begin{pmatrix} 2 & 10 \\ 8 & -3 \end{pmatrix}
+\qquad\text{ alors }\qquad A \ \ = \ \ \underbrace{\begin{pmatrix}
+2 & 9\\
+9 & -3\end{pmatrix}}_{\text{symétrique}}
+\quad\ \  + \quad \underbrace{\begin{pmatrix}
+0 & 1\\
+-1 & 0\end{pmatrix}}_{\text{antisymétrique}}.$$
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Montrer que la somme de deux matrices triangulaires supérieures reste triangulaire supérieure.
+  Montrer que c'est aussi valable pour le produit.
+
+  \item Montrer que si $A$ est triangulaire supérieure, alors $A^T$ est triangulaire inférieure.
+  Et si $A$ est diagonale ?
+
+  \item Soit $A = \left(\begin{smallmatrix}x_1 \\ x_2 \\ \vdots \\ x_n \end{smallmatrix} \right)$.
+  Calculer $A^T \cdot A$, puis $A\cdot A^T$.
+
+  \item Soit $A=\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)$.
+  Calculer $\tr(A\cdot A^T)$.
+
+  \item Soit $A$ une matrice de taille $2\times 2$ inversible. Montrer
+  que si $A$ est symétrique, alors $A^{-1}$ aussi. Et si $A$ est antisymétrique ?
+
+  \item Montrer que la décomposition d'une matrice sous la forme
+  \og symétrique + antisymétrique \fg{} est unique.
+
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bigskip
+\bigskip
+
+\auteurs{
+\begin{itemize}
+  \item D'après un cours de Eva Bayer-Fluckiger, Philippe Chabloz, Lara Thomas
+  de l'\'Ecole Polytechnique Fédérale de Lausanne,
+
+  \item et un cours de Sophie Chemla de l'université Pierre et Marie Curie,
+  reprenant des parties de cours de H. Ledret et d'une équipe de l'université de Bordeaux animée par J. Queyrut,
+
+  \item mixés et révisés par Arnaud Bodin, relu par Vianney Combet.
+\end{itemize}
+}
+
+\finchapitre
+\end{document}

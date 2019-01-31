@@ -1,0 +1,537 @@
+
+\input{../preamb-texte.tex}
+
+\newcommand{\codeinline}[1]{\texttt{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Nous allons présenter quelques algorithmes élémentaires en lien avec l'arithmétique.
+
+\change
+
+Nous en profitons pour présenter une façon complètement différente d'écrire des algorithmes :
+les fonctions récursives.
+
+\change
+
+Nous écrirons l'algorithme d'Euclide
+
+\change
+
+Et différentes façons de trouver des nombres premiers.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici un algorithme très classique :
+
+\change
+
+Voyons comment fonctionne cette boucle avec l'exemple de $n=5$.
+
+\change
+
+On initialise la variable \codeinline{produit} à $1$,
+
+
+Pour notre exemple $n=5$ alors $i$ varie de $1$ à $5$.
+
+\`A chaque étape on multiplie \codeinline{produit}
+par $i$ et on affecte le résultat dans \codeinline{produit}. 
+
+\change
+
+Pour $i=1$ la variable produit devient
+$1 \times 1 = 1$, 
+
+\change
+
+Puis produit devient $2 \times 1 = 2$, 
+
+\change
+
+
+$3 \times 2 = 6$, 
+
+\change
+
+$4\times 6 = 24$, 
+
+\change
+
+Pour le dernier indice $i=5$ on trouve
+$5 \times 24 = 120$.
+
+Et la boucle se termine.
+
+
+\change
+
+Vous avez bien sûr reconnu le calcul de $5!$
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\'Etudions un autre algorithme. Nous définissons une fonction factorielle qui dépend d'une variable $n$
+ainsi :
+
+Tout d'abord si $n$ égal $1$ alors la fonction renvoie $1$.
+
+Sinon, $n$ est plus grand que $1$ et la fonction renvoie $n$ * notre fonction factorielle
+évaluée en $n-1$.
+
+Cela semble un peu bizarre au premier abord car factorielle (n-1) n'est pas connue,
+
+l'ordinateur doit donc recommencer tout le processus avec cette fois $n-1$ à la place de $n$.
+
+\change
+
+Voyons cela pour $n=5$.
+
+Pour $n=5$ la condition du "si"  n'est pas vérifiée donc on passe directement au "sinon"
+
+\change
+
+Donc \codeinline{factorielle(5)} renvoie comme résultat : \codeinline{5 * factorielle(4)}
+
+On a plus ou moins progressé : le calcul n'est pas fini car on ne connaît pas encore \codeinline{factorielle(4)}
+mais on s'est ramené à un calcul au rang précédent.
+
+\change
+
+Pour $4$ on a \codeinline{factorielle(4)}=\codeinline{4 * factorielle(3)}
+Donc \codeinline{factorielle(5)= 5 * 4 * factorielle(3)}
+
+\change
+
+
+on itère :
+
+\codeinline{factorielle(5) == 5 * 4 * 3 * factorielle(2)}
+
+\change
+
+\codeinline{factorielle(5) = 5 * 4 * 3 * 2 *  factorielle(1)}.
+
+Pour \codeinline{factorielle(1)} la condition du \codeinline{if (n==1)} est vérifiée 
+
+\change
+
+et alors  \codeinline{factorielle(1)=1}.
+
+\change
+
+Le bilan est donc que \codeinline{factorielle(5) = 5 * 4 * 3 * 2 * 1}
+c'est bien $5!$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Une fonction qui lorsque elle s’exécute s'appelle elle-même est une \defi{fonction récursive}.
+
+\change
+
+Il y a une analogie très forte avec la récurrence.
+
+\change
+
+Par exemple on peut définir la suite des factorielles ainsi :
+
+\change
+
+$u_1 = 1 \quad \text{ et } \text{ si } n \ge 1 \quad u_{n} = n \times u_{n-1} .$
+
+\change
+
+
+Comme pour la récurrence une fonction récursive comporte une étape d'\evidence{initialisation}
+
+\change
+
+ici \codeinline{if (n==1): return 1} correspondant à $u_1=1$
+
+
+\change
+
+et une étape d'\evidence{hérédité} 
+
+\change
+
+ici \codeinline{return n * factorielle(n-1)} correspondant à $u_{n} = n \times u_{n-1}$). 
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons un autre exemple.
+
+La suite de Fibonacci est définie ainsi
+
+on part de $1$ et encore $1$
+
+le nombre suivant est la somme de deux précédents : c'est $2$.
+
+Le suivant est la somme $2 + 3$ c'est $5$, puis $3+5=8$,...
+
+\change
+
+On peut définir cette suite par récurrence.
+
+On initialise les formules avec deux conditions initiales $F_0 = 1, \ F_1 = 1$
+
+la formule de récurrence est $F_{n} = F_{n-1} + F_{n-2}$ : le nombre $F_n$ est bien la somme des deux précédents.
+
+\change
+
+Cela se programme tel quel avec une fonction récursive.
+
+On commence par les conditions initiales au rang $n=0$ et $n=1$ on
+renvoie $F_n = 1$.
+
+\change
+
+Pour un rang plus grand on renvoie la somme des deux précédents :
+c'est à dire que l'algorithme fait appelle à la fonction aux deux rangs précédents et fait la somme.
+
+Bien sûr pour le calculs des rangs précédents l'algorithme va faire appel aux rang d'encore avant. Etc.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+L’algorithme d'Euclide est basé sur le principe suivant
+
+$\text{si } b | a \text{ alors } \pgcd(a,b)=b$
+
+
+sinon le $\pgcd(a,b)$ vaut le $\pgcd$ de $b$ avec 
+le reste de la division euclidienne de $a$ par $b$.
+
+
+\change
+
+A vous de mettre en oeuvre cette formule pour calculer 
+le pgcd à l'aide d'un algorithme récursif.
+
+En déduire une estimation de la probabilité que deux entiers tirés
+au hasard soit premiers entre eux.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici le code pour l'algorithme d'Euclide récursif. 
+
+On commence par la condition initiale :
+
+si $b$ divise $a$ alors on s’arrête et le pgcd est $b$.
+
+La condition $b$ divise $a$ s'écrit ici que $a$ modulo $b$ vaut $0$.
+
+\change
+
+Si $b$ ne divise pas $a$
+alors on applique le critère de l'algorithme d'Euclide : 
+le pgcd de $a$ et de $b$ vaut
+le pgcd de $b$ avec le reste de la division euclidienne de $a$ par $b$.
+
+
+Notez à quel point le code est succinct et épuré !
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Par définition deux entiers $a,b$ sont premiers entre eux ssi 
+$\pgcd(a,b)=1$ :
+
+Donc une fois que l'on sait calculer le pgcd on peut décider 
+si deux entiers sont premiers entre eux ou pas.
+
+
+\change
+
+Voici le calcul pour la probabilité 
+de deux entiers d'être premiers entre eux.
+
+
+Je vous laisse lire les détails :
+
+\change
+
+Par exemple on souhaite calculer la probabilité que deux entiers compris entre $1$ et $1000$
+soient premiers entre eux. On pose $n=1000$ et on fait faire $10 \, 000$ tirages.
+
+Chaque itération de la boucle "tant que" correspond à un tirage.
+
+On tire au hasard deux entiers $a$ et $b$ entre $1$ et $1000$.
+
+Si $pgcd(a,b)=1$ alors $a$ et $b$ sont premiers entre eux
+
+et on incrémente alors un compteur qui compte le nombre de cas favorable. 
+
+\change
+
+A la fin on estime la probabilité
+mesurée par le quotient 
+
+\codeinline{nbpremiers/nbtirages} qui vaut ici environ  $0,60\ldots$ 
+
+(les décimales d'après dépendent des tirages).
+
+
+\change
+
+Lorsque $n$ tend vers $+\infty$ alors $p_n \to \frac{6}{\pi^2} = 0,607927\ldots$ et on dit souvent que :
+
+
+\change
+
+
+<<la probabilité que deux entiers tirés au hasard soient premiers entre eux est $\frac{6}{\pi^2}$.>>
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Pour conclure avec les algorithmes récursifs avant de passer à autre chose voici quelques remarques :
+
+\change
+
+Un des avantages des algorithmes récursifs est d'abord
+qu'ils ont souvent un code très court,
+
+\change
+
+en plus ils sont particulièrement faciles à programmer lorsque l'on a une relation de récurrence.
+
+\change
+
+Ils ont cependant des inconvénient selon le langage ou la fonction programmée.
+
+Il peut y avoir des problèmes de mémoire.
+
+Par exemple pour calculer $5!$ l'ordinateur a besoin de stocker $4!$ pour lequel il a besoin de stocker $3!$,...
+
+
+
+\change
+
+Il est aussi important de bien réfléchir à la condition initiale (qui est en fait celle qui termine l'algorithme)
+  et à la récurrence sous peine d'avoir une fonction qui boucle indéfiniment !
+  
+\change
+
+Il n'existe pas des algorithmes récursifs pour tout (nous allons le voir tout de suite pour les nombres premiers) 
+mais ils apparaissent   beaucoup dans les algorithmes de tris. 
+Autre exemple : la dichotomie se programme très bien par une fonction récursive.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On oublie maintenant les algorithme récursifs et on s'intéresse aux nombres premiers.
+
+Voici votre travail à faire.
+
+On commence par une façon élémentaire pour décider si un nombre donné est premier  ou pas, on teste
+tous les diviseurs possibles.
+
+
+Si l'on souhaite obtenir la liste de tous les nombres premiers jusq'à $1000$ par exemple, le crible d'Eratosthène
+est simple et efficace.
+
+
+
+Enfin voici une représentation fascinante des nombres premiers.
+On place tous les entiers en spirale comme ceci : $1$, $2$, $3$, $4$, ...
+
+A vous de colorez en rouge les entiers qui sont premiers ! 
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici l'algorithme pour tester si un entier $n$ est premier.
+
+Déjà on décrète que $0$ et $1$ ne sont pas des nombres premiers.
+
+\change
+
+Ensuite commence l'itération, on commence par tester 
+si $k=2$ divise notre entier $n$. Notre test est ici de calculer
+$n $ modulo $k$, cela vaut $0$ ssi $k$ divise $n$.
+
+Alors si c'est le cas inutile d'aller plus loin on a trouvé un diviseur de $n$.
+
+$n$ n'est donc pas un nombre premier on s’arrête là et on renvoie la valeur ``Faux''.
+
+\change
+
+Si $k$ ne divise $n$ alors on passe au test du diviseur suivant $k+1$.
+
+\change
+
+Si à la fin on ne trouve aucun diviseur alors c'est que $n$ est premier et on renvoie la valeur ``Vrai''.
+
+
+\change
+
+Cet algorithme est basé sur la définition même d'un nombre premier.
+Plus exactement un entier n'est *pas* un nombre premier s'il s'écrit $a\times b$
+avec $a$ *et* $b$ $\ge 2$.
+
+\change
+
+Mais il est clair qu'alors $a \le \sqrt n$ ou $b \le \sqrt n$ 
+
+(car si ce n'est pas le cas $ab$ serait $> n$)
+
+
+
+\change
+
+Donc il suffit de tester les diviseurs $2 \le k \le \sqrt n$.
+
+\change
+
+D'où la condition \codeinline{k*k <= n}
+
+\change
+
+Qui est préférable à  \codeinline{k <= sqrt(n)} 
+
+\change
+
+
+Nous avons utilisé un nouveau type de variable : un \defi{booléen} est une variable qui ne peut prendre que deux
+états Vrai ou Faux. 
+
+Ainsi \codeinline{est-premier(13)} renvoie Vrai, 
+alors que \codeinline{est-premier(14)} renvoie Faux.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour programmer le crible d'Eratosthène le plus dur est de trouver le bon codage de l'information.
+
+Voici le code.
+
+
+Ici on commence par faire un tableau contenant les entiers \codeinline{[0,1,2,3,4,5,6,7,8,9,10,11,12,13,...]}. 
+
+
+\change
+
+Pour signifier qu'un nombre n'est pas premier on remplace l'entier par \codeinline{0}.
+Comme $1$ n'est pas un nombre premier : on le remplace par $0$.
+
+\change
+
+Puis on fait une boucle, on part de $k=2$ et on remplace tous les autres multiples de $2$ par $0$ :
+
+On incrémente $k$, jusqu'à obtenir un entier $k$ non barré. 
+
+Ici le premier nombre non barré après $2$ est $3$ c'est donc un nombre premier
+(il n'a aucun diviseur autre que $1$ et lui-même car sinon il aurait été rayé).
+
+On garde $3$ et remplace tous les autres multiples de $3$ par $0$.
+
+
+\change
+
+A la fin, cette procédure ne garde que les nombres premiers.
+
+On reformate la liste pour se débarrasser des zéros.
+
+\change
+
+Voyons en exemple comme cela fonctionne :
+
+Ici on commence par faire un tableau contenant les entiers 
+
+On raye déjà $1$ qui n'est pas premier.
+
+\change
+
+Puis on part de $2$ et on raye tous les multiples de $2$.
+
+\change
+
+le premier nombre non barré après $2$ est $3$, on le conserve et on remplace tous les autres multiples de $3$
+par $0$ (ici seul $9$ disparait),
+
+le prochain nombre non nul est $5$, on conserve $5$ et on raye tous les multiples de $5$. etc.
+
+\change
+
+Par principe à la fin il ne reste que des nombres sans diviseurs stricts, ce sont les nombres premiers.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour la spirale d'Ulam la seule difficulté est de placer les entiers sur une spirale, voici juste
+le résultat.
+
+On part du centre qui correspond à l'entier $1$ puis les entiers 
+$2$, $3$, $4$, $5$ le long de la spirale.
+Si l'entier est premier on le colore en rouge. 
+
+Voici ici les entier de $1$ à $37$.
+
+
+\change
+
+Lorsque l'on va jusqu'à de grandes valeurs 
+on obtient des motifs intrigants.
+
+$1$ est ici,
+
+les nombres premiers sont toujours en rouge,
+et en blanc les nombres non premiers.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici une liste des petits programmes à écrire
+
+où les fonctions récursives sont mis en avant.
+
+
+
+\end{document}

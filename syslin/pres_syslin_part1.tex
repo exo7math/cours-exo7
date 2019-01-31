@@ -1,0 +1,467 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={205,100,0}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\title{{\bf Systèmes linéaires}}
+\subtitle{Introduction aux systèmes d'équations linéaires}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Exemple : deux droites dans le plan
+    \item<4-> Résolution par substitution
+    \item<5-> Exemple : deux plans dans l'espace
+    \item<6-> Résolution par la méthode de Cramer
+    \item<7-> Résolution par inversion de matrice  
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exemple : deux droites dans le plan}
+
+\begin{frame}
+\begin{itemize}
+  \item L'équation d'une droite dans le plan $(Oxy)$ s'écrit
+$$a x + b y = e$$
+où $a, b$ et $e$ sont des constantes réelles
+\pause  
+
+  \item Cette équation s'appelle 
+\defi{équation linéaire} dans les variables 
+(ou inconnues) $x$ et $y$
+%. Par exemple, $2x + 3y = 6$ est une équation linéaire.
+
+
+\pause   
+  \item Intersection de deux droites $D_1$ et $D_2$
+
+\pause
+  
+  \item Un point $(x,y)$ est dans l'intersection
+$D_1 \cap D_2$ s'il est solution du système : 
+\begin{equation}
+\left\{\begin{array}{rcl} 
+a x + b y & = & e\\
+c x + d y & = & f 
+\end{array}\right.  
+\tag{$S$}  
+\label{eq:syslin1}  
+\end{equation}
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+\end{frame}
+
+\begin{frame}
+
+\myfigure{0.55}{
+\tikzinput{fig_syslin01} 
+\qquad
+\uncover<2->{\tikzinput{fig_syslin02}}
+\qquad
+\uncover<3->{\tikzinput{fig_syslin03}}
+}
+
+
+
+\begin{enumerate}
+  \item Les droites $D_1$ et $D_2$ se coupent en un seul point
+
+ Le système (\ref{eq:syslin1}) a une seule solution
+
+\pause
+
+  \item Les droites $D_1$ et $D_2$ sont parallèles
+  
+  Le système  (\ref{eq:syslin1}) n'a pas de solution
+ 
+ \pause
+
+  \item Les droites $D_1$ et $D_2$ sont confondues
+  
+  Le système  (\ref{eq:syslin1}) a une infinité de solutions 
+
+\end{enumerate}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Résolution par substitution}
+
+\begin{frame}
+\hfill\evidence{Méthode de la substitution}
+
+$$
+\left\{\begin{array}{rcl} 
+3 x + 2 y & = & 1\\
+2 x - 7 y & = & -2 
+\end{array}\right.  
+$$
+\pause
+%nous isolons $y$ dans la première équation, puis nous le remplaçons par sa valeur dans la seconde, ce qui donne le système équivalent :
+$$
+\iff \left\{\begin{array}{rcl} 
+y & = & \frac12 - \frac32x\\
+2 x - 7 (\frac12 - \frac32x) & = & -2 
+\end{array}\right.
+$$
+\pause
+$$
+\iff
+\left\{\begin{array}{rcl} 
+y & = & \frac12 - \frac32x\\
+(2+7\times\frac32)x  & = & -2 +\frac72
+\end{array}\right.$$
+\pause
+$$
+% \iff \left\{\begin{array}{rcl} 
+% y & = & \frac12 - \frac32x\\
+% x & = & \frac{3}{25} 
+% \end{array}\right.
+% \pause
+\iff \left\{\begin{array}{rcl} 
+\uncover<5->{y & = & \frac{8}{25}}\\
+x & = & \frac{3}{25}
+\end{array}\right.$$
+\pause\pause
+
+L'ensemble des solutions du système est :
+$$\mathcal{S} = \left\lbrace \left(\frac{3}{25},\frac{8}{25}\right) \right\rbrace$$
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exemple : deux plans dans l'espace}
+
+\begin{frame}
+
+\begin{itemize}
+  \item Dans l'espace $(Oxyz)$, une équation linéaire 
+$$a x + b y  + c z = d$$
+où $(a,b,c)\neq (0,0,0)$ est l'équation d'un plan
+\pause
+  
+  \item Les triplets $(x,y,z)$  solutions du système
+à $2$ équations et à $3$ inconnues suivant : 
+$$\left\{\begin{array}{rcl} 
+a x + b y + c z    & = & d \\
+a' x + b' y + c' z & = & d'
+\end{array}\right.$$
+sont les coordonnées des points dans l'intersection de deux plans dans l'espace
+\end{itemize}
+
+\pause
+
+\begin{enumerate}
+\item les plans sont parallèles (et distincts) et il n'y a alors aucune solution au système
+\item les plans sont confondus et il y a une infinité de solutions
+\item les plans se coupent en une droite et il y a une infinité de solutions
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{enumerate}\setlength{\itemsep}{12pt}
+  \item $\left\{\begin{array}{rcl} 
+2 x + 3 y - 4 z  & = & 7 \\
+4 x + 6 y - 8 z  & = & -1
+\end{array}\right.$ \hfill deux équations incompatibles
+
+\centerline{$\mathcal{S}= \varnothing$}
+
+ \pause
+
+  \item $\left\{\begin{array}{rcl} 
+2 x + 3 y - 4 z  & = & 7 \\
+4 x + 6 y - 8 z  & = & 14
+ \end{array}\right.$  \hfill deux équations équivalentes
+ 
+\centerline{$\mathcal{S}= \big\lbrace (x,y,\frac12 x + \frac34 y - \frac74) \mid x,y\in \Rr \big\rbrace$}
+  \pause
+
+ \item $\left\{\begin{array}{rcl} 
+7 x + 2 y - 2 z  & = & 1 \\
+2 x + 3 y + 2 z  & = & 1
+ \end{array}\right.$ \hfill on choisit $x$ comme paramètre
+ 
+\centerline{$\mathcal{S}= \left\lbrace \left(x,-\frac{9}{5} x +  \frac25,\frac{17}{10}x-\frac{1}{10}\right) \mid x\in \Rr \right\rbrace$}
+
+\end{enumerate}
+  
+  
+\end{exemple}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Résolution par la méthode de Cramer}
+
+\begin{frame}
+
+\hfill\evidence{Méthode de Cramer}
+
+Système de $2$ équations à $2$ inconnues :
+$$
+\left\{\begin{array}{rcl} 
+a x + b y & = & e\\
+c x + d y & = & f 
+\end{array}\right.  
+$$
+
+\pause
+
+Le \defi{déterminant} du système :
+$$ \begin{vmatrix} a & b \\ c & d \end{vmatrix}=ad-bc$$
+
+\pause
+
+Si $ad-bc\neq 0$, il existe \evidence{une unique solution} $(x,y)$ :
+$$x = \frac{\begin{vmatrix} e & b \\ f & d \end{vmatrix}}{\begin{vmatrix} a & b \\ c & d \end{vmatrix}} \qquad 
+y = \frac{\begin{vmatrix} a & e \\ c & f \end{vmatrix}}{\begin{vmatrix} a & b \\ c & d \end{vmatrix}}$$
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}\setlength{\itemsep}{8pt}
+  \item $
+\left\{\begin{array}{rcl} 
+t x - 2y   & = & 1\\
+3x + t y & = & 1 
+\end{array}\right.  
+$ \qquad $t\in \Rr$
+
+\pause
+  
+  \item $\left| \begin{smallmatrix} t & -2 \\ 3 & t \end{smallmatrix}\right|= t^2+6$
+et ne s'annule jamais
+
+\pause
+  
+  \item Il existe donc une unique solution $(x,y)$ :
+$$x = \frac{\begin{vmatrix} 1 & -2 \\ 1 & t \end{vmatrix}}{t^2+6} = \frac{t+2}{t^2+6}, \qquad
+y = \frac{\begin{vmatrix} t & 1 \\ 3 & 1 \end{vmatrix}}{t^2+6} = \frac{t-3}{t^2+6}$$
+\pause
+  
+  \item Pour chaque $t$, l'ensemble des solutions est 
+$\mathcal{S}= \left\lbrace \left(\frac{t+2}{t^2+6},\frac{t-3}{t^2+6}\right) \right\rbrace$
+\end{itemize}
+
+\end{exemple}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Résolution par inversion de matrice}
+
+\begin{frame}
+
+\hfill\evidence{Inversion de matrice}
+
+\begin{itemize}
+  \item Le système linéaire
+$$
+\left\{\begin{array}{rcl} 
+a x + b y & = & e\\
+c x + d y & = & f 
+\end{array}\right.  
+$$
+
+\pause
+est équivalent à
+$$AX = Y \quad \text{ où } \quad A = \begin{pmatrix} a & b \\ c & d \end{pmatrix} 
+\quad  X = \begin{pmatrix} x \\ y \end{pmatrix} \quad Y = \begin{pmatrix} e \\ f \end{pmatrix}$$
+
+\pause
+
+  \item Si le déterminant de la matrice $A$ est non nul, c'est-à-dire si $ad-bc \neq 0$, 
+alors la matrice $A$ est inversible et
+$$A^{-1} = \frac{1}{ad-bc} \begin{pmatrix} d & -b \\ -c & a \end{pmatrix}$$
+
+\pause
+
+
+et l'unique solution $X=\left( \begin{smallmatrix} x \\ y \end{smallmatrix}\right)$
+du système est donnée par 
+$$X = A^{-1} Y$$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+
+\begin{itemize}
+  \item $
+\left\{\begin{array}{rcl} 
+ x + y  & = & 1\\
+ x + t^2 y & = & t 
+\end{array}\right.  
+$ 
+\qquad  $t\in \Rr$
+
+\pause
+  
+  \item Le déterminant est 
+  $\left| \begin{smallmatrix} 1 & 1 \\ 1 & t^2 \end{smallmatrix}\right|= t^2-1$
+
+\pause  
+
+  \item \textbf{Premier cas : $t\neq+1$ et $t\neq-1$}
+
+  \begin{itemize}
+    \item Alors $t^2-1\neq 0$
+\pause
+
+    \item La matrice $A=\left( \begin{smallmatrix} 1 & 1 \\ 1 & t^2 \end{smallmatrix}\right)$
+est inversible d'inverse $A^{-1} = \frac{1}{t^2-1}\left( \begin{smallmatrix} t^2 & -1 \\ -1 & 1 \end{smallmatrix}\right)$
+\pause
+
+    \item La solution $X=\left( \begin{smallmatrix} x \\ y \end{smallmatrix}\right)$ est
+$$\hspace*{-2em}X = A^{-1} Y = \frac{1}{t^2-1}\begin{pmatrix} t^2 & -1 \\ -1 & 1 \end{pmatrix} \begin{pmatrix} 1 \\ t \end{pmatrix} 
+= \frac{1}{t^2-1}\begin{pmatrix} t^2-t\\ t-1 \end{pmatrix}
+= \begin{pmatrix} \frac{t}{t+1} \\ \frac{1}{t+1} \end{pmatrix}$$
+\pause
+
+    \item Pour chaque $t\neq \pm1$, l'ensemble des solutions est
+    
+\centerline{$\mathcal{S}= \left\lbrace \left(\frac{t}{t+1},\frac{1}{t+1}\right) \right\rbrace$}
+  \end{itemize}
+  
+\end{itemize}
+
+\end{exemple}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+  \item $
+\left\{\begin{array}{rcl} 
+ x + y  & = & 1\\
+ x + t^2 y & = & t 
+\end{array}\right.  
+$ 
+\qquad  $t\in \Rr$
+
+  \item \textbf{Deuxième cas : $t=+1$}
+\pause  
+  \begin{itemize}
+    \item Le système s'écrit alors :$
+\left\{\begin{array}{rcl} 
+ x + y  & = & 1\\
+ x + y & = & 1 
+\end{array}\right.  
+$ 
+
+\pause
+
+    \item Les deux équations sont identiques
+\pause  
+    \item Il y a une infinité de solutions 
+  
+  \centerline{$\mathcal{S}= \big\lbrace (x,1-x) \mid x\in \Rr \big\rbrace$}
+  \end{itemize}
+\pause
+
+  \item \textbf{Troisième cas : $t=-1$}
+  
+\pause  
+  \begin{itemize}
+    \item Le système s'écrit alors :
+$
+\left\{\begin{array}{rcl} 
+ x + y  & = & 1\\
+ x + y & = & -1 
+\end{array}\right.$
+
+  \pause
+  
+    \item Les deux équations sont incompatibles 
+  \pause
+    \item Donc $\mathcal{S}= \varnothing$
+  \end{itemize}
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Tracer les droites et résoudre le système linéaire   
+$\left\{\begin{array}{rcl} 
+x-2y  & = & -1\\
+-x+3y & = & 3 
+\end{array}\right.$ de trois façons différentes : 
+substitution, méthode de Cramer, inverse d'une matrice.
+Idem avec $\left\{\begin{array}{rcl} 
+2x-y  & = & 4\\
+3x+3y & = & -5 
+\end{array}\right..$
+
+  \item Résoudre suivant la valeur du paramètre $t\in \Rr$ : 
+$\left\{\begin{array}{rcl} 
+4x-3y & = & t\\
+2x-y  & = & t^2 
+\end{array}\right..$
+
+  \item  Discuter et résoudre suivant la valeur du paramètre $t\in \Rr$ :  
+$\left\{\begin{array}{rcl} 
+tx-y     & = & 1\\
+x+(t-2)y & = & -1 
+\end{array}\right..$
+Idem avec $\left\{\begin{array}{rcl} 
+(t-1)x+y & = & 1\\
+2x+ty    & = & -1 
+\end{array}\right..$
+
+ % \item ???
+\end{enumerate}
+
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

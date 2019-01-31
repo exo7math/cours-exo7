@@ -1,0 +1,376 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={127,0,0}]{structure}
+
+% Commande spécifique à ce chapitre
+
+\newcommand{\Python}{\texttt{Python}}
+\renewcommand{\evidence}[1]{{\color{blue}\textbf{#1}}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+\definecolor{coul_prive}{rgb}{0.93,0.26,0}
+\definecolor{coul_public}{rgb}{0.06,0.63,0}
+
+\newcommand{\prive}[1]{{\bf\color{coul_prive} #1}}
+\newcommand{\public}[1]{{\bf\color{coul_public} #1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Cryptographie}}
+\subtitle{La cryptographie à clé publique}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Le principe de Kerckhoffs
+    \item<4-> Factorisation des entiers
+    \item<5-> Fonctions à sens unique
+    \item<6-> Chiffrement à clé privée
+    \item<7-> Chiffrement à clé publique
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Le principe de Kerckhoffs}
+
+\begin{frame}
+
+
+\evidence{Principe de Kerckhoffs}
+
+\pause
+
+\mybox{
+\begin{minipage}{0.6\textwidth}
+\sl\centering La sécurité d'un système de chiffrement
+ne doit reposer que sur le secret de la clé. 
+\end{minipage}
+}
+
+\pause
+
+\mybox{\sl L'ennemi peut avoir connaissance du système de chiffrement.}
+
+\pause
+
+\begin{itemize}
+  \item Contraire à l'intuition qui est de dissimuler le maximum de choses possibles
+\pause
+  \item Un mécanisme connu de tous sera testé, attaqué, étudié, 
+et utilisé s'il est robuste
+\pause
+  \item Seule la clé utilisée reste secrète
+  
+\end{itemize}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Factorisations des entiers}
+
+\begin{frame}
+
+\evidence{Complexité de la factorisation}
+
+\pause
+\begin{itemize}
+  \item $5\times7 = ?$
+  \pause
+  \item $35 = ?$
+  \pause
+  \item Factoriser $1591$
+  \pause
+  \item Calculer $37\times 43$
+  \pause
+  \item Calculer $p \times q$ est plus facile que de factoriser $n=pq$
+\end{itemize}
+
+\bigskip
+\pause
+
+\begin{itemize}
+  \item La \defi{complexité} estime le temps de calcul (ou le nombre d'opérations élémentaires)
+  nécessaire pour effectuer une opération
+  \pause
+  
+  \item \evidence{Addition}
+  \begin{itemize}
+  \pause
+    \item La somme de deux chiffres (par exemple $6+8$) est de complexité $1$
+    \pause
+    \item La somme de deux entiers à $n$ chiffres est de complexité $n$
+    \pause
+    \item Ex. $1234+2323$ : $4$ additions de chiffres
+   \end{itemize}
+  
+  \pause
+  \item \evidence{Multiplication}
+  \pause
+  \begin{itemize}
+    \item La multiplication de deux entiers à $n$ chiffres est de complexité $n^2$
+    \pause
+    \item Ex. $1234 \times 2323$ : $16$ multiplications de chiffres
+   \end{itemize}
+   
+  \pause 
+  \item \evidence{Factorisation} : $\exp(4n^\frac13)$
+   
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+
+\evidence{Multiplier et factoriser des nombres à $n$ chiffres}
+\begin{center}
+\begin{tabular}{ccc}
+
+$n$ & multiplication & factorisation \\
+\hline
+3 & 9 & 320 \\
+4 & 16 & 572 \\
+5 & 25 & 934 \\
+10 & 100 & 5\;528 \\
+50 & 2\;500 & 2\;510\;835 \\
+100 & 10\;000 & 115\;681\;968 \\
+200 & 40\;000 & 14\;423\;748\;780 \\
+\end{tabular}  
+\end{center}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Fonctions à sens unique}
+
+\begin{frame}
+
+\evidence{Fonctions à sens unique}
+\pause
+\begin{itemize}
+  \item Fonction $f$
+  \pause
+  \item Connaissant $x$, calcul <<facile>> de $f(x)$
+  \pause
+  \item Pour un $y$, trouver $x$ tel que $y=f(x)$ est <<difficile>>
+  \pause
+  \item Fonction à sens unique à \defi{trappe}
+\end{itemize}
+
+\bigskip
+\pause
+\bigskip
+
+Exemple : 
+$$f : x\longmapsto x^3 \pmod{100}$$
+
+Trouver $x$ tel que $x^3 \equiv 11 \pmod{100}$
+\pause
+
+  \begin{itemize}
+  \item Recherche exhaustive, tester $0$, $1$, $2$, $3$, ...,  $99$
+  \pause
+    $$
+    71^3=357\;911 \equiv 11 \pmod{100}
+    $$
+    
+  \pause  
+  \item Trappe secrète : $y \longmapsto y^7 \pmod{100}$ qui 
+  fournit directement le résultat !
+  \pause
+    $$
+    11^7= 19\;487\;171 \equiv 71 \pmod{100}
+    $$
+  \end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Chiffrement à clé privée}
+
+\begin{frame}
+
+\evidence{Chiffrement à clé privée}
+
+\bigskip\bigskip
+
+\begin{center}
+\hspace*{-10mm}
+\begin{tikzpicture}[scale=0.8]
+
+  \node at (4,3) {\bf ALICE};
+  \node at (-4,3) {\bf BRUNO};
+  
+  \draw[line width=5pt,>=stealth,->,gray] (-2.1,0) to (2.1,0);
+  
+  \node at (-6,1.7) {\prive{Message M}};
+  \node at (6,1.7) {\prive{Message M}};
+  \node at (-0.05,0.5) {\public{Message crypté X}};  
+  \node at (0,1.9) {\bf \prive{Clé C}};  
+  \draw (-4,0)node[draw]{Chiffrement  \public{$\mathcal{C}$}};
+  \draw (4.2,0)node[draw]{Déchiffrement  \public{$\mathcal{D}$}};
+  
+  \draw[->, blue, very thick] (-0.7,1.8) to[bend right, thick] (-3.2,0.5);
+  \draw[->, blue, very thick] (0.7,1.8) to[bend left, thick] (3.2,0.5);
+ 
+  \draw[->, blue, very thick] (-5,1.5) to (-4.5,0.5);
+  \draw[<-, blue, very thick] (5,1.5) to (4.5,0.5);
+\end{tikzpicture}  
+\end{center}
+\end{frame}
+
+\begin{frame}
+
+\evidence{Chiffrement à clé privée}
+
+\bigskip
+
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+  \node at (-0.50,0){
+  \includegraphics[height=4.5cm]{figures/coffre.png}
+  };
+  \node at (-3,-3) {\bf ALICE};
+  \node at (-5,-1) {\bf BRUNO};
+  
+  \draw[->, blue, ultra thick] (-5,-0.7) to[bend left, thick]node[above, midway]{} (-1,0);
+  \draw[->, blue, ultra thick] (-1.2,-0.5) to[bend right, thick]node[above, midway]{} (-3,-2.7);
+
+\end{tikzpicture}  
+\end{center}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Chiffrement à clé publique}
+
+\begin{frame}
+
+\evidence{Chiffrement à clé publique}
+
+\bigskip
+
+\begin{center}
+\begin{tikzpicture}
+  \node at (+0.6,-0.56){
+  \includegraphics[height=5cm]{figures/boite.png}
+  };
+  \node at (-3,-3) {\bf ALICE};
+  \node at (-5,-1) {\bf BRUNO};
+  
+  \draw[->, myred, ultra thick] (-5,-0.7) to[bend left, thick]node[above, midway]{} (-1,0);
+  \draw[->, myred, ultra thick] (-2.,-0.7) to[bend right, thick]node[above, midway]{} (-3,-2.7);
+
+\end{tikzpicture}  
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+
+\evidence{Chiffrement à clé publique}
+
+\bigskip\bigskip
+
+\begin{center}
+\hspace*{-10mm}
+\begin{tikzpicture}[scale=0.8]
+
+  \node at (4,3) {\bf ALICE};
+  \node at (-4,3) {\bf BRUNO};
+  
+  \draw[line width=5pt,>=stealth,->,gray] (-2.1,0) to (2.1,0);
+  
+  \node at (-6,1.7) {\prive{Message M}};
+  \node at (6,1.7) {\prive{Message M}};
+  \node at (0,0.5) {\public{Message crypté X}};  
+  \node at (2.5,2.3) {\bf \public{Clé publique}};  
+  \node at (2.5,1.7) {\bf \prive{Clé privée}}; 
+  \draw (-4,0)node[draw]{Chiffrement  \public{$\mathcal{C}$}};
+  \draw (4.2,0)node[draw]{Déchiffrement \public{$\mathcal{D}$}};
+  
+  \draw[->, blue, very thick] (1.1,2.3) to[bend right, thick] (-3.2,0.5);
+  \draw[->, blue, very thick] (2.8,1.5) to[bend left, thick] (3.5,0.5);
+ 
+  \draw[->, blue, very thick] (-5,1.5) to (-4.5,0.5);
+  \draw[<-, blue, very thick] (5,1.5) to (4.5,0.5);
+\end{tikzpicture}  
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+Paramètres d'un \defi{chiffrement à clé publique}
+\pause
+\begin{enumerate}
+\item les fonctions de chiffrement et de déchiffrement \public{$\mathcal{C}$} et \public{$\mathcal{D}$}
+\pause
+\item la clé publique du destinataire qui paramètre la fonction \public{$\mathcal{C}$}
+\pause
+\item la clé privée du destinataire qui paramètre la fonction \public{$\mathcal{D}$}
+\end{enumerate}
+
+\bigskip
+\pause 
+\begin{center}
+Trouver $x$ tel que $x^3 \equiv 11 \pmod{100}$
+\end{center}
+\bigskip
+\pause
+
+\begin{enumerate}
+\item \public{$\mathcal{C}$} : $x\longmapsto x^\text{\bf ?} \pmod{100}$ et \public{$\mathcal{D}$} : $x\longmapsto x^\text{\bf ?} \pmod{100}$
+\pause
+\item la clé publique d'Alice \public{3}  \quad $\public{\mathcal{C}} : x\longmapsto x^\public{3} \pmod{100}$
+\pause
+\item la clé privée d'Alice \prive{7}  \quad $\prive{\mathcal{D}} : x\longmapsto x^\prive{7} \pmod{100}$ 
+\end{enumerate}
+\end{frame}
+
+
+\end{document}

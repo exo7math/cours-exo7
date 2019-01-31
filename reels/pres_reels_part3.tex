@@ -1,0 +1,187 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={205,134,0}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcounter{saveenumi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+
+
+\title{{\bf Les nombres réels}}
+\subtitle{Densité de $\Qq$ dans $\Rr$}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Intervalle
+    \item<4-> Densité
+  %  \item<5-> 
+  %  \item<6-> 
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Intervalle}
+
+\begin{frame}
+
+	
+\begin{mydefinition}
+Un \defi{intervalle} de $\Rr$ est un sous-ensemble $I$ de $\Rr$ vérifiant la propriété :
+\[ \forall a',b' \in I \;\;  \forall x\in \Rr\;\; \left( a'\leq x \leq b' \implies x \in I \right )\]
+\end{mydefinition} 
+
+\pause
+
+
+
+
+\begin{mydefinition}
+Un \defi{intervalle ouvert} est un sous-ensemble de $\Rr$ de la forme 
+\( ]a,b[=\big\{x \in \Rr\;  |\; a<x<b\big\}\), où $a$ et $b$ sont des éléments de $\overline{\Rr}$
+\end{mydefinition} 
+
+\pause
+
+\begin{remarque}
+\begin{itemize}
+\item Par définition $I=\emptyset$ est un intervalle
+
+\item $I=\Rr$ est aussi un intervalle
+
+\item Un intervalle ouvert est un intervalle !
+
+Soient $a',b'$ des éléments de $]a,b[$ et $x\in \Rr$ tel que $a'\leq x \leq b'$. 
+Alors on a $a<a'\leq x \leq b'<b$, donc $x\in ]a,b[$
+\end{itemize}
+\end{remarque}
+\end{frame}
+
+
+\begin{frame}
+\begin{mydefinition}
+Soit $a$ un réel, $V\subset \Rr$ un sous-ensemble. 
+On dit que $V$ est un \defi{voisinage} de $a$ s'il existe un intervalle 
+ouvert $I$ tel que $a\in I$ et $I\subset V$
+\end{mydefinition}
+
+\bigskip
+
+ \myfigure{0.8}{
+ \tikzinput{fig_reels08} 
+ }
+	
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Densité}
+
+\begin{frame}
+	\begin{theoreme}\ 
+\begin{enumerate}
+  \item $\Qq$ est \defi{dense} dans $\Rr$ : 
+tout intervalle ouvert (non vide) de $\Rr$ contient une infinité de rationnels
+\pause
+  \item $\Rr\backslash\Qq$ est dense dans $\Rr$ : 
+tout intervalle ouvert (non vide) de $\Rr$ contient une infinité d'irrationnels
+\end{enumerate}
+\end{theoreme}
+
+\pause
+
+\begin{proof}
+\begin{enumerate}
+  \item \emph{Tout intervalle contient un rationnel}
+\pause
+  \begin{itemize}[<+->]
+    \item Pour $a<b$ trouver $r\in \Qq$ tel que $a<r<b$
+    \item D'après la propriété d'Archimède il existe $q\in \Nn^*$ tel que $q>\frac{1}{b-a}$
+    \item Posons $p=E(aq)+1$ 
+    \item Alors $p-1\leq aq<p$ donc $a<\frac pq$ 
+    \item Aussi $\frac pq- \frac 1q\leq a$ d'où $\frac pq \leq a+\frac 1q < a+b-a=b$
+    \item $\frac pq\in ]a,b[$
+  \end{itemize}
+\setcounter{saveenumi}{\theenumi}
+\end{enumerate}
+\end{proof}
+\end{frame}
+
+
+\begin{frame}
+\begin{proof}
+\begin{enumerate}[<+->]
+  \setcounter{enumi}{\thesaveenumi}
+  \item \emph{Tout intervalle contient un irrationnel}
+  \begin{itemize}[<+->]
+    \item Pour $a<b$ trouver un irrationnel $i$ tel que $a<i<b$
+    \item Dans tout intervalle non vide il existe un rationnel
+    \item Donc il existe un rationnel $r \in ]a-\sqrt{2},b-\sqrt{2}[$
+    \item Ainsi il existe un irrationnel  $i=r+\sqrt{2}\in ]a,b[$
+  \end{itemize}
+
+
+
+  \item \emph{Une infinité de rationnels et d'irrationnels dans $]a,b[$}
+
+  \begin{itemize}[<+->]
+    \item On découpe $]a,b[$ en $N$ sous-intervalles
+    \item $ \big]a,a+\frac{b-a}{N}\big[\ , 
+\big]a+\frac{b-a}{N},a+2\frac{(b-a)}{N}\big[\ , \ldots, 
+\big]a+(N-1)\frac{(b-a)}{N},b\big[$
+    \item Chaque sous-intervalle contient un rationnel et un irrationnel
+    \item $]a,b[$ contient (au moins) $N$ rationnels et $N$ irrationnels
+    \item C'est vrai pour tout $N \ge 1$
+    \item Donc une infinité de rationnels et une infinité d'irrationnels
+  \end{itemize}
+\end{enumerate}
+\end{proof}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Mini-exercices}
+
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Montrer qu'une intersection d'intervalles est un intervalle. Qu'en est-il pour une réunion ?
+Trouver une condition nécessaire et suffisante afin que la réunion de deux intervalles soit un intervalle.
+%\item Soit $a\in \Rr$. Montrer qu'une intersection de voisinages de $a$ est un voisinage de $a$. Qu'en est il pour une réunion ?
+  \item Montrer que l'ensemble des nombres décimaux (c'est-à-dire ceux de la forme 
+$\frac{a}{10^n}$, avec $n\in \Nn$ et $a\in \Zz$) est dense dans $\Rr$. 
+  \item Construire un rationnel compris strictement entre $123$ et $123,001$. Ensuite construire un irrationnel. 
+Sauriez-vous en construire une infinité ? Et entre $\pi$ et $\pi+0,001$ ?
+  \item Montrer que si $z=e^{i\alpha}$ et $z'=e^{i\beta}$ sont deux nombres complexes de module $1$, 
+avec $\alpha<\beta$, il existe un entier $n\in \Nn^*$ et une racine $n$-ième de  
+l'unité $z=e^{i\gamma}$ avec $\alpha<\gamma<\beta$.
+%    \item Montrer qu'il existe une suite $(u_n)_{n\in \Nn}$ d'éléments de $\Rr$ telle que l'ensemble $\{ u_n, n\in \Nn \}$ est dense dans $\Rr$. 
+\end{enumerate}
+
+\end{miniexercice}
+\end{frame}
+
+
+\end{document}

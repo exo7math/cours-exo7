@@ -1,0 +1,405 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+\change
+
+Nous commençons ce chapitre consacré aux dérivées par la définition
+de la dérivée d'une fonction et des exemples
+
+\change
+
+Géométriquement la calcul de la dérivée correspond à la pente de la tangente.
+
+\change
+
+Nous terminons avec d'autres écritures de la dérivée, utiles pour les applications.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Motivons d'abord cette notion de dérivée.
+
+Nous souhaitons calculer $\sqrt{1,01}$ ou du moins en trouver une valeur approchée.
+
+\change
+
+Comme $1,01$ est proche de $1$ et que $\sqrt{1}=1$ on se doute bien que $\sqrt{1,01}$
+sera proche de $1$. 
+
+Justifions cela !
+
+\change
+
+Si l'on appelle $f$ la fonction définie par $f(x)=\sqrt{x}$, alors la fonction $f$ est une fonction 
+continue en $x_0=1$. 
+
+\change
+
+La continuité nous affirme que pour $x$ suffisamment proche de $x_0$,  
+$f(x)$ est proche de $f(x_0)$. 
+
+Cela revient à dire que pour $x$ au voisinage de $x_0$ on approche $f(x)$
+par la constante $f(x_0)$ .
+
+\change
+
+Nous pouvons faire mieux qu'approcher notre fonction par une droite horizontale ! 
+
+Essayons avec une droite quelconque. Quelle droite se rapproche le plus du graphe de $f$ autour de $x_0$ ? 
+Elle doit passer par le point $(x_0,f(x_0))$ et doit <<coller>> le plus possible au graphe : 
+
+\change
+
+Cette droite c'est la tangente au graphe en $x_0$.
+
+\change
+
+Une équation de la tangente est 
+$$y = (x-x_0) f'(x_0) + f(x_0)$$
+où $f'(x_0)$ désigne le nombre dérivé de $f$ en $x_0$.
+
+\change
+
+
+On sait que pour $f(x)=\sqrt x$, on a $f'(x)=\frac{1}{2\sqrt x}$.
+
+\change
+
+Une équation de la tangente en $x_0=1$ est donc $y=(x-1)\frac12+1$.
+
+\change
+
+Et donc pour $x$ proche de $1$ on a $f(x) \approx (x-1)\frac12+1$.
+
+\change
+
+
+Qu'est ce que cela donne pour notre calcul de $\sqrt{1,01}$ ?
+
+
+On pose $x=1,01$ donc $f(x) \approx 1+\frac12(x-1) = 1 + \frac{0,01}{2}=1,005$.
+
+\change
+
+Et c'est effectivement une très bonne de approximation de $\sqrt{1,01}=1,00498\ldots$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Définissons la dérivée en un point.
+
+Soit $f : I \to \Rr$ une fonction, où $I$ est un intervalle ouvert de $\Rr$. 
+
+Fixons un $x_0$ dans l'intervalle.
+
+\change
+
+On dit que $f$ est \defi{dérivable en $x_0$} si le 
+\evidence{taux d'accroissement} $\frac{f(x)-f(x_0)}{x-x_0}$ 
+admet une limite finie lorsque $x$ tend vers $x_0$.
+
+\change
+
+Lorsque elle existe cette la limite s'appelle 
+le \defi{nombre dérivé} de $f$ en $x_0$ et on le note $f'(x_0)$. 
+
+\change
+
+En résumé, si elle existe 
+la dérivée de $f$ en $x_0$ est
+$\displaystyle f'(x_0)= \lim_{x\to x_0} \frac{f(x)-f(x_0)}{x-x_0}$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous disons que $f$ est \defi{dérivable sur l'intervalle $I$} si $f$ est dérivable en tout point $x_0 \in I$.
+
+\change
+
+Nous définissons alors une nouvelle fonction, la \defi{fonction dérivée},
+
+qui a $x \mapsto f'(x)$ le nombre dérivée en $x$.
+
+\change
+
+On note cette fonction $f'$ ou $\frac{df}{dx}$.
+
+\change
+
+Voyons un exemple simple :
+
+Considérons la fonction définie par $f(x)=x^2$  et montrons qu'elle est dérivable en tout point $x_0 \in \Rr$.
+
+\change 
+
+On part du taux d'accroissement $\frac{f(x)-f(x_0)}{x-x_0}$
+
+\change 
+
+qui vaut ici $\frac{x^2-x_0^2}{x-x_0}$
+
+\change 
+
+on factorise le numérateur par l'identité remarquable $x^2-x_0^2=(x-x_0)(x+x_0)$
+
+\change 
+
+ce qui permet de simplifier le taux d'accroissement en $x+x_0$
+
+\change 
+
+Lorsque $x \to x_0$ alors la limite existe et vaut $2x_0.$
+
+\change
+
+Ainsi on a montré que $f$ était dérivable en $x_0$ 
+et que son nombre dérivée est $2x_0$
+
+
+Ceci est vrai pour tout $x_0$ de $\Rr$
+donc $f$ est une fonction dérivable sur $\Rr$ et sa dérivée est 
+définie par $f'(x)=2x$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On enchaîne avec un exemple un peu plus compliqué.
+
+Montrons que la dérivée de la fonction sinus est la fonction cosinus.
+
+\change
+
+
+Commençons par calculer le nombre dérivé en $x_0=0$.
+
+\change
+
+Nous savons $\frac{\sin x}{x} \to 1$
+
+\change
+
+Mais le taux d'accroissement en $0$ qui est
+ $\frac{f(x)-f(0)}{x-0} $ est exactement $\frac{\sin x}{x}$ donc tend vers $1$.
+
+\change
+
+Cela prouve que $f$ est dérivable en $0$ et $f'(0)=1$.
+
+\change
+
+Passons au cas de $x_0$ quelconque.
+
+\change
+
+On se rappelle de la formule 
+$\sin p-\sin q = 2\sin \frac{p-q}{2}\cdot\cos\frac{p+q}{2}$
+
+\change
+
+Calculons le taux d'accroissement 
+$\frac{f(x)-f(x_0)}{x-x_0} = \frac{\sin x - \sin x_0}{x-x_0}$
+
+avec la formule cela s'écrit aussi 
+$\frac{\sin \frac{x-x_0}{2}}{\frac{x-x_0}{2}} \cdot \cos \frac{x+x_0}{2}$.
+
+\change
+
+Lorsque $x\to x_0$ alors d'une part
+$\cos \frac{x+x_0}{2}\to \cos x_0$,
+
+\change
+
+et d'autre part
+en posant $u=\frac{x-x_0}{2}$ alors $u\to 0$ et on a $\frac {\sin u}u \to 1$.
+
+\change
+
+Ainsi la taux d'accroissement tend vers $\cos x_0$ 
+
+\change
+
+et donc $f$ est dérivable et $f'(x)=\cos x$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La \defi{tangente} au point $(x_0,f(x_0))$ est par définition
+la droite d'équation $y = (x-x_0) f'(x_0) + f(x_0)$.
+
+
+
+Le fait que la pente de la tangente soit $f'(x_0)$ se justifie géométriquement de la façon suivante.
+
+
+\change
+La droite qui passe par les points $(x_0,f(x_0))$ et $(x,f(x))$
+a pour coefficient directeur le taux d'accroissement $\frac{f(x)-f(x_0)}{x-x_0}$.
+
+\change
+
+Voici une telle droite.
+
+Lorsque l'on rapproche $x$ de $x_0$,
+
+\change
+
+\change
+
+alors le coefficient directeur de la droite
+tend vers $f'(x_0)$.
+
+
+\change
+
+\change
+
+Et à la limite la droite obtenue est bien la tangente !
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici deux autres formulations de la dérivabilité de $f$ en $x_0$.
+
+
+
+Tout d'abord $f$ est dérivable en $x_0$ si et seulement si 
+$\displaystyle \lim_{h\to 0} \frac{f(x_0+h)-f(x_0)}{h}$ existe et est finie.
+
+On en fait juste remplacer $x$ par $x_0+h$.
+
+\change
+
+Une autre façon d'écrire la dérivabilité est la suivante :
+$f$ est dérivable en $x_0$ si et seulement s'il existe $\ell \in \Rr$ (qui en fait sera $f'(x_0)$)
+et une fonction $\epsilon : I \to \Rr$ telle que $\epsilon(x) \xrightarrow[x\to x_0]{} 0$ avec
+$f(x)=f(x_0)+(x-x_0) \ell + (x-x_0) \epsilon(x).$
+
+\change
+
+
+Cette dernière formulation se justifie aisément :
+si l'on passe $f(x_0)$ de l'autre coté et que l'on divise par $x-x_0$
+Alors on obtient 
+$\frac{f(x)-f(x_0)}{x-x_0} = \ell + \epsilon(x).$
+Donc dire qu'il existe une limite $\ell$ équivaut à ce que $f$ soit dérivable en $x_0$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+
+On applique ces formulations pour démontrer le résultat suivant.
+Soit $I$ un intervalle ouvert et $f : I \to \Rr$ une fonction.
+
+\change
+
+Si $f$ est dérivable en $x_0$ alors $f$ est continue en $x_0$.
+
+\change
+
+Et bien sûr on en déduit que : Si $f$ est dérivable sur $I$ alors $f$ est continue sur $I$.
+
+Donc être dérivable implique être continue.
+
+\change
+
+
+
+On suppose que $f$ dérivable en $x_0$ et on veut montrer qu'elle est aussi continue en ce point.
+
+Nous allons utiliser la deuxième formulation de la dérivabilité :
+
+$f(x)= f(x_0)+\underbrace{(x-x_0) \ell}_{\to 0} + \underbrace{(x-x_0) \epsilon(x)}_{\to 0}.$
+
+\change
+
+Mais lorsque $x\to x_0$ alors $x-x_0\to 0$ donc $(x-x_0) \ell \to 0$.
+Et de même $(x-x_0) \epsilon(x)\to 0$.
+
+\change
+
+Ainsi $f(x) \to f(x_0)$
+
+\change
+
+Ce qui prouve que $f$ est continue en $x_0$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Attention aux erreurs : 
+
+si une fonction est dérivable alors elle est continue. 
+
+Mais attention la réciproque est \textbf{fausse} !
+
+
+\change
+
+Retenez l'exemple de la fonction valeur absolue.
+
+\change
+
+Elle est continue partout donc y compris en $0$
+
+mais elle n'est pas dérivable en $0$.
+
+
+
+
+\change
+
+En effet, le taux d'accroissement de $|x|$ à l'origine vérifie :
+$\frac{f(x)-f(0)}{x-0}$
+
+\change
+
+$ = \frac{|x|}{x}=$
+
+\change
+
+$+1  \text{ si } x>0 $
+
+\change
+
+$-1  \text{ si } x < 0$
+
+
+Il y a bien une limite à droite (qui vaut $+1$), une limite à gauche (qui vaut $-1$) mais elles ne sont pas égales :
+il n'y a pas de limite en $0$. Ainsi $f$ n'est pas dérivable en $0$.
+
+
+Cela se lit aussi sur le dessin il y a une demi-tangente à droite, une demi-tangente à gauche
+mais elles ont des directions différentes.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici des exercices d'entraînement afin de vérifier vos connaissances 
+avant de passer à la suite !
+
+
+
+\end{document}

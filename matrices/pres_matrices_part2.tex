@@ -1,0 +1,639 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={191,146,10}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcounter{saveenumi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Matrices}}
+\subtitle{Multiplication de matrices}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition du produit
+    \item<4-> Propriétés du produit de matrices
+    \item<5-> La matrice identité
+    \item<6-> Puissance d'une matrice   
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définition du produit}
+
+\begin{frame}
+
+\begin{mydefinition}[Produit de deux matrices]
+$A=(a_{ij})$ une matrice ${\color<2>{blue}{n}}\times {\color<1>{red}{p}}$ et $B=(b_{ij})$ une matrice ${\color<1>{red}{p}}\times {\color<2>{magenta}{q}}$
+
+\pause
+Alors le produit $C=AB$ est une matrice ${\color<2>{blue}{n}}\times {\color<2>{magenta}{q}}$ \pause définie par 
+
+\vspace{-.3cm}
+
+\mybox{$\displaystyle
+c_{ij} = \sum_{k=1}^p a_{ik}b_{kj}
+$}
+\end{mydefinition}
+
+\vspace{-.4cm}
+
+\pause
+$$c_{{\color<4->{blue}{i}}{\color<4->{magenta}{j}}}=a_{{\color<4->{blue}{i}}1}b_{1{\color<4->{magenta}{j}}}+a_{{\color<4->{blue}{i}}2}b_{2{\color<4->{magenta}{j}}}+ \dots + a_{{\color<4->{blue}{i}}k}b_{k{\color<4->{magenta}{j}}}+ \dots + a_{{\color<4->{blue}{i}}p}b_{p{\color<4->{magenta}{j}}}
+$$ 
+
+\vspace{-.5cm}
+
+\pause
+
+$$\begin{array}{ccl}
+&\begin{pmatrix}
+&&&{\color{magenta}\times}&&\\
+&&&{\color{magenta}\times}&&\\
+\hphantom{-}&\hphantom{-}&\hphantom{-}&{\color{magenta}\times}&\hphantom{-}&\hphantom{-}\\
+&&&{\color{magenta}\times}&&
+\end{pmatrix}&\leftarrow B\\
+A\to\begin{pmatrix}
+&&&\\
+&&&\\
+{\color{blue}\times}&{\color{blue}\times}&{\color{blue}\times}&{\color{blue}\times}\\
+&&&
+\end{pmatrix}
+&\begin{pmatrix}
+&&&|&&\\
+&&&|&&\\
+-&-&-&{\color{myred}c_{ij}}&\hphantom{-}&\hphantom{-}\\
+&&&&&
+\end{pmatrix}&\leftarrow AB\\
+\end{array}
+$$
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exemples}
+
+\begin{frame}
+
+\begin{exemple}
+$$A =\begin{pmatrix}
+1 & 2 & 3\cr 
+2 & 3 & 4\cr
+\end{pmatrix}\qquad B =
+\begin{pmatrix}
+1&2\cr
+-1&1 \cr
+1&1\cr
+\end{pmatrix}
+$$
+
+\pause
+
+$$ \begin{array}{cc}
+  & \begin{pmatrix}
+{\color<3,5>{myred}1}&{\color<4,6>{myred}2}\cr
+{\color<3,5>{myred}-1}&{\color<4,6>{myred}1} \cr
+{\color<3,5>{myred}1}&{\color<4,6>{myred}1}\cr
+\end{pmatrix}  \\
+\begin{pmatrix}
+{\color<3,4>{myred}1} & {\color<3,4>{myred}2} & {\color<3,4>{myred}3}\cr 
+{\color<5,6>{myred}2} & {\color<5,6>{myred}3}& {\color<5,6>{myred}4}\cr
+\end{pmatrix}
+   & \begin{pmatrix} \only<2>{c_{11}} \only<3->{\color<3>{blue}2} & \only<-3>{c_{12}} \only<4->{\color<4>{blue}7} \\ \only<-4>{c_{21}}\only<5->{\color<5>{blue}3} & \only<-5>{c_{22}}\only<6->{\color<6>{blue}11} \end{pmatrix}
+  \end{array}   
+ $$ 
+  
+  \pause  \pause  \pause   \pause
+\end{exemple}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+
+\begin{exemple}
+$$u = \begin{pmatrix} a_1 & a_2 & \cdots & a_n \end{pmatrix} \qquad 
+v = \begin{pmatrix} b_1 \\ b_2 \\ \vdots \\ b_n \end{pmatrix}$$
+
+\pause
+Alors $u \times v $ est une matrice $1\times 1$
+\[
+u \times v =  \Big( \ a_1 b_1 + a_2 b_2 + \cdots + a_n b_n \ \Big)
+\]
+\pause
+Ce nombre s'appelle le \defi{produit scalaire} des vecteurs $u$ et $v$
+
+\end{exemple}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pièges à éviter}
+
+\begin{frame}
+
+\begin{enumerate}
+\item  $AB\neq BA$ : le produit de matrices n'est pas commutatif en général 
+
+\pause
+\begin{exemple}
+$$\begin{pmatrix}
+5&1\\3&-2
+\end{pmatrix}
+\begin{pmatrix}
+2&0\\4&3
+\end{pmatrix}
+\uncover<3->{
+=
+\begin{pmatrix}
+14&3\\-2&-6
+\end{pmatrix}
+}$$
+et
+$$
+\begin{pmatrix}
+2&0\\4&3
+\end{pmatrix}
+\begin{pmatrix}
+5&1\\3&-2
+\end{pmatrix}
+\uncover<4->{
+=
+\begin{pmatrix}
+10&2\\29&-2
+\end{pmatrix}
+}
+$$
+\end{exemple}
+\pause\pause
+  \item\pause $AB=0$ n'implique pas $A=0$ ou $B=0$
+  
+\pause
+\begin{exemple}
+$$
+A  = \begin{pmatrix}
+ 0 & -1\\
+ 0 & 5\end{pmatrix}\qquad B  = 
+\begin{pmatrix}
+2 & -3\\
+0 & 0 \end{pmatrix}
+\qquad \text{et} \qquad 
+ AB  =  \begin{pmatrix}
+ 0 & 0\\
+ 0 & 0\end{pmatrix}
+$$
+\end{exemple}
+
+\pause
+
+  \item $AB=AC$ n'implique pas $B=C$
+  
+
+
+%\setcounter{saveenumi}{\theenumi}
+\end{enumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%
+
+% \begin{frame}
+% \begin{enumerate}
+%   \setcounter{enumi}{\thesaveenumi}
+%   \item $AB=AC$ n'implique pas $B=C$
+%  
+% \pause  
+% \begin{exemple}
+% $$
+%  A  =  \begin{pmatrix}
+%  0 & -1\\
+%  0 & 3\end{pmatrix}
+%  \qquad  
+%  B  = \begin{pmatrix} 
+% 4 & -1\\
+% 5 & 4 \end{pmatrix}
+%  \qquad 
+%  C  = \begin{pmatrix} 
+%  2 & 5\\
+%  5 & 4\end{pmatrix}
+%  $$
+%  Alors
+%  $$
+%  AB  = AC = \begin{pmatrix}
+%   -5 & -4\\
+%   15 & 12\end{pmatrix}
+% $$
+% \end{exemple}
+% \end{enumerate}
+% \end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Propriétés du produit de matrices}
+
+\begin{frame}
+
+\begin{proposition} \ 
+\begin{enumerate}\setlength{\itemsep}{10pt}
+  \item $A (BC) = (AB) C$ % : associativité du produit
+
+  \item\pause $A(B+C) = AB + AC$ \quad et \quad  $(B+C) A = BA + CA$ % : distributivité du produit par rapport à la somme
+ 
+  \item\pause $A\cdot 0 = 0$ \quad et \quad $0\cdot A= 0$
+  \vspace*{2ex}
+\end{enumerate}
+\end{proposition}
+ 
+ 
+\end{frame}
+
+%%%%%%%%%%%%%%
+% 
+% \begin{frame}
+% 
+% \begin{proof}
+% \begin{enumerate}
+%   \item  $A=(a_{ij}) \in M_{n,p}(\Kk)$, $B=(b_{ij})\in M_{p,q}(\Kk)$ 
+% et $C=(c_{ij})\in M_{q,r}(\Kk)$
+% 
+% \pause
+% Montrons que les matrices $A(BC)$ et $(AB) C$ ont les mêmes coefficients
+% \vspace{-.2cm}
+% \begin{itemize}
+% \item\pause le coefficient $(i,k)$ de $AB$ est $x_{ik}={\displaystyle \sum_{\ell=1}^{p}}a_{i \ell}b_{\ell k}$
+% 
+% \item\pause le coefficient $(i,j)$ de $(AB)C$ est donc
+% \vspace{-.2cm}
+% $$\sum_{k=1}^{q}x_{ik}c_{kj}=\sum_{k=1}^{q}
+% \left ( \sum_{\ell=1}^{p}a_{i\ell}b_{\ell k} \right )c_{kj}$$
+% 
+% \item\pause le coefficient $(\ell,j)$ de $BC$ est 
+% $y_{\ell j}={\displaystyle \sum_{k=1}^{q}}b_{\ell k}c_{kj}$
+% 
+% \item\pause  le coefficient $(i,j)$ de $A(BC)$ est donc 
+% \vspace{-.2cm}
+% $$\sum_{\ell=1}^{p}a_{i\ell}\left (  \sum_{k=1}^{q}b_{\ell k}c_{kj}\right )$$
+% 
+% \item\pause distributivité et associativité de la multiplication dans $\Kk$
+% \vspace{-.6cm}
+% \end{itemize}
+% \end{enumerate}
+% 
+% \end{proof}
+% 
+% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{La matrice identité}
+
+\begin{frame}
+
+La matrice carrée suivante s'appelle la \defi{matrice identité}, notée $I_n$ ou $I$
+ \[
+ \Id = \left(
+ \begin{array}{cccc}
+1 & 0 & \dots & 0\\
+0& 1& \dots & 0\\
+ \vdots& \vdots & \ddots  & \vdots\\
+0 & 0 & \dots &1
+\end{array}
+\right)
+ \]
+
+\bigskip
+
+\pause
+On définit le \defi{symbole de Kronecker} $\delta_{i,j}\in \Rr$ : pour $i$ et $j$ entiers
+$$\delta_{i,j}=\begin{cases}
+0 & \text{ si } \;\; i\neq j \\
+1 & \text{ si } \;\; i=j
+\end{cases}$$
+
+\pause
+\bigskip
+
+\centerline{Alors $I_{n}=\Big(\delta_{i,j}\Big)_{1\leq i,j \leq n}$ }
+
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+
+\begin{proposition}
+Si $A$ est une matrice $n \times p$, alors 
+$$ \Id \cdot A = A \qquad \text{et} \qquad A \cdot I_p = A$$  
+\end{proposition}
+
+\pause
+\begin{proof} 
+$A=(a_{ij}) \in M_{n,p}(\Kk)$
+
+\begin{enumerate}
+\item Montrons $AI_p = A$
+
+\pause
+$AI_{p}\in M_{n,p}(\Kk)$ de terme général $c_{ij}={\displaystyle \sum_{k=1}^{p}a_{ik}\delta_{kj}}$
+
+\begin{itemize}
+\item\pause si $k\neq j$ alors $\delta_{kj}=0$
+
+\item\pause si $k=j$ alors $\delta_{kj}=1$
+
+\item\pause donc $c_{ij}=a_{ij}\delta_{jj}=a_{ij}1=a_{ij}$
+
+\end{itemize}
+\pause
+$AI_{p}$ et $A$ ont le même terme général et sont donc égales
+
+\item\pause De même $I_{n} A=A$
+\vspace{-.2cm}
+\end{enumerate}
+\end{proof}
+
+\end{frame}
+
+ 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Puissance d'une matrice}
+
+\begin{frame}
+
+Dans $M_{n}(\Kk)$ la multiplication des matrices est une opération interne :
+\[
+\text{si } A,B \in M_n(\Kk) \quad \text{ alors } A \times B \in M_n(\Kk)
+\]
+
+\pause
+
+\begin{itemize}\setlength{\itemsep}{10pt}
+  \item En particulier : $A^2 = A \times A$, \ $A^3 = A \times A \times A$, ...
+\pause  
+  \item $A^p = \underbrace{A \times A \times \cdots \times A}_{p \text{ facteurs}}$
+\pause  
+  \item $A^0=\Id$
+\end{itemize}
+
+% 
+% 
+% \pause
+% \begin{mydefinition}
+% Pour tout $A\in M_n(\Kk)$, on définit les puissances successives de $A$ par 
+% \[
+% \begin{cases}
+% A^0=\Id \\
+% A^{p+1}=A^p \times A \quad \text{ pour tout } p\in\N
+% \end{cases}
+% \]
+% \end{mydefinition}
+% 
+% \bigskip
+% \pause
+% \centerline{$A^p = \underbrace{A \times A \times \cdots \times A}_{p \text{ facteurs}}$}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}
+Calculons $A^{p}$ avec 
+$A=\begin{pmatrix}
+1 & 0  & 1 \cr
+0 & -1 & 0\cr
+0 & 0  & 2 \cr
+\end{pmatrix}$
+
+\begin{itemize}
+\item\pause On calcule $A^{2}$, $A^3$ et $A^{4}$ : \pause \quad
+$A^{2}= \begin{pmatrix}
+1 & 0 & 3 \cr
+0 & 1 & 0\cr
+0 & 0 & 4 \cr
+\end{pmatrix}$
+
+\pause
+$
+A^{3}=A^2 \times A =
+\begin{pmatrix}
+1 & 0 & 7 \cr
+0 & -1& 0\cr
+0 & 0 & 8 \cr
+\end{pmatrix}
+$ \quad \pause $
+A^{4}=A^3 \times A =
+\begin{pmatrix}
+1 & 0 & 15 \cr
+0 & 1& 0\cr
+0 & 0 & 16 \cr
+\end{pmatrix}
+$
+
+\item\pause On \emph{conjecture} la formule
+$A^{p}= \begin{pmatrix}
+1 & 0       & 2^p-1 \cr
+0 & (-1)^{p}& 0\cr
+0 & 0       & 2^p \cr
+\end{pmatrix}$
+
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+Démontrons par récurrence $A^{p}= \begin{pmatrix}
+1 & 0       & 2^p-1 \cr
+0 & (-1)^{p}& 0\cr
+0 & 0       & 2^p \cr
+\end{pmatrix}$
+
+\begin{enumerate}
+\item\pause Vrai pour $p=0$ 
+\item\pause On suppose la formule vraie pour un entier $p$
+
+\pause
+Alors
+\begin{align*}
+A ^{p+1}=A ^{p} \times A \uncover<5->{ &= 
+\begin{pmatrix}
+1 & 0       & 2^p-1 \cr
+0 & (-1)^{p}& 0\cr
+0 & 0       & 2^p \cr
+\end{pmatrix} \times
+\begin{pmatrix}
+1 & 0 & 1 \cr
+0 & -1& 0\cr
+0 & 0 & 2 \cr
+\end{pmatrix}}\\
+\uncover<6->{  &=\begin{pmatrix}
+1 & 0       & 2^{p+1}-1 \cr
+0 & (-1)^{p+1}& 0\cr
+0 & 0       & 2^{p+1} \cr
+\end{pmatrix}}
+\end{align*}
+\item \uncover<7->{ D'après le principe de récurrence, la propriété est démontrée}
+\end{enumerate}
+
+\end{exemple}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Formule du binôme}
+
+\begin{frame}
+\begin{remarque}
+Comme la multiplication n'est pas commutative 
+\begin{align*}
+(A+B)^2&= A^2+{\color<1>{myred}AB+BA}+B^2\\
+&\neq A^2+2AB+B^2
+\end{align*}
+\end{remarque}
+
+\pause
+\begin{proposition}%[Calcul de $(A+B)^{p}$ lorsque $AB=BA$]
+$A, B\in M_{n}(\Kk)$ tels que {\color<1->{myred}$AB=BA$}
+
+\pause
+Alors pour tout entier $p \ge 0$ 
+$$(A+B)^{p}= \sum_{k=0}^{p} \binom{p}{k} A^{p-k}B^{k}$$
+où $\binom{p}{k}$ désigne le coefficient du binôme
+\end{proposition}
+
+\end{frame}
+
+%%%%%%%%%%%%%%
+
+\begin{frame}
+
+\begin{exemple}
+Calculons $A^{p}$ avec $A=\begin{pmatrix}
+1&1&1&1\cr 
+0 & 1&2&1 \cr
+0&0&1&3 \cr
+0&0&0&1
+\end{pmatrix}$
+
+\begin{itemize}\setlength{\itemsep}{10pt}
+\item\pause On pose 
+$N=A - I_4= \begin{pmatrix}
+0&1&1&1\cr 
+0 &0&2&1 \cr
+0&0&0&3 \cr
+0&0&0&0
+\end{pmatrix}$
+
+\pause 
+
+\item Alors $N^{2}= \begin{pmatrix}
+0&0&2&4\cr 
+0 &0&0&6 \cr
+0&0&0&0 \cr
+0&0&0&0
+\end{pmatrix} \qquad \pause
+N^{3}= \begin{pmatrix}
+0&0&0&6\cr 
+0 &0&0&0 \cr
+0&0&0&0 \cr
+0&0&0&0
+\end{pmatrix}$
+
+\pause 
+
+\item  $N^{4}=0$, la matrice $N$ est dite nilpotente
+
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+%--------------------------------------------------------------
+
+\begin{frame}
+\begin{exemple}
+
+\begin{itemize}
+\item Comme $A=\Id+N$ et les matrices $N$ et $\Id$ commutent :
+\begin{align*}
+A^{p} \uncover<2->{ &= \sum_{k=0}^{p} \binom{p}{k} N^{k} \Id^{p-k}} \uncover<3->{ = \sum_{k=0}^{p} \binom{p}{k} N^{k}}\\
+& \uncover<4->{= \displaystyle \sum_{k=0}^{{\color<4,5>{myred}3}} \binom{p}{k} N^{k}}
+\uncover<5->{ = \Id+pN+\tfrac{p(p-1)}{2!}N^{2}+ \tfrac{p(p-1)(p-2)}{3!}N^{3}}
+\end{align*}
+\onslide<4->{car $N^{k}=0$ si $k \geq 4$}
+
+%On utilise que $\Id^k=\Id$ pour tout $k$ et surtout que $N^{k}=0$ si $k \geq 4$. 
+
+\item\uncover<6->{ D'où 
+$$A^{p}= \begin{pmatrix}
+1&p&p^{2}&p(p^{2}-p+1)\cr 
+0 & 1&2p&p(3p-2) \cr
+0&0&1&3p \cr
+0&0&0&1
+\end{pmatrix}$$}
+\end{itemize}
+\end{exemple}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Soient 
+  $A=\left(\begin{smallmatrix}0&2&-2\\6&-4&0\end{smallmatrix} \right)$,
+  $B=\left(\begin{smallmatrix}2&1&0\\0&1&0\\2&-2&-3\end{smallmatrix} \right)$,
+  $C=\left(\begin{smallmatrix}8&2\\-3&2\\-5&5\end{smallmatrix} \right)$,
+  $D=\left(\begin{smallmatrix}5\\2\\-1\end{smallmatrix} \right)$,
+  $E=\left(\begin{matrix}x&y&z\end{matrix} \right)$.
+  Quels produits sont possibles ? Les calculer !
+  
+  \item Soient $A= \left(\begin{smallmatrix}0&0&1\\0&1&0\\1&1&2 \end{smallmatrix} \right)$
+  et $B=\left(\begin{smallmatrix}1&0&0\\0&0&2\\1&-1&0\end{smallmatrix} \right)$.
+  Calculer $A^2$, $B^2$, $AB$ et $BA$.
+  
+  \item Soient $A= \left(\begin{smallmatrix} 2&0&0\\0&2&0\\0&0&2\end{smallmatrix} \right)$
+  et $B=\left(\begin{smallmatrix}0&0&0\\2&0&0\\3&1&0\end{smallmatrix} \right)$.
+  Calculer $A^p$ et $B^p$ pour tout $p\ge0$. Montrer que $AB=BA$. Calculer $(A+B)^p$.
+
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

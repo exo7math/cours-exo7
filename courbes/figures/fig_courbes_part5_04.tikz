@@ -1,0 +1,43 @@
+\begin{tikzpicture}[scale=1.5]
+
+% Axes
+     \draw[->,>=latex,thick, gray] (-3.5,0)--(2.5,0) node[below,black] {$x$};
+     \draw[->,>=latex,thick, gray] (0,-2)--(0,3) node[right,black] {$y$};
+
+ % Ticks
+%     	\foreach \x in {1,...,3}
+%      		\draw (\x,2pt) -- (\x,-2pt)
+% 			node[anchor=north west] {\x};
+    	\foreach \x in {-1,...,-3}
+     		\draw (\x,2pt) -- (\x,-2pt)
+			node[anchor=north east] {\x};
+    	\foreach \x in {1}
+     		\draw (2pt,\x) -- (-2pt,\x)
+			node[pos=0,anchor=west] {\x};
+%     	\foreach \x in {-1}
+%      		\draw (2pt,\x) -- (-2pt,\x)
+% 			node[pos=0,anchor=west] {\x};
+
+% Courbe
+\draw [thick, color=red, domain=0:2*pi, samples=200, smooth]
+  plot (xy polar cs:angle=\x r, radius={1-2*cos(\x r)});
+
+% Tangente
+  \beameronly{\uncover<2->}{
+\draw[very thick, blue!50] (1.5,-2)--+(-2,4) node[pos=0, above right] {$T$};
+}
+  \beameronly{\uncover<3->}{
+%  \draw[->,>=latex,very thick, blue] (0,1)--+(0.5,1);
+  \draw[->,>=latex,very thick, blue] (0,1)--+(-1,2) node[below left]{$\overrightarrow{\frac{\dd M}{\dd\theta}}$};
+  \draw[->,>=latex,very thick, blue] (0,1)--+(0,1) node[above right]{$\overrightarrow{u_\theta}$};
+
+   \draw[->, >=latex, blue] (0:1.4) arc(0:90:1.4);
+    \node[blue] at (45:1.6) {$\theta$};
+
+    \draw[->, >=latex, double, blue] (90:1.7) arc(90:102:1.7);
+    \node[blue] at (95:1.9) {$\beta$};
+}
+
+   \fill (0,1) circle (1pt)  node[below left] {$\theta=\frac\pi2$};
+
+\end{tikzpicture}

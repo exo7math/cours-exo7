@@ -1,0 +1,56 @@
+
+
+% Les similitudes : shift=translation, scale = homothÃÂÃÂÃÂÃÂ©tie, rotate = angle (en degrÃÂÃÂÃÂÃÂ©)
+\newcommand\simone{\begin{scope}[shift={(0,0)}, scale={1/3}, rotate=0]}
+\newcommand\simtwo{\begin{scope}[shift={({1/3},0)}, scale={1/3}, rotate=60]}                   
+\newcommand\simthree{\begin{scope}[shift={({1/2},0.28867)}, scale={1/3}, rotate=-60]}                     
+\newcommand\simfour{\begin{scope}[shift={({2/3},0)}, scale={1/3}, rotate=0]} 
+
+% La figure initiale
+%\newcommand\initfigure{\fill (0,0)--++(0:1)--++(120:1)--cycle;}
+%\newcommand\initfigure{\fill (0.5,0.433) circle (1.3cm);}
+\newcommand\initfigure{\draw (0,0)--++(0,.01)--++(1,0)--++(0,-.01)--cycle;}
+%\newcommand\initfigure{\fill (0,0)--++(0,0.5)--++(0.5,0)--++(0,-0.5)--cycle;}
+
+% Le programme rÃÂÃÂÃÂÃÂ©cursif
+\newcommand{\ifs}[2]{% #1 the counter, #2 the instructions
+                          \ifnum #1 < 0% stop now
+                          #2%
+                          %\relax% Relax, max, on ne fait rien, c'est terminÃÂÃÂÃÂÃÂ©.
+                          \else%
+                          \count255=#1%
+                          \advance\count255 by -1%
+                          \simone
+                             \ifs{\number\count255}{#2};                          
+                          \end{scope};
+
+                          \simtwo
+                             \ifs{\number\count255}{#2};                          
+                          \end{scope};
+
+                          \simthree
+                             \ifs{\number\count255}{#2};                          
+                          \end{scope};
+
+                          \simfour
+                             \ifs{\number\count255}{#2};                          
+                          \end{scope};
+                          \fi%
+}
+
+\begin{tikzpicture}[scale=4]
+%    \ifs{0}{\initfigure}
+
+  \begin{scope}[xshift=1cm, rotate=180]
+    \ifs{3}{\initfigure}
+  \end{scope}
+
+  \begin{scope}[rotate=60]
+    \ifs{3}{\initfigure}
+  \end{scope}
+ 
+ \begin{scope}[red, xshift=1cm, rotate=-60, xshift=-1cm]
+    \ifs{3}{\initfigure}
+  \end{scope}
+
+\end{tikzpicture}

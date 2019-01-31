@@ -1,0 +1,273 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={142,35,35}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\title{{\bf Polynômes}}
+\subtitle{Définitions}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définitions
+    \item<4-> Opérations sur les polynômes
+    \item<5-> Vocabulaire
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section*{Motivation}
+
+
+\begin{frame}
+
+\begin{itemize}
+  \item $aX^2+bX+c=0$
+\pause
+  \item $aX^3+bX^2+cX+d=0$
+\pause
+  \begin{itemize}
+    \item Tartaglia, \textsc{\romannumeral 16}\textsuperscript{e} siècle
+\pause
+    \item \og Méthode de Cardan\fg
+  \end{itemize}
+\end{itemize}
+
+\bigskip 
+\pause
+
+\begin{itemize}
+  \item Concepts de base
+
+  \item Arithmétique des polynômes
+
+  \item \og Tout polynôme de degré $n$ admet $n$ racines complexes \fg
+
+  \item Fractions rationnelles
+\end{itemize}
+
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Définitions}
+
+\begin{frame}
+\centerline{}
+
+
+Un \defi{polynôme} à coefficients dans $\Kk$ 
+est une expression de la forme
+$$P(X) = a_n X^n + a_{n-1} X^{n-1} + \cdots + a_2 X^2 + a_1 X + a_0$$
+avec $n\in \Nn$ et $a_0,a_1,\ldots,a_n \in \Kk$
+
+\pause
+
+\begin{itemize}[<+->]
+  \item Les $a_i$ sont appelés les \defi{coefficients} du polynôme
+  
+  \item $\Kk$ désigne le corps $\Qq$, $\Rr$ ou $\Cc$
+
+  \item Si tous les coefficients $a_i$ sont nuls, $P$ est le \defi{polynôme
+  nul}, il est noté $0$ 
+  
+  \item L'ensemble des polynômes est noté $\Kk[X]$
+  
+\end{itemize} 
+  
+\end{frame}
+
+
+\begin{frame}
+$$P(X)= \sum_i a_i X^i$$
+\begin{itemize}
+  \item  Le \defi{degré} de $P$ est le plus grand entier $i$ tel que $a_i\neq0$ ;
+on le note $\deg P$
+
+\pause
+
+  \item Un polynôme de la forme $P=a_0$ avec $a_0\in\Kk$ est appelé un 
+  \defi{polynôme constant}. Si $a_0 \neq 0$, son degré est $0$
+
+\pause
+
+  \item Le degré du polynôme nul est par convention $-\infty$
+\end{itemize}
+
+\pause
+
+\begin{exemple}
+\begin{itemize}
+  \item $X^3-5X+\frac 34$ est  de degré $3$
+  \item $X^n+1$ est  de degré $n$
+  \item $2$ est un polynôme constant, de degré $0$ 
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Opérations sur les polynômes}
+
+\begin{frame}
+\begin{itemize}
+  \item \textbf{\'Egalité}
+  \begin{itemize}
+    \item $P=a_nX^n+a_{n-1}X^{n-1}+\cdots + a_1X+a_0$
+    \item $Q=b_nX^n+b_{n-1}X^{n-1}+\cdots+b_1X+b_0$
+    \item $P=Q \quad \text{  ssi } \quad a_i=b_i \ \text{ pour tout } i$
+  \end{itemize}
+  
+  
+  \pause
+  
+  
+  \item \textbf{Addition} 
+$$P+Q = (a_n+b_n)X^n+(a_{n-1}+b_{n-1})X^{n-1}+\cdots
++(a_1+b_1)X+(a_0+b_0)$$
+
+  \pause
+  
+  \item \textbf{Multiplication}
+  \begin{itemize}
+    \item $P=a_nX^n+a_{n-1}X^{n-1}+\cdots + a_1X+a_0$
+    \item $Q=b_mX^m+b_{m-1}X^{m-1}+\cdots+b_1X+b_0$
+    \item $P \times Q= c_rX^r+c_{r-1}X^{r-1}+\cdots +c_1X+c_0 $ \\
+    avec $r=n+m$ \ et \myboxinline{$c_k=\sum_{i+j=k}a_ib_j$} pour $k\in \{0,\ldots, r\}$
+  \end{itemize}
+  
+   \pause 
+   
+  \item \textbf{Multiplication par un scalaire}
+Soit $\lambda \in \Kk$,  $\lambda \cdot P$ est le polynôme dont le $i$-ème coefficient
+est $\lambda a_i$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{exemple}
+$P=aX^3+bX^2+cX+d$ \qquad  $Q=\alpha X^2+\beta X + \gamma$
+\pause
+\begin{itemize}[<+->]
+  \item $P+Q =  aX^3+(b+\alpha)X^2+(c+\beta)X+(d+\gamma)$
+  \item $P\times Q = (a\alpha)X^5+(a\beta+b\alpha)X^4+(a\gamma+b\beta+c\alpha)X^3
++(b\gamma+c\beta+d\alpha)X^2+(c\gamma+d\beta)X+d\gamma$
+  \item $P=Q$ si et seulement si $a=0$, $b=\alpha$, $c=\beta$ et $d=\gamma$
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{proposition}
+\begin{itemize}\setlength{\itemsep}{7pt} 
+  \item $0+P=P$ \qquad $P+Q=Q+P$ \qquad $(P+Q)+R=P+(Q+R)$
+\pause
+  \item $1\cdot P = P$ \qquad $P\times Q=Q \times P$ \qquad $(P \times Q) \times R=P \times (Q \times R)$
+\pause
+  \item $P\times (Q+R)=P\times Q + P \times R$
+\end{itemize}
+\end{proposition}
+
+\pause
+
+\begin{proposition}
+\mybox{$\deg(P\times Q)=\deg P + \deg Q$}
+\pause
+\mybox{$\deg(P+Q) \le \max(\deg P, \deg Q)$}
+\end{proposition}
+
+\bigskip
+\pause
+
+\centerline{$\Rr_n[X]= \big\{P \in \Rr[X] \mid \deg P \le n\big\}$}
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Vocabulaire}
+
+\begin{frame}
+\begin{mydefinition} \ 
+\begin{itemize}
+  \item $a_kX^k$ est un \defi{monôme}
+\pause
+  \item $P=a_nX^n+a_{n-1}X^{n-1}+\cdots + a_1X+a_0$ avec $a_n\neq0$
+\pause  
+  \begin{itemize}
+    \item $a_nX^n$ est le \defi{terme dominant}
+\pause    
+    \item $a_n$ est le \defi{coefficient dominant} 
+\pause    
+    \item si $a_n=1$, $P$ est un \defi{polynôme unitaire}
+  \end{itemize}
+\end{itemize}
+\end{mydefinition}
+\pause
+\begin{exemple}
+\begin{itemize}
+  \item $P(X)=(X-1)(X^n+X^{n-1}+\cdots + X+1)$
+\pause  
+  \item {\small $P(X)= \big(X^{n+1}+X^{n}+\cdots + X^2+X\big) - \big(X^n+X^{n-1}+\cdots + X+1\big) = X^{n+1} - 1$}
+  
+\pause  
+  \item $P(X)$ est un polynôme unitaire, de degré $n+1$
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Soit $P(X)=3X^3-2$, $Q(X)=X^2+X-1$, $R(X)=aX+b$.
+Calculer $P+Q$, $P\times Q$, $(P+Q)\times R$ et $P\times Q \times R$.
+Trouver $a$ et $b$ afin que le degré de $P-QR$ soit le plus petit possible.
+
+  \item Calculer $(X+1)^5-(X-1)^5$.
+
+  \item Déterminer le degré de $(X^2+X+1)^n - aX^{2n}-bX^{2n-1}$ en fonction de $a,b$.
+
+  \item Montrer que si $\deg P \neq \deg Q$ alors $\deg (P+Q)= \max(\deg P,\deg Q)$.
+Donner un contre-exemple dans le cas où $\deg P = \deg Q$.
+
+  \item Montrer que si $P(X)=X^n+a_{n-1}X^{n-1}+ \cdots$ alors le coefficient devant $X^{n-1}$ de 
+$P(X-\frac{a_{n-1}}{n})$ est nul.
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

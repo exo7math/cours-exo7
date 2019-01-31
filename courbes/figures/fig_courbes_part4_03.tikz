@@ -1,0 +1,49 @@
+\begin{tikzpicture}[scale=2]
+
+     \draw[->,>=latex,thick, gray] (-1.2,0)--(1.3,0);% node[below,black] {$x$};
+     \draw[->,>=latex,thick, gray] (0,-1.2)--(0,1.3);% node[right,black] {$y$};
+
+
+
+    \draw[dashed,gray] (-1,-1)--(-1,1)--(1,1)--(1,-1)--cycle;
+
+  \def\x{30};
+  \coordinate (M1) at ({sin(2*\x)},{sin(3*\x)});
+  \def\x{45};
+  \coordinate (M2) at ({sin(2*\x)},{sin(3*\x)});
+  \def\x{90};
+  \coordinate (M3) at ({sin(2*\x)},{sin(3*\x)});
+  \def\x{60};
+  \coordinate (M4) at ({sin(2*\x)},{sin(3*\x)});
+
+\beameronly {\uncover<5->}{
+  \draw[-,>=latex,thick, blue] (M1)--+(0.5,0);
+  \draw[-,>=latex,thick, blue] (M1)--+(-0.5,0);
+  \draw[-,>=latex,thick, blue] (M2)--+(0,0.5);
+  \draw[-,>=latex,thick, blue] (M2)--+(0,-0.5);
+  \draw[-,>=latex,thick, blue] (M3)--+(0.5,0);
+  \draw[-,>=latex,thick, blue] (M3)--+(-0.5,0);
+  \draw[-,>=latex,thick, blue] (M4)--+(0.166,0.5);
+  \draw[-,>=latex,thick, blue] (M4)--+(-0.166,-0.5);
+  \draw[-,>=latex,thick, blue] (0,0)--+(0.33,0.5);
+  \draw[-,>=latex,thick, blue] (0,0)--+(-0.33,-0.5);
+}
+
+
+\beameronly {\uncover<7->}{
+     \draw [very thick, color=red!50,samples=100,smooth, domain=0:3.14] plot({sin(2*\x r)},{sin(3*\x r)});
+}
+\beameronly {\uncover<8->}{
+     \draw [very thick, color=red!50,samples=100,smooth, domain=-3.14:3.14] plot({sin(2*\x r)},{sin(3*\x r)});
+}
+\beameronly {\uncover<6->}{
+     \draw [very thick, color=red,samples=100,smooth, domain=0:1.57] plot({sin(2*\x r)},{sin(3*\x r)});
+}
+\beameronly {\uncover<4->}{
+    \fill (0,0) circle (1pt) node[below left] {$t=0$};
+    \fill (M1) circle (1pt) node[above left] {$t=\frac\pi6$};
+    \fill (M2) circle (1pt) node[right] {$t=\frac\pi4$};
+    \fill (M3) circle (1pt) node[below right] {$t=\frac\pi2$};
+    \fill (M4) circle (1pt) node[below right=3pt] {$t=\frac\pi3$};
+}
+\end{tikzpicture}

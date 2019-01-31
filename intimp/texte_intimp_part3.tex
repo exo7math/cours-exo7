@@ -1,0 +1,258 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans cette partie, nous nous concentrons sur les intégrales 
+impropres des fonctions oscillantes.
+
+\change
+
+\change
+
+Nous  expliquerons ce qu'est la convergence absolue
+
+\change
+
+puis nous définirons la semi-convergence
+
+\change
+
+et nous terminerons avec le Théorème d'Abel 
+qui est un critère de semi-convergence.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous considérons ici $$\int_a^{+\infty} f(t)\;\dd t\; ,$$ où $f(t)$
+oscille jusqu'à l'infini entre des valeurs positives 
+et négatives, comme sur le graphe suivant.
+
+\change
+
+La définition de l'intégrale impropre reste la même :
+
+$$\int_a^{+\infty} f(t)\;\dd t = \lim_{x\rightarrow +\infty} \int_a^x f(t)\;\dd t\;.$$
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le cas le plus favorable est celui où la *\emph{valeur absolue}* 
+de $f$ converge. 
+
+On dit que $\int f$ est \defi{absolument convergente} si 
+$\int \big|f\big|\;\dd t$ converge.
+
+\change 
+Le théorème suivant est souvent utilisé pour démontrer la
+convergence d'une intégrale. Malheureusement, il ne permet pas de
+calculer la valeur de cette intégrale.
+
+Théorème : si l'intégrale de $f$ sur $[a,+\infty[$ est 
+absolument convergente, alors l'intégrale de $f$ sur 
+$[a,+\infty[$ est convergente.
+
+Autrement dit, être absolument convergent est 
+plus fort qu'être convergent.
+
+\change
+
+C'est une conséquence du critère de Cauchy appliqué à $|f|$, 
+puis à $f$.
+
+\change
+En effet, comme l'intégrale de $|f|$ sur $[a,+\infty[$ est 
+convergente, on sait d'après le critère de Cauchy pour $|f|$, 
+vu comme condition nécessaire de convergence, que 
+$\int_u^v \big|f(t)\big| \;\dd t$ est aussi petit que l'on veut, ici 
+$<\epsilon$, lorsque $u$ et $v$ tendent vers $+\infty$.
+
+\change 
+
+Mais comme d'après l'inégalité triangulaire 
+$\left|\int_u^v f(t) \;\dd t\right| 
+\le \int_u^v \big|f(t)\big| \;\dd t$, 
+on a aussi que $\int_u^v f(t) \;\dd t < \epsilon$ en valeur absolue.
+
+\change
+En appliquant le critère de Cauchy pour $f$ vu 
+comme condition suffisante de convergence, 
+on peut conclure que l'intégrale de $f$ sur $[a,+\infty[$ 
+est convergente.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons un exemple : 
+$$\int_1^{+\infty} \frac{\sin t}{t^2}\;\dd t$$
+ est absolument convergente.
+ En particulier, elle converge.
+
+
+\change
+
+La preuve est très simple : 
+
+\change
+on peut majorer la valeur absolue de 
+$\frac{\sin t}{t^2}$ par $\frac{1}{t^2}$, 
+
+\change
+et comme l'intégrale de Riemann
+$$\int_1^{+\infty} \frac{1}{t^2}\;\dd t$$ converge , 
+
+\change
+alors on déduit du théorème de comparaison que 
+$$\int_1^{+\infty} \frac{|\sin t|}{t^2}\;\dd t$$ est 
+aussi convergente. 
+
+Ainsi $\int_1^{+\infty} \frac{\sin t}{t^2}\;\dd t$
+est absolument convergente.
+
+Donc par le théorème précédent, cette intégrale est convergente.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On dit que $\int_a^{+\infty} f(t)\;\dd t$ est \defi{semi-convergente} si 
+elle est convergente mais *pas* absolument convergente.
+
+\change
+Voici un exemple :
+$\displaystyle \int_1^{+\infty} \frac{\sin t }{t}\;\dd t$ est semi-convergente.
+
+\change
+Montrons d'abord la convergence et pour cela 
+faisons une intégration par parties, ce qui donne :
+$$\int_1^x \frac{\sin t}{t}\;\dd t  = \left[\frac{-\cos t}{t}\right]_1^x
+-  \int_1^x \frac{\cos t}{t^2}\;\dd t\;.$$
+
+\change
+Examinons les deux termes :
+$$\left[\frac{-\cos t}{t}\right]_1^x 
+= -\frac{\cos x}{x}+\cos 1 \; .$$
+    
+
+Or la fonction $\frac{\cos x}{x}$ tend vers $0$ 
+(lorsque $x \to +\infty$).
+
+\change
+Donc $\left[\frac{-\cos t}{t}\right]_1^x$ admet une 
+limite finie, à savoir $\cos 1$. 
+
+\change
+Pour l'autre terme, notons que 
+$\int_1^{+\infty} \frac{\cos t}{t^2}\;\dd t$ est 
+une intégrale absolument convergente, 
+par le même argument qu'on vient de voir 
+pour $\int_1^{+\infty} \frac{\sin t}{t^2}\;\dd t$.
+
+Conclusion : $\int_1^x \frac{\sin t}{t}\;\dd t$ admet 
+une limite finie (lorsque $x\to+\infty$), et 
+donc par définition $\int_1^{+\infty} \frac{\sin t}{t}\;\dd t$ converge.
+
+
+\change
+Montrons à présent qu'il n'y a pas convergence absolue. 
+
+\change
+On emploie la minoration suivante :
+$\frac{|\sin t|}{t} \ge \frac{\sin^2 t}{t}$
+car $\big| \sin t \big|\le 1$
+
+\change
+et $\frac{\sin^2 t}{t}= \frac{1-\cos(2t)}{2t}$
+
+\change
+A présent le théorème de comparaison permet 
+de conclure, en effet $\int_1^{+\infty}\frac{1-\cos(2t)}{2t} \dd t$ 
+est somme de deux intégrales :
+
+(.../...) \newpage
+
+\change
+tout d'abord une intégrale de Riemann divergente 
+$\int_1^{+\infty}\frac{1}{2t} \dd t$,
+
+et ensuite d'une intégrale $\int_1^{+\infty}\frac{-\cos(2t)}{2t} \dd t$ 
+dont on prouve la convergence comme dans cette première partie.
+
+\change
+Une intégrale convergente + une intégrale divergente donne une intégrale divergente.
+Ce qui termine cet exemple.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour montrer qu'une intégrale converge, 
+quand elle n'est pas absolument convergente, 
+on dispose d'un critère plus sophistiqué : le théorème d'Abel.
+
+On considère une fonction $f$,  $\mathcal{C}^1$ sur $[a,+\infty[$, positive,
+décroissante, ayant une limite nulle en $+\infty$.
+
+On considère de plus une fonction continue $g$ sur $[a,+\infty[$, telle que la
+primitive $\int_a^x g(t)\;\dd t$ soit bornée.
+
+Alors l'intégrale du produit des deux fonctions $f$ et $g$ converge.
+
+Avec $f(t)=\frac1t$ et $g(t)=\sin t$, on retrouve que 
+l'intégrale $\displaystyle \int_1^{+\infty} \frac{\sin t }{t}\;\dd t$ converge.
+La preuve du théorème d'Abel est d'ailleurs analogue à celle de la convergence 
+de $\displaystyle \int_1^{+\infty} \frac{\sin t }{t}\;\dd t$ 
+que nous venons de voir.
+
+\change
+
+Le théorème d'Abel permet de généraliser l'exemple précédent.
+
+Si $\alpha$ est un réel strictement
+positif, et $k$ un entier positif \emph{impair}, alors l'intégrale 
+$$
+\int_1^{+\infty} \frac{\sin^k(t)}{t^\alpha}\;\dd t\quad\text{ converge.}
+$$
+
+
+Attention, cette intégrale n'est absolument convergente que 
+pour $\alpha>1$. 
+
+Mais elle converge pour tout $\alpha>0$.
+
+\change
+On vérifie que les hypothèses du théorème d'Abel sont
+satisfaites pour $f(t) = \frac{1}{t^\alpha}$ et $g(t)=\sin^k(t)$. Pour
+s'assurer que la primitive de $\sin^k$ est bornée, il suffit de
+trouver une linéarisation, qui transformera $\sin^k(t)$ en une
+combinaison linéaire des $\sin(\ell t)$ dont la
+primitive sera toujours bornée. 
+C'est dans cette étape qu'on utilise le fait que $k$ est impair.
+
+Si $k$ est pair alors la linéarisation de $\sin^k$ fait apparaitre une terme constant
+dont l'intégrale ne sera pas bornée.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici quelques exercices pour vous entraîner avec 
+les intégrales absolument convergente et semi-convergentes.
+
+\end{document}

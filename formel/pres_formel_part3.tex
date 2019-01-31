@@ -1,0 +1,424 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={192,41,0}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcommand{\Sage}{\texttt{Sage}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||,
+  breaklines=true,
+  postbreak=\raisebox{0ex}[0ex][0ex]{\qquad\ensuremath{\color{red}\hookrightarrow\space}},
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\renewcommand*{\theenumii}{\alph{enumii}}
+%\setbeamertemplate{enumerate subitem}{\alph{enumii}}
+    
+\title{{\bf Calcul formel}}
+\subtitle{Suites récurrentes et preuves formelles}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> La suite de Fibonacci
+    \item<4-> L'identité de Cassini
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Motivation}
+
+\begin{frame}
+
+
+\evidence{Une preuve}
+\pause
+
+\begin{itemize}
+  \item Deux variables $a$ et $b$ : \codeinline{var('a,b')}
+  \pause
+  \item \codeinline{expand( (a+b)^2-a^2-2*a*b-b^2 )} renvoie $0$
+  \pause
+  \item Preuve par ordinateur de l'identité $$(a+b)^2 = a^2+2ab+b^2$$
+  \pause
+  \item \Sage\ sait manipuler les expressions algébriques
+\end{itemize}
+
+\bigskip
+\pause
+
+\evidence{Démarche}
+\pause
+
+\begin{enumerate}
+  \item Je me pose des questions
+  \pause
+  \item J'écris un algorithme pour tenter d'y répondre
+  \pause
+  \item Je trouve une conjecture sur la base des résultats expérimentaux
+  \pause
+  \item Je prouve la conjecture
+\end{enumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{La suite de Fibonacci}
+
+\begin{frame}
+\evidence{La suite de Fibonacci}
+$$F_0 = 0 \qquad F_1 = 1 \qquad F_{n} = F_{n-1} + F_{n-2} \quad \text{ pour } n\ge 2$$
+  \vspace*{-2ex}
+\pause
+\begin{tp}
+\begin{enumerate}
+  \item Calculer les $10$ premiers termes de la suite de Fibonacci.
+  \item \textbf{Recherche d'une conjecture.} On cherche s'il peut exister 
+  des constantes $\phi,\psi,c \in \Rr$ telles que
+  
+  \vspace*{-2ex}
+  $$F_n = c \big(\phi^n-\psi^n\big)$$
+  \vspace*{-4ex}
+  
+
+  Nous allons calculer les constantes qui conviendraient.
+   \begin{enumerate}
+    \item On pose $G_n = \phi^n$. Quelle équation doit satisfaire $\phi$
+    afin que $G_{n} = G_{n-1}+G_{n-2}$ ?
+    \item Résoudre cette équation.
+    \item Calculer $c,\phi,\psi$.
+  \end{enumerate}
+  
+  \item \textbf{Preuve.} On note $H_n = \frac{1}{\sqrt{5}}  \big(\phi^n-\psi^n\big)$
+  où $\phi = \frac{1+\sqrt5}{2}$ et $\psi=\frac{1-\sqrt5}{2}$.
+  \begin{enumerate}
+    \item Vérifier que $F_n=H_n$ pour les premières valeurs de $n$.
+    \item Montrer à l'aide du calcul formel que $H_{n} = H_{n-1}+H_{n-2}$. Conclure.
+  \end{enumerate}  
+\end{enumerate}
+\end{tp}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\begin{enumerate}
+  \item $0 \qquad 1 \qquad 1 \qquad 2 \qquad 3 \qquad 5 \qquad 8 \qquad 13 \qquad 21 
+\qquad 34 $
+  
+\pause
+
+%\insertcode{formel/Algos/fibonacci-tex1.sage}{fibonacci.sage (1)}
+\begin{algo}[fibonacci.sage (1) \& (2)]
+\begin{lstlisting}
+def fibonacci(n):
+    if n == 0: return 0
+    if n == 1: return 1        
+    F_n_2 = 0
+    F_n_1 = 1
+    for k in range(n-1):
+        F_n = F_n_1 + F_n_2        
+        F_n_2 = F_n_1
+        F_n_1 = F_n
+    return F_n|\pause|
+    
+for n in range(10):
+    print fibonacci(n)    
+\end{lstlisting}
+\end{algo}
+
+\end{enumerate}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{enumerate}\setcounter{enumi}{1}
+  \item 
+  \begin{enumerate}
+    \item ~
+  \end{enumerate}    
+\end{enumerate}  
+
+  \begin{itemize}
+    \item On pose $G_n = \phi^n$ et on suppose que $G_{n} = G_{n-1}+G_{n-2}$
+    \pause
+    \item On veut résoudre $\phi^n = \phi^{n-1} + \phi^{n-2}$
+    \pause
+    \item $X^n = X^{n-1} + X^{n-2} \pause\iff  X^{n-2}\big(X^2-X-1 \big) = 0$
+    \pause
+    \item $\phi$ solution de $X^2-X-1 = 0$
+    \pause
+    \item \codeinline{solve(x^2-x-1==0,x)}
+    \pause
+    \item \codeinline{[x == -1/2*sqrt(5) + 1/2, x == 1/2*sqrt(5) + 1/2]}
+    
+  \end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{enumerate}\setcounter{enumi}{1}
+  \item 
+  \begin{enumerate}\setcounter{enumii}{1}
+  
+    \item ~
+    
+  \end{enumerate}
+  
+%\insertcode{formel/Algos/fibonacci-tex3.sage}{fibonacci.sage (3)}
+\begin{algo}[fibonacci.sage (3)]
+\begin{lstlisting}
+solutions = solve(x^2-x-1==0,x)
+phi = solutions[1].rhs()
+psi = solutions[0].rhs()
+print 'phi : ',phi,'   psi : ',psi
+\end{lstlisting}
+\end{algo}
+
+\pause
+%  {\setbeamertemplate{itemize items}[ball]
+  \begin{itemize}
+  
+    \item liste \codeinline{solutions}
+    \pause
+    \item \codeinline{solutions[1]} renvoie \codeinline{x == 1/2*sqrt(5) + 1/2}
+    \pause
+    \item \codeinline{rhs()} (\emph{right hand side}) partie droite d'une équation
+  \end{itemize}
+%  }
+\pause
+  $$\phi = \frac{1+\sqrt5}{2} \quad \mbox{et}  
+  \quad \psi  = \frac{1-\sqrt5}{2}  
+  \pause\qquad
+  F_n = c  \big(\phi^n-\psi^n\big)\ ?$$
+  
+  \pause
+
+  \begin{enumerate}\setcounter{enumii}{2}  
+    \item Comme $F_1=1$ alors $c(\phi-\psi)=1$, donc $c = \frac{1}{\sqrt 5}$
+  \end{enumerate}  
+  
+\pause
+  Si une formule 
+  $F_n = c(\phi^n-\psi^n)$ existe alors les constantes sont
+  nécessairement $c= \frac{1}{\sqrt 5}$, $\phi = \frac{1+\sqrt5}{2}$, 
+  $\psi  = \frac{1-\sqrt5}{2}$
+\end{enumerate}  
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{enumerate}\setcounter{enumi}{2}
+  \item  Soit $H_n = \frac{1}{\sqrt5}\left(\left(\tfrac{1+\sqrt5}{2}\right)^n- 
+  \left(\tfrac{1-\sqrt5}{2}\right)^n\right)$
+  
+  \smallskip
+  
+  Montrons la conjecture $F_n = H_n$
+  \pause
+  
+  \begin{enumerate}
+    \item On définit une nouvelle fonction \codeinline{conjec} qui correspond au terme de droite de la conjecture que l'on souhaite montrer
+    
+    
+    
+    
+%\insertcode{formel/Algos/fibonacci-tex4.sage}{fibonacci.sage (4)}
+\begin{algo}[fibonacci.sage (4)]
+\begin{lstlisting}
+def conjec(n):
+    return 1/sqrt(5)*(phi^n-psi^n)|\pause|      
+
+for n in range(10):
+    valeur = fibonacci(n)-conjec(n)
+    print expand(valeur)
+\end{lstlisting}
+\end{algo}
+
+L'égalité souhaitée est vérifiée pour les premières valeurs de $n$
+  \end{enumerate} 
+\end{enumerate}  
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{enumerate}\setcounter{enumi}{2}
+  \item 
+  \begin{enumerate}\setcounter{enumii}{1}
+    \item Nous allons montrer que $F_n=H_n$ pour tout $n\ge0$
+    \pause
+    \begin{itemize}
+      \item \textbf{Initialisation}
+      
+      \codeinline{fibonacci(0)-conjec(0)} vaut $0$ donc $F_0=H_0=0$
+      \codeinline{fibonacci(1)-conjec(1)} vaut $0$ donc $F_1=H_1=1$
+     
+     \pause
+      \item \textbf{Relation de récurrence}
+      $H_n$ vérifie exactement la même relation de récurrence que les nombres de Fibonacci
+      
+      \pause
+%\insertcode{formel/Algos/fibonacci-tex5.sage}{fibonacci.sage (5)}
+\begin{algo}[fibonacci.sage (5)]
+\begin{lstlisting}
+def conjec(n):
+    return 1/sqrt(5)*(phi^n-psi^n)|\pause| 
+
+var('n')
+test = conjec(n)-conjec(n-1)-conjec(n-2)
+print(test.simplify_radical())
+\end{lstlisting}
+\end{algo}      
+     
+      \pause
+      Le résultat est $0$
+      
+      \pause
+      Le calcul est valable pour la variable formelle $n$
+      
+      \pause
+      Ainsi, quel que soit $n\ge0$, $H_n=H_{n-1}+H_{n-2}$
+     
+      \pause
+      \item \textbf{Conclusion} 
+      Les suites $(F_n)$ et $(H_n)$ ont les mêmes termes initiaux et 
+      vérifient la même relation de récurrence :
+      pour tout $n\ge0$, $F_n=H_n$
+      
+      
+    \end{itemize}
+
+  \end{enumerate}
+  
+\end{enumerate}
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L'identité de Cassini}
+
+\begin{frame}
+
+\evidence{L'identité de Cassini}
+
+\medskip
+
+\begin{tp}
+Calculer, pour différentes valeurs de $n$, la quantité
+$$F_{n+1}F_{n-1}-F_n^2.$$
+
+Que constatez-vous ? 
+
+Proposez une formule générale.
+
+Prouvez cette formule qui s'appelle l'identité de Cassini.   
+\end{tp}
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{itemize}
+  \item $C_n = F_{n+1}F_{n-1}-F_n^2 \qquad n \ge 1$
+  \pause
+  \item Est-ce que $C_n = (-1)^n$ ?
+  \pause
+  \item $F_n = \frac{1}{\sqrt5}\left(\left(\frac{1+\sqrt5}{2}\right)^n- 
+  \left(\frac{1-\sqrt5}{2}\right)^n\right)$
+  
+\end{itemize}
+
+\pause 
+%\insertcode{formel/Algos/cassini-tex1.sage}{cassini.sage (1)}
+{\footnotesize
+\begin{algo}[cassini.sage]
+\begin{lstlisting}
+def fibonacci_bis(n):
+    return 1/sqrt(5)*( ((1+sqrt(5))/2)^n - ((1-sqrt(5))/2)^n )|\pause|
+
+var('n')|\pause|
+cassini = fibonacci_bis(n+1)*fibonacci_bis(n-1)-fibonacci_bis(n)^2|\pause|
+print(cassini.simplify_radical())
+\end{lstlisting}
+\end{algo}
+}
+
+\pause
+
+$$C_n = (-1) ^n \frac{(\sqrt 5 -1)^n (\sqrt 5 + 1)^n}{2^{2n}} \pause= (-1)^n$$
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Une autre suite récurrente double}
+
+
+\begin{frame}
+\begin{tp}
+Soit $(u_n)_{n \in \Nn}$ la suite définie par 
+$$u_0 = \frac32, \qquad u_1 = \frac53 \qquad \mbox{et} \qquad u_n = 1 + 4\frac{u_{n-2}-1}{u_{n-1}u_{n-2}}
+\quad \text{ pour } n\ge 2.$$
+Calculer les premiers termes de cette suite. 
+
+\'Emettre une conjecture.
+ 
+La prouver par récurrence.
+
+~
+
+\emph{Indication.} Les puissances de $2$ seront utiles...
+\end{tp}
+\end{frame}
+
+\end{document}

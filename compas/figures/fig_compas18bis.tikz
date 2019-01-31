@@ -1,0 +1,38 @@
+% Spiral of Theodorus  tex.stackexchange.com  "Manuel"
+\newcommand*{\sqrtspiral}[2][scale=2]{
+    \begin{tikzpicture}[#1]
+        \def\sqrtlast{#2};
+        \coordinate (A) at (0,0);
+        \coordinate (B) at (1cm,0);
+        \draw[thick, black] (A) edge node[auto, swap] {1} (B);
+        \foreach \n in {1,...,\sqrtlast}{
+            \pgfmathtruncatemacro{\currentsqrt}{\n+1};
+            \coordinate (C) at ($(B)!1cm!-90:(A)$);           
+%             \pgfdeclareradialshading{glow}{\pgfpoint{0cm}{0cm}}{
+%  			 color(0mm)=(white);
+%   			color(3mm)=(white);
+%   			color(7mm)=(black);
+%   			color(10mm)=(black);
+% 			}
+
+% 			\begin{tikzfadingfrompicture}[name=glow fading]
+%   				\shade [shading=glow] (0,0) circle (1);
+% 			\end{tikzfadingfrompicture}
+
+            \draw[thick, black] (A) edge node[fill=white, circle,inner sep=6pt]{$\sqrt{\currentsqrt}$} (C);
+            \draw[thick, black] (C) edge node[auto] {1} (B);
+            \coordinate (w) at ($(B)!4pt!-90:(A)$);
+            \coordinate (z) at ($(B)!4pt!0:(A)$);
+            \coordinate (t) at ($(w)!4pt!-90:(B)$);
+            \draw (w) -- (t) -- (z);
+            \coordinate (B) at (C);
+        }
+    \end{tikzpicture}
+}
+% Spiral of Theodorus  tex.stackexchange.com  "Manuel"
+% Usage 
+
+ \sqrtspiral{2}
+%\sqrtspiral{3}
+% 
+%\sqrtspiral[scale=2]{9}

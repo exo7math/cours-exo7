@@ -1,0 +1,312 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+% Commande ponctuelle
+\newcommand{\alenvers}[1]{\rotatebox[origin=c]{180}{#1}}
+\newcommand{\vect}{\overrightarrow}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Calcul formel}
+%====================================================================
+
+%\insertvideo{nT94JZKl3cg}{partie 2. Structures de contrôle avec \Sage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{section}{1}
+\section{Structures de contrôle avec \Sage}
+
+%--------------------------------------------------------
+\subsection{Boucles}
+
+%--------------------
+\subsubsection*{Boucle \codeinline{for} (pour)} 
+
+Pour faire varier un élément dans un ensemble, on utilise
+l'instruction "\codeinline{for x in ensemble:}". Le bloc d'instructions qui suit sera 
+alors successivement exécuté pour toutes les valeurs de $x$.
+
+\insertcode{algos/structures-tex1.sage}{structures.sage (1)}
+
+Notez encore une fois que le bloc d'instructions exécuté 
+est délimité par les espaces en début de ligne.
+Un exemple fréquent d'utilisation est "\codeinline{for k in range(n):}" qui fait varier $k$ de $0$ à $n-1$.
+
+
+%--------------------
+\subsubsection*{Liste \codeinline{range} (intervalle)}
+
+
+En fait \codeinline{range(n)} renvoie la liste des $n$ premiers entiers : \codeinline{[0,1,2,...,n-1]}
+
+Plus généralement \codeinline{range(a,b)} renvoie la liste \codeinline{[a,a+1,...,b-1]} d'entiers consécutifs 
+alors que  \codeinline{range(a,b,c)} effectue une saut de $c$ termes,
+par exemple \codeinline{range(0,101,5)} renvoie la liste \codeinline{[0,5,10,15,...,100]}.
+
+
+Une autre façon légèrement différente pour définir des listes d'entiers 
+est l'instruction \codeinline{[a..b]}
+qui renvoie la liste des entiers $k$ tels que $a\le k \le b$.
+Par exemple après l'instruction \codeinline{for k in [-7..12]:}
+l'entier $k$ va prendre successivement les valeurs $-7$, $-6$, $-5$, ..., 
+$-1$, $0$, $+1$,... jusqu'à $+12$.
+
+
+La boucle \codeinline{for} permet plus généralement de parcourir n'importe quelle liste,
+par exemple \codeinline{[0.13,0.31,0.53,0.98]}. 
+L'instruction \codeinline{for x in [0.13,0.31,0.53,0.98]:} fera prendre à $x$ les $4$ valeurs
+de $\{0.13 , 0.31, 0.53, 0.98\}$.
+
+%--------------------
+\subsubsection*{Boucle \codeinline{while} (tant que)}
+
+\insertcode{algos/structures-tex2.sage}{structures.sage (2)}
+
+
+La boucle \codeinline{while} exécute un bloc d'instructions 
+tant que l'expression \codeinline{condition} est vérifiée. Lorsqu'elle ne l'est plus, on passe
+aux instructions suivantes.
+
+
+Voici, pour illustrer, le calcul de la racine carrée entière d'un entier $n$ : 
+\insertcode{algos/structures-tex3.sage}{structures.sage (3)}
+
+Lorsque la recherche est terminée, $k$ est le plus petit entier dont le carré dépasse $n$, 
+par conséquent la racine carrée entière de $n$ est $k-1$.
+
+Notez qu'utiliser une boucle << tant que >> comporte des risques, en effet
+il faut toujours s'assurer que la boucle se termine.
+
+%Voici quelques instructions utiles pour les boucles :
+%\codeinline{break} termine immédiatement la boucle alors que 
+%\codeinline{continue} passe directement à l'itération suivante (sans exécuter le reste du bloc). 
+
+
+%--------------------
+\subsubsection*{Test \codeinline{if... else} (si... sinon)} 
+ 
+\insertcode{algos/structures-tex4.sage}{structures.sage (4)}
+
+Si la condition est vérifiée, c'est le premier bloc d'instructions qui est exécuté,
+si la condition n'est pas vérifiée, c'est le second. 
+On passe ensuite aux instructions suivantes.
+
+
+%--------------------------------------------------------
+\subsection{Booléens et conditions}
+
+
+%--------------------
+\subsubsection*{Booléens}
+
+Une \defi{expression booléenne} est une expression
+qui peut seulement prendre les valeurs  \og Vrai \fg\
+ou \og Faux \fg\ et qui sont codées par \codeinline{True}
+ou \codeinline{False}.
+Les expressions booléennes s'obtiennent 
+principalement par des conditions.
+
+%--------------------
+\subsubsection*{Quelques conditions}
+
+Voici une liste de conditions :
+\begin{itemize}
+  \item \codeinline{a < b} : teste l'inégalité stricte $a<b$,
+  \item \codeinline{a > b} : teste l'inégalité stricte $a>b$,
+  \item \codeinline{a <= b} : teste l'inégalité large $a\le b$,
+  \item \codeinline{a >= b} : teste l'inégalité large $a\ge b$,
+  \item \codeinline{a == b} : teste l'égalité $a=b$,
+  \item \codeinline{a <> b} (ou \codeinline{a != b}) : teste la non égalité $a\neq b$.
+  \item \codeinline{a in B} : teste si l'élément $a$ appartient à $B$.
+\end{itemize}
+
+
+
+\begin{remarque*}
+
+\begin{enumerate}
+  \item Une condition prend la valeur \codeinline{True} si elle est vraie et \codeinline{False} sinon.
+Par exemple \codeinline{x == 2} renvoie \codeinline{True} si $x$ vaut $2$ et \codeinline{False} sinon.
+La valeur de $x$ n'est pas modifiée pas le test.
+  
+  \item Il ne faut surtout pas confondre le test d'égalité
+\codeinline{x == 2} avec l'affectation \codeinline{x = 2} (après cette dernière instruction 
+$x$ vaut $2$).
+  
+  \item On peut combiner des conditions avec les opérateurs \codeinline{and},
+  \codeinline{or}, \codeinline{not}. Par exemple :
+  \codeinline{ (n>0) and (not (is_prime(n))) } est vraie
+  si et seulement si $n$ est strictement positif et non premier.
+  
+\end{enumerate}  
+\end{remarque*}
+
+\begin{tp}
+\sauteligne
+\begin{enumerate}
+  \item Pour deux assertions logiques $P$ et $Q$, écrire l'assertion $P\implies Q$.
+  
+  \item Une \defi{tautologie} est une assertion vraie quelles que soient les valeurs des paramètres,
+  par exemple $(P \text{ ou } (\text{non\;} P))$ est vraie que l'assertion $P$ soit vraie ou fausse.
+  Montrer que l'assertion suivante est une tautologie :
+  $$\text{non\;} \bigg( \big[\text{non\;}(P \text{ et } Q)  \text{ et } (Q \text{ ou } R) \big] 
+  \text{ et } \big[P \text{ et } (\text{non\;} R)\big] \bigg)$$
+\end{enumerate}
+  
+\end{tp}
+
+Il faut se souvenir du cours de logique qui définit l'assertion
+\og$P\implies Q$\fg\ comme étant \og$\text{non\;}(P) \text{ ou } Q$\fg.
+Il suffit donc de renvoyer : \codeinline{not(P) or Q}.
+
+
+Pour l'examen de la tautologie, on teste toutes les possibilités et on 
+vérifie que le résultat est vrai dans chaque cas !
+
+\insertcode{algos/structures-tex10.sage}{structures.sage (10)}
+
+%--------------------------------------------------------
+\subsection{Fonctions informatiques}
+
+Une fonction informatique prend en entrée un ou plusieurs paramètres
+et renvoie un ou plusieurs résultats.
+
+\insertcode{algos/structures-tex5.sage}{structures.sage (5)}
+
+Par exemple, voici comment définir une fonction valeur absolue.
+\insertcode{algos/structures-tex6.sage}{structures.sage (6)}
+
+Dans ce cas, \codeinline{valeur_absolue(-3)} renvoie $+3$.
+
+Il est possible d'utiliser cette fonction dans le reste du programme ou dans une autre fonction.
+Notez aussi qu'une fonction peut prendre plusieurs paramètres.
+
+Par exemple, que fait la fonction suivante ? Quel nom aurait été plus approprié ?
+
+\insertcode{algos/structures-tex7.sage}{structures.sage (7)}
+
+\begin{tp}
+On considère trois réels distincts $a$, $b$ et $c$, ainsi que le polynôme défini par :
+$$P(X) = \frac{(X-a)(X-b)}{(c-a)(c-b)}+\frac{(X-b)(X-c)}{(a-b)(a-c)}
++  \frac{(X-a)(X-c)}{(b-a)(b-c)}-1$$
+\begin{enumerate}
+  \item Définir trois variables par \codeinline{var('a,b,c')}.
+  Définir une fonction \codeinline{polynome(x)} qui renvoie $P(x)$.
+  
+  \item Calculer $P(a)$, $P(b)$, $P(c)$.
+  
+  \item Comment se fait-il qu'un polynôme de degré $2$ ait $3$ racines distinctes ?
+  Expliquez ! (Vous pourrez appliquer la méthode \codeinline{full_simplify()} à votre fonction.)
+\end{enumerate}
+  
+\end{tp}
+
+
+%--------------------------------------------------------
+\subsection{Variable locale/variable globale}
+
+Il faut bien faire la distinction entre les variables locales et les variables globales.
+
+Par exemple, qu'affiche l'instruction \codeinline{print(x)} dans ce petit programme ?
+
+\insertcode{algos/structures-tex9.sage}{structures.sage (9)}
+
+Il faut bien comprendre que tous les \codeinline{x} de la fonction
+%\codeinline{def incremente(x):},    \codeinline{x = x+1},     \codeinline{return x}
+\codeinline{incremente}
+représentent une variable locale qui n'existe que dans cette fonction et disparaît 
+en dehors. On aurait tout aussi bien pu définir
+\codeinline{def incremente(y):     y = y+1     return y}
+ou bien utiliser la variable \codeinline{truc} ou \codeinline{zut}.
+Par contre, les \codeinline{x} des lignes
+\codeinline{x=2}, \codeinline{incremente(x)}, \codeinline{print(x)}
+correspondent à une variable globale.
+Une variable globale existe partout (sauf dans les fonctions où une variable
+locale porte le même nom !).
+
+
+En mathématique, on parle plutôt de variable muette au lieu de variable locale, par exemple
+dans 
+$$\sum_{k=0}^n k^2$$
+$k$ est une variable muette, on aurait pu tout aussi bien la nommer $i$ ou $x$.
+Par contre, il faut au préalable avoir défini $n$ (comme une variable globale), par exemple
+\og $n=7$ \fg\ ou \og fixons un entier $n$ \fg...
+
+
+
+
+
+    
+
+%--------------------------------------------------------
+\subsection{Conjecture de Syracuse}
+
+Mettez immédiatement en pratique les structures de contrôle avec le travail suivant.
+
+\begin{tp}
+La \defi{suite de Syracuse} de terme initial $u_0 \in \Nn^*$ est définie par récurrence
+pour $n\ge0$ par :
+$$u_{n+1} = 
+\begin{cases}
+  \frac{u_n}{2} & \text{ si $u_n$ est pair,} \\
+  3u_n + 1 & \text{ si $u_n$ est impair.} \\
+  \end{cases}$$
+\begin{enumerate}
+  \item \'Ecrire une fonction qui, à partir de $u_0$ et de $n$, calcule le terme $u_n$ de la suite de Syracuse.
+  \item Vérifier pour différentes valeurs du terme initial $u_0$, que la suite de Syracuse
+  atteint la valeur $1$ au bout d'un certain rang (puis devient périodique : 
+  $...,1,4,2,1,4,2,...$). \'Ecrire une fonction qui pour un certain choix de $u_0$ 
+  renvoie le plus petit entier $n$ tel que $u_n=1$.
+\end{enumerate}
+
+\end{tp}
+Personne ne sait à ce jour prouver que pour toutes les valeurs du terme initial $u_0$,
+la suite de Syracuse atteint toujours la valeur $1$.
+
+Voici le code pour calculer le $n$-ème terme de la suite.
+\insertcode{algos/suite-syracuse-tex1.sage}{suite-syracuse.sage (1)}
+
+Quelques remarques : on a utilisé une boucle \codeinline{for} pour calculer les $n$ premiers
+termes de la suite ainsi qu'un test \codeinline{if...else}. 
+%Expliquons la condition \codeinline{u\%2 == 0} ainsi que l'opération \codeinline{u = u//2}.
+
+L'instruction \codeinline{u\%2} renvoie le reste de la division de $u$ par $2$. 
+Le booléen \codeinline{u\%2 == 0} teste donc la parité de $u$.
+L'instruction \codeinline{u//2} renvoie le quotient de la division euclidienne de $u$ par $2$.
+
+\begin{remarque*}
+Si $a \in \Zz$ et $n\in\Nn^*$ alors
+\begin{itemize}
+  \item \codeinline{a\%n} est le \defi{reste} de la division euclidienne de $a$ par $n$.
+  C'est donc l'entier $r$ tel que $r \equiv a \pmod{n}$ et $0 \le r < n$. 
+  
+  \item \codeinline{a//n} est le \defi{quotient} de la division euclidienne de $a$ par $n$.
+  C'est donc l'entier $q$ tel que $a=nq+r$ et $0\leq r <n$.
+\end{itemize}
+
+Il ne faut pas confondre la division de nombres réels : \codeinline{a/b}
+et le quotient de la division euclidienne de deux entiers : \codeinline{a//b}.
+Par exemple \codeinline{7/2} est la fraction $\frac72$ dont la valeur numérique est $3,5$
+alors que \codeinline{7//2} renvoie $3$. On a \codeinline{7\%2} qui vaut $1$.
+On a bien $7 = 2\times 3 + 1$.
+
+Dans le cadre de l'exercice, \codeinline{u\%2} renvoie le reste de la division euclidienne 
+de $u$ par $2$. Celui-ci vaut $0$ si $u$ est pair et $1$ si $u$ est impair.
+Ainsi \codeinline{u\%2 == 0} teste si $u$ est pair ou impair.
+Ensuite \codeinline{u = u//2} divise $u$ par $2$
+(en fait cette opération n'est effectuée que pour $u$ pair).
+%, donc \codeinline{u = u/2} donne le même résultat).  
+\end{remarque*}
+
+
+Pour calculer à partir de quel rang on obtient la valeur $1$, on utilise une boucle 
+\codeinline{while} dont les instructions sont exécutées tant que $u \neq 1$.
+Par construction, lorsque la boucle se termine c'est que la valeur de $u$ est $1$.
+
+\insertcode{algos/suite-syracuse-tex2.sage}{suite-syracuse.sage (2)}
+
+\finchapitre
+
+\end{document}
+

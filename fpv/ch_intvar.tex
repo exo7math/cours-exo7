@@ -1,0 +1,442 @@
+
+\documentclass[12pt, class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+
+\begin{document}
+
+%====================================================================
+\chapitre{Intégration des fonctions de plusieurs variables}
+%====================================================================
+
+% Commandes à virer
+\newcommand{\ou}{\mathscr{O}}
+\newcommand{\f}{\mathscr{F}}
+\newcommand{\mat}{\mathscr{M}}
+\newcommand{\co}{\mathscr{C}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{}
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+ 
+ 
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item 
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{}
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+ 
+ 
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item 
+\end{enumerate}
+\end{miniexercices}
+
+\subsection{Fichou : Intégration des fonctions de $\mathbb{R}^n$ dans $\mathbb{R}$}
+
+
+\subsection{Intégration des fonctions d'une variable}
+Au lycée on définit l'intégrale d'une fonction (continue) positive comme étant l'aire sous la courbe. Pour cela, il faut savoir ce qu'est l'aire... On rappelle en quelques mots ci-dessous la définition de l'intégrale selon Riemann.
+
+
+\noindent{Soit $f : [a\,,\,b] \rightarrow \mathbb{R}$ bornée.
+\begin{enumerate}
+\item[a)] Cas o\`u $f$ est en escalier.\\
+Il existe une partition $a = t_{0} < t_{1} < t_{2} < \dots < t_{n} = b$ telle que $f$ est constante sur chaque intervalle \, $]t_{i} \,,\, t_{i+1}[ \;\; (f(x) = C_{i})$.\\
+Alors $\displaystyle \int_{a}^b\, f(t)\, dt = \sum_{i = 0}^{n - 1}\, C_{i}\, (t_{i+1} - t_{i})$.
+\item[b)] Si $f$ est bornée on l'approche par des fonctions en escalier.
+\end{enumerate}
+
+\begin{center}
+%\includegraphics[scale=.7]{MethRect.pdf}
+\end{center}
+
+ 
+\begin{definition}
+$f$ est {\bf intégrable} sur $[a\,,\,b]$ s'il existe un nombre unique $I$ tel que pour toutes fonctions en escalier $u\,,\,v$ sur $[a\,,\,b]$ vérifiant $u(x) \leqslant f(x) \leqslant v(x)$ on a : 
+$$
+ \int_{a}^b\, u(x)\, dx \;\; \leqslant \;\; I \;\; \leqslant \;\;  \int_{a}^b\, v(x) dx
+ $$
+ et si pour tout $\varepsilon > 0$ il existe des fonctions en escalier $u_{\varepsilon}$ et $v_{\varepsilon}$ vérifiant :
+ $$
+ u_{\varepsilon} (x) \;\; \leqslant \;\; f(x) \;\; \leqslant \;\; v_{\varepsilon} (x)
+ $$
+ et
+ $$
+ 0 \;\; \leqslant \;\;  \int_{a}^b\, v_{\varepsilon}(x)\, dx - \int_{a}^b\, u_{\varepsilon} (x)\, dx  \;\; < \;\;  \varepsilon
+ $$
+\end{definition}
+
+
+\noindent{Notation : $I$ s'appelle l'intégrale de $f$ sur $[a\,,\,b]$ et se note $\displaystyle \int_{a}^b\, f(x)\, dx$\,.
+
+\begin{theoreme}
+Si $f$ est continue sur $[a,b]$ alors $f$ est intégrable sur $[a,b]$.
+\end{theoreme}
+\begin{proof} \rm : Soit $f$ une fonction continue sur $[a,b]$. Soit $\epsilon$ un nombre réel strictement positif. Alors la fonction $f$ est uniformément continue sur $[a,b]$ : il existe $\eta>0$ tel que, si $|x-y|<\eta$ alors $|f(x)-f(y)|<\epsilon$. Prenons $n$ tel que $(b-a)/n<\eta$ et divisons $[a,b]$ en $n$ intervalles de longueur $(b-a)/n<\eta$ dont les extrémités sont les points $x_k=a+k(b-a)/n$, $k$ variant de 0 \`a $n$ ($k$ prenant $n+1$ valeurs détermine $n$ intervalles $[x_k,x_{k+1}]$ $k$ variant de $0$ \`a $n-1$ ; on a $x_0=a$ et $x_n=b$). Définissons deux fonctions en escalier
+$$
+f^-(x)=\min\{f(t),t\in[x_k,x_{k+1}]\}\ {\rm si}\  x\in [x_k,x_{k+1}]
+$$
+$$
+f^+(x)=\max\{f(t),t\in[x_k,x_{k+1}]\}\ {\rm si}\ x\in [x_k,x_{k+1}]
+$$
+Par définition on a $f^-\leq f\leq f^+$ et on a
+\begin{eqnarray*}
+\int_a^bf^+(x)dx-\int_a^bf^-(x)dx&=&\sum_{k=0}^{n-1}(x_{k+1}-x_k)\max\{f(t),t\in[x_k,x_{k+1}]\}\\
+& & \ \ \ \ \ \ \ \ -\sum_{k=0}^{n-1}(x_{k+1}-x_k)\min\{f(t),t\in[x_k,x_{k+1}]\}\\
+&=&\sum_{k=0}^{n-1}(x_{k+1}-x_k)(\max_{t\in[x_k,x_{k+1}]}f(t)-\min_{t\in[x_k,x_{k+1}]}f(t))\\
+&\leq&\sum_{k=0}^{n-1}(x_{k+1}-x_k)\epsilon\\
+&=&\epsilon \sum_{k=0}^{n-1}(x_{k+1}-x_k)\\
+&=&\epsilon(b-a)
+\end{eqnarray*}
+\end{proof}
+
+\subsection{Volume de parties bornées de $\R^d$}
+On cherche \`a définir le volume d'une partie. Le volume d'un pavé est donné par le produit des longueurs de ses c\^otés.
+Si une partie est une réunion disjointe de pavés alors son volume est la somme des volumes des pavés intervenant dans la réunion.
+Que le pavé soit ouvert, fermé, ni ouvert ni fermé ne change rien \`a son volume.
+On vérifie que ces r\`egles permettent de définir sans ambiguïté et de mani\`ere cohérente le volume de toute réunion disjointe finie de pavés. Il faut montrer que le résultat ne dépend pas de la fa\c con de découper en pavés.
+
+On souhaite évidemment définir le volume de parties plus générales.
+
+Pour définir le volume d'une partie donnée $E$ on peut ensuite procéder de la fa\c con suivante. Supposons qu'il existe deux suites d'ensembles $(E_n^-)_{n\in \Nn}$ et $(E_n^+)_{n\in \Nn}$ telles que, pour tout $n$, $E_n^-$ et $E_n^+$ soit des réunions finies de pavés, et on ait :
+$$
+E_n^-\subset E_{n+1}^-\subset E\subset E_{n+1}^+\subset E_n^+,
+$$
+et $\lim vol(E_n^+)-vol(E_n^-)=0$. Alors les deux suites $vol(E_n^-)$ et $vol(E_n^+)$ sont adjacentes. Elles sont donc convergentes et ont m\^eme limite. On définit le volume de $E$ comme étant cette limite commune.
+
+\subsection{Intégration des fonctions de deux variables}
+
+
+\noindent{Soit $f : [a  \,,\, b ] \times [c  \,,\, d ] \rightarrow \mathbb{R}$. On note $R$ le rectangle $[a  \,,\, b ] \times [c  \,,\, d ]  \subset \mathbb{R}^2$. On va définir l'intégrale d'une fonction sur $R$ en deux temps: d'abord dans le cas o\`u la fonction est en escalier, puis en approchant la fonction considérée (si c'est possible) par des fonctions en escalier. 
+
+\begin{enumerate}
+\item[a)] $f$ est en escalier.\\
+Il existe une partition de $[a  \,,\, b ] \times [c  \,,\, d ]$ : \\
+$a = s_{0} < s_{1} < s_{2} < \, \dots \, < s_{m} = b$\\
+$c = t_{0} < t_{1}  < \, \dots \, < t_{n} = d$\\
+telle que $f$ est constante \`a l'intérieur de chaque rectangle\, $]s_{i} \,,\, s_{i+1}[ \, \times \, ]t_{j} \,,\, t_{j+1}[$\; (o\`u elle vaut $C_{ij}$).\\
+On définit $\displaystyle \iint_{R}\, f(x\,,\,y)\, dx\,dy = \sum_{i\,,\,j}\, C_{ij}\, (s_{i+1} - s_{i})\, (t_{j+1} - t_{j})$.\\
+On remarque en particulier que la valeur de l'intégrale ne dépend pas des valeurs de $f$ sur les bords des petits rectangles.
+
+\item[b)] $f$ est bornée sur $R = [a  \,,\, b ] \times [c  \,,\, d ]$.\\
+On approche $f$ par des fonctions en escalier.
+\end{enumerate}
+
+
+\begin{definition}
+$f$ est {\bf intégrable} sur $R$ s'il existe un nombre unique $I$ tel que pour toutes fonctions en escalier $u(x\,,\,y)$ et $v(x\,,\,y)$, telles que $u(x\,,\,y) \leqslant f(x\,,\,y) \leqslant v(x\,,\,y)$, on a :
+$$
+\iint_{R}\, u(x\,,\,y)\, dx\, dy \;\; \leqslant \;\;  I \;\; \leqslant \;\; \iint_{R}\, v(x\,,\,y)\, dx\, dy
+$$
+et si, pour tout $\varepsilon > 0$, il existe des fonctions en escalier $u_{\varepsilon}$ et $v_{\varepsilon}$ telles que :
+$$
+u_{\varepsilon} (x\,,\,y) \;\; \leqslant \;\; f(x\,,\,y) \;\; \leqslant \;\; v_{\varepsilon} (x\,,\,y)
+$$
+et
+$$
+0  \;\; \leqslant \;\;  \int_{R}\, v_{\varepsilon} (x\,,\,y)\, dx\, dy - \int_{R}\, u_{\varepsilon} (x\,,\,y)\, dx\, dy \;\; < \;\; \varepsilon
+$$
+\end{definition}
+
+
+\noindent{Notation :  $I$ s'appelle l'intégrale de $f$ sur $R$ et se note $\displaystyle \iint_{R}\, f(x\,,\,y)\, dx\,dy$\,.
+
+\begin{theoreme} 
+\begin{enumerate}
+\item Si $f$ est continue sur $R$ alors $f$ est intégrable.
+\item Si $f$ est positive sur $R$ alors $\displaystyle \iint_{R}\, f(x\,,\,y)\, dx\, dy$ est le volume sous le graphe de $f$ au-dessus de $R$.
+\end{enumerate}
+\end{theoreme}
+
+\begin{proposition} (Propriétés de l'intégrale double)
+\begin{enumerate}
+\item $\displaystyle \iint_{R}\, (\alpha f + \beta g)\, (x\,,\,y)\, dx\, dy = \alpha\, \iint_{R}\, f(x\,,\,y)\, dx\, dy + \beta\, \iint_{R}\, g(x\,,\,y)\, dx\, dy$.
+\item Si $R = R_{1} \cup R_{2}$ avec $R_{1} \cap R_{2} = \emptyset$ alors :
+$$
+\iint_{R}\, f(x\,,\,y)\, dx\, dy = \iint_{R_{1}}\, f(x\,,\,y)\, dx\, dy + \iint_{R_{2}}\, f(x\,,\,y)\, dx\, dy
+$$
+\end{enumerate}
+\end{proposition}
+
+\begin{theoreme}
+Si $f$ est continue sur $R$ alors $\displaystyle \iint_{R}\, f(x\,,\,y)\, dx\, dy$ existe.
+\end{theoreme}
+
+
+
+\subsection{Calcul des intégrales doubles}
+
+\begin{theoreme}(Fubini)
+Si $f$ est continue sur $R = [a  \,,\, b ] \times [c  \,,\, d ]$ alors :
+$$
+ \iint_{R}\, f(x\,,\,y)\, dx\, dy \;\; = \;\; \int_{a}^b\, \left( \int_{c}^d\,\, f(x\,,\,y)\, dy \right)\, dx \;\; = \;\; \int_{c}^d\, \left( \int_{a}^b\,\, f(x\,,\,y)\, dx \right)\, dy
+ $$
+ \end{theoreme}
+
+
+\noindent{\bf Exemple}
+\begin{enumerate}
+\item[(1)] $\displaystyle  \iint_{R}\, (x^2 + y^2)\, dx\, dy  \;\;\;\;\;\;\;\;\;  R = [0\,,\,1] \times [0\,,\,1]$
+\item[(2)] $\displaystyle  \iint_{R}\, (1 + x + y)\, dx\, dy     \;\;\;\;\;\; R = [0\,,\,1] \times [0\,,\,1]$
+\end{enumerate}
+
+
+
+\begin{corollaire}
+Si la fonction $f$ est le produit de deux fonctions $g$ et $h$ d'une variable, c'est-\`a-dire $f(x,y)=g(x)h(y)$, alors
+$$ \iint_{R}\, f(x,y)\, dx\, dy =(\int _a^bg(x)dx)(\int_c^dh(y)dy).$$
+\end{corollaire}
+
+\noindent{\bf Exemple:}
+ $\displaystyle  \iint_{[0,1]\times [0,1]}\, e^{x+y}\, dx\, dy $
+
+
+
+\subsection{Intégration sur les régions bornées de $\mathbb{R}^2$}
+
+
+\noindent{Soit $f : D \rightarrow \mathbb{R}$ o\`u $D \subset \mathbb{R}^2$ est non rectangulaire.\\
+On consid\`ere un rectangle $R$ tel que $D \subset R$ et on définit $\overline{f}$ sur $R$ avec :
+$$
+\overline{f} (x\,,\,y) = \left \lbrace 
+\begin{array}{cl}
+f(x\,,\,y) & \textrm{si} \; (x\,,\,y) \in D \\
+0 & \textrm{si} \; (x\,,\,y) \notin D
+\end{array}
+\right.
+$$
+
+
+
+Avec les notations précédentes on pose, si cela a un sens :
+$$
+\iint_{D}\, f(x\,,\,y)\, dx\, dy \;\; = \;\; \iint_{R}\, \overline{f}(x\,,\,y)\, dx\, dy
+$$
+On peut se ramener \`a deux types de domaine $D$ :
+
+\vskip10pt
+\noindent{{\it Type 1} : $D = \left \lbrace (x\,,\,y)\;\;\; / \;\;\; \begin{array}{c} a \leqslant x \leqslant b \\ g_{1}(x) \leqslant y \leqslant g_{2}(x) \end{array} \right \rbrace$ o\`u $g_{1}$ et $g_{2}$ sont continues.
+
+\vskip10pt
+\noindent{{\it Type 2} : $D = \left \lbrace (x\,,\,y)\;\;\; / \;\;\; \begin{array}{c} c \leqslant y \leqslant d \\ h_{1}(y) \leqslant x \leqslant h_{2}(y) \end{array} \right \rbrace$.
+
+
+\begin{theoreme}(Fubini)
+\begin{enumerate}
+\item[a)] Si $f$ est continue sur $D$ de type 1, alors $f$ est intégrable et on a :
+$$
+\iint_{D}\, f(x\,,\,y)\, dx\, dy \;\; = \;\; \int_{a}^b\;\; \left( \int_{g_{1}(x)}^{g_{2}(x)}\, f(x\,,\,y)\, dy \right)\, dx
+$$
+\item[b)] Si $f$ est continue sur $D$ de type 2, alors $f$ est intégrable et on a :
+$$
+\iint_{D}\, f(x\,,\,y)\, dx\, dy \;\; = \;\; \int_{c}^d\;\; \left( \int_{h_{1}(y)}^{h_{2}(y)}\, f(x\,,\,y)\, dx \right)\, dy
+$$
+\end{enumerate}
+\end{theoreme}
+
+\noindent{\bf Exemples}
+\begin{enumerate}
+\item[(1)] $\displaystyle \iint_{D}\, (x + 2y)\, dx\, dy$ : $D$ est la région entre les deux paraboles $y = 2x^2$ et $y = 1 + x^2$.
+\item[(2)] $\displaystyle \iint_{D}\, e^{x^2}\, dx\, dy$\, sur le triangle $D = \left \lbrace (x\,,\,y)\;\;\; / \;\;\; \begin{array}{c} 0 \leqslant x \leqslant 1 \\ 0 \leqslant y \leqslant x \end{array} \right \rbrace$\,. 
+\item[(3)] Le choix d'intégrer d'abord par rapport \`a $x$ ou $y$ peut amener des calculs plus ou mois long. Par exemple avec $\displaystyle \iint_{D}\, xy\, dx\, dy$ o\`u $D$ est le trap\`eze délimité par $y=0$, $y=1$ et les droites d'équation $y = 2-x$ et $y = 1 + x/2$.
+\end{enumerate}
+
+
+
+\begin{definition}
+Si $D$ est un domaine borné, on appelle {\bf aire de $D$} : aire$(D) = \displaystyle \iint_{D}\, 1\, dx\, dy$.
+\end{definition}
+
+
+
+
+\subsection{Intégrale double et changement de variables}
+
+
+\noindent{Rappel \`a une variable :
+$$
+\int_{a}^b\, f(x)\, dx \;\; = \;\; \int_{c}^d\, f(g(t))\, g'(t)\, dt
+$$
+o\`u $g$ est bijection de $[c\,,\,d]$ sur $[a\,,\,b]$.
+
+\begin{proof} \rm : Soit $F$ une primitive de $f$. 
+
+On a d'une part 
+$$
+F(g(b))-F(g(a))=\int_{g(a)}^{g(b)}F'(t)dt=\int_{g(a)}^{g(b)}f(t)dt,
+$$
+d'autre part 
+$$
+F(g(b))-F(g(a))=\int_a^b(F\circ g)'(s) ds=\int_a^bF'(g(s))g'(s) ds=\int_a^bf(g(s))g'(s) ds.
+$$ 
+\end{proof}
+
+\begin{theoreme}
+Si $G(u\,,\,v) = (x(u\,,\,v) \,,\, y(u\,,\,v))$ :
+$$
+\iint_{G(S)}\, f(x\,,\,y)\, dx \, dy \;\; = \;\; \iint_{S}\, f(x(u\,,\,v) \,,\,y(u\,,\,v)) \,\, | \det \textrm{Jac}(G(u\,,\,v))|\,\, du\, dv
+$$
+avec Jac$(G(u\,,\,v)) = \left( \begin{array}{ccc}
+\displaystyle \frac{\partial x}{\partial u} &  & \displaystyle \frac{\partial x}{\partial v} \\\\
+\displaystyle \frac{\partial y}{\partial u} &  & \displaystyle \frac{\partial y}{\partial v}
+\end{array}
+\right)$.
+\end{theoreme}
+
+\begin{remarque*} Ce n'est pas tr\`es étonnant de trouver l\`a le déterminant. Par exemple, la valeur absolue du déterminant d'une matrice $2\times 2$ calcule l'aire du parallélogramme engendré par les vecteurs colonnes (par exemple).
+\end{remarque*}
+
+\noindent{\bf Cas des coordonnées polaires}\\
+$x = x(r\,,\,\theta) = r \cos \theta$\\
+$y = y(r\,,\,\theta) = r \sin \theta$
+$$
+J(G) = \left( \begin{array}{ccc}
+\cos \theta  &  & -\, r \sin \theta \\
+\sin \theta &   & r \cos \theta
+\end{array}
+\right)
+$$
+d'o\`u $\displaystyle \iint_{R = G(S)}\, f(x\,,\,y)\, dx\, dy \; = \; \iint_{S}\, f(r \cos \theta \,,\, r \sin \theta)\, r\, dr\, d\theta$.
+
+
+
+\noindent{\bf Exemples}
+\begin{enumerate}
+\item[(1)] Calcul de l'aire d'un disque.
+\item[(2)] Calcul de l'aire \`a l'intérieur d'une ellipse.
+\item[(3)] $\displaystyle \int_{-\, \infty}^{+\, \infty}\, e^{-\, x^2}\, dx = \sqrt{\pi}$\,.
+\item[(4)]  $\displaystyle \iint_{D}\,(x-y)^2 \, dx\, dy$ o\`u $D$ est le morceau du disque unité compris entre l'axe des $x$ et la demi-droite $y=x$.
+\end{enumerate}
+
+
+
+\subsection{Intégrales triples}
+On définit et calcule de mani\`ere totalement similaire les intégrales pour les fonctions de trois variables (et plus...). On va voir quelques exemples...
+
+\noindent{$\displaystyle \iiint_{R}\, f(x\,,\,y\,,\,z)\, dx\, dy\, dz$
+
+
+\noindent{\bf Exemple:}
+ $\displaystyle \iiint_{D}\, (x+y+z)^2 \, dx\, dy\, dz=1/10$ o\`u $D$ est le domaine délimité par les plans d'équations $x=0,y=0,z=0$ et $x+y+z=1$.
+
+
+\noindent{\bf Changement de variables} en dimension 3. Cas des coordonnées sphériques.
+
+$\displaystyle \iiint_{R = G(S)}\, f(x,y,z)\, dx\, dy \, dz\; = \; \iiint_{S}\, f(r \cos \theta \sin \phi\,,\, r \sin \theta \sin \phi, r \cos \phi) \, r^2 sin \phi\, dr\, d\theta \, d\phi$.
+
+\noindent{\bf Exemple:}
+ $\displaystyle \iiint_{D}\, (x^2+y^2+z^2) \, dx\, dy\, dz=4\pi/5$ o\`u $D$  est la boule centrée en l'origine et de rayon 1.
+ 
+\subsection{Quelques calculs classiques}
+
+\subsubsection{L'aire d'un disque}
+On peut trouver l'aire d'un disque gr\^ace au calcul intégral. En intégrant par tranche :
+\begin{eqnarray*}
+Aire&=&4\int_0^R\sqrt{R^2-x^2}dx\\
+&=&4\int_0^{\pi/2}R\cos(t)R\cos(t)\ dt\\
+&=&4R^2\int_0^{\pi/2}{{1+\cos(2t)}\over{2}} \ dt \\
+&=& \pi R^2,
+\end{eqnarray*}
+calculée gr\^ace au changement de variable $x=R\sin(t)$. 
+On peut aussi (et c'est plus simple quand on conna\^ \it l'expression du jacobien du passage en polaires) utiliser les coordonnées polaires
+\begin{eqnarray*}
+Aire&=&\int_0^R\int_0^{2\pi}r\ dr\ d\theta\\
+&=&2\pi. R^2/2\\
+&=& \pi R^2.
+\end{eqnarray*}
+
+
+\subsubsection{Le volume de la boule}
+On peut calculer le volume de la boule par un changement de variables en coordonnées sphériques.
+
+$\displaystyle \iiint_{B(0,R)}\,  \, dx\, dy\, dz= \iiint_{[0,R]\times [0,2\pi]\times [0,\pi]}\,  r^2 sin \phi\, dr\, d\theta\, d\phi=\int_0^Rr^2dr \int_0^{2\pi}d\theta \int_0^{\pi}\sin \phi d\phi$
+
+et donc le volume vaut $4\pi R^3/3$.
+
+\subsubsection{Le volume d'une pyramide}
+Cas d'une pyramide $P$ de base carrée de c\^oté de longueur $a$ et de hauteur $h$. On pose la pyramide sur le plan $z=0$, centrée sur l'axe des $z$. La longueur du c\^oté du carré $C_z$ \`a la hauteur $z$ est donc $a(1-z/h)$. Ainsi par le théor\`eme de Fubini
+$$ \iiint_Pdxdydz=\int_0^h( \iint_{C_z}dxdy)dz=\int_0^h( a^2(1-z/h)^2)dz=a^2h/3=Sh/3$$
+o\`u $S$ est l'aire de la base.
+
+\subsubsection{Solides de révolution}
+Soit $f$ une fonction positive ou nulle définie sur un intervalle $[a,b]$. Considérons la partie de l'espace définie de la façon suivante :
+$$
+V=\{(x,y,z)\ /\ x\in[a,b], \sqrt{y^2+z^2}\leq f(x)\}.
+$$
+C'est le solide obtenu en faisant tourner le graphe de $f$ autour de l'axe des $x$.
+Le volume de $V$ est donné par l'intégrale triple
+$$
+\iiint_Vdxdydz.
+$$
+En intégrant par tranche (d'abord en $y$, $z$, puis en $x$) on obtient :
+$$
+\iiint_Vdxdydz=\int_a^b\left(\iint_{\{(y,z)\ /\  \sqrt{y^2+z^2}\leq f(x)\}}dydz\right)dx=\int_a^b\pi f(x)^2dx.
+$$
+Le calcul de l'intégrale triple se ram\`ene donc \`a un calcul d'intégrale simple.
+
+\noindent{\bf Exemples}
+\begin{enumerate}
+\item[(1)] Cas d'un c\^one: on prend pour $f$ la fonction définie sur $[0,h]$ par $f(x)=ax$ pour $a>0$. Ici la base du c\^one a pour aire $S=\pi(ah)^2$, et donc le volume du c\^one est égal \`a
+$$\int_0^h\pi (ax)^2dx=\pi a^2h^3/3=Sh/3.$$
+\item[(2)] Cas d'un cylindre de rayon $R$ et de hauteur $h$:
+$$\int_0^h\pi R^2dx=\pi R^2h=Sh$$
+o\`u $S$ est l'aire de la base.
+\end{enumerate}
+
+
+\auteurs{
+\\
+D'après un cours de ...
+
+Revu et augmenté par Arnaud Bodin.
+
+Relu par Stéphanie Bodin et Vianney Combet.
+}
+
+
+\finchapitre 
+\end{document}
+
+

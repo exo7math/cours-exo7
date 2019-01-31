@@ -1,0 +1,340 @@
+
+\input{../preamb-pres}
+\usecolortheme[RGB={179,179,12}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Développements limités}}
+\subtitle{Développements limités au voisinage d'un point}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition
+    \item<4-> Unicité
+    \item<5-> DL des fonctions usuelles
+    \item<6-> DL en un point quelconque
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%---------------------------------------------------------------
+\section{Définition et existence}
+
+\begin{frame}
+\begin{itemize}
+\item 
+$f: I \to \Rr$ admet un \defi{développement limité} (\defi{DL}) au point $a$ et à l'ordre $n$, 
+s'il existe des réels $c_0, c_1,\ldots,c_n$
+et une fonction $\epsilon : I \to \Rr$ telle que $\lim_{x\to a} \epsilon(x)=0$ et
+$$f(x)=c_0+c_1 (x-a)+\cdots+c_n(x-a)^n+(x-a)^n\epsilon(x)$$
+
+\pause
+
+\item $c_0+c_1(x-a)+\cdots+c_n(x-a)^n$ est la \defi{partie polynomiale}
+
+\pause
+
+\item $(x-a)^n\epsilon(x)$ est le \defi{reste}
+\end{itemize}
+
+
+\pause
+
+\begin{proposition}
+Si $f$ est de classe $\mathcal{C}^n$ alors $f$ admet un DL au point $a$ à l'ordre $n$
+
+\hfil $f(x)= f(a)+\frac{f'(a)}{1!}(x-a)+ \frac{f''(a)}{2!}(x-a)^2+\cdots
++\frac{f^{(n)}(a)}{n!}(x-a)^n+(x-a)^n\epsilon(x)$
+\end{proposition}
+
+\pause
+
+\begin{itemize}
+
+  \item Preuve : formule de Taylor-Young : $c_k = \frac{f^{(k)}(a)}{k!}$
+
+\pause
+
+  \item $f(x)= f(0)+f'(0)x+f''(0)\frac{x^2}{2!}+\cdots+f^{(n)}(0)\frac{x^n}{n!} + x^n\epsilon(x)$
+\end{itemize}
+
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Unicité}
+
+\begin{frame}
+
+
+\begin{proposition}
+Si $f$ admet un DL alors ce DL est unique
+\end{proposition}
+
+\pause
+
+\begin{proof}
+{\center
+$\begin{array}{rcl}
+f(x) 
+& = & c_0+c_1(x-a)+\cdots+c_n(x-a)^n+(x-a)^n\epsilon_1(x) \\
+\pause
+& = & d_0+d_1(x-a)+\cdots+d_n(x-a)^n+(x-a)^n\epsilon_2(x)   
+\end{array}
+$
+
+\pause
+\medskip
+
+$(d_0-c_0)+(d_1-c_1)(x-a)+\cdots+(d_n-c_n)(x-a)^n+(x-a)^n(\epsilon_2(x)-\epsilon_1(x))=0$
+}
+
+\pause
+\begin{itemize}
+  \item $x=a$ \pause donne $d_0-c_0=0$ \pause et on divise l'égalité par $x-a$
+\pause
+  \item $(d_1-c_1)+(d_2-c_2)(x-a)+\cdots+(d_n-c_n)(x-a)^{n-1}+(x-a)^{n-1}(\epsilon_2-\epsilon_1)(x)=0$
+\pause
+  \item $d_1-c_1=0$,...
+\pause
+  \item $c_0=d_0$, $c_1=d_1$, \ldots, $c_n=d_n$ \pause et donc $\epsilon_1(x)=\epsilon_2(x)$
+\end{itemize}
+
+\end{proof}
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{corollaire}
+Si $f$ est paire (resp. impaire) alors la partie polynomiale de son DL en $0$
+ne contient que des monômes de degrés pairs (resp. impairs) 
+\end{corollaire}
+
+\pause
+
+Exemple : $\cos x=1-\frac{x^2}{2!}+\frac{x^4}{4!}-\frac{x^6}{6!}+\cdots$
+
+\pause
+
+\begin{proof}
+Pour $f$ paire
+\medskip
+
+$\begin{array}{rccl}
+  & f(x)  & = & c_0+c_1 x +c_2x^2+c_3x^3+\cdots+c_nx^n+x^n\epsilon(x)  \\
+  & \pause
+\uncover<5->{\alert<5>{\mathbf\parallel}} && \\
+  & f(-x) & = & c_0-c_1 x+c_2x^2-c_3x^3 +\cdots+(-1)^nc_nx^n+x^n\epsilon(x)
+\end{array}$
+
+\pause
+
+\pause
+\medskip
+
+Par l'unicité : $c_1=-c_1$, $c_3=-c_3$, \ldots \ 
+\pause et donc $c_1=0$, $c_3=0$,\ldots
+\end{proof}
+
+\pause
+
+\begin{itemize}
+  \item $c_k = \frac{f^{(k)}(a)}{k!}$
+\pause
+  \item En particulier $c_0=f(a)$ et $c_1=f'(a)$ 
+\pause
+  \item $y=c_0+c_1(x-a)$ est la tangente 
+\end{itemize}
+ 
+\end{frame}
+
+%---------------------------------------------------------------
+\section{DL des fonctions usuelles à l'origine}
+
+\begin{frame}
+
+\begin{center}
+
+\mybox{$\exp x=1+\frac{x}{1!}+\frac{x^2}{2!}+\frac{x^3}{3!}+\cdots+\frac{x^n}{n!}
++x^n\epsilon(x)$}
+
+\pause
+\smallskip
+
+$\exp x=\sum_ {k=0}^n \frac{x^k}{k!} \ \ + o(x^n)$
+
+\bigskip
+
+\smallskip
+\pause
+
+\mybox{$\ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}-\cdots
++(-1)^{n-1}\frac{x^{n}}{n} +x^{n}\epsilon(x)$}
+
+\pause
+
+$\ln(1+x)=\sum_ {k=1}^n (-1)^{k-1}\frac{x^k}{k} \ \ + o(x^n)$
+
+\bigskip
+\pause
+
+$\ch x=1+\frac{x^2}{2!}+\frac{x^4}{4!}+\cdots+\frac{x^{2n}}{(2n)!}
++x^{2n+1}\epsilon(x)$ 
+
+\smallskip
+\pause
+
+
+$\sh x=\frac{x}{1!}+\frac{x^3}{3!}+\frac{x^5}{5!}+\cdots
++\frac{x^{2n+1}}{(2n+1)!} 
++x^{2n+2}\epsilon(x)$
+
+\smallskip
+\pause
+
+$\cos x=1-\frac{x^2}{2!}+\frac{x^4}{4!}-\cdots+(-1)^n\frac{x^{2n}}{(2n)!}
++x^{2n+1}\epsilon(x)$ 
+
+\smallskip
+\pause
+
+$\sin x=\frac{x}{1!}-\frac{x^3}{3!}+\frac{x^5}{5!}-\cdots
++(-1)^n\frac{x^{2n+1}}{(2n+1)!} 
++x^{2n+2}\epsilon(x)$
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{center}
+
+
+\mybox{$(1+x)^{\alpha}=1+\alpha x+\frac{\alpha(\alpha-1)}{2!}x^2+\cdots
++\frac{\alpha(\alpha-1)...(\alpha-n+1)}{n!}x^n+x^n\epsilon(x)$}
+
+\bigskip
+\pause
+
+${\displaystyle \frac{1}{1+x}}=1-x+x^2-x^3+\cdots+(-1)^nx^n+x^n\epsilon(x)$
+
+\smallskip
+\pause
+
+${\displaystyle \frac{1}{1-x}} = 1+x+x^2+\cdots+x^n+x^n\epsilon(x)$
+
+\medskip
+\pause
+
+$\sqrt{1+x}  =\ \ 1 + \frac{x}{2} - \frac{1}{8}x^2+ \cdots +
+(-1)^{n-1} \frac{1\cdot1\cdot3\cdot5\cdots(2n-3)}{2^n n!}x^n\ \  + x^n\epsilon(x)$
+\end{center}
+
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{DL des fonctions en un point quelconque}
+
+\begin{frame}
+
+\evidence{DL de $f$ en $a$}
+
+\pause
+
+On se ramène à un DL au voisinage de $0$ en posant $h=x-a$
+
+\pause
+
+\begin{exemple}
+\begin{enumerate}
+  \item DL de $\exp x$ en $1$ 
+\pause \qquad 
+On pose $h=x-1$ 
+
+\pause
+\medskip
+
+\hspace*{-2em}
+$\begin{array}{rcl}
+  \exp x & = & \pause \exp( 1+ (x-1) ) \pause = \exp(1) \exp (x-1) \pause = e \exp h \\
+\pause
+& = & e \left(1+h+ \frac{h^2}{2!} + \cdots + \frac{h^n}{n!}+h^n\epsilon(h)\right) \\
+\pause
+& =  & e \left(1+(x-1)+\frac{(x-1)^2}{2!}+\cdots
++\frac{(x-1)^n}{n!}+(x-1)^n\epsilon(x-1)\right) \\
+\end{array}$
+\pause
+avec  \quad $\lim_{x\to1}\epsilon(x-1)=0$
+\pause
+
+  \item DL de $\ln(1+3x)$ en $1$ à l'ordre $3$
+\pause \qquad  
+$h=x-1$
+
+\pause
+\medskip
+
+\hspace*{-3em}
+$\begin{array}{rl}
+\ln(1+3x)\!\!\! &= \pause \ln\big(1+3(1+h)\big) \pause =  \ln(4 + 3h) \\
+ \pause 
+&= \ln\big(4 \cdot (1+\frac{3h}{4})\big) \pause = \ln 4 + \ln\big(1+\frac{3h}{4}\big) \\
+\pause
+&= \ln 4 + \frac{3h}{4} - \frac12 \big(\frac{3h}{4} \big)^2
++ \frac13 \big(\frac{3h}{4} \big)^3 + h^3 \epsilon(h) \\
+\pause
+&= \ln 4 + \frac{3(x-1)}{4} - \frac{9}{32}(x-1)^2
++ \frac{9}{64}(x-1)^3 + (x-1)^3 \epsilon(x\!-\!1)
+\end{array}$
+\pause
+ où $\lim_{x\to1}\epsilon(x-1)=0$
+
+\end{enumerate}
+\end{exemple}
+  
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Calculer le DL en $0$ de $x\mapsto \ch x$ par la formule de Taylor-Young.
+Retrouver ce DL en utilisant que $\ch x = \frac{e^x-e^{-x}}{2}$.
+  \item Écrire le DL en $0$ à l'ordre $3$ de $\sqrt[3]{1+x}$. Idem avec $\frac{1}{\sqrt{1+x}}$.
+  \item Écrire le DL en $2$ à l'ordre $2$ de $\sqrt{x}$.
+  \item Justifier l'expression du DL de $\frac{1}{1-x}$ à l'aide de l'unicité des DL 
+de la somme d'une suite géométrique.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

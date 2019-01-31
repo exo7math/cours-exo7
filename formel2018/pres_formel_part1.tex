@@ -1,0 +1,442 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={192,41,0}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcommand{\Sage}{\texttt{Sage}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||,
+  breaklines=true,
+  postbreak=\raisebox{0ex}[0ex][0ex]{\qquad\ensuremath{\color{red}\hookrightarrow\space}},
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Calcul formel}}
+\subtitle{Premiers pas avec \Sage}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Hello world!
+    \item<4-> Calcul formel
+    \item<5-> Calcul formel vs calcul numérique
+    \item<6-> Graphiques
+    \item<7-> Le calcul formel peut-il tout faire ?
+%    \item<8-> Un peu plus sur \Sage
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Hello world!}
+
+\begin{frame}[fragile]
+
+
+\begin{tp}
+\begin{enumerate}
+  \item Calculer $1+2 \times 3^4$.
+  \item Calculer $\frac{22}{33}$.
+  \item Calculer $\cos(\frac{\pi}{6})$.
+\end{enumerate}  
+\end{tp}
+
+\pause
+
+%\insertcode{formel/Algos/hello-world-tex.sage}{hello-world.sage}
+\begin{algo}[hello-world.sage]
+\begin{lstlisting}
+sage: 1+2*3^4|\pause|
+163|\pause\smallskip|
+sage: 22/33|\pause|
+2/3|\pause\smallskip|
+sage: cos(pi/6)|\pause|
+1/2*sqrt(3)
+\end{lstlisting}
+\end{algo}
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Calcul formel}
+
+\begin{frame}
+  
+\evidence{Démarche}
+\pause
+
+\begin{enumerate}
+  \item Je me pose des questions
+  \pause\medskip
+  \item J'écris un algorithme pour tenter d'y répondre
+  \pause\medskip
+  \item Je trouve une conjecture sur la base des résultats expérimentaux
+  \pause\medskip
+  \item Je prouve la conjecture
+\end{enumerate}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+
+\begin{tp}
+\begin{enumerate}
+  \item Que vaut le nombre complexe $(1-\ii)^k$, pour $k\ge 0$ ?
+  \item Les nombres de la forme $F_n = 2^{(2^n)}+1$ sont-ils tous premiers ?
+\end{enumerate}  
+\end{tp}
+
+
+\pause
+%\insertcode{formel/Algos/motiv-calcul-formel-tex1.sage}{motiv-calcul-formel.sage (1)}
+\begin{algo}[motiv-calcul-formel.sage (1)]
+\begin{lstlisting}
+z = 1-I|\pause|
+for k in range(15):|\pause|
+    print k, z^k 
+\end{lstlisting}
+\end{algo}
+%, real_part(z^k), imag_part(z^k)|\pause|
+%    print abs(z^k), arg(z^k)
+\pause
+{\small 
+\begin{tabular}{llll}
+\begin{lstlisting}
+0 1
+1 -I + 1
+2 -2*I
+3 -2*I - 2
+4 -4
+\end{lstlisting}
+&
+\begin{lstlisting}
+5 4*I - 4
+6 8*I
+7 8*I + 8
+8 16
+9 -16*I + 16
+\end{lstlisting}
+&
+\begin{lstlisting}
+10 -32*I
+11 -32*I - 32
+12 -64
+13 64*I - 64
+14 128*I
+\end{lstlisting}
+&
+\begin{tabular}{l}
+\pause 
+\!\!\!\!$z^{4\ell}=(-1)^\ell 2^{2\ell}$\\
+\!\!\!\!$z^{4\ell+1}=(-1)^\ell 2^{2\ell}(1-i)$\\
+\!\!\!\!$z^{4\ell+2}=(-1)^\ell 2^{2\ell+1}(-i)$\\
+\!\!\!\!$z^{4\ell+3}\!=\!(-1)^\ell 2^{2\ell+1}(-1\!-i)$\\
+\end{tabular}
+\end{tabular}
+}
+\pause
+
+Preuve : $z = \sqrt{2} e^{-\frac{\ii\pi}{4}}$.
+On obtient $z^k = \sqrt{2}^k e^{-\frac{k\ii\pi}{4}}$ 
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\begin{tp}
+\begin{enumerate}
+  \item Que vaut le nombre complexe $(1-\ii)^k$, pour $k\ge 0$ ?
+  \item Les nombres de la forme $F_n = 2^{(2^n)}+1$ sont-ils tous premiers ?
+\end{enumerate}  
+\end{tp}
+
+%\insertcode{formel/Algos/motiv-calcul-formel-tex2.sage}{motiv-calcul-formel.sage (2)}
+\begin{algo}[motiv-calcul-formel.sage (2)]
+\begin{lstlisting}
+for n in range(8):
+    print n, factor(2^(2^n)+1)
+\end{lstlisting}
+\end{algo}
+
+\pause
+{\small
+\begin{lstlisting}
+0 3
+1 5
+2 17
+3 257
+4 65537
+5 641 * 6700417
+6 274177 * 67280421310721
+7 59649589127497217 * 5704689200685129054721
+\end{lstlisting}
+}
+\pause
+$F_5 = 4\;294\;967\;297 = 641 \times 6\;700\;417$ n'est pas premier
+
+\end{frame}
+
+
+% \begin{frame}
+
+% \end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Calcul formel vs calcul numérique}
+
+\begin{frame}[fragile]
+
+\begin{tp}
+Quelle est la limite de la suite définie par récurrence :
+
+\vspace*{-2ex}
+$$u_0 = 1 \qquad u_{n+1} = \sqrt{1+u_n} \ \text{ pour } n \ge 0 \quad \text{ ?}$$
+\end{tp}
+
+\pause
+$\begin{array}{ll}
+\uncover<2->{u_0 = 1}            
+& \uncover<9->{u_3 = \sqrt{1+\sqrt{1+\sqrt{2}}}} \uncover<14->{= 1.5980\ldots} \\
+\uncover<7->{u_1 = \sqrt{2}} \uncover<12->{= 1.4142\ldots} 
+& \uncover<10->{u_4 =\sqrt{1+\sqrt{1+\sqrt{1+\sqrt{2}}}}} \uncover<15->{= 1.6118\ldots}\\
+\uncover<8->{u_2 =  \sqrt{1+\sqrt{2}}} \uncover<13->{= 1.5537\ldots} 
+& \uncover<16->{\phi = 1.618033\ldots} \uncover<17->{= \frac{1+\sqrt{5}}{2}}\\
+\end{array}$	
+%\insertcode{formel/Algos/calcul-numerique.sage}{calcul-numerique.sage}
+\pause
+\begin{algo}[calcul-numerique.sage]
+\begin{lstlisting}
+u = 1|\pause|
+for i in range(10):|\pause|
+    u = sqrt(1 + u)|\pause|
+    print(u)|\pause\pause\pause\pause\pause|
+    print(numerical_approx(u))|\pause|
+\end{lstlisting}
+\end{algo}
+
+
+
+
+
+\end{frame}
+
+
+% \begin{frame}
+
+% \end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Graphiques}
+
+\begin{frame}[fragile]
+\begin{tp}
+Soit la fonction $f(x)= \sin(x) \cdot \exp(x)$.
+Calculer les premiers polynômes de Taylor associés aux développements limités de $f$ en $0$. 
+Tracer leurs graphes. Quelles propriétés des développements limités cela met-il en évidence ?
+\end{tp}
+
+\pause
+
+\begin{itemize}
+  \item \codeinline{f = sin(x)*exp(x)}
+  \pause
+  \item \codeinline{taylor(f,x,0,n)} renvoie le DL de
+  $f$ en $x=0$ à l'ordre $n$
+  \pause
+  \item $f(x) = x + x^2 + \frac13 x^3+ \epsilon(x) x^3$
+  \pause
+  \item $T_1(x) = x$,  $T_2(x)=x+x^2$, $T_3(x) =  x + x^2 + \frac13 x^3$
+  
+\pause
+
+  \item \codeinline{plot(f,(a,b))} trace le graphe de $f$ sur l'intervalle $[a,b]$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{center}
+\includegraphics[scale=0.5]{figures/formel-taylor}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+
+\evidence{Graphiques}
+
+\begin{itemize}
+  \item Courbe de Lissajous d'équation $t \mapsto \big(\cos(3t),\sin(4t)\big)$
+  \uncover<2->{
+  \item \codeinline{parametric_plot((cos(3*t),sin(4*t)),(t,0,2*pi))}
+  }
+  \uncover<3->{
+  \item Graphe de la fonction $f(x,y)= \cos(xy)$
+  }
+  \uncover<4->{
+  \item \codeinline{plot3d(cos(x*y),(x,-4,4),(y,-4,4))}
+  }
+  \uncover<5->{
+  \item Définir les variables utilisées : \codeinline{var('t')}
+\ et \  \codeinline{var('x,y')}
+}
+  
+\end{itemize}
+
+
+
+\begin{center}
+\includegraphics[scale=0.3]{figures/formel-lissajou}\ 
+\uncover<3->{
+\includegraphics[scale=0.18]{figures/formel-surface}
+}
+\end{center}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Le calcul formel peut-il tout faire ?}
+
+\begin{frame}[fragile]
+\begin{tp}
+\begin{enumerate}
+  \item Pouvez-vous calculer les solutions réelles de $x^k-x-1=0$ pour les entiers $k \ge 2$ ?
+  \item Est-ce que \Sage\ sait que toutes ces expressions sont nulles ?
+  
+  \vspace*{-4ex}
+  $$2^{10} - 1024 \qquad (x+1)^2-x^2-2x-1 \qquad \sin^2(x)+\cos^2(x) - 1$$
+\end{enumerate}  
+\end{tp}
+
+\pause
+
+\begin{enumerate}
+\item 
+  \begin{itemize}
+    \item \codeinline{solve(x^2-x-1==0,x)} renvoie deux solutions
+$\frac{1+\sqrt5}{2}$ et $\frac{1-\sqrt5}{2}$
+\pause
+    \item \codeinline{solve(x^5-x-1==0,x)} renvoie seulement l'équation !
+  \end{itemize}
+
+\pause
+
+\item 
+
+\begin{itemize}
+    \item \codeinline{2^10-1024} renvoie $0$ 
+    \pause
+
+    \item \codeinline{expand((x+1)^2-x^2-2*x-1)} renvoie $0$ 
+    \pause
+
+    \item 
+    \codeinline{f = sin(x)^2+cos(x)^2 - 1} 
+    
+    \pause
+    \codeinline{f.simplify_trig()} simplification pour obtenir $0$
+  \end{itemize}
+
+
+\end{enumerate}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Un peu plus sur \Sage}
+
+\begin{frame}[fragile]
+
+
+\evidence{Syntaxe de \Sage}
+\medskip
+
+\pause
+\begin{algo}[motiv-calcul-formel.sage (2)]
+\begin{lstlisting}
+for n in range(8):
+    print n, factor(2^(2^n)+1)
+\end{lstlisting}
+\end{algo}
+
+\pause
+\begin{itemize}
+  \item \codeinline{for n in range(N):} 
+  
+  $n$ parcourt les entiers de $0$ à   $N-1$
+  
+  \medskip 
+  \pause 
+  
+  \item \codeinline{print n, factor(2^(2^n)+1)}
+  
+  est exécuté pour $n=0,1,\ldots,N-1$
+  
+  \medskip
+  \pause
+ \item L'indentation délimite les blocs d'instructions
+\end{itemize}
+
+\end{frame}
+
+
+
+\end{document}

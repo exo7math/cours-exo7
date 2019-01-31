@@ -1,0 +1,928 @@
+
+\documentclass[12pt, class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+
+\begin{document}
+
+%====================================================================
+\chapitre{Extremums}
+%====================================================================
+
+% Commandes à virer
+\newcommand{\ou}{\mathscr{O}}
+\newcommand{\f}{\mathscr{F}}
+\newcommand{\mat}{\mathscr{M}}
+\newcommand{\co}{\mathscr{C}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Formule de Taylor à l'ordre 2}
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+ 
+ 
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item 
+\end{enumerate}
+\end{miniexercices}
+
+\section{Dérivées partielles d'ordre 2, hessienne}
+
+\vskip4mm
+
+\noindent Soit $f:(x,y,z)\mapsto f(x,y,z)$ une fonction de classe $\mathscr{C}^1$ sur l'ouvert $U$ de $\Rr^3$. Les tois dérivées partielles premières sont encore des fonctions de $U$ sur $\Rr$. Si elles-m\^emes sont de classe $\mathscr{C}^1$ sur $U$, on dit que $f$ est de classe $\mathscr{C}^2$ sur $U$. Leurs dérivées partielles, au nombre de $9$, sont les dérivées partielles secondes de $f$. Le théorème de Schwarz dit que le résultat ne dépend pas de l'ordre dans lequel on effectue les dérivations.
+
+\vskip6mm
+
+\begin{theoreme}[\bf Théorème de Schwarz]Soit $f:U\subset \Rr^n\to \Rr$ une fonction de classe ${\mathscr C}^2$. Pour tout $i,j=1,\dots ,n$, on a :
+$$\frac{\partial}{\partial x_i}\left(\frac{\partial f}{\partial x_j}\right)=\frac{\partial}{\partial x_j}\left(\frac{\partial f}{\partial x_i}\right).$$
+\end{theoreme}
+
+\vskip4mm
+
+\noindent La notation pour la dérivée partielle seconde par rapport à $x_i$ et $x_j$ est $\displaystyle \frac{\partial ^2f}{\partial x_i\partial x_j}$. Leur matrice est la matrice hessienne de $f$, qui est symétrique d'après le théorème de Schwarz.
+
+\vskip6mm
+
+\begin{definition}Soit $f:(x,y,z)\mapsto f(x,y,z)$ une fonction de classe $\mathscr{C}^2$ sur l'ouvert $U$ de $\Rr^3$. La matrice hessienne de $f$ au point $A\in U$ est
+$$\mbox{H}_f(A)=\left(\begin{array}{ccc}\displaystyle \frac{\partial ^2f}{\partial x^2}(A)&\displaystyle \frac{\partial ^2f}{\partial y\partial x}(A)&\displaystyle \frac{\partial ^2f}{\partial z\partial x}(A)\\ \\ \displaystyle \frac{\partial ^2f}{\partial x\partial y}(A)&\displaystyle \frac{\partial ^2f}{\partial y^2}(A)&\displaystyle \frac{\partial ^2f}{\partial z\partial y}(A)\\ \\ \displaystyle \frac{\partial ^2f}{\partial z\partial x}(A)&\displaystyle \frac{\partial ^2f}{\partial z\partial y}(A)&\displaystyle \frac{\partial ^2f}{\partial z^2}(A)\end{array}\right).$$
+\end{definition}
+
+\vskip6mm
+
+\noindent{\bf Exemple. }Soit $f$ la fonction définie par
+$$f(x,y)=\frac{xy^3}{x^2+y^2}\;\mbox{ si }(x,y)\neq (0,0)\quad \mbox{et}\quad f(0,0)= 0.$$
+On vérifie que $f$ est de classe $\mathscr{C}^1$ sur $\Rr^2$ et que
+$$\frac{\partial f}{\partial x}(x,y)=\left\{\begin{array}{cl}\displaystyle \frac{y^5-x^2y^3}{(x^2+y^2)^2}&\mbox{si }(x,y)\neq (0,0)\\ 0&\mbox{si }(x,y)=(0,0)
+\end{array}\right.$$
+et 
+$$\frac{\partial f}{\partial y}(x,y)=\left\{\begin{array}{cl}\displaystyle \frac{3x^3y^2+xy^4}{(x^2+y^2)^2}&\mbox{si }(x,y)\neq (0,0)\\ 0&\mbox{si }(x,y)=(0,0).\end{array}\right.$$
+Le taux d'accroissement
+$$\frac{\frac{\partial f}{\partial x}(0,y)-\frac{\partial f}{\partial x}(0,0)}{y-0}=1\underset{y\to 0\; \; \; }{\longrightarrow 1}$$
+ce qui montre que $\displaystyle \frac{\partial ^2f}{\partial y\partial x}(0,0)=1$.
+De m\^eme, le taux d'accroissement
+$$\frac{\frac{\partial f}{\partial y}(x,0)-\frac{\partial f}{\partial y}(0,0)}{x-0}=0\underset{x\to 0\; \; \; }{\longrightarrow 0}$$
+ce qui montre que $\displaystyle \frac{\partial ^2f}{\partial x\partial y}(0,0)=0$. On en déduit que l'une des dérivées partielles secondes $\displaystyle \frac{\partial ^2f}{\partial x\partial y}$ ou $\displaystyle \frac{\partial ^2f}{\partial y\partial x}$ n'est pas continue en $(0,0)$.
+
+\vskip6mm
+
+\begin{theoreme}[\bf Formule de Taylor]Soit $f:U\to \Rr$ une fonction de classe ${\mathscr C}^2$ sur l'ouvert $U\subset \Rr^2$ et soit $(a,b)\in U$. Alors, pour tout $(x,y)\in U$,
+$$\begin{array}{ccl}f(x,y)&=&\displaystyle f(a,b)+(x-a)\frac{\partial f}{\partial x}(a,b)+(y-b)\frac{\partial f}{\partial y}(a,b)\\ \\ & &\displaystyle +\frac{1}{2}\left[(x-a)^2\frac{\partial ^2f}{\partial x^2}(a,b)+2(x-a)(y-b)\frac{\partial ^2f}{\partial x\partial y}(a,b)+(y-b)^2\frac{\partial ^2f}{\partial y^2}(a,b)\right]\\ \\ & &\displaystyle +o\left(\|(x-a,y-b)\|^2\right).\end{array}$$
+On dit aussi que $f$ admet un développement limité d'ordre $2$ au point $(a,b)$.
+\end{theoreme}
+
+
+\subsection{Pujo}
+
+Avant de donner les formules de Taylor, qui dépendent des différentielles d'ordre $n \geq 1$ dans différents cas de fonctions: fonctions de $\R$ dans $\R$, fonctions de $\R$ dans $\R^q$ et
+fonctions de $\R^p$ dans $\R^q$, nous allons donner un aperçu de ce qu'est une différentielle d'ordre $2$ dans un premier temps, avec un 
+théorème de symétrie important: le théorème de Schwarz. Nous définirons également la matrice Hessienne qui nous servira beaucoup
+dans le chapitre \ref{extrema}  sur les extrema. 
+\subsection{Applications deux fois différentiables}
+
+\begin{definition}[APPLICATIONS DEUX FOIS DIFFERENTIABLES]
+\textcolor[rgb]{0.73,0.00,0.00}{
+Une fonction $f$ d\'efinie sur un OUVERT (non vide) $U \subset \R^p$  et \`a valeurs dans
+$\R^q$ est dite deux fois diff\'erentiable en $x \in U$ si
+\begin{itemize}
+  \item[1.] elle est diff\'erentiable dans un voisinage ouvert $U_x$ de $x$ et si,
+  \item[2.] sa diff\'erentielle $df: U_x \rightarrow \L(\R^p;\R^q)$ est diff\'erentiable en $x$.
+\end{itemize}
+ On dit que $f$ est deux fois diff\'erentiable dans $U$ si elle est diff\'erentiable en tout point de $U$.
+}
+ \end{definition}
+
+
+  \begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{ \\
+Par sa d\'efinition, la diff\'erentielle de $df$ en $x$, que l'on \'ecrit $d(df)_x$ est une application
+lin\'eaire continue de $\R^p$ dans $\L(\R^p;\R^q)$. Autrement dit, on a
+\begin{equation*}
+  df:U \rightarrow \L(\R^p;\R^q),
+\end{equation*}
+et
+\begin{equation*}
+  d(df)_x: U\rightarrow \L(\R^p,\L(\R^p;\R^q)).
+\end{equation*}
+ Mais elle s'identifie naturellement avec une application lin\'eaire
+continue sur $\R^p \times \R^p$(c'est à dire une application bilinéaire continue sur
+$\R^p$)  gr\^ace \`a la proposition suivante.
+}
+\end{remarque*}
+
+ \begin{proposition}[HORS-PROGRAMME: ESPACES ISOMETRIQUES]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Les espaces $\L(\R^p;\L(\R^q;\R^n))$ et
+$\L(\R^p,\R^q;\R^n)$ munis des normes usuelles
+sont isom\'etriques.
+}
+\end{proposition}
+
+
+{\textbf{Preuve.}} Pas faite en cours.
+
+
+\begin{definition}[DIFFERENTIELLE SECONDE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+  La diff\'erentielle seconde d'une fonction $f: U\subset \R^p\rightarrow \R^q$ deux fois diff\'erentiable
+est l'application
+\begin{equation*}
+  \begin{array}{clll}
+    d^2 f:& U & \rightarrow & \L(\R^p,\R^p;\R^q) \\
+     & x & \mapsto & d^2f_x
+  \end{array}
+\end{equation*}
+d\'efinie par
+\begin{equation*}
+  d^2f_x(h,k)=d(df)_x(h)(k) \;\mathrm{\; pour \; tout\;} (h,k)\in \R^p \times \R^p.
+\end{equation*}}
+\end{definition}
+
+\begin{remarque*}\textcolor[rgb]{0.00,0.00,1.00}{
+  On peut interpr\'eter cette d\'efinition de la fa\c{c}on suivante (qu'on utilise en pratique
+pour calculer $d^2f$). Si $f$ est deux fois diff\'erentiable sur $U$, alors, quel que soit $k \in R^p$,
+l'application
+\begin{equation*}
+  \begin{array}{clll}
+    g:& U & \rightarrow & \R^q \\
+     & x & \mapsto & df_x(k)
+  \end{array}
+\end{equation*}
+est diff\'erentiable et
+\begin{equation*}
+  dg_x(h)=d^2f_x(h,k).
+\end{equation*}}
+\end{remarque*}
+
+\begin{theoreme}[THEOREME DE SCHWARZ]
+\textcolor[rgb]{0.50,0.00,0.25}{ Si $f: U \subset \R^p \rightarrow \R^q$ est deux fois diff\'erentiable en $x$ alors
+$d^2f_x$ est une application bilin\'eaire SYMETRIQUE. Autrement dit, pour tout $(h,k)\in \R^p \times \R^p$, on a
+\begin{equation*}
+  d^2f_x(h,k)=d^2f_x(k,h).
+\end{equation*}}
+\end{theoreme}
+
+\noindent \textbf{Preuve.} Pas faite en cours.
+
+\subsection{Exemples de diff\'erentielles d'ordre 2}
+Donnons ici quelques différentielles d'ordre 2 pour deux types de fonctions classiques: les applications affines et les applications quadratiques. 
+
+\begin{itemize}
+  \item[1.] Une application affine $f:x \mapsto l(x)+b$ avec $l \in \L(\R^p;\R^q)$ et $b \in \R^q$
+est deux fois diff\'erentiable et sa diff\'erentielle seconde est identiquement nulle.
+ \item[2.] Une application quadratique $f: x \mapsto \phi(x,x)$ avec $\phi \in \L(\R^p,\R^p;\R^q)$
+est deux fois diff\'erentiable et sa diff\'erentielle seconde est constante, et m\^eme \'egale \`a $2\phi$ si
+$\phi$ est sym\'etrique.
+\end{itemize}
+
+\subsection{Matrice Hessienne}
+
+\begin{definition}[MATRICE HESSIENNE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+  Soit $f: U \subset \R^p \rightarrow \R$ et soit $(e_1,...,e_p)$ la base canonique de $\R^p$.
+  Si $f$ est deux fois diff\'erentiable sur l'ouvert $U$ alors pour tout $x \in E$, pour tous $i,j \in \{1,...,p\}$
+  \begin{equation*}
+    d^2f_x(e_i,e_j)=\dfrac{\partial}{\partial x_i}\dfrac{\partial f}{\partial x_j}(x).
+  \end{equation*}
+  Alors la matrice
+  \begin{equation*}
+    d^2f_x:=Hess \;f_x:=\left(
+                          \begin{array}{ccc}
+                            \dfrac{\partial^2 f}{\partial x_1^2}(x) & \ldots &  \dfrac{\partial^2 f}{\partial x_1 \partial x_p}(x) \\
+                            \vdots &  & \vdots \\
+                            \dfrac{\partial^2 f}{\partial x_p \partial x_1}(x) & \ldots &  \dfrac{\partial^2 f}{\partial x_p^2}(x) \\
+                          \end{array}
+                        \right)
+  \end{equation*}
+  est appel\'ee matrice hessienne de $f$ en $x$.}
+\end{definition}
+\noindent Le th\'eor\`eme de Schwarz montre que les d\'eriv\'ees partielles crois\'ees sont \'egales, c'est \`a dire
+\begin{equation*}
+  \dfrac{\partial}{\partial x_i}\dfrac{\partial f}{\partial x_j}=\dfrac{\partial}{\partial x_j}\dfrac{\partial f}{\partial x_i}
+\end{equation*}
+pour tous $i,j \in \{1,...,p\}$. Et donc la matrice hessienne est sym\'etrique. Ces d\'eriv\'ees sont en g\'en\'eral not\'ees
+\begin{equation*}
+  \dfrac{\partial^2 f}{\partial x_i \partial x_j}.
+\end{equation*}
+Par bilin\'earit\'e, si $h$ et $k$ sont deux vecteurs de $\R^p$ de composantes $(h_1,...,h_p)$ et $(k_1,...,k_p)$
+respectivement, alors
+\begin{equation*}
+  d^2_xf(h,k)= ^th. Hess \; f_a.k=\displaystyle \sum_{i=1}^p  \displaystyle \sum_{j=1}^p h_ik_j   \dfrac{\partial^2 f}{\partial x_i \partial x_j}(x).
+\end{equation*}
+Autrement dit, $Hess \; f_a$ est la matrice de la forme bilin\'eaire $d^2f_a$ par rapport
+\`a la base canonique de $\R^p$. L'\'egalit\'e de Schwarz assure de plus que la matrice hessienne est sym\'etrique.
+
+
+\subsection{Fichou : En dimension 1}
+Donnons-nous une fonction d'une variable $f$ définie sur $\mathbb R$ et de classe $C^2$. 
+
+\begin{theoreme} (Formule de Taylor \`a l'ordre 2) Si $f$ est une fonction trois fois continument dérivable sur $\mathbb{R}$, il existe une fonction $\epsilon$ tendant vers 0 en 0 telle que
+$$f(x + h) = f(x) + hf'(x) +f''(x)h^2/2 + |h|^2 \varepsilon (h)$$
+\end{theoreme}
+
+Choisissons pour $x$ un point $x=a$ tel que $f''(a)\neq 0$. Alors pour $h$ assez petit, le terme $f''(a)h^2/2 + |h|^2 \varepsilon (h)$ est du m\^eme signe que $f''(a)$. Si par exemple   $f''(a)>0$, on en déduit que $f$ a un minimum local en $x$.
+
+\noindent{La recherche pratique des {\bf extrema locaux} pour une fonction d'une variable se passe donc ainsi :
+\begin{enumerate}
+\item[(i)] On recherche les points critiques ($f'(x) = 0$).
+\item[(ii)] On étudie la dérivée seconde $f''$ si $a$ est un point critique et si\\
+$f''(a) > 0$ il y a un minimum local,\\
+$f''(a) < 0$ il y a un maximum local,\\
+$f''(a) = 0$ il faut approfondir l'étude.
+\end{enumerate}
+
+Lorsque $f$ n'est plus définie sur $\mathbb R$ entier, ou sur un intervalle ouvert, il faudra de plus étudier le comportement de $f$ sur les bords du domaine de définition. si l'ensemble de départ est compact, on a la garantie de l'existence d'extrema globaux.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{}
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+ 
+ 
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item 
+\end{enumerate}
+\end{miniexercices}
+
+\section{Extremum et points critiques}
+
+\vskip4mm
+
+\begin{definition}Soit $f:U\subset \Rr^2\to \Rr$, o\`u $U$ est un ouvert. On dit que $f$ admet un maximum (resp. minimum) local en $A\in U$, s'il existe une boule ouverte $B\subset U$, centrée en $A$, telle que :
+$$\forall M\in B,\; f(M) \leq f(A),\: (\mbox{resp. }f(M)\geq f(A).$$
+On dit que $f$ admet un extremum local en $A$, si elle y admet un maximum local ou un minimum local.
+\end{definition}
+
+\vskip4mm
+
+\begin{proposition}Soit $f:U\subset \Rr^2\to \Rr$ une fonction de classe $\mathscr{C}^1$ sur un ouvert $U$ et $A\in U$. Si $f$ possède un extremum local en un point $A$, alors le gradient de $f$ au point $A$ est nul : $\displaystyle \frac{\partial f}{\partial x}(A)=\frac{\partial f}{\partial y}(A)=0$.
+\end{proposition}
+
+\vskip2mm
+
+\noindent{\it Démonstration. }Soit $\vec{v}\in \Rr^2$. La fonction $\varphi :t\mapsto f(A+t\vec{v})$, définie pour $t$ assez petit, est dérivable au voisinage de $0$ et admet un extremum en $0$. Donc $\varphi '(0)=0$ et puis
+$$0=\varphi '(0)=\dd_Af(\vec{v})=\langle \nabla f(A),\vec{v}\rangle.$$
+Or ceci est vrai pour tout vecteur $\vec{v}$, donc $\nabla f(A)=0$.
+
+\vskip6mm
+
+\noindent Les points de $U$ o\`u le gradient de $f$ s'annule sont appelés points critiques de $f$. Le résultat précédent dit que les extremums d'une fonction ne peuvent se produire qu'en un point critique. La réciproque est fausse.
+
+\vskip6mm
+
+\begin{theoreme}Soit $U$ un ouvert de $\Rr^2$, $f$ une fonction de classe $\mathscr{C}^2$ sur $U$ et $(a,b)\in U$ un point critique de $f$.
+\begin{enumerate}
+\item Si $\mathrm{H}_f(a,b)$ a toutes ses valeurs propres strictement positives, alors $f$ présente un minimum en $(a,b)$.
+\item Si $\mathrm{H}_f(a,b)$ a toutes ses valeurs propres strictement négatives, alors $f$ présente un maximum en $(a,b)$.
+\item Si $\mathrm{H}_f(a,b)$ a deux valeurs propres de signes opposés, alors $f$ ne présente pas d'extremum en $(a,b)$. On dit que $(a,b)$ est un point selle.
+\item Dans les autres cas, on ne peut rien dire (tout peut arriver).
+\end{enumerate}
+\end{theoreme}
+
+\vskip4mm
+
+\noindent{\it Démonstration. }Pour $h$ et $k$, assez petits, non nuls, la différence $f(a+h,b+k)-f(a,b)$ est du signe de
+$$q(h,k)=\frac{\partial ^2f}{\partial x^2}(a,b)h^2+2\frac{\partial ^2f}{\partial x\partial y }(a,b)hk+\frac{\partial ^2f}{\partial y^2}(a,b)k^2=\left(\begin{array}{cc}h&k
+\end{array}\right)\mbox{H}_f(a,b)\left(\begin{array}{c}h\\k\end{array}\right).$$
+Il se trouve que, comme pour toute matrice symétrique réelle, $\mbox{H}_f(a,b)$ est diagonalisable : il existe une matrice orthogonale $P\in \mathscr{M}_2(\Rr)$, $P^{-1}={^tP}$, et deux réels $\lambda$ et $\mu$ tels que 
+$$\mbox{H}_f(a,b)=P\left(\begin{array}{cc}\lambda &0\\ 0&\mu\end{array}\right)P^{-1}.$$
+Posons
+$$\left(\begin{array}{c}h^*\\k^*\end{array}\right)={^tP}\left(\begin{array}{c}h\\k\end{array}\right) \Leftrightarrow \left(\begin{array}{cc}h^*&k^*\end{array}\right)=\left(\begin{array}{cc}h&k\end{array}\right)P.$$
+La quantité $q(h,k)$ s'écrit
+$$q(h,k)=\left(\begin{array}{cc}h^*&k^*\end{array}\right)\left(\begin{array}{cc}\lambda &0\\ 0&\mu\end{array}\right)\left(\begin{array}{c}h^*\\k^*\end{array}\right)=\lambda (h^*)^2+\mu (k^*)^2.$$
+Le signe de $q(h,k)$ dépend donc du signe des valeurs propres $\lambda$ et $\mu$.
+\begin{enumerate}
+\item[$\bullet$] Si $\lambda >0$ et $\mu >0$, alors $q(h,k)>0$. On a un minimum local.
+\item[$\bullet$] Si $\lambda <0$ et $\mu <0$, alors $q(h,k)<0$. On a un maximum local.
+\item[$\bullet$] Si $\lambda >0$ et $\mu <0$, alors $q(h,k)>0$ dans la direction $(h^*,0)P$, et $q(h,k)<0$ dans la direction $(0,k^*)P$. On a un point selle.
+\end{enumerate}
+
+\vskip6mm
+
+\noindent{\bf Rappel. }Les valeurs propres de $\mbox{H}_f(a,b)$ sont les racines du polyn\^ome caractéristique de $\mbox{H}_f(a,b)$ qui est défini par $\chi (X)=\det \left[\mbox{H}_f(a,b)-XI_2\right]$.
+
+\vskip6mm
+
+\noindent{\bf Exemple 1. }Soit $f(x,y)=x^2+y^2$. Le point $(0,0$) est l'unique point critique de $f$ et
+$$\mbox{H}_f(0,0)=2I_2.$$
+Les valeurs propres de la hessienne de $f$ au point $(0,0)$ sont toutes les deux strictement positives. Donc $f$ admet un minimum local en $(0,0)$.
+
+\vskip6mm
+
+\noindent{\bf Exemple 2. }Soit $f(x,y)=x^2-y^2$. On trouve un seul point critique : $(0,0)$. La hessienne de $f$ au point $(0,0)$, $\mbox{H}_f(0,0)=\left(\begin{array}{cc}2 &0\\ 0&-2\end{array}\right)$, admet une valeur propre strictement positive et une valeur propre strictement négative. Donc $(0,0)$ n'est ni un maximum ni un minimum ; c'est un point selle (cf. Figure 1 : selle de cheval).
+
+\vskip6mm
+
+\noindent{\bf Exemple 3. }Soit $f(x,y)=x^3-3xy^2$. On trouve un seul point critique : $(0,0)$. La hessienne de $f$ au point $(0,0)$, $\mbox{H}_f(0,0)=(0)$, a deux valeur propre nulles. On ne peut pas conclure. Or, $f_0:x\mapsto f(x,0)=x^3$ possède un point d'inflexion au point $0$. Donc $(0,0)$ est un point selle (cf. Figure 2 : selle de singe).
+
+\vskip6mm
+
+\noindent{\bf Exemple 4. }Soit $f(x,y)=x^4+y^4-2x^2$. On trouve trois points critiques $(-1,0)$, $(1,0)$ et $(0,0)$. Par ailleurs,
+$$\mbox{H}_f(-1,0)=\mbox{H}_f(1,0)=\left(\begin{array}{cc}8&0\\ 0&0\end{array}\right)\quad \mbox{ et }\quad \mbox{H}_f(0,0)=\left(\begin{array}{cc}-4&0\\ 0&0\end{array}\right).$$
+On ne peut pas conclure. Or
+$$f(x,y)=(x^2-1)^2+y^4-1\geq -1=f(\pm 1,0).$$
+Donc $f$ admet un minimum aux points $(\pm 1,0)$. D'autre part, pour $|x|\leq 1$,
+$$f(x,0)=x^4-2x^2=x^2(x^2-2)\leq 0=f(0,0)\quad \mbox{ et }\quad f(0,y)=y^4\geq 0=f(0,0).$$
+Donc $(0,0)$ n'est ni un maximum ni un minimum ; c'est un point selle.
+
+\vskip6mm
+
+\noindent{\bf Exemple 5. }Soit $f(x,y)=2x^3-y^4-3x^2$. On trouve deux points critiques $(0,0)$ et $(1,0)$. Par ailleurs,
+$$\mbox{H}_f(1,0)=\left(\begin{array}{cc}6&0\\ 0&0\end{array}\right)\quad \mbox{ et }\quad \mbox{H}_f(0,0)=\left(\begin{array}{cc}-6&0\\ 0&0\end{array}\right).$$
+On ne peut pas conclure. Or, pour $|x-1|\leq 1$,
+$$f(1,y)=-1-y^4\leq -1=f(1,0)\quad \mbox{ et }\quad f(x,0)=(x-1)^2(2x+1)-1\geq -1=f(1,0).$$
+Donc $(1,0)$ n'est ni un maximum ni un minimum ; c'est un point selle. D'autre part, pour $|x|\leq 1$,
+$$f(x,y)=x^2(2x-3)-y^4\leq 0=f(0,0).$$
+Donc $f$ admet un maximum local au point $(0,0)$.
+
+
+
+
+
+Ce chapitre est consacré à l'étude de l'existence de deux types d'extrema: les extrema libre et les extrema liés. Les seconds correspondent au cas où les extrema sont justement ``liés'' à des contraintes. Dans les deux cas, nous pourrons définir ce que l'on appelle extrema locaux (ou relatifs) et les extrema globaux (ou absolus). Il se pourra donc que des minima locaux par exemple ne soit pas globaux si l'on étend
+le domaine de définition de la fonction $f$. \\
+Nous ne nous intéresserons également qu'à l'étude de minima (pour simplifier le chapitre) étant donné que  les maxima des fonctions $f$ peuvent être vus comme les minima des fonction $-f$ .\\
+Enfin, nous ne nous intéresserons qu'aux fonctions scalaires (autrement dit les fonctions $f$ définies sur $\R^p$ à valeurs dans $\R$).\\
+$ $\\
+
+\section{Extrema libres}
+
+
+\begin{definition}[MINIMUM LOCAL ET GLOBAL]
+\textcolor[rgb]{0.98,0.00,0.00}{
+  Si $f$ est une fonction d\'efinie sur une partie $U$ de $\R^p$ et \`a valeurs r\'eelles, un point $a \in U$
+  est un minimum local (ou relatif) de $f$ s'il existe un voisinage $V_a$ de $a$ ouvert dans $U$ tel que
+  \begin{equation*}
+    f(x)\geq f(a) \;\mathrm{\;pour\;tout}\; x\in V_a.
+  \end{equation*}
+  On dira que $a$ est un minimum global (ou absolu) de $f$ si
+  \begin{equation*}
+    f(x) \geq f(a)\;\mathrm{\;pour\;tout}\; x\in U.
+  \end{equation*}
+  Un minimum est dit strict si l'in\'egalit\'e est stricte, c'est \`a dire $f(x)>f(a)$, pour tout $x\neq a$ (que ce soit local ou global).}
+\end{definition}
+
+
+\begin{definition}[POINT CRITIQUE]
+\textcolor[rgb]{0.98,0.00,0.00}{
+  Soient $U$ un ouvert non vide de $\R^p$ et $f: U  \rightarrow \R$ un application différentiable en  $a \in U$. On dit que $a \in U$ est un point critique de $f$
+  si $df_a=0$.}
+\end{definition}
+
+\begin{remarque*} $ $\\
+\textcolor[rgb]{0.00,0.00,1.00}{
+1. Noter que si $f: I \subset \R \rightarrow \R$, $a \in U$ est un point critique de $f$ si $f'a)=0$. \\
+2. Nous allons voir dans la proposition suivant qu'un extremum est un point critique, mais attention, la réciproque est fausse. 
+Ce n'est pas parce que l'on a un point critique que c'est un extremum. Par exemple, $0$ est un point critique de $f: x \mapsto x^3$ et pourtant ce n'est pas un extremum sur $\R$.
+}
+\end{remarque*}
+
+\noindent Dans toute la suite, nous allons donner des critères nécessaires (et on l'espère quelques fois suffisants) pour trouver l'existence de ces extrema locaux selon le degré de différentiabilité de la fonction $f$.
+\subsection{Condictions nécessaires du premier ordre}
+\noindent Rappelons ici un résultat pour les applications de $\R$  à valeurs dans $\R$.
+
+\begin{proposition}[RAPPEL: EXTREMA ET POINT CRITIQUE]
+\textcolor[rgb]{0.44,0.00,0.87}{
+ Soit $I$ un intervalle ouvert non vide de $\R$. Si $f: I \subset \R \rightarrow \R$ dérivable en $a \in I$
+et si $f$ admet un extremum local en $a$ alors $f'(a)=0$.  }
+\end{proposition}
+
+\noindent Si l'on passe maintenant dans un cadre plus général des fonctions de $\R^P \rightarrow \R$. Nous obtenons le résultat suivant.
+
+\begin{proposition}[REGLE DE FERMAT]
+\textcolor[rgb]{0.44,0.00,0.87}{
+ Soient $U$ un ouvert non vide de $\R^p$ et $f: U  \rightarrow \R$ une application différentiable en $a \in U$. Si $f$ est un extremum local en $a$ alors  $df_a=0$ (autrement dit, $a$ est un point critique), ce qui revient à dire que pour tout $i=1,...,p$, $\dfrac{\partial f}{\partial x_i}(a)=0$, ou encore le gradient de $f$ en $a$ est nul.}
+\end{proposition}
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+  Attention: 
+  \begin{itemize}
+  \item[1.]La condition précédente n'est pas suffisante car 
+  $a$ peut être un point critique de $f$ sans pour autant que $f$ possède d'extremum local. 
+  \item[2.] La condition $U$ ouvert est importante. En effet, il se peut 
+  que $f$ admette un extremum sur un domaine $U$ inclus dans $\R^p$
+  alors que ses dérivées partielles ne s'annuleront pas sur $U$. Ce qui nous ramène au rappel suivant (voir la remarque de la section \ref{compacite}).
+  \end{itemize}}
+  \end{remarque*}
+  
+
+
+\begin{proposition}[EXTREMA SUR UN COMPACT]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Soit $f:K\subset \R^p \rightarrow \R$, où $K$ est un compact de $\R^p$, une fonction continue alors $f$ atteint ses extrema dans $K$.}
+\end{proposition}
+
+
+
+{\textbf{Preuve.}} Pas faite en cours.
+
+\subsection{Conditions du second ordre}
+
+\noindent Dans cette section nous allons non seulement donner des conditions nécessaires mais également suffisantes qui permettront
+d'identifier des minima locaux dnas le cas où la fonction admet des différentielles secondes.\\
+$ $
+\\
+Commençons comme dans la section précédente par les fonctions de $\R \rightarrow \R$.
+
+
+\begin{proposition}[RAPPEL: EXTREMA ET POINT CRITIQUE]
+\textcolor[rgb]{0.44,0.00,0.87}{
+ Soit $I$ un intervalle ouvert non vide de $\R$. Si $f: I \subset \R \rightarrow \R$ dérivable en $a \in I$
+et si $f$ admet un MINIMUM local en $a$ alors $f'(a)=0$ (comme on l'a vu dans la section suivante), mais si de plus $f$ est deux fois 
+dérivable en $a$ alors $f''(a) \geq 0$.\\
+Inversement: Si $b \in I$ est tel que $f'(b)=0$ et $f''(b)>0$ alors $b$ est un minimum  local de $f$. }
+\end{proposition}
+
+
+
+
+
+
+{\textbf{Preuve.}}  Pas faite en cours.
+
+
+
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+  Attention! \\
+1. Les conditions $f'(a)=0$ et $f''(a) \geq 0$ ne sont pas suffisantes! On a besoin d'avoir $f''(a)>0$. On pourrait par exemple le voir avec $f: x \mapsto x^3$ en $x=0$.\\
+2. D'autre part, la condition $f''(a) >0$ n'est pas nécessaire (autrement dit on peut avoir $f''(a) \geq 0$. On pourrait par exemple le voir avec  $f: x \mapsto x^4$ en $x=0$.}
+\end{remarque*}
+
+
+\noindent Passons ensuite aux fonctions de $\R^p \rightarrow \R$.
+
+
+\begin{proposition}[MINIMA LOCAUX ORDRE 2]
+\textcolor[rgb]{0.44,0.00,0.87}{
+ Soient $U$ un ouvert non vide de $\R^p$ et $f: U  \rightarrow \R$ une application différentiable en $a \in U$. Si $f$ est un extremum local en $a$ alors  $df_a=0$ (comme on l'a vu dans la règle de fermat) mais si de plus $f$ est deux fois différentiable en $a$ alors
+ $d^2f_(a)(h,h) \geq 0$ pour tout $h \in \R^p$.\\
+ Inversement, si $b \in U$ est telle que $df_b=0$ et s'il existe $C>0$ tel que $d^2f_b (h,h) \geq C \Vert h \Vert^2$, pour tout $h \in \R^p$ alors $b$ est un minimum local de $f$}
+\end{proposition}
+
+\begin{remarque*} $ $\\
+\textcolor[rgb]{0.00,0.00,1.00}{
+1. On retrouve ici la notion de coercivité donnée dans le rappel tout au début de ce chapitre puisque $d^2f_a$ est une application bilinéaire symétrique (d'après le théorème de Schwarz).\\ 
+2. Comme nous sommes en dimension finie, la condition ``\textit{s'il existe $C>0$ tel que $d^2f_b (h,h) \geq C \Vert h \Vert^2$, pour tout $h \in \R^p$}'' revient à dire ``\textit{s'il existe $C>0$ tel que $d^2f_b (h,h) >0$ , pour tout $h \in \R^p \setminus 0_{\R^p}$}'' (car la coercivité est équivalent à dire que la fonction bilinéaire symétrique est définie positive en dimension finie).\\
+3. Ce résultat peut s'interpréter facilement avec les matrices Hessiennes. C'est ce que nous allons voir dans la section suivante.
+}
+\end{remarque*}
+
+\subsection{Critères avec les matrices Hessiennes}
+
+
+
+\begin{theoreme}[HESSIENNE ET EXTREMA LOCAUX ]
+\textcolor[rgb]{0.44,0.00,0.87}{
+   Soient $f:U \subset \R^p \rightarrow \R$ une fonction deux fois différentiable sur $U$ ouvert de $\R^p$, et $a \in U$ un point critique de $f$.
+ Alors la Hessienne de $f$,  $Hess(f) \in \mat_n(\R)$ est une matrice symétrique et 
+ \begin{itemize}
+ \item[1.]si $Hess f_a$ est DEFINIE POSITIVE alors $a$ est un minimum local strict de $f$ sur $U$,
+ \item[2.] si $Hess f_a$ est SEMI-DEFINIE POSITIVE alors $a$ est un minimum local  de $f$ sur $U$,
+ \item[3.]si $Hess f_a$ est DEFINIE NEGATIVE alors $a$ est un maximum local strict de $f$ sur $U$,
+ \item[4.] si $Hess f_a$ est SEMI-DEFINIE POSITIVE alors $a$ est un maximum local  de $f$ sur $U$,
+ \item[5.] S'il existe un $l$ tel que $\Delta_{2l} <0$, ou s'il existe $m$ tel que $\Delta_1.\Delta_{2.m}<0$, alors $A$ est indéfinie.
+ \end{itemize}}
+\end{theoreme}
+
+{\textbf{Preuve.}} Pas faite en cours.
+
+\begin{remarque*} $ $\\
+\textcolor[rgb]{0.00,0.00,1.00}{
+Pour appliquer ces résultats, il est utile d'utiliser les rappels d'algèbre du début de ce chapitre parmi lesquels: \\
+  d\'eterminer si $Hess \; f_a$ est d\'efinie n\'egative ou positive revient \`a d\'eterminer
+  les valeurs propres de $Hess \; f_a$.
+  \begin{itemize}
+    \item[1.] Si toutes les valeurs propres sont $>0$, $Hess \; f_a$ est d\'efinie positive.
+    \item[2.] Si toutes les valeurs propres sont $<0$, $Hess \; f_a$ est d\'efinie n\'egative.
+    \item[3.] Si les valeurs propres de $Hess \; f_a$ sont non nulles mais de signes diff\'erents, on dit que
+    $a$ est un point col (ou un point selle).
+  \end{itemize}}
+\end{remarque*}
+
+\noindent Nous pouvons également donner des résultats sur les extrema globaux:
+
+\begin{theoreme}[EXTREMA GLOBAUX ET HESSIENNE]
+\textcolor[rgb]{0.44,0.00,0.87}{ 
+  Soit $f:U\subset \R^p \rightarrow \R$, où $U$ est un ouvert de $\R^p$, et $f$ est deux fois différentiable sur $U$, soit $a \in U$ un point critique de $f$,
+  alors si 
+  \begin{equation*}
+  (x-a)^T.Hessf(a).(x-a) \geq 0 \;(\mathrm{resp.} \leq 0),
+\end{equation*}   
+pour tout $x \in U$, alors $a$ est un minimum global de $f$ sur $U$
+(resp. maximum global), et si les inégalités sont strictes les extrema sont stricts.}
+\end{theoreme}
+
+{\textbf{Preuve.}} Pas faite en cours.
+
+\subsection{Cas particulier où $f:\R^2 \rightarrow \R$}
+Dans le cas où p=2 ($f:\R^2 \rightarrow \R$, ce que l'on utilisera le plus souvent en exercice), nous utiliserons la notation de Monge qui nous sera bien utile, et plus rapide en général que les critères de section précédentes. 
+\begin{theoreme}[NOTATION DE MONGE]
+\textcolor[rgb]{0.44,0.00,0.87}{
+   Soient $f:U \subset \R^2 \rightarrow \R$ une fonction deux fois différentiable sur  $U$ ouvert de $\R^2$, et $(a,b) \in U$ un point critique de $f$.
+ On pose 
+ \begin{equation*}
+ r=\dfrac{\partial^2 f}{\partial x^2}(a,b),\;\;s=\dfrac{\partial^2 f}{\partial x \partial y}(a,b)
+  ,\;\; \mathrm{et}\; t=\dfrac{\partial^2 f}{\partial y^2}(a,b).
+\end{equation*}
+Alors
+ \begin{itemize}
+ \item[1.]si $rt-s^2>0$ et $r>0$,  $(a,b)$ est un minimum local  de $f$ sur $U$,
+ \item[2.] si $rt-s^2>0$ et $r<0$,  $(a,b)$ est un maximum local  de $f$ sur $U$,
+ \item[3.]si $rt-s^2<0$ la fonction n'admet pas d'extremum local, on dit alors que $(a,b)$ est un point SELLE ou COL.
+ \end{itemize}}
+\end{theoreme}
+
+
+{\textbf{Preuve.}} Pas faite en cours.
+
+\subsection{Fichou : Extrema locaux de $f : \mathbb{R}^2 \rightarrow \mathbb{R}$}
+
+
+\noindent{On suppose $f$ de classe $\mathcal{C}^2$, c'est-\`a-dire que ses dérivées partielles jusqu'\`a l'ordre 2 existent et sont continues.
+
+\begin{definition}
+$f$ a un {\bf minimum} (resp. {\bf maximum}) local en $(x_{0}\,,\,y_{0})$ s'il existe $\varepsilon > 0$ tel que : $\forall (x\,,\,y) \in B((x_{0}\,,\,y_{0})\,,\, \varepsilon)$ alors $f(x\,,\,y) \geqslant f(x_{0}\,,\,y_{0})$ (resp. $f(x\,,\,y) \leqslant f(x_{0}\,,\,y_{0})$).
+\end{definition}
+
+
+\noindent{\bf Exemple}\\
+$f(x\,,\,y) = - x^2 - y^2$\\
+$f(x\,,\,y) =  x^2 + y^2$\\
+$f(x\,,\,y) =  x^2 - y^2$
+
+
+\begin{proposition}
+Si $f$ admet un {\bf extremum local} en $(x_{0}\,,\,y_{0})$ alors $\displaystyle \frac{\partial f}{\partial x} \, (x_{0}\,,\,y_{0}) = \frac{\partial f}{\partial y} \, (x_{0}\,,\,y_{0}) = 0$. 
+\end{proposition}
+
+\begin{proof} ~~ La fonction de une variable $x\mapsto f(x,y_0)$ admet un extremum local en $x_0$, donc sa dérivée $\displaystyle \frac{\partial f}{\partial x} \, (x_{0}\,,\,y_{0})$ en $x_0$ est nulle. On fait de m\^eme avec $y\mapsto f(x_0,y)$.
+\end{proof}
+
+\begin{definition}
+Si en $(x_{0}\,,\,y_{0})$ on a $\displaystyle \frac{\partial f}{\partial x} \, (x_{0}\,,\,y_{0}) = \frac{\partial f}{\partial y} \, (x_{0}\,,\,y_{0}) = 0$ on dit que $(x_{0}\,,\,y_{0})$ est {\bf un point critique} de $f$ ou un point stationnaire de $f$.
+\end{definition}
+
+
+\noindent{\bf Remarque}\\
+Un extremum local est un point critique mais la réciproque n'est pas vraie.
+
+
+
+
+\subsection{Formule de Taylor}
+
+\begin{definition}
+ Soit $f(x,y)$ une fonction de classe $\mathcal{C}^2$.
+La {\bf matrice hessienne} de $f$ en $(x_0,y_0)$ est la matrice
+$\mathrm{Hess}(x_0,y_0) = \left(\hspace{-1mm} \begin{array}{cc}
+A & B \\
+B & C
+\end{array}\hspace{-1mm}\right)$\\
+o\`u $A = \displaystyle \frac{\partial^2 f}{\partial x^2}\, (x_{0}\,,\,y_{0}) \;\;,\;\;B = \frac{\partial^2 f}{\partial x\; \partial y}\, (x_{0}\,,\,y_{0}) \;\;,\;\; C = \displaystyle \frac{\partial^2 f}{\partial y^2}\, (x_{0}\,,\,y_{0})$.
+\end{definition}
+
+
+\noindent{\bf Exemple}\\
+Calculer la matrice Hessienne de $f(x\,,\,y) = 4xy - x^4 - y^4$.
+
+
+\begin{theoreme} (Formule de Taylor \`a l'ordre 2, en 
+$X=(x_0,y_0)$)\\ Si  $f$ une fonction de classe $\mathcal{C}^2$ sur $\mathbb R^2$, il existe une fonction $\epsilon$ tendant vers 0 en $(0,0)$ telle que
+$$f(X + H) = f(X) + <\nabla\hspace{-0.6mm} f(X) , H> + \displaystyle \frac{1}{2} \, 
+%(H . \cdot \nabla)^2\, f(X) 
+H^t\ \mathrm{Hess}(x_0,y_0)\ H + \|H\|^2\, \varepsilon (H)$$
+\end{theoreme}
+
+Démonstration dans le cas o\`u la hessienne est diagonale.
+
+
+
+
+\begin{theoreme}
+Soient $f(x\,,\,y)$ de classe $\mathcal{C}^2$ et $(x_{0}\,,\,y_{0})$ un point critique.
+%Si $A = \displaystyle \frac{\partial^2 f}{\partial x^2}\, (x_{0}\,,\,y_{0}) \;\;,\;\;B = \frac{\partial^2 f}{\partial x\; \partial y}\, (x_{0}\,,\,y_{0}) \;\;,\;\; C = \displaystyle \frac{\partial^2 f}{\partial y^2}\, (x_{0}\,,\,y_{0})$\\
+Soit $\triangle = AC - B^2=\mathrm{det}(\mathrm{Hess}(x_0,y_0))$.
+Alors :\\
+si $\triangle > 0$ et $A > 0$\,,\, $f$ a un minimum local en $(x_{0}\,,\,y_{0})$\\
+si $\triangle > 0$ et $A < 0$\,,\, $f$ a un maximum local en $(x_{0}\,,\,y_{0})$\\
+si $\triangle < 0$ \,,\, f n'a ni maximum ni minimum, elle a un point selle\\
+si $\triangle = 0$ on ne peut conclure (avec le seul développement \`a l'ordre 2).
+\end{theoreme}
+%\vskip15pt
+%\noindent{\bf Remarque}\\
+%La matrice $H = \left[ \begin{array}{cc}
+%A & B \\
+%B & C
+%\end{array}
+%\right]$Ê s'appelle la matrice hessienne.
+
+%\begin{center}
+%\includegraphics[scale=.3]{leplomb.pdf}
+%\includegraphics[scale=.8]{Selle_obstacle.pdf}
+%\end{center}
+\noindent{\bf Exemple}\\
+Soit $f:\mathbb R^2 \to \mathbb R$ définie par $f(x,y)=x^3+y^3-3xy$. Les points critiques de $f$ sont $(0,0)$ et $(1,1)$. Le premier est un point col, le second un minimum local (non global).
+
+\subsection{Extrema de $f$ sur un compact $K \subset \mathbb{R}^2$}
+
+La marche \`a suivre pour étudier les extrema d'une fonction différentiable sur un compact de $\mathbb{R}^2$ est la suivante.
+
+Soit $f$ une fonction différentiable définie sur un compact $K$ de $\mathbb{R}^2$. Comme $f$ est différentiable, elle est continue. Elle est donc bornée sur $K$ et atteint ses bornes.
+
+En pratique (dans les exercices que je vous demanderai de résoudre en particulier) la fonction $f$ sera donnée par une formule valable sur un certain sous-ensemble de $\mathbb{R}^2$ et le compact $K$ sera inclus dans cet ensemble de définition.
+
+On m\`ene l'étude des extrema de $f$ en plusieurs étapes. La premi\`ere est d'étudier l'existence d'extrema locaux de $f$ \`a l'intérieur de $K$. C'est pour cette étude qu'on utilisera le développement de Taylor \`a l'ordre 2 donné ci-dessus.
+
+Mais cette étude n'est pas suffisante. Il faut aussi regarder ce qui se passe sur le bord de $K$. Pour cela on proc\`ede autrement.
+
+\noindent{\bf Exemple}\\
+Etude de $f(x\,,\,y) = x^2 - y^2$ sur $K = \lbrace (x\,,\,y) \in \mathbb{R}^2 \,/\, x^2 + y^2 \leqslant 1 \rbrace$.
+\noindent{On proc\`ede de la mani\`ere suivante :
+\begin{enumerate}
+\item[(i)] On cherche les points critiques et les extrema locaux dans $Int(K)$.\\
+On trouve un seul point stationnaire en $(0,0)$. Mais en $(0,0)$ $f$ a un point selle. La fonction n'a donc pas d'extremum \`a l'intérieur de $K$. Mais comme $K$ est compact et $f$ est continue sur $K$, $f$ est bornée sur $K$ et atteint ses bornes sur $K$. Ce sera donc sur le bord de $K$.
+\item[(ii)] On analyse $f$ sur $\partial K$.\\
+Une possibilité ici est de paramétrer le bord de $K$ : le cercle de rayon 1 centré en $(0,0)$. On obtient :
+$f(\cos t,\sin t)=\cos^2t-\sin^2t=\cos(2t)$. On peut alors étudier les variations de cette fonction. On obtient qu'elle est maximum égale \`a 1 lorsque $2t$ est égal \`a 0 modulo $2\pi$, minimum égale \`a -1 lorsque $2t$ vaut $\pi$ modulo $2\pi$. La fonction $f$ atteint donc son maximum 1 aux points $(1,0)$ et $(-1,0)$ de $K$, son minimum -1 aux points $(0,1)$ et $(0,-1)$.
+\end{enumerate}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Extremums liés}
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+ 
+ 
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item 
+\end{enumerate}
+\end{miniexercices}
+
+\section{Extrema li\'es}
+
+
+\noindent Dans cette section, nous allons nous intéresser à la recherche des extrema sous certaines contraintes. Il paraît normal donc de
+définir ce que sont des contraintes. 
+
+\subsection{Contraintes}
+\begin{definition}[CONTRAINTES]
+\textcolor[rgb]{0.98,0.00,0.00}{
+  Si $f$ et $g_1$,...,$g_k$ sont des fonctions d\'efinies sur un ouvert $U \subset \R^p$ \`a valeurs dans $\R$, un point $a \in U$ tel que $g_1(a)=0$,...,$g_k(a)=0$
+est un minimum local de $f$ sous les contraintes $g_1$,...,$g_k$ s'il existe un voisinage $V_a$ de $a$
+tel que
+\begin{equation*}
+  f(x) \geq f(a)
+\end{equation*}
+pour tout $x \in V_a$ et $g_1(x)=0$, ..., $g_k(x)=0$.}
+\end{definition}
+
+
+\subsection{Extrema liés avec une seule contrainte}
+
+\noindent Commençons par les fonctions d'un espace $\R^2$ avec une seule contrainte:
+
+\begin{theoreme}[EXTREMA LIES ET GRADIENTS]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Soient $f,g: U \in \R^2 \rightarrow \R$ de classe $\co^1$,
+sur un ouvert $U$ de $\R^2$, soit $(a,b) \in U$ tels que
+\begin{itemize}
+\item[1.] $f$ soumise à la contrainte $g(x,y)=0$ admette un 
+extremum au point $(a,b)$,
+\item[2.] $\nabla g(a,b) \neq 0$,
+alors il existe un nombre réel $\lambda \neq 0$ tel que 
+$\nabla f(a,b) = \lambda \nabla g(a,b).$
+Autrement dit, on a
+\begin{equation*}
+\left\{
+\begin{array}{ccc}
+\dfrac{\partial f}{\partial x}(a,b)-\lambda \dfrac{\partial g}{\partial x} & = & 0, \\ 
+\dfrac{\partial f}{\partial y}(a,b)-\lambda \dfrac{\partial g}{\partial y}& = & 0, \\ 
+g(a,b) & = & 0. \\ 
+\end{array}\right.
+\end{equation*}
+\end{itemize} }
+\end{theoreme}
+
+
+{\textbf{Preuve.}} Pas faite en cours.
+
+\subsection{Extrema liés avec plusieurs contraintes}
+En généralisant le cas précédent, on peut donner les résultats sous les formes suivantes pour $k$ contraintes.
+
+
+\begin{definition}[$\Gamma$ REGULIER]
+\textcolor[rgb]{0.98,0.00,0.00}{
+  Soit $g: U \in \R^p \rightarrow \R^k$ une fonction de classe $\co^1$ et
+$\Gamma=g^{-1}(\{0\})$. On dit que $\Gamma$ est r\'egulier (ou encore qu'il satisfait \`a la condition de
+qualification non d\'eg\'en\'er\'ee) si pour tout $a \in \Gamma$, $dg_a: \R^p \rightarrow \R^k$ est surjective.}
+\end{definition}
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+  Si $g: U \in \R^p \rightarrow \R$ ($k=1$) (cas où l'on a une seule contrainte) la condition signifie seulement que pour tout $a \in \Gamma$,
+$dg_a \neq 0$.}
+\end{remarque*}
+
+\noindent On retrouve sans surprise le résultat de la section précédente à une seule contrainte:
+
+\begin{theoreme}[EXTREMA LIES (UNE CONTRAINTE)]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Soient $f,g: U \in \R^n \rightarrow \R$ de classe $\co^1$, soit $\Gamma=g^{-1}(\{0\})$ r\'eguli\`ere. Si $a \in \Gamma$
+est un extremum local de  $f_{\mid _\Gamma}$, alors il existe un unique $\lambda \in \R$ tel que
+\begin{equation*}
+  dfa + \lambda dg_a=0.
+\end{equation*}}
+\end{theoreme}
+
+{\textbf{Preuve.}} Pas faite en cours.
+
+N.B.: Le r\'eel $\lambda$ est appel\'e multiplicateur de Lagrange.
+
+\noindent Regradons maintenant ce qu'il se passe quand on a $k$ contraintes. 
+
+\begin{theoreme}[EXTREMA LIES ($k$ CONTRAINTES)]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Soient $f: U \in \R^p \rightarrow \R$ de classe $\co^1$, $g: U \in\R^p \rightarrow \R^k$,  et $\Gamma=g^{-1}(\{0\})$ r\'eguli\`ere. Si $a \in \Gamma$
+est un extremum local de  $f_{\mid _\Gamma}$, alors il existe un unique $\lambda=(\lambda_1,...,\lambda_k) \in \R^k$ tel que
+\begin{equation*}
+  dfa + \displaystyle \sum_{i=1}^p \lambda_i (dg_i)_a=0.
+\end{equation*}}
+\end{theoreme}
+
+\noindent Si jamais on est mal à l'aise avec la notion de $\Gamma$ régulière, il suffit juste de voir le résultat précédent de la façon suivante:\\
+1. on suppose que les fonctions $f$ et $g_1$,...,$g_k$ définies de $\R^p \rightarrow \R$ sont contin\^ument diff\'erentiables.\\
+2. on dit que les contraintes $g_1$,...,$g_k$ sont ind\'ependantes au point $a \in U$ si la famille de formes
+lin\'eaires continues $\{(dg_1)_a,...,(dg_k)_a\}$ est libre (ce qui revient exactement à dire que $g$ est $\Gamma$ régulière. Alors on a le résultat suivant équivalement au théorème précédent:
+
+
+\begin{theoreme}[CONDITION NECESSAIRE MINIMUM SOUS $k$  CONTRAINTES]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Soient $f$ et $g_1$,...,$g_k$ sont des fonctions de classe $\co^1$ d\'efinies sur un ouvert $U\subset \R^p$ d'un
+ \`a valeurs dans $\R$. Soit $a \in U$ tel que  $g_1(a)=0$,...,$g_k(a)=0$ et les contraintes
+$g_1$,...,$g_k$ sont ind\'ependantes au point $a$. Si $a$ est un minimum local de $f$ sous les contraintes
+$g_1$,...,$g_k$, alors il existe des r\'eels $\lambda_1$,...,$\lambda_k$ tels que
+\begin{equation*}
+  df_a=\lambda_1 (dg_1)_a+...+\lambda_k (dg_k)_a.
+\end{equation*}}
+\end{theoreme}
+
+
+{\textbf{Preuve.}} Pas faite en cours.\\
+Les r\'esultats pr\'esent\'es dans ce paragraphe sont li\'es \`a des probl\`emes d'extremum essentiellement
+sur des ouverts: et il est \`a noter que les conditions n\'ecessaires d'extremum local sont fausses
+lorsque $U$ n'est pas un ouvert. \\
+Nous allons dans la section suivante consid\'erer des probl\`emes d'extremum sur des sous-ensemble convexes de $E$.
+
+
+
+
+\subsection{Fichou : Extrema liés (multiplicateur de Lagrange)}
+
+\subsubsection{Une seule contrainte}
+
+\noindent{Il s'agit de trouver les extrema de $f(x\,,\,y\,,\,z)$ lorsque $(x\,,\,y\,,\,z)$ appartient \`a une surface $S$ définie par $g(x\,,\,y\,,\,z) = c$.
+
+
+\noindent{\bf Exemple}\\
+Maximiser $x^2\, y^2\, z^2$ lorsque $x^2 + y^2 + z^2 = 1$.
+
+\begin{definition}
+Un point $X_0 = (x_{0}\,,\,y_{0}\,,\,z_{0})$ est un minimum (resp. maximum) local pour $f$, lié \`a la contrainte $g(x\,,\,y\,,\,z) = c$ si :
+\begin{enumerate}
+\item[(i)] $g(X_0) = c$
+\item[(ii)] Il existe $r > 0$ tel que $f(X_0) \leqslant f(X)$ (resp. $f(X_0) \geqslant f(X)$) pour tout $X \in S \cap B(X_0\,,\, r)$.
+\end{enumerate}
+\end{definition}
+
+\begin{theoreme}(de Lagrange)\\
+Soit $f(x\,,\,y\,,\,z)$ et $g(x\,,\,y\,,\,z)$ de classe $\mathcal{C}^1$ telle que $\nabla g \neq 0$ sur $S$.\\
+Alors si $f$ admet un {\bf extrema lié} en $(x_{0}\,,\,y_{0}\,,\,z_{0})$ on a : $\nabla f(x_{0}\,,\,y_{0}\,,\,z_{0}) = \lambda\, \nabla g(x_{0}\,,\,y_{0}\,,\,z_{0})$ o\`u $\lambda \in \mathbb{R}$ est appelé multiplicateur de Lagrange.
+\end{theoreme}
+\begin{proof} \ \rm 
+Soit $\gamma:\mathbb R \to S$ passant par $X_0$ en $t=t_0$. Alors $f\circ \gamma$ a un extremum local en $t_0$ donc sa dérivée s'annule, c'est-\`a-dire
+$$<\nabla f(X_0),\gamma '(t_0)>=0.$$
+Ceci étant valable pour toute courbe $\gamma$ passant par $X_0$, on en déduit que le gradient de $f$ en $X_0$ est orthogonal au plan tangent \`a $S$ en $X_0$, donc est colinéaire au gradient de $g$ en $X_0$.
+\end{proof}
+
+\noindent{\bf Remarque}\\
+Si $P$ est un extremum lié, on a $\nabla\hspace{-0.6mm} f(P)$ parall\`ele \`a $\nabla\hspace{-0.6mm} g(P)$.
+La réciproque n'est pas vraie. Nous avons une condition nécessaire mais pas suffisante. C'est l'équivalent de la nullité de la dérivée pour les extrema libres : en un extremum libre la dérivée est nulle mais la dérivée peut \^etre nulle sans que la fonction ait un extremum (penser \`a $x\mapsto x^3$ en $x=0$).  
+
+
+\noindent{\bf Exemple}\\
+Sur l'exemple précédent on montre la méthode de résolution.
+
+\noindent{\bf Autre exemple}\\
+Maximum de la distance de l'ellipsoide donné par $x^2/a^2+y^2/b^2+z^2/c^2=1$ \`a l'origine.
+
+Le théor\`eme est encore vrai en dimension plus grande.
+\begin{theoreme}(de Lagrange)\\
+Soit $f$ et $g$ deux fonctions de $\Rr^d$ dans $\Rr$  de classe $\mathcal{C}^1$ telle que $\nabla g \neq 0$ sur l'ensemble $S$ défini par $g=C$ (c'est une hypersurface).\\
+Alors si $f$ admet un {\bf extrema lié} en $x_0$ on a : $\nabla f(x_{0}) = \lambda\, \nabla g(x_{0})$ o\`u $\lambda \in \mathbb{R}$ est appelé multiplicateur de Lagrange.
+\end{theoreme}
+
+
+\subsubsection{Plusieurs contraintes}
+On cherche les extrema d'une fonction $f$  sur l'ensemble $S$ défini par $g_1=g_2=\ldots=g_k=0$, toutes les fonctions considérées étant de classe $C^1$. Pour que les choses marchent bien il faut faire l'hypoth\`ese suivante : en tout point de $S$ les gradients des fonctions $g_i$ sont linéairement indépendants. 
+\begin{theoreme}(de Lagrange)\\
+Soit $f$ et $g_1,\ldots, g_k$ $k+1$ fonctions de $\Rr^d$ dans $\Rr$  de classe $\mathcal{C}^1$ telles que les vecteurs $\nabla g_1,\ldots, \nabla g_k$,  soit indépendants sur  sur l'ensemble $S$ défini par $g_1=\ldots=g_k=0$.\\
+Alors si $f$ admet un {\bf extrema lié} sur $S$ en $x_0$ le vecteur $\nabla f(x_{0})$ est combinaison linéaire des vecteurs $\nabla g_i(x_{0})$ : il existe $\lambda_1,\ldots,\lambda_k$ tels que $\nabla f(x_{0})=\sum_{i=1}^k\lambda_i\nabla g_i(x_{0})$. Les nombres $\lambda_1,\ldots,\lambda_k$ sont appelés multiplicateurs de Lagrange.
+\end{theoreme}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{}
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+
+
+%----------------------------------------------------
+\subsection{}
+ 
+ 
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item 
+\end{enumerate}
+\end{miniexercices}
+
+\auteurs{
+\\
+D'après un cours de ...
+
+Revu et augmenté par Arnaud Bodin.
+
+Relu par Stéphanie Bodin et Vianney Combet.
+}
+
+
+\finchapitre 
+\end{document}
+
+

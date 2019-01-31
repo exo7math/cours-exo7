@@ -1,0 +1,414 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={56,98,238}]{structure}
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Matrices et applications linéaires}}
+\subtitle{Rang d'une famille de vecteurs}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition
+    \item<4-> Rang d'une matrice
+    \item<5-> Opérations conservant le rang
+    \item<6-> Rang et matrice inversible
+    \item<7-> Rang engendré par les vecteurs lignes
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définition}
+
+\begin{frame}
+
+\begin{itemize}
+  \item $E$ un $\Kk$-espace vectoriel
+  \pause
+  \item $\{v_1, \ldots ,v_p\}$ des vecteurs de $E$
+  \pause
+  \item $\Vect(v_1, \ldots ,v_p)$ est de dimension finie
+\end{itemize}
+
+\pause
+
+\begin{mydefinition}
+Le \defi{rang} de la famille $\{v_1, \ldots ,v_p\}$ 
+est la dimension du sous-espace vectoriel engendré par les vecteurs $v_1, \dots ,v_p$
+
+\pause
+
+\mybox{$\rg(v_1, \dots ,v_p) = \dim \Vect(v_1, \ldots ,v_p)$}
+\end{mydefinition}
+
+\pause
+
+\begin{proposition}
+\begin{enumerate}
+  \item $0 \le \rg (v_1, \ldots ,v_p) \le p$
+\pause  
+  \item $\rg (v_1, \ldots ,v_p) \le \dim E$
+\end{enumerate}
+\end{proposition}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+Quel est le rang de $\{v_1,v_2,v_3\}$ dans l'espace vectoriel $\Rr^4$ ?
+$$
+v_1 = \left(\begin{smallmatrix} 1\\0\\1\\0 \end{smallmatrix}\right) \qquad
+v_2 = \left(\begin{smallmatrix} 0\\1\\1\\1 \end{smallmatrix}\right) \qquad
+v_3 = \left(\begin{smallmatrix} -1\\1\\0\\1 \end{smallmatrix}\right)$$
+\vspace*{-2ex}
+\pause
+\begin{itemize}[<+->]
+  \item Dans $\Rr^4$ donc $\rg(v_1,v_2,v_3) \le 4$
+  \item $3$ vecteurs donc $\rg(v_1,v_2,v_3) \le 3$
+  \item $v_1 \neq 0$ donc $\rg(v_1,v_2,v_3) \ge 1$
+  \item  $\rg(v_1,v_2,v_3) \ge \rg(v_1,v_2)=2$ car $v_1$ et $v_2$ pas colinéaires
+%  \item Le rang vaut $2$ ou $3$
+  \item La famille $\{v_1,v_2,v_3\}$ est libre ou liée ?
+  \item Résoudre $\lambda_1 v_1 + \lambda_2 v_2 + \lambda_3 v_3 = 0$
+  \item On trouve $v_1-v_2+v_3=0$, la famille est donc liée
+  \item Ainsi $\Vect(v_1,v_2,v_3)= \Vect(v_1,v_2)$
+  \item $\rg (v_1,v_2,v_3) = \dim \Vect(v_1,v_2,v_3) = 2$
+\end{itemize}
+
+\end{exemple}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Rang d'une matrice}
+
+\begin{frame}
+
+\begin{mydefinition}
+Le rang d'une matrice est le rang de ses vecteurs colonnes
+\end{mydefinition}
+\pause
+\begin{exemple}
+Calcul du rang de la matrice 
+$$A = \begin{pmatrix}
+  1 & 2 & -\frac12 & 0 \\
+  2 & 4 & -1       & 0
+  \end{pmatrix} \in M_{2,4}(\Rr)$$
+\pause  
+\begin{itemize}
+  \item C'est le rang des vecteurs de $\Rr^2$
+\centerline{  
+$\bigg\{ 
+v_1 = \left(\begin{smallmatrix}1 \\ 2  \end{smallmatrix}\right),
+v_2 = \left(\begin{smallmatrix}2 \\ 4  \end{smallmatrix}\right),
+v_3 = \left(\begin{smallmatrix}-\frac 12 \\ -1  \end{smallmatrix}\right),
+v_4 = \left(\begin{smallmatrix}0 \\ 0  \end{smallmatrix}\right)
+\bigg\}$
+}
+\pause
+  \item Tous ces vecteurs sont colinéaires à $v_1$
+\pause
+  \item Donc $\rg \{ v_1, v_2, v_3, v_4 \} = 1$
+\pause 
+  \item Ainsi $\rg A = 1$
+\end{itemize}
+
+\end{exemple}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{mydefinition}
+Une matrice est échelonnée par rapport aux colonnes si
+le nombre de zéros commençant une colonne croît strictement colonne après colonne,
+jusqu'à ce qu'il ne reste plus que des zéros
+\end{mydefinition}
+
+$$
+\begin{pmatrix}
++ & 0 & 0 & 0 & 0 & 0 \\
+* & 0 & 0 & 0 & 0 & 0 \\
+* & + & 0 & 0 & 0 & 0 \\
+* & * & + & 0 & 0 & 0 \\
+* & * & * & 0 & 0 & 0 \\
+* & * & * & + & 0 & 0 \\
+\end{pmatrix}
+$$ 
+
+\centerline{$*$ coefficients quelconques \qquad $+$ coefficients non nuls}
+
+\begin{proposition}\label{prop:rangmatech}
+\vspace*{-1.5ex}
+Le rang d'une matrice échelonnée par colonnes est égal au nombre
+de colonnes non nulles
+\end{proposition} 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Opérations conservant le rang}
+
+\begin{frame}
+\begin{proposition}
+\label{prop:opcolonnes}
+Le rang d'une matrice est conservé par les opérations élémentaires suivantes sur les 
+colonnes $C_1, C_2, \ldots, C_p$ :
+\pause
+\begin{enumerate}
+  \item $C_i \leftarrow \lambda C_i$ avec $\lambda \neq 0$ : 
+  on multiplie une colonne par un scalaire non nul
+\pause    
+  \item $C_i \leftarrow C_i+\lambda C_j$ avec $\lambda \in \Kk$ (et $j\neq i$) :
+  on ajoute à la colonne $C_i$ un multiple d'une autre colonne $C_j$
+\pause  
+  \item $C_i \leftrightarrow C_j$ : on échange deux colonnes
+\end{enumerate}
+\end{proposition}
+
+\pause
+Plus généralement, l'opération 
+$C_i \leftarrow C_i + \lambda_1 C_1 + \lambda_2 C_2 + \cdots + \lambda_p C_p$ 
+conserve le rang de la matrice
+
+
+
+
+\end{frame}
+
+\begin{frame}
+\textbf{Méthodologie.} Comment calculer le rang d'une matrice ?
+
+\pause
+\begin{itemize}
+  \item Méthode de Gauss sur les colonnes de la matrice $A$
+
+\pause  
+  \item Opérations élémentaires
+  \begin{itemize}
+    \item $C_i \leftarrow \lambda C_i$
+    \item $C_i \leftarrow C_i+\lambda C_j$
+    \item $C_i \leftrightarrow C_j$
+  \end{itemize}
+
+\pause  
+  \item Transformer la matrice $A$ en une matrice échelonnée
+
+\pause  
+  \item Le rang de la matrice est le nombre de colonnes non nulles
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exemples}
+
+\begin{frame}
+\begin{exemple}
+Quel est le rang de la famille des 5 vecteurs suivants de $\Rr^4$ ?
+$$
+v_1=\begin{pmatrix}1 \\ 1 \\ 1 \\ 1\end{pmatrix} \quad
+v_2=\begin{pmatrix}-1 \\ 2 \\ 0 \\ 1\end{pmatrix} \quad
+v_3=\begin{pmatrix}3 \\ 2 \\ -1 \\ -3\end{pmatrix} \quad
+v_4=\begin{pmatrix}3 \\ 5 \\ 0 \\ -1\end{pmatrix} \quad
+v_5=\begin{pmatrix}3 \\ 8 \\ 1 \\ 1\end{pmatrix}$$
+
+\pause
+
+$$\begin{pmatrix}
+1&-1&3&3&3\cr
+1&2&2&5&8\cr
+1&0&-1&0&1\cr
+1&1&-3&-1&1 \cr
+\end{pmatrix}
+\uncover<4->{
+\ \sim\ 
+\begin{pmatrix}
+1&0&0&0&0\cr
+1&3&-1&2&5\cr
+1&1&-4&-3&-2\cr
+1&2&-6&-4&-2 \cr
+\end{pmatrix}
+}$$
+\pause
+$C_2 \leftarrow C_2+C_1$, 
+$C_3\leftarrow C_3-3C_1$ , $C_4\leftarrow
+C_4-3C_1$, 
+$C_5\leftarrow C_5-3C_1$
+\end{exemple}
+\end{frame}
+
+\begin{frame}
+\begin{exemple}
+\uncover<2->{$C_2 \leftrightarrow C_3$}
+\vspace*{-1ex}
+$$\begin{pmatrix}
+1&0&0&0&0\cr
+1&3&-1&2&5\cr
+1&1&-4&-3&-2\cr
+1&2&-6&-4&-2 \cr
+\end{pmatrix}
+\pause\pause
+\ \sim\ 
+\begin{pmatrix}
+1&0&0&0&0\cr
+1&-1&3&2&5\cr
+1&-4&1&-3&-2\cr
+1&-6&2&-4&-2 \cr
+\end{pmatrix}$$
+\pause
+\vspace*{-1ex}
+$C_3 \leftarrow C_3+3C_2$, 
+$C_4\leftarrow C_4+2C_2$ et 
+$C_5\leftarrow C_5+5C_2$
+\vspace*{-1ex}
+$$ \sim\ 
+\begin{pmatrix}
+1&0&0&0&0\cr
+1&-1&0&0&0\cr
+1&-4&-11&-11&-22\cr
+1&-6&-16&-16&-32 \cr
+\end{pmatrix}
+\pause
+\sim\ 
+\begin{pmatrix}
+1&0&0&0&0\cr
+1&-1&0&0&0\cr
+1&-4&-11&0&0\cr
+1&-6&-16&0&0 \cr
+\end{pmatrix}
+$$
+\vspace*{-1ex}
+$C_4\leftarrow C_4-C_3$
+et $C_5\leftarrow C_5-2C_3$
+
+\pause
+
+\begin{itemize}
+  \item $\rg \{v_1,v_2,v_3,v_4,v_5\}=3$
+  \vspace*{-1ex}
+  \pause
+  \item $\Vect (v_1,v_2,v_3,v_4,v_5)=
+\Vect \left( \left(\begin{smallmatrix}1\\1\\1\\1\end{smallmatrix}\right) ,\left(\begin{smallmatrix}0\\-1\\-4\\-6\end{smallmatrix}\right), 
+\left(\begin{smallmatrix}0\\0\\-11\\-16\end{smallmatrix}\right)\right )$
+\end{itemize}
+
+\end{exemple}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Rang et matrice inversible}
+
+\begin{frame}
+
+\begin{theoreme}
+Une matrice carrée de taille $n$ est inversible si et seulement si elle
+est de rang $n$
+\end{theoreme}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Rang engendré par les vecteurs lignes}
+
+\begin{frame}
+
+Une matrice  $A$ est une superposition de vecteurs lignes $(w_1,\ldots,w_n)$
+
+\pause
+
+\begin{proposition}
+$\rg A = \dim \Vect (w_1,\ldots,w_n)$
+\end{proposition}
+
+\pause
+
+\begin{itemize}
+  \item l'espace vectoriel engendré par les vecteurs colonnes
+et l'espace vectoriel engendré par les vecteurs lignes sont de même dimension
+ 
+\pause
+
+  \item \myboxinline{$\rg A = \rg A^T$}
+  
+\pause
+  
+  \item le rang d'une matrice est égal au rang de sa transposée
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+ 
+  \item Quel est le rang de la famille de vecteurs
+  $\left( 
+  \left(\begin{smallmatrix} 1\\2\\1 \end{smallmatrix}\right),
+  \left(\begin{smallmatrix} 3\\4\\2 \end{smallmatrix}\right),
+  \left(\begin{smallmatrix} 0\\-2\\-1 \end{smallmatrix}\right),
+  \left(\begin{smallmatrix} 2\\2\\1 \end{smallmatrix}\right)
+  \right)$ ?
+  
+  Même question pour
+  $\left( 
+  \left(\begin{smallmatrix} 1\\t\\1 \end{smallmatrix}\right),
+  \left(\begin{smallmatrix} t\\1\\t \end{smallmatrix}\right),
+  \left(\begin{smallmatrix} 1\\1\\t \end{smallmatrix}\right)
+  \right)$ 
+  en fonction du paramètre $t\in \Rr$.
+  
+  \item Mettre sous forme échelonnée par rapport aux colonnes la matrice 
+  $\left(\begin{smallmatrix} 1 &2  &-4 &-2 &-1 \cr
+                0 &-2 &4  &2  &0  \cr
+                1 &1  &-2 &-1 &1  \cr \end{smallmatrix}\right)$. Calculer son rang.
+                Idem avec             
+                $\left(\begin{smallmatrix} 1  &7  &2  &5  \cr
+                -2 &1  &1  &5  \cr
+                -1 &2  &1  &4  \cr
+                1  &4  &1  &2  \cr \end{smallmatrix}\right)$. 
+                
+  \item Calculer le rang de $\left(\begin{smallmatrix} 2&\phantom-4&-5&-7 \cr -1&3&1&2 \cr 1&a&-2&b \end{smallmatrix}\right)$ en fonction de
+$a$ et $b$.
+
+  \item Calculer les rangs précédents en utilisant les vecteurs lignes.
+  
+  \item Soit $f:E \to F$ une application linéaire.
+Quelle inégalité relie $\rg (f(v_1), \ldots ,f(v_p))$
+et $\rg (v_1, \ldots , v_p)$ ? Que se passe-t-il si $f$ est injective ?
+   
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

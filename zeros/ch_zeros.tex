@@ -1,0 +1,708 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Zéros des fonctions}
+%====================================================================
+
+\insertvideo{Ji7EmmTjDU4}{partie 1. La dichotomie}
+
+\insertvideo{74YbUMAUX2k}{partie 2. La méthode de la sécante}
+
+\insertvideo{Z_BDJaveZNs}{partie 3. La méthode de Newton}
+
+
+\bigskip
+\bigskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Dans ce chapitre nous allons appliquer toutes les notions précédentes sur les suites et les fonctions,
+à la recherche des zéros des fonctions. Plus précisément, nous allons voir trois méthodes afin
+de trouver des approximations des solutions d'une équation du type $(f(x)=0)$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{La dichotomie}
+
+%---------------------------------------------------------------
+\subsection{Principe de la dichotomie}
+
+Le principe de dichotomie repose sur la version suivante du \evidence{théorème des valeurs intermédiaires} :
+\begin{theoreme}
+Soit $f:[a,b]\to\Rr$ une fonction continue sur un segment.
+\mybox{Si $f(a)\cdot f(b) \le 0$, alors il existe $\ell\in[a,b]$ tel que $f(\ell)=0$.}
+\end{theoreme}
+
+La condition $f(a)\cdot f(b)\le0$ signifie que $f(a)$ et $f(b)$
+sont de signes opposés (ou que l'un des deux est nul). L'hypothèse de continuité est essentielle !
+
+
+\myfigure{1}{
+\tikzinput{fig_zeros01}
+\qquad\qquad
+\tikzinput{fig_zeros02}
+}
+
+Ce théorème affirme qu'il existe au moins une solution de l'équation $(f(x)=0)$
+dans l'intervalle $[a,b]$. Pour le rendre effectif, et trouver une solution (approchée) de l'équation $(f(x)=0)$,
+il s'agit maintenant de l'appliquer sur un intervalle suffisamment petit.
+On va voir que cela permet d'obtenir un $\ell$ solution de l'équation $(f(x)=0)$ comme la limite d'une suite.
+
+Voici comment construire une suite d'intervalles emboîtés, dont la longueur tend vers $0$,
+et contenant chacun une solution de l'équation $(f(x)=0)$.
+
+On part d'une fonction $f : [a,b] \to \Rr$ continue, avec $a < b$, et $f(a)\cdot f(b)\le0$.
+
+Voici la première étape de la construction : on regarde le signe
+de la valeur de la fonction $f$ appliquée au point milieu $\frac{a+b}{2}$.
+\begin{itemize}
+  \item Si $f(a)\cdot f(\frac{a+b}{2})\le0$, alors il existe
+  $c \in [a,\frac{a+b}{2}]$ tel que $f(c)=0$.
+  \item Si $f(a)\cdot f(\frac{a+b}{2})>0$, cela implique que
+  $f(\frac{a+b}{2})\cdot f(b)\le0$, et alors il existe $c \in [\frac{a+b}{2},b]$ tel que $f(c)=0$.
+\end{itemize}
+
+\myfigure{1}{
+\tikzinput{fig_zeros03}
+\qquad\qquad
+\tikzinput{fig_zeros04}
+}
+
+
+Nous avons obtenu un intervalle de longueur moitié dans
+lequel l'équation $(f(x)=0)$ admet une solution. On itère alors le procédé pour
+diviser de nouveau l'intervalle en deux.
+
+Voici le processus complet :
+\begin{itemize}
+  \item {\bf Au rang 0 :}
+
+  On pose $a_0=a$, $b_0=b$. Il existe une solution $x_0$ de l'équation $(f(x)=0)$ dans l'intervalle $[a_0,b_0]$.
+  \item {\bf Au rang 1 :}
+
+  \begin{itemize}
+  \item  Si $f(a_0)\cdot f(\frac{a_0+b_0}{2}) \le 0$, alors on pose $a_1=a_0$ et $b_1=\frac{a_0+b_0}{2}$,
+    \item sinon on pose $a_1=\frac{a_0+b_0}{2}$ et $b_1=b$.
+    \item Dans les deux cas, il existe une solution $x_1$ de l'équation $(f(x)=0)$ dans l'intervalle $[a_1,b_1]$.
+  \end{itemize}
+
+  \item ...
+  \item {\bf Au rang $n$ :}   supposons construit un intervalle $[a_n,b_n]$, de longueur $\frac{b-a}{2^n}$, et contenant une solution $x_n$ de l'équation $(f(x)=0)$. Alors :
+
+    \begin{itemize}
+   \item Si $f(a_n)\cdot f(\frac{a_n+b_n}{2}) \le 0$, alors on
+   pose $a_{n+1}=a_n$ et $b_{n+1}=\frac{a_n+b_n}{2}$,
+  \item sinon on pose $a_{n+1}=\frac{a_n+b_n}{2}$ et $b_{n+1}=b_n$.
+   \item Dans les deux cas, il existe une solution $x_{n+1}$ de l'équation $(f(x)=0)$ dans l'intervalle $[a_{n+1},b_{n+1}]$.
+\end{itemize}
+
+\end{itemize}
+
+\`A chaque étape on a
+$$a_n \le x_n \le b_n.$$
+
+On arrête le processus dès que $b_n-a_n=\frac{b-a}{2^n}$ est inférieur à la précision souhaitée.
+
+
+Comme $(a_n)$ est par construction une suite croissante, $(b_n)$ une suite décroissante,
+et $(b_n-a_n) \to 0$ lorsque $n\to +\infty$, les suites $(a_n)$ et $(b_n)$ sont
+adjacentes et donc elles admettent une même limite. D'après le théorème des gendarmes,
+c'est aussi la limite disons $\ell$ de la suite $(x_n)$. La continuité de $f$ montre
+que $f(\ell)=\lim_{n\to +\infty} f(x_n)=\lim_{n\to +\infty} 0 =0$.
+Donc les suites $(a_n)$ et $(b_n)$ tendent toutes les deux vers $\ell$,
+qui est une solution de l'équation $(f(x)=0)$.
+
+
+%---------------------------------------------------------------
+\subsection{Résultats numériques pour $\sqrt{10}$}
+
+Nous allons calculer une approximation de $\sqrt{10}$.
+Soit la fonction $f$ définie par $f(x)=x^2 - 10$, c'est une fonction continue sur $\Rr$
+qui s'annule en $\pm\sqrt{10}$. De plus $\sqrt{10}$ est l'unique solution positive de l'équation $(f(x)=0)$.
+Nous pouvons restreindre la fonction $f$ à l'intervalle $[3,4]$ : en effet $3^2=9\le 10$ donc $3 \le \sqrt{10}$ et $4^2 = 16 \ge 10$ donc $4 \ge \sqrt{10}$. En d'autre termes $f(3) \le 0$ et $f(4) \ge 0$, donc l'équation $(f(x)=0)$ admet une solution dans l'intervalle $[3,4]$ d'après le théorème des valeurs intermédiaires, et par unicité c'est $\sqrt{10}$, donc $\sqrt{10} \in [3,4]$.
+
+Notez que l'on ne choisit pas pour $f$ la fonction $x\mapsto x-\sqrt{10}$ car on ne connaît pas la valeur de $\sqrt{10}$. C'est ce que l'on cherche à calculer !
+
+\myfigure{1.5}{
+\tikzinput{fig_zeros05}
+}
+
+Voici les toutes premières étapes :
+\begin{enumerate}
+  \item On pose $a_0=3$ et $b_0=4$, on a bien $f(a_0)\le 0$ et $f(b_0) \ge 0$.
+On calcule $\frac{a_0+b_0}{2} = 3,5$ puis $f(\frac{a_0+b_0}{2})$ :
+$f(3,5)=3,5^2-10 = 2,25 \ge0$. Donc $\sqrt{10}$ est dans l'intervalle
+$[3 ; 3,5]$ et on pose $a_1 = a_0 = 3$ et $b_1 = \frac{a_0+b_0}{2} = 3,5$.
+
+  \item On sait donc que $f(a_1) \le 0$ et $f(b_1) \ge0$. On calcule
+  $f(\frac{a_1+b_1}{2})=f(3,25)=0,5625 \ge 0$, on pose $a_2=3$ et $b_2=3,25$.
+
+  \item On calcule $f(\frac{a_2+b_2}{2})=f(3,125)=-0,23\ldots \le 0$.
+  Comme $f(b_2) \ge 0$ alors cette fois $f$ s'annule sur le second intervalle
+  $[\frac{a_2+b_2}{2},b_2]$ et on pose $a_3=\frac{a_2+b_2}{2}=3,125$ et $b_3=b_2=3,25$.
+\end{enumerate}
+
+\`A ce stade, on a prouvé : $3,125 \le \sqrt{10} \le 3,25$.
+
+Voici la suite des étapes :
+$$
+\begin{array}{ll}
+  a_0 = 3      & b_0 = 4 \\
+  a_1 = 3      & b_1 = 3,5 \\
+  a_2 = 3      & b_2 = 3,25 \\
+  a_3 = 3,125  & b_3 = 3,25 \\
+  a_4 = 3,125  & b_4 = 3,1875 \\
+  a_5 = 3,15625 & b_5 = 3,1875 \\
+  a_6 = 3,15625 & b_6 = 3,171875 \\
+  a_7 = 3,15625 & b_7 = 3,164062\ldots \\
+  a_8 = 3,16015\ldots & b_8 = 3,164062\ldots \\
+\end{array}
+$$
+
+Donc en $8$ étapes on obtient l'encadrement :
+$$3,160  \le \sqrt{10} \le 3,165$$
+
+En particulier, on vient d'obtenir les deux premières décimales :
+$\sqrt{10}=3,16\ldots$
+
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Résultats numériques pour $(1,10)^{1/12}$}
+
+
+Nous cherchons maintenant une approximation de $(1,10)^{1/12}$.
+Soit $f(x) = x^{12} - 1,10$.
+On pose $a_0=1$ et $b_0=1,1$. Alors $f(a_0)=-0,10 \le 0$ et $f(b_0)=2,038\ldots \ge 0$.
+
+$$
+\begin{array}{ll}
+  a_0 = 1             & b_0 = 1,10 \\
+  a_1 = 1             & b_1 = 1,05 \\
+  a_2 = 1             & b_2 = 1,025 \\
+  a_3 = 1             & b_3 = 1,0125 \\
+  a_4 = 1,00625       & b_4 = 1,0125 \\
+  a_5 = 1,00625       & b_5 = 1,00937\ldots\\
+  a_6 = 1,00781\ldots & b_6 = 1,00937\ldots \\
+  a_7 = 1,00781\ldots & b_7 = 1,00859\ldots \\
+  a_8 = 1,00781\ldots & b_8 = 1,00820\ldots \\
+\end{array}
+$$
+
+Donc en $8$ étapes on obtient l'encadrement :
+$$ 1,00781 \le (1,10)^{1/12} \le 1,00821$$
+
+
+
+%---------------------------------------------------------------
+\subsection{Calcul de l'erreur}
+
+La méthode de dichotomie a l'énorme avantage de fournir un encadrement d'une solution $\ell$ de l'équation $(f(x)=0)$.
+Il est donc facile d'avoir une majoration de l'erreur. En effet, à chaque étape,
+la taille l'intervalle contenant $\ell$ est divisée par $2$.
+Au départ, on sait que $\ell \in [a,b]$ (de longueur $b-a$) ;
+puis $\ell  \in [a_1,b_1]$ (de longueur $\frac{b-a}{2}$) ;
+puis $\ell \in [a_2,b_2]$ (de longueur $\frac{b-a}{4}$) ; ... ;
+$[a_n,b_n]$ étant de longueur $\frac{b-a}{2^n}$.
+
+
+Si, par exemple, on souhaite obtenir une approximation de $\ell$ à $10^{-N}$ près,
+comme on sait que $a_n \le \ell \le b_n$, on obtient $|\ell-a_n| \le |b_n-a_n| = \frac{b-a}{2^n}$.
+Donc pour avoir $|\ell-a_n| \le 10^{-N}$, il suffit de choisir $n$ tel que  $\frac{b-a}{2^n} \le 10^{-N}$.
+
+Nous allons utiliser le logarithme décimal :
+\begin{align*}
+\frac{b-a}{2^n} \le 10^{-N}
+ & \iff (b-a)10^N \le 2^n  \\
+ & \iff \log(b-a) + \log(10^N)  \le \log(2^n) \\
+ & \iff \log(b-a) + N \le n \log 2 \\
+ & \iff n \ge \frac{N +  \log(b-a)}{\log 2} \\
+\end{align*}
+
+Sachant $\log 2 = 0,301\ldots$, si par exemple $b-a \le 1$, voici le nombre d'itérations suffisantes pour avoir une  précision de $10^{-N}$ (ce qui correspond, à peu près, à $N$ chiffres exacts après la virgule).
+\begin{center}
+\begin{tabular}{ll}
+  $10^{-10}$ ($\sim 10$ décimales) &  $34$ itérations \\
+  $10^{-100}$ ($\sim 100$ décimales) &  $333$ itérations \\
+  $10^{-1000}$ ($\sim 1000$ décimales) &  $3322$ itérations \\
+\end{tabular}
+\end{center}
+
+Il faut entre $3$ et $4$ itérations supplémentaires pour obtenir une nouvelle décimale.
+
+\begin{remarque*}
+En toute rigueur il ne faut pas confondre précision et nombre de décimales exactes,
+par exemple $0,999$ est une approximation de $1,000$ à $10^{-3}$ près, mais aucune
+décimale après la virgule n'est exacte.  En pratique, c'est la précision qui est la plus importante,
+mais il est plus frappant de parler du nombre de décimales exactes.
+\end{remarque*}
+
+
+
+%---------------------------------------------------------------
+\subsection{Algorithmes}
+
+Voici comment implémenter la dichotomie dans le langage \Python. Tout d'abord
+on définit une fonction $f$ (ici par exemple $f(x)=x^2-10$) :
+
+\insertcode{algos/dichotomie-tex1.py}{dichotomie.py (1)}
+
+Puis la dichotomie proprement dite : en entrée de la fonction, on a
+pour variables $a,b$ et $n$ le nombre d'étapes voulues.
+
+\insertcode{algos/dichotomie-tex2.py}{dichotomie.py (2)}
+
+Même algorithme, mais avec cette fois en entrée la précision souhaitée :
+
+\insertcode{algos/dichotomie-tex3.py}{dichotomie.py (3)}
+
+
+Enfin, voici la version récursive de l'algorithme de dichotomie.
+
+\insertcode{algos/dichotomie-tex4.py}{dichotomie.py (4)}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\begin{enumerate}
+  \item \`A la main, calculer un encadrement à $0,1$ près de $\sqrt{3}$.
+  Idem avec $\sqrt[3]{2}$.
+
+  \item Calculer une approximation des solutions de l'équation $x^3+1=3x$.
+
+  \item Est-il plus efficace de diviser l'intervalle en $4$ au lieu d'en $2$ ?
+  (\`A chaque itération, la dichotomie classique nécessite l'évaluation de $f$ en une nouvelle valeur
+  $\frac{a+b}{2}$ pour une précision améliorée d'un facteur $2$.)
+
+  \item \'Ecrire un algorithme pour calculer plusieurs solutions de $(f(x)=0)$.
+
+  \item On se donne un tableau trié de taille $N$, rempli de nombres appartenant à $\{1,\ldots,n\}$.
+  \'Ecrire un algorithme qui teste si une valeur $k$ apparaît dans le tableau et en quelle position.
+
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{La méthode de la sécante}
+
+%---------------------------------------------------------------
+\subsection{Principe de la sécante}
+
+L'idée de la méthode de la sécante est très simple : pour une fonction $f$ continue sur un intervalle $[a,b]$, et vérifiant $f(a) \le 0$, $f(b) > 0$, on trace le segment $[AB]$ où $A=(a,f(a))$ et $B=(b,f(b))$. Si le segment reste au-dessus du graphe de $f$ alors la fonction s'annule sur l'intervalle $[a',b]$ où $(a',0)$ est le point d'intersection de
+la droite $(AB)$ avec l'axe des abscisses. La droite $(AB)$ s'appelle la \defi{sécante}.
+On recommence en partant maintenant de l'intervalle $[a',b]$ pour obtenir une valeur $a''$.
+
+
+\myfigure{1}{
+\tikzinput{fig_zeros06}
+}
+
+\begin{proposition}
+ Soit $f : [a,b] \to \Rr$ une fonction continue, strictement croissante et convexe telle
+ que $f(a) \le 0$, $f(b) > 0$.
+ Alors la suite définie par
+ $$a_0=a \qquad \text{ et } \qquad a_{n+1} = a_n - \frac{b-a_n}{f(b)-f(a_n)}f(a_n)$$
+ est croissante et converge vers la solution $\ell$ de $(f(x)=0)$.
+\end{proposition}
+
+L'hypothèse $f$ \defi{convexe} signifie exactement que pour tout $x,x'$
+dans $[a,b]$ la sécante (ou corde) entre $(x,f(x))$ et $(x',f(x'))$ est au-dessus du graphe de $f$.
+
+\myfigure{1}{
+\tikzinput{fig_zeros07}
+}
+
+\begin{proof}
+\begin{enumerate}
+  \item Justifions d'abord la construction de la suite récurrente.
+
+	  L'équation de la droite passant par les deux points $(a,f(a))$ et $(b,f(b))$
+est
+$$y=(x-a) \frac{f(b)-f(a)}{b-a} + f(a)$$
+Cette droite intersecte l'axe des abscisses en $(a',0)$ qui vérifie donc
+$0=(a'-a) \frac{f(b)-f(a)}{b-a} + f(a)$, donc $a'=a - \frac{b-a}{f(b)-f(a)}f(a)$.
+
+  \item Croissance de $(a_n)$.
+
+  Montrons par récurrence que $f(a_n)\le 0$. C'est vrai au rang $0$ car $f(a_0)=f(a)\le 0$ par hypothèse.  Supposons vraie l'hypothèse au rang $n$. Si $a_{n+1} < a_n$ (un cas qui s'avérera \emph{a posteriori} jamais réalisé), alors comme $f$ est strictement croissante, on a $f(a_{n+1})<f(a_n)$, et en particulier $f(a_{n+1})\le 0$. Sinon $a_{n+1}\ge a_n$. Comme $f$ est convexe : la sécante entre $(a_n, f(a_n))$ et $(b, f(b))$ est au-dessus du graphe de $f$. En particulier le point $(a_{n+1},0)$ (qui est sur cette sécante par définition $a_{n+1}$) est au-dessus du point $(a_{n+1},f(a_{n+1}))$, et donc $f(a_{n+1})\le 0$ aussi dans ce cas, ce qui conclut la récurrence.
+
+  Comme $f(a_n) \le 0$ et $f$ est croissante, alors
+  par la formule $a_{n+1} = a_n - \frac{b-a_n}{f(b)-f(a_n)}f(a_n)$, on obtient que $a_{n+1} \ge a_n$.
+
+
+  \item Convergence de $(a_n)$.
+
+  La suite $(a_n)$ est croissante et majorée par $b$, donc elle converge. Notons $\ell$ sa limite. Par continuité $f(a_n)\to f(\ell)$. Comme pour tout $n$, $f(a_n) \le 0$, on en déduit que $f(\ell)\le 0$. En particulier, comme on suppose $f(b)>0$, on a $\ell<b$. Comme $a_n \to \ell$, $a_{n+1} \to \ell$, $f(a_n)\to f(\ell)$, l'égalité $a_{n+1} = a_n - \frac{b-a_n}{f(b)-f(a_n)}f(a_n)$ devient à la limite (lorsque $n\to+\infty$) :
+  $\ell = \ell - \frac{b-\ell}{f(b)-f(\ell)} f(\ell)$, ce qui implique $f(\ell)=0$.
+
+  Conclusion : $(a_n)$ converge vers la solution de $(f(x)=0)$.
+
+\end{enumerate}
+
+
+
+\bigskip
+
+
+
+\end{proof}
+
+%---------------------------------------------------------------
+\subsection{Résultats numériques pour $\sqrt{10}$}
+
+Pour $a=3$, $b=4$, $f(x)=x^2-10$ voici les résultats numériques, est aussi indiquée
+une majoration de l'erreur $\epsilon_n = \sqrt{10}-a_n$ (voir ci-après).
+$$
+\begin{array}{l|l}
+  a_0 = 3                          & \epsilon_0 \le 0,1666\ldots \\
+  a_1 = 3,14285714285\ldots    & \epsilon_1 \le 0,02040\ldots \\
+  a_2 = 3,16000000000\ldots    & \epsilon_2 \le 0,00239\ldots \\
+  a_3 = 3,16201117318\ldots   & \epsilon_3 \le 0,00028\ldots \\
+  a_4 = 3,16224648985\ldots   & \epsilon_4 \le 3,28\ldots \cdot 10^{-5} \\
+  a_5 = 3,16227401437\ldots    & \epsilon_5 \le 3,84\ldots \cdot 10^{-6}\\
+  a_6 = 3,16227723374\ldots    & \epsilon_6 \le 4,49\ldots \cdot 10^{-7} \\
+  a_7 = 3,16227761029\ldots   & \epsilon_7 \le 5,25\ldots \cdot 10^{-8} \\
+  a_8 = 3,16227765433\ldots   & \epsilon_8 \le 6,14\ldots \cdot 10^{-9} \\
+\end{array}
+$$
+
+%---------------------------------------------------------------
+\subsection{Résultats numériques pour $(1,10)^{1/12}$}
+
+Voici les résultats numériques avec une majoration de l'erreur $\epsilon_n = (1,10)^{1/12}-a_n$,
+avec $f(x) = x^{12} - 1,10$, $a=1$ et $b=1,1$
+$$
+\begin{array}{l|l}
+  a_0 = 1                          & \epsilon_0 \le 0,0083\ldots \\
+  a_1 = 1,00467633\ldots   & \epsilon_1 \le 0,0035\ldots \\
+  a_2 = 1,00661950\ldots   & \epsilon_2 \le 0,0014\ldots \\
+  a_3 = 1,00741927\ldots   & \epsilon_3 \le 0,00060\ldots \\
+  a_4 = 1,00774712\ldots    & \epsilon_4 \le 0,00024\ldots \\
+  a_5 = 1,00788130\ldots    & \epsilon_5 \le 0,00010\ldots\\
+  a_6 = 1,00793618\ldots   & \epsilon_6 \le 4,14\ldots \cdot 10^{-5} \\
+  a_7 = 1,00795862\ldots   & \epsilon_7 \le 1,69\ldots \cdot 10^{-5} \\
+  a_8 = 1,00796779\ldots   & \epsilon_8 \le 6,92\ldots \cdot 10^{-6} \\
+\end{array}
+$$
+
+%---------------------------------------------------------------
+\subsection{Calcul de l'erreur}
+
+La méthode de la sécante fournit l'encadrement $a_n \le l \le b$.
+Mais comme $b$ est fixe cela ne donne pas d'information exploitable pour $|l-a_n|$.
+Voici une façon générale d'estimer l'erreur, à l'aide du théorème des accroissements finis.
+
+\begin{proposition}
+ Soit $f : I \to \Rr$ une fonction dérivable et $\ell$ tel que $f(\ell)=0$.
+ S'il existe une constante $m>0$ telle que pour tout $x\in I$, $|f'(x)| \ge m$ alors
+ $$|x-\ell| \le \frac{|f(x)|}{m} \qquad \text{ pour tout } x \in I.$$
+\end{proposition}
+
+
+\begin{proof}
+  Par l'inégalité des accroissement finis entre $x$ et $\ell$ :
+  $|f(x)-f(\ell)| \ge m |x-\ell|$
+  mais $f(\ell)=0$, d'où la majoration.
+\end{proof}
+
+\begin{exemple}[Erreur pour $\sqrt{10}$]
+Soit $f(x)=x^2-10$ et l'intervalle $I=[3,4]$. Alors
+$f'(x)=2x$ donc $|f'(x)| \ge 6$ sur $I$.
+On pose donc $m=6$, $\ell=\sqrt{10}$, $x=a_n$.
+On obtient l'estimation de l'erreur :
+$$\epsilon_n = |\ell-a_n| \le \frac{|f(a_n)|}{m} = \frac{|a_n^2 - 10|}{6}$$
+
+
+Par exemple
+on a trouvé $a_2 = 3,16... \le 3,17$
+donc $\sqrt{10}-a_2 \le \frac{|3,17^2-10|}{6} = 0,489$.
+
+Pour $a_8$ on a trouvé $a_8=3,1622776543347473\ldots$
+donc $\sqrt{10}-a_8 \le \frac{|a_8^2-10|}{6} = 6,14\ldots \cdot 10^{-9}$. On a en fait $7$ décimales exactes après la virgule.
+\end{exemple}
+
+Dans la pratique, voici le nombre d'itérations suffisantes pour avoir une
+précision de $10^{-n}$ pour cet exemple. Grosso-modo, une itération
+de plus donne une décimale supplémentaire.
+\begin{center}
+\begin{tabular}{ll}
+  $10^{-10}$ ($\sim 10$ décimales) &  $10$ itérations \\
+  $10^{-100}$ ($\sim 100$ décimales) &  $107$ itérations \\
+  $10^{-1000}$ ($\sim 1000$ décimales) &  $1073$ itérations \\
+\end{tabular}
+\end{center}
+
+
+
+\bigskip
+
+
+\begin{exemple}[Erreur pour $(1,10)^{1/12}$]
+  On pose $f(x)=x^{12}-1,10$, $I=[1;1,10]$ et $\ell=(1,10)^{1/12}$.
+  Comme $f'(x)=12x^{11}$, si on pose de plus $m=12$, on a $|f'(x)| \ge m$ pour $x\in I$.
+  On obtient
+  $$\epsilon_n =|\ell-a_n| \le \frac{|a_n^{12} - 1,10|}{12}.$$
+
+  Par exemple $a_8 = 1.0079677973185432\ldots$ donc
+  $$|(1,10)^{1/12}-a_8| \le \frac{|a_8^{12} - 1,10|}{12} = 6,92\ldots \cdot 10^{-6}.$$
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Algorithme}
+
+Voici l'algorithme : c'est tout simplement
+la mise en \oe uvre de la suite récurrente $(a_n)$.
+
+\insertcode{algos/secante-tex.py}{secante.py}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\begin{enumerate}
+  \item \`A la main, calculer un encadrement à $0,1$ près de $\sqrt{3}$.
+  Idem avec $\sqrt[3]{2}$.
+
+  \item Calculer une approximation des solutions de l'équation $x^3+1=3x$.
+
+  \item Calculer une approximation de la solution de l'équation $(\cos x = 0)$ sur $[0,\pi]$.
+  Idem avec $(\cos x = 2\sin x)$.
+
+  \item \'Etudier l'équation $(\exp(-x) = - \ln(x))$. Donner une approximation de la (ou des)
+  solution(s) et une majoration de l'erreur correspondante.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{La méthode de Newton}
+
+%---------------------------------------------------------------
+\subsection{Méthode de Newton}
+
+La méthode de Newton consiste à remplacer la sécante de la méthode précédente par la tangente.
+Elle est d'une redoutable efficacité.
+
+
+Partons d'une fonction dérivable $f:[a,b] \to \Rr$ et d'un point $u_0 \in[a,b]$.
+On appelle $(u_1,0)$ l'intersection de
+la tangente au graphe de $f$ en $(u_0,f(u_0))$ avec l'axe des abscisses.
+Si $u_1 \in[a,b]$ alors on recommence l'opération avec la tangente au point d'abscisse $u_1$.
+Ce processus conduit à la définition d'une suite récurrente :
+$$u_0 \in [a,b] \qquad \text{ et } \qquad u_{n+1} = u_n - \frac{f(u_n)}{f'(u_n)}.$$
+
+\begin{proof}
+En effet la tangente au point d'abscisse $u_n$ a pour équation :
+$y = f'(u_n)(x-u_n)+f(u_n)$. Donc le point $(x,0)$ appartenant à la tangente (et à l'axe des abscisses)
+vérifie $0=f'(u_n)(x-u_n)+f(u_n)$. D'où $x=u_n - \frac{f(u_n)}{f'(u_n)}.$
+\end{proof}
+
+\myfigure{1}{
+\tikzinput{fig_zeros09}
+}
+
+
+%---------------------------------------------------------------
+\subsection{Résultats pour $\sqrt{10}$}
+
+Pour calculer $\sqrt{a}$, on pose $f(x)=x^2-a$, avec $f'(x)=2x$. La suite issue de la méthode de Newton est déterminée par $u_0>0$ et la relation de récurrence $u_{n+1} = u_n - \frac{u_n^2-a}{2u_n}$.
+Suite qui pour cet exemple s'appelle \defi{suite de Héron} et que l'on récrit souvent
+\mybox{$\displaystyle u_0>0 \quad \text{ et } \quad u_{n+1} = \frac12 \left(u_n+\frac{a}{u_n}\right).$}
+
+\begin{proposition}
+\label{prop:heron}
+Cette suite $(u_n)$ converge vers $\sqrt{a}$.
+\end{proposition}
+
+Pour le calcul de $\sqrt{10}$, on pose par exemple $u_0=4$, et on peut même commencer les calculs à la main :
+
+$$
+\begin{array}{l}
+  u_0 = 4     \\
+  u_1 = \frac12 \left(u_0+\frac{10}{u_0}\right) = \frac12\left(4+\frac{10}{4}\right) = \frac{13}{4} = 3,25 \\
+  u_2 = \frac12 \left(u_1+\frac{10}{u_1}\right) = \frac12\left(\tfrac{13}{4}+\frac{10}{\tfrac{13}{4}}\right)
+  = \frac{329}{104} = 3,1634\ldots \\
+  u_3 = \frac12 \left(u_2+\frac{10}{u_2}\right) = \frac{216\,401}{68\,432} = 3,16227788 \ldots \\
+  u_4 = 3,162277660168387\ldots
+\end{array}
+$$
+
+Pour $u_4$ on obtient $\sqrt{10} = 3,1622776601683\ldots$
+avec déjà $13$ décimales exactes !
+
+Voici la preuve de la convergence de la suite $(u_n)$ vers $\sqrt{a}$.
+\begin{proof}
+$$ u_0>0 \quad \text{ et } \quad u_{n+1} = \frac12 \left(u_n+\frac{a}{u_n}\right).$$
+\begin{enumerate}
+  \item Montrons que $u_n \ge \sqrt{a}$ pour $n\ge1$.
+
+  Tout d'abord
+  $$u_{n+1}^2-a = \frac14 \left(\frac{u_n^2 + a}{u_n}\right)^2 - a
+  = \frac{1}{4u_n^2}(u_n^4-2au_n^2+a^2)=\frac14 \frac{(u_n^2-a)^2}{u_n^2}$$
+
+  Donc $u_{n+1}^2 - a \ge 0$. Comme il est clair que pour tout $n\ge 0$, $u_{n} \ge 0$, on en déduit que pour tout $n\ge 0$, $u_{n+1} \ge \sqrt{a}$. (Notez que $u_0$ lui est quelconque.)
+
+
+  \item Montrons que $(u_n)_{n\ge1}$ est une suite décroissante qui converge.
+
+  Comme $\frac{u_{n+1}}{u_n} = \frac12 \left(1+\frac{a}{u_n^2}\right)$,
+  et que pour $n\ge 1$ on vient de voir que
+  $u_n^2 \ge a$ (donc $\frac{a}{u_n^2}\le 1$), alors $\frac{u_{n+1}}{u_n} \le 1$, pour tout $n\le 1$.
+
+  Conséquence : la suite $(u_n)_{n\ge1}$ est décroissante et minorée par $0$ donc elle converge.
+
+  \item $(u_n)$ converge vers $\sqrt{a}$.
+
+  Notons $\ell$ la limite de $(u_n)$. Alors $u_n \to \ell$ et $u_{n+1} \to \ell$.
+  Lorsque $n\to +\infty$ dans la relation $u_{n+1} = \frac12 \left(u_n+\frac{a}{u_n}\right)$, on obtient
+  $\ell = \frac12 \left(\ell+\frac{a}{\ell}\right)$. Ce qui conduit à la relation $\ell^2=a$ et par positivité de la suite, $\ell = \sqrt{a}$.
+\end{enumerate}
+
+\end{proof}
+
+%---------------------------------------------------------------
+\subsection{Résultats numériques pour $(1,10)^{1/12}$}
+
+Pour calculer $(1,10)^{1/12}$, on pose $f(x)=x^{12}-a$ avec $a=1,10$.
+On a $f'(x)=12x^{11}$.
+On obtient $u_{n+1} = u_n - \frac{u_n^{12}-a}{12u_n^{11}}$. Ce que l'on reformule ainsi :
+$$u_0>0 \quad \text{ et } \quad u_{n+1} = \frac1{12} \left(11u_n+\frac{a}{u_n^{11}}\right).$$
+
+Voici les résultats numériques pour $(1,10)^{1/12}$ en partant de $u_0=1$.
+$$
+\begin{array}{l}
+  u_0 = 1     \\
+  u_1 = 1,0083333333333333 \ldots \\
+  u_2 = 1,0079748433368980\ldots \\
+  u_3 = 1,0079741404315996 \ldots \\
+  u_4 = 1,0079741404289038 \ldots \\
+\end{array}
+$$
+
+Toutes les décimales affichées pour $u_4$ sont exactes :
+$(1,10)^{1/12}=1,0079741404289038\ldots$
+
+%---------------------------------------------------------------
+\subsection{Calcul de l'erreur pour $\sqrt{10}$}
+
+\begin{proposition}
+\begin{enumerate}
+  \item Soit $k$ tel que $u_1-\sqrt a\le k$. Alors pour tout $n\ge 1$ :
+  $$u_n - \sqrt{a} \le 2\sqrt{a} \left( \frac{k}{2\sqrt{a}} \right)^{2^{n-1}}$$
+
+  \item Pour $a=10$, $u_0=4$, on a :
+  $$u_n - \sqrt{10} \le 8 \left(\frac{1}{24} \right)^{2^{n-1}}$$
+%  Donc si $\ell \ge 1+\frac{\log\left(\frac{\ell-\log8}{\log24}\right)}{\log2}$ alors $u_n - \sqrt{10} \le 10^{-\ell}$.
+\end{enumerate}
+\end{proposition}
+
+Admirez la puissance de la méthode de Newton : $11$ itérations donnent déjà $1000$ décimales
+exactes après la virgule. Cette rapidité de convergence se justifie grâce
+au calcul de l'erreur : la précision est multipliée par $2$ à chaque étape, donc à chaque
+itération le nombre de décimales exactes double !
+
+\begin{center}
+\begin{tabular}{ll}
+  $10^{-10}$ ($\sim 10$ décimales) &  $4$ itérations \\
+  $10^{-100}$ ($\sim 100$ décimales) &  $8$ itérations \\
+  $10^{-1000}$ ($\sim 1000$ décimales) &  $11$ itérations \\
+\end{tabular}
+\end{center}
+
+
+\begin{proof}
+\begin{enumerate}
+  \item Dans la preuve de la proposition \ref{prop:heron}, nous avons vu l'égalité :
+ $$u_{n+1}^2-a = \frac{(u_n^2-a)^2}{4u_n^2} \text{ donc }
+ (u_{n+1}-\sqrt{a})(u_{n+1}+\sqrt{a}) = \frac{(u_{n}-\sqrt{a})^2(u_{n}+\sqrt{a})^2}{4u_n^2}$$
+
+ Ainsi comme $u_n \ge \sqrt{a}$ pour $n\ge 1$ :
+ $$u_{n+1}-\sqrt{a} = (u_{n}-\sqrt{a})^2 \times \frac{1}{u_{n+1}+\sqrt{a}} \times \frac14 \left( 1 + \frac{\sqrt{a}}{u_n} \right)^2
+ \le (u_{n}-\sqrt{a})^2 \times \frac{1}{2\sqrt{a}}\times \frac14\cdot (1+1)^2  = \frac{1}{2\sqrt{a}}(u_{n}-\sqrt{a})^2 $$
+
+ Si $k$ vérifie $u_1-\sqrt a\le k$, nous allons en déduire par récurrence, pour tout $n\ge 1$, la formule
+ $$u_n - \sqrt{a} \le 2\sqrt{a} \left( \frac{k}{2\sqrt{a}} \right)^{2^{n-1}}$$
+ C'est vrai pour $n=1$. Supposons la formule vraie au rang $n$, alors :
+ $$u_{n+1}-\sqrt{a} \le \frac{1}{2\sqrt{a}}(u_{n}-\sqrt{a})^2
+ =  \frac{1}{2\sqrt{a}} (2\sqrt{a})^2 \left(\left( \frac{k}{2\sqrt{a}} \right)^{2^{n-1}}\right)^2
+ = 2\sqrt{a} \left( \frac{k}{2\sqrt{a}} \right)^{2^{n}}$$
+ La formule est donc vrai au rang suivant.
+
+  \item Pour $a = 10$ avec $u_0=4$ on a $u_1=3,25$. Comme $3 \le \sqrt{10} \le 4$
+  alors $u_1-\sqrt{10} \le u_1-3 \le \frac14$. On fixe donc $k = \frac14$.
+  Toujours par l'encadrement $3 \le \sqrt{10} \le 4$, la formule obtenue précédemment devient
+  $$u_n - \sqrt{a} \le 2 \cdot 4 \left( \frac{\frac14}{2\cdot 3} \right)^{2^{n-1}}=8 \left(\frac{1}{24} \right)^{2^{n-1}}\; .$$
+\end{enumerate}
+
+\end{proof}
+
+%---------------------------------------------------------------
+\subsection{Algorithme}
+
+Voici l'algorithme pour le calcul de $\sqrt{a}$.
+On précise en entrée le réel $a\ge0$ dont on veut calculer
+la racine et le nombre $n$ d'itérations.
+
+\insertcode{algos/newton-tex.py}{newton.py}
+
+\bigskip
+
+En utilisant le module \codeinline{decimal} le calcul de $u_n$ pour $n=11$
+donne $1000$ décimales de $\sqrt{10}$ :
+
+\begin{center}
+{\footnotesize
+3, \hfill\hfill\  \\
+16227766016837933199889354443271853371955513932521 \ 68268575048527925944386392382213442481083793002951 \\
+87347284152840055148548856030453880014690519596700 \ 15390334492165717925994065915015347411333948412408 \\
+53169295770904715764610443692578790620378086099418 \ 28371711548406328552999118596824564203326961604691 \\
+31433612894979189026652954361267617878135006138818 \ 62785804636831349524780311437693346719738195131856 \\
+78403231241795402218308045872844614600253577579702 \ 82864402902440797789603454398916334922265261206779 \\
+26516760310484366977937569261557205003698949094694 \ 21850007358348844643882731109289109042348054235653 \\
+40390727401978654372593964172600130699000095578446 \ 31096267906944183361301813028945417033158077316263 \\
+86395193793704654765220632063686587197822049312426 \ 05345411160935697982813245229700079888352375958532 \\
+85792513629646865114976752171234595592380393756251 \ 25369855194955325099947038843990336466165470647234 \\
+99979613234340302185705218783667634578951073298287 \ 51579452157716521396263244383990184845609357626020\ \\
+  }
+\end{center}
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\begin{enumerate}
+  \item \`A la calculette, calculer les trois premières étapes pour une approximation de
+  $\sqrt{3}$, sous forme de nombres rationnels.   Idem avec $\sqrt[3]{2}$.
+
+  \item Implémenter la méthode de Newton, étant données une fonction $f$ et sa dérivée $f'$.
+
+  \item Calculer une approximation des solutions de l'équation $x^3+1=3x$.
+
+  \item Soit $a>0$. Comment calculer $\frac{1}{a}$ par une méthode de Newton ?
+
+  \item Calculer $n$ de sorte que $u_n-\sqrt{10} \le 10^{-\ell}$ (avec $u_0=4$,
+  $u_{n+1} =\frac{1}{2} \left(u_n+\frac{a}{u_n}\right)$, $a=10$).
+
+\end{enumerate}
+\end{miniexercices}
+
+\auteurs{
+Auteurs : Arnaud Bodin, Niels Borne, Laura Desideri
+
+Dessins : Benjamin Boutin
+}
+
+
+\finchapitre
+\end{document}
+
+

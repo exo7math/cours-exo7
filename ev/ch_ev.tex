@@ -1,0 +1,2399 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Espaces vectoriels}
+%====================================================================
+
+\insertvideo{a1EkNGstaUU}{partie 1. Espace vectoriel (début)}
+
+\insertvideo{hI4hY5bTM6A}{partie 2. Espace vectoriel (fin)}
+
+\insertvideo{yyO3GMjLXHU}{partie 3. Sous-espace vectoriel (début)}
+
+\insertvideo{6cV904tSgWs}{partie 4. Sous-espace vectoriel (milieu)}
+
+\insertvideo{u4qHl4crJHg}{partie 5. Sous-espace vectoriel (fin)}
+
+\insertvideo{lQLehsLpqrw}{partie 6. Application linéaire (début)}
+
+\insertvideo{DRI5vOFuR0M}{partie 7. Application linéaire (milieu)}
+
+\insertvideo{ArVVkmxhUK4}{partie 8. Application linéaire (fin)}
+
+\insertfiche{fic00017.pdf}{Espaces vectoriels}
+
+\insertfiche{fic00018.pdf}{Applications linéaires}
+
+
+\bigskip
+\bigskip
+
+
+La notion d'espace vectoriel est une structure fondamentale des mathématiques modernes.
+Il s'agit de dégager les propriétés communes que partagent des ensembles pourtant très différents.
+Par exemple, on peut additionner deux vecteurs du plan, et aussi multiplier un vecteur par un réel
+(pour l'agrandir ou le rétrécir). Mais on peut aussi additionner deux fonctions, ou multiplier une fonction
+par un réel. Même chose avec les polynômes, les matrices,...
+Le  but est d'obtenir des théorèmes généraux qui s'appliqueront aussi bien aux vecteurs du plan,
+de l'espace, aux espaces de fonctions, aux polynômes, aux matrices,...
+La contrepartie de cette grande généralité de situations est que la notion
+d'espace vectoriel est difficile à appréhender et vous demandera une quantité conséquente de travail !
+Il est bon d'avoir d'abord étudié le chapitre \og L'espace vectoriel $\Rr^n$ \fg.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Espace vectoriel (début)}
+
+
+\noindent{\bf Dans ce chapitre, $\Kk$ désigne un corps.
+Dans la plupart des exemples, ce sera le corps des réels $\Rr$.}
+
+
+%-------------------------------------------------------
+\subsection{Définition d'un espace vectoriel}
+
+
+Un espace vectoriel est un ensemble formé de vecteurs, de sorte que l'on puisse
+additionner (et soustraire) deux vecteurs $u,v$ pour en former un troisième $u+v$ (ou $u-v$)
+et aussi afin que l'on puisse multiplier chaque vecteur $u$ d'un facteur $\lambda$ pour obtenir
+un vecteur $\lambda \cdot u$.
+Voici la définition formelle :
+\begin{definition}
+Un \defi{$\Kk$-espace vectoriel}\index{espace vectoriel} est un ensemble non vide $E$ muni :
+\begin{itemize}
+  \item d'une loi de composition interne, c'est-à-dire
+  d'une application de $E \times E$ dans $E$ :
+$$\begin{array}{rcl}
+E \times E & \to & E\\
+(u, v) & \mapsto & u+v
+\end{array}$$
+
+  \item d'une loi de composition externe,
+  c'est-à-dire d'une application de $\Kk \times E$ dans $E$ :
+$$\begin{array}{rcl}
+\Kk \times E & \to & E\\
+(\lambda, u ) & \mapsto & \lambda \cdot u
+\end{array}$$
+\end{itemize}
+
+qui vérifient les propriétés suivantes :
+ \begin{enumerate}
+ \item $u + v = v + u$ \quad (pour tous $u,v \in E$)
+ \item $u + (v+w) = (u+v) +w$ \quad (pour tous $u,v,w \in E$)
+ \item Il existe un \defi{élément neutre}\index{element neutre@élément neutre} $0_E \in E$ tel que $u + 0_E = u$ \quad (pour tout $u \in E$)
+ \item Tout $u \in E$ admet un \defi{symétrique} $u'$ tel que $u + u' = 0_E$.
+ Cet élément $u'$ est noté $-u$.
+ \item $1 \cdot u = u$ \quad (pour tout $u \in E$)
+ \item $\lambda \cdot (\mu \cdot u) = (\lambda\mu )\cdot u$ \quad (pour tous $\lambda, \mu \in \Kk$, $u \in E$)
+ \item $\lambda \cdot (u+v) = \lambda \cdot u + \lambda \cdot v$ \quad (pour tous $\lambda \in \Kk$, $u,v \in E$)
+ \item $(\lambda + \mu ) \cdot u = \lambda \cdot u + \mu \cdot u$ \quad (pour tous $\lambda,\mu \in \Kk$, $u \in E$)
+ \end{enumerate}
+ \end{definition}
+
+Nous reviendrons en détail sur chacune de ces propriétés juste après des exemples.
+
+%-------------------------------------------------------
+\subsection{Premiers exemples}
+
+\begin{exemple}[Le $\Rr$-espace vectoriel  $\Rr^2$]
+  Posons $\Kk=\Rr$ et $E=\Rr^2$.
+  Un élément $u\in E$ est donc un
+  couple $(x,y)$ avec $x$ élément de $\Rr$ et $y$ élément de $\Rr$. Ceci s'écrit
+  $$\Rr^2=\big\{(x,y)\mid x \in \Rr, y \in \Rr\big\}.$$
+
+  \begin{itemize}
+    \item \emph{Définition de la loi interne.}
+    Si $(x,y)$ et $(x',y')$ sont deux éléments de $\Rr^2$, alors :
+  $$(x,y)+(x',y')=(x+x',y+y').$$
+
+    \item \emph{Définition  de la loi externe.}
+    Si $\lambda$ est un réel et $(x,y)$ est un élément de $\Rr^2$, alors :
+  $$\lambda \cdot (x,y)=(\lambda x, \lambda y).$$
+  \end{itemize}
+
+  L'élément neutre de la loi interne est le vecteur nul $(0,0)$.
+  Le symétrique de $(x,y)$ est $(-x,-y)$, que l'on note aussi $-(x,y)$.
+
+\myfigure{1}{
+\tikzinput{fig_ev01}
+}
+
+\end{exemple}
+
+L'exemple suivant généralise le précédent. C'est aussi le bon moment pour lire ou relire
+le chapitre \og L'espace vectoriel $\Rr^n$ \fg.
+
+\begin{exemple}[Le $\Rr$-espace vectoriel $\Rr^n$]
+    Soit $n$ un entier supérieur ou égal à $1$.
+   Posons $\Kk=\Rr$ et $E=\Rr^n$.
+   Un élément $u\in E$ est donc un $n$-uplet
+   $(x_1,x_2, \ldots , x_n)$ avec $x_1,x_2, \ldots , x_n$ des éléments de $\Rr$.
+
+   \begin{itemize}
+    \item \emph{Définition de la loi interne.}
+  Si $(x_1, \dots , x_n)$ et $(x'_1, \dots , x'_n)$ sont deux éléments de $\Rr^n$, alors :
+  $$(x_1, \dots , x_n)+(x'_1, \dots , x'_n)=
+  (x_1+x'_1, \dots , x_n+x'_n).$$
+
+
+    \item \emph{Définition  de la loi externe.}
+      Si $\lambda$ est un réel et $(x_1, \dots , x_n)$ est un élément de $\Rr^n$, alors :
+  $$\lambda \cdot (x_1, \dots , x_n)=(\lambda x_1,\dots ,  \lambda x_n).$$
+
+    \end{itemize}
+
+L'élément neutre de la loi interne est le vecteur nul $(0,0, \dots, 0)$.
+Le symétrique de    $(x_1, \dots , x_n)$ est $(-x_1, \dots , -x_n)$, que l'on note
+$-(x_1, \dots , x_n)$.
+
+De manière analogue, on peut définir le $\Cc$-espace vectoriel $\Cc^n$, et plus généralement le
+$\Kk$-espace vectoriel $\Kk^n$.
+\end{exemple}
+
+
+
+\begin{exemple}
+Tout plan passant par l'origine dans $\Rr^3$ est un espace vectoriel
+(par rapport aux opérations habituelles sur les vecteurs).
+Soient $\Kk=\Rr$ et $E=\mathcal{P}$ un plan passant par l'origine. Le plan admet une équation de la forme :
+$$ax + by + cz = 0$$
+où $a$, $b$ et $c$ sont des réels non tous nuls.
+
+\myfigure{1}{
+\tikzinput{fig_ev02}
+}
+
+
+Un élément $u\in E$ est donc un triplet (noté ici comme un vecteur colonne)
+$\left(\begin{smallmatrix}x\\ y\\ z\end{smallmatrix}\right)$ tel que
+$ax + by + cz = 0$.
+
+Soient $\left(\begin{smallmatrix}\vphantom{x'}x\\\vphantom{y'} y\\\vphantom{z'} z\end{smallmatrix}\right)$ et
+$\left(\begin{smallmatrix}x'\\ y'\\ z'\end{smallmatrix}\right)$ deux éléments
+de $\mathcal{P}$.
+Autrement dit,
+$$\begin{array}{rcl}
+a x + b y + c z & = & 0,\\
+\text{ et } \quad a x' + b y' + c z' & = & 0.
+\end{array}$$
+
+Alors $\left(\begin{smallmatrix}x + x'\\ y + y'\\ z + z'\end{smallmatrix}\right)$
+est aussi dans $\mathcal{P}$ car on a bien :
+$$a (x + x') + b(y + y') + c (z + z') = 0.$$
+Les autres propriétés sont aussi faciles à vérifier :
+par exemple l'élément neutre est $\left(\begin{smallmatrix}0\\ 0\\ 0\end{smallmatrix}\right)$  ; et si $\left(\begin{smallmatrix}x\\ y\\ z\end{smallmatrix}\right)$ appartient à
+$\mathcal{P}$, alors $a x + b y + c z  =  0$,
+que l'on peut réécrire $a(-x)+b(-y)+c(-z)=0$ et ainsi
+$-\left(\begin{smallmatrix}x\\ y\\ z\end{smallmatrix}\right)$ appartient à
+$\mathcal{P}$.
+
+
+\medskip
+
+Attention! Un plan ne contenant pas l'origine n'est pas un espace vectoriel,
+car justement il ne contient pas le vecteur nul
+$\left(\begin{smallmatrix}0\\ 0\\ 0\end{smallmatrix}\right)$.
+
+\end{exemple}
+
+
+%-------------------------------------------------------
+\subsection{Terminologie et notations}
+
+Rassemblons les définitions déjà vues.
+
+\begin{itemize}
+  \item On appelle les éléments de $E$ des \defi{vecteurs}\index{vecteur}.
+  Au lieu de $\Kk$-espace vectoriel, on dit aussi espace vectoriel sur $\Kk$.
+  \item Les éléments de $\Kk$ seront appelés des \defi{scalaires}\index{scalaire}.
+  \item L'\,\defi{élément neutre} $0_E$ s'appelle aussi le \defi{vecteur nul}\index{vecteur!nul}.
+  Il ne doit pas être confondu avec l'élément $0$ de $\Kk$. Lorsqu'il n'y aura pas de risque de confusion,
+  $0_{E}$ sera aussi noté $0$.
+  \item Le \defi{symétrique} $-u$ d'un vecteur $u \in E$ s'appelle aussi l'\defi{opposé}.
+  \item La loi de composition interne sur $E$ (notée usuellement $+$) est appelée couramment
+  l'addition et $u+u'$ est appelée somme des vecteurs $u$ et $u'$.
+  \item La loi de composition externe sur
+  $E$ est appelée couramment multiplication par un scalaire.
+  La multiplication du vecteur $u$ par le scalaire $\lambda$ sera souvent notée simplement $\lambda u$,
+  au lieu de $\lambda \cdot u$.
+\end{itemize}
+
+
+\bigskip
+
+\defi{Somme de $n$ vecteurs.}
+Il est possible de définir, par récurrence, l'addition de $n$ vecteurs, $n\geq 2$.
+La structure d'espace vectoriel permet de définir l'addition de deux vecteurs (et initialise le processus).
+Si maintenant la somme de $n-1$ vecteurs est définie, alors la somme de $n$ vecteurs
+$ v_1,v_2, \ldots, v_n$ est définie par
+$$v_1+v_2+\cdots+v_n=(v_1+v_2+\cdots+v_{n-1})+v_n.$$
+L'associativité de la loi $+$ nous permet de ne pas mettre de
+parenthèses dans la somme $v_1+v_2+ \cdots+ v_n$.
+
+On notera $v_1+v_2+\cdots+v_n={\displaystyle \sum_{i=1}^nv_{i}}$.
+
+
+%---------------------------------------------------------------
+% \subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Vérifier les $8$ axiomes qui font de $\Rr^3$ un $\Rr$-espace vectoriel.
+
+  \item Idem pour une droite $\mathcal{D}$ de $\Rr^3$ passant par l'origine définie par
+  $\left\{\begin{array}{rcl}ax+by+cz & = & 0 \\a'x+b'y+c'z & = & 0 \,.  \end{array}\right.$.
+
+  \item Justifier que les ensembles suivants \emph{ne sont pas} des espaces vectoriels :
+  $\big\{ (x,y) \in \Rr^2 \mid xy=0\big\}$ ;
+  $\big\{ (x,y) \in \Rr^2 \mid x=1\big\}$ ;
+  $\big\{ (x,y) \in \Rr^2 \mid x\ge0 \text{ et } y\ge0 \big\}$ ;
+  $\big\{ (x,y) \in \Rr^2 \mid -1 \le x \le 1 \text{ et } -1 \le y \le 1 \big\}$.
+
+  \item Montrer par récurrence que si les $v_i$ sont des éléments d'un $\Kk$-espace vectoriel
+  $E$, alors pour tous $\lambda_i\in \Kk$ : $\lambda_1 v_1+\lambda_2v_2+\cdots + \lambda_n v_n \in E$.
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Espace vectoriel (fin)}
+
+%-------------------------------------------------------
+\subsection{Détail des axiomes de la définition}
+
+
+Revenons en détail sur la définition d'un espace vectoriel.
+Soit donc $E$ un $\Kk$-espace vectoriel.
+Les éléments de $E$ seront appelés des \defi{vecteurs}.
+Les éléments de $\Kk$ seront appelés des \defi{scalaires}.
+
+\textbf{Loi interne.} \\
+La loi de composition interne dans $E$, c'est une application de $E \times E$ dans $E$ :
+$$\begin{array}{rcl}
+E \times E & \to & E\\
+(u, v) & \mapsto & u+v
+\end{array}$$
+C'est-à-dire qu'à partir de deux vecteurs $u$ et $v$ de $E$,
+on nous en fournit un troisième, qui sera noté $u+v$.
+
+La loi de composition interne dans $E$ et la somme dans $\Kk$
+seront toutes les deux notées $+$, mais le contexte permettra de déterminer
+aisément de quelle loi il s'agit.
+
+
+\bigskip
+\textbf{Loi externe.} \\
+La loi de composition externe,
+ c'est une application de $\Kk \times E$ dans $E$ :
+$$\begin{array}{rcl}
+\Kk \times E & \to & E\\
+(\lambda, u ) & \mapsto & \lambda \cdot u
+\end{array}$$
+C'est-à-dire qu'à partir d'un scalaire $\lambda \in \Kk$ et d'un vecteur $u \in E$, on nous
+fournit un autre vecteur, qui sera noté $\lambda\cdot u$.
+
+
+\bigskip
+\textbf{Axiomes relatifs à la loi interne.}
+
+ \begin{enumerate}
+ \item \evidence{Commutativité.} Pour tous $u,v \in E$, $u + v = v + u$.
+ On peut donc additionner des vecteurs dans l'ordre que l'on souhaite.
+
+ \item \evidence{Associativité.} Pour tous $u,v,w \in E$, on a $u + (v+w) = (u+v) +w$.
+ Conséquence : on peut \og oublier \fg{} les parenthèses et noter sans ambiguïté $u+v+w$.
+
+ \item Il existe un \evidence{élément neutre}, c'est-à-dire qu'il existe un élément de $E$,
+noté $0_{E}$, vérifiant : pour tout $u \in E$, $u+0_{E}=u$
+(et on a aussi $0_E+u=u$ par commutativité). Cet élément $0_E$ s'appelle aussi le
+\defi{vecteur nul}.
+
+
+ \item Tout élément $u$ de $E$ admet un \evidence{symétrique}
+ (ou \defi{opposé}),
+ c'est-à-dire qu'il existe un élément $u'$ de $E$ tel que
+$u+u'=0_E$  (et on a aussi $u'+u=0_E$ par commutativité).
+Cet élément $u'$ de $E$ est noté $-u$.
+
+ \end{enumerate}
+
+
+
+\begin{proposition}
+\sauteligne
+\begin{itemize}
+  \item S'il existe un élément neutre $0_{E}$ vérifiant l'axiome (3) ci-dessus, alors il est unique.
+  \item Soit $u$ un élément de $E$. S'il existe un élément symétrique $u'$ de $E$ vérifiant l'axiome
+(4), alors il est unique.
+\end{itemize}
+\end{proposition}
+
+
+\begin{proof}
+~
+\begin{itemize}
+  \item Soient $0_{E}$ et $0'_{E}$ deux éléments vérifiant
+  la définition de l'élément neutre. On a alors, pour tout élément $u$ de $E$ :
+$$u + 0_{E}=0_{E}+u=u \qquad \text{ et } \qquad u + 0'_{E}=0'_{E}+u=u$$
+  \begin{itemize}
+    \item Alors, la première propriété utilisée avec $u=0'_{E}$ donne
+$0'_{E}+0_{E}=0_{E}+0'_{E}=0'_{E}$.
+    \item La deuxième propriété utilisée avec $u=0_{E}$ donne
+$0_{E}+0'_{E}=0'_{E}+0_{E}=0_{E}$.
+    \item En comparant ces deux résultats, il vient $0_{E}=0'_{E}$.
+  \end{itemize}
+
+  \item Supposons qu'il existe deux symétriques de $u$ notés $u'$ et $u''$. On a :
+$$u+u'=u'+u=0_{E}  \qquad \text{ et } \qquad u+u''=u''+u=0_{E}.$$
+Calculons $u'+(u+u'')$ de deux façons différentes, en utilisant
+l'associativité de la loi $+$ et les relations précédentes.
+  \begin{itemize}
+    \item $u'+(u+u'')= u'+ 0_{E}= u'$
+    \item $u'+(u+u'')=(u'+u)+u''=0_{E}+u''=u''$
+    \item On en déduit $u'=u''$.
+  \end{itemize}
+\end{itemize}
+\end{proof}
+
+
+\begin{remarque*}
+Les étudiants connaissant la théorie des groupes reconnaîtront, dans
+les quatre premiers axiomes ci-dessus, les axiomes caractérisant
+un groupe commutatif.
+\end{remarque*}
+
+
+\bigskip
+\textbf{Axiomes relatifs à la loi externe.}
+
+ \begin{enumerate}  \setcounter{enumi}{4}
+ \item Soit $1$ l'élément neutre de la multiplication de $\Kk$. Pour tout élément $u$ de $E$, on a
+ $$1 \cdot u=u.$$
+
+ \item Pour tous éléments $\lambda$ et $\mu$ de $\Kk$ et pour tout élément $u$ de $E$, on a
+ $$\lambda \cdot (\mu \cdot u) = (\lambda \times \mu )\cdot u.$$
+ \end{enumerate}
+
+\bigskip
+\textbf{Axiomes liant les deux lois.}
+
+ \begin{enumerate}  \setcounter{enumi}{6}
+ \item \evidence{Distributivité} par rapport à l'addition des vecteurs.
+ Pour tout élément  $\lambda$ de $\Kk$ et pour tous éléments $u$ et $v$ de $E$, on a
+ $$\lambda \cdot (u+v) =\lambda \cdot u + \lambda \cdot v.$$
+
+
+ \item \evidence{Distributivité} par rapport à l'addition des scalaires. Pour tous $\lambda$ et $\mu$ de $\Kk$  et
+pour tout élément $u$ de $E$, on a :
+$$(\lambda + \mu ) \cdot u=\lambda \cdot u + \mu \cdot u .$$
+
+ \end{enumerate}
+
+
+ La loi interne et la loi externe doivent donc satisfaire ces huit axiomes pour que $(E,+, \cdot)$
+ soit un espace vectoriel sur $\Kk$.
+
+
+
+
+%-------------------------------------------------------
+\subsection{Exemples}
+
+  Dans tous les exemples qui suivent, la vérification des axiomes se fait
+  simplement et est laissée au soin des étudiants. Seules seront indiquées,
+  dans chaque cas, les valeurs de l'élément neutre de la loi interne et
+  du symétrique d'un élément.
+%
+%   Il est important de remarquer que les règles de calcul proviennent de l'addition et de la multiplication
+%   des éléments du corps $\Kk$ qui est sous-jacent dans tous les exemples.
+
+
+\begin{exemple}[L'espace vectoriel des fonctions de $\Rr$ dans $\Rr$]
+\label{ex:evfonct}
+L'ensemble des fonctions $f : \Rr \longrightarrow \Rr$ est noté $\mathcal{F}(\Rr, \Rr)$.
+Nous le munissons d'une structure de $\Rr$-espace vectoriel de la manière  suivante.
+
+\begin{itemize}
+  \item \emph{Loi interne.}
+Soient $f$ et $g$ deux éléments de $\mathcal{F}(\Rr, \Rr)$. La fonction $f+g$ est définie par  :
+$$\forall x \in \Rr \quad (f+g)(x)=f(x)+g(x)$$
+(où le signe $+$ désigne la loi interne de $\mathcal{F}(\Rr , \Rr)$ dans le membre de gauche
+et l'addition dans $\Rr$ dans le membre de droite).
+
+  \item \emph{Loi externe.}
+Si $\lambda$ est un nombre réel et $f$ une fonction de $\mathcal{F}(\Rr, \Rr)$, la fonction
+$\lambda \cdot f$ est définie par l'image de tout réel $x$ comme suit :
+$$\forall x \in \Rr \quad (\lambda \cdot f) (x)=\lambda \times f (x).$$
+(Nous désignons par $\cdot$ la loi externe de $\mathcal{F}(\Rr, \Rr)$ et par $\times $ la multiplication dans
+$\Rr$. Avec l'habitude on oubliera les signes de multiplication : $(\lambda f) (x)=\lambda f (x)$.)
+
+
+  \item \emph{\'Elément neutre.}
+  L'élément neutre pour l'addition est la fonction nulle, définie par :
+$$\forall x \in \Rr \quad f(x)=0.$$
+On peut noter cette fonction $0_{\mathcal{F}(\Rr, \Rr)}$.
+
+  \item \emph{Symétrique.}
+Le symétrique de l'élément $f$ de $\mathcal{F}(\Rr , \Rr)$ est l'application $g$ de $\Rr$ dans $\Rr$ définie par :
+$$\forall x \in \Rr \quad g(x)=-f(x).$$
+Le symétrique de $f$ est noté $-f$.
+\end{itemize}
+
+\end{exemple}
+
+
+\begin{exemple}[Le $\Rr$-espace vectoriel des suites réelles]
+On note $\mathcal{S}$ l'ensemble des suites réelles $(u_n)_{n\in \Nn}$.
+Cet ensemble peut être vu comme l'ensemble des applications de $\N$ dans $\Rr$ ;
+autrement dit $\mathcal{S} = \mathcal{F}(\Nn, \Rr)$.
+
+\begin{itemize}
+  \item  \emph{Loi interne.}
+Soient $u=(u_n)_{n \in \Nn}$ et $v=(v_n)_{n \in \Nn}$ deux suites appartenant à $\mathcal{S}$.
+La suite $u+v$ est la suite $w=(w_n)_{n \in \Nn}$ dont le terme général est défini par
+$$\forall n \in \Nn \quad w_n=u_n+v_n$$
+(où $u_n+v_n$ désigne la somme de $u_n$ et de $v_n$ dans $\Rr$).
+
+  \item \emph{Loi externe.}
+Si $\lambda$ est un nombre réel et $u=(u_n)_{n \in \Nn}$ un élément de $\mathcal{S}$,
+$\lambda \cdot u$ est la suite
+ $v=(v_n)_{n \in \Nn}$ définie par
+ $$\forall n \in \Nn \quad  v_n=\lambda \times u_n$$
+ où $\times$ désigne la multiplication dans $\Rr$.
+
+  \item \emph{\'Elément neutre.}
+  L'élément neutre de la loi interne est la suite dont tous les termes sont nuls.
+
+  \item \emph{Symétrique.}
+  Le symétrique de la suite $u=(u_n)_{n \in \Nn}$ est la suite $u'=(u'_n)_{n \in \N}$ définie par :
+ $$\forall n \in \Nn \quad u'_n=-u_n.$$
+ Elle est notée $-u$.
+\end{itemize}
+\end{exemple}
+
+
+
+\begin{exemple}[Les matrices]
+L'ensemble $M_{n,p}(\Rr)$ des matrices à $n$ lignes et $p$ colonnes à coefficients
+dans $\Rr$ est muni d'une structure de $\Rr$-espace vectoriel.
+La loi interne est l'addition de deux matrices.
+La loi externe est la multiplication d'une matrice par un scalaire.
+ L'élément neutre pour la loi interne est la matrice nulle (tous les coefficients sont nuls).
+ Le symétrique de la matrice $A=(a_{i,j})$ est la matrice
+ $(-a_{i,j})$. De même, l'ensemble $M_{n,p}(\Kk)$ des matrices à coefficients
+dans $\Kk$ est un $\Kk$-espace vectoriel.
+\end{exemple}
+
+
+Autres exemples :
+\begin{enumerate}
+  \item L'espace vectoriel $\Rr[X]$ des polynômes $P(X) = a_nX^n+\cdots+a_2X^2+a_1X+a_0$.
+  L'addition est l'addition de deux polynômes $P(X)+Q(X)$, la multiplication par un scalaire
+  $\lambda \in \Rr$ est $\lambda \cdot P(X)$. L'élément neutre est le polynôme nul. L'opposé de $P(X)$ est $-P(X)$.
+  \item L'ensemble des fonctions continues de $\Rr$ dans $\Rr$ ; l'ensemble des fonctions dérivables
+  de $\Rr$ dans $\Rr$,...
+  \item $\Cc$ est un $\Rr$-espace vectoriel : addition $z+z'$ de deux nombres complexes, multiplication $\lambda z$ par un scalaire
+  $\lambda \in \Rr$. L'élément neutre est le nombre complexe $0$ et le symétrique du nombre complexe $z$
+  est $-z$.
+\end{enumerate}
+
+
+%-------------------------------------------------------
+\subsection{Règles de calcul}
+
+
+\begin{proposition}
+Soit $E$ un espace vectoriel sur un corps $\Kk$. Soient $u \in E$ et $\lambda \in \Kk$.
+Alors on a:
+ \begin{enumerate}
+ \item $0 \cdot u = 0_E$
+ \item $\lambda \cdot 0_E = 0_E$
+ \item $(-1)\cdot u = -u$
+ \item \myboxinline{$\lambda \cdot u = 0_E \iff \lambda = 0$ \ ou \ $u = 0_E$}
+ \end{enumerate}
+\end{proposition}
+
+L'opération qui à $(u,v)$ associe $u+(-v)$ s'appelle la \defi{soustraction}.
+ Le vecteur $u+(-v)$ est noté $u-v$.
+ Les propriétés suivantes sont satisfaites : $\lambda (u-v)=\lambda u -\lambda v$
+ et $(\lambda -\mu)u=\lambda u-\mu u$.
+
+
+\begin{proof}
+Les démonstrations des propriétés sont des manipulations sur
+les axiomes définissant les espaces vectoriels.
+
+\begin{enumerate}
+  \item
+  \begin{itemize}
+    \item Le point de départ de la démonstration est l'égalité dans $\Kk$ : $0+0=0$.
+    \item D'où, pour tout vecteur de $E$, l'égalité $(0+0)\cdot u=0 \cdot u$.
+    \item Donc, en utilisant la distributivité de la loi externe par rapport à la loi interne
+ et la définition de  l'élément neutre, on obtient $0 \cdot u +0 \cdot u =0 \cdot u$.
+ On peut rajouter l'élément neutre dans le terme de droite, pour obtenir :
+ $0 \cdot u +0 \cdot u =0 \cdot u+0_{E}$.
+    \item En ajoutant $-(0\cdot u)$ de chaque côté de l'égalité, on obtient :
+    $0 \cdot u=0_{E}$.
+  \end{itemize}
+
+  \item La preuve est semblable en partant de l'égalité $0_{E}+0_{E}=0_{E}$.
+
+  \item Montrer $(-1)\cdot u = -u$ signifie exactement que $(-1)\cdot u$
+  est le symétrique de $u$, c'est-à-dire vérifie  $u + (-1)\cdot u = 0_E$.
+  En effet :
+  $$u+(-1)\cdot u=1\cdot u+(-1) \cdot u=\left ( 1+ (-1)\right ) \cdot u=0 \cdot u= 0_{E}.$$
+
+  \item
+
+  On sait déjà que si \ $\lambda = 0$ \ ou \ $u = 0_E$, \ alors les propriétés précédentes
+  impliquent $\lambda \cdot u = 0_E$.
+
+  Pour la réciproque, soient $\lambda \in \Kk$ un scalaire et $u \in E$  un vecteur
+  tels que $\lambda \cdot u=0_{E}$.
+
+  Supposons $\lambda$ différent de $0$. On doit alors montrer que $u=0_E$.
+
+  \begin{itemize}
+    \item Comme $\lambda\neq0$, alors $\lambda$ est inversible pour le produit dans le corps $\Kk$. Soit
+  $\lambda ^{-1}$ son inverse.
+
+    \item En multipliant par $\lambda^{-1}$ les deux membres de l'égalité $\lambda \cdot u = 0_E$, il vient :
+  $\lambda^{-1} \cdot (\lambda \cdot u)=\lambda ^{-1} \cdot 0_{E}$.
+
+    \item D'où en utilisant les propriétés de la multiplication par un scalaire
+    $(\lambda^{-1} \times \lambda) \cdot u=0_{E}$ et donc $1 \cdot u=0_{E}.$
+
+    \item D'où $u=0_{E}$.
+  \end{itemize}
+\end{enumerate}
+\end{proof}
+
+
+%---------------------------------------------------------------
+% \subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item  Justifier si les objets suivants sont des espaces vectoriels.
+  \begin{enumerate}
+    \item L'ensemble des fonctions réelles sur
+$\lbrack 0,1 \rbrack$, continues, positives ou nulles, pour
+l'addition et le produit par un réel.
+    \item L'ensemble des fonctions réelles sur $\Rr$ vérifiant
+$\lim_{x \to+\infty} f(x)=0$ pour les mêmes opérations.
+    \item L'ensemble des fonctions sur $\Rr$ telles que $f(3)=7$.
+    \item L'ensemble $\Rr_+^*$ pour les opérations $x \oplus y=xy$ et
+$\lambda\cdot x=x^{\lambda}$ $(\lambda\in \Rr)$.
+    \item L'ensemble des points $(x,y)$ de $\Rr^2$ vérifiant
+$\sin(x+y)=0$.
+    \item L'ensemble des vecteurs $(x,y,z)$ de $\Rr^3$ orthogonaux
+au vecteur $(-1,3,-2)$.
+    \item L'ensemble des fonctions de classe $\mathcal{C}^2$ vérifiant $f''+f=0$.
+    \item L'ensemble des fonctions continues sur $\lbrack0,1 \rbrack$
+vérifiant $\int_0^1f(x) \, \sin x \; dx=0$.
+    \item L'ensemble des matrices
+    $\left(\begin{smallmatrix} a & b \\ c & d \end {smallmatrix}\right) \in M_{2}(\Rr)$ vérifiant $a+d=0$.
+    \end{enumerate}
+
+  \item Prouver les propriétés de la soustraction :
+ $\lambda \cdot (u-v)=\lambda \cdot u -\lambda \cdot  v$  et $(\lambda -\mu) \cdot u=\lambda \cdot u-\mu \cdot u$.
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Sous-espace vectoriel (début)}
+
+Il est vite fatiguant de vérifier les $8$ axiomes qui font d'un ensemble un espace vectoriel.
+Heureusement, il existe une manière rapide et efficace de prouver qu'un ensemble est un espace vectoriel :
+grâce à la notion de sous-espace vectoriel.
+
+%-------------------------------------------------------
+\subsection{Définition d'un sous-espace vectoriel}
+
+\begin{definition}
+ Soit $E$ un $\Kk$-espace vectoriel. Une partie  $F$ de $E$
+ est appelée un \defi{sous-espace vectoriel}\index{sous-espace vectoriel} si :
+ \begin{itemize}
+   \item $0_E \in F$,
+
+   \item $u+v \in F$ \  pour tous $u,v \in F$,
+
+   \item $\lambda \cdot u \in F$ pour tout $\lambda \in \Kk$ et tout $u \in F$.
+ \end{itemize}
+\end{definition}
+
+\begin{remarque*}
+Expliquons chaque condition.
+\begin{itemize}
+  \item La première condition signifie que le vecteur nul de $E$ doit aussi être dans $F$.
+  En fait il suffit même de prouver que $F$ est non vide.
+
+  \item La deuxième condition, c'est dire que $F$ est stable pour l'addition :
+  la somme $u+v$ de deux vecteurs $u,v$ de $F$ est bien sûr un vecteur de $E$
+  (car $E$ est un espace vectoriel),
+  mais ici on exige que $u+v$ soit un élément de $F$.
+
+  \item  La troisième condition, c'est dire que $F$ est
+  stable pour la multiplication par un scalaire.
+\end{itemize}
+\end{remarque*}
+
+
+\begin{exemple}[Exemples immédiats]
+\sauteligne
+\begin{enumerate}
+  \item L'ensemble $F=\big\{(x,y)\in \Rr^2\mid x+y=0\big\}$  est un sous-espace
+  vectoriel de $\Rr^2$. En effet :
+  \begin{enumerate}
+    \item $(0,0) \in F$,
+
+    \item si $u=(x_1,y_1)$ et $v=(x_2,y_2)$ appartiennent à $F$, alors
+    $x_1+y_1=0$ et $x_2+y_2=0$ donc $(x_1+x_2)+(y_1+y_2)=0$ et ainsi $u+v=(x_1+x_2,y_1+y_2)$ appartient à $F$,
+
+    \item si $u=(x,y) \in F$ et $\lambda \in \Rr$, alors $x+y=0$ donc $\lambda x + \lambda y = 0$,
+    d'où $\lambda u \in F$.
+  \end{enumerate}
+
+\myfigure{1}{
+\tikzinput{fig_ev03}
+}
+
+  \item L'ensemble des fonctions continues sur $\Rr$ est un sous-espace vectoriel
+  de l'espace vectoriel des fonctions de $\Rr$ dans $\Rr$. Preuve :
+  la fonction nulle est continue ;
+  la somme de deux fonctions continues est continue ;
+  une constante fois une fonction continue est
+  une fonction continue.
+
+  \item L'ensemble des suites réelles convergentes est un
+  sous-espace vectoriel de l'espace vectoriel des suites réelles.
+\end{enumerate}
+\end{exemple}
+
+Voici des sous-ensembles qui \emph{ne sont pas} des sous-espaces vectoriels.
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+   \item L'ensemble $F_1=\big\{(x,y)\in \Rr^2\mid x+y=2\big\}$ n'est pas un sous-espace vectoriel de $\Rr^2$.
+  En effet le vecteur nul $(0,0)$ n'appartient pas à $F_1$.
+
+   \item L'ensemble $F_2=\big\{(x,y)\in \Rr^2\mid x=0 \text{ ou } y=0 \big\}$ n'est pas un sous-espace vectoriel de $\Rr^2$.
+  En effet les vecteurs $u=(1,0)$ et $v=(0,1)$ appartiennent à $F_2$, mais pas le vecteur $u+v=(1,1)$.
+
+   \item L'ensemble $F_3=\big\{(x,y)\in \Rr^2\mid x \ge 0 \text{ et } y\ge 0\big\}$ n'est pas un sous-espace vectoriel de $\Rr^2$.
+  En effet le vecteur $u=(1,1)$ appartient à $F_3$ mais, pour $\lambda = -1$, le vecteur $-u = (-1,-1)$ n'appartient pas à $F_3$.
+\end{enumerate}
+\end{exemple}
+
+\myfigure{0.8}{
+\tikzinput{fig_ev04-1}
+\qquad
+\tikzinput{fig_ev04-2}
+\qquad
+\tikzinput{fig_ev04-3}
+}
+
+%-------------------------------------------------------
+\subsection{Un sous-espace vectoriel est un espace vectoriel}
+
+
+La notion de sous-espace vectoriel prend tout son intérêt avec le théorème suivant :
+un sous-espace vectoriel est lui-même un espace vectoriel.
+C'est ce théorème qui va nous fournir plein d'exemples d'espaces vectoriels.
+\begin{theoreme}
+\label{th:sevisev}
+Soient $E$ un $\Kk$-espace vectoriel et $F$ un sous-espace vectoriel de $E$.
+Alors $F$ est lui-même un $\Kk$-espace vectoriel pour les lois
+induites par $E$.
+\end{theoreme}
+
+
+
+\textbf{Méthodologie.}
+Pour répondre à une question du type \og L'ensemble $F$ est-il un espace vectoriel ? \fg,
+une façon efficace de procéder est de trouver un espace vectoriel $E$ qui contient $F$,
+puis prouver que $F$ est un sous-espace vectoriel de $E$.
+Il y a seulement trois propriétés à vérifier au lieu de huit !
+
+\bigskip
+
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+  \item Est-ce que l'ensemble des fonctions paires (puis des fonctions impaires) forme un espace vectoriel
+  (sur $\Rr$ avec les lois usuelles sur les fonctions) ?
+
+
+  Notons $\mathcal{P}$ l'ensemble des fonctions paires et $\mathcal{I}$ l'ensemble des fonctions
+ impaires. Ce sont deux sous-ensembles de l'espace vectoriel $\mathcal{F}(\Rr,\Rr)$ des fonctions.
+
+ $$\begin{array}{l}
+ \mathcal{P}=\big\{ f \in \mathcal{F}(\Rr, \Rr ) \mid \forall x \in \Rr , f(-x)=f(x) \big\} \\
+ \mathcal{I}=\big\{ f \in \mathcal{F}(\Rr, \Rr ) \mid \forall x \in \Rr , f(-x)=-f(x) \big\}
+ \end{array}$$
+ $\mathcal{P}$ et $\mathcal{I}$ sont des sous-espaces vectoriels de $\mathcal{F}(\Rr , \Rr)$. C'est très simple à vérifier,
+ par exemple pour $\mathcal{P}$ :
+  \begin{enumerate}
+    \item la fonction nulle est une fonction paire,
+    \item si $f,g \in \mathcal{P}$ alors $f+g \in\mathcal{P}$,
+    \item si $f\in\mathcal{P}$ et si $\lambda \in \Rr$ alors $\lambda f\in\mathcal{P}$.
+  \end{enumerate}
+  Par le théorème \ref{th:sevisev}, $\mathcal{P}$ est un espace vectoriel (de même pour $\mathcal{I}$).
+
+
+  \item Est-ce que l'ensemble $\mathcal{S}_n$ des matrices symétriques de taille $n$ est un espace vectoriel
+  (sur $\Rr$ avec les lois usuelles sur les matrices) ?
+
+  $\mathcal{S}_n$ est un sous-ensemble de l'espace vectoriel $M_{n}(\Rr)$.
+  Et c'est même un sous-espace vectoriel. Il suffit en effet de vérifier
+ que la matrice nulle est symétrique, que la somme de deux matrices
+ symétriques est encore symétrique et finalement que le produit
+ d'une matrice symétrique par un scalaire est une matrice symétrique.
+ Par le théorème \ref{th:sevisev}, $\mathcal{S}_n$ est un espace vectoriel.
+\end{enumerate}
+\end{exemple}
+
+\begin{proof}[Preuve du théorème \ref{th:sevisev}]
+Soit $F$ un sous-espace vectoriel d'un espace vectoriel $(E,+,\cdot)$.
+La stabilité de $F$ pour les deux lois permet de munir cet ensemble d'une loi de composition interne
+et d'une loi de composition externe, en restreignant à $F$ les opérations définies dans $E$.
+Les propriétés de commutativité et d'associativité de l'addition, ainsi que les quatre axiomes
+relatifs à la loi externe sont vérifiés, car ils sont satisfaits dans $E$ donc en particulier dans $F$,
+qui est inclus dans $E$.
+
+L'existence d'un élément neutre découle de la définition de sous-espace vectoriel.
+Il reste seulement à justifier que si $u\in F$, alors son symétrique $-u$ appartient à $F$.
+
+Fixons $u\in F$. Comme on a aussi $u\in E$ et que $E$ est un espace vectoriel alors il existe
+un élément de $E$, noté $-u$, tel que  $u+(-u)=0_{E}$.
+Comme  $u$ est élément de $F$,  alors pour $\lambda=-1$, $(-1)u \in F$.
+Et ainsi $-u$ appartient à $F$.
+\end{proof}
+
+\bigskip
+
+
+Un autre exemple d'espace vectoriel est donné par l'ensemble des solutions d'un système
+linéaire homogène. Soit $AX = 0$ un système de $n$ équations à $p$ inconnues :
+ $$  \left(
+\begin{array}{lcl}
+a_{11} & \dots & a_{1p}\\
+\vdots &&\vdots\\
+a_{n1} & \dots & a_{np}
+\end{array}\right)
+  \left(
+\begin{array}{c}
+x_1 \\ \vdots\\x_p
+\end{array}\right) =   \left(
+\begin{array}{c}
+0\\ \vdots \\ 0
+\end{array}\right)
+$$
+On a alors
+\begin{theoreme}
+\label{th:axsev}
+Soit $A \in M_{n,p}(\Rr)$.
+Soit $AX = 0$ un système d'équations linéaires homogènes à $p$ variables.
+Alors l'ensemble des vecteurs solutions est un sous-espace vectoriel de $\Rr^p$.
+\end{theoreme}
+
+
+\begin{proof}
+Soit $F$ l'ensemble des vecteurs $X \in \Rr^p$ solutions de l'équation $AX=0$.
+Vérifions que $F$ est un sous-espace vectoriel de $\Rr^p$.
+\begin{itemize}
+  \item Le vecteur $0$ est un élément de $F$.
+  \item $F$ est stable par addition : si $X$ et $X'$ sont des vecteurs solutions,
+  alors $AX = 0$ et $AX' = 0$, donc $A(X + X') = AX + AX' = 0$, et ainsi $X+X'\in F$.
+  \item  $F$ est stable par multiplication par un scalaire : si $X$ est un vecteur solution,
+  on a aussi $A (\lambda X) = \lambda (AX) = \lambda 0 = 0$, ceci pour tout $\lambda\in \Rr$.
+  Donc $\lambda X \in F$.
+\end{itemize}
+\end{proof}
+
+\begin{exemple} Considérons le système
+ $$\left(
+\begin{array}{crc}
+1 & -2 & 3\\ 2 & -4 & 6\\ 3 & -6 & 9
+\end{array}\right)
+\left(\begin{array}{c}
+x \\ y\\ z
+\end{array}\right) =
+\left(\begin{array}{c}
+0\\ 0\\0
+\end{array}\right). $$
+L'ensemble des solutions $F \subset \Rr^3$ de ce système est :
+$$F = \big\{ (x =  2s - 3t, y  =  s, z  =  t) \mid s,t \in \Rr \big\}.$$
+Par le théorème \ref{th:axsev}, $F$ est un sous-espace vectoriel de $\Rr^3$.
+Donc par le théorème \ref{th:sevisev}, $F$ est un espace vectoriel.
+
+
+
+Une autre façon de voir les choses est d'écrire que les éléments de $F$ sont ceux qui vérifient
+l'équation $(x = 2y - 3z)$.
+Autrement dit, $F$ est d'équation $(x-2y + 3z = 0)$.
+L'ensemble des solutions $F$ est donc un plan passant par l'origine.
+Nous avons déjà vu que ceci est un espace vectoriel.
+\end{exemple}
+
+
+%---------------------------------------------------------------
+% \subsection{Mini-exercices}
+
+\begin{miniexercices}
+Parmi les ensembles suivants, reconnaître ceux qui sont des sous-espaces
+vectoriels :
+  \begin{enumerate}
+    \item $\big\{(x,y,z)\in \Rr^3 \mid  x+y=0\big\}$
+    \item $\big\{(x,y,z,t)\in \Rr^4 \mid  x=t \text{ et } y=z\big\}$
+    \item $\big\{(x,y,z)\in \Rr^3 \mid z=1\big\}$
+    \item $\big\{(x,y)\in \Rr^2 \mid x^2+xy\ge 0\big\}$
+    \item $\big\{(x,y)\in \Rr^2 \mid x^2+y^2 \ge 1\big\}$
+    \item $\big\{f \in \mathcal{F}(\Rr,\Rr) \mid f(0)=1\big\}$
+    \item $\big\{f \in \mathcal{F}(\Rr,\Rr) \mid f(1)=0\big\}$
+    \item $\big\{f \in \mathcal{F}(\Rr,\Rr) \mid f \text{ est croissante }\big\}$
+    \item $\big\{ (u_n)_{n\in\Nn} \mid (u_n) \text{ tend vers } 0 \big\}$
+  \end{enumerate}
+\end{miniexercices}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Sous-espace vectoriel (milieu)}
+
+%-------------------------------------------------------
+\subsection{Combinaisons linéaires}
+
+\begin{definition}
+Soit $n\ge1$ un entier, soient  $v_1, v_2, \ldots, v_n$, $n$  vecteurs d'un espace vectoriel $E$.
+Tout vecteur de la forme
+$$u=\lambda_1 v_1+\lambda_2v_2+ \cdots + \lambda_n v_n$$
+(où $\lambda_1, \lambda_2, \ldots,  \lambda_n$ sont des éléments de $\Kk$)
+est appelé \defi{combinaison linéaire}\index{combinaison lineaire@combinaison linéaire} des vecteurs $v_1, v_2, \ldots, v_n$.
+Les scalaires $\lambda_1, \lambda_2, \ldots , \lambda_n$ sont appelés \defi{coefficients} de la combinaison linéaire.
+\end{definition}
+
+\emph{Remarque :} Si $n=1$, alors $u=\lambda_1 v_1$ et on dit que $u$ est \defi{colinéaire}\index{vecteur!colinéaire} à $v_1$.
+
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+  \item Dans le $\Rr$-espace vectoriel $\Rr^3$, $(3,3,1)$ est combinaison linéaire des vecteurs
+ $(1,1,0)$ et $(1,1,1)$ car on a l'égalité
+ $$(3,3,1)=2(1,1,0)+(1,1,1).$$
+
+  \item Dans le $\Rr$-espace vectoriel $\Rr^2$, le vecteur
+$u=(2,1)$ \emph{n'est pas} colinéaire au vecteur $v_1=(1,1)$
+car s'il l'était, il existerait un réel $\lambda$ tel que $u=\lambda v_1$,
+ce qui équivaudrait à l'égalité $(2,1)=(\lambda, \lambda)$.
+
+  \item Soit $E=\mathcal{F}(\Rr, \Rr)$ l'espace vectoriel des fonctions réelles. Soient
+ $f_0$, $f_1$, $f_2$ et $f_3$ les fonctions définies par :
+ $$\forall x \in \Rr \quad f_0(x)=1, \;\;f_1(x)=x,\;\; f_2(x)=x^2,\;\; f_3(x)=x^3.$$
+ Alors la fonction $f$ définie par
+ $$\forall x \in \Rr \quad f(x)=x^3-2x ^2-7x-4$$
+ est combinaison linéaire des fonctions $f_0, f_1, f_2, f_3$ puisque l'on a l'égalité
+ $$f=f_{3}-2f_2-7f_1-4f_0.$$
+
+  \item Dans $M_{2,3}(\Rr)$, on considère
+ $A=\begin{pmatrix}
+ 1&1&3\cr
+ 0&-1&4
+ \end{pmatrix}$. On peut écrire $A$ naturellement sous la forme sui\-vante d'une combinaison linéaire
+ de matrices élémentaires (des zéros partout, sauf un $1$):
+ $$A=
+ \begin{pmatrix}
+ 1&0&0\cr
+ 0&0&0
+ \end{pmatrix}
+ +\begin{pmatrix}
+ 0&1&0\cr
+ 0&0&0
+ \end{pmatrix}+
+ 3\begin{pmatrix}
+ 0&0&1\cr
+ 0&0&0
+ \end{pmatrix}-
+ \begin{pmatrix}
+ 0&0&0\cr
+ 0&1&0
+ \end{pmatrix}
+ +4 \begin{pmatrix}
+ 0&0&0\cr
+ 0&0&1
+ \end{pmatrix}.$$
+\end{enumerate}
+\end{exemple}
+
+Voici deux exemples plus compliqués.
+
+\begin{exemple}
+   Soient $u = \left(\begin{smallmatrix}1\\ 2\\ -1\end{smallmatrix}\right)$ et $v =
+   \left(\begin{smallmatrix}6\\4\\2\end{smallmatrix}\right)$ deux vecteurs de $\R^3$. Montrons que $w =
+   \left(\begin{smallmatrix}9\\ 2\\ 7\end{smallmatrix}\right)$ est combinaison linéaire de $u$ et $v$.
+   On cherche donc $\lambda$ et $\mu$ tels que $w=\lambda u + \mu v$ :
+$$\left(\begin{matrix}9\\2\\7\end{matrix}\right)
+  =  \lambda \left(\begin{matrix}1\\2\\-1\end{matrix}\right) + \mu \left(\begin{matrix}6\\4\\2\end{matrix}\right)
+  =  \left(\begin{matrix}\lambda\\ 2\lambda\\ -\lambda\end{matrix}\right) + \left(\begin{matrix}6\mu\\ 4\mu\\ 2\mu\end{matrix}\right)
+  =  \left(\begin{matrix}\lambda + 6\mu\\ 2\lambda + 4\mu\\ -\lambda + 2\mu\end{matrix}\right).$$
+  On a donc
+\[
+\left\{
+\begin{array}{rcl}
+9 & = & \lambda + 6\mu\\ 2 & = & 2\lambda + 4\mu\\ 7 & = & -\lambda + 2\mu.
+\end{array}\right.
+\]
+Une solution de ce système est $(\lambda = -3, \mu = 2)$,
+ce qui implique que $w$ est combinaison linéaire de $u$ et $v$. On vérifie que l'on a bien
+\[\begin{pmatrix}9\\2\\7\end{pmatrix} =  -3\begin{pmatrix}1\\2\\-1\end{pmatrix}
++ 2\begin{pmatrix}6\\4\\2\end{pmatrix}.\]
+\end{exemple}
+
+\begin{exemple}
+  Soient $u = \left(\begin{smallmatrix}1\\ 2\\ -1\end{smallmatrix}\right)$ et $v =
+  \left(\begin{smallmatrix}6\\4\\2\end{smallmatrix}\right)$. Montrons que $ w = \left(\begin{smallmatrix}4\\ -1\\ 8\end{smallmatrix}\right)$
+  n'est pas une combinaison linéaire de $u$ et $v$.  L'égalité
+  $$\begin{pmatrix}4\\-1\\8\end{pmatrix} = \lambda\begin{pmatrix}1\\2\\-1\end{pmatrix} + \mu\begin{pmatrix}6\\4\\2\end{pmatrix}
+  \quad \text{ équivaut au système } \quad
+\left\{\begin{array}{rcl}
+4 & = &\lambda + 6 \mu\\ -1 & = &2\lambda + 4\mu\\ 8 & = & -\lambda + 2\mu.
+\end{array}\right.$$
+  Or ce système n'a aucune solution.
+  Donc il n'existe pas $\lambda,\mu \in \Rr$ tels que $w=\lambda u + \mu v$.
+\end{exemple}
+
+
+
+%-------------------------------------------------------
+\subsection{Caractérisation d'un sous-espace vectoriel}
+
+
+
+\begin{theoreme}[Caractérisation d'un sous-espace par la notion de combinaison linéaire]
+Soient $E$ un $\Kk$-espace vectoriel et $F$ une partie non vide de $E$.
+$F$ est un sous-espace vectoriel de $E$ si et seulement si
+$$\lambda u + \mu v \in F \qquad \text{pour tous } u,v \in F \quad \text{ et tous } \lambda, \mu \in \Kk.$$
+Autrement dit si et seulement si toute combinaison linéaire de deux éléments
+de $F$ appartient à $F$.
+\end{theoreme}
+
+\begin{proof}~
+\begin{itemize}
+  \item Supposons que $F$ soit un sous-espace vectoriel.
+  Et soient $u,v\in F$, $\lambda,\mu\in\Kk$. Alors
+  par la définition de sous-espace vectoriel : $\lambda u \in F$
+  et $\mu v \in F$ et ainsi $\lambda u + \mu v \in F$.
+
+  \item Réciproquement, supposons que pour chaque $u,v \in F$, $\lambda, \mu \in \Kk$
+  on a $\lambda u + \mu v \in F$.
+  \begin{itemize}
+    \item Comme $F$ n'est pas vide, soient $u,v\in F$. Posons $\lambda=\mu=0$. Alors $\lambda u +\mu v = 0_E \in F$.
+    \item Si $u,v\in F$, alors en posant $\lambda =\mu =1$ on obtient $u+v \in F$.
+    \item Si $u \in F$ et $\lambda \in \Kk$ (et pour n'importe quel $v$, en posant $\mu=0$),
+    alors $\lambda u \in F$.
+  \end{itemize}
+\end{itemize}
+\end{proof}
+
+
+%-------------------------------------------------------
+\subsection{Intersection de deux sous-espaces vectoriels}
+
+
+
+\begin{proposition}[Intersection de deux sous-espaces]
+\index{sous-espace vectoriel!intersection}
+Soient $F,G$ deux sous-espaces vectoriels d'un $\Kk$-espace vectoriel $E$.
+L'intersection $F \cap G$ est un sous-espace vectoriel de $E$.
+\end{proposition}
+
+On démontrerait de même que l'intersection $F_1 \cap F_2 \cap F_3 \cap \cdots \cap F_n$
+d'une famille quelconque de sous-espaces vectoriels de $E$ est un sous-espace
+vectoriel de $E$.
+
+
+\begin{proof}
+Soient $F$ et $G$ deux sous-espaces vectoriels de $E$.
+\begin{itemize}
+  \item $0_E \in F$, $0_E\in G$ car $F$ et $G$ sont des sous-espaces vectoriels de $E$ ;
+  donc $0_E \in F \cap G$.
+  \item Soient $u$ et $v$ deux vecteurs de  $F \cap G$.
+  Comme $F$ est un sous-espace vectoriel, alors $u,v \in F$ implique $u+v\in F$.
+  De même $u,v \in G$ implique $u+v \in G$. Donc $u+v \in F \cap G$.
+  \item Soient $u \in F\cap G$ et $\lambda  \in \Kk$. Comme $F$ est un sous-espace vectoriel,
+  alors $u \in F$ implique $\lambda u \in F$. De même $u \in G$ implique $\lambda u \in G$.
+  Donc $\lambda u \in F \cap G$.
+\end{itemize}
+Conclusion : $F\cap G$ est un sous-espace vectoriel de $E$.
+\end{proof}
+
+\begin{exemple}
+Soit $\mathcal{D}$ le sous-ensemble de $\Rr^3$ défini par :
+$$\mathcal{D}= \big\{ (x,y,z) \in \Rr^3\mid x+3y+z =0 \;\; \text{ et } \;\; x-y+2z=0 \big\}.$$
+Est-ce que $\mathcal{D}$ est sous-espace vectoriel de $\Rr^3$ ?
+L'ensemble $\mathcal{D}$ est l'intersection de $F$ et $G$,
+les sous-ensembles de $\Rr^3$ définis par :
+$$\begin{array}{l}
+F=\big\{ (x,y,z) \in \Rr^3\mid x+3y+z =0 \big\}\\
+G=\big\{ (x,y,z) \in \Rr^3 \mid x-y+2z =0 \big\}
+\end{array}$$
+\myfigure{1}{
+\tikzinput{fig_ev05}
+}
+Ce sont deux plans passant par l'origine, donc des sous-espaces vectoriels de $\Rr^3$.
+Ainsi $\mathcal{D} =F \cap G$ est un sous-espace vectoriel de $\Rr^3$, c'est une droite vectorielle.
+\end{exemple}
+
+
+
+\begin{remarque*}
+La réunion de deux sous-espaces vectoriels de $E$ n'est pas en général
+un sous-espace vectoriel de $E$.
+Prenons par exemple $E=\Rr^2$. Considérons les sous-espaces vectoriels
+$F=\big\{(x,y)\mid x=0\big\}$ et $G=\big\{(x,y)\mid y=0\big\}$.
+Alors $F\cup G$ n'est pas un sous-espace vectoriel de $\Rr^2$.
+Par exemple, $(0,1)+(1,0)=(1,1)$ est la somme d'un élément de $F$
+et d'un élément de $G$, mais n'est pas dans $F\cup G$.
+
+\myfigure{0.7}{
+\tikzinput{fig_ev04-2-bis}
+}
+\end{remarque*}
+
+
+
+
+%---------------------------------------------------------------
+% \subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+\item Peut-on trouver $t\in \Rr$ tel que les vecteurs
+$\left(\begin{smallmatrix}-2 \\ \sqrt2 \\ t \end{smallmatrix}\right)$ et
+$\left(\begin{smallmatrix}-4\sqrt2 \\ 4t \\ 2\sqrt2 \end{smallmatrix}\right)$ soient colinéaires ?
+\item Peut-on trouver $t\in \Rr$ tel que le vecteur $\left(\begin{smallmatrix}1 \\ 3t \\ t \end{smallmatrix}\right)$ soit une combinaison linéaire 
+de $\left(\begin{smallmatrix} 1 \\ 3 \\ 2 \end{smallmatrix}\right)$ et $\left(\begin{smallmatrix} -1 \\ 1 \\ -1 \end{smallmatrix}\right)$ ?
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Sous-espace vectoriel (fin)}
+
+
+
+%-------------------------------------------------------
+\subsection{Somme de deux sous-espaces vectoriels}
+
+Comme la réunion de deux sous-espaces vectoriels $F$ et $G$
+n'est pas en général un sous-espace vectoriel, il est utile de connaître
+les sous-espaces vectoriels qui contiennent à la fois les deux sous-espaces
+vectoriels $F$ et $G$, et en particulier le plus petit d'entre eux
+(au sens de l'inclusion).
+
+\begin{definition}[Définition de la somme de deux sous-espaces]
+\index{sous-espace vectoriel!somme}
+Soient $F$ et $G$ deux sous-espaces vectoriels d'un $\Kk$-espace vectoriel $E$.
+L'ensemble de tous les éléments $u+v$, où $u$ est un élément de
+$F$ et $v$ un élément de $G$, est appelé \defi{somme} des sous-espaces vectoriels
+$F$ et $G$. Cette somme est notée  $F+G$. On a donc
+$$F+G=\big\{u+v \mid u \in F, v \in G \big\}.$$
+\end{definition}
+
+\myfigure{1}{
+\tikzinput{fig_ev06}
+}
+
+\begin{proposition}
+Soient $F$ et $G$ deux sous-espaces vectoriels du $\Kk$-espace vectoriel $E$.
+\begin{enumerate}
+  \item $F+G$ est un sous-espace vectoriel de $E$.
+  \item $F+G$ est le plus petit sous-espace vectoriel contenant à la fois $F$ et $G$.
+\end{enumerate}
+
+
+\end{proposition}
+
+
+\begin{proof}
+~
+\begin{enumerate}
+  \item Montrons que $F+G$ est un sous-espace vectoriel.
+  \begin{itemize}
+    \item $0_E \in F$, $0_E \in G$, donc $0_E = 0_E + 0_E \in F+G$.
+
+    \item Soient $w$ et $w'$ des éléments de $F+G$.
+  Comme $w$ est dans $F+G$, il existe $u$ dans $F$ et $v$ dans $G$ tels que $w=u+v$.
+  Comme $w'$ est dans $F+G$, il existe $u'$ dans $F$ et $v'$ dans $G$ tels que $w'=u'+v'$.
+  Alors $w+w' = (u+v)+(u'+v') = (u+u')+(v+v') \in F+G$, car $u+u' \in F$ et $v+v' \in G$.
+
+    \item Soit $w$ un élément de $F+G$ et $\lambda \in \Kk$.
+    Il existe $u$ dans $F$ et $v$ dans $G$ tels que $w=u+v$.
+    Alors $\lambda w = \lambda(u+v) = (\lambda u)+(\lambda v) \in F+G$, car $\lambda u \in F$ et $\lambda v \in G$.
+  \end{itemize}
+
+
+  \item
+  \begin{itemize}
+    \item L'ensemble  $F+G$ contient $F$ et contient $G$ : en effet tout élément $u$
+de $F$ s'écrit $u=u+0$ avec $u$ appartenant à $F$ et $0$ appartenant à $G$
+(puisque $G$ est un sous-espace vectoriel), donc $u$ appartient à $F+G$.
+De même pour un élément de $G$.
+
+    \item Si $H$ est un sous-espace vectoriel contenant $F$ et $G$, alors
+    montrons que $F+G \subset H$.
+    C'est clair : si $u \in F$ alors en particulier $u\in H$ (car $F\subset H$),
+    de même si $v \in G$ alors $v \in H$. Comme $H$ est un sous-espace vectoriel, alors
+    $u+v \in H$.
+  \end{itemize}
+\end{enumerate}
+\end{proof}
+
+
+
+\begin{exemple}
+
+Déterminons $F+G$  dans le cas où $F$ et $G$ sont les sous-espaces vectoriels de
+$\Rr^3$ suivants :
+$$F=\big\{(x,y,z) \in \Rr^3\mid y=z=0\big\}
+\qquad\text{ et }\qquad
+G=\big\{(x,y,z) \in \Rr^3 \mid x=z=0\big\}.$$
+\myfigure{1}{
+\tikzinput{fig_ev07}
+}
+Un élément $w$ de $F+G$ s'écrit $w=u+v$ où $u$ est un élément de
+$F$ et $v$ un élément de $G$. Comme $u\in F$ alors il existe $x \in \Rr$ tel que $u=(x,0,0)$,
+et comme $v \in G$ il existe $y \in \Rr$ tel que $v=(0,y,0)$. Donc $w=(x,y,0)$.
+Réciproquement, un tel élément $w=(x,y,0)$ est la somme de $(x,0,0)$
+et de $(0,y,0)$. Donc $F+G=\big\{(x,y,z) \in \Rr^3\mid z=0\big\}$.
+On voit même que, pour cet exemple, tout élément de $F+G$ s'écrit
+de façon \emph{unique} comme la somme d'un élément de $F$ et d'un élément de $G$.
+\end{exemple}
+
+\begin{exemple}
+Soient $F$ et $G$ les deux sous-espaces vectoriels de $\Rr^3$ suivants :
+$$F=\big\{(x,y,z) \in \Rr^3\mid x=0\big\}
+\qquad \text{ et } \qquad
+G=\big\{(x,y,z) \in \Rr^3 \mid y=0\big\}.$$
+\myfigure{1.2}{
+\tikzinput{fig_ev08}
+}
+Dans cet exemple, montrons que $F+G=\Rr^3$.
+Par définition de $F+G$, tout élément de  $F+G$ est dans $\Rr^3$.
+Mais réciproquement, si  $w=(x,y,z)$ est un élément quelconque
+de $\Rr^3$ : $w=(x,y,z)=(0,y,z)+(x,0,0)$, avec
+$(0,y,z) \in F$ et $(x,0,0) \in G$, donc $w$ appartient à $F+G$.
+
+Remarquons que, dans cet exemple, un élément de $\Rr^3$ ne s'écrit pas forcément de façon unique
+comme la somme d'un élément de $F$ et d'un élément de $G$. Par exemple
+$(1,2,3)=(0,2,3)+ (1,0,0)= (0,2,0)+(1,0,3).$
+\end{exemple}
+
+%-------------------------------------------------------
+\subsection{Sous-espaces vectoriels supplémentaires}
+
+\begin{definition}[Définition de la somme directe de deux sous-espaces]
+Soient $F$ et $G$ deux sous-espaces vectoriels de $E$.
+$F$ et $G$ sont en 
+\defi{somme directe}\index{sous-espace vectoriel!somme directe}\index{somme directe}\index{sous-espace vectoriel!supplementaire@supplémentaire} dans $E$ si
+\begin{itemize}
+  \item $F \cap G = \{ 0_E \}$,
+  \item $F+G=E$.
+\end{itemize}
+On note alors $F \oplus G=E$\index{$\oplus$}.
+\end{definition}
+
+Si $F$ et $G$ sont en somme directe,
+on dit que $F$ et $G$ sont des sous-espaces vectoriels \defi{supplémentaires} dans $E$.
+
+\begin{proposition}
+\label{prop:directeunique}
+$F$ et $G$ sont supplémentaires dans $E$ si et seulement si tout
+élément de $E$ s'écrit d'une manière \evidence{unique}
+comme la somme d'un élément de $F$ et d'un élément de $G$.
+\end{proposition}
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+  \item Dire qu'un élément $w$ de $E$ s'écrit d'une manière unique comme la somme d'un élément de $F$ et d'un élément de $G$
+  signifie que si $w=u+v$ avec $u\in F$, $v\in G$ et $w=u'+v'$ avec $u'\in F$, $v'\in G$
+alors $u=u'$ et $v=v'$.
+  \item On dit aussi que $F$ est un sous-espace supplémentaire de $G$
+(ou que $G$ est un sous-espace supplémentaire de $F$).
+  \item Il n'y a pas unicité du supplémentaire
+  d'un sous-espace vectoriel donné (voir un exemple ci-dessous).
+  \item L'existence d'un supplémentaire d'un sous-espace vectoriel
+  sera prouvée dans le cadre des espaces vectoriels de dimension finie.
+\end{itemize}
+\end{remarque*}
+
+\begin{proof}
+~
+\begin{itemize}
+  \item Supposons $E = F \oplus G$ et montrons que tout élément $u\in E$ se décompose de manière unique.
+  Soient donc $u=v+w$  et $u=v'+w'$ avec  $v,v' \in F$ et $w,w' \in G$.
+On a alors $v+w=v'+w'$, donc $v-v'= w'-w$.
+Comme $F$ est un sous-espace vectoriel alors $v-v' \in F$,
+mais d'autre part $G$ est aussi un sous-espace vectoriel donc $w'-w\in G$.
+Conclusion : $v-v'= w'-w \in F \cap G$. Mais par définition d'espaces supplémentaires
+$F \cap G = \{ 0_E \}$, donc $v-v'=0_E$  et aussi $w'-w=0_E$.
+On en déduit $v=v'$ et $w=w'$, ce qu'il fallait démontrer.
+
+  \item Supposons que tout $u\in E$ se décompose de manière unique et montrons $E = F \oplus G$.
+  \begin{itemize}
+    \item Montrons $F\cap G = \{0_E\}$.
+    Si $u \in F \cap G$, il peut s'écrire des deux manières suivantes
+comme somme d'un élément de $F$ et d'un élément de $G$ :
+$$u=0_E+u \qquad \text{ et } \qquad u=u+0_E.$$
+Par l'unicité de la décomposition, $u=0_E$.
+
+    \item Montrons $F+G=E$. Il n'y rien à prouver, car par hypothèse tout élément
+    $u$ se décompose en $u=v+w$, avec $v \in F$ et $w \in G$.
+  \end{itemize}
+\end{itemize}
+\end{proof}
+
+
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+  \item Soient $F = \big\{ (x,0) \in \Rr^2 \mid x \in \Rr \big\}$
+et $G = \big\{ (0,y) \in \Rr^2 \mid y \in \Rr \big\}$.
+
+Montrons que $F \oplus G = \Rr^2$.
+La première façon de le voir est que l'on a clairement $F\cap G = \{ (0,0) \}$
+et que, comme $(x,y)=(x,0)+(0,y)$, alors $F+G = \Rr^2$.
+Une autre façon de le voir est d'utiliser la proposition \ref{prop:directeunique},
+car la décomposition $(x,y)=(x,0)+(0,y)$ est unique.
+
+\myfigure{1}{
+\tikzinput{fig_ev09}
+}
+
+  \item Gardons $F$ et notons $G' = \big\{ (x,x) \in \Rr^2 \mid x \in \Rr \big\}$.
+Montrons que l'on a aussi $F\oplus G'=\Rr^2$ :
+  \begin{enumerate}
+    \item Montrons $F \cap G' =\{(0,0)\}$. Si $(x,y) \in F \cap G'$ alors
+    d'une part $(x,y) \in F$ donc $y=0$, et aussi $(x,y) \in G'$ donc $x=y$. Ainsi
+    $(x,y)=(0,0)$.
+
+    \item Montrons $F+G' = \Rr^2$. Soit $u=(x,y) \in \Rr^2$.
+Cherchons $v \in F$ et $w \in G'$ tels que $u=v+w$.
+Comme $v = (x_1,y_1) \in F$ alors $y_1 = 0$, et comme
+$w = (x_2,y_2) \in G'$ alors $x_2=y_2$. Il s'agit donc de trouver
+$x_1$ et $x_2$ tels que
+$$(x,y)= (x_1,0)+(x_2,x_2).$$
+Donc $(x,y)=(x_1+x_2,x_2)$. Ainsi $x=x_1+x_2$ et $y=x_2$, d'où $x_1 = x-y$ et $x_2=y$.
+On trouve bien
+$$(x,y) = (x-y,0) + (y,y),$$
+qui prouve que tout élément de $\Rr^2$ est somme d'un élément de $F$ et d'un élément de $G'$.
+  \end{enumerate}
+
+  \item De façon plus générale, deux droites distinctes du plan
+  passant par l'origine forment des sous-espaces supplémentaires.
+\end{enumerate}
+\end{exemple}
+
+\begin{exemple}
+\label{ex:evsup}
+Est-ce que les sous-espaces vectoriels $F$ et $G$ de $\Rr^3$ définis par
+$$F=\big\{ (x,y,z) \in \Rr^3\mid x-y-z=0\big\} \qquad \text { et } \qquad
+G=\big\{(x,y,z) \in \Rr^3 \mid y=z=0\big\}$$
+sont supplémentaires dans $\Rr^3$ ?
+
+
+\myfigure{1}{
+\tikzinput{fig_ev10}
+}
+
+\begin{enumerate}
+  \item Il est facile de vérifier que  $F\cap G=\{0\}$.
+En effet si l'élément  $u=(x,y,z)$ appartient à l'intersection de $F$ et de $G$,
+alors les coordonnées de $u$ vérifient :  $x-y-z=0$ (car $u$ appartient à $F$),
+et  $y=z=0$ (car $u$ appartient à $G$), donc  $u=(0,0,0)$.
+
+  \item Il reste à démontrer que $F+G=\Rr^3$.
+
+  Soit donc  $u=(x,y,z)$ un élément quelconque de $\Rr^3$ ; il faut déterminer des éléments
+$v$ de $F$ et $w$ de $G$ tels que $u=v+w$.
+L'élément $v$ doit être de la forme $v=(y_1+z_1, y_1,z_1)$  et l'élément $w$ de la forme
+  $w=(x_2,0,0)$.   On a $u=v+w$ si et seulement si $y_1=y$, $z_1=z$, $x_2=x-y-z$.
+   On a donc
+   $$(x,y,z)=(y+z,y,z)+ (x-y-z, 0,0)$$
+ avec $v=(y+z,y,z)$ dans $F$  et  $w=(x-y-z, 0,0)$ dans $G$.
+\end{enumerate}
+Conclusion : $F \oplus G=\Rr^3$.
+\end{exemple}
+
+
+\begin{exemple}
+\label{ex:evsomme}
+Dans le $\Rr$-espace vectoriel $\mathcal{F}(\Rr,\Rr)$
+des fonctions de $\Rr$ dans $\Rr$, on considère le sous-espace
+vectoriel des fonctions paires $\mathcal{P}$ et le sous-espace
+vectoriel des fonctions impaires $\mathcal{I}$. Montrons que
+$\mathcal{P}\oplus\mathcal{I}=\mathcal{F}(\Rr,\Rr)$.
+
+
+\begin{enumerate}
+  \item Montrons $\mathcal{P} \cap \mathcal{I} = \{ 0_{\mathcal{F}(\Rr,\Rr)} \}$.
+
+  Soit $f \in \mathcal{P} \cap \mathcal{I}$, c'est-à-dire que $f$ est à la
+  fois une fonction paire et impaire.
+  Il s'agit de montrer que $f$ est la fonction identiquement nulle.
+  Soit $x \in \Rr$. Comme $f(-x)=f(x)$ (car $f$ est paire) et $f(-x)=-f(x)$
+  (car $f$ est impaire), alors $f(x)=-f(x)$, ce qui implique $f(x)=0$.
+  Ceci est vrai quel que soit $x\in \Rr$; donc $f$ est la fonction nulle.
+  Ainsi $\mathcal{P} \cap \mathcal{I} = \{ 0_{\mathcal{F}(\Rr,\Rr)} \}$.
+
+  \item Montrons $\mathcal{P}+\mathcal{I}=\mathcal{F}(\Rr,\Rr)$.
+
+  Soit $f \in \mathcal{F}(\Rr,\Rr)$. Il s'agit de montrer que $f$ peut s'écrire comme la somme
+  d'une fonction paire et d'une fonction impaire.
+
+  \textbf{Analyse.} Si $f = g+h$, avec $g\in\mathcal{P}$, $h\in\mathcal{I}$,
+  alors pour tout $x$, d'une part, (a) $f(x)=g(x)+h(x)$, et
+  d'autre part, (b) $f(-x)=g(-x)+h(-x)=g(x)-h(x)$.
+  Par somme et différence de (a) et (b), on tire que
+  $$g(x)=\frac{f(x)+f(-x)}2 \qquad \text{ et } \qquad h(x)=\frac{f(x)-f(-x)}2.$$
+
+  \textbf{Synthèse.} Pour $f \in \mathcal{F}(\Rr,\Rr)$, on définit deux fonctions
+  $g,h$ par $g(x)=\frac{f(x)+f(-x)}2$ et $h(x)=\frac{f(x)-f(-x)}2$. Alors d'une part
+  $f(x)=g(x)+h(x)$ et d'autre part $g \in \mathcal{P}$ (vérifier $g(-x)=g(x)$)
+  et $h\in\mathcal{I}$ (vérifier $h(-x)=-h(x)$).
+  Bilan : $\mathcal{P}+\mathcal{I}=\mathcal{F}(\Rr,\Rr)$.
+
+\end{enumerate}
+
+En conclusion, $\mathcal{P}$ et $\mathcal{I}$ sont en somme directe dans $\mathcal{F}(\Rr , \Rr)$ :
+$\mathcal{P}\oplus\mathcal{I}=\mathcal{F}(\Rr , \Rr)$.
+Notez que, comme le prouvent nos calculs, les $g$ et $h$ obtenus sont uniques.
+\end{exemple}
+
+
+
+
+%-------------------------------------------------------
+\subsection{Sous-espace engendré}
+
+\begin{theoreme}[Théorème de structure de l'ensemble des combinaisons linéaires]
+\label{th:engendre}
+Soit  $\{v_1, \dots , v_n\}$ un ensemble fini de vecteurs d'un
+$\Kk$-espace vectoriel $E$.
+Alors :
+\begin{itemize}
+  \item L'ensemble des combinaisons linéaires des vecteurs
+  $\{v_1, \dots , v_n\}$ est un sous-espace vectoriel de $E$.
+  \item C'est le plus petit sous-espace vectoriel de $E$
+  (au sens de l'inclusion) contenant les vecteurs  $v_1, \ldots , v_n$.
+\end{itemize}
+
+\end{theoreme}
+
+
+
+\textbf{Notation.}
+Ce sous-espace vectoriel est appelé 
+\defi{sous-espace engendré par $v_1, \dots , v_n$}\index{sous-espace vectoriel!engendre@engendré} et est
+ noté $\Vect (v_1, \dots , v_n )$.  On a donc
+ \mybox{$u \in \Vect( v_1, \dots , v_n ) \quad \Longleftrightarrow \quad
+ \text{il existe} \ \lambda_1, \dots , \lambda_n \in \Kk \quad \text{tels que} \quad
+ u=\lambda_1v_1+ \dots+\lambda_nv_n$}
+
+
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+  \item Dire que $\Vect (v_1, \dots , v_n )$ est le plus petit sous-espace vectoriel de $E$
+contenant les vecteurs  $v_1, \ldots , v_n$ signifie que si
+$F$ est un sous-espace vectoriel de $E$ contenant aussi les vecteurs $v_1, \ldots , v_n$
+alors $\Vect (v_1, \dots , v_n ) \subset F$.
+
+  \item Plus généralement, on peut définir le sous-espace vectoriel engendré
+par une partie $\mathcal{V}$ quelconque (non nécessairement finie)
+d'un espace vectoriel : $\Vect \mathcal{V}$ est le plus petit
+sous-espace vectoriel contenant $\mathcal{V}$.
+\end{itemize}
+\end{remarque*}
+
+
+
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+  \item $E$ étant un $\Kk$-espace vectoriel, et $u$ un élément quelconque de $E$,
+l'ensemble $\Vect (u) =\{ \lambda u \mid \lambda \in \Kk \}$ est
+le sous-espace vectoriel de $E$ engendré par $u$.
+Il est souvent noté $\Kk u$. Si $u$ n'est pas le vecteur nul,
+on parle d'une \defi{droite vectorielle}\index{droite vectorielle}.
+
+\myfigure{0.9}{
+\tikzinput{fig_ev11-1}
+\qquad
+\tikzinput{fig_ev11-2}
+}
+
+
+  \item Si $u$ et $v$ sont deux vecteurs de $E$, alors
+  $\Vect (u,v) = \big\{ \lambda u + \mu v \mid \lambda, \mu \in \Kk \big\}$.
+  Si $u$ et $v$ ne sont pas colinéaires, alors $\Vect (u,v)$ est un \defi{plan vectoriel}\index{plan vectoriel}.
+
+  \item Soient $u = \left(\begin{smallmatrix}1 \\ 1 \\ 1 \end{smallmatrix}\right)$
+  et $v = \left(\begin{smallmatrix}1 \\ 2 \\ 3 \end{smallmatrix}\right)$
+  deux vecteurs de $\Rr^3$.
+  Déterminons $\mathcal{P} = \Vect (u,v)$.
+
+$$ \begin{array}{rcl}
+ \left(\begin{smallmatrix}x \\ y \\ z \end{smallmatrix}\right) \in \Vect (u,v)
+ & \iff & \left(\begin{smallmatrix}x \\ y \\ z \end{smallmatrix}\right) = \lambda u + \mu v  \quad \text{pour certains $\lambda,\mu \in \Rr$} \\
+ & \iff & \left(\begin{smallmatrix}x \\ y \\ z \end{smallmatrix}\right) =
+ \lambda\left(\begin{smallmatrix}1 \\ 1 \\ 1 \end{smallmatrix}\right) + \mu \left(\begin{smallmatrix}1 \\ 2 \\ 3 \end{smallmatrix}\right) \\
+ & \iff &
+ \left\{
+ \begin{array}{rcl}
+   x & = & \lambda + \mu \\
+   y & = & \lambda + 2 \mu \\
+   z & = & \lambda + 3 \mu \\
+ \end{array}\right. \\
+ \end{array} $$
+Nous obtenons bien une équation paramétrique du plan $\mathcal{P}$
+passant par l'origine et contenant les vecteurs $u$ et $v$.
+On sait en trouver une équation cartésienne : $(x-2y+z=0)$.
+
+
+
+
+\end{enumerate}
+\end{exemple}
+
+
+\begin{exemple}
+Soient $E$ l'espace vectoriel des applications de $\Rr$ dans $\Rr$ et
+$f_0, f_1, f_2$ les applications définies par :
+$$\forall x \in \Rr \qquad f_0(x)=1, \;\; f_1(x)=x\;\;\text{ et } \;\; f_2(x)=x^2.$$
+Le sous-espace vectoriel de $E$ engendré par $\{f_0, f_1, f_2\}$
+est l'espace vectoriel des fonctions polynômes $f$ de degré inférieur
+ou égal à $2$, c'est-à-dire de la forme $f(x) = ax^2+bx+c$.
+\end{exemple}
+
+\bigskip
+
+
+\textbf{Méthodologie.}
+On peut démontrer qu'une partie $F$ d'un espace
+vectoriel $E$ est un sous-espace vectoriel de $E$ en
+montrant que $F$ est égal à l'ensemble des combinaisons
+linéaires d'un nombre fini de vecteurs de $E$.
+
+
+\begin{exemple}
+Est-ce que $F=\big\{(x,y,z) \in \Rr^3 \mid x-y-z=0\big\}$ est
+un sous-espace vectoriel de $\Rr^3$ ?
+
+Un triplet de $\Rr^3$ est élément de $F$ si et seulement si $x=y+z.$
+Donc $u$ est élément de $F$ si et seulement s'il peut s'écrire
+$u=(y+z, y, z)$. Or, on a l'égalité
+$$(y+z, y, z)=y(1,1,0)+z(1,0,1).$$
+Donc $F$ est l'ensemble des combinaisons linéaires de $\big\{(1,1,0), (1,0,1) \big\}$.
+C'est le sous-espace vectoriel engendré par $\big\{(1,1,0), (1,0,1) \big\}$ :
+$F = \Vect \big\{(1,1,0), (1,0,1) \big\}$. C'est bien un plan vectoriel (un plan passant par l'origine).
+\end{exemple}
+
+
+
+\begin{proof}[Preuve du théorème \ref{th:engendre}]
+~
+\begin{enumerate}
+  \item On appelle $F$ l'ensemble des combinaisons linéaires des vecteurs
+$\{v_1, \dots , v_n\}$.
+  \begin{enumerate}
+    \item $0_E \in F$ car $F$ contient la combinaison linéaire particulière
+$0v_1+ \dots +0v_n$.
+
+    \item Si $u, v \in F$ alors il existe $\lambda_1,\ldots,\lambda_n \in \Kk$
+    tels que $u=\lambda_1v_1+ \dots+\lambda_nv_n$ et
+    $\mu_1,\ldots,\mu_n \in \Kk$ tels que $v=\mu_1v_1+ \dots+\mu_nv_n$.
+    On en déduit que $u+v=(\lambda_1+\mu_1)v_1+ \cdots+(\lambda_n+\mu_n)v_n$
+    appartient bien à $F$.
+
+    \item De même, $\lambda \cdot u = (\lambda\lambda_1) v_1 + \cdots +
+    (\lambda\lambda_n) v_n \in F$.
+  \end{enumerate}
+ Conclusion : $F$ est un sous-espace vectoriel.
+
+  \item Si $G$ est un sous-espace vectoriel contenant  $\{v_1, \dots , v_n\}$,
+alors il est stable par combinaison linéaire ; il contient donc
+toute combinaison linéaire des vecteurs $\{v_1, \dots , v_n\}$.
+Par conséquent $F$ est inclus dans $G$ : $F$ est le plus petit sous-espace
+(au sens de l'inclusion) contenant  $\{v_1, \dots , v_n\}$.
+\end{enumerate}
+\end{proof}
+
+
+%---------------------------------------------------------------
+% \subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+
+  \item Trouver des sous-espaces vectoriels distincts $F$ et $G$ de $\Rr^3$
+  tels que
+  \begin{enumerate}
+    \item $F+G = \Rr^3$ et $F\cap G \neq \{0\}$ ;
+    \item $F+G \neq \Rr^3$ et $F\cap G = \{0\}$ ;
+    \item $F+G = \Rr^3$ et $F\cap G = \{0\}$ ;
+    \item $F+G \neq \Rr^3$ et $F\cap G \neq \{0\}$.
+  \end{enumerate}
+
+
+  \item Soient $F = \big\{ (x,y,z) \in \Rr^3 \mid x+y+z = 0\big\}$ et
+  $G = \Vect \big\{ (1,1,1) \big\} \subset \Rr^3$.
+  \begin{enumerate}
+    \item Montrer que $F$ est un espace vectoriel. Trouver deux vecteurs $u,v$
+    tels que $F = \Vect(u,v)$.
+    \item Calculer $F \cap G$ et montrer que $F+G = \Rr^3$. Que conclure ?
+  \end{enumerate}
+
+
+  \item Soient $A=\left(\begin{smallmatrix}1 & 0 \\ 0 & 0 \end{smallmatrix}\right)$,
+  $B=\left(\begin{smallmatrix}0 & 0 \\ 0 & 1\end{smallmatrix}\right)$,
+  $C=\left(\begin{smallmatrix}0 & 1 \\ 0 & 0\end{smallmatrix}\right)$,
+  $D=\left(\begin{smallmatrix}0 & 0 \\ 1 & 0\end{smallmatrix}\right)$ des matrices de $M_2(\Rr)$.
+  \begin{enumerate}
+    \item Quel est l'espace vectoriel $F$ engendré par $A$ et $B$ ? Idem avec $G$ engendré par $C$ et $D$.
+    \item Calculer $F\cap G$. Montrer que $F+G = M_2(\Rr)$. Conclure.
+  \end{enumerate}
+
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Application linéaire (début)}
+
+
+%-------------------------------------------------------
+\subsection{Définition}
+
+Nous avons déjà rencontré la notion d'application linéaire dans le cas
+$f : \R^p \longrightarrow \R^n$
+(voir le chapitre \og L'espace vectoriel $\Rr^n$ \fg).
+Cette notion se généralise à des espaces vectoriels quelconques.
+
+
+\begin{definition}
+Soient $E$ et $F$ deux $\Kk$-espaces vectoriels.
+Une application $f$ de $E$ dans $F$ est une \defi{application
+linéaire}\index{application lineaire@application linéaire} si elle satisfait aux deux conditions suivantes :
+\begin{enumerate}
+  \item $f(u+v)=f(u)+f(v)$, pour tous $u, v \in  E$ ;
+  \item $f(\lambda \cdot u)=\lambda \cdot f(u)$, pour tout $u \in E$ et tout $\lambda \in \Kk$.
+\end{enumerate}
+\end{definition}
+
+Autrement dit : une application est linéaire si elle
+\og respecte \fg{} les deux lois d'un espace vectoriel.
+
+\bigskip
+
+\textbf{Notation.}
+L'ensemble des applications linéaires de $E$ dans $F$ est noté $\mathcal{L}(E,F)$.
+
+
+%-------------------------------------------------------
+\subsection{Premiers exemples}
+
+\begin{exemple}
+L'application $f$ définie par
+$$\begin{array}{rcl}
+f : \quad \Rr^3 & \to & \Rr^2\\
+(x,y,z) & \mapsto & (-2x,y+3z)
+ \end{array}$$
+est une application linéaire. En effet, soient  $u=(x,y,z)$ et $v=(x',y',z')$
+deux éléments de $\Rr^3$ et $\lambda$ un réel.
+$$\begin{array}{rcl}
+f(u+v) & = &f(x+x', y+y', z+z')\\
+       & = & \big(-2(x+x'), y+y' + 3(z+z')\big)\\
+       & = & (-2x, y+3z)+(-2x', y'+3z')\\
+       & = & f(u)+f(v)
+\end{array}$$
+et 
+$$\begin{array}{rcl}
+f(\lambda \cdot u) & = & f(\lambda x, \lambda y, \lambda z)\\
+             & = & (-2\lambda x,   \lambda y + 3\lambda z)\\
+             & = & \lambda \cdot (-2x,y+3z)\\
+             & = & \lambda \cdot f(u)
+\end{array}$$
+\end{exemple}
+
+
+Toutes les applications ne sont pas des applications linéaires !
+\begin{exemple}
+Soit $f : \Rr \to \Rr$ l'application définie par $f(x)=x^2$.
+On a $f(1)=1$ et $f(2)=4$. Donc $f(2) \neq 2 \cdot f(1)$. Ce qui fait
+que l'on n'a pas l'égalité $f(\lambda x)=\lambda f(x)$ pour un certain choix de $\lambda,x$.
+Donc $f$ n'est pas linéaire.
+Notez que l'on n'a pas non plus $f(x+x')=f(x)+f(x')$ dès que $xx'\neq0$.
+\end{exemple}
+
+
+Voici d'autres exemples d'applications linéaires :
+\begin{enumerate}
+\item Pour une matrice fixée $A \in M_{n,p}(\Rr)$,
+l'application $f : \R^p \longrightarrow \R^n$ définie par
+$$f(X) = AX$$
+est une application linéaire.
+
+\item L'\,\defi{application nulle}, notée $0_{\mathcal{L}(E,F)}$ :
+$$f : E \longrightarrow F
+\qquad f(u) = 0_F \qquad \text{ pour tout }u \in E.$$
+
+\item L'\,\defi{application identité}\index{identite@identité}, notée $\id_E$ :
+$$f : E \longrightarrow E
+\qquad f(u) = u \qquad \text{ pour tout }u \in E.$$
+\end{enumerate}
+
+
+%-------------------------------------------------------
+\subsection{Premières propriétés}
+
+
+
+\begin{proposition}
+Soient $E$ et $F$ deux $\Kk$-espaces vectoriels. Si $f$ est une
+application linéaire de $E$ dans $F$, alors :
+\begin{itemize}
+  \item $f(0_{E})=0_{F}$,
+  \item $f(-u)=-f(u)$, pour tout $u \in E$.
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+Il suffit d'appliquer la définition de la linéarité avec
+$\lambda =0$, puis avec $\lambda =-1$.
+\end{proof}
+
+
+
+Pour démontrer qu'une application est linéaire,
+on peut aussi utiliser une propriété plus \og concentrée \fg,
+donnée par la caractérisation suivante :
+
+\begin{proposition}[Caractérisation d'une application linéaire]
+Soient $E$ et $F$ deux $\Kk$-espaces vectoriels et
+$f$ une application de $E$ dans $F$.
+L'application $f$ est linéaire si et seulement si,
+pour tous vecteurs $u$ et $v$ de $E$ et pour tous scalaires
+$\lambda$ et $\mu$ de $\Kk$,
+\mybox{$f(\lambda u + \mu v)=\lambda f(u)+\mu f(v)$.}
+\end{proposition}
+
+\bigskip
+
+Plus généralement, une application linéaire $f$ préserve les combinaisons linéaires :
+pour tous $\lambda_1, \dots , \lambda_n
+\in \Kk$ et tous $v_1, \dots , v_n \in E$, on a
+$$f(\lambda_1 v_1 +
+\dots + \lambda_n v_n) = \lambda_1 f(v_1) + \dots + \lambda_n
+f(v_n).$$
+
+\begin{proof}
+~
+\begin{itemize}
+  \item Soit $f$ une application linéaire de $E$ dans $F$.
+Soient $u,v \in E$, $\lambda,\mu \in \Kk$.
+En utilisant les deux axiomes de la définition, on a
+$$f(\lambda u+\mu v ) = f(\lambda u) + f(\mu v) =\lambda f(u) +\mu f(v).$$
+
+  \item Montrons la réciproque.
+Soit $f : E \to F$ une application telle que $f(\lambda u + \mu v)=\lambda f(u)+\mu f(v)$
+(pour tous $u,v \in E$, $\lambda,\mu \in \Kk$). Alors,
+d'une part $f( u +  v)= f(u)+ f(v)$  (en considérant le cas particulier où $\lambda =\mu =1$),
+et d'autre part $f(\lambda u)=\lambda f(u)$ (cas particulier où $\mu=0$).
+\end{itemize}
+\end{proof}
+
+
+
+\textbf{Vocabulaire.}
+
+Soient $E$ et $F$ deux $\Kk$-espaces vectoriels.
+
+\begin{itemize}
+  \item Une application linéaire de $E$ dans $F$ est
+  aussi appelée \defi{morphisme} ou \defi{homomorphisme} d'espaces vectoriels.
+  L'ensemble des applications linéaires de $E$ dans $F$ est noté $\mathcal{L}(E,F)$.
+
+  \item Une application linéaire de $E$ dans $E$ est appelée \defi{endomorphisme}\index{endomorphisme} de $E$.
+   L'ensemble des endomorphismes de $E$ est noté  $\mathcal{L}(E)$.
+\end{itemize}
+
+
+%---------------------------------------------------------------
+% \subsection{Mini-exercices}
+
+\begin{miniexercices}
+Montrer que les applications suivantes $f_i : \Rr^2 \to \Rr^2$ sont linéaires.
+Caractériser géométriquement ces applications et faire un dessin.
+   \begin{enumerate}
+    \item $f_1(x,y)=(-x,-y)$ ;
+    \item $f_2(x,y) = (3x,3y)$ ;
+    \item $f_3(x,y)=(x,-y)$ ;
+    \item $f_4(x,y)=(-x,y)$ ;
+    \item $f_5(x,y)=\big(\frac{\sqrt 3}{2}x-\frac12y, \frac12x +\frac{\sqrt 3}{2}y\big)$.
+  \end{enumerate}
+\end{miniexercices}
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Application linéaire (milieu)}
+
+
+%-------------------------------------------------------
+\subsection{Exemples géométriques}
+
+\textbf{Symétrie centrale.}
+
+Soient $E$ un $\Kk$-espace vectoriel.
+On définit l'application
+$f$ par :
+$$\begin{array}{rcl}
+f : E & \to & E \\
+u & \mapsto & - u
+  \end{array}$$
+$f$ est linéaire et s'appelle la \defi{symétrie centrale}\index{symetrie centrale@symétrie centrale}
+  par rapport à l'origine $0_E$.
+
+\myfigure{1}{
+\tikzinput{fig_ev12-1}
+\qquad
+\tikzinput{fig_ev12-2}
+}
+
+\bigskip
+
+\textbf{Homothétie.}
+
+Soient $E$ un $\Kk$-espace vectoriel et $\lambda \in \Kk$.
+On définit l'application
+$f_{\lambda}$ par :
+$$\begin{array}{rcl}
+f_{\lambda} : E & \to & E \\
+u & \mapsto & \lambda u
+  \end{array}$$
+$f_{\lambda}$ est linéaire.
+$f_{\lambda}$ est appelée \defi{homothétie}\index{homothetie@homothétie} de rapport $\lambda$.
+
+Cas particuliers notables :
+\begin{itemize}
+  \item $\lambda = 1$, $f_{\lambda}$ est l'application identité ;
+  \item $\lambda = 0$, $f_{\lambda}$ est l'application nulle ;
+  \item $\lambda = -1$, on retrouve la symétrie centrale.
+\end{itemize}
+
+Preuve que $f_{\lambda}$ est une application linéaire :
+$$
+f_{\lambda}(\alpha u + \beta v)
+= \lambda (\alpha u + \beta v)
+= \alpha (\lambda u)+ \beta (\lambda v)
+= \alpha f_{\lambda}(u) +\beta f_{\lambda}(v).
+$$
+
+
+\bigskip
+
+\textbf{Projection.}
+
+Soient $E$ un $\Kk$-espace vectoriel et $F$ et $G$ deux sous-espaces
+vectoriels supplémentaires dans $E$, c'est-à-dire $E = F \oplus G$.
+Tout vecteur $u$ de $E$ s'écrit de façon unique  $u=v+w$ avec $v \in F$ et $w \in G$.
+La \defi{projection}\index{projection} sur $F$ parallèlement à $G$ est l'application $p : E \to E$
+définie par $p(u)=v$.
+
+\myfigure{1}{
+\tikzinput{fig_ev13}
+}
+
+
+\begin{itemize}
+  \item Une projection est une application linéaire.
+
+En effet, soient $u,u' \in E$, $\lambda,\mu \in \Kk$.
+On décompose $u$ et $u'$ en utilisant que $E = F \oplus G$ :
+$u=v+w$, $u'=v'+w'$ avec $v,v' \in F$, $w,w' \in G$.
+Commençons par écrire
+$$\lambda u+ \mu u' = \lambda (v+w) + \mu (v'+w') = (\lambda v+ \mu v') + (\lambda w + \mu w').$$
+Comme $F$ et $G$ sont des un sous-espaces vectoriels de $E$, alors
+$\lambda v+ \mu v' \in F$ et $\lambda w+ \mu w' \in G$. Ainsi :
+$$p(\lambda u+ \mu u')  = \lambda v+ \mu v' = \lambda p(u)+\mu p(u').$$
+
+  \item Une projection $p$ vérifie l'égalité $p^2=p$.
+
+Note : $p^2=p$ signifie $p\circ p = p$, c'est-à-dire pour tout $u\in E$ :
+$p\big(p(u)\big) = p(u)$.
+Il s'agit juste de remarquer que si $v \in F$ alors $p(v) = v$
+(car $v=v+0$, avec $v\in F$ et $0\in G$).
+Maintenant, pour $u\in E$, on a $u=v+w$ avec $v \in F$ et $w \in G$.
+Par définition $p(u)=v$. Mais alors $p\big(p(u)\big) = p(v)= v$.
+Bilan : $p \circ p (u) = v = p(u)$. Donc $p \circ p = p$.
+\end{itemize}
+
+
+\begin{exemple}
+Nous avons vu que les sous-espaces vectoriels $F$ et $G$ de $\Rr^3$ définis par
+$$F=\big\{ (x,y,z) \in \Rr^3\mid x-y-z=0\big\} \qquad  \text{ et } \qquad
+G=\big\{(x,y,z) \in \Rr^3 \mid y=z=0 \big\}$$
+sont supplémentaires dans $\Rr^3$ : $\Rr^3 = F \oplus G$ (exemple \ref{ex:evsup}).
+Nous avions vu que la décomposition s'écrivait :
+$$(x,y,z)=(y+z,y,z)+ (x-y-z, 0,0).$$
+Si $p$ est la projection sur $F$ parallèlement à $G$, alors
+on a $p(x,y,z)=(y+z,y,z)$.
+
+\myfigure{1}{
+\tikzinput{fig_ev14}
+}
+
+\end{exemple}
+
+\begin{exemple}
+Nous avons vu dans l'exemple \ref{ex:evsomme} que l'ensemble des fonctions paires $\mathcal{P}$ et l'ensemble des fonctions
+ impaires $\mathcal{I}$ sont des sous-espaces vectoriels supplémentaires dans $\mathcal{F}(\Rr ,\Rr)$.
+Notons $p$ la projection sur $\mathcal{P}$ parallèlement à $\mathcal{I}$. Si $f$ est un élément de
+$\mathcal{F}(\Rr ,\Rr)$, on a $p(f)=g$ où
+$$\begin{array}{rcl}
+g : \Rr & \to & \Rr \\
+x & \mapsto &
+{\displaystyle \frac{f(x)+f(-x)}2}.
+\end{array}$$
+ \end{exemple}
+
+
+%-------------------------------------------------------
+\subsection{Autres exemples}
+
+\begin{enumerate}
+  \item La \textbf{dérivation}.
+Soient $E  = \mathcal{C}^1 (\Rr,\Rr)$ l'espace vectoriel des fonctions
+$f: \Rr \longrightarrow \Rr$ dérivables avec $f'$ continue et
+$F = \mathcal{C}^0 (\Rr,\Rr)$ l'espace vectoriel des fonctions continues.
+Soit
+$$\begin{array}{rcl}
+d : \mathcal{C}^1 (\Rr,\Rr) & \longrightarrow & \mathcal{C}^0 (\Rr,\Rr)  \\
+f & \longmapsto & f'
+  \end{array}$$
+Alors $d$ est une application linéaire,
+car $(\lambda f + \mu g)' = \lambda f' + \mu g'$ et donc $d(\lambda f + \mu g)=\lambda d(f) + \mu d(g)$.
+
+\item L'{\bf intégration}.
+Soient $E = \mathcal{C}^0(\Rr,\Rr)$ et $F = \mathcal{C}^1(\Rr,\Rr)$.
+Soit
+$$\begin{array}{rcl}
+  I : \mathcal{C}^0(\Rr,\Rr) & \longrightarrow & \mathcal{C}^1(\Rr,\Rr)\\
+  f(x) & \longmapsto & \int_0^x f(t) \; dt
+  \end{array}$$
+L'application $I$ est linéaire car
+$\int_0^x \big(\lambda f(t) + \mu g(t)\big) \; dt
+= \lambda \int_0^x f(t) \; dt + \mu \int_0^x g(t) \; dt$
+pour toutes fonctions $f$ et $g$ et pour tous $\lambda,\mu \in \Rr$.
+
+
+  \item Avec les \textbf{polynômes}.
+
+Soit $E=\Rr_n[X]$ l'espace vectoriel des polynômes de degré $\le n$.
+Soit $F = \Rr_{n+1}[X]$ et soit
+$$\begin{array}{rcl}
+f : \quad E & \longrightarrow & F \\
+P(X) & \longmapsto & X P(X)
+  \end{array}$$
+Autrement dit, si $P(X) = a_n X^n + \dots + a_1 X + a_0$,
+alors $f(P(X)) =  a_n X^{n+1} + \dots + a_1 X^2 + a_0 X$.
+
+C'est une application linéaire :
+$f(\lambda P(X)+ \mu Q(X)) = \lambda X P(X) + \mu X Q(X) = \lambda f(P(X)) + \mu f(Q(X))$.
+
+  \item La \textbf{transposition}.
+
+Considérons l'application $T$ de $M_{n}(\Kk)$ dans $M_{n}(\Kk)$ donnée
+par la transposition :
+$$\begin{array}{rcl}
+T : M_{n}(\Kk) & \longrightarrow & M_{n}(\Kk)\\
+             A & \longmapsto & A^{T}
+\end{array} $$
+$T$ est linéaire, car on sait que pour toutes matrices $A,B \in M_{n}(\Kk)$ et
+tous scalaires $\lambda,\mu \in \Kk$ :
+$$(\lambda A + \mu B)^{T}=(\lambda A)^{T} + (\mu B)^{T}=\lambda A^{T} + \mu B^{T}.$$
+
+  \item La \textbf{trace}.
+
+$$\begin{array}{rcl}
+\tr : M_{n}(\Kk) & \longrightarrow & \Kk\\
+             A & \longmapsto & \tr{A}
+\end{array} $$
+est une application linéaire car
+$\tr(\lambda A + \mu B) = \lambda \tr A + \mu \tr B$.
+
+
+\end{enumerate}
+
+
+%---------------------------------------------------------------
+% \subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+
+  \item Les applications suivantes sont-elles linéaires ?
+  \begin{enumerate}
+    \item $\Rr \longrightarrow \Rr$, \quad $x \longmapsto 3x-2$
+    \item $\Rr^4 \longrightarrow \Rr$, \quad $(x,y,x',y') \longmapsto x\cdot x' + y \cdot y'$
+    \item $\mathcal{C}^0(\Rr,\Rr) \longrightarrow \Rr$, \quad $f \longmapsto f(1)$
+    \item $\mathcal{C}^1(\Rr,\Rr) \longrightarrow \mathcal{C}^0(\Rr,\Rr)$, \quad $f \longmapsto f'+f$
+    \item $\mathcal{C}^0([0,1],\Rr) \longrightarrow \Rr$, \quad $f \longmapsto \int_0^1 |f(t)|\; dt$
+    \item $\mathcal{C}^0([0,1],\Rr) \longrightarrow \Rr$, \quad $f \longmapsto \max_{x\in [0,1]} f(x)$
+    \item $\Rr_3[X] \longrightarrow \Rr_3[X]$, \quad $P(X) \longmapsto P(X+1) - P(0)$
+  \end{enumerate}
+
+  \item Soient $f,g : M_n(\Rr) \longrightarrow M_n(\Rr)$
+  définies par $A \longmapsto \frac{A+A^T}{2}$ et $A \longmapsto \frac{A-A^T}{2}$.
+  Montrer que $f$ et $g$ sont des applications linéaires.
+  Montrer que $f(A)$ est une matrice symétrique, $g(A)$ une matrice antisymétrique
+  et que $A = f(A)+g(A)$. En déduire que les matrices symétriques et les matrices antisymétriques sont en somme
+  directe dans $M_n(\Rr)$. Caractériser géométriquement $f$ et $g$.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Application linéaire (fin)}
+
+%-------------------------------------------------------
+\subsection{Image d'une application linéaire}
+
+
+Commençons par des rappels.
+Soient $E$ et $F$ deux ensembles et $f$ une application de $E$ dans $F$.
+Soit $A$ un sous-ensemble de $E$.
+L'ensemble des images par $f$ des éléments de $A$, appelé \defi{image directe}
+de $A$ par $f$, est noté $f(A)$. C'est un sous-ensemble de $F$. On a par définition :
+$$f(A)=\big\{ f(x)  \mid x\in A \big\}.$$
+
+\bigskip
+Dans toute la suite, $E$ et $F$ désigneront des $\Kk$-espaces vectoriels
+et $f : E \to F$ sera une application linéaire.
+
+$f(E)$ s'appelle l'\defi{image}\index{image}\index{application lineaire@application linéaire!image} de l'application linéaire $f$ et est noté $\Im f$.
+
+
+\begin{proposition}[Structure de l'image d'un sous-espace vectoriel]
+\sauteligne
+\begin{enumerate}
+  \item Si $E'$ est un sous-espace vectoriel de $E$, alors $f(E')$ est un sous-espace vectoriel de $F$.
+
+  \item En particulier, $\Im f$ est un sous-espace vectoriel de $F$.
+\end{enumerate}
+ \end{proposition}
+
+
+\begin{remarque*}
+On a par définition de l'image directe $f(E)$ : \\
+\centerline{$f$ est surjective si et seulement si $\Im f =F$.}
+\end{remarque*}
+
+
+\begin{proof}
+Tout d'abord, comme $0_{E} \in E'$ alors $0_{F} = f(0_{E}) \in f(E')$.
+Ensuite on montre que pour tout couple $(y_1,y_2)$ d'éléments  de $f(E')$
+et pour tous scalaires $\lambda,\mu$, l'élément $\lambda y_1 + \mu y_2$ appartient à $f(E')$.
+En effet :
+$$\begin{array}{l}
+y_1 \in f(E') \Longleftrightarrow \exists x_1\in E' , f(x_1)=y_1\\
+y_2 \in f(E') \Longleftrightarrow \exists x_2\in E' , f(x_2)=y_2.\\
+\end{array}$$
+Comme $f$ est linéaire, on a
+$$\lambda y_1 + \mu y_2=\lambda f(x_1)+ \mu f(x_2) =f(\lambda x_1+ \mu x_2).$$
+Or $\lambda x_1 + \mu x_2$ est un élément de $E'$, car $E'$ est un
+sous-espace vectoriel de $E$, donc $\lambda y_1 + \mu y_2$ est bien un élément de $f(E')$.
+
+\end{proof}
+
+
+%-------------------------------------------------------
+\subsection{Noyau d'une application linéaire}
+
+
+\begin{definition}[Définition du noyau]
+\index{noyau}\index{application lineaire@application linéaire!noyau}
+Soient $E$ et $F$ deux $\Kk$-espaces vectoriels et $f$ une application linéaire de $E$ dans $F$.
+Le \defi{noyau} de $f$, noté  $\Ker(f)$, est l'ensemble des
+éléments de $E$ dont l'image est $0_{F}$ :
+\mybox{$\Ker (f)=\big\{x \in E \mid f(x)=0_{F}\big\}$}
+
+ Autrement dit, le noyau est l'image réciproque du vecteur nul de l'espace d'arrivée :
+ $\Ker(f) = f^{-1} \{0_F\}$.
+ \end{definition}
+
+
+%{\bf Terminologie :}
+%Le mot " noyau " se traduit en anglais par " kernel " , d'où la notation .
+
+\begin{proposition}
+Soient $E$ et $F$ deux $\Kk$-espaces vectoriels et $f$ une application linéaire de $E$ dans $F$.
+Le noyau de $f$ est un sous-espace vectoriel de $E$.
+\end{proposition}
+
+\begin{proof}
+$\Ker(f)$ est non vide car $f(0_E)=0_F$ donc $0_{E} \in \Ker (f)$. Soient $x_1,x_2 \in \Ker (f)$
+et $\lambda,\mu \in \Kk$. Montrons que
+$\lambda x_1+\mu x_2$ est un élément de $\Ker (f)$.
+On a, en utilisant la linéarité de $f$ et le fait que
+$x_1$ et $x_2$ sont des éléments de $\Ker (f)$ :
+$f(\lambda x_1+\mu x_2)=\lambda f(x_1)+\mu f(x_2)= \lambda 0_{F} + \mu 0_{F}=0_{F}.$
+\end{proof}
+
+\begin{exemple}
+Reprenons l'exemple de l'application linéaire
+$f$ définie par
+$$\begin{array}{rcl}
+f : \quad \Rr^3 & \to & \Rr^2\\
+(x,y,z) & \mapsto & (-2x,y+3z)
+ \end{array}$$
+\begin{itemize}
+  \item Calculons le noyau $\Ker(f)$.
+$$
+\begin{array}{rcl}
+(x,y,z) \in \Ker(f)
+ & \iff & f(x,y,z)=(0,0) \\
+ & \iff & (-2x,y+3z)=(0,0) \\
+ & \iff & \left\{\begin{array}{rcl}
+             -2x  & = & 0 \\
+             y+3z & = & 0 \\
+          \end{array}\right. \\
+ & \iff & (x,y,z) = (0,-3z,z), \quad z \in \Rr \\
+\end{array}
+$$
+Donc $\Ker(f) = \big\{ (0,-3z,z) \mid  z \in \Rr \big\}$.
+Autrement dit, $\Ker(f) = \Vect\big\{ (0,-3,1) \big\}$ : c'est une droite vectorielle.
+
+  \item Calculons l'image de $f$.
+  Fixons $(x',y')\in \Rr^2$.
+$$
+\begin{array}{rcl}
+(x',y')= f(x,y,z)
+ & \iff & (-2x,y+3z)=(x',y') \\
+ & \iff & \left\{\begin{array}{rcl}
+             -2x  & = & x' \\
+             y+3z & = & y' \\
+          \end{array}\right. \\
+\end{array}
+$$
+On peut prendre par exemple $x = -\frac{x'}{2}$, $y'=y$, $z=0$.
+Conclusion : pour n'importe quel $(x',y') \in \Rr^2$, on a
+$f(-\frac{x'}{2},y',0) = (x',y')$.
+Donc $\Im(f)= \Rr^2$, et $f$ est surjective.
+\end{itemize}
+\end{exemple}
+
+
+\begin{exemple}
+Soit $A \in M_{n,p}(\Rr)$.
+Soit $f: \Rr^p \longrightarrow \Rr^n$ l'application linéaire définie par $f(X) = AX$.
+Alors $\Ker(f) = \big\{ X \in \Rr^p \mid AX=0 \big\}$ : c'est donc l'ensemble des $X \in \Rr^p$
+solutions du système linéaire homogène $AX=0$.
+On verra plus tard que $\Im(f)$ est l'espace engendré
+par les colonnes de la matrice $A$.
+\end{exemple}
+
+\bigskip
+
+Le noyau fournit une nouvelle façon d'obtenir des sous-espaces vectoriels.
+\begin{exemple}
+Un plan $\mathcal{P}$ passant par l'origine, d'équation $(ax+by+cz=0)$,
+est un sous-espace vectoriel de $\Rr^3$.
+En effet, soit $f : \Rr^3 \to \Rr$ l'application définie par $f(x,y,z)=ax+by+cz$.
+Il est facile de vérifier que $f$ est linéaire, de sorte que
+$\Ker f = \big\{ (x,y,z) \in \Rr^3 \mid ax+by+cz=0 \big\} = \mathcal{P}$
+est un sous-espace vectoriel.
+\end{exemple}
+
+
+\begin{exemple}
+Soient $E$ un $\Kk$-espace vectoriel, $F$ et $G$ deux sous-espaces vectoriels de $E$,
+supplémentaires : $E = F \oplus G$.
+Soit $p$ la projection sur $F$ parallèlement à $G$.
+Déterminons le noyau et l'image de $p$.
+
+\myfigure{1}{
+\tikzinput{fig_ev13}
+}
+
+Un vecteur $u$ de $E$ s'écrit d'une manière unique $u=v+w$
+avec  $v \in F$ et $w \in G$ et par définition $p(u)=v$.
+\begin{itemize}
+  \item $\Ker(p) = G$ : le noyau de $p$ est l'ensemble des vecteurs $u$ de $E$
+  tels que $v=0$, c'est donc $G$.
+
+  \item $\Im (p) = F$. Il est immédiat que $\Im(p) \subset F$.
+  Réciproquement, si $u \in F$ alors $p(u)=u$, donc $F \subset \Im (p)$.
+\end{itemize}
+Conclusion :
+$$\Ker(p)=G \qquad \text{ et } \qquad  \Im(p)=F.$$
+\end{exemple}
+
+
+\begin{theoreme}[Caractérisation des applications linéaires injectives]
+Soient $E$ et $F$ deux $\Kk$-espaces vectoriels et $f$ une application linéaire de $E$ dans $F$. Alors :
+\mybox{$f$ injective \quad $\iff \quad \Ker(f) = \big\{0_E\big\}$}
+\end{theoreme}
+Autrement dit, $f$ est injective si et seulement si son noyau ne contient que le vecteur nul.
+En particulier, pour montrer que $f$ est injective, il suffit de vérifier que : \\
+\centerline{si $f(x)=0_F$ alors $x=0_E$.}
+
+
+\begin{proof}
+~
+\begin{itemize}
+  \item Supposons que $f$ soit injective et montrons que $\Ker(f)=\{0_E\}$.
+Soit $x$ un élément de $\Ker(f)$. On a $f(x)=0_{F}$. Or, comme $f$ est linéaire,
+on a aussi $f(0_{E})=0_{F}$. De l'égalité $f(x)=f(0_{E})$, on déduit $x=0_{E}$
+car $f$ est injective. Donc $\Ker (f)=\{0_{E}\}$.
+
+  \item Réciproquement, supposons maintenant que $\Ker (f)=\{0_E\}$. Soient $x$ et $y$ deux éléments de $E$ tels que
+$f(x)=f(y)$. On a donc $f(x)-f(y)=0_{F}$. Comme $f$ est linéaire, on en déduit
+$f(x-y)=0_{F}$, c'est-à-dire $x-y$ est un élément de $\Ker (f)$. Donc $x-y=0_{E}$, soit $x=y$.
+\end{itemize}
+\end{proof}
+
+
+\begin{exemple}
+Considérons, pour $n\ge1$, l'application linéaire
+\begin{eqnarray*}
+f : \Rr_n[X] & \longrightarrow & \Rr_{n+1}[X]\\
+P(X)  & \longmapsto & X \cdot P(X).
+\end{eqnarray*}
+\'Etudions d'abord le noyau de $f$: soit $P(X) = a_n X^n + \cdots +a_1 X + a_0 \in \Rr_n[X]$
+tel que $X \cdot P(X) = 0$. Alors
+$$a_n X^{n+1} + \cdots+ a_1 X^2 + a_0 X = 0.$$
+Ainsi, $a_i = 0$ pour tout $i \in \{0,\ldots, n\}$ et donc $P(X) = 0$.
+Le noyau de $f$ est donc nul : $\Ker(f) = \{0\}$.
+
+L'espace $\Im(f)$ est l'ensemble des polynômes de $\Rr_{n+1}[X]$
+sans terme constant : $\Im(f) = \Vect \big\{X, X^2,\dots, X^{n+1}\big\}$.
+
+Conclusion : $f$ est injective, mais n'est pas surjective.
+\end{exemple}
+
+
+%-------------------------------------------------------
+\subsection{L'espace vectoriel $\mathcal{L}(E,F)$}
+
+Soient $E$ et $F$ deux $\Kk$-espaces vectoriels. Remarquons tout d'abord que,
+similairement à l'exemple \ref{ex:evfonct},
+l'ensemble des applications de $E$ dans $F$, noté $\mathcal{F}(E,F)$,
+peut être muni d'une loi de composition interne $+$ et d'une loi de composition externe,
+définies de la façon suivante :
+$f, g$ étant deux éléments de $\mathcal{F}(E,F)$, et
+$\lambda$ étant un élément de $\Kk$, pour tout vecteur $u$ de $E$,
+$$(f+g)(u)=f(u)+g(u)\qquad \text{ et } \qquad (\lambda \cdot f)(u)=\lambda f(u).$$
+
+\begin{proposition}
+L'ensemble des applications linéaires entre deux $\Kk$-espaces vectoriels $E$ et $F$,
+noté $\mathcal{L}(E,F)$, muni des deux lois définies précédemment, est un $\Kk$-espace vectoriel.
+\end{proposition}
+
+\begin{proof}
+L'ensemble  $\mathcal{L}(E,F)$ est inclus dans le $\Kk$-espace vectoriel $\mathcal{F}(E,F)$.
+Pour montrer que $\mathcal{L}(E,F)$ est un $\Kk$-espace vectoriel, il suffit donc de montrer que
+$\mathcal{L}(E,F)$ est un sous-espace vectoriel de  $\mathcal{F}(E,F)$:
+
+\begin{itemize}
+  \item Tout d'abord, l'application nulle appartient à $\mathcal{L}(E,F)$.
+
+  \item Soient $f, g \in \mathcal{L}(E,F)$, et montrons que $f+g$ est linéaire.
+   Pour tous vecteurs
+$u$ et $v$ de $E$ et pour tous scalaires $\alpha$, $\beta$ de $\Kk$,
+{\small
+$$\begin{array}{rclr}
+(f+g)(\alpha u +\beta v)
+  & = &f(\alpha u+ \beta v) +g(\alpha u +\beta v) & \text{(définition de $f+g$)} \\
+  & = & \alpha f(u)+\beta f(v)+\alpha g(u)+ \beta g(v) & \text{(linéarité de  $f$ et de $g$)}\\
+  & = & \alpha \left ( f(u)+g(u) \right )+\beta \left (f(v)+g(v)\right ) & \!\!\text{(propriétés des lois de $F$)}\\
+  & = & \alpha (f+g)(u)+\beta (f+g)(v) & \text{(définition de $f+g$)}
+\end{array}$$
+}
+
+  $f+g$ est donc linéaire et  $\mathcal{L}(E,F)$  est stable pour l'addition.
+
+  \item  Soient $f \in \mathcal{L}(E,F)$, $\lambda \in \Kk$, et montrons que $\lambda f$ est linéaire.
+{\small
+$$\begin{array}{rclr}
+(\lambda f)(\alpha u + \beta v)
+   & = & \lambda f(\alpha u + \beta v)  &\qquad \text{(définition de $\lambda f$)}\\
+   & = &  \lambda \left ( \alpha f(u)+\beta f(v) \right ) &\qquad \text{(linéarité de $f$)}\\
+   & = & \alpha \lambda f(u)+ \beta \lambda f(v) &\qquad \text{(propriétés des lois de $F$)}\\
+   & = & \alpha (\lambda f)(u)+ \beta (\lambda f)(v) &\qquad \text{(définition de $\lambda f$)}
+\end{array}$$
+}
+
+$\lambda f$  est donc linéaire et $\mathcal{L}(E,F)$ est stable pour la loi externe.
+
+\end{itemize}
+$\mathcal{L}(E,F)$ est donc un sous-espace vectoriel de $\mathcal{F}(E,F)$.
+\end{proof}
+
+
+En particulier, $\mathcal{L}(E)$ est un sous-espace vectoriel de $\mathcal{F}(E,E)$.
+
+%-------------------------------------------------------
+\subsection{Composition et inverse d'applications linéaires}
+
+
+\begin{proposition}[Composée de deux applications linéaires]
+Soient $E, F, G$  trois $\Kk$-espaces vectoriels, $f$ une application linéaire de $E$ dans $F$ et
+$g$ une application linéaire de $F$ dans $G$. Alors  $g \circ f$ est une application linéaire de $E$ dans $G$.
+\end{proposition}
+
+\begin{remarque*}
+En particulier, le composé de deux endomorphismes de $E$ est un endomorphisme de $E$.
+Autrement dit, $\circ$ est une loi de composition interne sur $\mathcal{L}(E)$.
+\end{remarque*}
+
+\begin{proof}
+Soient $u$ et $v$ deux vecteurs de $E$, et $\alpha$ et $\beta$ deux éléments de $\Kk$.
+Alors :
+$$\begin{array}{rclr}
+(g \circ f)(\alpha u + \beta v)
+ & = & g\left ( f(\alpha u + \beta v) \right ) &\qquad \text{(définition de $g \circ f$)}\\
+ & = & g \left ( \alpha f(u) + \beta f(v)\right ) &\qquad \text{(linéarité de $f$)}\\
+ & = & \alpha g\left ( f(u)\right ) + \beta g\left ( f(v)\right ) &\qquad \text{(linéarité de $g$)} \\
+  & = & \alpha (g \circ f) (u) + \beta (g \circ f) (v)  &\qquad \text{(définition de $g \circ f$)}
+\end{array}$$
+\end{proof}
+
+La composition des applications linéaires se comporte bien :
+$$g \circ (f_1+f_2)=g \circ f_1+ g \circ f_2
+\quad
+(g_1+g_2) \circ f =g_1 \circ f + g_2 \circ f
+\quad
+(\lambda g) \circ f =g \circ (\lambda f) =\lambda (g \circ f)
+$$
+
+\bigskip
+
+
+\textbf{Vocabulaire.}
+
+Soient $E$ et $F$ deux $\Kk$-espaces vectoriels.
+
+\begin{itemize}
+  \item Une application linéaire \evidence{bijective} de $E$ sur $F$ est appelée
+  \defi{isomorphisme}\index{isomorphisme} d'espaces vectoriels. Les deux espaces vectoriels $E$ et $F$
+  sont alors dits \defi{isomorphes}.
+
+  \item Un endomorphisme bijectif de $E$ (c'est-à-dire une application linéaire bijective de $E$ dans $E$)
+  est appelé \defi{automorphisme}\index{automorphisme} de $E$.
+   L'ensemble des automorphismes de $E$ est noté $GL(E)$.
+\end{itemize}
+
+
+
+\begin{proposition}[Linéarité de l'application réciproque d'un isomorphisme]
+Soient $E$ et $F$ deux $\Kk$-espaces vectoriels.
+Si $f$ est un isomorphisme de $E$ sur $F$, alors
+$f^{-1}$ est un isomorphisme de $F$ sur $E$.
+\end{proposition}
+
+\begin{proof}
+Comme $f$ est une application bijective de $E$ sur $F$,
+alors $f^{-1}$ est une application bijective de
+$F$ sur $E$. Il reste donc à prouver que $f^{-1}$ est bien linéaire.
+Soient $u'$ et $v'$ deux vecteurs de $F$ et soient $\alpha$ et $\beta$ deux éléments de $\Kk$.
+On pose
+ $f^{-1}(u')=u $ et $f^{-1}(v')=v$, et  on a alors  $f(u)=u'$ et $f(v)=v'$.
+ Comme $f$   est linéaire, on a
+ $$f^{-1}(\alpha u' + \beta v')=f^{-1}\left ( \alpha f(u)+ \beta f(v) \right )=
+ f^{-1}\left ( f(\alpha u + \beta v) \right ) =\alpha u+ \beta v$$
+  car $f^{-1}\circ f= \id_{E}$
+(où $\id_{E}$  désigne l'application identité de $E$ dans $E$).
+Ainsi $$f^{-1}(\alpha u' + \beta v')=\alpha f^{-1}(u')+ \beta f^{-1}(v'),$$
+et $f^{-1}$  est donc linéaire.
+\end{proof}
+
+
+\begin{exemple}
+Soit $f : \Rr^2 \to \Rr^2$ définie par $f(x,y)=(2x+3y,x+y)$.
+Il est facile de prouver que $f$ est linéaire.
+Pour prouver que $f$ est bijective, on pourrait calculer son noyau et son image.
+Mais ici nous allons calculer directement son inverse : on cherche
+à résoudre $f(x,y)=(x',y')$. Cela correspond à l'équation
+$(2x+3y,x+y) = (x',y')$ qui est un système linéaire à deux équations et deux inconnues.
+On trouve $(x,y) = (-x'+3y',x'-2y')$. On pose donc $f^{-1}(x',y')= (-x'+3y',x'-2y')$.
+On vérifie aisément que $f^{-1}$ est l'inverse de $f$, et on
+remarque que $f^{-1}$ est une application linéaire.
+\end{exemple}
+
+\begin{exemple}
+Plus généralement, soit  $f : \Rr^n \to \Rr^n$ l'application linéaire
+définie par $f(X)=AX$ (où $A$ est une matrice de $M_n(\Rr)$).
+Si la matrice $A$ est inversible, alors $f^{-1}$ est une application linéaire bijective et est
+définie par $f^{-1}(X)= A^{-1} X$.
+
+Dans l'exemple précédent,
+$$X = \begin{pmatrix} x \\ y \end{pmatrix} \qquad
+A = \begin{pmatrix} 2 & 3 \\ 1 & 1 \end{pmatrix} \qquad
+A^{-1} = \begin{pmatrix} -1 & 3 \\ 1 & -2 \end{pmatrix}.$$
+\end{exemple}
+
+
+%---------------------------------------------------------------
+% \subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soit $f : \Rr^3 \to \Rr^3$ définie par $f(x,y,z)=(-x,y+z,2z)$.
+  Montrer que $f$ est une application linéaire. Calculer $\Ker(f)$ et $\Im(f)$.
+  $f$ admet-elle un inverse ? Même question avec $f(x,y,z) = (x-y,x+y,y)$.
+
+  \item Soient $E$ un espace vectoriel, et $F,G$ deux sous-espaces tels que $E= F \oplus G$.
+  Chaque $u\in E$ se décompose de manière unique $u=v+w$ avec $v \in F$, $w\in G$.
+  La \defi{symétrie} par rapport à $F$ parallèlement à $G$ est l'application $s : E \to E$
+  définie par $s(u)=v-w$. Faire un dessin. Montrer que $s$ est une application linéaire.
+  Montrer que $s^2 = \id_E$. Calculer $\Ker(s)$ et $\Im(s)$. $s$ admet-elle un inverse ?
+
+  \item Soit $f : \Rr_n[X] \to \Rr_n[X]$ définie par $P(X) \mapsto P''(X)$ (où $P''$ désigne la dérivée seconde).
+  Montrer que $f$ est une application linéaire. Calculer $\Ker(f)$ et $\Im(f)$. $f$ admet-elle un inverse ?
+\end{enumerate}
+\end{miniexercices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bigskip
+\bigskip
+
+\auteurs{
+\begin{itemize}
+  \item D'après un cours de Sophie Chemla de l'université Pierre et Marie Curie,
+  reprenant des parties d'un cours de H. Ledret et d'une équipe de
+  l'université de Bordeaux animée par J. Queyrut,
+
+  \item et un cours de Eva Bayer-Fluckiger, Philippe Chabloz, Lara Thomas
+  de l'\'Ecole Polytechnique Fédérale de Lausanne,
+
+  \item mixés et révisés par Arnaud Bodin, relu par Vianney Combet.
+\end{itemize}
+}
+
+\finchapitre
+\end{document}
+
+

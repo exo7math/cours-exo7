@@ -1,0 +1,362 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={127,0,0}]{structure}
+
+% Commande spécifique à ce chapitre
+
+\newcommand{\Python}{\texttt{Python}}
+\renewcommand{\evidence}[1]{{\color{blue}\textbf{#1}}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+\definecolor{coul_prive}{rgb}{0.93,0.26,0}
+\definecolor{coul_public}{rgb}{0.06,0.63,0}
+
+\newcommand{\prive}[1]{{\bf\color{coul_prive} #1}}
+\newcommand{\public}[1]{{\bf\color{coul_public} #1}}
+
+\usepackage{array}
+\usepackage{colortbl}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Cryptographie}}
+\subtitle{Le chiffre de Vigenère}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Chiffrement par substitution
+    \item<4-> Chiffrement de Vigenère 
+%    \item<5-> Algorithmes
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Chiffrement par substitution}
+
+\begin{frame}
+
+\hfill\hfill\evidence{Chiffrement par substitution}
+
+\begin{itemize}
+  \item On associe maintenant à chaque lettre une autre lettre %(sans ordre fixe ou règle générale)
+
+  \pause
+
+  \medskip
+  
+\setlength{\extrarowheight}{3pt}  
+% \renewcommand{\arraystretch}{1.1}   
+\hspace*{-6em}
+{\small \bf
+\begin{tabular}{*{26}{>{\centering\arraybackslash}m{0.15em}}}
+%\begin{tabular}{*{26}{c}}
+%\hline
+\prive{A}&\prive{B}&\prive{C}&\prive{D}&\prive{E}&\prive{F}&\prive{G}&\prive{H}&\prive{I}&\prive{J}&\prive{K}&\prive{L}&\prive{M}&\prive{N}&\prive{O}&\prive{P}&\prive{Q}&\prive{R}&\prive{S}&\prive{T}&\prive{U}&\prive{V}&\prive{W}&\prive{X}&\prive{Y}&\prive{Z}\\
+%\hline
+\public{F}&\public{Q}&\public{B}&\public{M}&\public{X}&\public{I}&\public{T}&\public{E}&\public{P}&\public{A}&\public{L}&\public{W}&\public{H}&\public{S}&\public{D}&\public{O}&\public{Z}&\public{K}&\public{V}&\public{G}&\public{R}&\public{C}&\public{N}&\public{Y}&\public{J}&\public{U}\\
+%\hline
+\end{tabular}  
+}
+  \pause
+  \medskip
+  
+  \item \prive{ETRE \ OU \ NE \ PAS \ ETRE \ TELLE \ EST \ LA \ QUESTION}
+    \pause
+  \item \prive{E} $\mapsto$ \public{X} \quad \prive{T} $\mapsto$ \public{G} \quad \prive{R} $\mapsto$ \public{K} \quad ...
+  \pause
+  \item \public{XGKX  DR  SX  OFV  XGKX  GXWWX  XVG  WF  ZRXVGPDS}
+  \pause
+  \item Pour le décrypter on fait les substitutions inverses
+  \pause
+  \item Avantage :  espace des clés gigantesque
+  \pause
+  \item Inconvénients
+  \pause
+  \begin{itemize}
+    \item la clé est longue : $26$ lettres "FQBMX..."
+  \pause  
+    \item sécurité faible
+  \end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+\hfill\hfill\evidence{Espace des clés}
+
+\begin{itemize}\setlength{\itemsep}{8pt}
+  \item Une clé correspond à une bijection 
+$$C : \big\{ A,B,\ldots,Z \big\}\longrightarrow \big\{ A,B,\ldots,Z \big\}$$
+  \pause
+  \item Il y a \  $26!$  \  choix possibles
+  \begin{itemize}
+    \pause
+    \item Pour crypter la lettre A, il y a $26$ choix 
+    \pause
+    \item pour B, il reste $25$ choix
+    \pause
+    \item pour C, il reste $24$ choix...
+    \pause
+    \item pour Z, une seule possibilité
+    \pause
+    \item $26\times 25 \times 24 \times \cdots \times 2 \times 1 \pause = 26!$ \ choix de clés
+  \end{itemize}
+   
+  \pause
+  \item $26! =403\,291\,461\,126\,605\,635\,584\,000\,000\simeq 4 \times 10^{26}$ clés
+  \pause
+  \item Si un ordinateur pouvait tester $1 \; 000\; 000$ de clés par seconde, il lui faudrait alors 
+$12$ millions d'années pour tout énumérer
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\hfill\hfill\evidence{Attaque statistique}
+\pause
+
+\begin{itemize}\setlength{\itemsep}{8pt}
+  \item Faiblesse : une même lettre est toujours cryptée de la même façon
+  \begin{center}\prive{E} $\longmapsto$ \public{X} \end{center}
+  \pause
+  \item Les lettres n'apparaissent pas avec la même fréquence
+  \pause
+  \item Lettres les plus fréquentes 
+  
+  \medskip
+  \prive{E S A I N T R U L O D C P M V Q G F H B X J Y Z K W}
+  
+  
+  \bigskip
+
+\pause
+
+\setlength{\extrarowheight}{3pt}  
+\hspace*{-1em}{
+\small
+\begin{tabular}{*{9}{c}}
+%\hline
+\prive E&\prive S&\prive A&\prive I&\prive N&\prive T&\prive R&\prive U&\prive L\\
+\hline
+%14.699\%&8.012\%&7.540\%&7.184\%&6.895\%&6.888\%&6.496\%&6.129\%&5.636\%&5.298\%&3.661\%\\
+%14.69\%&8.01\%&7.54\%&7.18\%&6.89\%&6.88\%&6.49\%&6.12\%&5.63\%&5.29\%&3.66\%\\
+14.6\%&8.0\%&7.5\%&7.1\%&6.8\%&6.8\%&6.4\%&6.1\%&5.6\%\\
+%\hline
+\end{tabular}
+}
+  \pause
+  \item Attaque
+  \begin{itemize}
+  \pause
+    \item dans le texte crypté, on cherche la lettre qui apparaît le plus
+\pause         
+             \item cela devrait être $C(\prive{E})$
+\pause    
+    \item la lettre qui apparaît ensuite devrait être $C(\prive{S})$
+\pause    
+    \item puis $C(\prive{A})$...
+\pause    
+    \item message initial sous forme de texte à trous
+\pause    
+    \item deviner les lettres manquantes
+  \end{itemize}
+  
+  
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{itemize}
+        \item Par exemple, tentons de déchiffrer la phrase suivante : \\
+\centerline{\public{LHLZ \  HFQ  \ BC HFFPZ \  WH \  YOUPFH  \ MUPZH}}
+\pause  
+  \item On compte les apparitions des lettres : \\
+\centerline{\public{H} : 6 \qquad \public{F} : 4 \qquad \public{P} : 3 \qquad \public{Z} : 3}
+\pause  
+  \item On suppose donc que le \public{H} crypte la lettre \prive{E}, le \public{F} la lettre \prive{S} \\
+  \pause
+\centerline{*\prive{E}** \ \prive{ES}* \ ** \ \prive{ESS}** \ *\prive{E} \ ***\prive{SE} \ ****\prive{E}}
+\pause   
+  \item
+  \begin{itemize}
+    \item  \public{P} et \public{Z} devraient se décrypter en \prive{A} et \prive{I} (ou \prive{I} et \prive{A})
+\pause  
+    \item le quatrième mot \public{HFFPZ} décrypté en \prive{ESS}**
+\pause  
+    \item se complèterait en \prive{ESSAI} ou \prive{ESSIA} 
+\pause    
+    \item Ainsi \public{P} crypte \prive{A} et \public{Z} crypte \prive{I}
+\pause    
+    \item La phrase est maintenant : \\
+\centerline{*\prive{E}*\prive{I} \  \prive{ES}* \  ** \  \prive{ESSAI} \  *\prive{E} \ ***\prive{ASE} \ **\prive{AIE}}
+  \end{itemize}
+\pause  
+  \item On décrypte le message : \\
+\centerline{\prive{CECI \ EST \ UN \ ESSAI \ DE \ PHRASE \ VRAIE}}
+
+\end{itemize}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Le chiffre de Vigenère}
+
+
+
+
+\begin{frame}
+
+\hfill\hfill\evidence{Chiffrement de Vigenère}
+
+\begin{itemize}
+  \item On regroupe les lettres par blocs de longueur $k$
+  \pause
+  \item Exemple avec des blocs de longueur $k=4$ \\
+  
+\centerline{\prive{CETTE \ PHRASE \  NE \ VEUT \ RIEN \ DIRE}}
+\pause
+devient \\
+\centerline{\prive{CETT \ EPHR \ ASEN \ EVEU \ TRIE \ NDIR \ E}}
+  \pause
+  \item Une clé est constituée de $k$ nombres de $0$ à $25$ : $(n_1,n_2,\ldots,n_k)$
+  \pause
+  \item Retour au chiffrement de César : 
+\begin{itemize}
+\pause
+  \item décalage de $n_1$ pour la première lettre de chaque bloc
+  \pause
+  \item décalage de $n_2$ pour la deuxième lettre de chaque bloc
+  \pause
+  \item ...
+  \item décalage de $n_k$ pour la $k$-ème lettre de chaque bloc 
+\end{itemize}
+
+  \pause
+  \item Exemple : chiffrons le bloc \prive{CETT} avec la clé $(3,1,5,2)$
+  \pause
+  \begin{itemize}[<+->]
+  \item décalage de $3$ pour \prive{C} donne \public{F}
+  \item décalage de $1$ pour \prive{E} donne \public{F}
+  \item décalage de $5$ pour le premier \prive{T} donne \public{Y}
+  \item décalage de $2$ pour le deuxième \prive{T} donne \public{V}
+  \item \prive{CETT} devient \public{FFYV}
+\end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\hfill\hfill\evidence{Mathématiques}
+
+\begin{itemize}\setlength{\itemsep}{8pt}
+  \item L'élément de base est un \defi{bloc}
+%  \pause
+%  \item La fonction de chiffrement associe à un bloc de longueur $k$, un autre bloc de longueur $k$
+  \pause
+  \bigskip
+  
+\hspace*{-2em}\myboxinline{\small $C_{n_1,n_2,\ldots,n_k} \!:\! \left\{\begin{array}{rcl}
+\Zz/26\Zz \times  \cdots \times \Zz/26\Zz
+& \longrightarrow & \Zz/26\Zz \times  \cdots \times \Zz/26\Zz \\
+ (x_1,x_2,\ldots,x_k) & \longmapsto & (x_1+n_1,x_2+n_2,\ldots,x_k+n_k) \\
+\end{array}\right.\hspace*{-1em}$}
+  \pause
+  \item Chacune des composantes est un chiffrement de César
+  \pause
+  \item La fonction de déchiffrement est $C_{-n_1,-n_2,\ldots,-n_k}$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+\hfill\hfill\evidence{Espace des clés et attaque}
+
+\pause
+
+\begin{itemize}\setlength{\itemsep}{8pt}
+  \item Pour une clé de longueur $k$, il y a $26^k$ choix possibles.
+  \pause
+  \item Exemple : $k=4$, $26^4 = 456\;976$ clés
+  \pause
+  \item Même faiblesse que le chiffrement par substitution
+  \pause
+  \item \prive{ALPH \ ABET} \pause les deux \prive{A} sont cryptés par la même lettre
+\begin{center}\prive{ALPH \ ABET} $\longrightarrow$ \public{DMUJ \ DCJV} \end{center}
+  \pause
+  \item Attaque 
+  \pause
+  \begin{itemize}
+    \item on découpe notre message en plusieurs listes
+    \pause
+    \item les premières lettres de chaque bloc, les deuxièmes lettres de chaque bloc...
+    \pause
+    \item attaque statistique sur chacun de ces regroupements
+    \pause
+    \item la taille des blocs doit être petite devant la longueur du texte
+  \end{itemize}
+  
+\end{itemize}
+
+\end{frame}
+
+
+
+\end{document}

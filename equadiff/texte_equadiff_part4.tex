@@ -1,0 +1,632 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Beaucoup de problèmes issus de la physique conduisent 
+naturellement à une équation différentielle, nous allons
+en voir quelques-uns :
+
+\change
+
+\change
+Tout d'abord nous étudierons le mouvement d'un parachutiste,
+
+\change
+Nous étudierons la notion de demi-vie des noyaux radioactifs,
+
+\change
+Nous étudierons deux modèles d'évolutions de population de bactéries,
+
+\change
+et enfin comment se déplacent une masse attachée par un ressort.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Reprenons l'exemple introductifs du chapitre,
+
+on lâche un corps dans le ciel.
+La seule force qui s'applique à l'objet est son poids $P$
+
+\change
+Le principe fondamental de la mécanique affirme alors que 
+la somme des forces égale la masse fois l’accélération.
+
+Le poids est la seule force et s'écrit $mg$ sur l'axe verticale,
+l'accélération est la dérivée de la vitesse. On obtient
+cette équation qu'il est facile d'intégrer pour trouver $v(t)$.
+
+\change
+Pour le cas d'un parchutiste il faut tenir compte des force de frottements,
+qui s'oppose aux mouvement : 
+
+\change
+on suppose que le frottement est proportionnelle à la vitesse.
+
+Le signe moins signifie que le frottement s'oppose au déplacement.
+
+Le principe fondamental de la mécanique
+conduit alors l'équation différentielle du premier ordre :
+$$m\frac{\dd v(t)}{\dd t}= mg - fm v(t)$$
+
+
+\change
+et on on simplifie l'équation en divisant par la masse.
+
+\change
+$g$ est la constante de gravitation
+
+\change
+et $f$ le coefficient de frottement.
+
+\change
+Nous avons tous les ingrédients pour trouver la fonction $v(t)$.
+
+\change
+On commence  par résoudre l'équation homogène.
+$v'(t)=-fv(t)$,
+
+\change
+on sait que les solutions sont les $v(t)= ke^{-ft}$, 
+où $k$ est une constante réelle.
+
+\change
+On cherche une solution particulière 
+de l'équation de départ $v'= g - f v$
+
+\change
+On la cherche sous la forme $v_p(t)=k(t)e^{-ft}$
+   par la méthode de variation de la constante. 
+   
+ \change
+ On calcule $v_p'(t)$
+ 
+ \change
+ Et lorsque l'on injecte $v_p$ et $v'_p$ dans l'équation différentielle
+ on trouve que $v_p$ est solution de l'équation différentielle 
+  ssi   $k'(t)e^{-ft}=g$. 
+  
+  
+  \change
+  Ainsi $k'(t)=ge^{ft}$ donc, par exemple, $k(t)=\frac{g}{f}e^{ft}$.
+  
+  \change
+  On trouve tout simplement pour la solution particulière $v_p(t)$, la fonction constante 
+  $=\frac{g}{f}$.
+  
+  
+  \change
+  Conclusion 
+  La solution générale de l'équation est 
+  $v(t)=\frac{g}{f}+k e^{-ft}$, $k\in\Rr$.
+  "une solution particulière plus les solutions de l'équation homogène."
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Continuons avec l'équation du parachutiste.
+On a trouvé une infinité de solutions
+
+\change
+  Si à l'instant $t=0$ le parachute se lance 
+  avec une vitesse initiale nulle, c'est-à-dire
+  $v(0)=0$, alors cela permet de déterminer la constante $k$ et
+  l'unique solution  vitesse est :
+  $v(t)=\frac{g}{f}-\frac{g}{f}e^{-ft}.$
+  
+\change
+Dont voici le graphe.
+
+A l'instant initial la vitesse est nulle, 
+
+la vitesse croit,
+
+\change
+et tend vers une vitesse limite $v_\infty$
+que le parachutiste ne peut dépasser
+
+
+\change
+qui par le calcul vaut $g/f$.
+
+\change
+  Expérimentalement, on mesure que $v_\infty$ 
+  vaut environ 20 km/h,
+  
+  et comme on connait $g$  cela permet de calculer 
+  le coefficient de frottement $f$.
+  
+  \change
+  
+Une fois que l'on a la vitesse il n'est pas dur d'en déduire la position.
+
+\change
+  Comme  $v(t) = \frac{\dd x(t)}{\dd t}$, 
+  
+  \change
+  trouver la position $x$ revient à trouver 
+  une primitive de $v$ :
+  
+  \change
+  Ainsi 
+  $$x(t) = \frac{g}{f} t + \frac{g}{f^2}(e^{-ft}-1)$$
+  en prenant comme convention $x(0)=0$.
+
+
+Ceci n'est bien sûr qu'un \evidence{modèle} qui ne correspond 
+pas parfaitement à la réalité, mais permet de mettre en évidence
+des propriétés vérifiées pas les conditions expérimentales, 
+comme la vitesse limite par exemple.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons une nouvelle application.
+
+\change
+Dans un tissu radioactif la vitesse de désintégration 
+des noyaux radioactifs est proportionnelle 
+au nombre de noyaux radioactifs $N(t)$ présents dans le
+tissus à l'instant $t$. 
+
+"plus il y a de noyaux, plus ils se désintègrent vite"
+
+\change
+Il existe donc une constante $\lambda$ strictement positive telle que :
+$$N'(t) = -\lambda N(t)$$
+
+
+$\lambda$ dépend des paramètres du tissus.
+
+Le signe \og$-$\fg\ de cette équation différentielle traduit la
+décroissance du nombre de noyaux.
+
+\change
+On sait intégrer cette équation différentielle !
+
+Si $N_0$ désigne le nombre de noyaux à l'instant initial, on a donc :
+$$N(t) = N_0 e^{-\lambda t}$$
+
+\change
+Voici l'évolution du nombre de noyaux radioactifs,
+
+leur nombre tend vers $0$, la décroissance est exponentielle.
+
+; on va maintenant s'interesser
+à savoir quand est-ce que la moitié des noyaux se sont désintégrés : c'est la période de demi-vie.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Dans ce contexte apparaissent souvent une grandeur: la 
+\defi{période de demi-vie}
+
+\change
+la \defi{période de demi-vie}, notée $\tau_{1/2}$, 
+  est la période au bout de laquelle la moitié des noyaux se
+  sont désintégrés. 
+  
+\change
+Ainsi entre l'instant $t=0$ et $t=\tau_{1/2}$ on a la relation :
+  $$N(\tau_{1/2}) = \frac{N_0}{2}$$
+  
+\change  
+  Donc $N_0 e^{ -\lambda \tau_{1/2} } =   \frac{N_0}{2}$, d'où 
+  $\lambda \tau_{1/2} = \ln 2$.
+  
+\change
+  Ainsi :
+  $$\tau_{1/ 2} = \frac{\ln 2}{\lambda}$$
+
+  \change         
+  On peut aussi exprimer $N(t)$ en fonction de la période de demi-vie, qui est un parmètre
+  physique plus facilement mesurable :
+  $N(t) = N_0 e^{-\lambda t}$
+  
+  \change
+  $=  N_0 e^{-\frac{t}{\tau_{1/2}} \ln 2}$
+  
+  \change
+  $= N_0 2^{-\frac{t}{\tau_{1/2}}}$
+  
+  
+  \change
+    Notez que $\tau_{1/ 2}$ ne dépend pas de $N_0$, et c'est bien le
+    temps nécessaire pour que la moitié des noyaux se
+  soient désintégrés, ce quel que soit l'instant initial :
+  
+  et pas seulement à partir de $t=0$.
+  
+  \change  
+  Cela se vérifie par le calcul
+  $N(t+\tau_{1/ 2})$
+  
+  \change
+  $= N_0 2^{-\frac{t+\tau_{1/2}}{\tau_{1/2}}}$
+  
+  \change
+  $= N_0 2^{-\frac{t}{\tau_{1/2}}-1}$
+  
+  \change
+  $  = \frac12 N_0 2^{-\frac{t}{\tau_{1/2}}}$
+  
+  \change
+  $= \frac{N(t)}{2}.$
+  
+  A l'instant $t+\tau_{1/2}$ on retrouve bien la moitié des noyau par rapport
+  à l'instant $t$, ceci qq soit $t$.
+  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On continue avec des équations différentielles issues de la biologie.
+
+\change
+On considère une culture de bactéries en milieu clos.
+
+
+\change
+Soit $N_0$ le nombre de bactéries introduites 
+dans la culture à l'instant initial $t = 0$.
+
+
+\change
+\change
+
+
+Un premier modèle, appelé Loi de Malthus, 
+est de supposer que comme les bactéries se reproduisent, 
+alors plus il y a de bactéries plus il y a de naissances.
+Ainsi la vitesse d'accroissement des bactéries 
+est proportionnelle au nombre de bactéries en présence :
+
+
+\change
+Cela signifie que le nombre $N(t)$ de bactéries vérifie l'équation différentielle :
+$$y' = ay$$
+
+\change
+où $a>0$ est une constante dépendant des conditions expérimentales.
+
+\change
+Nous savons résoudre cette équation ! Ainsi selon ce modèle
+$$N(t) = N_0 e^{at}$$
+
+\change
+Le milieu étant limité (en volume, en éléments nutritifs,...), 
+le nombre de bactéries ne peut pas croître indéfiniment 
+de façon exponentielle. Ce modèle ne peut donc pas 
+s'appliquer sur une longue période.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Je vous présente un autre modèle d'évolution plus 
+réaliste le modèle de Verhulst.
+
+
+\change
+On suppose que le nombre $N(t)$ de bactéries vérifie 
+l'équation différentielle : 
+\begin{equation}
+  y' = ay(M - y)
+  \label{eq:eqdiffverhulst}
+  \tag{$E$}
+\end{equation}
+où $a>0$ et $M>0$ sont des constantes.
+
+\change
+On va chercher les solutions $y$, $>0$.
+
+
+\change
+On suppose qu'une telle solution $y$ existe.
+et on va effectuer un changement de fonction,
+afin de transformer notre équation en une équation 
+plus facile à résoudre.
+
+\change
+  Pour cela on pose $z(x) = \frac{1}{y(x)}$
+  
+  \change
+  La fonction $z$ est dérivable et :
+  $$z'=-\frac{y'}{y^2} = \frac{ay(y-M)}{y^2} = a - \frac{aM}{y} = a-aMz$$
+
+  \change
+  \change
+  Ainsi la fonction $z$ doit vérifier l'équation différentielle :
+  $$z' = a-aMz$$  
+  qui est tout simplement une équation différentielle linaire d'ordre $1$ 
+  à coefficients constants avec second membre constant.
+  
+  \change
+  On sait alors que 
+  $$z(x) = k e^{-aMx} + \frac1M$$
+  où $k \in \Rr$ est une constante
+
+  \change
+  \change
+  Cela permet d'obtenir $y$ :
+  $$y(x) = \frac{1}{z(x)} = \frac{1}{k e^{-aMx} + \frac1M} = \frac{M}{kM e^{-aMx}+1}$$
+  
+  \change
+  La constante $k$ est déterminée par la condition initiale,
+  en effet 
+  $y(0) = \frac{M}{kM+1}=N_0$, 
+  
+  et ainsi $k = \frac{1}{N_0}-\frac{1}{M}$.
+  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons un exemple.
+
+\change
+prenons $N_0 = 0,01$ (en million de bactéries) et $M=1$, $a=1$.
+
+L'équation différentielle devient $y' = y(1 - y)$
+
+\change
+La constante $k$ de la solution est 
+$k = \frac{1}{N_0}-\frac{1}{M} = 99$. 
+
+\change
+  Ainsi selon ce modèle :
+  $$N(t) = \frac{1}{1 + 99 e^{-t}}$$ 
+  
+\change
+Etudions plus en détails cette solution.
+
+  Il est clair que $0<N(t)<1$, pour tout $t\ge0$ 
+  
+\change
+et   $N(t) \to 1$ lorsque $t\to+\infty$.
+
+\change   
+  Pour connaître les variations de la fonction $N$, 
+  nul besoin de calculs 
+  
+
+\change  
+  car on sait déjà que 
+  $N$ est solution de l'équation différentielle $y' = y(1 - y)$, donc
+  $N'(t) = N(t)(1 - N(t))$.
+  
+  \change
+  Ainsi $N'(t)>0$, donc la fonction $N$ est croissante.
+  
+  \change    
+  Le second modèle de Verhulst ici en rouge a l'avantage de
+bien faire apparaître un comportement asymptotique particulier :
+le nombre de bactéries finit par se stabiliser. Alors qu'avec
+le modèle de Malthus le nombre de bactéries croissait indéfiniment.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dernière application que nous allons voir des équations différentielles :
+le mouvement d'une masse attachée à un ressort.
+
+\change
+Pour établir l'équation du mouvement nous allons d'abord chercher 
+une équation différentielle, qui une nouvelle fois va découler
+d'une étude des forces en présence.
+
+\change
+Il y a le poids $\vec P$,
+
+\change
+la force de réaction $\vec R=-\vec P$ qui s'oppose au poids,
+
+\change
+une force de rappel $\vec T$ à cause du ressort,
+
+\change
+et eventuellement une force de frottement $\vec F$.
+
+\change
+Le principe fondamental de la mécanique s'écrit :
+
+
+\change
+somme des forces = masse fois accélération :
+
+$$\vec P + \vec R + \vec T + \vec F = m\vec a.$$
+
+\change
+Mais comme la réaction s'oppose au poids, on a une équation plus simple
+$$\vec T + \vec F = m\vec a.$$
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Modélisons la force de rappel.
+
+\change
+La force de rappel est une force horizontale, 
+
+elle est nulle 
+à la position d'équilibre, qui sera pour nous l'origine $x=0$.
+
+\change
+Si on écarte davantage la masse du mur, 
+la force de rappel est un vecteur horizontal qui pointe 
+vers la position d'équilibre (vers la gauche sur le dessin).
+Si on rapproche la masse du mur, le ressort se comprime,
+et la force de rappel est un vecteur horizontal qui pointe 
+encore vers la position d'équilibre (cette fois vers la droite 
+sur le dessin). 
+
+Dans tous les cas la force de rappel tend à ramener 
+la masse vers la position d'équilibre.
+
+
+\change
+On modélise ceci par 
+$$\vec T = -k x \vec i$$
+
+\change
+où $x$ est la position de la masse 
+(on peut avoir $x\ge0$, ou $x\le 0$), 
+
+\change
+$k>0$ est une constante qui dépend du ressort.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On commence par calculer le mouvement lorsqu'il n'y a pas frottements.
+
+\change
+$\vec F = \vec 0$.
+
+\change
+Le principe fondamental de la mécanique, 
+se réduit à : la force de rappel = m fois l'accelaration.
+
+Considéré uniquement sur l'axe horizontal il s'écrit :
+$$-kx(t) = m\frac{\dd^2 x(t)}{\dd t^2}$$
+
+\change
+Il s'agit donc de résoudre l'équation différentielle du second ordre :
+$$y'' + \frac{k}{m} y = 0.$$
+
+\change
+L'équation caractéristique est $r^2+\frac{k}{m} = 0$,
+
+\change
+Nous sommes dans le cas $\Delta <0$, les solutions sont les nombres complexes 
+$r_1 = +\ii\sqrt{\frac{k}{m}}$ et $r_2 = -\ii\sqrt{\frac{k}{m}}$.
+
+\change
+ce qui fait que les solutions de l'équation différentielle sont
+les :
+$$y(x) = e^{\alpha x}\big(\lambda\cos (\beta x)+\mu\sin (\beta x)\big)$$
+
+où $\alpha$ est la partie réelle de nos racines, donc ici est nul.
+Et $\beta$ la partie imaginaire donc $\sqrt{\frac{k}{m}}$
+
+\change
+Dans notre situation (la fonction inconnue est $x$ et la variable $t$) :
+$$x(t) = \lambda\cos \left(\sqrt{\tfrac{k}{m}}t\right)
++\mu\sin \left(\sqrt{\tfrac{k}{m}}t\right)
+\qquad \lambda, \mu \in \Rr$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Par exemple 
+
+\change
+On lâche la masse au point d'abscisse $1$, sans vitesse initiale. 
+
+\change
+Cela nous donne les conditions initiales 
+$x(0)=1$ et $x'(0)=0$.
+
+\change
+Comme $x(0)=1$ alors $\lambda=1$. 
+
+\change
+Et comme $x'(0) = 0$ alors $\mu = 0$.
+
+\change
+Ainsi on trouve une solution périodique :
+$$x(t) = \cos \left(\sqrt{\tfrac{k}{m}}t\right)$$
+
+qui oscille périodiquement autour de la position d'équilibre $x=0$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons les oscillations avec faibles frottements.
+
+\change
+On rajoute maintenant une force de frottement qui s'oppose au déplacement 
+et est proportionnelle à la vitesse.
+
+\change
+en terme d'équation  $\vec F =  -fm \frac{\dd x(t)}{\dd t}$
+où $f$ est le coefficient de frottement.
+
+\change
+Le principe fondamental de la mécanique devient :
+$$-kx(t)-fm \frac{\dd x(t)}{\dd t} = m\frac{\dd^2 x(t)}{\dd t^2}$$
+
+\change
+Il s'agit donc de résoudre l'équation différentielle que l'on noterait
+$$y'' + f y' + \frac{k}{m} y = 0.$$  
+
+\change
+L'équation caractéristique est cette fois $r^2+fr+\frac{k}{m}=0$.
+
+\change
+Son discriminant est  $\Delta = f^2-4\frac{k}{m}$.
+et comme le coefficient de frottement $f$ est faible, 
+alors $\Delta$ est encore $<0$, comme dans le cas sans frottement.
+
+\change
+Les deux racines sont 
+$r_1 = \alpha + \ii \beta$ et $r_2 = \alpha - \ii \beta$
+
+\change
+La partie réelle est $\alpha = -\frac{f}{2}$ et est non nulle
+
+
+[petit $\delta$/grand $\Delta$]
+
+la partie imaginaire est plus ou moins
+$\beta = \frac{\delta}{2}$
+
+où $\delta = \sqrt{|\Delta|}$ [montrer $\Delta$].
+
+\change
+On sait alors que les solutions de l'équation différentielle 
+sont les 
+$$y(x) = e^{\alpha x}\big(\lambda\cos (\beta x)+\mu\sin (\beta x)\big)$$
+
+\change
+Ce qui donne ici :
+$$x(t) = e^{-\frac{f}{2} t}\left(\lambda\cos \left(\tfrac{\delta}{2}t\right)
++\mu\sin \left(\tfrac{\delta}{2}t\right)\right)\qquad \lambda, \mu \in \Rr$$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Cette fois la solution n'est plus périodique, 
+mais correspond à un mouvement 
+oscillant amorti, qui tend vers la position d'équilibre $x=0$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+
+
+\end{document}

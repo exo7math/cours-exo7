@@ -1,0 +1,357 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Nous allons voir une nouvelle méthode pour obtenir une approximation d'une solution
+d'une équation $(f(x)=0)$ :
+
+\change
+
+cette nouvelle méthode est la méthode de la sécante.
+
+\change
+
+Nous l'appliquerons pour trouver une approximation 
+de $\sqrt{10}$
+
+\change
+
+et de $(1,10)^{1/12}$
+
+\change
+
+Nous terminons par une majoration de l'erreur 
+
+\change
+
+et un algorithme
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+[grand $A$, grand $B$]
+
+L'idée de la méthode de la sécante est très simple : pour une fonction $f$ 
+continue sur un intervalle $[a,b]$, et vérifiant $f(a) \le 0$, $f(b) > 0$,
+
+\change
+
+on trace le segment $[AB]$ où $A=(a,f(a))$ 
+et $B=(b,f(b))$. 
+
+
+\change
+
+Si le segment reste au-dessus du graphe de $f$ alors la fonction s'annule sur l'intervalle $[a',b]$ où 
+$(a',0)$ est le point d'intersection de 
+la droite $(AB)$ avec l'axe des abscisses. 
+
+
+\change
+
+
+On recommence en partant maintenant de l'intervalle $[a',b]$,
+
+
+on trace la sécante entre le point $A'$ et $B$, 
+
+\change
+
+cette sécante recoupe l'axe des abscisses en un point d'abscisse $a''$.
+
+\change
+
+On recommence en partant de $a''$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voici l'énoncé théorique de cette leçon :
+
+
+ Soit $f : [a,b] \to \Rr$ une fonction continue, strictement croissante et convexe (nous y reviendrons) telle
+ que $f(a) \le 0$, $f(b) > 0$.
+ 
+ On définit une suite par récurrence :
+ 
+ Le terme initial est $a_0=a$
+ 
+ et la formule de récurrence est $a_{n+1} = a_n - \frac{b-a_n}{f(b)-f(a_n)}f(a_n)$.
+ 
+ Alors la suite $(a_n)$  est croissante et converge vers la solution $\ell$ de $(f(x)=0)$.
+ 
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Expliquons géométriquement ce qu'est l'hypothèse $f$ \defi{convexe} :
+
+on fixe deux abscisses $x,x'$, on obtient
+deux points du graphe $(x,f(x))$ et $(x',f(x'))$.
+
+
+$f$ est convexe si le segment reliant ces deux points est entièrement au-dessus
+du graphe de la fonction.
+
+Il faut que ceci soit vrai quelques soient les abscisses $x$ et $x'$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Justifions maintenant la formule définissant la suite récurrente. 
+
+\change
+
+Nous devons calculer $a_{n+1}$ en fonction de $a_n$,
+
+ce qui revient à calculer $a'$ en fonction de $a$, puis à itérer la formule.
+
+
+\change
+
+\change
+
+      L'équation de la droite $(AB)$ passant par les deux points $(a,f(a))$ et $(b,f(b))$ 
+est 
+$$y=(x-a) \frac{f(b)-f(a)}{b-a} + f(a)$$
+
+
+On cherche l'intersection de cette sécante $(AB)$ avec l'axe des abscisses.
+
+\change
+
+Le point d'intersection a pour coordonnées $(a',0)$ 
+
+et comme il est sur la sécante il vérifie :
+
+$0=(a'-a) \frac{f(b)-f(a)}{b-a} + f(a)$, 
+
+on obtient $a'=a - \frac{b-a}{f(b)-f(a)}f(a)$.
+
+Ce qui donne la formule de récurrence voulue.
+  
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Montrons maintenant que la suite $(a_n)$ définie par récurrence est une suite croissante.
+
+\change
+
+Tout d'abord comme $f$ est une fonction convexe : la sécante 
+est au-dessus du graphe et on montre que ceci implique que $f(a_n) \le 0$
+
+\change
+
+On se rappelle que $a_{n+1}$ s'obtient en fonction de $a_n$ par cette formule de récurrence.
+
+  Comme $f$ est croissante, $\frac{b-a_n}{f(b)-f(a_n)}$ est positif, et
+  l'on vient de voir que $f(a_n) \le 0$.
+  
+  Ainsi toute cette expression, y compris avec le signe moins, est positive.
+
+\change
+  
+  C'est exactement dire que $a_{n+1} \ge a_n$.
+  
+\change
+
+Montrons que la suite $(a_n)$ a une limite et calculons-la.
+
+\change
+
+  La suite $(a_n)$, on vient de le voir, est une suite croissante ; elle est en majorée par $b$, 
+  l’extrémité de l'intervalle, 
+  
+  Ainsi $(a_n)$ est une suite croissante et majorée donc elle converge. 
+  
+\change
+
+  Notons $\ell$ sa limite. 
+  
+
+\change
+
+Ainsi $a_n \to \ell$,
+
+mais aussi bien sûr $a_{n+1} \to \ell$
+
+et par continuité de la fonction $f$ : $f(a_n)\to f(\ell)$
+
+\change
+
+  L'égalité $a_{n+1} = a_n - \frac{b-a_n}{f(b)-f(a_n)}f(a_n)$ devient à la limite (lorsque $n\to+\infty$) :
+  $\ell = \ell - \frac{b-\ell}{f(b)-f(\ell)} f(\ell)$, 
+  
+  
+\change
+
+Les $\ell$ se simplifie, le quotient est non nul car $\ell < b$
+
+et donc cela implique $f(\ell)=0$.
+  
+  
+  Conclusion : $(a_n)$ converge vers le zéro de $f$.
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Appliquons la méthode pour obtenir une approximation de $\sqrt{10}$.
+
+\change
+
+On pose comme fonction  $f(x)=x^2-10$, qui s'annule en $\sqrt{10}$.
+
+
+$f$ est continue, strictement croissante et est convexe sur l'intervalle $[0,+\infty[$.
+
+\change
+
+On pose $a=3$, $b=4$. Alors $f(3) \le 0$, $f(4) \ge 0$ donc $\sqrt{10}$ est dans l'intervalle $[3,4]$.
+
+\change
+
+Voici les résultats numériques,
+pour la suite $a_n$, en partant de $a_0=3$.
+
+Et sur la colonne de droite est indiquée
+une majoration de l'erreur $\epsilon_n = \sqrt{10}-a_n$ (nous y reviendrons).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici les résultats numériques 
+pour une approximation de $(1,10)^{1/12}$.
+
+La fonction est cette fois $f(x) = x^{12} - 1,10$ avec $a=1$ et $b=1,1$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+La méthode de la sécante fournit l'encadrement $a_n \le l \le b$.
+Mais comme $b$ est fixe cela ne donne pas d'information exploitable pour $|l-a_n|$.
+Voici une façon générale d'estimer l'erreur, à l'aide du théorème des accroissements finis.
+
+Proposition :
+ Soit $f : I \to \Rr$ une fonction dérivable et $\ell$ tel que $f(\ell)=0$.
+ S'il existe une constante $m>0$ tel que pour tout $x\in I$, $|f'(x)| \ge m$ alors
+ $$|x-\ell| \le \frac{|f(x)|}{m} \qquad \text{ pour tout } x \in I.$$
+
+ \change
+ 
+  Par l'inégalité des accroissement finis entre $x$ et $\ell$ :
+  $|f(x)-f(\ell)| \ge m |x-\ell|$
+  
+  mais $\ell$ est un zéro de $f$ donc $f(\ell)=0$, d'où la majoration.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voyons comment la proposition permet d'estimer l'erreur commise par la méthode de la sécante
+pour le calcul de $\sqrt{10}$
+
+On pose donc  $f(x)=x^2-10$ et on considère que $f$ est définie sur l'intervalle $I=[3,4]$. 
+
+\change
+
+
+La dérivée vaut $f'(x)=2x$ 
+
+et donc sur l'intervalle $[3,4]$,  $|f'(x)| \ge 6$. 
+
+\change
+
+Un minorant de $|f'|$ est donc $m=6$; 
+
+ici le zéro dont on cherche l'approximation est $\ell=\sqrt{10}$, 
+
+par rapport aux termes de notre suite $a_n$.
+
+\change
+
+
+Notons $\epsilon_n$ l'erreur commise lorsque l'on approxime $\sqrt {10}$ par $a_n$.
+
+C'est-à-dire on pose $\epsilon_n = |\ell-a_n|$
+
+par la proposition précédente 
+$|\ell-a_n| \le \frac{|f(a_n)|}{m}$
+
+ce qui nous donne $|\ell-a_n| \le  \frac{|a_n^2 - 10|}{6}$
+
+\change
+
+Par exemple, pour $a_2$  on a trouvé $3,16...$ donc $a_2 \le 3,17$
+
+Et donc $\sqrt{10}-a_2 \le \frac{|3,17^2-10|}{6} = 0,489$.
+
+\change
+
+Au bout de $8$ étape on a trouvé $a_8=3,1622776543347473\ldots$
+et l'erreur  $\sqrt{10}-a_8$ est $ \le \frac{|a_8^2-10|}{6} = 6,14\ldots \cdot 10^{-9}$. 
+On a en fait $7$ décimales exactes après la virgule.
+
+\change
+
+
+Dans la pratique, voici le nombre d'itérations suffisantes pour avoir une 
+précision de $10^{-N}$ pour cet exemple :
+
+  $10^{-10}$ ($\sim 10$ décimales) : $10$ itérations 
+  $10^{-100}$ ($\sim 100$ décimales) : $107$ itérations 
+  $10^{-1000}$ ($\sim 1000$ décimales) : $1073$ itérations 
+  
+Grosso-modo, une itération 
+de plus donne une décimale supplémentaire.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici l'algorithme : c'est tout simplement 
+la mise en \oe uvre de la suite récurrente $(a_n)$.
+
+$a$ et $b$ sont les extrémités de l'intervalle initial, $n$ est le nombre d'itérations.
+
+Et à chaque étape de la boucle on calcule $a_{i+1}$ en fonction de $a_i$, $f$, et $b$.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+N'oubliez pas de passer du temps à travailler par vous même.
+
+
+
+\end{document}

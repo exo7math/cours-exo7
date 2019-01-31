@@ -1,0 +1,101 @@
+\ProvidesPackage{\mainfolder exo7tikz}
+
+% correction de bug dans PGF 3.0
+% http://tex.stackexchange.com/questions/211613/shape-missing-using-pic-in-tikz/211615#211615
+%\def\tikz@do@after@node{\tikz@node@is@picfalse\tikz@scan@next@command}
+
+% les calques standards
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+% le hack pour pouvoir tracer sur une calque donnée
+% je l'utilise pour le style axes (mais on peut s'en passer normalement)
+% http://tex.stackexchange.com/questions/20425/z-level-in-tikz/20426#20426
+\tikzset{
+  on layer/.code={
+    \pgfonlayer{#1}\begingroup
+    \aftergroup\endpgfonlayer
+    \aftergroup\endgroup
+  }
+}
+
+% les styles pour les points à utiliser ainsi :
+% [point] : dessine un point avec une taille approprié à l'épaisseur du trait
+% [point={thick,draw=colorb}] : dessine un point en couleur 'colorb' et d'épaisseur 'thick'
+% les point sont mise automatiquement dans la calque 'foreground'
+\tikzset{
+  point size/.initial = {.4pt},
+  point color/.initial = {black},
+  every point/.style = {
+    line width={\pgfkeysvalueof{/tikz/point size}}, radius={\pgflinewidth},
+    opacity=1, draw={\pgfkeysvalueof{/tikz/point color}}, solid, fill=white
+  },
+  pt/.pic = {
+    \begin{pgfonlayer}{foreground}
+      \path[every point, #1] circle;
+    \end{pgfonlayer}
+  },
+  point/.style={insert path={ pic{pt={#1} }}},
+  colored point/.style = {point={fill=#1}},
+  point name/.style = {insert path={coordinate (#1)}}
+}
+
+% les couleurs par defaut
+\tikzset{
+  encouleurs/.code = {
+    \colorlet{colora}{red}
+    \colorlet{colorb}{blue}
+    \colorlet{colorc}{green}
+  },
+  engris/.code = {
+    \colorlet{colora}{black}
+    \colorlet{colorb}{black!70!white}
+    \colorlet{colorc}{black!40!white}
+  },
+  encouleurs
+}
+
+% les styles par defaut
+\tikzset{
+  main/.style = {
+    solid, very thick, draw opacity=1, fill opacity=.16, text opacity=1, {#1},
+    point size=1.2pt, point color={#1}
+  }, main/.default ={colora},
+  maina/.style = {main=colora},
+  mainb/.style = {main=colorb},
+  mainc/.style = {main=colorc},
+  main arrow/.style = {main, opacity=1, -latex},
+  mainb arrow/.style = {mainb, opacity=1, -latex},
+  mainc arrow/.style = {mainc, opacity=1, -latex},
+  submain/.style = {
+    solid, thick, draw opacity=1, fill opacity=.08, text opacity=1, {#1},
+    point size=.8pt, point color={#1}
+  }, submain/.default ={colora!50},
+  submaina/.style = {submain=colora!50},
+  submainb/.style = {submain=colorb!50},
+  submainc/.style = {submain=colorc!50},
+  submain arrow/.style = {submain, opacity=1, -latex},
+  submaina arrow/.style = {submain arrow},
+  submainb arrow/.style = {submainb, opacity=1, -latex},
+  submainc arrow/.style = {submainc, opacity=1, -latex},
+  help/.style = {
+    dash pattern=on .8pt off .8pt, thin, draw=black!40,
+    fill opacity=.04, fill/.default=black,
+    text opacity=1,
+    point size=.5pt, point color=black!40
+  },
+  subhelp/.style = {
+    dash pattern=on .4pt off .8pt, very thin, draw=black!20,
+    fill opacity=.02, fill/.default=black,
+    text opacity=1,
+    point size=.4pt, point color=black!20
+  },
+  axes/.style={
+    draw, solid, thin, draw=black!40, -latex,
+    fill=none,
+    text opacity=1,
+    point size=.5pt, point color=black!40,
+    on layer=background
+  }
+}

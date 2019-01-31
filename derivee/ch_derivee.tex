@@ -1,0 +1,913 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Dérivée d'une fonction}
+%====================================================================
+
+\insertvideo{5wpc0nsbBm4}{partie 1. Définition}
+
+\insertvideo{TNfUA1PxosI}{partie 2. Calculs}
+
+\insertvideo{t1uRmjrMnp8}{partie 3. Extremum local, théorème de Rolle}
+
+\insertvideo{VdsiZNpZs2A}{partie 4. Théorème des accroissements finis}
+
+\insertfiche{fic00013.pdf}{Fonctions dérivables}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Motivation}
+
+Nous souhaitons calculer $\sqrt{1,01}$ ou du moins en trouver une valeur approchée.
+Comme $1,01$ est proche de $1$ et que $\sqrt{1}=1$ on se doute bien que $\sqrt{1,01}$
+sera proche de $1$. Peut-on être plus précis ?
+Si l'on appelle $f$ la fonction définie par $f(x)=\sqrt{x}$, alors la fonction $f$ est une fonction
+continue en $x_0=1$. La continuité nous affirme que pour $x$ suffisamment proche de $x_0$,
+$f(x)$ est proche de $f(x_0)$. Cela revient à dire que pour $x$ au voisinage de $x_0$ on approche $f(x)$
+par la constante $f(x_0)$.
+
+\myfigure{1.5}{
+\tikzinput{fig_derive01}
+}
+
+Nous pouvons faire mieux qu'approcher notre fonction par une droite horizontale ! Essayons avec une droite
+quelconque. Quelle droite se rapproche le plus du graphe de $f$ autour de $x_0$ ? Elle
+doit passer par le point $(x_0,f(x_0))$ et doit \og coller \fg{}
+le plus possible au graphe : c'est la tangente
+au graphe en $x_0$.
+Une équation de la tangente est
+$$y = (x-x_0) f'(x_0) + f(x_0)$$
+où $f'(x_0)$ désigne le nombre dérivé de $f$ en $x_0$.
+
+
+On sait que pour $f(x)=\sqrt x$, on a $f'(x)=\frac{1}{2\sqrt x}$.
+Une équation de la tangente en $x_0=1$ est donc $y=(x-1)\frac12+1$.
+Et donc pour $x$ proche de $1$ on a $f(x) \approx (x-1)\frac12+1$.
+Qu'est-ce que cela donne pour notre calcul de $\sqrt{1,01}$ ?
+On pose $x=1,01$ donc $f(x) \approx 1+\frac12(x-1) = 1 + \frac{0,01}{2}=1,005$.
+Et c'est effectivement une très bonne de approximation de $\sqrt{0,01}=1,00498\ldots$.
+En posant $h=x-1$ on peut reformuler notre approximation en :
+$\sqrt{1+h} \approx 1+\frac12h$ qui est valable pour $h$ proche de $0$.
+
+
+Dans ce chapitre nous allons donc définir ce qu'est la dérivée d'une fonction et établir les formules des dérivées des fonctions usuelles.
+Enfin, pour connaître l'erreur des approximations, il nous faudra travailler beaucoup plus
+afin d'obtenir le théorème des accroissements finis.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Dérivée}
+
+%---------------------------------------------------------------
+\subsection{Dérivée en un point}
+
+Soit $I$ un intervalle ouvert de $\Rr$ et $f : I \to \Rr$ une fonction. Soit $x_0 \in I$.
+
+\begin{definition}
+$f$ est \defi{dérivable en $x_0$}\index{fonction!derivable@dérivable} si le \evidence{taux d'accroissement} $\frac{f(x)-f(x_0)}{x-x_0}$
+a une limite finie lorsque $x$ tend vers $x_0$.
+La limite s'appelle alors le \defi{nombre dérivé} de $f$ en $x_0$ et est noté $f'(x_0)$. Ainsi
+\mybox{$\displaystyle f'(x_0)= \lim_{x\to x_0} \frac{f(x)-f(x_0)}{x-x_0}$}
+\end{definition}
+
+
+\begin{definition}
+$f$ est \defi{dérivable sur $I$} si $f$ est dérivable en tout point $x_0 \in I$.
+La fonction $x \mapsto f'(x)$ est la \defi{fonction dérivée}\index{fonction!derivee@dérivée}\index{derivee@dérivée} de $f$,
+elle se note $f'$ ou $\frac{df}{dx}$.
+\end{definition}
+
+
+\begin{exemple}
+La fonction définie par $f(x)=x^2$  est dérivable en tout point $x_0 \in \Rr$. En effet :
+$$\frac{f(x)-f(x_0)}{x-x_0} = \frac{x^2-x_0^2}{x-x_0} = \frac{(x-x_0)(x+x_0)}{x-x_0}=x+x_0 \xrightarrow[x \to x_0]{} 2x_0.$$
+On a même montré que le nombre dérivé de $f$ en $x_0$ est $2x_0$, autrement dit : $f'(x)=2x$.
+\end{exemple}
+
+\begin{exemple}
+Montrons que la dérivée de $f(x)=\sin x$ est $f'(x)=\cos x$.
+Nous allons utiliser les deux assertions suivantes :
+$$\frac{\sin x}{x} \xrightarrow[x\to 0]{} 1 \qquad \text{et} \qquad \sin p-\sin q = 2\sin \frac{p-q}{2}\cdot\cos\frac{p+q}{2}.$$
+
+Remarquons déjà que la première assertion prouve $\frac{f(x)-f(0)}{x-0} = \frac{\sin x}{x} \to 1$ et donc $f$ est dérivable en $x_0=0$
+et $f'(0)=1$.
+
+Pour $x_0$ quelconque on écrit :
+$$\frac{f(x)-f(x_0)}{x-x_0} = \frac{\sin x - \sin x_0}{x-x_0} = \frac{\sin \frac{x-x_0}{2}}{\frac{x-x_0}{2}} \cdot \cos \frac{x+x_0}{2}.$$
+Lorsque $x\to x_0$ alors d'une part $\cos \frac{x+x_0}{2}\to \cos x_0$ et d'autre part
+en posant $u=\frac{x-x_0}{2}$ alors $u\to 0$ et on a $\frac {\sin u}u \to 1$.
+Ainsi $\frac{f(x)-f(x_0)}{x-x_0} \to \cos x_0$ et donc
+$f'(x)=\cos x$.
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+\subsection{Tangente}
+
+La droite qui passe par les points distincts $(x_0,f(x_0))$ et $(x,f(x))$
+a pour coefficient directeur $\frac{f(x)-f(x_0)}{x-x_0}$.
+\`A la limite on trouve que le coefficient directeur de la tangente est $f'(x_0)$.
+Une équation de la \defi{tangente}\index{tangente} au point $(x_0,f(x_0))$ est donc :
+\mybox{$y = (x-x_0) f'(x_0) + f(x_0)$}
+
+\myfigure{2}{
+\tikzinput{fig_derive02}
+}
+
+%---------------------------------------------------------------
+\subsection{Autres écritures de la dérivée}
+
+Voici deux autres formulations de la dérivabilité de $f$ en $x_0$.
+
+\begin{proposition}
+\label{prop:ecrideriv}
+\sauteligne
+\begin{itemize}
+  \item $f$ est dérivable en $x_0$ si et seulement si $\displaystyle \lim_{h\to 0} \frac{f(x_0+h)-f(x_0)}{h}$ existe et est finie.
+  \item $f$ est dérivable en $x_0$ si et seulement s'il existe $\ell \in \Rr$ (qui sera $f'(x_0)$)
+et une fonction $\epsilon : I \to \Rr$ telle que $\epsilon(x) \xrightarrow[x\to x_0]{} 0$ avec
+$$f(x)=f(x_0)+(x-x_0) \ell + (x-x_0) \epsilon(x).$$
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+Il s'agit juste de reformuler la définition de $f'(x_0)$.
+Par exemple, après division par $x-x_0$, la deuxième écriture devient
+$$\frac{f(x)-f(x_0)}{x-x_0} = \ell + \epsilon(x).$$
+\end{proof}
+
+\begin{proposition}
+Soit $I$ un intervalle ouvert, $x_0 \in I$ et soit $f : I \to \Rr$ une fonction.
+\begin{itemize}
+  \item Si $f$ est dérivable en $x_0$ alors $f$ est continue en $x_0$.
+  \item Si $f$ est dérivable sur $I$ alors $f$ est continue sur $I$.
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+Supposons $f$ dérivable en $x_0$ et montrons qu'elle est aussi continue en ce point.
+Voici une démonstration concise : partant de l'écriture alternative donnée dans la proposition \ref{prop:ecrideriv},
+nous écrivons
+$$f(x)= f(x_0)+\underbrace{(x-x_0) \ell}_{\to 0} + \underbrace{(x-x_0) \epsilon(x)}_{\to 0}.$$
+Donc $f(x) \to f(x_0)$ lorsque $x \to x_0$ et ainsi $f$ est continue en $x_0$.
+
+\medskip
+
+On reprend cette démonstration sans utiliser les limites mais uniquement la définition
+de continuité et dérivabilité :
+fixons $\epsilon'>0$ et écrivons $f(x)= f(x_0)+(x-x_0) \ell + (x-x_0) \epsilon(x)$
+grâce à la proposition \ref{prop:ecrideriv}, où $\epsilon(x) \xrightarrow[x\to x_0]{} 0$ et $\ell=f'(x_0)$.
+Choisissons $\delta > 0$ de sorte qu'il vérifie tous les points suivants :
+\begin{itemize}
+  \item $\delta  \le 1$,
+  \item $\delta |\ell| < \epsilon'$,
+  \item si $|x-x_0|< \delta$ alors $|\epsilon(x)| < \epsilon'$ (c'est possible car $\epsilon(x) \to 0$).
+\end{itemize}
+
+Alors l'égalité ci-dessus devient :
+\begin{align*}
+\big|f(x)-f(x_0)\big|
+  &= \big| (x-x_0)\ell + (x-x_0)\epsilon(x) \big| \\
+  &\le |x-x_0|\cdot |\ell| + |x-x_0| \cdot |\epsilon(x)| \\
+  &\le  \delta |\ell| \quad + \quad \delta \epsilon' \qquad \text{pour } |x-x_0| < \delta \\
+  &\le  \epsilon' + \epsilon' = 2\epsilon' \\
+\end{align*}
+
+Nous venons de prouver que si $|x-x_0| < \delta$ alors $\big|f(x)-f(x_0)\big| < 2\epsilon'$,
+ce qui exprime exactement que $f$ est continue en $x_0$.
+\end{proof}
+
+\begin{remarque*}
+La réciproque est \textbf{fausse} : par exemple, la fonction valeur absolue
+est continue en $0$ mais n'est pas dérivable en $0$.
+
+\myfigure{1}{
+\tikzinput{fig_derive03}
+}
+
+En effet, le taux d'accroissement de $f(x)=|x|$ en $x_0=0$ vérifie :
+$$\frac{f(x)-f(0)}{x-0} = \frac{|x|}{x}=
+\begin{cases}
++1 & \text{ si } x>0 \\
+-1 & \text{ si } x < 0 \\
+\end{cases}.
+$$
+Il y a bien une limite à droite (qui vaut $+1$), une limite à gauche (qui vaut $-1$) mais elles ne sont pas égales :
+il n'y a pas de limite en $0$. Ainsi $f$ n'est pas dérivable en $x=0$.
+
+Cela se lit aussi sur le dessin, il y a une demi-tangente à droite, une demi-tangente à gauche,
+mais elles ont des directions différentes.
+\end{remarque*}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Montrer que la fonction $f(x)=x^3$ est dérivable en tout point $x_0\in \Rr$ et que $f'(x_0)=3x_0^2$.
+  \item Montrer que la fonction $f(x)=\sqrt x$ est dérivable en tout point $x_0 >0$ et que $f'(x_0)=\frac{1}{2\sqrt{x_0}}$.
+  \item Montrer que la fonction $f(x)=\sqrt x$ (qui est continue en $x_0=0$) n'est pas dérivable en $x_0=0$.
+  \item Calculer l'équation de la tangente $(T_0)$ à la courbe d'équation $y=x^3-x^2-x$ au point d'abscisse $x_0=2$.
+Calculer $x_1$ afin que la tangente $(T_1)$ au point d'abscisse $x_1$ soit parallèle à $(T_0)$.
+  \item Montrer que si une fonction $f$ est paire et dérivable, alors $f'$ est une fonction impaire.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Calcul des dérivées}
+
+%---------------------------------------------------------------
+\subsection{Somme, produit,...}
+
+
+\begin{proposition}
+Soient $f,g : I \to \Rr$ deux fonctions dérivables sur $I$. Alors pour tout $x \in I$ :
+\begin{itemize}
+  \item $(f+g)'(x) = f'(x)+g'(x)$
+  \item $(\lambda f)'(x) = \lambda f'(x)$ \  où $\lambda$ est un réel fixé
+  \item $(f \times g)'(x) = f'(x)g(x)+f(x)g'(x)$
+  \item $\left(\frac{1}{f}\right)'(x)=-\frac{f'(x)}{f(x)^2}$ \   (si $f(x) \neq 0$)
+  \item $\displaystyle\left(\frac{f}{g}\right)'(x)=\frac{f'(x)g(x)-f(x)g'(x)}{g(x)^2}$ \  (si $g(x) \neq 0$)
+\end{itemize}
+\end{proposition}
+
+\begin{remarque*}
+Il est plus facile de mémoriser les égalités de fonctions :
+\mybox{$(f+g)'=f'+g' \qquad  (\lambda f)' = \lambda f' \qquad (f \times g)' = f'g+fg'$}
+\mybox{$\displaystyle\left(\frac{1}{f}\right)'=-\frac{f'}{f^2} \qquad
+\left(\frac{f}{g}\right)'=\frac{f'g-fg'}{g^2}$}
+\end{remarque*}
+
+\begin{proof}
+Prouvons par exemple $(f \times g)' = f'g+fg'$.
+
+Fixons $x_0 \in I$. Nous allons réécrire le taux d'accroissement de $f(x)\times g(x)$:
+\begin{align*}
+\frac{f(x)g(x)-f(x_0)g(x_0)}{x-x_0}
+&=\frac{f(x)-f(x_0)}{x-x_0} g(x)+\frac{g(x)-g(x_0)}{x-x_0}f(x_0)\\
+&\xrightarrow[x\to x_0]{} f'(x_0)g(x_0)+g'(x_0)f(x_0).
+\end{align*}
+
+%
+% Fixons $x_0 \in I$. Comme $f$ est dérivable en $x_0$ alors
+% on peut écrire  $f(x)= f(x_0)+(x-x_0) f'(x_0) + (x-x_0) \epsilon_1(x)$
+% (voir la proposition \ref{prop:ecrideriv}) où $\epsilon_1(x) \to 0$ lorsque $x\to x_0$.
+% De même $g$ est aussi dérivable en $x_0$ donc :
+% $g(x)= g(x_0)+(x-x_0) g'(x_0) + (x-x_0) \epsilon_2(x)$
+% où $\epsilon_2(x) \to 0$.
+%
+% Alors en développant on obtient :
+% \begin{equation}
+% \label{eq:derivprod}
+% f(x)\times g(x) = f(x_0)\times g(x_0) + (x-x_0) \big( f'(x_0)g(x_0)+f(x_0)g'(x_0) \big) + (x-x_0) \epsilon_3(x)
+% \end{equation}
+% avec
+% $$\epsilon_3(x)= f(x_0) \epsilon_2(x)+g(x_0)\epsilon_1(x)+(x-x_0) \big(
+% f'(x_0)\epsilon_2(x) + g'(x_0) \epsilon_1(x) \big)$$
+% qui vérifie bien $\epsilon_3(x) \to 0$ lorsque $x\to x_0$.
+%
+% Nous appliquons la proposition \ref{prop:ecrideriv} (cette fois dans le sens réciproque) :
+% l'équation (\ref{eq:derivprod}) implique que la fonction $x \mapsto f(x)\times g(x)$ est dérivable en $x_0$,
+% de dérivée $f'(x_0)g(x_0)+f(x_0)g'(x_0)$.
+
+Ceci étant vrai pour tout $x_0 \in I$ la fonction $f\times g$ est dérivable sur $I$ de dérivée $f'g+fg'$.
+\end{proof}
+
+%---------------------------------------------------------------
+\subsection{Dérivée de fonctions usuelles}
+
+Le tableau de gauche est un résumé des principales formules à connaître, $x$ est une variable.
+Le tableau de droite est celui des compositions (voir paragraphe suivant), $u$ représente une fonction $x\mapsto u(x)$.
+
+\index{fonction!derivee@dérivée}
+\begin{center}
+%\noindent
+\setlength{\arrayrulewidth}{0.05mm}
+%\begin{tabular}{|l|l|l|} \hline
+\begin{tabular}[t]{|c|c@{\vrule depth 1.2ex height 3ex width 0mm \ }|}
+\hline
+\textbf{Fonction}         & \textbf{Dérivée} \\ \hline
+   $x^n$         & $nx^{n-1}$  \quad ($n \in \Zz$)   \\ \hline
+   $\frac 1x$    & $-\frac{1}{x^2}$              \\ \hline
+   $\sqrt{x}$    & $\frac12 \frac1{\sqrt{x}}$   \\ \hline
+   $x^\alpha$   & $\alpha x^{\alpha-1}$  \quad ($\alpha\in\Rr$)  \\ \hline
+   $e^x$         & $e^x$                        \\ \hline
+   $\ln x$       & $\frac 1x$                   \\ \hline
+   $\cos x$      & $-\sin x$                    \\ \hline
+   $\sin x$      & $\cos x$                     \\ \hline
+   $\tan x$      & $1+\tan^2 x = \frac{1}{\cos^2 x}$        \\ \hline
+\end{tabular}
+\hspace*{2cm}
+\begin{tabular}[t]{|c|c@{\vrule depth 1.2ex height 3ex width 0mm \ }|}
+\hline
+\textbf{Fonction}         & \textbf{Dérivée} \\ \hline
+   $u^n$         & $nu'u^{n-1}$  \quad  ($n \in \Zz$)   \\ \hline
+   $\frac 1u$    & $-\frac{u'}{u^2}$              \\ \hline
+   $\sqrt{u}$    & $\frac12 \frac{u'}{\sqrt{u}}$   \\ \hline
+   $u^\alpha$   & $\alpha u' u^{\alpha-1}$ \quad ($\alpha\in\Rr$)  \\ \hline
+   $e^u$         & $u'e^u$                        \\ \hline
+   $\ln u$       & $\frac {u'}{u}$                   \\ \hline
+   $\cos u$      & $-u'\sin u$                    \\ \hline
+   $\sin u$      & $u'\cos u$                     \\ \hline
+   $\tan u$      & $u'(1+\tan^2 u) = \frac{u'}{\cos^2 u}$        \\ \hline
+\end{tabular}
+\hfill
+\end{center}
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+  \item Notez que les formules pour $x^n$, $\frac 1x$, $\sqrt x$ et $x^\alpha$
+sont aussi des conséquences de la dérivée de l'exponentielle.
+Par exemple $x^\alpha = e^{\alpha \ln x}$ et donc
+$$\frac{d }{dx}(x^\alpha) = \frac{d}{dx} (e^{\alpha \ln x}) = \alpha \frac{1}{x} e^{\alpha \ln x} =\alpha \frac 1x x^{\alpha}=\alpha x^{\alpha-1}.$$
+
+  \item Si vous devez dériver une fonction avec un exposant dépendant de $x$ il faut absolument
+repasser à la forme exponentielle.
+Par exemple si $f(x)= 2^x$ alors on réécrit d'abord $f(x)=e^{x\ln 2}$ pour pouvoir calculer
+$f'(x)=\ln 2 \cdot  e^{x\ln 2} = \ln 2  \cdot 2^x$.
+\end{itemize}
+
+\end{remarque*}
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Composition}
+
+\begin{proposition}
+Si $f$ est dérivable en $x$ et $g$ est dérivable en $f(x)$ alors $g\circ f$ est
+dérivable en $x$ de dérivée :
+\mybox{$\big( g \circ f \big)'(x) = g'\big( f(x) \big) \cdot f'(x)$}
+\end{proposition}
+
+\begin{proof}
+La preuve est similaire à celle ci-dessus pour le produit en écrivant cette fois :
+\begin{align*}
+\frac{g\circ f(x)-g\circ f(x_0)}{x-x_0} 
+&= \frac{g\big( f(x)\big)-g\big( f(x_0)\big)}{f(x)-f(x_0)} \times \frac{f(x)-f(x_0)}{x-x_0} \\
+&\xrightarrow[x\to x_0]{} g'\big(f(x_0)\big) \times f'(x_0).
+\end{align*}
+\end{proof}
+
+
+\begin{exemple}
+Calculons la dérivée de $\ln(1+x^2)$. Nous avons $g(x)=\ln(x)$ avec $g'(x) = \frac 1x$ ; et
+ $f(x)=1+x^2$ avec $f'(x) = 2x$.
+Alors la dérivée de $\ln(1+x^2)=g\circ f(x)$ est
+$$\big( g \circ f \big)'(x) = g'\big( f(x) \big) \cdot f'(x) = g'\big( 1+x^2 \big) \cdot 2x = \frac{2x}{1+x^2}.$$
+\end{exemple}
+
+
+\begin{corollaire}
+Soit $I$ un intervalle ouvert. Soit $f : I \to J$ dérivable et bijective dont on note
+$f^{-1} : J \to I$ la bijection réciproque. Si $f'$ ne s'annule pas sur $I$ alors $f^{-1}$ est dérivable
+et on a pour tout $x \in J$ :
+\mybox{$\displaystyle \big(f^{-1}\big)'(x)= \frac{1}{f'\big( f^{-1}(x) \big)} $}
+\end{corollaire}
+
+
+\begin{proof}
+Notons $g=f^{-1}$ la bijection réciproque de $f$.
+Soit $y_0 \in J$ et $x_0\in I$ tel que $y_0=f(x_0)$. Le taux d'accroissement de $g$ en $y_0$ est~:
+$$\frac{g(y)-g(y_0)}{y-y_0}=\frac{g(y)-x_0}{f\big(g(y)\big) - f(x_0)}$$
+Lorsque $y\to y_0$ alors $g(y)\to g(y_0) = x_0$ et donc ce taux d'accroissement tend vers $\frac{1}{f'(x_0)}$.
+Ainsi $g'(y_0)=\frac{1}{f'(x_0)}$.
+\end{proof}
+
+\begin{remarque*}
+Il peut être plus simple de retrouver la formule à chaque fois
+en dérivant l'égalité
+$$f\big( g(x) \big)  = x$$
+où $g=f^{-1}$ est la bijection réciproque de $f$.
+
+En effet à droite la dérivée de $x$ est $1$ ;
+à gauche la dérivée de $f\big( g(x) \big) = f \circ g(x)$ est $f'\big(g(x)\big) \cdot g'(x)$.
+L'égalité $f\big( g(x) \big)  = x$ conduit donc à l'égalité des dérivées :
+$$f'\big(g(x)\big)\cdot g'(x) = 1.$$
+Mais $g=f^{-1}$ donc
+$$\big(f^{-1}\big)'(x)= \frac{1}{f'\big( f^{-1}(x) \big)}.$$
+\end{remarque*}
+
+
+\begin{exemple}
+Soit $f : \Rr \to \Rr$ la fonction définie par $f(x)=x+\exp(x)$.
+\'Etudions $f$ en détail.
+
+Tout d'abord :
+\begin{enumerate}
+  \item $f$ est dérivable car $f$ est la somme de deux fonctions dérivables. En particulier $f$ est continue.
+  \item $f$ est strictement croissante car $f$ est la somme de deux fonctions strictement croissante.
+  \item $f$ est une bijection car $\lim_{x\to-\infty} f(x)=-\infty$ et $\lim_{x\to+\infty} f(x)=+\infty$.
+  \item $f'(x) = 1 + \exp(x)$ ne s'annule jamais (pour tout $x\in \Rr$).
+\end{enumerate}
+
+\bigskip
+
+Notons $g = f^{-1}$ la bijection réciproque de $f$. Même si on ne sait pas a priori exprimer $g$, on peut malgré tout connaître des informations sur
+cette fonction : par le corollaire ci-dessus $g$ est dérivable
+et l'on calcule $g'$ en dérivant l'égalité $f\big( g(x) \big)  = x$. Ce qui donne
+$f'\big(g(x)\big) \cdot g'(x) = 1$
+et donc ici
+$$g'(x) = \frac{1}{f'\big( g(x) \big)} = \frac{1}{1+\exp\big( g(x) \big)}.$$
+Pour cette fonction $f$ particulière on peut préciser davantage :
+comme  $f\big( g(x)\big) = x$ alors $g(x)+\exp\big( g(x) \big)=x$ donc
+$\exp\big( g(x) \big)=x-g(x)$. Cela conduit à :
+$$g'(x) =  \frac{1}{1+x -g(x)}.$$
+
+\bigskip
+
+\myfigure{1}{
+\tikzinput{fig_derive13}
+}
+
+Par exemple  $f(0)=1$ donc $g(1)=0$ et donc $g'(1)=\frac12$.
+Autrement dit $\big(f^{-1}\big)'(1)= \frac{1}{2}$. L'équation de la tangente
+au graphe de $f^{-1}$ au point d'abscisse $x_0=1$ est donc $y=\frac12 (x-1)$.
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Dérivées successives}
+
+Soit $f : I \to \Rr$ une fonction dérivable et soit $f'$ sa dérivée.
+Si la fonction $f' : I \to \Rr$ est aussi dérivable on note
+$f''=(f')'$ la \defi{dérivée seconde}\index{derivee seconde@dérivée seconde} de $f$.
+Plus généralement on note :
+$$f^{(0)} = f, \quad f^{(1)} = f', \quad f^{(2)} = f'' \quad \text{ et } \quad f^{(n+1)} = \big(f^{(n)}\big)'$$
+
+Si la \defi{dérivée $n$-ième} $f^{(n)}$ existe  on dit que $f$ est \defi{$n$ fois dérivable}.
+
+
+\begin{theoreme}[Formule de Leibniz]
+\index{formule!de Leibniz}
+\sauteligne
+\mybox{$\displaystyle \big( f \cdot g \big)^{(n)} =  f^{(n)} \cdot g + \binom{n}{1}\ f^{(n-1)}\cdot g^{(1)}
++ \cdots + \binom{n}{k} \ f^{(n-k)} \cdot g^{(k)}+\cdots + f \cdot g^{(n)}$}
+\end{theoreme}
+
+Autrement dit :
+$$\big( f \cdot g \big)^{(n)} = \sum_{k=0}^n \binom{n}{k} \ f^{(n-k)} \cdot g^{(k)}.$$
+
+La démonstration est similaire à celle de la formule du binôme de Newton
+et les coefficients que l'on obtient sont les mêmes.
+\begin{exemple}
+\sauteligne
+\begin{itemize}
+  \item Pour $n=1$ on retrouve $(f\cdot g)'= f' g + f g'$.
+  \item Pour $n=2$, on a $(f\cdot g)''= f''g + 2f' g' + fg''$.
+\end{itemize}
+\end{exemple}
+
+
+\begin{exemple}
+Calculons les dérivées $n$-ème de $\exp(x) \cdot (x^2+1)$ pour tout $n \ge 0$.
+Notons $f(x)=\exp(x)$ alors $f'(x)=\exp(x)$, $f''(x)=\exp(x)$,..., $f^{(k)}(x)=\exp(x)$.
+Notons $g(x)=x^2+1$ alors $g'(x)=2x$, $g''(x)=2$ et pour $k\ge 3$, $g^{(k)}(x)=0$.
+
+
+Appliquons la formule de Leibniz :
+\begin{multline*}
+\big( f \cdot g \big)^{(n)}(x) =  f^{(n)}(x) \cdot g(x) + \binom{n}{1}\ f^{(n-1)}(x)\cdot g^{(1)}(x)
++\\
++\binom{n}{2}\  f^{(n-2)}(x)\cdot g^{(2)}(x) + \binom{n}{3}\ f^{(n-3)}(x)\cdot g^{(3)}(x) + \cdots
+\end{multline*}
+
+On remplace $f^{(k)}(x)=\exp(x)$ et on sait que $g^{(3)}(x)=0$, $g^{(4)}(x)=0$,\ldots
+Donc cette somme ne contient que les trois premiers termes :
+$$\big( f \cdot g \big)^{(n)}(x) =  \exp(x) \cdot (x^2+1) + \binom{n}{1}\ \exp(x) \cdot 2x
++ \binom{n}{2}\  \exp(x) \cdot 2.$$
+Que l'on peut aussi écrire :
+$$\big( f \cdot g \big)^{(n)}(x) =  \exp(x) \cdot \Big(x^2 + 2nx + n(n-1)+1  \Big).$$
+
+\end{exemple}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Calculer les dérivées des fonctions suivantes :
+$f_1(x) = x\ln x$, $f_2(x)=\sin \frac 1x$, $f_3(x)=\sqrt{1+\sqrt{1+x^2}}$, $f_4(x)= \big(\ln(\frac{1+x}{1-x})\big)^{\frac13}$,
+$f_5(x) = x^x$, $f_6(x) = \arctan x + \arctan \frac 1x$.
+  \item On note $\Delta(f)=\frac{f'}{f}$. Calculer $\Delta(f\times g)$.
+  \item Soit $f : ]1, +\infty[ \to ]-1, +\infty[$ définie par $f(x)= x\ln (x) - x$.
+Montrer que $f$ est une bijection. Notons $g=f^{-1}$. Calculer $g(0)$ et $g'(0)$.
+  \item Calculer les dérivées successives de $f(x)=\ln(1+x)$.
+  \item Calculer les dérivées successives de $f(x)=\ln(x) \cdot x^3$.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Extremum local, théorème de Rolle}
+
+%---------------------------------------------------------------
+\subsection{Extremum local}
+
+
+Soit $f : I \to \Rr$ une fonction définie sur un intervalle $I$.
+\begin{definition}
+\sauteligne
+\begin{itemize}
+  \item On dit que $x_0$ est un \defi{point critique}\index{point critique} de $f$ si $f'(x_0)=0$.
+
+  \item On dit que $f$ admet un \defi{maximum local en $x_0$}\index{maximum} (resp. un \defi{minimum local
+en $x_0$}\index{minimum}) s'il existe un intervalle ouvert $J$ contenant $x_0$  tel que
+$$\text{pour tout } x\in I \cap J \quad f(x) \le f(x_0)$$
+(resp. $f(x) \ge f(x_0)$).
+  \item On dit que $f$ admet un \defi{extremum local en $x_0$}\index{extremum} si $f$ admet un maximum
+local ou un minimum local en ce point.
+\end{itemize}
+\end{definition}
+
+\myfigure{1.5}{
+\tikzinput{fig_derive04}
+}
+
+Dire que $f$ a un maximum local en $x_0$ signifie que $f(x_0)$ est la plus grande des valeurs $f(x)$ pour les $x$ proches de $x_0$.
+On dit que $f : I \to \Rr$ admet un \defi{maximum global} en $x_0$ si pour toutes les autres valeurs $f(x)$, $x\in I$,
+on a $f(x) \le f(x_0)$ (on ne regarde donc pas seulement les $f(x)$ pour $x$ proche de $x_0$).
+Bien sûr un maximum global est aussi un maximum local, mais la réciproque est fausse.
+
+\begin{theoreme}
+\label{th:extremum}
+Soit $I$ un intervalle ouvert et $f : I \to \Rr$ une fonction
+dérivable. Si $f$ admet un maximum local (ou un minimum local)
+en $x_0$ alors $f'(x_0)=0$.
+\end{theoreme}
+
+En d'autres termes, un maximum local (ou un minimum local) $x_0$ est toujours un point critique.
+Géométriquement, au point $(x_0,f(x_0))$
+la tangente au graphe est horizontale.
+
+\myfigure{1.5}{
+\tikzinput{fig_derive05}
+}
+
+\begin{exemple}
+\'Etudions les extremums de la fonction $f_\lambda$ définie par
+$f_\lambda(x)= x^3+\lambda x$ en fonction du paramètre $\lambda \in \Rr$.
+La dérivée est $f_\lambda'(x) = 3x^2+\lambda$. Si $x_0$ est un extremum local
+alors $f'_\lambda(x_0)=0$.
+
+\begin{itemize}
+  \item Si $\lambda>0$ alors $f'_\lambda(x)>0$ et ne s'annule jamais il n'y a pas de points critiques
+donc pas non plus d'extremums. En anticipant sur la suite : $f_\lambda$ est strictement croissante sur $\Rr$.
+
+  \item Si $\lambda = 0$ alors $f_\lambda'(x)=3x^2$. Le seul point critique est $x_0=0$.
+Mais ce n'est ni un maximum local, ni un minimum local. En effet si $x<0$, $f_0(x)<0=f_0(0)$
+et si $x>0$, $f_0(x)>0=f_0(0)$.
+
+  \item Si $\lambda <0$ alors $f'_\lambda(x)= 3x^2-|\lambda|
+= 3\big(x+\sqrt{\frac{|\lambda|}{3}}\big)\big(x-\sqrt{\frac{|\lambda|}{3}}\big)$.
+Il y a deux points critiques $x_1= -\sqrt{\frac{|\lambda|}{3}}$ et $x_2=+\sqrt{\frac{|\lambda|}{3}}$.
+En anticipant sur la suite : $f_\lambda'(x) > 0$ sur $]-\infty,x_1[$ et $]x_2,+\infty[$
+et $f_\lambda'(x) < 0$ sur $]x_1,x_2[$ ;
+maintenant $f_\lambda$ est croissante sur $]-\infty,x_1[$, puis décroissante sur $]x_1,x_2[$,
+donc $x_1$ est un maximum local. D'autre part $f_\lambda$ est décroissante sur $]x_1,x_2[$
+puis croissante sur $]x_2,+\infty[$ donc $x_2$ est un minimum local.
+
+\medskip
+
+\myfigure{1.3}{
+\tikzinput{fig_derive12a}
+\quad
+\tikzinput{fig_derive12b}
+\quad
+\tikzinput{fig_derive12c}
+}
+
+\end{itemize}
+\end{exemple}
+
+\begin{remarque*}
+\sauteligne
+\begin{enumerate}
+  \item La réciproque du théorème \ref{th:extremum}  est fausse.
+Par exemple la fonction $f : \Rr \to \Rr$, définie par $f(x)= x^3$
+vérifie $f'(0)=0$ mais $x_0=0$ n'est ni maximum local ni un minimum local.
+
+  \item L'intervalle du théorème \ref{th:extremum} est ouvert. Pour le cas d'un intervalle fermé, il faut faire attention
+aux extrémités. Par exemple si $f : [a,b] \to \Rr$ est une fonction dérivable qui admet un extremum en $x_0$,
+alors on est dans l'une des situations suivantes :
+\begin{itemize}
+  \item $x_0= a$,
+  \item $x_0 =b$,
+  \item $x_0 \in ]a,b[$ et dans ce cas on a bien $f'(x_0)=0$ par le théorème \ref{th:extremum}.
+\end{itemize}
+Aux extrémités on ne peut rien dire pour $f'(a)$ et $f'(b)$, comme le montre les différents maximums sur
+les dessins suivants.
+
+\myfigure{0.9}{
+\tikzinput{fig_derive06} \ 
+\tikzinput{fig_derive07} \ 
+\tikzinput{fig_derive08}
+}
+
+  \item Pour déterminer $\max_{[a,b]} f$ et $\min_{[a,b]} f$ (où $f:[a,b]\to \Rr$ est une fonction dérivable) il faut comparer
+les valeurs de $f$ aux différents points critiques et en $a$ et en $b$.
+\end{enumerate}
+\end{remarque*}
+
+\begin{proof}[Preuve du théorème]
+Supposons que $x_0$ soit un maximum local de $f$, soit donc $J$ l'intervalle ouvert de la définition
+contenant $x_0$ tel que pour tout $x\in I \cap J$ on a $f(x) \le f(x_0)$.
+\begin{itemize}
+  \item Pour $x \in I\cap J$ tel que $x < x_0$ on a $f(x)-f(x_0) \le 0$ et $x-x_0<0$ donc $\frac{f(x)-f(x_0)}{x-x_0} \ge 0$
+et donc à la limite $\lim_{x \to x_0^-} \frac{f(x)-f(x_0)}{x-x_0} \ge 0$.
+  \item Pour $x \in I\cap J$ tel que $x > x_0$ on a $f(x)-f(x_0) \le 0$ et $x-x_0>0$ donc $\frac{f(x)-f(x_0)}{x-x_0} \le 0$
+et donc à la limite $\lim_{x \to x_0^+} \frac{f(x)-f(x_0)}{x-x_0} \le 0$.
+\end{itemize}
+Or $f$ est dérivable en $x_0$ donc
+$$\lim_{x \to x_0^-} \frac{f(x)-f(x_0)}{x-x_0} = \lim_{x \to x_0^+} \frac{f(x)-f(x_0)}{x-x_0} = f'(x_0).$$
+La première limite est positive, la seconde est négative, la seule possibilité est que $f'(x_0)=0$.
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Théorème de Rolle}
+
+\begin{theoreme}[Théorème de Rolle]
+\index{theoreme@théorème!de Rolle}
+\label{th:rolle}
+Soit $f:[a,b] \to \Rr$ telle que
+\begin{itemize}
+  \item $f$ est continue sur $[a,b]$,
+  \item $f$ est dérivable sur $]a,b[$,
+  \item $f(a)=f(b)$.
+\end{itemize}
+Alors il existe $c \in ]a,b[$  tel que $f'(c)=0$.
+\end{theoreme}
+
+\myfigure{1.5}{
+\tikzinput{fig_derive09}
+}
+
+Interprétation géométrique : il existe au moins un point du graphe de $f$ où la tangente est horizontale.
+
+\begin{proof}
+Tout d'abord, si $f$ est constante sur $[a,b]$ alors n'importe quel $c\in]a,b[$ convient.
+Sinon il existe $x_0 \in [a,b]$ tel que $f(x_0) \neq f(a)$.
+Supposons par exemple $f(x_0) > f(a)$. Alors $f$ est continue sur l'intervalle fermé et borné
+$[a,b]$, donc elle admet un maximum en un point $c\in[a,b]$.
+Mais $f(c) \ge f(x_0) > f(a)$ donc $c \neq a$. De même comme $f(a)=f(b)$ alors  $c\neq b$.
+Ainsi $c\in ]a,b[$.
+En $c$, $f$ est donc dérivable et admet un maximum (local) donc $f'(c)=0$.
+\end{proof}
+
+
+\begin{exemple}
+Soit $P(X) = (X-\alpha_1)(X-\alpha_2)\cdots(X-\alpha_n)$
+un polynôme ayant $n$ racines réelles différentes : $\alpha_1< \alpha_2 < \cdots < \alpha_n$.
+
+\begin{enumerate}
+  \item \emph{Montrons que $P'$ a $n-1$ racines distinctes.}
+
+On considère $P$ comme une fonction polynomiale $x \mapsto P(x)$.
+$P$ est une fonction continue et dérivable sur $\Rr$.
+Comme $P(\alpha_1)=0=P(\alpha_2)$ alors par le théorème de Rolle
+il existe $c_1 \in ]\alpha_1,\alpha_2[$
+tel que $P'(c_1)=0$.
+Plus généralement, pour $1 \le k \le n-1$, comme $P(\alpha_k)=0=P(\alpha_{k+1})$ alors
+le théorème de Rolle implique l'existence de $c_k \in ]\alpha_k,\alpha_{k+1}[$ tel que $P'(c_k)=0$.
+Nous avons bien trouvé $n-1$ racines de $P'$ : $c_1< c_2 < \cdots < c_{n-1}$.
+Comme $P'$ est un polynôme de degré $n-1$, toutes ses racines sont réelles et distinctes.
+
+  \item \emph{Montrons que $P+P'$ a $n-1$ racines distinctes.}
+
+L'astuce consiste à considérer la fonction auxiliaire $f(x)=P(x)\exp x$.
+$f$ est une fonction continue et dérivable sur $\Rr$.
+$f$ s'annule comme $P$ en $\alpha_1,\ldots,\alpha_n$.
+La dérivée de $f$ est $f'(x)=\big(P(x)+P'(x)\big) \exp x$.
+Donc par le théorème de Rolle, pour chaque  $1 \le k \le n-1$, comme $f(\alpha_k)=0=f(\alpha_{k+1})$ alors
+il existe $\gamma_k \in ]\alpha_k,\alpha_{k+1}[$ tel que $f'(\gamma_k)=0$.
+Mais comme la fonction exponentielle ne s'annule jamais alors
+$(P+P')(\gamma_k)=0$.
+Nous avons bien trouvé $n-1$ racines distinctes de $P+P'$ : $\gamma_1 < \gamma_2 < \cdots < \gamma_{n-1}$.
+
+
+
+  \item \emph{Déduisons-en que $P+P'$ a toutes ses racines réelles.}
+
+$P+P'$ est un polynôme à coefficients réels qui admet $n-1$ racines réelles.
+Donc $(P+P')(X)=(X-\gamma_1)\cdots(X-\gamma_{n-1}) Q(X)$ où $Q(x)=X-\gamma_n$ est un polynôme de degré $1$.
+Comme $P+P'$ est à coefficients réels et que les $\gamma_i$ sont aussi réels, ainsi $\gamma_n \in \Rr$.
+Ainsi on a obtenu une $n$-ème racine réelle $\gamma_n$ (pas nécessairement distincte des autres $\gamma_i$).
+
+\end{enumerate}
+
+\end{exemple}
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Dessiner le graphe de fonctions vérifiant :  $f_1$ admet deux minimums locaux et un maximum local ;
+$f_2$ admet un minimum local qui n'est pas global et un maximum local qui est global ;
+$f_3$ admet une infinité d'extremums locaux ; $f_4$ n'admet aucun extremum local.
+  \item Calculer en quel point la fonction $f(x)=ax^2+bx+c$ admet un extremum local.
+  \item Soit $f : [0,2] \to \Rr$ une fonction deux fois dérivable telle que $f(0)=f(1)=f(2)=0$.
+Montrer qu'il existe $c_1,c_2$ tels que $f'(c_1)=0$ et $f'(c_2)=0$. Montrer qu'il existe
+$c_3$ tel que $f''(c_3)=0$.
+  \item Montrer que chacune des trois hypothèses du théorème de Rolle est nécessaire.
+\end{enumerate}
+\end{miniexercices}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Théorème des accroissements finis}
+
+%---------------------------------------------------------------
+\subsection{Théorème des accroissements finis}
+
+
+\begin{theoreme}[Théorème des accroissements finis]
+\index{theoreme@théorème!des accroissements finis}
+Soit $f:[a,b] \to \Rr$ une fonction continue sur $[a,b]$ et dérivable sur $]a,b[$.
+Il existe $c\in]a,b[$ tel que
+\mybox{$f(b)-f(a)= f'(c) \; (b-a)$}
+\end{theoreme}
+
+\myfigure{1.5}{
+\tikzinput{fig_derive10}
+}
+
+Interprétation géométrique : il existe au moins un point du graphe de $f$ où la tangente est
+parallèle à la droite $(AB)$ où $A=(a,f(a))$ et $B=(b,f(b))$.
+
+\begin{proof}
+Posons $\ell = \frac{f(b)-f(a)}{b-a}$ et $g(x) = f(x) - \ell \cdot (x-a)$.
+Alors $g(a)=f(a)$, $g(b)=f(b)- \frac{f(b)-f(a)}{b-a} \cdot (b-a) = f(a)$.
+Par le théorème de Rolle, il existe $c \in ]a,b[$ tel que $g'(c) =0$.
+Or $g'(x) = f'(x) - \ell$.
+Ce qui donne $f'(c)= \frac{f(b)-f(a)}{b-a}$.
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Fonction croissante et dérivée}
+
+\begin{corollaire}
+Soit $f:[a,b] \to \Rr$ une fonction continue sur $[a,b]$ et dérivable sur $]a,b[$.
+\begin{enumerate}
+  \item \label{it:crois}$\forall x \in ]a,b[ \quad f'(x) \ge 0 \quad \iff \quad$ $f$ est croissante ;
+  \item $\forall x \in ]a,b[ \quad f'(x) \le 0 \quad \iff \quad$ $f$ est décroissante ;
+  \item  $\forall x \in ]a,b[ \quad f'(x) = 0 \quad \iff \quad$ $f$ est constante ;
+  \item \label{it:stcrois} $\forall x \in ]a,b[ \quad f'(x) > 0 \quad \implies \quad$ $f$ est strictement croissante ;
+  \item \label{it:stdec} $\forall x \in ]a,b[ \quad f'(x) < 0 \quad \implies \quad$ $f$ est strictement décroissante.
+\end{enumerate}
+\end{corollaire}
+
+\begin{remarque*}
+La réciproque au point (\ref{it:stcrois}) (et aussi au  (\ref{it:stdec})) est fausse.
+Par exemple la fonction $x \mapsto x^3$ est strictement croissante et pourtant sa dérivée s'annule en $0$.
+\end{remarque*}
+
+
+\begin{proof}
+Prouvons par exemple (\ref{it:crois}).
+
+Sens $\Longrightarrow$. \quad  Supposons d'abord la dérivée positive.
+Soient $x,y \in ]a,b[$ avec $x\le y$. Alors
+par le théorème des accroissements finis, il existe $c\in]x,y[$ tel que
+$f(x)-f(y) = f'(c) (x-y)$. Mais $f'(c) \ge 0$ et $x-y \le 0$ donc $f(x)-f(y) \le 0$.
+Cela implique que $f(x) \le f(y)$. Ceci étant vrai pour tout $x,y$ alors $f$ est croissante.
+
+\medskip
+
+Sens $\Longleftarrow$. \quad Réciproquement, supposons que $f$ est croissante. Fixons $x\in]a,b[$.
+Pour tout $y > x$ nous avons $y-x>0$ et $f(y)-f(x)\ge 0$, ainsi
+le taux d'accroissement vérifie $\frac{f(y)-f(x)}{y-x}\ge 0$. \`A la limite,
+quand $y \to x$, ce taux d'accroissement
+tend vers la dérivée de $f$ en $x$ et donc $f'(x) \ge 0$.
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Inégalité des accroissements finis}
+
+
+\begin{corollaire}[Inégalité des accroissements finis]
+\index{inegalite@inégalité!des accroissements finis}
+Soit $f : I \to \Rr$ une fonction dérivable sur un intervalle $I$ ouvert.
+S'il existe une constante $M$ telle que pour tout $x \in I$, $\big|f'(x)\big| \le M$ alors
+\mybox{$\forall x,y \in I \qquad \big| f(x)-f(y) \big| \le M |x-y|$}
+\end{corollaire}
+
+\begin{proof}
+Fixons $x,y \in I$, il existe alors $c\in]x,y[$ ou $]y,x[$ tel que $f(x)-f(y)=f'(c)(x-y)$ et
+comme $|f'(c)| \le M$ alors $\big| f(x)-f(y) \big| \le M |x-y|$.
+\end{proof}
+
+\begin{exemple}
+Soit $f(x)=\sin(x)$. Comme $f'(x)=\cos x$ alors $|f'(x)| \le 1$ pour tout $x\in \Rr$.
+L'inégalité des accroissements finis s'écrit alors :
+$$\text{pour tout } x,y \in \Rr \qquad |\sin x - \sin y | \le |x-y|.$$
+
+En particulier si l'on fixe $y=0$ alors
+on obtient
+\mybox{$|\sin x| \le |x|$}
+ce qui est particulièrement intéressant pour $x$ proche de $0$.
+
+\myfigure{0.8}{
+\tikzinput{fig_derive11}
+}
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Règle de l'Hospital}
+
+
+\begin{corollaire}[Règle de l'Hospital]
+\index{regle@règle!de l'Hospital}
+Soient $f,g : I \to \Rr$ deux fonctions dérivables et soit $x_0\in I$.
+On suppose que
+\begin{itemize}
+  \item $f(x_0)=g(x_0)=0$,
+  \item $\forall x \in I\setminus\{x_0\} \quad g'(x)\neq0$.
+\end{itemize}
+\mybox{Si \quad $\displaystyle \lim_{x\to x_0} \frac{f'(x)}{g'(x)} = \ell \quad (\in \Rr)$
+\quad alors \quad $\displaystyle \lim_{x\to x_0} \frac{f(x)}{g(x)} = \ell.$}
+\end{corollaire}
+
+
+\begin{proof}
+Fixons $a\in I\setminus\{x_0\}$ avec par exemple $a<x_0$.
+Soit $h : I \to \Rr$ définie par $h(x)=g(a)f(x)-f(a)g(x)$.
+Alors
+\begin{itemize}
+  \item $h$ est continue sur $[a,x_0] \subset I$,
+  \item $h$ est dérivable sur $]a,x_0[$,
+  \item $h(x_0)=h(a)=0$.
+\end{itemize}
+Donc par le théorème de Rolle il existe $c_a \in ]a,x_0[$ tel que $h'(c_a)=0$.
+Or $h'(x)=g(a)f'(x)-f(a)g'(x)$ donc $g(a)f'(c_a)-f(a)g'(c_a)=0$.
+Comme $g'$ ne s'annule pas sur $I\setminus\{x_0\}$ cela conduit à
+$\frac{f(a)}{g(a)}=\frac{f'(c_a)}{g'(c_a)}$.
+Comme $a<c_a<x_0$ lorsque l'on fait tendre $a$ vers $x_0$ on obtient $c_a \to x_0$.
+Cela implique
+$$\lim_{a\to x_0} \frac{f(a)}{g(a)} = \lim_{a\to x_0} \frac{f'(c_a)}{g'(c_a)} = \lim_{c_a\to x_0} \frac{f'(c_a)}{g'(c_a)} = \ell.$$
+\end{proof}
+
+\begin{exemple}
+Calculer la limite en $1$ de $\frac{\ln(x^2+x-1)}{\ln(x)}$.
+On vérifie que :
+\begin{itemize}
+  \item $f(x)=\ln(x^2+x-1)$, $f(1)=0$, $f'(x)=\frac{2x+1}{x^2+x-1}$,
+  \item $g(x)=\ln(x)$, $g(1)=0$, $g'(x)=\frac 1x$,
+  \item Prenons $I=]0,1]$, $x_0=1$, alors $g'$ ne s'annule pas sur $I\setminus\{x_0\}$.
+\end{itemize}
+
+
+$$\frac{f'(x)}{g'(x)} = \frac{2x+1}{x^2+x-1} \times x = \frac{2x^2+x}{x^2+x-1} \xrightarrow[x\to 1]{} 3.$$
+Donc
+$$\frac{f(x)}{g(x)} \xrightarrow[x\to 1]{} 3.$$
+\end{exemple}
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soit $f(x) = \frac{x^3}{3}+\frac{x^2}{2}-2x+2$. \'Etudier la fonction $f$. Tracer son graphe.
+Montrer que $f$ admet un minimum local et un maximum local.
+
+   \item Soit $f(x)=\sqrt{x}$. Appliquer le théorème des accroissements finis sur l'intervalle $[100,101]$.
+En déduire l'encadrement $10+\frac{1}{22} \le \sqrt{101} \le 10 + \frac{1}{20}$.
+
+  \item Appliquer le théorème des accroissements finis pour montrer que $\ln (1+x)-\ln(x) < \frac 1x$ (pour tout $x>0$).
+
+  \item Soit $f(x) = e^x$. Que donne l'inégalité des accroissements finis sur $[0,x]$ ?
+%En déduire que pour tout $x \ge 0$, $e^x-1 \le xe^x$.
+
+  \item Appliquer la règle de l'Hospital pour calculer les limites suivantes (quand $x\to 0$):
+$\displaystyle \frac{x}{(1+x)^n-1}$ ; $\displaystyle \frac{\ln(x+1)}{\sqrt x}$ ;
+$\displaystyle \frac{1-\cos x}{\tan x}$ ; $\displaystyle \frac{x-\sin x}{x^3}$.
+\end{enumerate}
+\end{miniexercices}
+
+
+\auteurs{
+Arnaud Bodin, 
+Niels Borne, 
+Laura Desideri
+}
+
+\finchapitre
+\end{document}
+
+

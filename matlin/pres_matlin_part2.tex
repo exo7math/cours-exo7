@@ -1,0 +1,489 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={56,98,238}]{structure}
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Matrices et applications linéaires}}
+\subtitle{Applications linéaires en dimension finie}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Construction et caractérisation
+    \item<4-> Rang d'une application linéaire
+    \item<5-> Théorème du rang
+    \item<6-> Application linéaire entre deux espaces de même dimension
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Construction et caractérisation}
+
+\begin{frame}
+
+Soient $E$ et $F$ deux espaces vectoriels sur un même corps $\Kk$
+
+\pause
+
+\begin{theoreme}[Construction d'une application linéaire]
+Supposons $E$ de dimension finie $n$
+et soit $(e_1,\dots,e_n)$ une base de $E$
+
+Alors pour tout choix $(v_1, \ldots ,v_n)$ 
+de $n$ vecteurs de $F$, il existe une et une seule 
+application linéaire $f : E \to F$
+ telle que pour tout $i=1,\ldots,n$ 
+$$f(e_i)=v_i$$
+\end{theoreme}  
+
+\bigskip
+\pause
+
+\begin{exemple}
+Il existe une unique application linéaire $f : \Rr^n \to \Rr[X]$  
+telle que 
+
+\centerline{$f(e_i) = (X+1)^i$ pour $i=1,\ldots,n$}
+\vspace*{-4ex}
+\small
+\pause
+$$f(x_1,\ldots,x_n) 
+\pause = f(x_1e_1+\cdots +x_n e_n) 
+\pause = x_1f(e_1)+\cdots +x_nf(e_n) 
+\pause = \sum_{i=1}^n x_i(X+1)^i$$%
+
+\vspace*{-2ex}
+\end{exemple}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Rang d'une application linéaire}
+
+\begin{frame}
+
+
+$f : E \to F$ une application linéaire
+
+$\Im f = f(E) =  \big\{ f(x) \ | \ x \in E \big\}$
+
+\pause
+
+\begin{proposition}
+Si $E$ est de dimension finie, alors 
+\begin{itemize}
+  \item $\Im f = f(E)$ est un espace vectoriel de dimension finie
+  \pause
+  \item Si $(e_1,\ldots,e_n)$ est une base de $E$, alors
+  
+  \centerline{$\Im f = \Vect \big( f(e_1),\ldots,f(e_n) \big)$}
+  
+  \pause
+\end{itemize}
+
+\medskip
+
+La dimension de cet espace vectoriel $\Im f$ est appelée \defi{rang de $f$}
+\vspace*{-1ex}
+\mybox{$\rg (f) = \dim \Im f = \dim \Vect \big( f(e_1),\ldots,f(e_n) \big)$}
+\end{proposition}
+
+\pause
+\begin{proposition}
+Si $E$ et $F$ sont de dimension finie 
+alors 
+\vspace*{-2ex}
+$$\rg(f) \le \min \left ( \dim E, \dim F \right)$$
+\end{proposition}
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}[Calcul du rang de $f$]
+$f : \Rr^3 \to \Rr^2$ \qquad $f(x,y,z) = (3x-4y+2z,2x-3y-z)$
+\pause
+\begin{itemize}
+  \item $e_1 = \left(\begin{smallmatrix} 1 \\ 0 \\ 0 \end{smallmatrix}\right)$ \quad 
+$e_2=\left(\begin{smallmatrix} 0 \\ 1 \\ 0 \end{smallmatrix}\right)$ \quad
+$e_3=\left(\begin{smallmatrix} 0 \\ 0 \\ 1 \end{smallmatrix}\right)$
+\pause
+  \item $(e_1,e_2,e_3)$ est la base canonique de $\Rr^3$
+\pause  
+  \item $v_1 = f(e_1) = f\left(\begin{smallmatrix} 1 \\ 0 \\ 0\end{smallmatrix}\right) 
+= \left(\begin{smallmatrix} 3 \\ 2 \end{smallmatrix}\right)$
+
+\pause
+$\qquad
+v_2 = f(e_2) = f\left(\begin{smallmatrix} 0 \\ 1 \\ 0\end{smallmatrix}\right) 
+= \left(\begin{smallmatrix} -4 \\ -3 \end{smallmatrix}\right)$
+
+\pause
+$\qquad\qquad v_3 = f(e_3) = f\left(\begin{smallmatrix} 0 \\ 0 \\ 1 \end{smallmatrix}\right) 
+= \left(\begin{smallmatrix} 2 \\ -1 \end{smallmatrix}\right)
+$
+
+\pause
+  \item $\rg f = \rg A$ où $A = \begin{pmatrix}
+3 & -4 & 2 \\
+2 & -3 & -1 \\
+\end{pmatrix}$
+
+\pause
+  \item 
+  \begin{itemize}
+    \item $3$ vecteurs donc $\rg f \le 3$
+\pause  
+     \item  $\rg f \le \dim \Rr^2 = 2$
+\pause  
+     \item $f \neq 0$ donc $\rg f \ge 1$
+\pause  
+     \item $\rg f = 1$ ou $2$
+   \end{itemize}
+   
+\pause 
+  \item $v_1$ et $v_2$ sont linéairement indépendants, donc $\rg f = 2$
+\end{itemize}  
+
+\end{exemple}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Théorème du rang}
+
+\begin{frame}
+
+\begin{itemize}
+  \item $f : E \to F$ est une application linéaire
+\pause  
+  \item $E$ est de dimension finie
+\pause  
+  \item le \defi{noyau} de $f$ est $\Ker f=\big\{x \in E \mid f(x)=0_{F}\big\}$
+ \pause 
+  \item l'\defi{image} de $f$ est $\Im f = f(E) = \big\{ f(x) \mid x \in E \big\}$
+\end{itemize}
+
+\pause
+
+\begin{theoreme}[du rang]
+\mybox{$\dim E =\dim \Ker f + \dim \Im f$}
+\end{theoreme}
+
+\pause
+
+\mybox{$\dim E = \dim \Ker f + \rg f$}
+
+
+\end{frame}
+
+\begin{frame}
+\begin{exemple}
+$f : \Rr^4 \rightarrow  \Rr^3$
+
+$f(x_1,x_2,x_3,x_4)=(x_1-x_2+x_3,2x_1+2x_2+6x_3+4x_4,-x_1-2x_3-x_4)$
+
+\smallskip
+\pause
+\evidence{Première méthode} On calcule d'abord le noyau
+\pause
+{\small
+\begin{itemize}
+  \item   $(x_1,x_2,x_3,x_4) \in \Ker f \iff f(x_1,x_2,x_3,x_4) = (0,0,0)$
+\pause
+
+  $\iff \left\{ 
+  \begin{array}{cccccccccc}
+   x_1  &-& x_2  &+& x_3  & &      &=& 0 \\
+   2x_1 &+& 2x_2 &+& 6x_3 &+& 4x_4 &=& 0 \\
+   -x_1 & &      &-& 2x_3 &-& x_4  &=& 0 
+  \end{array}\right.$
+
+\pause  
+  $\iff \left\{ 
+  \begin{array}{cccccccccc}
+   x_1  &-& x_2  &+& x_3  & &      &=& 0 \\
+        & & x_2  &+& x_3  &+& x_4  &=& 0 
+  \end{array}  \right.$
+
+  \vspace*{-1ex}
+\pause
+ 
+  \item $\Ker f = \bigg\{ (-2x_3-x_4,-x_3-x_4,x_3,x_4) \mid x_3,x_4 \in \Rr\bigg\}$
+  
+  \vspace*{-1ex}
+  
+\pause  
+  \item $\Ker f  = \left\{ x_3 \left(\begin{smallmatrix}-2 \\-1 \\1 \\0 \end{smallmatrix}\right)
+  + x_4 \left(\begin{smallmatrix}-1\\-1\\0\\1 \end{smallmatrix}\right)\mid x_3,x_4 \in \Rr \right\}
+\pause  = \Vect \left( \left(\begin{smallmatrix}-2 \\-1 \\1 \\0 \end{smallmatrix}\right),
+  \left(\begin{smallmatrix}-1\\-1\\0\\1 \end{smallmatrix}\right)
+  \right) $
+
+  \pause
+  \item $\dim \Ker f = 2$
+
+\end{itemize}
+}
+
+\pause
+Théorème du rang : $\dim \Im f \pause= \dim \Rr^4 - \dim \Ker f \pause= 4-2 = 2$
+\end{exemple}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exemple}
+$f : \Rr^4 \rightarrow  \Rr^3$
+
+$f(x_1,x_2,x_3,x_4)=(x_1-x_2+x_3,2x_1+2x_2+6x_3+4x_4,-x_1-2x_3-x_4)$
+
+\smallskip
+\pause
+\evidence{Deuxième méthode} On calcule d'abord l'image
+\pause 
+{\small
+\begin{itemize}
+  \item $(e_1,e_2,e_3,e_4)$ la base canonique de $\Rr^4$
+  
+  \pause
+  \item   
+  $v_1 = f(e_1) = f\left(\begin{smallmatrix} 1 \\ 0 \\ 0 \\0 \end{smallmatrix}\right) 
+= \left(\begin{smallmatrix} 1 \\ 2 \\ -1 \end{smallmatrix}\right) \quad
+\pause
+v_2 = f(e_2) = f\left(\begin{smallmatrix} 0 \\ 1 \\ 0 \\ 0\end{smallmatrix}\right) 
+= \left(\begin{smallmatrix} -1 \\ 2 \\ 0 \end{smallmatrix}\right)$
+
+\pause
+$
+v_3 = f(e_3) = f\left(\begin{smallmatrix} 0 \\ 0 \\ 1 \\  0\end{smallmatrix}\right)
+= \left(\begin{smallmatrix} 1 \\ 6 \\ -2 \end{smallmatrix}\right) \quad
+\pause
+v_4 = f(e_4) = f\left(\begin{smallmatrix} 0 \\ 0 \\ 0 \\1 \end{smallmatrix}\right) 
+= \left(\begin{smallmatrix} 0 \\ 4 \\ -1 \end{smallmatrix}\right)
+$
+
+\pause  
+  \item $A = \begin{pmatrix}
+    1&-1&1&0\\
+    2&2&6&4\\
+    -1&0&-2&-1\\
+  \end{pmatrix}
+\pause  \sim 
+  \begin{pmatrix}
+    1&0&0&0\\
+    2&4&0&0\\
+    -1&-1&0&0\\
+  \end{pmatrix}$
+
+ \pause 
+  \item $\rg A = 2$
+ 
+ \pause 
+  \item Ainsi $\rg f = \dim \Im f = \dim \Vect\big( f(e_1),f(e_2),f(e_3),f(e_4) \big) = 2$
+  
+
+\end{itemize}
+}
+
+\pause 
+Théorème du rang : $\dim \Ker f = \dim \Rr^4 - \rg f = 4-2 =2$
+
+\end{exemple}
+
+\end{frame}
+
+
+
+\begin{frame}
+\begin{exemple}
+$$\begin{array}{rcl}
+f : \Rr_n[X] &\longrightarrow&  \Rr_n[X] \\
+        P(X) &\longmapsto& P''(X) 
+  \end{array}$$
+  
+\pause
+
+Quel est le rang et la dimension du noyau de $f$ ?
+
+\pause
+\begin{itemize}
+  \item \evidence{Première méthode} on calcule d'abord le noyau
+  \pause
+  \begin{itemize}
+    \item $P(X) \in \Ker f  \iff P''(X) = 0 \iff P'(X)=a \Leftrightarrow P(X) = aX+b$
+    \pause
+    \item $\Ker f = \Vect(1,X)$ donc $\dim \Ker f = 2$
+    \pause
+    \item Par le théorème du rang, $\rg f = \dim \Im f = \dim \Rr_n[X] - \dim \Ker f = (n+1) - 2 = n-1$
+  \end{itemize}
+  
+  \pause
+  \item \evidence{Deuxième méthode} on calcule d'abord l'image
+  \begin{itemize}
+  \pause
+    \item $(1,X,X^2,\ldots,X^n)$ est une base de l'espace de départ $\Rr_n[X]$
+    \pause
+    \item donc $\rg f = \dim \Im f = \dim \Vect \big(f(1), f(X), \ldots, f(X^n) \big)$
+    \pause
+    \item $f(1)=0$ et $f(X)=0$\pause, pour $k \ge 2$, $f(X^k) = k(k-1)X^{k-2}$
+    \pause
+    \item $\big\{f(X^2), f(X^3), \ldots, f(X^n) \big\} 
+    = \big\{2, 6X, 12X^2, \ldots, n(n-1)X^{n-2}\big\}$
+    \pause
+    \item Degrés échelonnés implique $\rg f = n-1$
+    \pause
+    \item Par le théorème du rang, $\dim \Ker f = \dim \Rr_n[X] - \rg f = 2$
+  \end{itemize}
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Entre espaces de même dimension}
+
+\begin{frame}
+
+Un \defi{isomorphisme} est une application linéaire bijective
+\begin{proposition}
+Si $f : E \to F$ un isomorphisme entre espaces vectoriels de dimension finie
+alors 
+\vspace*{-1ex}
+$$\dim E =\dim F$$
+\end{proposition}
+
+\pause
+
+\begin{theoreme}
+\label{th:eqapplinbij}
+Soit $f : E \to F$ une application linéaire où $E$ et $F$ 
+de dimension finie
+
+Si $\dim E = \dim F$, alors les assertions suivantes sont équivalentes
+\pause
+\begin{itemize}
+  \item[(i)] $f$ est bijective
+  \item[(ii)] $f$ est injective
+  \item[(iii)] $f$ est surjective
+\end{itemize}
+\end{theoreme}
+
+\pause
+
+\begin{proof} 
+$f$ injective 
+\pause
+$\iff$ $\Ker f = \{0\}$
+\pause
+$\iff$ $\dim \Im f =\dim E$
+\pause
+
+\hfill $\iff$ $\dim \Im f=\dim F$
+\pause
+$\iff$ $\Im f =F$
+\pause
+$\iff$ $f$ surjective
+\end{proof}
+
+
+\end{frame}
+
+\begin{frame}
+\begin{exemple}
+\begin{itemize}
+  \item $f : \Rr^2 \to \Rr^2$ définie par $f(x,y) = (x-y,x+y)$
+  \pause 
+  \item $f$ est-elle bijective ?
+  \pause 
+  \item Espace de départ et espace d'arrivée de même dimension
+  \pause 
+  \item 
+  $(x,y) \in \Ker f \pause \iff f(x,y)=0 \pause \iff (x-y,x+y)=(0,0)$
+
+  $\pause \iff 
+\left\{
+\begin{array}{rcl}
+x+y & = & 0 \\
+x-y & = & 0 \\
+\end{array}
+\right. 
+% \iff 
+% \left\{
+% \begin{array}{rcl}
+% x & = & 0 \\
+% y & = & 0 \\
+% \end{array}
+% \right.
+\pause \iff (x,y) = (0,0)$
+  \pause 
+  \item $\Ker f = \big\{(0,0)\big\}$ donc $f$ est injective
+  \pause 
+  \item Par le théorème précédent $f$ est un isomorphisme
+\end{itemize}
+
+\end{exemple}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Soit $(e_1,e_2,e_3)$ la base canonique de $\Rr^3$. Donner l'expression
+  de $f(x,y,z)$ où $f : \Rr^3 \to \Rr^3$
+  est l'application linéaire 
+  qui envoie $e_1$ sur son opposé,
+  qui envoie $e_2$ sur le vecteur nul et
+  qui envoie $e_3$ sur la somme des trois vecteurs $e_1, e_2, e_3$.
+  
+  \item Soit $f : \Rr^3 \to \Rr^2$ définie par $f(x,y,z)=(x-2y-3z,2y+3z)$.
+  Calculer une base du noyau de $f$, une base de l'image de $f$ et vérifier le théorème du rang.
+  
+  \item Idem avec $f : \Rr^3 \to \Rr^3$, $f(x,y,z)=(-y+z,x+z,x+y)$.
+  
+  \item Même question avec l'application linéaire $f : \Rr_n[X] \to \Rr_n[X]$ qui à 
+  $X^k$ associe $X^{k-1}$ pour $1 \le k \le n$ et qui à $1$ associe $0$.
+  
+  \item Lorsque c'est possible, calculer la dimension du noyau, le rang et dire 
+  si $f$ peut être injective, surjective, bijective :
+  \vspace*{-0.5ex}
+    \begin{itemize}
+      \item Une application linéaire surjective $f : \Rr^7 \to \Rr^4$.
+      \item Une application linéaire injective $f : \Rr^5 \to \Rr^8$.
+      \item Une application linéaire surjective $f : \Rr^4 \to \Rr^4$.
+      \item Une application linéaire injective $f : \Rr^6 \to \Rr^6$.      
+    \end{itemize}
+
+\vspace*{-1ex}  
+\end{enumerate}
+
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

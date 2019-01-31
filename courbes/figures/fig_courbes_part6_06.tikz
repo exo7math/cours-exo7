@@ -1,0 +1,40 @@
+\begin{tikzpicture}
+
+% Axes
+     \draw[->,>=latex,thick, gray] (-2.5,0)--(4.5,0) node[below,black] {$x$};
+     \draw[->,>=latex,thick, gray] (0,-3.5)--(0,4.5) node[right,black] {$y$};
+
+ % Ticks
+    	\foreach \x in {1,...,4}
+     		\draw (\x,2pt) -- (\x,-2pt)
+			node[anchor=north] {\x};
+    	\foreach \x in {-1,...,-2}
+     		\draw (\x,2pt) -- (\x,-2pt)
+			node[anchor=north] {\x};
+    	\foreach \x in {1,...,4}
+     		\draw (2pt,\x) -- (-2pt,\x)
+			node[anchor=east] {\x};
+    	\foreach \x in {-1,...,-3}
+     		\draw (2pt,\x) -- (-2pt,\x)
+			node[anchor=east] {\x};
+
+% Tangentes
+% \draw[thick, blue!50] (-3,2)--(2,-3);
+
+% Asymptotes
+ \draw[thick, blue!50] (-2.5,-3.5)--(2,4.3);
+ \draw[thick, blue!50] (-0.5,4.1)--(3.7,-3.3);
+
+% Courbe
+% Sur -pi, -2pi/3
+\draw [thick, color=red, domain=-pi:-2.18, samples=200, smooth]
+  plot (xy polar cs:angle=\x r, radius={(1+2*sin(\x r))/(1+2*cos(\x r)});
+
+%Sur  -2pi/3, + 2pi/3
+\draw [thick, color=red, domain=-2.0:1.70, samples=200, smooth]
+  plot (xy polar cs:angle=\x r, radius={(1+2*sin(\x r))/(1+2*cos(\x r)});
+
+% Sur +2pi/3,pi
+\draw [thick, color=red, domain=2.40:pi, samples=200, smooth]
+  plot (xy polar cs:angle=\x r, radius={(1+2*sin(\x r))/(1+2*cos(\x r)});
+\end{tikzpicture}

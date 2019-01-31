@@ -1,0 +1,256 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcommand{\deter}{déter\-mi\-nant\ }
+\newcommand{\deters}{déter\-mi\-nants\ }
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici la  première leçon du chapitre consacré aux \deters.  Le \deter est un nombre
+que l'on associe à une matrice, 
+il permet de savoir si cette matrice est inversible ou pas, et de façon plus générale, 
+joue un rôle important dans le calcul matriciel et la résolution de systèmes linéaires.
+
+\change
+Dans cette leçon, nous commençons l'étude des \deters 
+en donnant l'expression du \deter d'une matrice en petites dimensions.
+
+\change
+Nous verrons que le \deter d'une matrice $2\times2$
+
+\change
+ou $3\times3$ a une expression explicite simple, et facile à calculer.
+
+\change  
+
+On verra que l'on peut aussi définir le \deter de $n$ vecteurs de $\Rr^n$. 
+Nous donnerons une interprétation géo\-mé\-trique du \deter en dimension 2 
+comme aire d'un paral\-lé\-logramme et en dimension 3 comme volume d'un paral\-lélé\-pipède.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Dans tout ce qui suit, nous considérons des matrices à coefficients 
+dans un corps $\Kk$, les principaux exemples étant $\Kk=\Rr$ ou $\Kk=\Cc$.
+
+\change
+En dimension $2$, le \deter est très simple à calculer:
+$$\det \begin{pmatrix}a&b\\c&d\end{pmatrix} = ad-bc.$$
+
+\change
+C'est donc le produit des éléments sur la diagonale principale (en bleu) $a \times d$, 
+moins le produit des éléments sur l'autre diagonale (en orange) $b \times c$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Considérons à présent une matrice $A$ de taille $3\times3$ à coefficients dans le corps $\Kk$.
+
+\change
+Voici alors la formule pour le \deter.
+
+\change
+Il existe un moyen facile de retenir cette formule, c'est la \defi{règle de Sarrus}:
+on commence par recopier les deux premières colonnes à droite de la matrice (colonnes grisées), 
+
+\change
+puis on additionne les produits de trois termes en les regroupant selon la direction 
+de la diagonale descendante (en bleu)
+
+\change
+et on soustrait ensuite les produits de trois termes 
+regroupés selon la direction de la diagonale montante (en orange).
+
+\change
+On se souvient alors facilement de cette formule.
+
+\change
+Attention! cette méthode ne s'applique pas pour les matrices de taille supérieure à $3$. 
+Nous verrons d'autres métho\-des qui s'appliquent aux matrices carrées de toutes tailles 
+et donc aussi aux matrices $3\times3$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons tout de suite à un exemple et calculons le \deter de la matrice $A$ suivante.
+
+\change
+Par la règle de Sarrus, le \deter de $A$ se calcule ainsi : on recopie les deux premières colonnes à droite de $A$ 
+% geste
+et on considère en bleu les diagonales de la nouvelle matrice, et en orange les anti-diagonales.
+
+\change
+Le \deter est obtenu en faisant le produit $2\times (-1) \times 1$
+
+\change
+plus %le produit 
+$1\times 3 \times  3$
+
+\change
+plus %le produit 
+$0\times 1 \times 2$
+
+\change
+puis de même pour les diagonales oranges, mais avec un signe moins: 
+moins $3\times (-1) \times 0$, et ainsi de suite...
+
+\change
+Au final, on obtient que $\det A = -6.$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons à présent à l'interprétation géométrique du \deter :  \\
+on va voir qu'en dimension $2$, les \deters correspondent à des aires, \\
+et en dimension $3$ à des volumes.
+
+\change
+Donnons nous deux vecteurs du plan $\Rr^2$, 
+$v_1$ de coordonnées $\left(\begin{smallmatrix}a \\[5pt]c\end{smallmatrix}\right)$ et 
+$v_2$ de coordonnées $\left(\begin{smallmatrix}b \\[5pt] d\end{smallmatrix}\right)$.
+
+
+\change
+Ces deux vecteurs $v_1,v_2$ déterminent un parallélogramme.
+
+\change
+On a alors le résultat suivant : l'aire du parallélogramme est 
+donnée par la valeur absolue du \deter de la matrice formée 
+des vecteurs $v_1,v_2$.
+
+Autrement dit, l'aire  est la valeur absolue du \deter de la matrice
+$2\times 2$, $a, b, c, d$. et vaut donc $|ad-bc|$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+De manière similaire, trois vecteurs de l'espace $\Rr^3$:
+$v_1, v_2, v_3$
+
+\change
+définissent un parallélépipède.
+
+\change
+\`A partir de ces trois vecteurs on définit, en juxtaposant les colonnes, 
+une matrice.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Comme dans $\Rr^2$, le volume du parallélépipède est donné par la valeur absolue du \deter
+de cette matrice.
+
+\change
+On prendra comme unité d'aire dans $\Rr^2$ l'aire du carré unité dont 
+les côtés sont les vecteurs de la base canonique 
+$\left(\left(\begin{smallmatrix} 1 \\[5pt]  0 \end{smallmatrix} \right),
+\left(\begin{smallmatrix} 0 \\[5pt]  1 \end{smallmatrix} \right)\right)$, 
+
+\change
+et comme unité de volume dans $\Rr^3$, 
+le volume du cube unité.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Démontrons les résultats précédents. On traite le cas de la dimension $2$. 
+Le cas tridimensionnel se traite de façon analogue.
+
+\change
+Remarquons tout d'abord que le résultat est vrai si 
+$v_1=\left(\begin{smallmatrix}a \\[5pt] 0\end{smallmatrix}\right)$ est un vecteur horizontal
+ et $v_2=\left(\begin{smallmatrix}0\\[5pt] d\end{smallmatrix}\right)$ est un vecteur vertical.
+
+\change
+En effet, dans ce cas on a affaire à un rectangle de côtés $|a|$ et $|d|$, donc d'aire
+$|a \times d|$, 
+
+\change
+tandis que le \deter de la matrice 
+$\begin{pmatrix}
+	a&0\\0&d
+\end{pmatrix}$
+vaut $ad$.
+
+\change
+Remarquons aussi que si les vecteurs $v_1$ et $v_2$ sont colinéaires alors
+le parallélogramme est aplati, donc d'aire nulle.
+
+\change
+On calcule facilement
+que lorsque deux vecteurs sont colinéaires, leur \deter est nul lui aussi.
+
+\change
+Dans la suite on supposera donc que les vecteurs ne sont pas colinéaires.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Notons $v_1= \left(\begin{smallmatrix}a \\[5pt] c\end{smallmatrix}\right)$ et 
+$v_2= \left(\begin{smallmatrix}b \\[5pt] d\end{smallmatrix}\right)$ deux vecteurs 
+quelconques mais non colinéaires.
+
+\change
+Si $a\neq0$, alors $v'_2=v_2-\frac{b}{a}v_1$ est un vecteur vertical:
+$v_2'=\left(\begin{smallmatrix}0 \\[5pt] d-\frac{b}{a}c\end{smallmatrix}\right)$.
+
+\change
+Considérons l'opération consistant à remplacer $v_2$ par $v_2'$.
+
+\change
+Tout d'abord cette opération ne change pas l'aire du parallélogramme : 
+en effet, c'est comme si on avait coupé le triangle vert
+et collé à la place le triangle bleu.
+
+\change
+Cette opération ne change pas non plus le \deter car on a toujours:
+$$\det (v_1,v_2')= 
+\det \begin{pmatrix}
+a & 0 \\ b & d-\frac{b}{a}c
+\end{pmatrix}
+=ad-bc=\det(v_1,v_2)\, .$$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+De la m\^eme manière, on pose maintenant
+$v'_1= \left(\begin{smallmatrix}a \\[5pt] 0\end{smallmatrix}\right)$: c'est un vecteur horizontal. 
+
+\change
+Encore une fois, remplacer $v_1$ par $v_1'$:
+
+\change
+ne change pas l'aire des parallélogrammes, car l'aire initiale en bleue est devenue l'aire en rose.
+
+\change
+Cela ne change pas non plus le \deter car 
+$$\det(v_1',v_2')=
+\det \begin{pmatrix}
+a&0\\
+0&d-\frac{b}{a}c
+\end{pmatrix}
+=ad-bc=\det(v_1,v_2)\, .$$
+
+\change
+On s'est donc ramené au premier cas d'un rectangle 
+aux côtés parallèle aux axes, pour lequel le résultat a déjà été montré.
+La démonstration est terminée !
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Entraînez-vous avec ces exercices pour vérifier que vous avez bien compris le cours ;)
+
+\end{document}

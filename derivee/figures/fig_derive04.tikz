@@ -1,0 +1,29 @@
+\begin{tikzpicture}
+
+	\draw[->,>=latex, black, very thin] (-1,0) -- (3.3,0) node[above] {$x$};
+	\draw[->,>=latex, black, very thin] (0,-1) -- (0,2.5) node[left] {$y$};
+
+%	\draw[domain=-0.25:2.5,black,thick,smooth] plot (\x,{0.6+0.4*\x+0.6*cos(4*\x r)});
+
+    \draw[domain=0.25:2.8,black,thick,smooth] plot (\x,{2-0.4*\x-0.6*cos(4*\x r)-1/(\x-3.45)^2});
+
+
+	\draw[myred,very thick] (0.25,0)--(2.85,0) node[midway,below] {$I$};
+
+	\draw[dashed] (0.25,0) -- (0.25,1.5);
+	\draw[dashed] (2.85,0) -- (2.85,-1.6);
+
+       \fill[myred] (0.25,0) circle (1.5pt);
+       \fill (0.25,1.45) circle (1.5pt);
+
+    \coordinate (P) at (4,1);
+    \draw[<-,>=latex] (0.8,2.2) to[bend left](P)node[right] {maximums locaux};
+   \draw[<-,>=latex] (2.25,1.)  to[bend left] (P);
+
+    \coordinate (Q) at (-0.5,1);
+    \draw[<-,>=latex] (0.2,1.35) to[bend left](Q)node[left] {minimums locaux};
+   \draw[<-,>=latex] (1.6,0.4)  to[bend left=45] (Q);
+
+    \coordinate (R) at (4,2);
+    \draw[<-,>=latex] (0.8,2.25) to[bend left](R)node[right] {maximum global};
+\end{tikzpicture}

@@ -1,0 +1,41 @@
+\shorthandoff{:!}
+\begin{tikzpicture}
+
+	\node (x) at (0.1,0.5) {};
+	\node (fx) at (2.3,0.5) {};
+	\node (y) at (0.,0) {};
+	\node (fy) at (2.4,0) {};
+	\node (z) at (0.2,-0.6) {};
+	\node (fnot) at (2.8,-0.7) {};
+
+
+	\draw[thick] (0,0) ellipse (20pt and 30pt);
+	\node at (-20pt,27pt) {$E$};
+	\fill (x) circle (2pt);
+	\fill (y) circle (2pt);
+	\fill (z) circle (2pt);
+
+	\draw[thick] (2.5,0) ellipse (23pt and 35pt);
+	\node at (2.5cm+23pt,30pt) {$F$};
+	\fill (fx) circle (2pt);
+	\fill (fy) circle (2pt);
+	\fill (fnot) circle (2pt);
+
+	\begin{scope}[myorange]
+	\draw[rotate=-10,thick] ($(x)!.5!(y)$) ellipse (10pt and 20pt);
+	\node at ($(x)!.5!(y) + (-0.5,0)$) {$A$};
+	\end{scope}
+
+	\begin{scope}[red]
+	\draw[rotate=10,thick] ($(fx)!.5!(fy)$) ellipse (7pt and 20pt);
+	\node at ($(fx)!.5!(fy) + (0.6,0)$) {$f(A)$};
+	\end{scope}
+
+	\node at (1.25,40pt) {$f$};
+
+	\path[->, thick] (x) edge[out=60,in=120] (fx);
+	\path[->, thick] (y) edge[out=30,in=150] (fy);
+	\path[->, thick] (z) edge[out=-40,in=-130] (fy);
+
+\end{tikzpicture}
+\shorthandon{:!}

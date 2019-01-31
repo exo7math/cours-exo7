@@ -1,0 +1,331 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+Dans cette leçon, nous allons aborder systématiquement le calcul explicite de déterminants. 
+\\
+Une des techniques les plus utiles pour cela est le 
+«dévelop\-pement par rapport à une ligne (ou une colonne)».
+
+\change
+Nous commencerons par définir  un outil indispensable : le cofacteur.
+
+\change
+Puis nous donnerons la formule de développement du déterminant suivant une ligne ou une colonne, qui est l'objet principal de cette leçon,
+
+\change
+que nous appliquerons aussitôt sur un exemple.
+
+\change
+Enfin, nous verrons comment les cofacteurs nous permettent également d'exprimer l'inverse d'une matrice.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+On commence par des définitions. Considérons $A$ une matrice carrée de taille $n$, 
+et de  coefficients $a_{ij}$.
+
+\change
+On note $A_{ij}$ la matrice extraite de $A$, obtenue en effaçant la ligne~$i$ et la colonne $j$ de $A$.
+
+\change
+Le déterminant de cette matrice, c-à-d le nombre $\det A_{ij}$ est appelé un \defi{mineur d'ordre $n-1$} de la matrice $A$.
+
+\change
+Enfin, le nombre $C_{ij} = (-1)^{i+j}\det A_{ij}$ est par définition le \defi{cofacteur} de $A$ 
+relatif au coefficient (petit) $a_{ij}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Revenons un instant sur les définitions précédentes.
+
+\change
+
+[sur la figure]  La matrice $A_{ij}$ est obtenue en supprimant la ligne~$i$ [horizontale]
+et la colonne $j$ [verticale] de $A$, c-à-d la ligne et la colonne qui se croisent 
+au coefficient $a_{ij}$ de $A$.
+
+\change
+C'est donc cette matrice carrée, de taille $n-1$.
+
+\change
+Le cofacteur de $A$ relatif au coefficient $a_{ij}$ est égal au déterminant de cette matrice, multiplié par $(-1)^{i+j}$.
+
+\change
+C'est donc ce nombre.
+
+\change
+(...)
+\newpage	
+Pour déterminer si $C_{ij} = +$ ou $ -\det A_{ij}$, 
+
+\change
+on peut se souvenir que l'on associe des signes en suivant le schéma d'un échiquier:
+$$  A = 
+\begin{pmatrix}
++ & - & + & - &\dots\\
+- & + & - & + &\dots \\
++ & - & + & - &\dots\\
+\vdots & \vdots & \vdots & \vdots &          
+\end{pmatrix}
+$$
+Donc par exemple $C_{11} = +\det A_{11}$, $C_{12} = - \det A_{12}$,  $C_{21} = - \det A_{21}$ etc.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Considérons la matrice $ A $ suivante et calculons 
+\\
+$A_{11}, C_{11}, A_{32}, C_{32}$.
+
+\change
+Pour la matrice $A_{11}$, il s'agit d'effacer dans $A$ la première ligne et la première colonne.
+
+\change
+$A_{11}$ est  donc la matrice 
+$
+\begin{pmatrix}
+2 & 1\\
+1 & 1  
+\end{pmatrix}.$
+
+\change
+Le cofacteur $C_{11}$ est le déterminant de cette matrice multiplié par $-1$ à la puissance $1+1$
+
+\change
+c'est-à-dire $1$ fois $1$, ce qui donne $+1$.
+
+\change
+Pour la matrice $A_{32}$, il s'agit d'effacer dans $A$ la troisième ligne et la deuxième colonne.
+
+\change
+Ce qui donne
+$
+\begin{pmatrix}
+1 & 3\\
+4 & 1  
+\end{pmatrix}.$
+
+\change
+Le cofacteur correspondant est égal au produit de $-1$ à la puissance $3+2$ avec le déterminant de la matrice $A_{32}$.
+
+\change
+On obtient donc $-1$ multiplié par  $1\times 1 - 4 \times 3$, c-à-d par $-11$, (...)
+
+\change
+ce qui donne $C_{32} =11$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons à présent au résultat principal de cette leçon : le développement du déterminant suivant une ligne ou une colonne. Voici l'énoncé du théorème.
+
+\change
+Commençons par le développement par rapport à une ligne $i$. On peut exprimer le déterminant d'une matrice~$A$
+
+\change
+comme la somme pour $j$ variant de $1$ à $n$ de
+
+$(-1)^{i+j} \; a_{ij} \; \det A_{ij}$.\\
+
+Dans cette somme l'indice de sommation est l'indice de colonne $j$, l'indice de ligne $i$ étant fixé.
+
+\change
+Ceci s'exprime plus simplement avec les cofacteurs : c'est
+
+$\sum_{j=1}^n \; a_{ij} \; C_{ij}$.
+
+\change
+De façon analogue, voici la formule de développement par rapport à la colonne $j$
+
+$\det A = \sum_{i=1}^n \; (-1)^{i+j} \; a_{ij} \; \det A_{ij}$
+
+\change
+(...)
+\newpage	
+c-à-d $= \sum_{i=1}^n a_{ij}C_{ij}$.
+Dans cette formule, l'indice de sommation est l'indice de ligne $i$, alors que l'indice de colonne $j$ est fixé.
+
+On peut remarquer qu'étant donné que $\det A=\det A^T$, les deux formules sont équivalentes, c-à-d qu'elles se déduisent l'une de l'autre.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Retrouvons la formule des déterminants $3\times 3$, déjà présentée 
+dans la règle de Sarrus, en développant par rapport à la première ligne.
+
+\change
+Considérons un déterminant $3\times 3$ quelconque, et écrivons son développement par rapport à la première ligne : en appliquant la première des formules du théorème précédent avec $i=1$ on obtient
+
+\change
+$a_{11}C_{11}+a_{12}C_{12}+a_{13}C_{13}. $\\
+
+Remplaçons à présent les cofacteurs par leur valeur. Rappelez-vous que les signes des cofacteurs sont distribués selon un échiquier : $C_{11}$ prend un $+$, $C_{12}$ un $-$, et $C_{13}$ de nouveau un $+$.
+
+\change
+$C_{11}$ est donc égal à 
+
+$+\begin{vmatrix}
+a_{22}&a_{23}\\
+a_{32}&a_{33}
+\end{vmatrix}$,
+
+\change
+et de même pour $C_{12}$ et $C_{13}$. Calculons maintenant ces trois déterminants de taille $2\times 2$.
+
+\change
+(...)
+\newpage	
+Le premier vaut $a_{22}a_{33}-a_{32}a_{23}$ 
+
+\change
+et les deux autres se calculent de la même manière.
+
+\change
+En réordonnant les termes, on obtient cette formule, qui n'est autre que la formule de Sarrus 
+vue à la première leçon de ce chapitre.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\'Etudions un exemple en détail. On souhaite calculer le déterminant de cette matrice $4\times 4$.
+
+On commence par repérer où la matrice comporte des zéros.
+
+\change
+Et on choisit de développer par rapport à la seconde colonne, car c'est là qu'il y a le plus de zéros.
+
+\change
+On obtient que 
+
+$\det A = 0 \times C_{12} + 2 \times  C_{22} + 3 \times  C_{32}+0 \times  C_{42}$.\\
+
+Grâce aux zéros, on n'a que deux cofacteurs à calculer !
+
+\change
+Remplaçons les cofacteurs $C_{22}$ et $C_{32}$ par leur valeur, en n'oubliant pas leur signe.
+
+\change
+On recommence en développant chacun de ces deux déter\-minants $3\times 3$,
+
+\change
+le premier par rapport à la première colonne,
+
+\change
+(...)
+\newpage	
+ce qui donne $+4$ fois ce déterminant $-0$ fois celui-ci $+1$ fois celui-là.
+
+\change
+Et on développe le deuxième déterminant $3\times 3$ par rapport à la deuxième ligne
+
+\change
+ce qui donne ceci. Il ne reste plus que des déterminants $2\times 2$. En les développant, on obtient que :
+
+\change
+$\det A =2 \times \big(4\times 5 +1\times(-4)\big) -3 \times \big(-4\times7 +1\times11  \big) $
+
+\change
+c-à-d $ 83$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le développement par rapport à une ligne permet de ramener 
+le calcul d'un déterminant $n\times n$ à celui de $n$ déterminants 
+$(n-1)\times(n-1)$. 
+
+\change
+Par récurrence descendante, on se ramène ainsi au calcul de $n!$ sous-déterminants, ce qui devient vite fastidieux.
+
+\change
+C'est pourquoi le développement par rapport à une ligne ou une
+colonne  n'est utile pour calculer explicitement un déterminant que
+si la matrice de départ a beaucoup de zéros.
+
+\change 
+On commence donc souvent par faire apparaître
+un maximum de zéros par des opérations élémentaires sur les lignes et les colonnes
+qui ne modifient pas le déterminant, avant de développer le déterminant suivant la ligne ou la colonne qui a le plus de zéros.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Soit $A$ une matrice carrée de taille $n$. \\
+
+On associe à $A$ la matrice $C$ des cofacteurs, appelée \defi{comatrice}.
+
+\change
+La matrice $C$, de coefficients $C_{ij}$, s'écrit donc ainsi. \\
+
+La comatrice nous fournit un moyen d'exprimer l'inverse de $A$ lorsque celle-ci existe.
+
+\change
+Plus précisément, on a le théorème suivant. On considère une matrice inversible $A$ et sa comatrice $C$. 
+
+\change
+On a alors
+
+$\displaystyle A^{-1} = \frac{1}{\det A} \, C^T$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Calculons l'inverse, si elle existe, de la matrice $A$ suivante.
+
+\change
+Tout d'abord, le calcul donne que $\det A = 2$. 
+
+\change
+En particulier, ce déterminant étant non nul, la matrice $A$ est inversible.
+
+\change
+La comatrice $C$ 
+s'obtient en calculant $9$ déterminants
+$2\times 2$ (sans oublier les signes $+/-$ des cofacteurs). 
+
+\change
+On trouve :
+$$C = \begin{pmatrix}
+1 & 1 & -1\\
+-1 & 1 & 1\\
+1 & -1 & 1        
+      \end{pmatrix}
+$$
+
+
+\change
+Et donc l'inverse de $A$ vaut
+$\frac{1}{\det A} \cdot C^T$
+
+\change
+c-à-d 
+
+$
+ = \frac{1}{2}
+\begin{pmatrix}
+1 & -1 & 1\\
+1 & 1 & -1\\
+-1 & 1 & 1  
+\end{pmatrix}
+$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Entraînez-vous sur ces exercices pour vérifier que vous avez bien compris le cours !
+
+
+\end{document}

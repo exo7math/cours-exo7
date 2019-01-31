@@ -1,0 +1,408 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={205,0,0}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Espaces vectoriels}}
+\subtitle{Espace vectoriel (fin)}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Détail des axiomes de la définition
+    \item<4-> Exemples
+    \item<5-> Règles de calcul    
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Détail des axiomes de la définition}
+
+\begin{frame}
+
+
+Soit $E$ un $\Kk$-espace vectoriel
+\begin{itemize}
+  \item Les éléments de $E$ seront appelés des \defi{vecteurs}
+  \item Les éléments du corps $\Kk$ seront appelés des \defi{scalaires}
+\end{itemize}
+
+\pause
+\bigskip
+
+\defi{Loi interne} \\
+La loi de composition interne, c'est une application de $E \times E$ dans $E$ :
+$$\begin{array}{rcl}
+E \times E & \to & E\\
+(u, v) & \mapsto & u+v
+\end{array}$$
+
+\pause
+\bigskip
+\defi{Loi externe} \\
+La loi de composition externe, 
+ c'est une application de $\Kk \times E$ dans $E$ : 
+$$\begin{array}{rcl}
+\Kk \times E & \to & E\\
+(\lambda, u ) & \mapsto & \lambda \cdot u 
+\end{array}$$
+
+\end{frame}
+
+
+\begin{frame}
+\textbf{Axiomes relatifs à la loi interne}
+
+ \begin{enumerate}
+ 
+\pause 
+ \item \evidence{Commutativité} 
+ 
+ Pour tous $u,v \in E$, $u + v = v + u$
+ 
+\pause
+
+ \item \evidence{Associativité} 
+
+ Pour tous $u,v,w \in E$, on a $u + (v+w) = (u+v) +w$
+ 
+\pause 
+
+ \item \evidence{Existence d'un élément neutre}
+
+
+ Il existe un élément de $E$, noté $0_{E}$, vérifiant : 
+  
+   \hfil pour tout $u \in E$, $u+0_{E}=u$
+   
+   \pause
+   \begin{itemize}
+     \item On a aussi $0_E+u=u$
+     \pause
+     \item Cet élément $0_E$ s'appelle aussi le \defi{vecteur nul}   
+   \end{itemize}
+   
+\pause 
+ 
+ \item \evidence{Existence d'un symétrique}
+ 
+ Pour tout $u$ de $E$ il existe un élément $u'$ de $E$ tel que 
+$u+u'=0_E$ 
+\pause
+   \begin{itemize}
+     \item On a aussi $u'+u=0_E$
+     \pause
+     \item Cet élément $u'$ est noté $-u$
+   \end{itemize}
+
+
+ \end{enumerate} 
+
+\end{frame}
+
+
+\begin{frame}
+\begin{proposition}
+\begin{itemize}
+  \item Il existe un unique élément neutre $0_{E}$
+    \pause  
+  \item Pour $u$ un élément de $E$, il existe un unique symétrique $-u$ 
+\end{itemize}
+\end{proposition}
+
+   \pause 
+
+\begin{proof}
+\begin{itemize}
+  \item Soient $0_{E}$ et $0'_{E}$ deux éléments neutres. 
+  \pause Alors, pour tout $u$ de $E$
+$$(\star) \quad u + 0_{E}=0_{E}+u=u \quad \text{ et } \quad (\star\star)\quad u + 0'_{E}=0'_{E}+u=u$$
+\vspace*{-4ex}
+   \pause
+  \begin{itemize}
+    \item Alors $(\star)$ avec $u=0'_{E}$ donne $0'_{E}+0_{E}=0_{E}+0'_{E}=0'_{E}$
+    \pause  
+    \item Et $(\star\star)$ avec $u=0_{E}$ donne $0_{E}+0'_{E}=0'_{E}+0_{E}=0_{E}$
+     \pause 
+    \item D'où $0_{E}=0'_{E}$
+  \end{itemize}
+  
+   \pause 
+  \item Si $u'$ et $u''$ sont deux symétriques du même $u$,
+  \pause
+  on a
+$$u+u'=u'+u=0_{E}  \qquad \text{ et } \qquad u+u''=u''+u=0_{E}$$
+\vspace*{-4ex}
+\pause
+  \begin{itemize}
+    \item $u'+(u+u'')= u'+ 0_{E}= u'$
+   \pause
+    \item $u'+(u+u'')=(u'+u)+u''=0_{E}+u''=u''$
+   \pause
+    \item On en déduit $u'=u''$
+  \end{itemize}
+\end{itemize}
+\vspace*{-4ex}
+\end{proof}
+\end{frame}
+
+
+\begin{frame}
+\bigskip
+\textbf{Axiomes relatifs à la loi externe}
+   
+\pause 
+ \begin{enumerate}  \setcounter{enumi}{4}
+ \item Soit $1$ l'élément neutre de la multiplication de $\Kk$. 
+ Pour tout élément $u$ de $E$, on a 
+ $$1 \cdot u=u$$
+   
+\pause  
+ \item Pour tous éléments $\lambda$ et $\mu$ de $\Kk$ et pour tout élément $u$ de $E$, on a 
+ $$\lambda \cdot (\mu \cdot u) = (\lambda \times \mu )\cdot u$$
+ \end{enumerate} 
+   
+\pause  
+\bigskip
+\textbf{Axiomes liant les deux lois}
+   
+\pause 
+ \begin{enumerate}  \setcounter{enumi}{6}
+ \item \evidence{Distributivité} par rapport à l'addition des vecteurs
+ 
+ Pour tout élément  $\lambda$ de $\Kk$ et pour tous éléments $u$ et $v$ de $E$, on a 
+ $$\lambda \cdot (u+v) =\lambda \cdot u + \lambda \cdot v$$
+ 
+    
+\pause 
+ \item \evidence{Distributivité} par rapport à l'addition des scalaires
+ 
+ Pour tous $\lambda$ et $\mu$ de $\Kk$  et 
+pour tout élément $u$ de $E$, on a :
+$$(\lambda + \mu ) \cdot u=\lambda \cdot u + \mu \cdot u $$
+ 
+ \end{enumerate} 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exemples}
+
+\begin{frame}
+\centerline{\evidence{L'espace vectoriel des fonctions de $\Rr$ dans $\Rr$}}
+
+\medskip
+
+$\mathcal{F}(\Rr, \Rr)$ : l'ensemble des fonctions $f : \Rr \longrightarrow \Rr$
+    
+\pause 
+
+\begin{itemize}
+  \item \textbf{Loi interne} 
+  
+Pour $f, g \in \mathcal{F}(\Rr, \Rr)$, $f+g$ est définie par
+$$\forall x \in \Rr \quad (f+g)(x)=f(x)+g(x)$$
+    
+\pause   
+  \item \textbf{Loi externe} 
+  
+Pour $\lambda \in \Rr$ et $f \in \mathcal{F}(\Rr, \Rr)$, la fonction 
+$\lambda \cdot f$ est définie par
+$$\forall x \in \Rr \quad (\lambda \cdot f) (x)=\lambda \times f (x)$$
+ 
+    
+\pause   
+  \item \textbf{\'Elément neutre} 
+  
+  L'élément neutre pour l'addition est la fonction nulle, définie par
+$$\forall x \in \Rr \quad f(x)=0$$
+     
+\pause  
+  \item \textbf{Symétrique}  
+  
+Le symétrique de $f \in \mathcal{F}(\Rr , \Rr)$ est $g$ définie par
+$$\forall x \in \Rr \quad g(x)=-f(x)$$
+   
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+
+\centerline{\evidence{Le $\Rr$-espace vectoriel des suites réelles}}
+
+\bigskip
+
+$\mathcal{S}= \mathcal{F}(\Nn, \Rr)$ : l'ensemble des suites réelles $(u_n)_{n\in \Nn}$
+
+\pause 
+\begin{itemize}
+  \item  \textbf{Loi interne}  
+  
+Pour $u=(u_n)_{n \in \Nn}$ et $v=(v_n)_{n \in \Nn}$ deux suites, la suite $u+v$ 
+est la suite dont le terme général est 
+$$u_n+v_n$$ 
+
+\pause
+  \item \textbf{Loi externe}   
+  
+Si $\lambda \in \Rr$  et $u=(u_n)_{n \in \Nn}$ est une suite, 
+alors $\lambda \cdot u$ est la suite dont le terme général est
+ $$\lambda \times u_n$$
+  
+\pause 
+  \item \textbf{\'Elément neutre}  
+  
+  L'élément neutre est la suite dont tous les termes sont nuls
+
+\pause  
+  \item \textbf{Symétrique}  
+  
+  Le symétrique de $u=(u_n)_{n \in \Nn}$ est la suite dont le terme général est
+ $$-u_n$$
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}\centerline{\evidence{Les matrices}}
+
+\bigskip
+
+L'ensemble $M_{n,p}(\Rr)$ des matrices à $n$ lignes et $p$ colonnes à coefficients 
+dans $\Rr$ est muni d'une structure de $\Rr$-espace vectoriel
+
+\pause
+\bigskip
+
+\begin{itemize}
+  \item La loi interne est l'addition de deux matrices
+  \item La loi externe est la multiplication d'une matrice par un scalaire
+  \item L'élément neutre pour la loi interne est la matrice nulle
+  \item Le symétrique de la matrice $A=(a_{i,j})$ est la matrice 
+ $(-a_{i,j})$
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\centerline{\textbf{Autres exemples}}
+\bigskip
+
+\pause
+\begin{enumerate}
+  \item \evidence{L'espace vectoriel $\Rr[X]$ des polynômes}
+\pause
+    \begin{itemize}
+      \item $P(X) = a_nX^n+\cdots+a_2X^2+a_1X+a_0$
+      \item L'addition est l'addition de deux polynômes $P(X)+Q(X)$
+      \item La multiplication par un scalaire $\lambda \in \Rr$ est $\lambda \cdot P(X)$
+      \item L'élément neutre est le polynôme nul
+      \item L'opposé de $P(X)$ est $-P(X)$
+    \end{itemize}
+\pause 
+  \item 
+  \evidence{L'ensemble des fonctions continues de $\Rr$ dans $\Rr$} 
+\pause  
+
+  L'ensemble des fonctions dérivables de $\Rr$ dans $\Rr$,...
+\pause 
+  \item ...
+\end{enumerate}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Règles de calcul}
+
+\begin{frame}
+
+Soit $E$ un espace vectoriel sur un corps $\Kk$
+
+Soient $u \in E$ et $\lambda \in \Kk$
+\pause
+\begin{proposition}
+
+ \begin{enumerate}\setlength{\itemsep}{6pt}
+ \item $0 \cdot u = 0_E$
+\pause 
+ \item $\lambda \cdot 0_E = 0_E$
+\pause 
+ \item $(-1)\cdot u = -u$
+\pause 
+ \item \myboxinline{$\lambda \cdot u = 0_E \iff \lambda = 0$ \ ou \ $u = 0_E$}
+ \end{enumerate} 
+\end{proposition}
+
+\bigskip
+\pause
+\begin{itemize}
+  \item La \defi{soustraction} $u-v = u+(-v)$
+\pause  
+  \item $\lambda (u-v)=\lambda u -\lambda v$
+ \quad et \quad  $(\lambda -\mu)u=\lambda u-\mu u$
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item  Justifier si les objets suivants sont des espaces vectoriels. 
+  \begin{enumerate}
+    \item L'ensemble des fonctions réelles sur
+$\lbrack 0,1 \rbrack$, continues, positives ou nulles, pour
+l'addition et le produit par un réel.
+    \item L'ensemble des fonctions réelles sur $\Rr$ vérifiant
+$\lim_{x \to+\infty} f(x)=0$ pour les mêmes opérations.
+    \item L'ensemble des fonctions sur $\Rr$ telles que $f(3)=7$.
+    \item L'ensemble $\Rr_+^*$ pour les opérations $x \oplus y=xy$ et 
+$\lambda\cdot x=x^{\lambda}$ $(\lambda\in \Rr)$.
+    \item L'ensemble des points $(x,y)$ de $\Rr^2$ vérifiant
+$\sin(x+y)=0$. 
+    \item L'ensemble des vecteurs $(x,y,z)$ de $\Rr^3$ orthogonaux
+au vecteur $(-1,3,-2)$.
+    \item L'ensemble des fonctions de classe $\mathcal{C}^2$ vérifiant $f''+f=0$. 
+    \item L'ensemble des fonctions continues sur $\lbrack0,1 \rbrack$
+vérifiant $\int_0^1f(x) \, \sin x \; dx=0$.
+    \item L'ensemble des matrices 
+    $\left(\begin{smallmatrix} a & b \\ c & d \end {smallmatrix}\right) \in M_{2}(\Rr)$ vérifiant $a+d=0$.   
+    \end{enumerate}
+  
+  \item Prouver les propriétés de la soustraction : 
+ $\lambda \cdot (u-v)=\lambda \cdot u -\lambda \cdot  v$  et $(\lambda -\mu) \cdot u=\lambda \cdot u-\mu \cdot u$.
+\end{enumerate} 
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

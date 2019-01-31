@@ -1,0 +1,676 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Nous allons voir des moyens de plus en plus performants de crypter des messages.
+
+\change
+
+Nous allons même commencer par un système inviolable mais qui 
+malheureusement n'est pas utilisable dans la pratique.
+
+\change
+
+La célèbre machine Enigma était une machine électro-mécanique qui tentait d'imiter ce chiffrement parfait, nous en verrons le principe.
+
+\change
+
+Nous terminerons en expliquant le principe du chiffrement DES.
+%, qui tentait cette imitation numériquement.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+L'inconvénient des chiffrements précédemment étudiés est qu'une même lettre est régulièrement chiffrée de la même façon.
+
+
+En effet, la correspondance d'un alphabet à un ou plusieurs autres est fixée une fois pour toutes,
+
+\change
+
+ce qui fait qu'une attaque statistique est toujours possible.
+
+\change
+
+Nous allons voir qu'en changeant la correspondance à chaque lettre, il est possible de créer un chiffrement 
+parfait !
+
+\change
+
+Expliquons d'abord le principe à l'aide d'une simple analogie :
+
+\change
+
+Imaginons que j'ai choisi deux entiers dont la somme est $100$,
+
+et que je vous pose la question : Pouvez-vous me donner l'un d'entre eux ? 
+
+\change
+
+Il vous est bien sûr impossible de répondre à une telle question car elle possède théoriquement plusieurs solutions :
+
+\change
+
+$0+100$, $1+99$, $2+98$,...
+
+
+\change
+
+Par contre, si je vous donne un indice, l'un des entiers, par exemple $c$ alors vous trouverez l'autre immédiatement en effectuant l'opération $100-c$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons le principe du chiffrement parfait sur un exemple.
+
+
+Supposons qu'Alice veuille envoyer à Bruno le message secret $M$ suivant : 
+$${ATTAQUE \ LE \ CHATEAU}$$
+
+
+\change
+
+Avant de procéder au chiffrement du message Alice choisit une clé secrète $C$ 
+
+\change
+
+qu'elle transmet à Bruno.
+
+\change
+
+La première contrainte est que cette clé secrète soit de même longueur que le message.
+
+((Il est donc important qu'Alice choisisse cette clé après avoir rédigé son message.))
+
+\change
+
+Cette clé est composée d'entiers de $0$ à $25$. 
+
+Mais ce qui est le plus important c'est que ces entiers apparaissent comme s'ils avaient été tirés au hasard. 
+
+\change
+
+Prenons par exemple pour clé $C$ la suite : 
+$${[4, 18, 2, 0, 21, 12, 18, 13, 7, 11, 23, 22, 19, 2, 16, 9]}$$
+
+
+\change
+
+Voici maintenant comment Alice crypte son message.
+
+En ce qui concerne la première lettre, elle effectue un décalage de type César correspondant au premier entier de la clé $C$.
+
+La lettre A est décalée de $4$ lettres et devient donc E.
+
+\change
+
+La deuxième lettre subit un décalage correspondant au deuxième entier : le premier T devient L.
+
+\change
+
+Le second T du message est quant à lui décalé de $2$ lettres, il devient V. 
+
+\change
+
+Le A suivant est décalé de $0$ lettre, cela reste A...
+
+\change
+
+A la fin Alice obtient le message crypté $X$ qu'elle transmet à Bruno : 
+$${ELVALGW \ YL \ NEWMGQD}$$
+
+=
+
+|| Pour le décrypter, Bruno, qui connaît la clé, n'a qu'à appliquer les décalages dans l'autre sens comme nous avons maintenant l'habitude de le faire.
+
+=
+
+Notez bien que deux lettres identiques n'ont aucune raison d'être cryptées de la même façon. 
+
+Par exemple, les lettres T du message initial sont cryptés dans l'ordre par un L, un V et un M.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Formalisons un peu cette opération. 
+
+=
+
+On identifie comme depuis le début de ce cours $A$ avec $0$, $B$ avec $1$, ..., $Z$ avec $25$.
+
+\change
+
+Alors le message crypté $X$ est juste une somme du message $M$ avec la clé secrète $C$, 
+la somme s'effectuant terme à terme modulo $26$.
+
+
+Notons cette opération $X=M \oplus C$.
+
+\change
+
+Détaillons les opérations : 
+
+On transforme d'abord ATTAQUE en entiers.
+
+On obtient $0$ $19$ $19$ $0$ $16$ $20$ $4$
+
+\change
+
+On ajoute colonne par colonne la clé $4$ $18$ $2$ $0$ $21$ $12$ $18$ 
+
+ici en fait le début de la clé puisque nous nous intéressons au début du message
+
+\change
+
+On obtient le résultat $4$ $11$ $21$ $0$ $11$ $6$ $22$
+
+qui correspond aux lettres ELVALGW.
+
+
+\change
+
+Bruno reçoit le message crypté $X$ et il connaît $C$, il effectue donc la soustraction terme à terme modulo $26$ :
+$X \ominus C$ et retrouve le message $M$.
+
+=
+
+|| Pourquoi ce système est-il inviolable ? 
+
+Pour chacune des lettres, la personne qui tente de déchiffrer le message est 
+face à la question posée précédemment, à savoir, 
+trouver deux nombres en connaissant seulement leur somme.
+
+Toutes les possibilités s'offrent à lui.
+
+Il est donc dans l'impossibilité d'atteindre son objectif.
+
+\change
+
+Il y a néanmoins trois principes essentiels à respecter pour que ce système soit inviolable :
+
+\change
+
+La longueur de la clé doit être  égale à la longueur du message.
+  
+\change
+
+Cette clé doit être choisie au hasard
+  
+\change
+
+et elle ne doit servir qu'une seule fois.
+
+\change
+
+Ce système est parfait en théorie, mais ne l'est pas du tout en pratique !
+
+\change
+
+Tout d'abord il faut que la clé soit aussi longue que le message. Pour un message 
+court cela ne pose pas de problème, mais pour crypter une image par exemple cela devient très lourd.
+
+\change
+
+Ensuite, pour chaque message, Alice doit posséder un moyen sécurisé d'envoyer la clé secrète à Bruno 
+avant même de lui faire parvenir le message. 
+
+Cela n'a pas tellement de sens, à moins de s'être mis d'accord au préalable sur une longue liste de clés secrètes.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Dans le système décrit précédemment, un des points de sécurité repose sur le fait de générer efficacement de longues clés, comme si elles avaient
+été tirées au hasard. 
+
+Nous allons étudier deux systèmes de chiffrement qui s'inspirent de cette idée : 
+
+- une méthode électro-mécanique -- la machine Enigma --
+
+- puis une méthode numérique -- le DES --.
+
+\change
+
+=
+
+La machine Enigma est une machine électro-mécanique qui ressemble à une machine à écrire.
+
+\change
+
+Lorsque qu'une touche est enfoncée, des disques internes sont actionnés, un courant circule et le caractère crypté s'allume.
+
+\change
+
+Cette machine, qui sert aussi au déchiffrement, était utilisée pour les communications de l'armée 
+allemande durant la seconde guerre mondiale. 
+
+\change
+
+Ce que les 
+Allemands ne savaient pas, c'est que les services secrets polonais et britanniques avaient réussi à en percer les mystères.
+
+\change
+
+Ce long travail d'études et de recherches a nécessité tout le génie 
+d'Alan Turing à la fois mathématicien, cryptologue et informaticien 
+mais aussi des innovations technologiques avec la construction de calculateurs programmables, 
+ancêtres de nos ordinateurs.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons voir une version très simplifiée de la machine Enigma. 
+
+=
+
+Notre machine simplifiée est dans un premier temps composée de deux anneaux, cela doit vous rappeler quelque chose.
+
+
+\change
+
+Tout d'abord un anneau extérieur contenant l'alphabet "ABCDE..." en clair, 
+ce sont les touches du clavier avec lesquelles est tapé le message.
+
+Cet anneau est fixe.
+  
+\change
+
+Le deuxième anneau représenté ici à l'intérieur du premier contient 
+l'alphabet ayant subi une permutation, 
+ici "NOJAK..." jusqu'à "GWQRUEY". 
+
+\change
+
+Bien sûr l'ordre de l’alphabet sur cet anneau intérieur doit rester secret.
+
+\change
+
+Cet anneau intérieur est mobile et tourne d'un cran chaque fois qu'une touche a été enfoncée. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Voyons le processus de chiffrement du mot "BAC" avec la clé de chiffrement 
+"NOJAK..." dont on fixe le point de départ, par exemple ici la lettre $G$.
+
+\change
+
+C'est-à-dire que l'opérateur va dans un premier temps tourner l'anneau intérieur de sorte que la lettre A de l'anneau extérieur et fixe 
+  soit en face de la lettre G de l'anneau intérieur mobile (et donc B en face de W,...).
+
+C'est la phase de mise en place des anneaux.
+ 
+\change
+
+Pour crypter la première lettre, l'opérateur tape la première lettre du message en clair ici le B de "BAC": 
+la machine affiche la correspondance, ici W.
+
+\change
+
+L'anneau intérieur tourne alors de $1/26$ème de tour, 
+
+=
+
+maintenant le A extérieur se retrouve en face du W, la lettre B en face de la lettre Q,...
+
+et on est prêt pour crypter la deuxième lettre.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous avons crypté la première lettre $B$ puis l'anneau intérieur a tourné d'un cran.
+
+\change 
+
+Pour crypter la deuxième lettre A, l'opérateur la tape au clavier :
+
+la machine affiche la correspondance, c'est de nouveau W.
+
+\change
+
+L'anneau intérieur tourne une nouvelle fois de $1/26$ème de tour, 
+maintenant la lettre A à l'extérieur est en face de la lettre Q, 
+le B en face du R, le C en face du U,...
+
+\change
+
+L'opérateur tape la troisième lettre du message C : 
+la machine affiche la correspondance U et effectue sa rotation.
+   
+\change
+
+Le message crypté est donc "WWU"
+   
+%Il n'y a pas d'attaque statistique possible, 
+%ici les deux W correspondent à des lettres différentes.
+
+|| Ce processus de chiffrement n'est autre qu'un chiffrement par bloc comme nous l'avons vu dans les chapitres précédents.
+
+=
+
+Mais l'intérêt de cette présentation est de permettre immédiatement des généralisations.
+
+\diapo
+
+La machine Enigma ne possédait pas un seul anneau interne mobile, nous avons vu que cela revenait à un chiffrement par bloc de type Vigenère. 
+
+%Elle était beaucoup plus sophistiquée et possédait notamment plusieurs anneaux intérieurs.
+
+Par exemple pour deux anneaux (ici le premier en jaune et le second en vert) 
+placés ici dans leur position initiale : 
+
+\change 
+
+B s'envoie sur W par le premier anneau, qui lui-même est envoyé sur A par le second : 
+la lettre B est donc cryptée est A.
+
+\change 
+
+Ensuite l'anneau intérieur numéro 1, effectue $1/26$ème de tour et on continue 
+à parcourir le message.
+
+Pour un message plus long que notre exemple, lorsque l'anneau intérieur (ici en clair)
+a effectué une rotation complète ($26$ lettres ont été tapées) 
+l'anneau intérieur (ici en vert) effectue $1/26$ème
+de tour.
+
+||  C'est comme sur un compteur kilométrique de voiture :
+à chaque kilomètre le chiffre des unités tourne,
+tous les $10$ kilomètres le chiffre des dizaines tourne aussi,...
+
+-- Ici, le disque en jaune joue le rôle des unités et le disque en vert celui des dizaines.
+
+=
+
+|| Cette situation se généralise à plusieurs anneaux augmentant 
+la complexité et éloignant ainsi les possibilités d'attaque du système.
+
+
+%Ce système était rendu largement plus compliqué pendant la guerre.
+%Le nombre de clés possibles dépassait plusieurs milliards de milliards !
+
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \diapo
+% 
+% Les ordinateurs ne connaissent en fait que deux nombres : $0$ et $1$.
+% 
+% \change
+% l'addition est celle de $\Zz/2\Zz$ :
+% 
+% \change
+% $0+0=0 \qquad 0+1=1 \qquad 1+0=1$
+% 
+% mais attention $1+1=0$.
+% 
+% \change
+% Si on a deux mots $m$ et $c$ composés de $0$ et de $1$ 
+% 
+% \change
+% alors on peut définir l'addition $m \oplus c$, cette addition 
+% se fait \emph{bit} par \emph{bit} (c'est-à-dire colonne par colonne, sans retenue).
+% 
+% \change
+% Exemple $m = 10101010$, $c = 01110011$, notons $x= m \oplus c$ :
+% 
+% \change
+% on dispose l'addition ainsi :
+% 
+% \change
+% et on trouve 
+% 
+% $x = 11011001$.
+% 
+% Souvenez-vous, on travail colonne par colonne, sans retenue,
+% et $1+1=0$.
+% 
+% \change
+% Pour nous, $m$ est le message en clair, $c$ la clé de cryptage et $x$ le message crypté.
+% 
+% \change
+% Comment déchiffrer le message ? Connaissant $x$ et $c$, c'est très facile. 
+% 
+% \change
+% 
+% \change
+% Comme $1+1=0$, alors $-1=+1$ donc ajouter ou soustraire est la même opération !
+% Pour décrypter le message il suffit donc de calculer $x\oplus c$ et on retrouve $m$.
+% 
+% \change
+% 
+% On peut aussi le prouver de la façon suivante : comme $0+0=0$ et $1+1=0$ alors
+% quelque soit $c$, $c \oplus c=0$. 
+% 
+% Donc
+% $$x \oplus c = (m \oplus c) \oplus c = m \oplus (c \oplus c) = m \oplus 0 = m.$$
+% 
+% Vérifiez-le sur l'exemple ci-dessus.
+% 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+La machine Enigma génère mécaniquement un alphabet différent à chaque caractère crypté, 
+tentant ainsi de se rapprocher d'un chiffrement parfait.
+
+\change
+
+Nous allons voir une autre méthode, cette fois numérique : le DES. 
+
+Le DES est un protocole de chiffrement par blocs qui a été comme son nom l'indique le standard de chiffrement américain et international de la fin des années 70 jusqu'en 2001.
+
+\change
+
+Commençons par rappeler que l'objectif est de pouvoir utiliser une clé très longue.
+
+\change
+
+Pour ne pas avoir à retenir l'intégralité de cette longue clé, nous allons tenter de la produire de façon presque aléatoire, on dit alors pseudo-aléatoire, à partir d'une clé de petite taille.
+
+\change
+
+Voyons un exemple élémentaire qui utilise la notion de suite récurrentes.
+
+Soit $(u_n)$ la suite définie par la donnée de deux entiers $a$ et $b$, de son premier terme $u_0$ et de la relation de récurrence
+$$u_{n+1} \equiv a\times u_n + b \pmod{26}.$$
+
+\change
+
+Par exemple pour $a=2$, $b=5$ et $u_0=6$, 
+
+\change
+
+nous avons
+$$u_0=6$$
+
+$$u_1=2\times 6+5=17 \pmod{26}$$
+
+$$u_2=2\times 17+5= 39 = 13 \pmod{26} \qquad \mbox{etc.}$$
+
+$$(6 \quad 17\quad 13)\quad 5\quad 15 \quad9\quad 23\quad 25\quad 3 \quad11\quad 1 \quad7\quad 19\quad 17\quad 13\quad 5$$
+
+\change
+
+Les trois nombres $(a,b,u_0)$ représentent la clé principale et 
+
+\change
+
+les éléments de la suite $(u_n)_{n\in\Nn}$ les clés secondaires ou vu sous un autre angle une très longue clé.
+
+=
+
+|| L'avantage de cette construction est qu'à partir d'une clé principale on a généré une longue voir très longue liste de clés secondaires. 
+
+Mais l'inconvénient est que cette liste n'est pas si aléatoire que cela. 
+
+En effet, elle se répète, elle est periodique à partir d'un certain rang, sa période est de longueur $12$ et constituée de : 
+$$17,\quad 13,\quad 5,\quad 15,\quad 9,\quad 23,\quad 25,\quad 3,\quad 11,\quad 1,\quad 7,\quad 19$$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+%Le système DES est une version sophistiquée de ce processus :
+%à partir d'une clé courte et d'opérations élémentaires on crypte un message.
+Comme lors de l'étude de la machine Enigma, nous allons présenter une 
+version très simplifiée du DES afin d'en expliquer les étapes élémentaires.
+
+\change
+
+Les additions se feront \emph{terme} à \emph{terme}.
+
+\change
+
+Pour changer, nous allons ici travailler modulo $10$.
+
+\change
+
+Par exemple :
+$[1 \ 2 \ 3 \  4] \oplus [7\  8\  9\  0] = [8\  0\  2\  4]$ 
+
+car ($1+7 \equiv 8 \pmod{10}$,
+$2+8\equiv 0 \pmod{10}$,...)
+
+\change
+
+Notre message est coupé en blocs, pour nos explications 
+ce seront des blocs de longueur $8$. 
+
+\change
+
+La clé sera ici de longueur $4$.
+
+\change
+
+Voici enfin le message (pour notre exemple nous prenons un seul bloc): 
+$M = [1\  2\  3\  4\  5\  6\  7\  8]$ 
+
+\change
+
+et la clé : $C=[3\  1\  3\  2]$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+((Après avoir défini notre cadre de travail, nous allons expliciter les transformations 
+subies par le message initial.))
+
+Voyons la première étape ou le premier tour : 
+
+--Nous partons de $M_0$ le message initial que nous avons découpé en deux parties, 
+une partie gauche et une partie droite :
+$$M_0 = [ G_0 \ \|\  D_0] = [1\  2\  3\  4\  \| \ 5\  6\  7\  8]$$
+
+\change 
+
+Nous souhaitons obtenir le message $M_1$ défini par
+$$M_1 = [ D_0 \ \|\  C \oplus \sigma(G_0)]$$
+où $\sigma$ est une permutation circulaire.
+
+
+On effectue pour cela trois opérations pour passer de $M_0$ à $M_1$ :
+
+
+\change
+
+Tout d'abord on échange la partie droite et la partie gauche de $M_0$ :
+  
+\change  
+
+$M_0  \longmapsto  [5\  6\  7\  8\  \|\  1\  2\  3\  4]$
+
+
+\change
+
+Ensuite sur la nouvelle partie droite, on permute circulairement les nombres, c'est la signification de $\sigma$.
+  
+\change  
+
+$\longmapsto  [5\  6\  7\  8\  \| 2\  3\  4\  1]$
+
+\change 
+
+Enfin on ajoute la clé secrète $C$ à la partie droite (je vous rappelle que 
+$C=[3\  1\  3\  2]$).
+
+\change 
+
+pour obtenir le nouveau message $M_1 =  [5\  6\  7\  8\  \| \ 5\  4\  7\  3]$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour la suite de notre protocole, nous allons recommencer le même processus en partant du message $M_1$. 
+
+=
+
+Cela revient à appliquer la formule de récurrence,
+qui partant de $M_i=[G_i \ \| \ D_i]$ (découpé en deux parties), définit
+$$M_{i+1} = [ D_i \ \| \ C \oplus \sigma(G_i)]$$
+
+
+\change
+
+On part donc de $M_1 = [5\  6\  7\  8\  \| 5\  4\  7\  3]$.
+
+Et on applique le processus de récurrence (toujours en trois opérations).
+
+
+\change
+
+On échange la partie droite et la partie gauche de $M_1$ :
+$$M_1  \longmapsto  [5\  4\  7\  3\  \| \ 5\  6\  7\  8]$$
+
+\change
+
+Sur la nouvelle partie droite, on applique $\sigma$, la permutation circulaire.
+$$\longmapsto  [5\  4\  7\  3\  \| \ 6\  7\  8\  5]$$
+
+\change
+
+Puis on ajoute la clé secrète $C$ à droite pour obtenir $M_2$.
+$$\longmapsto  [5\  4\  7\  3\  \| \ 9\  8\  1\  7] = M_2$$
+
+
+\change
+
+On peut décider de s'arrêter après ce tour et renvoyer 
+le message crypté $X=M_2 = [5\  4\  7\  3\ 9\  8\  1\  7]$. 
+
+=
+
+Comme chaque opération élémentaire est inversible, 
+il est élémentaire de définir le protocole qui permet de déchiffrer un message.
+
+=
+
+Dans la version complète du DES les calculs sont effectués modulo 2 et clé et blocs sont de longueur $64$.
+
+Outre quelques transformations des messages initiaux et finaux, le processus de récurrence est appliqué 16 fois. 
+
+De plus, à chaque tour, on utilise une clé différente.
+
+Il convient donc, à l'image de ce que nous avons vu précédemment, de générer 16 clés (dites secondaires) à partir de la clé principale.
+
+
+
+\end{document}

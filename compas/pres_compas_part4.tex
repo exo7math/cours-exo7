@@ -1,0 +1,319 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={102,102,255}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcommand{\construc}{\mathcal{C}}
+\newcommand{\plan}{\mathcal{P}}
+\newcommand{\cercle}{\mathcal{C}}
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf La règle et le compas}}
+\subtitle{Corps et nombres constructibles}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Nombre constructible et extensions quadratiques
+    \item<4-> Corollaire
+    \item<5-> Exemples
+    \item<6-> Preuve
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Nombre constructible et extensions quadratiques}
+
+\begin{frame}
+
+\begin{theoreme}[de Wantzel]
+\label{th:wantzel}
+Un nombre réel $x$ est constructible si et seulement s'il existe 
+des extensions quadratiques 
+$$\Qq = K_0 \subset K_1 \subset \cdots \subset K_r$$
+telles que $x \in K_r$
+\end{theoreme}
+
+\pause
+
+\begin{itemize}
+  \item Chacune des extensions est quadratique
+\pause
+  \item $[K_{i+1}:K_i]=2$
+\pause
+  \item $K_{i+1} = K_i(\sqrt{\delta_i})$ pour un certain $\delta_i \in K_i$ 
+\end{itemize}
+
+\pause
+$$\Qq \subset \Qq(\sqrt{\delta_0}) \subset \Qq(\sqrt{\delta_0})(\sqrt{\delta_1}) \subset \cdots$$
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Corollaire}
+
+\begin{frame}
+  \begin{corollaire}
+Tout nombre réel constructible est un nombre algébrique
+dont le degré algébrique est de la forme $2^n$, $n\ge 0$ 
+\end{corollaire}
+
+\pause
+
+\begin{proof}
+Soit $x$ un nombre constructible
+\pause
+\begin{itemize}
+  \item 
+  \begin{itemize}
+    \item Théorème de Wantzel :
+il existe des extensions quadratiques 
+$\Qq = K_0 \subset K_1 \subset \cdots \subset K_r$
+telles que $x \in K_r$
+\pause
+    \item Donc $x$ appartient à une extension de $\Qq$ de degré fini
+\pause
+    \item Ainsi $x$ est un nombre algébrique
+  \end{itemize}
+\pause
+  \item 
+  \begin{itemize}
+    \item On sait de plus que $[K_{i+1}:K_i]=2$
+\pause
+    \item Donc $[K_r:\Qq]=2^r$
+\pause
+    \item Comme $\Qq(x) \subset K_r$ : $[K_r:\Qq(x)] \times [\Qq(x):\Qq]=[K_r:\Qq]$
+\pause    
+    \item Donc $[\Qq(x):\Qq]$ divise $[K_r:\Qq]=2^r$
+\pause    
+    \item $[\Qq(x):\Qq]=2^n$ \qedhere
+  \end{itemize}
+ 
+\end{itemize}
+\end{proof}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exemples}
+
+\begin{frame}
+
+\evidence{Intersection de deux droites}
+
+\begin{minipage}{0.59\textwidth}
+\begin{itemize}
+  \uncover<3->{\item Deux droites $(AB)$, $(A'B')$}
+  \uncover<4->{\item $A(0,1)$, $B(1,-1)$, $A'(0,-2)$, $B'(1,1)$}
+  \uncover<5->{\item Coordonnées dans $K=\Qq$}
+  \uncover<6->{\item \'Equations $2x+y=1$ et $3x-y=2$}
+  \uncover<7->{\item $P = (AB) \cap (A'B')$}
+  \uncover<8->{\item $P(\frac 35, -\frac 15)$}
+  \uncover<9->{\item Coordonnées de $P$ sont dans $K=\Qq$}
+  \uncover<10->{\item Pas d'extension de corps}
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.39\textwidth}
+\uncover<2->{\myfigure{0.7}{\hspace*{-0.5em}
+\tikzinput{fig_compas46}
+}}
+\end{minipage}
+
+\end{frame}
+
+
+\begin{frame}
+
+\evidence{Intersection d'une droite et d'un cercle}
+
+\vspace*{-2ex}
+\begin{minipage}{0.61\textwidth}
+\vspace*{-3ex}
+\begin{itemize}
+  \uncover<2->{\item Droite passant par $A(0,1)$ et $B(1,-1)$}
+  \uncover<3->{\item \'Equation $2x+y=1$}
+  \uncover<4->{\item Cercle de centre $A'(2,1)$ passant par $B'(-1,1)$}
+  \uncover<5->{\item \'Equation $(x-2)^2+(y-1)^2=9$}
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.38\textwidth}
+\vspace*{5ex}\myfigure{0.6}{\hspace*{-0.5em}
+\tikzinput{fig_compas47}
+}
+\end{minipage}
+
+\pause\pause\pause\pause\pause
+\vspace*{-9ex}
+\begin{itemize}[<+->]
+  \item $P\left(\frac 1 5 \left(2- \sqrt{29}\right),\frac 1 5 \left(1+2\sqrt{29}\right) \right)$
+  \item $P'\left(\frac 1 5 \left(2 + \sqrt{29}\right),\frac 1 5 \left(1-2\sqrt{29}\right) \right)$
+  \item $\alpha+\beta\sqrt{\delta}$ \qquad $\delta = 29$ \qquad $\alpha,\beta \in \Qq$
+  \item $K = \Qq(\sqrt{29})$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}  
+\evidence{Intersection de deux cercles}
+
+
+\begin{minipage}{0.63\textwidth}
+\begin{itemize}
+  \setlength{\itemsep}{7pt}
+  \uncover<2->{\item $\cercle((-1,0),2)$ : $(x+1)^2+y^2=4$}
+  \uncover<3->{\item $\cercle((2,1),\sqrt{5})$ : $(x-2)^2+(y-1)^2=5$}
+  \uncover<4->{\item $\left(\frac{1}{20}\left( 7 - \sqrt{79}\right),\frac{3}{20}\left( 3 + \sqrt{79}\right)\right)$}
+  \uncover<5->{\item $\left(\frac{1}{20}\left( 7 + \sqrt{79}\right),\frac{3}{20}\left( 3 - \sqrt{79}\right)\right)$}
+  \uncover<6->{\item $\alpha+\beta\sqrt{\delta}$ \qquad $\delta = 79$ \qquad $\alpha,\beta \in \Qq$}
+  \uncover<7->{\item $K = \Qq(\sqrt{79})$  }
+\end{itemize}
+ 
+\end{minipage}
+\begin{minipage}{0.34\textwidth}
+\myfigure{0.7}{\hspace*{-2.5em}
+\tikzinput{fig_compas48}
+}    
+\end{minipage}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Preuve}
+
+
+\begin{frame}
+
+\begin{theoreme}[de Wantzel]
+\label{th:wantzel}
+Un nombre réel $x$ est constructible si et seulement s'il existe 
+des extensions quadratiques 
+$$\Qq = K_0 \subset K_1 \subset \cdots \subset K_r$$
+telles que $x \in K_r$
+\end{theoreme}
+
+\pause
+\bigskip
+
+Sens <<\,facile\,>>
+\pause
+\begin{itemize}
+  \item Si $x\ge 0$ constructible, alors $\sqrt{x}$ est constructible
+  \pause
+  \item Les nombres de $K_1 = \Qq(\sqrt{\delta_0})$ sont constructibles
+  \pause
+  \item Par récurrence tout élément de $K_1,K_2$, $K_3$,... est constructible
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+\evidence{Preuve du théorème de Wantzel}
+
+\pause
+
+\begin{itemize}
+  \item Construction par étapes des points constructibles  $\construc_0$, $\construc_1$, $\construc_2$,\ldots
+ \pause 
+  \item $\construc_{j+1}$ s'obtient à partir de $\construc_j$ en ajoutant 
+  les intersections des droites et des cercles tracés à partir de $\construc_j$
+\pause  
+  \item Soit $K$ le plus petit corps contenant les coordonnées des points de $\construc_j$
+\pause  
+  \item Soit $P$ un point de $\construc_{j+1}$
+\end{itemize}
+
+\pause
+\evidence{Premier cas.} \emph{$P$ est l'intersection de deux droites}
+
+\pause
+\begin{itemize}[<+->]
+
+  \item $A(x_A,y_A)$ et $B(x_B,y_B)$ avec $x_A,y_A,x_B,y_B \in K$
+  \item Droite $(AB)$ : $y = \frac{y_B-y_A}{x_B-x_A} (x-x_A) + y_A$ 
+  \item Droite $(AB)$ : $ax+by=c$ avec $a,b,c \in K$
+  \item Autre droite : $a'x+b'y=c'$ avec $a',b',c' \in K$
+  \item $P$ point d'intersection : $\left(\frac{cb'-c'b}{ab'-a'b} , \frac{ac'-a'c}{ab'-a'b} \right)$
+  \item $P$ a ses coordonnées dans $K$
+  \item Pas besoin d'extension de $K$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\evidence{Deuxième cas.} \emph{$P$ intersection d'une droite et d'un cercle} 
+
+\pause
+\begin{itemize}[<+->]
+  \item Droite $ax+by=c$ avec $a,b,c \in K$
+  \item Cercle $(x-x_0)^2+(y-y_0)^2=r^2$, $x_0,y_0,r^2 \in K$
+  \item Deux points d'intersection $(x,y)$, $(x',y')$
+  \item 
+  $\begin{array}{rcl}
+  \delta &=& -2\,x_{{0}}{a}^{3}by_{{0}}+2\,y_{{0}}{a}^{2}cb-{b}^{2}{y_{{0}}}^{2}{a}^{2}+{b}^
+{2}{r}^{2}{a}^{2}\\
+&&+2\,{a}^{3}x_{{0}}c-{a}^{4}{x_{{0}}}^{2}-{a}^{2}{c}^{
+2}+{a}^{4}{r}^{2} \in K
+\end{array}$
+  \item $x =- \frac ba \frac{1}{a^2+b^2} \left(-x_{{0}}ab+y_{{0}}{a}^{2}+cb - \frac cb (a^2+b^2) \mathbf{+} \sqrt \delta \right)$
+ 
+ $y = \frac{c-ax}{b}$
+  
+  \item $x' =- \frac ba \frac{1}{a^2+b^2} \left(-x_{{0}}ab+y_{{0}}{a}^{2}+cb - \frac cb (a^2+b^2) \mathbf{-} \sqrt \delta \right)$
+  
+  $y' = \frac{c-ax'}{b}$
+
+  
+  \item Coordonnées de la forme $\alpha+\beta\sqrt{\delta}$ avec $\alpha,\beta \in K$, $\delta \in K$
+  \item Extension quadratique $K(\sqrt \delta)$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}  
+\evidence{Troisième cas.} \emph{$P$ appartient à l'intersection de deux cercles}
+
+\pause
+Coordonnées de l'intersection sont aussi de la forme $\alpha+\beta\sqrt\delta$ avec
+$\delta \in K$ fixé et $\alpha,\beta\in K$
+
+\bigskip
+\pause
+
+\evidence{Conclusion.}
+\begin{itemize}
+  \item Dans tous les cas, les coordonnées de $P$ sont dans une extension quadratique du corps $K$
+ 
+  \item Une récurrence termine la preuve du théorème
+\end{itemize}
+
+\end{frame}
+
+
+
+\end{document}

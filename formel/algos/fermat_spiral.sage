@@ -1,0 +1,5 @@
+t = var('t')
+x = sqrt(t)*cos(t)
+y = sqrt(t)*sin(t)
+g = parametric_plot((x, y), (t, 0, 20*pi), plot_points=1500)
+g.show(aspect_ratio=1, axes=False)

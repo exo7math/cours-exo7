@@ -1,0 +1,341 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Il est vite fatiguant de vérifier les $8$ axiomes qui font d'un ensemble un espace vectoriel.
+Heureusement, il existe une manière rapide et efficace de prouver qu'un ensemble est un espace vectoriel :
+grâce à la notion de sous-espace vectoriel.
+
+\change
+
+Nous allons voir qu'elle est la définition d'un sous-espace vectoriel
+
+\change
+
+Et nous verrons qu'un sous-espace vectoriel est un espace vectoriel
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Partons d'un ensemble $E$ qui est un $\Kk$-espace vectoriel.
+
+Considérons $F$ un sous-ensemble de $E$.
+
+La partie $F$ sera un \defi{sous-espace vectoriel} de $E$ si 
+les trois points suivants sont vérifiés :
+
+(1) $0_E \in F$,
+
+(2) pour tous $u,v \in F$, $u+v \in F$,
+   
+(3)  pour tout $\lambda \in \Kk$ et tout $u \in F$, $\lambda \cdot u \in F$. 
+
+
+
+Expliquons chaque condition.
+\begin{itemize}
+  \item La première condition signifie que le vecteur nul de $E$ doit aussi être dans $F$.
+  En fait il suffirait même de prouver que $F$ est non vide.
+  
+  \item La deuxième condition, c'est dire que $F$ est stable pour l'addition :
+  la somme $u+v$ de deux vecteurs de $F$ est bien sûr un vecteur de $E$ 
+  (car $E$ est un espace vectoriel),
+  mais ici on exige que $u+v$ soit un élément de $F$. 
+  
+  \item  La troisième condition, c'est dire que $F$ est 
+  stable pour la multiplication par un scalaire.
+\end{itemize}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Commençons par un exemple simple.
+
+Soit $F=\big\{(x,y)\in \Rr^2\mid x+y=0\big\}$
+  
+Ici $E=\Rr^2$ est un $\Rr$-espace vectoriel.
+
+Nous allons montrer que $F$ est un sous-espace vectoriel de $E$.
+
+\change
+
+Vérifions les trois points :
+
+(1) tout d'abord $(0,0) \in F$,
+
+\change
+
+(2) si $u=(x_1,y_1)$ et $v=(x_2,y_2)$ appartiennent à $F$, 
+
+\change
+
+alors par définition de $F$, $x_1+y_1=0$ et $x_2+y_2=0$ 
+
+\change
+
+cela implique $(x_1+x_2)+(y_1+y_2)=0$
+
+\change
+
+et ainsi $u+v=(x_1+x_2,y_1+y_2)$ appartient à $F$,
+
+$F$ est donc stable par addition
+
+\change
+
+(3) il reste à vérifier que $F$ est stable par multiplication par un scalaire.
+    
+si $u=(x,y) \in F$ et $\lambda \in \Rr$, 
+
+alors $x+y=0$ donc aussi $\lambda x + \lambda y = 0$,
+
+
+    d'où $\lambda u \in F$.
+
+    
+On a bien montrer que $F$ est un sous-espace vectoriel de $\Rr^2$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+L'ensemble des fonctions continues sur $\Rr$ est un sous-espace vectoriel 
+de l'espace vectoriel des fonctions de $\Rr$ dans $\Rr$.
+
+\change
+
+  Voici la preuve :
+  
+  (1)  la fonction nulle est continue ;
+  
+\change
+  
+  (2) la somme de deux fonctions continues est continue ; 
+ 
+\change
+
+  (3)  une constante fois une fonction continue reste une fonction continue.
+  
+
+\change
+
+Autre exemple, l'ensemble des suites réelles *convergentes* est un sous-espace vectoriel 
+de l'espace vectoriel des suites.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Bien sûr tous les sous-ensembles \emph{ne sont pas} des sous-espaces vectoriels.
+
+\change
+
+L'ensemble $F_1=\big\{(x,y)\in \Rr^2\mid x+y=2\big\}$ n'est pas un sous-espace vectoriel de $\Rr^2$.
+
+
+\change
+
+Le premier axiome n'est pas vérifier : le vecteur nul $(0,0)$ n'appartient pas à $F_1$.
+
+  \change
+  
+L'ensemble $F_2=\big\{(x,y)\in \Rr^2\mid x=0 \text{ ou } y=0 \big\}$ n'est pas non plus 
+un sous-espace vectoriel de $\Rr^2$.
+
+Il contient bien l'origine $(0,0)$,
+
+\change
+ 
+mais n'est pas stable par addition.
+
+Par exemple les vecteurs $u=(1,0)$ et $v=(0,1)$ appartiennent à $F_2$, mais leur somme est 
+le vecteur $u+v=(1,1)$, qui lui n'appartient pas à $F_2$.
+  
+  \change
+  
+L'ensemble $F_3=\big\{(x,y)\in \Rr^2\mid x \ge 0 \text{ et } y\ge 0\big\}$ n'est pas un sous-espace vectoriel de $\Rr^2$.
+
+Cet ensemble contient l'origine, il est stable par addition, mais n'est pas stable 
+par multiplication par un scalaire.
+
+\change
+
+ Par exemple le vecteur $u=(1,1)$ appartient à $F_3$ mais, pour $\lambda = -1$, 
+ le vecteur $-u = (-1,-1)$ n'appartient pas à $F_3$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La notion de sous-espace vectoriel prend tout son intérêt avec le théorème suivant :
+un sous-espace vectoriel est lui-même un espace vectoriel.
+
+
+Théorème : "Soient $E$ un $\Kk$-espace vectoriel et $F$ un sous-espace vectoriel de $E$. 
+Alors $F$ est lui-même un $\Kk$-espace vectoriel pour les lois induites par $E$." 
+
+C'est ce théorème qui va nous fournir plein d'exemples d'espaces vectoriels.
+
+\change
+
+
+Pour répondre à une question du type \og L'ensemble $F$ est-il un espace vectoriel ? \fg,
+voici une façon efficace de procéder
+
+(1) trouver un espace vectoriel $E$ qui contient $F$, 
+
+
+puis (2) prouver que $F$ est un sous-espace vectoriel de $E$.
+
+
+
+Il y a seulement trois propriétés à vérifier au lieu de huit !
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Appliquons immédiatement le théorème précédent "Un sous-espace vectoriel est lui-même un espace vectoriel"
+pour répondre à la question :
+
+Est-ce que l'ensemble des fonctions paires  est un espace vectoriel ?
+ 
+(sur $\Rr$ avec les lois usuelles sur les fonctions) 
+
+  Notons $\mathcal{P}$ l'ensemble des fonctions paires. 
+  
+
+\change
+
+  
+C'est un sous-ensemble de l'espace vectoriel $\mathcal{F}(\Rr,\Rr)$ des fonctions 
+
+\change
+
+  qui s'écrit
+ 
+ $$ \mathcal{P}=\big\{ f \in \mathcal{F}(\Rr, \Rr ) \mid \forall x \in \Rr , f(-x)=f(x) \big\}$$
+ 
+\change
+
+ Montrons maintenant que $\mathcal{P}$ est un sous-espace vectoriel de l'espace vectoriel des fonctions. 
+ C'est très simple à vérifier, :
+ 
+ \change
+
+ la fonction nulle est une fonction paire,   
+ 
+ \change
+
+ si $f,g \in \mathcal{P}$ alors $f+g \in\mathcal{P}$,
+ 
+ \change
+ 
+  si $f\in\mathcal{P}$ et si $\lambda \in \Rr$ alors $\lambda f\in\mathcal{P}$.
+  
+  \change
+  
+  Ainsi $\mathcal{P}$ est un sous-espace vectoriel 
+  
+  et par le théorème de la diapo précédente, $\mathcal{P}$ est un espace vectoriel.
+  
+  \change
+  
+  Je vous laisse écrire que l'ensemble $\mathcal{I}$ des fonctions impaires est aussi un espace vectoriel en tant 
+  que sous-espace vectoriel.
+  
+  \change
+  
+  Il en va de même avec l'ensemble $\mathcal{S}_n$ des matrices symétriques, c'est-à-dire l'ensemble des matrices $A$
+  telles que $A^T=A$. C'est un espace vectoriel en tant que sous-espace vectoriel de l'espace vectoriel des matrices $n \times n$.
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Un autre exemple d'espace vectoriel est donné par l'ensemble des solutions d'un système 
+linéaire homogène. 
+
+Soit $A$ une matrice à $n$ lignes et $p$ colonnes.
+
+alors $AX = 0$ est un système de $n$ équations à $p$ inconnues,
+
+que l'on peut écrire aussi ainsi.
+
+
+\change
+
+On a alors que l'ensemble des vecteurs $X$ qui sont solutions de cette équation $AX=0$
+est un sous-espace vectoriel de $\Rr^p$.
+
+\change
+
+Pour la preuve on appelle $F$ l'ensemble des vecteurs $X \in \Rr^p$ solutions de l'équation $AX=0$. 
+Vérifions que $F$ est un sous-espace vectoriel de $\Rr^p$.
+\begin{itemize}
+  \item Le vecteur $0$ est un élément de $F$.
+  \item $F$ est stable par addition : si $X$ et $X'$ sont des vecteurs solutions, 
+  alors $AX = 0$ et $AX' = 0$, donc $A(X + X') = AX + AX' = 0$, et ainsi $X+X'\in F$.
+  \item  $F$ est stable par multiplication par un scalaire : si $X$ est un vecteur solution,
+  alors $AX = 0$ et on a aussi $A (\lambda X)  = 0$.
+  Donc $\lambda X \in F$.
+\end{itemize}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons un exemple concret avec ce système à 3 équations et 3 inconnues.
+
+\change
+
+Une fois que on l'a résolu on trouve que l'ensemble des solutions $F \subset \Rr^3$ de ce système est :
+$$F = \big\{ (x =  2s - 3t, y  =  s, z  =  t) \mid s,t \in \Rr \big\}.$$
+
+
+\change
+
+Par le théorème précédent, $F$ est un sous-espace vectoriel de $\Rr^3$.
+
+\change
+
+et donc $F$ est aussi un espace vectoriel.
+
+\change
+
+
+Une autre façon de voir les choses est d'écrire que les éléments de $F$ sont ceux qui vérifient
+l'équation $(x = 2y - 3z)$.
+
+L'ensemble des solutions $F$ est donc un plan passant par l'origine. 
+Nous avons déjà vu que ceci est un espace vectoriel. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici toute une liste d'ensembles, à vous de déterminer si ce sont des sous-espaces vectoriels ou pas.
+
+\end{document}

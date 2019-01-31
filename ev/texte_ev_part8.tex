@@ -1,0 +1,601 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Voici la partie fondamentale sur les applications linéaires.
+
+\change
+
+Nous allons définir l'image d'une application linéaire
+
+\change
+
+ainsi que le noyau.
+
+\change
+
+On parlera de l'espace vectoriel des applications linéaires entre deux espaces vectoriels.
+
+\change
+
+Et on terminera avec la composition et l'inverse d'applications linéaires.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+     
+Commençons par des rappels.
+Soient $E$ et $F$ deux ensembles et $f$ une application de $E$ dans $F$. 
+Soit $A$ un sous-ensemble de $E$. 
+L'ensemble des images par $f$ des éléments de $A$, est appelé \defi{image directe} 
+de $A$ par $f$, et est noté $f(A)$. C'est un sous-ensemble de $F$. On a par définition :
+$$f(A)=\big\{ f(x)  \mid x\in A \big\}.$$
+
+\change
+
+Dans toute la suite, $E$ et $F$ désigneront des $\Kk$-espaces vectoriels
+et $f : E \to F$ sera une application linéaire.
+
+$f(E)$ s'appelle l'\defi{image} de l'application linéaire $f$ et est noté $\Im f$. 
+
+\change
+
+Voyons quelle structure a l'image d'un sous-espace vectoriel :
+
+
+ Si $E'$ est un sous-espace vectoriel de $E$, alors $f(E')$ est un sous-espace vectoriel de $F$.
+ 
+ Autrement dit l'image d'un sous-espace vectoriel par une application linéaire est un sous-espace vectoriel.
+
+\change
+ 
+Et le cas qui nous intéresse le plus, c'est l'image : on a aussi que $\Im f$ est un sous-espace vectoriel de $F$.
+
+C'est un conséquence du premier point car $\Im f = f(E)$.
+
+\change
+
+Enfin par définition de l'image directe $f(E)$ : 
+$f$ est surjective si et seulement si $\Im f =F$.
+
+Donc pour savoir si une application, en particulier une application linéaire, est surjective, on étudie son image.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Attardons nous sur la preuve de la proposition précédente :
+l'image d'un sous-espace vectoriel par une application linéaire est un sous-espace vectoriel.
+
+\change
+
+
+Tout d'abord, $0_{E} \in E'$  
+
+mais une application linéaire envoie le vecteur nul sur le vecteur nul ainsi
+$0_{F} = f(0_{E})$ et donc $0_{F}$ appartient à l'image directe $f(E')$.
+
+\change
+
+
+Ensuite on montre que pour toute paire $y_1,y_2$ d'éléments de l'image directe $f(E')$
+et pour tous scalaires $\lambda,\mu$, la combinaison linéaire $\lambda y_1 + \mu y_2$ appartient aussi à $f(E')$.
+
+\change
+
+Comme $y_1 \in f(E')$ alors il existe $x_1\in E' , f(x_1)=y_1$.
+
+\change
+
+De même comme $y_2 \in f(E')$, il existe $x_2\in E' , f(x_2)=y_2$.
+
+\change
+
+Or $\lambda x_1 + \mu x_2$ est un élément de $E'$, car $E'$ est un 
+sous-espace vectoriel de $E$,
+
+\change
+
+Enfin comme $f$ est linéaire, on a 
+$$f(\lambda x_1+ \mu x_2)=\lambda f(x_1)+ \mu f(x_2)=\lambda y_1 + \mu y_2.$$
+
+\change
+
+donc $\lambda y_1 + \mu y_2$ est bien un élément de $f(E')$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons à une notion plus délicate, celle du noyau d'une application linéaire
+
+Soient $E$ et $F$ deux $\Kk$-espaces vectoriels et $f$ une application linéaire de $E$ dans $F$.
+
+Le \defi{noyau} de $f$ est l'ensemble des 
+éléments de $E$ dont l'image est $0_{F}$ :
+
+Le noyau est noté  $\Ker(f)$.
+
+Par définition $\Ker (f)$ est donc $\big\{x \in E \mid f(x)=0_{F}\big\}$
+
+\change
+
+
+ 
+ Autrement dit, le noyau est l'image réciproque du vecteur nul de l'espace d'arrivée :
+ $\Ker(f) = f^{-1} \{0_F\}$.
+ 
+\change
+
+Comme l'image, le noyau est un sous-espace vectoriel.
+
+Proposition : Si $f$ une application linéaire entre deux espaces vectoriels $E$ et $F$.
+Alors le noyau de $f$ est un sous-espace vectoriel de $E$.
+
+\change
+
+Prouvons le !
+
+Tout d'abord $\Ker(f)$ est non vide car $f(0_E)=0_F$ donc $0_{E} \in \Ker (f)$. 
+
+\change
+
+Soient maintenant $x_1,x_2$ deux vecteurs du noyau et soient $\lambda,\mu$ deux scalaires.
+
+Il s'agit de montrer que $\lambda x_1+\mu x_2$ est un élément de $\Ker (f)$. 
+
+\change
+
+Calculons 
+$f(\lambda x_1+\mu x_2)$
+
+\change
+
+Comme $f$ est linaire alors
+$f(\lambda x_1+\mu x_2)=\lambda f(x_1)+\mu f(x_2)$
+
+\change
+
+et comme $x_1$ et $x_2$ sont dans le noyau alors $f(x_1)=0$ et $f(x_2)=0$.
+
+\change
+
+Donc $f(\lambda x_1+\mu x_2) =0_{F}.$
+
+Ce qui est exactement dire que $\lambda x_1+\mu x_2$ est un élément du noyau.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Reprenons l'exemple de l'application linéaire
+$f : \Rr^3 \to \Rr^2$ définie par $f(x,y,z) = (-2x,y+3z)$.
+
+
+\change
+Nous allons calculer le noyau et l'image de $f$.
+
+
+Commençons par le noyau $\Ker(f)$.
+
+\change
+
+Pour cela on part d'un élément de l'ensemble de départ $(x,y,z) \in \Ker(f)$
+
+\change
+
+cela équivaut $f(x,y,z)=(0,0)$
+
+\change
+
+par définition de $f$ cela donne $(-2x,y+3z)=(0,0)$
+
+\change 
+
+ce qui équivaut au système : $\left\{\begin{array}{rcl}
+             -2x  & = & 0 \\
+             y+3z & = & 0 \\
+          \end{array}\right.$
+          
+\change
+
+On peut par exemple paramétrer les solutions par la variable $z$ :
+$(x,y,z) = (0,-3z,z)$, $z$ parcourant $\Rr$.
+
+
+\change
+
+Conclusion : le noyau est l'ensemble $\big\{ (0,-3z,z) \mid  z \in \Rr \big\}$.
+
+\change
+
+Autrement dit, $\Ker(f) = \Vect\big\{ (0,-3,1) \big\}$ : c'est une droite vectorielle. 
+
+\change
+
+Calculons maintenant l'image de $f$.
+
+\change
+
+Pour cela on fixe un élément $(x',y')$ de l'espace d'arrivée et on regarde 
+s'il peut s'écrire comme l'image d'un élément de l'ensemble de départ.
+
+\change
+
+$(x',y')= f(x,y,z)$
+
+ssi 
+
+\change 
+
+$(-2x,y+3z)=(x',y')$
+
+\change
+
+ce qui équivaut au système 
+
+$\left\{\begin{array}{rcl}
+             -2x  & = & x' \\
+             y+3z & = & y' \\
+          \end{array}\right.$
+où les inconnues sont $x,y,z$.
+          
+\change
+
+
+On peut prendre par exemple $x = -\frac{x'}{2}$, $y'=y$, $z=0$.
+
+\change
+
+Conclusion : pour n'importe quel $(x',y') \in \Rr^2$, on a
+$f(-\frac{x'}{2},y',0) = (x',y')$. 
+
+\change
+
+Donc $\Im(f)= \Rr^2$, ce qui signifie que $f$ est surjective.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons d'autres exemples.
+
+
+Soit $A$ une matrice à $n$ lignes et $p$ colonnes.
+
+\change
+
+et soit $f$ l'application linéaire définie par $f(X) = AX$.
+
+\change
+
+
+Alors $\Ker(f) = \big\{ X \in \Rr^p \mid AX=0 \big\}$ : c'est donc l'ensemble des $X \in \Rr^p$
+solutions du système linéaire homogène $AX=0$. 
+
+\change
+
+On verra plus tard que l'image de $f$ se calcule comme le sous-espace vectoriel engendré 
+par les colonnes de la matrice $A$.
+
+\change
+
+
+Le noyau fournit une nouvelle façon d'obtenir des sous-espaces vectoriels.
+
+soit $f : \Rr^3 \to \Rr$ l'application définie par $f(x,y,z)=ax+by+cz$.
+
+C'est clairement une application linéaire.
+
+\change
+
+Par définition $\Ker f = \big\{ (x,y,z) \in \Rr^3 \mid ax+by+cz=0 \big\}$
+
+\change
+
+Le noyau est donc un plan $\mathcal{P}$ passant par l'origine, d'équation $(ax+by+cz=0)$.
+
+\change
+
+Cela rédemontre un résultat déjà vu : un plan passant par l'origine est un sous-espace vectoriel de $\Rr^3$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons voir que le noyau permet de caractériser les applications linéaires injectives
+
+
+Soient $E$ et $F$ deux $\Kk$-espaces vectoriels et $f$ une application linéaire de $E$ dans $F$. Alors :
+$f$ injective \quad $\iff \quad \Ker(f) = \big\{0_E\big\}$
+
+
+Autrement dit, $f$ est injective si et seulement si son noyau ne contient que le vecteur nul.
+
+\change
+En particulier, pour montrer que $f$ est injective, il suffit de vérifier que : 
+
+si $f(x)=0_F$ alors $x=0_E$.
+
+\change
+
+C'est vraiment une propriété fondamentale. Prenons un peu de temps pour la prouver.
+
+\change
+
+Pour l'implication directe, supposons que $f$ soit injective et montrons que $\Ker(f)=\{0_E\}$. 
+
+\change
+
+Soit donc $x$ un élément du noyau, cela signifie que $f(x)=0_{F}$. 
+
+\change
+
+Or, comme $f$ est linéaire, on a aussi $f(0_{E})=0_{F}$. 
+
+\change
+
+On vient d'obtenir l'égalité $f(x)=f(0_{E})$,
+
+mais comme $f$ est injective, on en déduit $x=0_{E}$ 
+
+Donc $\Ker (f)$ ne contient que le vecteur nul.
+
+\change
+
+Réciproquement, supposons maintenant que $\Ker (f)=\{0_E\}$. 
+Il s'agit de montrer que $f$ est injective.
+
+\change
+
+Soient $x$ et $y$ deux éléments de $E$ tels que 
+$f(x)=f(y)$. 
+
+On a donc $f(x)-f(y)=0_{F}$.
+
+\change
+
+Mais $f$ est une application linéaire, alors $f(x-y)=0_{F}$, 
+
+\change
+
+c'est-à-dire $x-y$ est un élément du noyau. 
+
+\change
+
+Mais le noyau est réduit au vecteur nul donc $x-y=0_{E}$, 
+
+ce qui prouve $x=y$ et que $f$ est injective.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Considérons, pour $n\ge1$, l'application 
+\begin{eqnarray*}
+f : \Rr_n[X] & \longrightarrow & \Rr_{n+1}[X]\\
+P(X)  & \longmapsto & X \cdot P(X).
+\end{eqnarray*}
+
+\change
+
+C'est bien une application linéaire et l'on va calculer son noyau et son image.
+
+
+\change
+
+\'Etudions d'abord le noyau de $f$: 
+
+\change
+
+soit $P(X) = a_n X^n + \cdots +a_1 X + a_0 \in \Rr_n[X]$ 
+tel que $X \cdot P(X) = 0$. 
+
+\change
+
+Alors $a_n X^{n+1} + \cdots+ a_1 X^2 + a_0 X = 0.$
+
+\change
+
+Ainsi, $a_i = 0$ pour tout $i \in \{0,\ldots, n\}$ et donc $P$ est le polynôme nul.
+
+\change
+
+Le noyau de $f$ est donc réduit au polynôme nul. 
+
+\change
+
+Cela implique donc que $f$ est injective.
+
+\change
+
+Passons à l'image :
+
+\change
+
+L'espace $\Im(f)$ est l'ensemble des polynômes de $\Rr_{n+1}[X]$ 
+dont le terme constant est nul : 
+
+\change
+
+$\Im(f) = \Vect \big\{X, X^2,\dots, X^{n+1}\big\}$ (il n'y a pas le polynôme cst égale à $1$ [dans Vect])
+
+\change
+
+Conclusion : $f$ est injective, mais n'est pas surjective.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+L'ensemble des applications linéaires entre deux $\Kk$-espaces vectoriels $E$ et $F$,  est lui-même un $\Kk$-espace vectoriel.
+
+On note $\mathcal{L}(E,F)$ cet ensemble d'applications linéaires.
+
+\change
+
+La loi d'addition sur les fonctions et la loi de multiplication par un scalaire sont définis
+naturellement :
+
+$f, g$ étant deux application linéaire, 
+alors pour tout vecteur $u$ de $E$, $(f+g)(u)=f(u)+g(u)$
+
+et si $\lambda$ est un scalaire alors 
+$(\lambda \cdot f)(u)=\lambda f(u)$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Les applications linéaires peuvent se composer 
+
+Si l'on a trois $\Kk$-espaces vectoriels, $E, F, G$ 
+et que  $f$ est une application linéaire de $E$ dans $F$
+et que $g$ est une application linéaire de $F$ dans $G$,
+
+alors Proposition : ``$g \circ f$ est une application linéaire de $E$ dans $G$.''
+
+
+\change
+
+Le cas des endomorphismes est intéressant : rappelons qu'un endomorphisme de $E$ est simplement 
+une application linéaire de $E$ dans $E$ (l'espace de départ et l'espace d'arrivée sont les mêmes).
+
+Cette proposition implique que le composé de deux endomorphismes de $E$ 
+reste un endomorphisme de $E$. 
+
+En termes savants la loi de composition $\circ$ est une loi de 
+composition interne sur $\mathcal{L}(E)$ !
+
+\change
+
+La composition des applications linéaires se comporte bien :
+
+$$g \circ (f_1+f_2)=g \circ f_1+ g \circ f_2 
+\qquad 
+(g_1+g_2) \circ f =g_1 \circ f + g_2 \circ f
+\qquad 
+(\lambda g) \circ f =g \circ (\lambda f) =\lambda (g \circ f)
+$$
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Il y a un vocabulaire spécifique aux applications linéaires *bijectives*.
+
+Tout d'abord une application linéaire \evidence{bijective} de $E$ sur $F$ est appelée 
+  \defi{isomorphisme} d'espaces vectoriels. 
+ 
+ \change
+  
+Je vous encourage à prouver par vous même que si $f$ est une application linéaire bijective
+alors $f^{-1}$ est aussi une application linéaire.
+
+Ce qui fait que $f^{-1}$ est un isomorphisme de $F$ sur $E$.  
+
+\change
+ 
+ S'il existe un isomorphisme alors on dit que les deux espaces vectoriels $E$ et $F$ 
+  sont \defi{isomorphes}.
+
+  \change
+  
+Un endomorphisme bijectif de $E$ (c'est-à-dire une application linéaire bijective de $E$ dans lui même)
+  s'appelle un \defi{automorphisme} de $E$.
+  
+  \change
+  
+   L'ensemble des automorphismes de $E$ est noté $GL(E)$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Soit $f : \Rr^2 \to \Rr^2$ l'application définie par $f(x,y)=(2x+3y,x+y)$.
+
+\change
+
+Il est facile de prouver que $f$ est linéaire. 
+
+\change
+
+Pour prouver que $f$ est bijective, on pourrait calculer son noyau et son image.
+
+\change
+
+Mais ici nous allons calculer directement son inverse : 
+
+\change
+
+on cherche à résoudre $f(x,y)=(x',y')$. Cela correspond au 
+système linéaire à deux équations et deux inconnues
+
+
+$2x+3y=x', x+y=y'$
+
+\change
+
+On trouve $(x,y) = (-x'+3y',x'-2y')$.
+
+\change
+
+On pose donc $f^{-1}(x',y')= (-x'+3y',x'-2y')$.
+
+\change
+
+On vérifie aisément que $f^{-1}$ est l'inverse de $f$, 
+
+\change
+
+et on note que $f^{-1}$ est bien une application linéaire.
+
+
+\change
+
+
+Plus généralement, soit  $f : \Rr^n \to \Rr^n$ l'application linéaire
+définie par $f(X)=AX$ (où $A$ est une matrice carrée de taille $n$).
+
+\change
+
+
+Si la matrice $A$ est inversible, alors $f^{-1}$ est une application linéaire bijective 
+et réciproquement.
+
+\change
+
+En plus $f^{-1}$ est définie par $f^{-1}(X)= A^{-1} X$.
+
+\change
+
+Dans l'exemple précédent, 
+$$X = \begin{pmatrix} x \\ y \end{pmatrix} \qquad 
+A = \begin{pmatrix} 2 & 3 \\ 1 & 1 \end{pmatrix} \qquad 
+A^{-1} = \begin{pmatrix} -1 & 3 \\ 1 & -2 \end{pmatrix}.$$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On termine par une série d'exercices sur les applications linéaires.
+
+\end{document}

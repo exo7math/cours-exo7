@@ -1,0 +1,559 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+    
+\change
+Dans cette partie nous allons aborder l'aspect technique de l'inversion de matrices.
+
+\change
+On commence par le lien entre les matrices et les systèmes linéaires
+
+\change
+spécialement lorsque la matrice est inversible.
+
+\change
+On définira les matrices élémentaires
+
+\change
+Qui permettront d'obtenir une matrice échelonnée
+
+\change
+On appliquera ceci pour l'inverse d'une matrice.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Considérons le système linéaire suivant :
+
+Il y a $n$ équations et $p$ inconnues $x_1,x_2,...x_p$.
+
+les coefficients sont les $a_{i,j}$ et les $b_i$ forment le second membre.
+
+
+\change
+De façon équivalente on peut réécrire  sous forme matricielle
+
+$AX=B$.
+
+$A$ est la matrice des coefficients du système, c'est une matrice à $n$ lignes et $p$ colonnes.
+
+$X$ est l'inconnue, c'est un vecteur colonne, c-à-d une matrice de taille $p \times 1$.
+
+$B$ est le vecteur colonne du second membre, c'est une matrice de taille $n \times 1$.
+
+
+Le vecteur $X$ est une solution du système si et seulement si $AX = B.$
+
+\change
+Rappelons un résultat vu précédemment :
+"Un système d'équations linéaires n'a soit aucune solution, 
+soit une seule solution, soit une infinité de solutions."
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Considérons le cas important où le nombre d'équations est égal aux nombre d'inconnues :
+
+Alors $A$ est une matrice carrée de taille $n\times n$.
+
+\change
+Pour tout second membre $B$, nous pouvons utiliser les matrices 
+pour trouver la solution du système linéaire.
+
+"Si la matrice $A$ est inversible, alors
+la solution du système $AX=B$ est unique et, vaut :
+$X = A^{-1}B$."
+
+\change
+Pour le prouver, il suffit de multiplier l'égalité $AX=B$
+à gauche par la matrice $A^{-1}$, on obtient $X = A^{-1}B$.
+
+Si par contre la matrice $A$ n'est pas inversible,
+alors soit il n'y a pas de solution, soit il y a en a une infinité.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Pour calculer l'inverse d'une matrice $A$, et aussi pour résoudre des systèmes linéaires,
+nous avons utilisé trois opérations élémentaires sur les lignes qui sont :
+ 
+\change
+  On peut multiplier une ligne par un réel non nul (ou un élément non nul du corps de base $\Kk$).
+    
+  On peut ajouter à la ligne $L_i$ un multiple d'une autre ligne $L_j$.
+  
+  On peut échanger deux lignes.
+  
+\change
+Nous allons définir trois matrices élémentaires correspondant à ces opérations. 
+
+\change
+Et le produit d'une matrice élémentaire $E$ par une matrice quelconque $A$ correspondra 
+à l'opération élémentaire sur les lignes de $A$. 
+
+\change
+Un point important est que comme les opérations élémentaires sur les lignes sont réversibles,
+alors nos matrices élémentaires sont aussi inversibles.
+
+C'est ce qui permet de calculer l'inverse d'une matrice quelconque 
+par des opérations élémentaires sur les lignes.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Reprenons chacune des opérations élémentaires en détails.
+
+Tout d'abord $L_i \leftarrow \lambda L_i$ on peut multiplier une ligne par un réel non nul.
+
+
+  
+\change
+ Définissons la matrice $E_{L_i \leftarrow \lambda L_i}$ : c'est la matrice obtenue en 
+    multipliant par $\lambda$ la $i$-ème ligne de la matrice identité $I_n$, 
+    où $\lambda$ est un nombre réel non nul.
+    
+\change
+Voici par exemple la matrice $ E_{L_2 \leftarrow 5 L_2}$
+
+obtenue à partir de la matrice identité en multipliant par $5$ la deuxième ligne.
+
+
+\change
+Si maintenant $A$ est une matrice quelconque
+alors par un petit calcul, on voit que la matrice 
+$E_{L_i \leftarrow \lambda L_i} \times A$ 
+est la matrice obtenue en multipliant par $\lambda$ la $i$-ème ligne de $A$.
+
+
+\change
+Voyons l'exemple de $E_{L_2 \leftarrow \frac13 L_2}  \times A$
+
+\change
+c'est-à-dire $ \begin{pmatrix}
+  1&0&0\\0&\frac13&0\\0&0&1  
+  \end{pmatrix}
+  \times
+  \begin{pmatrix}
+  x_1&x_2&x_3\\y_1&y_2&y_3\\z_1&z_2&z_3  
+  \end{pmatrix}$
+
+\change
+qui donne bien la matrice $A$ avec la deuxième ligne multipliée par un facteur $1/3$.
+  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On fait le même travail pour l'opération élémentaire 
+$L_i \leftarrow L_i+\lambda L_j$  :
+  on peut ajouter à la ligne $L_i$ un multiple d'une autre ligne $L_j$.
+
+\change
+La matrice $E_{L_i \leftarrow L_i+\lambda L_j}$ est la  matrice
+obtenue en ajoutant $\lambda$ fois la $j$-ème ligne de $I_n$ à la $i$-ème ligne de $I_n$.
+
+\change
+Par exemple 
+ $$  E_{L_2 \leftarrow L_2 -3 L_1}=
+    \begin{pmatrix}
+    1 & 0 & 0 & 0\\
+    -3 & 1 & 0 & 0\\
+    0 & 0 & 1 & 0\\
+    0 & 0 & 0 & 1
+    \end{pmatrix}$$
+ 
+ On a retranché à la deuxième ligne, $3$ fois la première.
+ 
+ 
+\change
+Et cette fois la matrice $E_{L_i \leftarrow L_i+\lambda L_j} \times A$ est la  matrice obtenue 
+en ajoutant $\lambda$ fois la $j$-ème ligne de $A$ à la $i$-ème ligne de $A$.
+
+\change
+$E_{L_1 \leftarrow L_1-7 L_3}  \times A$
+
+\change
+$
+= \begin{pmatrix}
+  1&0&-7\\0&1&0\\0&0&1  
+  \end{pmatrix}
+  \times
+  \begin{pmatrix}
+  x_1&x_2&x_3\\y_1&y_2&y_3\\z_1&z_2&z_3  
+  \end{pmatrix}$
+  
+\change
+A la première ligne on a retranché $7$ fois la troisième.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+L'opération $L_i \leftrightarrow L_j$ consiste à échanger deux lignes.
+
+\change
+La matrice  $E_{L_i \leftrightarrow L_j}$ est la matrice obtenue 
+   en permutant les $i$-ème et $j$-ème lignes de l'identité. 
+
+\change
+Ici on à échanger les lignes $2$ et $4$.
+
+
+\change
+Et selon le même principe la matrice  $E_{L_i \leftrightarrow L_j} \times A$ 
+est la matrice obtenue en permutant les $i$-ème et $j$-ème lignes de $A$. 
+
+\change
+
+\change
+
+\change
+Ici en multipliant à gauche par la matrice élémentaire $E_{L_2 \leftrightarrow L_3}$
+
+on permute les lignes $2$ et $3$ de la matrice $A$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Nous allons maintenant formaliser le passage d'une matrice à une autre par des opérations élémentaires.
+
+
+Deux matrices $A$ et $B$ sont dites \defi{équivalentes par lignes} si l'une 
+peut être obtenue à partir de l'autre par une suite d'opérations 
+élémentaires sur les lignes. On note alors $A \sim B$.
+
+\change
+Nous dirons d'une matrice quelconque qu'elle est \defi{échelonnée} si :
+
+le nombre de zéros commençant une ligne croît strictement ligne par ligne 
+(et s'arrête s'il n'y a plus que des zéros).
+  
+\change
+Voici un exemple d'une matrice échelonnée
+
+les $*$ désignent des coefficients quelconques, les $+$ des coefficients non nuls
+
+chaque ligne commence par plus de $0$ que la ligne précédente.
+
+\change
+On dit d'une matrice qu'elle est \defi{échelonnée réduite} si elle est échelonnée et si en plus : 
+
+le premier coefficient non nul de chaque ligne non nulle vaut $1$ ;
+
+et c'est le seul élément non nul de sa colonne.
+
+\change
+Voici une matrice échelonnée réduite, les $*$ désignent toujours des coefficients quelconques.
+
+elle est bien échelonnée car chaque ligne commence par plus de $0$ que la ligne précédente,
+
+le premier  coefficient non nul de chaque ligne vaut $1$ ;
+
+et au dessus de ces $1$ il n'y a que des zéros.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La définition de matrice échelonnée et échelonnée réduite prend tout son intérêt avec le théorème suivant.
+
+
+Théorème :
+"\'Etant donnée une matrice $A$, il existe une unique  
+matrice échelonnée réduite $U$ obtenue à partir de $A$ 
+par des opérations élémentaires sur les lignes. "
+
+Ce théorème permet donc de se ramener par des opérations élémentaires
+à des matrices dont la structure est beaucoup plus simple :
+les matrices échelonnées réduites.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons quelques conséquence dans le cas des matrices carrées.
+
+
+Soit $A\in M_{n}(\Kk)$.
+La matrice $A$ est inversible si et seulement si sa forme échelonnée réduite 
+est la matrice identité $I_n$.
+
+
+C'est ce théorème qui justifie la méthode de calcul de l'inverse 
+à l'aide de la matrice augmentée, que l'on a vu au chapitre précédent. Les opérations élémentaires étant inversibles, l'inverse correspond au produit des matrices élémentaires.
+
+\change
+Autre corollaire important
+
+Les assertions suivantes sont équivalentes :
+
+[(i)] La matrice $A$ est inversible.
+  
+[(ii)] Le système linéaire $AX=\left(\begin{smallmatrix} 0 \\ \vdots \\ 0\end{smallmatrix}\right)$ 
+a une unique solution 
+  $X=\left(\begin{smallmatrix} 0 \\ \vdots \\ 0\end{smallmatrix}\right)$.
+             
+[(iii)] Pour tout second membre $B$, le système linéaire $AX=B$
+  a une unique solution $X$.
+  
+  Et on a même vu qu'alors la solution était $X=A^{-1}B$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le reste de cette vidéo est consacré à démontrer le théorème principal :
+
+"\'Etant donnée une matrice $A$, il existe une unique  
+matrice échelonnée réduite $U$ obtenue à partir de $A$ 
+par des opérations élémentaires sur les lignes. "
+
+
+Nous admettons l'unicité.
+
+L'existence se démontre grâce à l'algorithme de Gauss. 
+L'idée générale consiste à utiliser des substitutions de
+lignes pour placer des zéros là où il faut de façon à 
+créer d'abord une forme échelonnée, puis une forme
+échelonnée réduite. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Soit $A$ une matrice $n\times p$ quelconque.
+
+On commence par transformer $A$ en une matrice échelonnée.
+
+\change
+La première étape est de choisir un pivot.
+
+\change
+On commence par observer la première colonne. 
+
+Soit elle ne contient que des zéros, auquel cas on passe directement à l'étape A.3, 
+
+\change
+soit elle contient au moins un terme non nul, situé sur la ligne $i$. 
+On choisit alors un tel terme, que l'on appelle le \defi{pivot}. 
+
+\change
+Par un échange de ligne on ramène le pivot sur la première ligne. Et on passe à l'étape suivante.
+
+\change
+Au terme de l'étape A.1, soit la matrice $A$ a sa première colonne nulle 
+ou bien on obtient une matrice équivalente $A'$ dont le premier coefficient $a'_{11}$ est non nul.
+
+
+\change
+L'étape suivante consiste à faire apparaître des $0$ sous le pivot.
+
+\change
+On ne touche plus à la ligne $1$, 
+
+\change
+et on se sert du pivot $a'_{11}$
+pour éliminer tous les termes $a'_{i1}$  situés sous le pivot.
+
+\change
+Pour cela, il suffit de remplacer la ligne $i$ par 
+elle-même moins un facteur la ligne $1$ :
+$L_2 \leftarrow L_2 - \frac{a'_{21}}{a'_{11}}L_1$, 
+$L_3 \leftarrow L_3 - \frac{a'_{31}}{a'_{11}}L_1$,\ldots 
+
+\change
+Au terme de l'étape A.2, on a obtenu une matrice de cette forme
+avec sur la première colonne un seul élément non nul.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons itérer nos étapes A.1 et A.2.
+
+\change
+Au début de l'étape A.3, on a obtenu dans tous les cas de figure une matrice de cette forme
+
+
+\change
+dont la première colonne est bien celle d'une matrice échelonnée. 
+
+On va donc conserver cette première colonne. 
+
+\change
+Si ce coefficient $a^1_{11}\neq0$, 
+on conserve aussi la première ligne, et l'on recommence l'étape A.1 
+en l'appliquant cette fois à cette sous-matrice $(n-1)\times(p-1)$ 
+obtenu en << oubliant >> la première ligne et la première colonne de $A$;
+
+\change
+Si par contre $a^1_{11}=0$, on repart avec l'étape A.1 en l'appliquant à cette sous-matrice 
+$n\times(p-1)$ obtenue en << oubliant >> seulement la première colonne.
+
+
+\change
+Dans tous les cas, au terme de cette deuxième itération de la boucle, on aura obtenu une matrice de cette forme, dont les deux premières colonnes sont celles d'une matrice échelonnée. 
+
+
+\change
+On continue ainsi de suite.
+
+Comme chaque itération de la boucle s'applique à une matrice qui a 
+une colonne de moins que la précédente, 
+
+\change
+alors au bout d'au plus $p-1$ itérations de la boucle, on aura obtenu une 
+matrice échelonnée.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Notre matrice $A$ est maintenant équivalente à une matrice échelonnée.
+
+Nous allons la transformer en une forme échelonnée et réduite.
+
+\change
+On commence par obtenir des pivots égaux à $1$.
+
+\change
+On repère le premier élément non nul de chaque ligne qui n'est pas nulle, c'est-à-dire le pivot
+
+\change
+et on multiplie cette ligne par l'inverse du pivot. 
+
+\change
+Exemple : si le pivot de la ligne $i$ est $\alpha$, alors
+on effectue la transformation $L_i \leftarrow \frac1\alpha L_i$.
+
+\change
+Ceci crée une matrice échelonnée avec des $1$ en position de pivot.
+
+\change
+On fait de nouveau apparaître des $0$.
+
+\change
+On élimine les termes situés cette fois *au-dessus* des pivots comme précédemment.
+
+Pour conserver le caractère échelonnée de la matrice on procède 
+à partir du bas à droite de la matrice pour terminer en haut à gauche. 
+
+
+\change
+On obtient bien une matrice équivalente à $A$ qui est échelonnée et réduite.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Reprenons toute cette méthode pas à pas sur un exemple avec la matrice
+$$A=\begin{pmatrix}1&2&3&4\\
+0&2&4&6\\
+-1&0&1&0
+\end{pmatrix}.$$
+
+\change
+Tout d'abord on va passer à une forme échelonnée.
+
+\change
+Le choix du premier pivot est tout fait, 
+on garde $a_{11}^1=1$.
+
+\change
+On fait maintenant apparaître des zéros sous ce pivot.
+On ne fait rien sur la ligne $2$ qui contient 
+déjà un zéro en bonne position et on remplace la ligne 3 par $L_3 + L_1$. 
+On obtient 
+$$A\sim\begin{pmatrix}1&2&3&4\\
+0&2&4&6\\
+0&2&4&4
+\end{pmatrix}.$$
+
+\change
+On passe à cette sous-matrice $2\times 3$.
+
+Le choix du pivot est tout fait, on garde $a^2_{22}=2$.
+
+\change
+On remplace  la ligne $3$ avec
+l'opération $L_3 \leftarrow L_3 - L_2$. On obtient
+$$A\sim\begin{pmatrix}1&2&3&4\\
+0&2&4&6\\
+0&0&0&-2
+\end{pmatrix}.$$
+
+\change
+Et on a obtenu une matrice équivalente par ligne avec $A$ et qui est bien échelonnée.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous avons obtenu une matrice échelonnée équivalente à notre matrice $A$.
+
+\change
+Nous allons maintenant passer à une forme échelonnée et réduite.
+
+\change
+On ne veut que des coefficients $1$ en position de pivot.
+ On multiplie la ligne $2$ par $\frac12$ 
+et la ligne $3$ par $-\frac12$ et l'on obtient
+$$A\sim\begin{pmatrix}1&2&3&4\\
+0&1&2&3\\
+0&0&0&1
+\end{pmatrix}.$$
+
+\change
+On veut en plus des $0$ au-dessus des pivots.
+
+Pour ce qui concerne ce pivot là,
+on ne touche plus à la ligne $3$ et on remplace la ligne $2$ par
+$ L_2-3L_3$ et la ligne 1 par $ L_1 - 4L_3$.
+On obtient
+$$A\sim\begin{pmatrix}1&2&3&0\\
+0&1&2&0\\
+0&0&0&1
+\end{pmatrix}.$$
+
+\change
+Et pour ce pivot ci : on ne touche plus à la ligne $2$ 
+et on remplace la ligne $1$ par $ L_1-2L_2$. On obtient
+$$A\sim\begin{pmatrix}1&0&-1&0\\
+0&1&2&0\\
+0&0&0&1
+\end{pmatrix}$$
+
+\change
+
+C'est bien une matrice échelonnée et réduite.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Comme d'habitude terminez par des exercices pour assimiler les cours.
+
+
+\end{document}

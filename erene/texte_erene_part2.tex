@@ -1,0 +1,332 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Après avoir vu la structure de l'espace vectoriel $\Rr^n$
+nous allons voir quelles fonctions relie deux tels espaces.
+
+\change
+Plus précisément nous allons définir ce qu'est une application linéaire
+
+\change
+et nous verrons de nombreux exemples géométriques.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Commençons par rappeler ce qu'est une application de $\Rr^p$ dans $\Rr^n$.
+
+\change
+
+Considérons $n$ fonctions qui ont chacune $p$ variables 
+réelles et sont à valeurs réelles.
+
+Notons les 
+
+$f_1 \qquad f_2r \qquad \cdots \qquad f_n $
+
+\change
+
+Répétons que chaque $f_i$ est une fonction qui va de $\Rr^p$ dans $\Rr$.
+
+Aux $p$-uplet $(x_1,x_2,\ldots,x_p)$ on associe un réel $f_i(x_1,\ldots,x_p)$.
+
+\change
+On construit une application
+$$f : \Rr^p \longrightarrow \Rr^n$$
+
+\change
+définie par
+$$f(x_1,\dots , x_p)  = \left(f_1 (x_1, \dots , x_p), \dots , f_n (x_1, \dots , x_p)\right).$$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Repartons d'une application $f: \Rr^p  \longrightarrow \Rr^n$.
+
+On note ici $y_i$ chacune des composantes de la fonction $f$.
+
+
+Une telle application $f$
+est une \defi{application linéaire} si 
+ $$ 
+ \left\{
+\begin{array}{ccccccccc}
+y_1 & = &a_{11}x_1 &+ &a_{12} x_2 & + & \cdots & + & a_{1p}x_p\\
+y_2 & = & a_{21} x_1 & + & a_{22} x_2 & + & \cdots & + & a_{2p} x_p\\
+\vdots &&\vdots &&\vdots & & & &\vdots\\
+y_n & = & a_{n1}x_1 & + & a_{n2}x_2 &+&\cdots & +& a_{np} x_p\, .
+\end{array}\right.
+$$
+
+C'est-à-dire chacune des équations définissant les composantes
+est une équation linéaire.
+
+Notez que l'on a toujours $f(0,\ldots,0) = (0,\ldots,0)$.
+
+\change
+
+Le point crucial de cette partie, est de comprendre qu'une
+application linéaire correspond à une matrice.
+
+En effet en notation matricielle, l'application linéaire $f$
+s'écrit ainsi
+$f\begin{pmatrix} x_1\\x_2 \\ \vdots \\x_p \end{pmatrix}$
+
+dont nous avons noter les composantes 
+$\begin{pmatrix} y_1\\ y_2\\ \vdots\\ y_n  \end{pmatrix}$.
+
+C'est en fait le produit de la matrice  
+$(a_{ij}$
+par le vecteur colonne.
+$
+\begin{pmatrix} x_1\\x_2 \\ \vdots \\x_p \end{pmatrix},
+$.
+
+Par exemple en calculant la première composante 
+on trouve $a_{11}x_1 + a_{12} x_2  +  \cdots  +  a_{1p}x_p$
+qui est notre composante $y_1$.
+
+\change
+Si on note $X$ le vecteur colonne $\begin{pmatrix} x_1\\ \vdots \\x_p \end{pmatrix}$ 
+
+et 
+$A$ la matrice des coefficients $(a_{ij})$ définissant l'application linéaire $f$,
+
+$A$ est donc une matrice à $n$ ligne et $p$ colonnes.
+
+Alors l'application linéaire s'écrit simplement
+$f(X)=AX.$
+
+\change
+Ce qu'il faut retenir,c'est qu'une application linéaire  de $\Rr^p \to \Rr^n$ 
+peut s'écrire $X \mapsto A X$. La matrice $A$ est 
+appelée la \defi{matrice de l'application linéaire} $f$. 
+
+Plus précisément la matrice $A$ est la matrice de l'application linéaire $f$
+  de la base canonique de $\Rr^p$ vers la base canonique de $\Rr^n$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici une exemple.
+$f$ est la fonction $\Rr^4 \longrightarrow \Rr^3$ définie par
+$$\left\{\begin{array}{rcl}
+y_1 & = & -2x_1 + 5x_2 + 2x_3 - 7x_4\\
+y_2 & = & 4x_1 + 2x_2 - 3x_3 + 3x_4\\
+y_3 & = & 7x_1 - 3x_2 + 9x_3  
+\end{array}\right.$$
+
+C'est bien une application linéaire, vous voyez que chacune des composantes 
+qui définie $f$ est bien une équation linéaire.
+
+L'écriture matricielle est :
+$$\begin{pmatrix} y_1\\ y_2\\ y_3 \end{pmatrix} =
+\begin{pmatrix}
+-2 & 5 & 2 & -7\\
+4 & 2 & -3 & 3\\
+7 & -3 & 9 & 0  
+\end{pmatrix}\quad
+\begin{pmatrix}x_1\\ x_2\\ x_3\\ x_4 \end{pmatrix}.$$
+
+
+Donc cette matrice est la matrice de l'application linéaire.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Continuons avec deux exemple particulier.
+
+
+L'application linéaire identité $\Rr^n \to \Rr^n$, 
+qui est définie par  $(x_1,\ldots,x_n) \mapsto (x_1,\ldots,x_n)$
+
+Alors sa matrice associée est la matrice identité $I_n$ 
+
+En effet on a bien $I_n$ fois le vecteur $X$ est égal à $X$).
+  
+\change
+
+Pour l'application linéaire nulle, cette fois de $\Rr^p \to \Rr^n$, 
+qui à n'importe quel $(x_1,\ldots,x_p)$ associe toujours $(0,\ldots,0)$.
+
+Vous l'aurez deviner la matrice associée à l'application linéaire nulle
+est la matrice nulle.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous passons maintenant à une liste d'exemples géométriques, que vous connaissez bien,
+et qui sont en fait des applications linéaires dont on va calculer les matrices.
+
+Commençons par la fonction
+$$f : \Rr^2 \longrightarrow \Rr^2 \qquad \begin{pmatrix} x \\ y \end{pmatrix} \mapsto \begin{pmatrix} -x \\ y \end{pmatrix}$$
+
+C'est la réflexion par rapport à l'axe des ordonnées $(Oy)$, 
+
+[sur le dessin] le vecteur $\begin{pmatrix} x \\ y \end{pmatrix}$ a pour image le vecteur 
+$\begin{pmatrix} -x \\ y \end{pmatrix}$.
+
+Cette application est une application linéaire et sa matrice est 
+$$\begin{pmatrix}-1 & 0 \\ 0 & 1 \end{pmatrix}$$
+
+En effet si on calcule 
+$$
+\begin{pmatrix} -1 & 0 \\ 0 & 1 \end{pmatrix}
+\begin{pmatrix} x \\ y \end{pmatrix}$$
+alors on retrouve bien le vecteur $\begin{pmatrix} -x \\ y \end{pmatrix}$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On calcule de même que pour la réflexion par rapport à l'axe 
+des abscisses la matrice est :
+\[\begin{pmatrix} 1 & 0\\ 0 & -1 \end{pmatrix}.\]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+[Sur le dessin] La réflexion par rapport à la droite $(y=x)$ est donnée par
+l'application $f$ qui échange $x$ et $y$.
+ $(x,y)$ est envoyé sur $(y,x)$.
+
+Vérifiez que sa matrice est 
+\[\begin{pmatrix}0 & 1\\1 & 0\end{pmatrix}.\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On continue avec les homothéties.
+
+L'homothétie de rapport $\lambda$, centrée à l'origine est définie par  
+$$f: \Rr^2 \longrightarrow \Rr^2, \qquad 
+\begin{pmatrix}x\\y\end{pmatrix} \mapsto \begin{pmatrix} \lambda x \\ \lambda y \end{pmatrix}.$$
+
+On peut donc ré-écrire cette application en terme de matrice :
+$f\left(\begin{smallmatrix} x \\ y \end{smallmatrix}\right) = 
+\left(\begin{smallmatrix} \lambda & 0 \\ 0 & \lambda \end{smallmatrix}\right)
+\left(\begin{smallmatrix} x \\ y \end{smallmatrix}\right)$.
+Ainsi la matrice de l'homothétie est :
+\[\begin{pmatrix} \lambda & 0 \\ 0 & \lambda \end{pmatrix}.\]
+C'est juste $\lambda$ fois la matrice identité.
+
+L'homothétie est une application linéaire.
+
+Mais attention : une translation n'est pas une une application linéaire.
+En effet si on considère une translation de vecteur non nul
+alors l'origine n'est pas envoyée sur l'origine,
+donc une translation ne peut pas être une application linéaire.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Soit $f: \Rr^2 \longrightarrow \Rr^2$ la rotation d'angle $\theta$, centrée à l'origine,
+c'est une application linéaire.
+
+
+
+Si on fixe un vecteur $\left(\begin{smallmatrix}x \\ y \end{smallmatrix}\right)$ 
+et que l'on note $\left(\begin{smallmatrix}x' \\ y' \end{smallmatrix}\right)$ 
+son image par la rotation d'angle $\theta$
+
+alors on obtient :
+$$\left\{\begin{array}{rcl}
+x' & = & x \cos  \theta - y \sin\theta\\
+y' & = & x\sin \, \theta + y \cos\theta
+\end{array}\right.$$
+
+et donc en terme de matrices :
+$$
+\begin{pmatrix}x' \\ y' \end{pmatrix}
+= \begin{pmatrix}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{pmatrix}
+\begin{pmatrix}x \\ y \end{pmatrix}.
+$$ 
+
+Autrement dit, la rotation d'angle $\theta$ est donnée par la matrice 
+$$\begin{pmatrix}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{pmatrix}.$$
+
+C'est la seule formule de cette leçon qui ne se retrouve pas 
+pas un petit dessin. Il faut donc l'apprendre par coeur en prenant soin de ne pas intervertir
+sinus et cosinus, ni les signes.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Définissons l'application
+$f: \Rr^2  \longrightarrow \Rr^2$
+par $\begin{pmatrix}x\\y\end{pmatrix} \mapsto 
+\begin{pmatrix}x\\0\end{pmatrix}$.
+
+Cette application est la projection orthogonale sur l'axe $(Ox)$,
+
+[Sur le dessin] 
+Ici le vecteur $(x,y)$ est projeté orthogonalement sur l'axe des abscisses
+en $(x,0)$.
+
+C'est une application linéaire donnée par la matrice 
+$$\begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}.$$
+
+\change
+
+On fait la même chose dans l'espace : l'application linéaire 
+$$f: \Rr^3  \longrightarrow \Rr^3, \qquad
+\begin{pmatrix}x\\y\\z\end{pmatrix}  \mapsto \begin{pmatrix}x\\y\\0\end{pmatrix}$$
+est la projection orthogonale sur le plan $(Oxy)$ 
+
+ici le vecteur de l’espace $(x,y,z)$ est projeté sur le plan horizontal en $(x,y,0)$ 
+
+La matrice de cette projection est 
+$$\begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 0
+\end{pmatrix}.$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On termine par l'application 
+$$
+f: \Rr^3  \longrightarrow \Rr^3, \qquad \begin{pmatrix}x\\y\\z\end{pmatrix} \mapsto \begin{pmatrix}x\\y\\-z\end{pmatrix}$$
+
+C'est la réflexion de l'espace par rapport au plan $(Oxy)$. 
+C'est une application linéaire et sa matrice est
+\[ \begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & -1 
+\end{pmatrix}
+. \]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici quelques exercices pour conclure...
+
+\end{document}

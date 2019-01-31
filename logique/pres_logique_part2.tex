@@ -1,0 +1,387 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={151,53,151}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{{\bf Logique et raisonnements}}
+\subtitle{Raisonnements}
+\author{}
+
+\date{}
+
+\begin{document}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Raisonnement direct
+    \item<4-> Cas par cas
+    \item<5-> Contraposition
+    \item<6-> Absurde
+    \item<7-> Contre-exemple
+    \item<8-> Récurrence
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+
+
+%---------------------------------------------------------------
+\section{Raisonnement direct}
+
+\begin{frame}
+
+
+\defi{Raisonnement direct}
+
+Pour montrer que l'assertion \assertion{$P \implies Q$} est vraie :
+
+on suppose que $P$ est vraie et on montre qu'alors $Q$ est vraie
+
+
+\pause
+\medskip
+
+
+\begin{exemple}
+Montrer que si $a,b \in \Qq$ alors $a+b\in \Qq$
+\end{exemple}
+
+\pause
+
+\begin{proof}
+Soient $a\in \Qq$, $b\in \Qq$
+
+\pause
+
+\uncover<5->{
+\qquad $a = \frac{p}{q}$ \ \ (avec $p \in \Zz$, $q\in \Nn^*$) \\
+\qquad $b = \frac{p'}{q'}$ \ \ (avec $p' \in \Zz$ et $q'\in \Nn^*$)\\
+$$a+b= \frac{p}{q} + \frac{p'}{q'} = \frac{pq'+qp'}{qq'}$$
+\qquad or $pq'+qp' \in \Zz$, $qq' \in \Nn^*$
+}
+
+\uncover<4->{donc $a+b \in \Qq$}
+\end{proof}
+
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Cas par cas}
+
+\begin{frame}
+
+\defi{Cas par cas}
+
+Pour vérifier une assertion $P(x)$ pour tous les $x$ dans $E$ :
+
+\qquad on montre l'assertion pour les $x$ dans une partie $A$ de $E$ 
+
+\qquad puis pour les $x$ n'appartenant pas à $A$
+
+\pause
+
+\begin{exemple}
+Montrer que pour tout $x\in \Rr$, \ \ $|x-1| \le x^2-x+1$
+\end{exemple}
+
+\pause
+\medskip
+
+\begin{proof}
+Soit $x \in \Rr$. Distinguons deux cas
+
+\pause
+
+\uncover<4->{\textbf{Premier cas : $x \ge 1$.}}
+\uncover<6->{ \quad Alors $|x-1|=x-1$
+$$\begin{array}{rcl}
+ x^2-x+1 - |x-1| 
+   &=& x^2-x+1 - (x-1) \\
+   &=& x^2 -2x + 2 \\
+   &=& (x-1)^2 + 1 \ge 0 \\
+\end{array}$$
+}
+
+
+
+\uncover<5->{\textbf{Deuxième cas : $x < 1$.}}
+\uncover<7->{ \quad Alors $|x-1| = -(x-1)$
+
+Nous obtenons \  $x^2-x+1 - |x-1| = x^2-x+1 + (x-1) = x^2 \ge 0$
+}
+
+\pause
+\pause
+\pause
+\pause
+
+\textbf{Conclusion.} \quad Dans tous les cas $x^2-x+1 - |x-1| \ge 0$
+\end{proof}
+
+  
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Contraposition}
+
+\begin{frame}
+
+\defi{Contraposition} 
+
+Basée sur l'équivalence entre les assertions
+\mybox{
+\assertion{$P \implies Q$} \quad  équivaut à \quad  \assertion{$\text{non}(Q) \implies \text{non}(P)$}
+}
+
+\pause
+
+Pour montrer l'assertion \assertion{$P \implies Q$}, 
+on suppose que $\text{non}(Q)$ est vraie et on montre qu'alors $\text{non}(P)$ est vraie
+
+\pause
+
+\begin{exemple}
+Soit $n \in \Nn$. Montrer que si $n^2$ est pair alors $n$ est pair
+\end{exemple}
+
+\pause
+
+\begin{proof}
+Supposons que $n$ n'est pas pair
+
+\medskip
+
+\pause
+
+\uncover<6->{
+ \qquad Alors $n$ est impair : il existe $k\in \Nn$ tel que $n=2k+1$.
+
+ \qquad Ainsi $n^2 = (2k+1)^2 = 4k^2 + 4k + 1$ est impair
+}
+
+\uncover<5->{
+\medskip 
+Donc $n^2$ n'est pas pair
+}
+
+\pause\pause
+Par contraposition ceci est équivalent à : si $n^2$ est pair alors $n$ est pair
+\end{proof}
+
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Absurde}
+
+\begin{frame}
+
+\defi{Raisonnement par l'absurde} 
+
+Pour montrer \assertion{$P \implies Q$} on suppose à la fois que $P$ est vraie et que $Q$ est fausse 
+et on cherche une contradiction
+
+\pause
+
+\begin{exemple}
+Soient $a,b \ge 0$. Montrer que si $\frac{a}{1+b}=\frac{b}{1+a}$ alors $a=b$
+\end{exemple}
+
+\pause
+
+\begin{proof}
+Raisonnons par l'absurde en supposant $\frac{a}{1+b}=\frac{b}{1+a}$ \textbf{et} $a \neq b$
+\bigskip 
+
+\uncover<5->{
+\qquad Alors $a(1+a)=b(1+b)$, donc $a+a^2=b+b^2$ 
+
+\qquad d'où $a^2-b^2 = b-a$ et donc $(a-b)(a+b)= -(a-b)$
+
+\qquad Comme $a\neq b$ en divisant par $a-b$ on obtient $a+b = -1$
+}
+
+\uncover<4->{
+\bigskip 
+Nous obtenons une contradiction
+} 
+\uncover<5->{car $a,b \ge 0$}
+
+\pause\pause\pause
+
+{
+Conclusion : si $\frac{a}{1+b}=\frac{b}{1+a}$ alors $a=b$
+}
+\end{proof}
+  
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Contre-exemple}
+
+\begin{frame}
+
+\defi{Contre-exemple}
+
+Montrer que \assertion{$\forall x \in E \quad P(x)$} est fausse
+
+équivaut à montrer \assertion{$\exists x \in E \quad \text{non } P(x)$} 
+est vraie
+
+\pause
+\bigskip
+
+\begin{exemple}
+Montrer que cette assertion est fausse :
+
+\qquad \assertion{Tout entier positif est somme de trois carrés}
+\end{exemple}
+
+\pause
+
+Les carrés sont les $0^2$, $1^2$, $2^2$, $3^2$,... 
+
+Par exemple $6 = 2^2+1^2+1^2$
+
+\pause
+\bigskip
+
+\begin{proof}
+Un contre-exemple est $7$ \pause : les carrés inférieurs à $7$ sont $0$, $1$, $4$
+mais avec trois de ces nombres on ne peut faire $7$
+\end{proof}  
+
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Récurrence}
+
+\begin{frame}
+  
+\defi{Récurrence} 
+
+Pour montrer qu'une assertion $P(n)$ est vraie pour tout $n \in \Nn$
+
+\pause
+\bigskip
+
+
+\begin{itemize}
+  \item \evidence{initialisation}: on prouve $P(0)$
+
+\pause
+
+  \item \evidence{hérédité}
+  \begin{itemize}
+    \item on fixe $n\ge 0$
+    \item on suppose que $P(n)$ est vraie
+    \item on démontre que $P(n+1)$ est vraie
+   \end{itemize}
+
+\pause
+
+  \item \evidence{conclusion} : par le principe de récurrence,
+
+$P(n)$ est vraie pour tout $n\in\Nn$
+
+\end{itemize}
+
+\end{frame}
+
+
+%---------------------------------------------------------------
+
+\begin{frame}
+  
+
+\begin{exemple}
+Montrer que pour tout $n\in \Nn$, $2^n > n$
+\end{exemple}
+
+\pause
+
+\begin{proof}
+Pour $n\ge 0$, notons $P(n)$ l'assertion \ \assertion{$2^n > n$}
+
+\bigskip
+
+\textbf{Initialisation.} Pour $n=0$, $2^0=1>0$, donc $P(0)$ est vraie
+
+\bigskip
+
+\uncover<3->{
+\textbf{Hérédité.}
+Fixons $n\ge 0$. Supposons $P(n)$ vraie
+}
+
+
+\uncover<4->{
+\quad 
+$$\begin{array}{rcl}
+ 2^{n+1} &=& 2^n + 2^n \\
+         &>& n + 2^n \qquad \text{ car par } P(n) : 2^n > n \\
+         &>& n + 1 \qquad \text{ car } 2^n \ge 1 \\
+\end{array}$$
+}
+
+\uncover<3->{donc $P(n+1)$ est vraie}
+
+
+\bigskip
+
+\uncover<5->{
+\textbf{Conclusion.} Par le principe de récurrence 
+$P(n)$ est vraie pour tout $n\ge 0$
+}
+
+\end{proof}
+
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item (Raisonnement direct) Soient $a,b \in \Rr_+$. Montrer que si $a \le b$ alors $a \le \frac{a+b}{2} \le b$ et
+$a \le \sqrt{ab} \le b$.
+  \item (Cas par cas) Montrer que pour tout $n\in \Nn$, $n(n+1)$ est divisible par $2$ (distinguer
+les $n$ pairs des $n$ impairs).
+  \item (Contraposée ou absurde) Soient $a,b \in \Zz$. Montrer que si $b\neq 0$ alors
+$a+b\sqrt{2} \notin \Qq$. (On utilisera que $\sqrt 2 \notin \Qq$.)
+  \item (Absurde) Soit $n \in\Nn^*$. Montrer que $\sqrt{n^2+1}$ n'est pas un entier.
+  \item (Contre-exemple) Est-ce que pour tout $x\in \Rr$ on a $x<2 \implies x^2<4$ ?
+  \item (Récurrence) Montrer que pour tout $n \ge 1$, $1+2+ \cdots +n = \frac{n(n+1)}{2}$.
+  \item (Récurrence) Fixons un réel $x\ge 0$. Montrer que pour tout entier $n \ge 1$, \ \  $(1+x)^n \ge 1+nx$.
+\end{enumerate}  
+\end{miniexercice}
+
+
+
+\end{frame}
+
+\end{document}

@@ -1,0 +1,263 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={205,100,0}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\title{{\bf Systèmes linéaires}}
+\subtitle{Théorie des systèmes linéaires}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définitions
+    \item<4-> Différents types de systèmes
+%     \item<5-> Systèmes homogènes  
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définitions}
+
+\begin{frame}
+\begin{mydefinition}
+\begin{itemize}
+  \item On appelle \defi{équation linéaire} dans les variables (ou \defi{inconnues}) 
+$x_1,\ldots,x_p$ toute relation de la forme 
+$$
+  a_1 x_1 + \cdots + a_p x_p = b
+$$
+où $a_1, \ldots, a_p $ et $b$ sont des nombres réels donnés
+\pause
+  
+  \item Un \defi{système de $n$ équations linéaires à $p$ inconnues} est une liste de $n$ équations linéaires
+\end{itemize}
+\end{mydefinition}
+
+\pause
+\medskip
+
+Le système suivant a $2$ équations et $3$ inconnues :
+\[ \left\{  \begin{array}{ccccccc}
+ x_1 &- &3x_2 &+ &x_3 & =  &1\\
+ -2x_1 &+ &4x_2 &- &3x_3 & =  &9
+ \end{array} \right.
+\]
+
+
+\end{frame}
+
+
+\begin{frame}
+\centerline{Forme générale d'un système linéaire de $n$ équations à $p$ inconnues}
+
+$$\left\{
+\begin{array}{cccccccl}
+ a_{11}x_1 & +a_{12}x_2  &+a_{13}x_3&+&\cdots&+a_{1p}x_p&=&b_1 \quad 
+(\leftarrow\hbox{équation  $1$})   \\
+ a_{21}x_1 & +a_{22}x_2  &+a_{23}x_3&+&\cdots&+a_{2p}x_p&=&b_2 \quad 
+(\leftarrow\hbox{équation  $2$})  \\
+ \vdots &  \vdots  & \vdots&&& \vdots&=& \vdots   \\
+ a_{i1}x_1 & +a_{i2}x_2  &+a_{i3}x_3&+&\cdots&+a_{ip}x_p&=&b_i \quad 
+(\leftarrow\hbox{équation  $i$}) \\
+ \vdots &  \vdots  & \vdots&&& \vdots&=& \vdots   \\
+ a_{n1}x_1 & +a_{n2}x_2  &+a_{n3}x_3&+&\cdots&+a_{np}x_p&=&b_n \quad 
+(\leftarrow\hbox{équation  $n$})  \\
+   \end{array}
+\right.
+$$
+\pause
+
+\begin{itemize}
+  \item Les nombres $a_{ij}$, $i=1,\ldots, n$, $j=1,\ldots, p$, sont les \defi{coefficients}
+  
+  \pause
+  
+  \item Les nombres $b_{i}$, $i=1,\ldots, n$, constituent le \defi{second membre}
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+\begin{mydefinition}
+\begin{itemize}
+  \item Une \defi{solution} du système linéaire est une liste de 
+$p$ nombres réels $(s_1,s_2,\ldots,s_p)$ tels que si 
+l'on remplace $x_1$ par $s_1$, $x_2$ par $s_2$, etc., dans le système 
+linéaire, on obtient une égalité
+  
+  \pause
+  
+  \item L'\,\defi{ensemble des solutions du système} 
+est l'ensemble de tous ces $p$-uplets
+  
+\end{itemize}
+\end{mydefinition}
+
+\pause
+\bigskip
+
+Le système
+\[ \left\{  \begin{array}{ccccccc}
+ x_1 &- &3x_2 &+ &x_3 & =  &1\\
+ -2x_1 &+ &4x_2 &- &3x_3 & =  &9
+ \end{array} \right.
+\]
+admet comme solution $(-18,-6,1)$, c'est-à-dire 
+$$ x_1=-18 \qquad\qquad x_2 = -6 \qquad\qquad x_3 = 1$$
+
+\pause
+
+Par contre, $(7,2,0)$ ne satisfait que la première équation. 
+Ce n'est donc pas une solution du système
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\defi{Résoudre} un système linéaire c'est déterminer l'ensemble 
+des solutions du système
+
+\pause
+
+\begin{mydefinition}
+\label{systemes equivalents}
+On dit que deux systèmes linéaires sont \defi{équivalents} 
+s'ils ont le même ensemble de solutions
+\end{mydefinition}
+
+\pause
+\bigskip
+
+Résoudre un système linéaire 
+donné consistera souvent à le transformer en un système équivalent dont 
+la résolution sera plus simple que celle du système de départ
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Différents types de systèmes}
+
+\begin{frame}
+
+\begin{theoreme}
+Un système d'équations linéaires a :
+\begin{itemize}
+  \item soit aucune solution
+  \item soit une seule solution
+  \item soit une infinité de solutions
+\end{itemize}
+\end{theoreme}
+
+\pause
+
+\begin{itemize}
+  \item En particulier, si vous trouvez $2$ solutions différentes à un système
+linéaire, alors c'est que vous pouvez en trouver une infinité !
+
+\pause
+
+  \item Un système linéaire qui n'a aucune solution est dit \defi{incompatible}
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Systèmes homogènes}
+
+\begin{frame}
+
+
+\defi{Systèmes homogènes} : $b_1=b_2=\cdots=b_n=0$
+
+\pause
+
+$$\left\{
+\begin{array}{cccccccl}
+ a_{11}x_1 & +a_{12}x_2  &+a_{13}x_3&+&\cdots&+a_{1p}x_p&=&0   \\
+ a_{21}x_1 & +a_{22}x_2  &+a_{23}x_3&+&\cdots&+a_{2p}x_p&=&0  \\
+ \vdots &  \vdots  & \vdots&&& \vdots&=& \vdots   \\
+ a_{i1}x_1 & +a_{i2}x_2  &+a_{i3}x_3&+&\cdots&+a_{ip}x_p&=&0  \\
+ \vdots &  \vdots  & \vdots&&& \vdots&=& \vdots   \\
+ a_{n1}x_1 & +a_{n2}x_2  &+a_{n3}x_3&+&\cdots&+a_{np}x_p&=&0  \\
+   \end{array}
+\right.
+$$
+
+\pause
+
+De tels systèmes sont toujours compatibles car $s_1=s_2=\cdots=s_p=0$ toujours 
+la solution, c'est la \defi{solution triviale}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item \'Ecrire  un système linéaire de $4$ équations et $3$ 
+  inconnues qui a une solution unique (resp. une infinité, resp. aucune).
+  
+  \item Résoudre le système à $n$ équations et $n$ inconnues dont les équations sont
+  $(L_i)$ : $x_i - x_{i+1} = 1$ pour $i=1,\ldots, n-1$ et $(L_n)$ : $x_n=1$.
+  
+  \item Résoudre les systèmes suivants : \\
+$\left\{  \begin{array}{cccccc}
+ x_1 & +2x_2 & +3x_3 & +4x_4 &=& 0\\
+     & x_2   & +2x_3 & +3x_4 &=& 9\\
+     &       & x_3   & +2x_4 &=& 0
+ \end{array} \right.
+$ 
+$\left\{  \begin{array}{ccccc}
+ x_1 & +2x_2 & +3x_3 &=& 1\\
+ x_1 & +x_2  & +x_3  &=& 2\\
+ x_1 & -x_2  & +x_3  &=& 3
+ \end{array} \right.
+$   
+$\left\{  \begin{array}{cccccc}
+ x_1 & + x_2 &       &       &=& 1\\
+     & x_2   & + x_3 &       &=& 2\\
+     &       & x_3   & + x_4 &=& 3\\
+ x_1 & +2x_2 & +2x_3 & + x_4 &=& 0\\     
+ \end{array} \right.
+$ 
+  
+  \item Montrer que si un système linéaire \emph{homogène} a une solution
+  $(x_1,\ldots,x_p) \neq (0,\ldots,0)$, alors il admet une infinité de solutions.
+  
+%  \item ??? 
+\end{enumerate}
+
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

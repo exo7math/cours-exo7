@@ -1,0 +1,717 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={191,146,10}]{structure}
+
+% Commande spécifique à ce chapitre
+\usetikzlibrary{fit}					% fitting shapes to coordinates
+\usetikzlibrary{backgrounds}	% drawing the background after the foreground
+\usetikzlibrary{matrix}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\title{{\bf Matrices}}
+\subtitle{Matrices triangulaires, transposition, trace, matrices symétriques}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Matrices triangulaires, matrices diagonales
+    \item<4-> La transposition
+    \item<5-> La trace
+    \item<6-> Matrices symétriques
+    \item<7-> Matrices antisymétriques  
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Matrices triangulaires, matrices diagonales}
+
+%\begin{frame}
+%Soit $A$ une matrice carrée de taille $n \times n$
+%\begin{itemize}
+%\item $A$ est \defi{triangulaire inférieure}  
+%si ses éléments \emph{au-dessus} de la diagonale sont nuls : $i < j \  \Longrightarrow \ a_{ij} = 0$.
+%\item $A$ est \defi{triangulaire supérieure}  
+%si ses éléments \emph{en-dessous} de la diagonale sont nuls : $i > j \  \Longrightarrow \ a_{ij} = 0$.
+%\end{itemize}
+%%
+%Ces matrices triangulaires ont la forme suivante:
+%\[
+%\renewcommand*{\arraystretch}{1.5}
+%\begin{array}{c}
+%\begin{pmatrix}
+%a_{11} & 0 &\cdots&\cdots& 0\\
+%a_{21}&a_{22}&\ddots&&\vdots\\
+%\vdots&\vdots&\ddots&\ddots&\vdots\\
+%\vdots & \vdots &&\ddots&0\\
+%a_{n1}&a_{n2}&\cdots&\cdots&a_{nn}  
+%\end{pmatrix}
+%\\
+%\text{triangulaire inférieure}
+%\end{array}
+%\qquad
+%\begin{array}{c} \begin{pmatrix}
+%a_{11} & a_{12} &\dots&\dots & a_{1n}\\
+%0&a_{22}&\dots&\dots &a_{2n}\\
+%\vdots&\ddots&\ddots&&\vdots\\
+%\vdots&&\ddots&\ddots&\vdots\\
+%0&\dots&\dots&0&a_{nn}    
+%\end{pmatrix}
+%\\
+%\text{triangulaire supérieure}
+%\end{array}
+%\]
+%
+%\end{frame}
+
+%--------------------------------------------------------------
+
+\begin{frame}
+Soit $A$ une matrice carrée de taille $n \times n$
+\pause %
+\begin{itemize}
+\item $A$ est \defi{triangulaire inférieure}  
+si ses éléments \emph{au-dessus} de la diagonale sont nuls : $i < j \  \Longrightarrow \ a_{ij} = 0$
+
+\uncover<4->{\item $A$ est \defi{triangulaire supérieure}  
+si ses éléments \emph{en-dessous} de la diagonale sont nuls : $i > j \  \Longrightarrow \ a_{ij} = 0$
+}
+\end{itemize}
+
+
+\begin{figure}[b]
+\centering
+\tikzstyle{background}=[rectangle,
+		fill=gray!20,
+		inner sep=0.2mm,
+		rounded corners=3mm]
+\begin{tikzpicture}[scale=1]
+\uncover<3->{
+  \matrix [ampersand replacement=\&,left delimiter=(,right delimiter=)] {
+	\node (11) {$a_{11}$} ; \& \node (12) {$0$}; \& \& \& \node (1n) {$0$}; \\
+	\node (21) {$a_{21}$} ; \& \node (22) {$a_{22}$} ; \& \& \& \node {\phantom{$\vdots$}} ; \\
+	\& \& \node {\phantom{$\ddots$}} ; \& \\
+	\& \& \& \node {\phantom{$\ddots$}} ; \& \node (n-1n) {$0$} ; \\
+	\node (n1) {$a_{n1}$} ; \& \node (n2) {$a_{n2}$} ; \& \& \&  \node (nn) {$a_{nn}$} ;  \\
+    };
+	\draw [thick,loosely dotted] (12) -- (1n) -- (n-1n) -- (12) 
+		(21) -- (n1) (22) -- (n2) -- (nn) -- (22);
+	\node at ($0.5*(n1)+0.5*(nn)+(0,-0.8)$) {Triangulaire inférieure} ;
+	\only<3->{
+	\begin{pgfonlayer}{background}
+		\fill [fill=gray!20, rounded corners=5mm] 
+			($(11)+(-0.4,0.8)$) -- ($(n1)+(-0.4,-0.4)$)	-- ($(nn)+(0.8,-0.4)$) -- cycle ;
+	\end{pgfonlayer}
+	}
+}
+\uncover<5->{
+\matrix [xshift=6cm,ampersand replacement=\&,left delimiter=(,right delimiter=)] {
+	\node (s11) {$a_{11}$} ; \& \node (s12) {$a_{12}$}; \& \& \& \node (s1n) {$a_{1n}$}; \\
+		\node (s21) {$0$} ; \& \node (s22) {$a_{22}$} ; \& \node {\phantom{$\ddots$}} ; \& \& \node (s2n) {$a_{2n}$} ; \\
+	\& \& \node {\phantom{$\ddots$}} ; \& \& \\
+	\& \& \& \node {\phantom{$\ddots$}} ; \& \\
+	\node (sn1) {$0$} ; \& \& \& \node (snn-1) {$0$} ; \&  \node (snn) {$a_{nn}$} ;  \\
+    };
+	\draw [thick,loosely dotted] (s21) -- (sn1) -- (snn-1) -- (s21) 
+		(s12) -- (s1n) (s22) -- (s2n) -- (snn) -- (s22);
+	\node at ($0.5*(sn1)+0.5*(snn)+(0,-0.8)$) {Triangulaire supérieure} ;
+	\only<5->{
+	\begin{pgfonlayer}{background}
+		\fill [fill=gray!20, rounded corners=5mm] 
+			($(s11)+(-0.8,0.4)$) -- ($(snn)+(0.4,-0.7)$)	-- ($(s1n)+(0.4,0.4)$) -- cycle ;
+	\end{pgfonlayer}
+	}
+}	
+	
+\end{tikzpicture}
+\end{figure}
+
+\end{frame}
+
+
+%--------------------------------------------------------------
+
+\begin{frame}
+\begin{exemple}[Matrices triangulaires]
+%Deux matrices triangulaires inférieures (à gauche), une matrice triangulaire supérieure (à droite) :
+\[
+\begin{pmatrix}
+ 4 & 0 & 0\\
+ 0 & -1 & 0\\
+ 3 & -2 & 3
+\end{pmatrix}\qquad\qquad
+\begin{pmatrix} 
+ 5 & 0\\
+ 1 & -2
+\end{pmatrix}\qquad\qquad
+\begin{pmatrix}
+ 1 & 1 & 0 \\
+ 0 & -1 & -1\\
+ 0 & 0 & -1
+\end{pmatrix}
+\]
+\end{exemple}
+
+\bigskip
+
+\pause %
+\begin{theoreme}
+Une matrice $A$ de taille $n\times n$, triangulaire, est inversible 
+si et seulement si ses éléments diagonaux sont tous non nuls 
+\end{theoreme}
+
+
+
+\end{frame}
+
+%--------------------------------------------------------------
+
+
+\begin{frame}
+
+Une matrice qui est triangulaire inférieure \evidence{et} triangulaire supérieure 
+est une matrice \defi{diagonale}: $i\neq j \ \Longrightarrow \ a_{ij} = 0$
+\pause %
+\begin{exemple}[Matrices diagonales]
+$$\begin{pmatrix}
+ -1 &  0 &0\\
+ 0 & 6 & 0\\
+ 0 & 0 &0 
+ \end{pmatrix} \quad \text{ et } \quad
+ \begin{pmatrix}
+ 2 & 0\\
+ 0 & 3
+\end{pmatrix}$$
+\end{exemple}
+
+\pause
+
+\begin{exemple}[Puissances d'une matrice diagonale]
+% Si $D$ est une matrice diagonale, il est très facile de calculer ses puissances $D^p$ 
+% (par récurrence sur $p$) :
+% \pause %
+\[
+\arraycolsep=3pt
+D=\begin{pmatrix} 
+\alpha_{1}& 0& \dots &  \dots & 0\cr 
+0& \alpha_{2}& 0&  \dots &0\cr
+\vdots & \ddots & \ddots & \ddots & \vdots \cr
+0& \dots & 0 & \alpha_{n-1} & 0 \cr
+0& \dots & \dots & 0 & \alpha_{n}\cr 
+\end{pmatrix}
+\; \implies \;
+D^{p}=\begin{pmatrix} 
+\alpha_{1}^{p}& 0& \dots &  \dots & 0\cr 
+0& \alpha_{2}^{p}& 0&  \dots &0\cr
+\vdots & \ddots & \ddots & \ddots & \vdots \cr
+0& \dots & 0 & \alpha_{n-1}^{p} & 0 \cr
+0& \dots & \dots & 0 & \alpha_{n}^{p}\cr 
+\end{pmatrix}
+\]
+\smallskip
+\end{exemple}
+\end{frame}
+
+%--------------------------------------------------------------
+
+% \begin{frame}
+% \begin{theoreme}
+% Une matrice $A$ de taille $n\times n$, triangulaire, est inversible 
+% si et seulement si ses éléments diagonaux sont tous non nuls 
+% \end{theoreme}
+% \pause
+% \begin{proof}
+% \begin{overlayarea}{\textwidth}{4.8cm}
+% \only<2>{Supposons que $A$ soit triangulaire supérieure. }
+% 
+% \only<3-4>{\begin{itemize}
+%   \only<3>{\item Si les éléments de la diagonale sont tous non nuls, alors
+%   la matrice $A$ est déjà sous la forme échelonnée. La forme échelonnée réduite 
+%   de $A$ sera la matrice $\Id$, ce qui prouve l'inversibilité.}
+%   
+%   \item<4-> Si un des éléments diagonaux est nul, soit $a_{\ell\ell}$ le premier.
+%   En multipliant les lignes $1$ à $\ell-1$ par l'inverse de leur élément diagonal $a_{ii}$, 
+%   on obtient 
+% 	\[\left( \begin{smallmatrix}
+% 	1 & * & \cdots &&& \cdots& * \\
+% 	0& \ddots  & * &\cdots &&\cdots & * \\
+% 	0 & 0 & 1 & * && \cdots &* \\
+% 	0 & \cdots & 0 & {\color{myred}0} &*&\cdots &*\\
+% 	0 & \cdots & 0& 0& * & \cdots &*  \\
+% 	\vdots & \vdots & \vdots & \cdots &0&\ddots & \vdots \\
+% 	0& \cdots &&&\cdots&0&*   
+% 	\end{smallmatrix}\right).
+% 	\]
+% 	La colonne numéro $\ell$ de la forme échelonnée réduite ne 
+% 	contiendra jamais de $1$ comme pivot. La forme échelonnée réduite de $A$ 
+% 	ne peut pas être $I_n$ et par conséquent, $A$ n'est pas inversible.
+% \end{itemize}
+% }
+% 
+% % \only<5>{Dans le cas d'une matrice triangulaire inférieure, on utilise 
+% % la \defi{transposition} (voir section suivante) et on 
+% % obtient une matrice triangulaire supérieure. On applique alors 
+% % la démonstration ci-dessus.}
+% \end{overlayarea}
+% \end{proof}
+% 
+% \end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{La transposition}
+
+\begin{frame}
+\begin{mydefinition}[Matrice transposée]
+Soit $A = (a_{ij})$ une matrice de taille $n\times p$
+
+\uncover<2->{La \defi{matrice transposée} de $A$, notée $A^T$ est la matrice de taille $p \times n$ 
+définie par:}
+\[
+\renewcommand*{\arraystretch}{1.6} \arraycolsep=0.5mm
+A = \left(
+\begin{array}{cccc}
+a_{11} & a_{12} & \dots & a_{1p}\\
+a_{21} & a_{22} & \dots & a_{2p}\\
+\vdots & \vdots &&\vdots\\
+a_{n1} & a_{n2} & \dots & a_{np}
+\end{array}\right)
+\uncover<2->{
+\longmapsto\ 
+\renewcommand*{\arraystretch}{1} \arraycolsep=3mm
+A^T = \left(
+\begin{array}{cccc}
+a_{11} & a_{21} & \dots & a_{n1}\\
+a_{12} & a_{22} & \dots & a_{n2}\\
+\vdots & \vdots &&\vdots\\
+a_{1p} & a_{2p} &\dots & a_{np}
+\end{array}\right)
+}
+\]
+\end{mydefinition}
+\pause\pause
+Autrement dit : le coefficient $a_{ij}$ est à la place $(j,i)$ dans $A^T$
+
+\pause
+Ou encore : la $i$-ème ligne de $A$ devient la $i$-ème colonne de $A^{T}$ 
+% (et réciproquement la $j$-ème colonne de $A^T$ est la $j$-ème ligne de $A$).
+
+\pause
+{\bf Notation :} La transposée de la matrice $A$ se note aussi $^{t\!}A$
+
+
+\end{frame}
+
+%--------------------------------------------------------------
+
+\begin{frame}
+%\vspace*{-10mm}
+\begin{exemple}
+\[
+\left( \begin{smallmatrix}
+1&2&3\\
+4&5&-6\\
+-7&8&9\\
+\end{smallmatrix}\right)^T
+= 
+\left( \begin{smallmatrix}
+1&4&-7\\
+2&5&8\\
+3&-6&9\\
+\end{smallmatrix}\right)
+\quad
+\left( \begin{smallmatrix}
+ 0 & 3\\
+ 1 & -5\\
+ -1 & 2  
+\end{smallmatrix}\right)^T=
+\left( \begin{smallmatrix}
+ 0 & 1 & -1\\
+ 3 &-5 & 2  
+\end{smallmatrix}\right)
+\]\[
+\left( \begin{smallmatrix}
+1 & -2 & 5 \end{smallmatrix}\right)^T  = 
+\left( \begin{smallmatrix}
+ 1 \\
+ -2\\
+ 5   
+\end{smallmatrix}\right)
+\]
+\end{exemple} 
+\pause %
+\begin{theoreme}~
+ \begin{enumerate}
+    \item $(A + B)^T = A^T + B^T$
+    \pause %
+    \item $(\alpha \, A)^T = \alpha \, A^T $
+    \pause %
+    \item $(A^T)^T = A$
+    \pause %
+    \item \myboxinline{$(AB)^T = B^T A^T$} % \quad (Noter l'ordre inversé)
+    \pause %
+    \item Si $A$ est inversible, alors $A^T$ l'est aussi et on a $(A^T)^{-1}=(A^{-1})^T$
+  \end{enumerate} 
+\label{theotranspo}
+\end{theoreme}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{La trace}
+
+\begin{frame}
+\begin{itemize}
+  \item Soit $A=(a_{ij})$ une matrice \emph{carrée} de taille $n\times n$
+  \pause
+  \item Les éléments $a_{11}$, $a_{22}, \ldots, a_{nn}$ sont les \defi{éléments diagonaux}
+  \pause
+  \item La \defi{diagonale principale} est la diagonale $(a_{11},a_{22}, \ldots, a_{nn})$
+  \[
+A = \left( \begin{smallmatrix}
+{\color{myred}a_{11}} & a_{12} & \dots & a_{1n}\\
+ a_{21} & {\color{myred}a_{22}} & \dots & a_{2n}\\
+ \vdots& \vdots & {\color{myred}\ddots}  & \vdots\\
+ a_{n1} & a_{n2} & \dots & {\color{myred}a_{nn}}  
+\end{smallmatrix} \right)
+\] 
+  
+\end{itemize}
+
+
+\pause %
+\begin{mydefinition}
+La \defi{trace}  de la matrice $A$ est
+la somme des éléments diagonaux de $A$
+\mybox{$\tr A = a_{11} + a_{22} + \cdots +a_{nn}$}
+\end{mydefinition}
+\pause %
+\begin{exemple}
+\begin{itemize}
+  \item Pour
+$ A = \left( \begin{smallmatrix}
+2 & 1\\
+0& 5
+\end{smallmatrix}\right)$
+alors \ $\tr A = 2 + 5 = 7$
+
+\pause
+
+  \item Pour $B = \left(\begin{smallmatrix}
+1 & 1 &2\\
+5&2&8\\
+11 & 0 & -10
+\end{smallmatrix}\right)$ alors \  $\tr B = 1 + 2 -10 =-7$
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+%--------------------------------------------------------------
+
+\begin{frame}
+\begin{theoreme}
+Soient $A$ et $B$ deux matrices $n \times n$. Alors 
+\begin{enumerate}
+\item $\tr(A + B)$ = $\tr A$ + $\tr B$
+\item $\tr(\alpha A)$ = $\alpha$ $\tr A$ pour tout $\alpha \in \Kk$
+\item $\tr(A^T)$ = $\tr A $
+\item \myboxinline{$\tr(AB)$ = $\tr(BA)$}
+\end{enumerate}
+\end{theoreme}
+
+% \setbeamercovered{transparent}
+% %
+% \begin{theoreme}
+% Soient $A$ et $B$ deux matrices $n \times n$. Alors 
+% \begin{enumerate}
+% \item<1-2> $\tr(A + B)$ = $\tr A$ + $\tr B$
+% \item<1,3> $\tr(\alpha A)$ = $\alpha$ $\tr A$ pour tout $\alpha \in \Kk$
+% \item<1,4> $\tr(A^T)$ = $\tr A $
+% \item<1,5-> \myboxinline{$\tr(AB)$ = $\tr(BA)$}
+% \end{enumerate}
+% \end{theoreme}
+% %
+% \visible<2->{
+% \begin{proof}
+% \begin{overlayarea}{\textwidth}{30mm}
+% \begin{enumerate} \vspace*{-4mm}
+% \only<1>{\item}	% pour éviter un enumerate sans item
+% \only<2>{\setcounter{enumi}{0} \item 
+% Pour tout $1 \leq i \leq n$, le coefficient $(i,i)$ de $A+B$ est $a_{ii} + b_{ii}$. 
+% Ainsi, on a bien $\tr(A + B)$ = $\tr(A)$ + $\tr(B)$.}
+% %
+% \only<3>{\setcounter{enumi}{1} \item 
+%  On a $\tr(\alpha A) = \alpha a_{11} +\dots+ \alpha a_{nn} 
+% = \alpha (a_{11} +\dots+ a_{nn})= \alpha \tr A$.}
+% %
+% \only<4>{\setcounter{enumi}{2} \item 
+%  \'Etant donné que la transposition ne change pas les éléments diagonaux, 
+% la trace de $A$ est égale à la trace de $A^T$.}
+% %
+% \only<5->{\setcounter{enumi}{3} \item
+% \only<5>{Soient $c_{ij}$ les coefficients de $AB$ et $d_{ij}$ ceux de $BA$:
+% \[
+% c_{ii} = a_{i1}b_{1i} + a_{i2}b_{2i} +\dots+ a_{in}b_{ni}
+% \]\[
+% d_{ii} = b_{i1}a_{1i} + b_{i2} a_{2i} +\dots+ b_{in} a_{ni}
+% \]
+% }
+% \only<6-7>{
+% \quad \vspace*{-8mm}
+% \begin{figure}[b]
+% \centering
+% \tikzstyle{background}=[rectangle,
+% 		fill=gray!20,
+% 		inner sep=0.2mm,
+% 		rounded corners=3mm]
+% \begin{tikzpicture}[scale=1]
+%   \matrix [column sep=2mm,row sep=2mm, ampersand replacement=\&] {
+% 	\node (tr) {$\text{tr} (AB)= $}; \&
+%   		\node (11) {$\phantom{+}a_{11} b_{11}$}; \&
+%   		\node (12) {$+a_{12} b_{21}$}; \&
+%   		\node (13) {$+\cdots$}; \&
+%   		\node (1n) {$+a_{1n} b_{n1}$}; 
+% 		\onslide<6>{\& \node (1c) {$(c_{11})$} ;}
+% 		\\
+% 		\& \node (21)	{$+a_{21} b_{12}$}; \&
+%         \node (22) {$+ a_{22} b_{22}$}; \&
+%         \node (23)   {$+ \cdots +$};     \&
+%         \node (2n) {$+ a_{2n} b_{n2}$};
+% 		\onslide<6>{\& \node (2c) {$(c_{22})$} ;}
+%         \\
+%        \& \node (31) {$\vdots$} ; \&
+%         \node (32) {$\vdots$} ; \&
+%         \node (33) {$\vdots$} ; \&
+%         \node (3n) {$\vdots$} ; \&
+% 		\node (3c) {} ;
+%         \\
+% 		\& \node (41)	{$+a_{41} b_{14}$}; \&
+%         \node (42) {$+ a_{42} b_{24}$}; \&
+%         \node (43)   {$+ \cdots +$};     \&
+%         \node (4n) {$+ a_{4n} b_{n4}$};
+% 		\onslide<6>{\& \node (4c) {$(c_{44})$} ;}
+%       \only<7>{		
+%       \\
+%       a \& 
+%       \node (51) {$(d_{11})$}; \&
+%       \node (52) {$(d_{22})$}; \&
+% 		\&
+%       \node (5n) {$(d_{nn})$}; 
+%       }
+% 	\\
+%     };
+% 	\only<6>{
+%     \begin{pgfonlayer}{background}
+%         \node [background, fit=(11) (1n)] {};
+%         \node [background, fit=(21) (2n)] {};
+%         \node [background, fit=(41) (4n)] {};
+%     \end{pgfonlayer}}
+%     \only<7>{
+%     \begin{pgfonlayer}{background}
+%         \node [background, fit=(11) (41)] {};
+%         \node [background, fit=(12) (42)] {};
+%         \node [background, fit=(1n) (4n)] {};
+%     \end{pgfonlayer}}
+% \end{tikzpicture}
+% \end{figure}
+% }
+% %Ainsi,
+% %$$\begin{array}{cccccc}
+% %\tr(AB) & = & a_{11}b_{11} & + a_{12}b_{21} & +\cdots &+ a_{1n}b_{n1}\\
+% % & &+ a_{21}b_{12} & + a_{22}b_{22}& +\cdots & + a_{2n}b_{n2}\\
+% %& & \vdots &&&\\
+% %& & +a_{n1}b_{1n} & + a_{n2}b_{2n}& +\cdots & + a_{nn}b_{nn}.
+% %\end{array}$$
+% 
+% %On peut réarranger les termes pour obtenir
+% %
+% %$$\begin{array}{cccccc}
+% %\tr(AB) &=& a_{11}b_{11} & + a_{21}b_{12} & +\cdots &+ a_{n1}b_{1n}\\
+% %&&+  a_{12}b_{21} & + a_{22}b_{22}& +\cdots & + a_{n2}b_{2n}\\
+% % && \vdots &&\\
+% % &&+ a_{1n}b_{n1} & + a_{2n}b_{n2}& +\cdots & + a_{nn}b_{nn}.
+% %\end{array}$$
+% %
+% \only<8>{En utilisant la commutativité de la multiplication dans $\Kk$, 
+% la première colonne devient
+% \[
+% a_{11} b_{11} + a_{21} b_{12} +\dots+ a_{n1} b_{1n}
+% = b_{11}a_{11} + b_{12}a_{21} +\dots+ b_{1n}a_{n1} = d_{11},
+% \]
+% le coefficient $(1,1)$ de $BA$. Finalement, 
+% $$\tr(AB) = d_{11} +\dots+ d_{nn} = \tr(BA).$$}
+% }
+% \end{enumerate}
+% \end{overlayarea}
+% \end{proof}
+% }
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Matrices symétriques}
+
+\begin{frame}
+\begin{mydefinition}
+Une matrice carrée $A$ de taille $n \times n$ est \defi{symétrique} si elle est égale 
+à sa transposée, c'est-à-dire si
+$$A = A^T$$ 
+
+
+
+\end{mydefinition}
+\pause
+Autrement dit si \ $a_{ij}=a_{ji}$ \ pour tout $i,j=1, \ldots, n$
+
+%\pause
+Les coefficients sont donc symétriques par rapport à la diagonale
+\bigskip
+
+\pause %   
+\begin{exemple} Les matrices suivantes sont symétriques :
+ $$ \begin{pmatrix}
+ 0 & 2\\
+ 2 & 4\end{pmatrix} \qquad 
+\begin{pmatrix}
+ -1 & 0 & 5\\
+ 0 & 2 & -1\\
+ 5 & -1 & 0\end{pmatrix}
+$$
+\end{exemple} 
+\end{frame}
+
+%--------------------------------------------------------------
+
+\begin{frame}
+\begin{exemple}
+Pour une matrice $B$ quelconque, les matrices $B \cdot B^T$ et $B^T \cdot B$ sont symétriques   
+\end{exemple}
+
+\bigskip
+\pause
+
+\begin{proof}
+\[
+(BB^T)^T = (B^T)^T B^T = BB^T 
+\]
+\end{proof}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Matrices antisymétriques}
+
+\begin{frame}
+\begin{mydefinition}
+Une matrice carrée $A$ de taille $n \times n$ est \defi{antisymétrique} si
+$$A^T = -A$$
+\end{mydefinition}
+\pause
+Autrement dit  si \ $a_{ij} = -a_{ji}$ \ pour tout $i,j=1, \ldots, n$
+
+\pause %
+
+\bigskip
+
+\begin{exemple}
+$$\begin{pmatrix}
+0 & -1\\
+1 & 0     
+\end{pmatrix} \qquad 
+\begin{pmatrix}
+0 & 4 & 2\\
+-4 & 0 & -5\\
+-2 & 5 & 0  
+\end{pmatrix}$$  
+\end{exemple} 
+
+\pause %
+
+\bigskip
+Les éléments diagonaux d'une matrice antisymétrique sont toujours tous nuls
+(car en prenant $i=j$, on a $a_{ii} = - a_{ii}$)
+
+\end{frame}
+
+%--------------------------------------------------------------
+% 
+% \begin{frame}
+% \begin{proposition}
+% Toute matrice est la somme d'une matrice symétrique et d'une matrice antisymétrique.
+% \end{proposition}
+% \pause %
+% \begin{proof}
+% Soit $A$ une matrice. Définissons $B=\frac12(A+A^T)$ et $C=\frac12(A-A^T)$.
+% Alors d'une part $A=B+C$ ; d'autre part $B$ est
+% symétrique, car $B^T=\frac12(A^T+(A^T)^T)=\frac12(A^T+A)=B$ ; et enfin $C$ est
+% antisymétrique, car $C^T=\frac12(A^T-(A^T)^T)=-C$.
+% \end{proof}
+% \pause %
+% \begin{exemple}
+% \[
+% \begin{pmatrix} 2 & 10 \\ 8 & -3 \end{pmatrix}
+% %\quad\text{ alors }\quad A 
+% \; = \; \underbrace{\begin{pmatrix}
+% 2 & 9\\
+% 9 & -3\end{pmatrix}}_{\text{symétrique}} 
+% \; + \; \underbrace{\begin{pmatrix}
+% 0 & 1\\
+% -1 & 0\end{pmatrix}}_{\text{antisymétrique}}
+% \]
+% \end{exemple}
+% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Montrer que la somme de deux matrices triangulaires supérieures reste triangulaire supérieure.
+  Montrer que c'est aussi valable pour le produit.
+  
+  \item Montrer que si $A$ est triangulaire supérieure, alors $A^T$ est triangulaire inférieure.
+  Et si $A$ est diagonale ?
+  
+  \item Soit $A = \left(\begin{smallmatrix}x_1 \\ x_2 \\ \vdots \\ x_n \end{smallmatrix} \right)$.
+  Calculer $A^T \cdot A$, puis $A\cdot A^T$.
+        
+  \item Soit $A=\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)$. 
+  Calculer $\tr(A\cdot A^T)$.
+  
+  \item Soit $A$ une matrice de taille $2\times 2$ inversible. Montrer
+  que si $A$ est symétrique, alors $A^{-1}$ aussi. Et si $A$ est antisymétrique ?
+  
+  \item Montrer que la décomposition d'une matrice sous la forme
+  \og symétrique + antisymétrique \fg\ est unique.
+
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

@@ -1,0 +1,349 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={192,41,0}]{structure}
+
+% Commande spécifique à ce chapitre
+
+\newcommand{\Python}{\texttt{Python}}
+\renewcommand{\evidence}[1]{{\color{blue}\textbf{#1}}}
+
+\usepackage{textcomp}
+
+\usepackage{listings}
+\lstset{
+  upquote=true,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily,
+  commentstyle=\color{gray},
+  language=Python,
+  showstringspaces=false,
+  aboveskip=0em,  
+  belowskip=0em,
+  escapeinside=||
+}
+
+\lstset{
+  literate={é}{{\'e}}1
+           {è}{{\`e}}1
+           {à}{{\`a}}1
+}
+
+
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Algorithmes et mathématiques}}
+\subtitle{Premiers pas avec \Python}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Hello world!
+    \item<4-> Somme des cubes
+    \item<5-> Calcul de $\pi$ au hasard
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Hello world!}
+
+\begin{frame}[fragile]
+
+
+\begin{tp}
+\begin{enumerate}
+  \item Définir deux variables prenant les valeurs $3$ et $6$.
+  \item Calculer leur somme et leur produit.
+\end{enumerate}  
+\end{tp}
+
+\pause
+
+\begin{algo}[hello-world.py]
+\begin{lstlisting}
+>>> a=3  |\pause|
+>>> b=6  |\pause|
+>>> somme = a+b  |\pause|
+>>> print(somme)  |\pause|
+9  |\pause|
+>>> print("La somme est", somme)  |\pause|
+La somme est 9  |\pause|
+>>> produit = a*b  |\pause|
+>>> print("Le produit est", produit)  |\pause|
+Le produit est 18
+\end{lstlisting}  
+\end{algo}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Somme des cubes}
+
+\begin{frame}
+
+\begin{tp}
+\begin{enumerate}
+  \item Pour un entier $n$ fixé, programmer le calcul de la somme $S_n = 1^3+2^3+3^3+ \cdots + n^3$. 
+  \item Définir une fonction qui pour une valeur $n$ renvoie la somme $\Sigma_n = 1+2+3+\cdots+n$.  
+  \item Définir une fonction qui pour une valeur $n$ renvoie $S_n$.
+  \item Vérifier, pour les premiers entiers, que $S_n = (\Sigma_n)^2$.
+\end{enumerate}  
+\end{tp}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{algo}[somme-cubes.py (1)]
+\begin{lstlisting}
+n = 10
+somme = 0
+for i in range(1,n+1):
+    somme = somme + i*i*i
+print(somme)
+\end{lstlisting}  
+\end{algo}
+
+\pause
+
+$$\Sigma_n = 1+2+3+\cdots+n \pause =\frac{n(n+1)}{2}$$
+
+\pause
+
+\begin{algo}[somme-cubes.py (2)]
+\begin{lstlisting}
+def somme_entiers(n):
+    return n*(n+1)/2
+\end{lstlisting}  
+\end{algo}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{itemize}
+  \item Le signe égal \codeinline{=} pour affecter une valeur à une variable
+\pause   
+  \item \codeinline{print()} affiche un message
+
+\pause   
+  \item Fonction 
+  \begin{itemize}
+    \item Commence par \codeinline{def ma_fonction(variable):} 
+ \pause
+    \item Finie par \codeinline{return resultat}
+  \end{itemize}     
+\pause
+  \item
+   \begin{itemize}
+    \item \codeinline{range(1,n+1)} est $\{1,2,\ldots,n\}$
+\pause
+    \item \codeinline{range(n)} est $\{0,1,2,\ldots,n-1\}$
+  \end{itemize} 
+\pause
+  \item L'indentation détermine les blocs d'instructions
+\end{itemize}
+\end{frame}  
+ 
+
+\begin{frame}[fragile]
+\begin{algo}[somme-cubes.py (3)]
+\begin{lstlisting}
+def somme_cubes(n):
+    somme = 0
+    for i in range(1,n+1):
+        somme = somme + i**3
+    return somme 
+\end{lstlisting}  
+\end{algo}
+
+\pause
+
+\begin{algo}[somme-cubes.py (4)]
+\begin{lstlisting}
+n = 12
+if somme_cubes(n) == (somme_entiers(n)**2):
+    print("Pour n=", n, "l'assertion est vraie.")
+else:   
+    print("L'assertion est fausse !")
+\end{lstlisting}  
+\end{algo}
+\end{frame}
+
+
+
+
+ 
+ 
+\begin{frame}
+
+\begin{itemize} 
+
+  \item \codeinline{**} pour les puissances : $5^2$ s'écrit \codeinline{5*5} ou \codeinline{5**2},
+    $5^3$ s'écrit \codeinline{5**3},...  
+ 
+\pause   
+  \item \evidence{Boucle pour}
+avec l'instruction \evidence{\codeinline{for}} qui fait varier un indice
+\pause
+
+  \item \evidence{\codeinline{if condition: ... else: ...}} 
+  exécute le premier 
+  bloc d'instructions si la condition est vraie ; 
+   si la condition est fausse cela exécute l'autre bloc
+
+\pause
+   
+  \item
+  \begin{itemize}
+     \item \codeinline{a < b} : $a<b$
+     \item \codeinline{a <= b} : $a \le b$
+     \item \codeinline{a == b} : $a=b$
+     \item \codeinline{a != b} : $a \neq b$
+  \end{itemize} 
+
+\pause
+
+  \item
+  \begin{itemize}
+     \item \evidence{\codeinline{a==b}} vaut soit vraie ou faux
+\pause
+
+     \item \evidence{\codeinline{a=b}} on affecte dans $a$ la valeur de $b$
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Calcul de $\pi$ au hasard}
+
+\begin{frame}
+
+\begin{tp}
+\begin{enumerate}
+  \item Calculer l'aire du carré et de la portion de disque.
+  \item Pour un point $(x,y)$ tiré au hasard dans le carré, quelle est la probabilité que le point soit en fait dans la portion de disque ?
+  \item Tirer un grand nombre de points au hasard, compter ceux qui sont dans la portion de disque.
+  \item En déduire les premières décimales de $\pi$.
+\end{enumerate} 
+\end{tp}
+
+\myfigure{1}{
+\input{Fig-algo/fig_algo06.tex} 
+}
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{algo}[pi-hasard.py]
+\begin{lstlisting}
+import random            # Module nombres aléatoires 
+|\pause|
+Tir = 0                  # Numéro du tir
+NbTirDansLeDisque = 0    # Nombre de tirs dans le disque
+|\pause|
+while (Tir < 1000):
+    Tir = Tir + 1
+    # On tire au hasard un point (x,y) dans [0,1] x [0,1]
+    x = random.random()   
+    y = random.random()
+    if (x*x+y*y <= 1):    # On est dans le disque
+        NbTirDansLeDisque = NbTirDansLeDisque + 1
+|\pause|        
+MonPi = 4*NbTirDansLeDisque / Tir
+print("Valeur expérimentale de Pi : %0.3f" %MonPi)
+\end{lstlisting}  
+\end{algo}
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{itemize}
+
+
+  \item \evidence{Boucle tant que}  \evidence{\codeinline{while condition: ...}} 
+Tant que la condition est vérifiée les instructions de la boucle sont exécutées
+
+   
+\pause   
+
+  \item \codeinline{random()} renvoie un nombre réel de l'intervalle $[0,1[$ au hasard 
+  
+\pause
+
+  \item
+  \begin{itemize}
+    \item \evidence{module} : \codeinline{import random}
+    \item appel par \codeinline{module.fonction()} donc ici \codeinline{random.random()}
+  \end{itemize}
+   
+\pause 
+
+  \item Commentaires : un dièse \codeinline{#}
+
+
+\end{itemize}
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\small
+\begin{miniexercice}
+\begin{enumerate}
+  \item Soit le produit $P_n = (1-\frac12)\times (1-\frac13) \times (1-\frac14)\times \cdots \times(1-\frac1n)$.
+  Calculer une valeur approchée de $P_n$ pour les premiers entiers $n$.
+  
+  \item Que vaut la somme des entiers $i$ qui apparaissent dans l'instruction \codeinline{for i in range(1,10)}.
+  Idem pour \codeinline{for i in range(11)}. Idem pour \codeinline{for i in range(1,10,2)}. Idem pour \codeinline{for i in range(0,10,2)}.
+  Idem pour \codeinline{for i in range(10,0,-1)}.
+  
+  \item On considère le cube $[0,1] \times [0,1] \times [0,1]$ et la portion de boule de rayon $1$ centrée à l'origine incluse dans ce cube.
+  Faire les calculs de probabilité pour un point tiré au hasard dans le cube d'être en fait dans la portion de boule.
+  Faire une fonction pour le vérifier expérimentalement.
+  
+  \item On lance deux dés. Expérimenter quelle est la probabilité que la somme soit $7$, puis $6$, puis $3$ ?
+  Quelle est la probabilité que l'un des deux dés soit un $6$ ? d'avoir un double ?
+  La fonction \codeinline{randint(a, b)} du module \codeinline{random} retourne un entier $k$ 
+  au hasard, vérifiant $a \le k \le b$.
+  
+  \item On lance un dé jusqu'à ce que l'on obtienne un $6$. En moyenne au bout de combien de lancer s'arrête-t-on ? 
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

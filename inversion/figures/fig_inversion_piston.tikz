@@ -1,0 +1,52 @@
+\usetikzlibrary{patterns}
+\begin{tikzpicture}
+
+
+\def\rayon{1};
+\def\bielle{3};
+\coordinate (O) at (0,0);
+\fill[red!50] (O) circle (\rayon);
+\draw[red] (O) circle (\rayon);
+\fill (O) circle (2pt);
+
+\fill[pattern=north west lines]  (2,0.5) rectangle (8,1.5);
+\draw[very thick] (2,1.5) -- (2,0.5) -- (8,0.5);
+
+\fill[pattern=north west lines]  (2,-0.5) rectangle (8,-1.5);
+\draw[very thick] (2,-1.5) -- (2,-0.5) -- (8,-0.5);
+
+\def\actionnepiston#1{
+  \def\montheta{#1};
+  \coordinate (A) at ({\montheta}:{\rayon});
+  \fill[red] (A) circle (2pt);
+
+  \def\moncos{cos(\montheta)};
+  \def\xb{\rayon*\moncos+sqrt(\bielle^2-\rayon^2*(1-\moncos^2))};
+  \coordinate (B) at ({\xb},0);
+  \fill[red] (B) circle (2pt);
+  
+   \draw[ultra thick,red] (A)--(B);
+   \draw[red] ({\xb},-0.45) rectangle ({\xb+3},0.45);
+   \fill[red!50] ({\xb},-0.45) rectangle ({\xb+3},0.45);
+}
+
+% Afficher un angle ou afficher plusieurs : commenter/decommenter les lignes
+% le paramÃÂ¨tre est l'angle (en degres)
+
+\actionnepiston{40};
+%\actionnepiston{90};
+
+% \foreach \t in {0,30,...,180} {
+% \actionnepiston{\t};
+% };
+
+% Labels
+  \draw[<-,>=latex,thick, blue] (1.5,0.5) to[bend right] +(-1,2) node[above] {bielle};
+  \draw[<-,>=latex,thick, blue] (5,-0.1) to[bend right] +(1,-2) node[right] {piston};
+  \draw[<-,>=latex,thick, blue] (-0.3,-0.4) to[bend left] +(-1,-1.5) node[left] {roue};
+
+  \draw[->,>=latex,thick, green!80!black] (40:1.2) arc (40:90:1.2);
+  \draw[->,>=latex,thick, green!80!black] (3.7,-0.2)--+(-0.85,0) ;
+
+
+\end{tikzpicture}

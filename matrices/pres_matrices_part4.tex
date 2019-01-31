@@ -1,0 +1,275 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={191,146,10}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\title{{\bf Matrices}}
+\subtitle{Inverse d'une matrice : calcul}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Matrices $2 \times 2$
+    \item<4-> Méthode de Gauss
+    \item<5-> Un exemple
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Matrices $2 \times 2$}
+
+\begin{frame}
+Soit $A = \begin{pmatrix}
+ a & b\\
+ c & d       
+     \end{pmatrix}
+$ 
+une matrice $2\times 2$
+
+\pause
+
+\begin{proposition}
+Si $ad - bc \not= 0$,  alors $A$ est inversible et
+\mybox{$A^{-1} = \frac{1}{ad-bc} \begin{pmatrix}
+d & -b\\
+ -c & a
+\end{pmatrix}$}
+\end{proposition}
+
+\pause
+
+\begin{proof}
+\begin{itemize}
+\item on pose $B=\frac{1}{ad-bc}  \left(\begin{smallmatrix}
+d & -b\\
+ -c & a
+\end{smallmatrix}\right)$
+\item\pause on vérifie alors $AB = \left(\begin{smallmatrix}
+ 1 & 0\\
+ 0 & 1
+ \end{smallmatrix}\right)$
+\item\pause de même $BA=\left(\begin{smallmatrix}
+ 1 & 0\\
+ 0 & 1
+ \end{smallmatrix}\right)$ \qedhere
+\end{itemize}
+\end{proof}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Méthode de Gauss pour inverser les matrices}
+ 
+ 
+\begin{frame}
+\textbf{Méthode pour inverser $A$}
+\begin{itemize}
+\item\pause par des opérations élémentaires sur les lignes de $A$, transformer $A$ en la matrice identité $\Id$
+\item\pause faire simultanément les mêmes opérations sur $\Id$
+\item\pause à la fin, $A$ est transformée en $\Id$, et $\Id$ est transformée en $A^{-1}$
+\end{itemize}
+
+\pause
+On forme le tableau
+\vspace{-.1cm}
+\[
+(A\ |\ \Id) \pause \longrightarrow (\Id\ |\ B) \pause =  (\Id\ |\ A^{-1}) 
+\]
+
+\pause
+\textbf{Opérations élémentaires sur les lignes}
+
+\begin{enumerate}
+  \item\pause \evidence{$L_i \leftarrow \lambda L_i$} avec $\lambda \neq 0$ : 
+  multiplier une ligne par un réel non nul 
+      
+  \item\pause \evidence{$L_i \leftarrow L_i+\lambda L_j$} avec $\lambda \in \Kk$ ($j\neq i$) :
+  ajouter à la ligne $L_i$ un multiple de $L_j$
+  
+  \item\pause \evidence{$L_i \leftrightarrow L_j$} : échanger deux lignes
+\end{enumerate}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Un exemple}
+ 
+ 
+\begin{frame}
+Calculons l'inverse de
+$
+ A = \begin{pmatrix}
+ 1 & 2 & 1\\
+ 4 & 0 & -1\\
+ -1 & 2 & 2       
+\end{pmatrix}
+$
+\pause
+
+Voici la matrice augmentée
+%
+$$\begin{array}{rcl}
+(A\ |\ I_3) &=&  \left(\begin{array}{ccc|ccc}
+1 & 2 & 1 & 1 & 0 & 0\\
+4 & 0 & -1 & 0 & 1 & 0\\
+-1 & 2 & 2 & 0 & 0 & 1
+\end{array}\right)
+\begin{array}{l} {\scriptstyle L_1}  \\ {\scriptstyle L_2} \\  {\scriptstyle L_3}\end{array}\\[7mm]
+%
+\pause \pause
+\onslide<3->&&\left(\begin{array}{ccc|ccc}
+1 & 2 & 1 & 1 & 0 & 0\\
+\uncover<5->{0 & -8 & -5} &\uncover<6->{ -4 & 1 & 0}\\
+-1 & 2 & 2 & 0 & 0 & 1
+\end{array}\right)
+\onslide<4->\begin{array}{l} ~ \\  {\scriptstyle L_2 \leftarrow L_2 - 4 L_1} \\ ~ \end{array}\\[7mm]
+%
+\pause \pause
+\onslide<7->&&\left(\begin{array}{ccc|ccc}
+1 & 2 & 1 & 1 & 0 & 0\\
+0 & -8 & -5 & -4 & 1 & 0\\
+\uncover<9->{0 & 4 & 3} &\uncover<10->{ 1 & 0 & 1}
+\end{array}\right)
+\onslide<8->\begin{array}{l} ~ \\ ~ \\ {\scriptstyle L_3 \leftarrow L_3 + L_1}   \end{array}
+\end{array}$$
+
+\end{frame}
+
+%--------------------------------------------------------------
+
+\begin{frame}
+$$\begin{array}{l}
+\left(\begin{array}{ccc|ccc}
+1 & 2 & 1 & 1 & 0 & 0\\
+0 & -8 & -5 & -4 & 1 & 0\\
+0 & 4 & 3 & 1 & 0 & 1
+\end{array}\right)\\[9mm]
+%
+\pause
+\left(\begin{array}{ccc|ccc}
+1 & 2 & 1 & 1 & 0 & 0\\
+\uncover<3->{0 & 1 & \frac58} & \uncover<3->{\frac12 & -\frac18 & 0}\\
+0 & 4 & 3 & 1 & 0 & 1
+\end{array}\right)
+\begin{array}{l} ~ \\  {\scriptstyle L_2 \leftarrow -\frac{1}{8} L_2} \\ ~ \end{array}\\[9mm]
+%
+\pause\pause 
+\left(\begin{array}{ccc|ccc}
+1 & 2 & 1 & 1 & 0 & 0\\
+0 & 1 & \frac58 & \frac12 & -\frac18 & 0\\
+\uncover<5->{0 & 0 & \frac12} & \uncover<5->{-1 & \frac12 & 1}
+\end{array}\right)
+\begin{array}{l} ~ \\ ~ \\ {\scriptstyle L_3 \leftarrow L_3 -4L_2}   \end{array}\\[9mm]
+%
+\pause\pause
+\left(\begin{array}{ccc|ccc}
+1 & 2 & 1 & 1 & 0 & 0\\
+0 & 1 & \frac58 & \frac12 & -\frac18 & 0\\
+\uncover<7->{0 & 0 & 1} & \uncover<7->{-2 & 1 & 2}
+\end{array}\right)
+\begin{array}{l} ~ \\ ~ \\ {\scriptstyle L_3 \leftarrow 2L_3}   \end{array}
+\end{array}$$
+
+\end{frame}
+
+
+
+\begin{frame}
+\vspace*{-2ex}
+$$
+\begin{array}{l}
+\left(\begin{array}{ccc|ccc}
+1 & 2 & 1 & 1 & 0 & 0\\
+0 & 1 & \frac58 & \frac12 & -\frac18 & 0\\
+0 & 0 & 1 & -2 & 1 & 2
+\end{array}\right)\\[9mm]
+%
+\pause
+\left(\begin{array}{ccc|ccc}
+1 & 2 & 1 & 1 & 0 & 0\\
+0 & 1 & 0 & \frac{7}{4} & -\frac{3}{4} & -\frac{5}{4}\\
+0 & 0 & 1 & -2 & 1 & 2
+\end{array}\right)
+\begin{array}{l} ~ \\  {\scriptstyle L_2 \leftarrow L_2-\frac{5}{8} L_3} \\ ~ \end{array}\\[9mm]
+%
+\pause 
+\left(\begin{array}{ccc|ccc}
+1 & 0 & 0 & -\frac{1}{2} & \frac{1}{2} & \frac{1}{2}\\
+0 & 1 & 0 &\frac{7}{4} & -\frac{3}{4} & -\frac{5}{4}\\
+0 & 0 & 1 & -2 & 1 & 2
+\end{array}\right)
+\begin{array}{l}  {\scriptstyle L_1 \leftarrow L_1-2L_2-L_3} \\ ~ \\ ~ \end{array}
+\end{array}$$
+
+\medskip
+\pause
+$\text{Donc}
+\quad 
+A^{-1} = \displaystyle\frac{1}{4} 
+\begin{pmatrix}
+-2 & 2 & 2\\
+7 & -3 & -5\\
+-8 & 4 & 8                       
+\end{pmatrix}
+$
+
+\medskip\smallskip
+\pause
+N'oubliez pas de vérifier $A \times A^{-1} = I_3$
+
+\end{frame}
+
+
+ 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Si possible calculer l'inverse des matrices :
+  $\left(\begin{smallmatrix}3&1\\7&2\end{smallmatrix}\right)$,
+  $\left(\begin{smallmatrix}2&-3\\-5&4\end{smallmatrix}\right)$,
+  $\left(\begin{smallmatrix}0&2\\3&0\end{smallmatrix}\right)$,  
+  $\left(\begin{smallmatrix}\alpha+1&1\\2&\alpha\end{smallmatrix}\right)$.
+  
+  \item Soit 
+  $A(\theta)=\left(\begin{smallmatrix} \cos \theta & -\sin\theta \\ \sin\theta & \cos\theta\end{smallmatrix}\right)$.
+  Calculer $A(\theta)^{-1}$.
+  
+  \item Calculer l'inverse des matrices :
+  $\left(\begin{smallmatrix}1&3&0\\2&1&-1\\-2&1&1\end{smallmatrix}\right)$, 
+  $\left(\begin{smallmatrix}2&-2&1\\3&0&5\\1&1&2\end{smallmatrix}\right)$, 
+  $\left(\begin{smallmatrix}1&0&1&0\\0&2&-2&0\\-1&2&0&1\\0&2&1&3\end{smallmatrix}\right)$, 
+  $\left(\begin{smallmatrix}2&1&1&1\\1&0&0&1\\0&1&-1&2\\0&1&1&0\end{smallmatrix}\right)$, 
+  $\left(\begin{smallmatrix}1&1&1&0&0\\0&1&2&0&0\\-1&1&2&0&0\\0&0&0&2&1\\0&0&0&5&3\end{smallmatrix}\right)$.
+
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

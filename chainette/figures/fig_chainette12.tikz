@@ -1,0 +1,44 @@
+\begin{tikzpicture}[scale=0.7]
+ \def\xmin{-4}; 
+ \def\xmax{+4}; 
+ \def\ymin{-0.5}; 
+ \def\ymax{+7};
+% \draw[help lines] (\xmin,\ymin) grid (\xmax,\ymax);
+  \draw[->,>=latex,thick,gray] (\xmin,0)--(\xmax,0);
+ % \draw[->] (0,\ymin)--(0,\ymax);
+ %\clip (\xmin,\ymin) rectangle (\xmax,\ymax);
+% \def\a{+1};
+% \draw [thick, domain=\xmin:\xmax] plot(\x,{exp(\x)});
+   \def\a{+2.5}
+   \draw [very thick, color=red, domain=-3.5:3.5] plot(\x,{\a*(exp(\x/\a)+exp(-\x/\a))/2});
+   
+  \begin{scope}[yshift=-0.4cm]
+       \draw [domain=-3.5:0] plot(\x,{\a*(exp(\x/\a)+exp(-\x/\a))/2});
+  \end{scope}
+  \node at (-2,2.3) {$\ell$};
+
+  \def\xx{+3.5};
+  \def\yy{\a*(exp(\xx/\a)+exp(-\xx/\a))/2};
+  \coordinate (B) at ({\xx},{\yy});
+  \coordinate (C) at ({-\xx},{\yy});
+  \coordinate (D) at (0,{\yy});
+
+  \draw[dashed] (B)--(C);
+
+   \draw[<->,>=latex] (0,{\a})--(0,{\yy});
+   \draw[<->,>=latex] (0,0)--(0,{\a});
+  \node at (0,{\a + (\yy-\a)/2})[left] {$h$};
+  \node at (0,{\a/2})[left] {$a$};
+
+ % \draw[dashed] ({\xx},0)--({\xx},{\yy});
+ \fill (B) circle (3pt);
+ \fill (C) circle (3pt);
+ \node at (B) [above right] {$(x_0,y_0)$}; 
+
+
+  \draw[->,>=latex, thick, green!60!black] (B)-- + (0,-2)node[midway, right,  black] {$\vec T_v$};
+  \draw[->,>=latex, thick, green!60!black] (B)-- + (-1,0)node[midway, above,  black] {$\vec T_h$};
+  \draw[->,>=latex, thick, green!60!black] (B)-- + (-1,-2) node  [below,black] {$\vec T$};
+
+ 
+\end{tikzpicture}

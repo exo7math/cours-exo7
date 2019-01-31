@@ -1,0 +1,328 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={153, 204, 0}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcounter{saveenumi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+
+
+\title{{\bf Arithmétique}}
+\subtitle{Division euclidienne et pgcd}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Divisibilité et division euclidienne
+    \item<4-> pgcd
+    \item<5-> Algorithme d'Euclide
+    \item<6-> Nombres premiers entre eux
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section*{Motivation}
+
+
+\begin{frame}
+Une motivation : l'arithmétique appliquée à la cryptographie
+\pause
+\begin{itemize}
+  \item Avec deux \evidence{nombres premiers} $p$ et $q$ secrets on calcule $n=p\times q$
+\pause
+Même connaissant $n$ il est très difficile de retrouver $p$ et $q$ 
+\pause
+  \item La clé secrète et la clé publique se calculent à l'aide de l'\evidence{algorithme d'Euclide} 
+et des \evidence{coefficients de Bézout}
+\pause
+  \item Les calculs se font \evidence{modulo} $n$
+\pause
+  \item Le décodage fonctionne grâce au \evidence{petit théorème de Fermat}
+\end{itemize}
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Divisibilité et division euclidienne}
+
+%---------------------------------------------------------------
+
+\begin{frame}
+
+Soient $a,b \in \Zz$
+\begin{mydefinition}
+$b$ \defi{divise} $a$ s'il existe $q \in \Zz$ tel que \myboxinline{$a = b \times q$}
+
+\pause
+\smallskip
+
+\centerline{on note $b | a$}
+\end{mydefinition}
+
+\pause
+
+\begin{exemple}
+\begin{itemize}
+  \item $7 | 21$ \pause\qquad $6 | 48$  \pause\qquad  $a$ est pair si et seulement si $2|a$
+\pause
+  \item Pour tout $a \in \Zz$ on a \ \ $a | 0$ \ \   \pause et aussi \ \  $1|a$
+\pause
+  \item Si $a|1$ alors $a=+1$ ou $a=-1$
+\pause
+  \item $(a|b \text{ et } b|a) \implies b= \pm a$
+\pause
+  \item $(a|b \text{ et } b|c) \implies a | c$
+\pause
+  \item $(a|b \text{ et } a|c) \implies a | b+c$
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+\begin{frame}
+Soit $a\in \Zz$ et $b\in \Nn\setminus \{0\}$
+\begin{theoreme}[Division euclidienne]
+Il \evidence{existe} des entiers $q,r \in \Zz$ \uncover<3->{\evidence{uniques}} tels que
+\mybox{$a=bq+r \qquad\pause \text{ et } \qquad  0 \le r < b$
+\pause\pause}
+\end{theoreme}
+
+\pause
+
+\begin{exemple}
+$a=6789$ et $b=34$ \qquad $6789= 34 \times 199 + 23$
+\pause
+\myfigure{1}{
+\tikzinput{fig_arithmetique02} \qquad \qquad \qquad
+\pause
+\tikzinput{fig_arithmetique01}
+}
+
+\end{exemple}
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{pgcd de deux entiers}
+
+\begin{frame}
+Soient $a,b\in\Zz$ deux entiers, non tous les deux nuls
+
+\begin{mydefinition}
+Le \defi{plus grand diviseur commun} de $a$ et $b$ 
+est le plus grand entier qui divise à la fois $a$ et $b$
+\end{mydefinition}
+
+\pause
+
+Il se note $\pgcd(a,b)$
+
+\pause
+\bigskip
+
+\begin{exemple}
+\begin{itemize}
+  \item $\pgcd(21,14)=7$ \quad\pause $\pgcd(12,32)=4$ \quad\pause $\pgcd(21,26)=1$
+\pause
+  \item $\pgcd(a,ka)=a$ \quad pour tout $k \in \Zz$ et $a \ge 0$
+\pause
+  \item Pour tout $a\ge 0$ : $\pgcd(a,0)=a$ \pause \quad et \quad  $\pgcd(a,1)=1$
+\end{itemize}
+\end{exemple}
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Algorithme d'Euclide}
+
+\begin{frame}
+
+Soient $a,b \in \Nn^*$. \'Ecrivons la division euclidienne $a=bq+r$
+\begin{lemme}
+\label{lem:algoeuclide}
+\mybox{$\pgcd(a,b)=\pgcd(b,r)$} 
+\end{lemme}
+
+\pause
+\medskip
+
+En fait on a $\pgcd(a,b) = \pgcd(b,a-qb)$ pour tout $q\in \Zz$
+
+\pause
+\medskip
+
+\begin{proof}
+
+\begin{itemize}
+  \item Soit $d$ un diviseur de $a$ et de $b$. Alors $d$ divise $bq-a=r$
+\pause
+  \item Soit $d$ un diviseur de $b$ et de $r$. Alors $d$ divise aussi $bq+r=a$
+\end{itemize}
+\pause
+Les diviseurs de $a$ et de $b$ sont exactement les mêmes que les diviseurs de $b$ et $r$
+\end{proof}
+\end{frame}
+
+
+\begin{frame}
+\evidence{Algorithme d'Euclide} : calcul de $\pgcd(a,b)$
+
+\medskip
+\pause
+
+On calcule des divisions euclidiennes successives
+
+\pause
+
+Le pgcd sera le dernier reste non nul
+
+\pause
+\medskip
+
+\begin{exemple}
+Le pgcd de $a=600$ et $b=124$
+
+
+\pause
+
+$$
+\begin{array}{rclclcl}
+600 & = & 124\tikz[remember picture]\coordinate(eucun); & \times & 4 & + & 104\tikz[remember picture]\coordinate(eucdeux); \\ 
+\uncover<7->{124\tikz[remember picture]\coordinate(euctrois); & = & 104\tikz[remember picture]\coordinate(eucquatre); 
+  & \times & 1 & + & 20\tikz[remember picture]\coordinate(euccinq);} \\
+\uncover<9->{104\tikz[remember picture]\coordinate(eucsix); & = & 20\tikz[remember picture]\coordinate(eucsept);  
+  & \times & 5 & + & \alert<11->{4}} \\
+\pause
+\uncover<10->{20  & = & 4   & \times & 5 & + & 0} \\
+\end{array}
+$$
+\begin{tikzpicture}[x=1mm,y=1mm, remember picture, overlay]
+
+\uncover<5->{
+   \coordinate (myeucun) at ($(eucun)+(-6,0)$);
+   \coordinate (myeucdeux) at ($(eucdeux)+(-6,0)$);
+   \coordinate (myeuctrois) at ($(euctrois)+(0,2)$);
+   \coordinate (myeucquatre) at ($(eucquatre)+(0,2)$);
+   \draw[->, myred, very thick] (myeucun) to[thick] (myeuctrois);
+   \draw[->, myred, very thick] (myeucdeux) to[thick] (myeucquatre);
+}
+
+\uncover<8->{
+   \coordinate (myeucquatrebis) at ($(eucquatre)+(-6,0)$);
+   \coordinate (myeuccinq) at ($(euccinq)+(-4,0)$);
+   \coordinate (myeucsix) at ($(eucsix)+(0,2)$);
+   \coordinate (myeucsept) at ($(eucsept)+(0,2)$);
+   \draw[->, myorange, very thick] (myeucquatrebis) to[thick] (myeucsix);
+   \draw[->, myorange, very thick] (myeuccinq) to[thick] (myeucsept);
+}
+\end{tikzpicture}
+
+\pause \pause \pause \pause \pause \pause
+Ainsi $\pgcd(600,124)=4$
+\end{exemple}
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{exemple}
+Calculons $\pgcd(9945,3003)$
+\pause
+$$
+\begin{array}{rclclcl}
+9945 & = & 3003 & \times & 3 & + & 936 \\ 
+\pause
+3003 & = & 936  & \times & 3 & + & 195 \\
+\pause
+936  & = & 195  & \times & 4 & + & 156 \\
+\pause
+195  & = & 156  & \times & 1 & + & \alt<5-6>{39}{\textcolor{red}{39}} \\
+\pause
+156  & = & 39   & \times & 4 & + & 0 \\
+\end{array}
+$$
+\pause\pause
+Ainsi $\pgcd(9945,3003) = 39$
+\end{exemple}
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Nombres premiers entre eux}
+
+\begin{frame}
+\begin{mydefinition}
+$a$ et $b$ sont \defi{premiers entre eux} si $\pgcd(a,b)=1$ 
+\end{mydefinition}
+
+\pause
+
+\begin{exemple}
+Pour tout $a\in \Zz$, $a$ et $a+1$ sont premiers entre eux
+
+\pause 
+{\footnotesize
+\emph{Preuve :} soit $d$ un diviseur commun à $a$ et à $a+1$
+
+\pause
+
+$d|a \text{ et } d|a+1 \pause\implies d| a+1-a \pause\implies d| 1 \pause\implies d=\pm1 \pause\implies \pgcd(a,a+1)=1$
+}
+\end{exemple}
+
+\pause
+
+\begin{exemple}
+Pour $a,b \in \Zz$ quelconques, notons $d = \pgcd(a,b)$
+
+La décomposition suivante est souvent utile :
+\mybox{$\left\{\begin{array}{ll} a &= \ a'd \\ b &= \ b'd \\ \end{array} \quad 
+\text{ avec }\quad  \pgcd(a',b')=1 \right.$}
+\end{exemple}
+
+
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+\section*{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item \'Ecrire la division euclidienne de $111\,111$ par $20xx$, où $20xx$ est l'année en cours.
+  \item Montrer qu'un diviseur positif de $10\,008$ et de $10\,014$ appartient nécessairement à $\{1,2,3,6\}$.
+  \item Calculer $\pgcd(560,133)$, $\pgcd(12\,121,789)$, $\pgcd(99\,999,1110)$.
+  \item Trouver tous les entiers $1\le a \le 50$ tels que $a$ et $50$ soient premiers entre eux.
+Même question avec $52$.
+\end{enumerate}  
+\end{miniexercice}
+\end{frame}
+
+
+\end{document}

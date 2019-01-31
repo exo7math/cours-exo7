@@ -1,0 +1,1086 @@
+\documentclass[11pt,class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+% Commandes spécifiques à ce chapitre
+\newcommand{\inversion}{i}
+\renewcommand{\vec}[1]{\overrightarrow{#1}}
+
+
+
+%====================================================================
+\chapitre{L'inversion}
+%====================================================================
+
+L'inversion géométrique est une transformation remarquable du plan. Par exemple, elle peut changer une droite en un cercle
+et un cercle en une droite. Nous étudions ici quelques propriétés de l'inversion. Cela nous permettra de créer un dispositif mécanique qui transforme un mouvement circulaire en un mouvement rectiligne. Nous montrerons enfin que toute construction à la règle et au compas peut s'effectuer au compas seulement.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Cercle-droite}
+
+%---------------------------------------------------------------
+\subsection{\'Equation complexe d'une droite}
+
+Soit 
+$$ax+by=c$$ 
+l'équation réelle d'une droite $\mathcal{D}$ : $a,b,c$ sont des nombres réels
+($a$ et $b$ n'étant pas nuls en même temps),
+et $(x,y) \in \Rr^2$ désigne un point du plan dont les coordonnées satisfont l'équation.
+
+
+
+\'Ecrivons $z=x+\ii y \in \Cc$. Alors 
+$$x = \frac{z+\bar z}{2}, \quad y = \frac{z - \bar z}{2\ii},$$
+donc $\mathcal{D}$ a aussi pour équation
+$a(z+\bar z) -\ii b(z-\bar z)=2c$ ou encore $(a-\ii b)z+(a+\ii b)\bar z = 2c$.
+Posons $\omega = a+\ii b \in \Cc^*$ et $k=2c \in \Rr$. Alors nous obtenons que\\
+\mybox{
+\begin{minipage}{0.7\textwidth}
+l'\defi{équation complexe} d'une droite est :\\
+\centerline{$\bar \omega z + \omega \bar z = k$} \\
+où $\omega \in \Cc^*$ et $k\in \Rr$. 
+\end{minipage}
+}
+
+\myfigure{1}{
+\tikzinput{fig_inversion01}
+}
+%---------------------------------------------------------------
+\subsection{\'Equation complexe d'un cercle}
+
+Soit $\mathcal{C}(\Omega,r)$ le cercle de centre $\Omega$ et de rayon $r$.
+C'est l'ensemble des points $M$ tels que $d(\Omega,M)=r$. Si l'on note $\omega$ l'affixe
+de $\Omega$ et $z$ l'affixe de $M$, nous obtenons :
+$$d(\Omega,M) = r \iff  |z-\omega|=r \iff |z-\omega|^2=r^2 \iff (z-\omega)\overline{(z-\omega)}=r^2$$
+et en développant nous trouvons que\\
+\mybox{
+\begin{minipage}{0.7\textwidth}
+l'\defi{équation complexe} du cercle centré en $\Omega(\omega)$ et de rayon $r$ est : \\
+\centerline{$z\bar z - \bar \omega z - \omega \bar z = r^2-|\omega|^2$} \\
+où $\omega \in \Cc$ et $r \ge 0$. 
+\end{minipage}
+}
+
+\myfigure{1}{
+\tikzinput{fig_inversion02}
+}
+
+%---------------------------------------------------------------
+\subsection{Les cercles-droites}
+
+Les deux paragraphes précédents conduisent à la définition suivante.
+\begin{proposition}
+ Un \defi{cercle-droite} est un ensemble de points $M$ du plan, d'affixe $z$,
+ tel que
+$$az\bar z - \bar \omega z - \omega \bar z = k$$
+ où $a,k \in \Rr$, $\omega \in \Cc$ sont donnés.
+ \begin{itemize}
+  \item Si $a=0$, un cercle-droite est une droite.
+  \item Si $a\neq 0$, un cercle-droite est un cercle.
+ \end{itemize}
+\end{proposition}
+
+
+\begin{exemple}
+Le cercle $\mathcal{C}_r = \mathcal{C}(\Omega(0,r),r)$ a pour équation
+$z\bar z - \bar \omega_r z - \omega_r \bar z = r^2-|\omega_r|^2$
+avec son centre d'affixe $\omega_r = 0+\ii r$. Cette équation s'écrit aussi
+$z\bar z +\ii rz-\ii r\bar z =0$ ou encore $z-\bar z + \frac{z\bar z}{\ii r} = 0$.
+On fait tendre $r$  vers l'infini : le rayon tend vers l'infini et le centre s'éloigne indéfiniment ; cependant le cercle passe toujours par l'origine. 
+\`A la limite l'équation devient
+$z-\bar z = 0$, qui est l'équation d'une droite, et plus précisément de l'axe des abscisses.
+Une droite peut être vue comme un cercle dont le centre est à l'infini.
+\myfigure{1}{
+\tikzinput{fig_inversion03}
+}
+\end{exemple}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L'inversion}
+
+%---------------------------------------------------------------
+\subsection{Définition géométrique}
+
+Soit le cercle $\mathcal{C} = \mathcal{C}(\Omega,r)$. L'\defi{inversion} est l'application
+du plan privé de $\Omega$ dans lui-même, qui à un point $M$ associe un point $M'$ tel que :
+\begin{itemize}
+  \item $M' \in [\Omega M)$,
+  \item $\Omega M \cdot \Omega M' = r^2$.
+\end{itemize}
+
+\myfigure{1}{
+\tikzinput{fig_inversion04}
+}
+
+La première condition impose que $M'$ est sur la demi-droite issue de $\Omega$ passant par $M$,
+et la deuxième condition lie les distances de $M$ et $M'$ à $\Omega$.
+
+Le point $\Omega$ est le \defi{centre} de l'inversion, le nombre
+$r^2$ est sa \defi{puissance}, et $\mathcal{C}(\Omega,r)$ est le \defi{cercle d'inversion}.
+
+Voici quelques propriétés élémentaires ($\mathcal{P}$ désigne le plan) :
+\begin{proposition}
+Soit $\inversion : \mathcal{P} \setminus \{\Omega\} \to \mathcal{P} \setminus \{\Omega\}$ une inversion de centre $\Omega$ et de puissance $r^2$.
+\begin{enumerate}
+  \item Chaque point du cercle $\mathcal{C}(\Omega,r)$ est invariant par $\inversion$ :
+  $M \in \mathcal{C}(\Omega,r) \implies \inversion(M) = M$.
+  
+  \item L'inversion $\inversion$ est une bijection. 
+  C'est même une involution : pour tout point $M \in \mathcal{P} \setminus \{\Omega\}$, $\inversion(\inversion(M)) = M$.
+\end{enumerate}
+\end{proposition}
+
+Le fait que $M \mapsto \inversion(M)$ soit une involution se formule aussi ainsi : si $M'=\inversion(M)$ alors 
+$M = \inversion(M')$.
+
+
+\begin{exemple}
+Soit $\inversion$ l'inversion de centre $\Omega$ et de puissance $r^2=4$. 
+Nous représentons des points $M_k$ ainsi que leur image $M'_k=\inversion(M_k)$.
+Comme l'inversion est involutive, nous avons aussi $M_k=\inversion(M'_k)$.
+Il est important de noter que \emph{l'inversion ne préserve pas les longueurs}.
+\myfigure{1}{
+\tikzinput{fig_inversion05}
+}
+Par exemple, comparez les distances $M_1M_4$ et $M'_1 M'_4$.
+Voir l'exercice \ref{exo:inversion_ptoleme} pour une formule.
+\end{exemple}
+
+\begin{proof}~
+\begin{enumerate}
+  \item Soit $M \in \mathcal{C}(\Omega,r)$ et notons $M' = \inversion(M)$.
+  La relation entre les distances s'écrit $\Omega M \cdot \Omega M' = r^2$.
+  Mais comme $\Omega M=r$, alors nous avons aussi $\Omega M' = r$. Comme $M$ et $M'$
+  sont sur la même demi-droite issue de $\Omega$, alors $M=M'$.
+  
+  \item Soit $M \in \mathcal{P} \setminus \{\Omega\}$. Notons $M' = \inversion(M)$ et $M'' = \inversion(M')$.
+  Comme $M'' \in [\Omega M')$ et $M' \in [\Omega M)$, alors $M''$ appartient à la demi-droite $[\Omega M)$.
+  Les relations entre les distances sont d'une part $\Omega M \cdot \Omega M' = r^2$
+  et $\Omega M' \cdot \Omega M'' = r^2$. D'où les égalités $\Omega M \cdot \Omega M' = \Omega M' \cdot \Omega M''$,
+  puis $\Omega M=\Omega M''$. Comme $M$ et $M''$ sont sur la même demi-droite issue de $\Omega$, alors $M=M''$.
+  
+  Le bilan est le suivant : $\inversion\big(\inversion(M)\big) = M$. L'application $M \mapsto \inversion(M)$ est donc une involution.
+  En particulier c'est une bijection.
+\end{enumerate}
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Construction de l'inverse d'un point à la règle et au compas}
+
+\'Etant donné un cercle $\mathcal{C}$ de centre $\Omega$ et un point $M$
+différent de $\Omega$. Comment construire géométriquement, 
+l'image de $M$ par l'inversion $\inversion$ de cercle $\mathcal{C}$ ?
+\begin{itemize}
+  \item Tracer la perpendiculaire à $(\Omega M)$ en $\Omega$. Cette perpendiculaire recoupe le cercle $\mathcal{C}$ en un point $P$.
+  
+  \item Tracer la perpendiculaire à $(MP)$ en $P$. Cette droite recoupe $(\Omega M)$ en un point $M''$. 
+  
+  \item Le symétrique de $M''$ par rapport à $\Omega$ est le point $M'$ qui est l'inverse de $M$ : $M' = \inversion(M)$.
+
+\end{itemize}
+
+
+
+
+\myfigure{0.75}{
+\tikzinput{fig_inversion41}\quad
+\tikzinput{fig_inversion42}\quad
+\tikzinput{fig_inversion43}
+}
+
+
+La construction fonctionne aussi si le point $M$ est à l'intérieur du cercle.
+
+\myfigure{0.9}{
+\tikzinput{fig_inversion44}
+}
+
+On verra une méthode différente, qui n'utilise que le compas dans la section \ref{ssec:invcompas}.
+\begin{lemme}
+Dans un triangle $ABC$, rectangle en $C$, où $H \in [AB]$ est le pied de la hauteur en $C$ alors 
+$$HA \times HB = HC^2$$
+\end{lemme}
+
+\myfigure{1}{
+\tikzinput{fig_inversion40}
+}
+
+\begin{proof}[Preuve du lemme]
+On applique le théorème de Pythagore trois fois.
+\begin{itemize}
+  \item Dans le triangle $ABC$ : $AB^2 = AC^2 + BC^2$.
+  
+  \item Dans le triangle $AHC$ : $AC^2 = HA^2+HC^2$.
+  
+  \item Dans le triangle $BHC$ : $BC^2 = HB^2+HC^2$.   
+\end{itemize}  
+  Comme $AB = HA + HB$ alors 
+  $$(HA + HB) ^2 = AB^2 = AC^2 + BC^2 = (HA^2+HC^2) + (HB^2+HC^2)$$
+  Donc 
+  $$HA^2 + 2 HA \times HB  + HB^2 = HA^2 + HB^2 + 2 HC^2$$
+  et ainsi 
+  $$HA \times HB = HC^2$$
+  
+\end{proof}
+
+\begin{proof}[Preuve de la construction]
+Dans le triangle $M M'' P$ rectangle en $P$ avec $\Omega$ le pied de la hauteur, on a d'après le lemme :
+$$\Omega M \times \Omega M'' = \Omega P^2$$
+comme $\Omega M'' = \Omega M'$ et que $\Omega P = r$, alors
+$$\Omega M \times \Omega M' = r^2$$
+et comme $M'$ est bien sur la demi-droite $[\Omega M)$, $M'$ est  l'inverse de $M$.
+\end{proof}
+
+
+
+
+%---------------------------------------------------------------
+\subsection{\'Ecriture complexe}
+
+Considérons les points et leur affixe $\Omega(\omega)$, $M(z)$, $M'(z')$.
+Nous allons transformer la relation $M'= \inversion (M)$ en une condition entre $z$ et $z'$.
+La première condition $M' \in [\Omega M)$ s'écrit $z'-\omega= \lambda(z-\omega)$ avec $\lambda \in \Rr$ 
+et $\lambda \ge 0$.
+La deuxième condition $\Omega M \cdot \Omega M' = r^2$ devient en écriture complexe 
+$|z-\omega|\cdot|z'-\omega| = r^2$, ce qui donne à l'aide de la première condition
+$\lambda |z-\omega|^2 = r^2$ et donc $\lambda = \frac{r^2}{|z-\omega|^2}$.
+Nous exprimons alors $z'$ comme une fonction de $z$ :
+$$z'= \omega + r^2 \frac{z-\omega}{|z-\omega|^2} = \omega + \frac{r^2}{\,\overline{z-\omega}\,}.$$
+\myfigure{1}{
+\tikzinput{fig_inversion06}
+}
+
+Ceci nous permet de donner la définition complexe de l'inversion :
+\mybox{
+\begin{minipage}{0.7\textwidth}
+L'\defi{inversion} est l'application $\inversion : \Cc\cup\{ \infty\} \to \Cc\cup\{ \infty\}$ définie par
+$\inversion(z) = \omega + \frac{r^2}{\,\overline{z-\omega}\,}$ pour $z \in \Cc \setminus \{\omega\}$
+et prolongée par $\inversion(\omega) = \infty$ et $\inversion(\infty) = \omega$.
+\end{minipage}
+}
+
+\begin{exemple}
+L'inversion de cercle $\mathcal{C}(O,1)$ a pour écriture complexe $\inversion(z)=1/ \bar z$ (pour $z\in \Cc^*$),
+que l'on prolonge à $\Cc \cup \{\infty\}$ avec $\inversion(0) = \infty$ et $\inversion(\infty)=0$.
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Inversion et cercle-droite}
+
+\begin{theoreme}
+L'image d'un cercle-droite par une inversion est un cercle-droite. 
+\end{theoreme}
+
+
+Plus précisément, nous allons montrer que si $\inversion$ est l'inversion
+de cercle $\mathcal{C}(\Omega,r)$ alors :
+\begin{itemize}
+  \item L'image d'une droite passant par $\Omega$ est elle-même.
+  
+  \item L'image d'une droite ne passant pas par $\Omega$ est un cercle passant par $\Omega$.
+  
+  \item L'image d'un cercle passant par $\Omega$ est une droite ne passant pas par $\Omega$.
+  
+  \item L'image d'un cercle ne passant pas par $\Omega$ est un cercle ne passant pas par $\Omega$.
+\end{itemize}
+
+Les trois premiers cas sont sur la figure de gauche, le dernier sur la figure de droite. 
+\myfigure{1}{
+\tikzinput{fig_inversion07} 
+\tikzinput{fig_inversion08}
+}
+
+\begin{proof}
+Remarquons tout d'abord que, pour une translation, l'image d'une droite est une droite et l'image d'un cercle est un cercle.
+Il en va de même pour les homothéties.
+
+Donc, par une translation, nous nous ramenons à démontrer la proposition dans le cas où le centre de l'inversion est situé à l'origine du plan complexe. Par une homothétie, nous supposons même
+que le cercle d'inversion est de rayon $1$.
+Après ces deux réductions, nous nous sommes ramenés au cas où l'inversion a pour écriture complexe:
+$$\inversion(z) = \frac{1}{\bar z}.$$
+
+Soit maintenant $\mathcal{C}$ un cercle-droite d'équation
+$az\bar z - \bar \omega z - \omega \bar z = k$
+($a,k\in \Rr$, $\omega \in \Cc$).
+Soit $M(z)$ un point du plan (d'affixe $z$) et notons
+$M'$ l'image de $M$ par notre inversion
+qui sera donc d'affixe $z' = \inversion(z) = \frac{1}{\bar z}$.
+On a alors les équivalences suivantes :
+\begin{align*}
+ M(z) \in \mathcal{C} 
+   &\iff  az\bar z - \bar \omega z - \omega \bar z = k \\
+   &\iff a - \bar \omega\frac{1}{\bar z} - \omega \frac 1 z = \frac{k}{ z\bar z} \quad \text{ en divisant par } z\bar z \\
+   &\iff a - \bar \omega z' - \omega \bar z' = k z' \bar z' \quad \text{ car } z' = 1/\bar z\\
+   &\iff k z' \bar z' + \bar \omega z' + \omega \bar z' = a \\
+\end{align*}
+Mais la dernière ligne est l'équation d'un autre cercle-droite $\mathcal{C}'$.
+Bilan : $M(z) \in \mathcal{C}$ si et seulement si $\inversion(M) \in \mathcal{C}'$.
+Autrement dit l'image du cercle-droite $\mathcal{C}$ est le cercle-droite $\mathcal{C}'$.
+
+Il suffit de regarder les équations pour obtenir les différents cas. Par exemple, si notre cercle-droite passe par l'origine (c'est le cas lorsque $k=0$), il faut traiter le cas $z=0$ à part et se rappeler notre convention $\inversion(0) = \infty$. Dans ce cas l'équation obtenue pour $\mathcal{C}'$ est celle d'une droite.
+\end{proof}
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+ \item L'image d'une droite $\mathcal{D}$ passant par le centre d'une l'inversion $\inversion$ est la droite elle-même :
+ $\inversion(\mathcal{D})=\mathcal{D}$. La droite est \defi{invariante globalement}. Un point de la droite
+ est envoyé sur un autre point de la droite.
+ Par contre, chaque point du cercle d'inversion est conservé par l'inversion : c'est l'\defi{invariance point par point}.
+ Si $\mathcal{C}$ est le cercle d'inversion, cela s'écrit :
+ $$\forall P \in \mathcal{C} \quad \inversion(P)=P.$$
+ La droite $\mathcal{D}$ passant par l'origine \emph{n'est pas} invariante point par point.
+ 
+ \item Même si l'image d'un cercle $\mathcal{C}_0$ de centre $O$ est un cercle $\mathcal{C}_0' = \inversion(\mathcal{C}_0)$ de centre $O'$, on n'a pas forcément $O' = \inversion(O)$ comme l'illustre la figure ci-dessous.
+\myfigure{1}{
+\tikzinput{fig_inversion09}
+}
+ 
+\end{itemize}
+\end{remarque*}
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Inversion et cocyclicité}
+
+
+\begin{proposition}
+\label{prop:cocycl}
+Soient $\inversion$ une inversion et $M, N$ deux points du plan.
+Les points $M$, $N$, $\inversion(M)$, $\inversion(N)$ sont cocycliques (ou alignés).
+\end{proposition}
+\myfigure{1}{
+\tikzinput{fig_inversion10}
+}
+
+C'est un résultat important et utile qui est démontré dans l'exercice \ref{exo:inversion_cocyclicite}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Les homographies}
+
+%---------------------------------------------------------------
+\subsection{Définition}
+
+Une \defi{homographie} est une application $h : \Cc \cup \{\infty\} \to \Cc \cup \{\infty\}$
+définie par :
+$$h(z) = \frac{az+b}{cz+d}, \qquad h(\infty)=\frac ac, \qquad h\left(-\frac{d}{c}\right)=\infty,$$
+avec $a,b,c,d \in \Cc$ tels que $ad-bc \neq 0$.
+(Remarque : si $c=0$, l'homographie est une similitude du type
+$h(z) =az+b$ avec $h(\infty)=\infty$.)
+
+
+\begin{proposition}
+\label{prop:dechomo}
+Une homographie est la composée d'une inversion $z \mapsto 1/\bar z$, d'une réflexion $z\mapsto \bar z$,
+de translations $z\mapsto z+\alpha$ et de rotations-homothéties $z\mapsto \lambda z$ ($\alpha, \lambda \in \Cc$).
+\end{proposition}
+
+En particulier une homographie est une application bijective.
+
+\begin{proof}
+Tout d'abord, par la composition d'une rotation, d'une homothétie et d'une translation, nous définissons
+$h_1(z) = cz+d$. Puis $h_2(z)= \frac 1z$ est la composée d'une inversion $z \mapsto \frac{1}{\bar z}$
+et d'une réflexion $z \mapsto \bar z$. Nous obtenons donc 
+$h_2 \circ h_1(z) = \frac{1}{cz+d}$.
+Posons $h_3(z)= \alpha z + \beta$ (encore la composition d'une rotation, d'une homothétie et d'une translation).
+Alors
+$$h_3\circ h_2 \circ h_1(z) =  \frac{\alpha}{cz+d} + \beta = \frac{\beta c z + \beta d + \alpha}{cz+d}=\frac{az+b}{cz+d},$$
+si l'on a choisi $\beta = \frac{a}{c}$ et $\alpha = b - \frac a c d$.
+\end{proof}
+
+\begin{corollaire}
+L'image par une homographie d'un cercle-droite est un cercle-droite.
+\end{corollaire}
+
+\begin{proof}
+L'image d'une droite par une translation est une droite. De même, l'image d'un cercle par une translation est un cercle.
+Il en va de même pour les rotations, pour les homothéties et pour les réflexions.
+L'image d'un cercle par une inversion est un cercle ou une droite, et l'image d'une droite
+par une inversion est un cercle ou une droite. Par composition,
+l'image d'un cercle-droite par une homographie est un cercle-droite.
+\end{proof}
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Homographies et angles}
+
+\begin{theoreme}
+\label{th:angle}
+Les homographies préservent les angles orientés. 
+\end{theoreme}
+
+Voyons d'abord ce que cela signifie. Soient deux courbes $\mathcal{C}_1$ et $\mathcal{C}_2$
+qui s'intersectent en un point $P$. Soit $\alpha$ l'angle formé par les deux tangentes à $\mathcal{C}_1$ et $\mathcal{C}_2$ en $P$.
+Soit $h$ notre homographie ; notons $\mathcal{C}'_1 = h(\mathcal{C}_1)$,
+$\mathcal{C}'_2 = h(\mathcal{C}_2)$, et $P' = h(P)$ qui appartient à l'intersection
+de $\mathcal{C}'_1$ et $\mathcal{C}'_2$. Alors les deux tangentes à $\mathcal{C}_1'$ et $\mathcal{C}_2'$ en $P$
+forment le même angle $\alpha$.
+\myfigure{1}{
+\tikzinput{fig_inversion23}
+}
+
+Dans la pratique, le corollaire suivant est très utile:
+\begin{corollaire}
+Soit $h$ une homographie. Si deux courbes $\mathcal{C}_1$ et $\mathcal{C}_2$ sont tangentes
+en un point $M$ (resp. perpendiculaires en $M$) alors les courbes
+$h(\mathcal{C}_1)$ et $h(\mathcal{C}_2)$ sont tangentes en $h(M)$
+(resp. perpendiculaires en $h(M)$).
+\end{corollaire}
+
+En fait, on prouve en même temps que:
+\begin{corollaire}
+Soit $\inversion$ une inversion. Si deux courbes $\mathcal{C}_1$ et $\mathcal{C}_2$ sont tangentes
+en un point $M$ (resp. perpendiculaires en $M$) alors les courbes
+$\inversion(\mathcal{C}_1)$ et $\inversion(\mathcal{C}_2)$ sont tangentes en $\inversion(M)$
+(resp. perpendiculaires en $\inversion(M)$).
+\end{corollaire}
+
+
+
+\begin{proof}[Preuve du théorème \ref{th:angle}]
+~
+\begin{itemize}
+  \item Encore une fois, nous allons ramener le problème à l'étude d'une inversion.
+ En effet, les homothéties, translations et rotations préservent les angles orientés,
+ alors qu'une réflexion préserve les angles mais change l'orientation. Par la 
+ proposition \ref{prop:dechomo}, il suffit donc de montrer qu'une inversion préserve aussi les angles
+ mais change l'orientation.
+ 
+  \item On se donne une courbe $\mathcal{C}$, un point $M\in \mathcal{C}$, et on note
+  $T$ la tangente à $M$ en $\mathcal{C}$ (nous supposons donc qu'il existe une tangente en ce point).
+  Soit $N$ un autre point de $\mathcal{C}$. Soit $\inversion$ une inversion. On note
+  $\mathcal{C}'= \inversion(\mathcal{C})$, $M' = \inversion(M)$, $N'=\inversion(N)$ et on appelle
+  $T'$ la tangente à $\mathcal{C}'$ en $M'$. (Attention $T'$ n'est pas forcément égal à $\inversion(T)$, car de toute façon $\inversion(T)$ n'est pas nécessairement une droite...)
+
+  
+\myfigure{0.7}{
+\tikzinput{fig_inversion24ter}
+}
+
+  
+  \item D'après la proposition \ref{prop:cocycl}, les points $M,N,M',N'$ sont cocycliques,
+  donc par le théorème de l'angle inscrit, les angles $(\vec{MN},\vec{MN'})$ et $(\vec{M'N},\vec{M'N'})$ sont égaux.
+  
+\myfigure{0.7}{
+\tikzinput{fig_inversion24bis}
+}
+
+  
+  \item Faisons tendre le point $N$ vers le point $M$ : alors la droite définie par le vecteur $\vec{MN}$
+  et passant par $M$ tend vers la tangente $T$. 
+
+\myfigure{0.7}{
+\tikzinput{fig_inversion26}
+}    
+  
+  \item 
+  De plus $N'$ tend vers $M'$ et la droite de vecteur $\vec{M'N'}$
+  et passant par $M'$ tend vers $T'$. \`A la limite on obtient l'égalité des angles:
+  $(T,\vec{MM'}) = (\vec{M'M},T')$. (Cet angle est noté $\theta$ sur la figure ci-dessous.)
+  
+
+  \item  En conséquence les tangentes $T$ et $T'$ sont symétriques l'une de l'autre par la réflexion d'axe $\Delta$, la médiatrice de $[MM']$.
+\myfigure{0.8}{
+\tikzinput{fig_inversion24}
+}  
+  
+  \item Si maintenant $\mathcal{C}_1$ et $\mathcal{C}_2$ sont deux courbes qui s'intersectent en $M$, l'angle entre
+  les deux tangentes $T_1$ et $T_2$ étant $\alpha$, alors par la réflexion d'axe $\Delta$, l'angle entre les deux tangentes $T_1'$ et $T_2'$ en $M' = \inversion(M)$ est $-\alpha$.
+\myfigure{0.7}{
+\tikzinput{fig_inversion25}
+}  
+\end{itemize}
+
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Dispositifs mécaniques}
+
+%---------------------------------------------------------------
+\subsection{La courbe de Watt}
+
+Le but est de transformer un mouvement circulaire en mouvement rectiligne
+(ou l'inverse). Une solution simple est d'utiliser une bielle et un piston.
+Le problème est que le coulissage génère des frottements au niveau du piston.
+\myfigure{1}{
+\tikzinput{fig_inversion_piston}
+}
+
+
+\bigskip
+
+L'ingénieur James Watt améliora le dispositif en inventant un mécanisme
+qui permet d'obtenir une portion presque rectiligne à partir d'un mouvement circulaire.
+
+\myfigure{0.7}{
+\tikzinput{fig_inversion_watt}
+}
+
+Les points $A$ et $B$ sont fixes. Autour de chacun de ces points est attachée une barre tournante, l'une se terminant en $P$, l'autre en $Q$. Ces deux barres sont reliées par une troisième barre qui va de $P$ à $Q$. 
+On note $M$ le milieu de $[PQ]$. Lorsque l'on fait tourner la barre $[AP]$, alors les trois barres bougent et le point $M$ décrit une \defi{courbe de Watt}. Une portion de cette courbe (autour de l'auto-intersection) approxime assez bien une portion rectiligne.
+
+Nous allons voir cependant que l'on sait résoudre de façon exacte ce problème : c'est l'inverseur de Peaucellier.
+
+%---------------------------------------------------------------
+\subsection{L'inverseur de Peaucellier}
+
+La construction est basée sur le résultat suivant :
+\begin{theoreme}
+\label{th:peaucellier}
+Soit la configuration suivante avec $\Omega A = \Omega B = R$
+et $AMBM'$ un losange de côté $r$.
+Alors $M'$ est l'image de $M$ par l'inversion de centre $\Omega$
+et de puissance $R^2-r^2$.
+\myfigure{0.8}{
+\tikzinput{fig_inversion11}}
+\end{theoreme}
+
+Ce théorème implique donc par inversion le résultat voulu :
+\begin{corollaire}
+Si $M$ parcourt un cercle passant par $\Omega$, alors
+$M'$ parcourt une droite.
+\end{corollaire}
+
+
+
+\begin{proof}[Preuve du théorème \ref{th:peaucellier}]
+Tout d'abord $M,M',\Omega$ sont sur la médiatrice du segment $[AB]$.
+Donc $M' \in (\Omega M)$. De plus, si l'on suppose $R>r$, alors
+$M' \in [\Omega M)$.
+
+Calculons maintenant $\Omega M \cdot \Omega M'$.
+Soit $I$ le centre du losange $AMBM'$.
+Avec la configuration de la figure ci-dessous, on a $\Omega M= \Omega I - IM$ et $\Omega M' = \Omega I + IM'= \Omega I + IM$.
+Donc $\Omega M \cdot \Omega M' = (\Omega I - IM) (\Omega I + IM) = \Omega I ^2 - IM^2.$
+De plus, par le théorème de Pythagore, $\Omega I^2 = \Omega A^2 - IA^2$ et 
+$IM^2 = AM^2 - IA^2$. Donc $\Omega M\cdot \Omega M'= \Omega A^2 - AM^2 = R^2 - r^2$.
+
+\myfigure{1}{
+\tikzinput{fig_inversion13}
+}
+
+Nous avons montré que $M'$ est l'image de $M$ par l'inversion de centre $\Omega$
+et de puissance $R^2 - r^2$.
+\end{proof}
+
+Ainsi lorsque le point $M$ décrit une portion du cercle\couleurnb{ (en bleu sur la figure)}{}, 
+le point $M'$ décrit une portion de droite\couleurnb{ (en rouge)}{}. L'autre cercle\couleurnb{ (en orange)}{} est le cercle d'inversion.
+Pour la réalisation mécanique de l'inverseur : il faut $6$ barres rigides\couleurnb{ (en noire)}, articulées à chaque jonction. Les points $A$, $B$, $M$, $M'$ sont libres de mouvement, mais le point $\Omega$ est fixe. Pour la réalisation effective, on rajoute une barre fixe\couleurnb{ (en bleu)}{} qui tourne autour du point fixe $O$ et qui est reliée au point mobile $M$.
+
+\myfigure{1}{
+\tikzinput{fig_inversion27}
+}
+
+Il existe d'autres dispositifs mécaniques qui transforment
+un cercle en une droite : voir par exemple l'inverseur de Hart
+dans l'exercice \ref{exo:inversion_hart}.
+
+%---------------------------------------------------------------
+\subsection{Théorème de Kempe}
+
+Il existe en fait un théorème plus général.
+\begin{theoreme}
+Soit $P(x,y) \in \Rr[x,y]$ un polynôme de deux variables.
+Pour n'importe quelle partie bornée de la courbe $\mathcal{C}$ définie par l'équation $P(x,y)=0$, 
+il existe un dispositif 
+mécanique qui permet de la tracer.
+\end{theoreme}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Construction au compas seulement}
+
+%---------------------------------------------------------------
+\subsection{Problème de Napoléon}
+
+Traçons un cercle, puis effaçons son centre. Il est facile de retrouver le centre avec une règle
+et un compas. Faites-le ! Oublions maintenant la règle. 
+
+\defi{Problème de Napoléon.}  \`A l'aide du compas seulement, 
+tracer le centre d'un cercle dont on connaît uniquement le contour.
+
+La solution, qui n'a rien d'évidente, utilise l'inversion et se décompose en plusieurs étapes:
+\myfigure{1}{\tikzinput{fig_inversion14}}
+\begin{enumerate}
+  \item Soit $\mathcal{C}_0$ le cercle dont on souhaite trouver le centre. Choisir un point $A$ sur
+  $\mathcal{C}_0$ et prendre un écartement quelconque de compas (mais ni trop grand, ni trop petit :
+  entre une demie fois et deux fois le rayon --inconnu-- du cercle $\mathcal{C}_0$).
+
+ 
+  \item Placer la pointe du compas en $A$ et tracer le cercle $\mathcal{C}$. Ce cercle coupe $\mathcal{C}_0$ en deux points, notés
+  $B$ et $C$.
+\myfigure{1}{\tikzinput{fig_inversion15}}
+ 
+  \item Construire $A'$ le symétrique de $A$ par rapport à $(BC)$ : pour cela, tracer
+  les cercles de centre $B$ (puis de centre $C$) passant par $A$. Ces deux cercles se coupent en $A$ et $A'$.
+\myfigure{1}{\tikzinput{fig_inversion16}}
+  
+  \item Construire l'image de $A'$ par l'inversion $\inversion$ de centre $A$ et de cercle $\mathcal{C}$.
+  Pour cela on trace le cercle de centre $A'$ passant par $A$ ; il recoupe $\mathcal{C}$ en $D$ et $E$.
+  Les cercles de centre $D$, puis de centre $E$, passant par $A$ se coupent en $A$ et en $A''=\inversion(A)$.
+  
+  
+  \item $A''$ est le centre de $\mathcal{C}_0$. 
+\myfigure{1}{  
+  \tikzinput{fig_inversion17}\qquad\qquad   
+  \tikzinput{fig_inversion18}
+  }
+\end{enumerate}
+
+
+\begin{remarque*}
+Notez, et ce sera important pour la suite, que si on connaît seulement trois points $A,B,C$
+formant un triangle isocèle, alors la construction précédente permet de retrouver le contour du cercle $\mathcal{C}_0$ 
+passant par $A,B,C$ et son centre.
+\end{remarque*}
+
+%---------------------------------------------------------------
+\subsection{Preuve}
+
+Dans une première étape, nous montrons que $\inversion(A')$ est le centre
+de $\mathcal{C}_0$ où $\inversion$ est l'inversion de centre $A$ et de cercle d'inversion
+$\mathcal{C}$.
+
+\begin{itemize}
+ \item L'image de la droite $(BC)$ par l'inversion est un cercle passant par $B$, $C$ (qui sont invariants par $\inversion$) et $A$ (qui est le centre de $\inversion$) : c'est donc $\mathcal{C}_0$.
+ 
+ \item Notons $I$ le milieu de $[AA']$ : c'est aussi le milieu de $[BC]$.
+ Notons $F$ le point de $\mathcal{C}_0$ diamétralement opposé à $A$.
+ 
+ \item L'image de $I$ par l'inversion est $F$ : en effet, d'une part $I \in (BC)$ donc
+ $\inversion(I)$ est dans l'image de $(BC)$ qui est $\mathcal{C}_0$, d'autre part $\inversion(I)$ est sur la demi-droite $[AI)$. 
+ Donc $AI \cdot AF = r^2$,
+ où $r$ désigne ici le rayon de $\mathcal{C}$.
+ 
+ \item Notons $A''=\inversion(A')$. Alors $AA' \cdot AA''= r^2$, mais comme $AA' = 2 AI$, on a 
+ donc $2 AI\cdot AA''= r^2$. Avec l'égalité du point précédent on obtient $AA'' = AF/2$, donc $A''$ est le milieu d'un diamètre : c'est bien le centre de $\mathcal{C}_0$.
+\end{itemize}
+\myfigure{1}{  
+  \tikzinput{fig_inversion28}
+  }
+
+La dernière étape de notre construction est justifiée dans le paragraphe suivant.
+
+%---------------------------------------------------------------
+\subsection{Construction de l'inverse d'un point au compas seul}
+\label{ssec:invcompas}
+
+\'Etant donné un cercle $\mathcal{C}$ de centre $\Omega$ et un point $M$
+extérieur à $\mathcal{C}$, nous allons construire, avec le compas seulement, 
+l'image de $M$ par l'inversion $\inversion$ de cercle $\mathcal{C}$.
+\begin{itemize}
+  \item Tracer le cercle $\mathcal{C}'$ de centre $M$ passant par $\Omega$. Il recoupe $\mathcal{C}$ en $A$ et $B$.
+  
+  \item Tracer les cercles de centre $A$, puis de centre $B$, passant par 
+  $\Omega$. Ils se coupent en $\Omega$ et en $M' = \inversion(M)$.
+\end{itemize}
+\myfigure{1}{
+\tikzinput{fig_inversion20}
+}
+
+
+\begin{proof}
+Le théorème de Pythagore dans le triangle $AIM$ donne
+$AM ^2 - AI^2 = IM^2 = (\Omega M - I \Omega)^2$. Comme $AM=\Omega M$,
+alors $\Omega M^2 - AI^2 = \Omega M^2 + I\Omega^2 - 2 \Omega M \cdot I\Omega$ et donc
+$\Omega M \cdot \Omega M' = \Omega M \cdot(2I\Omega) = I\Omega^2 + AI^2$.
+Par le théorème de Pythagore, cette fois dans le triangle $AI\Omega$,
+nous obtenons $\Omega M \cdot \Omega M' = A\Omega ^2 = r^2$. 
+Comme en plus $M$, $M'$, $\Omega$ sont alignés (car sur la médiatrice de $[AB]$), alors
+$M' = \inversion(M)$.
+\end{proof}
+\myfigure{1}{
+\tikzinput{fig_inversion19}
+}
+
+
+\begin{remarque*}
+Deux cercles dont l'un est l'image de l'autre par une inversion sont homothétiques,
+par une homothétie dont le centre est le centre de l'inversion. Par contre le rapport
+dépend des cercles considérés.
+\myfigure{1}{
+\tikzinput{fig_inversion21}
+}
+\end{remarque*}
+
+
+%---------------------------------------------------------------
+\subsection{Théorème de Mohr-Masheroni}
+
+\begin{theoreme}
+Toute construction possible à la règle et au compas
+est possible au compas seulement.
+\end{theoreme}
+
+Bien sûr, il faut quand même exclure la tracé effectif des droites.
+
+Un cercle est la donnée de deux points : son centre et un point de sa circonférence.
+Une droite est la donnée de deux points distincts.
+
+Une \defi{construction à la règle et au compas}, c'est partir de plusieurs points sur une
+feuille ; vous pouvez maintenant tracer d’autres points, à partir de cercles et de droites en respectant les conditions
+suivantes :
+\begin{itemize}
+  \item[(i)] vous pouvez tracer une droite entre deux points déjà construits,
+  \item[(ii)]vous pouvez tracer un cercle dont le centre est un point construit et qui passe par un autre point construit,
+  \item[(iii)] vous pouvez utiliser les points obtenus comme intersection de deux droites tracées, ou bien comme intersections d’une droite et d’un cercle tracé,
+  \item[(iv)] vous pouvez utiliser les points obtenus comme intersections de deux cercles tracés.
+\end{itemize}
+
+Une \defi{construction au compas seul}, c'est le même principe mais avec seulement les conditions
+(ii) et (iv) !
+
+\bigskip
+
+Avant d'étudier la preuve, commençons par une série de constructions très faciles avec une règle et un compas mais plus subtiles sans la règle.
+
+\bigskip
+
+\textbf{Construction du symétrique de $C$ par rapport à la droite $(AB)$.}
+
+Pour cela, tracer le cercle
+centré en $A$ passant par $C$ et aussi le cercle centré en $B$ passant par $C$ (c'est deux fois la construction (ii)). Ces deux cercles s’intersectent en deux
+points $C$, $C'$ (construction (iv)) : 
+$C'$ est le symétrique recherché.
+
+\myfigure{0.9}{
+\tikzinput{fig_inversion29}
+}
+
+\bigskip
+\textbf{Construction du symétrique de $B$ par rapport au point $A$.}
+
+La construction est basée sur le tracé de la rosace : tracer le cercle $\mathcal{C}$
+centré en $A$ passant par $B$, puis le cercle centré en $B$ passant par $A$, 
+ils se coupent par exemple en $C$. Tracer le cercle centré en $C$ et passant par $B$,
+il recoupe $\mathcal{C}$ en $D$ ; le cercle centré en $D$ et passant par $A$ recoupe $\mathcal{C}$ en $B'$, qui est le symétrique de
+$B$ par rapport à $A$. 
+
+
+\myfigure{1}{
+\tikzinput{fig_inversion30}
+}
+
+\begin{remarque*}
+Noter que pour l'instant nous n'avons pas le droit de relever la pointe du compas pour reporter une distance.
+On peut seulement tracer un cercle dont on connaît un centre et un point de sa circonférence.
+\end{remarque*}
+
+\bigskip
+\textbf{Construction du milieu d'un segment $[AB]$.}
+
+Ce n'est pas facile du tout :
+\begin{itemize}
+  \item Tracer le cercle $\mathcal{C}$ de centre $A$ passant par $B$.
+  \item Tracer, au compas seul, $A'$, le symétrique de $A$ par rapport au point $B$.
+  \item Tracer, au compas seul, l'inverse $I = \inversion(A')$ par l'inversion $\inversion$ de cercle $\mathcal{C}$.
+\end{itemize}
+
+\myfigure{0.8}{
+\tikzinput{fig_inversion33}
+}
+
+Montrons que cette construction est correcte. 
+Soit $r$ le rayon du cercle $\mathcal{C}$. 
+D'une part $AB=r$ donc $AA' = 2r$.
+D'autre part, par la définition de l'inversion, $AI \cdot AA' = r^2$. 
+Ainsi $AI = \frac{r^2}{2r} = \frac{r}{2} = \frac{AB}{2}$, et donc $I$ est bien le milieu de $AB$.
+
+
+\bigskip
+
+Passons maintenant à la preuve du théorème de Mohr-Masheroni.
+Comme les opérations (ii) et (iv) sont les seules autorisées, il nous faut montrer comment réaliser 
+l'opération (iii) uniquement avec le compas.
+
+\bigskip
+
+\textbf{Intersection entre un cercle et une droite au compas seul.}
+
+La droite est déterminée par deux points $A$ et $B$.
+Le cercle $\mathcal{C}$ est donné par son centre $O$ et un point $C$ de sa circonférence.
+La construction est très simple : on trace le symétrique $\mathcal{C'}$ de $\mathcal{C}$
+par rapport à la droite $(AB)$, c'est le cercle centré en $O'=s_{(AB)}(O)$ passant par 
+$C'=s_{(AB)}(C)$.
+
+Les deux cercles $\mathcal{C}$ et $\mathcal{C'}$ ont les mêmes points d'intersection
+que le cercle $\mathcal{C}$ et la droite $(AB)$.
+
+\myfigure{1}{
+\tikzinput{fig_inversion31}
+}
+
+
+
+
+\bigskip
+
+\textbf{Intersection de deux droites au compas seul.}
+
+C'est la construction la plus difficile.
+Une première droite est donnée par les deux points $A$ et $B$, une seconde par $C$ et $D$.
+On suppose que les droites $(AB)$ et $(CD)$ ne sont pas perpendiculaires (à vous de chercher comment faire si elles le sont !).
+
+On trace au compas seul le symétrique $A'$ (resp. $B'$) de $A$ (resp. $B$) par rapport à $(CD)$.
+On recommence : on trace le symétrique $C'$ (resp. $D'$) de $C$ (resp. $D$)  par rapport à $(A'B')$.
+Et encore une dernière fois : on trace le symétrique $A''$ (resp. $B''$) de $A'$ (resp. $B'$) par rapport à $(C'D')$.
+
+Notons $O$ le point d'intersection de $(AB)$ et $(CD)$ que l'on veut tracer.
+Les points $A,A',A''$ sont situés à la même distance de $O$, et de plus les distances
+$AA'$ et $A'A''$ sont égales. Justification : 
+$A'$ est aussi l'image de $A$ par la rotation d'angle $2\alpha$ où $\alpha$ est l'angle entre les deux droites.
+Idem : pour $A''$ par rapport à $A$,...
+
+Notons $\mathcal{C}_0$ le cercle passant par $A$, $A'$ et $A''$.
+Alors d'une part son centre est $O$ et d'autre part
+par la construction du problème de Napoléon et à l'aide de l'inversion, on sait 
+construire au compas seul ce centre $O$ et le cercle $\mathcal{C}_0$ 
+(voir la remarque à la fin de la construction de Napoléon).
+
+
+\myfigure{1}{
+\tikzinput{fig_inversion32}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exercices}
+
+% Autres idées :
+% \begin{enumerate}
+%  \item inversion comme composé d'homothéties,
+%  \item cercles tangents,
+%  \item cercles orthogonaux,
+%  \item puissance d'un point,
+%  \item systèmes élémentaires pour Kempe,
+%  \item théorème de Mohr-Mascheroni.
+% \end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{L'inversion}
+
+
+\begin{exercicecours}[Cercle et droite]
+\sauteligne
+\begin{enumerate}
+ 
+ \item Donner l'équation complexe du cercle $\mathcal{C}$ de centre $2+\ii$ et de rayon $\sqrt{5}$.
+ Donner une paramétrisation polaire du cercle $\mathcal{C}'$ de centre $3\ii$ et de rayon $1$.
+ Trouver l'intersection de $\mathcal{C}$ et  $\mathcal{C}'$.
+ 
+ \item Soit $\mathcal{C}$ le cercle de centre $1+\ii$ et de rayon $1$ 
+ et $\mathcal{D}$ la droite passant par les points d'affixe $1$ et $1+\ii$.
+ Déterminer l'image de  $\mathcal{C}$ et $\mathcal{D}$ par chacune des transformations suivantes:
+   \begin{enumerate}
+     \item $z \mapsto 2 z e^{-\frac{\ii\pi}{4}} + \ii$ ;
+     \item $z \mapsto (1+\ii)\overline{(z+\ii)}$.
+   \end{enumerate}
+   
+\myfigure{1}{\tikzinput{fig_inversion_exo_cercle}}   
+
+
+
+ \item Donner l'équation complexe de la droite $(AB)$ passant par les points d'affixe $\alpha \in \Cc$ et $\beta\in \Cc$.
+ 
+ \item \'Etant fixés $\omega \in \Cc^*$ et $k\in \Rr$, trouver l'équation complexe des droites perpendiculaires à la droite d'équation $\bar \omega z + \omega \bar z = k$.
+
+\end{enumerate}
+\end{exercicecours}
+
+
+\begin{exercicecours}[Inversion]
+
+Soit l'inversion $\inversion$ de centre $O$ et de rayon $1$ définie par $\inversion(z) = \frac{1}{\bar z}$.
+Déterminer les images, par $\inversion$, de chacune des figures suivantes :
+
+\myfigure{1}{\tikzinput{fig_inversion_exo_inversion}}
+
+\begin{enumerate}
+ \item la droite $\mathcal{D}_1$ d'équation réelle $y=x$ ;
+ \item la droite $\mathcal{D}_2$ d'équation réelle $y=x+1$;
+ \item le cercle $\mathcal{C}_1$ de centre $(0,2)$ et de rayon $2$;
+ \item le cercle $\mathcal{C}_2$ de centre $(0,2)$ et de rayon $1$.
+\end{enumerate}
+
+
+Mêmes questions avec l'inversion $\inversion(z) = 2\ii + \frac{1}{\,\overline{z-2\ii}\,}$.
+
+\emph{Indications.} Deux méthodes sont possibles : un calcul avec les équations complexes
+ou alors d'abord reconnaître (à l'aide du cours) la nature de l'image et la calculer.
+\end{exercicecours}
+
+
+\begin{exercicecours}[Inversion et cocyclicité]
+\label{exo:inversion_cocyclicite}
+\sauteligne
+\begin{enumerate}
+  \item Soient $A, B, C, D$ quatre points d'affixe $a,b,c,d$.
+Montrer que $A, B, C, D$ sont cocyliques ou alignés si
+et seulement si  
+$$\frac{\frac{d-a}{d-b}}{\frac{c-a}{c-b}} \in \Rr.$$
+
+\emph{Indication.} 
+Utiliser le théorème de l'angle inscrit.
+
+  \item Soit $\inversion$ une inversion, et soient $M,N$ deux points du plan distincts du centre de l'inversion.
+  Montrer que $M, N, \inversion(M), \inversion(N)$ sont cocyliques ou alignés.
+  
+\emph{Indication.} Choisir le repère de telle sorte que l'inversion s'écrive $\inversion(z)=  \frac{1}{\bar z}$.
+
+  \item \textbf{Application 1.} Soit $\inversion$ une inversion de centre $\Omega$. Soient $M, N$ deux points du plan
+  (avec $\Omega$, $M$, $N$ distincts).
+  Supposons connus et placés les quatre points distincts $\Omega$, $M$, $N$ et $\inversion(M)$. Construire à la règle et au compas le point $\inversion(N)$.
+  
+  \item \textbf{Application 2.} Soit $\inversion$ une inversion de centre $\Omega$. Soient $M$, $\inversion(M)$ donnés
+    (avec $\Omega$, $M$, $\inversion(M)$ distincts). 
+    Construire à la règle et au compas le cercle invariant par l'inversion $\inversion$.
+    
+  \item \textbf{Application 3.} Montrer que si un cercle contient un point et son inverse alors il est globalement invariant.
+\end{enumerate}
+\end{exercicecours}
+
+
+\begin{exercicecours}[Théorème de Ptolémée]
+\label{exo:inversion_ptoleme}
+
+% source et correction
+%http://debart.pagesperso-orange.fr/geoplan/config_cercle_classique.html#ch3
+
+\og{}Les sommets d'un quadrilatère convexe sont cocycliques si et seulement si la somme des produits des côtés opposés est égale au produit des diagonales.\fg{}
+En d'autres termes, en notant $ABCD$ un tel quadrilatère, ses sommets $A,B,C,D$ sont cocycliques si et seulement si : 
+$$AB \times CD + AD\times CB = AC \times BD.$$
+
+
+\myfigure{1}{\tikzinput{fig_inversion_exo_ptoleme}}
+
+\begin{enumerate}
+ \item \textbf{Sens direct.}
+ Supposons que $A, B, C, D$ appartiennent à un même cercle.
+ Soit $I$ le point de $[AC]$ tel qu'on ait l'égalité des angles : $\widehat{ABI} = \widehat{CBD}$.
+   \begin{enumerate}
+     \item Montrer que les triangles $CBD$ et $IBA$ sont semblables (trouver une autre égalité d'angle) ; 
+     en déduire que 
+     $AB \times CD = IA \times BD$.
+     \item Montrer aussi que les triangles $ABD$ et $IBC$ sont semblables ; en déduire que $AD \times BC = IC \times BD$.
+     \item Conclure.
+   \end{enumerate}  
+   
+   
+ \item \textbf{Préliminaire à la réciproque.}
+ Soit $\inversion$  une inversion de centre $\Omega$ et de rapport $r^2$. Soient $M, N$ deux points du plan et
+   $M'=\inversion(M)$, $N'=\inversion(N)$ leur image. Montrer la relation entre les distances:
+   $$M'N' = \frac{r^2 MN}{\Omega M \times \Omega N}.$$
+   \emph{Indications.} On pourra supposer que $\Omega$ est l'origine du plan, puis faire
+   les calculs avec l'écriture complexe de $\inversion$.
+   
+ \item \textbf{Réciproque.}  
+ Soient $A,B,C,D$ quatre points vérifiant $AB \times CD + AD\times CB = AC \times BD.$
+  Soit $\inversion$ l'inversion de centre $D$ et d'un rapport $r^2$ fixé. Soient $A'=\inversion(A)$, $B'=\inversion(B)$, 
+  $C'=\inversion(C)$.
+  \begin{enumerate}
+   \item Calculer $A'B'$, $B'C'$ et $A'C'$ et montrer que $A'B'+B'C'=A'C'$. Qu'en déduire pour $A', B', C'$ ?
+   \item En déduire que $A,B,C,D$ sont cocyliques.
+ \end{enumerate}  
+\end{enumerate}
+\end{exercicecours}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Homographie}
+
+\begin{exercicecours}[Homographie et birapport]
+
+Soient $A, B, C, D$ quatre points d'affixe $a,b,c,d$.
+Le \emph{birapport} de ces quatre points est 
+$$[a:b:c:d] = \frac{\frac{d-a}{d-b}}{\frac{c-a}{c-b}}.$$
+
+\begin{enumerate}
+ \item Montrer que les homographies préservent le birapport (c'est-à-dire:
+ $[h(a):h(b):h(c):h(d)]=[a:b:c:d]$, pour toute homographie $h$ et tous quadruplets).
+ 
+ \emph{Indication.} Se ramener à l'étude de chacune des transformations $z \mapsto z+\alpha$,
+ $z \mapsto \lambda \cdot z$, $z \mapsto \frac{1}{z}$.
+ 
+ \item En déduire que l'image d'un cercle-droite par une homographie est un cercle-droite.
+ 
+  \emph{Indication.} Utiliser le critère de cocylicité.
+ 
+ \item \emph{Exemple.} Soit $h(z) = \frac{z-1}{z-\ii}$. Soit $\mathcal{C}$
+ le cercle de centre $1 + \ii$ et de rayon $1$. 
+ \`A l'aide de l'image de trois points, trouver l'image de $\mathcal{C}$.
+ 
+\end{enumerate}
+\end{exercicecours}
+
+
+\begin{exercicecours}[Homographie et birapport (bis)]
+Soient $a,b,c,d \in \Cc$ distincts.
+\begin{enumerate}
+ \item Montrer qu'il existe une unique homographie $h$ telle que $h(a)=\infty$, $h(b)=0$,
+ $h(c)=1$. 
+ 
+ \item Montrer que $h(d) = [a:b:c:d]$.
+\end{enumerate}
+\end{exercicecours}
+
+
+
+\begin{exercicecours}[Homographies et matrices]
+Notons $\mathcal{H}$ l'ensemble des homographies définies par $h(z)= \frac{az+b}{cz+d}$ avec $a,b,c,d \in \Cc$ et $ad-bc \neq 0$.
+Notons $GL_2(\Cc)$ l'ensemble des matrices $\left(\begin{smallmatrix} a & b \\ c & d \end{smallmatrix}\right)$ avec
+$a,b,c,d \in \Cc$ et $ad-bc \neq 0$.
+\begin{enumerate}
+ \item Montrer que $(GL_2(\Cc),\times)$ est un groupe.
+ \item Montrer que $(\mathcal{H},\circ)$ est un groupe.
+ \item Soit $\Phi : GL_2(\Cc) \longrightarrow \mathcal{H}$ l'application qui à 
+ $\left(\begin{smallmatrix} a & b \\ c & d \end{smallmatrix}\right)$ associe l'homographie $h$ définie par $h(z)= \frac{az+b}{cz+d}$.
+ Montrer que $\Phi$ définit un morphisme du groupe $(GL_2(\Cc),\times)$ vers le groupe $(\mathcal{H},\circ)$.
+ \item Calculer le noyau de $\Phi$.
+\end{enumerate}
+\end{exercicecours}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Dispositifs mécaniques}
+
+
+\begin{exercicecours}[Inverseur de Hart]
+\label{exo:inversion_hart}
+L'inverseur de Hart est un dispositif mécanique constitué de quatre tiges articulées avec
+$AB=CD$, $AC=BD$. Soient $\Omega, P, P'$ des points des tiges tels que:
+$\overrightarrow{B\Omega} = k \overrightarrow{BA}$, $\overrightarrow{BP} = k \overrightarrow{BD}$,
+ $\overrightarrow{CP'} = k \overrightarrow{CA}$ (avec $0< k < 1$ fixé).
+
+\begin{enumerate}
+ \item Montrer que le quadrilatère $ABCD$ est un trapèze dont les sommets sont cocycliques.
+ 
+ \item \`A l'aide du théorème de Ptolémée, calculer $AD\cdot BC$. En déduire une valeur de $\Omega P\cdot \Omega P'$.
+ Montrer que $P'$ est l'image de  $P$ par une inversion que l'on précisera.
+ 
+ \item En déduire un dispositif mécanique qui transforme un cercle en une droite.
+\end{enumerate} 
+
+\myfigure{1}{\tikzinput{fig_inversion_exo_hart}}
+\end{exercicecours}
+
+
+
+\auteurs{Arnaud Bodin, relecture par Vianney Combet}
+
+\finchapitre
+\end{document}
+
+

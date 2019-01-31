@@ -1,0 +1,671 @@
+\documentclass[11pt,class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre[Logique et raisonnements]{Logique et\\ raisonnements}
+%====================================================================
+
+\insertvideo{aWSe1fjJHEM}{partie 1. Logique}
+
+\insertvideo{B-I5yZd0Wbk}{partie 2. Raisonnements}
+
+\insertfiche{fic00002.pdf}{Logique, ensembles, raisonnements}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Quelques motivations}
+
+\begin{itemize}
+  \item Il est important d'avoir un \evidence{langage rigoureux}. La langue française
+est souvent ambigüe. Prenons l'exemple de la conjonction \assertion{ou} ; au restaurant
+\assertion{fromage ou dessert} signifie l'un ou l'autre mais pas les deux. Par contre si dans un jeu de
+carte on cherche \assertion{les as ou les c\oe urs} alors il ne faut pas exclure l'as de c\oe ur.
+Autre exemple : que répondre à la question \assertion{As-tu $10$ euros en poche ?}  si l'on dispose de $15$ euros ?
+
+  \item Il y a des notions difficiles à expliquer avec des mots : par exemple la continuité d'une fonction est
+souvent expliquée par \assertion{on trace le graphe sans lever le crayon}. Il est clair que c'est une définition peu satisfaisante.
+Voici la définition mathématique de la continuité d'une fonction $f : I \to \Rr$ en un point $x_0\in I$ :
+$$\forall \epsilon > 0 \quad \exists \delta >0 \quad \forall x \in I \quad
+  (|x-x_0|<\delta \implies |f(x)-f(x_0)|< \epsilon).$$
+C'est le but de ce chapitre de rendre cette ligne plus claire ! C'est la \evidence{logique}.
+
+  \item Enfin les mathématiques tentent de \evidence{distinguer le vrai du faux}.
+  Par exemple \assertion{Est-ce qu'une augmentation
+de $20\%$, puis de $30\%$ est plus intéressante qu'une augmentation de $50\%$ ?}.
+Vous pouvez penser \assertion{oui}  ou \assertion{non},
+mais pour en être sûr il faut suivre une démarche logique qui mène à la conclusion. Cette démarche doit être convaincante
+pour vous mais aussi pour les autres. On parle de \evidence{raisonnement}.
+\end{itemize}
+
+\bigskip
+
+Les mathématiques sont un langage pour s'exprimer rigoureusement, adapté aux phénomènes complexes,
+qui rend les calculs exacts et vérifiables. Le raisonnement est le moyen de valider --- ou d'infirmer ---
+une hypothèse et de l'expliquer à autrui.
+
+\bigskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Logique}
+\index{logique}
+
+%---------------------------------------------------------------
+\subsection{Assertions}
+
+Une \defi{assertion}\index{assertion} est une phrase soit vraie, soit fausse, pas les deux en même temps.
+
+Exemples :
+\begin{itemize}
+  \item \assertion{Il pleut.}
+  \item \assertion{Je suis plus grand que toi.}
+  \item \assertion{$2+2=4$}
+  \item \assertion{$2\times 3 = 7$}
+  \item \assertion{Pour tout $x \in \Rr$, on a $x^2 \ge 0$.}
+  \item \assertion{Pour tout $z\in \Cc$, on a $|z| = 1$.}
+\end{itemize}
+
+
+\bigskip
+
+Si $P$ est une assertion et $Q$ est une autre assertion, nous allons définir de nouvelles assertions construites à partir de $P$ et de $Q$.
+
+%--------------
+\subsubsection*{L'opérateur logique \assertion{et}}
+
+
+L'assertion \assertion{$P$ \defi{et} $Q$}\index{et logique@\og et \fg{} logique} est vraie si $P$ est vraie et $Q$ est vraie.
+L'assertion \assertion{$P$ et $Q$} est fausse sinon.
+
+On résume ceci en une \defi{table de vérité}\index{table de verite@table de vérité} :
+\begin{figure}[H]
+\centering
+\begin{tabular}{c|c|c}
+\textcolor{olive}{$P$} $\backslash$ \textcolor{blue}{$Q$} & \textcolor{blue}{V} & \textcolor{blue}{F} \\ \hline
+\textcolor{olive}{V} & \textcolor{red}{V} & \textcolor{red}{F} \\ \hline
+\textcolor{olive}{F} & \textcolor{red}{F} & \textcolor{red}{F} \\
+\end{tabular}
+\caption{Table de vérité de \assertion{$P$ et $Q$}}
+\end{figure}
+
+
+Par exemple si $P$ est l'assertion \assertion{Cette carte est un as} et $Q$ l'assertion
+\assertion{Cette carte est c\oe ur} alors l'assertion \assertion{$P$ et $Q$} est vraie si la carte
+est l'as de c\oe ur et est fausse pour toute autre carte.
+
+
+
+%--------------
+\subsubsection*{L'opérateur logique \assertion{ou}}
+
+L'assertion \assertion{$P$ \defi{ou} $Q$}\index{ou logique@\og ou \fg{} logique} est vraie si l'une (au moins) des deux assertions $P$ ou $Q$ est vraie.
+L'assertion \assertion{$P$ ou $Q$} est fausse si les deux assertions $P$ et $Q$ sont fausses.
+
+On reprend ceci dans la table de vérité :
+\begin{figure}[H]
+\centering
+\begin{tabular}{c|c|c}
+\textcolor{olive}{$P$} $\backslash$ \textcolor{blue}{$Q$}  & \textcolor{blue}{V} & \textcolor{blue}{F} \\ \hline
+\textcolor{olive}{V} & \textcolor{red}{V} & \textcolor{red}{V} \\ \hline
+\textcolor{olive}{F} & \textcolor{red}{V} & \textcolor{red}{F} \\
+\end{tabular}
+\caption{Table de vérité de \assertion{$P$ ou $Q$}}
+\end{figure}
+
+
+Si $P$ est l'assertion \assertion{Cette carte est un as} et $Q$ l'assertion
+\assertion{Cette carte est c\oe ur} alors l'assertion \assertion{$P$ ou $Q$} est vraie si la carte
+est un as ou bien un c\oe ur (en particulier elle est vraie pour l'as de c\oe ur).
+
+
+\begin{remarque*}
+Pour définir les opérateurs  \assertion{ou}, \assertion{et} on fait appel à une phrase en français utilisant
+les mots \emph{ou}, \emph{et} ! Les tables de vérités permettent d'éviter ce problème.
+\end{remarque*}
+
+
+
+%--------------
+\subsubsection*{La négation \assertion{non}}
+
+
+L'assertion \assertion{\defi{non} $P$}\index{négation} est vraie si $P$ est fausse, et fausse si $P$ est vraie.
+
+\begin{figure}[H]
+\centering
+\begin{tabular}{c|c|c}
+ \textcolor{blue}{$P$}  &  \textcolor{blue}{V} &  \textcolor{blue}{F} \\ \hline
+ \textcolor{red}{non $P$}    & \textcolor{red}{F} & \textcolor{red}{V} \\
+\end{tabular}
+\caption{Table de vérité de \assertion{non $P$}}
+\end{figure}
+
+
+%--------------
+\subsubsection*{L'implication $\implies$}
+
+
+La définition mathématique est la suivante :
+\mybox{
+L'assertion \assertion{(non $P$) ou $Q$} est notée \assertion{$P \implies Q$}\index{implication}\index{$\implies$}.
+}
+
+
+Sa table de vérité est donc la suivante:
+\begin{figure}[H]
+\centering
+\begin{tabular}{c|c|c}
+\textcolor{olive}{$P$} $\backslash$ \textcolor{blue}{$Q$}  & \textcolor{blue}{V} & \textcolor{blue}{F} \\ \hline
+\textcolor{olive}{V} & \textcolor{red}{V} & \textcolor{red}{F} \\ \hline
+\textcolor{olive}{F} & \textcolor{red}{V} & \textcolor{red}{V} \\
+\end{tabular}
+\caption{Table de vérité de \assertion{$P \implies Q$}}
+\end{figure}
+L'assertion \assertion{$P \implies Q$} se lit en français \assertion{$P$ implique $Q$}.
+
+Elle se lit souvent aussi \assertion{si $P$ est vraie alors $Q$ est vraie}
+ou \assertion{si $P$ alors $Q$}.
+
+Par exemple :
+\begin{itemize}
+  \item \assertion{$0 \le x \le 25 \implies \sqrt x \le 5$}  est vraie (prendre la racine carrée).
+  \item \assertion{$x \in ]-\infty, -4[ \implies x^2+3x-4 > 0$}  est vraie (étudier le binôme).
+  \item \assertion{$\sin(\theta)=0 \implies \theta = 0$}  est fausse (regarder pour $\theta = 2\pi$ par exemple).
+  \item \assertion{$2+2=5 \implies \sqrt 2 = 2$}  est vraie ! Eh oui, si
+$P$ est fausse alors l'assertion \assertion{$P \implies Q$} est toujours vraie.
+\end{itemize}
+
+
+
+%--------------
+\subsubsection*{L'équivalence $\iff$}
+
+
+L'\defi{équivalence} est définie par :
+\mybox{
+\assertion{$P \iff Q$}\index{equivalence@équivalence}\index{$\iff$}  est l'assertion \assertion{($P \implies Q$) \  et \  ($Q \implies P$)}.
+}
+
+On dira \assertion{$P$ est équivalent à $Q$} ou \assertion{$P$ équivaut à $Q$}
+ou \assertion{$P$ si et seulement si $Q$}. Cette assertion est vraie
+lorsque $P$ et $Q$ sont vraies ou lorsque $P$ et $Q$ sont fausses.
+La table de vérité est :
+\begin{figure}[H]
+\centering
+\begin{tabular}{c|c|c}
+\textcolor{olive}{$P$} $\backslash$ \textcolor{blue}{$Q$}  & \textcolor{blue}{V} & \textcolor{blue}{F} \\ \hline
+\textcolor{olive}{V} & \textcolor{red}{V} & \textcolor{red}{F} \\ \hline
+\textcolor{olive}{F} & \textcolor{red}{F} & \textcolor{red}{V} \\
+\end{tabular}
+\caption{Table de vérité de \assertion{$P \iff Q$}}
+\end{figure}
+
+Exemples :
+\begin{itemize}
+  \item Pour $x,x' \in \Rr$, l'équivalence \assertion{$x\cdot x'=0 \iff (x=0 \text{ ou } x'=0)$} est vraie.
+  \item Voici une équivalence \emph{toujours fausse} (quelle que soit l'assertion $P$) :
+\assertion{$P \iff \text{non}(P)$}.
+\end{itemize}
+
+On s'intéresse davantage aux assertions vraies qu'aux fausses, aussi dans la pratique
+et en dehors de ce chapitre on écrira \assertion{$P \iff Q$}  ou \assertion{$P \implies Q$}
+uniquement lorsque ce sont des assertions vraies. Par exemple si l'on écrit
+\assertion{$P \iff Q$}  cela sous-entend \assertion{$P \iff Q$  est vraie}.
+Attention rien ne dit que $P$ et $Q$ soient vraies. Cela signifie que $P$ et $Q$ sont vraies en même
+temps ou fausses en même temps.
+
+\begin{proposition}
+\label{prop:log}
+Soient $P, Q, R$ trois assertions.
+Nous avons les équivalences (vraies) suivantes :
+\begin{enumerate}
+  \item \emph{$P \iff \text{ non}(\text{non}(P))$}
+  \item \emph{$(P \text{ et } Q) \iff (Q \text{ et } P)$}
+  \item \emph{$(P \text{ ou } Q) \iff (Q \text{ ou } P)$}
+  \item \emph{$\text{non}(P \text{ et } Q)  \iff  (\text{non } P)  \text{ ou } (\text{non }Q)$}
+  \item \emph{$\text{non}(P \text{ ou } Q)  \iff  (\text{non } P)  \text{ et } (\text{non }Q)$}
+  \item \emph{$\big(P \text{ et } (Q \text{ ou } R)  \big)   \iff
+(P \text{ et } Q) \text{ ou } (P \text{ et }  R)$}
+  \item \emph{$\big(P \text{ ou } (Q \text{ et } R)  \big)   \iff
+(P \text{ ou } Q) \text{ et } (P \text{ ou }  R)$}
+  \item  \assertion{$P \implies Q$}  $\iff$ \assertion{$\text{non}(Q) \implies \text{non}(P)$}
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Voici des exemples de démonstrations :
+
+
+\begin{itemize}
+  \item[4.]
+Il suffit de comparer les deux assertions  \assertion{$\text{non}(P \text{ et } Q)$}  et
+\assertion{$(\text{non } P)  \text{ ou } (\text{non }Q)$}  pour toutes les valeurs possibles de $P$ et $Q$.
+Par exemple si $P$ est vrai et $Q$ est vrai alors \assertion{$P$ et $Q$}  est vrai donc
+ \assertion{$\text{non}(P \text{ et } Q)$}  est faux ;
+d'autre part (non $P$) est faux,  (non $Q$) est faux donc
+ \assertion{$(\text{non } P)  \text{ ou } (\text{non }Q)$}  est faux.
+Ainsi dans ce premier cas les assertions sont toutes les deux fausses.
+On dresse ainsi les deux tables de vérités et comme elles sont égales les deux assertions sont équivalentes.
+\begin{figure}[H]
+\centering
+\begin{tabular}{c|c|c}
+\textcolor{olive}{$P$} $\backslash$ \textcolor{blue}{$Q$}  & \textcolor{blue}{V} & \textcolor{blue}{F} \\ \hline
+\textcolor{olive}{V} & \textcolor{red}{F} & \textcolor{red}{V} \\ \hline
+\textcolor{olive}{F} & \textcolor{red}{V} & \textcolor{red}{V} \\
+\end{tabular}
+\caption{Tables de vérité de \assertion{$\text{non}(P \text{ et } Q)$}  et de \assertion{$(\text{non } P)  \text{ ou } (\text{non }Q)$}}
+\end{figure}
+
+  \item[6.] On fait la même chose mais il y a trois variables : $P$, $Q$, $R$.
+On compare donc les tables de vérité d'abord dans le cas où $P$ est vrai (à gauche), puis dans le cas où
+$P$ est faux (à droite). Dans les deux cas les deux assertions \assertion{$\big(P \text{ et } (Q \text{ ou } R)  \big)$}   et
+\assertion{$(P \text{ et } Q) \text{ ou } (P \text{ et }  R)$}  ont la même table de vérité donc les assertions sont équivalentes.
+\begin{figure}[H]
+\centering
+\begin{tabular}{c|c|c}
+\textcolor{olive}{$Q$} $\backslash$ \textcolor{blue}{$R$}  & \textcolor{blue}{V} & \textcolor{blue}{F} \\ \hline
+\textcolor{olive}{V} & \textcolor{red}{V} & \textcolor{red}{V} \\ \hline
+\textcolor{olive}{F} & \textcolor{red}{V} & \textcolor{red}{F} \\
+\end{tabular}\qquad
+\begin{tabular}{c|c|c}
+\textcolor{olive}{$Q$} $\backslash$ \textcolor{blue}{$R$}  & \textcolor{blue}{V} & \textcolor{blue}{F} \\ \hline
+\textcolor{olive}{V} & \textcolor{red}{F} & \textcolor{red}{F} \\ \hline
+\textcolor{olive}{F} & \textcolor{red}{F} & \textcolor{red}{F} \\
+\end{tabular}
+\end{figure}
+
+  \item[8.] Par définition, l'implication \assertion{$P \implies Q$}  est l'assertion
+\assertion{(non $P$) ou $Q$}.
+Donc l'implication
+\assertion{$\text{non}(Q) \implies \text{non}(P)$}  est équivalente à
+\assertion{$\text{non}(\text{non}(Q)) \text{ ou } \text{non}(P)$}
+qui équivaut encore à
+\assertion{$Q \text{ ou } \text{non}(P)$}  et donc est équivalente à \assertion{$P \implies Q$}.
+On aurait aussi pu encore une fois dresser les deux tables de vérité et voir qu'elles sont égales.
+\end{itemize}
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Quantificateurs}
+\index{quantificateur}
+
+%--------------
+\subsubsection*{Le quantificateur $\forall$ : \assertion{pour tout}}
+\index{$\forall$}
+
+Une assertion $P$ peut dépendre d'un paramètre $x$, par exemple
+ \assertion{$x^2 \ge 1$}, l'assertion $P(x)$ est vraie ou fausse selon la valeur de $x$.
+
+L'assertion
+$$\forall x \in E \quad P(x)$$
+est une assertion vraie lorsque les assertions $P(x)$ sont vraies pour tous les éléments $x$
+de l'ensemble $E$.
+
+On lit \assertion{Pour tout $x$ appartenant à $E$, $P(x)$}, sous-entendu
+\assertion{Pour tout $x$ appartenant à $E$, $P(x)$ est vraie}.
+
+Par exemple :
+\begin{itemize}
+  \item \assertion{$\forall x \in [1,+\infty[ \quad (x^2\ge 1)$}  est une assertion vraie.
+  \item \assertion{$\forall x \in \Rr \quad (x^2\ge 1)$}  est une assertion fausse.
+  \item \assertion{$\forall n \in \Nn \quad n(n+1) \text{ est divisible par } 2$}  est vraie.
+\end{itemize}
+
+
+%--------------
+\subsubsection*{Le quantificateur $\exists$ : \assertion{il existe}}
+\index{$\exists$}
+
+L'assertion
+$$\exists x \in E \quad P(x)$$
+est une assertion vraie lorsque l'on peut trouver au moins un $x$ de $E$ pour lequel $P(x)$ est vraie.
+On lit \assertion{il existe $x$ appartenant à $E$ tel que $P(x)$ (soit vraie)}.
+
+Par exemple :
+\begin{itemize}
+  \item \assertion{$\exists x \in \Rr \quad (x(x-1)<0)$}  est vraie (par exemple $x=\frac 12$ vérifie bien la propriété).
+  \item \assertion{$\exists n \in \Nn \quad n^2-n > n$}  est vraie (il y a plein de choix, par exemple $n=3$ convient, mais aussi $n=10$ ou même
+$n=100$, un seul suffit pour dire que l'assertion est vraie).
+  \item \assertion{$\exists x \in \Rr \quad (x^2=-1)$}  est fausse (aucun réel au carré ne donnera un nombre négatif).
+\end{itemize}
+
+
+%--------------
+\subsubsection*{La négation des quantificateurs}
+
+\mybox{
+La négation de \assertion{$\forall x \in E \quad P(x)$} \ \ est \ \
+\assertion{$\exists x \in E \quad \text{non } P(x)$} .
+}
+
+Par exemple la négation de \assertion{$\forall x \in [1,+\infty[ \quad (x^2\ge 1)$}
+est l'assertion \assertion{$\exists x \in [1,+\infty[ \quad (x^2 < 1)$}.
+En effet la négation de $x^2\ge 1$ est $\text{non}(x^2 \ge 1)$ mais s'écrit plus simplement $x^2 < 1$.
+
+
+\mybox{
+La négation de \assertion{$\exists x \in E \quad P(x)$} \ \ est \ \ \assertion{$\forall x \in E \quad \text{non } P(x)$}.
+}
+
+Voici des exemples :
+\begin{itemize}
+  \item La négation de \assertion{$\exists z \in \Cc \quad (z^2+z+1 = 0)$}  est
+\assertion{$\forall z \in \Cc \quad (z^2+z+1 \neq 0)$}.
+
+  \item La négation de \assertion{$\forall x \in \Rr \quad  (x+1 \in \Zz)$}  est
+\assertion{$\exists x \in \Rr \quad (x+1 \notin \Zz)$}.
+
+  \item Ce n'est pas plus difficile d'écrire la négation de phrases complexes.
+Pour l'assertion :
+$$\forall x \in \Rr \quad \exists y >0 \quad (x+y > 10)$$
+sa négation est
+$$\exists x \in \Rr \quad \forall y > 0 \quad (x+y \le 10).$$
+\end{itemize}
+
+
+%--------------
+\subsubsection*{Remarques}
+
+L'ordre des quantificateurs est très important.
+Par exemple les deux phrases logiques
+ $$\forall x \in \Rr \quad  \exists y \in \Rr \quad (x+y>0) \qquad \text{et}\qquad
+\exists y \in \Rr \quad \forall x \in \Rr \quad (x+y>0).$$
+sont différentes. La première est vraie, la seconde est fausse.
+En effet une phrase logique se lit de gauche à droite, ainsi la première phrase affirme
+\assertion{Pour tout réel $x$, il existe un réel $y$ (qui peut donc dépendre de $x$) tel que $x+y>0$.}
+(par exemple on peut prendre $y=|x|+1$).
+C'est donc une phrase vraie. Par contre la deuxième se lit :
+\assertion{Il existe un réel $y$, tel que pour tout réel $x$, $x+y>0$.} Cette phrase est fausse,
+cela ne peut pas être le même $y$ qui convient pour tous les $x$ !
+
+
+On retrouve la même différence dans les phrases en français suivantes.
+Voici une phrase vraie \assertion{Pour toute personne, il existe un numéro de téléphone},
+bien sûr le numéro dépend de la personne. Par contre cette phrase est fausse :
+\assertion{Il existe un numéro, pour toutes les personnes}. Ce serait le même numéro pour tout le monde !
+
+\bigskip
+
+Terminons avec d'autres remarques.
+\begin{itemize}
+
+  \item Quand on écrit \assertion{$\exists x \in \Rr \quad (f(x)=0)$} cela signifie juste qu'il existe un réel
+pour lequel $f$ s'annule. Rien ne dit que ce $x$ est unique. Dans un premier temps vous pouvez
+lire la phrase ainsi : \assertion{il existe \emph{au moins} un réel $x$ tel que $f(x)=0$}.
+Afin de préciser que $f$ s'annule en une unique valeur, on rajoute un point d'exclamation\index{$\exists"!"$} :
+$$\exists \mathbf{!}\, x \in \Rr \quad (f(x)=0).$$
+
+  \item Pour la négation d'une phrase logique, il n'est pas nécessaire de savoir si la phrase est fausse
+ou vraie. Le procédé est algorithmique : on change le \assertion{pour tout}  en
+\assertion{il existe}  et inversement, puis on prend la négation de l'assertion $P$.
+
+  \item Pour la négation d'une proposition, il faut être précis : la négation de l'inégalité stricte \assertion{$<$}
+est l'inégalité large \assertion{$\ge$}, et inversement.
+
+  \item Les quantificateurs ne sont pas des abréviations. Soit vous écrivez une phrase en français :
+\assertion{Pour tout réel $x$, si $f(x)=1$ alors $x\ge0$.} , soit vous écrivez la phrase logique :
+$$\forall x \in \Rr \quad (f(x)=1 \implies x \ge 0).$$
+Mais surtout n'écrivez pas \assertion{$\forall x$ réel, si $f(x)=1 \implies x$ positif ou nul}. \
+Enfin, pour passer d'une ligne à l'autre d'un raisonnement, préférez plutôt \assertion{donc} à \assertion{$\implies$}.
+
+  \item Il est défendu d'écrire $\not\!\exists$, $\not\!\!\!\implies$. Ces symboles n'existent pas !
+\end{itemize}
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item \'Ecrire la table de vérité du \assertion{ou exclusif}. (C'est le \emph{ou} dans la phrase
+\assertion{fromage ou dessert}, l'un ou l'autre mais pas les deux.)
+  \item \'Ecrire la table de vérité de \assertion{non ($P$ et $Q$)}. Que remarquez vous ?
+  \item \'Ecrire la négation de \assertion{$P \implies Q$}.
+  \item Démontrer les assertions restantes de la proposition \ref{prop:log}.
+  \item \'Ecrire la négation de \assertion{$\big(P \text{ et } (Q \text{ ou } R)  \big)$}.
+  \item \'Ecrire à l'aide des quantificateurs la phrase suivante :
+\assertion{Pour tout nombre réel, son carré est positif}.  Puis écrire la négation.
+  \item Mêmes questions avec les phrases : \assertion{Pour chaque réel, je peux trouver un entier
+relatif tel que leur produit soit strictement plus grand que $1$}. Puis
+\assertion{Pour tout entier $n$, il existe un unique réel $x$ tel que $\exp(x)$ égale $n$}.
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Raisonnements}
+\index{raisonnement}
+
+Voici des méthodes classiques de raisonnements.
+
+%---------------------------------------------------------------
+\subsection{Raisonnement direct}
+On veut montrer que l'assertion \assertion{$P \implies Q$} est vraie.
+On suppose que $P$ est vraie et on montre qu'alors $Q$ est vraie.
+C'est la méthode à laquelle vous êtes le plus habitué.
+
+\begin{exemple}
+Montrer que si $a,b \in \Qq$ alors $a+b\in \Qq$.
+
+\begin{proof}
+Prenons $a\in \Qq$, $b\in \Qq$.
+Rappelons que les rationnels $\Qq$ sont
+l’ensemble des réels s'écrivant $\frac{p}{q}$ avec $p\in\Zz$ et $q\in \Nn^*$.
+
+Alors $a = \frac{p}{q}$
+pour un certain $p \in \Zz$ et un certain $q\in \Nn^*$. De même $b = \frac{p'}{q'}$
+avec $p' \in \Zz$ et $q'\in \Nn^*$.
+Maintenant
+$$a+b= \frac{p}{q} + \frac{p'}{q'} = \frac{pq'+qp'}{qq'}.$$
+Or le numérateur $pq'+qp'$ est bien un élément de $\Zz$ ;
+le dénominateur $qq'$ est lui un élément de $\Nn^*$. Donc
+$a+b$ s'écrit bien de la forme $a+b=\frac{p''}{q''}$ avec $p''\in \Zz$,
+$q''\in \Nn^*$. Ainsi $a+b \in \Qq$.
+\end{proof}
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Cas par cas}
+
+Si l'on souhaite vérifier une assertion $P(x)$ pour tous les $x$ dans un ensemble $E$, on
+montre l'assertion pour les $x$ dans une partie $A$ de $E$, puis pour les $x$
+n'appartenant pas à $A$. C'est la méthode de \defi{disjonction}\index{disjonction} ou du \defi{cas par cas}.
+
+\begin{exemple}
+Montrer que pour tout $x\in \Rr$, $|x-1| \le x^2-x+1$.
+
+\begin{proof}
+Soit $x \in \Rr$. Nous distinguons deux cas.
+
+\textbf{Premier cas : $x \ge 1$.}
+Alors $|x-1|=x-1$. Calculons alors $x^2-x+1 - |x-1|$.
+\begin{align*}
+ x^2-x+1 - |x-1|
+   &= x^2-x+1 - (x-1) \\
+   &= x^2 -2x + 2 \\
+   &= (x-1)^2 + 1 \ge 0. \\
+\end{align*}
+Ainsi $x^2-x+1 - |x-1| \ge 0$ et donc $x^2-x+1 \ge |x-1|$.
+
+\textbf{Deuxième cas : $x < 1$.}
+Alors $|x-1| = -(x-1)$.
+Nous obtenons $x^2-x+1 - |x-1|
+= x^2-x+1 + (x-1) = x^2 \ge 0$. Et donc $x^2-x+1 \ge |x-1|$.
+
+
+\textbf{Conclusion.} Dans tous les cas $|x-1| \le x^2-x+1$.
+\end{proof}
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Contraposée}
+
+Le raisonnement par \defi{contraposition}\index{contraposition} est basé sur l'équivalence suivante (voir la proposition \ref{prop:log}) :
+\mybox{
+L'assertion \assertion{$P \implies Q$}  \  est équivalente à \  \assertion{$\text{non}(Q) \implies \text{non}(P)$}.
+}
+
+Donc si l'on souhaite montrer l'assertion \assertion{$P \implies Q$}, on montre en fait
+que si $\text{non}(Q)$ est vraie alors $\text{non}(P)$ est vraie.
+
+\begin{exemple}
+Soit $n \in \Nn$. Montrer que si $n^2$ est pair alors $n$ est pair.
+
+\begin{proof}
+Nous supposons que $n$ n'est pas pair. Nous voulons montrer qu'alors $n^2$ n'est pas pair.
+Comme $n$ n'est pas pair, il est impair et donc il existe $k\in \Nn$ tel que
+$n=2k+1$. Alors
+$n^2 = (2k+1)^2 = 4k^2 + 4k + 1 = 2\ell+1$ avec $\ell = 2k^2+2k \in \Nn$.
+Et donc $n^2$ est impair.
+
+Conclusion : nous avons montré que si $n$ est impair alors $n^2$ est impair. Par contraposition
+ceci est équivalent à : si $n^2$ est pair alors $n$ est pair.
+\end{proof}
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+\subsection{Absurde}
+
+Le \defi{raisonnement par l'absurde}\index{absurde} pour montrer \assertion{$P \implies Q$}  repose sur le principe suivant :
+on suppose à la fois que $P$ est vraie et que $Q$ est fausse et on cherche une contradiction.
+Ainsi si $P$ est vraie alors $Q$ doit être vraie et donc \assertion{$P \implies Q$} est vraie.
+
+\begin{exemple}
+Soient $a,b \ge 0$. Montrer que si $\frac{a}{1+b}=\frac{b}{1+a}$
+alors $a=b$.
+
+\begin{proof}
+Nous raisonnons par l'absurde en supposant que  $\frac{a}{1+b}=\frac{b}{1+a}$ \textbf{et}
+$a \neq b$.
+Comme $\frac{a}{1+b}=\frac{b}{1+a}$ alors $a(1+a)=b(1+b)$ donc
+$a+a^2=b+b^2$ d'où $a^2-b^2 = b-a$.
+Cela conduit à $(a-b)(a+b)= -(a-b)$. Comme $a\neq b$ alors $a-b\neq 0$ et donc en divisant
+par $a-b$ on obtient $a+b=-1$. La somme des deux nombres positifs $a$ et $b$ ne peut être négative.
+Nous obtenons une contradiction.
+
+Conclusion : si $\frac{a}{1+b}=\frac{b}{1+a}$ alors $a=b$.
+\end{proof}
+\end{exemple}
+
+Dans la pratique, on peut choisir indifféremment entre un raisonnement par contraposition ou par l'absurde.
+Attention cependant de bien préciser quel type de raisonnement vous choisissez et surtout de ne pas changer
+en cours de rédaction !
+
+%---------------------------------------------------------------
+\subsection{Contre-exemple}
+
+Si l'on veut montrer qu'une assertion du type \assertion{$\forall x \in E \quad P(x)$} est vraie
+alors pour chaque $x$ de $E$ il faut montrer que $P(x)$ est vraie. Par contre
+pour montrer que cette assertion est fausse alors il suffit de trouver $x \in E$ tel que $P(x)$
+ soit fausse. (Rappelez-vous la négation de \assertion{$\forall x \in E \quad P(x)$}
+est \assertion{$\exists x \in E \quad \text{non}\ P(x)$}.)
+Trouver un tel $x$ c'est trouver un \defi{contre-exemple}\index{contre-exemple} à l'assertion \assertion{$\forall x \in E \quad P(x)$}.
+
+\begin{exemple}
+Montrer que l'assertion suivante est fausse \assertion{Tout entier positif est somme de trois carrés}.
+
+(Les carrés sont les $0^2$, $1^2$, $2^2$, $3^2$,... Par exemple
+$6 = 2^2+1^2+1^2$.)
+
+\begin{proof}
+Un contre-exemple est $7$ : les carrés inférieurs à $7$ sont $0$, $1$, $4$
+mais avec trois de ces nombres on ne peut faire $7$.
+\end{proof}
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+\subsection{Récurrence}
+
+Le \defi{principe de récurrence}\index{recurrence@récurrence} permet de montrer qu'une assertion $P(n)$, dépendant de $n$,
+est vraie pour tout $n \in \Nn$.
+La démonstration par récurrence se déroule en trois étapes : lors de l'\evidence{initialisation} on prouve $P(0)$.
+Pour l'étape d'\evidence{hérédité}\index{heredite@hérédité}, on suppose $n\ge 0$ donné avec $P(n)$ vraie,
+et on démontre alors que l'assertion  $P(n+1)$ au rang suivant est vraie.
+Enfin dans la \evidence{conclusion}, on rappelle que par le principe de récurrence $P(n)$ est vraie pour tout $n\in\Nn$.
+
+\begin{exemple}
+Montrer que pour tout $n\in \Nn$, $2^n > n$.
+
+\begin{proof}
+Pour $n\ge 0$, notons $P(n)$ l'assertion suivante :
+$$2^n > n.$$
+Nous allons démontrer par récurrence que $P(n)$ est vraie pour tout $n\ge 0$.
+
+
+\textbf{Initialisation.} Pour $n=0$ nous avons $2^0=1>0$. Donc $P(0)$ est vraie.
+
+\textbf{Hérédité.}
+Fixons $n\ge 0$. Supposons que $P(n)$ soit vraie. Nous allons montrer que $P(n+1)$ est vraie.
+\begin{align*}
+ 2^{n+1} &= 2^n + 2^n 
+         > n + 2^n \qquad \text{ car par } P(n) \text{ nous savons } 2^n > n, \\
+         &> n + 1 \qquad \text{ car } 2^n \ge 1. \\
+\end{align*}
+Donc $P(n+1)$ est vraie.
+
+
+
+\textbf{Conclusion.} Par le principe de récurrence $P(n)$ est vraie pour tout $n\ge 0$, c'est-à-dire
+$2^n > n$ pour tout $n\ge 0$.
+\end{proof}
+\end{exemple}
+
+Remarques :
+\begin{itemize}
+  \item La rédaction d'une récurrence est assez rigide. Respectez scrupuleusement la rédaction
+proposée : donnez un nom à l'assertion que vous souhaitez montrer (ici $P(n)$), respectez les trois étapes
+(même si souvent l'étape d'initialisation est très facile).
+En particulier méditez et conservez la première ligne de l'hérédité \og Fixons $n\ge 0$.
+Supposons que $P(n)$ soit vraie. Nous allons montrer que $P(n+1)$ est vraie.\fg
+
+  \item Si on doit démontrer qu'une propriété est vraie pour tout $n\ge n_0$, alors on commence l'initialisation au rang $n_0$.
+
+  \item Le principe de récurrence est basé sur la construction de l'ensemble $\Nn$. En effet un des axiomes
+pour définir $\Nn$ est le suivant :
+\assertion{Soit $A$ une partie de $\Nn$ qui contient $0$ et telle que si $n \in A$ alors $n+1 \in A$.
+Alors $A=\Nn$}.
+\end{itemize}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item (Raisonnement direct) Soient $a,b \in \Rr_+$. Montrer que si $a \le b$ alors $a \le \frac{a+b}{2} \le b$ et
+$a \le \sqrt{ab} \le b$.
+  \item (Cas par cas) Montrer que pour tout $n\in \Nn$, $n(n+1)$ est divisible par $2$ (distinguer
+les $n$ pairs des $n$ impairs).
+  \item (Contraposée ou absurde) Soient $a,b \in \Zz$. Montrer que si $b\neq 0$ alors
+$a+b\sqrt{2} \notin \Qq$. (On utilisera que $\sqrt 2 \notin \Qq$.)
+  \item (Absurde) Soit $n \in\Nn^*$. Montrer que $\sqrt{n^2+1}$ n'est pas un entier.
+  \item (Contre-exemple) Est-ce que pour tout $x\in \Rr$ on a $x<2 \implies x^2<4$ ?
+  \item (Récurrence) Montrer que pour tout $n \ge 1$, $1+2+ \cdots +n = \frac{n(n+1)}{2}$.
+  \item (Récurrence) Fixons un réel $x\ge0$. Montrer que pour tout entier $n \ge 1$,\ \  $(1+x)^n \ge 1+nx$.
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+
+\auteurs{
+Arnaud Bodin,
+Benjamin Boutin,
+Pascal Romon
+}
+
+\finchapitre
+\end{document}
+
+

@@ -1,0 +1,477 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+Après avoir vu les formules de Taylor nous allons passer aux développements limités proprement
+dit. 
+
+\change
+On commence par la définition et l'existence des développements limités
+
+\change
+
+On monte ensuite l'unicité
+
+\change 
+
+Puis on attaque le coeur de ce chapitre : les formules des développements limités
+des fonctions usuelles à l'origine $\exp$, $\cos$ $sin$ $\ln$ et puissance.
+
+\change
+
+Une fois que l'on connaît ces formules on explique comment trouver
+les DL des fonctions en un point quelconque.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Soit $I$ un intervalle ouvert et $f : I \to \Rr$ une fonction quelconque.
+
+Pour un réel $a$ de l'intervalle $I$ et un entier $n$, 
+
+on dit que $f$ admet un \defi{développement limité} en $a$  à l'ordre $n$, 
+
+s'il existe des réels $c_0, c_1,\ldots,c_n$
+
+et une fonction $\epsilon$ telle que $\epsilon(x)\to0$ quand $x\to a$
+
+
+de sorte que pour tout $x\in I$ 
+on ait 
+$$f(x)=c_0+c_1 (x-a)+\cdots+c_n(x-a)^n+(x-a)^n\epsilon(x).$$
+
+Attardons nous un peu sur cette définition :
+
+tout d'abord on abrège ``développement limité'' en DL.
+
+Et l'égalité précédente s'appelle un DL de $f$ en $a$ à l'ordre $n$
+
+\change
+
+ Le terme $c_0+c_1(x-a)+\cdots+c_n(x-a)^n$ est appelé la \defi{partie polynomiale} du DL.
+
+\change
+
+Le terme $(x-a)^n\epsilon(x)$ est appelé le \defi{reste} du DL.
+
+Bien sûr vous aurez compris, la terminologie est la même que pour les formules de Taylor.
+
+Il y a une bonne raison pour cela : la première façon d'obtenir des DL est d'utiliser les formules de Taylor.
+
+\change
+
+En effet la formule de Taylor permet de prouver l'existence d'un développement limité
+pour une fonction suffisamment régulière : 
+
+Si $f$ est de classe $\mathcal{C}^n$ 
+alors $f$ admet un DL en $a$ à l'ordre $n$
+$$f(x)= f(a)+\frac{f'(a)}{1!}(x-a)+ \frac{f''(a)}{2!}(x-a)^2+\cdots
++\frac{f^{(n)}(a)}{n!}(x-a)^n+(x-a)^n\epsilon(x)$$
+
+où $\lim_{x\to a}\epsilon(x)=0$
+
+\change
+
+Vous aurez reconnu la formule de Taylor, plus précisément la formule de Taylor-Young.
+
+\change
+
+En posant $c_k = \frac{f^{(k)}(a)}{k!}$ on obtient le développement limité
+
+\change
+
+La situation la plus courante est lorsque $a=0$ et
+la formule de Taylor-Young à l'origine fournit alors le DL suivant :
+
+$$f(x)= f(0)+f'(0)x+f''(0)\frac{x^2}{2!}+\cdots
++f^{(n)}(0)\frac{x^n}{n!} + x^n\epsilon(x)$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Après l'existence voici l'unicité 
+
+Proposition :
+
+Si $f$ admet un développement limité alors ce développement limité est unique
+
+\change
+
+La preuve est simple
+
+On suppose que l'on a un premier développement limité de $f$,
+
+
+
+
+\change
+
+et un second ...
+
+
+
+\change
+
+La différence donne l'égalité 
+$
+(d_0-c_0)+(d_1-c_1)(x-a)+\cdots+(d_n-c_n)(x-a)^n+(x-a)^n(\epsilon_2(x)-\epsilon_1(x))=0
+$
+
+\change
+
+Lorsque l'on fait $x=a$ dans cette égalité 
+
+\change
+
+alors on trouve $d_0-c_0=0$.
+
+\change
+
+Ensuite on peut diviser cette égalité par $x-a$  
+
+\change
+
+Pour obtenir une nouvelle égalité 
+$(d_1-c_1)+(d_2-c_2)(x-a)+\cdots+(d_n-c_n)(x-a)^{n-1}+(x-a)^{n-1}(\epsilon_2(x)-\epsilon_1(x))=0$.
+
+\change 
+
+En évaluant en $x=a$ on obtient $d_1-c_1=0$ et on continue ainsi de suite
+
+\change
+
+On trouve donc $c_0=d_0$, $c_1=d_1$, \ldots
+Les coefficients sont égaux.
+
+\change
+
+Et comme les parties polynomiales sont égales alors par l'égalité initiale les restes aussi sont égaux.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+L'unicité permet de dire <<le développement limité de $f$>>
+à la place de <<un développement limité>>
+
+Mais l'unicité a d'autres conséquence, par exemple 
+
+Si $f$ est une fonction paire alors la partie polynomiale de son DL en $0$
+ne contient que des monômes de degrés pairs   
+
+
+Si $f$ est une fonction impaire alors il n'y a que des monômes de degré impairs.
+
+\change
+
+Par exemple la fonction $\cos x$ est paire et son son DL en $0$ commence par 
+$\cos x=1-\frac{x^2}{2!}+\frac{x^4}{4!}-\frac{x^6}{6!}+\cdots$
+
+\change
+
+La preuve est aisée 
+
+Prenons une fonction $f$ paire.
+
+Ecrivons le DL de $f(x)$
+
+\change
+
+Alors  $f(-x)$ s'écrit de la façon suivante,
+notez les signes $-$ pour les coefficients impairs
+
+\change
+
+Comme $f$ est paire alors $f(x)=f(-x)$ 
+
+\change
+
+
+Par l'unicité du DL alors les coefficients sont égaux
+
+donc $c_1=-c_1$, $c_3=-c_3$, \ldots \ 
+
+\change
+
+et ainsi $c_1=0$, $c_3=0$,\ldots
+
+\change
+
+Voici quelques remarques 
+
+L'unicité du DL et la formule de Taylor-Young 
+permettent de calculer les coefficients du DL
+$c_k = \frac{f^{(k)}(a)}{k!}$
+
+Mais cela peut fonctionner dans l'autre sens 
+si l'on connaît le DL et que $f$ est de classe $\mathcal{C}^n$
+alors on peut calculer les nombres dérivés à partir de la partie polynomiale.
+
+\change
+
+En particulier $c_0=f(a)$ et $c_1=f'(a)$
+
+\change
+
+Par conséquent $y=c_0+c_1(x-a)$ est l'équation de la tangente au graphe de $f$
+au point d'abscisse $a$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Les DL suivants en $0$ proviennent de la formule de Taylor-Young.
+
+Nous commençons par le dl de l'exponentiel 
+que l'on a déjà rencontré dans la partie précédente.
+
+$\exp x=1+\frac{x}{1!}+\frac{x^2}{2!}+\frac{x^3}{3!}+\cdots+\frac{x^n}{n!}
++x^n\epsilon(x)$
+
+\change
+
+Il est aussi très utile de savoir l'écrire à l'aide des $\Sigma$.
+
+$\exp x=\sum_ {k=0}^n \frac{x^k}{k!} \ \ + o(x^n)$
+
+le reste est ici noté avec la notation <<petit o>>
+
+\change
+
+Deuxième formule fondamentale celle du logarithme
+
+$\ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}-\cdots
++(-1)^{n-1}\frac{x^{n}}{n} +x^{n}\epsilon(x)$
+
+\change
+
+Qui s'écrit aussi 
+$\ln(1+x)=\sum_ {k=1}^n (-1)^{k-1}\frac{x^k}{k}\ \  + o(x^n)$
+
+Remarquez bien qu'il n'y a pas de terme constant, pas de factorielle aux dénominateurs, 
+et que les signes alternent  $-$ $+$ $-$ $+$...
+
+\change
+
+A partir du DL de l'exponentielle on déduit $4$ autres formules qui sont faciles à mémoriser
+
+Tout d'abord le DL de $\ch$
+
+$\ch x=1+\frac{x^2}{2!}+\frac{x^4}{4!}+\cdots+\frac{x^{2n}}{(2n)!}
++x^{2n+1}\epsilon(x)$ 
+
+C'est la partie paire du DL de $\exp x$. 
+C'est-à-dire que l'on ne retient que les
+monômes de degré pair. 
+
+\change
+
+Et voici le DL de $\sh x$ qui est la partie impaire.
+
+$\sh x=\frac{x}{1!}+\frac{x^3}{3!}+\frac{x^5}{5!}+\cdots
++\frac{x^{2n+1}}{(2n+1)!} 
++x^{2n+2}\epsilon(x)$
+
+\change
+
+Enfin $\cos$ qui est la partie paire du DL de $\exp x$ mais en alternant cette fois le signe $+/-$ du monôme
+
+$\cos x=1-\frac{x^2}{2!}+\frac{x^4}{4!}-\cdots+(-1)^n\frac{x^{2n}}{(2n)!}
++x^{2n+1}\epsilon(x)$ 
+
+\change
+
+Et enfin $\sin$ est la partie impaire de $\exp x$ en alternant aussi les signes
+
+$\sin x=\frac{x}{1!}-\frac{x^3}{3!}+\frac{x^5}{5!}-\cdots
++(-1)^n\frac{x^{2n+1}}{(2n+1)!} 
++x^{2n+2}\epsilon(x)$
+
+
+
+Arrêtez-vous de longues minutes pour noter et apprendre par coeur toutes ces formules.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+On continue avec autre formule importante celle pour les puissances.
+
+Pour $\alpha$ un réel le DL de la fonction $(1+x)^{\alpha}$ en $0$ est
+
+$(1+x)^{\alpha}=1+\alpha x+\frac{\alpha(\alpha-1)}{2!}x^2+\cdots
++\frac{\alpha(\alpha-1)...(\alpha-n+1)}{n!}x^n+x^n\epsilon(x)$
+
+\change
+
+En prenant $\alpha=-1$ on obtient le $DL$ de $\frac{1}{1+x}$
+${\displaystyle \frac{1}{1+x}}=1-x+x^2-x^3+\cdots+(-1)^nx^n+x^n\epsilon(x)$
+
+\change
+
+Mais il est plus facile de retenir le DL de $\frac{1}{1-x}$
+
+${\displaystyle \frac{1}{1-x}} = 1+x+x^2+\cdots+x^n+x^n\epsilon(x)$
+
+
+Il se retrouve aussi avec la formule de la somme d'une suite géométrique
+
+\change
+
+Enfin pour $\alpha = \frac12$ on a $(1+x)^{\frac12} = \sqrt{1+x}$
+
+On trouve 
+$\sqrt{1+x}  =\ \ 1 + \frac{x}{2} - \frac{1}{8}x^2+ \cdots +$
+
+Dont il faut connaître les trois premiers termes.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On souhaite maintenant calculer le DL d'une fonction en un point quelconque.
+
+\change
+
+Nous allons utiliser que 
+$f(x)$ admet un DL en $a$ si et seulement si la 
+fonction $f(x+a)$ admet un DL en $0$
+
+Souvent on ramène donc le problème en $0$ en faisant le changement de variables $h=x-a$. 
+
+\change
+
+Voyons des exemples.
+
+On vient de voir la formule du DL de $\exp x$ en $x=0$ mais ici on 
+souhaite trouver le DL de $\exp x$ en $x=1$.
+
+\change
+
+On pose $h=x-1$. Si $x$ est proche de $1$ alors $h$ est proche de $0$.
+
+Nous allons donc nous ramener à un DL de $\exp h$ en $h=0$. 
+
+\change 
+
+On écrit $\exp x$ 
+
+\change 
+
+sous la forme 
+$= \exp( 1+ (x-1) )$
+
+\change
+
+et comme $e^{a+b}=e^a e^b$ c'est égale à 
+$ = \exp(1) \exp (x-1)$
+
+\change
+
+Ou encore $e \exp h$
+
+ou $e=\exp(1)$ et $h=x-1$.
+
+
+\change
+
+Maintenant on utilise le DL de $\exp h$ en $0$ :
+pour obtenir :
+
+$e \left(1+h+ \frac{h^2}{2!} + \cdots + \frac{h^n}{n!}+h^n\epsilon(h)\right)$
+
+\change
+
+On revient aux $x$ en remplaçant cette fois çi $h$ par $x-1$.
+
+On obtient bien le DL de $\exp x$ en $1$
+
+\change
+
+car 
+$\epsilon(x-1) \to 0 $ quand $x\to1$.
+
+
+(pause)
+
+\change
+
+C'est parti pour le même travail avec la fonction $\ln(1+3x)$ en $1$ à l'ordre $3$. 
+
+\change
+
+On pose $h=x-1$.
+
+Il faut se ramener à un DL du type $\ln(1+h)$ en $h=0$.
+
+\change
+
+Comme $h=x-1$ alors $x=h+1$.
+
+\change
+
+Ainsi $\ln(1+3x) = \ln\big(1+3(1+h)\big)$
+
+\change 
+
+c-a-d 
+$\ln(4 + 3h)$
+
+\change
+
+factorisons par $4$ 
+
+\change
+
+pour obtenir
+
+$\ln 4 + \ln\big(1+\frac{3h}{4}\big)$
+
+grâce à la formule $\ln(a\times b)=\ln a + \ln b$.
+
+
+On sait que $x$ est proche de $1$ donc $h$ est proche de $0$
+donc $\frac{3h}{4}$ est aussi proche de $0$.
+On peut donc utiliser la formule du DL de $\ln (1+u)$ avec $u=\frac{3h}{4}$.
+
+On obtient ceci
+
+\change 
+
+et se souvenant que $h=x-1$ 
+
+\change
+
+on obtient le DL de $\ln(1+x)$ en $1$.
+
+\change
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Apprenez les formules des développements limités vous en aurez besoin
+
+pour ces questions
+
+mais aussi continuellement dans la suite du cours.
+ 
+\end{document}

@@ -1,0 +1,1028 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Systèmes linéaires}
+%====================================================================
+
+\insertvideo{0uYJ3RNL5SU}{partie 1. Introduction aux systèmes d'équations linéaires}
+
+\insertvideo{h62zbpi39YY}{partie 2. Théorie des systèmes linéaires}
+
+\insertvideo{WDHDv55LS-I}{partie 3. Résolution par la méthode du pivot de Gauss}
+
+\insertfiche{fic00160.pdf}{Systèmes d'équations linéaires}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction aux systèmes d'équations linéaires}
+
+
+L'algèbre linéaire est un outil essentiel pour toutes les branches des mathématiques,
+en particulier lorsqu'il s'agit de modéliser puis résoudre numériquement des problèmes issus de
+divers domaines : des sciences physiques ou mécaniques, des sciences du vivant, de la chimie,
+de l'économie, des sciences de l'ingénieur ...
+
+Les systèmes linéaires interviennent 
+%dans de nombreux contextes d'applications
+à travers leurs applications dans de nombreux contextes,
+car ils forment la base calculatoire
+de l'algèbre linéaire. Ils permettent également de traiter
+une bonne partie de la théorie de l'algèbre linéaire en dimension finie.
+C'est pourquoi 
+%le présent cours 
+ce cours
+commence avec une étude des équations
+linéaires et de leur résolution.
+
+Le but de ce chapitre est
+%Ce chapitre a un but 
+essentiellement pratique : il s'agit de résoudre des systèmes linéaires.
+La partie théorique sera revue et prouvée dans le chapitre \og Matrices \fg.
+
+%---------------------------------------------------------------
+\subsection{Exemple : deux droites dans le plan}
+
+L'équation d'une droite dans le plan $(Oxy)$ s'écrit
+$$a x + b y = e$$
+où $a, b$ et $e$ sont des paramètres réels, $a$ et $b$ n'étant pas simultanément nuls. Cette équation s'appelle
+\defi{équation linéaire}\index{equation lineaire@équation linéaire} dans les variables
+(ou inconnues) $x$ et $y$.\\
+
+Par exemple, $2x + 3y = 6$ est une équation linéaire, alors
+que les équations suivantes ne sont pas des équations linéaires :
+ $$ 2x + y^2 = 1 \quad \text { ou }  \quad y = \sin (x)  \quad \text { ou } \quad  x = \sqrt{y}.$$
+
+
+\bigskip
+
+Considérons maintenant deux droites $D_1$ et $D_2$ et cherchons les points qui
+sont simultanément sur ces deux droites. Un point $(x,y)$ est dans l'intersection
+$D_1 \cap D_2$ s'il est solution du système :
+\begin{equation}
+\left\{\begin{array}{rcl}
+a x + b y & = & e\\
+c x + d y & = & f
+\end{array}\right.
+\tag{$S$}
+\label{eq:syslin1}
+\end{equation}
+
+
+Trois cas se présentent alors:
+\begin{enumerate}
+  \item Les droites $D_1$ et $D_2$ se coupent en un seul point.
+Dans ce cas, illustré par la figure de gauche,
+le système (\ref{eq:syslin1}) a une seule solution.
+
+
+  \item Les droites $D_1$ et $D_2$ sont parallèles. Alors le système
+  (\ref{eq:syslin1}) n'a pas de solution.
+ La figure du centre illustre cette situation.
+
+
+  \item Les droites $D_1$ et $D_2$ sont confondues et, dans ce cas,
+  le système  (\ref{eq:syslin1}) a une infinité de solutions.
+\end{enumerate}
+
+
+\myfigure{0.6}{
+\tikzinput{fig_syslin01}
+\ \ 
+\tikzinput{fig_syslin02}
+\ \ 
+\tikzinput{fig_syslin03}
+}
+
+
+Nous verrons plus loin que ces trois cas de figure (une seule solution,
+aucune solution, une infinité de solutions)
+sont les seuls cas qui peuvent se présenter pour n'importe quel système
+d'équations linéaires.
+
+%---------------------------------------------------------------
+\subsection{Résolution par substitution}
+
+Pour savoir s'il existe une ou plusieurs solutions à un système linéaire,
+et les calculer, une première méthode est la
+\defi{substitution}\index{substitution}.
+Par exemple pour le système :
+\begin{equation}
+\left\{\begin{array}{rcl}
+3 x + 2 y & = & 1\\
+2 x - 7 y & = & -2
+\end{array}\right.
+\tag{$S$}
+\label{eq:syslin2}
+\end{equation}
+Nous réécrivons la première ligne $3 x + 2 y  =  1$ sous la forme
+$y = \frac12 - \frac32x$. Et nous remplaçons (nous \emph{substituons}) le $y$
+de la seconde équation, par l'expression $\frac12 - \frac32x$. Nous obtenons un système
+équivalent :
+$$\left\{\begin{array}{rcl}
+y & = & \frac12 - \frac32x\\
+2 x - 7 (\frac12 - \frac32x) & = & -2
+\end{array}\right.$$
+La seconde équation est maintenant une expression qui ne contient que des $x$, et
+on peut la résoudre :
+$$\left\{\begin{array}{rcl}
+y & = & \frac12 - \frac32x\\
+(2+7\times\frac32)x  & = & -2 +\frac72
+\end{array}\right.
+\iff
+\left\{\begin{array}{rcl}
+y & = & \frac12 - \frac32x\\
+x & = & \frac{3}{25}
+\end{array}\right.$$
+Il ne reste plus qu'à remplacer dans la première ligne la valeur de $x$ obtenue :
+$$\left\{\begin{array}{rcl}
+y & = & \frac{8}{25}\\
+x & = & \frac{3}{25}
+\end{array}\right.$$
+Le système (\ref{eq:syslin2}) admet donc une  solution unique $(\frac{3}{25},\frac{8}{25})$.
+L'ensemble des solutions est donc
+$$\mathcal{S} = \left\lbrace \left(\frac{3}{25},\frac{8}{25}\right) \right\rbrace.$$
+
+
+%---------------------------------------------------------------
+\subsection{Exemple : deux plans dans l'espace}
+
+Dans l'espace $(Oxyz)$, une équation linéaire est l'équation d'un plan :
+$$a x + b y  + c z = d$$
+(on suppose ici que $a$, $b$ et $c$ ne sont pas simultanément nuls).
+
+L'intersection de deux plans dans l'espace correspond au système suivant
+à $2$ équations et à $3$ inconnues :
+$$\left\{\begin{array}{rcl}
+a x + b y + c z    & = & d \\
+a' x + b' y + c' z & = & d'
+\end{array}\right.$$
+
+Trois cas se présentent alors:
+\begin{itemize}
+\item les plans sont parallèles (et distincts) et il n'y a alors aucune solution au système,
+\item les plans sont confondus et il y a une infinité de solutions au système,
+\item les plans se coupent en une droite et il y a une infinité de solutions.
+\end{itemize}
+
+
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+  \item Le système $\left\{\begin{array}{rcl}
+2 x + 3 y - 4 z  & = & 7 \\
+4 x + 6 y - 8 z  & = & -1
+\end{array}\right.$ n'a pas de solution. En effet, en divisant par $2$ la seconde équation,
+on obtient le système équivalent :
+$\left\{\begin{array}{rcl}
+2 x + 3 y - 4 z  & = & 7 \\
+2 x + 3 y - 4 z  & = & -\frac12
+\end{array}\right.$. Les deux lignes sont clairement incompatibles : aucun $(x,y,z)$
+ne peut vérifier à la fois $2 x + 3 y - 4 z  = 7$ et $2 x + 3 y - 4 z  =  -\frac12$.
+L'ensemble des solutions est donc $\mathcal{S}=\varnothing$.
+
+  \item Pour le système $\left\{\begin{array}{rcl}
+2 x + 3 y - 4 z  & = & 7 \\
+4 x + 6 y - 8 z  & = & 14
+ \end{array}\right.$, les deux équations définissent le même plan !
+ Le système est donc équivalent à une seule équation : $2 x + 3 y - 4 z = 7$.
+ Si on réécrit cette équation sous la forme $z=\frac12 x + \frac34 y - \frac74$,
+ alors on peut décrire l'ensemble des solutions sous la forme :
+ $\mathcal{S}= \big\lbrace (x,y,\frac12 x + \frac34 y - \frac74) \mid x,y\in \Rr \big\rbrace$.
+
+  \item Soit le système $\left\{\begin{array}{rcl}
+7 x + 2 y - 2 z  & = & 1 \\
+2 x + 3 y + 2 z  & = & 1
+ \end{array}\right.$.
+ Par substitution :
+$$\left\{\begin{array}{l}
+7 x + 2 y - 2 z   =  1 \\
+2 x + 3 y + 2 z   =  1
+ \end{array}\right. \iff
+\left\{\begin{array}{l}
+z   = \frac72 x + y -\frac12 \\
+2 x + 3 y + 2 \big( \frac72 x + y -\frac12 \big)   =  1
+ \end{array}\right. $$
+$$\iff
+\left\{\begin{array}{l}
+z   = \frac72 x + y -\frac12 \\
+9 x + 5 y    =  2
+ \end{array}\right.   \iff
+\left\{\begin{array}{l}
+z = \frac72 x + y -\frac12 \\
+y =  -\frac{9}{5} x +  \frac25
+ \end{array}\right.
+ \iff
+\left\{\begin{array}{l}
+z = \frac{17}{10}x-\frac{1}{10} \\
+y =  -\frac{9}{5} x +  \frac25
+ \end{array}\right.
+ $$
+Pour décrire l’ensemble des solutions, on peut choisir $x$ comme paramètre :
+ $$\mathcal{S}= \left\lbrace \left(x,-\frac{9}{5} x +  \frac25,\frac{17}{10}x-\frac{1}{10}\right) \mid x\in \Rr \right\rbrace.$$
+Géométriquement : nous avons trouvé une équation paramétrique de la droite
+définie par l'intersection de deux plans.
+\end{enumerate}
+
+
+\end{exemple}
+
+Du point de vue du nombre de solutions, nous constatons qu'il n'y a
+que deux possibilités,
+à savoir aucune solution ou une infinité de solutions. Mais les deux
+derniers cas ci-dessus sont néanmoins très différents géométriquement et
+il semblerait que dans le second cas (plans confondus), l'infinité de solutions
+soit plus grande que dans le troisième cas. Les chapitres suivants nous permettront
+de rendre rigoureuse cette impression.
+
+Si on considère trois plans dans l'espace, une autre possibilité apparaît :
+il se peut que les trois plans s'intersectent en un seul point.
+
+
+%---------------------------------------------------------------
+\subsection{Résolution par la méthode de Cramer}
+
+\index{regle@règle!de Cramer}
+
+On note $\left| \begin{smallmatrix} a & b \\ c & d \end{smallmatrix}\right|=ad-bc$
+le \defi{déterminant}\index{determinant@déterminant}. On considère le cas d'un système de $2$ équations à $2$ inconnues :
+$$
+\left\{\begin{array}{rcl}
+a x + b y & = & e\\
+c x + d y & = & f
+\end{array}\right.
+$$
+Si $ad-bc\neq 0$, on trouve une unique solution dont les coordonnées $(x,y)$ sont :
+$$x = \frac{\begin{vmatrix} e & b \\ f & d \end{vmatrix}}{\begin{vmatrix} a & b \\ c & d \end{vmatrix}} \qquad
+y = \frac{\begin{vmatrix} a & e \\ c & f \end{vmatrix}}{\begin{vmatrix} a & b \\ c & d \end{vmatrix}}$$
+
+Notez que le dénominateur égale le déterminant pour les deux coordonnées et est donc non nul.
+Pour le numérateur de la première coordonnée $x$, on remplace la première colonne par le second membre ;
+pour la seconde coordonnée $y$, on remplace la seconde colonne par le second membre.
+
+\begin{exemple}
+Résolvons le système
+$
+\left\{\begin{array}{rcl}
+t x - 2y   & = & 1\\
+3x + t y & = & 1
+\end{array}\right.
+$
+suivant la valeur du paramètre $t\in \Rr$.
+
+Le déterminant associé au système est
+$\left| \begin{smallmatrix} t & -2 \\ 3 & t \end{smallmatrix}\right|= t^2+6$
+et ne s'annule jamais. Il existe donc une unique solution $(x,y)$ et elle vérifie :
+$$x = \frac{\begin{vmatrix} 1 & -2 \\ 1 & t \end{vmatrix}}{t^2+6} = \frac{t+2}{t^2+6}, \qquad
+y = \frac{\begin{vmatrix} t & 1 \\ 3 & 1 \end{vmatrix}}{t^2+6} = \frac{t-3}{t^2+6}.$$
+
+Pour chaque $t$, l'ensemble des solutions est
+$\mathcal{S}= \left\lbrace \left(\frac{t+2}{t^2+6},\frac{t-3}{t^2+6}\right) \right\rbrace$.
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Résolution par inversion de matrice}
+
+%Pour ceux qui connaissent les matrices,
+En termes matriciels, le système linéaire
+$$
+\left\{\begin{array}{rcl}
+a x + b y & = & e\\
+c x + d y & = & f
+\end{array}\right.
+$$
+est équivalent à
+$$AX = Y \quad \text{ où } \quad A = \begin{pmatrix} a & b \\ c & d \end{pmatrix},
+\quad  X = \begin{pmatrix} x \\ y \end{pmatrix}, \quad Y = \begin{pmatrix} e \\ f \end{pmatrix}.$$
+
+Si le déterminant de la matrice $A$ est non nul, c'est-à-dire si $ad-bc \neq 0$,
+alors la matrice $A$ est inversible et
+$$A^{-1} = \frac{1}{ad-bc} \begin{pmatrix} d & -b \\ -c & a \end{pmatrix}$$
+et l'unique solution $X=\left( \begin{smallmatrix} x \\ y \end{smallmatrix}\right)$
+du système est donnée par
+$$X = A^{-1} Y.$$
+
+\begin{exemple}
+Résolvons le système
+$
+\left\{\begin{array}{rcl}
+ x + y  & = & 1\\
+ x + t^2 y & = & t
+\end{array}\right.
+$
+suivant la valeur du paramètre $t\in \Rr$.
+
+Le déterminant du système est $\left| \begin{smallmatrix} 1 & 1 \\ 1 & t^2 \end{smallmatrix}\right|= t^2-1$.
+
+\textbf{Premier cas. $t\neq+1$ et $t\neq-1$.}
+Alors $t^2-1\neq 0$. La matrice $A=\left( \begin{smallmatrix} 1 & 1 \\ 1 & t^2 \end{smallmatrix}\right)$
+est inversible d'inverse $A^{-1} = \frac{1}{t^2-1}\left( \begin{smallmatrix} t^2 & -1 \\ -1 & 1 \end{smallmatrix}\right)$.
+Et la solution $X=\left( \begin{smallmatrix} x \\ y \end{smallmatrix}\right)$ est
+$$X = A^{-1} Y = \frac{1}{t^2-1}\begin{pmatrix} t^2 & -1 \\ -1 & 1 \end{pmatrix} \begin{pmatrix} 1 \\ t \end{pmatrix}
+= \frac{1}{t^2-1}\begin{pmatrix} t^2-t\\ t-1 \end{pmatrix}
+= \begin{pmatrix} \frac{t}{t+1} \\ \frac{1}{t+1} \end{pmatrix}.$$
+Pour chaque $t\neq \pm1$, l'ensemble des solutions est
+$\mathcal{S}= \big\lbrace \left(\frac{t}{t+1},\frac{1}{t+1}\right) \big\rbrace$.
+
+\textbf{Deuxième cas. $t=+1$.}
+Le système s'écrit alors :$
+\left\{\begin{array}{rcl}
+ x + y  & = & 1\\
+ x + y & = & 1
+\end{array}\right.
+$ et les deux équations sont identiques. Il y a une infinité de solutions :
+$\mathcal{S}= \big\lbrace (x,1-x) \mid x\in \Rr \big\rbrace$.
+
+
+\textbf{Troisième cas. $t=-1$.}
+Le système s'écrit alors :
+$
+\left\{\begin{array}{rcl}
+ x + y  & = & 1\\
+ x + y & = & -1
+\end{array}\right.$,
+les deux équations sont clairement incompatibles et donc $\mathcal{S}= \varnothing$.
+\end{exemple}
+
+
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Tracer les droites d'équations $\left\{\begin{array}{rcl}
+x-2y  & = & -1\\
+-x+3y & = & 3
+\end{array}\right.$ et résoudre le système linéaire
+ de trois façons différentes :
+substitution, méthode de Cramer, inverse d'une matrice.
+Idem avec $\left\{\begin{array}{rcl}
+2x-y  & = & 4\\
+3x+3y & = & -5
+\end{array}\right..$
+
+  \item Résoudre suivant la valeur du paramètre $t\in \Rr$ :
+$\left\{\begin{array}{rcl}
+4x-3y & = & t\\
+2x-y  & = & t^2
+\end{array}\right..$
+
+  \item  Discuter et résoudre suivant la valeur du paramètre $t\in \Rr$ :
+$\left\{\begin{array}{rcl}
+tx-y     & = & 1\\
+x+(t-2)y & = & -1
+\end{array}\right..$
+Idem avec $\left\{\begin{array}{rcl}
+(t-1)x+y & = & 1\\
+2x+ty    & = & -1
+\end{array}\right..$
+
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Théorie des systèmes linéaires}
+
+%---------------------------------------------------------------
+\subsection{Définitions}
+
+\begin{definition}
+On appelle \defi{équation linéaire}\index{equation lineaire@équation linéaire} dans les variables (ou \defi{inconnues})
+$x_1,\ldots,x_p$ toute relation de la forme
+\begin{equation}
+  a_1 x_1 + \cdots + a_p x_p = b,
+\end{equation}
+où $a_1, \ldots, a_p $ et $b$ sont des nombres réels donnés.
+\end{definition}
+
+\begin{remarque*}
+\sauteligne
+\begin{itemize}
+  \item Il importe d'insister ici sur le fait que ces équations linéaires sont
+\emph{implicites}, c'est-à-dire qu'elles décrivent des relations
+entre les variables, mais ne donnent pas directement les valeurs que
+peuvent prendre les variables.
+
+  \item \emph{Résoudre} une équation signifie donc la rendre
+\emph{explicite}, c'est-à-dire rendre plus apparentes les valeurs
+que les variables peuvent prendre.
+
+  \item On peut aussi considérer des équations linéaires de nombres rationnels ou de nombres complexes.
+\end{itemize}
+\end{remarque*}
+
+
+
+Soit $n\ge 1$ un entier.
+\begin{definition}
+Un \defi{système de $n$ équations linéaires à $p$ inconnues}\index{systeme@système!linéaire} 
+est une liste de $n$ équations linéaires.
+\end{definition}
+
+On écrit usuellement de tels systèmes en $n$ lignes placées les unes sous les autres.
+
+\begin{exemple}
+\label{exsyslin1}
+ Le système suivant a $2$ équations et $3$ inconnues :
+\[ \left\{  \begin{array}{ccccccc}
+ x_1 &- &3x_2 &+ &x_3 & =  &1\\
+ -2x_1 &+ &4x_2 &- &3x_3 & =  &9
+ \end{array} \right .
+\]
+\end{exemple}
+
+La forme générale d'un système linéaire de $n$ équations à $p$ inconnues est la suivante :
+$$\left\{
+\begin{array}{cccccccl}
+ a_{11}x_1 & +a_{12}x_2  &+a_{13}x_3&+&\cdots&+a_{1p}x_p&=&b_1 \qquad
+(\leftarrow\hbox{équation  $1$})   \\
+ a_{21}x_1 & +a_{22}x_2  &+a_{23}x_3&+&\cdots&+a_{2p}x_p&=&b_2 \qquad
+(\leftarrow\hbox{équation  $2$})  \\
+ \vdots &  \vdots  & \vdots&&& \vdots&=& \vdots   \\
+ a_{i1}x_1 & +a_{i2}x_2  &+a_{i3}x_3&+&\cdots&+a_{ip}x_p&=&b_i \qquad
+(\leftarrow\hbox{équation  $i$}) \\
+ \vdots &  \vdots  & \vdots&&& \vdots&=& \vdots   \\
+ a_{n1}x_1 & +a_{n2}x_2  &+a_{n3}x_3&+&\cdots&+a_{np}x_p&=&b_n \qquad
+(\leftarrow\hbox{équation  $n$})  \\
+   \end{array}
+\right.
+$$
+
+Les nombres $a_{ij}$, $i=1,\ldots, n$, $j=1,\ldots, p$, sont les \defi{coefficients} du système.
+Ce sont des données. Les nombres $b_{i}$, $i=1,\ldots, n$, constituent le
+\defi{second membre}\index{second membre} du système et sont également des données.
+
+Il convient de bien observer comment on a rangé le système en lignes
+(une ligne par équation) numérotées de $1$ à $n$ par l'indice $i$, et en colonnes :
+les termes correspondant à une même inconnue $x_j$ sont alignés verticalement
+les uns sous les autres. L'indice $j$ varie de $1$ à $p$. Il y a donc $p$ colonnes
+à gauche des signes d'égalité, plus une colonne supplémentaire à droite pour le
+second membre. La notation avec double indice $a_{ij}$ correspond à ce rangement :
+le premier indice (ici $i$) est le numéro de \emph{ligne} et le second
+indice (ici $j$) est le numéro de \emph{colonne}. Il est extrêmement important
+de toujours respecter cette convention.
+
+Dans l'exemple \ref{exsyslin1}, on a $n=2$ (nombre d'équations = nombre de lignes),
+$p=3$ (nombre d'inconnues = nombre de colonnes à gauche du signe =) et
+$a_{11}=1$, $a_{12}=-3$, $a_{13}=1$, $a_{21}=-2$, $a_{22}=4$, $a_{23}=-3$, $b_1=1$ et $b_2=9$.
+
+\begin{definition}
+Une \defi{solution} du système linéaire est une liste de
+$p$ nombres réels $(s_1,s_2,\ldots,s_p)$ (un $p$-uplet) tels que si
+l'on substitue $s_1$ pour $x_1$, $s_2$ pour $x_2$, etc., dans le système
+linéaire, on obtient une égalité. L'\,\defi{ensemble des solutions du système}
+est l'ensemble de tous ces $p$-uplets.
+\end{definition}
+
+\begin{exemple}
+ Le système
+\[ \left\{  \begin{array}{ccccccc}
+ x_1 &- &3x_2 &+ &x_3 & =  &1\\
+ -2x_1 &+ &4x_2 &- &3x_3 & =  &9
+ \end{array} \right .
+\]
+admet comme solution $(-18,-6,1)$, c'est-à-dire
+$$ x_1=-18\, , \qquad\qquad x_2 = -6\, , \qquad\qquad x_3 = 1\, .$$
+
+Par contre, $(7,2,0)$ ne satisfait que la première équation.
+Ce n'est donc pas une solution du système.
+\end{exemple}
+
+En règle générale, on s'attache à déterminer l'ensemble
+des solutions d'un système linéaire. C'est ce que l'on appelle \defi{résoudre}
+le système linéaire.
+Ceci amène à poser la définition suivante.
+
+\begin{definition}
+\label{systemes equivalents}
+On dit que deux systèmes linéaires sont \defi{équivalents}\index{systeme@système!équivalent}
+s'ils ont le même ensemble de solutions.
+\end{definition}
+
+
+{\`A} partir de là, le jeu pour résoudre un système linéaire
+donné consistera à le transformer en un système équivalent dont
+la résolution sera plus simple que celle du système de départ.
+Nous verrons plus loin comment procéder de façon systématique pour arriver à ce but.
+
+%---------------------------------------------------------------
+\subsection{Différents types de systèmes}
+
+Voici un résultat théorique important pour les systèmes linéaires.
+\begin{theoreme}
+Un système d'équations linéaires n'a soit aucune solution,
+soit une seule solution, soit une infinité de solutions.
+\end{theoreme}
+
+
+En particulier, si vous trouvez $2$ solutions différentes à un système
+linéaire, alors c'est que vous pouvez en trouver une infinité !
+Un système linéaire qui n'a aucune solution est dit \defi{incompatible}\index{systeme@système!incompatible}.
+La preuve de ce théorème sera vue dans un chapitre ultérieur
+(\og Matrices \fg).
+
+%---------------------------------------------------------------
+\subsection{Systèmes homogènes}
+
+Un cas particulier important est celui des \defi{systèmes homogènes}\index{systeme@système!homogène}, pour lesquels
+$b_1=b_2=\cdots=b_n=0$, c'est-à-dire dont le second membre est nul.
+De tels systèmes sont toujours compatibles car ils admettent toujours
+la solution $s_1=s_2=\cdots=s_p=0$. Cette solution est appelée
+\emph{solution triviale}. Géométriquement, dans le cas $2\times2$,
+un système homogène correspond à deux droites qui passent par l'origine,
+$(0,0)$ étant donc toujours solution.
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item \'Ecrire  un système linéaire de $4$ équations et $3$
+  inconnues qui n'a aucune solution. Idem avec une infinité de solution.
+  Idem avec une solution unique.
+
+  \item Résoudre le système à $n$ équations et $n$ inconnues dont les équations sont
+  $(L_i)$ : $x_i - x_{i+1} = 1$ pour $i=1,\ldots, n-1$ et $(L_n)$ : $x_n=1$.
+
+  \item Résoudre les systèmes suivants : \\
+$\left\{  \begin{array}{cccccc}
+ x_1 & +2x_2 & +3x_3 & +4x_4 &=& 0\\
+     & x_2   & +2x_3 & +3x_4 &=& 9\\
+     &       & x_3   & +2x_4 &=& 0
+ \end{array} \right.
+$
+$\left\{  \begin{array}{ccccc}
+ x_1 & +2x_2 & +3x_3 &=& 1\\
+ x_1 & +x_2  & +x_3  &=& 2\\
+ x_1 & -x_2  & +x_3  &=& 3
+ \end{array} \right.
+$
+$\left\{  \begin{array}{cccccc}
+ x_1 & + x_2 &       &       &=& 1\\
+     & x_2   & + x_3 &       &=& 2\\
+     &       & x_3   & + x_4 &=& 3\\
+ x_1 & +2x_2 & +2x_3 & + x_4 &=& 0\\
+ \end{array} \right.
+$
+
+  \item Montrer que si un système linéaire \emph{homogène} a une solution
+  $(x_1,\ldots,x_p) \neq (0,\ldots,0)$, alors il admet une infinité de solutions.
+
+\end{enumerate}
+\end{miniexercices}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Résolution par la méthode du pivot de Gauss}
+
+%---------------------------------------------------------------
+\subsection{Systèmes échelonnés}
+
+\begin{definition}
+Un système est \defi{échelonné}\index{systeme@système!échelonné} si :
+\begin{itemize}
+  \item le nombre de coefficients nuls commençant une ligne croît strictement ligne après ligne.
+\end{itemize}
+
+Il est \defi{échelonné réduit}\index{systeme@système!réduit} si en plus :
+\begin{itemize}
+\setcounter{enumi}{1}
+  \item le premier coefficient non nul d'une ligne vaut $1$ ;
+
+  \item et c'est le seul élément non nul de sa colonne.
+\end{itemize}
+\end{definition}
+
+
+\begin{exemple}
+\sauteligne
+\begin{itemize}
+  \item $\left\{\begin{array}{cccccc}
+2x_1&+3x_2&+2x_3&-x_4&=&5\\
+&-x_2&-2x_3&&=&4\\
+&&&3x_4&=&1
+\end{array}\right.
+$ est échelonné (mais pas réduit).
+
+  \item $\left\{\begin{array}{cccccc}
+2x_1&+3x_2&+2x_3&-x_4&=&5\\
+&&-2x_3&&=&4\\
+&&x_3&+x_4&=&1
+\end{array}\right.
+$ n'est pas échelonné (la dernière ligne commence
+avec la même variable que la ligne au-dessus).
+
+
+\end{itemize}
+
+\end{exemple}
+
+
+Il se trouve que les systèmes linéaires sous une forme échelonnée réduite
+sont particulièrement simples à résoudre.
+
+\begin{exemple}
+\label{syslin:exsysechel}
+Le système linéaire suivant à $3$ équations et $4$ inconnues est échelonné et réduit.
+$$\left\{\begin{array}{cccccc}
+x_1&&+2x_3&&=&25\\
+&x_2&-2x_3&&=&16\\
+&&&x_4&=&1
+\end{array}\right.
+$$
+Ce système se résout trivialement en
+$$\left\{\begin{array}{ccc}
+x_1&=&25-2x_3\\
+x_2&=&16+2x_3\\
+x_4&=&1.
+\end{array}\right.
+$$
+En d'autres termes, pour toute valeur de $x_3$ réelle,
+les valeurs de $x_1$, $x_2$ et $x_4$ calculées ci-dessus fournissent
+une solution du système, et on les a ainsi toutes obtenues.
+On peut donc décrire entièrement l'ensemble des solutions :
+$$\mathcal{S}=\big\{(25-2x_3,16+2x_3,x_3,1) \mid x_3\in \Rr \big\}.$$
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Opérations sur les équations d'un système}
+
+Nous allons utiliser trois opérations
+élémentaires sur les équations (c'est-à-dire sur les lignes) qui sont :
+\begin{enumerate}
+  \item $L_i \leftarrow \lambda L_i$ avec $\lambda \neq 0$ :
+  on peut multiplier une équation par un réel non nul.
+
+  \item $L_i \leftarrow L_i+\lambda L_j$ avec $\lambda \in \Rr$ (et $j\neq i$) :
+  on peut ajouter à l'équation $L_i$ un multiple d'une autre équation $L_j$.
+
+  \item $L_i \leftrightarrow L_j$ : on peut échanger deux équations.
+\end{enumerate}
+
+Ces trois opérations élémentaires ne changent pas les solutions d'un système linéaire ;
+autrement dit ces opérations transforment un système linéaire en un système linéaire équivalent.
+
+
+\begin{exemple}
+Utilisons ces opérations élémentaires pour résoudre le système suivant.
+\[ \left\{
+\begin{array}{cccccr}
+x  & + y & +7z & = & -1 & {\scriptstyle \quad (L_1)}\\
+2x & - y & +5z & = & -5 & {\scriptstyle \quad (L_2)}\\
+-x & -3y & -9z & = & -5 & {\scriptstyle \quad (L_3)}
+\end{array} \right.
+\]
+
+Commençons par l'opération $L_2 \leftarrow L_2 - 2L_1$ :
+on soustrait à la deuxième équation deux fois la première équation.
+On obtient un système équivalent avec une nouvelle deuxième ligne (plus simple) :
+
+\[ \left\{
+\begin{array}{cccccr}
+x  & + y & +7z & = & -1 & \\
+   & -3y & -9z & = & -3 & {\scriptstyle \quad L_2 \leftarrow L_2 - 2L_1}\\
+-x & -3y & -9z & = & -5 &
+\end{array} \right.
+\]
+
+Puis $L_3 \leftarrow L_3 + L_1$ :
+\[ \left\{
+\begin{array}{cccccr}
+x  & + y & +7z & = & -1 & \\
+   & -3y & -9z & = & -3 & \\
+   & -2y & -2z & = & -6 & {\scriptstyle \quad L_3 \leftarrow L_3 + L_1}
+\end{array} \right.
+\]
+
+
+On continue pour faire apparaître un coefficient $1$ en tête de la deuxième ligne ;
+pour cela on divise la ligne $L_2$ par $-3$ :
+\[ \left\{
+\begin{array}{cccccr}
+x  & + y & +7z & = & -1 & \\
+   &  y  & +3z & = & 1 & {\scriptstyle \  L_2 \leftarrow \ -\frac13 L_2}\\
+   & -2y & -2z & = & -6 &
+\end{array} \right.
+\]
+
+On continue ainsi
+\[ \left\{
+\begin{array}{cccccr}
+x  & + y & +7z & = & -1 & \\
+   &  y  & +3z & = & 1 & \\
+   &     & 4z  & = & -4& {\scriptstyle \  L_3 \leftarrow L_3+2 L_2}
+\end{array} \right.
+\qquad
+\left\{
+\begin{array}{cccccr}
+x  & + y & +7z & = & -1 & \\
+   &  y  & +3z & = & 1 & \\
+   &     & z  & = & -1& {\scriptstyle \ L_3 \leftarrow \frac14L_3}
+\end{array} \right.
+\]
+
+\[ \left\{
+\begin{array}{cccccr}
+x  & + y & +7z & = & -1 & \\
+   &  y  &     & = & 4  & {\scriptstyle \  L_2 \leftarrow L_2-3L_3}\\
+   &     &  z  & = & -1 &
+\end{array} \right.
+\qquad
+\left\{
+\begin{array}{cccccr}
+x  & + y &     & = & 6 & {\scriptstyle \  L_1 \leftarrow L_1 -7L_3}\\
+   &  y  &     & = & 4 & \\
+   &     & z   & = & -1 &
+\end{array} \right.
+\]
+
+On aboutit à un système réduit et échelonné :
+\[\left\{
+\begin{array}{cccccr}
+x  &   &      & = & 2 & {\scriptstyle \quad L_1 \leftarrow L_1 -L_2}\\
+   &  y  &    & = & 4 & \\
+   &     & z  & = & -1 &
+\end{array} \right.
+\]
+
+On obtient ainsi $x=2$, $y=4$ et $z=-1$ et
+l'unique solution du système est $(2,4,-1)$.
+\end{exemple}
+
+La méthode utilisée pour cet exemple est reprise et généralisée dans le paragraphe suivant.
+
+%---------------------------------------------------------------
+\subsection{Méthode du pivot de Gauss}
+
+La méthode du pivot de Gauss permet de trouver les solutions de n'importe
+quel système linéaire.
+Nous allons décrire cet algorithme sur un exemple.
+Il s'agit d'une description précise d'une suite d'opérations à effectuer,
+qui dépendent de la situation et d'un ordre précis. Ce processus
+aboutit toujours (et en plus assez rapidement)
+à un système échelonné puis réduit, qui conduit immédiatement aux solutions du système.
+
+
+\textbf{Partie A. Passage à une forme échelonnée.}
+
+Soit le système suivant à résoudre :
+ \[\left\{\begin{array}{ccccccr}
+ & -x_2 &+2x_3& +13x_4 &=& 5  & \\
+x_1 &-2x_2&+3x_3& +17x_4 &=& 4 & \\
+-x_1& +3x_2    &-3x_3  & -20x_4  &=& -1 &
+\end{array} \right.\]
+
+Pour appliquer la méthode du pivot de Gauss, il faut
+d'abord que le premier coefficient de la première ligne soit non nul.
+Comme ce n'est pas le cas ici, on échange les deux premières lignes par l'opération élémentaire
+$L_1 \leftrightarrow L_2$ :
+\[\left\{\begin{array}{ccccccr}
+x_1 &-2x_2&+3x_3& +17x_4 &=& 4 & {\scriptstyle \quad L_1 \leftrightarrow L_2} \\
+    & -x_2 &+2x_3& +13x_4 &=& 5  &  \\
+-x_1& +3x_2    &-3x_3  & -20x_4  &=& -1 &
+\end{array} \right.\]
+
+Nous avons déjà un coefficient $1$ devant le $x_1$ de la première ligne.
+On dit que nous avons un \defi{pivot} en position $(1,1)$ (première ligne, première colonne).
+Ce pivot sert de base pour éliminer tous les autres termes sur la même colonne.
+
+Il n'y a pas de terme $x_1$ sur le deuxième ligne.
+Faisons disparaître le terme $x_1$ de la troisième ligne ;
+pour cela on fait l'opération élémentaire $L_3 \leftarrow L_3+L_1$ :
+\[\left\{\begin{array}{ccccccr}
+x_1 &-2x_2&+3x_3& +17x_4 &=& 4 & \\
+    & -x_2 &+2x_3& +13x_4 &=& 5  &  \\
+    & x_2    &  & -3x_4  &=& 3 & {\scriptstyle \quad L_3 \leftarrow L_3+L_1}
+\end{array} \right.\]
+\qquad
+
+On change le signe de la seconde ligne ($L_2 \leftarrow -L_2$) pour faire apparaître
+$1$ au coefficient du pivot $(2,2)$ (deuxième ligne, deuxième colonne) :
+\[
+\left\{\begin{array}{ccccccr}
+x_1 &-2x_2&+3x_3& +17x_4 &=& 4 & \\
+    & x_2 &-2x_3& -13x_4 &=& -5  &  {\scriptstyle \quad L_2 \leftarrow \ -L_2}\\
+    & x_2    &  & -3x_4  &=& 3 &
+\end{array} \right.
+ \]
+
+
+ On fait disparaître le terme $x_2$ de la troisième ligne,
+ puis on fait apparaître un coefficient $1$ pour le pivot de la position $(3,3)$ :
+\[
+\left\{\begin{array}{ccccccr}
+x_1 &-2x_2&+3x_3& +17x_4 &=& 4 & \\
+    & x_2 &-2x_3& -13x_4 &=& -5  & \\
+    &     & 2x_3 & +10x_4  &=& 8 & {\scriptstyle \quad L_3 \leftarrow L_3 -L_2}
+\end{array} \right.
+\]\[
+\left\{\begin{array}{ccccccr}
+x_1 &-2x_2&+3x_3& +17x_4 &=& 4 & \\
+    & x_2 &-2x_3& -13x_4 &=& -5  & \\
+    &     & x_3 & +5x_4  &=& 4  & {\scriptstyle \quad L_3 \leftarrow \frac12 L_3}
+\end{array} \right. \]
+Le système est maintenant sous forme échelonnée.
+
+\bigskip
+
+\textbf{Partie B. Passage à une forme réduite.}
+
+Il reste à le mettre sous la forme échelonnée réduite.
+Pour cela, on ajoute à une ligne des multiples adéquats des lignes situées
+au-dessous d'elle, en allant du bas à droite vers le haut à gauche.
+
+
+On fait apparaître des $0$ sur la troisième colonne en utilisant le pivot de la troisième ligne :
+\[\left\{\begin{array}{ccccccr}
+x_1 &-2x_2&+3x_3& +17x_4 &=& 4 & \\
+    & x_2 &     & -3x_4  &=& 3 & {\scriptstyle \quad L_2 \leftarrow L_2 + 2L_3}\\
+    &     & x_3 & +5x_4  &=& 4  &
+\end{array} \right.
+\]\[
+\left\{\begin{array}{ccccccr}
+x_1 &-2x_2&     & 2x_4 &=& -8 & {\scriptstyle \quad L_1 \leftarrow L_1 -3 L_3}\\
+    & x_2 &     & -3x_4 &=& 3  & \\
+    &     & x_3 & +5x_4  &=& 4  &
+\end{array} \right. \]
+
+On fait apparaître des $0$ sur la deuxième colonne (en utilisant le pivot de la deuxième ligne) :
+\[\left\{\begin{array}{ccccccr}
+x_1 &     &     & -4x_4 &=& -2 & {\scriptstyle \quad L_1 \leftarrow L_1 + 2L_2}\\
+    & x_2 &     & -3x_4 &=& 3  & \\
+    &     & x_3 & +5x_4 &=& 4  &
+\end{array} \right. \]
+
+Le système est sous forme échelonnée réduite.
+
+\bigskip
+
+\textbf{Partie C. Solutions.}
+Le système est maintenant très simple à résoudre. En choisissant $x_4$ comme variable libre, on peut exprimer
+$x_1,x_2,x_3$ en fonction de $x_4$ :
+$$x_1=4x_4-2, \quad x_2 = 3x_4+3,\quad x_3=-5x_4+4.$$
+Ce qui permet d'obtenir toutes les solutions du système :
+$$\mathcal{S}= \big\lbrace (4x_4-2,3x_4+3,-5x_4+4,x_4) \mid x_4 \in \Rr \big\rbrace.$$
+
+
+% A ne pas mettre dans les diapos
+% \begin{remarque*}
+% \begin{itemize}
+%   \item Arrêtons nous quelque peu sur la notion d'algorithme. Il s'agit d'une description
+% précise d'une suite d'opérations à effectuer, dans quel ordre et dans quel cas,
+% qui aboutit au bout d'un nombre fini d'étapes si possible connu à l'avance au
+% résultat voulu.
+%
+%   \item La première raison pour utiliser cet algorithme du pivot  Gauss est
+%   que l'on peut certes résoudre les systèmes à $2$ ou $3$ inconnues par des
+%   manipulations sur les équations menées au petit bonheur la chance et qui aboutissent
+% à un résultat après un plus ou moins grand nombre d'opérations. Or l'expérience montre
+% que ces opérations sont le plus souvent inutiles, redondantes, et surtout cause
+% d'erreurs de calculs. Il est bien préférable de se laisser guider par une méthode
+% stricte dont l'application garantit un nombre minimal de calculs (en général).
+%
+%   \item La seconde raison est que dans les applications pratiques de l'algèbre linéaire,
+% lesquelles sont extrêmement nombreuses et importantes, les systèmes à résoudre
+% sont énormes (des milliers, voire des millions d'équations et d'inconnues) et
+% qu'il n'est pas question d'effectuer les calculs à la main. Ce sont des ordinateurs
+% qui s'en chargent, et ces derniers ont besoin de programmes, lesquels sont la
+% traduction en tel ou tel langage d'un algorithme.
+% \end{itemize}
+%
+% \end{remarque*}
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Systèmes homogènes}
+\index{systeme@système!homogène}
+
+Le fait que l'on puisse toujours se ramener à un système échelonné
+réduit implique le résultat suivant :
+\begin{theoreme}
+Tout système homogène d'équations linéaires dont le nombre d'inconnues est
+strictement plus grand que le nombre d'équations a une infinité de solutions.
+\end{theoreme}
+
+\begin{exemple} Considérons le système homogène
+\[\left\{
+ \begin{array}{ccccccccccc}
+3x_1 &+ &3x_2 &- &2x_3 &&&- &x_5 & = & 0\\
+ -x_1 &- &x_2 &+ &x_3 &+ &3x_4 &+ &x_5 & = & 0\\
+ 2x_1 &+ &2x_2 &- &x_3 &+ &2x_4 &+ &2x_5 & = & 0\\
+ &&&&x_3 &+ &8x_4 &+ &4x_5 & = & 0.
+\end{array} \right.
+\] \end{exemple}
+
+Sa forme échelonnée réduite est
+
+\[ \left\{
+\begin{array}{ccccccccc}
+x_1 &+ &x_2 &&& + &13x_5 & = & 0\\
+&&&x_3 & &+ &20x_5 & = & 0\\
+&&&&x_4  &-&2x_5 & = & 0.
+\end{array} \right.
+\]
+
+On pose comme variables libres $x_2$ et $x_5$
+pour avoir
+$$x_1 = -x_2-13x_5,\qquad x_3 = -20x_5, \qquad x_4 = 2x_5,$$
+et l'ensemble des solutions :
+$$\mathcal{S}= \big\lbrace (-x_2-13x_5, x_2,-20x_5, 2x_5, x_5) \mid x_2,x_5 \in \Rr \big\rbrace$$
+qui est bien infini.
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item \'Ecrire un système linéaire à $4$ équations et $5$ inconnues qui soit
+  échelonné mais pas réduit. Idem avec échelonné, non réduit, dont tous les coefficients sont
+  $0$ ou $+1$. Idem avec échelonné et réduit.
+
+  \item Résoudre les systèmes échelonnés suivants :
+ $\left \{ \begin{array}{cccccc}
+2x_1 & -x_2&      & +x_4 &=& 1 \\
+     & x_2 & +x_3 &-2x_4 &=& 3 \\
+     &     & 2x_3 & +x_4 &=& 4 \\
+     &     &      & x_4  &=& -2 \\
+\end{array} \right.$\qquad
+ $\left \{ \begin{array}{cccccc}
+x_1 & +x_2&      & +x_4 &=& 0 \\
+     & x_2 & +x_3 &     &=& 0 \\
+     &     & 2x_3 & +x_4 &=& 0 \\
+\end{array} \right.$ 
+
+ $\left \{ \begin{array}{cccccc}
+x_1 & +2x_2&      & +x_4   &=& 0 \\
+     &     & 2x_3 & -3x_4 &=& 0 \\
+\end{array} \right.$
+
+  \item Si l'on passe d'un système $(S)$ par une des trois opérations élémentaires à un système
+  $(S')$, alors quelle opération permet de passer de $(S')$ à $(S)$ ?
+
+  \item Résoudre les systèmes linéaires suivants par la méthode du pivot de Gauss :
+  $$\left\{
+\begin{array}{ccccccc}
+2x   &+&  y    &+&   z  &=&  3 \\
+x    &-&  y    &+&   3z &=&  8 \\
+x    &+&  2y   &-&   z  &=&  -3
+\end{array}\right.$$
+$$
+\left\{
+\begin{array}{ccccccccc}
+2x_1 & + & 4x_2 & - & 6x_3 & - & 2x_4 & = & 2\\
+3x_1 & + & 6x_2 & - & 7x_3 & + & 4x_4 &= & 2\\
+5x_1 & + & 10 x_2 & - & 11 x_3 & + & 6x_4 &   = & 3
+\end{array}
+ \right.
+$$
+
+
+  \item Résoudre le système suivant, selon les valeurs de $a,b \in \Rr$ :
+$$\left \{ \begin{array}{ccccc}
+x  & +y &-z   &=& a \\
+-x &    & +2z &=& b \\
+   & 2y & +2z &=& 4 \\
+\end{array} \right.$$
+
+\end{enumerate}
+\end{miniexercices}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bigskip
+\bigskip
+
+\auteurs{
+\begin{itemize}
+  \item D'après un cours de Eva Bayer-Fluckiger, Philippe Chabloz, Lara Thomas
+  de l'\'Ecole Polytechnique Fédérale de Lausanne,
+
+  \item et un cours de Sophie Chemla de l'université Pierre et Marie Curie,
+  reprenant des parties d'un cours de H. Ledret et d'une équipe de l'université de
+  Bordeaux animée par J. Queyrut,
+
+  \item mixés et révisés par Arnaud Bodin, relu par Vianney Combet.
+\end{itemize}
+}
+
+\finchapitre
+\end{document}

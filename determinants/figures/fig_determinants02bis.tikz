@@ -1,0 +1,36 @@
+\tikzset{node style ge/.style={circle}}
+
+\begin{tikzpicture}[baseline=(A.center)]
+
+  \tikzset{BarreStyle/.style =  {opacity=.4,line width=4 mm, color=#1}}
+
+\matrix (A) [matrix of math nodes, nodes = {node style ge}, column sep=0 mm,%
+left delimiter  = (,right delimiter = )]
+{
+ a_{11} & a_{12} & a_{13} & \color{black!50}a_{11} & \color{black!50}a_{12}  \\
+ a_{21} & a_{22} & a_{23} & \color{black!50}a_{21} & \color{black!50}a_{22} \\
+ a_{31} & a_{32} & a_{33} & \color{black!50}a_{31} & \color{black!50}a_{32} \\
+};
+
+ \draw [BarreStyle=blue,line cap=round] (A-1-1.north west) to (A-3-3.south east);
+% \draw [BarreStyle=blue!50,line cap=round] (A-2-1.north west) to (A-3-2.south east);
+% \draw [BarreStyle=blue!70,line cap=rect] (A-3-1.north west) to (A-3-1.south east);
+ \draw [BarreStyle=blue!70,line cap=round] (A-1-2.north west) to (A-3-4.south east);
+ \draw [BarreStyle=blue!50,line cap=round] (A-1-3.north west) to (A-3-5.south east);
+
+\matrix (B) [matrix of math nodes, nodes = {node style ge}, column sep=0 mm, %
+left delimiter  = (,right delimiter = )]
+at (3, 0)
+{
+ a_{11} & a_{12} & a_{13} & \color{black!50}a_{11} & \color{black!50}a_{12}  \\
+ a_{21} & a_{22} & a_{23} & \color{black!50}a_{21} & \color{black!50}a_{22} \\
+ a_{31} & a_{32} & a_{33} & \color{black!50}a_{31} & \color{black!50}a_{32} \\
+};
+
+ \draw [BarreStyle=orange,line cap=round] (B-3-1.south west) to (B-1-3.north east);
+% \draw [BarreStyle=orange!50,line cap=round] (B-2-1.south west) to (B-1-2.north east);
+% \draw [BarreStyle=orange!70,line cap=rect] (B-1-1.south west) to (B-1-1.north east);
+ \draw [BarreStyle=orange!70,line cap=round] (B-3-2.south west) to (B-1-4.north east);
+ \draw [BarreStyle=orange!50,line cap=round] (B-3-3.south west) to (B-1-5.north east);
+
+\end{tikzpicture}

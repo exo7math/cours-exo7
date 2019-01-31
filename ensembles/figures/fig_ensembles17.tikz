@@ -1,0 +1,48 @@
+% Dimensionnement de l'arbre
+\def\dx{15pt}
+\def\dy{25pt}
+% Definition de compteurs
+%(attention aux possibles interactions avec d'autres compteurs a l'exterieur de ce fichier)
+\newcounter{i}
+\newcounter{z}
+\newcounter{xn}
+\newcounter{xnn}
+
+% Le triangle de Pascal
+\def\mkPascal#1{
+\setcounter{i}{0}
+\setcounter{z}{0}
+\stepcounter{i}
+\node (\arabic{i}) at (0,0) {1};
+    \foreach [count=\i] \x in {2,...,#1}{
+      \pgfmathsetmacro{\lox}{\x-1}%
+            \pgfmathsetmacro{\loxt}{\x-3}%
+      \foreach [count=\j] \xx in {-\lox,-\loxt,...,\lox}{
+        \pgfmathsetmacro{\jj}{\j-1}%
+        \stepcounter{i}
+        \pgfmathsetmacro{\lbl}{\lox!/(\jj!*(\lox-\jj)!)}
+        \node  (\arabic{i}) at (\xx*\dx, -\lox*\dy) {\pgfmathint{\lbl}\pgfmathresult};
+      }
+    }
+\pgfmathsetmacro{\maxx}{#1 - 1}
+    \foreach \x in {1,...,\maxx}{
+      \foreach \xx in {1,...,\x}{
+        \stepcounter{z}
+        \setcounter{xn}{\arabic{z}}
+        \addtocounter{xn}{\x}
+        \setcounter{xnn}{\arabic{xn}}
+        \stepcounter{xnn}
+          \draw [->] (\arabic{z}) -- (\arabic{xn});
+          \draw [->] (\arabic{z}) -- (\arabic{xnn});
+      }
+    }
+}
+\begin{tikzpicture}
+\begin{scope}[xshift=-3.5cm]
+\mkPascal{5}
+\end{scope}
+\begin{scope}[xshift=3cm]
+\mkPascal{6}
+\end{scope}
+\end{tikzpicture}
+

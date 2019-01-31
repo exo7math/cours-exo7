@@ -1,0 +1,21 @@
+\begin{tikzpicture}[scale=2]
+
+% Axes
+     \draw[->,>=latex,thick, gray] (-0.5,0)--(2,0) node[below,black] {$x$};
+     \draw[->,>=latex,thick, gray] (0,-0.5)--(0,1.5) node[right,black] {$y$};
+
+ % Ticks
+    	\foreach \x in {1,...,1}
+     		\draw (\x,2pt) -- (\x,-2pt)
+			node[anchor=north] {\x};
+    	\foreach \x in {1}
+     		\draw (2pt,\x) -- (-2pt,\x)
+			node[anchor=east] {\x};
+
+
+% Courbe
+\draw [very thick, color=blue, domain=-pi/4:pi/4, samples=100, smooth]
+  plot (xy polar cs:angle=\x r, radius={sin(\x r)+cos(\x r)});
+
+
+\end{tikzpicture}

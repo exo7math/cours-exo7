@@ -1,0 +1,388 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\construc}{\mathcal{C}}
+\newcommand{\plan}{\mathcal{P}}
+\newcommand{\cercle}{\mathcal{C}}
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+Cette partie est la charnière de ce chapitre. Nous expliquons à quoi 
+correspondent algébriquement les opérations géométriques effectuées à la règle et au compas.
+
+\change
+On commence par le théorème de Wantzel qui relie les nombres
+constructibles avec les extensions quadratiques
+
+\change
+La principale application sera que les nombres constructibles doivent vérifier certaines conditions algébriques
+
+\change
+On expliquera le théorème de Wantzel sur des exemples...
+
+\change
+... avant d'en détailler la preuve.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici le résultat théorique le plus important de ce chapitre.
+C'est Pierre-Laurent Wantzel qui a démontré ce théorème en 1837, à l'âge de 23 ans.
+
+Théorème : 
+Un nombre réel $x$ est constructible si et seulement s'il existe 
+des extensions quadratiques 
+$$K_0 \subset K_1 \subset \cdots \subset K_r$$
+
+où le corps de départ est $K_0 = \Qq$ 
+
+et $K_r$ le corps d'arrivée contient notre nombre constructible $x$.
+
+
+
+\change
+Ce qui est important c'est que chacune des extensions $K_{i+1}$ est une extension quadratique de $K_i$,
+
+\change
+c'est-à-dire $[K_{i+1}:K_i]=2$.
+
+\change
+Dire que chaque extension est une extension quadratique de la précédente,
+
+c'est dire que $K_{i+1} = K_i(\sqrt{\delta_i})$ pour un certain $\delta_i \in K_i$. 
+
+\change
+Donc en partant $K_0 = \Qq$, les extensions sont de la forme :
+$$\Qq \subset \Qq(\sqrt \delta_0) \subset \Qq(\sqrt \delta_0)(\sqrt \delta_1) \subset \cdots$$
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+La conséquence la plus importante du théorème de Wantzel
+est donnée par l'énoncé suivant. C'est ce résultat que l'on utilisera 
+dans la pratique.
+
+Corollaire :
+Tout nombre réel constructible est un nombre algébrique
+dont le degré algébrique est de la forme $2^n$, $n\ge 0$. 
+
+Il y a donc deux résultats en un seul : 
+
+(1) un nombre constructible est un nombre algébrique
+
+et (2)  il y a une contrainte forte sur son degré algébrique qui est nécessairement une puissance de $2$.
+
+\change
+On commence par expliquer comment le théorème de Wantzel permet d'obtenir ce corollaire.
+Pour cela partons de $x$ un nombre réel constructible. 
+
+\change
+Par le théorème de Wantzel, il existe des extensions quadratiques 
+$\Qq = K_0 \subset K_1 \subset \cdots \subset K_r$
+telles que $x$ appartienne à la dernière extension $K_r$. 
+
+\change
+Puisque chacune des extensions est de degré $2$ sur la précédente 
+alors $K_r$ est une extension finie de $\Qq$.
+
+Ainsi $x$ appartient à une extension de $\Qq$ de degré fini,
+
+\change
+Et on sait que tout élément d'une extension finie est un nombre algébrique !
+
+\change
+
+On va maintenant calculer le degré algébrique.
+
+Comme le degré de l'extension  $K_1$ sur $K_0$ est $2$
+de même pour $K_2$ sur $K_1$, alors le degré de $K_2$ sur $K_0$ est $4$.
+
+\change
+
+Par récurrence, le degré de l'extension $K_r$ sur $K_0$ est de $2^r$, mais je vous rappelle que $K_0 = \Qq$.
+
+\change
+Il nous reste à en déduire le degré algébrique $[\Qq(x):\Qq]$.
+On sait que $\Qq(x) \subset K_r$ 
+
+et nous savons qu'alors  $[K_r:\Qq(x)] \times [\Qq(x):\Qq]=[K_r:\Qq]=2^r$.
+
+\change
+Cela implique que $[\Qq(x):\Qq]$ divise $2^r$...
+
+\change
+...et est donc nécessairement une puissance de $2$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Donnons des exemples des extensions nécessaires dans les trois cas qui vont 
+être les trois cas de la preuve du théorème de Wantzel.
+
+
+\change
+Le premier cas est lorsque l'on construit un point $P$ 
+comme l'intersection de deux droites.
+
+\change
+On a donc deux droites $(AB)$ et $(A'B')$.
+
+\change
+et les coordonnées des points $A, B, A', B'$ sont des points à 
+coordonnées rationnelles (et même ici entières).
+
+
+\change
+On calcule les équations des droites :
+  $2x+y=1$ et $3x-y=2$ et bien sûr les coefficients sont des nombres rationnels.
+  
+\change  
+Le point d'intersection $P$ a pour coordonnées les solutions du système linéaire
+formé par ces deux équations : 
+
+\change
+on trouve $(\frac 35, -\frac 15)$,
+
+\change
+L'abscisse et l'ordonnée sont bien des nombres rationnels. 
+
+\change
+Dans ce cas il n'y a pas besoin d'extension de corps. Le corps original
+$K = \Qq$ qui contenait les coordonnées de nos points de départ, contient aussi les coordonnées
+du point d'intersection.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici maintenant un exemple où $P$ est obtenu comme l'intersection d'une droite
+et d'un cercle.
+
+\change
+La droite est définie par les deux points $A$ et $B$ à coordonnées rationnelles.
+
+\change
+Son équation est $2x+y=1$.
+
+\change
+Le cercle a pour centre le point $A'$ de coordonnées $(2,1)$
+et passe par le point $B'$ de coordonnées $(-1,1)$. Encore une fois les abscisses et ordonnées 
+de départ sont toutes des nombres rationnels.
+
+\change
+Le rayon du cercle est $3$ et l'équation du cercle est 
+$(x-2)^2+(y-1)^2=9$.
+
+\change
+
+Les coordonnées des points d'intersections sont obtenues en résolvant le systèmes formé de ces deux équations.
+
+On trouve bien sûr deux solutions, tout d'abord le point $P$ de coordonnées :
+  $$\left(\frac 1 5 \left(2- \sqrt{29}\right),\frac 1 5 \left(1+2\sqrt{29}\right) \right)$$
+
+\change
+et aussi le point $P'$ avec un changement de signe ici et là.
+  
+\change
+Les coordonnées ne sont pas des nombres rationnels
+mais elles sont de la forme $\alpha+\beta\sqrt{\delta}$ avec $\delta = 29$
+et $\alpha,\beta$ des rationnels.
+
+\change
+Il faut donc étendre le corps, et le corps qui contient les coordonnées
+des points d'intersections est $\Qq(\sqrt{29})$,
+qui est bien une extension quadratique de $\Qq$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le dernier exemple est l'intersection de deux cercles.
+
+\change
+Le premier cercle est centré en  $(-1,0)$ et passe par $(1,0)$ ; son rayon est $2$
+et son équation est $(x+1)^2+y^2=4$.
+
+\change 
+Le second cercle est centré en $(2,1)$ et passe par l'origine, son rayon est $\sqrt{5}$ mais son
+équation est $(x-2)^2+(y-1)^2=5$ qui est bien à coefficients rationnels.
+
+\change
+
+Il y a deux points d'intersections,
+Le premier a pour coordonnées 
+  $$\left(\frac{1}{20}\left( 7 - \sqrt{79}\right),\frac{3}{20}\left( 3 + \sqrt{79}\right)\right)$$
+  
+\change
+Pour le second on change les signes.
+
+\change
+Encore une fois les abscisses et ordonnées sont de la forme $\alpha+\beta\sqrt\delta$ avec 
+$\delta = 79$ et $\alpha,\beta \in \Qq$.
+
+\change
+L'extension qui convient est l'extension quadratique $\Qq(\sqrt{79})$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous terminons cette séquence par la preuve du théorème de Wantzel.
+
+Je vous rappelle l'énoncé. 
+
+\change
+
+Il y a un sens facile : 
+
+\change
+comme on sait construire les racines carrées des nombres constructibles
+
+\change
+alors on sait construire tout élément d'une extension quadratique 
+$K_1 = \Qq(\sqrt \delta_0)$, 
+
+\change
+puis par récurrence tout élément de $K_2$, $K_3$,...
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+\change
+Rappelons nous que les points constructibles sont construits
+par étapes $\construc_0$ qui contient seulement deux points,
+à partir desquels on construit $\construc_1$, puis on construit $\construc_2$, etc.
+
+\change
+L'ensemble $\construc_{j+1}$ s'obtient 
+à partir de $\construc_j$ en ajoutant les intersections des droites et des cercles
+que l'on peut tracer à partir de $\construc_j$.
+
+
+Nous allons voir que ce passage correspond à une extension quadratique.
+
+\change
+Notons $K$ le plus petit corps contenant les coordonnées des points de $\construc_j$.
+
+\change
+Soit maintenant $P$ un point de l'étape d'après, donc un point de $\construc_{j+1}$.
+
+Il s'agit de montrer que les coordonnées de $P$ sont dans une extension quadratique de $K$.
+
+Ce point $P$ est l'intersection de deux objets (deux droites ; une droite et un cercle ;
+ou deux cercles). On va faire une étude au cas par cas.
+
+\change
+On commence par le plus simple : $P$ est l'intersection de deux droites.
+
+\change
+On part de deux points $A$ et $B$ dont les coordonnées sont dans le corps $K$.
+
+\change
+A partir de ces coordonnées, on calcule une équation de la droite $(AB)$ :
+$y = \frac{y_B-y_A}{x_B-x_A} (x-x_A)+ y_A$,
+
+\change
+il est important de noter que cette équation est de la forme $ax+by=c$ 
+ avec $a,b,c$ des éléments toujours du même corps $K$.
+ 
+\change
+De même pour l'autre droite, elle a une équation $a'x+b'y=c'$, avec  $a',b',c'$ dans $K$.
+
+\change 
+Les coordonnées du point d'intersection $P$ sont donc solution du système linéaire formé par ces deux équations, l'unique solution est
+$$\left(\frac{cb'-c'b}{ab'-a'b} , \frac{ac'-a'c}{ab'-a'b} \right).$$
+
+\change
+Comme $K$ est un corps alors l'abscisse et l'ordonnée de ce $P$ sont encore dans $K$.
+
+\change
+Dans ce cas il n'y a pas besoin d'extension : 
+le plus petit corps contenant les coordonnées des points de $\construc_j$ et de $P$ est $K$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons au deuxième cas ; c'est le cas où $P$ est intersection d'une droite et d'un cercle.
+
+
+\change
+Notons l'équation de la droite $ax+by=c$ avec $a,b,c$ des éléments du corps $K$.
+
+\change
+On a l'équation du cercle qui est $(x-x_0)^2+(y-y_0)^2=r^2$. 
+
+$x_0,y_0$ sont les coordonnées du centre donc sont dans $K$,
+
+le rayon au carré mesure la distance au carré entre deux points à coordonnées dans $K$ donc est dans $K$.
+
+Le rayon $r$ lui n'est pas toujours dans $K$ mais ce n'est pas important.
+
+\change
+Il reste à calculer les intersections de la droite et du cercle,
+
+\change
+pour cela on pose $\delta$ cette quantité là.
+
+Notez que c'est bien une somme et produit d'éléments de $K$, donc 
+$\delta$ appartient à $K$.
+
+\change
+
+Le premier point d'intersection a pour abscisse $x$ qui vaut ceci.
+Notez que cette fois tous les termes sont dans $K$, sauf ici où apparaît $\sqrt{\delta}$.
+
+Comme ce point est sur la droite d'équation $ax+by=c$, une fois que l'on $x$, on en déduit $y$, qui contiendra aussi
+du $\sqrt{\delta}$.
+
+\change
+Les formules sont similaires pour le second point, il suffit de changer ici un signe en "moins".
+
+\change
+Les coordonnées sont bien de la forme $\alpha+\beta\sqrt{\delta}$ avec $\alpha,\beta \in K$
+et c'est le même $\sqrt{\delta}$ pour $x,y,x',y'$.
+
+\change
+Donc les coordonnées de $P$ sont bien dans l'extension $K(\sqrt \delta)$, 
+qui est bien une extension quadratique de $K$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La preuve est presque terminée !
+
+Il reste le cas où $P$ est l'intersection de deux cercles.
+
+\change
+Pour ce cas on trouve deux points dont les coordonnées sont 
+aussi de la forme $\alpha+\beta\sqrt\delta$
+pour un certain $\delta \in K$ qui est le même pour les deux points.
+
+Je vous épargne les formules complètes qui sont plus longues à écrire
+et je vous renvoie à l'exemple vu précédemment.
+
+\change
+En résumé, dans tous les cas, les coordonnées de $P$ sont dans $K$ ou dans 
+une extension quadratique du corps $K$, 
+où $K$ est le corps qui contient les coefficients qui servent à construire $P$.
+
+
+Par récurrence cela donne la preuve du théorème de Wantzel.
+
+\end{document}

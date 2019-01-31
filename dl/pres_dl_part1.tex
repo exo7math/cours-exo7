@@ -1,0 +1,482 @@
+
+\input{../preamb-pres}
+\usecolortheme[RGB={179,179,12}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Développements limités}}
+\subtitle{Formules de Taylor}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Formule de Taylor avec reste intégral
+    \item<4-> Formule de Taylor avec reste $f^{(n+1)}(c)$
+    \item<5-> Formule de Taylor-Young
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section*{Motivation}
+
+
+\begin{frame}
+
+\hfil Comportement de $f(x)=\exp x$ autour de $x=0$
+
+\bigskip
+
+\hspace*{-25mm}
+\begin{minipage}{0.62\textwidth}
+\myfigure{0.95}{
+\tikzinput{fig_dl01} 
+}  
+\end{minipage}
+\hspace*{5mm}
+\begin{minipage}{0.51\textwidth}
+\begin{itemize}  
+\uncover<3->{  \item tangente : $y=1+x$ }
+
+\uncover<4->{  \item parabole : \only<4,5>{$y = c_0 + c_1x + c_2 x^2$ \vphantom{$\frac12x^2$}}\only<6->{$y=1+x+\frac12 x^2$} }
+
+
+  \begin{itemize}
+
+\uncover<7->{   \item $g(x)=\exp x - \big(1+x+\frac12 x^2\big)$ alors $g(0)=0$, $g'(0)=0$, $g''(0)=0$}
+
+\uncover<8->{   \item développement limité à l'ordre $2$ }
+
+  \end{itemize}
+
+\uncover<9->{ \item $y = 1+x+\frac12 x^2 + \frac16 x^3$}
+\end{itemize}  
+
+
+
+\end{minipage}
+\hspace*{-5mm}
+
+\end{frame}
+
+
+
+
+%---------------------------------------------------------------
+\section{Trois formules}
+
+\begin{frame}
+\mybox{$\displaystyle f(x)= f(0)+f'(0)x+f''(0)\frac{x^2}{2!}+\cdots
++f^{(n)}(0)\frac{x^n}{n!} + x^n\epsilon(x)$}
+
+\pause
+
+\begin{itemize}
+  \item le polynôme de degré $n$ qui approche le mieux la fonction
+\pause
+
+  \item autour d'une valeur fixée (ici autour de $x=0$)
+\pause
+
+  \item calculé à partir des dérivées successives (en $0$)
+\pause
+
+  \item un reste
+\end{itemize}
+
+\medskip
+\pause
+
+
+Trois formules de Taylor
+\pause
+\begin{itemize}
+
+
+  \item Taylor avec reste intégral
+\pause
+
+ \item Taylor avec reste $f^{(n+1)}(c)$
+\pause
+
+  \item Taylor-Young
+\end{itemize}
+
+\medskip
+\pause
+
+$f : I \to \Rr$ est de \defi{classe $\mathcal{C}^n$}
+si $f$ est $n$ fois dérivable et $f^{(n)}$ est continue
+
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Formule de Taylor avec reste intégral}
+
+\begin{frame}
+
+\begin{theoreme}[Formule de Taylor avec reste intégral]
+Soit $f : I\to\Rr$ de classe $\mathcal{C}^{n+1}$ et soit $a,x \in I$
+\mybox{\small $\begin{array}{c}\displaystyle
+f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\cdots + \qquad \qquad \qquad \\
+\displaystyle\hfill +\frac{f^{(n)}(a)}{n!}(x-a)^n \pause +\int_a^x \frac{f^{(n+1)}(t)}{n!}(x-t)^ndt
+\end{array}
+$\pause}
+\end{theoreme}
+%  
+% $$T_n(x) =f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\cdots
+% +\frac{f^{(n)}(a)}{n!}(x-a)^n$$
+
+\pause 
+
+\begin{exemple}
+$f(x)=\exp x$, 
+\pause 
+$f'(x)=\exp x$, $f''(x)=\exp x$,\ldots 
+
+\pause
+
+$\exp x=\exp a+\exp a \cdot (x-a)+\cdots+\frac{\exp a}{n!}(x-a)^n+\int_a^x\frac{\exp t}{n!}(x-t)^ndt$
+
+\pause
+
+Avec $a=0$ : $\exp x=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\cdots $
+\end{exemple}
+
+
+
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+
+\section{Formule de Taylor avec reste $f^{(n+1)}(c)$}
+
+\begin{frame}
+\begin{theoreme}[Formule de Taylor avec reste $f^{(n+1)}(c)$]
+$f : I\to\Rr$ de classe $\mathcal{C}^{n+1}$ et soit $a,x \in I$
+
+Il existe un réel $c$ entre $a$ et $x$ tel que 
+\mybox{\small $f(x)=f(a)+f'(a)(x-a)+\cdots
++\frac{f^{(n)}(a)}{n!}(x-a)^n \pause +\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}$\pause}
+\end{theoreme}
+
+\pause
+
+
+\begin{exemple}
+Soient $a,x \in\Rr$. Il existe $c$ entre $a$ et $x$ tel que 
+$\exp x=\exp a+\exp a \cdot (x-a)+\cdots+\frac{\exp a}{n!}(x-a)^n+\frac{\exp c}{(n+1)!}(x-a)^{n+1}$  
+\end{exemple}
+
+\pause
+
+\begin{remarque}
+Pour $n=0$ c'est exactement l'énoncé du théorème des accroissements finis :
+\pause
+il existe $c\in]a,b[$ tel que $f(b)=f(a)+f'(c)(b-a)$
+\end{remarque}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{corollaire}
+Si en plus $|f^{(n+1)}|$ est majorée sur $I$ par un réel $M$, alors 
+\[
+\big|f(x)-T_n(x)\big|\le M\frac{|x-a|^{n+1}}{(n+1)! \ } 
+\]
+\end{corollaire}
+
+\pause
+
+\begin{exemple}[Approximation de $\sin(0,01)$]
+
+$f(x)=\sin x$, 
+\pause 
+{\small 
+$f'(x)=\cos x$,\! $f''(x)=-\sin x$,\! $f^{(3)}(x)=-\cos x$,\! $f^{(4)}(x)=\sin x$}
+
+\pause
+
+$f(0)=0$, $f'(0)=1$, $f''(0)=0$, $f^{(3)}(0)=-1$
+
+\pause
+
+Formule de Taylor en $a=0$ à l'ordre $3$ 
+$f(x)=0+1\cdot x +0\cdot \frac{x^2}{2!}-1\frac{x^3}{3!} + f^{(4)}(c)\frac{x^4}{4!}
+\pause = x -\frac{x^3}{6} + f^{(4)}(c)\frac{x^4}{24}$
+
+\pause
+
+Pour $x=0,01$ : $\sin(0,01) \approx 0,01 - \frac{(0,01)^3}{6}=0,00999983333\ldots$
+
+\pause 
+
+Précision : comme   $|f^{(4)}(c)|\le 1$ alors $\big|f(x) - \big(x -\frac{x^3}{6} \big) \big| \le \frac{x^4}{24}$
+
+\pause
+
+Pour $x=0,01$ : $\big|\sin(0,01) -  \big(0,01 - \frac{(0,01)^3}{6}\big)\big| \le \frac{(0,01)^4}{24} \approx 4 \cdot 10^{-10}$
+
+\pause
+
+\hfil\hfil $\sin(0,01) =0,\alert{00999983}\ldots$
+\end{exemple}
+
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+\section{Formule de Taylor-Young}
+
+\begin{frame}
+
+\begin{theoreme}[Formule de Taylor-Young]
+Soit $f: I \to \Rr$ de classe $\mathcal{C}^n$ et soit $a\in I$
+
+Alors pour tout $x \in I$ on a :
+\mybox{$f(x)= f(a)+f'(a)(x-a)+\cdots
++\frac{f^{(n)}(a)}{n!}(x-a)^n + (x-a)^n\epsilon(x)$}
+
+\hfil \qquad \qquad avec $\epsilon(x) \xrightarrow[x\to a]{} 0$
+\end{theoreme}
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Un exemple}
+
+\begin{frame}
+\ 
+{\small
+$f(x) = \ln(1+x)$  \qquad  \uncover<3->{$f : ]-1,+\infty[ \to \Rr$ infiniment dérivable}
+
+\begin{itemize}
+ \uncover<4->{ \item $f(0)=0$}  
+\hfill \uncover<5->{$T_0(x)=0$}
+ \uncover<7->{ \item $f'(x)=\frac{1}{1+x}$ donc $f'(0)=1$} 
+\hfill \uncover<8->{$T_1(x) = x$}
+ \uncover<10->{ \item $f''(x) = -\frac{1}{(1+x)^2}$ donc $f''(0)=-1$} 
+\hfill \uncover<11->{$T_2(x) = x -\frac{x^2}{2}$}
+ \uncover<13->{ \item $f^{(3)}(x)= + 2 \frac{1}{(1+x)^3}$ donc $f^{(3)}(0)= + 2$} 
+\hfill \uncover<14->{$T_3(x) = x -\frac{x^2}{2} + \frac{x^3}{3}$}
+\end{itemize}
+}
+
+\uncover<2->{
+\myfigure{0.9}{\tikzinput{fig_dl02}}
+}
+
+\end{frame}
+
+
+\begin{frame}
+
+$f(x) = \ln(1+x)$ \quad $n > 0$
+
+\pause
+\medskip
+
+\begin{itemize}
+  \item $f'(x)=\frac{1}{1+x}$
+
+\pause
+\medskip
+
+  \item $f^{(n)}(x) = (-1)^{n-1} (n-1)!\frac{1}{(1+x)^n}$ donc $f^{(n)}(0)= (-1)^{n-1} (n-1)!$
+
+\pause
+\medskip
+
+  \item Ainsi pour $n>0$ : $\frac{f^{(n)}(0)}{n!}x^n = (-1)^{n-1}\frac{x^n}{n}$
+
+\pause
+\medskip
+
+  \item $\displaystyle T_n(x)=\sum_{k=1}^n (-1)^{k-1}\frac{x^k}{k} = x-\frac{x^2}{2} + \frac{x^3}{3}-\cdots + (-1)^{n-1}\frac{x^n}{n}$
+
+\end{itemize}
+
+
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+
+\section{Résumé}
+
+\begin{frame}
+
+\textbf{Trois formules de Taylor} \qquad $f(x) = T_n(x) + R_n(x)$
+\pause
+$$T_n(x) =f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\cdots
++\frac{f^{(n)}(a)}{n!}(x-a)^n$$
+\pause
+$$
+\begin{array}{rcl@{\vrule depth 3ex height 4ex width 0mm \ }c}
+\hline
+R_n(x) & = & \displaystyle \int_a^x \tfrac{f^{(n+1)}(t)}{n!}(x-t)^ndt 
+ & {\footnotesize \text{Taylor avec reste intégral}} 
+ \\ \hline \pause
+R_n(x) & = &\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}   
+ & {\footnotesize \begin{minipage}{0.4\textwidth}\center Taylor avec reste  $f^{(n+1)}(c)$ \\
+ $c$ entre $a$ et $x$ \end{minipage}}
+ \\ \hline\pause
+R_n(x) & = & (x-a)^n\epsilon(x) 
+ & {\footnotesize \text{Taylor-Young avec } \epsilon(x) \xrightarrow[x\to a]{} 0} \\  \hline
+\end{array}
+$$
+
+\pause 
+
+\begin{remarque}
+En posant $x=a+h$ (et donc $h=x-a$) et avec $\epsilon(h) \xrightarrow[h\to 0]{} 0$
+
+\hfil $f(a+h)=f(a)+f'(a)h+\frac{f''(a)}{2!}h^2+\cdots
++\frac{f^{(n)}(a)}{n!}h^n+h^n \epsilon(h)$
+\end{remarque}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+
+
+\evidence{Formule de Taylor-Young au voisinage de $0$}
+
+
+\mybox{$\displaystyle f(x)= f(0)+f'(0)x+f''(0)\frac{x^2}{2!}+\cdots
++f^{(n)}(0)\frac{x^n}{n!} + x^n\epsilon(x)$}
+où \ $\lim_{x\to0}\epsilon (x)=0$
+
+\pause
+
+\begin{remarque}[: notation \og petit o \fg]
+\hfil $x^n\epsilon(x)$ où $\epsilon(x) \xrightarrow[x\to 0]{} 0$  \quad 
+se note \quad $o\big( x^n\big)$
+
+\pause
+
+$$f(x)= f(0)+f'(0)x+f''(0)\frac{x^2}{2!}+\cdots
++f^{(n)}(0)\frac{x^n}{n!} + o(x^n)$$
+\end{remarque}
+
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+\section{Preuve de la formule de Taylor avec reste intégral}
+
+
+\begin{frame}
+
+\vspace*{-1ex}
+
+\textbf{Preuve de la formule de Taylor \uncover<3->{par récurrence sur $n$}}
+
+\pause
+
+{\small 
+\[
+f(b)=f(a)+f'(a)(b-a)+\cdots
++\frac{f^{(n)}(a)}{n!}(b-a)^k+\int_a^b f^{(n+1)}(t)\frac{(b-t)^n}{n!}dt
+\]
+
+\pause
+
+\pause
+
+
+\textbf{Initialisation.} $n=0$ 
+$\int_a^b f'(t) \, dt=f(b)-f(a)$ donc 
+$f(b)=f(a)+\int_a^b f'(t) \, dt$
+
+\pause
+\medskip
+
+
+\textbf{Hérédité.}
+Supposons la formule vraie au rang $n-1$
+ 
+$f(b)=f(a)+f'(a)(b-a)+\cdots
++\frac{f^{(n-1)}(a)}{(n-1)!}(b-a)^{n-1}
++\int_a^bf^{(n)}(t)\frac{(b-t)^{n-1}}{(n-1)!}dt$
+
+\pause
+
+Intégration par parties $u(t)=f^{(n)}(t)$ et $v'(t) = \frac{(b-t)^{n-1}}{(n-1)!}$
+
+\pause
+
+\hfill et donc  $u'(t)= f^{(n+1)}(t)$ et $v(t) = - \frac{(b-t)^{n}}{n!}$
+
+\pause
+\medskip
+
+$
+\begin{array}{rcl}
+\displaystyle \int_a^b f^{(n)}(t) \tfrac{(b-t)^{n-1}}{(n-1)!} \, dt 
+\pause
+  & = & \displaystyle \left[-f^{(n)}(t)\tfrac{(b-t)^{n}}{n!}\right]_a^b + \int_a^b f^{(n+1)}(t) \tfrac{(b-t)^{n}}{n!} \, dt \\
+\pause
+  & = & \displaystyle f^{(n)}(a)\tfrac{(b-a)^{n}}{n!} + \int_a^b f^{(n+1)}(t) \tfrac{(b-t)^{n}}{n!}\, dt \\
+\end{array}
+$  
+
+
+
+\pause
+\medskip
+
+\textbf{Conclusion.}\! La formule est vraie pour tous les $n$ pour lesquels $f$ est classe\! $\mathcal{C}^{n+1}$ 
+
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Écrire les trois formules de Taylor en $0$ pour $x \mapsto \cos x$, $x\mapsto \exp(-x)$ et $x\mapsto \sh x$.
+  \item Écrire les formules de Taylor en $0$ à l'ordre $2$ pour $x \mapsto \frac{1}{\sqrt{1+x}}$, $x\mapsto \tan x$.
+  \item Écrire les formules de Taylor en $1$ pour $x \mapsto x^3-9x^2+14x+3$.
+  \item Avec une formule de Taylor à l'ordre $2$ de $\sqrt{1+x}$, trouver une approximation 
+de $\sqrt{1,01}$. Idem avec $\ln(0,99)$.
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

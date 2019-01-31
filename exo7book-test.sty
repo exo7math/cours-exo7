@@ -1,0 +1,268 @@
+% \mainfolder est ../ si compilation d'un chapitre, sinon c'est vide
+\ProvidesPackage{\mainfolder exo7book-test}
+% ----------------------------------------------------------------------
+% Format de la page
+\usepackage[
+  papersize={7.5in,9.25in},
+  includeall, nomarginpar, nofoot,
+  margin=.7in, bindingoffset=0.7in,
+  headsep=14pt, heightrounded,
+]{geometry}
+% pas de retrait
+\setlength{\parindent}{0cm}
+% Espace interligne (+ 21%)
+\linespread{1.21}
+
+
+
+% ----------------------------------------------------------------------
+% PDF/X-1A (print ou test), nécéssaire pour l'impression sur Amazon par exemple
+% ne s'applique pas à la création des images en PDF
+
+% --- ne fonctionne pas
+% \usepackage{pdf14}
+% \usepackage[x-1a]{pdfx}
+% \inputencoding{utf8}
+
+% --- ne fonctionne pas
+%\usepackage[size=magazine,trim=1]{createspace}
+%\pdftitle{Cours de mathématiques - Première année}
+%\pdfauthor{exo7}
+%\pdfsubject{cours de mathématiques}
+%\pdfkeywords{cours, mathématiques, exercices}
+
+\pdfobjcompresslevel=0%
+\pdfminorversion=3%
+
+% ======================================================================
+\usepackage{\mainfolder exo7book-common}
+% ======================================================================
+
+\tikzifexternalizing{}{
+  \pdfinfo{
+    /Title (Cours de mathématiques - Première année)
+    /Author (exo7)
+    /Subject (cours de mathématiques)
+    /Keywords (cours, mathématiques, exercices)
+    /GTS_PDFXVersion (PDF/X-3:2002)
+  }%
+  \pdfcatalog{
+    /PageMode /UseNone
+    /OutputIntents [ <<
+      /Info (none)
+      /Type /OutputIntent
+      /S /GTS_PDFX
+      /OutputConditionIdentifier (createspace.com)
+      /RegistryName (http://www.color.org/)
+    >> ]
+  }%
+  % http://tex.stackexchange.com/a/248911/831
+  \makeatletter
+  \edef\pwpt{\strip@pt\dimexpr0.996264009963\paperwidth\relax} %paper width in PS points
+  \edef\phpt{\strip@pt\dimexpr0.996264009963\paperheight\relax} %paper height in PS points
+  \makeatother
+  \edef\mypdfpageattr{
+  /MediaBox [0 0 \pwpt\space\phpt]^^J
+  /BleedBox [0.00000 0.00000 \pwpt\space\phpt]^^J
+  /CropBox [0 0 \pwpt\space\phpt]^^J
+  /TrimBox [0.00000 0.00000 \pwpt\space\phpt]
+  }
+  \expandafter\pdfpageattr\expandafter{\mypdfpageattr}
+} % fin \tikzifexternalizing
+% ----------------------------------------------------------------------
+\usepackage{etex} % http://tex.stackexchange.com/a/38609
+% ----------------------------------------------------------------------
+% Police par defaut
+%\usepackage{lmodern}
+\usepackage{mathpazo}
+\ifPDFTeX\else
+\setmainfont
+     [ BoldFont       = texgyrepagella-bold.otf ,
+       ItalicFont     = texgyrepagella-italic.otf ,
+       BoldItalicFont = texgyrepagella-bolditalic.otf ]
+     {texgyrepagella-regular.otf}
+\fi
+\usepackage[scaled]{beramono}
+% ----------------------------------------------------------------------
+% Définition d'un terme, mise en relief
+\newcommand{\defi}[1]{\underline{\textbf{\emph{#1}}}}
+\newcommand{\evidence}[1]{\textbf{\emph{#1}}}
+\newcommand{\assertion}[1]{{\og\emph{#1}\fg}} % pour chapitre logique
+% ----------------------------------------------------------------------
+% Titre du livre
+\newcommand{\montitre}[1]{
+\pagestyle{empty}\thispagestyle{empty}
+\begin{center}
+\Huge #1
+\end{center}
+\begin{center}
+\LogoExoSept{5}
+\end{center}
+\tableofcontents
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+\pagestyle{main}
+}
+% ----------------------------------------------------------------------
+% Les chapitres
+\newcommand{\debutchapitres}{\pagestyle{main}\thispagestyle{empty}}
+\usepackage[explicit]{titlesec}
+\ifPDFTeX % PDFLaTeX
+  \newcommand{\ugqfont}{\fontfamily{ugq}}
+\else
+  \newcommand{\ugqfont}{\fontspec{URWGrotesk-bold.ttf}}
+  \fi
+\titleformat{\chapter}[block]
+  {\raggedleft\ugqfont}% format
+  {}% label
+  {0pt}% sep
+  {% the title
+    \begin{tikzpicture}
+      \node[gray, above left, inner ysep=0pt, text width=.85\linewidth, align=right, node font=\huge]{#1};
+      \draw[lightgray,line width=1mm] (0,-.1) -- (0,2.1);
+      \node[below right, lightgray, inner ysep=0pt] at (0,2) (C){\chaptertitlename};
+      \node[below, lightgray, inner sep=0pt, scale=3] at ([yshift=-1pt]C.south) {~\thechapter};
+    \end{tikzpicture}
+  }
+\titleformat{name=\chapter,numberless}[block]
+  {\raggedleft\ugqfont}% format
+  {}% label
+  {0pt}% sep
+  {% the title
+    \begin{tikzpicture}
+      \node[gray, above left, inner ysep=0pt, text width=.85\linewidth, align=right, node font=\huge]{#1};
+      \draw[lightgray,line width=1mm] (0,-.1) -- (0,2.1);
+    \end{tikzpicture}
+  }
+\newcommand{\chapitre}[1]{
+\chapter{#1}
+}
+\newcommand{\finchapitre}{}
+% les sections
+\titleformat{\section}
+  {\ugqfont\selectfont\color{gray}\LARGE}% format
+  {}% label
+  {0pt}% sep
+  {\thesection.~#1}
+% les sous-sections
+\titleformat{\subsection}
+  {\ugqfont\selectfont\color{gray}\Large}% format
+  {}% label
+  {0pt}% sep
+  {\thesubsection.~#1}
+% ----------------------------------------------------------------------
+% Format en-têtes
+%\usepackage{titleps} % chargé par titlesec, je suppse
+\newpagestyle{main}[\small]{
+  \setheadrule{.55pt}%
+  \sethead[\large\thepage]% even-left
+          [\color{gray}\textsc{\thechapter.~\chaptertitle}]% even-center
+          []% even-right
+          {}% odd-left
+          {\color{gray}\textsc{\thesection.~\sectiontitle}}% odd-center
+          {\large\thepage}% odd-right
+  \renewcommand\makeheadrule{\color{lightgray}\rule[-.3\baselineskip]{\linewidth}{0.4pt}}
+}
+\newpagestyle{chapterpage}[\small]{
+  \setheadrule{.55pt}%
+  \sethead[\large\thepage]% even-left
+          []% even-center
+          []% even-right
+          {}% odd-left
+          {}% odd-center
+          {\large\thepage}% odd-right
+  \renewcommand\makeheadrule{\color{lightgray}\rule[-.3\baselineskip]{\linewidth}{0.4pt}}
+}
+\assignpagestyle{\chapter}{chapterpage}
+% ----------------------------------------------------------------------
+% Personnalisation pour les théorèmes,...
+\usepackage{amsthm}
+
+\newtheorem{theoreme}{Théorème}
+\newtheorem{proposition}{Proposition}
+\newtheorem*{propriete*}{Propriété}
+\newtheorem{lemme}{Lemme}
+\newtheorem{corollaire}{Corollaire}
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}
+\newtheorem*{remarque*}{Remarque}
+\newtheorem{exemple}{Exemple}
+\newtheorem{tp}{Travaux pratiques}
+\newtheorem{exercicecours}{Exercice}
+\newtheorem*{miniexercices}{Mini-exercices}
+% legèrement personnalisées
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems, skins, breakable}
+\tcbset{
+  leftlined/.style 2 args={
+    blanker, breakable,
+    borderline west={#1}{0pt}{#2},left={#1*14/10+7pt},top=#1
+  }
+}
+
+\tcolorboxenvironment{theoreme}{leftlined={7pt}{black!49}}
+\tcolorboxenvironment{proposition}{leftlined={7pt}{black!35}}
+\tcolorboxenvironment{corollaire}{leftlined={5pt}{black!21}}
+\tcolorboxenvironment{lemme}{leftlined={4pt}{black!14}}
+\tcolorboxenvironment{propriete*}{leftlined={4pt}{black!14}}
+
+\tcolorboxenvironment{definition}{leftlined={4pt}{black!49}}
+\tcolorboxenvironment{remarque*}{leftlined={3pt}{black!21,decorate,decoration={name=snake}}}
+\tcolorboxenvironment{exemple}{leftlined={2pt}{black!21,decorate,decoration={name=snake}}}
+\tcolorboxenvironment{tp}{leftlined={2pt}{black!21,decorate,decoration={name=zigzag}}}
+\tcolorboxenvironment{exercicecours}{leftlined={2pt}{black!21,decorate,decoration={name=zigzag}}}
+\tcolorboxenvironment{miniexercices}{leftlined={2pt}{black!21,decorate,decoration={name=zigzag}}}
+
+% ----------------------------------------------------------------------
+% Encadrement auteurs
+\newcommand{\auteurs}[1]{\textbf{Auteurs} \\
+ #1
+}
+% ----------------------------------------------------------------------
+% Encadrement des formules
+\usepackage{fancybox}
+%\setlength{\fboxsep}{7pt}
+%\newcommand{\mybox}[1]{\begin{center}\shadowbox{#1}\end{center}}
+%\newcommand{\myboxinline}[1]{\raisebox{-2ex}{\shadowbox{#1}}}
+% ---- autre version
+\usepackage{varwidth}
+\tikzset{
+  block/.style = {
+    minimum height=1em,
+    inner xsep=.7em, inner ysep=.35em,
+    draw=lightgray, thick, rounded corners,
+    execute at begin node={\begin{varwidth}{\linewidth}\begin{center}},
+    execute at end node={\end{center}\end{varwidth}}
+  },
+  inline/.style = {
+    thin, inner sep=.35em,
+    fill=white,
+    drop shadow={shadow xshift=1pt, shadow yshift=-1pt}
+  }
+}
+\newcommand{\mybox}[1]{\begin{center}\tikz{\node[block]{#1};}\end{center}}
+\newcommand{\myboxinline}[1]{\tikz[baseline=(X.base)]{\node[block, inline](X){#1};}}
+% ----------------------------------------------------------------------
+% Algorithmes
+% bloque de code (\insertcode)
+\newcommand{\insertcode}[2]{
+{\hfill\texttt{\color{gray}#2}}
+\begin{center}
+\begin{minipage}{0.9\textwidth}
+  \myinputlisting{#1}
+\end{minipage}
+\end{center}
+}
+% code en ligne (\codeinline)
+\newcommand{\codeinline}[1]{\lstinline!#1!}
+% ----------------------------------------------------------------------
+% --- Liens vers vidéo Youtube
+\providecommand{\href}[2]{#2}
+% variable myvideo : 0 pas de video, sinon la référence youtube
+\newcommand{\video}[1]{\def\myvideo{#1}}
+\newcommand{\insertvideo}[2]{\video{#1}%
+{\small\texttt{\href{http://www.youtube.com/watch?v=\myvideo}{Vidéo $\blacksquare$ #2}}}}
+% --- Liens vers les fiches d'exercices
+\newcommand{\mafiche}[1]{\def\mymafiche{#1}}
+\newcommand{\insertfiche}[2]{\mafiche{#1}%
+{\small\texttt{\href{http://exo7.emath.fr/ficpdf/\mymafiche}{Fiche d'exercices $\blacklozenge$ #2}}}}
+

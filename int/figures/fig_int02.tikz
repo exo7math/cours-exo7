@@ -1,0 +1,28 @@
+
+\shorthandoff{?;:!}
+\begin{tikzpicture}[scale=3,xscale=1.5]
+\tikzset{
+	declare function={
+		qcq(\t) = 0.5 - \t - 0.5*sin(6*(\t+1.05) r);
+	}
+}
+
+ % tracé de la courbe et des axes
+  \fill[myred!30] (0,0) -- plot[domain=0:1] (\x,{qcq(\x)}) -- (1,0) -- cycle;
+  \draw[ultra thick, color=myred,domain=-0.05:1.1, samples=100] plot (\x,{qcq(\x)}) node[right] {$y=f(x)$};
+  \draw[gray,->] (-0.30,0) -- (1.25,0) node[below,black] {$x$};
+  \draw[gray,->] (-0.25,-0.9) -- (-0.25,0.9) node[right,black] {$y$};
+
+  % tracé de la courbe par-dessus les rectangles
+   \draw[ultra thick, color=myred,domain=-0.05:1.1, samples=100] plot (\x,{qcq(\x)}) node[right] {$y=f(x)$};
+   \pgfmathparse{qcq(0)}   \let\y\pgfmathresult
+   \draw[gray] (0,0) -- (0,\y);
+   \pgfmathparse{qcq(1)}   \let\y\pgfmathresult
+   \draw[gray] (1,0) -- (1,\y);
+
+% du texte
+  \draw (0 cm,1pt) -- (0 cm,-1pt) node[below] {$a$};
+  \draw (1 cm,1pt) -- (1 cm,-1pt) node[below right] {$b$};
+
+\end{tikzpicture}
+\shorthandoff{?;:!}

@@ -1,0 +1,55 @@
+\begin{tikzpicture}
+
+% Axes
+     \draw[->,>=latex,thick, gray] (-4,0)--(5,0) node[below,black] {$x$};
+     \draw[->,>=latex,thick, gray] (0,-5.5)--(0,6) node[right,black] {$y$};
+
+ % Ticks
+    	\foreach \x in {1,...,4}
+     		\draw (\x,2pt) -- (\x,-2pt)
+			node[anchor=north] {\x};
+    	\foreach \x in {-1,...,-3}
+     		\draw (\x,2pt) -- (\x,-2pt)
+			node[anchor=north] {\x};
+    	\foreach \x in {1,...,5}
+     		\draw (2pt,\x) -- (-2pt,\x)
+			node[anchor=east] {\x};
+    	\foreach \x in {-1,...,-5}
+     		\draw (2pt,\x) -- (-2pt,\x)
+			node[anchor=east] {\x};
+
+% Asymptotes
+ \draw[very thick, blue] (0.5,-5.3)--(0.5,5.1) node[below right,blue] {$x=\frac12$};
+
+ \def\x{-3};      \def\y{4.3};
+ \draw[very thick, blue] (\x,{1.5*\x-0.75})--(\y,{1.5*\y-0.75}) node[above left,blue] {$y=\frac32 x -\frac34$};
+
+
+% Courbe
+% Sur ]1,+\infty[
+     \beameronly{\uncover<4->}{
+     \draw [very thick, color=red,samples=100,smooth, variable=\t,domain=1.3:10] plot( {(\t)/(\t-1)} , {(3*\t)/(\t*\t-1)} ) ;
+\draw [very thick, color=red] (1,0) -- (1.12,0.32);
+  \node[red] at (4.5,5) {$t\to+1^+$};
+\fill[red] (1,0) circle(3pt)  node[above right=3pt] {$t\to+\infty$};
+}
+
+% Sur ]-\infty,-1[
+     \beameronly{\uncover<2->}{
+ \draw [very thick, color=red,samples=100,smooth, variable=\t,domain=-10:-1.32] plot( {(\t)/(\t-1)} , {(3*\t)/(\t*\t-1)} );
+\draw [very thick, color=red] (0.91,-0.31)--(1,0);
+  \node[red] at (1.5,-5) {$t\to-1^-$};
+ \node[red,below right=3pt] at (1,-0.2) {$t\to-\infty$};
+\fill[red] (1,0) circle(3pt);
+}
+
+% Entre -1 et 1
+     \beameronly{\uncover<3->}{
+      \draw [very thick, color=red,samples=100,smooth, variable=\t,domain=-0.75:0.75] plot( {(\t)/(\t-1)} , {(3*\t)/(\t*\t-1)} );
+
+  \node[red] at (1,5.5) {$t\to-1^+$};
+  \node[red] at (-3.2,-4.5) {$t\to+1^-$};
+}
+
+
+\end{tikzpicture}

@@ -1,0 +1,469 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\construc}{\mathcal{C}}
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+La théorie des corps n'est pas évidente et mériterait un chapitre
+entier. 
+
+\change
+Nous résumons ici seulement les grandes lignes utiles à nos fins.
+
+\change
+Il est important de bien comprendre d'abord les exemples, que l'on va rencontrer.
+
+\change
+Nous définirons ensuite ce qu'est un corps,
+
+\change
+puis une extension de corps,
+
+\change
+avant de terminer par la notion de nombre algébrique.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici l'exemple le plus important pour nous,
+
+considérons l'ensemble :
+$\Qq(\sqrt 2)$ qui est par définition 
+$\left\{ a+b\sqrt 2 \mid a,b \in \Qq \right\}$
+
+C'est un sous-ensemble de $\Rr$, qui contient par exemple $0$, $1$, $\frac13$ et tous les nombres rationnels
+mais aussi $\sqrt 2$, et par exemples $\frac 12 - \frac 23 \sqrt 2$. 
+
+\change
+
+Dégageons quelques propriétés :
+Fixons $a+b\sqrt 2$ et $a'+b'\sqrt 2$ deux éléments de $\Qq(\sqrt 2)$.
+
+\change
+Alors leur somme est $(a+a') + (b+b')\sqrt 2$ ; c'est encore un élément de $\Qq(\sqrt 2)$.
+
+\change
+De même l'opposé $-(a+b\sqrt 2)$ est aussi un élément de $\Qq(\sqrt 2)$.
+
+\change
+Le produit   $(a+b\sqrt 2)\times(a'+b'\sqrt 2)$ s'écrit 
+$aa'+2bb' + (ab'+a'b)\sqrt 2$ et c'est toujours un élément de $\Qq(\sqrt 2)$.
+
+\change
+Enfin l'inverse d'un élément non nul $a+b\sqrt 2$ est $\frac{1}{a^2-2b^2}(a-b\sqrt 2)$,
+
+c'est encore un élément de $\Qq(\sqrt 2)$.
+
+\change
+Ces propriétés font de $\Qq(\sqrt 2)$ ce que l'on appelle un \defi{corps}.
+
+\change
+Comme ce corps contient $\Qq$ on parle d'une \defi{extension} de $\Qq$.
+De plus, il est étendu avec un élément du type $\sqrt \delta$, on parle alors d'une \defi{extension
+quadratique}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+On peut généraliser l'exemple précédent : 
+
+\change
+Si $K$ est lui-même un corps et $\delta$ est un élément de $K$ 
+
+\change
+alors on définit 
+$K(\sqrt \delta) = \left\{ a+b\sqrt \delta \mid a,b \in K \right\}$
+
+On vérifie comme ci-dessus que la somme et le produit de deux éléments restent
+dans $K(\sqrt \delta)$, ainsi que l'opposé et l'inverse.
+ce qui fait de $K$ un corps. 
+
+
+\change
+Cela permet de construire de nouveaux corps :
+partant de $K_0 = \Qq$, on choisit un élément, disons $\delta_0 = 2$ 
+
+\change
+on obtient le corps plus gros $K_1 = \Qq(\sqrt 2)$.
+
+Car bien sur $\sqrt 2$ n'est pas un nombre rationnel.
+
+\change
+Si on prend $\delta_1 = 3$ alors $\sqrt 3 \notin \Qq(\sqrt 2)$ 
+
+\change 
+et on définit $K_2 = K_1(\sqrt 3)$ qui est un nouveau corps (qui contient $K_1$).
+
+\change
+Le corps $K_2$ est :
+$$K_2 = K_1(\sqrt 3) = \Qq(\sqrt2)(\sqrt 3) 
+= \left\{ a+b\sqrt 2 + c\sqrt 3 + d\sqrt 2 \sqrt 3 \mid a,b,c,d \in \Qq \right\}.$$
+
+\change
+On pourrait continuer avec $\delta_2 = 11$ 
+
+\change
+et exprimer chaque élément de $\Qq(\sqrt2)(\sqrt 3)(\sqrt {11})$ comme une somme
+de $8$ éléments ainsi avec les $a_i\in \Qq$.
+
+\change
+Revenons en arrière.
+En partant de $K_1 = \Qq(\sqrt 2)$ on aurait pu considérer $\delta_1=1+\sqrt2$ 
+(au lieu de $\delta = \sqrt 3$).
+
+\change
+Alors $K_2$ serait $K_2=K_1(\sqrt{1+\sqrt2}) = \Qq(\sqrt2)(\sqrt{1+\sqrt2})$. 
+
+
+\change
+Chaque élément de $K_2$ peut s'écrire comme une somme de $4$ éléments 
+$a+b\sqrt 2 + c\sqrt{1+\sqrt2} + d\sqrt 2\sqrt{1+\sqrt2}$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Présentons sur des exemples les propriétés à bien comprendre pour la suite.
+
+\change
+Tout d'abord il faut remarquer que chaque élément de $\Qq(\sqrt 2)$ est la racine d'un polynôme de degré $2$
+à coefficients dans $\Qq$. 
+
+\change
+Prenons par exemple $3+\sqrt 2$ il est est annulé par 
+$P(X) = (X-3)^2 -2 = X^2-6X+7$.
+
+En effet on commence par retirer $3$ donc $3+\sqrt 2-3 = \sqrt 2$.
+Puis on élève au carré, ce qui donne $2$ puis on soustrait $2$ ce qui donne bien $0$.
+
+\change
+Les nombres qui sont annulés par un polynôme non nul à coefficients rationnels s'appellent 
+les 
+\defi{nombres algébriques}.
+
+\change
+Plus généralement, si $K$ est un corps et $\delta \in K$ alors tout élément de $K(\sqrt \delta)$
+est annulé par un polynôme de degré $1$ ou $2$ à coefficients dans $K$.
+
+\change
+On en déduit que pour chaque élément de $\Qq(\sqrt2)(\sqrt 3)$ (ou de $\Qq(\sqrt2)(\sqrt{1+\sqrt2})$)
+est racine d'un polynôme de $\Qq[X]$ de degré $1$, $2$ ou $4$.
+
+\change
+Et chaque élément de $\Qq(\sqrt2)(\sqrt 3)(\sqrt {11})$ est racine d'un polynôme 
+de $\Qq[X]$ de degré $1$, $2$, $4$ ou $8$. Etc.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous allons maintenant reprendre ces exemples d'une manière plus théorique.
+
+
+Un corps $K$ est un ensemble sur lequel sont définies deux opérations : une addition et une multiplication.
+
+\change
+Tout d'abord ces deux lois $+$ et $\times$ sont des lois de composition interne, ce qui veut simplement dire que 
+pour tout $x,y \in K$ $x+y \in K$ et $x\times y \in K$.
+
+\change
+Ensuite $(K,+)$ est un groupe commutatif,
+
+\change
+C'est-à-dire il existe un élément neutre pour l'addition, c'est $0$.
+
+Chaque élément admet un opposé.
+
+L'addition est associative.
+
+et commutative.
+
+\change
+Autre condition $(K\setminus\{0\},\times)$ est un groupe commutatif, 
+
+\change
+Il existe un élément neutre pour la multiplication, c'est $1$.
+
+Tout élément non nul admet un inverse.
+
+La multiplication est associative.
+
+et commutative.
+
+\change
+Enfin la multiplication est distributive par rapport à l'addition
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici des exemples classiques :
+
+\change
+$\Qq$, $\Rr$, $\Cc$ sont des corps.
+ L'addition et la multiplication sont les opérations usuelles.
+ 
+\change
+Par contre $(\Zz,+,\times)$ n'est pas un corps. Je vous laisse réfléchir pourquoi ?
+
+\change
+Voici des exemples qui vont être importants pour la suite :
+$\Qq(\sqrt 2) = \big\{ a+b\sqrt 2 \mid a,b \in \Qq \big\}$ est un corps
+comme on l'a vu précédemment.
+
+\change
+Pour $\ii$ le nombre complexe vérifiant $\ii^2 = -1$ on pose
+$\Qq(\ii) =  \big\{ a+\ii b \mid a,b \in \Qq  \big\}$ est un corps
+avec l'addition et la multiplication habituelles des nombres complexes.
+
+\change
+Par contre  
+$\big\{ a+b \pi \mid a,b \in \Qq  \big\}$ n'est pas un corps (où $\pi = 3,14\ldots$). 
+
+Réfléchissez pourquoi ?
+
+\change
+Les constructions que l'on vu dans les parties précédentes avec les nombres constructibles
+se reformulent avec la notion de corps en la proposition :
+
+L'ensemble des nombre réels constructible $(\construc_\Rr, +, \times)$ est un corps inclus dans $\Rr$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous cherchons des propositions qui lient deux corps, lorsque l'un est inclus dans l'autre.
+Les résultats de ce paragraphe seront admis.
+
+Premier résultat :
+
+Si $K, L$ sont deux corps avec $K \subset L$, alors $L$ est un espace-vectoriel sur $K$.
+
+
+\change
+Dans ces conditions on dira que 
+$L$ est une \defi{extension} de $K$.
+
+\change
+Et si la dimension de cet espace-vectoriel est finie alors
+on appelle cette dimension le \defi{degré} de l'extension, et on notera :
+$$[L:K] = \dim_K L.$$
+
+\change
+Dans le cas d'un degré $2$ nous parlerons d'une \defi{extension quadratique}.
+
+\change
+Deuxième résultat : 
+
+Si $K,L,M$ sont trois corps avec $K \subset L \subset M$
+et si les extensions ont un degré fini alors :
+$$[M:K] = [M:L] \times [L:K].$$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voyons quelques exemples pour assimiler toutes ces notions.
+
+Tout d'abord 
+$\Cc$ est une extension de degré $2$ de $\Rr$ 
+
+\change
+car tout élément de $\Cc$ s'écrit $a+\ii b$. 
+  
+\change
+Donc les vecteurs $1$ et $\ii$ forment une base de $\Cc$, vu comme un espace vectoriel sur $\Rr$.
+
+\change
+Revenons sur l'exemple du début : $\Qq(\sqrt 2)$. 
+
+C'est une extension de $\Qq$.
+
+\change
+En effet tout élément de $\Qq(\sqrt 2)$ s'écrit sous la forme $a+b\sqrt 2$
+
+\change
+Ce qui fait bien de $\Qq(\sqrt 2)$ un espace vectoriel sur $\Qq$.
+
+\change
+De plus $(1,\sqrt 2)$ en est une base, c'est donc un espace vectoriel  de dimension $2$ sur $\Qq$, autrement dit
+une extension quadratique.
+
+\change  
+Attention : ici $1$ est un vecteur 
+  et $\sqrt 2$ est un autre vecteur. Le fait que $\sqrt{2} \notin \Qq$ se 
+  traduit en : ces deux vecteurs sont linéairement indépendants sur $\Qq$. 
+  C'est un peu déroutant au début !
+ 
+\change
+Terminons par un petit exercice avec $\Qq(\sqrt 2, \sqrt 3) = \Qq(\sqrt 2)(\sqrt 3) =
+\big\{ a+ b \sqrt 3 \mid a,b \in \Qq(\sqrt 2) \big\}$.
+
+\change
+On a bien sûr les inclusions : 
+$\Qq \subset \Qq(\sqrt 2) \subset \Qq(\sqrt 2, \sqrt 3)$.
+
+\change
+A vous de calculer le degré de chacune des extensions. 
+
+\change
+Puis d'expliciter une base sur $\Qq$ de 
+$\Qq(\sqrt 2, \sqrt 3)$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Pour $x\in\Rr$, on note $\Qq(x)$ le plus petit corps 
+contenant $\Qq$ et $x$, c'est le \defi{corps engendré} par $x$.
+
+\change
+C'est cohérent avec la notation pour les 
+extensions quadratiques $\Qq(\sqrt{\delta})$ qui est bien le plus petit 
+corps contenant $\sqrt\delta$.
+
+\change
+Autre exemple, si $x = \sqrt[3]{2} = 2^{\frac13}$ 
+
+\change
+alors il n'est pas dur de calculer que 
+$$\Qq(\sqrt[3]{2}) = \left\{ a+b\sqrt[3]{2}+c\sqrt[3]{2}^2 \mid a,b,c \in \Qq \right\}.$$
+
+\change
+En effet comme $\Qq(\sqrt[3]{2})$ est un corps, il contient contient $x$, $x^2 = x \times x$, $x^3,\ldots$ 
+mais aussi $\frac1x, \frac 1{x^2},\ldots$.
+
+\change
+Cela fait beaucoup de monde mais en fait comme $x^3 = 2 \in \Qq$ 
+puis $x^4 = 2x$, $x^5 = 2x^2$.
+
+\change
+Aussi comme $x^3 = 2$ alors $\frac1x = \frac{x^2}{2}$ et ainsi de suite 
+tous les $x^k$ ,et $1/x^k$
+ s'expriment en fonction de $1, x, x^2$.
+
+\change
+Ce qui fait que tous les éléments de $\Qq(x)$
+peuvent s'écrire simplement $a + bx + cx^2$ avec $a,b,c \in \Qq$.
+
+\change
+Conclusion : $1,x1x^2$ est une base de $\Qq(\sqrt[3]{2})$, donc c'est une extension de $\Qq$ et son degré est $3$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+[petit $x$]
+
+L'ensemble des \defi{nombres algébriques} est par définition
+$$\overline{\Qq} = \big\{ x \in \Rr \mid \text{ il existe } P \in \Qq[X] \text{ non nul tel que } P(x)=0\big\}.$$
+
+Par exemple $\sqrt{2}$ est un nombre algébrique car $X^2-2$ annule $\sqrt 2$.
+De même pour $\sqrt[3]{2}$ qui est annulé par $X^3-2$.
+
+\change
+Proposition :L'ensemble $\overline{\Qq}$ des nombres algébriques est un corps.
+
+
+\change
+L'addition et la multiplication définie sur $\overline{\Qq}$ sont celles du corps $\Rr$.
+
+Ainsi beaucoup de propriétés découlent du fait que 
+l'ensemble des réels est un corps (on parle de sous-corps).
+
+La première chose à vérifier c'est que $+$ et $\times$ sont des lois de compositions internes,
+c'est-à-dire que si $x$ et $y$ sont des nombres réels algébriques alors $x+y$ et $x\times y$ le sont aussi.
+
+De façon surprenante c'est la partie la plus difficile, on y revient dans la diapo suivante.
+
+\change
+$(\overline{\Qq},+)$ est un groupe commutatif :
+
+Toutes les propriétés sont à peu près évidentes :
+ Par exemple   $0 \in \overline{\Qq}$ car annulé par le polynôme $X$.
+ 
+\change 
+Autre propriétés : 
+Si $x\in \overline{\Qq}$ et est annulé par un polynôme $P(X)$
+alors $-x$ est annulé pra $P(-X)$ donc $-x \in \overline{\Qq}$.
+
+Les autres axiomes découlent de propriétés de $\Rr$.
+
+
+\change 
+$(\overline{\Qq}\setminus\{0\},\times)$ est un groupe commutatif, 
+
+encore une fois le seul point un peu délicat est le suivant :
+
+\change     
+Si $x$ est un nombre algébrique non nul, il existe un polynôme $P(X)$ de degré $n$ annulant $x$, 
+ alors $X^nP(\frac{1}{X})$ est un polynôme annulant $\frac 1 x$ donc 
+ $x^{-1}$ est un nombre algébrique.
+ 
+ \change
+ Pour finir la multiplication est distributive par rapport à l'addition 
+ : cela découle une nouvelle fois de la distributivité sur $\Rr$.
+ 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+[petit $x$]
+
+Si $x \in \overline{\Qq}$ est un nombre algébrique définissons le degré algébrique de $x$.
+
+On considère tous les polynômes non nuls à coefficients rationnels  tels que $P(x)=0$.
+
+Le plus petit degré parmi tous les degrés de ces polynômes est le degré algébrique de $x$.
+
+
+\change
+Par exemple le degré algébrique de $\sqrt 2$ est $2$ :
+en effet un polynôme annulant ce nombre est $X^2-2$ qui est de degré $2$
+et on ne trouvera pas un polynome de degré $1$ à coefficients rationnels annulant $\sqrt 2$.
+
+\change
+Plus généralement $\sqrt \delta$ avec $\delta \in \Qq$
+est de degré algébrique égal à $1$ ou $2$ 
+(de degré algébrique $1$ si $\sqrt{\delta} \in \Qq$, de degré $2$ sinon).
+
+\change
+Par contre $\sqrt[3]{2}$ est de degré $3$, car il est annulé par $P(X) = X^3-2$ 
+mais pas par des polynômes de degré plus petit.
+
+\change
+On termine avec cette proposition qui généralise ce que l'on constate sur ces exemples :
+
+Tout d'abord soit $L$ une extension finie du corps $\Qq$. Si $x\in L$, alors $x$ est un nombre algébrique.
+
+\change
+Réciproquement si $x$ un nombre algébrique alors $\Qq(x)$ est une extension finie de $\Qq$.
+
+\change
+Enfin un point important est que si $x$ est un nombre algébrique alors le degré de l'extension 
+$[\Qq(x):\Qq]$ et le degré algébrique de $x$ coïncident.
+
+\change
+Avec cette proposition on prouve facilement que si
+$x$ et $y$ sont des nombres réels algébriques alors $x+y$ et $x\times y$ aussi.
+
+Donc l'addition et la multiplication sont des lois de composition internes 
+sur l'ensemble des nombres algébriques.
+
+
+Pour les preuves de tous ces résultats je vous renvoie au chapitre du cours écrit.
+
+\end{document}

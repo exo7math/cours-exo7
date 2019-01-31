@@ -1,0 +1,53 @@
+\begin{tikzpicture}[scale=3]
+
+	\draw[->,>=latex, black, very thin] (-1.1,0) -- (1.1,0);
+	\draw[->,>=latex, black, very thin] (0,-1.1) -- (0,1.1);
+
+        % draw the unit circle
+        \draw[thick] (0cm,0cm) circle(1);
+
+      \def\x{40};
+       \coordinate (M) at ({\x}:1);
+       \coordinate (Cos) at ({cos(\x)},0);
+       \coordinate (Sin) at (0,{sin(\x)},0);
+       \coordinate (Tan) at (1,{sin(\x)/cos(\x)});
+
+       	\fill (M) circle (0.02);
+
+        \draw (0,0)--(M);
+
+       \draw (M)--(Cos);
+       \draw (M)--(Sin);
+
+	\fill (Cos) circle (0.02) node[below, blue] {$\cos x$};
+	\fill (Sin) circle (0.02) node[above right, red] {$\sin x$};
+
+
+     \draw[->] (0.2,0) arc(0:{\x}:0.2) ;
+      \node[right] at ({\x/2}:0.1) {$x$};
+
+
+% Pi - x
+
+      \def\xx{180-\x};
+       \coordinate (MM) at ({\xx}:1);
+       \coordinate (CCos) at ({cos(\xx)},0);
+       \coordinate (SSin) at (0,{sin(\xx)},0);
+
+
+       	\fill (MM) circle (0.02);
+
+        \draw (0,0)--(MM);
+
+       \draw (MM)--(CCos);
+       \draw (MM)--(SSin);
+
+	\fill (CCos) circle (0.02) node[below, blue] {$\cos (\pi -x)$};
+	\fill (SSin) circle (0.02) node[above left, red] {$\sin (\pi-x)$};
+
+
+     \draw[thick, ->] (0.3,0) arc(0:{\xx}:0.3) ;
+      \node[right] at ({\x/2}:0.3) {$\pi-x$};
+
+
+\end{tikzpicture}

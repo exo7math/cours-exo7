@@ -1,0 +1,564 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={0,153,0}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcommand{\GL}{\mathcal{G}\ell}
+\newcounter{saveenumi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\title{{\bf Groupes}}
+\subtitle{Définitions et exemples}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition
+    \item<4-> Exemples
+    \item<5-> Puissance
+    \item<6-> Matrices $2\times 2$
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section*{Motivation}
+
+
+\begin{frame}
+
+
+\begin{itemize}
+  \item équation de degré 2 \quad $ax^2+bx+c=0$ \quad  $x_i = \frac{-b\pm\sqrt{b^2-4ac}}{2a}$
+
+\pause
+
+  \item équation de degré 3 \quad $x^3+3x+1=0$ \quad $x_0 = \sqrt[3]{\frac{\sqrt 5 - 1}{2}} -  \sqrt[3]{\frac{\sqrt 5 + 1}{2}}$
+
+\pause
+
+  \item équation de degré 4
+
+\pause
+
+  \item équation de degré 5 et plus ? \pause : il n'existe pas en général une telle  formule
+
+  \item \'Evariste Galois (1811-1832) \& Niels Abel (1802-1829) 
+
+\pause
+  \item Notion de \og groupe \fg
+
+\pause
+  \item \`A la base d'autres notions : anneaux, corps, matrices, espaces vectoriels,...
+
+\pause
+  \item Applications : arithmétique, géométrie, cryptographie,...
+\end{itemize}
+
+\end{frame}
+
+
+
+
+%---------------------------------------------------------------
+\section*{Définition}
+
+
+\begin{frame}
+\begin{mydefinition}
+Un \defi{groupe} $(G,\star)$ est un ensemble, associé à une opération $\star$ 
+(la \defi{loi de composition}) vérifiant 
+
+\pause
+
+\begin{enumerate}
+  \item \label{it:groupei} pour tout $x,y \in G$, \quad $x \star y \in G$ 
+
+\hfill $\star$ est une \defi{loi de composition interne}
+
+\pause
+
+  \item \label{it:groupeii} pour tout $x,y,z \in G$, \quad $(x \star y) \star z = x \star (y \star z)$ 
+
+\hfill la loi est \defi{associative}
+
+\pause
+
+  \item \label{it:groupeiii} il existe $e \in G$ tel que \quad $\forall x \in G$, $x \star e = x$ et $e \star x = x$ 
+
+\hfill $e$ est l'\defi{élément neutre}
+
+\pause
+
+  \item \label{it:groupeiv} pour tout $x \in G$ il existe $x' \in G$ tel que \quad  $x \star x' = x' \star x = e$ 
+
+\hfill $x'$ est l'\defi{inverse} de $x$ et est noté $x^{-1}$
+\end{enumerate}
+\end{mydefinition}
+
+\bigskip
+\pause
+
+$G$ est un groupe \defi{commutatif} (ou \defi{abélien}) si en plus
+$$\text{pour tout } x,y \in G  \qquad x \star y = y \star x$$
+
+
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+\section*{Exemples}
+
+
+\begin{frame}
+
+$(\Rr^*,\times)$ est un groupe commutatif
+
+\pause
+
+   \begin{enumerate}
+     \item si $x,y \in \Rr^*$ alors $x \times y \in \Rr^*$
+\pause
+     \item $x\times (y \times z) = (x \times y) \times z$
+\pause
+     \item $1$ est l'élément neutre : $1 \times x = x$ et $x \times 1=x$
+\pause
+     \item $x' = \frac{1}{x}$ est l'inverse d'un élément $x \in \Rr^*$, car $x \times \frac{1}{x}=1$
+\pause
+     \item $x \times y = y \times x$
+   \end{enumerate}
+
+
+
+\pause
+
+ $(\Zz,+)$ est un groupe commutatif
+
+\pause
+
+   \begin{enumerate}
+     \item si $x,y \in \Zz$ alors $x + y \in \Zz$
+\pause
+     \item $x +  (y + z) = (x + y) + z$
+\pause
+     \item $0$ est l'élément neutre, en effet $0 + x = x$ et $x + 0=x$
+\pause
+     \item $x' = -x$ est l'inverse de $x$, car $x + (-x) = 0$  
+
+\hfill Pour la loi $+$ l'inverse s'appelle aussi l'\defi{opposé}
+\pause
+
+     \item $x + y = y + x$
+   \end{enumerate}
+
+\end{frame}
+
+
+
+\begin{frame}
+ $(\Qq^*,\times)$, $(\Cc^*, \times)$ sont des groupes commutatifs
+
+\pause
+\bigskip
+
+
+ $(\Qq,+)$, $(\Rr,+)$, $(\Cc,+)$ sont des groupes commutatifs  
+
+
+\pause
+\bigskip
+\bigskip
+
+Les deux exemples suivants \evidence{ne sont pas} des groupes
+\begin{itemize}
+  \item $(\Zz^*,\times)$ n'est pas un groupe :  $2$ n'a pas d'inverse (pour $\times$)
+  \item $(\Nn,+)$ n'est pas un groupe : $3$ n'a pas d'inverse (pour $+$)
+\end{itemize}  
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+
+Soit $\mathcal{R}$ l'ensemble des rotations du plan dont le centre est à l'origine $O$
+
+$(\mathcal{R},\circ)$ forme un groupe commutatif
+
+\pause
+
+\hfill\begin{minipage}{0.5\textwidth}
+\myfigure{1.3}{
+\tikzinput{fig_groupes02}
+}  
+\end{minipage}
+
+\vspace*{-5ex}
+
+\pause
+
+   \begin{enumerate}
+     \item $R_\theta \circ R_{\theta'}$ est une rotation
+\pause
+     \item  $R_\theta \circ (R_{\theta'}\circ R_{\theta''})=(R_\theta \circ R_{\theta'})\circ R_{\theta''}$
+\pause
+     \item l'élément neutre est la rotation d'angle $0$ : c'est l'identité du plan
+ \pause
+    \item l'inverse d'une rotation d'angle $\theta$ est la rotation d'angle $-\theta$
+\pause
+     \item $R_\theta \circ R_{\theta'}=R_{\theta'} \circ R_{\theta}$
+   \end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+Soit $\mathcal{I}$ l'ensemble des isométries du plan (translations, rotations, réflexions et leurs composées)
+
+$(\mathcal{I},\circ)$ est un groupe \evidence{non} commutatif
+
+\pause
+
+  \begin{itemize}
+     \item soit $R$ la rotation de centre $O=(0,0)$ et d'angle $\frac \pi 2$
+     \item soit $T$ la translation de vecteur $(1,0)$
+     \item $T \circ R$ et $R \circ T$ ne sont pas égales
+\pause
+     \item $T \circ R (1,1) = T (-1,1) = (0,1)$, $R\circ T(1,1) = R(2,1) = (-1,2)$
+  \end{itemize}
+
+
+\myfigure{1}{
+\footnotesize
+\tikzinput{fig_groupes04}
+\hspace*{-10ex}
+\tikzinput{fig_groupes03}
+} 
+
+
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Puissance}
+
+\begin{frame}
+Soit un groupe $(G,\star)$
+\begin{itemize}
+  \item $x^2 = x \star x$, \quad  $x^3 = x\star x \star x$
+  \item $x^{n} = x\star x \star \cdots \star x$
+  \item $x^0 = e$
+  \item $x^{-n} = x^{-1}\star \cdots \star x^{-1}$
+\end{itemize}
+
+\pause
+\bigskip
+
+Règles de calculs 
+\begin{itemize}
+  \item $x^m \star x^n = x^{m+n}$
+  \item $(x^m)^n = x^{mn}$
+  \item $(x \star y)^{-1} = y^{-1} \star x^{-1}$ \  \evidence{attention à l'ordre !}
+  \item \evidence{Si} $(G,\star)$ est \evidence{commutatif} alors $(x\star y)^n = x^n \star y^n$
+\end{itemize}  
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+\section*{Matrices $2\times 2$}
+
+\begin{frame}
+Une \defi{matrice} $2\times 2$ est un tableau de $4$ nombres réels :
+$$M=\begin{pmatrix} a & b \\ c & d \\ \end{pmatrix}$$
+
+\pause
+
+Le \defi{produit} de deux matrices $M$, $M'$ est noté $M\times M'$ 
+$$ \left(\begin{matrix} a & b \\ c & d \\ \end{matrix}\right) \times 
+\left(\begin{matrix} a' & b' \\ c' & d' \\ \end{matrix}\right)
+= 
+\pause
+\left(\begin{matrix} aa'+bc' & ab' + bd' \\ ca'+dc' & cb'+dd' \\ \end{matrix}\right)$$
+
+\pause
+\vspace{0cm}
+
+\only<1-3>{\vspace{6em}\ }
+
+
+\only<4,5,6>{
+$$
+\begin{array}{cc}
+ & 
+\uncover<5->{\left(\begin{matrix} \quad a' \quad  & \quad b' \quad  \\ \quad c' \quad  & \quad d' \quad \\ \end{matrix}\right)} \\
+\uncover<4->{\left(\begin{matrix} a & b \\ c & d \\ \end{matrix}\right)}  &  
+  \uncover<6->{\left(\begin{matrix} {\scriptstyle aa'+bc'} & {\scriptstyle ab' + bd'} \\
+    {\scriptstyle ca'+dc'} & {\scriptstyle cb'+dd'} \\ \end{matrix}\right)} \\
+\end{array}
+$$
+}
+\pause\pause\pause
+\only<7-11>{
+$$
+\begin{array}{cc}
+ & 
+\left(\begin{matrix} \textcolor{blue}{\quad \tikz[remember picture]\coordinate(mataa); a' \quad} & \quad b' \quad  \\ \textcolor{blue}{\quad \tikz[remember picture]\coordinate(matcc); c' \quad} & \quad d' \quad  \\ \end{matrix}\right) \\
+\left(\begin{matrix} \textcolor{blue}{a}\tikz[remember picture]\coordinate(mata); & \textcolor{blue}{b}\tikz[remember picture]\coordinate(matb); \\ c & d \\ \end{matrix}\right)  &  
+%  \left(\begin{matrix} \uncover<9->{\textcolor{red}{{\scriptstyle aa'+bc'}}} 
+%  & \uncover<12->{{\scriptstyle ab' + bd'}} \\
+%    \uncover<12->{{\scriptstyle ca'+dc'}} & \uncover<12->{{\scriptstyle cb'+dd'}} \\ \end{matrix}\right) \\
+  \left(\begin{matrix} {\textcolor{red}{{\scriptstyle \uncover<9->{aa'}\uncover<10->{+}\uncover<11->{bc'}}}} 
+  & \uncover<12->{{\scriptstyle ab' + bd'}} \\
+    \uncover<12->{{\scriptstyle ca'+dc'}} & \uncover<12->{{\scriptstyle cb'+dd'}} \\ \end{matrix}\right) \\
+\end{array}
+$$
+\begin{tikzpicture}[x=1mm,y=1mm, remember picture, overlay]
+   \coordinate (mmata) at ($(mata)+(-1,+3)$);
+   \coordinate (mmatb) at ($(matb)+(-1,+3)$);
+   \coordinate (mmataa) at ($(mataa)+(-1,+1)$);
+   \coordinate (mmatcc) at ($(matcc)+(-1,+1)$);
+\uncover<8->{\draw[<->, myred, very thick] (mmataa) to[bend right, thick]node[above, midway]{$\times$} (mmata);}
+\uncover<8->{\draw[<->, myred, very thick] (mmatcc) to[bend right, thick]node[below, midway]{$\times$} (mmatb);}
+\end{tikzpicture}}
+\only<12->{
+$$
+\begin{array}{cc}
+ & 
+\left(\begin{matrix} \quad \only<12,14>{a'}\only<13>{\textcolor{blue}{a'}} \quad & \quad \tikz[remember picture]\coordinate(natbb); \only<13>{b'}\only<12,14>{\textcolor{blue}{b'}} \quad \\
+ \quad \only<12,14>{c'}\only<13>{\textcolor{blue}{c'}} \quad & \quad \tikz[remember picture]\coordinate(natdd); \only<13>{d'}\only<12,14>{\textcolor{blue}{d'}} \quad  \\ \end{matrix}\right) \\
+\left(\begin{matrix} \only<13->{a}\only<12>{\textcolor{blue}{a}}\tikz[remember picture]\coordinate(nata); & \only<13->{b}\only<12>{\textcolor{blue}{b}}\tikz[remember picture]\coordinate(natb); \\ 
+\only<12>{c}\only<13->{\textcolor{blue}{c}} & \only<12>{d}\only<13->{\textcolor{blue}{d}} \\ \end{matrix}\right)  &  
+  \left(\begin{matrix} \uncover<12->{{\scriptstyle aa'+bc'}} & \only<12>{\textcolor{red}{{\scriptstyle ab' + bd'}}}\only<13->{{\scriptstyle ab' + bd'}} \\
+    \only<13>{\textcolor{red}{{\scriptstyle ca'+dc'}}}\only<14->{{\scriptstyle ca'+dc'}} & \uncover<14->{\textcolor{red}{{\scriptstyle cb'+dd'}}} \\ \end{matrix}\right) \\
+\end{array}
+$$
+\begin{tikzpicture}[x=1mm,y=1mm, remember picture, overlay]
+   \coordinate (nnata) at ($(nata)+(-1,+3)$);
+   \coordinate (nnatb) at ($(natb)+(-1,+3)$);
+   \coordinate (nnatbb) at ($(natbb)+(-1,+1)$);
+   \coordinate (nnatdd) at ($(natdd)+(-1,+1)$);
+\uncover<12>{\draw[<->, myred, very thick] (nnatbb) to[bend right, thick] (nnata);}
+\uncover<12>{\draw[<->, myred, very thick] (nnatdd) to[bend right, thick] (nnatb);}
+\end{tikzpicture}}
+\pause\pause\pause\pause
+%\vspace{2cm}
+\end{frame}
+
+\begin{frame}
+\begin{exemple}
+$$M=\left(\begin{matrix} 1 & 1 \\ 0 & -1 \\ \end{matrix}\right) \qquad 
+M' = \left(\begin{matrix} 1 & 0 \\ 2 & 1 \\ \end{matrix}\right)$$
+
+$$M\times M' = \uncover<6->{\left(\begin{matrix} 3 & 1 \\ -2 & -1 \\ \end{matrix}\right)} \qquad
+M'\times M=  \uncover<6->{\left(\begin{matrix} 1 & 1 \\ 2 & 1 \\ \end{matrix}\right)}$$
+\end{exemple}
+
+
+
+\uncover<7->{\centerline{En général $M\times M' \neq M'\times M$}}
+
+\pause
+\bigskip
+
+$\begin{array}{cc}
+& \left(\begin{matrix} \ 1\  & \ 0\  \\ \ 2\  & \ 1\  \\ \end{matrix}\right)\\
+\left(\begin{matrix} 1 & 1 \\ 0 & -1 \\ \end{matrix}\right)  & 
+\pause 
+\left(\begin{matrix} 3 & 1 \\ -2 & -1 \\ \end{matrix}\right)
+ \end{array}$
+\qquad 
+\pause
+$\begin{array}{cc}
+& \left(\begin{matrix} 1 & 1 \\ 0 & -1 \\ \end{matrix}\right) \\
+\left(\begin{matrix} 1 & 0 \\ 2 & 1 \\ \end{matrix}\right) & 
+\pause
+\left(\begin{matrix} \ 1\  & \ 1\  \\ \ 2\  & \ 1\  \\ \end{matrix}\right) \\
+ \end{array}$
+\pause
+\end{frame}
+
+
+\begin{frame}
+Le \defi{déterminant} d'une matrice est 
+
+$$\det \left(\begin{matrix} a & b \\ c & d \\ \end{matrix}\right) = ad-bc$$
+
+\pause
+
+\begin{lemme}
+\label{lem:det}
+$\det (M\times M') = \det M \cdot \det M'$
+\end{lemme}
+
+
+\pause
+
+\begin{proof}
+$M\times M' = \left(\begin{matrix} aa'+bc' & ab' + bd' \\ ca'+dc' & cb'+dd' \\ \end{matrix}\right)$
+
+\pause
+
+$\big(aa'+bc'  \big) \big( cb'+dd' \big) - 
+\big( ab' + bd' \big) \big( ca'+dc' \big) = (ad-bc)(a'd'-b'c')$  
+
+\end{proof}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+
+
+\begin{proposition}
+L'ensemble des matrices $2\times 2$ ayant un déterminant non nul,
+muni de la multiplication des matrices $\times$, forme un groupe non commutatif
+\end{proposition}
+
+\pause
+
+Ce groupe est noté $(\GL_2,\times)$
+
+\pause
+\bigskip
+
+
+
+\begin{proof}
+\begin{enumerate}
+  \item loi de composition interne 
+ 
+$M\times M'$ est une matrice $2\times 2$
+
+$\det (M\times M') = \det M \cdot \det M' \neq 0$
+
+\pause
+
+  \item  la loi est associative : $(M\times M')\times M''=M \times (M'\times M'')$
+
+\pause
+
+  \item  l'élément neutre est la \defi{matrice identité}  
+$I = \left(\begin{smallmatrix} 1 & 0 \\ 0 & 1 \\ \end{smallmatrix}\right)$
+
+ 
+$\left(\begin{smallmatrix} a & b \\ c & d \\ \end{smallmatrix}\right) \times  
+\left(\begin{smallmatrix} 1 & 0 \\ 0 & 1 \\ \end{smallmatrix}\right) =
+\left(\begin{smallmatrix} a & b \\ c & d \\ \end{smallmatrix}\right)$
+et
+$\left(\begin{smallmatrix} 1 & 0 \\ 0 & 1 \\ \end{smallmatrix}\right) \times  
+\left(\begin{smallmatrix} a & b \\ c & d \\ \end{smallmatrix}\right) =
+\left(\begin{smallmatrix} a & b \\ c & d \\ \end{smallmatrix}\right)$
+
+\pause
+
+  \item l'inverse de  $M=\left(\begin{smallmatrix} a & b \\ c & d \\ \end{smallmatrix}\right)$
+est $M^{-1} = \frac{1}{ad-bc} \left(\begin{smallmatrix} d & -b \\ -c & a\\ \end{smallmatrix}\right)$
+
+$M \times M^{-1} = I$ et $M^{-1} \times M = I$
+
+
+\end{enumerate}
+
+\end{proof}   
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Mini-exercices}
+
+
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+% %   \setlength{\itemsep}{1em}
+% %   \vspace{1em}
+
+ \item Montrer que $(\Rr_+^*,\times)$ est un groupe commutatif.
+
+ \item Soit $f_{a,b} : \Rr \to \Rr$ la fonction définie par $x \mapsto ax+b$.
+Montrer que l'ensemble $\mathcal{F}=\{ f_{a,b} \mid a \in \Rr^*, b\in\Rr\}$ muni 
+de la composition \og$\circ$\fg\   est un groupe non commutatif.
+
+ \item (Plus dur) Soit $G=]-1,1[$. Pour $x,y\in G$ on définit $x\star y = \frac{x+y}{1+xy}$.
+Montrer que $(G,\star)$ forme un groupe: {\footnotesize (a) Montrer que $\star$ est une loi de composition interne :
+$x\star y \in G$ (b) Montrer que la loi est associative (c) Montrer que l'élément neutre est $0$
+(d) Trouver l'inverse de $x$.}
+
+\setcounter{saveenumi}{\theenumi}
+\end{enumerate}
+\end{miniexercice}
+
+\medskip
+
+Soit $(G,\star)$ est un groupe quelconque, $x,y,z$ sont des éléments de $G$.
+\begin{miniexercice}
+\begin{enumerate}
+  \setcounter{enumi}{\thesaveenumi}
+  \item Montrer que si $x\star y = x \star z$ alors $y = z$.
+  \item Que vaut $\big(x^{-1}\big)^{-1}$ ?
+  \item Si $x^n=e$, quel est l'inverse de $x$ ?
+  \setcounter{saveenumi}{\theenumi}
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{miniexercice}
+
+\begin{enumerate}
+  \setcounter{enumi}{\thesaveenumi}
+
+  \item Soient 
+$M_1= \left(\begin{smallmatrix} 0 & -1 \\ 1 & 0 \\ \end{smallmatrix}\right)$,
+$M_2= \left(\begin{smallmatrix} 1 & 2 \\ 1 & 0 \\ \end{smallmatrix}\right)$,
+$M_3= \left(\begin{smallmatrix} 1 & 2 \\ 3 & 4 \\ \end{smallmatrix}\right)$.
+Vérifier que $M_1 \times (M_2 \times M_3)= (M_1 \times M_2) \times M_3$.
+
+  \item Calculer $(M_1\times M_2)^2$ et $M_1^2 \times M_2^2$. (Rappel : $M^2=M\times M$)
+
+  \item Calculer les déterminants des $M_i$ ainsi que leurs inverses.
+
+  \item Montrer que l'ensemble des matrices $2\times 2$ muni de l'addition $+$ définie par 
+$\left(\begin{smallmatrix} a & b \\ c & d \\ \end{smallmatrix}\right) 
++ \left(\begin{smallmatrix} a' & b' \\ c' & d' \\ \end{smallmatrix}\right)
+= \left(\begin{smallmatrix} a+a' & b+b' \\ c+c' & d+d' \\ \end{smallmatrix}\right)$ forme 
+un groupe commutatif.
+\end{enumerate}
+
+
+\end{miniexercice}
+\end{frame}
+
+
+
+\end{document}

@@ -1,0 +1,423 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={204,0,0}]{structure}
+
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Déterminants}}
+\subtitle{Définition du déterminant}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Définition
+    \item<4-> Premières propriétés
+    \item<5-> Déterminant de matrices particulières
+    \item<6-> Démonstration de l'existence du déterminant
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définition et premières propriétés}
+
+\begin{frame}
+Le déterminant est une application qui à une matrice associe un scalaire
+$$\det : M_n(\Kk) \longrightarrow \Kk$$
+
+\pause
+
+\begin{theoreme}
+\label{th:def:determinant}
+Il existe une unique application de $M_n(\Kk)$ dans $\Kk$, 
+appelée \defi{déterminant}, telle que
+\begin{itemize}
+  \item[(i)]\pause le déterminant est linéaire par rapport à chaque
+vecteur colonne, les autres étant fixés 
+  \item[(ii)]\pause si $A$ a deux colonnes identiques, 
+alors son déterminant est nul 
+  \item[(iii)]\pause le déterminant de la matrice identité $I_n$ vaut $1$
+\end{itemize}
+\end{theoreme}
+\pause
+\begin{remarque}
+\begin{itemize}
+  \item Une application satisfaisant (i) est appelée \defi{forme multilinéaire}
+  
+  \item\pause Si elle satisfait (ii), on dit qu'elle est \defi{alternée}
+  
+  %\item Le déterminant est donc la seule forme multilinéaire alternée qui prend comme valeur $1$ sur la matrice $I_n$
+\end{itemize} 
+\end{remarque}
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{itemize}
+  \item On note le  déterminant d'une matrice $A = (a_{ij})$ par
+$$
+\det A \qquad \text{ ou } \qquad
+\left|\begin{array}{cccc}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots &  & \vdots \\
+a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{array}\right|$$
+
+  \item \pause Si on note $C_{i}$ la $i$-ème colonne de $A$ alors
+$$\det A=\left|\begin{matrix}
+C_1&C_2&\cdots&C_n
+\end{matrix}\right|
+ = \det (C_1,C_2,\ldots,C_n) 
+$$
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%
+
+\begin{frame}
+\begin{itemize}
+  \item  La propriété (i) s'écrit \pause
+\begin{gather*} 
+ \det (C_1,\ldots,\lambda C_j + \mu C'_j,\ldots, C_n) \\
+\onslide<3->{= \lambda  \det (C_1,\ldots,C_j,\ldots, C_n)+ \mu \det (C_1,\ldots,C_j',\ldots, C_n)} 
+\end{gather*}
+\onslide<4-> c'est-à-dire
+\begin{gather*}
+\begin{vmatrix}
+a_{11} & \cdots & \lambda a_{1j}+\mu a_{1j}' & \cdots & a_{1n} \\
+\vdots &        &       \vdots                &        & \vdots\\
+a_{i1} & \cdots & \lambda a_{ij}+\mu a_{ij}' & \cdots & a_{in} \\
+\vdots &        &       \vdots                &        & \vdots\\
+a_{n1} & \cdots & \lambda a_{nj}+\mu a_{nj}' & \cdots & a_{nn} \\
+\end{vmatrix} \\
+\onslide<5->{ =
+\lambda \begin{vmatrix}
+a_{11} & \cdots &  a_{1j} & \cdots & a_{1n} \\
+\vdots &        &       \vdots                &        & \vdots\\
+a_{i1} & \cdots & a_{ij} & \cdots & a_{in} \\
+\vdots &        &       \vdots                &        & \vdots\\
+a_{n1} & \cdots & a_{nj} & \cdots & a_{nn} \\
+\end{vmatrix} 
+ +
+\mu \begin{vmatrix}
+a_{11} & \cdots & a_{1j}' & \cdots & a_{1n} \\
+\vdots &        &       \vdots                &        & \vdots\\
+a_{i1} & \cdots & a_{ij}' & \cdots & a_{in} \\
+\vdots &        &       \vdots                &        & \vdots\\
+a_{n1} & \cdots & a_{nj}' & \cdots & a_{nn} \\
+\end{vmatrix}}
+\end{gather*}
+
+\end{itemize}
+\pause\pause\pause
+\end{frame}
+
+%%%%%%%%%%%%%%
+
+\begin{frame}
+
+\begin{exemple}
+\begin{itemize}
+  \item Comme la seconde colonne est un multiple de $5$ 
+  $$\begin{vmatrix}
+6&5&4\\7&-10&-3\\12&25&-1    
+  \end{vmatrix}
+\pause =
+5\times\begin{vmatrix}
+6&1&4\\7&-2&-3\\12&5&-1    
+  \end{vmatrix} $$
+ 
+
+  \item \pause Par linéarité sur la troisième colonne
+$$
+% \begin{vmatrix}
+% 3&2&1\\7&-5&1\\9&2&6\\   
+%   \end{vmatrix}
+%   = 
+  \begin{vmatrix}
+3&2&4-3\\7&-5&3-2\\9&2&10-4\\   
+  \end{vmatrix}
+\pause =
+\begin{vmatrix}
+3&2&4\\7&-5&3\\9&2&10\\   
+  \end{vmatrix}
+  - \begin{vmatrix}
+3&2&3\\7&-5&2\\9&2&4\\   
+  \end{vmatrix}
+$$
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Premières propriétés}
+
+\begin{frame}
+
+Nous connaissons déjà le déterminant de deux matrices:
+\begin{itemize}
+  \item \pause $\det 0_n = 0$ (par la propriété (ii))
+  \item \pause $\det I_n =1$ (par la propriété (iii))
+\end{itemize}
+
+\pause
+
+\begin{proposition}
+Soit $A = \left( C_1, C_2, \ldots, C_n\right) \in M_n(\Kk)$
+
+\pause
+
+Soit $A'\in M_n(\Kk)$ obtenue par opération élémentaire sur les colonnes :
+\begin{enumerate}
+  \item\pause $C_i \leftarrow \lambda C_i$ avec $\lambda \neq 0$.  \pause Alors $\det A' = \lambda \det A$
+    
+  \item\pause $C_i \leftarrow C_i+\lambda C_j$ avec $\lambda \in \Kk$ (et $j\neq i$). \pause Alors $\det A' = \det A$
+  
+  \item\pause $C_i \leftrightarrow C_j$. \pause Alors \myboxinline{$\det A' = - \det A$}
+\end{enumerate}
+\end{proposition}
+
+\pause
+
+Plus généralement pour (2), $C_i \leftarrow C_i+\displaystyle\sum_{\substack{j=1 \\ j\neq i}}^n\lambda_j C_j$ conserve le déterminant
+
+\end{frame}
+
+%%%%%%%%%%%%%%
+
+\begin{frame}
+
+\begin{proof} 
+
+\begin{enumerate}
+  \setcounter{enumi}{1}
+  \item \pause Soit $A=\begin{pmatrix}
+C_1&\cdots&C_i&\cdots&C_j&\cdots&C_n
+\end{pmatrix}$
+
+\begin{itemize}
+  
+  \item\pause L'opération $C_i \leftarrow C_i+\lambda C_j$ transforme $A$ en 
+    \vspace{-.2cm}
+$$A'=\begin{pmatrix}
+C_1&\cdots&\displaystyle C_i+\lambda C_j&\cdots&C_j&\cdots&C_n\end{pmatrix}$$
+ 
+  \vspace{-.2cm}
+  
+  \item \pause Par linéarité par rapport à la colonne $i$ 
+    \vspace{-.2cm}
+$$\det A'=\det A+\lambda \det \begin{pmatrix} C_1&\cdots&C_j&\cdots&C_j&\cdots&C_n
+\end{pmatrix}$$
+
+  \vspace{-.2cm}
+
+  \item \pause Or les colonnes $i$ et $j$ de la matrice 
+  \vspace{-.2cm}
+  $$\begin{pmatrix} C_1&\cdots&C_j&\cdots&C_j&\cdots&C_n\end{pmatrix}$$ 
+  
+    \vspace{-.2cm}
+
+  sont identiques \pause donc son déterminant est nul 
+  
+  \item \pause $\det A'=\det A$ \qedhere
+\end{itemize}
+\end{enumerate}
+\qedhere\end{proof} 
+\pause
+
+
+
+\begin{corollaire} 
+Si une colonne de $A$ est combinaison linéaire 
+des autres colonnes alors \\
+\centerline{$\det A=0$}
+\end{corollaire}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Déterminant de matrices particulières}
+
+\begin{frame}
+
+\begin{proposition}
+Le déterminant d'une matrice triangulaire supérieure (ou inférieure)
+est égal au produit des termes diagonaux
+\end{proposition}
+
+\pause
+
+Autrement dit, pour une matrice triangulaire $A = (a_{ij})$
+$$\det A = \begin{vmatrix}
+{\color{myred}a_{11}} & a_{12} &\dots&\dots&\dots & a_{1n}\\
+0&{\color{myred}a_{22}}&\dots&\dots&\dots&a_{2n}\\
+\vdots&\ddots&{\color{myred}\ddots}&&&\vdots\\
+\vdots&&\ddots&{\color{myred}\ddots}&&\vdots\\
+\vdots & &&\ddots&{\color{myred}\ddots}&\vdots\\
+0&\dots&\dots&\dots&0&{\color{myred}a_{nn}}    
+  \end{vmatrix}\pause  = a_{11}\cdot a_{22} \ \cdots\  a_{nn}
+$$
+
+\pause
+
+\begin{corollaire}
+Le déterminant d'une matrice diagonale est égal au produit des termes diagonaux
+\end{corollaire}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%
+
+\begin{frame}
+\begin{proof}
+
+\begin{itemize}
+\item Soit 
+$$A=\begin{pmatrix}
+{a_{11}}&a_{12}&a_{13}&\cdots&a_{1n}\\
+0&{a_{22}}&a_{23}&\cdots&a_{2n}\\
+0&0&{a_{33}}&\cdots&a_{3n}\\
+\vdots&\vdots&\vdots&\ddots&\vdots\\
+0&0&0&\cdots&{a_{nn}}
+\end{pmatrix}
+$$
+
+  \item\pause On utilise l'algorithme du pivot de Gauss sur les colonnes
+\end{itemize} 
+
+\onslide<3->{Par linéarité par rapport à la première colonne}
+$$
+\onslide<3->
+\det A=a_{11}\left|\begin{matrix}
+1&a_{12}&a_{13}&\cdots&a_{1n}\\
+0&{a_{22}}&a_{23}&\cdots&a_{2n}\\
+0&0&{a_{33}}&\cdots&a_{3n}\\
+\vdots&\vdots&\vdots&\ddots&\vdots\\
+0&0&0&\cdots&{a_{nn}}
+\end{matrix}\right|
+\onslide<5->{
+=
+a_{11}\left|\begin{matrix}
+1&0&0&\cdots&0\\
+0&{a_{22}}&a_{23}&\cdots&a_{2n}\\
+0&0&{a_{33}}&\cdots&a_{3n}\\
+\vdots&\vdots&\vdots&\ddots&\vdots\\
+0&0&0&\cdots&{a_{nn}}
+\end{matrix}\right| 
+}$$
+
+\begin{itemize}  
+  \item<4-> Pour tout $j \geq 2$, $C_j \leftarrow C_j - a_{1j}C_1$
+\end{itemize}  
+\vspace*{-3ex}
+\noqed
+\end{proof} 
+\end{frame}
+
+
+%%%%%%%%%%%%%%
+
+\begin{frame}
+\begin{proof}
+\begin{itemize}
+  \item Par linéarité par rapport à la deuxième colonne 
+\[
+\det A =a_{11} \cdot a_{22}\left|\begin{matrix}
+1&0&0&\cdots&0\\
+0&1&a_{23}&\cdots&a_{2n}\\
+0&0&{a_{33}}&\cdots&a_{3n}\\
+\vdots&\vdots&\vdots&\ddots&\vdots\\
+0&0&0&\cdots&{a_{nn}}
+\end{matrix}\right|
+\pause=a_{11} \cdot a_{22} \cdot a_{33}\cdots{a_{nn}}\left|\begin{matrix}
+1&0&0&\cdots&0\\
+0&1&0&\cdots&0\\
+0&0&1&\cdots&0\\
+\vdots&\vdots&\vdots&\ddots&\vdots\\
+0&0&0&\cdots&1
+\end{matrix}\right| 
+\]
+
+  \item\pause  $\det A = a_{11} \cdot a_{22} \cdot a_{33}\cdots{a_{nn}} \cdot \det I_n \pause = a_{11} \cdot a_{22} \cdot a_{33}\cdots{a_{nn}}$
+
+\end{itemize}
+\end{proof} 
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Démonstration de l'existence du déterminant}
+
+\begin{frame}
+
+
+\textbf{Notation.}
+Pour $A \in M_n(\Kk)$ \pause on note $A_{i,j}$ la matrice obtenue en supprimant la $i$-ème ligne et la $j$-ème colonne de $A$ 
+ \pause
+
+\begin{theoreme}
+Les formules suivantes définissent par récurrence pour $n\ge 1$, l'application déterminant
+de $M_n(\Kk)$ dans $\Kk$ qui satisfait aux propriétés (i), (ii), (iii)
+\smallskip
+
+\begin{itemize}
+  \item \pause \textbf{Déterminant d'une matrice $\mathbf{1\times 1}$.} 
+  Si $A=(a)$, $\det A = a$
+  
+\smallskip  
+  \item \pause \textbf{Formule de récurrence.} 
+  Si $A=(a_{i,j}) \in M_n(\Kk)$, alors pour tout $i$
+$$\det A = (-1)^{i+1}a_{i,1}\det A_{i,1} +\dots 
++ (-1)^{i+n}a_{i,n}\det A_{i,n}$$  
+\end{itemize}
+
+\end{theoreme}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item En utilisant la linéarité du déterminant, calculer $\det \, (-I_n)$.
+  
+  \item Pour $A \in M_n(\Kk)$ calculer $\det (\lambda A)$
+  en fonction de $\det A$.
+  
+  \item Montrer que le déterminant reste invariant par l'opération \\
+  \centerline{$C_i \leftarrow C_i+\displaystyle\sum_{{\substack{j=1..n \\ j\neq i}}}\lambda_j C_j$}
+  
+  (on ajoute à une colonne une combinaison linéaire des autres colonnes).
+
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+\end{document}

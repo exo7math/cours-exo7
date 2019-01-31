@@ -1,0 +1,46 @@
+\begin{tikzpicture}[scale=2]
+
+ 
+% Preparation pour rectangles
+
+  \def\a{0}; \def\b{2};   \def\n{10}; 
+  \pgfmathparse{\n - 1}
+  \global\let\nmoins\pgfmathresult
+
+\pgfmathparse{divide(\b-\a,\n)}
+\let\dx\pgfmathresult
+
+% Rectanglea gauche (au-dessus, en orange)
+
+  \def\x{\a}
+  \foreach \k in {0,1,...,\nmoins}{
+  \pgfmathparse{\x}
+  \global\let\xold\pgfmathresult
+
+  \pgfmathparse{1/(1+\x)}
+  \global\let\y\pgfmathresult
+
+  \pgfmathparse{\x + \dx}
+  \global\let\x\pgfmathresult
+
+  %\filldraw[fill=green!20,draw=gray] (\xold,0) rectangle (\x,\y);
+ \filldraw[fill=orange!20,draw=gray] (\xold,0) rectangle (\x,\y);
+  }
+
+
+% Axes
+     \draw[->,>=latex,thick, gray] (-0.5,0)--(2.5,0) node[below,black] {$x$};
+     \draw[->,>=latex,thick, gray] (0,-0.05)--(0,1.5) node[right,black] {$y$};  
+
+
+% Graphe et aire
+  \draw[gray] (0,0) -- plot[domain=-0:2] (\x,{1/(1+\x)}) -- (2,0) -- cycle;
+  \draw[ultra thick, color=red,domain=0:2] plot (\x,{1/(1+\x)});% node[above right] {$y=\frac{1}{1+x}$};
+
+% Labels
+  \foreach \x/\xtext in {0/0, 1/1, 2/2}
+  \draw (\x cm,2pt) -- (\x cm,-2pt) node[anchor=north] {$\xtext$};
+  \draw (1pt,1cm) -- (-1pt,1cm) node[anchor=east] {$1$};
+  \node[below, inner sep=10pt] at (0.5,0) {\vphantom{$n=10$}};
+
+\end{tikzpicture}

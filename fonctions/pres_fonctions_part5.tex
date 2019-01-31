@@ -1,0 +1,355 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={66,15,15}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcounter{saveenumi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+\title{{\bf Limites et fonctions continues}}
+\subtitle{Fonctions monotones et bijections}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Injection, surjection, bijection
+    \item<4-> Théorème de la bijection
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Rappels : injection, surjection, bijection}
+
+\begin{frame}
+
+\begin{mydefinition}
+Soit $f:E\to F$ une fonction, $E, F\subset \Rr$
+\begin{itemize}
+  \item $f$ est \defi{injective} si \quad $\forall x,x'\in E \ \ f(x)=f(x') \implies x=x'$ 
+\uncover<2->{  \item $f$ est \defi{surjective} si \quad $\forall y\in F \ \ \exists x\in E \ \ y=f(x)$ }
+\uncover<3->{   \item $f$ est \defi{bijective} si $f$ est injective et surjective, 
+  c'est-à-dire \\
+  \hfil\hfil $\forall y\in F \ \ \exists! x\in E \ \ y=f(x)$ }
+\end{itemize}
+\end{mydefinition}
+
+
+\myfigure{.55}{\hspace*{-7em}
+\tikzinput{fig_fonctions10a}\ \ 
+\uncover<2->{\tikzinput{fig_fonctions10b} }
+\ 
+\uncover<3->{\tikzinput{fig_fonctions10c} }
+}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+
+\begin{proposition}
+Si $f :  E \to F$ est bijective alors il existe une 
+unique application $g : F \to E$ telle que $g\circ f = \id_E$ et $f\circ g = \id_F$
+\end{proposition}
+
+La fonction $g$ est la \defi{bijection réciproque} de $f$ et se note $f^{-1}$
+
+\bigskip
+\pause
+
+Remarques :
+% \ \\[-1em]
+\begin{itemize}
+  \item $\id_E : E \to E$ est définie par $x \mapsto x$
+\pause  
+  \item $g \circ f = \id_E$ se reformule ainsi : $\forall x \in E\quad  g\big(f(x)\big) = x$
+\pause  
+  \item $f \circ g = \id_F$  s'écrit : $\forall y \in F\quad  f\big(g(y)\big) = y$
+\pause  
+  \item Les graphes de $f$ et $f^{-1}$ sont symétriques 
+\end{itemize}
+
+\vspace*{-4ex}\hfill
+\begin{minipage}{0.39\textwidth}
+\myfigure{.55}{\tikzinput{fig_fonctions10c} }  
+\end{minipage}
+
+
+
+
+
+
+  
+\end{frame}
+
+
+%---------------------------------------------------------------
+\section{Fonctions monotones et bijections}
+
+\begin{frame}
+
+\begin{theoreme}[de la bijection]
+Soit $f$ une fonction définie sur un intervalle $I$ de $\Rr$. Si $f$ est continue 
+et strictement monotone sur $I$, alors
+
+\begin{enumerate}
+\uncover<2->{\item $f$ établit une bijection de $I$ dans l'intervalle image $J=f(I)$}
+
+\uncover<3->{\item la fonction réciproque $f^{-1}:J\to I$ est continue et strictement monotone 
+sur $J$ et a le même sens de variation que $f$}
+\end{enumerate}
+\end{theoreme}
+
+
+
+\myfigure{.8}{
+\tikzinput{fig_fonctionsA19}
+}
+  
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{exemple}[$f(x)=x^2$]
+\begin{itemize}
+  \item Sur $\Rr$, $f$ n'est pas bijective
+
+
+  \item \uncover<2->{$
+f_1 :
+\left\{\begin{array}{c}
+]-\infty,0] \longrightarrow [0,+\infty[ \\
+x \longmapsto x^2
+\end{array}\right.
+\quad \text{et } \quad
+f_2 : 
+\left\{\begin{array}{c}
+[0,+\infty[ \longrightarrow [0,+\infty[ \\
+x \longmapsto x^2
+\end{array}\right.
+$
+}
+\vspace*{-1.5ex}
+\item  \uncover<4->{ $f_1$ et $f_2$ sont strictement monotones : elles sont donc bijectives}
+  
+ \uncover<5->{   \item Pour $y\geq 0$,  $f_1^{-1}(y)=-\sqrt{y}\leq0$ et $f_2^{-1}(y)=\sqrt{y}\geq0$}
+\end{itemize}
+
+
+
+\vspace*{-3ex}
+\uncover<3->{  
+\myfigure{.75}{
+\tikzinput{fig_fonctions11}
+}}
+\vspace*{-3.5ex}
+\end{exemple}
+  
+\end{frame}
+
+
+
+
+
+\begin{frame}
+
+\begin{exemple}
+
+\begin{itemize}
+  \item Soit $n\ge 1$. Soit $f : [0,+\infty[ \to [0,+\infty[$ définie par $f(x)=x^n$
+\pause  
+  \item Alors $f$ est continue et strictement croissante
+\pause   
+  \item Comme $\lim_{+\infty} f = +\infty$ alors $f$ est une bijection
+\pause   
+  \item Sa bijection réciproque $f^{-1}$ est notée : $x \mapsto x^{\frac{1}{n}}$
+(ou aussi $x \mapsto \sqrt[n]{x}$) : c'est la fonction racine $n$-ème
+\pause   
+  \item La fonction racine $n$-ème est continue et strictement croissante 
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Démonstration}
+
+\begin{frame}
+
+\begin{lemme}
+Soit $f:I\to \Rr$. Si $f$ est strictement monotone sur $I$, alors $f$ est injective sur $I$
+\end{lemme}
+
+\pause
+
+\begin{proof}
+\begin{itemize}
+  \item Soient $x,x' \in I$ tels que $f(x)=f(x')$. Montrons que $x=x'$
+\pause  
+  \item 
+  \begin{itemize}
+    \item Si on avait $x<x'$ 
+    
+    \item alors on aurait $f(x)<f(x')$ si $f$ strictement croissante 
+    
+    \item ou $f(x)>f(x')$ si $f$ strictement décroissante 
+    
+    \item Comme c'est impossible, on en déduit que $x\geq x'$
+   \end{itemize}   
+\pause  
+  
+  \item En échangeant les rôles de $x$ et de $x'$, 
+on montre de même que $x\leq x'$
+\pause    
+  \item On en conclut que $x=x'$ et donc que $f$ est injective
+  
+\end{itemize}
+
+\end{proof}
+\end{frame}
+
+\begin{frame}
+
+\begin{lemme}
+Soit $f : I \to \Rr$ une fonction continue 
+et strictement monotone sur $I$ alors $f$
+établit une bijection de $I$ dans l'intervalle image $J=f(I)$  
+\end{lemme}
+
+\pause
+
+\begin{proof}
+\begin{itemize}
+  \item D'après le lemme précédent, $f$ est injective sur $I$
+\pause  
+  \item En restreignant son ensemble d'arrivée à son image $J=f(I)$,
+  $f : I \to J$ est automatiquement surjective
+\pause 
+  \item On obtient que $f$ établit une bijection de $I$ dans $J$
+\pause  
+  \item Comme $f$ est continue, par le théorème des valeurs intermédiaires,
+l'ensemble $J$ est un intervalle
+ 
+\end{itemize}
+  
+\end{proof}
+
+\end{frame}
+
+% 
+% \begin{frame}
+% 
+% \begin{proof}[Démonstration du théorème]
+% \begin{enumerate}
+% \item 
+% \item Supposons pour fixer les idées que $f$ est strictement croissante.
+% \begin{enumerate}
+% \item Montrons que $f^{-1}$ est strictement croissante sur $J$. Soient $y,y'\in J$ tels que $y<y'$. Notons $x=f^{-1}(y)\in I$ et $x'=f^{-1}(y')\in I$. Alors $y=f(x)$, $y'=f(x')$ et donc
+% \begin{align*}
+% y<y'& \implies f(x)<f(x')\\
+% 	& \implies x<x' \qquad \text{ (car $f$ est strictement croissante)}\\
+% 	& \implies f^{-1}(y)<f^{-1}(y'),
+% \end{align*} 
+% c'est-à-dire $f^{-1}$ est strictement croissante sur $J$.
+% 
+% \setcounter{saveenumi}{\theenumi}
+% 
+% \end{enumerate}
+% \end{enumerate}
+% 
+% \end{proof}
+%   
+% \end{frame}
+% 
+% 
+% \begin{frame}
+% 
+% \begin{proof}
+% 
+% \begin{enumerate}
+%   \setcounter{enumi}{\thesaveenumi}
+% 
+% \item Montrons que $f^{-1}$ est continue sur $J$. On se limite au cas où $I$ est de la forme $]a,b[$, les autres cas se montrent de la même manière. Soit $y_0\in J$. On note $x_0=f^{-1}(y_0)\in I$. Soit $\epsilon>0$. On peut toujours supposer que $[x_0-\epsilon,x_0+\epsilon]\subset I$. On cherche un réel $\delta>0$ tel que pour tout $y\in J$ on ait
+% \[
+% y_0-\delta<y<y_0+\delta \implies f^{-1}(y_0)-\epsilon<f^{-1}(y)<f^{-1}(y_0)+\epsilon
+% \]
+% c'est-à-dire tel que pour tout $x\in I$ on ait
+% \[
+% y_0-\delta<f(x)<y_0+\delta \implies f^{-1}(y_0)-\epsilon<x<f^{-1}(y_0)+\epsilon.
+% \]
+% Or, comme $f$ est strictement croissante, on a pour tout $x\in I$
+% \begin{align*}
+% f(x_0-\epsilon)<f(x)<f(x_0+\epsilon) & \implies x_0-\epsilon<x<x_0+\epsilon\\
+% & \implies f^{-1}(y_0)-\epsilon<x<f^{-1}(y_0)+\epsilon.
+% \end{align*} 
+% Comme $f(x_0-\epsilon)<y_0<f(x_0+\epsilon) $, on peut choisir le réel $\delta>0$ tel que
+% \[
+% f(x_0-\epsilon)<y_0-\delta \quad \text{ et } \quad f(x_0+\epsilon) > y_0+\delta
+% \]
+% et on a bien alors pour tout $x\in I$
+% \begin{align*}
+% y_0-\delta<f(x)<y_0+\delta & \implies f(x_0-\epsilon)<f(x)<f(x_0+\epsilon)\\
+% & \implies f^{-1}(y_0)-\epsilon<x<f^{-1}(y_0)+\epsilon.
+% \end{align*} 
+% La fonction $f^{-1}$ est donc continue sur $J$.
+% \end{enumerate}
+% \end{proof}
+% 
+%   
+% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+
+\begin{miniexercice}
+\begin{enumerate}
+  \item Montrer que chacune des hypothèses \og continue \fg\  et \og strictement monotone \fg\ 
+  est nécessaire dans l'énoncé du théorème.
+
+  \item Soit $f : \Rr \to \Rr$ définie par $f(x)=x^3+x$. Montrer que $f$ est bijective, 
+  tracer le graphe de $f$ et de $f^{-1}$.
+  
+  \item Soit $n \ge 1$. Montrer que $f(x)=1+x+x^2+\cdots+x^n$ définit une bijection 
+  de l'intervalle $[0,1]$ vers un intervalle à préciser.
+  
+ 
+  \item Existe-t-il une fonction continue : $f: [0,1[ \to ]0,1[$ qui soit bijective ? 
+  $f: [0,1[ \to ]0,1[$ qui soit injective ?  $f: ]0,1[ \to [0,1]$ qui soit surjective ?
+  
+  \item Pour $y \in \Rr$ on considère l'équation $x + \exp x =y$. 
+  Montrer qu'il existe une unique solution $y$. Comment varie $y$ en fonction de $x$ ?
+  Comme varie $x$ en fonction de $y$ ?
+    
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+\end{document}

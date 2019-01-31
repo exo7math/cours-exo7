@@ -1,0 +1,348 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={153, 204, 0}]{structure}
+
+% Commande spécifique à ce chapitre
+\newcommand{\entourer}[1]{\ovalbox{\color{myred}#1}}
+\newcommand{\barrer}[1]{{\color{lightgray} #1}}
+\newcounter{saveenumi}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+
+
+\title{{\bf Arithmétique}}
+\subtitle{Nombres premiers}
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Une infinité de nombres premiers
+    \item<4-> Eratosthène et Euclide
+    \item<5-> Décomposition en facteurs premiers
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%---------------------------------------------------------------
+\section{Nombres premiers}
+
+\begin{frame}
+
+\begin{mydefinition}
+Un \defi{nombre premier} $p$ est un entier $\ge 2$ dont les seuls diviseurs  
+positifs sont $1$ et $p$
+\end{mydefinition}
+
+\pause
+\bigskip
+
+$2, 3, 5, 7, 11$ sont premiers
+
+\pause
+\medskip
+
+$4 = 2 \times 2$, \quad $6=2 \times 3$, \quad $8= 2 \times 4$ ne sont pas premiers
+\end{frame}
+
+
+\begin{frame}
+\begin{lemme}
+\label{lem:divprem}
+Tout entier $n \ge 2$ admet un diviseur qui est un nombre premier
+\end{lemme}
+
+\pause
+\medskip
+
+\begin{proof}
+$$\mathcal{D} = \big\{ k \ge 2 \mid \  k | n \big\}$$ 
+
+\pause
+$\mathcal{D}$ est non vide (car $n \in \mathcal{D}$)
+
+\pause 
+
+Notons $p = \min \mathcal{D}$ 
+alors $p$ divise $n$
+
+\pause 
+\medskip
+
+Montrons que $p$ est un nombre premier
+
+\pause
+
+\quad Par l'absurde, supposons que $p$ ne soit pas premier
+
+\quad il admet alors un diviseur $q$ tel que $1 < q < p$
+
+\pause
+
+\quad $q$ est aussi un diviseur de $n$ et donc $q \in \mathcal{D}$ avec $q<p$
+
+\pause
+
+\quad Ce qui donne une contradiction
+\end{proof}
+\end{frame}
+
+\section{Une infinité de nombres premiers}
+
+\begin{frame}
+  
+\begin{proposition}
+Il existe une infinité de nombres premiers
+\end{proposition}
+
+\pause
+\medskip
+
+\begin{proof}
+Par l'absurde, supposons qu'il n'y ait qu'un nombre fini de nombres premiers 
+
+\pause 
+
+Notons les $p_1=2$, $p_2=3$, $p_3$,\ldots, $p_n$
+
+\pause 
+
+Soit $N=p_1\times p_2\times \cdots \times p_n+ 1$
+
+Soit $p$ un diviseur premier de $N$
+
+\pause
+
+Alors d'une part $p$ est l'un des entiers $p_i$
+donc $p | p_1\times \cdots \times p_n$
+
+\pause
+
+D'autre part $p|N$ donc $p$ divise la différence $N-p_1\times \cdots \times p_n=1$
+
+\pause
+
+Cela implique que $p=1$
+
+\pause 
+
+Ce qui contredit que $p$ soit un nombre premier
+\end{proof}
+
+\end{frame}
+
+%---------------------------------------------------------------
+\section{Eratosthène et Euclide}
+
+\begin{frame}
+  
+
+Le \evidence{crible d'Eratosthène}. Comment trouver les nombres premiers ? 
+{\small
+$$2\ \ 3\ \ 4\ \ 5\ \ 6\ \ 7\ \ 8\ \ 9\ \ 10\ \ 11\ \ 12\ \ 13\ \ 14\ \ 15\ \ 
+16\ \ 17\ \ 18\ \ 19\ \ 20\ \ 21\ \ 22\ \ 23\ \ 24\ \ 25$$
+\pause
+$$\entourer{2}\ 3\ \ \barrer{4}\ \ 5\ \ \barrer{6}\ \ 7\ \ \barrer{8}\ \ 9\ \ \barrer{10}\ \ 11\ \ \barrer{12}\ \ 
+13\ \ \barrer{14}\ \ 15\ \ 
+\barrer{16}\ \ 17\ \ \barrer{18}\ \ 19\ \ \barrer{20}\ \ 21\ \ \barrer{22}\ \ 23\ \ \barrer{24}\ \ 25$$
+\pause
+$$\entourer{2}\ \entourer{3}\ \barrer{4}\ \ 5\ \ \barrer{6}\ \ 7\ \ \barrer{8}\ \ \barrer{9}\ \ \barrer{10}\ \ 11\ \ \barrer{12}\ \ 
+13\ \ \barrer{14}\ \ \barrer{15}\ \ 
+\barrer{16}\ \ 17\ \ \barrer{18}\ \ 19\ \ \barrer{20}\ \ \barrer{21}\ \ \barrer{22}\ \ 23\ \ \barrer{24}\ \ 25$$
+\pause
+$$\entourer{2}\ \entourer{3}\ \barrer{4}\ \entourer{5}\ \barrer{6}\ \ 7\ \ \barrer{8}\ \ \barrer{9}\ \ \barrer{10}\ \ 11\ \ \barrer{12}\ \ 
+13\ \ \barrer{14}\ \ \barrer{15}\ \ 
+\barrer{16}\ \ 17\ \ \barrer{18}\ \ 19\ \ \barrer{20}\ \ \barrer{21}\ \ \barrer{22}\ \ 23\ \ \barrer{24}\ \ \barrer{25}$$
+\pause
+$$\entourer{2}\ \entourer{3}\ \barrer{4}\ \entourer{5}\ \barrer{6}\ \entourer{7}\ \barrer{8}\ \ 
+\barrer{9}\ \ \barrer{10}\ \entourer{11}\ \barrer{12}\ 
+\entourer{13}\ \barrer{14}\ \ \barrer{15}\ \ 
+\barrer{16}\ \entourer{17}\ \barrer{18}\ \entourer{19}\ \barrer{20}\ \ \barrer{21}\ \ \barrer{22}\ \entourer{23}
+\ \barrer{24}\ \ \barrer{25}$$
+}
+
+\pause
+
+Si un nombre $n$ n'est pas premier alors un de ses facteurs est $\le \sqrt{n}$
+
+\pause
+
+Par exemple pour tester si un nombre $\le 100$ est premier
+\begin{itemize}
+  \item il suffit de tester les diviseurs $\le 10$
+\pause
+  \item il suffit même de tester la divisibilité par $2, 3, 5$ et $7$
+\pause
+  \item {\small Exemple : $89$ n'est pas divisible par $2,3,5,7$, c'est un nombre premier}
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+  
+\begin{proposition}[Lemme d'Euclide]
+Soit $p$ un nombre premier.
+Si $p | ab$ alors $p|a$ ou $p | b$
+\end{proposition}
+
+\pause
+
+\begin{proof}
+Si $p$ ne divise pas $a$ alors $p$ et $a$ sont premiers entre eux 
+
+\pause
+
+Ainsi par le lemme de Gauss $p | b$
+\end{proof}
+
+\pause
+\medskip
+
+\begin{exemple}
+Si $p$ est premier, $\sqrt{p} \notin \Qq$
+
+\pause
+\medskip
+
+{\footnotesize
+\quad Preuve par l'absurde : écrivons $\sqrt p =\frac ab$
+\quad avec $a \in \Zz, b \in \Nn^*$ et $\pgcd(a,b)=1$
+
+\pause
+
+\quad $p b^2 = a^2$ donc $p | a^2$ donc par le lemme d'Euclide $p | a$
+
+\pause
+
+\quad On écrit $a = p a'$ avec $a'$ un entier donc $b^2 = p a'^2$
+
+\pause
+
+\quad Ainsi $p | b^2$ et donc $p|b$
+
+\pause
+
+\quad Maintenant $p|a$ et $p|b$ donc $a$ et $b$ ne sont pas premiers entre eux. Contradiction
+
+\pause
+
+\quad Conclusion : $\sqrt p$ n'est pas rationnel
+}
+\end{exemple}
+\end{frame}
+
+
+
+%---------------------------------------------------------------
+\section{Décomposition en facteurs premiers}
+
+
+\begin{frame}
+  
+
+\begin{theoreme}
+Soit $n \ge 2$ un entier. Il \alt<1-2>{existe\ }{\evidence{existe}} des nombres premiers $p_1 < p_2 < \ldots < p_r$
+et des exposants entiers $\alpha_1, \alpha_2, \ldots, \alpha_r \ge 1$ tels que :
+$$n = p_1^{\alpha_1} \times p_2^{\alpha_2} \times \cdots \times p_r^{\alpha_r}$$
+\pause
+De plus les $p_i$ et les $\alpha_i$ ($i=1,\ldots,r$) sont \alt<2>{uniques}{\evidence{uniques}}
+\end{theoreme}
+
+\pause
+\pause
+\medskip
+
+$24 = 2^3 \times 3$ est la décomposition en facteurs premiers
+
+\pause
+$36 = 2^2 \times 9$ n'est pas la décomposition en facteurs premiers
+
+\pause
+\bigskip
+
+Pourquoi $1$ n'est pas un nombre premier ?
+
+\pause
+Il n'y aurait plus unicité de la décomposition 
+\pause
+\centerline{$24 = 2^3 \times 3 = 1 \times 2^3 \times 3 = 1^2 \times 2^3 \times 3 = \cdots$}
+\end{frame}
+
+
+
+\begin{frame}
+\begin{exemple}
+$$504 = 2^{\color{red}{3}} \times 3^{\color{red}{2}} \times 7 
+\pause
+\qquad 300 = 2^{\color{blue}{2}} \times 3 \times 5^{\color{blue}{2}}$$
+\pause
+$$504 = 2^{\color{red}{3}} \times 3^{\color{red}{2}} \times 5^{\color{red}{0}} \times 7^{\color{red}{1}} \qquad 
+300 = 2^{\color{blue}{2}} \times 3^{\color{blue}{1}} \times 5^{\color{blue}{2}} \times 7^{\color{blue}{0}}$$
+
+\pause
+\medskip
+
+Le pgcd s'obtient en prenant le plus petit exposant de chaque facteur premier
+\pause
+$$\pgcd(504,300) =  2^{\color{blue}{2}} \times 3^{\color{blue}{1}} \times 
+5^{\color{red}{0}} \times 7^{\color{blue}{0}} \pause = 12$$
+
+\pause
+\medskip
+
+Pour le ppcm on prend le plus grand exposant de chaque facteur premier
+
+\pause
+$$\text{ppcm}(504,300) =  2^{\color{red}{3}} \times 3^{\color{red}{2}} 
+\times 5^{\color{blue}{2}} \times 7^{\color{red}{1}} = 12\,600$$
+\end{exemple}
+
+\end{frame}
+
+
+
+
+%---------------------------------------------------------------
+\section*{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Montrer que $n!+1$ n'est divisible par aucun des entiers $2,3,\ldots,n$. Est-ce toujours un nombre premier ?
+  \item Trouver tous les nombres premiers $\le 103$.
+  \item Décomposer $a=2\,340$ et $b=15\,288$ en facteurs premiers. Calculer leur pgcd et leur ppcm.
+  \item Décomposer $48\,400$ en produit de facteurs premiers. Combien $48\,400$ admet-il de diviseurs ?
+  \item Soient $a,b \ge 0$. \`A l'aide de la décomposition en facteurs premiers, 
+reprouver la formule
+$\pgcd(a,b) \times \text{ppcm}(a,b) = a \times b$.
+\end{enumerate}  
+\end{miniexercice}
+\end{frame}
+
+
+\end{document}

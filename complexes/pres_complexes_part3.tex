@@ -1,0 +1,436 @@
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={102,102,0}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+
+\title{{\bf Nombres complexes}}
+\subtitle{Argument et trigonométrie}
+
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Argument
+    \item<4-> Notation exponentielle
+    \item<5-> Racine $n$-ième
+    \item<6-> Trigonométrie
+  \end{itemize}
+\end{minipage}
+}
+\vspace*{1cm}
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Argument d'un nombre complexe}
+
+\begin{frame}
+
+Soit $z \in \Cc^*$. Un \defi{argument} de $z$ est un nombre $\theta\in\mathbb{R}$ tel que 
+\mybox{$z=|z|(\cos \theta + \ii \sin \theta)$}
+
+\pause
+
+\vspace*{-2ex}
+{
+\hfill
+\begin{minipage}{0.4\linewidth}
+On le note $\theta = \arg(z)$
+\end{minipage}
+\hfill
+\pause
+\begin{minipage}{0.5\linewidth}
+\myfigure{0.9}{
+\tikzinput{fig_complexes11}
+}
+\end{minipage}
+\hfill\hfill
+}
+\pause
+\begin{remarque}
+
+\centerline{$\theta' = \theta \pmod {2\pi} \quad  \Longleftrightarrow \quad  \exists k \in
+     \Zz \ \  \theta' = \theta + 2 k \pi$ }
+
+\pause
+\medskip
+
+L'argument est déterminé modulo $2\pi$
+
+
+
+
+
+\pause
+\medskip
+
+On peut obtenir l'unicité en imposant par exemple $\theta\in]-\pi,+\pi]$
+\end{remarque}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+  \begin{itemize}
+    \item $\arg \left( z \times z' \right) = \arg (z) + \arg \left(
+    z' \right) \pmod {2\pi}$
+   \end{itemize}
+
+\pause
+
+\begin{proof}
+  \begin{eqnarray*}
+    z \times z' & = & \left| z \right|  \left( \cos \theta + \ii  \sin \theta \right) 
+    \left| z' \right|  \left( \cos \theta' + \ii  \sin \theta' \right)\\
+\pause
+    & = & \left| zz' \right|  \left( \cos \theta \cos \theta' - \sin \theta
+    \sin \theta' + \ii  \left( \cos \theta \sin \theta' + \sin \theta \cos
+    \theta' \right) \right)\\
+\pause
+    & = & \left| zz' \right|  \left( \cos \left( \theta + \theta' \right) + \ii 
+    \sin \left( \theta + \theta' \right) \right)
+  \end{eqnarray*}
+\end{proof}
+
+     \begin{itemize}
+\pause
+    \item $\arg \left( z^n \right) = n \arg (z) \pmod {2\pi}$
+
+\pause    
+    \item $\arg \left( 1 / z \right) = - \arg (z) \pmod {2\pi}$
+
+\pause    
+    \item $\arg (\overline{z}) = - \arg z \pmod{2 \pi}$
+  \end{itemize}
+
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Notation exponentielle}
+
+\begin{frame}
+
+\defi{Formule de Moivre} 
+\mybox{$
+  \left( \cos \theta + \ii \sin \theta \right)^n = \cos \left( n \theta \right)
+  + \ii  \sin \left( n \theta \right)$}
+
+\pause
+\uncover<2->{
+\begin{proof}
+Par récurrence sur $n$
+\begin{itemize}
+\item La formule est vraie pour $n=0$
+\pause
+\item Hérédité
+$$
+  \begin{array}{rcl}
+    \left( \cos \theta + \ii  \sin \theta \right)^n & = & ( \cos \theta + \ii \sin \theta)^{n-1}
+ \times \left( \cos \theta + \ii  \sin \theta \right)
+    \\
+\pause
+  & = & \left( \cos \left(
+    \left( n - 1 \right) \theta \right) + \ii  \sin \left( \left( n - 1 \right)
+    \theta \right) \right) \times \left( \cos \theta + \ii  \sin \theta \right)
+    \\
+\pause
+    & = & \left( \cos \left( \left( n - 1 \right) \theta \right) \cos \theta
+    - \sin \left( \left( n - 1 \right) \theta \right) \sin \theta \right) 
+    \\
+    && + \ii 
+    \left( \cos \left( \left( n - 1 \right) \theta \right) \sin \theta + \sin
+    \left( \left( n - 1 \right) \theta \right) \cos \theta \right)
+    \\
+\pause
+    & = & \cos n \theta + \ii  \sin n \theta
+  \end{array}$$
+\pause
+  \vspace*{-3ex}
+  \item Conclusion : la formule est vraie pour tout $n$
+\end{itemize}
+\end{proof}
+}
+
+
+\end{frame}
+
+
+\begin{frame}
+\medskip
+
+\defi{Notation exponentielle :} 
+\myboxinline{$e^{\ii  \theta} = \cos \theta + \ii  \sin \theta$}\\
+\bigskip
+\pause
+Tout nombre complexe $z$ s'écrit 
+\myboxinline{$z = \rho e^{\ii  \theta}$} \\
+avec $\rho = \left| z \right|$ le module et $\theta = \arg (z)$ un argument
+
+\pause
+
+\bigskip
+{\small
+Si\quad  $z = \rho e^{\ii  \theta}$ \quad et \quad $z' = \rho' e^{\ii  \theta'}$ \quad  alors
+\begin{itemize}
+\item $zz' = \rho \rho' e^{\ii  \theta} e^{\ii  \theta'} = \rho \rho' e^{\ii  (\theta + \theta')}$
+\pause
+\item Formule de Moivre : $\left(e^{\ii\theta}\right)^n = e^{\ii n \theta}$
+\pause
+\item $z^n = \left( \rho e^{\ii  \theta} \right)^n = \rho^n  \left( e^{\ii  \theta}
+     \right)^n = \rho^n e^{\ii n \theta}$
+
+\pause
+\item $\frac 1  z = \frac{1}{\rho e^{\ii  \theta}} 
+= \frac{1}{\rho} e^{- \ii \theta}$
+\pause
+\item $\overline{z} = \rho e^{-\ii \theta}$
+\end{itemize}
+}
+
+\pause
+\mybox{
+$\rho e^{\ii \theta} = \rho' e^{\ii \theta'}$ (avec $\rho, \rho' > 0$) \ 
+$\Longleftrightarrow\ \left\{ \begin{array}{l}\rho = \rho'\\\theta = \theta' \pmod{2\pi}\end{array}\right.$
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Racines $n$-i\`eme}
+
+\begin{frame}
+
+Pour $z \in \Cc$ et $n \in \Nn$, une \defi{racine $n$-ième} est
+un $\omega \in \Cc$ tel que
+\mybox{$\omega^n = z$}
+
+\pause
+
+Les racines $n$-ièmes $\omega_0, \omega_1, \ldots, \omega_{n - 1}$ 
+de $z=\rho e^{\ii  \theta}$ sont les $n$ complexes :
+\mybox{$\omega_k = \rho^{\frac 1 n} \, e^{\frac{\ii\theta \, + \, 2\ii k \pi}{n}}  \qquad k = 0,1,
+     \ldots, n - 1$}
+     \vspace{-0.5em}
+
+\pause
+
+
+\begin{proof}
+Cherchons $\omega=re^{\ii t}$ tel que $z=\omega^n$ \hspace{3ex}
+\pause
+$\Longleftrightarrow\quad \rho e^{\ii \theta}  = \left(re^{\ii t}\right)^n 
+= r^n e^{\ii nt}$\\
+\pause
+$\quad\Longleftrightarrow\ 
+\left\{\begin{array}{l}
+\only<5>{\left|\rho e^{\ii \theta} \right| =  \left|r^n e^{\ii nt}\right|}
+\only<6->{\rho = r^n}\\
+\only<5,6>{\arg(\rho e^{\ii \theta}) = \arg(r^n e^{\ii nt}) \pmod {2\pi} }
+\only<7->{nt = \theta \pmod {2\pi}} 
+\uncover<8->{ \ \textrm{ c-à-d } \  nt = \theta + 2k\pi \textrm{ (pour $k\in\Zz$)} }
+\end{array}\right.$
+\pause
+\pause
+\pause
+ \pause
+
+$\quad\Longleftrightarrow\ 
+\left\{\begin{array}{l}
+r = \rho^{1/n}\\
+\pause
+t = \frac{\theta}{n} + \frac{2k\pi}{n}
+\end{array}\right.$
+
+\pause
+
+Les solutions sont les $\omega_k = \rho^{1/n} e^{\frac{\ii\theta + 2\ii k\pi}{n}}$, $k\in\Zz$ 
+
+\pause
+
+Mais $\omega_n=\omega_0$, $\omega_{n+1}=\omega_1$, \ldots\\
+Ainsi les $n$ solutions sont $\omega_0,\omega_1,\ldots,\omega_{n-1}$
+
+\end{proof}
+
+\end{frame}
+
+
+\begin{frame}
+
+$z=1=e^{\ii 0}$ et $n=3$
+
+Les racines $3$-ième de l'unité sont $\{1,e^{2\ii \pi/3},e^{4\ii \pi/3}\}$
+
+\medskip
+
+
+\begin{minipage}{.4\textwidth}
+  \myfigure{0.6}{
+\tikzinput{fig_complexes14}
+} 
+\end{minipage} \pause\hspace*{1cm}
+\begin{minipage}{.4\textwidth}
+\myfigure{0.6}{
+\tikzinput{fig_complexes15}
+} 
+\end{minipage}
+
+\medskip
+
+$z=-1=e^{\ii \pi}$ et $n=3$
+
+Racines $3$-ième de $-1$ : $\{ e^{\frac{\ii\pi}{3}}, e^{\frac{\ii\pi+2\ii \pi}{3}}, e^{\frac{\ii\pi+4\ii \pi}{3}}\}
+=\{ e^{\frac{\ii\pi}{3}}, -1, e^{-\frac{\ii\pi}{3}} \}$
+
+ 
+\end{frame}
+
+
+\begin{frame}
+$z=1 \text{ et } n=5$
+
+Les racines $5$-ième de l'unité sont 
+$\displaystyle \left\{ 1,e^{\frac{2\ii\pi}{5}}, e^{\frac{4\ii\pi}{5}}, e^{\frac{6\ii\pi}{5}},e^{\frac{8\ii\pi}{5}}\right\}$
+
+\myfigure{1}{
+\tikzinput{fig_complexes12}
+} 
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Applications \`a la trigonom\'etrie}
+
+\begin{frame}
+
+Partant de la définition de la notation exponentielle, 
+$$e^{\ii  \theta} = \cos \theta + \ii  \sin \theta$$
+\pause
+on a donc aussi
+$$e^{-\ii  \theta} = \cos \theta - \ii  \sin \theta$$
+
+\bigskip
+
+\pause
+
+On obtient les \defi{formules d'Euler}, pour $\theta \in \Rr$ :
+
+\mybox{$ \cos \theta = \dfrac{e^{\ii  \theta} + e^{- \ii  \theta}}{2} \quad , \quad 
+   \sin \theta = \dfrac{e^{\ii  \theta} - e^{- \ii  \theta}}{2 \ii }$}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\defi{Développement}\\
+Exprimer $\sin n \theta$ ou $\cos n \theta$ en
+fonction des puissances de $\cos \theta$ et $\sin \theta$
+
+\pause
+
+\begin{exemple}
+\vspace{-1em}
+\begin{eqnarray*}
+  \cos 3 \theta + \ii  \sin 3 \theta & = & \left( \cos \theta + \ii  \sin \theta
+  \right)^3\\
+\pause
+  & = & \cos^3 \theta + 3 \ii  \cos^2 \theta \sin \theta - 3 \cos \theta \sin^2
+  \theta - \ii  \sin^3 \theta\\
+\pause
+  & = & \left( \cos^3 \theta - 3 \cos \theta \sin^2 \theta \right) + \ii  \left(
+  3 \cos^2 \theta \sin \theta - \sin^3 \theta \right)
+\end{eqnarray*}
+\pause
+D'où :
+\[ \cos 3 \theta = \cos^3 \theta - 3 \cos \theta \sin^2 \theta \quad \text{ et } \quad 
+   \sin 3 \theta = 3 \cos^2 \theta \sin \theta - \sin^3 \theta  \]
+\end{exemple}
+
+\end{frame}
+
+
+\begin{frame}
+
+\defi{Linéarisation}\\
+Exprimer $\cos^n \theta$ ou $\sin^n \theta$ en fonction des $\cos k \theta$ 
+et $\sin k\theta$
+
+\pause
+
+\begin{exemple}
+\vspace{-1em}
+\begin{eqnarray*}
+  \sin^3 \theta 
+\pause & = & \left( \frac{e^{\ii  \theta} - e^{- \ii  \theta}}{2 \ii }
+  \right)^3\\
+\pause
+ & = & \frac{1}{- 8 \ii }  \left( (e^{\ii  \theta})^3 - 3 (e^{\ii  \theta})^2e^{- \ii  \theta} 
++ 3 e^{\ii  \theta}(e^{-\ii  \theta})^2 - (e^{- \ii  \theta})^3 \right)\\
+\pause
+ & = & \frac{1}{- 8 \ii }  \left( e^{3 \ii  \theta} - 3 e^{\ii  \theta} + 3 e^{-
+  \ii  \theta} - e^{- 3 \ii  \theta} \right)\\
+\pause
+  & = & - \frac{1}{4} \left( \frac{e^{3 \ii  \theta} -  e^{-3 \ii \theta}}{2 \ii } - 3
+  \frac{e^{\ii  \theta} - e^{-\ii  \theta}}{2 \ii } \right)\\
+\pause
+  & = & - \frac{\sin 3 \theta}{4}
+  + \frac{3 \sin \theta}{4}
+\end{eqnarray*}
+\end{exemple}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Mettre les nombres suivants sont la forme module-argument (avec la notation exponentielle) :
+$1$, $\ii$, $-1$, $-\ii$, $3\ii$, $1+\ii$, $\sqrt{3}-\ii$, $\overline{\sqrt{3}-\ii}$, $\frac{1}{\sqrt{3}-\ii}$, $(\sqrt{3}-\ii)^{20xx}$
+où $20xx$ est l'année en cours.
+  \item Calculer les racines $5$-ième de $\ii$. 
+  \item Calculer les racines carrées de $\frac{\sqrt{3}}{2}+\frac{\ii}{2}$ de deux façons différentes.
+En déduire les valeurs de $\cos \frac{\pi}{12}$ et $\sin \frac{\pi}{12}$.
+  \item Donner sans calcul la valeur de $\omega_0 + \omega_1 + \cdots + \omega_{n-1}$, 
+où les $\omega_i$ sont les racines $n$-ième de $1$.
+  \item Développer $\cos (4\theta)$ ; linéariser $\cos^4 \theta$ ; calculer une primitive de $\theta\mapsto\cos^4 \theta$.
+\end{enumerate}
+\end{miniexercice}
+\end{frame}
+
+
+
+\end{document}

@@ -1,0 +1,2823 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+
+% Commandes locales 
+\usepackage{siunitx}
+\sisetup{locale = FR, detect-all, per-mode = symbol}
+
+
+\begin{document}
+
+\newcommand{\vect}{\overrightarrow}
+
+% Pour latitude/longitude 3d
+\input{figures/fig_gps_3d_preamb_01.tikz}
+
+
+%====================================================================
+\chapitre{Mathématiques du GPS}
+%====================================================================
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L'île aux 7 phares}
+
+
+
+%---------------------------------------------------------------
+\subsection{Perdu !}
+
+Au large des côtes bretonnes existe une île ayant la particularité étrange 
+de posséder 7 phares. Cette île, maintenant inhabitée, appartenait à un 
+savant passionné de navigation et de technologie. J'étais venu visiter 
+chacun des 7 phares. Bien sûr la nuit chaque phare s'illumine et émet un signal
+particulier afin que les marins puissent contourner l'île. Chaque phare porte 
+le nom d'une note de musique. En effet, lorsque
+le brouillard tombe sur l'île, les cornes de brume résonnent, chacune émettant 
+un son différent, \emph{do}, \emph{ré}, \emph{mi}, \emph{fa},...
+En plus le savant avait construit un mécanisme horloger très précis de sorte que toutes les 
+10 minutes, à la seconde près, les 7 cornes de brume sonnaient un bref coup.
+
+
+\myfigure{0.5}{
+  \tikzinput{fig_gps_ile_01}
+} 
+
+En arrivant sur l'île, j'avais réglé ma montre sur l'horloge du phare \emph{Do} après avoir grimpé tout en haut,
+puis j'étais parti explorer l'île. Après une belle matinée, le brouillard apparût et, 
+un peu avant midi, je voyais à peine le bout de mes pieds. J'avais bien une carte de l'île
+et une boussole, mais comme je ne savais pas où je me trouvais, j'étais complètement perdu !
+Commençant à m’inquiéter, j'entends tout à coup le son d'une corne de brume, puis quelques instants
+après une deuxième et bientôt les 7 cornes résonnent chacune à son tour. Rassuré par ces signaux et 
+assis sur un rocher je me fis quand même la remarque que les horloges n'étaient 
+pas si précises qu'on le disait car elles avaient sonné à plusieurs secondes d'écart.
+
+Plongé dans mes réflexions et surtout dans le brouillard, je n'avais rien d'autre à faire
+que de patienter 10 minutes pour les prochains coups de corne. Je me demandais si les 
+cornes de brume pouvaient m'aider à m'orienter, peut-être qu'en me dirigeant vers le phare 
+émettant le son le plus fort j'arriverais  à le rejoindre. Mais malheureusement, le brouillard
+atténuait les sons et je ne pouvais pas déterminer d'où ils venaient.
+
+\newpage
+\thispagestyle{empty}
+\def\myscale{0.9}
+\vfill
+\begin{center}
+\rotatebox{90}
+{
+  \tikzinput{fig_gps_ile_02}
+}   
+\end{center}
+
+
+
+
+\newpage
+
+%---------------------------------------------------------------
+\subsection{À toute vitesse}
+
+Soudain une illumination : et si les horloges des phares étaient parfaitement réglées, mais que 
+les sons ne me parvenaient pas tous en même temps. Les nuit d'orage, 
+lorsque que j'étais petit, je comptais dans mon lit le temps qui s'écoulait entre
+l'éclair et le tonnerre, pour savoir si l'orage était loin ou proche.
+En effet, la lumière de l'éclair arrive quasi-instantanément alors que le son du tonnerre 
+voyage moins vite. On disait qu'un décalage de 3 secondes correspondait à 1 kilomètre.
+Me souvenant que la vitesse du son dans l'air est de \SI{1200}{\kilo \meter \per \hour},
+soit \SI{333}{\meter\per\second}, il faut bien 3 secondes au son pour parcourir 
+1 kilomètre.
+
+Aussitôt je sors ma trousse de survie : papier, crayon, règle, compas
+et je me prépare pour les prochains signaux de 12h00.
+\`A 12h00 et 0 seconde rien. J'attends 1 seconde, 2 secondes, toujours rien !
+Enfin à 12h00 et 9 secondes j'entends un \emph{do}, 
+suivi à 12h00 et 12 secondes de \emph{ré}, puis les sons s’enchaînent sans que j'ai le temps
+de les discerner, sauf un \emph{la} feutré qui conclut à 12h00 et 24 secondes.
+
+Je me concentre sur le son \emph{do}. Le son \emph{do} est parti du phare à 12h00 tapante
+et arrive à mes oreilles 9 secondes plus tard. Il a donc mis 9 secondes pour voyager,
+et comme en 3 secondes il parcourt 1 kilomètre, il a voyagé sur 3 kilomètres.
+
+Je me trouve donc à \SI{3}{\kilo \meter} du phare \emph{do}. Géométriquement cela signifie que je me trouve
+sur un cercle de rayon \SI{3}{\kilo \meter}, centré sur le phare \emph{do}.
+Sur la carte de l'île, je m'empresse de tracer ce cercle.
+
+\myfigure{0.5}{
+  \tikzinput{fig_gps_ile_03}
+}
+
+Bien sûr cela ne m'aide qu'à moitié car je ne sais pas où je suis exactement situé sur ce cercle.
+Voyons ce que m'indique le phare \emph{ré}, le son a mis 12 secondes à parvenir, donc je suis 
+à \SI{4}{\kilo \meter} du phare \emph{ré}. Je dessine le cercle centré sur ce phare et de rayon 
+\SI{4}{\kilo \meter}. 
+
+Fantastique ! Ces deux cercles se coupent en seulement deux points (normal pour deux cercles).
+Comme l'un des points est au milieu de l'eau, je sais exactement où je suis.
+Je ne suis plus perdu !
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Pour aller plus loin...}
+
+Avant d'aller plus loin je préfère vérifier mes déductions.
+Le son \emph{la} du dernier phare est parvenu après 24 secondes, donc je suis
+à \SI{8}{\kilo \meter} du phare \emph{la}. Je trace le cercle correspondant
+et effectivement ce cercle passe presque par le point où je pensais me trouver.
+Voilà qui est rassurant.
+Ce qui l'est moins c'est que depuis mon arrivée au phare du \emph{do}, je me suis dirigé 
+plein Nord et que si je continue je vais me diriger droit vers les marais.
+Je décide donc de m'orienter plutôt vers le Nord-Est afin de rejoindre les phares 
+jumeaux \emph{fa} et \emph{sol}.
+
+Au bout d'une heure de marche plus ou moins laborieuse dans le brouillard, je refais le point
+avec les cornes de brume de 13h00.
+Cette fois à 13h00 et 9 secondes j'entends en même temps le phare \emph{fa} et le phare \emph{sol}.
+Puis à 13h00 et 12 secondes le phare \emph{la}.
+
+\myfigure{0.5}{
+  \tikzinput{fig_gps_ile_04}
+}
+
+
+Je reprends ma carte, je dessine un cercle de rayon \SI{3}{\kilo \meter}
+centré sur le phare \emph{fa}, puis un autre cercle de même rayon mais centré sur le phare 
+\emph{sol}. Malheureusement ces deux cercles sont trop proches l'un de l'autre, ce qui fait
+qu'avec l'épaisseur du trait, j'ai un grosse zone d'intersection.
+Pas de problème, je trace le cercle centré sur le phare \emph{la} de rayon \SI{4}{\kilo \meter}
+qui lui recoupe correctement les deux premiers cercles
+en un seul point de l'île (et pas dans l'eau).
+
+Je sais encore une fois précisément où je suis. En plus 
+par rapport à ma position d'il y a une heure, je mesure sur la carte
+que j'ai parcouru un peu plus de \SI{4}{\kilo \meter}
+(environ \SI{4.3}{\kilo \meter}) donc ma vitesse moyenne (en ligne droite)
+est de plus de \SI{4}{\kilo \meter \per \hour}.
+
+Enfin, je vois clairement que ma direction depuis 12h00
+n'est pas Nord-Est mais plutôt Est-Nord-Est, en fait avec mon rapporteur, je mesure précisément que mon cap est de
+\ang{63} par rapport au Nord. Je n'ai même plus besoin de boussole.
+
+C'est alors que le soleil revient, et je me trouve non loin des phares jumeaux.
+
+
+
+%---------------------------------------------------------------
+\subsection{\`A vous de jouer}
+
+Si vous avez bien compris voici une liste de petits problèmes de difficulté croissante.
+Armez-vous de votre matériel de géométrie, d'un papier et d'un crayon.
+
+
+\begin{enumerate}
+  \item \`A la suite de ma balade je me trouve à un point $P_3$
+  où j'entends le phare \emph{si} à 6 secondes et le phare \emph{la}
+  à 15 secondes. Où suis-je ?
+  
+  \item Deux heures plus tard, je me trouve au point $P_4$ où j'entends le phare
+  \emph{ré} à 8 secondes et le phare \emph{mi} à 11 secondes. Où suis-je ?
+  Quelle a été ma vitesse moyenne ? Et ma direction par rapport au Nord ?
+  
+  \item Je me trouve dans une zone située entre 9 et 10 secondes du phare \emph{ré}
+  et entre 11 et 12 secondes du phare \emph{do}. Dessiner cette zone. Mesurer graphiquement
+  l'erreur maximale commise. 
+  
+  \item Partant de la côte ouest, je me promène en prenant bien soin 
+  d'entendre la corne de brume des phares \emph{ré} et \emph{mi} en même temps.
+  Vers quel phare je me dirige ?
+  
+  \item Je me promène maintenant de sorte que le son venant du phare \emph{si}
+  arrive avec le double de temps que le son venant du phare \emph{do}.
+  Où puis-je être ? Si je ne suis pas sur l'île principale, où suis-je ?
+  
+  \item Ma montre fonctionne toujours, mais elle n'est plus à l'heure ! 
+  J'entends le phare \emph{si}, puis 5 secondes plus tard le phare \emph{la}
+  et encore 3 secondes après le phare \emph{ré}. Où suis-je ?
+  
+  
+\end{enumerate}
+
+%---------------------------------------------------------------
+\subsection{Bilan}
+
+Voici quelques conclusions de notre visite sur l'île.
+
+\begin{itemize}
+  \item  Avec deux signaux, je détermine deux positions possibles. L'une des deux peut souvent
+  être exclue car aberrante.
+  
+  \item En répétant les mesures des signaux au fil du temps, je peux en déduire
+  mon parcours, mais aussi ma vitesse ainsi que la direction suivie.
+  
+  \item Si mes mesures sont imprécises alors, au lieu d'un point, je me situe dans une zone.
+  
+  \item Deux signaux qui proviennent de points très proches (comme le cas des phares jumeaux) 
+  fournissent une information redondante, qui ne permet pas de déterminer sa position avec une précision raisonnable.
+    
+  \item La mesure d'un troisième signal permet de valider le choix d'un point (par exemple s'il reste deux points possibles)
+  ou bien de réduire la taille d'une zone.
+  
+  \item Enfin, avec trois signaux je peux me passer d'une montre parfaitement à l'heure, 
+  en utilisant seulement la fonction chronomètre.
+
+  
+\end{itemize}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Se repérer grâce au GPS}
+
+%---------------------------------------------------------------
+\subsection{Deux cercles}
+
+Chaque satellite du système GPS, ou chaque phare de l'île, émet un signal à un instant précis.
+Ce signal voyage  au cours du temps dans toutes les directions, 
+sous la forme d'un cercle qui s'agrandit (ou d'une sphère dans l'espace)
+comme lorsque l'on lance un caillou dans l'eau.
+
+\myfigure{1}{
+  \tikzinput{fig_gps_reperer_01}
+} 
+
+On se place pour l'instant dans le plan. Si le signal est émis au point $S_1$
+à l'instant $t_1=0$ et que le signal se déplace à une vitesse $c$, alors à un instant $t>0$ quelconque,
+le signal est perçu exactement en tout point du cercle $\mathcal{C}_1$ centré en $S_1$ et de rayon $c \cdot t$.
+Si le centre $S_1$ a pour coordonnées $(x_1,y_1)$ alors l'équation de ce cercle est
+$$\sqrt{(x-x_1)^2 + (y-y_1)^2} = c \cdot t.$$
+Où encore en élevant au carré :
+$$(x-x_1)^2 + (y-y_1)^2 = c^2 \cdot t^2.$$
+
+Rappelons que je cherche à déterminer ma position $P$, et donc si je reçois le signal 
+à l'instant~$t$, j'en déduis que je suis situé sur le cercle $\mathcal{C}_1$ (de rayon $c\cdot t$).
+Le fait que deux signaux dans le plan déterminent seulement deux positions possibles 
+est la traduction mathématique du résultat suivant :
+\begin{proposition}
+Deux cercles du plan, ayant des centres distincts, se coupent en $0$, $1$, ou $2$ points.  
+\end{proposition}
+
+\myfigure{0.8}{
+  \tikzinput{fig_gps_reperer_02a}\qquad\qquad\qquad\qquad
+  \tikzinput{fig_gps_reperer_02b}\qquad\qquad
+  \tikzinput{fig_gps_reperer_02c} 
+} 
+
+Dans notre situation l'intersection n'est pas vide, puisque nous sommes
+à un point d'intersection des deux cercles.
+La preuve va même nous fournir les coordonnées des points d'intersection.
+Lorsque qu'il n'y a qu'un point d'intersection, c'est que les deux cercles sont tangents.
+C'est une situation exceptionnelle qui ne peut pas nous être utile dans la pratique.
+
+
+\begin{proof}
+On considère deux cercles $\mathcal{C}_1$ et $\mathcal{C}_2$.
+Pour simplifier les calculs, et sans perte de généralité, on choisit le repère de sorte que le centre du premier cercle
+soit $(x_1,y_1) = (0,0)$, et on choisit l'axe des abscisses de sorte que le centre du second cercle soit dessus :
+$(x_2,y_2)=(x_2,0)$. 
+
+\myfigure{1.2}{
+  \tikzinput{fig_gps_reperer_03}
+} 
+
+Les équations des cercles sont alors
+$$x^2 + y^2 = r_1^2 \qquad \text{ et } \qquad (x-x_2)^2 + y^2 = r_2^2$$
+Un point $P = (x,y)$ est dans l'intersection si ses coordonnées sont solutions de 
+$$\left\{\begin{array}{rcl}
+x^2 + y^2 &=& r_1^2 \\
+(x-x_2)^2 + y^2 &=& r_2^2
+\end{array}\right.
+\quad \text{ ou encore }\quad
+\left\{\begin{array}{rcl}
+x^2 + y^2 &=& r_1^2 \\
+x^2-2xx_2 +x_2^2 + y^2 &=& r_2^2
+\end{array}\right.$$
+Attention, c'est un système à deux équations et deux inconnues, mais les équations ne sont pas linéaires.
+En retranchant la première ligne à la seconde, ce système équivaut à :
+$$\left\{\begin{array}{rcl}
+x^2 + y^2 &=& r_1^2 \\
+-2xx_2 + x_2^2 &=& r_2^2-r_1^2
+\end{array}\right.
+\quad \text{ c'est-à-dire }\quad
+\left\{\begin{array}{rcl}
+x^2 + y^2 &=& r_1^2 \\
+x &=& \frac{r_1^2-r_2^2+x_2^2}{2x_2}
+\end{array}\right.$$
+On a donc trouvé l'abscisse $x$ de nos solutions. En reportant la valeur de $x$ dans la première équation
+on trouve :
+$$y^2 = r_1^2 - \left(\frac{r_1^2-r_2^2+x_2^2}{2x_2}\right)^2$$
+Notons $\rho$ cette quantité, $\rho = r_1^2 - \left(\frac{r_1^2-r_2^2+x_2^2}{2x_2}\right)^2$.
+Trois cas sont possibles :
+\begin{itemize}
+  \item Si $\rho < 0$ alors l'équation $y^2 = \rho$ n'admet pas de solutions et notre système non plus.
+  Les deux cercles ne se coupent pas.
+  
+  \item Si $\rho = 0$ alors $y=0$. Le système admet une unique solution
+  donnée par $x= \frac{r_1^2-r_2^2+x_2^2}{2x_2}$ et $y=0$. Les deux cercles se coupent en un unique point.
+  
+  \item Si $\rho > 0$ alors $y = +\sqrt \rho$ ou $y=-\sqrt \rho$.
+  Le système admet deux solutions données par $\left(\frac{r_1^2-r_2^2+x_2^2}{2x_2},+\sqrt \rho\right)$
+  et  $\left(\frac{r_1^2-r_2^2+x_2^2}{2x_2},-\sqrt \rho\right)$. Les deux cercles se coupent en deux points.
+\end{itemize}
+  
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Trois sphères}
+
+Dans l'espace chaque satellite émet un signal qui se propage en une famille de sphères
+centrées sur le satellite, dont le rayon grandit avec le temps.
+Lorsque l'on reçoit un signal d'un satellite, 
+nous savons que nous sommes situés sur une sphère centrée en ce satellite.
+Avec deux satellites, nous savons que nous sommes sur l'intersection de deux sphères,
+ce qui laisse une infinité de possibilités. Il faut trois sphères pour
+n'avoir que deux possibilités pour notre position.
+C'est exactement ce qui dit le théorème :
+\begin{theoreme}
+Trois sphères, dont les centres ne sont pas alignés, 
+ont une intersection commune de $0$, $1$ ou $2$ points.
+\end{theoreme}
+
+Encore une fois dans une situation normale, il y aura deux points d'intersections.
+On exclut un des points, qui correspond souvent à une solution aberrante 
+(par exemple sous terre ou dans l'espace) ou alors on valide une solution par une quatrième signal.
+Nous allons voir deux méthodes qui permettent de calculer les solutions de façon exacte. 
+Nous verrons une troisième méthode, par calcul approché,
+lorsque nous aborderons les problèmes d'erreurs.
+
+Mais avant cela commençons par bien comprendre la situation géométrique.
+Tout d'abord pour deux sphères qui se rencontrent, 
+leur intersection est un cercle de l'espace. Ceci n'est pas si évident à visualiser, 
+mais nous le montrerons par le calcul. Lorsque l'on a trois
+sphères qui se coupent, alors les deux premières s'intersectent en un cercle (figure de gauche), 
+et ce cercle va recouper la troisième sphère en deux points (figure du milieu).
+L'intersection des trois sphères est alors formée de deux points (figure de droite).
+
+
+\myfigure{1}{  
+  \tikzinput{fig_gps_3d_10} \quad
+  \tikzinput{fig_gps_3d_11} \quad
+  \tikzinput{fig_gps_3d_12} \quad
+}
+
+
+%---------------------------------------------------------------
+\subsection{Preuve analytique}
+
+
+Pour simplifier les calculs de l'intersection de trois sphères, nous choisissons
+le repère de sorte que :
+\begin{itemize}
+  \item la sphère $\mathcal{S}_1$ soit centrée à l'origine, c'est-à-dire son centre
+  vérifie $(x_1,y_1,z_1) = (0,0,0)$ ;
+  \item la sphère $\mathcal{S}_2$ soit centrée sur l'axe des abscisses $(Ox)$, c'est-à-dire son centre
+  vérifie $(x_2,y_2,z_2) = (x_2,0,0)$ ;
+  \item la sphère $\mathcal{S}_3$ soit centrée sur le plan $(Oxy)$, c'est-à-dire son centre
+  vérifie $(x_3,y_3,z_3) = (x_3,y_3,0)$.
+\end{itemize}
+
+Les équations des sphères sont alors :
+
+$$\left\{\begin{array}{rcl}
+x^2 + y^2 + z^2 &=& r_1^2 \\
+(x-x_2)^2 + y^2 + z^2 &=& r_2^2 \\
+(x-x_3)^2 + (y-y_3)^2 + z^2 &=& r_3^2 \\
+\end{array}\right.$$
+On soustrait la première ligne aux deux suivantes :
+$$\left\{\begin{array}{rcl}
+x^2 + y^2 + z^2 &=& r_1^2 \\
+(x-x_2)^2 -x^2 &=& r_2^2-r_1^2 \\
+(x-x_3)^2 -x^2 + (y-y_3)^2 - y^2 &=& r_3^2-r_1^2 \\
+\end{array}\right.$$
+En développant les carrés, le système se simplifie, et on trouve $x$, puis $y$ (en fonction de ce $x$) :
+$$\left\{\begin{array}{rcl}
+x^2 + y^2 + z^2 &=& r_1^2 \\
+x &=& \frac{r_1^2-r_2^2+x_2^2}{2x_2}\\
+y &=& \frac{r_1^2-r_3^2+x_3^2+y_3^2-2xx_3}{2y_3}\\
+\end{array}\right.$$
+
+Remarquons que si on ne regarde que l'intersection des deux premières 
+sphères (donc les deux premières équations) 
+alors on trouve $x^2 + y^2 + z^2 = r_1^2$
+avec $x=x_0$ fixé ($x_0= \frac{r_1^2-r_2^2+x_2^2}{2x_2}$).
+Cette équation $y^2 + z^2 = r_1^2 - x_0^2$ est l'équation d'un cercle
+dans le plan d'équation $(x=x_0)$ orthogonal à la droite 
+joignant les deux centres.
+
+
+Revenons à nos trois sphères ;
+$x$ et $y$ sont donc entièrement déterminés par $x=x_0$ et $y=y_0$ avec
+$$x_0 = \frac{r_1^2-r_2^2+x_2^2}{2x_2}
+\quad \text{ et } \quad
+y_0 = \frac{r_1^2-r_3^2+x_3^2+y_3^2-2x_0x_3}{2y_3}$$
+
+Il nous reste à trouver $z$, à l'aide de la première équation devenue
+$x_0^2 + y_0^2 +z^2 = r_1^2$.
+On pose $\rho = r_1^2 - x_0^2 - y_0^2$, de sorte que 
+$z^2 = \rho$ et ainsi :
+\begin{itemize}
+  \item si $\rho < 0$, pas de solutions,
+  \item si $\rho = 0$, une unique solution $(x_0,y_0,0)$,
+  \item si $\rho > 0$, deux solutions $(x_0,y_0,+\sqrt\rho)$,
+  $(x_0,y_0,-\sqrt\rho)$.
+\end{itemize}
+
+\begin{exemple}
+Quelle est l'intersection  des sphères suivantes, dont on donne le centre et le rayon ?
+$$\mathcal{S}_1  : \quad (0,0,0), \quad r_1 = 4 \quad ; \quad 
+\mathcal{S}_2, \quad (4,0,0), \quad r_2 = 3 \quad ; \quad 
+\mathcal{S}_3, \quad (2,1,0), \quad r_3 = 2$$
+
+Les équations sont
+$$\left\{\begin{array}{rcl}
+x^2 + y^2 + z^2 &=& 16 \\
+(x-4)^2 + y^2 + z^2 &=& 9 \\
+(x-2)^2 + (y-1)^2 + z^2 &=& 4 \\
+\end{array}\right.$$
+On reprend pas à pas la démonstration, ou bien on applique directement les formules obtenues, pour trouver
+$$x_0 = \frac{23}{8}, \quad \quad y_0 = \frac{11}{4}.$$
+On pose $\rho = r_1^2-x_0^2-y_0^2 = 
+16 - \left(\frac{23}{8}\right)^2 - \left(\frac{11}{4}\right)^2
+= \frac{11}{64}$.
+Comme $\rho>0$ alors en posant
+$z_0 = \sqrt\rho = \frac{\sqrt{11}}{8}$, 
+les trois sphères se coupent en deux points :
+$$(x_0,y_0,+z_0) = \left(\frac{23}{8},\frac{11}{4},\frac{\sqrt{11}}{8}\right) 
+\quad \text{ et } \quad (x_0,y_0,-z_0)= \left(\frac{23}{8},\frac{11}{4},-\frac{\sqrt{11}}{8}\right) .$$
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+\subsection{Preuve vectorielle}
+
+Les calculs précédents sont tout à fait valides, mais nous aurons besoin
+d'une autre méthode pour plusieurs raisons : 
+(a) le problème de synchronisation de l'horloge du récepteur GPS ;
+(b) la gestion de plus de trois satellites.
+
+Pour plus de clarté, nous allons d'abord expliquer cette méthode dans le plan seulement
+(avec deux cercles, c'est-à-dire avec deux satellites). 
+Nous allons transformer les deux équations non linéaires correspondant aux deux signaux,
+en deux systèmes linéaires. Chaque système fournira une solution.
+
+Rappelons que dans le plan les deux équations sont
+$$(x-x_1)^2 + (y-y_1)^2 = r_1^2 
+\quad\text{ et }\quad
+(x-x_2)^2 + (y-y_2)^2 = r_2^2$$
+On développe chacune des équations ($i=1,2$) :
+$$x^2 -2xx_i + x_i^2 + y^2-2yy_i + y_i^2 = r_i^2$$
+ce qui donne le système des deux équations :
+\begin{equation}
+\label{eq :gps2cercles}
+\left\{\begin{array}{rcl}
+2xx_1 + 2yy_1 &=& x^2+y^2 + x_1^2 + y_1^2 - r_1^2 \\
+2xx_2 + 2yy_2 &=& x^2+y^2 + x_2^2 + y_2^2 - r_2^2 
+\end{array}
+\right.  
+\end{equation}
+
+Passons à une notation vectorielle et matricielle, on pose :
+$$
+A = \begin{pmatrix}2x_1&2y_1\\2x_2&2y_2\end{pmatrix}\qquad
+X = \begin{pmatrix}x\\y\end{pmatrix}$$
+
+Alors 
+$$A X = \begin{pmatrix}2xx_1&2yy_1\\2xx_2&2yy_2\end{pmatrix}$$
+
+Posons 
+$$U = \begin{pmatrix}1\\1\end{pmatrix} \qquad
+V = \begin{pmatrix}x_1^2 + y_1^2 - r_1^2\\x_2^2 + y_2^2 - r_2^2\end{pmatrix}$$
+de sorte que 
+$$B = (x^2+y^2) U + V = 
+\begin{pmatrix}x^2+y^2 + x_1^2 + y_1^2 - r_1^2\\
+x^2+y^2 + x_2^2 + y_2^2 - r_2^2\end{pmatrix}$$
+Les équations (\ref{eq :gps2cercles}) s'écrivent simplement
+\begin{equation}
+\label{eq :gps2cerclesmat}
+AX=B
+\end{equation}
+
+Supposons pour l'instant que la matrice $A$ soit inversible, 
+alors 
+$$X = A^{-1} B$$
+où $X = \begin{pmatrix}x\\y\end{pmatrix}$ est la position à déterminer.
+
+Il y a cependant un problème ! Contrairement à ce que je vous laisse croire,
+l'écriture $AX=B$ ne correspond pas à un système linéaire, car
+$B$ dépend de $x$ et $y$ (donc de $X$). Nous allons profiter du fait que $B$ ne dépende que de 
+$x^2+y^2$ afin de montrer qu'il y a seulement deux choix possibles pour $B$.
+
+Pour $X = \begin{pmatrix}x\\y\end{pmatrix}$, 
+$X' = \begin{pmatrix}x'\\y'\end{pmatrix}$, 
+on définit le produit scalaire :
+$$\langle X \mid X' \rangle =  xx'+yy'$$
+et la norme
+$$\| X \| = \sqrt{\langle X \mid X \rangle} = \sqrt{x^2+y^2}$$
+
+Posons $d = x^2+y^2$, alors
+\begin{align*}
+ d = x^2+y^2 = \| X \|^2 
+ &= \langle  X \mid X \rangle \\
+ &= \langle  A^{-1} B \mid A^{-1} B \rangle \quad \text{ car } AX=B \\
+ &= \langle  A^{-1} ( dU+V)\mid A^{-1}( dU+V)\rangle \quad \text{ car } B = dU+V \\  
+ &= \langle  A^{-1} ( dU+V)\mid dA^{-1} U\rangle
+ + \langle  A^{-1} ( dU+V)\mid A^{-1} V \rangle \\
+ &= \langle  dA^{-1} U\mid dA^{-1} U\rangle
+ + \langle A^{-1} V\mid dA^{-1} U\rangle \\
+ &\quad + \langle  dA^{-1}  U \mid A^{-1} V \rangle
+ + \langle  A^{-1} V\mid A^{-1} V \rangle \\ 
+ &= d^2 \langle  A^{-1} U\mid A^{-1} U\rangle
+ + 2d\langle  A^{-1}  U \mid A^{-1} V \rangle
+ +  \langle  A^{-1} V\mid A^{-1} V \rangle \\ 
+ &= d^2 \|  A^{-1}  U  \|^2 + 2d\langle  A^{-1}  U \mid A^{-1} V \rangle
+ +\| A^{-1} V \|^2 \\
+ \end{align*}
+
+Ainsi $d=x^2+y^2$ vérifie une équation du second degré :
+\begin{equation}
+\label{eq :gpsseconddegre}
+\|  A^{-1}  U  \|^2 d^2 
++ \left(2\langle  A^{-1}  U \mid A^{-1} V \rangle - 1\right) d  +\| A^{-1} V \|^2 = 0  
+\end{equation}
+
+
+Cette équation admet (au plus) deux solutions positives $d_1$ et $d_2$, donc deux possibilités pour
+le second membre de (\ref{eq :gps2cerclesmat}) :
+$$B_1 = d_1U+V \quad \text{ ou } \quad B_2 = d_2U+V.$$
+
+$B_1$ et $B_2$ sont maintenant clairement déterminés (ils ne dépendent plus de $x$ et de $y$).
+Pour le second membre $B_1$, on résout le système linéaire
+$AX=B_1$ en $X = A^{-1}B_1$, puis
+on résout le système linéaire $AX=B_2$, en $X = A^{-1}B_2$.
+
+Ce qui donne bien deux solutions possibles pour notre position $X$.
+
+
+
+\bigskip
+
+Terminons par quelques commentaires.
+
+
+\begin{itemize}
+  \item Imaginons que l'origine du repère soit le centre de la Terre, 
+  alors la matrice $A$ est inversible si et seulement si les vecteurs
+  $\begin{pmatrix}x_1\\y_1\end{pmatrix}$, $\begin{pmatrix}x_2\\y_2\end{pmatrix}$ 
+  ne sont pas colinéaires, c'est-à-dire, si et seulement si,
+  les deux satellites ne sont pas alignés avec le centre de la Terre.
+  
+\myfigure{1.3}{
+  \tikzinput{fig_gps_reperer_06a}\qquad
+  \tikzinput{fig_gps_reperer_06b}
+}
+  
+  \item  Dans ce repère $\sqrt d$ représente le rayon du cercle, centré au centre
+  de la Terre sur lequel on se trouve. Le fait de trouver deux possibilités pour $d$,
+  correspond à deux rayons possibles. Si l'on se déplace à la surface de la Terre, 
+  il est facile de choisir le «bon» rayon.
+  
+\myfigure{1.1}{  
+  \tikzinput{fig_gps_reperer_07}
+}   
+\end{itemize}
+
+
+\begin{exemple}
+On considère un cercle $\mathcal{C}_1$ de centre $S_1 = (1,1)$ et de rayon $r_1=2$
+et un cercle de $\mathcal{C}_2$ de centre $S_2 = (-2,-1)$ et de rayon $r_2=3$.
+On pose comme ci-dessus :
+$$
+A = \begin{pmatrix}2x_1&2y_1\\2x_2&2y_2\end{pmatrix}
+= \begin{pmatrix}2&2\\-4&-2\end{pmatrix}\quad
+X = \begin{pmatrix}x\\y\end{pmatrix}\quad
+U = \begin{pmatrix}1\\1\end{pmatrix} \quad
+V = \begin{pmatrix}x_1^2 + y_1^2  - r_1^2\\x_2^2 + y_2^2  - r_2^2\end{pmatrix}
+= \begin{pmatrix}-2\\-4\end{pmatrix}\quad
+B = (x^2+y^2) U + V$$
+
+
+On calcule 
+$$A^{-1} = \frac12\begin{pmatrix}-1&-1\\2&1\end{pmatrix} \qquad
+A^{-1}U = \begin{pmatrix}-1\\\frac32\end{pmatrix}\qquad
+A^{-1}V = \begin{pmatrix}3\\-4\end{pmatrix}$$
+et donc 
+$$\|  A^{-1}  U  \|^2 = \frac{13}{4}\qquad
+\langle  A^{-1}  U \mid A^{-1} V \rangle = -9\qquad
+\| A^{-1} V \|^2= 25$$
+
+Alors l'équation (\ref{eq :gpsseconddegre}) que vérifie $d=x^2+y^2$ s'écrit ici :
+$$\frac{13}{4} d^2 
+-19 d  + 25 = 0$$
+Les deux solutions sont :
+$$d_1 = \frac{50}{13} \qquad\text{ et } \qquad
+d_2 = 2$$
+
+
+\myfigure{1.2}{  
+  \tikzinput{fig_gps_reperer_08}
+}  
+
+On obtient deux seconds membres possibles :
+$$B_1 = d_1 U + V = \begin{pmatrix}\frac{24}{13}\\\frac{-2}{13}\end{pmatrix}\qquad
+B_2 = d_2 U + V = \begin{pmatrix}0\\-2\end{pmatrix}$$                      
+Et donc deux points d'intersection dont les coordonnées sont données 
+par $X= A^{-1}B$ :
+$$P_1 = A^{-1}B_1 = \begin{pmatrix}\frac{-11}{13}\\\frac{23}{13}\end{pmatrix}
+\qquad \text{ et } \qquad
+P_2 = A^{-1}B_2 = \begin{pmatrix}1\\-1\end{pmatrix}$$ 
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Dimension $3$}
+
+Le cas de la dimension trois est vraiment très similaire, c'est l'avantage de la méthode vectorielle.
+Traitons-le succinctement,
+à partir de trois équations ($i=1,2,3$), 
+$$(x-x_i)^2 + (y-y_i)^2 + (z-z_i)^2 = r_i^2$$
+fournies par le signal de trois satellites, on développe, pour obtenir :
+$$2xx_i + 2yy_i + 2zz_i = x^2+y^2+z^2 + x_i^2 + y_i^2 +z_i^2 - r_i^2$$
+On pose alors
+$$
+A = \begin{pmatrix}2x_1&2y_1&2z_1\\2x_2&2y_2&2z_2\\2x_3&2y_3&2z_3\end{pmatrix}\quad
+X = \begin{pmatrix}x\\y\\z\end{pmatrix}\quad
+U = \begin{pmatrix}1\\1\\1\end{pmatrix} \quad
+V = \begin{pmatrix}
+x_1^2 + y_1^2 +z_1^2 - r_1^2\\
+x_2^2 + y_2^2 +z_2^2 - r_2^2\\
+x_3^2 + y_3^2 +z_3^2 - r_3^2
+\end{pmatrix}\quad
+B = (x^2+y^2+z^2) U + V$$
+de sorte que l'on se ramène au système $AX=B$.
+On détermine deux solutions possibles pour $d=x^2+y^2+z^2$, 
+qui vérifie exactement la même équation (\ref{eq :gpsseconddegre}).
+Il reste alors à résoudre deux systèmes linéaires $AX=B_1$ et $AX=B_2$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Temps}
+
+Avant d'être un instrument de mesure de position, le GPS 
+est un instrument de mesure du temps !
+
+
+%---------------------------------------------------------------
+\subsection{Le vieux problème de la longitude}
+
+La navigation des bateaux s'est longtemps heurtée à un problème crucial : 
+où est le bateau ? Pour se diriger les marins disposent d'une boussole
+qui permet de suivre un cap, mais le préalable est 
+de savoir où l'on est ! Pour se repérer sur Terre (et sur mer) on utilise
+les coordonnées latitude et longitude (on y reviendra).
+
+\myfigure{0.8}{  
+  \tikzinput{fig_gps_3d_08} 
+}
+
+Déterminer la latitude est facile, imaginons que nous sommes le 21 mars, le jour
+de l'équinoxe. Ce jour là, lorsqu'il est au plus haut, 
+le Soleil est vertical pour les gens situés à l'équateur.
+
+Pour un marin situé n'importe où en mer, il détermine à l'aide d'un sextant 
+(une sorte de rapporteur) l'angle entre l'horizon et le Soleil, 
+lorsque celui-ci est au plus haut dans le ciel.
+Cet angle est exactement $\ang{90} - \varphi$, où $\varphi$ est la latitude du lieu.
+Il connaît donc sa latitude.
+
+\myfigure{1}{  
+  \tikzinput{fig_gps_temps_04}
+} 
+
+Pour d'autres jours il faut utiliser des tables astronomiques qui donne
+la hauteur attendue du Soleil. La nuit on peut faire un calcul 
+similaire avec l'étoile polaire, dans l'hémisphère nord.
+
+\bigskip
+
+Le problème de la longitude est beaucoup plus délicat, des tentatives ont été faites avec 
+des cartes de la position des étoiles mais cela restait très imprécis. La solution
+vient du temps.
+En 1735, John Harrison horloger en Angleterre invente un chronomètre maritime 
+qui allait révolutionner la navigation.
+Ce système permet à chaque bateau de disposer d'une horloge qui fournit 
+l'heure avec une bonne précision, chose qui n'était pas possible avant, les précédentes horloges 
+avançaient ou retardaient à cause des mouvements du bateau ou des changements de température et de pression.
+
+Comment l'heure exacte permet de trouver la longitude ?
+Imaginons un bateau quittant le port de Londres à midi pile, le 1\up{er} juillet
+avec à son bord un horloge précise. Au bout de dix jours en mer à naviguer 
+vers le Sud-Ouest, le capitaine souhaite savoir où il est. Lorsqu'il est midi pour lui, c'est-à-dire 
+lorsque le Soleil est au plus haut dans le ciel, il mesure la latitude 
+comme on vient de l'expliquer. Puis il retourne à sa cabine pour voir l'heure indiquée par l'horloge,
+sachant que l'horloge indique toujours l'heure de Londres.
+Par exemple l'horloge indique 14h30. Ce qui signifie que le Soleil était au plus haut 2h30 plus tôt à Londres.
+Ce décalage est simplement dû à la rotation de la Terre. La Terre fait un tour
+complet ($\ang{360}$) sur elle-même en 24h, donc $\ang{15}$ en 1 heure.
+Donc ici le bateau est à $\ang{37,5} (= \num{2.5} \times \ang{15}$) à l'ouest du méridien de Greenwich situé
+dans la banlieue de Londres.
+
+\myfigure{1.5}{  
+  \tikzinput{fig_gps_3d_09} 
+}
+
+Si l'horloge (et les mesures) sont précises à $\SI{30}{\second}$ près alors l'erreur commise 
+sur la longitude est inférieure à $\SI{15}{\kilo\meter}$. Ce qui est tout fait raisonnable 
+après avoir traversé l'océan !
+
+
+\bigskip
+
+\textbf{Conversion temps -- angle -- distance.}
+
+Voyons différentes façons de mesurer des déplacements si l'on voyage le long de l'équateur.
+On note $R$ le rayon de la Terre (on prendra $R = \SI{6300}{\kilo\meter}$). La Terre fait un tour complet en $\SI{24}{\hour}$ et la longueur de l'équateur est $2\pi R$, alors on a la correspondance temps/angle/distance:
+$$\SI{24}{\hour}\longleftrightarrow\ang{360}\longleftrightarrow 2\pi R$$
+
+On applique la règle de trois, pour obtenir exemple 
+$$\SI{1}{\minute}\longleftrightarrow\ang{0.25}\longleftrightarrow \SI{27.5}{\kilo\meter}$$
+
+Ces calculs sont aussi valables si on voyage le long d'un méridien (n'importe lequel).
+
+Par contre si on voyage sur un parallèle autre que l'équateur alors il faut tenir compte de la latitude $\varphi$. Le parallèle est un cercle de longueur $2\pi R \cos \varphi$.
+On a alors la correspondance :
+$$\SI{24}{\hour}\longleftrightarrow\ang{360}\longleftrightarrow 2\pi R\cos \varphi$$
+
+Par exemple pour une latitude de $\varphi = \ang{45}$ alors la correspondance devient :
+$$\SI{1}{\minute}\longleftrightarrow\ang{0.25}\longleftrightarrow \SI{19.4}{\kilo\meter}$$
+
+%---------------------------------------------------------------
+\subsection{Vision géométrique (une dimension)}
+
+Commençons par un modèle spatial en une seule dimension !
+Pour se repérer sur une droite, un seul satellite suffit à déterminer
+deux abscisses possibles, si nous disposons d'une mesure absolue du temps.
+En effet pour un signal émis au temps $t_1$ (cette information est fournie 
+dans le signal, de même que la position du satellite) et reçu au temps $t$, 
+la distance parcourue par le signal est $r_1= c(t-t_1)$ : c'est la distance entre notre position $x$ et 
+la position $x_1$ du satellite. On doit donc résoudre l'équation :
+$$|x-x_1 | = r_1$$
+et on trouve deux solutions $x=x_1+r_1$ et $x=x_1-r_1$.
+On préfère écrire l'équation :
+$$(x-x_1)^2 =  c^2(t-t_1)^2.$$ 
+Géométriquement on trouve les solutions $x$ en traçant le cercle de rayon $r_1$ centré en $x_1$.
+
+\myfigure{1}{  
+  \tikzinput{fig_gps_temps_05}
+}  
+
+
+Le problème c'est que l'horloge du satellite et l'horloge du récepteur GPS doivent 
+être parfaitement synchronisées, afin de mesurer le décalage de temps. La satellite dispose 
+d'une horloge atomique de très grande précision mais pas le récepteur GPS.
+Il faut donc considérer que l'instant $t$ de réception n'est pas connu 
+(du moins pas avec une précision suffisante). Il nous faut un autre satellite et un autre signal.
+
+Avec deux satellites nous avons deux équations :
+$$\left\{\begin{array}{rcl} 
+         |x-x_1| &=& c |t-t_1| \\  
+         |x-x_2| &=& c |t-t_2| \\ 
+         \end{array}
+ \right.$$
+ 
+Si on représente le déplacement du signal en fonction de l'abscisse $x$ au cours du temps $t$ et 
+si le signal est émis au point $x_1$ à l'instant $t_1$, alors le signal
+part du point $(x_1,t_1)$ et «voyage» le long d'un cône.
+Ce cône correspond à l'équation $|x-x_1| = c |t-t_1|$, dont les solutions sont
+les points des deux droites d'équations $x-x_1 = + c(t-t_1)$ et
+$x-x_1 = - c(t-t_1)$.
+Donc avec le signal d'un satellite, nous savons que notre position $(x,t)$ est sur ce cône.
+
+\myfigure{1}{  
+  \tikzinput{fig_gps_temps_06}\qquad
+  \tikzinput{fig_gps_temps_07}
+}  
+
+Avec deux satellites, nous disposons de deux cônes.
+Ces deux cônes s'intersectent en un seul point. Ce point est notre position
+$(x,t)$. On vient de déterminer à la fois notre position $x$, mais aussi 
+l'instant $t$ auquel on reçoit les deux signaux.
+
+Noter que les deux cônes sont composés de droites parallèles, car pour les deux cônes
+les pentes de droite sont $+\frac1c$ et $-\frac1c$ (et la vitesse $c$ du signal est la même pour tous les satellites).
+
+\bigskip
+
+Remarque : dans l'introduction les signaux (les cornes de brume) étaient émis tous en même temps mais
+perçus à des instants différents. Ici la situation est différente : on perçoit deux signaux au même instant
+$t$, mais l'un des signaux en émis au temps $t_1$ et l'autre au temps $t_2$. 
+Le signal contient comme information l'instant où il a été émis. En fait, chaque satellite émet en continu un signal et le récepteur capte en continu des signaux.
+
+
+\bigskip
+
+\begin{exemple}
+Je reçois le signal d'un premier satellite, 
+en position $x_1=4$, signal émis au temps $t_1=0$.
+Au même instant je reçois le signal d'un second satellite, 
+en position $x_2=2$, signal émis au temps $t_2=2$.
+Les signaux se déplacent à une vitesse $c=\frac14$. 
+Où suis-je ?
+
+\bigskip
+
+Le problème algébrique est de trouver un couple $(x,t)$ qui vérifie les deux équations,
+$$|x-x_1| = c |t-t_1| \qquad \text{ et } \qquad  |x-x_2| = c |t-t_2|$$
+
+Cherchons graphiquement la solution. On trace 
+le cône de sommet $(x_1,t_1)$ et de pente $\frac1c=4$
+et le cône de sommet $(x_2,t_2)$ et de même pente.
+Ces deux cônes s'intersectent en deux points, l'un est exclu car il correspond
+à une solution <<dans le passé>>. Par lecture graphique
+on trouve notre position $x \simeq \num{2.7}$ et l'heure de réception des messages $t\simeq 5$
+
+\myfigure{1}{  
+  \tikzinput{fig_gps_temps_08}
+} 
+
+Par calcul algébrique on cherche l'intersection des droites d'équations
+$+(x-2)=\frac14(t-2)$ et $-(x-4)=\frac14 t$. On trouve $(x,t) = (\frac{11}{4},5)$,
+donc $x=\num{2.75}$ et $t=5$.
+
+
+\end{exemple}
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Vision géométrique (dimension 2 et 3)}
+Si maintenant on passe en dimension $2$, alors le signal reçu par un satellite correspond à l'équation
+$$(x-x_i)^2+(y-y_i)^2 = c^2 (t-t_i)^2$$
+où $(x_i,y_i)$ est la position du signal,
+et $t_i$ l'instant où le signal est émis ;
+$(x,y)$ est notre position et $t$ l'instant où le signal est reçu.
+Géométriquement le signal voyage le long d'un cône (en dimension $3$ cette fois : $2$ dimension pour $x$ et $y$,
+$1$ dimension pour $t$).
+Ce cône correspond à un cercle qui s'agrandit au fil du temps.
+
+
+\myfigure{0.4}{  
+  \tikzinput{fig_gps_3d_01}
+  \tikzinput{fig_gps_3d_02}  
+}
+
+
+Deux cônes ne suffisent pas à déterminer notre position. 
+Il faut $3$ satellites, et donc $3$ cônes, pour déterminer à la fois $(x,y)$ et $t$.
+
+\bigskip
+
+Il est difficile de se représenter la situation en dimension $3$, qui est la dimension d'usage :
+il faudrait \og voir \fg{} avec $4$ dimensions (pour $x,y,z$ et $t$). 
+Le signal part du satellite, et à chaque instant 
+atteint tous les points d'une sphère, dont le rayon grandit au cours du temps.
+Les inconnues sont $(x,y,z)$ et $t$. 
+Il faut $4$ satellites pour déterminer à la fois $(x,y,z)$ et $t$.
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Solution vectorielle}
+
+
+Nous venons de voir qu'une solution géométrique n'a rien d'évident ! C'est là où le
+calcul vectoriel entre en jeu. Nous allons reprendre la solution vectorielle détaillée auparavant 
+en dimension $2$ (les inconnues étaient $x$ et $y$) et voir que la démarche fonctionne avec $4$ inconnues
+$(x,y,z,t)$.
+
+Nous voulons déterminer notre position dans l'espace et le temps
+à partir de $4$ signaux reçus  :
+\begin{itemize}
+  \item notre position est $(x,y,z,t)$,
+  \item les satellites sont situés en $(x_i,y_i,z_i)$,
+  \item chaque signal que nous recevons a été émis à l'instant $t_i$,
+  \item $i=1,2,3,4$.
+\end{itemize}
+
+Chaque signal correspond à l'équation  :
+$$(x-x_i)^2 + (y-y_i)^2 + (z-z_i)^2 = c^2(t-t_i)^2$$
+que l'on développe  :
+$$2xx_i + 2yy_i + 2zz_i -2c^2 tt_i 
+= x^2+y^2+z^2 - c^2t^2 + x_i^2 + y_i^2 + z_i^2 - c^2t_i^2$$
+On pose alors
+$$
+A = \begin{pmatrix}
+2x_1&2y_1&2z_1&-2c^2t_1\\
+2x_2&2y_2&2z_2&-2c^2t_2\\
+2x_3&2y_3&2z_3&-2c^2t_3\\
+2x_4&2y_4&2z_4&-2c^2t_4
+\end{pmatrix}\quad
+X = \begin{pmatrix}x\\y\\z\\t\end{pmatrix}\quad
+U = \begin{pmatrix}1\\1\\1\\1\end{pmatrix} \quad
+V = \begin{pmatrix}
+x_1^2 + y_1^2 +z_1^2 - c^2t_1^2\\
+x_2^2 + y_2^2 +z_2^2 - c^2t_2^2\\
+x_3^2 + y_3^2 +z_3^2 - c^2t_3^2\\
+x_4^2 + y_4^2 +z_4^2 - c^2t_4^2\\
+\end{pmatrix}\quad
+B = (x^2+y^2+z^2 -c^2t^2) U + V$$
+
+
+Nos équations s'écrivent simplement
+\begin{equation}
+\label{eq:gps4dmat}
+AX=B
+\end{equation}
+
+
+
+Si $A$ est inversible et si on connaît $B$, alors $X = A^{-1} B$
+où $X = \left(\begin{smallmatrix}x\\y\\z\\t\end{smallmatrix}\right)$ est la position à déterminer
+dans l'espace-temps.
+Le problème est toujours le même, $B$ dépend de $(x,y,z,t)$,
+où plus précisément de $d=x^2+y^2+z^2-c^2t^2$, 
+On calcule comme auparavant que : 
+$$ d = \langle  X \mid X \rangle_\ell = \langle  A^{-1} B \mid A^{-1} B \rangle_\ell
+= d^2 \|  A^{-1}  U  \|_\ell^2 + 2d\langle  A^{-1}  U \mid A^{-1} V \rangle_\ell
+ +\| A^{-1} V \|_\ell^2 $$
+Ainsi, $d$ vérifie l'équation du second degré  :
+\begin{equation}
+\label{eq :gpsseconddegrebis}
+\|  A^{-1}  U  \|_\ell^2 d^2 
++ \left(2\langle  A^{-1}  U \mid A^{-1} V \rangle_\ell - 1\right) d  +\| A^{-1} V \|_\ell^2 = 0  
+\end{equation}
+Attention ! Ici le produit scalaire est \og tordu \fg{} : $\langle  X \mid X' \rangle_\ell
+= xx'+yy'+zz' -c^2tt'$ et la norme au carré $\|X\|_\ell^2 = \langle  X \mid X \rangle_\ell
+= x^2+y^2+z^2-c^2t^2$ n'est plus nécessairement positive.
+
+
+Il y a au plus deux solutions, notées $d_1$ et $d_2$,
+donc deux seconds membres possibles pour
+le second membre de (\ref{eq:gps4dmat})  :
+$$B_1 = d_1U+V \quad \text{ ou } \quad B_2 = d_2U+V.$$
+Ainsi on résout deux systèmes linéaires
+$AX=B_1$ et $AX=B_2$, ce qui donne 
+deux solutions $X = A^{-1}B_1$ et $X = A^{-1}B_2$.
+On obtient deux solutions possibles pour notre position 
+$X=\left(\begin{smallmatrix}x\\y\\z\\t\end{smallmatrix}\right)$.
+Pour choisir quelle solution est la bonne, on peut exclure une solution
+qui serait non réaliste, ou refaire les calculs avec un cinquième satellite,
+ou recommencer les mesures plus tard.
+
+% \begin{exemple} 
+% 
+% Où se trouve-t-on dans la situation 
+% $S_1 = (1,0,0)$,  $t_1=-\sqrt{13}$ ;
+% $S_2 = (0,1,0)$,  $t_2=-\sqrt{11}$ ;
+% $S_3 = (0,0,1)$,  $t_3=-3$ ;
+% $S_4 = (0,0,0)$,  $t_4=-\sqrt{14}$ 
+% et $c=1$ ?
+% La matrice $A$ et son inverse sont :
+% $$A = \begin{pmatrix}
+% % 0  & 0  & 2 & -2 \\
+% % 0  & 2  & 0 & 0 \\  
+% % 6  & -4 & 2 & -6 \\
+% % -2 & 0  & 2 & -4 \\
+% \end{pmatrix}$$
+% 
+%   
+% \end{exemple}
+% 
+% [[rajouter un exemple]]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Vitesse}
+
+%---------------------------------------------------------------
+\subsection{Formule par dérivation}
+
+L'idée naturelle est de déterminer la vitesse 
+par un calcul à partir des positions.
+On note $P$ le point où l'on se trouve, on a vu comment déterminer
+les coordonnées $(x,y,z)$ de $P$ à l'aide des satellites.
+La position $P$ varie,
+on note $P(t) = \big(x(t),y(t),z(t)\big)$ les coordonnées de $P$ en fonction du temps.
+Comment calculer la vitesse ? Si $P$ décrit un trajet rectiligne
+de longueur,  disons \SI{5}{\kilo\meter}, en un temps d'une heure alors la vitesse moyenne est de 
+$$v = \frac{\text{distance}}{\text{durée}} = \SI{5}{\kilo\meter\per\hour}.$$
+Plus généralement si on va du point $P_1$ au point $P_2$ entre les instants $t_1$ et $t_2$ alors
+la vitesse moyenne et le vecteur vitesse moyenne sont :
+$$v = \frac{\Delta P}{\Delta t} = \frac{P_1P_2}{t_2-t_1} \qquad \text{ et } \qquad
+\vect v = \frac{\Delta \vect{P}}{\Delta t} = \frac{\vect{P_1P_2}}{t_2-t_1}$$
+En fait $v$ est la norme $\| \vect v\|$ (si $t_2>t_1$).
+
+\myfigure{1.2}{  
+  \tikzinput{fig_gps_vitesse_01}\qquad
+  \tikzinput{fig_gps_vitesse_02} 
+} 
+
+Pour obtenir la vitesse instantanée il faut réduire l'intervalle de temps : 
+passer d'une grand intervalle de temps $\Delta t$, à un petit intervalle 
+$\dd t$.
+Physiquement, la vitesse (instantanée) se calcule par 
+$$\vect v = \frac{\dd \vect P}{\dd t} = \left(\frac{\dd x}{\dd t},\frac{\dd y}{\dd t},\frac{\dd z}{\dd t} \right)$$
+Mathématiquement, le $\dd t$ est infinitésimal, et diviser par $\dd t$ correspond 
+à la dérivation :
+$$\vect v = P'(t) = \left( x'(t), y'(t), z'(t) \right)$$
+On calcule comme auparavant $v = \| \vect v\|$.
+
+Dans la pratique que l'on soit à pied, en bateau ou en voiture on avance
+quasiment en ligne droite au moins sur des périodes de quelques secondes.
+Ce qui est largement suffisant pour approcher la vitesse instantanée par
+la vitesse moyenne sur ce court laps de temps.
+Cependant nous allons voir une méthode beaucoup plus précise.
+
+
+
+%---------------------------------------------------------------
+\subsection{Effet Doppler}
+
+L'effet Doppler est le fameux effet de la sirène des pompiers :
+lorsque la sirène des pompiers s'approche droit sur vous, le son est plus aigu, 
+puis lorsque la sirène s'éloigne le son est plus grave. Ce phénomène n'est pas lié à la distance
+de la sirène, mais bien à la vitesse de déplacement de cette sirène.
+(Si le camion s'arrête vous entendrez le même son que vous soyez à
+$10$ ou $100$ mètres.)
+
+\myfigure{0.3}{  
+  \tikzinput{fig_gps_vitesse_03}\qquad
+  \tikzinput{fig_gps_vitesse_04} 
+} 
+
+\bigskip
+
+On rappelle que la \defi{période} $T$ d'une onde est le temps qui s'écoule entre 
+deux crêtes du signal. Pour simplifier l'exposé on suppose que les signaux sont
+des <<bips>> émis à chaque crête, avec un intervalle de temps $T$ entre deux signaux.
+La \defi{longueur d'onde} $\lambda$ est la distance entre deux crêtes, 
+si le signal se déplace à une vitesse $c$ alors : $\lambda = c T$.
+Enfin, la \defi{fréquence} $f$ d'une onde est l'inverse de la période $T$ : $f = \frac{1}{T}$.
+La fréquence est donc le nombre de bips par seconde. 
+
+\myfigure{1}{  
+  \tikzinput{fig_gps_vitesse_05}
+} 
+
+
+\bigskip
+
+
+La formule de Doppler relie la fréquence émise par le satellite 
+(qui remplace la sirène des pompiers), et celle reçue en notre position $P$.
+On note $f_S$ la fréquence d'émission du satellite (qui est une constante connue),
+on note $f_P$ la fréquence du signal mesurée au point $P$.
+
+\begin{theoreme}[Effet Doppler]
+Dans le cas où $P$ est fixe, l'\defi{effet Doppler} se traduit par la formule suivante :
+\mybox{$\displaystyle f_P = \frac{1}{1+\frac{v_S}{c}} f_S $}  
+\end{theoreme}
+On a noté :
+\begin{itemize}
+  \item $c$ la vitesse de déplacement du signal (la vitesse de la lumière dans le cas du signal
+  émis par le satellite, la vitesse du son pour la sirène des pompiers) ;
+  
+  \item $v_S$ la vitesse d'éloignement de $S$ dans la direction de $P$ 
+(vitesse positive si le satellite s'éloigne, vitesse négative s'il se rapproche).
+\end{itemize}
+
+\begin{exemple}
+\label{ex:freqpomp}
+Un camion de pompier se rapproche à un vitesse de $\SI{33}{\meter\per\second}$
+(environ \SI{120}{\kilo\meter\per\hour}), sa sirène émet à la fréquence
+$f_S = \SI{440}{\hertz}$. Sachant que la vitesse de déplacement du son dans l'air
+est $c = \SI{333}{\meter\per\second}$, quelle est la fréquence 
+perçue par un piéton ?
+
+\bigskip
+
+Réponse. Il s'agit juste d'appliquer la formule de l'effet Doppler, en prenant
+garde que puisque le camion se rapproche la vitesse d'éloignement est négative :
+$v_S = -\SI{33}{\meter\per\second}$
+$$f_P = \frac{1}{1+\frac{v_S}{c}} f_S = \frac{1}{1-\frac{33}{333}} 440
+= \SI{488,4}{hertz}$$
+Le son perçu est plus aigu que le son émis.  
+\end{exemple}
+
+
+\begin{proof}
+Commençons par bien comprendre la situation dans le cas où rien ne bouge.
+$S$ émet un signal de fréquence $f_S$. Notons $T_S = \frac{1}{f_S}$ la période du signal
+
+
+\myfigure{1}{  
+  \tikzinput{fig_gps_vitesse_07}
+} 
+
+Au repos la situation est simple, au temps $t=0$,
+$S$ émet son premier bip, ce signal voyage à la vitesse $c$ jusqu'à $P$.
+Si $d$ est la distance entre $P$ et $S$ alors le signal arrivera au temps
+$T_0=\frac{d}{c}$.
+Mais entre temps, $S$ a émis un deuxième bip à l'instant $T_S$ (un bip est émis en 
+$t=0$, en $t=T_S$, $t=2T_S$...).
+Ce deuxième bip a la même distance à parcourir, donc il met le même temps pour arriver en $P$.
+Il arrive donc au temps $T_1 = T_S + T_0$ (n'oubliez pas qu'il est parti plus tard).
+Le décalage entre deux bips au départ est de $T_S$ et à l'arrivée c'est
+$T_P = T_1-T_0 = T_S$. C'est bien le même décalage. Autrement dit, la fréquence reçue 
+est égale à la fréquence émise.
+
+
+\begin{center}
+\setlength{\arrayrulewidth}{0.05mm}
+%\begin{tabular}{|l|l|l|} \hline
+\begin{tabular}[t]{ccc@{\vrule depth 2.5ex height 3.5ex width 0mm \ }} 
+  \quad  \qquad         & \quad $S$ \quad     & \quad $P$ \quad          \\ \hline\hline
+   $1^{\text{er}}$ bip  & $0$      & $T_0$         \\ \hline
+   $2^{\text{nd}}$ bip  & $T_S$    & $T_1=T_0+T_S$ \\ \hline
+   Décalage             & $T_S$    & $T_1-T_0 = T_S$  \\    
+\end{tabular} 
+\end{center}
+
+\bigskip
+
+Passons au cas intéressant : $S$ s'éloigne avec une vitesse $v_S$.
+Le premier bip est émis par $S$ au temps $t=0$, le second au temps $t=T_S$.
+Le premier bip est reçu en $P$ à un certain instant $T_0$ après avoir parcouru une distance $d$
+(et alors $T_0 = \frac{d}{c}$).
+
+\myfigure{1}{  
+  \tikzinput{fig_gps_vitesse_08}
+} 
+
+Le second bip n'a pas la même distance à parcourir, en effet entre $t=0$ 
+et $t=T_S$, la source s'est éloignée.
+La distance à parcourir par le second bip est donc de $d' = d + v_ST_S$.
+Il arrive en $P$ au temps $T_1 = T_S  + \frac{d'}{c}$ :
+$$T_1 = T_S + \frac{d'}{c} 
+= T_S + \frac{d + v_ST_S}{c} 
+= T_S + T_0 + \frac{v_S}{c} T_S
+= T_0 + T_S\left(1+\frac{v_S}{c}\right)$$
+L'écart à la réception des bips est donc
+$T_P = T_1-T_0 = T_S \left(1+\frac{v_S}{c}\right)$.
+
+\begin{center}
+\setlength{\arrayrulewidth}{0.05mm}
+%\begin{tabular}{|l|l|l|} \hline
+\begin{tabular}[t]{ccc@{\vrule depth 2.5ex height 3.5ex width 0mm \ }} 
+  \quad  \qquad         & \quad $S$ \quad     & \quad $P$ \quad          \\ \hline\hline
+   $1^{\text{er}}$ bip  & $0$      & $T_0$         \\ \hline
+   $2^{\text{nd}}$ bip  & $T_S$    & $T_1=T_0+\left(1+\frac{v_S}{c}\right)T_S$ \\ \hline
+   Décalage             & $T_S$    & $T_1-T_0 = \left(1+\frac{v_S}{c}\right)T_S$  \\    
+\end{tabular} 
+\end{center}
+
+Pour les fréquences $f_P = \frac{1}{T_P}$ et $f_S = \frac{1}{T_S}$ 
+on trouve la relation de Doppler :
+$$f_P = \frac{1}{ 1+\frac{v_S}{c}} f_S $$
+\end{proof}
+
+
+\begin{proposition}
+Dans le cas où $P$ se déplace avec une vitesse $v_P$ et 
+$S$ avec une vitesse $v_S$, la formule de Doppler est :
+$$f_P = \frac{1+\frac{v_P}{c}}{1+\frac{v_S}{c}}f_S $$  
+\end{proposition}
+
+
+
+Les deux vitesses sont comptées positivement
+selon le sens $\vect{PS}$.
+\myfigure{1}{  
+  \tikzinput{fig_gps_vitesse_09}
+} 
+La preuve est similaire mais un peu plus subtile. Entre le premier et le second bip \emph{émis}, la source $S$
+s'est éloignée de $v_ST_S$. 
+Entre le premier et le second bip \emph{reçu}, le récepteur $P$ s'est approché
+de $v_PT_P$ (donc compte pour $-v_PT_P$).
+On trouve donc $d' = d + v_ST_S - v_PT_P$ et
+$T_1 = T_S + \frac{d'}{c}$. 
+On veut calculer $T_P = T_1-T_0$
+On trouve ainsi la relation :
+$$T_P = T_S  + \frac{v_S}{c} T_S - \frac{v_P}{c} T_P$$
+Donc 
+$$\left(1+\frac{v_P}{c}\right) T_P = \left(1+\frac{v_S}{c}\right) T_S .$$
+Ce qui donne le lien entre $f_P$ et $f_S$.
+
+
+%---------------------------------------------------------------
+\subsection{Approximation de l'effet Doppler}
+
+La constante $c$ est la vitesse de déplacement du signal, ce sera 
+pour nous la vitesse du son (dans le cas de la sirène) ou la vitesse de la lumière
+(dans le cas du signal d'un satellite).
+Dans tous les cas les vitesses de déplacement $v_P$ et $v_S$ sont négligeables devant $c$,
+ainsi $\frac{v_S}{c}$ et $\frac{v_P}{c}$ sont très petits.
+On utilise le développement limité à l'ordre $1$, autour de $x=0$ :
+$$\frac{1}{1+x} = 1 - x + o(x)$$
+
+Ce qui donne 
+$$f_P = f_S \frac{1+\frac{v_P}{c}}{1+\frac{v_S}{c}}
+\simeq f_S \left(1+\frac{v_P}{c}\right)\left(1-\frac{v_S}{c}\right)
+\simeq f_S \left(1+\frac{v_P}{c}-\frac{v_S}{c}\right)$$
+
+Donc si on note $v=v_S-v_P$, la vitesse relative de $P$ par rapport à $S$, alors
+l'effet Doppler approché se traduit en :
+\mybox{$f_P \simeq f_S \left(1-\frac{v}{c}\right)$}
+
+
+\begin{exemple}
+Reprenons l'exemple \ref{ex:freqpomp} du camion de pompier
+émettant un son $f_S = \SI{440}{\hertz}$ en approche à une vitesse
+$v_S = -\SI{33}{\meter\per\second}$.
+
+Alors la formule d'approximation de l'effet Doppler est :
+$$f_P \simeq f_S \left(1-\frac{v}{c}\right)
+= 440 \left(1-\frac{-33}{333}\right)
+\simeq \SI{483,6}{hertz}$$
+
+Avec la formule exacte on avait trouvé \SI{488,4}{hertz}.
+L'approximation est assez moyenne, car la vitesse $v_S$ n'est 
+pas assez petite par rapport à la vitesse du son $c$.
+Lorsque $c$ sera la vitesse de la lumière, toutes les vitesses
+de déplacement des objets seront négligeables.
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Le décalage Doppler}
+
+Voyons comment récupérer la vitesse par la mesure des fréquences.
+Le signal émis et sa fréquence $f_S$ sont connus.
+La fréquence mesurée $f_P$, nous permet de déduire la vitesse.
+On note $D = f_S-f_P$ le \defi{décalage Doppler}.
+Dans le cas où $P$ est fixe et $S$ se déplace à une vitesse $v_S$, alors
+la formule de Doppler 
+$f_P = \frac{1}{1+\frac{v_S}{c}} f_S$
+implique 
+$$v_S = \frac{c D}{f_P}$$
+
+
+Dans le cas plus général où $P$ et $S$ sont en mouvement et que
+$v = v_S-v_P$ est la vitesse de $S$ par rapport à $P$, alors l'approximation 
+$f_P \simeq f_S \left(1-\frac{v}{c}\right)$
+conduit à :
+\mybox{$\displaystyle v \simeq \frac{c D}{f_S}$}
+
+C'est donc une approximation raisonnable de dire que la 
+vitesse est proportionnelle au décalage Doppler.
+
+
+%---------------------------------------------------------------
+\subsection{Vitesse d'éloignement}
+
+Il faut faire bien attention que l'effet Doppler ne prend en compte que la vitesse
+d'éloignement (ou de rapprochement).
+Rappelons que $P$ est le point où l'on est et $S$ la position du satellite.
+ On note $\vect u$ un vecteur unité de $P$ vers $S$ : 
+ $\vect u = \frac{\vect{PS}}{\|\vect{PS}\|}$.
+Supposons pour l'instant que $P$ soit fixe 
+et $S$ se déplace dans n'importe quelle direction, son vecteur vitesse 
+étant noté $\vect v$.
+
+\begin{definition}
+La \defi{vitesse d'éloignement} est la composante de la vitesse 
+le long de droite $(PS)$ reliant notre position au satellite.
+Mathématiquement $\vect w$ est la projection de $\vect v$ sur la droite 
+$\Rr \vect u$, c'est-à-dire :
+$$\vect w = \langle \vect v | \vect u \rangle \vect u = \| \vect v \| \cos \theta \cdot \vect u$$
+où $\theta$ est l'angle formé par $\vect u$ et $\vect v$.  
+\end{definition}
+
+\myfigure{1}{  
+  \tikzinput{fig_gps_vitesse_10}
+} 
+
+On aura besoin de la mesure de la vitesse :
+$$w = \langle \vect v | \vect u \rangle = \| \vect v \| \cos \theta $$
+Attention ! $w$ a un signe : positif si le satellite s'éloigne, 
+négatif s'il se rapproche.
+Si $P$ et $S$ se déplacent tous les deux, ayant des vecteurs vitesses
+$\vect{v_P}$ et $\vect{v_S}$ quelconques. Notons $\vect v = \vect{v_S}-\vect{v_P}$ le vecteur vitesse relative de $S$ 
+par rapport à $P$. Dans ce cas, la vitesse d'éloignement est définie par rapport à ce vecteur $\vect v$ :
+$\vect w = \langle \vect v | \vect u \rangle \vect u$.
+L'effet Doppler ne permet pas de déterminer $\vect v$, mais seulement $\vect w$.
+
+\begin{exemple}
+Nous sommes immobiles au point $P = (0,0)$. Le point 
+$S$ se déplace sur la droite 
+d'équation $x+2y-2=0$ à une vitesse constante
+$\vect v = (2,-1)$.
+On commence par déterminer une équation paramétrique de la droite : 
+$S_t = (2t+2,-t)$. 
+
+\myfigure{1}{  
+  \tikzinput{fig_gps_vitesse_11}
+} 
+Le vecteur unité pointant vers $S_t$ est :
+$$\vect u = \frac{\vect{PS_t}}{\|\vect{PS_t}\|}
+= \frac{(2t+2,-t)}{\| (2t+2,-t) \|} = \frac{1}{\sqrt{5t^2+4t+4}} (2t+2,-t)$$
+
+Calculons la vitesse d'éloignement :
+$$\vect w = \langle \vect v | \vect u \rangle \vect u
+= \bigg\langle (2,-1) | \frac{1}{\sqrt{5t^2+4t+4}} (2t+2,-t) \bigg\rangle \vect u
+= \frac{5t+4}{\sqrt{5t^2+4t+4}} \vect u$$
+
+Voici le graphe de la fonction $w = w(t) = \frac{5t+4}{\sqrt{5t^2+4t+4}}$.
+\myfigure{1}{  
+  \tikzinput{fig_gps_vitesse_12}
+} 
+Lorsque $t$ varie de $-\infty$ à $t_0$, la vitesse est négative donc
+$S_t$ se rapproche ; puis de $t_0$ à $+\infty$, la vitesse d'éloignement devient positive,
+$S_t$ s'éloigne. Le satellite est au plus proche de nous en $t_0 = -\frac{4}{5}$.
+Le décalage Doppler $D$, qui est proportionnel à $w$, permet bien de calculer
+$w$, mais pas $v$. C'est clair sur cet exemple où la vitesse de $S$ est constante,
+mais pas sa vitesse d'éloignement.
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Vitesse par l'effet Doppler (2D)}
+
+On a vu que l'effet Doppler avec un seul satellite 
+ne permet de calculer que la composante 
+de la vitesse dans une seule direction. Pour obtenir complètement 
+la vitesse on utilise plusieurs satellites.
+Commençons par le cas d'un modèle en deux dimensions.
+On note toujours $P$ notre position et $S_1$, $S_2$ les positions 
+des $2$ satellites. Cette fois 
+on considère que ce sont les satellites qui sont fixes, alors
+que le point $P$ se déplace selon une vitesse $\vect v$ à déterminer.
+
+Les vecteurs unités pointant vers chaque satellite sont $\vect{u_1}$, $\vect{u_2}$.
+On suppose que les points $P$, $S_1$, $S_2$ ne sont pas alignés.
+On connaît chacune des vitesses d'éloignement 
+$w_i = \langle \vect v | \vect{u_i} \rangle$.
+Mais attention le vecteur $\vect v$ n'est pas égal à $w_1 \vect{u_1} + w_2 \vect{u_2}$,
+car il n'y a aucune raison que les vecteurs $\vect{u_1}$, $\vect{u_2}$ soient orthogonaux.
+Notons $\alpha$ l'angle entre les vecteurs $\vect{u_1}$ et $\vect{u_2}$.
+\begin{proposition}
+$$\vect v = \frac{w_1 - w_2 \cos\alpha}{\sin^2\alpha} \vect{u_1} + 
+ \frac{w_2 -w_1 \cos \alpha}{\sin^2\alpha} \vect{u_2}$$  
+\end{proposition}
+
+\myfigure{1}{  
+  \tikzinput{fig_gps_vitesse_13}
+} 
+
+Rappelons que les vecteurs $\vect{u_1}$ et $\vect{u_2}$ sont connus par la positions
+de $P$ et des satellites, donc $\cos\alpha = \langle \vect{u_1} | \vect{u_2} \rangle$ est aussi connu.
+Par contre $w_1$ et $w_2$ sont déterminés par les décalages Doppler par rapport à chacun des satellites :
+$w_1 \simeq c \frac{D_1}{f_{S_1}}$ et 
+$w_2 \simeq c \frac{D_2}{f_{S_2}}$.
+
+\begin{proof}
+On cherche donc $x_1, x_2$ tels que $\vect v  = x_1 \vect{u_1} + x_2 \vect{u_2}$.
+On a les équations :
+$$
+\left\{
+\begin{array}{rcl}
+\langle \vect v | \vect{u_1} \rangle &=& \langle x_1 \vect{u_1} + x_2 \vect{u_2} | \vect{u_1} \rangle  \\
+\langle \vect v | \vect{u_2} \rangle &=& \langle x_1 \vect{u_1} + y_2 \vect{u_2} | \vect{u_2} \rangle  \\
+\end{array}
+\right.
+\quad\text{ donc }\quad
+\left\{
+\begin{array}{rcl}
+w_1 &=&  x_1+ x_2 \langle \vect{u_1} | \vect{u_2} \rangle  \\
+w_2 &=& x_1 \langle \vect{u_1} | \vect{u_2} \rangle+ x_2  \\
+\end{array}
+\right.
+$$
+Où l'on s'est souvenu que $\langle \vect{u_i} | \vect{u_i} \rangle = \| \vect{u_i} \|^2 = 1$.
+C'est un système linéaire où les données sont $w_1$, $w_2$, $\vect{u_1}$, $\vect{u_2}$, 
+les inconnues sont $x_1$, $x_2$. On le réécrit sous la forme matricielle :
+$$\begin{pmatrix}w_1\\w_2\end{pmatrix}
+= \begin{pmatrix}1&\langle \vect{u_1} | \vect{u_2} \rangle\\ \langle \vect{u_1} | \vect{u_2} \rangle&1\end{pmatrix}
+\begin{pmatrix}x_1\\x_2\end{pmatrix}$$
+En notant 
+$$A = \begin{pmatrix}1&\langle \vect{u_1} | \vect{u_2} \rangle\\ 
+\langle \vect{u_1} | \vect{u_2} \rangle&1\end{pmatrix}
+\quad \text{ on a donc } \quad 
+\begin{pmatrix}x_1\\x_2\end{pmatrix} =  A^{-1} \begin{pmatrix}w_1\\w_2\end{pmatrix}$$
+Et si on note $\alpha$ l'angle entre les vecteurs  $\vect{u_1}$ et $\vect{u_2}$ alors
+$\langle \vect{u_1} | \vect{u_2} \rangle = \cos \alpha$, d'où :
+$$A = \begin{pmatrix}1&\cos \alpha \\ \cos \alpha & 1\end{pmatrix}
+\qquad\text{ et }\qquad 
+A^{-1} = \frac{1}{1-\cos^2 \alpha}\begin{pmatrix}1&-\cos \alpha \\ -\cos \alpha & 1\end{pmatrix}
+= \frac{1}{\sin^2 \alpha}\begin{pmatrix}1&-\cos \alpha \\ -\cos \alpha & 1\end{pmatrix} $$
+On trouve donc
+$$\begin{pmatrix}x_1\\x_2\end{pmatrix}
+=\frac{1}{\sin^2 \alpha} 
+\begin{pmatrix} w_1 - w_2 \cos\alpha  \\ w_2 -w_1 \cos \alpha \end{pmatrix}$$
+Ce qui donne
+$$\vect v = \frac{w_1 - w_2 \cos\alpha}{\sin^2\alpha} \vect{u_1} + 
+ \frac{w_2 -w_1 \cos \alpha}{\sin^2\alpha} \vect{u_2}$$
+
+\end{proof}
+
+
+Si on souhaite calculer la norme de $\vect v = x_1 \vect{u_1} + x_2 \vect{u_2}$,
+il faut encore faire attention que l'on n'est pas dans une base orthonormée :
+$$ \| \vect v \|^2 = \langle \vect{v} | \vect{v} \rangle
+= \langle x_1 \vect{u_1} + x_2 \vect{u_2} | x_1 \vect{u_1} + x_2 \vect{u_2} \rangle
+= x_1^2 + x_2^2 + 2 x_1x_2 \langle \vect{u_1} | \vect{u_2} \rangle$$
+Ce qui donne pour nous 
+%$$v =  \| \vect v \|
+%= \frac{1}{\sin^2\alpha}\sqrt{(w_1 - w_2 \cos\alpha)^2 + (w_2 -w_1 \cos \alpha)^2  + 2\cos\alpha(w_1 - w_2 \cos\alpha)(w_2 -w_1 \cos \alpha) }
+%$$
+ après développement et simplifications :
+$$v =  \| \vect v \|
+= \frac{1}{|\sin\alpha|}\sqrt{w_1^2 + w_2^2 -2w_1w_2\cos\alpha}
+$$
+ 
+\begin{exemple}
+Voici des données :
+$$P(0,0) \qquad S_1 (6,0) \qquad S_2(7,7) \qquad w_1 = 3 \qquad w_2 = \frac32$$
+\`A quelle vitesse se déplace $P$ et dans quelle direction ?
+
+\myfigure{0.8}{  
+  \tikzinput{fig_gps_vitesse_14}
+  \tikzinput{fig_gps_vitesse_15}
+} 
+
+Les vecteurs unités pointant vers les satellites sont
+$\vect{u_1} = (1,0)$ et $\vect{u_2}=(\frac{\sqrt2}{2},\frac{\sqrt2}{2})$.
+Ce qui donne $\langle \vect{u_1} | \vect{u_2} \rangle = \frac{\sqrt2}{2}$.
+Si la vitesse cherchée s'écrit $\vect v  = x_1 \vect{u_1} + x_2 \vect{u_2}$,
+alors
+$$
+\left\{
+\begin{array}{rcl}
+w_1 = \langle \vect v | \vect{u_1} \rangle &=& \langle x_1 \vect{u_1} + x_2 \vect{u_2} | \vect{u_1} \rangle  \\
+w_2 = \langle \vect v | \vect{u_2} \rangle &=& \langle x_1 \vect{u_1} + y_2 \vect{u_2} | \vect{u_2} \rangle  \\
+\end{array}
+\right.
+\quad\text{ donc }\quad
+\begin{pmatrix}w_1\\w_2\end{pmatrix}
+= \begin{pmatrix}1&\frac{\sqrt2}{2}\\ 
+\frac{\sqrt2}{2}&1\end{pmatrix}
+\begin{pmatrix}x_1\\x_2\end{pmatrix}
+$$
+Ainsi 
+$$\begin{pmatrix}x_1\\x_2\end{pmatrix}
+= \begin{pmatrix}1&\frac{\sqrt2}{2}\\ 
+\frac{\sqrt2}{2}&1\end{pmatrix}^{-1}
+\begin{pmatrix}w_1\\w_2\end{pmatrix}
+= \begin{pmatrix}2&-\sqrt2\\ 
+-\sqrt2&2\end{pmatrix}
+\begin{pmatrix}3\\\frac32\end{pmatrix}
+= \begin{pmatrix}6-\frac32\sqrt2\\3-3\sqrt2\end{pmatrix}$$
+Mais attention, on vient de calculer les coordonnées 
+de $\vect v$ dans la base $(\vect{u_1},\vect{u_2})$.
+Dans la base canonique $\big( (1,0), (0,1) \big)$, on trouve 
+$$\vect v = (6-\frac32\sqrt2) \vect{u_1} + (3-3\sqrt2) \vect{u_2}
+= (6-\frac32\sqrt2) (1,0)  + (3-3\sqrt2)(\frac{\sqrt2}{2},\frac{\sqrt2}{2})  
+=  3(1,0) + (-3+\frac32\sqrt2)(0,1)$$
+Les coordonnées de $\vect v$ dans la base canonique sont donc
+$(3,-3+2\sqrt2)$.
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Vitesse par l'effet Doppler (3D)}
+
+Revenons en dimension $3$, l'idée est exactement la même avec une coordonnée de plus, ce qui va juste compliquer
+un peu les expressions. Par contre, on se place dans une situation plus réaliste : tout le monde bouge !
+On note toujours $P$ notre position et $\vect v$ notre vitesse 
+et on considère $3$ satellites de position $S_1$, $S_2$, $S_3$ et de vitesse respective 
+$\vect{v_1}$, $\vect{v_2}$, $\vect{v_3}$.
+
+
+Les vecteurs unités pointant de $P$ vers chaque satellite sont 
+$\vect {u_1}$, $\vect {u_2}$, $\vect {u_3}$.
+Supposons que les $4$ points $P, S_1, S_2, S_3$ ne soient pas dans un même plan, 
+alors les vecteurs $(\vect {u_1}, \vect {u_2}, \vect {u_3})$ forment une base de $\Rr^3$. 
+On cherche l'expression de $\vect v$ dans cette base :
+$$\vect v = x_1 \vect{u_1}+x_2 \vect{u_2}+x_3 \vect{u_3}.$$
+
+Cette fois le décalage Doppler avec chaque satellite calcule la vitesse relative :
+$$w_i = \langle \vect{v}-\vect{v_i} | \vect{u_i} \rangle$$
+Ce qui donne :
+$$
+\langle \vect{v} | \vect{u_i} \rangle
+= w_i + \langle \vect{v_i} | \vect{u_i} \rangle$$
+On remplace $\vect v$ par son expression 
+$\vect v = x_1 \vect{u_1}+x_2 \vect{u_2}+x_3 \vect{u_3}$ et en 
+écrivant $y_i = w_i + \langle \vect{v_i} | \vect{u_i} \rangle$, on obtient le système linéaire :
+$$\left\{
+\begin{array}{rcl}
+x_1+ x_2 \langle \vect{u_1} | \vect{u_2}\rangle + x_3 \langle\vect{u_1} | \vect{u_3} \rangle & = & y_1\\
+x_1\langle \vect{u_1} | \vect{u_2}\rangle+ x_2  + x_3 \langle\vect{u_2} | \vect{u_3} \rangle & = & y_2\\ 
+x_1\langle\vect{u_1} | \vect{u_3} \rangle+ x_2 \langle \vect{u_2} | \vect{u_3}\rangle + x_3  & = & y_3\\ 
+\end{array}
+\right.$$
+Qui s'écrit 
+$$A \begin{pmatrix}x_1\\x_2\\x_3\end{pmatrix} = \begin{pmatrix}y_1\\y_2\\y_3\end{pmatrix}
+\quad \text{ avec } \quad
+A = 
+\begin{pmatrix}
+  1 & \langle \vect{u_1} | \vect{u_2} \rangle & \langle\vect{u_1} | \vect{u_3}\rangle\\ 
+\langle \vect{u_1} | \vect{u_2} \rangle & 1 & \langle \vect{u_2} | \vect{u_3}\rangle \\
+  \langle\vect{u_1} | \vect{u_3}\rangle & \langle \vect{u_2} | \vect{u_3}\rangle & 1 \\
+\end{pmatrix}$$
+La matrice $A$ s'inverse sans problème 
+(son expression n'a rien de spéciale mais est un peu longuette à écrire),
+on en déduirait donc
+$$\begin{pmatrix}x_1\\x_2\\x_3\end{pmatrix} 
+= A^{-1} \begin{pmatrix}y_1\\y_2\\y_3\end{pmatrix}$$
+
+
+Revenons à notre but calculer notre vitesse. Les signaux des satellites permettent de :
+\begin{itemize}
+  \item calculer notre position $P$,
+  \item savoir la position de chaque satellite et sa vitesse (elle est transmise dans le signal) 
+  donc on connaît les $\vect{u_i}$ et les $\vect{v_i}$,
+  \item mesurer le décalage des fréquences, ce qui  nous donne les vitesses relatives $w_i$.
+\end{itemize}
+
+Ainsi on connaît la matrice $A$ et les $y_i = w_i + \langle \vect{v_i} | \vect{u_i} \rangle$. Ce qui permet d'en déduire
+les $x_i$ et 
+$\vect v = x_1 \vect{u_1}+x_2 \vect{u_2}+x_3 \vect{u_3}$.
+On peut aussi en déduire la norme de la vitesse comme précédemment
+$v = \| \vect v \|$ (en faisant toujours attention que la base
+$(\vect {u_1}, \vect {u_2}, \vect {u_3})$ n'est pas orthogonale).
+
+
+%---------------------------------------------------------------
+\subsection{Pratique et précision}
+
+Voici des données utiles pour avoir un ordre de grandeur des calculs et de la précision.
+
+\begin{itemize}
+  \item Les satellites sont sur des orbites quasi-circulaire d'un rayon de 
+  \SI{26500}{\kilo\meter} (donc à \SI{20000}{\kilo\meter} d'altitude).
+  La période de rotation est d'environ \SI{12}{\hour}.
+  En calculant la circonférence on trouve que la vitesse du satellite est d'environ
+  \SI{13868}{\kilo\meter\per\hour}, soit environ \SI{3850}{\meter\per\second}.
+  En fait cette vitesse varie au cours du temps, mais est connue avec une grande précision 
+  car l'éphéméride du satellite est transmise dans le signal. Cela permet de calculer
+  précisément la position et la vitesse du satellite.
+ 
+  
+  \item Pour nous $c$ sera la vitesse de la lumière :
+  $c = \SI{300000}{\kilo\meter\per\second}$.
+  
+  \item Notre vitesse $v_P$ est située entre $0$ et \SI{1000}{\kilo\meter\per\hour}
+  (donc de $0$ à \SI{280}{\meter\per\second}).
+  
+  \item Chaque satellite émet en fait deux signaux simultanément. On considère celui
+  d'une fréquence de $f_S = \SI{1575.42}{\mega\hertz}$.
+  
+\end{itemize}
+
+
+\begin{exemple}
+Le récepteur GPS d'un avion enregistre un signal de fréquence
+$f_P = \SI{1575.40}{\mega\hertz}$ pour un satellite dont
+la vitesse d'éloignement est $v_S = \SI{4000.00}{\meter\per\second}$.
+À quelle vitesse se déplace l'avion ?
+
+Le décalage Doppler est $D=f_S-f_P
+= \num{1575.4200} - \num{1575.4000} = \SI{0.0200}{\mega\hertz} = \SI{20 000}{\hertz}$.
+
+Par la formule reliant le décalage Doppler à la vitesse relative
+$v$ entre $P$ et $S$ on a :
+$$v \simeq \frac{c D}{f_S} = \frac{\num{300 000 000} \cdot \num{20000}}{\num{1 575 420 000}}
+\simeq \SI{3808.51}{\meter\per\second}$$
+
+On sait que le satellite s'éloigne de nous avec la vitesse $v_S$,
+donc notre vitesse $v_P$ est
+$$v_P = v_S - v = \num{4000.00}-\num{3808.51} = \SI{191.49}{\meter\per\second}
+\simeq \SI{690}{\kilo\meter\per\hour}$$
+
+
+Bien sûr, nous avons seulement calculer notre vitesse 
+de déplacement le long de l'axe $(PS)$. Pour calculer le vecteur vitesse
+il nous faudrait $3$ satellites.
+\end{exemple}
+
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Boussole}
+
+Comment votre GPS peut-il savoir où est le Nord, 
+alors qu'il ne contient pas de boussole ?
+Tout simplement en connaissant votre vecteur vitesse !
+
+Pour bien comprendre les explications, il vaut mieux d'abord avoir lu la section suivante
+sur les différentes façons de se repérer dans l'espace.
+Le GPS nous fournit notre position $P$ et, on vient de le voir, notre vitesse $\vect v$.
+Ce point et ce vecteur s'expriment dans un repère $(O,\vect i,\vect j,\vect k)$
+dont l'origine est $O$ le centre de la Terre ; $\vect k$ est porté par l'axe de rotation.
+
+
+\begin{proposition}
+Le vecteur 
+$$\vect n = R^2 \vect{k} - z_0 \vect{OP}$$
+est un vecteur pointant vers le Nord depuis notre position
+$P = (x_0,y_0,z_0)$, où $R$ est le rayon de la Terre.
+
+Le cap suivi, c'est-à-dire l'angle entre le Nord et notre direction, est 
+l'angle entre $\vect n$ et notre vecteur vitesse $\vect v$.
+\end{proposition}
+
+ 
+
+On retrouve alors le cap $\alpha$ (ou plus exactement $\cos \alpha$ et $\sin \alpha$) 
+à l'aide du produit scalaire et du produit vectoriel :
+$$\cos \alpha  = \frac{\langle \vect n | \vect v\rangle}{\| \vect n \| \cdot \| \vect v \|}
+\qquad \text{ et } \qquad
+\sin \alpha \cdot \frac{\vect{OP}}{\|\vect{OP} \|} = \frac{ \vect n \wedge \vect v}{\| \vect n \| \cdot \| \vect v \|}
+$$
+
+Comme on connaît le vecteur $\vect v$ (c'est notre direction) on en déduit la direction du Nord.
+Remarquez que si nous restons immobile, alors notre vitesse est nulle et il n'est pas possible
+d'en déduire la direction du Nord, contrairement à une boussole !
+
+
+
+
+\myfigure{1}{  
+  \tikzinput{fig_gps_vitesse_16} \qquad
+  \tikzinput{fig_gps_vitesse_17}
+}
+\begin{proof}
+Au point $P$, situé à la surface de la Terre, on se place dans le plan tangent 
+à la sphère. On suppose %(pour simplifier les calculs) 
+que l'on se déplace sans changer d'altitude,
+c'est-à-dire que le vecteur $\vect v$ est dans ce plan.
+Et c'est aussi dans ce plan que l'on cherche à s'orienter.
+
+
+
+Un vecteur $\vect n$ porté par l'axe Nord-Sud vérifie les conditions suivantes :
+\begin{enumerate}
+  \item Ce vecteur $\vect n$ est dans le plan tangent, 
+  c'est-à-dire orthogonal au vecteur $\vect{OP}$.
+  
+  \item Ce vecteur est dans le plan défini par $O$, $P$ et $\vect k$.
+  C'est-à-dire le plan méridien correspondant à la longitude de $P$.
+\end{enumerate}
+
+Mathématiquement cela donne :
+\begin{enumerate}
+  \item $\langle \vect n | \vect{OP} \rangle = 0$
+  \item $n = \alpha \vect k + \beta\vect{OP}  $ pour des $\alpha,\beta \in \Rr$.
+\end{enumerate}
+
+
+En substituant l'expression pour $\vect n$ dans l'égalité $\langle \vect n | \vect{OP} \rangle = 0$,
+on obtient
+\begin{eqnarray*}
+&&          \langle \vect n | \vect{OP} \rangle = 0   \\
+&\iff& \langle \alpha \vect k + \beta\vect{OP} | \vect{OP} \rangle = 0 \\
+&\iff&  \alpha \langle \vect k | \vect{OP} \rangle
++ \beta \langle \vect{OP} | \vect{OP} \rangle = 0 \\
+&\iff&  \alpha\langle (0,0,1) | (x_0,y_0,z_0) \rangle  + \beta \|\vect{OP} \|^2 = 0 
+\quad \text{ où } \vect k = (0,0,1) \text{ et } \vect{OP} = (x_0,y_0,z_0)\\
+&\iff&  \alpha z_0 + \beta R^2  = 0 
+\quad \text{ où } R \text{ est le rayon de la Terre} \\
+\end{eqnarray*}
+Une solution est donnée par $\alpha = R^2$ et $\beta = -z_0$, ce qui correspond au vecteur
+$$\vect n = R^2 \vect{k} - z_0 \vect{OP}$$
+
+Nous avons tout fait pour que ce vecteur soit dans le plan tangent et soit sur l'axe Nord-Sud.
+En plus il pointe vraiment vers le Nord (et pas le Sud) car
+$\langle \vect n | \vect k \rangle = R^2 > 0$.
+\end{proof}
+
+ 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Systèmes de coordonnées}
+
+%---------------------------------------------------------------
+\subsection{Coordonnées cartésiennes et polaires du plan}
+
+Dans le plan, soit $(O,\vect{i},\vect{j})$ un repère cartésien.
+Pour un point $P$ quelconque du plan on peut décomposer le vecteur $\vect{OP}$
+dans la base $(\vect{i},\vect{j})$, c'est-à-dire qu'il existe des réels $x$ et $y$ tels que :
+$$\vect{OP} = x \vect{i}+y\vect{j}.$$
+
+De plus de tels $x$ et $y$ sont uniques. Les \defi{coordonnées} de $P$ par rapport au
+repère $(O,\vect{i},\vect{j})$ est le couple 
+$\left(\begin{smallmatrix}x\\y\end{smallmatrix}\right)$, noté aussi
+$(x,y)$.
+
+\myfigure{1.3}{  
+  \tikzinput{fig_gps_coord_01}
+}
+
+
+\bigskip
+
+Passons aux coordonnées polaires. 
+Soit $(O,\vect{i},\vect{j})$ un repère orthonormé direct
+Pour $\theta$ réel, on pose 
+$$\vect{u_\theta}=\cos\theta\vect{i}+\sin\theta\vect{j}.$$
+
+Le point $P$ étant un point du plan, on dit que $[r :\theta]$ est un 
+couple de \defi{coordonnées polaires} si $\vect{OP}=r\vect{u_\theta}$.
+
+\myfigure{1}{  
+  \tikzinput{fig_gps_coord_02}\qquad 
+  \tikzinput{fig_gps_coord_03}  
+}
+
+
+\bigskip
+
+On passe des coordonnées polaires aux coordonnées cartésiennes par les formules suivantes :
+\mybox{
+$\left\{\begin{array}{rcl}
+x & = & r \cos \theta \\
+y & = & r \sin \theta
+\end{array}\right.$
+}
+Ces formules s'obtiennent simplement en identifiant les coordonnées du vecteur 
+$\vect{OP} = x \vect{i}+y\vect{j} = r\vect{u_\theta}$.
+Dans l'autre sens, on retrouve les coordonnées polaires à partir des coordonnées cartésiennes
+par 
+$$r = \sqrt{x^2+y^2}$$
+qui représente la distance du point $P$ à l'origine $O$,
+et si $r\neq 0$ alors on détermine $\theta$ (modulo $2\pi$) par
+les identités :
+$$\cos \theta = \frac{x}{r} \qquad\text{ et }\qquad \sin \theta = \frac{y}{r}.$$
+
+\bigskip
+
+\textbf{Modélisation de la Terre.}
+
+Si on souhaite modéliser la Terre alors on fixe le rayon $r$ à $R
+= \SI{6300}{\kilo\meter}$. Sur ce modèle du plan, 
+un point $P$ à la surface de la Terre est alors
+déterminé par un seul paramètre, l'angle $\theta$.
+
+\myfigure{0.8}{  
+  \tikzinput{fig_gps_coord_04}
+}
+
+
+
+%---------------------------------------------------------------
+\subsection{Coordonnées cartésiennes et sphériques de l'espace}
+\label{ssec:coord}
+
+On fait le même travail dans l'espace. Soit $(O,\vect{i},\vect{j},\vect{k})$ un repère orthonormé direct.
+Pour un point $P$ de l'espace, on décompose le vecteur $\vect{OP}$
+dans la base $(\vect{i},\vect{j},\vect{k})$ :
+$$\vect{OP} = x \vect{i}+y\vect{j}+z\vect{k}$$
+et on appelle les \defi{coordonnées} de $P$, par rapport au
+repère $(O,\vect{i},\vect{j},\vect{k})$, le triplet 
+$\left(\begin{smallmatrix}x\\y\\z\end{smallmatrix}\right)$, ou encore $(x,y,z)$.
+
+
+
+
+
+
+Les coordonnées sphériques sont définies par $3$ paramètres 
+$[r :\varphi :\lambda]$.
+On note 
+$$\vect{u_{\varphi,\lambda}}= \cos \varphi \cos \lambda \vect{i} + \cos \varphi \sin \lambda\vect{j} + \sin \varphi\vect{k}$$
+le vecteur qui forme un angle $\lambda$ avec l'axe $(O,\vect{i})$ et
+un angle $\varphi$ avec le plan horizontal $(O,\vect{i},\vect{j})$.
+
+
+
+
+Le point $P$ de l'espace a pour \defi{coordonnées sphériques} $[r :\varphi :\lambda]$ 
+si $\vect{OP}=r\vect{u_{\varphi,\lambda}}$.
+
+\bigskip
+
+Le passage des coordonnées sphériques vers les coordonnées cartésiennes s'exprime par
+\mybox{
+$\left\{\begin{array}{rcl}
+x & = & r \cos \varphi \cos \lambda \\
+y & = & r \cos \varphi \sin \lambda \\
+z & = & r \sin \varphi
+\end{array}\right.$
+}
+Dans l'autre sens on obtient $r = \sqrt{x^2+y^2+z^2}$.
+
+\bigskip
+
+\textbf{Modélisation de la Terre.}
+On modélise la Terre par une sphère (ou plutôt une boule) de rayon
+$R = \SI{6300}{\kilo\meter}$.
+Un point à la surface de la Terre (donc avec $r=R$) est déterminé
+par :
+\begin{itemize}
+  \item l'angle $\varphi$, qui est la \defi{latitude}, c'est un angle 
+entre $\ang{-90}$ et $\ang{+90}$.  Un point de l'équateur vérifie $\varphi = \ang{0}$ ;
+  
+  \item l'angle $\lambda$, qui est la \defi{longitude}, c'est un angle
+  entre $\ang{-180}$ et $\ang{+180}$. Le méridien de Greenwich correspond à $\lambda = \ang{0}$.
+\end{itemize}
+
+\myfigure{1}{  
+  \tikzinput{fig_gps_3d_07} 
+}
+
+\begin{exemple}
+Le sommet de la montagne du Chimborazo en Équateur est 
+le point sur Terre le plus loin du centre de la Terre.
+Ces coordonnées $(x,y,z)$ en kilomètres sont :
+$$x= \num{1238.0} \qquad y =  \num{-6261.0} \qquad  z = \num{-163.1}$$
+Calculer la distance $r$ du sommet à l'origine ainsi que la latitude $\varphi$
+et la longitude $\lambda$.
+
+
+Il s'agit d'inverser les relations :
+$\left\{\begin{array}{rcl}
+x & = & r \cos \varphi \cos \lambda \\
+y & = & r \cos \varphi \sin \lambda \\
+z & = & r \sin \varphi 
+\end{array}\right.$
+
+On commence par trouver $r$ :
+$$r = \sqrt{x^ 2+y^ 2+z^2} \simeq \SI{6 384.4}{\kilo\meter}$$
+Puis comme $\frac{z}{r} =\sin \varphi$, alors
+$$\varphi = \arcsin \left( \frac{z}{r}\right) \simeq \ang{-1.464}$$
+On en déduit $\cos\varphi$, 
+et de l'égalité $\frac{y}{r}  =  \cos \varphi \sin \lambda$, on obtient:
+$$\lambda = \arcsin\left( \frac{1}{\cos\varphi}\frac{y}{r}\right) 
+ \simeq \ang{-78.815}$$
+
+Note : ce n'est pas le mont Everest qui est le point le plus éloigné du centre 
+de la Terre, ceci à cause du phénomène d'aplatissement aux pôles que l'on verra juste après.
+Le sommet de l'Everest est à distance $r= \SI{6 382.3}{\kilo\meter}$ du centre de la Terre.
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{La Terre n'est pas ronde}
+
+La Terre n'est pas ronde ! Bien sûr il y a des montagnes et des vallées, mais ce sont 
+des variations assez minimes.
+Par contre la Terre est aplatie aux pôles.
+Pour la modélisation dans le plan, on remplace le cercle de rayon $R$ 
+par une ellipse ayant un demi-grand axe $a$ et un demi-petit axe $b$.
+
+\myfigure{1}{  
+  \tikzinput{fig_gps_coord_06}
+}
+
+On adapte nos coordonnées polaires à cette ellipse. Un point sur l'ellipse est déterminé
+par un paramètre $\theta$ :
+\mybox{
+$\left\{\begin{array}{rcl}
+x & = & a \cos \theta \\
+y & = & b \sin \theta
+\end{array}\right.$
+}
+\myfigure{1}{  
+  \tikzinput{fig_gps_coord_07}
+}
+
+Bien sûr cette ellipse n'est pas très aplatie, les valeurs sont :
+$$a = \SI{6378.137}{\kilo\meter} \qquad b = \SI{6356.752}{\kilo\meter}$$
+On défini l'\defi{aplatissement} par 
+$$f = \frac{a-b}{a}$$
+L'aplatissement est nul pour un cercle et vaut $f \simeq \num{0.00335}$ pour la Terre.
+Par comparaison Saturne a un aplatissement de $\num{0.1}$
+($a= \SI{60268}{\kilo\meter}$ $b=\SI{54364}{\kilo\meter}$) ; le Soleil lui a un aplatissement quasiment nul.
+
+
+\myfigure{1}{  
+  \tikzinput{fig_gps_coord_08} 
+}
+
+Attention $\theta$ n'est pas l'angle que l'on croit. Ce n'est pas l'angle entre l'horizontale
+et le vecteur $\vect{OP}$, mais l'angle entre l'horizontale et le vecteur 
+$\vect{OP_1}$, où le point $P_1$ est le point du cercle principal, de même abscisse que $P$
+(et avec l'ordonnée de même signe que celle de $P$).
+
+
+La Terre en $3$ dimensions se modélise en un ellipsoïde obtenu 
+par la rotation d'une ellipse autour de l'axe reliant le pôle Nord au pôle Sud.
+L'équateur est donc un cercle de rayon $a$ alors que le méridien de Greenwich
+est une ellipse de demi-axes $a$ et $b$.
+
+\myfigure{1.3}{  
+  \tikzinput{fig_gps_3d_04}
+}
+
+%---------------------------------------------------------------
+\subsection{Changement de repère}
+
+Si l'on a deux repères cartésiens du plan ou de l'espace, alors on peut passer
+de l'un à l'autre par un changement de repère. 
+Fixons deux repères $\mathcal{R}= (O,\vect{i},\vect{j})$ et 
+$\mathcal{R}'= (O',\vect{i'},\vect{j'})$ du plan. Fixons aussi un point $P$ du plan
+qui a pour coordonnées $X = \left(\begin{smallmatrix}x\\y\end{smallmatrix}\right)$
+dans le repère $\mathcal{R}$, et a pour coordonnées
+$X' = \left(\begin{smallmatrix}x'\\y'\end{smallmatrix}\right)$
+dans le repère $\mathcal{R}'$.
+
+Alors il existe une matrice inversible $A$ telle que :
+$$X = A X' + \vect{OO'}$$
+où $\vect{OO'}$ est le vecteur joignant les deux origines des repères
+(dans cette formule $\vect{OO'}$ est considéré comme un vecteur colonne).
+
+Sur la figure suivante les deux repères sont orthonormés directs.
+\myfigure{1}{  
+  \tikzinput{fig_gps_coord_09}
+}
+
+Par exemple $A$ peut être :
+\begin{itemize}
+  \item la matrice d'une rotation d'angle $\theta$ (et de centre $O$) :
+$\begin{pmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{pmatrix}$ 
+(c'est le cas si les deux repères sont orthonormés directs) ;
+  \item la matrice d'une homothétie de rapport $k$ (et de centre $O$) :
+$\begin{pmatrix}k&0\\0&k\end{pmatrix}$ ;
+  \item la matrice d'une symétrie par rapport à l'axe des
+  abscisses $(O\vect{i})$ : $\begin{pmatrix}1&0\\0&-1\end{pmatrix}$ ;
+  ou à l'axe des ordonnées $(O\vect{j})$ : $\begin{pmatrix}-1&0\\0&1\end{pmatrix}$ ;
+  \item ou le produit de plusieurs de ces matrices ;
+  \item ou plus généralement une matrice $\begin{pmatrix}a&b\\c&d\end{pmatrix}$
+  avec $ad-bc\neq 0$.
+\end{itemize}
+
+
+\bigskip
+
+Pour un point $P$ de l'espace dont les coordonnées sont 
+$X= \left(\begin{smallmatrix}x\\y\\z\end{smallmatrix}\right)$
+dans un repère $\mathcal{R} = (O,\vect{i},\vect{j},\vect{k})$ et 
+de coordonnées $X' = \left(\begin{smallmatrix}x'\\y'\\z'\end{smallmatrix}\right)$
+dans le repère $\mathcal{R}'= (O',\vect{i'},\vect{j'},\vect{k'})$. 
+Alors il existe une matrice inversible $A$ telle que :
+$$X = A X' + \vect{OO'}.$$
+
+La matrice $A$ peut être :
+\begin{itemize}
+  \item la matrice d'une rotation d'angle $\lambda$ d'axe $(O\vect{k})$ :
+$\begin{pmatrix}
+\cos \lambda & -\sin \lambda & 0 \\
+\sin \lambda & \sin \lambda  & 0 \\
+0            & 0             & 1 \\
+\end{pmatrix}$ ;
+  \item la matrice d'une rotation d'angle $\varphi$ d'axe $(O\vect{j})$ :
+$\begin{pmatrix}
+\cos \varphi & 0 & \sin \varphi \\
+0            & 1 & 0 \\
+-\sin \varphi & 0 & \sin \varphi \\
+\end{pmatrix}$ ;
+  \item la matrice d'une homothétie de rapport $k$  (et de centre $O$) :
+$\begin{pmatrix}k&0&0\\0&k&0\\0&0&k\end{pmatrix}$ ;
+  \item la matrice d'une symétrie par rapport au plan $(O,\vect{i},\vect{j})$ :
+  $\begin{pmatrix}1&0&0\\0&1&0\\0&0&-1\end{pmatrix}$ ; ...
+  \item ou le produit de plusieurs de ces matrices ;
+  \item ou plus généralement une matrice 
+  $\begin{pmatrix}
+  a_{11}&a_{12}&a_{13}\\
+  a_{21}&a_{22}&a_{23}\\
+  a_{31}&a_{32}&a_{33}\\
+  \end{pmatrix}$ de déterminant non nul.
+\end{itemize}
+
+\bigskip
+
+Attention, ces formules de changement de repères ne concernent que 
+le passage entre deux repères cartésiens, et pas le passage des coordonnées 
+cartésiennes aux coordonnées polaires. 
+
+
+%---------------------------------------------------------------
+\subsection{Coordonnées locales}
+
+Pour quelqu'un situé à un point $P$ de la surface de la Terre, il est utile
+de définir un repère dont l'origine est le point $P$. On choisit un repère
+$\mathcal{R}_{\text{loc}} = (P,\vect{h},\vect{e},\vect{n})$ (pour \emph{haut}, \emph{est}, \emph{nord}).
+Le premier vecteur est perpendiculaire (et sortant) à la sphère.
+Les deux autres vecteurs sont tangents à la sphère, 
+le second vecteur pointe vers l'Est, le troisième vers le Nord.
+
+
+
+\myfigure{1.5}{  
+  \tikzinput{fig_gps_3d_05} 
+}
+
+Soit le point $P$ de coordonnées sphériques $[r :\varphi :\lambda]$.
+On passe du repère $\mathcal{R}_O = (O,\vect{i},\vect{j},\vect{k})$ au repère
+$\mathcal{R}_{\text{loc}} = (P,\vect{h},\vect{e},\vect{n})$ par 
+la séquence de transformations suivantes (dans cet ordre) :
+\begin{itemize}
+  \item la rotation d'axe $(Oy)$ et d'angle $\varphi$ ;
+  \item la rotation d'axe $(Oz)$ et d'angle $\lambda$ ;
+  \item la translation de vecteur $\vect{OP}$.
+\end{itemize}
+
+Voir la figure du paragraphe \ref{ssec:coord}.
+
+
+Les matrices des rotations sont respectivement :
+$$R_\varphi = 
+\begin{pmatrix}
+\cos \varphi & 0 & \sin \varphi \\
+0            & 1 & 0 \\
+-\sin \varphi & 0 & \cos \varphi \\
+\end{pmatrix}
+\qquad R_\lambda = 
+\begin{pmatrix}
+\cos \lambda & -\sin \lambda & 0 \\
+\sin \lambda & \cos \lambda  & 0 \\
+0            & 0             & 1 \\
+\end{pmatrix}$$
+et la translation a pour vecteur 
+$$\vect{OP} = 
+\begin{pmatrix}
+r \cos \varphi \cos \lambda \\
+r \cos \varphi \sin \lambda \\
+r \sin \varphi  
+\end{pmatrix}$$
+
+Pour un point $M$ de l'espace, on note
+$X_O$ les coordonnées de $M$ dans le repère $\mathcal{R}_O$
+et $X_{\text{loc}}$ les coordonnées de ce même point $M$ 
+mais cette fois dans le repère $\mathcal{R}_{\text{loc}}$.
+Alors on passe de l'un à l'autre des systèmes de coordonnées par :
+$$X_O =  \big(R_\lambda R_\varphi\big) X_{\text{loc}} + \vect{OP}$$
+où $R_\lambda R_\varphi$ est le produit des deux matrices.
+
+\begin{exemple}
+Nous sommes au point $P$ de latitude $\varphi = \ang{45}$, de longitude 
+$\lambda = \ang{60}$ à la surface de la Terre (on prend $r= \SI{6300}{\kilo\meter}$).
+Vous apercevez un avion $M$ situé à $\SI{20}{\kilo\meter}$ au Sud-Est et à 
+$\SI{5}{\kilo\meter}$ d'altitude. Calculer les coordonnées $(x_M,y_M,z_M)$ du point $M$.
+
+\begin{enumerate}
+  \item Nous aurons besoin des coordonnées $(x_P,y_P,z_P)$ du point $P$ données
+par les formules :
+$\left\{\begin{array}{rcl}
+x_P & = & r \cos \varphi \cos \lambda \simeq \num{2227.4}\\
+y_P & = & r \cos \varphi \sin \lambda \simeq \num{3857.9}\\
+z_P & = & r \sin \varphi \simeq \num{4454.8}
+\end{array}\right.$
+
+Ce qui donne bien sûr les coordonnées du vecteur 
+$\vect{OP}=\left(\begin{smallmatrix}x_P\\y_P\\z_P\end{smallmatrix}\right)$.
+  
+  \item Nous devons trouver les coordonnées locales $X_{\text{loc}}$ de $M$ dans le repère
+  $\mathcal{R}_{\text{loc}}$ : $\SI{20}{\kilo\meter}$ au Sud-Est et $\SI{5}{\kilo\meter}$ de hauteur
+  correspond à $5 \vect{h} + \frac{\sqrt{2}}{2} 20 \vect{e}-\frac{\sqrt{2}}{2} 20 \vect{n}$, donc les coordonnées de $M$ sont 
+  $$X_{\text{loc}} = \begin{pmatrix} 5\\10\sqrt{2}\\-10\sqrt{2}\end{pmatrix}$$
+  
+  
+  \item Les matrices de rotations sont ici :
+ $$R_\varphi = 
+\begin{pmatrix}
+\cos \varphi & 0 & \sin \varphi \\
+0            & 1 & 0 \\
+-\sin \varphi & 0 & \cos \varphi \\
+\end{pmatrix}
+=
+\begin{pmatrix}
+\frac{\sqrt2}{2} & 0 & \frac{\sqrt2}{2} \\
+0                & 1 & 0 \\
+-\frac{\sqrt2}{2} & 0 & \frac{\sqrt2}{2} \\
+\end{pmatrix}
+\qquad R_\lambda = 
+\begin{pmatrix}
+\cos \lambda & -\sin \lambda & 0 \\
+\sin \lambda & \cos \lambda  & 0 \\
+0            & 0             & 1 \\
+\end{pmatrix} = 
+\begin{pmatrix}
+\frac12          & -\frac{\sqrt3}{2} & 0 \\
+\frac{\sqrt3}{2} & \frac12           & 0 \\
+0                & 0                 & 1 \\
+\end{pmatrix}$$ 
+  
+  
+  \item On applique la formule de changement de base pour obtenir les coordonnées
+  $X_O =\left(\begin{smallmatrix}x_M\\y_M\\z_M\end{smallmatrix}\right)$ 
+  de $M$ dans $\mathcal{R}_O$ :
+  $$X_O =\big(R_\lambda R_\varphi\big) X_{\text{loc}} + \vect{OP} 
+  \simeq \begin{pmatrix}\num{2211.4}\\\num{3859.4}\\\num{4441.2}\end{pmatrix}$$
+\end{enumerate}
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Différentes latitudes}
+
+Comme la Terre n'est pas ronde, les choses se compliquent.
+Nous allons devoir définir trois latitudes ! On modélise la Terre 
+par un ellipsoïde. Nous ferons les calculs dans le plan pour une ellipse, 
+les formules pour l'ellipsoïde s'en déduiront par rotation.
+On modélise donc la surface de la Terre par une ellipse $\mathcal{E}$, d'équation :
+$$\frac{x^2}{a^2}+\frac{y^2}{b^2}=1.$$
+Le demi-grand axe est de longueur $a$, le demi-petit axe est de longueur $b$.
+On trace aussi son cercle principal $\mathcal{C}$ de rayon $a$.
+Soit $P_0=(x_0,y_0)$ un point de l'ellipse $\mathcal{E}$. 
+Soit $P_1=(x_1,y_1)$ le point de même abscisse que $P_0$ 
+mais situé sur le cercle $\mathcal{C}$.
+
+\myfigure{1.3}{  
+  \tikzinput{fig_gps_coord_10}
+}
+
+\begin{itemize}
+  \item La \defi{latitude géocentrique} $\bar \varphi$ est l'angle entre l'axe des abscisses
+  et la droite $(OP_0)$.
+  
+  \item La \defi{latitude géographique} $\varphi$ est l'angle entre 
+  l'axe des abscisses et la verticale en $P_0$. La verticale est la droite verticale du lieu :
+  c'est la droite orthogonale à l'ellipse en $P_0$ (c'est-à-dire perpendiculaire à la tangente en $P_0$ à l'ellipse).   La verticale en $P_0$ ne passe (en général) pas par l'origine $O$.
+  
+  \item La \defi{latitude réduite} $\theta$ est l'angle entre l'axe des abscisses
+  et la droite $(OP_1)$.
+\end{itemize}
+
+
+Ce que l'observateur mesure en $P_0$ c'est la latitude géographique. 
+C'est donc $\varphi$ l'angle le plus important avec lequel on souhaite se repérer.
+Pour l'instant nous allons trouver la relation entre ces trois angles.
+
+\begin{proposition}
+\label{prop :gpstangente}
+$$
+\tan \bar\varphi = \frac{y_0}{x_0} \qquad\qquad 
+\tan \theta = \frac{a}{b} \tan \bar\varphi \qquad\qquad  
+\tan \varphi = \frac{a^2}{b^2} \tan \bar\varphi
+$$  
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+  \item Tout d'abord l'ellipse est l'image du cercle par la transformation affine 
+  $(x,y) \mapsto (x,\frac{b}{a}y)$. Ainsi
+  $(x_0,y_0) = (x_1,\frac{b}{a}y_1)$. En particulier 
+  $\frac{y_1}{x_1}= \frac{a}{b}\frac{y_0}{x_0}$.
+
+
+  \item Ensuite si on note $r$ la distance $OP_0$ alors
+  $x_0 = r \cos \bar\varphi$ et $y_0 = r \sin \bar\varphi$ et ainsi :
+  $$\tan \bar\varphi 
+  = \frac{\sin \bar\varphi}{\cos \bar\varphi} 
+  = \frac{y_0}{x_0}
+  .$$
+  
+  \item Comme $x_1 = a \cos \theta$, $y_1 = a \sin \theta$ alors
+  $$\tan \theta 
+  = \frac{y_1}{x_1} 
+  = \frac{a}{b}\frac{y_0}{x_0}
+  = \frac{a}{b} \tan \bar\varphi.$$
+  
+  \item Obtenir une relation avec la latitude géographique $\varphi$ demande
+  de connaître la verticale du lieu. Par définition de l'angle $\varphi$, 
+  un vecteur (unitaire) vertical en $P_0$ est 
+  $$ \vect{u} = \begin{pmatrix}\cos \varphi \\ \sin \varphi \end{pmatrix}.$$
+  
+  Nous avons besoin d'une autre façon de calculer la direction verticale.
+  Pour cela on utilise le fait que si une courbe a pour équation
+  $f(x,y)=0$ et passe par le point $(x_0,y_0)$ alors 
+  une équation de la tangente au point $(x_0,y_0)$ est :
+  $$\frac{\partial f}{\partial x}(x_0,y_0) (x-x_0) + \frac{\partial f}{\partial y}(x_0,y_0)(y-y_0) = 0.$$
+  
+\myfigure{1}{  
+  \tikzinput{fig_gps_coord_11}
+}
+  
+  Autrement dit le gradient 
+  $$\begin{pmatrix} \frac{\partial f}{\partial x}(x_0,y_0) \\ \frac{\partial f}{\partial y}(x_0,y_0) \end{pmatrix}$$
+  est orthogonal à la tangente à la courbe en ce point.
+
+  On applique ceci à l'ellipse définie par l'équation $f(x,y)=0$ où 
+  $f(x,y) = \frac{x^2}{a^2}+\frac{y^2}{b^2} - 1$.
+  Comme 
+  $$\frac{\partial f}{\partial x}(x_0,y_0) = \frac{2x_0}{a^2}
+  \quad \text{ et } \quad \frac{\partial f}{\partial y}(x_0,y_0) = \frac{2y_0}{b^2}.$$
+  Alors le vecteur gradient est 
+  $$\vect v = \begin{pmatrix}\frac{2x_0}{a^2} \\ \frac{2y_0}{b^2} \end{pmatrix}.$$
+  
+
+  Ainsi le vecteur 
+  $\vect u = \left(\begin{smallmatrix}\cos \varphi \\ \sin \varphi \end{smallmatrix}\right)$ et le vecteur 
+  gradient $\vect v$ sont deux vecteurs colinéaires, ce qui implique que
+  $$\begin{pmatrix}\cos \varphi \\ \sin \varphi \end{pmatrix} = k \begin{pmatrix}\frac{2x_0}{a^2} \\ \frac{2y_0}{b^2} \end{pmatrix}$$
+  pour un certain $k\in\Rr$. En particulier 
+  $$\tan \varphi = \frac{\sin\varphi}{\cos\varphi} 
+  = \frac{\frac{2y_0}{b^2}}{\frac{2x_0}{a^2}} = \frac{a^2}{b^2}\frac{y_0}{x_0}= \frac{a^2}{b^2} \tan \bar\varphi.$$
+\end{enumerate}
+
+\end{proof}
+
+
+%---------------------------------------------------------------
+\subsection{Coordonnées géographiques}
+
+
+\begin{theoreme}
+Pour un point $P = (x,y,z)$ ayant une latitude géographique $\varphi$ et une altitude $h$
+alors
+$$\left\{ 
+\begin{array}{rcl}
+x &=& (N+h) \cos \varphi \\
+y &=& \left(\frac{b^2}{a^2}N+h\right)\sin\varphi 
+\end{array}
+\right.$$
+où 
+$$N = \frac{a}{\sqrt{1-\left(1-\frac{b^2}{a^2}\right)\sin^2 \varphi}}.$$
+\end{theoreme}
+
+Si on note $P_0$ le point de $(OP)$ situé à la surface de la Terre, alors 
+la valeur $N$ (qui dépend de la latitude $\varphi$) est la distance $P_0$, c'est-à-dire la distance entre 
+$P_0$ et l'axe $(Oy)$, mesurée le long de la verticale en $P_0$.
+
+
+
+\myfigure{1}{  
+  \tikzinput{fig_gps_coord_12}
+}
+
+Si $e$ est l'excentricité de l'ellipse alors $e^2 = 1-\frac{b^2}{a^2}$, donc 
+$N= \frac{a}{\sqrt{1-e^2\sin^2 \varphi}}$.
+Cette valeur $N$ est aussi le rayon de courbure de l'ellipse au point $P_0$. En effet
+l'ellipse étant symétrique par rapport à l'axe $(Oy)$, le centre de courbure doit appartenir à l'axe $(Oy)$.
+Ainsi le rayon de courbure est bien cette longueur $N$.
+
+Les formules en dimension $3$ pour un ellipsoïde sont similaires, elles découlent du théorème
+en prenant une section de la Terre passant les pôles et le point $P$ :
+\begin{corollaire}
+Pour un point $P = (x,y,z)$ de latitude géographique $\varphi$, 
+de longitude $\lambda$ et d'altitude $h$ alors 
+$$\left\{ 
+\begin{array}{rcl}
+x &=& (N+h) \cos \varphi \cos\lambda \\
+y &=& (N+h) \cos \varphi \sin\lambda \\
+z &=& \left(\frac{b^2}{a^2}N+h\right)\sin\varphi 
+\end{array}
+\right.$$
+où 
+$\displaystyle N = \frac{a}{\sqrt{1-\left(1-\frac{b^2}{a^2}\right)\sin^2 \varphi}}.$
+\end{corollaire}
+
+\begin{exemple}
+Les satellites GPS sont lancés depuis la base de Cap Canaveral en Floride.
+Sa latitude est $\varphi = \ang{28.475630}$, 
+sa longitude $\lambda = \ang{-80.565834}$
+et se situe au niveau de la mer.
+Calculer les coordonnées $(x,y,z)$ de la base, tout d'abord pour le modèle sphérique, en prenant
+$R = \SI{6 371,0}{\kilo\meter}$ comme rayon moyen de la Terre.
+Faire le même calcul pour le modèle ellipsoïdal avec
+$a = \SI{6378.137}{\kilo\meter}$, $b = \SI{6356.752}{\kilo\meter}$.
+
+\begin{enumerate}
+  \item Il s'agit d'appliquer les formules sphériques :
+$$\left\{\begin{array}{rcl}
+x_1 & = & R \cos \varphi \cos \lambda \simeq \num{918.0}\\
+y_1 & = & R \cos \varphi \sin \lambda \simeq \num{-5524.5}\\
+z_1 & = & R \sin \varphi \simeq \num{3037.6}
+\end{array}\right.$$  
+
+  \item Pour le modèle ellipsoïdal on commence par calculer le rayon de 
+  courbure $N$ (qui dépend de la latitude $\varphi$):
+  $$N = \frac{a}{\sqrt{1-\left(1-\frac{b^2}{a^2}\right)\sin^2 \varphi}}\simeq \num{6383.0}$$
+  Puis on applique les formules ellipsoïdales (avec ici $h=0$):
+$$\left\{ 
+\begin{array}{rcl}
+x_2 &=& N \cos \varphi \cos\lambda  \simeq \num{919.7}\\
+y_2 &=& N \cos \varphi \sin\lambda  \simeq \num{-5534.9}\\
+z_2 &=& \frac{b^2}{a^2}N \sin\varphi  \simeq \num{3022.9}
+\end{array}
+\right.$$  
+\end{enumerate}
+On constate des écarts de plusieurs kilomètres entre les deux modèles.
+
+
+
+
+\end{exemple}
+
+
+
+\begin{proof}[Preuve du théorème]~
+
+\textbf{Coordonnées de $P_0$.}  
+
+Notons $N$ la longueur $P_0R$.
+Alors dans la triangle rectangle d'hypoténuse $P_0R$ on a 
+$$x_0 = N \cos \varphi.$$
+
+D'après la proposition \ref{prop :gpstangente} on a
+$$y_0 = x_0 \tan \bar\varphi = x_0 \frac{b^2}{a^2} \tan \varphi 
+= N \cos \varphi\frac{b^2}{a^2} \frac{\sin\varphi}{\cos \varphi} = N\frac{b^2}{a^2}\sin\varphi.$$
+
+
+\textbf{Calcul de $N$.}   
+
+Le point $P_0 = (x_0,y_0)$ est sur l'ellipse d'équation 
+$\frac{x^2}{a^2}+\frac{y^2}{b^2} = 1$.
+En substituant les valeur de $x_0$ et $y_0$ obtenues juste au-dessus on obtient
+
+\begin{align*}
+         & \quad \frac{x_0^2}{a^2}+\frac{y_0^2}{b^2} = 1 \\
+\implies & \quad \frac{N^2 \cos^2 \varphi}{a^2}+\frac{b^4}{a^4}\frac{N^2 \sin^2 \varphi}{b^2} = 1 \\
+\implies & \quad N^2 \left( (1-\sin^2\varphi) + \frac{b^2}{a^2}\sin^2 \varphi \right) = a^2 \\
+\implies & \quad N = \frac{a}{\sqrt{1-\left(1-\frac{b^2}{a^2}\right)\sin^2 \varphi}}
+\end{align*}
+
+\textbf{Coordonnées de $P$.} 
+
+Rappelons que $\vect u$ est un vecteur unitaire dirigé suivant la verticale du lieu :
+$$ \vect{u} = \begin{pmatrix}\cos \varphi \\ \sin \varphi \end{pmatrix}.$$
+
+De l'identité vectorielle 
+$$\vect{OP} = \vect{OP_0} + h \vect{u}$$
+on déduit 
+$$\begin{pmatrix}x\\y\end{pmatrix}
+= \begin{pmatrix}x_0\\y_0\end{pmatrix} + h \begin{pmatrix}\cos \varphi \\ \sin \varphi \end{pmatrix}.$$
+Ce qui donne
+$$\begin{pmatrix}x\\y\end{pmatrix}
+= \begin{pmatrix}(N+h) \cos \varphi \\ 
+  \left(\frac{b^2}{a^2}N+h\right)\sin\varphi  
+  \end{pmatrix}$$
+
+\end{proof}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Position approchée}
+
+%---------------------------------------------------------------
+\subsection{Les erreurs}
+
+Einstein disait : \og En théorie, la théorie et la pratique sont identiques.
+En pratique, elles sont différentes !\fg{} 
+En théorie, $4$ satellites permettent de déterminer la position exacte (parmi deux possibles).
+En pratique, il est illusoire d'espérer une précision absolue, car 
+il existe une multitude de sources possibles d'erreurs, les principales sont  :
+\begin{itemize}
+  \item des perturbations du signal lorsqu'il traverse l'atmosphère
+  (l'ionosphère et la troposphère) ; 
+  
+  \item des erreurs de mesures des instruments, principalement 
+  des erreurs de mesure du temps ; 
+  
+  \item des erreurs dues aux effets de la physique relativiste (effets qu'il est possible de modéliser) ;  
+  
+  \item des erreurs sur la position des satellites ;
+  
+  \item des erreurs dues à une mauvaise configuration des satellites.
+\end{itemize}
+
+Il existe d'autres sources d'erreurs  :
+\begin{itemize}
+  \item des erreurs dans les calculs numériques ;
+  \item une dégradation volontaire possible du signal, car le GPS reste avant tout
+  un service de l'armée des \'Etats-Unis.
+\end{itemize}
+
+Une première conséquence de toutes ces erreurs, c'est qu'il est illusoire de
+chercher une solution exacte pour notre position. Aussi dans la pratique, on
+se contente de chercher une solution approchée, et d'appliquer des méthodes
+d'approximation qui sont beaucoup plus rapides : nous étudierons 
+la méthode de linéarisation.
+La deuxième conséquence est qu'il faut pallier à toutes ces erreurs pour 
+obtenir une position assez précise. La façon la plus efficace est d'utiliser plus  
+que les $4$ satellites indispensables. Nous verrons comment déterminer
+une position optimale à partir d'un nombre quelconque de satellites.
+
+
+
+%---------------------------------------------------------------
+\subsection{Calcul par linéarisation (dimension 1)}
+
+On commence par un modèle simple, en une dimension.
+L'équation à résoudre en dimension $1$, avec un seul satellite est
+$$(x-x_1)^2=r_1^2.$$
+On note $f(x) = (x-x_1)^2-r_1^2$.
+Il s'agit donc de trouver $x$ tel que $f(x)=0$ (on oublie qu'ici on pourrait trouver une solution exacte).
+Une méthode classique et efficace est la méthode de Newton.
+Expliquons-la d'abord géométriquement, on part d'une valeur 
+$a_0$ et on construit une suite $(a_n)$ qui va tendre
+(très vite) vers un zéro de $f$. On construit
+d'abord la tangente à la courbe de $f$ au point d'abscisse $a_0$,
+cette tangente recoupe l'axe des abscisse en une abscisse que l'on note
+$a_1$. On recommence le processus  : on construit la tangente au point d'abscisse $a_1$\ldots
+On remplace localement la courbe par une droite,
+d'où le nom du processus  : la linéarisation. 
+
+
+\myfigure{1.2}{  
+  \tikzinput{fig_gps_erreur_01}
+}
+
+Passons à la partie calculs. Pour un point $a$, la tangente en 
+$a$ admet pour équation :
+$$y = f(a) + f'(a)(x-a).$$
+Trouver l'intersection avec l'axe des abscisses 
+d'équation $(y=0)$ revient 
+à résoudre l'équation $0 = f(a) + f'(a)(x-a)$.  
+Ce qui conduit à $x = a - \frac{f(a)}{f'(a)}$.
+Ainsi on définit par récurrence, la suite
+\begin{equation}
+\label{eq :gpsnewt1}
+a_{n+1} = a_n - \frac{f(a_n)}{f'(a_n)}
+\end{equation}
+Comme $f'(x) = 2(x-x_1)$, on trouve explicitement  :
+$$a_{n+1} = a_n - \frac12 \left( (a_n-x_1) - 
+\frac{r_1^2}{a_n-x_1} \right).$$
+
+Une étude de fonction et de suite récurrente prouve le résultat suivant
+pour notre fonction $f(x) = (x-x_1)^2-r_1^2$.
+\begin{proposition}
+Fixons $a_0 \in \Rr$. La suite définie par la relation de récurrence
+\mybox{$\displaystyle a_{n+1} = a_n - \frac{f(a_n)}{f'(a_n)}$}
+converge vers une solution de $f(x)=0$.
+\end{proposition}
+
+
+Une remarque importante  : une équation de la tangente est $(g(x)=0)$ où
+$g(x) = f(a) + f'(a)(x-a)$ ce qui correspond au développement limité à l'ordre $1$ de $f$.
+On remplace donc la recherche d'un zéro de $f$ par celle, beaucoup plus facile, 
+d'un zéro de $g$. Le zéro de $g$ obtenu ne répond qu'approximativement au problème, mais on
+peut recommencer le processus jusqu'à obtenir la précision souhaitée. 
+
+
+%---------------------------------------------------------------
+\subsection{Calcul par linéarisation (dimension 2)}
+
+En dimension $2$, chacun des deux satellites correspond à une fonction  :
+$$f_1(x,y) = (x-x_1)^2+(y-y_1)^2-r_1^2 \qquad f_2(x,y) = (x-x_2)^2+(y-y_2)^2-r_2^2$$
+qui donne deux équations $(f_1(x,y)=0)$ et $(f_2(x,y)=0)$.
+Il s'agit donc de linéariser la fonction $f_1$ (et la fonction $f_2$)
+en prenant leur développement limité à l'ordre $1$ en un point $(a,b)$  :
+$$g_1(x,y) = f_1(a,b) + (x-a) \frac{\partial f_1}{\partial x}(a,b)+ (y-b) \frac{\partial f_1}{\partial y}(a,b)$$
+$$g_2(x,y) = f_2(a,b) + (x-a) \frac{\partial f_2}{\partial x}(a,b)+ (y-b) \frac{\partial f_2}{\partial y}(a,b)$$
+Au lieu de chercher l'intersection $\big(f_1(x,y)=0\big) \cap\big(f_2(x,y)=0\big)$
+on cherche l'intersection $\big(g_1(x,y)=0\big) \cap \big(g_2(x,y)=0\big)$, ce qui en notation vectorielle conduit à :
+$$\begin{pmatrix}0\\0\end{pmatrix}
+= \begin{pmatrix}f_1(a,b)\\f_2(a,b)\end{pmatrix}
++ \begin{pmatrix}
+  \frac{\partial f_1}{\partial x}(a,b) & \frac{\partial f_1}{\partial y}(a,b) \\
+  \frac{\partial f_2}{\partial x}(a,b) & \frac{\partial f_2}{\partial y}(a,b)
+  \end{pmatrix}
+\begin{pmatrix}x-a\\y-b\end{pmatrix}$$
+Notons $J(a,b)$ la matrice jacobienne  :
+$$J(a,b) = \begin{pmatrix}
+  \frac{\partial f_1}{\partial x}(a,b) & \frac{\partial f_1}{\partial y}(a,b) \\
+  \frac{\partial f_2}{\partial x}(a,b) & \frac{\partial f_2}{\partial y}(a,b)
+  \end{pmatrix}$$
+alors, on doit résoudre 
+$$J(a,b) \begin{pmatrix}x-a\\y-b\end{pmatrix} = - \begin{pmatrix}f_1(a,b)\\f_2(a,b)\end{pmatrix}$$
+Si $J(a,b)$ est inversible alors on trouve
+$$ \begin{pmatrix}x-a\\y-b\end{pmatrix} = -J(a,b)^{-1}\begin{pmatrix}f_1(a,b)\\f_2(a,b)\end{pmatrix}$$
+donc 
+$$\begin{pmatrix}x\\y\end{pmatrix} = \begin{pmatrix}a\\b\end{pmatrix}-J(a,b)^{-1}\begin{pmatrix}f_1(a,b)\\f_2(a,b)\end{pmatrix}$$
+
+\begin{proposition}
+Partant d'un point quelconque 
+$\left(\begin{smallmatrix}a_0\\b_0\end{smallmatrix}\right)$ on définit par récurrence la suite de points 
+\mybox{$\displaystyle
+\begin{pmatrix}a_{n+1}\\b_{n+1}\end{pmatrix} = \begin{pmatrix}a_n\\b_n\end{pmatrix}-J(a_n,b_n)^{-1}\begin{pmatrix}f_1(a_n,b_n)\\f_2(a_n,b_n)\end{pmatrix}
+$}
+Cette suite converge vers une solution $(x,y)$ vérifiant $f_1(x,y)=0$ et $f_2(x,y)=0$.
+\end{proposition}
+
+Nous admettons cette proposition.
+
+La formule de récurrence 
+\begin{equation}
+\label{eq :gpsnewt2}
+\begin{pmatrix}a_{n+1}\\b_{n+1}\end{pmatrix} = \begin{pmatrix}a_n\\b_n\end{pmatrix}-J(a_n,b_n)^{-1}\begin{pmatrix}f_1(a_n,b_n)\\f_2(a_n,b_n)\end{pmatrix}
+\end{equation}
+est comparable à 
+la formule (\ref{eq :gpsnewt1}) si l'on considère que $J(a,b)$ joue le rôle de la dérivée.
+Connaissant $f_1(x,y) = (x-x_1)^2+(y-y_1)^2-r_1^2$
+et $f_2(x,y) = (x-x_2)^2+(y-y_2)^2-r_2^2$, on calcule
+$$J(a,b) = \begin{pmatrix}
+  \frac{\partial f_1}{\partial x}(a,b) & \frac{\partial f_1}{\partial y}(a,b) \\
+  \frac{\partial f_2}{\partial x}(a,b) & \frac{\partial f_2}{\partial y}(a,b)
+  \end{pmatrix}
+  = 2 \begin{pmatrix}a-x_1&b-y_1\\a-x_2&b-y_2\end{pmatrix}$$
+
+La matrice $J(a,b)$ est donc inversible si les vecteurs
+$(a-x_1,b-y_1)$ et $(a-x_2,b-y_2)$ ne sont pas colinéaires.
+Autrement dit, si les points
+$(a,b)$, $(x_1,y_1)$, $(x_2,y_2)$ ne sont pas alignés.
+
+
+
+Voici une interprétation géométrique de la linéarisation  :
+on cherche une solution qui doit appartenir au cercle d'équation $(f_1(x,y)=0)$.
+Pour cela on part d'un point $(a,b)$ hors du cercle, on note
+$\delta = f_1(a,b) \neq 0$ qui mesure l'écart entre le point $(a,b)$ 
+et le cercle.
+Par définition de $g_1$ on a aussi $g_1(a,b)=\delta$.
+Les courbes d'équation $g_1(x,y)= \text{cst}$ sont des droites
+perpendiculaires à la droite passant par $(x_1,y_1)$ et $(a,b)$.
+
+Nous ce qui nous intéresse ce sont les points du cercle $(f_1(x,y)=0)$,
+la méthode de linéarisation consiste à remplacer ce cercle par 
+les points de la droite $(g_1(x,y)=0)$. Cette droite 
+est une droite proche (mais pas égale) à la tangente au cercle.
+
+\myfigure{0.5}{  
+  \tikzinput{fig_gps_erreur_02}  
+}
+
+
+Dans la situation de deux satellites, on souhaite trouver une des intersections
+de deux cercles $(f_1(x,y)=0)$ et $(f_2(x,y)=0)$. Partant d'un $(a_0,b_0)$
+quelconque, on calcule les fonctions $g_1$ et $g_2$ associées à ce point $(a_0,b_0)$.
+On trace les deux droites d'équation $(g_1(x,y)=0)$ et $(g_2(x,y)=0)$.
+Elles se coupent en un point $(a_1,b_1)$ assez proche de l'intersection des cercles.
+On recommence en partant du point $(a_1,b_1)$ pour lequel on calcule de
+nouvelles fonctions $g_1$, $g_2$, qui fournissent deux nouvelles droites, dont l'intersection
+est encore plus proche de notre solution.
+
+\myfigure{0.7}{  
+  \tikzinput{fig_gps_erreur_03}  
+}
+
+
+\begin{exemple}
+On reçoit le signal d'un satellite avec $(x_1,y_1)=(0,0)$, $r_1=4$
+et d'un second avec $(x_2,y_2)=(5,2)$, $r_2=3$.
+La dernière position connue est $(a_0,b_0)=(1,6)$. Où sommes nous ?
+
+Nous allons chercher notre position approchée par la méthode de linéarisation.
+On pose 
+$$f_1(x,y) = x^2+y^2-4^2 \qquad f_2(x,y) = (x-5)^2+(y-2)^2-3^2$$
+Donc
+$$J(a,b) = 2 \begin{pmatrix}a&b\\a-5&b-2\end{pmatrix}$$
+
+\begin{itemize}
+  \item \textbf{\'Etape 0.} $\begin{pmatrix}a_0\\b_0\end{pmatrix}=\begin{pmatrix}1\\6\end{pmatrix}$
+  \item \textbf{\'Etape 1.} Nous avons :
+  $$J(a_0,b_0) = \begin{pmatrix}1&6\\-4&4\end{pmatrix}\qquad
+  \begin{pmatrix}f_1(a_0,b_0)\\f_2(a_0,b_0)\end{pmatrix}=\begin{pmatrix}21\\23\end{pmatrix}$$
+  Donc
+  $$\begin{pmatrix}a_{1}\\b_{1}\end{pmatrix} = \begin{pmatrix}a_0\\b_0\end{pmatrix}-J(a_0,b_0)^{-1}\begin{pmatrix}f_1(a_0,b_0)\\f_2(a_0,b_0)\end{pmatrix}
+  = \begin{pmatrix}1\\6\end{pmatrix} - \begin{pmatrix}2&12\\-8&8\end{pmatrix}^{-1} \begin{pmatrix}21\\23\end{pmatrix}
+  = \begin{pmatrix}55/28\\229/56\end{pmatrix}
+  \simeq \begin{pmatrix} \num{1.9643}\\\num{4.0893}\end{pmatrix}$$
+  \item \textbf{\'Etape 2.} 
+  $$J(a_1,b_1) = \begin{pmatrix}55/14&229/28\\-85/14& 117/28\end{pmatrix}\qquad
+  \begin{pmatrix}f_1(a_1,b_1)\\f_2(a_1,b_1)\end{pmatrix}
+  =\begin{pmatrix}14365/3136\\14365/3136\end{pmatrix}$$
+  Donc
+  $$\begin{pmatrix}a_{2}\\b_{2}\end{pmatrix} = \begin{pmatrix}a_1\\b_1\end{pmatrix}-J(a_1,b_1)^{-1}\begin{pmatrix}f_1(a_1,b_1)\\f_2(a_1,b_1)\end{pmatrix}
+  = \begin{pmatrix}23223/10360\\14073/4144\end{pmatrix}
+  \simeq \begin{pmatrix} \num{2.2416}\\\num{3.3960}\end{pmatrix}$$
+  \item \textbf{\'Etape 2.} Après calculs
+  $$\begin{pmatrix}a_{3}\\b_{3}\end{pmatrix} \simeq \begin{pmatrix} \num{2.2862}\\\num{3.2845}\end{pmatrix}$$
+\end{itemize}
+Les solutions exactes s'obtiennent par calculs algébriques :
+$$\begin{pmatrix}\frac{90}{29}-\frac{4}{29}\sqrt{35}\\ \frac{36}{29}+\frac{10}{29} \sqrt{35} \end{pmatrix} \simeq \begin{pmatrix}\num{2.2874} \\ \num{3.2814}\end{pmatrix} \qquad
+\begin{pmatrix}\frac{90}{29}+\frac{4}{29}\sqrt{35}\\ \frac{36}{29}-\frac{10}{29} \sqrt{35} \end{pmatrix} \simeq \begin{pmatrix}\num{3.9194} \\ \num{-0.7986}\end{pmatrix}$$
+
+\`A la fin de l'étape 2, sur le dessin, on ne distingue plus 
+la solution approchée $(a_2,b_2)$ de la solution exacte.
+Sur le dessin, seule la construction de $(a_0,b_0)$ vers $(a_1,b_1)$ est dessinée. 
+\myfigure{0.8}{  
+  \tikzinput{fig_gps_erreur_04}
+}
+  
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Passage à un système surdimensionné}
+
+
+Quelque soit la méthode de résolution, par linéarisation ou par 
+calcul exact, on est amené à résoudre un (ou plusieurs) système linéaire
+de type $AX=B$.
+Jusqu'ici nous avons toujours supposé qu'il y a avait autant d'inconnues
+(dans le cas le plus général $(x,y,z,t)$)
+que d'équations (une équation par satellite). Ce qui fait que la matrice $A$ est une matrice 
+carrée, et le plus souvent inversible, ce qui permet de résoudre le système linéaire
+en : $X = A^{-1} B$.
+
+Comment profiter de la réception de plus de signaux ? Parmi les $30$ satellites
+du système GPS, tous ne sont pas \og visibles \fg{} par l'utilisateur.
+Cependant il y a bien souvent entre $7$ et $10$ signaux reçus.
+Nous allons voir comment en profiter. 
+
+
+Il faut tout d'abord bien comprendre qu'en théorie rajouter plus d'équations
+ne change rien : les solutions restent les mêmes.
+En pratique c'est différent, du fait des erreurs inévitables il n'y a aucun point
+qui satisfasse toutes les équations ; cependant on souhaite trouver un point
+qui répond au mieux au problème.
+En théorie (figure de gauche) un point est solution de toutes les équations,
+en pratique même si aucun point n'est solution, une zone de points est à privilégier
+(zoom de la figure de droite).
+\myfigure{0.9}{  
+  \tikzinput{fig_gps_erreur_05}\quad
+  \tikzinput{fig_gps_erreur_06}
+}
+
+
+Dans le cadre plus général nous avions $p=4$ inconnues $(x,y,z,t)$
+(mais souvent pour les exemples on se contentait de $(x,y)$).
+On note $X$ le vecteur colonne des inconnues, c'est un vecteur de taille $p$.
+Chaque satellite fournit une équation linéaire, donc avec $n$ satellites
+on aboutit à un système linéaire 
+$$AX=B$$
+où $A \in M_{n,p}$ est une matrice avec $n$ lignes et $p$ colonnes,
+le second membre $B$ est un vecteur colonne de taille $n$.
+
+Dans le cas qui nous intéresse ici, $n\ge p$, 
+$A\in M_{n,p}$ n'est plus une matrice carrée,
+parler de son inverse n'a plus de sens.
+
+%---------------------------------------------------------------
+\subsection{Méthode des moindres carrés}
+
+
+Soit $A \in M_{n,p}$ une matrice, $X$ un vecteur inconnu de taille $p$ et
+$B$ un vecteur de taille $n$.
+Comme il n'y a en général pas de solution $X$,
+au système $AX=B$, il faut se mettre d'accord sur le $X$ qui 
+convient, comme il faut que $AX-B$ soit le plus proche du vecteur nul,
+on définit  :
+\begin{definition}
+Une \defi{solution des moindres carrés} $X$ est un vecteur
+tel que $\| AX -B \|$ soit le plus petit possible.
+\end{definition}
+
+Si on note le vecteur 
+$C = AX-B = \left(\begin{smallmatrix}c_1\\c_2\\\vdots\\c_n\end{smallmatrix}\right)$ alors 
+$$\| C \|^2 = \langle C \mid C \rangle = C^T \cdot C = c_1^2 + c_2^2+\cdots+c_n^2$$
+Il s'agit donc de minimiser cette somme des carrés, d'où le nom \og moindres carrés \fg.
+
+\begin{proposition}
+\sauteligne
+\begin{enumerate}
+  \item Une solution au problème des moindres carrés $AX=B$ existe et est unique.
+  \item La solution des moindres carrés est donnée par la formule 
+  $$X = (A^TA)^{-1} A^T B$$ 
+  \item Géométriquement, si $Y$ est le projeté orthogonal de $B$
+  sur le sous-espace vectoriel engendré par les vecteurs colonnes de la matrice 
+  $A$, alors $X$ est la solution du système $AX=Y$.
+\end{enumerate} 
+\end{proposition}
+
+
+Remarque : nous admettons (et nous supposons) que la matrice $A^TA$ est inversible 
+lorsque $A$ est de rang maximal (donc de rang $p$, car pour nous $n \ge p$).
+Expliquons la caractérisation géométrique.
+
+\myfigure{1.2}{  
+  \tikzinput{fig_gps_erreur_07}
+}
+
+Pour une matrice $A \in M_{n,p}$, voici des définitions équivalentes de l'\defi{image} de $A$ :
+Notons $v_1,v_2,\ldots,v_p$ les $p$ colonnes de la matrice $A$.
+
+\begin{itemize}
+  \item $\Im A = \Vect(v_1,v_2,\ldots,v_p)$ est le sous-espace vectoriel de $\Rr^n$ engendré par 
+  les $p$ vecteurs colonnes $v_1,v_2,\ldots,v_p$ de la matrice $A$. Autrement dit:
+  $$\Im A = \Vect(v_1,v_2,\ldots,v_p) = \big\lbrace x_1v_1+\cdots +x_pv_p \in\Rr^n\mid x_1,\ldots,x_p \in \Rr\big\rbrace$$
+  
+  \item $\Im A$ est l'ensemble des vecteurs images par $A$ :
+  $$\Im A = \big\lbrace AX \mid X \in \Rr^p \big\rbrace$$
+\end{itemize}
+
+Dire que le problème $AX=B$ n'a pas de solution exacte, c'est dire 
+que le vecteur $B$ n'appartient pas à $\Im A$.
+Soit $Y = p(B)$ le projeté orthogonal de $B$ sur $\Im A$. 
+\begin{itemize}
+  \item D'une part $Y \in \Im A$ et $Y$ minimise la distance entre $B$ et les points de $\Im A$,
+autrement dit $\| Y-B\| \le \| Y'-B\|$ quelque soit $Y'\in\Im A$. C'est une des 
+caractérisations géométriques de la projection orthogonale.
+  
+  \item D'autre part comme $Y \in \Im A$ alors il existe $X \in \Rr^p$ tel que 
+  $AX = Y$.
+\end{itemize}
+
+
+\begin{exemple}
+On reçoit $4$ signaux sous la forme de $4$ droites du plan.
+On cherche quel est le point du plan \og le plus proche \fg{}  de toutes les droites.
+Les équations sont les suivantes :
+$$D_1 : \quad (x=4) \qquad D_2 :\quad (y=3) \qquad
+D_3 : \quad (x-2y=0) \qquad D_4 : \quad (x+y=4)$$
+
+Bien sûr dans le cas de deux droites le point \og le plus proche \fg{} 
+serait le point d'intersection. Dans l'idéal on aimerait donc trouver un point commun 
+à toutes les droites, c'est-à-dire que l'on aimerait résoudre le système linéaire
+$$\left\lbrace\begin{array}{cccl}
+x&&=&4\\
+&y&=&3\\
+x&-2y&=&0\\
+x&+y&=&4\\
+\end{array}\right.$$
+Autrement dit on voudrait $X$ avec: 
+$$AX = B \quad \text{ où } \quad 
+X=\begin{pmatrix}x\\y\end{pmatrix}\quad
+A=\begin{pmatrix}1&0\\0&1\\1&-2\\1&1\end{pmatrix}\quad
+B=\begin{pmatrix}4\\3\\0\\4\end{pmatrix}$$
+
+Il n'y a aucune solution $X$ à ce problème, les droites
+n'étant pas concourantes. On décide d'appeler point \og le plus proche \fg{}
+la solution $X$ du problème des moindres carrés.
+Ainsi 
+$$X = (A^TA)^{-1} A^T B$$
+On calcul
+$$A^TA  
+= \begin{pmatrix}1&0&1&1\\0&1&-2&1\end{pmatrix}\begin{pmatrix}1&0\\0&1\\1&-2\\1&1\end{pmatrix}
+= \begin{pmatrix}3&-1\\-1&6\end{pmatrix} \quad  \text{ donc }
+(A^TA)^{-1} = \frac{1}{17} \begin{pmatrix}6&1\\1&3\end{pmatrix}$$
+Donc 
+$$(A^TA)^{-1} A^T = 
+\frac{1}{17} \begin{pmatrix}6&1&4&7\\1&3&-5&4\end{pmatrix}$$
+et ainsi :
+$$X = (A^TA)^{-1} A^T B = \begin{pmatrix}55/17\\29/18\end{pmatrix}
+\simeq \begin{pmatrix}\num{3.235}\\\num{1.706}\end{pmatrix}$$
+
+\myfigure{1}{  
+  \tikzinput{fig_gps_erreur_08}
+}
+  
+\end{exemple}
+
+
+\begin{proof}~
+\begin{enumerate}
+  \item L'existence découle du troisième point, 
+  l'unicité du deuxième.
+  
+  \item On a déjà dit que l'on aimerait résoudre l'équation $AX-B=0$, 
+  mais il n'y a pas de solution en général. On cherche donc $AX-B$ le plus petit possible.
+  Il s'agit donc de minimiser $\|AX-B\|$, où ce qui revient au même $\|AX-B\|^2$.
+  Comme dans le cas d'une variable, lorsqu'il y a un minimum  la dérivée s'annule. 
+  On cherche donc un point où la dérivée s'annule 
+  ($\dd$ dénote l'application de dérivation) :
+  \begin{eqnarray*}
+    && \dd  \big(  c_1^2 + c_2^2+\cdots+c_n^2 \big) = 0 \\
+    & \iff & \dd \|AX-B\|^2 = 0 \\
+    & \iff & \dd \big((AX-B)^T(AX-B)\big) = 0 \\  
+    & \iff & \big(\dd (AX-B)^T\big)(AX-B) + (AX-B)^T\big(\dd (AX-B)\big)  = 0
+    \quad \text{par la formule } (uv)'=u'v+uv' \\
+    & \iff & (A\dd X)^T(AX-B) + (AX-B)^T (A\dd X)  = 0
+    \quad \text{car $A$ et $B$ sont des constantes et $X$ est la variable}  \\  
+    & \iff & (2A\dd X)^T(AX-B) = 0 
+    \quad \text{car pour des vecteurs } u^T \cdot v = \langle u \mid v \rangle = v^T \cdot u \\
+    & \iff & \dd X^T A^T(AX-B) = 0 \\
+    & \iff & \dd X^T (A^TAX-A^TB) = 0  
+    \quad \text{(quel que soit $\dd X$)}\\
+    & \iff & A^TAX-A^TB = 0 \\
+    & \iff & A^TAX = A^TB \quad \text{(attention $A^T$ n'est pas inversible, mais $A^TA$ oui)}\\
+    & \iff & X = (A^TA)^{-1} A^TB \\
+  \end{eqnarray*}
+  Conclusion : si un $X$ existe alors il est unique et c'est  $X = (A^TA)^{-1} A^TB$.
+  
+  \item C'est l'une des caractérisation du projeté orthogonal : $p(B)$ est le point de $\Im A$
+  qui minimise la distance entre $B$ et un point de $\Im A$. Cette propriété entraîne en particulier 
+  l'existence de $X$. Vérifions que le calcul précédent coïncide avec le calcul de la projection orthogonale.
+  
+  Soit $p : \Rr^n \to \Rr^n$ la projection orthogonale sur $\Im A$.
+  
+  Notons $Y=p(B)$. Que $Y$ soit la projection orthogonale de $B$ sur $\Im A$ signifie
+  que le vecteur $B-Y$ est orthogonal à tous vecteurs de $\Im A$:
+  \begin{eqnarray*}
+    && \langle AV \mid B-Y \rangle = 0 \quad \forall V \in \Rr^p \\
+    & \iff & \langle AV \mid B-AX \rangle = 0 \quad \forall V \in \Rr^p \quad \text{ pour } Y=AX\\
+    & \iff & (AV)^T \cdot (B-AX)= 0 \quad \forall V \in \Rr^p \quad \text{ car } \langle u \mid v\rangle = u^T\cdot v\\
+    & \iff & V^T  A^T (B-AX)= 0 \quad \forall V \in \Rr^p \\    
+    & \iff & A^T (B-AX)= 0 \\
+    & \iff & A^TAX= A^T B \\
+    & \iff & X = (A^TA)^{-1} A^TB \\    
+  \end{eqnarray*}    
+\end{enumerate}
+
+\end{proof}
+
+
+
+%---------------------------------------------------------------
+\subsection*{Bibliographie}
+
+\begin{itemize}
+  \item Stephen Bancroft, 
+\emph{An algebraic solution of the GPS equations.}
+IEEE Transactions, 1985.
+  
+  \item Pierre-André Chevalier, 
+\emph{Comment le GPS calcule-t-il sa position ?}
+\texttt{\href{https://staff.hti.bfh.ch/cip1/gps/}{Une introduction didactique à la géométrie du GPS.}}
+2002.
+  
+  \item Wolfgang Torge, 
+\emph{Geodesy.}
+de Gruyter, 2001.
+\end{itemize}
+
+
+
+
+\auteurs{
+Arnaud Bodin
+
+Relu par Bernard Callenaere
+}
+
+\finchapitre
+\end{document}
+

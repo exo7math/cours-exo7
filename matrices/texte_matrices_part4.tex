@@ -1,0 +1,217 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+Dans ce chapitre nous allons voir une méthode pour calculer l'inverse 
+d'une matrice quelconque de manière efficace. 
+Cette méthode est une reformulation de la méthode du pivot de Gauss pour les systèmes linéaires.
+
+\change
+Mais tout d'abord, nous commencerons par une formule directe dans le cas simple des matrices $2\times 2$.
+
+\change
+Puis nous verrons la méthode de Gauss dans le cadre général.
+
+\change
+Enfin, nous étudierons en détail un exemple de détermination d'une inverse.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Commençons par le cas particulier des matrices $2\times 2$. Considérons la matrice $2\times 2$ :
+$A = \begin{pmatrix}
+ a & b\\
+ c & d       
+     \end{pmatrix}.
+$ 
+
+\change
+On a alors la proposition suivante.
+
+Si $ad - bc \not= 0$,  alors, d'une part, la matrice $A$ est inversible et, d'autre part, on connaît son inverse :
+$A^{-1} = \frac{1}{ad-bc} \begin{pmatrix}
+d & -b\\
+ -c & a
+\end{pmatrix}$
+ 
+\change
+La démonstration est directe. 
+On appelle $B=\frac{1}{ad-bc}  \left(\begin{smallmatrix}
+d & -b\\
+ -c & a
+\end{smallmatrix}\right)$, qui est notre candidat pour l'inverse de $A$. 
+
+\change 
+On vérifie alors facilement que le produit $AB$ est égal à la matrice identité d'ordre $2$,
+
+\change
+de même que le produit $BA$. 
+
+Ma matrice $B$ vérifie $AB=BA=I$ : la matrice $A$ est donc inversible, et son inverse est $B$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Plaçons nous à présent dans le cas général.
+
+\change
+La méthode pour inverser une matrice quelconque $A$ consiste à faire des opérations élémentaires sur les lignes de la matrice $A$ jusqu'à la transformer en la matrice identité $I$. Nous allons voir dans un instant en quoi consistent ces opérations élémentaires sur les lignes.
+
+\change
+On fait *simultanément* les mêmes opérations élémentaires en partant de la matrice identité $I$. 
+
+\change
+A la fin, lorsque la matrice $A$ est transformée en $I$, alors la matrice $I$ initiale est transformée en $A^{-1}$. 
+%La démonstration sera vue dans la section suivante.
+
+\change
+En pratique, on fait les deux opérations en même temps sur $A$ et sur $I$ en adoptant la disposition suivante : à côté de la matrice $A$ que l'on veut inverser, on ajoute la matrice identité pour former un tableau $(A\ |\ I)$. 
+
+\change
+Sur les lignes de cette matrice augmentée, on effectue des opérations élémentaires jusqu'à obtenir le tableau $(I\ |\ B)$. 
+
+\change
+Et alors $B=A^{-1}$.
+
+\change
+Ces opérations élémentaires sur les lignes sont les suivantes:
+
+\change
+on peut remplacer une ligne $L_i$ par $\lambda L_i$ où $\lambda\neq 0$, c'est-à-dire qu'on peut multiplier une ligne par un réel non nul,
+    
+\change
+on peut aussi ajouter à la ligne $L_i$ un multiple d'une autre ligne $L_j$.
+  
+\change
+enfin on peut échanger deux lignes $L_i$ et $L_j$.
+
+
+N'oubliez pas : tout ce que vous faites sur la partie gauche de la matrice augmentée, vous devez aussi le faire sur la partie droite.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Passons tout de suite à un exemple, et calculons l'inverse de la matrice $A$ suivante.
+
+\change
+Voici la matrice augmentée, ici la matrice $A$ que l'on souhaite inverser
+et ici la matrice identité et aussi les lignes numérotées.
+
+Il s'agit donc de transformer de ce coté, la matrice $A$ en l'identité, 
+par des opérations élémentaires sur les lignes. 
+On commence par la première colonne. On a déjà un $1$ ici. 
+On applique donc la méthode de Gauss pour faire apparaître des $0$ en dessous.
+
+\change
+On s'occupe d'abord de la deuxième ligne. On conserve la première ligne 
+et la troisième ligne.
+
+\change
+Pour faire apparaître un $0$ en début de deuxième ligne on fait 
+l'opération élémentaire
+$L_2 \leftarrow L_2 - 4 L_1$ 
+
+
+\change
+Sur la partie gauche on obtient 
+
+$4-4\times1=0$ (c'est ce que l'on voulait), 
+
+$0-4\times2 =-8$, 
+
+$-1-4\times1 =-5$, 
+
+\change
+Et on fait la même opération sur la partie droite $L_2 \leftarrow L_2 - 4 L_1$ 
+ce qui donne 
+
+$0-4\times1 =-4$, 
+
+$1-4\times0 =1$, 
+
+et $0-4\times 0=0$.
+
+\change
+On souhaite à présent faire apparaître un $0$ sur la première colonne, à la troisième ligne, 
+on conserve telles quelles nos deux premières lignes.
+
+\change
+Et on remplace $L_3$ par $L_3 + L_1$.
+
+\change
+Ce qui donne a gauche $0,4,3$ 
+
+\change
+et à droite $1 0 1$.
+
+Ce n'est bien sûr pas encore fini.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voilà où nous nous en sommes arrêté. Passons à présent à la deuxième colonne.
+On veut un $1$ ici et des zéros ici et là.
+
+\change
+On multiplie la ligne $L_2$ afin qu'elle commence par $1$, c'est-à-dire qu'on la multiplie par $-1/8$
+
+\change
+et on obtient donc ceci.
+
+\change
+On continue afin de faire apparaître un $0$ sous le $1$ que l'on vient d'obtenir.
+Par la substitution $L_3 \leftarrow L_3 -4L_2$.
+
+\change
+On obtient à gauche $0, 0, \frac12$.
+
+
+\change
+et on multiplie la ligne $L_3$ par $2$ pour obtenir un $1$ en bas à droite.
+
+\change
+Ce qui termine la première partie de la méthode de Gauss.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+A l'étape précédente, nous avons obtenu cette matrice, c'est-à-dire qu'à gauche de notre matrice augmentée, nous avons à présent des $1$ sur la diagonale et des $0$ en dessous. Il ne reste plus qu'à "remonter" pour faire apparaître des zéros au-dessus de la diagonale.
+
+\change
+On fait apparaître un $0$ ici en remplaçant $L_2$ par $L_2-\frac{5}{8} L_3$
+
+\change
+et enfin, on fait simultanément apparaître des $0$ sur la première ligne en remplaçant $L_1$ par $L_1-2L_2-L_3$.
+
+On a juste combiné deux opérations élémentaires.
+
+C'est terminé ! 
+On a bien obtenu à gauche la matrice identité. Ainsi l'inverse de $A$ est la matrice obtenue à droite,
+
+\change
+et après avoir factorisé tous les coefficients par $\frac14$, on a obtenu ceci.
+
+\change
+Pour se rassurer sur ses calculs, on n'oublie pas de vérifier rapidement que $A \times A^{-1} = I$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Mettez immédiatement ce que vous venez d'apprendre en pratique !
+
+\end{document}

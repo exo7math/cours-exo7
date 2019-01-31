@@ -1,0 +1,396 @@
+
+\input{../preamb-texte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\debuttexte
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+\change
+
+
+Dans cette troisième  partie du chapitre sur les systèmes linéaires, nous allons parler de la méthode du pivot de Gauss.
+
+
+\change
+
+Nous commencerons par définir ce qu'est un système échelonné,
+
+\change
+
+puis nous parlerons des opérations sur un système qui permettent de conserver un système équivalent,
+
+\change
+
+avant de passer à la méthode du pivot en elle-même.
+
+\change
+
+Nous conclurons en examinant le cas particulier des systèmes homogènes.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Nous commençons donc par la définition de *système échelonné*. 
+C'est un système dont le nombre de coefficients nuls en début de ligne croit 
+d'au moins $1$ lorsque l'on passe d'une ligne à une autre.
+
+\change
+
+Si de plus le premier coefficient non nul de chaque ligne vaut $1$, 
+et que c'est le seul élément non nul sur sa colonne, on dit que le système est *échelonné réduit*.
+
+\change
+
+Voici deux exemples.
+Le premier système est échelonné : le nombre de coefficients nuls en début de ligne, ici
+aucun, là $1$ coefficient nul, ici $3$, augmente de ligne en ligne. 
+Mais il n'est pas réduit, car par exemple la première ligne commence par le coefficient $2$.
+
+\change
+
+
+Le deuxième système n'est pas échelonné : la dernière ligne commence 
+avec la même variable que la ligne au-dessus.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Il se trouve que les systèmes linéaires sous une forme échelonnée réduite 
+sont particulièrement simples à résoudre. L'exemple suivant le montre bien :
+
+\change
+
+Ce système se résout facilement, on trouve :
+
+$$\left\{\begin{array}{ccc}
+x_1&=&25-2x_3\\
+x_2&=&16+2x_3\\
+x_4&=&1.
+\end{array}\right.
+$$
+
+\change
+
+
+
+En d'autres termes, pour toute valeur de $x_3$ réelle, 
+les valeurs de $x_1$, $x_2$ et $x_4$ calculées ci-dessus fournissent 
+une solution du système, et on les a ainsi toutes obtenues. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Les trois opérations suivantes permettent de passer d'un système linéaire
+à un système linéaire %sans changer l'ensemble des solutions.
+*équivalent*, en d'autres termes on ne change pas l'ensemble des solutions.
+
+\change
+
+\begin{enumerate}
+	\item Première opération : $L_i \leftarrow \lambda L_i$ 
+	
+	\change
+	
+	on peut multiplier une ligne par un réel *non nul*.
+	
+\change
+
+	\item Deuxième opération : $L_i \leftarrow L_i+\lambda L_j$
+	
+	
+	\change
+	
+	on peut ajouter à une équation un multiple d'une *autre* équation (attention ici $j\neq i$ signifie que les équations sont distinctes).
+	
+\change
+
+	\item Troisième opération : $L_i \leftrightarrow L_j$
+	
+	\change
+	
+	l'échange de deux équations.
+	
+\change
+
+Chacune de ces opérations ne change pas l'ensemble des solutions.
+
+Les systèmes avant et celui obtenu après l'opération sont équivalents.
+
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Utilisons ces opérations élémentaires pour résoudre le système suivant.
+
+\change
+
+On garde les lignes 1 et 3.
+
+\change
+
+Commençons par l'opération $L_2 \leftarrow L_2 - 2L_1$ : 
+on soustrait à la deuxième équation deux fois la première équation.
+
+\change
+
+On obtient un système équivalent avec une nouvelle deuxième ligne (plus simple) :
+$-3y -9z  =  -3$
+
+\change
+
+Ensuite on garde les 2 premières lignes.
+
+\change
+
+
+
+On effectue $L_3 \leftarrow L_3 + L_1$  pour simplifier la troisième ligne, 
+
+\change
+
+ce qui donne : $-2y -2z  =  -6$.
+
+
+\change
+
+On continue pour faire apparaître un coefficient $1$ en tête de la deuxième ligne ;
+pour cela on divise la ligne $L_2$ par $-3$ :
+
+\change
+
+$y   +3z  =  1$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Repartant du système précédent,
+
+\change
+
+\change
+
+
+on applique l'opération $L_3 \leftarrow L_3 + 2L_2$  pour simplifier à nouveau la troisième ligne. 
+
+\change
+
+$4z  = -4$.
+
+\change
+
+\change
+
+Puis on divise la dernière ligne par $4$ 
+
+\change
+
+pour aboutir à un système échelonné :
+
+
+\change
+
+Avec un peut plus d'efforts, on pourrait même obtenir un système échelonné et réduit,
+
+c-à-d avec des $0$ ici, là et là.
+
+Cependant, ce n'est pas nécessaire, ce dernier système se résout aisément 
+de proche en proche en partant de la dernière ligne. On obtient ainsi $z=-1$,
+
+puis à partir de la deuxième ligne on obtient  $y=4$,
+
+et enfin en reportant les valeurs déjà obtenu dans la première ligne on trouve $x=2$. 
+L'unique solution du système est donc $(2,4,-1)$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+La méthode du pivot de Gauss permet de trouver les solutions de n'importe 
+quel système linéaire.
+Nous allons décrire cet algorithme sur un exemple.
+Il s'agit d'une description précise d'une suite d'opérations à effectuer, 
+qui dépendent de la situation et d'un ordre précis. Ce processus 
+aboutit toujours (et en plus assez rapidement)
+à un système échelonné puis réduit, qui conduit immédiatement aux solutions du système.
+
+\change
+
+La première étape est de passer à une forme échelonnée.
+
+\change
+
+
+
+Pour appliquer la méthode du pivot de Gauss, il faut 
+d'abord que le premier coefficient de la première ligne soit non nul.
+
+\change
+
+Comme ce n'est pas le cas ici,
+on conserve la troisième ligne.
+et on échange les deux premières lignes 
+
+\change 
+
+par l'opération élémentaire
+$L_1 \leftrightarrow L_2$ :
+
+
+\change
+
+Nous avons déjà un coefficient $1$ devant le $x_1$ de la première ligne.
+On dit que nous avons un \defi{pivot} en position $(1,1)$ (première ligne, première colonne).
+Ce pivot sert de base pour éliminer tous les autres termes sur la même colonne.
+
+Il n'y a pas de terme $x_1$ sur le deuxième ligne.
+Faisons disparaître le terme $x_1$ de la troisième ligne ;
+
+\change
+
+\change
+
+pour cela on fait l'opération élémentaire $L_3 \leftarrow L_3+L_1$ :
+
+$x_2   -3x_4  = 3$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+On change le signe de la seconde ligne ($L_2 \leftarrow -L_2$) pour faire apparaître 
+$1$ au coefficient du pivot $(2,2)$ (deuxième ligne, deuxième colonne) :
+
+\change
+
+ On fait disparaître le terme $x_2$ de la troisième ligne,
+ 
+\change
+ 
+par l'opération $L_3 \leftarrow L_3 -L_2$ :
+
+\change
+
+$2x_3 +10x_4  = 8$.
+
+
+\change
+ puis on fait apparaître un coefficient $1$ pour le pivot de la position $(3,3)$ :
+ 
+ 
+ \change
+ 
+$L_3 \leftarrow \frac12 L_3$
+
+\change
+
+Le système est maintenant sous forme échelonnée.  
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+Il reste à mettre le système sous forme échelonnée réduite :
+
+il s'agit de faire apparaître des zéros au-dessus des pivots.
+
+Pour cela, on ajoute à une ligne des multiples adéquats des lignes situées 
+au-dessous d'elle, en partant du bas à droite vers le haut à gauche.
+
+Repartant du dernier système obtenu, on fait apparaître des $0$ sur la troisième colonne en utilisant le pivot de la troisième ligne. 
+
+\change
+
+\change
+
+\change
+
+L'opération $L_2 \leftarrow L_2 + 2L_3$ permet d'obtenir un premier zéro en position $(2,3)$,
+
+\change
+
+\change
+
+\change
+
+puis l'opération $L_1 \leftarrow L_1 -3 L_3$ donne un zéro en position $(1,3)$.
+
+\change
+
+\change
+
+\change
+
+On fait apparaître des $0$ sur la deuxième colonne (en utilisant le pivot de la deuxième ligne) : 
+l'opération $L_1 \leftarrow L_1 + 2L_2$ permet d'obtenir un zéro en position $(1,2)$.
+
+Le système est sous forme échelonnée réduite.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le système est maintenant très simple à résoudre. En choisissant $x_4$ comme variable libre, on peut exprimer
+$x_1,x_2,x_3$ en fonction de $x_4$ :
+
+\change
+
+$$x_1=4x_4-2, \quad x_2 = 3x_4+3,\quad x_3=-5x_4+4.$$
+
+
+\change
+
+Ce qui permet d'obtenir toutes les solutions du système :
+$$\mathcal{S}= \big\lbrace (4x_4-2,3x_4+3,-5x_4+4,x_4) \mid x_4 \in \Rr \big\rbrace.$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Le fait que l'on puisse toujours se ramener à un système échelonné 
+réduit implique le résultat suivant :
+
+Tout système linéaire homogène dont le nombre d'inconnues est strictement 
+supérieur au nombre d'équations admet une infinité de solutions. 
+
+
+\change
+
+
+Par exemple, considérons le système homogène à cinq inconnues et quatre équations suivant :
+
+\change
+
+
+Après calculs, on trouve que sa forme échelonnée réduite est la suivante, ici il y a toujours 
+5 inconnues mais seulement 3 équations :
+
+\change
+
+On obtient que l'ensemble des solutions dépend des deux paramètres \(x_2\) et  \(x_5\), et est donc bien infini. 
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+
+Voici deux pages d'exercices pour vous aider à maîtriser la méthode du pivot de Gauss.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\diapo
+
+Voici la fin des exercices.
+
+\end{document}

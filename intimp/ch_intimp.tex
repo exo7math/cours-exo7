@@ -1,0 +1,1552 @@
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Intégrales impropres}
+%====================================================================
+
+\insertvideo{0NxdMew1QKQ}{partie 1. Définitions et premières propriétés}
+
+\insertvideo{lGj3dq9TKm0}{partie 2. Fonctions positives}
+
+\insertvideo{d80QLbhH9Mw}{partie 3. Fonctions oscillantes}
+
+\insertvideo{PPCTe04UgQo}{partie 4. Intégrales impropres sur un intervalle borné}
+
+\insertvideo{BIMHCDE-reY}{partie 5. Intégration par parties -- Changement de variable}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Définitions et premières propriétés}
+
+
+La plupart des intégrales que vous rencontrerez ne sont pas des
+aires de domaines bornés du plan. Nous allons apprendre ici à
+calculer les intégrales de domaines non bornés, 
+soit parce que
+l'intervalle d'intégration est infini (allant jusqu'à $+\infty$ ou $-\infty$), 
+soit parce que la fonction à intégrer tend vers l'infini aux bornes de
+l'intervalle. Pour assimiler ce chapitre, vous avez juste besoin d'une
+petite révision des techniques de calcul des primitives, et d'une
+bonne compréhension de la notion de limite.
+
+%---------------------------------------------------------------
+\subsection{Points incertains}
+
+
+
+Considérons par exemple la fonction $f$ qui à
+$t\in\;]-\infty,0[\cup]0,+\infty[$ associe $f(t) = \frac{\sin |t|}{|t|^{\frac32}}$.
+Comment donner un sens à l'intégrale de $f$ sur $\Rr$ ?
+
+\myfigure{0.8}{
+\tikzinput{fig_intimp01} 
+}
+
+\begin{itemize}
+  \item On commence d'abord par identifier les \defi{points incertains}, soit
+$+\infty$, soit $-\infty$ d'une part, et d'autre part le ou les points au voisinage
+desquels la fonction n'est pas bornée ($t=0$ dans notre exemple).
+  
+  \item On découpe ensuite chaque intervalle d'intégration en autant d'intervalles
+qu'il faut pour que chacun d'eux ne contienne qu'\evidence{un seul point
+incertain}, placé à l'une des deux bornes. 
+
+  \item Nous souhaitons une définition qui respecte la relation de Chasles.
+  Ainsi l'intégrale sur l'intervalle complet est la somme des
+intégrales sur les intervalles du découpage.
+
+  \item Dans l'exemple de la
+fonction $f(t)=\frac{\sin |t|}{|t|^{\frac32}}$ ci-dessus, 
+il faut découper les deux intervalles de définition $]-\infty,0[$ et $]0,+\infty[$
+en $4$ sous-intervalles : $2$ pour isoler
+$-\infty$ et $+\infty$, et $2$ autres pour le point incertain $0$.
+
+  \item On pourra écrire pour cet exemple :
+$$
+\int_{-\infty}^{+\infty} f(t)\;\dd t
+=
+\int_{-\infty}^{-1} f(t)\;\dd t+
+\int_{-1}^{0} f(t)\;\dd t+
+\int_{0}^{1} f(t)\;\dd t+
+\int_{1}^{+\infty} f(t)\;\dd t\;.
+$$
+  \item Le seul but est d'isoler les difficultés : les choix de $-1$ et $1$
+comme points de découpage sont arbitraires (par exemple $-3$ et $10$ auraient
+convenu tout aussi bien). 
+\end{itemize}
+
+
+%---------------------------------------------------------------
+\subsection{Convergence/divergence}
+
+
+Par ce découpage, et par changement de variable $t\mapsto-t$,
+on se ramène à des intégrales de deux types.
+\begin{enumerate}
+\item Intégrale sur $[a,+\infty[$.
+\item Intégrale sur $]a,b]$, avec la fonction non bornée en $a$.
+\end{enumerate}
+
+Nous devons donc définir une intégrale, appelée \defi{intégrale impropre}, dans ces deux cas.
+\begin{definition}
+\label{def:intcv}
+\begin{enumerate}
+\item Soit $f$ une fonction continue sur $[a,+\infty[$.
+On dit que l'intégrale $\int_a^{+\infty} f(t)\;\dd t$ \defi{converge} si
+la limite, lorsque $x$ tend vers $+\infty$, de la primitive 
+$\int_a^{x} f(t)\;\dd t$ existe et est finie. Si c'est le cas, on pose :
+\begin{equation}
+\label{intcv1}
+\int_a^{+\infty} f(t)\;\dd t = \lim_{x\rightarrow+\infty} 
+\int_a^x f(t)\;\dd t\;. 
+\end{equation}
+Dans le cas contraire, on dit que l'intégrale \defi{diverge}.
+
+\item Soit $f$ une fonction continue sur $]a,b]$.
+On dit que l'intégrale $\int_a^b f(t)\;\dd t$ \defi{converge} si
+la limite à droite, lorsque $x$ tend vers $a$, de 
+$\int_x^{b} f(t)\;\dd t$ existe et est finie. Si c'est le cas, on pose :
+\begin{equation}
+\label{intcv2}
+\int_a^{b} f(t)\;\dd t = \lim_{x\rightarrow a^+} 
+\int_x^b f(t)\;\dd t\;. 
+\end{equation}
+Dans le cas contraire, on dit que l'intégrale \defi{diverge}.
+\end{enumerate}
+\end{definition}
+
+
+\begin{remarque*}
+\begin{itemize}
+  \item Convergence équivaut donc à limite finie. Divergence signifie soit qu'il 
+  n'y a pas de limite, soit que la limite est infinie.
+  
+  \item Observons que la deuxième définition est cohérente avec l'intégrale d'une fonction 
+qui serait continue sur $[a,b]$ tout entier (au lieu de $]a,b]$).
+On sait que la primitive $\int_x^b f(t)\;\dd t$ est une fonction continue.
+Par conséquent, l'intégrale usuelle $\int_a^b f(t)\;\dd t$ est aussi
+la limite de $\int_x^b f(t)\;\dd t$ (lorsque $x \to a^+$). Dans ce cas, les 
+deux intégrales coïncident. 
+\end{itemize}
+\end{remarque*}
+
+
+
+%---------------------------------------------------------------
+\subsection{Exemples}
+
+Quand on peut calculer une primitive $F(x)$ de la fonction à intégrer (par 
+exemple $F(x)=\int_a^{x} f(t)\;\dd t$),
+l'étude de la convergence se ramène à un calcul de limite de $F(x)$. 
+Voici plusieurs exemples.
+
+
+\begin{exemple}
+L'intégrale
+$$
+\int_0^{+\infty} \frac{1}{1+t^2}\;\dd t\qquad \text{ converge.}
+$$
+En effet,
+$$
+\int_0^{x} \frac{1}{1+t^2}\;\dd t =\Big[\arctan t\Big]_0^x
+=\arctan x
+\qquad \text{ et } \qquad 
+\lim_{x\rightarrow+\infty}\arctan x = \frac{\pi}{2}\;.
+$$
+On pourra écrire :
+$$
+\int_0^{+\infty} \frac{1}{1+t^2}\;\dd t = \Big[\arctan t\Big]_0^{+\infty}
+=\frac{\pi}{2}\;,
+$$
+à condition de se souvenir que $\Big[\arctan t\Big]_0^{+\infty}$
+désigne une limite en $+\infty$.  
+
+\myfigure{1}{
+\tikzinput{fig_intimp07} 
+}
+
+Cela prouve que le domaine sous la courbe n'est pas borné, mais 
+cependant son aire est finie !
+\end{exemple}
+
+\begin{exemple}
+Par contre, l'intégrale
+$$
+\int_0^{+\infty} \frac{1}{1+t}\;\dd t\qquad \text{ diverge.}
+$$
+En effet,
+$$
+\int_0^{x} \frac{1}{1+t}\;\dd t = \Big[\ln(1+t)\Big]_0^x
+=\ln(1+x)
+\qquad \text{ et } \qquad 
+\lim_{x\rightarrow+\infty}\ln(1+x) = +\infty\;.
+$$  
+\end{exemple}
+
+\begin{exemple}
+L'intégrale
+$$
+\int_0^1 \ln t\;\dd t\qquad \text{ converge.}
+$$
+En effet,
+$$
+\int_x^1 \ln t\;\dd t = \Big[t\ln t-t\Big]_x^1 = x-x\ln x-1
+\qquad \text{ et } \qquad 
+\lim_{x\rightarrow 0^+} (x-x\ln x-1) = -1\;.
+$$
+On pourra écrire :
+$$
+\int_0^1 \ln t\;\dd t = \Big[t\ln t-t\Big]_0^1 = -1\;.
+$$  
+\end{exemple}
+
+\begin{exemple}
+Par contre, l'intégrale
+$$
+\int_0^1 \frac{1}{t}\;\dd t\qquad \text{ diverge.}
+$$
+En effet,
+$$
+\int_x^1 \frac{1}{t}\;\dd t = \Big[\ln t\Big]_x^1 = -\ln x
+\qquad \text{ et } \qquad 
+\lim_{x\rightarrow 0^+} -\ln x = +\infty\;.
+$$  
+\end{exemple}
+
+
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Relation de Chasles}
+
+Lorsqu'elle converge, cette nouvelle intégrale vérifie les mêmes 
+propriétés que l'intégrale de Riemann usuelle, à commencer par la relation de Chasles :
+
+\begin{proposition}[Relation de Chasles]
+Soit $f : [a,+\infty[ \to \Rr$ une fonction continue et soit
+  $a' \in [a,+\infty[$. 
+  Alors les intégrales impropres $\int_a^{+\infty} f(t) \;\dd t$ 
+  et $\int_{a'}^{+\infty} f(t) \;\dd t $ sont de même nature. 
+  Si elles convergent, alors 
+  \mybox{$\displaystyle \int_a^{+\infty} f(t) \;\dd t = \int_{a}^{a'} f(t) \;\dd t+ \int_{a'}^{+\infty} f(t) \;\dd t.$}
+\end{proposition}
+
+<<~\^Etre de même nature~>> signifie que les deux intégrales sont convergentes en même temps
+ou bien divergentes en même temps.
+
+Le relation de Chasles implique donc que la convergence ne dépend
+pas du comportement de la fonction sur des intervalles bornés,
+mais seulement de son comportement au voisinage de $+\infty$.
+
+\begin{proof}
+La preuve découle de la relation de Chasles pour les intégrales usuelles, avec $a \le a' \le x$ : 
+$$\int_a^x f(t) \;\dd t = \int_a^{a'}f(t) \;\dd t+\int_{a'}^x f(t) \;\dd t\;.$$
+Puis on passe à la limite (lorsque $x\to+\infty$).
+\end{proof}
+
+\bigskip
+
+Bien sûr, si on est dans le cas d'une fonction continue $f : \ ]a,b] \to \Rr$ avec
+$b' \in ]a,b]$, alors on a un résultat similaire, et en cas de convergence :
+  $$\int_a^{b} f(t) \;\dd t = \int_{a}^{b'} f(t) \;\dd t+ \int_{b'}^{b} f(t) \;\dd t.$$
+
+Dans ce cas la convergence de l'intégrale ne dépend pas de $b$, mais seulement 
+du comportement de $f$ au voisinage de $a$.
+
+
+%---------------------------------------------------------------
+\subsection{Linéarité}
+
+Le résultat suivant est une conséquence immédiate de la
+linéarité des intégrales usuelles et des limites.
+
+\begin{proposition}[Linéarité de l'intégrale]
+\label{prop:lineariteintegralescv}
+Soient $f$ et $g$ deux fonctions continues sur
+$[a,+\infty[$, et $\lambda,\mu$ deux réels. Si
+les intégrales $\int_a^{+\infty} f(t)\;\dd t$ et 
+$\int_a^{+\infty} g(t)\;\dd t$ convergent, alors 
+$\int_a^{+\infty} \big(\lambda f(t)+\mu g(t)\big)\;\dd t$ converge et
+$$\int_a^{+\infty} \big(\lambda f(t) + \mu g(t)\big)\;\dd t = \lambda \int_a^{+\infty}
+f(t)\;\dd t +\mu \int_a^{+\infty} g(t)\;\dd t\;.$$
+\end{proposition}
+
+\medskip
+
+Les mêmes relations sont valables pour les 
+fonctions d'un intervalle $]a,b]$, non bornées en $a$.
+
+Remarque : la réciprocité dans la linéarité est fausse,
+il est possible de trouver deux fonctions $f,g$ telles que
+$\int_a^{+\infty} f+g$ converge, sans que $\int_a^{+\infty} f$, ni
+$\int_a^{+\infty} g$ convergent. Trouvez un tel exemple !
+
+%---------------------------------------------------------------
+\subsection{Positivité}
+
+\begin{proposition}[Positivité de l'intégrale]
+Soient $f,g : [a,+\infty[ \to \Rr$ des fonctions continues, ayant une intégrale convergente.
+\mybox{$\displaystyle \text{ Si }\quad f \le g \quad \text{ alors }\quad
+\int_a^{+\infty} f(t)\;\dd t  \le \int_a^{+\infty} g(t)\;\dd t.$}
+\end{proposition}
+
+En particulier, l'intégrale (convergente) d'une fonction positive est positive :
+\mybox{Si \quad $f\ge 0$ \quad alors \quad $\displaystyle \int_a^{+\infty} f(t)\;\dd t \ge 0$}
+
+\medskip
+
+Une nouvelle fois, les mêmes relations sont valables pour les 
+fonctions définies sur un intervalle $]a,b]$, non bornées en $a$, 
+en prenant bien soin d'avoir $a<b$.
+
+\begin{remarque*}
+Si l'on ne souhaite pas distinguer les deux types d'intégrales impropres
+sur un intervalle $[a,+\infty[$ (ou $]-\infty,b]$) d'une part
+et $]a,b]$ (ou $[a,b[$) d'autre part, alors il est pratique de rajouter les deux extrémités 
+à la droite numérique :
+\[ \overline{\Rr}=\Rr\cup\{-\infty,+\infty\}  \]
+Ainsi l'intervalle $I=[a,b[$ avec $a\in \Rr$ et $b \in \overline{\Rr}$
+désigne l'intervalle infini $[a,+\infty[$ (si $b=+\infty$) 
+ou l'intervalle fini $[a,b[$ (si $b < +\infty$).
+De même pour un intervalle $I'=]a,b]$ avec $a=-\infty$ ou $a \in \Rr$.
+\end{remarque*}
+
+
+%---------------------------------------------------------------
+\subsection{Critère de Cauchy}
+
+On termine par une caractérisation de la convergence un peu plus délicate
+(qui peut être passée lors d'une première lecture).
+
+
+Rappelons d'abord le critère de Cauchy pour les limites.
+
+\textbf{Rappel} : 
+Soit $f : [a,+\infty[ \to \Rr$. 
+Alors $\lim_{x\to +\infty} f(x)$ existe et est finie  si et seulement si 
+$$\forall \epsilon>0\quad\exists M \ge a \qquad 
+\left( u,v \ge M \implies \big|f(u)-f(v)\big|<\epsilon\right).$$
+
+ 
+\begin{theoreme}[Critère de Cauchy]
+\label{th:intimpcauchy}
+Soit $f : [a,+\infty[ \to \Rr$ une fonction continue.
+L'intégrale impropre $\int_a^{+\infty} f(t) \; \dd t$ converge
+si et seulement si
+$$\forall \epsilon>0  \quad \exists  M \ge a \qquad
+\left( u,v \ge M \implies \Bigl|\int_u^v f(t) \;\dd t\Bigr|<\epsilon\right).$$
+\end{theoreme}
+
+\begin{proof}
+Il suffit d'appliquer le rappel ci-dessus à la fonction $F(x)=\int_a^x f(t) \; \dd t$ 
+et en notant que $\big|F(u)-F(v)\big|=\big|\int_u^vf(t)\; \dd t\big|$.
+\end{proof}
+
+%---------------------------------------------------------------
+\subsection{Cas de deux points incertains}
+
+On peut considérer les intégrales doublement impropres, c'est-à-dire lorsque les 
+deux extrémités de l'intervalle de définition sont des points incertains. Il s'agit juste de se ramener à deux 
+intégrales ayant chacune un seul point incertain.
+
+\begin{definition}
+Soient $a,b\in \overline{\Rr}$ avec $a<b$. 
+Soit $f : ]a,b[ \to \Rr$ une fonction continue.
+On dit que l'intégrale $\int_a^b f(t)\;\dd t$ \defi{converge} s'il existe
+$c \in ]a,b[$ tel que les \evidence{deux} intégrales
+impropres $\int_a^c f(t)\;\dd t$ et $\int_c^b f(t)\;\dd t$ convergent.
+La valeur de cette intégrale doublement impropre est alors
+$$\int_a^c f(t)\;\dd t+\int_c^b f(t)\;\dd t.$$
+\end{definition}
+
+Les relations de Chasles impliquent que la nature et la valeur de cette intégrale
+doublement impropre ne dépendent pas du choix de $c$, avec $a<c<b$.
+
+\medskip
+
+\textbf{Attention !}
+Si une des deux intégrales $\int_a^c f(t)\;\dd t$ ou bien
+$\int_c^b f(t)\;\dd t$ diverge, alors $\int_a^b f(t)\;\dd t$ diverge.
+Prenons l'exemple de $\int_{-x}^{+x} t\;\dd t$ qui vaut toujours $0$,
+pourtant $\int_{-\infty}^{+\infty}t\;\dd t$ diverge ! En effet, quel que soit 
+$c\in \Rr$, $\int_{c}^{+x} t\;\dd t = \frac{x^2}{2}-\frac{c^2}{2}$ tend vers $+\infty$
+(lorsque $x\to+\infty$).
+
+
+\begin{exemple}
+Est-ce que l'intégrale suivante converge ?
+$$\int_{-\infty}^{+\infty} \frac{t \;\dd t}{(1+t^2)^2}$$
+
+On choisit (au hasard) $c=2$. Il s'agit de savoir si les deux intégrales
+$$\int_{-\infty}^{2} \frac{t \;\dd t}{(1+t^2)^2} \quad \text{ et } \quad 
+\int_{2}^{+\infty} \frac{t \;\dd t}{(1+t^2)^2}$$
+convergent.
+
+En notant qu'une primitive de $\frac{t}{(1+t^2)^2}$ est $-\frac12\frac{1}{1+t^2}$, on obtient :
+$$\int_{x}^{2} \frac{t \;\dd t}{(1+t^2)^2}
+= -\frac12 \Big[ \frac{1}{1+t^2}\Big]_{x}^{2}
+= -\frac12 \left(\frac15 - \frac{1}{1+x^2}\right)
+\to -\frac{1}{10} \quad \text{ lorsque } x \to -\infty.$$
+Donc $\int_{-\infty}^{2} \frac{t \;\dd t}{(1+t^2)^2}$ converge et vaut $-\frac{1}{10}$.
+
+De même $$\int_{2}^{x} \frac{t \;\dd t}{(1+t^2)^2}
+= -\frac12 \Big[ \frac{1}{1+t^2}\Big]_{2}^{x}
+= -\frac12 \left(\frac{1}{1+x^2}-\frac15\right)
+\to +\frac{1}{10} \quad \text{ lorsque } x \to +\infty.$$
+Donc $\int_{2}^{+\infty} \frac{t \;\dd t}{(1+t^2)^2}$ converge et vaut $+\frac{1}{10}$.
+
+
+Ainsi $\int_{-\infty}^{+\infty} \frac{t \;\dd t}{(1+t^2)^2}$ converge et vaut
+$-\frac{1}{10}+\frac{1}{10} = 0$. Ce n'est pas surprenant car la fonction est une fonction impaire.
+Refaites les calculs pour une autre valeur de $c$ 
+et vérifiez que l'on obtient le même résultat.
+
+\end{exemple}
+
+\bigskip
+\bigskip
+\bigskip
+
+On termine en expliquant le plan du reste du chapitre.
+Lorsque l'on ne sait pas calculer une primitive, on a
+recours à deux types de méthode : soit la fonction est de signe constant
+au voisinage du point incertain, soit elle change de signe une infinité de fois
+dans ce voisinage (on dit alors qu'elle <<~oscille~>>).
+Nous distinguerons aussi le cas où le point incertain est $\pm \infty$
+ou bien une valeur finie.
+Il y a donc quatre cas distincts, selon le type du point incertain, et le signe, constant ou
+non, de la fonction à intégrer. Ces quatre types sont schématisés
+dans la figure suivante et leur étude fait l'objet des sections suivantes. 
+
+\myfigure{0.8}{
+\tikzinput{fig_intimp02}
+\tikzinput{fig_intimp03}\\
+\tikzinput{fig_intimp04}
+\tikzinput{fig_intimp05}
+}
+
+Différents types d'intégrales :
+ intervalle non borné, fonction de signe constant ;
+ intervalle non borné, fonction oscillante ;
+ intervalle borné, fonction de signe constant ;
+ intervalle borné, fonction oscillante.
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+
+\begin{miniexercices}
+\begin{enumerate}
+  \item Pour chacune des intégrales suivantes, déterminer le point incertain, dire
+  si l'intégrale converge, et si c'est le cas, calculer la valeur de l'intégrale :
+  $$
+  \int_0^1 \frac{1}{\sqrt {1-t}} \;\dd t \qquad
+  \int_0^{+\infty}\cos t \;\dd t \qquad
+  \int_0^1 \frac{1}{1-t} \;\dd t \qquad
+  \int_{-\infty}^{\ln 2} e^t \;\dd t
+  $$
+  
+  \item Même exercice pour ces intégrales ayant deux points incertains :
+  $$
+  \int_{-\infty}^{+\infty} \frac{\dd t}{1+t^2} \qquad
+  \int_{-\infty}^{1} \frac{\dd t}{(t-1)^2} \qquad
+  \int_{-\infty}^{+\infty} e^{-|t|}\;\dd t \qquad
+  \int_0^{+\infty} \frac1t \;\dd t$$
+  
+   \item \'Ecrire la preuve de la linéarité des intégrales impropres. Même chose 
+   pour la positivité.
+   
+\end{enumerate}
+\end{miniexercices}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Fonctions positives}
+
+
+Nous considérons ici $\int_a^{+\infty} f(t)\;\dd t$, où $f$ est de
+signe constant au voisinage de $+\infty$. Quitte à réduire
+l'intervalle d'intégration, et à changer éventuellement le signe
+de $f$ s'il est négatif, 
+nous supposerons que la fonction est positive ou
+nulle sur l'intervalle d'intégration $[a,+\infty[$.
+
+\myfigure{1}{
+\tikzinput{fig_intimp02}
+}
+
+
+Rappelons que, par définition,
+$$
+\int_a^{+\infty} f(t)\;\dd t = \lim_{x\rightarrow +\infty} \int_a^x f(t)\;\dd t\;.
+$$
+Observons que si la fonction $f$ est positive, alors la primitive
+$\int_a^x f(t)\;\dd t$ est une fonction croissante de $x$ (car sa
+dérivée est $f(x)$). Quand $x$ tend vers l'infini, ou bien
+$\int_a^x f(t)\;\dd t$ est bornée, et l'intégrale $\int_a^{+\infty}
+f(t)\;\dd t$ converge, ou bien $\int_a^x f(t)\;\dd t$ tend vers
+$+\infty$. 
+
+
+%---------------------------------------------------------------
+\subsection{Théorème de comparaison}
+
+Si on ne peut pas (ou si on ne veut pas) calculer une primitive de $f$, 
+on étudie la convergence en
+comparant avec des intégrales dont la convergence est connue,
+gr\^ace au théorème suivant.
+
+\begin{theoreme}
+\label{th:comparaisonintegrales1}
+Soient $f$ et $g$ deux fonctions positives et continues sur
+$[a,+\infty[$. Supposons que $f$ soit majorée par $g$ au voisinage de
+$+\infty$ :
+$$
+\exists A\ge a \quad \forall t>A \qquad f(t)\le g(t)\;.
+$$
+\begin{enumerate}
+  \item Si \  $\int_a^{+\infty} g(t)\;\dd t$ \ converge alors \  $\int_a^{+\infty} f(t)\;\dd t$ \  converge.
+  \item Si \  $\int_a^{+\infty} f(t)\;\dd t$ \  diverge alors \  $\int_a^{+\infty} g(t)\;\dd t$ \  diverge.
+\end{enumerate}
+\end{theoreme}
+
+
+\begin{proof}
+Comme nous l'avons observé, la convergence des intégrales ne
+dépend pas de la borne de gauche de l'intervalle, et nous pouvons
+nous contenter d'étudier $\int_A^x f(t)\;\dd t$ et $\int_A^x g(t)\;\dd t$.
+Or en utilisant la positivité de l'intégrale, on obtient que, pour
+tout $x \ge A$,
+$$\int_A^x f(t)\;\dd t \le \int_A^x g(t)\;\dd t\;.$$ 
+Si $\int_A^{+\infty} g(t)\;\dd t$ converge, alors $\int_A^x f(t)\;\dd t$ est
+une fonction croissante et majorée par $\int_A^{+\infty} g(t)\;\dd t$,
+donc convergente. Inversement, si $\int_A^{x} f(t)\;\dd t$ tend vers
+$+\infty$, alors $\int_A^{x} g(t)\;\dd t$ tend vers $+\infty$ également.
+\end{proof}
+
+Voici une application typique du théorème \ref{th:comparaisonintegrales1} de comparaison.
+\begin{exemple}
+Montrons que l'intégrale 
+$$\int_1^{+\infty} t^\alpha e^{-t}\;\dd t\quad\text{ converge,}$$
+quel que soit le réel $\alpha$. 
+
+\begin{itemize}
+  \item Pour cela nous écrivons d'abord : $t^\alpha e^{-t} = t^\alpha e^{-t/2}\,e^{-t/2}$.
+  
+  \item On sait que $\lim_{t\rightarrow+\infty} t^\alpha e^{-t/2} =0$, pour tout $\alpha$, 
+  car l'exponentielle l'emporte sur les puissances de $t$.
+  
+  \item En particulier, il existe un réel $A>0$ tel que :
+$$\forall t>A\qquad t^\alpha e^{-t/2}\le 1\;.$$ 
+  
+  \item En multipliant les deux membres de l'inégalité 
+par $e^{-t/2}$ on obtient :
+$$\forall t>A\qquad t^\alpha e^{-t}\le e^{-t/2}\;.$$
+
+  \item Or l'intégrale $\int_1^{+\infty} e^{-t/2}\;\dd t$ converge. En effet :
+$$
+\int_1^x e^{-t/2}\;\dd t = \left[-2 e^{-t/2}\right]_1^x = 
+2e^{-1/2} -2e^{-x/2}
+\quad\text{ et }\quad
+\lim_{x\rightarrow+\infty} 2e^{-1/2} -2e^{-x/2} =
+2e^{-1/2}\;. 
+$$
+  
+  \item On peut donc appliquer le théorème \ref{th:comparaisonintegrales1} de
+comparaison : 
+puisque 
+$\int_1^{+\infty} e^{-t/2}\;\dd t$ converge, on en déduit que 
+$\int_1^{+\infty} t^\alpha e^{-t}\;\dd t$ converge aussi.
+\end{itemize}
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Théorème des équivalents}
+
+
+Gr\^ace au théorème \ref{th:comparaisonintegrales1} de comparaison, 
+on peut remplacer la fonction à intégrer par un équivalent au voisinage de $+\infty$ pour
+étudier la convergence d'une intégrale.
+
+\begin{theoreme}[Théorème des équivalents]
+\label{th:equivalentintegrales1}
+Soient $f$ et $g$ deux fonctions continues et strictement positives sur
+$[a,+\infty[$. Supposons qu'elles soient équivalentes au voisinage de $+\infty$, c'est-à-dire :
+$$\lim_{t\rightarrow+\infty}\frac{f(t)}{g(t)} = 1\;.$$
+Alors l'intégrale $\int_a^{+\infty} f(t)\;\dd t$ converge si et seulement si 
+$\int_a^{+\infty} g(t)\;\dd t$ converge.
+\end{theoreme}
+
+Attention : il est important que $f$ et $g$ soient positives !
+
+On notera le fait que $f$ et $g$ sont équivalentes au voisinage de $+\infty$ par : 
+$\displaystyle f(t) \ \underset{+\infty}{\sim}\ g(t)$.
+ 
+\begin{proof}
+Dire que deux fonctions sont équivalentes au voisinage de $+\infty$,
+c'est dire que leur rapport tend vers $1$, ou encore :
+$$\forall \epsilon>0\quad \exists A>a\quad \forall t>A \qquad
+\left|\frac{f(t)}{g(t)}-1\right|<\epsilon\;,$$
+soit encore :
+$$\forall \epsilon>0 \quad \exists A>a \quad \forall t>A \qquad (1-\epsilon)g(t)<f(t)<(1+\epsilon)g(t)\;.$$
+Fixons $\epsilon<1$, et appliquons le théorème \ref{th:comparaisonintegrales1} de comparaison
+sur l'intervalle $[A,+\infty[$. Si l'intégrale $\int_A^{+\infty}
+  f(t)\;\dd t$ converge, alors l'intégrale 
+$\int_A^{+\infty} (1-\epsilon)g(t)\;\dd t$ converge, donc l'intégrale
+  $\int_A^{+\infty} g(t)\;\dd t$ aussi par linéarité. 
+
+Inversement, si $\int_A^{+\infty} f(t)\;\dd t$ diverge, alors $\int_A^{+\infty}
+  (1+\epsilon) g(t)\;\dd t$ diverge, donc 
+$\int_A^{+\infty} g(t)\;\dd t$ diverge aussi. 
+\end{proof}
+
+\begin{exemple}
+Est-ce que l'intégrale 
+$$\int_1^{+\infty} \frac{t^5+3t+1}{t^3+4}e^{-t}\;\dd t\quad\text{ converge ?}$$
+Comme 
+$$\frac{t^5+3t+1}{t^3+4}e^{-t} \quad\underset{+\infty}{\sim}\quad t^2e^{-t}\;,
+$$
+et que nous avons déjà montré que l'intégrale 
+$\int_1^{+\infty} t^2e^{-t}\;\dd t$ converge, alors
+notre intégrale converge.
+\end{exemple}
+
+
+
+
+%---------------------------------------------------------------
+\subsection{Intégrales de Riemann}
+
+Pour l'étude de la convergence d'une intégrale pour laquelle on n'a pas de primitive, 
+l'utilisation des équivalents permet de se ramener 
+à un catalogue d'intégrales dont la nature est connue. Les
+plus classiques sont les intégrales de Riemann et de Bertrand.
+
+
+Une \defi{intégrale de Riemann} est :
+$$\int_1^{+\infty} \frac{1}{t^{\alpha}}\;\dd t$$\\
+où $\alpha>0$.
+
+
+Dans ce cas, la primitive est explicite :
+$$
+\int_1^{+\infty} \frac{1}{t^{\alpha}}\;\dd t = 
+\left\{
+\begin{array}{lcl}
+\displaystyle{\lim_{x\rightarrow+\infty} 
+\Big[\tfrac{1}{-\alpha+1}\frac{1}{t^{\alpha-1}}\Big]_1^x}
+&\quad\text{si}&\alpha\neq 1\\[2ex]
+\displaystyle{\lim_{x\rightarrow+\infty} 
+\Big[\ln t\Big]_1^x}
+&\quad\text{si}&\alpha= 1
+\end{array}
+\right.
+$$
+On en déduit immédiatement la nature (convergente ou divergente)
+des intégrales de Riemann.
+
+\medskip
+
+\mybox{
+
+\begin{minipage}{0.5\textwidth}\vspace*{-2ex}
+$$\text{Si } \quad \alpha > 1\quad \text{ alors }\quad 
+\int_1^{+\infty} \frac{1}{t^{\alpha}}\;\dd t \quad\text{ converge.}$$
+$$\text{Si } \quad \alpha\le 1\quad \text{ alors }\quad 
+\int_1^{+\infty} \frac{1}{t^{\alpha}}\;\dd t \quad\text{ diverge.}$$
+\end{minipage}
+}
+
+
+%---------------------------------------------------------------
+\subsection{Intégrales de Bertrand}
+
+Une \defi{intégrale de Bertrand} est 
+$$\int_2^{+\infty} \frac{1}{t\;(\ln t)^{\beta}}\;\dd t$$
+où $\beta \in \Rr$.
+
+
+La primitive est explicite :
+$$
+\int_2^{+\infty} \frac{1}{t\;(\ln t)^{\beta}}\;\dd t = 
+\left\{
+\begin{array}{lcl}
+\displaystyle{\lim_{x\rightarrow+\infty} 
+\Big[\tfrac{1}{-\beta+1}(\ln t)^{-\beta+1}\Big]_2^x}
+&\quad\text{si}&\beta\neq 1\\[2ex]
+\displaystyle{\lim_{x\rightarrow+\infty} 
+\Big[\ln(\ln t)\Big]_2^x}
+&\quad\text{si}&\beta= 1
+\end{array}
+\right.
+$$
+
+
+On en déduit la nature des intégrales de Bertrand.
+$$\text{Si } \beta > 1\quad \text{ alors }\quad
+\int_2^{+\infty}\frac{1}{t\;(\ln t)^{\beta}}\;\dd t
+\quad\text{ converge.}
+$$
+
+$$
+\text{Si } \beta\le 1\quad \text{ alors }\quad
+\int_2^{+\infty}\frac{1}{t\;(\ln t)^{\beta}}\;\dd t \quad\text{ diverge.}
+$$
+
+
+
+%---------------------------------------------------------------
+\subsection{Application}
+
+Voici un exemple d'application :
+\begin{exemple}
+Est-ce que l'intégrale 
+$$
+\int_2^{+\infty} 
+\sqrt{t^2+3t}\,\ln\left(\cos\frac{1}{t}\right)
+\,\sin^2\left(\frac{1}{\ln t}\right)\;\dd t\qquad \text{ converge ?}
+$$
+
+Le point incertain est $+\infty$. Pour répondre à la question, calculons un équivalent de la fonction au voisinage de $+\infty$.
+On a :
+$$\sqrt{t^2+3t} = t\sqrt{1+\frac{3}{t}} \quad  \underset{+\infty}{\sim}\quad   t$$
+$$\ln\left(\cos\frac{1}{t}\right) = 
+\ln\left(1-\frac{1}{2t^2}+o\left(\frac{1}{t^2}\right)\right)
+\quad \underset{+\infty}{\sim}\quad  -\frac{1}{2t^2}$$
+$$\sin^2\left(\frac{1}{\ln t}\right) 
+\quad\underset{+\infty}{\sim}\quad \left(\frac{1}{\ln t}\right)^2$$
+
+D'où un équivalent de la fonction au voisinage de
+$+\infty$ : 
+$$\sqrt{t^2+3t}\,\ln\left(\cos\frac{1}{t}\right)\,
+\,\sin^2\left(\frac{1}{\ln t}\right)
+\quad \underset{+\infty}{\sim}\quad  -\frac{1}{2t\;(\ln t)^2}$$
+
+Remarquons que dans cette équivalence les deux fonctions sont négatives 
+au voisinage de $+\infty$. 
+D'après le théorème \ref{th:equivalentintegrales1},
+les deux intégrales associées sont de même nature.
+Mais comme l'intégrale de Bertrand 
+$\int_2^{+\infty} \frac{1}{t\;(\ln t)^2}\;\dd t$ converge, 
+alors notre intégrale initiale est aussi convergente.
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+
+\begin{miniexercices}
+\begin{enumerate}
+  \item \'Etudier la convergence des intégrales suivantes :  
+  $$\int_{1}^{+\infty} \frac{1}{t}\sin\left(\frac{1}{t}\right) \;\dd t \qquad
+  \int_{\frac{3}{\pi}}^{+\infty}\ln\left(\cos\frac{1}{t}\right) \;\dd t \qquad
+  \int_{-\infty}^{+\infty} te^{-|t|}\;\dd t \qquad
+  \int_{-\infty}^{\ln 2} \frac{e^{-t}}{t^2+1}\;\dd t$$
+  
+  \item Montrer que $\int_1^{+\infty} (\ln t)^\alpha e^{-t}\;\dd t$ converge,
+quel que soit le réel $\alpha$. 
+
+  \item \'Etudier la convergence des intégrales suivantes, en fonction du paramètre $\alpha>0$ :
+  $$\int_{1}^{+\infty} \left(1-\sqrt[3]{1+\frac{1}{t^\alpha}}\right) \;\dd t \qquad
+  \int_{\frac{1}{\pi}}^{+\infty} \left(\frac{1}{t^\alpha}-\sin\frac{1}{t^\alpha}\right)  \;\dd t \qquad
+  \int_{-\infty}^{\pi} \alpha^t \;\dd t$$
+  
+  \item Discuter selon $\alpha>0$ et $\beta \in \Rr$ la nature de l'intégrale 
+  de Bertrand généralisée
+  $$\int_2^{+\infty} \frac{1}{t^\alpha(\ln t)^{\beta}}\;\dd t.$$
+  
+  \item Si $f : [a,+\infty[ \to \Rr$ est une fonction continue et positive telle que
+  $\int_a^{+\infty} f(t)\;\dd t = 0$, montrer alors que $f$ est identiquement nulle.
+  above
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Fonctions oscillantes}
+
+Nous considérons ici $\int_a^{+\infty} f(t)\;\dd t$, où $f(t)$
+oscille jusqu'à l'infini entre des valeurs positives et négatives.
+
+
+\myfigure{1}{
+\tikzinput{fig_intimp03}
+}
+
+La définition de l'intégrale impropre reste la même :
+$$\int_a^{+\infty} f(t)\;\dd t = \lim_{x\rightarrow +\infty} \int_a^x f(t)\;\dd t\;.$$
+
+Contrairement au cas des fonctions positives, où la limite était
+soit finie, soit égale à $+\infty$, tous les comportements sont
+possibles ici : les valeurs de $\int_a^x f(t)\;\dd t$ peuvent tendre vers
+une limite finie, vers $+\infty$ ou $-\infty$, ou bien encore osciller
+entre deux valeurs finies (comme $\int_a^x \sin t \;\dd t$), ou
+s'approcher alternativement de $+\infty$ et $-\infty$ (comme $\int_a^x
+t\sin t \;\dd t$). 
+
+
+%---------------------------------------------------------------
+\subsection{Intégrale absolument convergente}
+
+Le cas le plus favorable est celui où la \emph{valeur absolue} de $f$
+converge.
+
+\begin{definition}
+Soit $f$ une fonction continue sur $[a,+\infty[$. On dit que
+  $\int_a^{+\infty} f(t)\;\dd t$ est \defi{absolument convergente} si 
+$\int_a^{+\infty} \big|f(t)\big|\;\dd t$ converge.
+\end{definition}
+
+Le théorème suivant est souvent utilisé pour démontrer la
+convergence d'une intégrale. Malheureusement, il ne permet pas de
+calculer la valeur de cette intégrale. 
+
+\begin{theoreme}
+\label{th:acvimpliquecv}
+Si l'intégrale $\int_a^{+\infty} f(t)\;\dd t$ est absolument
+convergente, alors elle est convergente. 
+\end{theoreme}
+
+Autrement dit, être absolument convergent est plus fort qu'être convergent.
+
+
+\begin{proof} 
+C'est une conséquence du critère de Cauchy (théorème \ref{th:intimpcauchy})
+appliqué à $|f|$, puis à $f$.
+
+Comme $\int_a^{+\infty} \big|f(t)\big| \; \dd t$ converge
+alors par le critère de Cauchy (sens direct) :
+$$\forall \epsilon>0  \quad \exists  M \ge a \qquad
+\left( u,v \ge M \implies \int_u^v \big|f(t)\big| \;\dd t<\epsilon\right).$$
+Mais comme 
+$$\left|\int_u^v f(t) \;\dd t\right| \le \int_u^v \big|f(t)\big| \;\dd t < \epsilon$$
+alors par le critère de Cauchy (sens réciproque),
+$\int_a^{+\infty} f(t) \; \dd t$ converge.
+\end{proof}
+
+
+\begin{exemple}
+Par exemple,
+$$\int_1^{+\infty} \frac{\sin t}{t^2}\;\dd t\quad\text{ est absolument convergente,}$$
+donc convergente. 
+En effet, pour tout $t$,
+$$\frac{|\sin t |}{t^2}\le \frac{1}{t^2}\;.$$
+Or l'intégrale de Riemann $\int_1^{+\infty} \frac{1}{t^2}\;\dd t$ est
+convergente. D'où le résultat par le théorème \ref{th:comparaisonintegrales1} de comparaison.  
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+\subsection{Intégrale semi-convergente}
+
+\begin{definition}
+Une intégrale $\int_a^{+\infty} f(t)\;\dd t$ est \defi{semi-convergente} si 
+elle est convergente mais pas absolument convergente.
+\end{definition}
+
+\begin{exemple}
+\label{ex:abel}
+$$\int_1^{+\infty} \frac{\sin t }{t}\;\dd t \quad\text{ est semi-convergente.}$$
+
+Nous allons prouver qu'elle est convergente, mais pas absolument convergente.
+\begin{enumerate}
+
+  
+  \item \textbf{L'intégrale est convergente.}
+
+  Pour le montrer, effectuons une intégration par parties (avec $u'=\sin t$, $v=\frac1t$) :
+$$\int_1^x \frac{\sin t}{t}\;\dd t  = \left[\frac{-\cos t}{t}\right]_1^x
+-  \int_1^x \frac{\cos t}{t^2}\;\dd t\;.$$
+
+Examinons les deux termes :
+  \begin{itemize}
+    \item $\left[\frac{-\cos t}{t}\right]_1^x = -\frac{\cos x}{x}+\cos 1$.
+    Or la fonction $\frac{\cos x}{x}$ tend vers $0$ (lorsque $x \to +\infty$), 
+    car $\cos x$ est bornée et $\frac{1}{x}$ tend vers $0$.
+    Donc $\left[\frac{-\cos t}{t}\right]_1^x$ admet une limite finie (qui est $\cos 1$). 
+    
+    \item Pour l'autre terme, notons d'abord que 
+    $\int_1^{+\infty} \frac{\cos t}{t^2}\;\dd t$ est une intégrale absolument convergente.
+    En effet $\frac{| \cos t |}{t^2} \le \frac{1}{t^2}$
+    et l'intégrale de Riemann $\int_1^{+\infty} \frac{1}{t^2}\;\dd t$ converge.
+    
+    Par conséquent, $\int_1^{+\infty} \frac{\cos t}{t^2}\;\dd t$ converge, ce qui signifie exactement
+    que  $\int_1^{x} \frac{\cos t}{t^2}\;\dd t$ admet une limite finie.    
+  \end{itemize}
+
+Conclusion : $\int_1^x \frac{\sin t}{t}\;\dd t$ admet une limite finie (lorsque $x\to+\infty$), et 
+donc par définition $\int_1^{+\infty} \frac{\sin t}{t}\;\dd t$ converge.
+
+  
+  \item \textbf{L'intégrale n'est pas absolument convergente.}
+  
+  Voici un moyen de le vérifier. Comme $\big| \sin t \big|\le 1$ pour tout
+$t$, on a :
+$$\frac{|\sin t|}{t} \ge \frac{\sin^2 t}{t} = \frac{1-\cos(2t)}{2t}\;.$$
+En appliquant une intégration par parties à 
+$\frac{\cos(2t)}{t}$ (avec $u'=\cos(2t)$ et $v=\frac1t$), on obtient :
+$$\int_1^x \frac{1-\cos(2t)}{2t}\;\dd t
+ = \frac{1}{2}\Big[\ln t\Big]_1^x - \frac{1}{4}
+ \left[\frac{\sin(2t)}{t}\right]_1^x
+-\frac{1}{4}\int_1^x \frac{\sin(2t)}{t^2}\;\dd t.
+$$ 
+Or $\int_1^{+\infty}\frac{\sin(2t)}{t^2}\;\dd t$ converge absolument. 
+Des trois termes de la somme ci-dessus, les deux
+derniers convergent, et le premier tend vers $+\infty$. Donc
+l'intégrale diverge, et par le théorème \ref{th:comparaisonintegrales1} de comparaison, 
+l'intégrale $\int_1^{+\infty}
+\frac{|\sin t|}{t}\;\dd t$ diverge également.
+  
+\end{enumerate}  
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Théorème d'Abel}
+
+
+Pour montrer qu'une intégrale converge, quand elle n'est pas
+absolument convergente, on dispose du théorème suivant.
+
+\begin{theoreme}[Théorème d'Abel]
+\label{th:abelintcv1}
+Soit $f$ une fonction $\mathcal{C}^1$ sur $[a,+\infty[$, positive,
+décroissante, ayant une limite nulle en $+\infty$.
+Soit $g$ une fonction continue sur $[a,+\infty[$, telle que la
+primitive $\int_a^x g(t)\;\dd t$ soit bornée.
+Alors l'intégrale
+$$
+\int_a^{+\infty} f(t)\,g(t)\;\dd t\quad\text{ converge.}
+$$
+\end{theoreme}
+
+Avec $f(t)=\frac1t$ et $g(t)=\sin t$, on retrouve que 
+l'intégrale $\displaystyle \int_1^{+\infty} \frac{\sin t }{t}\;\dd t$ converge.
+
+\begin{proof} 
+C'est une généralisation de l'exemple \ref{ex:abel} précédent.
+Pour tout $x\ge a$, posons $G(x) = \int_a^x g(t)\;\dd t$. Par
+hypothèse, $G$ est bornée, donc il existe $M$ tel que, pour tout $x$,  
+$|G(x)|\le M$. Effectuons maintenant une intégration par parties :
+$$\int_a^x f(t)\,g(t)\;\dd t = \Big[ f(t)\,G(t)\Big ]_a^x 
+-\int_a^x f'(t)\,G(t)\;\dd t\;.$$
+Comme $G$ est bornée et $f$ tend vers $0$, le terme 
+entre crochets converge. Montrons maintenant que le second terme
+converge aussi, en vérifiant que 
+$$\int_a^{+\infty} f'(t)\,G(t)\;\dd t\quad
+\text{ est absolument convergente.} $$
+On a :
+$$\big|f'(t)\,G(t)\big| =\big|f'(t)\big|\,\big|G(t)\big| \le \big(-f'(t)\big)\,M\;,$$ 
+car $f$ est décroissante (donc $f'(t)\le 0$) et $|G|$ est bornée
+par $M$. Par le théorème \ref{th:comparaisonintegrales1} de comparaison, 
+il suffit donc de montrer que
+$\int_a^{+\infty} -f'(t) \;\dd t$ est convergente. Or :
+$$
+\int_a^x -f'(t)\;\dd t = f(a)-f(x)\quad \text{ et } \quad
+\lim_{x\rightarrow+\infty}(f(a)-f(x)) = f(a)\;. 
+$$ 
+\end{proof} 
+
+\begin{exemple}
+Comme exemple d'application, si $\alpha$ est un réel strictement
+positif, et $k$ un entier positif \emph{impair}, alors l'intégrale 
+$$
+\int_1^{+\infty} \frac{\sin^k(t)}{t^\alpha}\;\dd t\quad\text{ converge.}
+$$
+Remarquons que cette intégrale n'est absolument convergente que 
+pour $\alpha>1$.
+On vérifie que les hypothèses du théorème \ref{th:abelintcv1} sont
+satisfaites pour $f(t) = \frac{1}{t^\alpha}$ et $g(t)=\sin^k(t)$. Pour
+s'assurer que la primitive de $\sin^k$ est bornée, il suffit de
+penser à une linéarisation, qui transformera $\sin^k(t)$ en une
+combinaison linéaire des $\sin(\ell t)$, $\ell=1,\ldots, k$, dont la
+primitive sera toujours bornée.  
+\end{exemple}
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+
+\begin{miniexercices}
+\begin{enumerate}
+
+ 
+  \item Soient $f :[a,+\infty[ \to \Rr$ une fonction continue et $\alpha > \frac12$
+  tel que $\lim_{t\to+\infty} t^\alpha f(t) = 0$.
+  Montrer que l'intégrale $\int_a^{+\infty} \frac{f(t)}{t^\alpha}\;\dd t$ est  absolument convergente.
+  En déduire que si $P(t)$ est un polynôme alors
+  $\int_0^{+\infty} P(t)e^{-t}\;\dd t$ converge.
+
+
+  \item En admettant que le théorème d'Abel est vrai pour une fonction $g$ à valeurs complexes,
+  montrer que $\int_1^{+\infty} \frac{e^{\ii t}}{t^\alpha}\; \dd t$ est convergente pour tout $\alpha > 0$.
+  Est-elle toujours absolument convergente ?
+  
+  \item Montrer $\int_{n\pi}^{(n+1)\pi} \left|\frac{\sin t}{t}\right| \;\dd t \ge \frac{2}{(n+1)\pi}$.
+  (Indication : garder le sinus dans une première minoration.)
+  En utilisant un résultat sur les séries, en déduire une nouvelle démonstration du fait 
+  que l'intégrale $\int_\pi^{+\infty} \frac{\sin t}{t} \;\dd t$ n'est pas absolument convergente. 
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Intégrales impropres sur un intervalle borné}
+
+
+%---------------------------------------------------------------
+\subsection{Fonctions positives}
+
+Nous traitons ici le cas où la fonction à intégrer tend vers
+l'infini en l'une des bornes de l'intervalle d'intégration. 
+Le traitement est tout à fait analogue au cas d'une fonction positive 
+sur un intervalle non borné et l'on omettra les démonstrations.
+
+Quitte à réduire l'intervalle d'intégration, et à changer
+éventuellement le signe de $f$, nous pouvons supposer que la
+fonction est positive ou nulle sur l'intervalle d'intégration
+$]a,b]$, et tend vers $+\infty$ en $a$.  
+
+\myfigure{1}{
+\tikzinput{fig_intimp04}
+}
+
+Rappelons que, par définition,
+$$\int_a^b f(t)\;\dd t = \lim_{x\rightarrow a^+} \int_x^b f(t)\;\dd t\;.$$
+Observons que si la fonction $f$ est positive, alors 
+$\int_x^b f(t)\;\dd t$ croît quand $x$ décroît vers $a$ : 
+soit $\int_x^b f(t)\;\dd t$ est bornée, et l'intégrale $\int_a^b
+f(t)\;\dd t$ est convergente, soit $\int_x^b f(t)\;\dd t$ tend vers
+$+\infty$. 
+
+%---------------------------------------------------------------
+\subsection{Théorème de comparaison}
+
+
+\begin{theoreme}
+\label{th:comparaisonintegrales2}
+Soient $f$ et $g$ deux fonctions positives et continues sur $]a,b]$. 
+Supposons que $f$ soit majorée par $g$ au voisinage de $a$, c'est-à-dire :
+$$\exists \epsilon>0 \quad \forall t\in ]a,a+\epsilon] \qquad f(t)\le g(t)\;.$$
+\begin{enumerate}
+  \item Si \  $\int_a^b g(t)\;\dd t$ \  converge alors \  $\int_a^b f(t)\;\dd t$ \  converge.
+  \item Si \  $\int_a^b f(t)\;\dd t$ \  diverge alors \  $\int_a^b g(t)\;\dd t$ \  diverge.
+\end{enumerate}
+\end{theoreme}
+
+
+\begin{exemple}
+Fixons un réel $\alpha$. 
+Est-ce que l'intégrale 
+$$\int_0^1 \frac{(-\ln t)^\alpha}{\sqrt{t}}\;\dd t\quad\text{ converge ?}$$
+
+\begin{itemize}
+  \item Pour le savoir nous écrivons :
+$$\frac{(-\ln t)^\alpha}{\sqrt{t}} = \big((-\ln t)^\alpha t^{1/4}\big)\,t^{-3/4}\;. $$
+  
+  \item On sait que $\lim_{t\rightarrow 0^+}  (-\ln t)^\alpha t^{1/4}=0$, 
+  pour tout $\alpha$ (les puissances de $t$ l'emportent sur le logarithme). 
+  
+  \item En particulier, il existe un réel $\epsilon>0$ tel que :
+$$\forall t\in]0,\epsilon]\quad (-\ln t)^\alpha t^{1/4}\le 1\;.$$ 
+  
+  \item En multipliant les deux membres de l'inégalité 
+par $t^{-3/4}$ on obtient :
+$$\forall t\in]0,\epsilon]\quad \frac{(-\ln t)^\alpha}{\sqrt{t}} \le t^{-3/4}\;.$$
+  
+  \item Or l'intégrale $\int_0^1 t^{-3/4}\;\dd t$ converge. En effet :
+$$
+\int_x^1 t^{-3/4}\;\dd t = \Big[4 t^{1/4}\Big]_x^1 = 
+4-4x^{1/4}
+\quad\text{ et }\quad
+\lim_{x\rightarrow 0^+} (4-4x^{1/4}) =
+4\;. 
+$$
+
+  \item On peut donc appliquer le théorème \ref{th:comparaisonintegrales2} de
+comparaison : puisque $\int_0^1 t^{-3/4}\;\dd t$ converge, alors 
+$\int_0^1 \frac{(-\ln t)^\alpha}{\sqrt{t}}\;\dd t$ converge aussi, quel que soit $\alpha$.  
+\end{itemize}
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Théorème des équivalents}
+
+Gr\^ace au théorème \ref{th:comparaisonintegrales2} de comparaison, 
+on peut remplacer la fonction à intégrer par un équivalent au voisinage de $a$ pour
+étudier la convergence d'une intégrale.
+
+\begin{theoreme}
+\label{th:equivalentintegrales2}
+Soient $f$ et $g$ deux fonctions continues et strictement positives sur
+$]a,b]$. 
+Supposons qu'elles soient équivalentes au voisinage de $a$, c'est-à-dire :
+$$\lim_{t\rightarrow a^+}\frac{f(t)}{g(t)} = 1\;.$$
+Alors l'intégrale $\int_a^b f(t)\;\dd t$ converge si et seulement si 
+$\int_a^b g(t)\;\dd t$ converge.
+\end{theoreme}
+
+Attention : il est important que $f$ et $g$ soient positives.
+
+L'équivalence de $f$ et $g$ au voisinage de $a$ sera notée par : 
+$\displaystyle f(t) \ \underset{a}{\sim}\ g(t)$ (ou bien 
+$\displaystyle f(t) \ \underset{a^+}{\sim}\ g(t)$ pour préciser 
+que la limite en $a$ est la limite à droite).
+
+
+\begin{exemple}
+L'intégrale 
+$$\int_0^1 \sqrt{\frac{-\ln t+1}{\sin t}}\;\dd t\qquad\text{ converge.}$$
+En effet,
+$$\sqrt{\frac{-\ln t+1}{\sin t}} \quad\underset{0^+}{\sim}\quad
+\frac{(-\ln t)^{1/2}}{\sqrt{t}}\;,$$
+et nous avons déjà montré que l'intégrale 
+$\int_0^1 \frac{(-\ln t)^{1/2}}{\sqrt{t}}\;\dd t$ converge.   
+\end{exemple}
+
+\bigskip
+
+L'utilisation des équivalents permet ainsi de ramener l'étude de la
+convergence d'une intégrale pour laquelle on n'a pas de primitive
+à un catalogue d'intégrales dont la convergence est connue. Les
+plus classiques sont du type $\int_0^1 \frac{1}{t^\alpha}\;\dd t$, mais
+attention, la convergence en fonction du paramètre $\alpha$ est
+inversée par rapport aux intégrales de Riemann.
+
+\begin{exemple}
+$$\text{Si } \alpha < 1\quad \text{ alors } \quad \int_0^1 \frac{1}{t^\alpha}\;\dd t
+\quad\text{ converge.}$$
+$$\text{Si } \alpha \ge 1\quad \text{ alors } \quad \int_0^1 \frac{1}{t^\alpha}\;\dd t
+\quad\text{ diverge.}$$  
+\end{exemple}
+
+%---------------------------------------------------------------
+\subsection{Fonctions oscillantes}
+
+
+Le dernier cas à traiter est celui où la fonction à intégrer
+oscille au voisinage d'une des bornes, prenant des valeurs
+arbitrairement proches de $+\infty$ ou $-\infty$.  
+
+\myfigure{1}{
+\tikzinput{fig_intimp05}
+}
+
+Le changement de variable $u=\frac{1}{t-a}$ permet de se ramener au cas
+précédent d'une fonction oscillante sur un intervalle non borné, 
+ce qui nous dispensera de donner autant de détails.
+
+Rappelons que, par définition,
+$$\int_a^b f(t)\;\dd t = \lim_{x\rightarrow a^+} \int_x^b f(t)\;\dd t\;.$$
+La notion importante est toujours la convergence absolue.
+
+\begin{definition}
+Soit $f$ une fonction continue sur $]a,b]$. On dit que
+  $\int_a^b f(t)\;\dd t$ est \defi{absolument convergente} si 
+$\int_a^b \big|f(t)\big|\;\dd t$ est une intégrale convergente.
+\end{definition}
+
+Le théorème suivant se démontre de la même fa\c{c}on que le théorème \ref{th:acvimpliquecv}.
+
+\begin{theoreme}
+Si l'intégrale $\int_a^b f(t)\;\dd t$ est absolument convergente,
+alors elle est convergente. 
+\end{theoreme}
+
+
+\begin{exemple}
+\begin{enumerate}
+  \item L'intégrale
+$$\int_0^1 \frac{\sin\frac1t}{\sqrt{t}}\;\dd t\quad\text{ est absolument convergente,}$$
+donc convergente. En effet, pour tout $t$,
+$$\frac{\big|\sin\frac1t\big|}{\sqrt{t}}\le \frac{1}{\sqrt{t}}\;.$$
+Or l'intégrale $\int_0^1 \frac{1}{\sqrt{t}}\;\dd t$
+converge, d'où le résultat par le théorème \ref{th:comparaisonintegrales2} de comparaison.
+  
+  \item Par contre, 
+$$
+\int_0^1 \frac{\sin\frac1t}{t}\;\dd t\quad\text{ n'est pas absolument convergente,}
+$$
+mais elle est convergente.
+Pour le voir, effectuons le changement de variable $t\mapsto \frac1u$ :
+$$
+\int_x^1 \frac{\sin\frac1t}{t}\;\dd t = 
+\int_{1/x}^1 u\sin u\frac{-1}{u^2}\;\dd u = 
+\int_1^{1/x} \frac{\sin u}{u}\;\dd u\;.
+$$
+Lorsque $x \to 0^+$ alors $\frac1x \to +\infty$.
+Nous avons déjà montré que l'intégrale 
+$\int_1^{+\infty} \frac{\sin u}{u}\;\dd u$ est convergente, sans être
+absolument convergente. 
+\end{enumerate}
+  
+\end{exemple}
+
+\bigskip
+
+On pourrait énoncer un théorème d'Abel analogue au théorème
+\ref{th:abelintcv1}, mais cela n'est pas vraiment utile. D'une part
+les fonctions auxquelles il s'appliquerait se rencontrent rarement,
+et d'autre part, il est en général facile de se ramener à un
+problème sur $[c,+\infty[$, par le changement de variable 
+$t\mapsto u=\frac{1}{t-a}$ : nous l'avons déjà fait
+pour $\int_0^1 \frac{\sin \frac 1t}{t}\;\dd t$.   
+
+
+%---------------------------------------------------------------
+%\subsection{Mini-exercices}
+
+
+\begin{miniexercices}
+\begin{enumerate}
+  \item \'Etudier la convergence des intégrales :
+  $$\int_0^1 \frac{\dd t}{1-t} \qquad 
+  \int_0^1 \frac{\dd t}{\sqrt{1-t}} \qquad 
+  \int_0^1 \ln \frac1t \;\dd t \qquad
+  \int_0^1 t\sin \frac1t \;\dd t$$
+  
+  \item Pour quelles valeurs de $\beta \in \Rr$ l'intégrale
+  $\int_0^1 \frac{\dd t}{t(-\ln t)^\beta}$ converge ?
+  
+  \item Prouver le théorème de comparaison et le théorème des équivalents de cette section, 
+  en vous inspirant des démonstrations des sections précédentes.
+ 
+  \item Même travail pour montrer qu'une intégrale absolument convergente est convergente.
+
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Intégration par parties -- Changement de variable}
+
+%---------------------------------------------------------------
+\subsection{Intégration par parties}
+
+
+
+\begin{theoreme}
+Soient $u$ et $v$ deux fonctions de classe $\mathcal{C}^1$ sur l'intervalle $[a,+\infty[$.
+Supposons que $\lim_{t\to+\infty} u(t)v(t)$ existe et soit finie.
+Alors les intégrales $\displaystyle\int_a^{+\infty} u(t) \, v'(t)\;\dd t$
+et $\displaystyle\int_a^{+\infty} u'(t) \, v(t)\;\dd t$ sont de même nature.
+En cas de convergence on a :
+$$\int_a^{+\infty} u(t) \, v'(t)\;\dd t 
+= \big[uv\big]_a^{+\infty} - \int_a^{+\infty} u'(t) \, v(t)\;\dd t$$
+\end{theoreme}
+
+On rappelle que $\big[uv\big]_a^{+\infty} = \lim_{t\to+\infty} (uv)(t) - (uv)(a)$.
+
+Le mieux n'est pas d'appliquer le théorème, mais d'effectuer la preuve à chaque fois,
+c'est-à-dire en faisant une intégration par parties sur l'intervalle $[a,x]$ et
+en vérifiant bien que les objets ont une limite lorsque $x\to+ \infty$.
+
+\begin{proof}
+C'est la formule usuelle d'intégration par parties 
+$$\int_a^{x} u(t) \, v'(t)\;\dd t 
+= \big[uv\big]_a^{x} - \int_a^{x} u'(t) \, v(t)\;\dd t$$
+en notant que par hypothèse le crochet a une limite finie lorsque $x\to +\infty$.
+\end{proof}
+
+
+\begin{exemple}
+Soit $\lambda > 0$. Que vaut l'espérance de la loi exponentielle :
+$$\int_0^{+\infty} \lambda t e^{-\lambda t}\;\dd t \quad \text{?}$$
+
+On effectue l'intégration par parties avec $u = \lambda t$, $v' = e^{-\lambda t}$.
+On a donc $u' = \lambda$ et $v = \frac{-1}{\lambda}e^{-\lambda t}$.
+Ainsi
+\begin{align*}
+\int_0^{x} \lambda t e^{-\lambda t}\;\dd t 
+ & = \int_0^{x} u(t) \, v'(t)\;\dd t  \\
+ & = \big[uv\big]_0^{x} - \int_0^{x} u'(t) \, v(t)\;\dd t \\
+ & = \Big[ \lambda t \cdot \frac{-1}{\lambda}e^{-\lambda t}\Big]_0^{x} 
+ - \int_0^{x} \lambda \cdot  \frac{-1}{\lambda}e^{-\lambda t}\;\dd t \\
+ & = -xe^{-\lambda x} + \int_0^{x} e^{-\lambda t} \;\dd t\\
+ & = -xe^{-\lambda x} + \Big[\frac{-1}{\lambda}e^{-\lambda t}\Big]_0^{x} \\
+ & = -xe^{-\lambda x}-\frac{1}{\lambda} \left(e^{-\lambda x} -1\right) \\
+ & \longrightarrow \ \  \frac{1}{\lambda} \qquad \text{ lorsque } x \to +\infty \\
+\end{align*}
+Ainsi l'intégrale converge et 
+$$\int_0^{+\infty} \lambda t e^{-\lambda t}\;\dd t = \frac{1}{\lambda}.$$
+\end{exemple}
+
+
+
+%---------------------------------------------------------------
+\subsection{Changement de variable}
+
+\begin{theoreme}
+Soit $f$ une fonction définie sur un intervalle $I = [a,+\infty[$. Soit
+$J= [\alpha,\beta[$ un intervalle avec $\alpha\in \Rr$ et $\beta\in \Rr$ ou $\beta=+\infty$. 
+Soit $\varphi : J \to I$ un difféomorphisme de classe $\mathcal{C}^1$. 
+Les intégrales $\int_{a}^{+\infty} f(x) \;\dd x$ et
+$\int_\alpha^\beta f\big(\varphi(t)\big)\cdot\varphi'(t) \;\dd t$ sont de même nature.
+En cas de convergence, on a :
+$$\int_{a}^{+\infty} f(x) \;\dd x = \int_\alpha^\beta f\big(\varphi(t)\big)\cdot\varphi'(t) \;\dd t$$
+\end{theoreme} 
+
+La démonstration est la même que le changement de variable usuel.
+Encore une fois, le mieux n'est pas d'appliquer le théorème mais 
+d'effectuer un changement de variable classique sur l'intervalle $[a,x]$,
+puis d'étudier les limites lorsque $x\to +\infty$.
+
+
+On rappelle que $\varphi : J \to I$ un \defi{difféomorphisme de classe $\mathcal{C}^1$}
+si $\varphi$ est une application $\mathcal{C}^1$, bijective, dont la bijection réciproque est
+aussi $\mathcal{C}^1$.
+
+
+\medskip 
+
+L'exemple suivant est particulièrement intéressant :
+la fonction $f(t) = \sin(t^2)$ a une intégrale convergente,
+mais ne tend pas vers $0$ (lorsque $t\to+\infty$). 
+C'est à mettre en opposition avec le cas des séries : 
+pour une série convergente le terme général tend toujours vers $0$.
+
+\begin{exemple}
+L'intégrale de Fresnel 
+$$\int_1^{+\infty} \sin (t^2) \; \dd t \quad \text{converge.}$$
+
+\myfigure{1.2}{
+\tikzinput{fig_intimp06} 
+} 
+
+On effectue le changement de variable $u=t^2$, qui induit 
+$t=\sqrt{u}$,  $\dd t=\frac{\dd u}{2\sqrt u}$.
+$\varphi : u \mapsto t = \sqrt{u}$ est un difféomorphisme 
+  entre $u\in[1,x^2]$ et $t\in[1,x]$.
+D'où
+$$\int_1^x \sin (t^2) \; \dd t = \int_1^{x^2} \sin (u) \; \frac{\dd u}{2\sqrt u}.$$
+
+
+
+
+Or par le théorème d'Abel $\int_1^{+\infty} \frac{\sin u}{\sqrt u} \; \dd u$
+converge, donc $\int_1^{x^2} \sin (u) \; \frac{\dd u}{2\sqrt u}$ admet une limite finie (lorsque 
+$x\to+\infty$), ce qui prouve que $\int_1^x \sin (t^2) \; \dd t$
+admet aussi une limite finie. Conclusion : $\int_1^{+\infty} \sin (t^2) \; \dd t$ converge.
+
+
+
+\end{exemple}
+
+
+\begin{exemple}
+Calculons la valeur des deux intégrales 
+$$I = \int_0^{\frac\pi2} \ln(\sin t) \;\dd t \qquad J = \int_0^{\frac\pi2} \ln(\cos t) \;\dd t.$$
+
+\begin{enumerate}
+  \item \textbf{L'intégrale $I$ converge.}
+  
+  Le point incertain est en $t=0$. Comme $\sin t \underset{0^+}{\sim} t$,
+  $\ln t \le \frac{1}{\sqrt t}$ (pour $t$ assez petit), et l'intégrale 
+  $\int_0^{\frac\pi2} \frac{1}{\sqrt t} \;\dd t$ converge,
+  alors l'intégrale $\int_0^{\frac\pi2} \ln t \;\dd t$ converge, 
+  ce qui implique que $I$ converge.
+  
+  \item \textbf{Vérifions $I=J$.}
+  
+  Effectuons le changement de variable $t=\frac\pi2 - u$. On a $\dd t = - \dd u$
+  et un difféomorphisme entre $t\in[x,\frac\pi2]$ et $u\in[\frac\pi2-x,0]$.
+  Ainsi
+  $$\int_x^{\frac\pi2} \ln(\sin t) \;\dd t
+  = \int_{\frac\pi2-x}^0 \ln\left(\sin \left(\frac\pi2 - u\right)\right) \big(\;-\dd u\big)
+  = \int_0^{\frac\pi2-x} \ln(\cos u) \;\dd u.$$
+  Ainsi, lorsque $x\to 0$, cela prouve $I=J$ (et en particulier $J$ converge).
+  
+  \item \textbf{Calcul de $I+J$.}
+  
+  \begin{align*}
+  I+J  
+  & = \int_0^{\frac\pi2} \ln(\sin t) \;\dd t + \int_0^{\frac\pi2} \ln(\cos t) \;\dd t \\
+  & = \int_0^{\frac\pi2} \big(\ln(\sin t)  + \ln(\cos t)\big) \;\dd t \\
+  & = \int_0^{\frac\pi2} \ln(\sin t \cdot \cos t) \;\dd t \\
+  & = \int_0^{\frac\pi2} \ln\big(\tfrac12 \sin(2t)\big) \;\dd t \\
+  & =  -\frac\pi2\ln 2 + \int_0^{\frac\pi2}\ln\big(\sin(2t)\big) \;\dd t \\
+  \end{align*}
+  Et comme $I=J$, on a 
+  $$2I = -\frac\pi2\ln 2 + K.$$
+    Il nous reste à évaluer $K = \int_0^{\frac\pi2} \ln\big(\sin(2t)\big) \;\dd t$ :
+  \begin{align*}
+  K 
+  & = \int_0^{\frac\pi2} \ln\big(\sin(2t)\big) \;\dd t \\
+  & = \frac12 \int_0^{\pi} \ln(\sin u) \;\dd u \qquad \text{(changement de variable $u = 2t$)} \\
+  & = \frac12 I  + \frac12 \int_{\frac\pi2}^\pi \ln(\sin u) \;\dd u \\
+  & = \frac12 I  + \frac12 \int_{\frac\pi2}^0 \ln\big(\sin (\pi-v)\big) \; (- \dd v)
+      \qquad \text{(changement de variable $v = \pi - u$)} \\
+  & = \frac12 I  + \frac12 \int_0^{\frac\pi2} \ln(\sin v) \; \dd v \\
+  & = \frac12 I +\frac 12 I \\
+  & = I \\
+  \end{align*}
+  
+ \item \textbf{Conclusion.}
+ 
+ Ainsi comme $2I = -\frac\pi2\ln 2 + K$ et $K=I$ on trouve :
+ $$I = \int_0^{\frac\pi2} \ln(\sin t) \;\dd t= -\frac\pi2\ln 2$$
+ et $J=I$.
+  
+  
+\end{enumerate}
+
+
+\end{exemple}
+
+
+%---------------------------------------------------------------
+\subsection{Plan d'étude}
+%
+Nous résumons ici l'ensemble des techniques vues dans ce chapitre
+pour l'étude de l'intégrale d'une fonction $f$ sur un intervalle
+non borné de $\Rr$, la fonction étant éventuellement non
+bornée au voisinage d'un ou plusieurs points de l'intervalle. Pour
+illustrer le plan d'étude, nous détaillerons l'exemple introductif :
+
+\begin{minipage}{0.39\textwidth}
+$$I = \int_{-\infty}^{+\infty} \frac{\sin |t|}{|t|^{3/2}}\;\dd t$$  
+\end{minipage}
+\begin{minipage}{0.59\textwidth}
+\myfigure{0.6}{
+\tikzinput{fig_intimp01} 
+}  
+\end{minipage}
+
+
+
+
+\begin{enumerate}
+\item \textbf{Identifier le ou les points incertains.}\\
+La fonction $|t|^{-3/2}\sin |t|$ est définie sur deux intervalles $]-\infty,0[$ et $]0,+\infty[$.
+La fonction est paire, elle tend vers $0$ en
+oscillant quand $t$ tend vers $-\infty$ et $+\infty$, elle n'est pas définie en $0$ et
+tend vers $+\infty$ en $0^-$ et en $0^+$ (voir la figure). 
+Il y a donc $4$ points incertains à étudier.
+  
+\item \textbf{Isoler les points incertains.}\\
+Pour cela, il faut découper chaque intervalle d'étude en autant de
+sous-intervalles qu'il y a de points incertains, de manière à ce
+que les problèmes soient tous situés sur une borne de chaque
+intervalle. Dans notre exemple, on divisera en 4 intervalles :
+$$
+I_1 = \int_{-\infty}^{-1} |t|^{-3/2} \sin |t| \;\dd t\;,\quad
+I_2 = \int_{-1}^{0} |t|^{-3/2} \sin |t| \;\dd t\;,
+$$
+$$
+I_3 = \int_{0}^{1} |t|^{-3/2} \sin |t| \;\dd t\;,\quad
+I_4 = \int_{1}^{+\infty} |t|^{-3/2} \sin |t| \;\dd t.
+$$
+Rappelons que le choix des points de découpe, ici $-1$ ici $+1$, n'a pas d'importance
+pour la convergence. Chacune des intégrales obtenues doit être étudiée
+séparément. L'intégrale $I$ n'est définie que si chacun des
+morceaux converge.
+
+\item \textbf{Se ramener à une intégrale sur $[a,+\infty[$ ou sur $]a,b]$.}\\
+Pour cela, il suffit d'effectuer le changement de variable 
+$t\mapsto -t$. Dans notre cas, puisque la fonction est paire,
+$I_1=I_4$ et $I_2=I_3$.
+
+\item \textbf{Calculer une primitive si c'est possible.}\\
+Ayant une primitive, le problème est ramené à un calcul de
+limite. Si on n'a pas de primitive explicite, alors :
+
+\item \textbf{Si la fonction est de signe constant.}\\
+Changer éventuellement le signe pour se ramener à une fonction positive.
+Calculer un équivalent au voisinage du point incertain et utiliser
+le théorème \ref{th:equivalentintegrales1} ou 
+\ref{th:equivalentintegrales2} des équivalents. Si l'équivalent ne donne pas la
+réponse directement, utiliser le théorème \ref{th:comparaisonintegrales1}
+ou \ref{th:comparaisonintegrales2} de comparaison.
+Dans notre exemple, l'intégrale $I_3$ est celle d'une fonction
+positive, tendant vers $+\infty$ en $0^+$ :
+$$
+t^{-3/2} \sin |t|  \;\underset{0^+}{\sim}\; t^{-1/2}\;.
+$$
+Or l'intégrale $\int_0^1 \frac{1}{t^{1/2}}\;\dd t$ converge, donc $I_3$
+converge.
+
+\item \textbf{Si la fonction n'est pas de signe constant.}\\
+Commencer par étudier l'intégrale de $|f|$, comme dans le cas
+précédent (équivalent ou comparaison). Si elle converge,
+l'intégrale étudiée est absolument convergente, donc
+convergente. Si l'intégrale n'est pas absolument convergente, il
+faut essayer de mettre la fonction sous forme d'un produit pour
+appliquer le théorème d'Abel (théorème \ref{th:abelintcv1}). Dans notre
+exemple, l'intégrale $I_4$ est absolument convergente : on le
+déduit du théorème de comparaison, car
+$$
+t^{-3/2} \big|\sin |t| \big|\le t^{-3/2}\;, 
+$$
+et l'intégrale de Riemann $\int_1^{+\infty} \frac{1}{t^{3/2}}\;\dd t$ est
+convergente. On pourrait aussi appliquer le théorème d'Abel
+avec $f(t) = t^{-3/2}$ et $g(t) = \sin t$.
+\end{enumerate}
+
+
+\begin{miniexercices} 
+\begin{enumerate}
+  \item Soit $I_n = \int_0^{+\infty} t^n e^{-t}\;\dd t$. 
+  Calculer $I_0$. Par intégration par parties, trouver une relation de 
+  récurrence entre $I_{n+1}$ et $I_n$. En déduire que $I_n = n!$.
+  
+  \item Par intégration par parties, montrer que l'intégrale
+  $\int_0^1 \frac{\ln t}{(1+t)^2}\; \dd t$ converge et vaut $-\ln 2$.
+  
+  \item Soit $I= \int_0^{+\infty} \ln(1+\frac{1}{t^2}) \;\dd t$. Identifier les points incertains.
+  Faire une intégration par parties en écrivant $1\cdot \ln(1+\frac{1}{t^2})$. Montrer que $I$ converge
+  et que $I = \pi$. 
+  
+  \item Soit $I=\int_0^1 \left(-\ln t\right)^\beta \;\dd t$.
+  Identifier les points incertains. 
+  \`A l'aide du changement de variable $t=\frac 1u$, montrer que cette intégrale
+  converge quel que soit $\beta \in \Rr$.
+  
+  \item Soit $I=\int_0^{+\infty}\frac{\dd t}{t^2+\sqrt t}$.
+  Identifier les points incertains. 
+  \`A l'aide du changement de variable $t=u^2$, montrer que l'intégrale
+  converge et que $I = \frac{4\sqrt3\pi}{9}$.
+
+
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+
+\auteurs{
+\begin{itemize}
+  \item[$\bullet$] D'après un cours de Luc Rozoy et Bernard Ycart de l'université de Grenoble
+  pour le site \texttt{\href{http://ljk.imag.fr/membres/Bernard.Ycart/mel/}{M\at ths en Ligne}}.
+ 
+  \item[$\bullet$] et un cours de Raymond Mortini, de l'université de Lorraine,
+
+  \item[$\bullet$] mixé, révisé par Arnaud Bodin. Relu par Stéphanie Bodin et Vianney Combet.
+\end{itemize}
+}
+
+\finchapitre
+
+\end{document}
+

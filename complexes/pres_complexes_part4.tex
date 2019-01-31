@@ -1,0 +1,252 @@
+
+
+\input{../preamb-pres.tex}
+\usecolortheme[RGB={102,102,0}]{structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{{\bf Nombres complexes}}
+\subtitle{Nombres complexes et géométrie}
+
+
+\begin{frame}
+  
+  \debutmontitre
+
+  \pause
+
+{\footnotesize
+\hfill
+\setbeamercovered{transparent=50}
+\begin{minipage}{0.6\textwidth}
+  \begin{itemize}
+    \item<3-> Équation d'une droite
+    \item<4-> Équation d'un cercle
+    \item<5-> Lignes de niveau
+  \end{itemize}
+\end{minipage}
+}
+
+\end{frame}
+
+\setcounter{framenumber}{0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{}
+
+\begin{frame}
+Soit $M$ de coordonnées $(x,y)$ du plan $\Rr^2$ \\ 
+L'\defi{affixe} de $M$ est le complexe \mybox{$z=x+\ii y$}
+
+\bigskip
+\pause
+\begin{exemple}
+\begin{itemize}
+\item L'origine $O$ a pour affixe $0$
+\pause
+\item Le point de coordonnées $(1,0)$ a pour affixe $1$
+\pause
+\item Le point de coordonnées $(0,1)$ a pour affixe $\ii$
+\pause
+\item Le point de coordonnées $\big(\rho\cos\theta,\rho\sin\theta\big )$ a pour affixe $\rho e^{\ii \theta}$
+\end{itemize}
+\end{exemple}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\'Equation complexe d'une droite}
+
+
+\begin{frame}
+
+\begin{minipage}{0.6\linewidth}
+Soit $\mathcal{D}$ une {\color{blue} droite du plan} d'équation réelle
+\mybox{$ax+by=c$}
+où $a,b,c$ sont des nombres réels
+\end{minipage}
+\begin{minipage}{0.39\linewidth}
+\myfigure{0.8}{
+\tikzinput{fig_complexes01}
+}
+\vspace*{-4ex}
+\end{minipage}
+
+\bigskip
+
+\pause
+La droite $\mathcal{D}$ a pour équation complexe 
+\mybox{$\bar \omega z + \omega \bar z = k$}
+avec $\omega = a+\ii  b \in \Cc^*$ et $k=2c \in \Rr$
+
+
+
+\pause
+\begin{proof}
+$z=x+\ii y$ 
+\pause
+\quad donc \quad  $x = \frac{z+\bar z}{2}$ et $y = \frac{z - \bar z}{2 \ii }$\\
+\pause
+$ax+by=c\ \iff\  a(z+\bar z) -\ii  b(z-\bar z)=2c
+\pause\ \iff\ (a-\ii  b)z+(a+\ii  b)\bar z = 2c$\\
+\end{proof}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\'Equation complexe d'un cercle}
+
+\begin{frame}
+\begin{minipage}{0.65\linewidth}
+Soit $\mathcal{C}(\Omega,r)$ le {\color{blue} cercle} de centre $\Omega$ et de rayon $r$
+
+Notons $\omega \in \Cc$ l'affixe du point $\Omega$
+\end{minipage}
+\begin{minipage}{0.34\linewidth}
+\hspace*{-2ex}
+\myfigure{0.7}{
+\tikzinput{fig_complexes02}
+}
+\vspace*{-4ex}
+\end{minipage}
+
+\uncover<6->{
+L'équation complexe du cercle centré en \\
+un point d'affixe $\omega$ et de rayon $r$ est 
+\mybox{$z\bar z - \bar \omega z - \omega \bar z = r^2-|\omega|^2$}
+où  $\omega \in \Cc$ et $r\in \Rr$
+}
+
+
+
+\pause
+\begin{proof}
+$
+\begin{array}{rcl}
+M \text{ d'affixe } z \text{ est sur le cercle } \mathcal{C}(\Omega,r)
+&\iff & \mathrm{dist}(\Omega,M)=r \\
+\pause
+&\iff & |z-\omega|=r \iff |z-\omega|^2=r^2 \\
+\pause
+&\iff& (z-\omega)\overline{(z-\omega)}=r^2\\
+\pause
+&\iff& z\bar z - \bar \omega z - \omega \bar z + \omega\bar \omega= r^2
+\end{array}$
+\end{proof}
+\pause
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\'Equation ${|z-a|}/{|z-b|}=k$}
+
+\begin{frame}
+
+\medskip
+
+\begin{minipage}{0.7\textwidth}
+Étant donnés deux points $A$ et $B$ du plan et un réel $k\in \Rr_+$,
+soit l'ensemble des points $M$ tels que :
+\end{minipage}
+\begin{minipage}{0.29\textwidth}
+\mybox{{\color{blue}$\dfrac{MA}{MB}=k$}}
+\end{minipage}
+
+
+\uncover<11->{
+\begin{itemize}
+  \item<11-> c'est une droite, qui est la médiatrice de $[AB]$, si $k=1$
+  \item<12-> c'est un cercle, sinon
+\end{itemize}
+}
+
+
+\uncover<2->{
+\begin{proof}
+ $A$ d'affixe $a$, $B$ d'affixe $b$, $M$ d'affixe $z$
+
+\pause
+
+\medskip
+
+$
+\begin{array}{rcl}
+\dfrac{MA}{MB}=k 
+\pause &\Longleftrightarrow& 
+% \only<1-5>{
+\dfrac{|z-a|}{|z-b|}=k
+\pause
+\ \Longleftrightarrow \ |z-a|^2 = k^2 |z-b|^2 \\
+\pause
+&
+\Longleftrightarrow& (z-a)\overline{(z-a)} = k^2 (z-b)\overline{(z-b)} \\
+\pause
+&
+\Longleftrightarrow& (1-k^2) z \bar z -z(\bar a - k^2 \bar b) - \bar z(a-k^2b) + |a|^2-k^2|b|^2=0 \\
+
+\end{array}
+$
+
+\pause
+
+\begin{itemize}
+\item
+Si $k=1$, on pose $\omega = a-b$ et alors
+$z\bar \omega  + \bar z \omega = |a|^2-|b|^2$ 
+
+\pause
+
+équation d'une droite qui est la médiatrice de $[AB]$
+\pause
+
+
+\item
+Si $k\neq 1$, on pose $\omega = \frac{a-k^2b}{1-k^2}$ alors 
+$z \bar z -z \bar \omega - \bar z \omega = \frac{-|a|^2+k^2|b|^2}{1-k^2}$ 
+
+\pause
+
+équation d'un cercle de centre $\omega$ et de rayon $r$ tel que 
+$r^2-|\omega|^2= \frac{-|a|^2+k^2|b|^2}{1-k^2}$
+\vspace{-1em}
+\end{itemize}
+
+\end{proof}
+}
+
+\end{frame}
+
+
+
+\begin{frame}
+\myfigure{1.5}{
+\tikzinput{fig_complexes13}
+}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Mini-exercices}
+
+\begin{frame}
+\begin{miniexercice}
+\begin{enumerate}
+  \item Calculer l'équation complexe de la droite passant par $1$ et $\ii$.
+  \item Calculer l'équation complexe du cercle de centre $1+2\ii$ passant par~$\ii$.
+  \item Calculer l'équation complexe des solutions de $\dfrac{|z-\ii|}{|z-1|}=1$, puis dessiner les solutions.
+  \item Même question avec $\dfrac{|z-\ii|}{|z-1|}=2$.
+\end{enumerate}
+\end{miniexercice}
+
+\end{frame}
+
+
+\end{document}
