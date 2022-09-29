@@ -1,0 +1,200 @@
+
+\documentclass[11pt, class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+
+\begin{document}
+
+%====================================================================
+\chapitre{TODO}
+%====================================================================
+
+% Commandes à virer
+\newcommand{\ou}{\mathscr{O}}
+\newcommand{\f}{\mathscr{F}}
+\newcommand{\mat}{\mathscr{M}}
+\newcommand{\co}{\mathscr{C}}
+\newcommand{\ja}{\mathrm{J}}
+\newcommand{\jac}{|\mathrm{J}|}
+\newcommand{\rot}{\mathrm{rot}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{TODO}
+
+
+\textbf{TODO :  / EDP / Physique / rot / div / appl. physique / Schwartz / Poincaré / ... / multiplicateur de Lagrange ...}
+
+%----------------------------------------------------
+\subsection{Intro : topologie de $\Rr^2$}
+
+%----------------------------------------------------
+\subsection{Équations aux dérivées partielles}
+ 
+
+%----------------------------------------------------
+\subsection{}
+
+\subsection{Champs de vecteurs}
+
+\vskip4mm
+
+\noindent Les équations aux dérivées partielles sont omniprésentes en physique. Elles relient entre elles les dérivées partielles d'ordre $1$ et $2$, et font intervenir des combinaisons de dérivées partielles comme le gradient, la divergence ou le rotationnel.
+
+\vskip6mm
+
+\noindent On rappelle que le gradient d'une fonction de deux variables $f$ est le champ de vecteurs de $\Rr^2$ défini par
+$$\nabla f=\left(\frac{\partial f}{\partial x},\frac{\partial f}{\partial y}\right).$$
+On dispose donc d'un opérateur, noté formellement, $\displaystyle \nabla :=\left(\frac{\partial }{\partial x},\frac{\partial }{\partial y}\right)$ sur les fonctions. De m\^eme, le gradient d'une fonction de trois variables $f$ est le champ de vecteurs de $\Rr^3$ défini par
+$$\nabla f=\left(\frac{\partial f}{\partial x},\frac{\partial f}{\partial y},\frac{\partial f}{\partial z}\right).$$
+On dispose à nouveau d'un opérateur, noté formellement, $\displaystyle \nabla :=\left(\frac{\partial }{\partial x},\frac{\partial }{\partial y},\frac{\partial }{\partial z}\right)$.
+
+\vskip6mm
+
+\begin{definition}Soit $U$ un ouvert de $\Rr^2$. Soit $F:(x,y)\mapsto \left(P(x,y),Q(x,y)\right)$ une application de classe $\mathscr{C}^1$ de $U$ dans $\Rr^2$. Une telle application est aussi appelée un champ de vecteurs de $\Rr^2$ défini sur $U$. On définit formellement le rotationnel du champ de vecteurs $F$ comme étant le champ de vecteurs de $\Rr$ défini sur $U$ par
+$$\mathrm{rot}(F)(x,y)=\det (\nabla ,F)=\left|\begin{array}{cc}\frac{\partial}{\partial x}&P\\ \\ \frac{\partial}{\partial y}&Q
+\end{array}\right|(x,y)=\frac{\partial Q}{\partial x}(x,y)-\frac{\partial P}{\partial y}(x,y).$$
+\end{definition}
+
+\vskip4mm
+
+\noindent Un champ de vecteurs sera noté indifféremment $F$ ou $\overrightarrow{F}$. On vérifiera à partir de cette définiton et le théorème de Schwarz que, $\mbox{rot}(\nabla f)=0$.
+
+\vskip6mm
+
+\begin{definition}Soit $U$ un ouvert de $\Rr^3$ et $F:(x,y,z)\mapsto \left(P(x,y,z),Q(x,y,z),R(x,y,z)\right)$ une application de classe $\mathscr{C}^1$ de $U$ dans $\Rr^3$, appelée aussi champ de vecteurs de $\Rr^3$ défini sur $U$.
+\begin{enumerate}
+\item Le rotationnel de $F$ est le champ de vecteurs de $\Rr^3$ donné par
+$$\mathrm{rot}(F)=\nabla \wedge F=\left(\frac{\partial R}{\partial y}-\frac{\partial Q}{\partial z},\frac{\partial P}{\partial z}-\frac{\partial R}{\partial x},\frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y}\right).$$
+\item La divergence de $F$ est la fonction $\displaystyle \mathrm{div}(F)=\langle \nabla ,F\rangle =\frac{\partial P}{\partial x}+\frac{\partial Q}{\partial y}+\frac{\partial R}{\partial z}$.
+\end{enumerate}
+\end{definition}
+
+\vskip4mm
+
+\noindent On vérifiera à partir de ces définitons et le théorème de Schwarz que, $\mbox{rot}(\nabla f)=0$ et que, pour un champ de vecteurs $F$ de $\Rr^3$, $\mathrm{div}(\mathrm{rot}(F))=0$.
+
+\vskip6mm
+
+\begin{definition}Soit $F$ un champ de vecteurs défini sur $U$. On dit que $F$ dérivé d'un potentiel sur $U$ s'il existe une fonction $f:U\to \Rr$ telle que $F= \nabla f$ sur $U$. Dans ce cas, on dira que $f$ est un potentiel de $F$.
+\end{definition}
+
+\vskip4mm
+
+\begin{theoreme}[\bf Poincaré]Soit $U$ un ouvert simplement connexe de $\Rr^2$ (resp. $\Rr^3$) et $F$ un champ de vecteurs de $\Rr^2$ (resp. $\Rr^3$) de classe ${\mathscr C}^1$ sur $U$. Alors $F$ dérive d'un potentiel sur $U$ si, et seulement si, $\rot F=0$.
+\end{theoreme}
+
+\vskip6mm
+
+\noindent{\bf Méthode. }Lorsqu'un champ de vecteurs $\overrightarrow{F}$ dérive d'un potentiel $f$, on écrit $\displaystyle \nabla f=\overrightarrow{F}$. En identifiant les coordonnées, on obtient un système d'équations dont la seule inconnue est $f$. Il faut donc intégrer ce système pour déterminer $f$.
+
+\vskip6mm
+
+\noindent{\bf Exemple. }{\it Montrer que le champ de vecteurs $\overrightarrow{F}(x,y)=y^2\vec{i}+(2xy-1)\vec{j}$ dérive d'un potentiel sur $\Rr^2$ et déterminer les potentiels dont il dérive.}
+
+\vskip4mm
+
+\noindent \underline{\it Solution}. \rm Ici $P(x,y)=y^2$, $Q(x,y)=2xy-1$ et $\displaystyle \frac{\partial P}{\partial y}=2y=\frac{\partial Q}{\partial x}$. Donc $\rot \overrightarrow{F}=0$ et, comme $\Rr^2$ est simplement connexe, $\overrightarrow{F}$ dérive d'un potentiel $f$ sur $\Rr^2$. On aura :
+$$\frac{\partial f}{\partial x}(x,y)=P(x,y)=y^2\rightarrow f(x,y)=xy^2+K(y)$$
+et 
+$$\frac{\partial f}{\partial y}(x,y)=Q(x,y)=2xy-1\rightarrow K'(y)=-1\rightarrow K(y)=-y+C,\quad C\in \Rr.$$
+Les potentiels de $\overrightarrow{F}$ sur $\Rr^2$ sont les fonctions $f$ définies par $f(x,y)=xy^2-y+C$.
+
+\vskip8mm
+
+\subsection{Exemples d'équations aux dérivées partielles}
+
+\vskip4mm
+
+\noindent Soit $U$ un ouvert non vide de $\Rr^2$. On note $(x_0,y_0)$ un point de $U$ et $U_1$ (resp. $U_2$) la projection de $U$ sur l'axe $y=0$ (resp. $x=0$).
+
+\vskip6mm
+
+\begin{proposition}Soit $h$ une fonction de classe $\mathscr{C}^0$ sur $U$. On note $H$ la primitive de $h_1:x\mapsto h(x,y)$ sur $U_1$ qui s'annule en $x_0$. Une fonction $f$ de classe $\mathscr{C}^1$ sur $U$ est une solution de 
+$$(E_1)\; :\; \frac{\partial f}{\partial x}(x,y)=h(x,y)$$
+si, et seulement si, il existe une fonction $k$ de classe $\mathscr{C}^1$ sur $U_2$ telle que
+$$\forall (x,y)\in U,\; \; f(x,y)=H(x,y)+k(y).$$
+\end{proposition}
+
+\vskip4mm
+
+\noindent{\it Démonstration. }Si $f$ est une solution de $(E_1)$ la fonction $\varphi :x\mapsto f(x,y)-H(x,y)$ est dérivable et de dérivée nulle. Elle est donc constante :
+$$\forall x\in U_1,\; \varphi (x)=\varphi (x_0)\rightarrow f(x,y)=H(x,y)+f(x_0,y)$$
+et $k:y\mapsto f(x_0,y)$ est bien une fonction de classe $\mathscr{C}^1$ sur $U_2$. Réciproquement, on vérifie qu'une fonction de cette forme est solution de $(E_1)$.
+
+\vskip6mm
+
+\begin{proposition}Soit $h$ une fonction de classe $\mathscr{C}^0$ sur $U_1$ et $H$ une primitive de $h$ sur $U_1$. Une fonction $f$ de classe $\mathscr{C}^2$ sur $U$ est une solution de 
+$$(E_2)\; :\; \frac{\partial ^2f}{\partial x\partial y}(x,y)=h(x)$$
+si, et seulement si, il existe une fonction $K$ de classe $\mathscr{C}^2$ sur $U_2$ telle que
+$$\forall (x,y)\in U,\; \; f(x,y)=yH(x)+K(y).$$
+\end{proposition}
+
+\vskip4mm
+
+\noindent{\it Démonstration. }Si $f$ est une solution de $(E_2)$ la fonction $\displaystyle \frac{\partial f}{\partial y}$ est solution d'une équation du type $(E_1)$. Donc
+$$\forall (x,y)\in U,\; \frac{\partial f}{\partial y}(x,y)=H(x)+k(y)$$
+o\`u $k$ est une fonction de classe $\mathscr{C}^1$ sur $U_2$. Ainsi $f$ est une solution d'une équation du type $(E_1)$. Donc de la forme ci-dessus.  Réciproquement, on vérifie qu'une fonction de cette forme est solution de $(E_2)$.
+
+\vskip6mm
+
+\begin{proposition}Une fonction $f$ de classe $\mathscr{C}^2$ sur $U$ est une solution de 
+$$(E_3)\; :\; \frac{\partial ^2f}{\partial x^2}(x,y)=0$$
+si, et seulement si, il existe deux fonctions $K$ et $H$ de classe $\mathscr{C}^2$ sur $U_2$ telles que
+$$\forall (x,y)\in U,\; \; f(x,y)=xH(y)+K(y).$$
+\end{proposition}
+
+\vskip4mm
+
+\noindent{\it Démonstration. }Si $f$ est une solution de $(E_3)$ la fonction $\displaystyle \frac{\partial f}{\partial x}$ est solution d'une équation du type $(E_1)$. Donc
+$$\forall (x,y)\in U,\; \frac{\partial f}{\partial x}(x,y)=k(y)$$
+o\`u $k$ est une fonction de classe $\mathscr{C}^1$ sur $U_2$. Ainsi $f$ est une solution d'une équation du type $(E_1)$. Donc de la forme ci-dessus. Réciproquement, on vérifie qu'une fonction de cette forme est solution de $(E_3)$.
+
+\vskip6mm
+
+\noindent{\bf Résolution à l'aide d'un difféomorphisme. }Pour intégrer une EDP, $(E)$ donnée, on utilise un changement de variables pour se ramener à une EDP plus simple. Soit
+$$\begin{array}{ccccl}\Phi &:&U&\to&V\\&&(x,y)&\mapsto &\displaystyle (u,v).\end{array}$$
+un $\mathscr{C}^1$-difféomorphisme. Pour une fonction $f$ solution de $(E)$, on pose $g=f\circ \Phi ^{-1}$. C'est à dire $f=g\circ \Phi$.
+\begin{enumerate}
+\item On utilise la formule de dérivation des fonctions composées pour exprimer les dérivées partielles de $f$ en fonction de $g$, $u$ et $u$.
+\item On remplace dans l'équation $(E)$ ce qui donne l'EDP $(E')$ satisfaite par $g$.
+\item On intègre $(E')$ et on en déduit les solutions $f$ de $(E)$.
+\end{enumerate}
+
+\vskip6mm
+
+\noindent{\bf Exemple. }Intégrons dans $U=\{(x,y)\in \Rr^2|\ x>0\}$ l'EDP suivante :
+$$(E)\;\; :\; \; x\frac{\partial f}{\partial x}+y\frac{\partial f}{\partial y}=\sqrt{x^2+y^2}.$$
+\rm On pose $\displaystyle V=]0,+\infty [\times \left]-\frac{\pi}{2},\frac{\pi}{2}\right[$, et on considère l'application $\Phi : V\to U$ définie par
+$$\Phi (r,\theta )=(r\cos \theta,r\sin \theta )$$
+\begin{enumerate}
+\item L'application $\Phi$ est un ${\mathscr C}^1$-difféomorphisme de $V$ sur $U$, et
+$$\forall (x,y)\in U,\; \;\Phi ^{-1}(x,y)=\left( \sqrt{x^2+y^2},\arctan\frac{y}{x}\right).$$
+\item Soit $f$ une fonction de classe ${\mathscr C}^1$ solution de $(E)$ sur $U$. On considère la fonction $g$ définie sur $V$ par
+$$g(r,\theta )=f(x,y)\mbox{ avec }(x,y)=(r\cos \theta,r\sin \theta ).$$
+\begin{enumerate}
+\item On exprime les dérivées partielles premières de $f$ en fonction de $g$, $r$ et $\theta$ (cf. les relations $(\star \star )$ ci-dessus).
+\item On reporte dans l'équation $(E)$ ce qui donne :
+$$r\frac{\partial g}{\partial r}(r,\theta )=r\Leftrightarrow \frac{\partial g}{\partial r}(r,\theta )=1.$$
+\item On voit que $g$ est une solution d'une équation du type $(E_1)$, donc $g(r,\theta )=r+k(\theta )$ o\`u $k$ est une fonction de classe ${\mathscr C}^1$ sur $\displaystyle \left]-\frac{\pi}{2},\frac{\pi}{2}\right[$. On en déduit que toute solution $f$ de $(E)$ est de la forme :
+$$\displaystyle f(x,y)=\sqrt{x^2+y^2}+k\left(\arctan \frac{y}{x}\right).$$
+\end{enumerate}                 
+\end{enumerate}
+
+
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item 
+\end{enumerate}
+\end{miniexercices}
+
+
+
+\auteurs{
+}
+
+\finchapitre 
+\end{document}
+
+

@@ -1,0 +1,16 @@
+﻿\begin{tikzpicture}[scale=0.5]
+
+	\draw[->,>=latex,gray] (-4,0) -- (6.5,0) node[above] {$x$};
+	\draw[->,>=latex, gray] (0,-3.5) -- (0,4.5) node[left] {$y$};
+
+	\draw[domain=-4:5, red,very thick,samples=100, smooth] plot (\x,{-\x*cos(\x r)}) node[below right]{$\mathcal{G}_f$};
+%	\fill (0,0) circle (1.5pt) node[below right] {$(0,0)$};
+
+   \def\x{3};
+   \pgfmathsetmacro\y{-\x*cos(\x r)};
+
+ 	\fill[blue] (\x,\y) circle (4pt) node[above] {$(x,f(x))$}; 
+
+   \draw[dashed] (\x,\y) -- (\x,0) node[below] {$x$};
+   \draw[dashed] (\x,\y) -- (0,\y) node[left] {$f(x)$};
+\end{tikzpicture}
