@@ -71,7 +71,7 @@ Comme on l'a dit : la matrice jacobienne de l'inverse est l'inverse de la matric
 \begin{proof}
 Notons $J = J_\Phi(x)$, $y = \Phi(x)$,  $\Psi = \Phi^{-1}$ et $K = J_\Psi(y)$.
 Comme $\Psi$ est l'inverse de $\Phi$ alors :
-$$\Psi \circ \Phi (x) = x.$$
+$$(\Psi \circ \Phi) (x) = x.$$
 On applique la formule de la composition des jacobiennes :
 $$J_{\Psi \circ \Phi}(x) = J_\Psi(\Phi(x)) \times J_\Phi(x).$$
 L'application $\Psi \circ \Phi$ est l'identité, donc sa matrice jacobienne est la matrice identité : $J_{\Psi \circ \Phi}(x) = I$.
@@ -229,7 +229,7 @@ C'est une application du théorème d'inversion locale en tout point de l'ensemb
 
 
 
-Les passages en coordonnées polaires, cylindriques ou sphériques, sont très souvent utilisés. Détaillons le premier qui consiste à remplacer les coordonnées cartésiennes $(x,y)$ d'un point du plan par le module $r$ et l'argument $\theta$ du point dans le plan complexe.
+Les passages en coordonnées polaires, cylindriques ou sphériques sont très souvent utilisés. Détaillons le premier qui consiste à remplacer les coordonnées cartésiennes $(x,y)$ d'un point du plan par le module $r$ et l'argument $\theta$ du point dans le plan complexe.
 
   
 \textbf{Coordonnées polaires.}
@@ -238,7 +238,7 @@ Les passages en coordonnées polaires, cylindriques ou sphériques, sont très s
     \item \emph{Définition de $\Phi$.}
 
 $$\begin{array}{ccccl}\Phi &:&U=]0,+\infty [\times ]0,2\pi [
-&\to&V=\Rr^2\setminus \left(\Rr^+\times\{0\}\right)\\
+&\to&V=\Rr^2\setminus \left(\Rr_+\times\{0\}\right)\\
 &&(r,\theta)&\mapsto &(x,y)=(r\cos\theta, r \sin\theta)
 \end{array}$$
   
@@ -382,12 +382,12 @@ Indication : $f(x,y) = (g \circ \Phi^{-1}) (x,y)$ et nous avons déjà calculé 
 \begin{miniexercices}
 \sauteligne
 \begin{enumerate}
-  \item Soit $U = \Rr^2 \setminus \{ (0,0) \}$ le plan privé de l'origine et $\Phi(x,y)=(x^2-y^2,2xy)$.  
+  \item Soit $U = \Rr^2 \setminus \{ (0,0) \}$ le plan privé de l'origine et soit $\Phi(x,y)=(x^2-y^2,2xy)$.  
   Montrer que $\Phi$ est un difféomorphisme local au voisinage de
   tout point de $U$. Montrer que $\Phi$ n'est pas un difféomorphisme global (indication : montrer que $\Phi$ n'est pas injective).
   
   \item Soit $U = \Rr \times ]0,2\pi[$
-  et $\Phi : U \to \Rr^2$ l'application définie
+  et soit $\Phi : U \to \Rr^2$ l'application définie
   par $(x,y) \mapsto (e^x\cos y,e^x\sin y)$.
   Montrer que $\Phi$ est un difféomorphisme local au voisinage de
   tout point de $U$.  Montrer que $\Phi$ est injective. Déterminer $\Phi(U)$ et vérifier que c'est un ouvert. En déduire que $\Phi : U \to \Phi(U)$ est un difféomorphisme (global).
@@ -500,9 +500,9 @@ alors :
     \mybox{pour tout $x \in I$,\quad  $F(x,\varphi(x)) = 0$}
     
     
-    \item De plus, la dérivée de $\varphi$ est donnée par 
+    \item De plus, pour tout $x \in I$, on a $\frac{\partial F}{\partial y}(x,\varphi(x)) \neq 0$, et la dérivée de $\varphi$ est donnée par :
     \mybox{$\displaystyle \varphi'(x) = \frac{-\frac{\partial F}{\partial x}(x, \varphi(x))}{\frac{\partial F}{\partial y}(x, \varphi(x))}$}
-     en tout point $x \in I$ (où $\frac{\partial F}{\partial y}(x,\varphi(x)) \neq 0$).
+
 \end{enumerate}
 \end{theoreme}
 
@@ -524,9 +524,9 @@ Si les deux dérivées partielles $\frac{\partial F}{\partial x}(x_0,y_0)$ et $\
 Soit 
 $$F(x,y) = x(x^2+y^2)-(x^2-y^2).$$
 
-\textbf{Courbe $F(x,y)=0$.}
+\textbf{Courbe $(F(x,y)=0)$.}
 
-Commençons par tracer la courbe $\mathcal{C}$ d'équation $(F(x,y)=0)$, ce qui nous permettra d'anticiper les calculs.
+Commençons par tracer la courbe $\mathcal{C}$ d'équation $F(x,y)=0$, ce qui nous permettra d'anticiper les calculs.
 La courbe forme une boucle. On note qu'il y a une tangente verticale au point $(1,0)$.
 Le point $(0,0)$ est un point double, et on verra que les deux dérivées partielles s'y annulent en même temps : c'est un point singulier. En dehors de ces deux points, on peut donc exprimer localement la courbe $\mathcal{C}$ comme le graphe d'une fonction d'une variable $y = \varphi(x)$.
 
@@ -628,7 +628,7 @@ que l'on peut aussi écrire $y=\frac{\sqrt3}{9}(x+1)$.
 
 \textbf{Théorème d'inversion locale.}
 
-Soit $F$ une fonction  de deux variables de classe $\mathcal{C}^1$ et soit $(x_0,y_0) \in \Rr^2$ tel que $F(x_0,y_0)=0$ et $\frac{\partial F}{\partial y}(x_0,y_0)\neq 0$. Considérons la fonction $\Phi$ définie par
+Soit $F$ une fonction  de deux variables de classe $\mathcal{C}^1$ et soit $(x_0,y_0) \in \Rr^2$ tel que $F(x_0,y_0)=0$ et $\frac{\partial F}{\partial y}(x_0,y_0)\neq 0$. Considérons la fonction $\Phi : \Rr^2 \to \Rr^2$ définie par
 $$
 \Phi(x,y)=(x,F(x,y)).
 $$
@@ -638,14 +638,14 @@ J_\Phi(x_0,y_0) =
 \begin{pmatrix}  1 & 0 \\
 \frac{\partial F}{\partial x}(x_0,y_0) & \frac{\partial F}{\partial y}(x_0,y_0) \\ \end{pmatrix}.
 $$
-Par hypothèse, $\frac{\partial F}{\partial y}$ ne s'annule pas en $(x_0,y_0)$. La matrice $J_\Phi(x_0,y_0)$ est donc inversible et, d'après le théorème d'inversion locale, $\Phi$ est localement inversible en $(x_0,y_0)$ : il existe un ouvert $U$ contenant $(x_0,y_0)$ et un ouvert $V$ tels que $\Phi : U \to V$ soit un difféomorphisme. Notons $\Psi=\Phi^{-1} : V \to U$ son inverse et décomposons $\Psi$ en $\Psi(X,Y) = (\psi_1(X,Y),\psi_2(X,Y))$.
+Par hypothèse, $\frac{\partial F}{\partial y}$ ne s'annule pas en $(x_0,y_0)$. La matrice $J_\Phi(x_0,y_0)$ est donc inversible et, d'après le théorème d'inversion locale, $\Phi$ est localement inversible en $(x_0,y_0)$ : il existe un ouvert $U$ contenant $(x_0,y_0)$ et un ouvert $V$ contenant $(x_0,0)$ tels que $\Phi : U \to V$ soit un difféomorphisme. Notons $\Psi=\Phi^{-1} : V \to U$ son inverse et décomposons $\Psi$ en $\Psi(X,Y) = (\psi_1(X,Y),\psi_2(X,Y))$.
 
 \bigskip
 
 \textbf{Expression de $\Psi$.}
 Comme $\Psi$ est l'inverse de $\Phi$ alors, d'une part, 
 $$(\Phi \circ \Psi) (X,Y) = (X,Y),$$
-mais, d'autre part, :
+mais, d'autre part,
 $$(\Phi \circ \Psi) (X,Y)
 = \Phi\big( \psi_1(X,Y), \psi_2(X,Y) \big) 
 = \big(\psi_1(X,Y), F ( \psi_1(X,Y), \psi_2(X,Y)) \big).$$
@@ -665,9 +665,13 @@ Ainsi, les points de $U$ vérifiant $F(x,y)=0$ correspondent aux points de la fo
     \tikzinput{fig-diffeo-11}
 }
 
-Retenons que $X=x$ et $Y=0$ pour les points qui nous intéressent. Définissons alors $\varphi : I \subset \Rr \to J \subset \Rr$ par $\varphi(x) = \psi_2(x,0)$. C'est une fonction de classe  $\mathcal{C}^1$ (car $\Psi$ l'est), définie sur un intervalle ouvert $I$ contenant $x_0$, de sorte que $I \times J \subset U$.
+Retenons que $X=x$ et $Y=0$ pour les points qui nous intéressent. 
 
-Reprenons le calcul (dans $I \times J \subset U$) :
+Définissons alors un intervalle ouvert $I$ contenant $x_0$ et un intervalle ouvert $J$ contenant $y_0$ tels que $I \times J \subset U$.
+On peut alors définir $\varphi : I \subset \Rr \to J \subset \Rr$ par $\varphi(x) = \psi_2(x,0)$. 
+C'est une fonction de classe  $\mathcal{C}^1$ (car $\Psi$ l'est), définie sur un intervalle ouvert $I$ contenant $x_0$ et à valeurs dans un intervalle ouvert $J$ contenant $y_0$.
+
+Reprenons le calcul avec $(x,y) \in I \times J \subset U$ :
 \begin{align*}
 F(x,y) = 0
 &\iff \Phi(x,y) = (x,0) \\
@@ -676,13 +680,13 @@ F(x,y) = 0
 &\iff y = \varphi(x) \\
 \end{align*}   
 
-Ainsi, l'équation $F(x,y)=0$ équivaut à $y=\varphi(x)$ (dans un voisinage de $(x_0,y_0)$).
+Ainsi, l'équation $F(x,y)=0$ équivaut à $y=\varphi(x)$ (dans un voisinage de $(x_0,y_0)$). En particulier, on a $y_0 = \varphi(x_0)$.
 
 \bigskip
 
 \textbf{Dérivée.}
 
-On rappelle que par la formule de la matrice jacobienne d'une composition (voir le chapitre \og{}Matrice jacobienne\fg{}) la dérivée de $F\big( u(x), v(x) \big)$ est
+On rappelle que, par la formule de la matrice jacobienne d'une composition (voir le chapitre \og{}Matrice jacobienne\fg{}), la dérivée de $F\big( u(x), v(x) \big)$ est
 $$\frac{d}{dx}F\big( u(x), v(x) \big)
 = u'(x) \frac{\partial F}{\partial x} (u(x), v(x)) + v'(x) \frac{\partial F}{\partial y}(u(x), v(x)).$$
 
@@ -690,7 +694,8 @@ Partons de l'équation :
 $$F\big( x, \varphi(x) \big) = 0, \quad \text{ pour tout } x \in I.$$
 Dérivons cette équation par rapport à la variable $x$ :
 $$\frac{\partial F}{\partial x} (x, \varphi(x)) + \varphi'(x) \frac{\partial F}{\partial y} (x, \varphi(x)) = 0.$$
-D'où
+
+Comme $F$ et $\varphi$ sont de classe $\mathcal{C}^1$, alors $x \mapsto \frac{\partial F}{\partial y}(x, \varphi(x))$ est continue sur $I$. Comme de plus elle ne s'annule pas en $x_0$ puisque $\frac{\partial F}{\partial y}(x_0, y_0) \neq 0$ par hypothèse, on en déduit qu'elle ne s'annule pas sur un voisinage de $x_0$. Ainsi, en réduisant éventuellement $I$, on a $\frac{\partial F}{\partial y}(x, \varphi(x)) \neq 0$ pour tout $x \in I$, et donc 
 $$\varphi'(x) = \frac{-\frac{\partial F}{\partial x}(x, \varphi(x))}{\frac{\partial F}{\partial y}(x, \varphi(x))}.$$
 
 %----------------------------------------------------
@@ -701,12 +706,13 @@ L'étude est similaire pour les hypersurfaces de niveau en plusieurs variables, 
 \begin{theoreme}
 Si $F : \Rr^n\to \Rr$ est de classe $\mathcal{C}^1$ et si $\displaystyle \frac{\partial F}{\partial x_{n}}  (a_1,\ldots,a_n) \neq 0$ alors : 
 \begin{enumerate}
-    \item  La fonction implicite $x_n = \varphi (x_1, \ldots, x_{n-1})$ existe sur une boule ouverte $B \subset \Rr^{n-1}$ centrée en $(a_1, \ldots,  a_{n-1})$  et un intervalle ouvert $J$ contenant $x_n$ avec $\varphi : B \to J$ et on a 
+    \item  La fonction implicite $x_n = \varphi (x_1, \ldots, x_{n-1})$ existe sur une boule ouverte $B \subset \Rr^{n-1}$ centrée en $(a_1, \ldots,  a_{n-1})$  et un intervalle ouvert $J$ contenant $a_n$ avec $\varphi : B \to J$ et on a 
 $$F(x_1,\ldots,x_{n-1},x_n)=0 \iff x_{n} = \varphi (x_{1},   \ldots,  x_{n-1}).$$
 En particulier, $F(x_{1}, \ldots, x_{n-1}, \varphi(x_{1}, \ldots, x_{n-1})) = 0$.
 
-    \item $\displaystyle \frac{\partial \varphi}{\partial x_{i}} (x_1,\ldots,x_{n-1},x_n)
+    \item $\displaystyle \frac{\partial \varphi}{\partial x_{i}} (x_1,\ldots,x_{n-1})
      =  \frac{- \frac{\partial f}{\partial x_{i}} (x_{1},  \ldots,  x_{n-1} , \varphi(x_{1},  \ldots,  x_{n-1}))}{\frac{\partial f}{\partial x_{n}} (x_{1},  \ldots,  x_{n-1} , \varphi(x_{1},  \ldots,  x_{n-1}))}$
+     pour tout $1 \le i \le n-1$.
 \end{enumerate}
 \end{theoreme}
 
