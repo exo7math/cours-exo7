@@ -1,0 +1,2083 @@
+
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Fonctions de plusieurs variables -- 2ème année -- Leborgne - Fichou}
+%====================================================================
+
+
+\tableofcontents
+
+Le cours porte sur les fonctions de plusieurs variables. Le terme n'est pas tr\`es précis. Prenons quelques exemples.
+En physique : le temps la distance la charge...
+En économie : le prix en fonction du capital et du travail.
+On peut imaginer des fonctions dont les variables ou les valeurs sont discr\`etes ou qualitatives.
+Dans le cours nous nous intéresserons au cas des fonctions définies sur des parties de $\Rr^d$ \`a valeurs dans $\Rr^d$.
+
+
+
+\newpage
+\section{L'espace $\mathbb{R}^d$}
+\subsection{Produit scalaire, norme et distance dans $\mathbb{R}^d$}
+
+\begin{definition}
+Si $x = (x_{1} \dots x_{d})$ et $y = (y_{1} \dots y_{d})$ sont deux vecteurs de $\mathbb{R}^d$, on définit leur {\bf produit scalaire} par :
+$$\langle x, y \rangle= x_{1} y_{1} + \cdots + x_{d} y_{d}$$
+\end{definition}
+
+\begin{definition}
+On appelle {\bf norme} de $x$ (ou longueur) $\|x\| = \langle x, x \rangle^{1/2}$ et la {\bf distance} entre deux vecteurs $d(x\,,\,y) = \|x - y\|$.
+\end{definition}
+
+\begin{proposition}
+On a les propriétés suivantes :
+\begin{enumerate}
+\item[(1)] $\langle x, y \rangle = \langle y, x \rangle$
+\item[(2)] $\langle x, y+z \rangle = \langle x, y \rangle + \langle x, z \rangle$
+\item[(3)] $\langle \alpha x, y \rangle = \alpha \langle x, y \rangle$
+\item[(4)] $\langle x, x \rangle \geqslant 0$ avec $\langle x, x \rangle = 0$ si et seulement si $x = 0$
+\end{enumerate}
+\end{proposition}
+
+\begin{theoreme} Le produit scalaire vérifie l'{\bf inégalité de Cauchy-Schwarz} $\langle x, y \rangle^2 \leqslant \|x\|^2\; \|y\|^2$ avec égalité si et seulement si $x$ et $y$ sont colinéaires.
+\end{theoreme}
+\begin{proof} 
+
+Soient $x$ et $y$ deux vecteurs et $\lambda$ un nombre réel.
+Le nombre $\langle \lambda x+y,\langle \lambda x+y\rangle$ est positif ou nul. On peut développer ce produit scalaire en appliquant les propriétés de linéarité. On obtient :
+\begin{eqnarray*}
+\langle \lambda x+y, \lambda x+y\rangle&=&\langle \lambda x, \lambda x+y\rangle+\langle y, \lambda x+y\rangle\\
+&=&\lambda\langle  x, \lambda x+y\rangle+\langle y, \lambda x+y\rangle\\
+&=& \lambda\langle  x, \lambda x\rangle+\lambda\langle  x, y\rangle+\langle y, \lambda x\rangle+\langle y,y\rangle\\
+&=&\lambda^2\langle  x,  x\rangle+\lambda\langle  x, y\rangle+\lambda\langle y,  x\rangle+\langle y,y\rangle\\
+&=&\lambda^2\langle  x,  x\rangle+2\lambda\langle  x, y\rangle+\langle y,y\rangle
+\end{eqnarray*}
+On obtient donc un polynôme de degré 2 en $\lambda$ qui est positif ou nul pour tout $\lambda$. Cela signifie que le discriminant de ce polynôme est négatif ou nul. Autrement dit on a
+$$
+\langle  x, y\rangle^2-\langle y,y\rangle\langle  x,  x\rangle\leq 0.
+$$
+Dire que ce discriminant est nul est équivalent \`a dire qu'il existe $\lambda$ pour lequel le polynôme est nul ou encore qu'il existe $\lambda$ pour lequel $\|\lambda x+y\|^2=0$ ce qui est équivalent \`a $\lambda x+y=0$. Autrement dit l'égalité ne peut être vérifiée que dans les cas où $x$ et $y$ sont colinéaires. On vérifie facilement que l'égalité est satisfaite lorsque $x$ et $y$ sont colinéaires (on a donc l'équivalence). 
+\end{proof}
+
+
+
+
+Donnons une autre façon de voir les choses. 
+\begin{proof}
+L'identité de Lagrange
+$$
+(\sum_{i=1}^dx_iy_i)^2+\sum_{1\leq i<j\leq d}(x_iy_j-x_jy_i)^2=(\sum_{i=1}^dx_i^2)(\sum_{i=1}^dy_i^2)
+$$ 
+s'écrit ici
+$$
+\langle x, y\rangle^2+\sum_{1\leq i<j\leq d}(x_iy_j-x_jy_i)^2=\|x\|^2\|y\|^2
+$$
+et donne donc une justification \`a notre énoncé (la somme $\sum_{1\leq i<j\leq n}^n(x_iy_j-x_jy_i)^2$ est positive ou nulle). \'Etablissons l'identité de Lagrange.
+\begin{eqnarray*}
+(\sum_{i=1}^dx_iy_i)^2&=&\sum_{i=1}^dx_i^2y_i^2+\sum_{1\leq i<j\leq n}x_iy_ix_jy_j+\sum_{1\leq j<i\leq d}x_iy_ix_jy_j\\
+&=&\sum_{i=1}^dx_i^2y_i^2+2\sum_{1\leq i<j\leq d}x_iy_ix_jy_j\\
+&=&\sum_{i=1}^dx_i^2y_i^2+\sum_{1\leq i<j\leq d}[x_i^2y_j^2+x_j^2y_i^2-(x_iy_j-x_jy_i)^2]\\
+&=&\sum_{i=1}^dx_i^2y_i^2+\sum_{1\leq i<j\leq d}[x_i^2y_j^2+x_j^2y_i^2]-\sum_{1\leq i<j\leq d}(x_iy_j-x_jy_i)^2\\
+&=&(\sum_{i=1}^dx_i^2)(\sum_{i=1}^dy_i^2)-\sum_{1\leq i<j\leq d}(x_iy_j-x_jy_i)^2
+\end{eqnarray*}
+\end{proof}
+
+
+\begin{theoreme} La norme définie précédemment s'appelle {\bf norme euclidienne} et vérifie :
+\begin{enumerate}
+\item[(i)] $\|x\| = 0$ si et seulement si $x = 0$
+\item[(ii)] $\|x\| > 0$ si  $x \neq 0$
+\item[(iii)] $\|\alpha\, x\| = |\alpha|\; \|x\|$
+\item[(iv)] $\|x + y\| \leqslant \|x\| + \|y\|$
+\end{enumerate}
+\end{theoreme}
+
+\begin{proof} \ Si $\|x\| = 0$ alors la somme $\sum_{i=1}^nx_i^2$ vaut 0. Comme tous les carrés sont positifs ou nuls, pour que leur somme soit nulle il faut qu'il soient tous nuls, autrement dit que tous les $x_i$ soient nuls ce qui signifie bien que $x=0$. Réciproquement, si $x=0$ alors $\|x\| = 0$.
+On a
+$$
+\|\alpha\, x\|^2 = \sum_{i=1}^n(\alpha x_i)^2=\alpha^2\sum_{i=1}^nx_i^2=\alpha^2\; \|x\|^2.
+$$
+En prenant la racine carrée on obtient
+$$
+\|\alpha\, x\|=\sqrt{\|\alpha\, x\|^2}=\sqrt{\alpha^2\; \|x\|^2}=\sqrt{\alpha^2}\; \sqrt{\|x\|^2}= |\alpha|\; \|x\|.
+$$
+\begin{eqnarray*}
+\|x + y\|^2&=&\langle x+y,x+ y\rangle\\
+&=&\langle x, x\rangle+\langle x, y\rangle+\langle y, x\rangle+\langle y, y\rangle\\
+&=&\|x\| ^2+\|y\|^2+2 \langle x, y\rangle\\
+&\leq&\|x\| ^2+\|y\|^2+2\|x\|\|y\|\\
+&=&(\|x\| +\| y\|)^2
+\end{eqnarray*}
+\end{proof}
+
+L'inégalité de Cauchy Schwarz permet aussi de définir la mesure d'un angle géométrique entre deux vecteurs : comme $ \langle x, y\rangle\leq\|x\|\|y\|$, si aucun des deux vecteurs n'est nul, alors le quotient  $\displaystyle \frac{\langle x, y \rangle}{\|x\|\;\|y\|}$ est un nombre compris entre -1 et 1. 
+
+\begin{definition} La mesure d'un {\bf angle} entre deux vecteurs non nuls est $\theta \in [0\,,\,\pi]$ vérifiant $\cos \theta = \displaystyle \frac{\langle x, y \rangle}{\|x\|\;\|y\|}$\,.
+\end{definition}
+
+\begin{definition}
+$x$ et $y$ de $\mathbb{R}^n$ sont dits {\bf orthogonaux} lorsque $\langle x, y \rangle = 0$.
+\end{definition}
+
+\begin{definition} (plan dans $\mathbb{R}^3$)\\
+Soient $A = (x_{0}\,,\,y_{0}\,,\,z_{0})$ un point de $\mathbb{R}^3$ et $N = (a\,,\,b\,,\,c)$ un vecteur non nul. \\
+Le plan passant par $A$ et orthogonal \`a $N$ est $P = \lbrace x \in \mathbb{R}^3 / (x - A) \cdot N = 0 \rbrace$.
+\end{definition}
+
+
+\subsection{Produit vectoriel dans $\mathbb{R}^3$}
+
+
+\begin{definition}
+Si $x = (x_{1}\,,\,x_{2}\,,\,x_{3})$ et $y = (y_{1}\,,\,y_{2}\,,\,y_{3})$ sont deux vecteurs de $\mathbb{R}^3$, on définit le {\bf  produit vectoriel} de $x$ et de $y$ par : $x \land y = (x_{2}\,y_{3} - x_{3}\,y_{2}\,,\,x_{3}\,y_{1} - x_{1}\,y_{3}\,,\,x_{1}\,y_{2} - y_{1}\,x_{2})$.
+\end{definition}
+
+Voici une autre définition du produit vectoriel. Supposons $x$ et $y$ fixés et considérons l'application
+$$
+z=(z_1,z_2,z_3)\mapsto det(x,y,z).
+$$
+C'est une application linéaire de $\Rr^3$ dans $\Rr$. Il existe donc des coefficients $a_1,a_2,a_3$ tels que, pour tous $x$, $y$ on ait :
+$$
+det(x,y,z)=a_1z_1+a_2z_2+a_3z_3.
+$$
+Si on note $a$ le vecteur $(a_1,a_2,a_3)$ alors cela s'écrit encore
+$$
+det(x,y,z)=\langle a,z\rangle.
+$$
+On vérifie que le vecteur $a$ ainsi défini a pour coordonnées $(x_{2}\,y_{3} - x_{3}\,y_{2}\,,\,x_{3}\,y_{1} - x_{1}\,y_{3}\,,\,x_{1}\,y_{2} - y_{1}\,x_{2})$, c'est le produit vectoriel de $x$ et $y$.
+
+Pour qui sait calculer un déterminant 3x3 en développant par rapport \`a la troisi\`eme colonne cela donne une façon simple de retrouver les coordonnées d'un produit vectoriel :
+ $$
+ \det \left( \begin{array}{ccc}
+x_1& y_1 & z_1 \\
+x_{2} & y_{2} & z_2 \\
+x_{3} & y_{3} & z_3
+\end{array}
+\right)=(x_{2}\,y_{3} - x_{3}\,y_{2})z_1-(x_{1}\,y_{3} - x_{3}\,y_{1})z_2+(x_{1}\,y_{2} - y_{1}\,x_{2})z_3.
+$$
+
+
+\begin{theoreme}
+On a les propriétés suivantes :
+\begin{enumerate}
+\item[(1)] $x \land y = -\, y \land x$
+\item[(2)] $x \land (y + z) = x \land y + x \land z$
+\item[(3)] $\alpha\,x \land y = x \land \alpha\, y = \alpha (x \land y)$
+\item[(4)] $\langle x,  x \land y \rangle= 0$ et $\langle y ,x \land y\rangle = 0$
+\item[(5)] $\|x \land y\|^2 = \|x\|^2\, \|y\|^2 - (x \cdot y)^2$ (identité de Lagrange ; déj\`a vu)
+\end{enumerate}
+\end{theoreme}
+
+\begin{proof} \rm : Je donne une démonstration basée sur les propriétés des déterminants (vous n'avez peut-être pas encore vu ces propriétés en AL2 ; cela viendra). Vous pouvez aussi vérifier ces propriétés en utilisant la définition  analytique et en développant les expressions obtenues.
+
+\begin{enumerate}
+\item[(1)] $\langle x \land y ,z\rangle =det(x,y,z)=-det(y,x,z)= -\langle y \land x ,z\rangle$
+\item[(2)] $\langle x \land (y + z) ,u\rangle = det(x,y+z,u)=det(x,y,y)+det(x,z,u)= \langle x \land y ,u\rangle+\langle x \land z ,u\rangle=\langle x \land y+ x \land z ,u\rangle$
+\item[(3)] $\langle \alpha x \land y  ,u\rangle  = det(\alpha x,y,u)=\alpha det(x,y,u)= \alpha\langle x \land y ,u\rangle$
+\item[(4)] $\langle x,  x \land y \rangle= det(x,y,x)=0$ et $\langle y ,x \land y\rangle = det(x,y,y)=0$
+\end{enumerate}
+\end{proof}
+
+
+\noindent{\bf Interprétation géométrique de $x \land y$}\\
+$\|x \land y\| = \|x\|\; \|y\|\; \sin \theta$ est l'{\bf aire du parallélogramme} engendré par $x$ et $y$.
+
+\begin{proof} : L'aire d'un parallélogramme est donnée par le produit longueur de la base fois hauteur. Un peu de trigonométrie montre que c'est égal \`a $\|x\|\; \|y\|\; \sin \theta$. Le point (5) ci-dessus donne 
+$$
+\|x \land y\|^2 = \|x\|^2\, \|y\|^2 - (x \cdot y)^2=\|x\|^2\, \|y\|^2 - \|x\|^2\, \|y\|^2\cos^2\theta=\|x\|^2\, \|y\|^2\sin^2\theta.
+$$
+\end{proof}
+\subsection{Coordonnées polaires, cylindriques, sphériques}
+Plut\^ot que de repérer un point $(x,y)$ du plan $\mathbb{R}^2$ par ses coordonnées cartésiennes dans le rep\`ere orthonormé formé par la base canonique, on peut le faire au moyen de sa distance \`a l'origine et de l'angle formé par le premier vecteur de la base canonique et le vecteur $(x,y)$. La distance \`a l'origine est définie au moyen du produit scalaire comme ci-dessus. L'angle n'est pas déterminé de mani\`ere unique. Plusieurs choix sont possibles. On peut ainsi définir les coordonnées polaires d'un point du plan au moyen de l'application suivante :
+$$
+]0,+\infty[\times[0,2\pi[\rightarrow \mathbb{R}^2\ \ (\rho,\theta)\mapsto (\rho\cos\theta,\rho\sin\theta).
+$$
+On aurait pu choisir (le choix est tout aussi bon) de faire varier $\theta$ dans $[-\pi,\pi[$. On n'attribue généralement pas de coordonnées polaires au point origine : il est facile de définir sa distance \`a l'origine, l'angle n'aurait pas de sens. 
+
+Dans $\mathbb{R}^3$ on définit les coordonnées sphériques d'un point au moyen de l'application
+$$
+]0,+\infty[\times[0,2\pi[\times[0,\pi]\rightarrow \mathbb{R}^3\ \ (\rho,\theta,\phi)\mapsto (\rho\cos\theta\sin\phi,\rho\sin\theta\sin\phi,\rho\cos\phi).
+$$
+\begin{center}
+%\includegraphics[scale=.7]{spheriques.pdf}
+\end{center}
+Le couple $(\rho \sin \phi,\theta )$ forme les coordonnées polaires de la projection du point sur le plan d'équation $z=0$. L\`a encore on aurait pu choisir d'autres intervalles pour domaines de $\theta$ et $\phi$. En géographie par exemple la latitude qui correspond \`a $\phi$ varie de $-90$ \`a $90$ degrés et c'est l'angle avec le plan de l'équateur qui la définit (pas l'angle avec l'axe p\^ole sud p\^ole nord).
+Pour une illustration tr\`es parlante des coordonnées sphériques on pourra regarder le premier chapitre du film dimensions \footnote{\url{http://www.dimensions-math.org/Dim_fr.htm}}
+
+
+\subsection{Topologie de $\mathbb{R}^d$}
+
+
+\begin{definition}
+Soient $a \in \mathbb{R}^d$ et $r > 0$.\\
+On appelle $B(a\,,\,r) = \lbrace x \in \mathbb{R}^d \,/\, \|x - a\| < r \rbrace$ la {\bf boule ouverte} de centre $a$ et de rayon $r$.
+\end{definition}
+
+
+\noindent{\bf Exemple}\\
+Dans $\mathbb{R}\,,\,\mathbb{R}^2$ ou $\mathbb{R}^3$ on retrouve les intervalles, les disques, les boules ouvertes.
+
+
+\begin{proposition}
+Soient $A \subset \mathbb{R}^d\,,\,x \in \mathbb{R}^d$.\\
+Alors une des trois conditions suivantes est vérifiée :
+\begin{enumerate}
+\item[(i)]   $\exists r > 0$ tel que $B(x\,,\,r) \subset A$
+\item[(ii)] $\exists r > 0$ tel que $B(x\,,\,r) \subset A^c$ o\`u $A^c = \mathbb{R}^n\,\setminus\,A$
+\item[(iii)]  $\forall r > 0\,,\,B(x\,,\,r)$ contient des points de $A$ et de $A^c$.
+\end{enumerate}
+\end{proposition}
+
+\begin{definition}
+L'{\bf intérieur} de $A$ (noté int$(A)$ ou $\stackrel{\,\circ}{A}$) est l'ensemble des points de $\mathbb{R}^d$ vérifiant (i).\\
+L'{\bf extérieur} de $A$ (noté ext $A$) est l'ensemble des points de $\mathbb{R}^d$ vérifiant la condition (ii).\\
+La {\bf fronti\`ere} (ou le bord) de $A$ (notée $\partial A$) est l'ensemble des points de $\mathbb{R}^d$ vérifiant la condition (iii).\\
+La {\bf fermeture} de $A$ (notée $\overline{A}$) est la réunion de $A$ et de $\partial A$.
+\end{definition}
+
+
+\noindent{\bf Exemples dans $\mathbb{R}^2$}\\
+$A = \lbrace x \in \mathbb{R}^2 \,/ \, \|x\| < 1 \rbrace$\\
+$A = \lbrace (n\,,\,0) \,/\, n \in \mathbb{Z} \rbrace$ 
+
+
+\begin{definition}
+Un ensemble $A$ de $\mathbb{R}^d$ est :
+\begin{enumerate}
+\item[(i)] {\bf ouvert} si $\forall a \in A \,,\, \exists r > 0$ tel que $B(a\,,\,r) \subset A$
+\item[(ii)] {\bf fermé} si $A^c$ est ouvert.
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}
+$A$ est ouvert si et seulement si $\stackrel{\,\circ}{A} \,= A$.\\
+$A$ est fermé si et seulement si $\overline{A}= A$.\\
+La fronti\`ere de $A$ est égale \`a $\partial A=\overline A \setminus \stackrel{\,\circ}{A} $.
+\end{proposition}
+
+\begin{proof} Détailler le dernier point.
+\end{proof}
+
+\noindent{\bf Exemples}\\
+$A_{1} = \lbrace (x\,,\,y) \,/\, x^2 + y^2 < 1 \rbrace$ est ouvert.\\
+$A_{2} = \lbrace (x\,,\,y) \,/ \, x^2 + y^2 \leqslant 1 \rbrace$ est fermé.\\
+$A_{3} = A_{1} \cup \lbrace (1\,,\,0) \rbrace$ n'est ni ouvert ni fermé.\\
+$]0\,,\,1[ \,\subset \mathbb{R}$ est ouvert dans $\mathbb{R}$.\\
+$]0\,,\,1[ \times \lbrace 0 \rbrace \subset \mathbb{R}^2$ n'est ni ouvert ni fermé.\\
+$[0\,,\,1] \subset \mathbb{R}$ est fermé dans $\mathbb{R}$.\\
+$[0\,,\,1] \times \lbrace 0 \rbrace \subset \mathbb{R}^2$ est fermé dans $\mathbb{R}^2$.
+
+
+
+\begin{proposition}
+\begin{enumerate}
+\item $\mathbb{R}^d$ et $\oslash$ sont ouverts (et donc aussi fermés).
+\item Toute réunion d'ouverts est un ouvert.
+\item Toute intersection \underline{finie} d'ouverts est un ouvert.
+\end{enumerate}
+\end{proposition}
+
+
+\subsection{Suites dans $\mathbb{R}^d$}
+\begin{definition}
+Une suite dans $\mathbb{R}^d$ est une famille de vecteurs $x_n=(x_{1,n},\ldots,x_{d,n})$ indexée par l'ensemble des entiers naturels $(x_n)_{n\in\mathbb{N}}$. Chaque terme de la suite $x_n$ est un vecteur avec ses $d$ coordonnées.
+\end{definition}
+\begin{definition}
+Une suite $(x_{n})_{n \in \mathbb{N}}$ {\bf converge} dans $\mathbb{R}^d$ vers $b \in \mathbb{R}^d$ si $\forall \varepsilon > 0\,,\,\exists N \in \mathbb{N}$ tel que $n \geqslant N$ entra\^{\i}ne $\|x_{n} - b\| < \varepsilon$.
+\end{definition}
+
+De mani\`ere équivalente on peut définir la convergence d'une suite de vecteurs $(x_n)$ par la convergence de chacune des suites réelles données par les coordonnées $x_{i,n}$, $i$ allant de 1 \`a $d$, $n$ variant dans $\mathbb{N}$ (les suites des coordonnées sont indexées par $n$ et il y en a $d$ : $(x_{i,n})_{n\in\mathbb{N}}$ ).
+
+Une autre fa\c con de dire que la suite $(x_n)$ tend vers $b$ est de dire que la suite réelle de nombre positifs ou nuls $(d(x_n,b))_{n\in\mathbb{N}}$ tend vers 0.
+
+
+\noindent{\bf Remarques}
+\begin{enumerate}
+\item On dit que $b$ est {\bf la limite} de la suite $(x_{n})$ et on note $x_{n} \rightarrow b$.
+\item $x_{n} \rightarrow b$ si et seulement si $\forall \varepsilon > 0$ la boule $B(b\,,\,\varepsilon)$ contient toute la suite sauf un nombre fini de $x_{n}$.
+\end{enumerate}
+
+
+\begin{proposition}$A$ est fermé si et seulement si pour toute suite convergente contenue dans $A$ et convergente, la limite est dans $A$.
+\end{proposition}
+
+Cette proposition fournit un crit\`ere pour démontrer qu'un ensemble $A$ n'est pas fermé : il suffit de trouver une suite de points de $A$ convergeant vers un point n'appartenant pas \`a $A$. 
+
+\begin{theoreme} Soit $(x_n)$ une suite bornée. Il existe une sous-suite de $(x_n)$ convergeant dans $\mathbb{R}^d$.
+\end{theoreme}
+\subsection{Ensembles compacts}
+
+
+
+
+
+
+
+\begin{definition}
+$X \subset \mathbb{R}^d$ est compact si $X$ est fermé et borné (borné veut dire qu'il existe $R > 0$ tel que $X \subset B(0\,,\,R)$).
+\end{definition}
+
+
+\noindent{\bf Exemples}\\
+$[0,23]$ est un compact dans $\mathbb{R}$.\\
+$\{(x,y)\ / x^2+(y-2)^2\leq 6\}$ est un compact de $\mathbb{R}^2$.\\
+$[2,3]\times[1,3]\times[5,7]$ est un compact dans $\mathbb{R}^3$.\\
+
+
+\begin{theoreme} (Bolzano-Weierstrass)\\
+Soit $X \subset \mathbb{R}^d$ compact. \\
+Alors toute suite $(x_{n}) \subset X$ contient une sous-suite $(x_{l_n})$ qui converge vers un point de $X$.
+\end{theoreme}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section{Fonctions de plusieurs variables}
+
+\subsection{Définitions}
+
+
+\begin{definition}
+Une fonction $f$ définie sur un sous-ensemble $D$ de $\mathbb{R}^d$ \`a valeurs dans $\mathbb{R}$ (o\`u $D$ est un ) s'appelle fonction numérique de $n$ variables.\\
+$D$ est le domaine de définition de $f$.\\
+$\lbrace f(x)\,/\, x \in D \rbrace$ est l'image de $f$.\\
+$\lbrace (x\,,\,f(x))\,/\, x \in D \rbrace \subseteq \mathbb{R}^d \times \mathbb{R}$ est appelé graphe de $f$.\\
+\end{definition}
+
+\noindent{\bf Exemples\footnote{Les images données sont obtenues avec le logiciel Maple.}}\\
+$f(x\,,\,y) = \displaystyle \frac {1}{\sqrt{x^2 + y^2}}$
+\begin{center}
+%\includegraphics[scale=.3]{Pique.pdf}
+\end{center}
+$f(x\,,\,y\,,\,z) =Ln (1 + x^2 + y^2)$
+\begin{center}
+%\includegraphics[scale=.3]{Ln-1.pdf}
+\end{center}
+
+\begin{definition}
+Soient $D$ et $E$ deux parties de $\mathbb{R}^d$ telles que $D\subset E$ et $f$ et $g$ deux fonctions définies respectivement sur $D$ et $E$. On dit que $g$ est un prolongement de $f$ \`a $E$ si pour tout $x\in D$ on a $f(x)=g(x)$. Dans cette situation, on dit aussi que $f$ est la restriction de $g$ \`a $D$.
+\end{definition}
+
+\noindent{\bf Exemple}\\
+$f(x\,,\,y) = \displaystyle \frac {x^3}{x^2 + y^2}$ qu'on prolonge en une fonction $g$ définie sur $\mathbb R^2$ en posant $g(0,0)=a$, o\`u $a\in \mathbb R$.
+ 
+
+\begin{definition}
+Soient $D$ une partie de $\mathbb{R}^d$, $f$ une fonction définie sur $D$ \`a valeurs dans $\mathbb{R}$ et $x_0\in D$.\\
+ On dit que $f$ est majorée sur $D$ s'il existe $M\in\mathbb{R}$ tel que pour tout $x\in D$ on ait
+$f(x)\leq M$.\\
+On dit que $f$ est minorée sur $D$ s'il existe $m\in\mathbb{R}$ tel que pour tout $x\in D$ on ait
+$f(x)\geq m$.\\
+On dit que $f$ est bornée sur $D$ si elle est \`a la fois majorée et minorée. Cela revient \`a dire qu'il existe $M\geq 0$ tel que pour tout $x\in D$ on ait
+$|f(x)|\leq M$.
+\end{definition}
+
+
+\noindent{\bf Exemple}\\
+La fonction $g$ précédente est borné sur $\mathbb R^2$.
+
+
+\begin{definition}
+On dit que $f$ a un minimum en $x_0$ si pour tout $x\in D$ on a $f(x)\geq f(x_0)$.\\
+On dit que $f$ a un maximum en $x_0$ si pour tout $x\in D$ on a $f(x)\leq f(x_0)$.\\
+On dit que $f$ a un minimum  strict en $x_0$ si pour tout $x\in D$, $x\neq x_0$, on a $f(x)> f(x_0)$.\\
+On dit que $f$ a un maximum  strict en $x_0$ si pour tout $x\in D$, $x\neq x_0$, on a $f(x)< f(x_0)$.\\
+\end{definition}
+
+
+\noindent{\bf Exemple}\\
+Pour $g$, le point $(0,1)$ est un minimum non strict, alors que $(1,0)$ est maximum non strict.
+
+\begin{definition}
+On dit que $f$ a un minimum local en $x_0$ s'il existe $r>0$ tel que pour tout $x\in B(x_0,r)$ on a $f(x)\geq f(x_0)$.\\
+On dit que $f$ a un maximum local en $x_0$ s'il existe $r>0$ tel que pour tout $x\in B(x_0,r)$ on a $f(x)\leq f(x_0)$.\\
+On dit que $f$ a un minimum local strict en $x_0$ s'il existe $r>0$ tel que pour tout $x\in B(x_0,r)$, $x\neq x_0$, on a $f(x)> f(x_0)$.\\
+On dit que $f$ a un maximum local strict en $x_0$ s'il existe $r>0$ tel que pour tout $x\in B(x_0,r)$, $x\neq x_0$, on a $f(x)< f(x_0)$.\\
+\end{definition}
+
+
+
+
+\noindent{\bf Définitions}\\
+Soient $D$ une partie de $\mathbb{R}^d$, $f$ une fonction définie sur $D$ \`a valeurs dans $\mathbb{R}$.\\
+Si $f$ est majorée, on appelle borne supérieure de $f$ sur $D$ le plus petit des majorants de $f$, soit le nombre réel noté $\sup_D f$ ou $\sup_{x\in D}f(x)$ défini par :
+$$
+\forall x\in D\ \ \ f(x)\leq \sup_D f, \ \ \forall M<\sup_D f,\  \exists x\in D, \  f(x)>M.
+$$
+Si $f$ est minorée, on appelle borne supérieure de $f$ sur $D$ le plus petit des minorants de $f$, soit le nombre réel noté $\inf_D f$ ou $\inf_{x\in D}f(x)$ défini par :
+$$
+\forall x\in D\ \ \ f(x)\geq \inf_D f, \ \ \forall m>\sup_D f,\  \exists x\in D, \  f(x)<m.
+$$
+Si $f$ est majorée sur $D$, on dit que $f$ atteint sa borne supérieure s'il existe $x\in D$ tel que $f(x)=\sup_D f$. \\
+Si $f$ est minorée sur $D$, on dit que $f$ atteint sa borne inférieure s'il existe $x\in D$ tel que $f(x)=\inf_D f$. 
+
+
+\subsection{Représentation géométrique}
+
+
+
+\begin{enumerate}
+\item[$\bullet$] Cas d'une fonction de deux variables $f(x\,,\,y)$
+\begin{enumerate}
+\item[a)] On consid\`ere le graphe $G(f) = \lbrace ((x\,,\,y)\,,\,f(x\,,\,y))\,/\, (x\,,\,y) \in \mathbb{C} \rbrace \subseteq \mathbb{R}^3$.\\
+Exemples : $f(x\,,\,y) = x^2 + y^2$.\\
+Le graphe est un parabolo¬\"{\i}de de révolution.
+\begin{center}
+%\includegraphics[scale=.3]{Paraboloide.pdf}
+\end{center}
+Le graphe {$f(x\,,\,y) = {y^2 - x^2}$}  est un parabolo\"\i de hyperbolique :
+\begin{center}
+%\includegraphics[scale=.3]{Paraboloide-hyper.pdf}
+\end{center}
+\item[b)] On consid\`ere les courbes de niveau $\lbrace (x\,,\,y) \in D\,/\, f(x\,,\,y) = C \rbrace$.\\
+Dans les exemples précédents, les courbes de niveau sont des cercles $\lbrace (x\,,\,y)\,/\, x^2 + y^2 = C \geqslant 0 \rbrace$ et des hyperboles $\lbrace (x\,,\,y)\,/\, x^2 - y^2 = C \geqslant 0 \rbrace$.
+
+\end{enumerate}
+\item[$\bullet$] Cas d'une fonction de plus de deux variables \\
+Le graphe étant dans $\mathbb{R}^4$, on ne peut le dessiner.\\
+Si $n = 3$, on utilise les surfaces de niveau $\lbrace (x\,,\,y\,,\,z) \in D \,/\, f(x\,,\,y\,,\,z) = C \rbrace$.\\
+Par exemple  la surface de niveau 5 de la fonction $f(x\,,\,y\,,\,z) = 2 x^2 + 3y^2 + z^2$ ressemble \`a peu pr\`es \`a  
+\begin{center}
+%\includegraphics[scale=.3]{Ellipsoide.pdf}
+\end{center}
+\end{enumerate}
+
+Remarque : il arrive qu'un logiciel ne donne pas de représentation fid\`ele de ce qui se passe au voisinage d'un point. Par exemple il est difficile de se rendre compte de ce qui se passe au voisinage de $(0,0)$ pour la fonction définie par  $f(x\,,\,y) ={{xy}\over{x^2+y^2}}$ en regardant l'image ;
+\begin{center}
+%\includegraphics[scale=.3]{Probleme1.pdf}
+\end{center}
+
+
+
+\subsection{Fonctions  continues de $\mathbb{R}^d$ dans $\mathbb{R}$}
+
+
+
+
+
+
+\begin{definition}
+Une fonction $f : D \rightarrow \mathbb{R}$ (o\`u $D \subset \mathbb{R}^d$) a pour limite $b$ en $x_{0}$ si $x_{0} \in \overline{D}$ et si $\forall \varepsilon > 0\,,\, \exists \delta > 0$ tel que :\\
+$x \in D \;\;,\;\;\|x - x_{0}\| < \delta \Rightarrow |f(x) - b| < \varepsilon$.
+\end{definition}
+
+
+\noindent{\bf Notation}\\
+Dans ce cas $b = \displaystyle \lim_{x \rightarrow x_{0}}\, f(x)$.
+
+
+\begin{definition}
+\begin{enumerate}
+\item[(i)] $f : D \rightarrow \mathbb{R}$ est {\bf continue en} $x_{0} \in D$ si et seulement si $\displaystyle \lim_{x \rightarrow x_{0}}\, f(x) = f(x_{0})$.
+\item[(ii)] $f$ est {\bf continue sur $D$} si et seulement si elle est continue en tout point de $D$.
+\end{enumerate}
+\end{definition}
+
+
+\begin{theoreme}
+Soit $f : \mathbb{R}^d \rightarrow \mathbb{R}$.
+Les propositions suivantes sont équivalentes :
+\begin{enumerate}
+\item[(i)] $f$ est continue sur $ \mathbb{R}^d$.
+\item[(ii)] $\forall b \in  \mathbb{R}^d \;,\; \forall x_{p}$ avec $x_{p} \rightarrow b$ on a : $f(x_{p}) \rightarrow f(b)$ dans $\mathbb{R}$.
+\item[(iii)] $\forall F$ fermé de $\mathbb{R}\;,\; f^{-1}(F) = \lbrace x \in  \mathbb{R}^d \,/\,f(x) \in F \rbrace$ est un fermé de $\mathbb{R}^d$.
+\item[(iv)] $\forall\theta$ ouvert de $\mathbb{R}\;,\; f^{-1}(\theta) = \lbrace x \in  \mathbb{R}^d \,/\,f(x) \in \theta \rbrace$ est un ouvert de $\mathbb{R}^d$.
+\end{enumerate}
+\end{theoreme}
+
+\noindent{\bf Remarque}\\
+Si $D  \neq \mathbb{R}^d$, il faut modifier les points (iii) et (iv), et dire que $f^{-1}(\theta)$ est un ouvert de $D$ et $f^{-1}(F)$ est un fermé de $D$.
+
+\begin{proof} \rm \  
+
+Il suffit de démontrer les implications successives (i)$\Rightarrow$(ii)$\Rightarrow$(iii) $\Rightarrow$(iv)$\Rightarrow$(i).
+
+(i)$\Rightarrow$(ii) : On se donne une fonction $f$ continue et une suite $(x_k)$ convergeant vers $b$ et il s'agit de montrer que $(f(x_k))$ converge vers $f(b)$. \'Ecrivons les définitions de l'hypoth\`ese et de ce que nous cherchons \`a démontrer.\\
+Hypoth\`eses : \\
+-- Convergence de la suite $(x_k)$ : $\forall \epsilon>0\ \exists K\ \forall k>K\ d(x_k,b)<\epsilon$.\\
+-- Continuité de la fonction (en $b$) : $\forall \alpha>0\ \exists \delta>0\ (d(x,b)<\delta\Rightarrow |f(x)-f(b)|<\alpha$).\\
+\`A montrer : \\
+-- Convergence de la suite $(f(x_k))$ : $\forall \epsilon>0\ \exists K\ \forall k>K\ d(f(x_k),f(b))<\epsilon$.\\
+Soit $\epsilon>0$. Prenons $\delta>0$ pour que si $d(x,b)<\delta$ alors $|f(x)-f(b)|<\epsilon$ (c'est possible grâce \`a la deuxi\`eme hypoth\`ese). Prenons ensuite $K$ tel que si $k>K$ alors $d(x_k,b)<\delta$ (c'est possible grâce \`a la premi\`ere hypoth\`ese). Alors si $k>K$ on a $d(x_k,b)<\delta$, donc  $|f(x_k)-f(b)|<\epsilon$.\\
+
+(ii)$\Rightarrow$(iii) : On suppose que (ii) est vraie et on cherche \`a montrer qu'alors (iv) est vraie. \\
+Soit $F$ un fermé. On veut montrer que $f^{-1}(F)$ est fermé. Autrement dit on veut montrer que toute suite convergente d'éléments de $f^{-1}(F)$ a sa limite dans $f^{-1}(F)$. Soit $(x_k)$ une telle suite, $x$ sa limite. Comme (ii) est vraie, $(f(x_k))_k$ converge vers $f(x)$. D'autre part, pour tout $k$, $x_k$ appartient \`a $f^{-1}(F)$. Autrement dit, pour tout $k$, $f(x_k)$ appartient \`a $F$. Mais $F$ est fermé donc toute suite convergente d'éléments de $F$ a sa limite dans $F$.  Or $(f(x_k))_k$ converge vers $f(x)$. On a donc $f(x)\in F$ soit encore $x\in   f^{-1}(F)$, ce qu'on voulait montrer.\\
+
+(iii)$\Rightarrow$(iv) : Commen\c cons par remarquer que pour toute partie $E$ de $\mathbb{R}$, l'égalité
+$$
+f^{-1}(^cE)=^c f^{-1}(E),
+$$
+est valable.\\
+Supposons $f^{-1}(F)$ est fermé quand $F$ est ouvert et donnons-nous un ouvert $\theta$. Alors $^c\theta$ est fermé, donc $f^{-1}(^c\theta)$ est fermé. Mais comme $f^{-1}(^c\theta)=^c f^{-1}(\theta)$ cela signifie que $^c f^{-1}(\theta)$ est fermé, autrement dit que $ f^{-1}(\theta)$ est ouvert.\\
+
+
+(iv)$\Rightarrow$(i) : On suppose que (iii) est vraie et on cherche \`a montrer qu'alors (i) est vraie. \\
+\`A montrer : $\forall b\in \mathbb{R}^d,\  \forall \alpha>0\ \exists \delta>0\ (d(x,b)<\delta\Rightarrow |f(x)-f(b)|<\alpha$).\\
+Soient $b\in \mathbb{R}^d$, $\alpha>0$. L'intervalle $]f(b)-\alpha,f(b)+\alpha[$ est un ouvert de $ \mathbb{R}$. Par (iii) $f^{-1}(  ]f(b)-\alpha,f(b)+\alpha[)$ est un ensemble ouvert (auquel $b$ appartient évidemment). Dire que cet ensemble est ouvert, c'est en particulier, dire qu'il existe $\delta>0$ tel que, $B(b,\delta)\subset f^{-1}(  ]f(b)-\alpha,f(b)+\alpha[)$. Mais cette inclusion signifie que si $d(x,b)<\delta$ alors $|f(x)-f(b)|<\alpha$. C'est ce que nous voulions montrer.\end{proof}
+
+\begin{theoreme}
+Soit $D$ un sous-ensemble de $R^d$ et $f$ et $g$ des fonctions continues sur $D$. A alors $f + g$ et $fg$ sont continues sur $D$. De plus $\frac{f}{g}$ est continue en tout point o\`u $g$ ne s'annule pas.
+\end{theoreme}
+
+
+\begin{proof} \rm \ 
+Le plus simple est peut-\^etre d'utiliser la caractérisation séquentielle de la continuité : nous avons \`a montrer que,
+pour tout point $x$ en lequel $f$ et $g$ sont définies, pour toute suite $(y_k)_k$ convergeant vers $x$, les suites $(f(y_k)+g(y_k))_k$, $(f(y_k)g(y_k))_k$, $(f(y_k)/g(y_k))_k$ convergent respectivement vers $f(x)+g(x)$, $f(x)g(x)$, $f(x)/g(x)$.
+Par hypoth\`ese $f$ et $g$ sont continues donc $(f(y_k)$ et $g(y_k))_k$ tendent vers $f(x)$ et $g(x)$.
+Or, on sait que si deux suites de nombres réels $(u_k)_k$, $(v_k)_k$ tendent vers $l$ et $l'$ alors les suites $(u_k+v_k)_k$, $(u_k.v_k)_k$, $(u_k/v_k)_k$convergent respectivement vers $l+l'$, $ll'$, $l/l'$. Il suffit donc d'appliquer ce résultat pour $u_k=f(y_k)$ et $v_k=g(y_k)$.
+
+Il y a quand m\^eme un petit probl\`eme avec le quotient quand $g(x)$ vaut 0. Ce n'est pas parce que $g(x)$ vaut 0 que le quotient n'a pas de limite en $x$ ; cela peut arriver mais dépend des fonctions considérées. Ce qui est s\^ur en revanche c'est que si $g(x)$ n'est pas nul, alors le quotient $f/g$ est continu en $x$. Il faut \^etre plus précis dans ce cas. Si $g(x)$ n'est pas nul, alors comme $(g(y_k))_k$ tend vers $g(x)$, \`a partir d'un certain rang $g(y_k)$ est différent de 0, le quotient $(f(y_k)/g(y_k))_k$ est alors défini \`a partir d'un certain rang et tend vers $f(x)/g(x)$.\end{proof}
+
+
+\begin{theoreme}
+Soit $D$ un sous-ensemble de $\R^d$ et $E$ un sous-ensemble de $\R^n$.
+Si $f:D \to \R$ et $g:E \to \R^d$ sont continues, avec l'image de $E$ par $g$ incluse dans $D$, alors $f \circ g$ est continue sur $E$.
+\end{theoreme}
+
+{\bf Exemple d'application de ce résultat}
+Comme $|x-x'|\leq\|(x,y)-(x',y')\|$ et $|y-y'|\leq\|(x,y)-(x',y')\|$, les applications définies par $(x,y)\mapsto x$, $(x,y)\mapsto y$ sont continues sur $\mathbb{R}^2$.\\
+D'apr\`es le théor\`eme précédent les applications définies par $(x,y)\mapsto x+y$, $(x,y)\mapsto xy$, puis $(x,y)\mapsto x^2+3xy$ et toutes les fonctions polyn\^ome en deux variables $x$ et $y$ sont continues sur $\mathbb{R}^2$. \\
+De la même fa\c con toutes les fractions rationnelles en deux variables sont continues l\`a o\`u elles sont définies.
+
+
+\noindent{\bf Autres exemples}\\
+$f(x\,,\,y) = e^{xy}$ continue sur $\mathbb{R}^2$\\
+\begin{center}
+%\includegraphics[scale=.3]{Exp-44.pdf}
+\end{center}
+$f(x\,,\,y) = \displaystyle \frac{1}{\sqrt{x^2 + y^2}}$ continue sur $\mathbb{R}^2\,\setminus\,\{0\}$
+\begin{center}
+%\includegraphics[scale=.3]{Pique.pdf}
+\end{center}
+Remarque : vous voyez qu'il n'est pas évident \`a la vue des deux images précédentes de deviner que la premi\`ere fonction est continue sur $\mathbb {R}^2$ et l'autre non.
+
+
+
+\subsection{Etude de certaines surfaces quadratiques}
+
+
+
+On cherche \`a étudier les polyn\^omes  quadratiques de la forme $z = Lx^2 + 2Mxy + Ny^2$.
+
+Pour ce faire nous allons utiliser l'identité remarquable vue au coll\`ege : $(x+\alpha)^2=x^2+2\alpha x+\alpha^2$ en écrivant quand il le faudra $x^2+2\alpha x=(x+\alpha)^2-\alpha^2$.
+Si $L$ n'est pas nul, on peut écrire 
+\begin{eqnarray*}
+Lx^2 + 2Mxy + Ny^2&=&L(x^2 + 2Mxy/L + Ny^2/L)\\
+&=&L((x+ My/L)^2- M^2y^2/L^2+ Ny^2/L)\\
+&=&L((x+ My/L)^2 + (NL-M^2)y^2/L^2).
+\end{eqnarray*}
+Ceci permet de voir que si $NL-M^2$ est strictement positif alors dans la parenth\`ese on trouve la somme de deux carrés et le graphe est un parabolo\"\i de elliptique ("tourné" vers le haut si $L>0$, vers le bas si $L<0$). Si $NL-M^2$ est strictement négatif alors dans la parenth\`ese on trouve la différence de deux carrés et le graphe est un parabolo\"\i de hyperbolique.\\
+Si $N$ n'est pas nul, en procédant de la m\^eme fa\c con, on peut écrire 
+\begin{eqnarray*}
+Lx^2 + 2Mxy + Ny^2&=&N(Lx^2/N + 2Mxy/N + y^2)\\
+&=&N(Lx^2/N+ (y+Mx/N)^2-M^2x^2/N^2)\\
+&=&N((LN-M^2)x^2/N^2+(y+Mx/N)^2).
+\end{eqnarray*}
+On obtient que si $LN-M^2$ est strictement positif alors le graphe est un parabolo\"\i de elliptique ("tourné" vers le haut si $N>0$, vers le bas si $N<0$). Si $NL-M^2$ est strictement négatif alors dans la parenth\`ese on trouve la différence de deux carrés et le graphe est un parabolo\"\i de hyperbolique.\\
+Dans le cas o\`u  $L$ et $N$ ne sont pas nuls tous les deux, ces deux fa\c cons de faire donne bien les m\^emes résultats. En effet, si $LN-M^2$ est strictement positif alors en particulier $LN>0$ autrement dit $L$ et $N$ ont le m\^eme signe (l'orientation du parabolo\"\i de elliptique est bien déterminée de la m\^eme fa\c con).\\
+Si $L$ et $N$ sont tous les deux nuls, et $M$ est différent de 0, alors le graphe est un parabolo\"\i de hyperbolique. Pour le voir il suffit d'écrire (encore une identité remarquable !) :
+$$
+2Mxy=M(x+y)^2/2-M(x-y)^2/2.
+$$
+Quelque soit le signe de $M$ nous avons une différence de deux carrés. \\
+Enfin reste le cas o\`u $LN-M^2$ est nul. On a alors 
+$$
+Lx^2 + 2Mxy + Ny^2=L(x+ My/L)^2 
+$$
+(quand $L\neq 0$ par exemple), et le graphe est un cylindre parabolique.
+
+\noindent{\bf Exemples} : \\
+$\bullet \  2x^2 -6xy+ y^2$\\
+On calcule $2.1-3^2=-7<0$. Le graphe est un parabolo\"\i de hyperbolique :
+\begin{center}
+%\includegraphics[scale=.3]{Paraboloide-hyper1.pdf}
+\end{center}
+$\bullet\   2x^2 -2xy+3 y^2$\\
+On calcule $2.3-2^2=2>0$ et $2>0$. Le graphe est un parabolo\"\i de elliptique tourné vers le haut :
+\begin{center}
+%\includegraphics[scale=.3]{Paraboloide2.pdf}
+\end{center}
+$\bullet \  -x^2 +2xy-3 y^2$\\
+On calcule $(-1).(-3)-1^2=1>0$ et $-1<0$. Le graphe est un parabolo\"\i de elliptique tourné vers le bas :
+\begin{center}
+%\includegraphics[scale=.3]{Paraboloide3.pdf}
+\end{center}
+$\bullet \  x^2 +2xy+ y^2$\\
+On calcule $1.1-1^2=0$. Le graphe est un cylindre parabolique :
+\begin{center}
+%\includegraphics[scale=.3]{Cylindre.pdf}
+\end{center}
+
+Remarque : comme vous le voyez, il n'est pas toujours facile de reconna\^ itre un parabolo\"\i de hyperbolique ou un parabolo\"\i de elliptique sur l'image donnée par l'ordinateur.
+
+\begin{proposition}Il existe des coordonnées orthogonales $X\,,\,Y\,,\,Z$ dans lesquelles $Z = k_{1}\, X^2 + k_{2}\, Y^2$.
+\end{proposition}
+
+
+
+
+
+\subsection{Fonctions continues sur un ensemble compact}
+
+
+\begin{theoreme}
+Soit $f : X \rightarrow \mathbb{R}$ (avec $X$ compact) continue. Alors :
+\begin{enumerate}
+\item[(i)] $f$ est bornée sur $X$.
+\item[(ii)] $f$ atteint ses bornes inférieure et supérieure.
+\end{enumerate}
+\end{theoreme}
+
+\begin{proof} \rm \ 
+Utilisons encore les suites. Supposons que $f$ ne soit pas bornée. Alors on peut trouver une suite $(x_k)$ telle que $(f(x_k))$ tende vers $+\infty$ ou $-\infty$. Considérons par exemple le cas o\`u $ (f(x_k))$ tend vers $+\infty$. Comme $X$ est compact, il existe une sous-suite $(x_{k_l})_l$ convergeant vers un point $x$ de $X$. On a alors $\lim_l f(x_{k_l})=+\infty$ et  $\lim_l f(x_{k_l})=f(x)$ (par continuité de $f$). Contradiction. L'hypoth\`ese faite est absurde : $f$ est bornée. \\
+Reste \`a montrer qu'elle atteint ses bornes. On proc\`ede de mani\`ere analogue. Montrons le pour la borne inférieure.\\
+Il existe une suite $(x_k)$ telle que $(f(x_k))$ tende vers $\inf_X f$. $X$ est compact, il existe une sous-suite $(x_{k_l})_l$ convergeant vers un point $x$ de $X$. On a alors $\lim_l f(x_{k_l})=\inf_X f$ et  $\lim_l f(x_{k_l}=f(x)$ (par continuité de $f$). Conclusion : $f(x)=\inf_X f$, autrement dit $\inf_X f$ est atteinte. \end{proof}
+
+\begin{definition}
+$f : \mathbb{R}^d \rightarrow \mathbb{R}$ est uniformément continue si $\forall \varepsilon > 0\,,\,\exists \delta > 0$ tel que $\|x - y\| < \delta \Rightarrow |f(x) - f(y)| < \varepsilon$.
+\end{definition}
+
+\begin{theoreme}
+Soit $f$ continue de $X$ dans $\mathbb{R}$ avec $X$ compact. Alors $f$ est uniformément continue sur $X$.
+\end{theoreme}
+\begin{proof} \ \rm Nous allons raisonner par l'absurde. Considérons une fonction $f$ continue sur un ensemble compact $X$. Supposons que $f$ ne soit pas uniformément continue. Alors la phrase
+$$
+\forall \varepsilon > 0\,,\,\exists \delta > 0\ {\rm  tel\  que}\ \|x - y\| < \delta \Rightarrow |f(x) - f(y)| < \varepsilon
+$$
+est fausse, c'est-\`a-dire que
+$$
+\exists \varepsilon > 0\,,\,\forall \delta > 0\ \exists x,y\  {\rm avec}\ \|x - y\| < \delta \  {\rm et}\  |f(x) - f(y)| \geq \varepsilon.
+$$
+En particulier pour tout $n\in \Nn$, on peut trouver $x_n$ et $y_n$ deux points de $X$ distants de moins de $1/n$ tels que  $|f(x_n) - f(y_n)| \geq \varepsilon$. On obtient ainsi deux suites d'éléments de $X$. Comme $X$ est compact, on peut extraire de la suite $(x_n)$ une sous-suite convergente. Soient $(x_{n_k})_k$ une telle suite et $x_*$ sa limite. Alors $(y_{n_k})_k$ converge aussi vers $x_*$ car $\|x_{n_k} - y_{n_k}\|<1/{n_k}$. Comme $f$ est continue en $x_*$ on a
+$\lim_kf(x_{n_k})=\lim_k f(y_{n_k})=f(x_*)$. Mais par construction on a aussi, pour tout $k$, $|f(x_{n_k}) - f(y_{n_k})| \geq \varepsilon$. Contradiction.
+\end{proof}
+
+\newpage
+\section{Courbes paramétrées}
+
+\subsection{Introduction: courbes dans le plan}
+\subsubsection{Définition, exemples}
+On appelle courbe dans le plan une application de $\Rr$ dans $\Rr^2$ ou d'un intervalle de $\Rr$ dans $\Rr^2$. Une telle courbe est définie par ses applications coordonnées dans le rep\`ere $((1,0), (0,1))$:
+$$
+f\ :\ \Rr\rightarrow \Rr^2,\ t\mapsto (x(t),y(t)).
+$$
+Si on change de rep\`ere l'écriture de la courbe change. Nous ne voulons pas étudier en détail la notion de courbes et leurs différentes représentations. Nous supposons donc qu'une courbe est donnée par ses coordonnées dans la base précédente. 
+
+Remarque : on appelle généralement courbe l'image de l'application plut\^ot que l'application elle-m\^eme.
+ 
+\subsubsection{Longueur de courbes}
+Supposons que les deux applications $x$ et $y$ soit $C^1$ et définie sur $[0,1]$. On appelle longueur de la courbe définie par $x$ et $y$ la quantité
+$$
+l({\cal C})=\int_0^1\sqrt{x'(t)^2+y'(t)^2} dt.
+$$
+Lorsque les fonctions ne sont pas dérivables il n'est pas toujours possible de définir la longueur de la courbe. Elle peut tr\`es bien \^etre infinie. 
+\subsubsection{La courbe de Peano, la courbe de Koch}
+Peano a ainsi montré que l'on peut tr\`es bien voir le carré unité comme une courbe. Il existe une application continue surjective de $[0,1]$ dans $[0,1]^2$. 
+%\begin{center}
+%\includegraphics[scale=.5]{peano.pdf}
+%\end{center}
+Mais il existe aussi des courbes de longueur infinie mais d'aire nulle. Les plus cél\`ebre de ces courbes présentent des propriétés d'autosimilarité. Ce sont ce qu'on appelle des courbes fractales.
+%\begin{center}
+%\includegraphics[scale=.6]{Koch.pdf}
+%\end{center}
+Ce type de courbe a été longtemps considéré comme des objets étranges et peu naturels. Ce n'est plus le cas aujourd'hui. Les trajectoires de ce qu'on appelle le mouvement brownien, par exemple, sont des courbes sans tangente, de longueur infinie. 
+
+Les objets fractales font l'objet de nombreuses recherches.
+%\begin{center}
+%\includegraphics[scale=.8]{Julia.pdf}
+%\end{center}
+
+Remarquons que si la courbe est $C^1$ alors elle est négligeable dans le plan. Autrement dit son aire est nulle ou encore pour tout $\epsilon>0$ on peut la recouvrir par une réunion finie de petits disques dont la somme des aires est inférieure \`a $\epsilon$. Montrons-le.
+Donnons-nous une fonction $C^1$
+$$
+f\ :\ [0,1]\rightarrow \Rr^2,\ t\mapsto (x(t),y(t)).
+$$
+Comme les dérivées $x'$ et $y'$ sont continues sur le segment $[0,1]$ elles sont toutes les deux bornées. Soit $M$ tel que $|x'(t)|$ et $|y'(t)|$ soient toutes deux inférieures \`a $M$ pour tout $t$ dans $[0,1]$. 
+Le théor\`eme des accroissements finis assure alors que pour tous $t,t'\in[0,1]$ on a  
+$$
+|x(t)-x(t')|\leq M|t-t'|,\ \ |y(t)-y(t')|\leq M|t-t'|.
+$$
+La distance entre l'image de $t$ et celle de $t'$ est donc inférieure \`a $\sqrt{2}M|t-t'|$. 
+
+Soit $\epsilon>0$.
+
+Prenons  $k=E(\sqrt{2}M)/\epsilon+1$ points sur $[0,1]$ espacés de moins de $\epsilon/\sqrt{2}M$ : $t_0,...,t_k$.
+Alors pour tout $t$ dans $[0,1]$ le point $f(t)$ appartient \`a la réunion des disques de rayons $M.\epsilon/\sqrt{2}M=\epsilon/\sqrt{2}$ centrés en les points $f(t_i)$. Cette réunion a une aire inférieure \`a $k.\pi\epsilon^2/2\leq (\sqrt{2}M/\epsilon+1)\pi\epsilon^2/2\leq \pi M\epsilon$. 
+
+L'exemple de la courbe de Peano montre que si $f$ est supposée seulement continue ce résultat n'est plus vrai. 
+
+\subsection{Courbes paramétrées}
+\subsubsection{Définitions}
+\begin{definition}
+Une fonction $F : \mathbb{R} \rightarrow \mathbb{R}^d$ s'appelle fonction vectorielle ou courbe paramétrée.\\
+On exprime $F(t)$ \`a l'aide des fonctions coordonnées $F(t) = (f_{1}(t) \,,\, \dots \,,\, f_{d}(t))$.
+\end{definition}
+
+\noindent{\bf Exemples}
+\begin{enumerate}
+\item[(1)] Soit $F$ la fonction définie par $F(t) = (x_{0} + ta\,,\,y_{0} + tb\,,\,z_{0} + tc)$ avec $t\in \mathbb R$. La droite passant par  $(x_0,y_0,z_0)$ et dirigée par $(a,b,c)$.
+\item[(2)] Soit $F$ la fonction définie par $F(t) = (R \cos t\,,\,R \sin t)$ avec $t\in [0,2\pi]$. Un cercle.
+\item[(3)] Soit $F$ la fonction définie par $F(t) = ( \cos t, \sin t, t)$ avec $t\in \mathbb R$. Une hélice.
+\end{enumerate}
+
+
+
+
+
+\begin{definition}
+Soit $F : \mathbb{R} \rightarrow \mathbb{R}^d$.
+\begin{enumerate}
+\item[(1)] $\displaystyle \lim_{t \rightarrow p} \;F(t) = \left( \lim_{t \rightarrow p} \,f_{1}(t) \,,\, \dots \,,\, \lim_{t \rightarrow p} \,f_{d}(t) \right)$
+\item[(2)] $F'(t) = (f'_{1}(t) \,,\, \dots \,,\, f'_{d}(t))$
+\item[(3)] $\displaystyle \int_{a}^b F(t)\, dt = \left(  \int_{a}^b\, f_{1}(t)\, dt \,,\, \dots \,,\, \int_{a}^b\, f_{d}(t)\, dt \right)$
+\end{enumerate}
+\end{definition}
+
+\begin{theoreme}
+Si $F\,,\, G :  \mathbb{R} \rightarrow \mathbb{R}^d$ et $u : \mathbb{R} \rightarrow \mathbb{R}$ sont dérivables alors :
+\begin{enumerate}
+\item[(i)] $(F + G)' (t) = F'(t) + G'(t)$
+\item[(ii)] $(uF)' (t) = u'(t) F(t) + u(t) F'(t)$
+\item[(iii)] $(<F , G>)' (t) = <F'(t), G(t)> + <F(t), G'(t)>$\item[(iv)] $(F \land G)' (t) = F'(t) \land G(t) + F(t) \land G'(t)$ \ si $d = 3$
+\item[(v)] $F(u(t))' = u'(t) F'(u(t)) $
+\end{enumerate}
+\end{theoreme}
+
+
+
+\begin{corollaire}
+Si une courbe paramétrée $F(t)$ est dérivable et si $\|F(t)\|$ est constante alors $<F(t) , F'(t)> = 0$. 
+(Autrement dit, si la courbe~$F(t)$ est sur une sph\`ere centrée en 0, alors $F(t)$ et $F'(t)$ sont orthogonaux).
+\end{corollaire}
+
+
+\noindent{\bf Exemple}\\
+$F(t) = (\cos t \,,\, \sin t)$ 
+
+
+
+
+
+
+Si $F(t) = (x_{1}(t) \,,\, \dots \,,\,  x_{n}(t))$ est dérivable et $F'(t) \neq 0$, on voit que $F'(t) = \displaystyle \lim_{h\to 0}\;\; \frac{F(t + h) - F(t)}{h}$\;. Interprétation graphique du vecteur dérivée.
+
+
+\begin{definition}
+Soit $C$ la courbe tracée par $F$. %\\
+Si $F'(t_{0}) \neq 0$ alors\\ la droite passant par $F(t_{0})$ de vecteur directeur $F'(t_{0})$ est appelée {\bf droite tangente} \`a $C$ en $F(t_{0})$.\\
+ $F'(t_{0})$ est un vecteur tangent \`a $C$ en $F(t_{0})$.                      Le point $F(t_0)$ est dit régulier.
+\end{definition}
+
+Lorsque $F'(t_{0}) = 0$, le point est dit stationnaire et il nécessite une étude plus poussée (via la formule de Taylor).
+
+
+
+Nous voulons maintenant définir la longueur d'un arc de courbe réguli\`ere. 
+
+Le cas d'un segment.
+
+Le cas du cercle.
+
+Le cas des courbes planes.
+Soit $F$ une fonction $C^1$ définie sur $[a,b]$ \`a valeurs dans $\Rr^2$. On cherche \`a approcher l'arc par une ligne brisée comportant de plus en plus de segments. Soit $n$ un entier naturel. Pour $i$ variant de 0 \`a $n$ posons : $t_i=a+i(b-a)/n$, $x_i=F(t_i)$.
+
+
+Calculons la longueur de la courbe brisée dont les sommets sont les points $x_i$.
+Gr\^ace \`a la définition de la dérivée on a :
+\begin{eqnarray*}
+x_{i+1}-x_i&=&F(t_i+(b-a)/n)-F(t_i)\\
+&=&F'(t_i)(b-a)/n+\epsilon(1/n)/n
+\end{eqnarray*}
+o\`u $\epsilon(1/n)$ tend vers $0$ quand $n$ tend vers l'infini. En utilisant l'inégalité triangulaire, on obtient que lLa longueur du segment $[x_i,x_{i+1}]$ est donc tr\`es proche de $\|F'(t_i)(b-a)/n\|$ :
+$$
+\big|~~\|x_{i+1}-x_i\|-\|F'(t_i)(b-a)/n\|~~\big|\leq \|\epsilon(1/n)\|/n.
+$$
+On obtient donc une estimation de la longueur de la courbe brisée :
+\begin{eqnarray*}
+\sum_{i=0}^{n-1}\|x_{i+1}-x_i\|-\sum_{i=0}^{n-1}\|F'(t_i)(b-a)/n\||&\leq&\sum_{i=0}^{n-1}|\|x_{i+1}-x_i\|-\|F'(t_i)(b-a)/n\||\\
+&\leq&\sum_{i=0}^{n-1} \|\epsilon(1/n)\|/n\\
+&\leq&\|\epsilon(1/n)\|.
+\end{eqnarray*}
+La différence entre la longueur de la courbe brisée et la somme $\sum_{i=0}^{n-1}\|F'(t_i)(b-a)/n\|$ tend donc vers 0 quand $n$ tend vers l'infini.
+Mais lorsque $n$ tend vers l'infini la somme $\sum_{i=0}^{n-1}\|F'(t_i)(b-a)/n\|$ converge vers l'intégrale $\int_a^b\|F'(t)\|dt$. C'est donc cette quantité qu'on appelle longueur de l'arc de courbe défini par $F$.
+
+Le cas général.
+\begin{definition}
+La {\bf longueur de l'arc} de la courbe $F(t)$ entre $t = a$ et $t = b$ est donnée par $\displaystyle \int_{a}^b \|F'(t)\|\, dt$.
+\end{definition}
+
+\noindent{\bf Exemple}\\
+La longueur du graphe d'une fonction $f$ de classe $C^1$ définie sur un intervalle $[a,b]$ est donnée par
+$$l=\int_a^b \sqrt{1+(f'(x))^2}dx$$
+
+
+\vskip 5mm
+
+
+
+
+Soit $F : \mathbb{R} \rightarrow \mathbb{R}^d$ une courbe paramétrée. \\
+On suppose $F$ de classe $C^1$ et que $F'(t) \neq 0$ pour tout $t$.
+On dit que $F$ est {\bf réguli\`ere}. \\
+Alors :
+\begin{enumerate}
+\item[(i)] $l(t) = \displaystyle \int_{t_{0}}^t\; \|F' (u)\|\, du$ est la longueur de l'arc entre $t_{0}$ et $t$\,.
+\item[(ii)] $\displaystyle \frac{dl}{dt} = \|F'(t)\| > 0$
+\end{enumerate}
+
+
+
+Ainsi, la fonction $l$ est de classe $C^1$ et de dérivée positive strictement: elle admet une fonction réciproque $s \rightarrow t(s)$ dont la dérivée est donnée par $t'(s) = \displaystyle \frac{1}{\|F'(t(s))\|}$\,.\\
+On note $G(s)$ la fonction $G(s) = F(t(s))$. Elle définit la m\^eme courbe, mais avec un paramétrage différent. On l'appelle {\bf paramétrisation unitaire} de $F$ car on a $\|G'(s)\| = 1$.
+
+
+\begin{definition}
+La courbure de $G (s)$ est donnée par $\rho(s) = \|G''(s)\|$.
+\end{definition}
+
+\begin{proposition} Si $F$ n'est pas une paramétrisation unitaire alors la {\bf courbure} est donnée par $\displaystyle \rho(t) = \frac{\|F'(t) \land F''(t)\|}{\|F'(t)\|^3}$\,.
+\end{proposition}
+
+
+
+
+
+\subsubsection{Quelques exemples}
+\'Etude détaillée de la courbe de Lissajous définie par $t\mapsto (\cos (3t),\sin (2t))$ avec réduction de l'intervalle \`a $[0,\pi/2]$ via la périodicité et les ymétries, étude des variations, tangentes et tracer de la courbe.
+
+
+
+
+
+
+
+
+
+Nous n'avons malheureusement pas plus de temps \`a consacrer \`a l'étude des courbes paramétrées. Pour voir d'autres exemples:\\
+\url{http://fr.wikipedia.org/wiki/Clothoïde}\\
+\url{http://fr.wikipedia.org/wiki/Cycloïde}\\
+\url{http://www.mathcurve.com}
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{ Dérivées des fonctions de plusieurs variables}
+
+Les fonctions de plusieurs variables sont des fonctions de chacune de leurs variables. Si elles sont dérivables par rapport \`a chaque variables comme fonctions d'une variable alors  elles admettent des dérivées partielles. 
+Le calcul des dérivées partielles se fait donc comme le calcul des dérivées des fonctions réelles de la variable réelles (les autres variables sont considérées comme des constantes).
+Mais en dimension supérieure, dire qu'une fonction est dérivable, n'est pas seulement dire qu'elle a des dérivées partielles. On dit qu'une fonction $f$ est dérivable ou différentiable en un point si elle a une bonne approximation linéaire (ou affine) en ce point.
+Lorsque $f$ et $g$ sont dérivables alors les propriétés habituelles sont vérifiées. Mais $f'(x)$ n'est pas un nombre mais une matrice. Dans la formule de la dérivation des fonctions composées par exemple l'ordre a alors une grande importance.
+
+Remarque : on écrit la plupart du temps on écrit les variables d'une fonction \`a plusieurs variables en ligne mais dans l'écriture du développement de Taylor on consid\`ere des vecteurs colonnes. 
+
+\subsection{Dérivées partielles des fonctions \`a valeurs réelles}
+
+
+
+\subsubsection{Rappels}
+
+
+
+\noindent{Soit $f : \mathbb{R} \rightarrow \mathbb{R}$.
+La dérivée de $f$ en $x$, si elle existe, est : $f'(x) = \displaystyle \lim_{h \rightarrow 0}\;\; \frac{f(x + h) - f(x)}{h}$\,.
+
+\noindent{\bf Exemple}
+La fonction définie sur $\mathbb R$ par $f(x)=x^2$ est dérivable de dérivée $f'(x)=2x$. En effet la limite quand $h$ tend vers $0$ de
+$$\frac{(x+h)^2-x^2}{h}=2x+h$$
+existe et vaut $2x$.
+
+\subsubsection{Dérivée partielle}
+
+
+\begin{definition}
+Soit $f : \mathbb{R}^d \rightarrow \mathbb{R}$. On dit que $f$ admet une dérivée partielle par rapport \`a la variable $x_{i}$ au point $a=(a_1,\dots, a_d)$ si la fonction d'une variable
+$$x_i\mapsto f(a_1,\dots,x_i, a_{i+1},\dots,a_d)$$
+est dériable au point $a_i$. Dit autrement, on définit la dérivée partielle de $f$ par rapport \`a $x_{i}$ au point $a=(a_1,\dots, a_d)$ par  
+$$
+\displaystyle \lim_{h \rightarrow 0}\;\; \frac{f(a_{1}\,,\, \dots \,,\, x_{i} + h\,,\, a_{i+1} \,,\, \dots \,,\, a_{d}) - f(a)}{h}
+$$ si cette limite existe.
+\end{definition}
+
+
+\noindent{\bf Notation}\\
+Cela se note $\displaystyle \frac{\partial\,f}{\partial\, x_{i}}\, (x_{1}\,,\, \dots \,,\, x_{n})\;,\; f_{x_{i}} (x_{1}\,,\, \dots \,,\, x_{n}) \;,\; D_{i}\, f(x_{1}\,,\, \dots \,,\, x_{n})$\,.\\
+Dans le cas de deux variables on a :
+\begin{enumerate}
+\item[ ] $\displaystyle \frac{\partial\, f}{\partial\, x}\, (x\,,\,y) = \lim_{h \rightarrow 0} \; \frac{f(x + h \,,\,y) - f(x\,,\,y)}{h}$
+\item[ ] $\displaystyle \frac{\partial\, f}{\partial\, y}\, (x\,,\,y) = \lim_{k \rightarrow 0} \; \frac{f(x\,,\,y + k) - f(x\,,\,y)}{k}$
+\end{enumerate}
+
+
+
+\noindent{\bf Exemple}
+\begin{enumerate}
+\item[(1)] $f(x\,,\,y) = e^{xy^2}$
+\item[(2)] $f(x\,,\,y) = x^2 + 3y^2 - 2xy$
+\item[(3)] $f(x\,,\,y) = \sqrt{1 - x^2 - y^2}$
+\item[(4)] $f(x\,,\,y\,,\,z) = xy^2 + z$
+\end{enumerate}
+
+
+
+\subsubsection{Interprétation géométrique}
+
+
+
+\noindent{$\displaystyle \frac{\partial\, f}{\partial\, x}\, (x_{0}\,,\,y_{0})$ est la pente de la tangente \`a la courbe $z = f(x\,,\,y_{0})$ en $(x_{0}\,,\,y_{0})$.
+
+
+
+\subsubsection{Gradient}
+
+
+\begin{definition}
+Soit $f : \mathbb{R}^d \rightarrow \mathbb{R}$ une fonction admettant des dérivées partielles.\\
+Son gradient en $a\in \mathbb R^d$, noté $\nabla\hspace{-0.6mm} f(a)$ est le vecteur $\nabla \hspace{-0.6mm}f(a) = \left( \displaystyle \frac{\partial\, f}{\partial\, x_{1}}(a)\,,\, \dots \,,\, \frac{\partial\, f}{\partial\, x_{d}}(a)\right)$\,.
+\end{definition}
+
+
+\noindent{\bf Exemple}
+\begin{enumerate}
+\item[(1)] $f(x\,,\,y) = x^2\, y^3$
+\item[(2)] $f(x\,,\,y\,,\,z) = x^2 \, \sin(yz)$
+\end{enumerate}
+
+
+
+\noindent{\bf Remarque}\\
+Le gradient peut \^etre considéré comme un vecteur de $\mathbb{R}^d$ mais aussi comme une matrice $1 \times d$.
+
+
+\begin{theoreme}
+Si $f$ et $g$ sont deux fonctions de $\mathbb{R}^d$ dans $\mathbb{R}$ avec des gradients, alors :
+\begin{enumerate}
+\item[(i)] $\nabla (f + g) = \nabla\hspace{-0.6mm} f + \nabla\hspace{-0.6mm} g$
+\item[(ii)] $\nabla (cf) = c \; \nabla\hspace{-0.6mm} f$ o\`u $c \in \mathbb{R}$
+\end{enumerate}
+\end{theoreme}
+
+
+
+\subsubsection{Dérivées partielles et continuité}
+
+Une fonction peut avoir des dérivées partielles sans \^etre continue !!
+
+
+\noindent{\bf Exemples}
+\begin{enumerate}
+\item[(1)] $f : \mathbb{R}^2 \rightarrow \mathbb{R}$\\
+$f(x\,,\,y) = \left \lbrace
+\begin{array}{ll}
+0 & \textrm{si}\;\; 0 < y < x^2 \\
+1 & \textrm{sinon}
+\end{array}
+\right.$\\
+a des dérivées partielles en $(0\,,\,0)$ mais n'y est pas continue.
+\item[(2)] $f(x\,,\,y) = \left \lbrace
+\begin{array}{ll}
+\frac{xy}{x^2 + y^2} & \textrm{si}\;\; (x\,,\,y) \neq (0\,,\,0) \\
+0 & \textrm{en} (0\,,\,0)
+\end{array}
+\right.$\\
+admet des dérivées partielles en tout point mais n'est pas continue en $(0\,,\,0)$.
+\end{enumerate}
+Pour dépasser cette difficulté, on définit la différentielle (ou dérivée totale) ou on consid\`ere les fonctions ayant des dérivées partielles continues encore appelées fonctions de classe $\mathcal{C}^1$.
+
+
+
+\subsubsection{Dérivation composée}
+
+
+\begin{theoreme}
+Si $g$ est définie sur $\mathbb{R}$ par $g(t) = f(r(t))$ o\`u $f$ est $\mathcal{C}^1$ de $\mathbb{R}^d$ dans $\mathbb{R}$ et $r$ dérivable de $\mathbb{R}$ dans $\mathbb{R}^d$, alors $g$ est dérivable et on a $g'(t) =< \nabla\hspace{-0.6mm} f (r(t)) , r'(t)>$.
+\end{theoreme}
+
+\noindent{\bf Exemple}
+\begin{enumerate}
+\item[ ] $f(x\,,\,y) = xy^2$
+\item[ ] $r(t) = (t\,,\,t^2)$
+\end{enumerate}
+
+
+
+
+
+
+\subsubsection{Accroissements finis}
+On a un théor\`eme des accroissements finis de mani\`ere similaire au cas d'une variable réelle.
+
+\begin{theoreme}
+Soient $f : \mathbb{R}^d \rightarrow \mathbb{R}$ de classe $\mathcal{C}^1\;,\; X = (x_{1} \,,\, \dots \,,\, x_{n}) \;,\; H = (h_{1} \,,\, \dots \,,\, h_{n})$.\\
+Alors il existe $\theta \in ]0\,,\,1[$ tel que $f(X + H) - f(X) = < \nabla\hspace{-0.6mm} f(X + \theta H) , H>$.
+\end{theoreme}
+
+
+\subsubsection{Dérivée selon un vecteur}
+
+
+\begin{definition}
+Soient $f : \mathbb{R}^n \rightarrow \mathbb{R}$ de classe $\mathcal{C}^1$ et $V \in \mathbb{R}^n$.\\
+La dérivée selon le vecteur $V$ en $X$ est définie par $D_{V}\, f(X) = \displaystyle \lim_{t \rightarrow 0} \; \frac{f(X + tV) - f(X)}{t}$\,.
+\end{definition}
+
+
+\noindent{\bf Remarque}\\
+Si $V = e_{i}$\,, on retrouve $\displaystyle \frac{\partial\, f}{\partial\, x_{i}}$\,.
+
+
+\begin{proposition}On a $D_{V}\, f(X) = \nabla\hspace{-0.6mm} f(X) \cdot V$.\end{proposition}
+
+
+
+\noindent{\bf Interprétation géométrique du gradient:} direction de plus forte pente\\
+La variation de $f$ est la plus forte dans la direction de $\nabla\hspace{-0.6mm} f(X)$. En effet, si $g$ est définie sur $\mathbb{R}$ par $g(t) = f(r(t))$ o\`u $f$ est $\mathcal{C}^1$ de $\mathbb{R}^d$ dans $\mathbb{R}$ et $r$ dérivable de $\mathbb{R}$ dans $\mathbb{R}^d$, alors $g$ représente l'évolution de $f$ le long de la courbe $r$. Regardons en particulier l'évolution de $f$ au point $x_0\in \mathbb R^d$ le long de la direction $v\in \mathbb R^d$, en choisissant pour $r$ la courbe $r(t)=x_0+tv$. La variation de $f$ dans la direction $v$ au point $x_0$ est donnée par la dérivé $g'(0)=<\nabla f(x_0),v>$. Par conséquent, la direction $v$ dans laquelle $f$ grandit le plus est donnée par les valeurs les plus grandes du produit scalaire $<\nabla f(x_0),v>$, c'est-\`a-dire lorsque le vecteur $v$ est proportionnel au gradient $\nabla f(x_0)$ (d'apr\`es l'inégalité de Cauchy-Schwarz).
+
+Comme illustration, l'hiver venu sur les pistes de ski, le skieur voulant aller vite choisit comme direction en un point de la piste celle de l'inverse du gradient (soit la direction de la plus grande pente descendante en un point de la montagne).
+
+\noindent{\bf Interprétation géométrique du gradient (bis):} espace tangent aux niveaux de $f:\mathbb R^d \to \mathbb R$\\
+Notons $N_c=\{x\in \mathbb R^d| f(x)=c\}$ le niveau $c$ de $f$. Soit $r:\mathbb R \to \mathbb R^d$ une courbe paramétrée dont l'image est inclus dans $N_c$, et passant par le point $r(0)=x_0$. Alors la fonction $f\circ r$ est constante et égale \`a $c$, sa dérivée en  $<\nabla f(x_0),r'(0)>$ est donc nulle: le gradient de $f$ en $x_0$ est orthogonal \`a $r'(0)$, que l'on peut interpréter comme la direction de la tangente \`a la courbe $r$. En considérant toutes les courbes possibles passant par $x_0$, on en déduit donc une définition de l'espace tangent $T_{x_0}N_c$ au niveau $N_c$ au point $x_0$ comme étant l'ensemble des directions des tangentes possibles en $x_0$, ou plus précisément 
+$$T_{x_0}N_c=\{x\in \mathbb R^d| <x-x_0, \nabla f(x_0)>=0\}.$$
+
+
+\noindent{\bf Interprétation géométrique du gradient (ter):} espace tangent au graphe de $f:\mathbb R^d \to \mathbb R$\\
+En procédant de la m\^eme mani\`ere avec des courbes $r:\mathbb R \to \mathbb R^{d+1}$ dont l'image est contenue dans le graphe $G_f$ de $f$, on voit que l'espace tangent $T_0G_f$ au graphe de $f$ au point $(x_0,f(x_0))\in \mathbb R^{d+1}$ est l'ensemble
+$$T_0G_f=\{(x,z)\in \mathbb R^d\times \mathbb R |z-f(x_0)=<\nabla f(x_0),x-x_0>\}.$$
+En effet, une telle courbe $r(t)=(x(t),z(t))$ satisfait $f(x(t))=z(t)$ puisque qu'elle est incluse dans le graphe, et donc en dérivant on trouve que sa tangente au point $(x(0),z(0))=(x_0,z_0)$ satisfait
+$$z'(0)=<\nabla f (x(0)), x'(0)>.$$
+
+
+\subsection{La différentielle d'une fonction \`a valeurs réelles}
+
+
+{\bf Cas des fonctions d'une variable}
+
+
+\begin{enumerate}
+\item[(i)] $f$ est dérivable en $X_{0}$ si $\displaystyle \lim_{h \rightarrow 0} \; \frac{f(X_{0} + h) - f(X_{0})}{h}$ existe.
+Sa valeur $\ell$ est notée $f'(X_{0})$.  
+\item[(ii)] On peut, de mani\`ere équivalente, écrire $\displaystyle \lim_{h \rightarrow 0} \; \frac{f(X_{0} + h) - f(X_{0}) - \ell h}{h} = 0$\,.\\
+On remarque que $h \rightarrow L(h) = \ell h$ est une application linéaire de $\mathbb{R}$ dans $\mathbb{R}$, que l'on appelle {\bf différentielle} de $f$ en $X_{0}$ et que l'on note $df(X_{0})$.
+\item[(iii)]  Si $f$ est dérivable en $X_{0}$\,, alors pour $h$ petit : $f(X_{0} + h)$ est voisin de $f(X_{0}) + f'(X_{0}) h$.\\
+Donc $h \rightarrow f(X_{0}) + f'(X_{0}) h$ est une application affine qui "approche" $f(X_{0} + h)$.
+\end{enumerate}
+
+
+
+
+
+
+\begin{definition}
+$f$ est différentiable en $X$ s'il existe une application linéaire $L : \mathbb{R}^d \rightarrow \mathbb{R}$ telle que :
+$$\displaystyle \lim_{\|H\| \rightarrow 0} \; \frac{f(X + H) - f(X) - L(H)}{\|H\|} = 0$$
+L'application $L$ est {\bf la différentielle de $f$ en $X$} et se note $df(X)$.
+\end{definition}
+\noindent{\bf Remarque}\\
+On sait qu'une telle application linéaire $L$ est donnée par $L(H)=<H,V>$ o\`u $V$ est un vecteur de $\mathbb R^d$. Voir la proposition ci-dessous.
+
+
+\noindent{\bf Remarque}\\
+Comme dans le cas $d = 1$ on a $f(X + H)$ "voisin" de $f(X) + df(X)(H)$, on a $f(X + H)$ est "approché" par l'application affine $f(X) + df(X) (H)$.\\
+La différentielle, lorsqu'elle existe, est unique.
+
+
+\begin{proposition}
+Si $f$ est différentiable en $X$, alors ses dérivées partielles existent et on a :
+\begin{align}
+df(X) ( H) & = \frac{\partial\,f}{\partial\,x_{1}}\,(X) \, h_{1} + \,\dots\, + \frac{\partial\,f}{\partial\,x_{d}}\,(X) \, h_{d} \notag\\
+   & = <\nabla\hspace{-0.6mm} f(X) , H > \notag
+ \end{align}
+\end{proposition}
+
+\begin{proof} \ \rm On choisit de faire tendre $H$ vers $0$ le long des axes de coordonnées, on retrouve d'une part la définition des dérivées partielles de $f$, d'autre part les coordonnées du vecteur $V$ qui décrit la différentielle de $f$.
+\end{proof}
+
+
+\noindent{\bf Remarque}\\
+La matrice de l'application linéaire $df(X)$ dans la base canonique est le gradient $\nabla f (X)$.
+
+
+\begin{proposition}
+Si $f$ est différentiable en $X$ alors $f$ est continue en $X$.
+\end{proposition}
+
+\begin{proof} \ \rm Notons $g$ la fonction définit par $g(H)=\frac{f(X + H) - f(X) - df(X)(H)}{\|H\|}$. Alors 
+$$f(X + H)=f(X) + df(X)(H) +\|H\|g(H)$$
+et il est clair que $df(X)(H) +\|H\|g(H)$ tend vers $0$ quand $H$ tend vers le vecteur nul. Donc la limite de $f$ en $X$ existe et vaut $f(X)$, donc $f$ est continue en $X$.
+\end{proof}
+
+
+\noindent{\bf Remarque}\\
+L'existence des dérivées partielles de $f$ n'implique pas la différentiabilité. Par exemple la fonction
+$f(x\,,\,y) = \left \lbrace
+\begin{array}{ll}
+\frac{x^3}{x^2 + y^2} & \textrm{si}\;\; (x\,,\,y) \neq (0\,,\,0) \\
+0 & \textrm{en} (0\,,\,0)
+\end{array}
+\right.$
+admet des dérivées partielles en tout point mais n'est pas différentiable en $(0\,,\,0)$.
+Mais :
+
+
+\begin{theoreme}
+Si $f$ admet des dérivées partielles et si elles sont continues alors $f$ est différentiable.\\
+On dit que $f$ est de classe $\mathcal{C}^1$.
+\end{theoreme}
+
+
+\begin{proof} \ \rm 
+\end{proof}
+
+
+\noindent{\bf Remarque}\\
+A contrario, une fonction peut \^etre différentiable sans que ses dérivées partielles ne soient continues. Prendre par exemple la fonction $f$ définie par $f(x,y)=x^2\sin \frac{1}{x}$.
+
+
+\noindent{\bf Exemples et utilisation}\\
+Formes linéaires
+Fonctions homog\`enes
+
+
+\subsubsection{R\`egle de différentiation}
+
+\begin{proposition}
+Si $f$ et $g$ sont différentiables on a :
+\begin{enumerate}
+\item[(i)] $d (f + g) (X) = df(X) + dg(X)$
+\item[(ii)] $d (\lambda f) (X) = \lambda\, df(X)$
+\item[(iii)] $d (fg) (X) = f(X)\, dg(X) + g(X)\, df(X)$
+\item[(iv)] $\displaystyle d \left( \frac{f}{g} \right) (X) = \frac{g(X)\, df(X) - f(X)\, dg(X)}{g^2(X)}$
+\end{enumerate}
+\end{proposition}
+
+
+
+\subsubsection{Remarques}
+
+
+\noindent{Si $f : U \rightarrow \mathbb{R}$ o\`u $U$ est un ouvert de $\mathbb{R}^d$, alors :
+\begin{enumerate}
+\item[(i)] Si $f$ est $\mathcal{C}^1$ sur $U$ alors $f$ est différentiable sur $U$ et les dérivées $\displaystyle \frac{\partial\, f}{\partial\, x_{i}}$ existent sur $U$.\\
+Les réciproques ne sont pas vraies !!
+\item[(ii)]  Si $f$ est différentiable en $X_{0} \in U$ alors l'application affine $A(H) = f(X_{0}) + df(X_{0}) \cdot H$ a pour graphe l'espace tangent au graphe de $f$ en $X_{0}$\,.
+\end{enumerate}
+
+
+\noindent{\bf Exemple}\\
+Droite tangente\\
+Plan tangent
+
+
+
+
+\subsubsection{Dérivées partielles successives}
+
+
+\noindent{Les dérivées partielles $\displaystyle \frac{\partial f}{\partial x_{i}}\, (x_{1}, \ldots, x_{d})$ sont des fonctions de 
+$x_{1}, \ldots ,x_{d}$, et il arrive souvent qu'elles soient elles-m\^eme
+dérivables.
+%On peut donc les dériver (si c'est possible).
+
+
+\begin{definition}
+Si la dérivée partielle de la fonction $\frac{\partial f}{\partial x_{j}}$ par rapport \`a la variable $x_i$ existe, on la note
+ $\displaystyle \frac{\partial^2 f}{\partial x_{i} \; \partial x_{j}} = \frac{\partial}{\partial x_{i}}  \left( \frac{\partial f}{\partial x_{j}} \right)$ et on dit qu'il s'agit d'une {\bf dérivée partielle seconde} de~$f$.
+\end{definition}
+
+
+\noindent{\bf Exemple}\\
+$f\colon\thinspace \mathbb{R}^2\to\mathbb{R}, \ (x,y)\mapsto x^3 y^4$. 
+Alors $\frac{\partial^2f}{\partial x\partial y}(x,y)=12x^2y^3=\frac{\partial^2f}{\partial y\partial x}(x,y)$.
+
+
+
+\begin{theoreme} (Schwarz)\\
+Si toutes les dérivées partielles premi\`eres $\displaystyle \frac{\partial f}{\partial x_{i}}$ et secondes $ \frac{\partial^2 f}{\partial x_{i}\; \partial x_{j}}$ existent et sont continues dans une boule autour de $a=(a_{1}, \dots ,a_{d})$ alors :
+$$\displaystyle  \frac{\partial^2 f}{\partial x_{i}\; \partial x_{j}}\, (a) =  \frac{\partial^2 f}{\partial x_{j}\; \partial x_{i}}(a)$$ 
+\end{theoreme}
+
+\subsection{La différentielle d'une fonction \`a valeurs vectorielles}
+
+
+
+
+On a déj\`a rencontré des fonctions \`a valeurs vectorielles. Quelques exemples:
+
+\begin{enumerate}
+\item De $\mathbb{R}^2$ dans $\mathbb{R}^2$ :
+\begin{enumerate}
+\item[(a)] $F(x\,,\,y) = (e^x\, \cos y \,,\, e^x\, \sin y)$
+\item[(b)] $F(r\,,\, \theta) = (r\, \cos \theta \,,\, r\, \sin \theta)$
+\end{enumerate}
+\item De $\mathbb{R}^3$ dans $\mathbb{R}^3$ : $F(X) = \displaystyle \frac{X}{\|X\|}$\,.
+\item De $\mathbb{R}^2$ dans $\mathbb{R}^3$ : $F(x\,,\,y) = (x\,,\,y\,,\, x^2 + y^2)$\,.
+\item De $\mathbb{R}^d$ dans $\mathbb{R}^m$ linéaire : $F(x_{1} \dots x_{d}) = A(x_{1} \dots x_{d})$ o\`u $A$ est une matrice $d$ colonnes et $m$ lignes.\\
+On peut exprimer $F$ en termes de composantes $F(x_{1} \dots x_{d}) = (f_{1}(x_{1} \dots x_{d})\,,\, \dots \,,\, f_{m}(x_{1} \dots x_{d}))$.
+
+\end{enumerate}
+
+
+Pour la notion de continuité de les limites, on remplace dans l'espace d'arrivée $\mathbb{R}^m$  les habituelles valeurs absolues par des normes. 
+
+
+
+
+
+
+\begin{definition}
+$F$ de $\mathbb{R}^n$ dans $\mathbb{R}^m$ est {\bf différentiable} en $X \in \mathbb{R}^n$ s'il existe une {\bf application linéaire} $L$ de $\mathbb{R}^n$ dans $\mathbb{R}^m$ telle que :
+$$
+\lim_{\|H\| \rightarrow 0} \, \frac{F(X + H) - F(X) - L (H)}{\|H\|} = 0\, .
+$$
+$L$ est la {\bf différentielle} de $F$ en $X$ et se note : $dF(X)$.
+\end{definition}
+
+
+\begin{theoreme}
+$F=(f_1,\ldots,f_m)$ est différentiable en $X$ si et seulement si ses fonctions composantes $f_1,\ldots,f_m$ sont différentiables et on a :
+$$
+dF(X) (H) \;\; = \;\; (<\nabla\hspace{-0.6mm} f_{1}(X) , H> \,,\, \dots \,,\, <\nabla\hspace{-0.6mm} f_{m}(X) , H>)\,.
+$$
+\end{theoreme}
+
+
+\begin{definition}
+La matrice 
+$$
+\left [ \begin{array}{ccc}
+\frac{\partial f_{1}}{\partial x_{1}}\, (X) & \cdots & \frac{\partial f_{1}}{\partial x_{n}}\, (X) \\
+\cdots & \cdots & \cdots \\
+\frac{\partial f_{m}}{\partial x_{1}}\, (X) & \cdots & \frac{\partial f_{m}}{\partial x_{n}}\, (X)
+\end{array}
+\right]
+$$
+est la matrice de $dF(X)$ et est appelée {\bf matrice jacobienne} de $F$ en $X$ et se note : $J(F)(X)$.
+\end{definition}
+
+\begin{theoreme}
+Si $F$ a des composantes de classe $\mathcal{C}^1$ alors elles sont différentiables et $F$ est également différentiable.
+\end{theoreme}
+
+
+\noindent{\bf Exemple}
+\begin{enumerate}
+\item[(i)] Trouver la matrice jacobienne de $F$ en $(1\,,\,1)$ de : $F(x\,,\,y) = (x^2 + y^2 \,,\, e^{xy})$.
+\item[(ii)] Trouver la différentielle de $F(x\,,\,y\,,\,z) = (x\,,\,y\,,\,z)$.
+\item[(iii)] Trouver la différentielle de $F(r\,,\,\theta) = (r\, \cos \theta \,,\, r\, \sin \theta)$.
+\end{enumerate}
+
+
+
+
+
+\subsubsection{Propriétés de la différentielle}
+
+\begin{proposition}
+Si $F$ de $\mathbb{R}^n$ dans $\mathbb{R}^m$ est linéaire, alors $dF(X) = F$.
+\end{proposition}
+
+\begin{proposition}
+Si $F$ est différentiable en $X$ alors $F$ est continue en $X$.
+\end{proposition}
+
+
+\subsubsection{Différentielles des fonctions composées}
+
+
+\noindent{Si $F$ est une fonction de $\mathbb{R}^n$ dans $\mathbb{R}^m$\,, si $G$ est une fonction de $\mathbb{R}^m$ dans $\mathbb{R}^q$\,, alors $G \circ F$ est une fonction de $\mathbb{R}^n$ dans $\mathbb{R}^q$\,.
+
+
+\begin{theoreme}
+Si $F$ est différentiable en $X$, et si $G$ est différentiable en $F(X)$, alors $G \circ F$ est différentiable en $X$ et on a : 
+$$
+d(G \circ F) (X) \;\; = \;\; dG(F(X)) \circ dF(X)\,.
+$$
+\end{theoreme}
+
+
+\noindent{{\bf Exemple}\\
+$F(x\,,\,y) = (x^2 + y^2 \,,\, e^{xy})$ \\
+$G(u\,,\,v) = (xy \,,\, \sin x \,,\, x^2\, y)$
+
+
+Soient $f:\mathbb{R}^n\rightarrow \mathbb{R}$ et  $g:\mathbb{R}^p\rightarrow \mathbb{R}^n$ deux fonctions différentiables. \'Ecrivons $h=f\circ g.$
+
+La fonction $f\circ g$ est une fonction de $\mathbb{R}^p$ dans $\mathbb{R}$. Sa ``dérivée'' est donc un vecteur ligne \`a $p$ colonnes, la transposée de son gradient :
+$$
+\begin{pmatrix}  {{\partial h}\over{\partial x_1}} & {{\partial h}\over{\partial x_2}} &\ldots& {{\partial h}\over{\partial x_p}} \end{pmatrix}.
+$$
+La fonction $g$ est une fonction de $\mathbb{R}^p$ dans $\mathbb{R}^n$. Sa ``dérivée'' est la matrice $n\times p$ composée des vecteurs transposés des gradients des coordonnées de $g$.
+Si $g(x)=(g_1(x),g_2(x),\ldots,g_2(x))$ (on devrait écrire ce vecteur en colonne si on voulait se conformer en toute rigueur aux choix du cours) la dérivée de $g$ s'écrit :
+$$
+\begin{pmatrix} 
+{{\partial g_1}\over{\partial x_1}} & {{\partial g_1}\over{\partial x_2}} &\cdots&{{\partial g_1}\over{\partial x_p}}\cr {{\partial g_2}\over{\partial x_1}} & {{\partial g_2}\over{\partial x_2}} &\cdots&{{\partial g_2}\over{\partial x_p}}\cr \vdots&\vdots&\ddots&\vdots\cr{{\partial g_n}\over{\partial x_1}} & {{\partial g_n}\over{\partial x_2}} &\cdots&{{\partial g_n}\over{\partial x_p}}\cr
+\end{pmatrix}.
+$$
+
+La dérivée de $f$est donnée par la transposée de son gradient :
+$$
+\begin{pmatrix} {{\partial f}\over{\partial x_1}}& {{\partial f}\over{\partial x_2}}&\ldots&{{\partial f}\over{\partial x_n}}\end{pmatrix}.
+$$
+L'égalité matricielle $h'(x)=(f\circ g)'(x)=f'(g(x)).g'(x)$ signifie donc :
+$$
+\begin{pmatrix} {{\partial h}\over{\partial x_1}}&{{\partial h}\over{\partial x_2}}&\ldots& {{\partial h}\over{\partial x_p}}\end{pmatrix}= \begin{pmatrix} {{\partial f}\over{\partial x_1}}& {{\partial f}\over{\partial x_2}}&\ldots&{{\partial f}\over{\partial x_n}}
+\end{pmatrix}
+\begin{pmatrix} 
+{{\partial g_1}\over{\partial x_1}} & {{\partial g_1}\over{\partial x_2}} &\cdots&{{\partial g_1}\over{\partial x_p}}\cr {{\partial g_2}\over{\partial x_1}} & {{\partial g_2}\over{\partial x_2}} &\cdots&{{\partial g_2}\over{\partial x_p}}\cr \vdots&\vdots&\ddots&\vdots\cr{{\partial g_n}\over{\partial x_1}} & {{\partial g_n}\over{\partial x_2}} &\cdots&{{\partial g_n}\over{\partial x_p}}\cr
+\end{pmatrix}.
+$$
+Autrement dit pour tout $i=1,\ldots, p$ on a
+$$
+{{\partial h}\over{\partial x_i}}=\sum_{k=1}^n{{\partial f}\over{\partial x_k}}{{\partial g_k}\over{\partial x_i}}.
+$$
+
+
+{\bf Un exemple}\\
+Prenons $f:\mathbb{R}^3\rightarrow \mathbb{R}$ et  $g:\mathbb{R}^2\rightarrow \mathbb{R}^3$ deux fonctions différentiables définies par
+$$
+f(x,y,z)=2xy-3(x+z),
+$$
+$$
+g(x,y)=(x+y^4, y-3x^2,2x^2-3y).
+$$
+On demande de calculer les dérivées partielles de la fonction de deux variables $h=f\circ g$. 
+Pour ${{\partial h}\over{\partial x}}$, on obtient :
+$$
+{{\partial h}\over{\partial x}}={{\partial f}\over{\partial x}}{(g(x,y))}{{\partial(x+y^4)}\over{\partial x}}+{{\partial f}\over{\partial y}}{(g(x,y))}{{\partial (y-3x^2)}\over{\partial x}}+{{\partial f}\over{\partial z}}{(g(x,y))}{{\partial (2x^2-3y)}\over{\partial x}},
+$$
+
+Je vous laisse le calcul de la deuxi\`eme dérivée partielle de $h$ en exercice.\\
+
+
+\newpage
+\section{ Sous-ensembles de $\mathbb{R}^n$ et fonctions}
+
+On a déj\`a parlé des courbes paramétrées. On va généraliser cette étude aux nappes paramétrées, puis \`a l'étude géométrique des niveaux d'une fonction.
+
+
+\subsection{Nappes paramétrées}
+Si $f$ une fonction de deux variables son graphe est une surface incluse dans $\mathbb{R}^3$ :
+$$
+\{(x,y,f(x,y))\ / \ (x,y)\in \mathbb{R}^2\}.
+$$
+Une telle surface est un exemple de nappe paramétrée (par $f$).
+
+Si $f$ est une fonction partout dérivable alors son graphe admet en chaque point un plan tangent. Pour trouver des vecteurs appartenant au plan tangent en $(x_0,y_0,f(x_0,y_0))$ tra\c cons deux courbes sur la surface dans des directions données par les coordonnées :
+$$
+t\mapsto (x_0+t,y_0,f(x_0+t,y_0))\ \ \ t\mapsto (x_0,y_0+t,f(x_0,y_0+t))
+$$
+et calculons les coordonnées de leurs vecteurs tangents \`a l'instant $t=0$. On obtient, par dérivation composée,
+$$
+(1,0,{{\partial f}\over{\partial x}}(x_0,y_0))\ \ \ (0,1,{{\partial f}\over{\partial y}}(x_0,y_0)).
+$$
+Ce sont deux vecteurs indépendants tangents \`a deux courbes tracées sur la nappe. Le plan tangent \`a la nappe paramétrée est le plan passant par $(x_0,y_0)$ de direction engendrée par ces deux vecteurs. Pour obtenir une équation de ce plan on peut utiliser le produit vectoriel. Un vecteur normal au plan est donné par
+$$
+(1,0,{{\partial f}\over{\partial x}}(x_0,y_0))\land (0,1,{{\partial f}\over{\partial y}}(x_0,y_0))=(-{{\partial f}\over{\partial x}}(x_0,y_0),-{{\partial f}\over{\partial y}}(x_0,y_0),1)
+$$
+L'équation du plan tangent est donnée par :
+$$
+-{{\partial f}\over{\partial x}}(x_0,y_0)(x-x_0)-{{\partial f}\over{\partial y}}(x_0,y_0)(y-y_0)+(z-f(x_0,y_0))=0
+$$
+Plus généralement une nappe paramétrée est un ensemble décrit par deux param\`etres
+$$
+\{(f_1(s,t),f_ 2(s,t),f_3(s,t))\ / \ (s,t)\in \mathbb{R}^2\}.
+$$
+Les vecteurs 
+$$
+({{\partial f_1}\over{\partial s}}(s_0,t_0),{{\partial f_2}\over{\partial s}}(s_0,t_0),{{\partial f_3}\over{\partial s}}(s_0,t_0))\ \ \ ({{\partial f_1}\over{\partial t}}(s_0,t_0),{{\partial f_2}\over{\partial t}}(s_0,t_0),{{\partial f_3}\over{\partial t}}(s_0,t_0))
+$$
+sont des vecteurs tangents \`a la surface au point image de $(s_0,t_0)$. S'ils sont indépendants le paramétrage définit une surface en $(s_0,t_0)$ et un vecteur normal \`a la surface est donné par le produit vectoriel des vecteurs précédents
+$$
+({{\partial f_2}\over{\partial s}}{{\partial f_3}\over{\partial t}}-{{\partial f_3}\over{\partial s}}{{\partial f_2}\over{\partial t}},{{\partial f_3}\over{\partial s}}{{\partial f_1}\over{\partial t}}-{{\partial f_1}\over{\partial s}}{{\partial f_3}\over{\partial t}},{{\partial f_1}\over{\partial s}}{{\partial f_2}\over{\partial t}}-{{\partial f_2}\over{\partial s}}{{\partial f_1}\over{\partial t}})(s_0,t_0)
+$$
+Si on note $(a,b,c)$ les coordonnées de ce vecteur l'équation du plan tangent \`a la nappe paramétrée au point image de $(s_0,t_0)$ est
+$$
+a(x-f_1(s_0,t_0))+b(y-f_2(s_0,t_0))+c(z-f_3(s_0,t_0))=0.
+$$ 
+(C'est simplement écrire que les vecteurs $AM$ et $(a,b,c)$ sont orthogonaux lorsque $M$ a pour coordonnées $(x,y,z)$ et $A$ est le point  image de $(s_0,t_0)$, $(f_1(s_0,t_0),f_ 2(s_0,t_0),f_3(s_0,t_0))$. 
+
+\subsection{Tangentes aux courbes (surfaces, hypersurfaces) de niveau}
+
+Donnons-une fonction de deux variables $f$. Que dire des ensembles $\{(x,y)\ /\ f(x,y)=c\}$? On les appelle les courbes de niveaux de la fonction $f$. C'est dire qu'on s'attend \`a ce que ces ensembles soient des courbes...
+Ce n'est toutefois pas toujours le cas! Si par exemple $f$ est constante égale \`a $0$, alors les courbes de niveau sont toutes vides sauf la courbe de niveau $0$ qui est égale \`a $\Rr^2$ tout entier. 
+
+
+
+Si $f: \mathbb R^2\to \mathbb R$ est différentiable et son gradient n'est pas nul en $(x_0,y_0)$ alors la courbe de niveau $f(x_0,y_0)$ définit bien une courbe au voisinage de $(x_0,y_0)$. Cette courbe est réguli\`ere et on a déj\`a vu que l'équation de sa tangente est donnée par le gradient :
+$$
+{{\partial f}\over{\partial x}}(x_0,y_0)(x-x_0)+{{\partial f}\over{\partial y}}(x_0,y_0)(y-y_0)=0.
+$$
+Par exemple, la tangente en $(1/\sqrt{3},\sqrt{2/3})$ \`a la courbe de niveau 1 de la fonction $f(x,y)=x^2+y^2$ est la droite d'équation :
+$$
+2/\sqrt{3}(x-1/\sqrt{3})+2\sqrt{2/3}(y-\sqrt{2/3})=0.
+$$
+
+On a de la m\^eme fa\c con les équations des plans tangents aux surfaces de niveaux de fonctions de trois variables dérivables au voisinage de points en lesquels le gradient n'est pas nul.
+Par exemple le plan tangent \`a la surface $xyz=1$ au point $(1/2,1,2)$ a pour équation :
+$$
+2(x-1/2)+(y-1)+1/2(z-2)=0.
+$$
+
+
+On va proposer par la suite une étude plus précise des courbes de niveaux. Pour ce faire nous disposons du théor\`eme des fonctions implicites, conséquence du théor\`eme d'inversion local. Ce sont deux théor\`emes tr\`es importants du calcul différentiel. Nous ne donnons pas la démonstration du théor\`eme d'inversion locale. Nous donnons celle du théor\`eme des fonctions implicites seulement en dimension 2.
+\subsection{Fonctions implicites $-$ Inversion locale}
+
+\subsubsection{Inversion locale}
+
+
+\noindent{Soient $U$ un ouvert de $\mathbb{R}^n$, $F$ une application de $U$ dans $\mathbb{R}^n$ et $V = F(U) \subset \mathbb{R}^n$.
+
+\begin{definition}
+$F$ est {\bf inversible} sur $U$ s'il existe une application $G$ de $V$ dans $\mathbb{R}^n$ telle que $G \circ F = {\bf 1}_{U}$ et $F \circ G = {\bf 1}_{V}$\,.
+\end{definition}
+
+\begin{definition}
+$F$ de $\mathbb{R}^n$ dans $\mathbb{R}^n$ est {\bf localement inversible} en $X_0 \in \mathbb{R}^n$ s'il existe des ouverts $U$ et $V$ avec $X_0 \in U$ et $F(X_0) \in V$ et $F(U)=V$ tel que $F$ est inversible sur $U$. 
+\end{definition}
+
+
+\noindent{{\bf Exemples} 
+\begin{enumerate}
+\item[(1)] $f : \mathbb{R} \rightarrow \mathbb{R}$ \;\;\; avec $f(x) = x^3$
+\item[(2)] $f : \mathbb{R} \rightarrow \mathbb{R}$ \;\;\; avec $f(x) = x^2$
+\item[(3)] Si $A \in \mathbb{R}^n$, soit $F$ de $\mathbb{R}^n$ dans $\mathbb{R}^n$ avec $F(X) = X + A$.
+\item[(4)] $U = \lbrace (r\,,\,\theta) \; / \; r > 0 \,,\, 0 < \theta < \pi \rbrace$\\
+$F(r\,,\,\theta) = (r\, \cos \theta \,,\, r\, \sin \theta)$
+\end{enumerate}
+
+
+
+\begin{theoreme}(d'inversion locale)\\
+Soient $F$ définie sur un domaine $D$ de $\mathbb{R}^n$ \`a valeurs dans $\mathbb{R}^n$ de classe $\mathcal{C}^1$ et $X_0$ un point intérieur \`a $D$. Alors si $dF(X_0)$ est inversible (en tant qu'application linéaire) $F$ est localement inversible en $F_0$. Si $G$ désigne son inverse locale, $G$ est aussi de classe $C^1$ et en $Y=F(X)$, pour $X$ proche de $X_0$, on a $dG(y)=dF(X)^{-1}$ (l'exposant désigne ici l'opération d'inversion d'une matrice).
+\end{theoreme}
+Une démonstration de ce théor\`eme est donnée en annexe.
+
+\rm
+\subsubsection{Fonctions implicites : cas $f(x\,,\,y) = 0$}
+ 
+
+\noindent{Soit $f : \mathbb{R}^2 \rightarrow \mathbb{R}$. On consid\`ere la courbe de niveau $\lbrace f(x\,,\,y) = 0 \rbrace = N_{0}$\,.
+
+\begin{definition}
+On dit que la fonction $y = \varphi(x)$ est {\bf définie implicitement par} $f(x\,,\,y) = 0$ si $f(x\,,\, \varphi(x)) = 0$, c'est-\`a-dire si $(x\,,\, \varphi(x)) \in N_{0}$\,.\\
+Alors on dit que $y = \varphi(x)$ est une {\bf fonction implicite} de $f(x\,,\,y) = 0$.
+\end{definition}
+
+\noindent{{\bf Exemple}\\
+$f(x\,,\,y) = \ln(xy) - \sin x$ \,\, avec $xy > 0$ \\
+$f(x\,,\,y) = x^2 + y^2 - 1$. Faire un dessin!
+
+
+
+\begin{theoreme} (des fonctions implicites)\\
+Soient $f : \mathbb{R}^2 \rightarrow \mathbb{R}$ une fonction de classe $\mathcal{C}^1$ et $(x_{0}\,,\,y_{0})$ un point tel que $f(x_{0}\,,\,y_{0}) = 0$.\\
+Si $\displaystyle \frac{\partial f}{\partial y}(x_{0}\,,\,y_{0}) \neq 0$ alors :
+\begin{enumerate}
+\item[(i)] Il existe une fonction implicite $y = \varphi(x)$ de classe $\mathcal{C}^1$, définie sur l'intervalle ouvert $B(x_{0}\,,\,\varepsilon)$, tel que pour tout $x\in B(x_0,\epsilon)$ on ait $y_{0} = \varphi(x_{0})$ et $f(x\,,\,\varphi(x)) = 0$.
+\item[(ii)] De plus, la dérivée de $\varphi$ est donnée par $\displaystyle \varphi'(x) = \frac{-\frac{\partial f}{\partial x}(x\,,\, \varphi(x))}{\frac{\partial f}{\partial y}(x\,,\, \varphi(x))}$ en tout point de $B(x_0,\epsilon)$ o\`u $\displaystyle \frac{\partial f}{\partial y}(x\,,\,\varphi(x)) \neq 0$.
+\end{enumerate}
+\end{theoreme}
+\begin{proof} ~~
+C'est une conséquence du théor\`eme d'inversion locale. Soit $f$ une fonction $C^1$ de deux variables et $(x_0,y_0)$ tel que $f(x_0,y_0)=0$ et ${{\partial f}\over{\partial y}}(x_0,y_0)\neq 0$. Considérons la fonction $F$ définie par
+$$
+F(x,y)=(x,f(x,y)).
+$$
+La matrice jacobienne de $F$ est
+$$
+\begin{pmatrix}  1&0\\ {{\partial f}\over{\partial x}} & {{\partial f}\over{\partial y}}  \end{pmatrix}.
+$$
+Par hypoth\`ese ${{\partial f}\over{\partial y}}$ ne s'annule pas en $(x_0,y_0)$. La matrice $dF(x_0,y_0)$ est donc inversible et d'apr\`es le théor\`eme d'inversion locale, $F$ est localement inversible en $(x_0,y_0)$ : il existe $r>0$ tel que $F$ soit une bijection de la boule $B=B((x_0,y_0),r)$ sur son image et l'application inverse, appelons la $G$ est $C^1$ sur l'ouvert $F(B)$. \'Ecrivons $G(s,t)=(g_1(s,t),g_2(s,t))$ les coordonnées de $G$. Comme $G$ est l'inverse de $F$ on a, pour tout $(s,t)$ dans $F(B)$ (en utilisant la définition de $F$) :
+$$
+(s,t)=F(g_1(s,t),g_2(s,t))=(g_1(s,t),f(g_1(s,t),g_2(s,t))).
+$$
+On a donc les égalités : $g_1(s,t)=s$ et $f(s,g_2(s,t))=t$.
+Les points $(x,y)$ de $B$ pour lesquels $f(x,y)=0$ sont les points dont l'image par $F$ est de la forme $(x,0)$. Ce sont donc les points $G(x,0)$ pour $(x,0)$ dans $F(B)$, soit encore, d'apr\`es la forme de l'application $G$, les points $(x,g_2(x,0))$ pour $(x,0)$ dans $F(B)$. Or $F(B)$ est un ouvert contenant $(x_0,0)$. Il existe donc $\alpha>0$ tel que, pour $x\in]x_0-\alpha,x_0+\alpha[$, $(x,y)\in B$, l'équation $f(x,y)=0$ équivaut \`a $y=g_2(x,0)$. Il suffit d'écrire $\phi(x)=g_2(x,0)$ pour voir qu'on a bien établi le résultat souhaité.
+\end{proof}
+
+\noindent{{\bf Exemple}\\
+Le cas du cercle.\\
+ \'Etude au point $(lambda,0)$ de $f(x\,,\,y) = x(x^2+y^2)-\lambda(x^2-y^2)$. 
+
+
+\noindent{{\bf Remarque} : On retrouve ainsi une équation de la tangente aux courbes de niveau.
+
+\subsubsection{Fonctions implicites : cas $f(x_{1} \, \dots \,   x_{n}) = 0$}
+
+L'étude est similaire pour les hypersurfaces de niveau en plusieurs variables, o\`u on va pouvoir exprimer une variable en fonction des autres si la dérivée partielle correspondante n'est pas nulle. 
+
+\begin{theoreme}
+Si $f\colon\thinspace \mathbb{R}^n\to\mathbb{R}$ est de classe $\mathcal{C}^1$ et si $\displaystyle \frac{\partial f}{\partial x_{n}} \, (X_{0}) \neq 0$ alors : 
+\begin{enumerate}
+\item[(i)]  La fonction implicite $x_{n} = \varphi (x_{1}  \, \dots \, x_{n-1})$ existe sur une boule ouverte $B((x_{1,0}  \, \dots \,  x_{n-1 , 0})\,,\, \varepsilon)$ et on a : $f(x_{1} \, \dots \, x_{n-1} \,,\, \varphi(x_{1} \, \dots \, x_{n-1})) = 0$.
+\item[(ii)] $\displaystyle \frac{\partial \varphi}{\partial x_{i}} \, = \, \frac{-\; \frac{\partial f}{\partial x_{i}} (x_{1} \, \dots \, x_{n-1} \,,\, \varphi(x_{1} \, \dots \, x_{n-1}))}{\frac{\partial f}{\partial x_{n}} (x_{1} \, \dots \, x_{n-1} \,,\, \varphi(x_{1} \, \dots \, x_{n-1}))}$
+\end{enumerate}
+\end{theoreme}
+
+\newpage
+
+\section{Optimisation libre et sous contraintes}
+%\begin{center}
+%\includegraphics[scale=.6]{Ordre2-Lagrange.pdf}
+%\end{center}
+
+\subsection{En dimension 1}
+Donnons-nous une fonction d'une variable $f$ définie sur $\mathbb R$ et de classe $C^2$. 
+
+\begin{theoreme} (Formule de Taylor \`a l'ordre 2) Si $f$ est une fonction trois fois continument dérivable sur $\mathbb{R}$, il existe une fonction $\epsilon$ tendant vers 0 en 0 telle que
+$$f(x + h) = f(x) + hf'(x) +f''(x)h^2/2 + |h|^2 \varepsilon (h)$$
+\end{theoreme}
+
+Choisissons pour $x$ un point $x=a$ tel que $f''(a)\neq 0$. Alors pour $h$ assez petit, le terme $f''(a)h^2/2 + |h|^2 \varepsilon (h)$ est du m\^eme signe que $f''(a)$. Si par exemple   $f''(a)>0$, on en déduit que $f$ a un minimum local en $x$.
+
+\noindent{La recherche pratique des {\bf extrema locaux} pour une fonction d'une variable se passe donc ainsi :
+\begin{enumerate}
+\item[(i)] On recherche les points critiques ($f'(x) = 0$).
+\item[(ii)] On étudie la dérivée seconde $f''$ si $a$ est un point critique et si\\
+$f''(a) > 0$ il y a un minimum local,\\
+$f''(a) < 0$ il y a un maximum local,\\
+$f''(a) = 0$ il faut approfondir l'étude.
+\end{enumerate}
+
+Lorsque $f$ n'est plus définie sur $\mathbb R$ entier, ou sur un intervalle ouvert, il faudra de plus étudier le comportement de $f$ sur les bords du domaine de définition. si l'ensemble de départ est compact, on a la garantie de l'existence d'extrema globaux.
+
+
+\subsection{Extrema locaux de $f : \mathbb{R}^2 \rightarrow \mathbb{R}$}
+
+
+\noindent{On suppose $f$ de classe $\mathcal{C}^2$, c'est-\`a-dire que ses dérivées partielles jusqu'\`a l'ordre 2 existent et sont continues.
+
+\begin{definition}
+$f$ a un {\bf minimum} (resp. {\bf maximum}) local en $(x_{0}\,,\,y_{0})$ s'il existe $\varepsilon > 0$ tel que : $\forall (x\,,\,y) \in B((x_{0}\,,\,y_{0})\,,\, \varepsilon)$ alors $f(x\,,\,y) \geqslant f(x_{0}\,,\,y_{0})$ (resp. $f(x\,,\,y) \leqslant f(x_{0}\,,\,y_{0})$).
+\end{definition}
+
+
+\noindent{\bf Exemple}\\
+$f(x\,,\,y) = - x^2 - y^2$\\
+$f(x\,,\,y) =  x^2 + y^2$\\
+$f(x\,,\,y) =  x^2 - y^2$
+
+
+\begin{proposition}
+Si $f$ admet un {\bf extremum local} en $(x_{0}\,,\,y_{0})$ alors $\displaystyle \frac{\partial f}{\partial x} \, (x_{0}\,,\,y_{0}) = \frac{\partial f}{\partial y} \, (x_{0}\,,\,y_{0}) = 0$. 
+\end{proposition}
+
+\begin{proof} ~~ La fonction de une variable $x\mapsto f(x,y_0)$ admet un extremum local en $x_0$, donc sa dérivée $\displaystyle \frac{\partial f}{\partial x} \, (x_{0}\,,\,y_{0})$ en $x_0$ est nulle. On fait de m\^eme avec $y\mapsto f(x_0,y)$.
+\end{proof}
+
+\begin{definition}
+Si en $(x_{0}\,,\,y_{0})$ on a $\displaystyle \frac{\partial f}{\partial x} \, (x_{0}\,,\,y_{0}) = \frac{\partial f}{\partial y} \, (x_{0}\,,\,y_{0}) = 0$ on dit que $(x_{0}\,,\,y_{0})$ est {\bf un point critique} de $f$ ou un point stationnaire de $f$.
+\end{definition}
+
+
+\noindent{\bf Remarque}\\
+Un extremum local est un point critique mais la réciproque n'est pas vraie.
+
+
+
+
+\subsection{Formule de Taylor}
+
+\begin{definition}
+ Soit $f(x,y)$ une fonction de classe $\mathcal{C}^2$.
+La {\bf matrice hessienne} de $f$ en $(x_0,y_0)$ est la matrice
+$\mathrm{Hess}(x_0,y_0) = \left(\hspace{-1mm} \begin{array}{cc}
+A & B \\
+B & C
+\end{array}\hspace{-1mm}\right)$\\
+o\`u $A = \displaystyle \frac{\partial^2 f}{\partial x^2}\, (x_{0}\,,\,y_{0}) \;\;,\;\;B = \frac{\partial^2 f}{\partial x\; \partial y}\, (x_{0}\,,\,y_{0}) \;\;,\;\; C = \displaystyle \frac{\partial^2 f}{\partial y^2}\, (x_{0}\,,\,y_{0})$.
+\end{definition}
+
+
+\noindent{\bf Exemple}\\
+Calculer la matrice Hessienne de $f(x\,,\,y) = 4xy - x^4 - y^4$.
+
+
+\begin{theoreme} (Formule de Taylor \`a l'ordre 2, en 
+$X=(x_0,y_0)$)\\ Si  $f$ une fonction de classe $\mathcal{C}^2$ sur $\mathbb R^2$, il existe une fonction $\epsilon$ tendant vers 0 en $(0,0)$ telle que
+$$f(X + H) = f(X) + <\nabla\hspace{-0.6mm} f(X) , H> + \displaystyle \frac{1}{2} \, 
+%(H . \cdot \nabla)^2\, f(X) 
+H^t\ \mathrm{Hess}(x_0,y_0)\ H + \|H\|^2\, \varepsilon (H)$$
+\end{theoreme}
+
+Démonstration dans le cas o\`u la hessienne est diagonale.
+
+
+
+
+\begin{theoreme}
+Soient $f(x\,,\,y)$ de classe $\mathcal{C}^2$ et $(x_{0}\,,\,y_{0})$ un point critique.
+%Si $A = \displaystyle \frac{\partial^2 f}{\partial x^2}\, (x_{0}\,,\,y_{0}) \;\;,\;\;B = \frac{\partial^2 f}{\partial x\; \partial y}\, (x_{0}\,,\,y_{0}) \;\;,\;\; C = \displaystyle \frac{\partial^2 f}{\partial y^2}\, (x_{0}\,,\,y_{0})$\\
+Soit $\triangle = AC - B^2=\mathrm{det}(\mathrm{Hess}(x_0,y_0))$.
+Alors :\\
+si $\triangle > 0$ et $A > 0$\,,\, $f$ a un minimum local en $(x_{0}\,,\,y_{0})$\\
+si $\triangle > 0$ et $A < 0$\,,\, $f$ a un maximum local en $(x_{0}\,,\,y_{0})$\\
+si $\triangle < 0$ \,,\, f n'a ni maximum ni minimum, elle a un point selle\\
+si $\triangle = 0$ on ne peut conclure (avec le seul développement \`a l'ordre 2).
+\end{theoreme}
+%\vskip15pt
+%\noindent{\bf Remarque}\\
+%La matrice $H = \left[ \begin{array}{cc}
+%A & B \\
+%B & C
+%\end{array}
+%\right]$Ê s'appelle la matrice hessienne.
+
+%\begin{center}
+%\includegraphics[scale=.3]{leplomb.pdf}
+%\includegraphics[scale=.8]{Selle_obstacle.pdf}
+%\end{center}
+\noindent{\bf Exemple}\\
+Soit $f:\mathbb R^2 \to \mathbb R$ définie par $f(x,y)=x^3+y^3-3xy$. Les points critiques de $f$ sont $(0,0)$ et $(1,1)$. Le premier est un point col, le second un minimum local (non global).
+
+\subsection{Extrema de $f$ sur un compact $K \subset \mathbb{R}^2$}
+
+La marche \`a suivre pour étudier les extrema d'une fonction différentiable sur un compact de $\mathbb{R}^2$ est la suivante.
+
+Soit $f$ une fonction différentiable définie sur un compact $K$ de $\mathbb{R}^2$. Comme $f$ est différentiable, elle est continue. Elle est donc bornée sur $K$ et atteint ses bornes.
+
+En pratique (dans les exercices que je vous demanderai de résoudre en particulier) la fonction $f$ sera donnée par une formule valable sur un certain sous-ensemble de $\mathbb{R}^2$ et le compact $K$ sera inclus dans cet ensemble de définition.
+
+On m\`ene l'étude des extrema de $f$ en plusieurs étapes. La premi\`ere est d'étudier l'existence d'extrema locaux de $f$ \`a l'intérieur de $K$. C'est pour cette étude qu'on utilisera le développement de Taylor \`a l'ordre 2 donné ci-dessus.
+
+Mais cette étude n'est pas suffisante. Il faut aussi regarder ce qui se passe sur le bord de $K$. Pour cela on proc\`ede autrement.
+
+\noindent{\bf Exemple}\\
+Etude de $f(x\,,\,y) = x^2 - y^2$ sur $K = \lbrace (x\,,\,y) \in \mathbb{R}^2 \,/\, x^2 + y^2 \leqslant 1 \rbrace$.
+\noindent{On proc\`ede de la mani\`ere suivante :
+\begin{enumerate}
+\item[(i)] On cherche les points critiques et les extrema locaux dans $Int(K)$.\\
+On trouve un seul point stationnaire en $(0,0)$. Mais en $(0,0)$ $f$ a un point selle. La fonction n'a donc pas d'extremum \`a l'intérieur de $K$. Mais comme $K$ est compact et $f$ est continue sur $K$, $f$ est bornée sur $K$ et atteint ses bornes sur $K$. Ce sera donc sur le bord de $K$.
+\item[(ii)] On analyse $f$ sur $\partial K$.\\
+Une possibilité ici est de paramétrer le bord de $K$ : le cercle de rayon 1 centré en $(0,0)$. On obtient :
+$f(\cos t,\sin t)=\cos^2t-\sin^2t=\cos(2t)$. On peut alors étudier les variations de cette fonction. On obtient qu'elle est maximum égale \`a 1 lorsque $2t$ est égal \`a 0 modulo $2\pi$, minimum égale \`a -1 lorsque $2t$ vaut $\pi$ modulo $2\pi$. La fonction $f$ atteint donc son maximum 1 aux points $(1,0)$ et $(-1,0)$ de $K$, son minimum -1 aux points $(0,1)$ et $(0,-1)$.
+\end{enumerate}
+
+
+
+\subsection{Extrema liés (multiplicateur de Lagrange)}
+
+\subsubsection{Une seule contrainte}
+
+\noindent{Il s'agit de trouver les extrema de $f(x\,,\,y\,,\,z)$ lorsque $(x\,,\,y\,,\,z)$ appartient \`a une surface $S$ définie par $g(x\,,\,y\,,\,z) = c$.
+
+
+\noindent{\bf Exemple}\\
+Maximiser $x^2\, y^2\, z^2$ lorsque $x^2 + y^2 + z^2 = 1$.
+
+\begin{definition}
+Un point $X_0 = (x_{0}\,,\,y_{0}\,,\,z_{0})$ est un minimum (resp. maximum) local pour $f$, lié \`a la contrainte $g(x\,,\,y\,,\,z) = c$ si :
+\begin{enumerate}
+\item[(i)] $g(X_0) = c$
+\item[(ii)] Il existe $r > 0$ tel que $f(X_0) \leqslant f(X)$ (resp. $f(X_0) \geqslant f(X)$) pour tout $X \in S \cap B(X_0\,,\, r)$.
+\end{enumerate}
+\end{definition}
+
+\begin{theoreme}(de Lagrange)\\
+Soit $f(x\,,\,y\,,\,z)$ et $g(x\,,\,y\,,\,z)$ de classe $\mathcal{C}^1$ telle que $\nabla g \neq 0$ sur $S$.\\
+Alors si $f$ admet un {\bf extrema lié} en $(x_{0}\,,\,y_{0}\,,\,z_{0})$ on a : $\nabla f(x_{0}\,,\,y_{0}\,,\,z_{0}) = \lambda\, \nabla g(x_{0}\,,\,y_{0}\,,\,z_{0})$ o\`u $\lambda \in \mathbb{R}$ est appelé multiplicateur de Lagrange.
+\end{theoreme}
+\begin{proof} \ \rm 
+Soit $\gamma:\mathbb R \to S$ passant par $X_0$ en $t=t_0$. Alors $f\circ \gamma$ a un extremum local en $t_0$ donc sa dérivée s'annule, c'est-\`a-dire
+$$<\nabla f(X_0),\gamma '(t_0)>=0.$$
+Ceci étant valable pour toute courbe $\gamma$ passant par $X_0$, on en déduit que le gradient de $f$ en $X_0$ est orthogonal au plan tangent \`a $S$ en $X_0$, donc est colinéaire au gradient de $g$ en $X_0$.
+\end{proof}
+
+\noindent{\bf Remarque}\\
+Si $P$ est un extremum lié, on a $\nabla\hspace{-0.6mm} f(P)$ parall\`ele \`a $\nabla\hspace{-0.6mm} g(P)$.
+La réciproque n'est pas vraie. Nous avons une condition nécessaire mais pas suffisante. C'est l'équivalent de la nullité de la dérivée pour les extrema libres : en un extremum libre la dérivée est nulle mais la dérivée peut \^etre nulle sans que la fonction ait un extremum (penser \`a $x\mapsto x^3$ en $x=0$).  
+
+
+\noindent{\bf Exemple}\\
+Sur l'exemple précédent on montre la méthode de résolution.
+
+\noindent{\bf Autre exemple}\\
+Maximum de la distance de l'ellipsoide donné par $x^2/a^2+y^2/b^2+z^2/c^2=1$ \`a l'origine.
+
+Le théor\`eme est encore vrai en dimension plus grande.
+\begin{theoreme}(de Lagrange)\\
+Soit $f$ et $g$ deux fonctions de $\Rr^d$ dans $\Rr$  de classe $\mathcal{C}^1$ telle que $\nabla g \neq 0$ sur l'ensemble $S$ défini par $g=C$ (c'est une hypersurface).\\
+Alors si $f$ admet un {\bf extrema lié} en $x_0$ on a : $\nabla f(x_{0}) = \lambda\, \nabla g(x_{0})$ o\`u $\lambda \in \mathbb{R}$ est appelé multiplicateur de Lagrange.
+\end{theoreme}
+
+
+\subsubsection{Plusieurs contraintes}
+On cherche les extrema d'une fonction $f$  sur l'ensemble $S$ défini par $g_1=g_2=\ldots=g_k=0$, toutes les fonctions considérées étant de classe $C^1$. Pour que les choses marchent bien il faut faire l'hypoth\`ese suivante : en tout point de $S$ les gradients des fonctions $g_i$ sont linéairement indépendants. 
+\begin{theoreme}(de Lagrange)\\
+Soit $f$ et $g_1,\ldots, g_k$ $k+1$ fonctions de $\Rr^d$ dans $\Rr$  de classe $\mathcal{C}^1$ telles que les vecteurs $\nabla g_1,\ldots, \nabla g_k$,  soit indépendants sur  sur l'ensemble $S$ défini par $g_1=\ldots=g_k=0$.\\
+Alors si $f$ admet un {\bf extrema lié} sur $S$ en $x_0$ le vecteur $\nabla f(x_{0})$ est combinaison linéaire des vecteurs $\nabla g_i(x_{0})$ : il existe $\lambda_1,\ldots,\lambda_k$ tels que $\nabla f(x_{0})=\sum_{i=1}^k\lambda_i\nabla g_i(x_{0})$. Les nombres $\lambda_1,\ldots,\lambda_k$ sont appelés multiplicateurs de Lagrange.
+\end{theoreme}
+\newpage
+\section{Intégration des fonctions de $\mathbb{R}^n$ dans $\mathbb{R}$}
+
+
+\subsection{Intégration des fonctions d'une variable}
+Au lycée on définit l'intégrale d'une fonction (continue) positive comme étant l'aire sous la courbe. Pour cela, il faut savoir ce qu'est l'aire... On rappelle en quelques mots ci-dessous la définition de l'intégrale selon Riemann.
+
+
+\noindent{Soit $f : [a\,,\,b] \rightarrow \mathbb{R}$ bornée.
+\begin{enumerate}
+\item[a)] Cas o\`u $f$ est en escalier.\\
+Il existe une partition $a = t_{0} < t_{1} < t_{2} < \dots < t_{n} = b$ telle que $f$ est constante sur chaque intervalle \, $]t_{i} \,,\, t_{i+1}[ \;\; (f(x) = C_{i})$.\\
+Alors $\displaystyle \int_{a}^b\, f(t)\, dt = \sum_{i = 0}^{n - 1}\, C_{i}\, (t_{i+1} - t_{i})$.
+\item[b)] Si $f$ est bornée on l'approche par des fonctions en escalier.
+\end{enumerate}
+
+\begin{center}
+%\includegraphics[scale=.7]{MethRect.pdf}
+\end{center}
+
+ 
+\begin{definition}
+$f$ est {\bf intégrable} sur $[a\,,\,b]$ s'il existe un nombre unique $I$ tel que pour toutes fonctions en escalier $u\,,\,v$ sur $[a\,,\,b]$ vérifiant $u(x) \leqslant f(x) \leqslant v(x)$ on a : 
+$$
+ \int_{a}^b\, u(x)\, dx \;\; \leqslant \;\; I \;\; \leqslant \;\;  \int_{a}^b\, v(x) dx
+ $$
+ et si pour tout $\varepsilon > 0$ il existe des fonctions en escalier $u_{\varepsilon}$ et $v_{\varepsilon}$ vérifiant :
+ $$
+ u_{\varepsilon} (x) \;\; \leqslant \;\; f(x) \;\; \leqslant \;\; v_{\varepsilon} (x)
+ $$
+ et
+ $$
+ 0 \;\; \leqslant \;\;  \int_{a}^b\, v_{\varepsilon}(x)\, dx - \int_{a}^b\, u_{\varepsilon} (x)\, dx  \;\; < \;\;  \varepsilon
+ $$
+\end{definition}
+
+
+\noindent{Notation : $I$ s'appelle l'intégrale de $f$ sur $[a\,,\,b]$ et se note $\displaystyle \int_{a}^b\, f(x)\, dx$\,.
+
+\begin{theoreme}
+Si $f$ est continue sur $[a,b]$ alors $f$ est intégrable sur $[a,b]$.
+\end{theoreme}
+\begin{proof} \rm : Soit $f$ une fonction continue sur $[a,b]$. Soit $\epsilon$ un nombre réel strictement positif. Alors la fonction $f$ est uniformément continue sur $[a,b]$ : il existe $\eta>0$ tel que, si $|x-y|<\eta$ alors $|f(x)-f(y)|<\epsilon$. Prenons $n$ tel que $(b-a)/n<\eta$ et divisons $[a,b]$ en $n$ intervalles de longueur $(b-a)/n<\eta$ dont les extrémités sont les points $x_k=a+k(b-a)/n$, $k$ variant de 0 \`a $n$ ($k$ prenant $n+1$ valeurs détermine $n$ intervalles $[x_k,x_{k+1}]$ $k$ variant de $0$ \`a $n-1$ ; on a $x_0=a$ et $x_n=b$). Définissons deux fonctions en escalier
+$$
+f^-(x)=\min\{f(t),t\in[x_k,x_{k+1}]\}\ {\rm si}\  x\in [x_k,x_{k+1}]
+$$
+$$
+f^+(x)=\max\{f(t),t\in[x_k,x_{k+1}]\}\ {\rm si}\ x\in [x_k,x_{k+1}]
+$$
+Par définition on a $f^-\leq f\leq f^+$ et on a
+\begin{eqnarray*}
+\int_a^bf^+(x)dx-\int_a^bf^-(x)dx&=&\sum_{k=0}^{n-1}(x_{k+1}-x_k)\max\{f(t),t\in[x_k,x_{k+1}]\}\\
+& & \ \ \ \ \ \ \ \ -\sum_{k=0}^{n-1}(x_{k+1}-x_k)\min\{f(t),t\in[x_k,x_{k+1}]\}\\
+&=&\sum_{k=0}^{n-1}(x_{k+1}-x_k)(\max_{t\in[x_k,x_{k+1}]}f(t)-\min_{t\in[x_k,x_{k+1}]}f(t))\\
+&\leq&\sum_{k=0}^{n-1}(x_{k+1}-x_k)\epsilon\\
+&=&\epsilon \sum_{k=0}^{n-1}(x_{k+1}-x_k)\\
+&=&\epsilon(b-a)
+\end{eqnarray*}
+\end{proof}
+
+\subsection{Volume de parties bornées de $\R^d$}
+On cherche \`a définir le volume d'une partie. Le volume d'un pavé est donné par le produit des longueurs de ses c\^otés.
+Si une partie est une réunion disjointe de pavés alors son volume est la somme des volumes des pavés intervenant dans la réunion.
+Que le pavé soit ouvert, fermé, ni ouvert ni fermé ne change rien \`a son volume.
+On vérifie que ces r\`egles permettent de définir sans ambiguïté et de mani\`ere cohérente le volume de toute réunion disjointe finie de pavés. Il faut montrer que le résultat ne dépend pas de la fa\c con de découper en pavés.
+
+On souhaite évidemment définir le volume de parties plus générales.
+
+Pour définir le volume d'une partie donnée $E$ on peut ensuite procéder de la fa\c con suivante. Supposons qu'il existe deux suites d'ensembles $(E_n^-)_{n\in \Nn}$ et $(E_n^+)_{n\in \Nn}$ telles que, pour tout $n$, $E_n^-$ et $E_n^+$ soit des réunions finies de pavés, et on ait :
+$$
+E_n^-\subset E_{n+1}^-\subset E\subset E_{n+1}^+\subset E_n^+,
+$$
+et $\lim vol(E_n^+)-vol(E_n^-)=0$. Alors les deux suites $vol(E_n^-)$ et $vol(E_n^+)$ sont adjacentes. Elles sont donc convergentes et ont m\^eme limite. On définit le volume de $E$ comme étant cette limite commune.
+
+\subsection{Intégration des fonctions de deux variables}
+
+
+\noindent{Soit $f : [a  \,,\, b ] \times [c  \,,\, d ] \rightarrow \mathbb{R}$. On note $R$ le rectangle $[a  \,,\, b ] \times [c  \,,\, d ]  \subset \mathbb{R}^2$. On va définir l'intégrale d'une fonction sur $R$ en deux temps: d'abord dans le cas o\`u la fonction est en escalier, puis en approchant la fonction considérée (si c'est possible) par des fonctions en escalier. 
+
+\begin{enumerate}
+\item[a)] $f$ est en escalier.\\
+Il existe une partition de $[a  \,,\, b ] \times [c  \,,\, d ]$ : \\
+$a = s_{0} < s_{1} < s_{2} < \, \dots \, < s_{m} = b$\\
+$c = t_{0} < t_{1}  < \, \dots \, < t_{n} = d$\\
+telle que $f$ est constante \`a l'intérieur de chaque rectangle\, $]s_{i} \,,\, s_{i+1}[ \, \times \, ]t_{j} \,,\, t_{j+1}[$\; (o\`u elle vaut $C_{ij}$).\\
+On définit $\displaystyle \iint_{R}\, f(x\,,\,y)\, dx\,dy = \sum_{i\,,\,j}\, C_{ij}\, (s_{i+1} - s_{i})\, (t_{j+1} - t_{j})$.\\
+On remarque en particulier que la valeur de l'intégrale ne dépend pas des valeurs de $f$ sur les bords des petits rectangles.
+
+\item[b)] $f$ est bornée sur $R = [a  \,,\, b ] \times [c  \,,\, d ]$.\\
+On approche $f$ par des fonctions en escalier.
+\end{enumerate}
+
+
+\begin{definition}
+$f$ est {\bf intégrable} sur $R$ s'il existe un nombre unique $I$ tel que pour toutes fonctions en escalier $u(x\,,\,y)$ et $v(x\,,\,y)$, telles que $u(x\,,\,y) \leqslant f(x\,,\,y) \leqslant v(x\,,\,y)$, on a :
+$$
+\iint_{R}\, u(x\,,\,y)\, dx\, dy \;\; \leqslant \;\;  I \;\; \leqslant \;\; \iint_{R}\, v(x\,,\,y)\, dx\, dy
+$$
+et si, pour tout $\varepsilon > 0$, il existe des fonctions en escalier $u_{\varepsilon}$ et $v_{\varepsilon}$ telles que :
+$$
+u_{\varepsilon} (x\,,\,y) \;\; \leqslant \;\; f(x\,,\,y) \;\; \leqslant \;\; v_{\varepsilon} (x\,,\,y)
+$$
+et
+$$
+0  \;\; \leqslant \;\;  \int_{R}\, v_{\varepsilon} (x\,,\,y)\, dx\, dy - \int_{R}\, u_{\varepsilon} (x\,,\,y)\, dx\, dy \;\; < \;\; \varepsilon
+$$
+\end{definition}
+
+
+\noindent{Notation :  $I$ s'appelle l'intégrale de $f$ sur $R$ et se note $\displaystyle \iint_{R}\, f(x\,,\,y)\, dx\,dy$\,.
+
+\begin{theoreme} 
+\begin{enumerate}
+\item Si $f$ est continue sur $R$ alors $f$ est intégrable.
+\item Si $f$ est positive sur $R$ alors $\displaystyle \iint_{R}\, f(x\,,\,y)\, dx\, dy$ est le volume sous le graphe de $f$ au-dessus de $R$.
+\end{enumerate}
+\end{theoreme}
+
+\begin{proposition} (Propriétés de l'intégrale double)
+\begin{enumerate}
+\item $\displaystyle \iint_{R}\, (\alpha f + \beta g)\, (x\,,\,y)\, dx\, dy = \alpha\, \iint_{R}\, f(x\,,\,y)\, dx\, dy + \beta\, \iint_{R}\, g(x\,,\,y)\, dx\, dy$.
+\item Si $R = R_{1} \cup R_{2}$ avec $R_{1} \cap R_{2} = \emptyset$ alors :
+$$
+\iint_{R}\, f(x\,,\,y)\, dx\, dy = \iint_{R_{1}}\, f(x\,,\,y)\, dx\, dy + \iint_{R_{2}}\, f(x\,,\,y)\, dx\, dy
+$$
+\end{enumerate}
+\end{proposition}
+
+\begin{theoreme}
+Si $f$ est continue sur $R$ alors $\displaystyle \iint_{R}\, f(x\,,\,y)\, dx\, dy$ existe.
+\end{theoreme}
+
+
+
+\subsection{Calcul des intégrales doubles}
+
+\begin{theoreme}(Fubini)
+Si $f$ est continue sur $R = [a  \,,\, b ] \times [c  \,,\, d ]$ alors :
+$$
+ \iint_{R}\, f(x\,,\,y)\, dx\, dy \;\; = \;\; \int_{a}^b\, \left( \int_{c}^d\,\, f(x\,,\,y)\, dy \right)\, dx \;\; = \;\; \int_{c}^d\, \left( \int_{a}^b\,\, f(x\,,\,y)\, dx \right)\, dy
+ $$
+ \end{theoreme}
+
+
+\noindent{\bf Exemple}
+\begin{enumerate}
+\item[(1)] $\displaystyle  \iint_{R}\, (x^2 + y^2)\, dx\, dy  \;\;\;\;\;\;\;\;\;  R = [0\,,\,1] \times [0\,,\,1]$
+\item[(2)] $\displaystyle  \iint_{R}\, (1 + x + y)\, dx\, dy     \;\;\;\;\;\; R = [0\,,\,1] \times [0\,,\,1]$
+\end{enumerate}
+
+
+
+\begin{corollaire}
+Si la fonction $f$ est le produit de deux fonctions $g$ et $h$ d'une variable, c'est-\`a-dire $f(x,y)=g(x)h(y)$, alors
+$$ \iint_{R}\, f(x,y)\, dx\, dy =(\int _a^bg(x)dx)(\int_c^dh(y)dy).$$
+\end{corollaire}
+
+\noindent{\bf Exemple:}
+ $\displaystyle  \iint_{[0,1]\times [0,1]}\, e^{x+y}\, dx\, dy $
+
+
+
+\subsection{Intégration sur les régions bornées de $\mathbb{R}^2$}
+
+
+\noindent{Soit $f : D \rightarrow \mathbb{R}$ o\`u $D \subset \mathbb{R}^2$ est non rectangulaire.\\
+On consid\`ere un rectangle $R$ tel que $D \subset R$ et on définit $\overline{f}$ sur $R$ avec :
+$$
+\overline{f} (x\,,\,y) = \left \lbrace 
+\begin{array}{cl}
+f(x\,,\,y) & \textrm{si} \; (x\,,\,y) \in D \\
+0 & \textrm{si} \; (x\,,\,y) \notin D
+\end{array}
+\right.
+$$
+
+
+
+Avec les notations précédentes on pose, si cela a un sens :
+$$
+\iint_{D}\, f(x\,,\,y)\, dx\, dy \;\; = \;\; \iint_{R}\, \overline{f}(x\,,\,y)\, dx\, dy
+$$
+On peut se ramener \`a deux types de domaine $D$ :
+
+\vskip10pt
+\noindent{{\it Type 1} : $D = \left \lbrace (x\,,\,y)\;\;\; / \;\;\; \begin{array}{c} a \leqslant x \leqslant b \\ g_{1}(x) \leqslant y \leqslant g_{2}(x) \end{array} \right \rbrace$ o\`u $g_{1}$ et $g_{2}$ sont continues.
+
+\vskip10pt
+\noindent{{\it Type 2} : $D = \left \lbrace (x\,,\,y)\;\;\; / \;\;\; \begin{array}{c} c \leqslant y \leqslant d \\ h_{1}(y) \leqslant x \leqslant h_{2}(y) \end{array} \right \rbrace$.
+
+
+\begin{theoreme}(Fubini)
+\begin{enumerate}
+\item[a)] Si $f$ est continue sur $D$ de type 1, alors $f$ est intégrable et on a :
+$$
+\iint_{D}\, f(x\,,\,y)\, dx\, dy \;\; = \;\; \int_{a}^b\;\; \left( \int_{g_{1}(x)}^{g_{2}(x)}\, f(x\,,\,y)\, dy \right)\, dx
+$$
+\item[b)] Si $f$ est continue sur $D$ de type 2, alors $f$ est intégrable et on a :
+$$
+\iint_{D}\, f(x\,,\,y)\, dx\, dy \;\; = \;\; \int_{c}^d\;\; \left( \int_{h_{1}(y)}^{h_{2}(y)}\, f(x\,,\,y)\, dx \right)\, dy
+$$
+\end{enumerate}
+\end{theoreme}
+
+\noindent{\bf Exemples}
+\begin{enumerate}
+\item[(1)] $\displaystyle \iint_{D}\, (x + 2y)\, dx\, dy$ : $D$ est la région entre les deux paraboles $y = 2x^2$ et $y = 1 + x^2$.
+\item[(2)] $\displaystyle \iint_{D}\, e^{x^2}\, dx\, dy$\, sur le triangle $D = \left \lbrace (x\,,\,y)\;\;\; / \;\;\; \begin{array}{c} 0 \leqslant x \leqslant 1 \\ 0 \leqslant y \leqslant x \end{array} \right \rbrace$\,. 
+\item[(3)] Le choix d'intégrer d'abord par rapport \`a $x$ ou $y$ peut amener des calculs plus ou mois long. Par exemple avec $\displaystyle \iint_{D}\, xy\, dx\, dy$ o\`u $D$ est le trap\`eze délimité par $y=0$, $y=1$ et les droites d'équation $y = 2-x$ et $y = 1 + x/2$.
+\end{enumerate}
+
+
+
+\begin{definition}
+Si $D$ est un domaine borné, on appelle {\bf aire de $D$} : aire$(D) = \displaystyle \iint_{D}\, 1\, dx\, dy$.
+\end{definition}
+
+
+
+
+\subsection{Intégrale double et changement de variables}
+
+
+\noindent{Rappel \`a une variable :
+$$
+\int_{a}^b\, f(x)\, dx \;\; = \;\; \int_{c}^d\, f(g(t))\, g'(t)\, dt
+$$
+o\`u $g$ est bijection de $[c\,,\,d]$ sur $[a\,,\,b]$.
+
+\begin{proof} \rm : Soit $F$ une primitive de $f$. 
+
+On a d'une part 
+$$
+F(g(b))-F(g(a))=\int_{g(a)}^{g(b)}F'(t)dt=\int_{g(a)}^{g(b)}f(t)dt,
+$$
+d'autre part 
+$$
+F(g(b))-F(g(a))=\int_a^b(F\circ g)'(s) ds=\int_a^bF'(g(s))g'(s) ds=\int_a^bf(g(s))g'(s) ds.
+$$ 
+\end{proof}
+
+\begin{theoreme}
+Si $G(u\,,\,v) = (x(u\,,\,v) \,,\, y(u\,,\,v))$ :
+$$
+\iint_{G(S)}\, f(x\,,\,y)\, dx \, dy \;\; = \;\; \iint_{S}\, f(x(u\,,\,v) \,,\,y(u\,,\,v)) \,\, | \det \textrm{Jac}(G(u\,,\,v))|\,\, du\, dv
+$$
+avec Jac$(G(u\,,\,v)) = \left( \begin{array}{ccc}
+\displaystyle \frac{\partial x}{\partial u} &  & \displaystyle \frac{\partial x}{\partial v} \\\\
+\displaystyle \frac{\partial y}{\partial u} &  & \displaystyle \frac{\partial y}{\partial v}
+\end{array}
+\right)$.
+\end{theoreme}
+
+\begin{remarque*} Ce n'est pas tr\`es étonnant de trouver l\`a le déterminant. Par exemple, la valeur absolue du déterminant d'une matrice $2\times 2$ calcule l'aire du parallélogramme engendré par les vecteurs colonnes (par exemple).
+\end{remarque*}
+
+\noindent{\bf Cas des coordonnées polaires}\\
+$x = x(r\,,\,\theta) = r \cos \theta$\\
+$y = y(r\,,\,\theta) = r \sin \theta$
+$$
+J(G) = \left( \begin{array}{ccc}
+\cos \theta  &  & -\, r \sin \theta \\
+\sin \theta &   & r \cos \theta
+\end{array}
+\right)
+$$
+d'o\`u $\displaystyle \iint_{R = G(S)}\, f(x\,,\,y)\, dx\, dy \; = \; \iint_{S}\, f(r \cos \theta \,,\, r \sin \theta)\, r\, dr\, d\theta$.
+
+
+
+\noindent{\bf Exemples}
+\begin{enumerate}
+\item[(1)] Calcul de l'aire d'un disque.
+\item[(2)] Calcul de l'aire \`a l'intérieur d'une ellipse.
+\item[(3)] $\displaystyle \int_{-\, \infty}^{+\, \infty}\, e^{-\, x^2}\, dx = \sqrt{\pi}$\,.
+\item[(4)]  $\displaystyle \iint_{D}\,(x-y)^2 \, dx\, dy$ o\`u $D$ est le morceau du disque unité compris entre l'axe des $x$ et la demi-droite $y=x$.
+\end{enumerate}
+
+
+
+\subsection{Intégrales triples}
+On définit et calcule de mani\`ere totalement similaire les intégrales pour les fonctions de trois variables (et plus...). On va voir quelques exemples...
+
+\noindent{$\displaystyle \iiint_{R}\, f(x\,,\,y\,,\,z)\, dx\, dy\, dz$
+
+
+\noindent{\bf Exemple:}
+ $\displaystyle \iiint_{D}\, (x+y+z)^2 \, dx\, dy\, dz=1/10$ o\`u $D$ est le domaine délimité par les plans d'équations $x=0,y=0,z=0$ et $x+y+z=1$.
+
+
+\noindent{\bf Changement de variables} en dimension 3. Cas des coordonnées sphériques.
+
+$\displaystyle \iiint_{R = G(S)}\, f(x,y,z)\, dx\, dy \, dz\; = \; \iiint_{S}\, f(r \cos \theta \sin \phi\,,\, r \sin \theta \sin \phi, r \cos \phi) \, r^2 sin \phi\, dr\, d\theta \, d\phi$.
+
+\noindent{\bf Exemple:}
+ $\displaystyle \iiint_{D}\, (x^2+y^2+z^2) \, dx\, dy\, dz=4\pi/5$ o\`u $D$  est la boule centrée en l'origine et de rayon 1.
+ 
+\subsection{Quelques calculs classiques}
+
+\subsubsection{L'aire d'un disque}
+On peut trouver l'aire d'un disque gr\^ace au calcul intégral. En intégrant par tranche :
+\begin{eqnarray*}
+Aire&=&4\int_0^R\sqrt{R^2-x^2}dx\\
+&=&4\int_0^{\pi/2}R\cos(t)R\cos(t)\ dt\\
+&=&4R^2\int_0^{\pi/2}{{1+\cos(2t)}\over{2}} \ dt \\
+&=& \pi R^2,
+\end{eqnarray*}
+calculée gr\^ace au changement de variable $x=R\sin(t)$. 
+On peut aussi (et c'est plus simple quand on conna\^ \it l'expression du jacobien du passage en polaires) utiliser les coordonnées polaires
+\begin{eqnarray*}
+Aire&=&\int_0^R\int_0^{2\pi}r\ dr\ d\theta\\
+&=&2\pi. R^2/2\\
+&=& \pi R^2.
+\end{eqnarray*}
+
+
+\subsubsection{Le volume de la boule}
+On peut calculer le volume de la boule par un changement de variables en coordonnées sphériques.
+
+$\displaystyle \iiint_{B(0,R)}\,  \, dx\, dy\, dz= \iiint_{[0,R]\times [0,2\pi]\times [0,\pi]}\,  r^2 sin \phi\, dr\, d\theta\, d\phi=\int_0^Rr^2dr \int_0^{2\pi}d\theta \int_0^{\pi}\sin \phi d\phi$
+
+et donc le volume vaut $4\pi R^3/3$.
+
+\subsubsection{Le volume d'une pyramide}
+Cas d'une pyramide $P$ de base carrée de c\^oté de longueur $a$ et de hauteur $h$. On pose la pyramide sur le plan $z=0$, centrée sur l'axe des $z$. La longueur du c\^oté du carré $C_z$ \`a la hauteur $z$ est donc $a(1-z/h)$. Ainsi par le théor\`eme de Fubini
+$$ \iiint_Pdxdydz=\int_0^h( \iint_{C_z}dxdy)dz=\int_0^h( a^2(1-z/h)^2)dz=a^2h/3=Sh/3$$
+o\`u $S$ est l'aire de la base.
+
+\subsubsection{Solides de révolution}
+Soit $f$ une fonction positive ou nulle définie sur un intervalle $[a,b]$. Considérons la partie de l'espace définie de la façon suivante :
+$$
+V=\{(x,y,z)\ /\ x\in[a,b], \sqrt{y^2+z^2}\leq f(x)\}.
+$$
+C'est le solide obtenu en faisant tourner le graphe de $f$ autour de l'axe des $x$.
+Le volume de $V$ est donné par l'intégrale triple
+$$
+\iiint_Vdxdydz.
+$$
+En intégrant par tranche (d'abord en $y$, $z$, puis en $x$) on obtient :
+$$
+\iiint_Vdxdydz=\int_a^b\left(\iint_{\{(y,z)\ /\  \sqrt{y^2+z^2}\leq f(x)\}}dydz\right)dx=\int_a^b\pi f(x)^2dx.
+$$
+Le calcul de l'intégrale triple se ram\`ene donc \`a un calcul d'intégrale simple.
+
+\noindent{\bf Exemples}
+\begin{enumerate}
+\item[(1)] Cas d'un c\^one: on prend pour $f$ la fonction définie sur $[0,h]$ par $f(x)=ax$ pour $a>0$. Ici la base du c\^one a pour aire $S=\pi(ah)^2$, et donc le volume du c\^one est égal \`a
+$$\int_0^h\pi (ax)^2dx=\pi a^2h^3/3=Sh/3.$$
+\item[(2)] Cas d'un cylindre de rayon $R$ et de hauteur $h$:
+$$\int_0^h\pi R^2dx=\pi R^2h=Sh$$
+o\`u $S$ est l'aire de la base.
+\end{enumerate}
+
+\auteurs{
+Goulwen Fichou, Stéphane Leborgne
+}
+
+
+\finchapitre 
+\end{document}
+
+
+
+
+

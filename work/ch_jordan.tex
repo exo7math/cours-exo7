@@ -1,0 +1,1657 @@
+
+\documentclass[12pt, class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+% Commandes spécifiques à ce chapitre
+\newcommand{\Sp}{\text{sp}}
+\newcommand{\GL}{GL}
+\newcommand{\Pass}{\mathop{\mathrm{P}}\nolimits}
+
+
+\begin{document}
+
+%====================================================================
+\chapitre{Décomposition de Dunford et réduction de Jordan}
+%====================================================================
+
+
+Nous avons vu que toutes les matrices ne sont pas diagonalisables, 
+on peut néanmoins décomposer certaines d'entre elles, en une forme la plus simple possible.
+Nous verrons trois décompositions. 
+\begin{itemize}
+  \item La trigonalisation : transformer une matrice en une matrice triangulaire.
+  \item La décomposition de Dunford : écrire une matrice comme la somme d'une matrice diagonalisable et d'une matrice nilpotente.
+  \item La réduction de Jordan : transformer une matrice en une matrice diagonale par blocs.
+\end{itemize}
+
+$\Kk$ sera le corps $\Rr$ ou $\Cc$, $E$ un $\Kk$-espace vectoriel de dimension finie.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Trigonalisation}
+
+Nous allons montrer que toute matrice, dont le polynôme caractéristique est scindé, est semblable à une matrice triangulaire.
+
+%----------------------------------------------------
+\subsection{Trigonalisation}
+
+
+On rappelle qu'une matrice $A=(a_{i,j})_{1\leq i,j\leq n}$ est \defi{triangulaire supérieure} 
+si $a_{i,j}=0$ dès que $i> j$ :
+$$A=\begin{pmatrix}
+a_{1,1}&a_{1,2}&\cdots &a_{1,n} \cr 
+0&a_{2,2} & &\vdots \cr
+\vdots &\ddots &\ddots& a_{n-1,n}\cr
+0&\cdots&0&a_{n,n}
+\end{pmatrix}.$$
+Les coefficients sous la diagonale sont tous nuls. Ceux sur la diagonale ou au-dessus peuvent être nuls ou pas.
+
+\begin{definition}
+\sauteligne
+\begin{itemize}
+  \item Une matrice $A$ est \defi{trigonalisable}
+  s'il existe une matrice inversible $P$ telle que $P^{-1}AP$ soit triangulaire.
+  
+  \item Un endomorphisme $f$ est \defi{trigonalisable} s'il existe une
+base dans laquelle la matrice de $f$ soit triangulaire.
+\end{itemize}
+\end{definition} 
+
+Bien sûr, une matrice diagonalisable est en particulier trigonalisable.
+
+\begin{theoreme}
+La matrice $A \in M_n(\Kk)$ (resp. l'endomorphisme $f$) est trigonalisable si et seulement 
+si son polynôme caractéristique $\chi_A$ (resp. $\chi_f$) est scindé sur $\Kk$.
+\end{theoreme} 
+
+On rappelle qu'un polynôme est scindé sur $\Kk$ s'il a toutes ses racines dans $\Kk$, autrement dit s'il se décompose en facteurs linéaires dans $\Kk[X]$.
+
+Remarquons que si $\Kk=\Cc$, par le théorème de d'Alembert-Gauss, on a : 
+\begin{corollaire}
+Toute matrice $A \in M_n(\Cc)$ est trigonalisable.
+\end{corollaire}
+
+Ce n'est pas le cas si $\Kk=\Rr$.
+\begin{exemple}
+Soit $A = 
+\begin{pmatrix}
+0&-1\\
+1&0
+\end{pmatrix} \in M_2(\Rr)$.
+Alors $\chi_A(X) = X^2+1$. Ce polynôme n'est pas scindé sur $\Rr$, donc $A$ n'est pas trigonalisable sur $\Rr$. Si on considère cette même matrice $A$ comme dans $M_2(\Cc)$, alors elle est trigonalisable (et ici même diagonalisable) : il existe $P \in M_2(\Cc)$ inversible, telle que $P^{-1}AP$ soit triangulaire. 
+\end{exemple}
+
+
+
+%----------------------------------------------------
+\subsection{Preuve}
+
+\begin{proof}~
+\begin{itemize}
+
+\item $\Longrightarrow$ 
+
+Si $f$ est trigonalisable, il existe une base dans laquelle la matrice de $f$ s'écrit
+$$A=\begin{pmatrix}a_{11}&a_{12}&\cdots &a_{1n} \cr 0&a_{22} & &\vdots \cr\vdots &\ddots &\ddots& a_{n-1,n}\cr0&\cdots&0&a_{nn}\end{pmatrix}.$$
+On a alors,
+$$\chi_f(X)=\chi_A(X)=\prod_{i=1}^n(a_{ii}-X),$$
+ce qui prouve que $\chi_f$ a toutes ses racines dans $\Kk$.
+
+\item $\Longleftarrow$ 
+
+La démonstration se fait par récurrence sur la dimension $n$ de l'espace vectoriel. 
+Si $n=1$, il n'y a rien à démontrer. Supposons le résultat vrai pour $n-1$, $n$ étant arbitrairement fixé. Le polynôme $\chi_f$ ayant au moins une racine dans $\Kk$, 
+notons $\lambda$ l'une d'entre elles et $v_1$ un vecteur propre associé. 
+Soit $F$ l'hyperplan supplémentaire de la droite $\Kk v_1$, on a donc $E = \Kk v_1 \oplus F$. 
+On considère alors une base de $E$, $(v_1,v_2,\ldots,v_n)$ avec, pour $i \ge 2$, 
+$v_i\in F$. La matrice de $f$ dans cette base s'écrit
+$$\left(\begin{array}{c|ccc}
+\lambda &\ \  &\cdots&\ \  \cr \hline
+0 &\ &\ & \cr
+\vdots& & B &\cr
+0&\ &\ &\  
+\end{array}\right)$$
+où $B$ est une matrice carrée de taille $(n-1)\times(p-1)$. On a 
+$$\chi_f(X)=(\lambda-X)\det(B-X\id_F)=(\lambda-X)\chi_B(X).$$
+Notons $g$ la restriction de $f$ à $F$ ; la matrice de $h$ dans la base $(v_2,\ldots,v_n)$ est égale à $B$. Par hypothèse de récurrence, $B$ est trigonalisable, en effet, 
+$\chi_f(X)=(\lambda-X)\chi_g(X)$,
+ et comme $\chi_f$ est supposé scindé, $\chi_g$ l'est également. 
+ Par conséquent, il existe une base $(w_2,\ldots,w_n)$ de $F$ dans laquelle la matrice de $g$ est triangulaire. Ainsi dans la base $(v_1,w_2,\ldots,w_n)$ la matrice de $f$ est triangulaire.
+\end{itemize}
+\end{proof} 
+
+
+
+%----------------------------------------------------
+\subsection{Exemple}
+
+\begin{exemple}
+Soit $$A=\begin{pmatrix}1&4&-2\cr0&6&-3\cr-1&4&0\end{pmatrix} \in M_3(\Rr)$$
+Démontrons que $A$ est trigonalisable et trouvons une matrice $P$ telle que $P^{-1}AP$ soit triangulaire supérieure.
+
+\begin{enumerate}
+  \item  Commençons par calculer le polynôme caractéristique de $A$ :
+$$\chi_A(X)=\begin{vmatrix}1-X&4&-2\cr 0&6-X&-3\cr-1&4&-X\end{vmatrix}=\cdots=(3-X)(2-X)^2$$
+
+
+  \item Les racines du polynôme caractéristique sont les réels $3$ (avec la multiplicité $1$), et $2$ (avec la multiplicité $2$). Les racines sont dans le corps $\Rr$, la matrice est trigonalisable sur $\Rr$. (Nous verrons plus tard si elle est diagonalisable ou pas.)
+
+Déterminons les sous-espaces propres associés.
+  \begin{itemize}
+    \item Soit $E_3$ le sous-espace propre associé à la valeur propre simple $3$ :
+$E_3=\{v(x,y,z)\in\Rr^3 \mid A \cdot v = 3v\}$.
+
+$$v\in E_3 
+\iff Av = 3v \iff \left\{\begin{array}{rcl}
+x+4y-2z&=&3x\cr 
+6y-3z&=&3y\cr 
+-x+4y&=&3z
+\end{array}\right.\iff x=y=z$$
+$E_3$ est donc la droite vectorielle engendrée par le vecteur $v_1=(1,1,1)$.
+
+    \item Soit $E_2$ le sous-espace propre associé à la valeur propre double $2$ :
+$E_2=\{v(x,y,z)\in\Rr^3 \mid A \cdot v = 2v\}$.
+$$v\in E_2\iff Av = 2v \iff  
+\left\{\begin{array}{rcl}
+x+4y-2z&=&2x\cr
+6y-3z&=&2y\cr
+-x+4y&=&2z
+\end{array}\right.\iff \left\{\begin{array}{rcl}x&=&z\cr 4y&=&3z\end{array}\right.$$
+$E_2$ est donc la droite vectorielle engendrée par $v_2=(4,3,4)$.
+
+La dimension de $E_2$ est égale à $1$ alors que la multiplicité de la valeur propre $2$ correspondante est égale à $2$. Par conséquent, on sait que la matrice $A$ ne sera pas diagonalisable.
+
+    \item Soit $v_3=(0,0, 1)$. 
+    Les vecteurs $(v_1, v_2, v_3)$ forment une base de $E$. 
+    La matrice de passage (constituée de $v_i$ écrits en colonnes) est  
+    $$P=\begin{pmatrix}1&4&0\cr 1&3&0\cr 1&4&1\end{pmatrix}\qquad  \text{ et } \qquad 
+P^{-1}=\begin{pmatrix}-3&4&0\cr 1&-1&0\cr -1&0&1\end{pmatrix}.$$ 
+On a $Av_1=3v_1$ et $Av_2=2v_2$. Il reste à exprimer $Av_3$ dans la base $(v_1, v_2, v_3)$.
+$$Av_3 = A(0,0,1) = (-2,-3,0) = -2(-3v_1+v_2-v_3)-3(4v_1-v_2) = -6v_1+v_2+2v_3.$$
+
+
+  \end{itemize}
+  
+  \item  Ainsi, l'endomorphisme qui a pour matrice $A$ dans la base canonique de $\Rr^3$ a pour matrice $T$ dans la base
+$(v_1, v_2, v_3)$, où
+$$T = \begin{pmatrix}3&0&-6\cr 0&2&1\cr 0&0&2\end{pmatrix}.$$
+On aurait aussi pu calculer $T$ par la formule $T=P^{-1}AP$.
+
+     \item Note. D'autres choix pour $v_3$ sont possibles. Ici, n'importe quel vecteur $v'_3$
+     complétant $(v_1,v_2)$ en une base conviendrait. Par contre, un autre choix conduirait à une matrice triangulaire $T'$ différente (pour la dernière colonne).
+\end{enumerate}
+\end{exemple} 
+
+ 
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item La matrices 
+  $A = \left(\begin{smallmatrix}
+  28 & -27 \\ 12 & -8
+  \end{smallmatrix}\right)$ 
+  est-elle trigonalisable sur $\Rr$ ? Si oui, trouver $P$ tel que 
+  $P^{-1}AP$ soit triangulaire. 
+  Même question avec :
+$$\left(\begin{smallmatrix}
+4 & -3 \\ 7 & 1
+\end{smallmatrix}\right) \qquad
+\left(\begin{smallmatrix}
+-7 & -1 & 7 \\ 5 & 2 & -4 \\ -2 & -1 & 2
+\end{smallmatrix}\right) \qquad
+\left(\begin{smallmatrix}
+4 & 3 & 7 & 0 \\
+1 & 2 & 2 & 0 \\
+-1 & 0 & 0 & 0 \\
+-4 & -7 & -14 & -3
+\end{smallmatrix}\right)$$  
+   
+  \item Trouver deux matrices $T$ et $T' \in M_3(\Rr)$  qui soient distinctes, triangulaires supérieures et semblables.
+  
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Sous-espaces caractéristiques}
+
+
+%----------------------------------------------------
+\subsection{Lemme des noyaux}
+
+Commençons par démontrer le lemme suivant :
+
+\begin{lemme}[Lemme des noyaux]
+Soit $f$ un endomorphisme de $E$.
+Soient $P$ et $Q$ des polynômes de $\Kk[X]$, \evidence{premiers entre eux}, alors
+\mybox{$\Ker(PQ)(f) = \Ker P(f)\oplus\Ker Q(f)$}
+\end{lemme}
+ 
+Généralisation : soient $P_1,\ldots,P_r$ des polynômes deux à deux premiers entre eux. Alors :
+\mybox{$\Ker (P_1 \cdots P_r)(f) = \Ker(P_1(f)) \oplus \cdots \oplus \Ker (P_r(f))$}
+
+On a bien sûr des énoncés similaires avec les matrices.
+
+\bigskip
+
+
+\evidence{Rappels.} 
+
+\begin{itemize}
+  \item Soient $P,Q \in \Kk[X]$. On dit que $P(X)$ et $Q(X)$ sont \defi{premiers entre eux} dans $\Kk[X]$ si les seuls polynômes qui divisent à la fois $P$ et $Q$ sont les polynômes constants.
+
+  \item En particulier, sur $\Cc$, deux polynômes sont premiers entre eux si et seulement s'ils n'ont pas de racine commune.
+
+  \item Le théorème de Bézout s'énonce ainsi :
+\[P,Q \text{ sont premiers entre eux } \iff  \exists A,B \in \Kk[X] \quad AP + BQ = 1 .\]
+\end{itemize}
+
+\bigskip
+
+\begin{proof}
+Soient $P$ et $Q$ deux polynômes premiers entre eux, alors, d'après le théorème de Bézout, il existe des polynômes $A$ et $B$ tels que $AP+BQ=1$. On a donc, pour tout endomorphisme $f$ : 
+$$A(f)\circ P(f)+B(f)\circ Q(f) = \id_E.$$
+Autrement dit, pour tout $x\in E$ :
+$$A(f)\circ P(f)(x)+B(f)\circ Q(f)(x)=x.$$
+
+
+\begin{itemize}
+  \item Montrons que $\Ker P(f) \cap \Ker Q(f) = \{0\}$.
+  
+Soit $x\in\Ker P(f)\cap\Ker Q(f)$. On a 
+$$A(f)\circ \underbrace{P(f)(x)}_{=0}+B(f)\circ\underbrace{Q(f)(x)}_{=0}=x,$$
+Donc $x=0$. Ce qui prouve $\Ker P(f)\cap\Ker Q(f)=\{0\}$.
+
+
+  \item Montrons que $\Ker(PQ)(f) = \Ker P(f) + \Ker Q(f)$.
+
+Soit $x\in\Ker(PQ)(f)$. 
+On a, toujours en raison du théorème de Bézout, 
+$$x  = A(f)\circ P(f)(x)+B(f)\circ Q(f)(x).$$
+
+Montrons $A(f)\circ P(f)(x) \in \Ker Q(f)$. En effet :
+\[Q(f) \circ A(f) \circ P(f)(x) 
+= A(f) \circ  P(f) \circ Q(f) (x) 
+= A(f) \circ \big((PQ)(f)\big) (x)
+= 0.\]
+On a utilisé que les polynômes d'endomorphisme en $f$ commutent et
+que $(PQ)(f) (x) = 0$.
+
+De même $B(f)\circ Q(f)(x) \in \Ker P(f)$.
+Ainsi 
+$$x = \underbrace{A(f)\circ P(f)(x)}_{\in\Ker Q(f)}+\underbrace{B(f)\circ Q(f)(x)}_{\in\Ker P(f)}.$$
+
+Ainsi $x \in \Ker P(f) + \Ker Q(f)$. Conclusion : $\Ker(PQ)(f) = \Ker P(f) \oplus \Ker Q(f)$.
+\end{itemize}
+\end{proof}
+
+
+
+%----------------------------------------------------
+\subsection{Sous-espaces caractéristiques}
+
+Nous avons vu que, lorsque $f$ est diagonalisable, 
+on a $E=E_{\lambda_1}\oplus\cdots\oplus E_{\lambda_r}$ avec 
+$E_{\lambda_i}=\Ker(f-\lambda_i\id_E)$ le sous-espace propre associé 
+à la valeur propre $\lambda_i$. Nous allons démontrer que même si $f$ 
+n'est pas diagonalisable, mais si son polynôme a toutes ses racines dans 
+le corps $\Kk$, on peut écrire
+$$E=\Ker(f-\lambda_1\id_E)^{m_1}\oplus\cdots\oplus\Ker(f-\lambda_r\id_E)^{m_r},$$
+où $m_i$ est la multiplicité de la valeur propre $\lambda_i$ comme 
+racine du polynôme caractéristique de $f$.
+
+
+\begin{definition}
+Soit $f$ un endomorphisme de $E$. Soit $\lambda$ une valeur propre de $f$ et $m$ sa multiplicité
+en tant que racine de $\chi_f$. Le \defi{sous-espace caractéristique} de $f$ pour la 
+valeur propre $\lambda$ est 
+\mybox{$N_\lambda=\Ker\big( (f-\lambda\id_E)^m \big)$}
+\end{definition} 
+
+Pour $\lambda$ valeur propre, on a $E_\lambda \subset N_\lambda$, car 
+$\Ker(f-\lambda\id_E) \subset \Ker(f-\lambda\id_E)^{k}$ quel que soit $k \ge 1$.
+
+\begin{exemple}
+\label{ex:sscar}
+Soit $$A = \begin{pmatrix}
+-2 & 3 & 0 & 0 \\
+-3 & 4 & 0 & 0 \\
+1 & 1 & 1 & 0 \\
+9 & -5 & -1 & 3
+\end{pmatrix} \in M_4(\Rr)$$
+
+
+Calculons les sous-espaces caractéristiques.
+\begin{itemize}
+  \item Pour déterminer les valeurs propres on calcule d'abord le polynôme caractéristique :
+  $$\chi_A(X) = \det(A-X I_4) = \cdots = (X-3)(X-1)^3$$
+  La valeur propre $3$ est de multiplicité $1$, la valeur propre $1$ est de multiplicité $3$.
+  
+  \item \textbf{Sous-espace caractéristique associé à $\lambda=3$.}
+  
+  Comme la multiplicité de cette valeur propre est $1$ alors le sous-espace caractéristique est aussi le sous-espace propre : $N_1 = \Ker(A-I_4)^1 = E_1$. 
+  Ainsi $N_1 = \{ v \in \Rr^4 \mid (A-3I_4)v = 0 \}$. 
+  Après calculs, $N_1$ est l'ensemble des $\{ (0,0,2t,t) \mid t\in\Rr\}$.
+  Donc avec $v_1 = (0,0,2,1)$ on a :
+  $$N_1 = \Rr v_1.$$
+    
+  
+  \item \textbf{Sous-espace caractéristique associé à $\lambda=1$.}
+
+   La multiplicité de cette valeur propre est $3$, donc
+   $N_3 = \Ker (A-I_4)^3$. On a :
+   $$A-I_4 = \begin{pmatrix}
+-3 & 3 & 0 & 0 \\
+-3 & 3 & 0 & 0 \\
+1 & 1 & 0 & 0 \\
+9 & -5 & -1 & 2
+   \end{pmatrix}\qquad
+   (A-I_4)^2 = \begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+-6 & 6 & 0 & 0 \\
+5 & 1 & -2 & 4   
+   \end{pmatrix}\qquad
+   (A-I_4)^3 = \begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+16 & -4 & -4 & 8   
+   \end{pmatrix} 
+$$ 
+On cherche une base de $N_3 = \{ v \in \Rr^4 \mid (A-I_4)^3v = 0 \}$.
+C'est un espace vectoriel de dimension $3$, dont par exemple $(v_2,v_3,v_4)$ forment une base :
+$$v_2 = (1,4,0,0) \qquad v_3 = (1,0,4,0) \qquad v_4 = (1,0,0,-2),$$
+et donc 
+$$N_1 = \Vect(v_2,v_3,v_4).$$
+\end{itemize}
+\end{exemple}
+
+\begin{theoreme}
+Soit $f$ un endomorphisme de $E$ tel que $\chi_f$ est scindé (toutes ses racines sont dans $\Kk$).
+Notons $\chi_f(X)=\pm(X-\lambda_1)^{m_1}\cdots(X-\lambda_r)^{m_r}$ et, pour $1\leq i\leq r$, $N_{\lambda_i}$ le sous-espace caractéristique associé à la
+valeur propre $\lambda_i$, alors :
+
+\begin{enumerate}
+  \item Chaque $N_{\lambda_i}$ est stable par $f$
+  \item $E=N_{\lambda_1}\oplus\cdots\oplus N_{\lambda_r}$
+  \item $\dim N_{\lambda_i}=m_i$ 
+\end{enumerate}
+\end{theoreme} 
+
+Autrement dit, l'espace vectoriel $E$ est la somme directe des sous-espaces caractéristiques. En plus la dimension du sous-espace caractéristique associé à la valeur propre $\lambda$ est la multiplicité de $\lambda$ comme racine du polynôme caractéristique. 
+
+\begin{exemple}
+Reprenons l'exemple \ref{ex:sscar} :
+\begin{itemize}	
+  \item $3$ est valeur propre de multiplicité $1$, et on a bien $\dim N_3 = 1$,
+  \item $1$ est valeur propre de multiplicité $3$, et on a bien $\dim N_1 = 3$,
+  \item on a bien $\Rr^4 = N_3 \oplus N_1.$
+\end{itemize}
+\end{exemple}
+
+\begin{proof}~
+\begin{enumerate}
+  \item Si $x \in N_\lambda = \Ker (f-\lambda \id_E)^m$.
+  On a $(f-\lambda\id_E)^{m}(x)=0$. Or 
+$$(f-\lambda\id_E)^{m}\circ f(x)=f\circ(f-\lambda\id_E)^{m}(x)=0,$$
+d'où $f(x)\in N_\lambda$.
+
+  \item C'est une application du lemme des noyaux.
+$$\chi_f(X)=\pm(X-\lambda_1)^{m_1}\cdots(X-\lambda_r)^{m_r}$$
+Les polynômes $(X-\lambda_i)^{m_i}$ sont premiers entre eux puisque 
+les valeurs propres sont distinctes. Par le lemme des noyaux, on obtient
+$$\Ker \chi_f(f) 
+= \Ker (f-\lambda_1\id_E)^{m_1} \oplus \cdots \oplus \Ker (f-\lambda_r\id_E)^{m_r}
+= N_{\lambda_1} \oplus\cdots\oplus N_{\lambda_r}.$$
+Or, d'après le théorème de Cayley-Hamilton, on a $\chi_f(f)=0$, donc $\Ker \chi_f(f)=E$, 
+d'où le résultat.
+ 
+  \item Notons $g_i=f_{|N_{\lambda_i}}$ pour $1\le i \le r$. 
+  Pour $i\neq j$, $N_{\lambda_i}\cap N_{\lambda_j}=\{0\}$. Or, $E_{\lambda_i}\subset N_{\lambda_i}$, 
+  donc la seule valeur propre possible de $g_i$ est $\lambda_i$. 
+  Le polynôme caractéristique de $g_i$ est scindé (car il divise celui de $f$) et sa seule racine est la seule valeur propre, c'est-à-dire $\lambda$. 
+  Ainsi $\chi_{g_i}(X)= \pm(X-\lambda_i)^{n_i}$ (où $n_i = \dim N_{\lambda_i}$). 
+   Or,
+$$\pm(X-\lambda_1)^{m_1}\cdots(X-\lambda_r)^{m_r} = \chi_f(X) 
+= \chi_{g_1}(X)\cdots \chi_{g_r}(X) = \pm (X-\lambda_1)^{n_1}\cdots(X-\lambda_r)^{n_r}.$$
+D'où, en identifiant les exposants des facteurs irréductibles : $n_i=\dim N_i=m_i$, pour $1\le i\le r$.
+\end{enumerate}
+\end{proof}
+
+ 
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Calculer les sous-espaces caractéristiques $N_\lambda$ pour la matrice  
+  $A = \left(\begin{smallmatrix}
+-2 & -2 & -1 & -3 \\
+0 & -2 & 0 & 3 \\
+0 & 1 & -2 & 1 \\
+0 & -3 & 0 & 4
+  \end{smallmatrix}\right)$.
+  Même exercice avec
+  $B = \left(\begin{smallmatrix}
+1 & -2 & 2 & 2 & 2 \\
+2 & 6 & -5 & -3 & -4 \\
+2 & 3 & -2 & -3 & -5 \\
+0 & 1 & -1 & 2 & 0 \\
+0 & -1 & 1 & 1 & 4
+  \end{smallmatrix}\right)$.
+
+  \item Soit $f \in \mathcal{L}(E)$ et $\lambda \in \Kk$. Montrer $\Ker(f-\lambda \id_E) \subset \Ker(f-\lambda \id_E)^2 \subset \Ker(f-\lambda \id_E)^3 \subset \cdots$.
+  
+  \item En utilisant le lemme des noyaux, prouver ce résultat du chapitre \og{}Polynômes d'endomorphismes\fg{} :
+  \begin{quote}
+  \og{}\textbf{Théorème.} Un endomorphisme $f \in\mathcal{L}(E)$ est diagonalisable sur $\Kk$ si et seulement si son polynôme minimal est scindé à racines simples dans $\Kk$.\fg{}
+  \end{quote}
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Décomposition de Dunford}
+
+Nous allons montrer que toute matrice, dont le polynôme caractéristique est scindé, peut s'écrire sous la forme d'une matrice diagonalisable et d'une matrice nilpotente. Autrement dit, cette matrice est semblable à la somme d'une matrice diagonale et d'une matrice nilpotente.
+
+%----------------------------------------------------
+\subsection{\'Enoncé}
+
+\begin{definition}
+On dit que l'endomorphisme $f$ (resp. la matrice $A$) 
+est \defi{nilpotent(e)} s'il existe $k\in\Nn^*$ tel
+que $f^k=0$ (resp. $A^k=0$)
+\end{definition} 
+
+
+
+Nous allons démontrer que les endomorphismes nilpotents et 
+les endomorphismes diagonalisables permettent de décrire tous les 
+endomorphismes dont le polynôme 
+caractéristique a toutes ses racines dans $\Kk$ (c'est-à-dire ceux trigonalisables). 
+
+
+
+\begin{theoreme}[Décomposition de Dunford]
+\label{th:dunford1}
+Soit $f$ un endomorphisme de $E$ tel que $\chi_f$ ait toutes ses racines dans $\Kk$. 
+Alors, il existe un unique couple $(n,d)$ d'endomorphismes, tel que : 
+\begin{itemize}
+  \item[i)] $n$ nilpotent et $d$ diagonalisable,
+  \item[ii)] $f=n+d$,
+  \item[iii)] $n\circ d=d\circ n$.   
+\end{itemize}
+\end{theoreme}
+
+De plus, on pourrait montrer que $d$ et $n$ sont des polynômes en $f$.
+En particulier, si $\Kk=\Cc$, cette décomposition existe toujours.
+Le théorème peut encore s'écrire :
+
+\begin{theoreme}[Décomposition de Dunford]
+\label{th:dunford2}
+Pour toute matrice $A\in M_n(\Kk)$ ayant un polynôme caractéristique scindé, il existe une 
+unique matrice $N$ nilpotente et une unique matrice $\Delta$ diagonalisable telles que 
+$$A=N+\Delta \quad \text{ et } \quad N\Delta=\Delta N.$$
+\end{theoreme} 
+ 
+\bigskip 
+ 
+\evidence{Remarque importante.} \\
+Attention ! $\Delta$ est une matrice \evidence{diagonalisable}, pas nécessairement une matrice diagonale.
+
+Comme $\Delta$ est diagonalisable alors il existe un matrice inversible $P$ et une matrice \evidence{diagonale} $D$ telle que $D = P^{-1}\Delta P$. Si on note $N' = P^{-1}NP$ alors $N'$ est encore nilpotente et $N' D= DN'$. Une autre façon d'écrire la décomposition de Dunford est alors $P^{-1}AP = D + N'$. C'est-dire que $A$ est semblable à la somme d'une matrice diagonale avec une matrice nilpotente.
+ 
+\bigskip
+
+Comme conséquence directe :
+\begin{corollaire}
+Soit $f$ un endomorphisme avec une décomposition de Dunford : $f= d+n$, avec
+$d$ diagonalisable, $n$ nilpotent et $d \circ n = n \circ d$. Alors :
+\begin{itemize}
+  \item $f$ diagonalisable $\iff$ $f=d$ $\iff$ $n=0$ ;
+  \item $f$ nilpotent $\iff$ $f=n$ $\iff$ $d=0$.
+\end{itemize}
+\end{corollaire}
+
+
+ 
+ 
+%----------------------------------------------------
+\subsection{Lemmes}
+
+ 
+Avant de démontrer ces théorèmes, nous allons démontrer 
+trois lemmes dont les résultats nous seront utiles.
+
+
+\begin{lemme}
+\label{lem:jordan1}
+Si $f$ est nilpotent, $0$ est son unique valeur propre et on a 
+$$\chi_f(X)=(-1)^n X^n.$$
+\end{lemme} 
+
+\begin{proof}~
+\begin{itemize}
+  \item Notons $A$ la matrice de $f$ dans une base. 
+  Comme $f$ est nilpotente, il existe $k\ge1$ tel que $A^k=0$. Cela implique 
+  $\det(A^k) = 0$, donc $\det(A) = 0$. La matrice $A$ n'est pas inversible, cela entraîne que $f$ n'est pas bijectif, et comme $f$ est un endomorphisme $f$, n'est pas non plus injectif (la dimension de l'espace de départ égale la dimension de l'espace d'arrivée).
+  Ainsi  $\Ker f\neq \{0\}$, ce qui est exactement dire que $0$ est une valeur propre de $f$.
+  
+  \item Supposons que $\lambda$ soit une autre valeur propre, il existe alors $x\neq 0$ tel que $f(x)=\lambda x$. Par récurrence sur $n$,  $f^n(x)=\lambda^n x$. Or, $f$ est supposé nilpotent, il existe donc $k\in\Nn^*$ tel que $f^k=0$. D'où, $\lambda^k x=0$, ce qui implique $\lambda^k=0$ (car $x\neq 0$), donc $\lambda =0$. 
+  
+  \item Ainsi, $0$ est la seule valeur propre de $f$, donc la seule racine du polynôme caractéristique, on a donc $\chi_f(X)=(-1)^nX^n$. 
+  
+  \item Noter que ce résultat est valable sans supposer à priori que $\chi_f$ est scindé. Par exemple, si $\Kk = \Rr$, on considère l'endomorphisme comme aussi défini sur $\Cc$. En termes de matrice, cela revient à dire que la matrice à coefficient réels $A$ peut être vue aussi comme à coefficients complexes. Sur $\Cc$, un polynôme dont la seule racine est $0$ est bien de la forme $\alpha X^n$.
+\end{itemize}
+\end{proof}
+
+
+
+\begin{lemme}
+\label{lem:jordan2}
+Si $f$ est diagonalisable et $F$ est un sous-espace vectoriel de $E$, stable par $f$, alors la restriction 
+de $f$ à $F$ est aussi diagonalisable.
+\end{lemme}
+
+Pour une autre preuve, voir la fin du chapitre \og{}Polynômes d'endomorphismes\fg{}.
+
+\begin{proof}
+Notons $g$ la restriction de $f$ au sous-espace $F$ : $g=f_{|F}$. Soient $\lambda_1,\dots,\lambda_r$ les valeurs propres de $f$. 
+L'endomorphisme $f$ étant supposé diagonalisable, on a 
+$$E=E_{\lambda_1}\oplus\dots\oplus E_{\lambda_r},$$
+où les $E_{\lambda_i}$ sont les sous-espaces propres de $f$. 
+Puisque $F$ est stable par $f$,
+$$F = (F\cap E_{\lambda_1})\oplus\dots\oplus (F\cap E_{\lambda_r}).$$
+
+Or, quel que soit $\mu\in\Kk$, $\Ker(g-\mu\id_F)=F\cap\Ker(f-\mu\id_E)$,
+donc les valeurs propres de $g$, notées $\mu_1,\dots,\mu_s$ appartiennent à l'ensemble 
+$\{\lambda_1,\dots,\lambda_r\}$. 
+Ces $\mu_i$ forment exactement l'ensemble des valeurs de $\{\lambda_1,\dots,\lambda_r\}$ pour lesquels $F\cap E_{\lambda_i} \neq \{0\}$.
+On a donc 
+$$F= \Ker(g-\mu_1\id_F)\oplus \cdots \oplus \Ker(g-\mu_s\id_F),$$
+ce qui prouve que $g$ est diagonalisable.
+\end{proof}
+
+
+\begin{lemme}
+\label{lem:jordan3}
+Soient $f$ et $g$ deux endomorphismes diagonalisables. On suppose que 
+$f\circ g=g\circ f$, alors il existe une base commune de vecteurs propres. 
+\end{lemme}
+
+Autrement dit, si $A,B \in M_n(\Kk)$ sont diagonalisables et commutent, alors on peut les diagonaliser dans  une base commune, c'est-à-dire qu'il existe une matrice $P \in M_n(\Kk)$ inversible telle que $P^{-1}AP$ et $P^{-1}BP$ soient toutes les deux diagonales.
+
+
+\begin{proof}
+Soient $\lambda_1,\dots,\lambda_r$ les valeurs propres de $f$. Notons 
+$E_{\lambda_i} = \{x\in E \mid f(x)=\lambda_i x\}$. 
+On a alors pour $x\in E_{\lambda_i}$,
+$$f(g(x))=g(f(x))=g(\lambda_i x)=\lambda_i g(x),$$
+donc $g(x)\in E_{\lambda_i}$, ce qui prouve que $E_{\lambda_i}$ est stable par $g$.
+D'après le lemme \ref{lem:jordan2}, la restriction de $g$ à $E_{\lambda_i}$ est donc diagonalisable. On considère dans $E_{\lambda_i}$, une base $\mathcal{B}_i$ de vecteurs propres de $g$. Noter que ce sont aussi des vecteurs propres de $f$ (car ils sont dans $E_{\lambda_i}$).
+Comme $f$ est diagonalisable, on a, 
+$$E=\underbrace{E_{\lambda_1}}_{\mathcal{B}_1}\oplus\cdots\oplus\underbrace{E_{\lambda_r}}_{\mathcal{B}_r}.$$
+La base $\mathcal{B}=\mathcal{B}_1\cup\cdots\cup\mathcal{B}_r$ est donc une base formée de vecteurs, qui sont des vecteurs propres à la fois pour $f$ et pour $g$.
+\end{proof}
+
+
+
+%----------------------------------------------------
+\subsection{Preuve}
+
+Passons à la démonstration du théorème de décomposition de Dunford. Voici l'idée générale :
+\begin{itemize}
+  \item On décompose l'espace vectoriel $E$ en somme des sous-espaces caractéristiques
+$N_{\lambda_i}$, où les $\lambda_i$ sont les valeurs propres de $f$. 
+  \item Sur chacun de ces sous-espaces, on décompose la restriction de $f$ en $d_i = \lambda_i \id_{N_{\lambda_i}}$ qui est bien sûr diagonalisable.
+  \item On montre que $n_i$, qui est $f-d_i$ restreint à $N_{\lambda_i}$, est nilpotent.
+  \item Comme $d_i$ est $\lambda_i$ fois l'identité, alors $d_i$ commute en particulier 
+  avec $n_i$.
+\end{itemize}
+
+\begin{proof}~
+
+\textbf{Construction.}
+\begin{itemize}
+  \item Soit $\chi_f$ le polynôme caractéristique de $f$ qui, par hypothèse, a toutes ses racines dans $\Kk$.
+ Notons $\lambda_i$ une valeur propre de $f$, et $m_i$ sa multiplicité en tant que racine du polynôme caractéristique :
+$$\chi_f(X)=\pm\prod_{i=1}^r(X-\lambda_i)^{m_i}.$$
+
+  \item Soient $N_{\lambda_1},\ldots, N_{\lambda_r}$ les sous-espaces caractéristiques, pour $1\le i\le r$, on a 
+$$N_{\lambda_i} = \Ker(f-\lambda_i\id_E)^{m_i}\quad  \text{ et }\quad 
+E=N_{\lambda_1}\oplus\cdots\oplus N_{\lambda_r}.$$
+
+  \item Nous allons définir l'endomorphisme $d$ sur chaque $N_{\lambda_i}$ de la manière suivante : pour tout $x\in N_{\lambda_i}$, on pose :
+$$d(x)=\lambda_i x.$$
+L'espace vectoriel $E$ étant somme directe des $N_{\lambda_i}$, 
+$d$ est défini sur $E$ tout entier. En effet, si $x \in E$ est décomposé en
+ $x=x_1+\cdots+x_r$ avec $x_i\in N_{\lambda_i}$ (pour $1\le i\le r$), alors
+ $$d(x) = d(x_1+\cdots+x_r) = d(x_1) + \cdots + d(x_r)
+ = \lambda_1 x_1 + \cdots + \lambda_r x_r$$
+Pour $1\le i\le r$, on a  $d_i=d_{|N_{\lambda_i}}=\lambda_i\id_{N_{\lambda_i}}$. 
+
+On pose enfin 
+$$n(x)=f(x)-d(x).$$
+
+Il nous reste à vérifier que $n$ et $d$ conviennent.
+\end{itemize}
+
+\medskip
+
+\textbf{Propriétés.}
+\begin{enumerate}
+  \item Par construction, $d$ est diagonalisable. 
+  En effet, fixons une base pour chaque sous-espace $N_{\lambda_i}$. Pour chaque vecteur $x$ de cette base,
+  $d(x)=\lambda_i x$. Comme $E$ est somme directe des  $N_{\lambda_i}$, 
+  alors dans la base de $E$ formée de l'union des bases des $N_i$ ($1\le i\le r$), la matrice de $d$ est diagonale.
+
+  \item On a défini $n=f-d$. $N_{\lambda_i}$ est stable par $n$ (car c'est vrai pour $f$  et $d$). 
+  On pose $n_i=n_{|N_{\lambda_i}}=f_{|N_{\lambda_i}}-\lambda_i\id_{N_{\lambda_i}}$. La seule valeur propre de $n_i$ est $0$ et $\dim N_{\lambda_i} = m_i$. On a donc par le théorème de Cayley-Hamilton, $n_i^{m_i}=0$. Ainsi, en posant $m=\max {m_i}$, ($1\le i \le r$), puisque $n^m$ s'annule sur chaque $N_{\lambda_i}$ alors $n^m=0$, ce qui prouve que $n$ est nilpotent.
+
+  \item On va vérifier que $d\circ n=n\circ d$. Soit $x\in E$, il se décompose
+  en $x=x_1+\cdots+x_r$ avec $x_i\in N_{\lambda_i}$ pour $1\le i\le r$.
+  Sur chaque $N_{\lambda_i}$, $d_{|N_{\lambda_i}}=\lambda_i\id_{N_{\lambda_i}}$ donc commute avec tout endomorphisme. 
+  En particulier $d\circ n(x_i)=n\circ d(x_i)$.  
+  Et comme $N_{\lambda_i}$ est stable par $n$, on a donc
+  $$d\circ n(x)= d\circ n(x_1+\cdots+x_r)
+  =d\circ n(x_1)+\cdots+d\circ n(x_r)=n\circ d(x_1)+\cdots+n\circ d(x_r)=n\circ d(x).$$
+  Ainsi $d$ et $n$ commutent.
+
+  \item  Il reste à prouver l'unicité. Supposons que $(n,d)$ soit le couple construit ci-dessus et soit $(n',d')$ un autre couple vérifiant les propriétés (i), (ii), (iii) de la décomposition de Dunford.
+  \begin{itemize}
+    \item Montrons que $d$ et $d'$ commutent, et aussi $n$ et $n'$.
+    
+    On a $f=d+n=d'+n'$, d'où 
+    $$d'\circ f=d'\circ (d'+n') = d'\circ d'+d'\circ n'
+    =d'\circ d'+n'\circ d' = (d'+n')\circ d' =f\circ d'.$$ 
+    Montrons que $N_{\lambda_i}$ est stable par $d'$. 
+    Soit $x\in N_{\lambda_i}= \Ker (f-\lambda_i\id_E)^{m_i}$. Alors
+$$(f-\lambda_i\id_E)^{m_i}\circ d'(x)=d'\circ(f-\lambda_i\id_E)^{m_i}(x)=0.$$
+Donc $d'(x) \in N_{\lambda_i}$.
+
+    Par construction $d_{|N_{\lambda_i}}=\lambda_i\id_{N_{\lambda_i}}$, donc $d$ et $d'$ commutent sur chaque 
+    $E_{\lambda_i}$, donc sur $E$ tout entier.
+    
+    Or, $n=f-d$ et $n'=f-d'$ donc, comme $d$ et $d'$ commutent, $n$ et $n'$ commutent également. 
+    
+    \item Comme $d$ et $d'$ commutent, d'après le lemme \ref{lem:jordan3}, il existe une base commune de vecteurs propres. Ainsi $d-d'$ est diagonalisable. 
+    
+    \item Les endomorphismes $n$ et $n'$ étant nilpotents, $n-n'$ l'est également. En effet, si $p$ et $q$ sont des entiers tels que $n^p=0$ et $n'^q=0$, alors $(n-n')^{p+q}=0$ (écrire la formule du binôme de Newton et voir que dans chaque terme $n^k n'^{p+q-k}$, on a $k \ge p$ ou $p+q-k\ge q$).
+    
+    
+    \item  Ainsi $d-d'=n'-n$ est un endomorphisme qui est à la fois diagonalisable et nilpotent.
+    Comme il est nilpotent, sa seule valeur propre est $0$ (c'est le lemme \ref{lem:jordan1}).
+    Et comme il est diagonalisable, c'est nécessairement l'endomorphisme nul. On a donc $d-d'=n'-n=0$
+    Conclusion : $d=d'$, $n=n'$, ce qui termine la preuve de l'unicité. 
+    
+  \end{itemize}
+   
+\end{enumerate}
+\end{proof}
+
+
+
+%----------------------------------------------------
+\subsection{Exemples}
+
+
+%----------------------------------------------------
+\evidence{Piège classique}
+
+Attention, une matrice triangulaire peut toujours s'écrire 
+comme somme d'une matrice diagonale et d'une matrice nilpotente, 
+mais en général, celles-ci ne commutent pas. 
+
+Retenez-bien ce contre-exemple pour éviter ce piège classique.
+\begin{exemple}
+Soit 
+$$A = \begin{pmatrix}
+1 & 3\\
+0 & 2
+\end{pmatrix}
+\qquad \tilde D =  \begin{pmatrix}
+1 & 0\\
+0 & 2
+\end{pmatrix}
+\qquad \tilde N =  \begin{pmatrix}
+0 & 3\\
+0 & 0
+\end{pmatrix}$$
+Alors on a bien $A = \tilde D + \tilde N$, $\tilde D$ est diagonale,
+$\tilde N$ est nilpotente ($\tilde N^2 = 0$). Pourtant, ce n'est pas la décomposition de Dunford car les matrice ne commutent pas : $\tilde D \tilde N \neq \tilde N \tilde D$.
+ 
+La décomposition de Dunford est tout simplement $D = A$, et $N$ est la matrice nulle.
+$D$ est bien diagonalisable (son polynôme caractéristique est scindé à racines simples)
+mais n'est pas diagonale ; $N$ est nilpotente et $DN=ND$. 
+\end{exemple}
+
+\bigskip
+%----------------------------------------------------
+\evidence{Pratique de la décomposition}
+
+La méthode pour trouver la décomposition de Dunford d'une matrice $A \in M_n(\Kk)$ consiste à suivre les étapes de la preuve.
+\begin{enumerate}
+
+  \item On calcule le polynôme caractéristique $\chi_A$, de $A$, il doit être scindé. On calcule ses racines, qui sont les valeurs propres de $A$.
+  
+  \item  Pour chaque valeur propre $\lambda$, de multiplicité $m$ comme racine de $\chi_A$,
+  on note $N_\lambda = \Ker (A-\lambda I_n)^m$. C'est un espace vectoriel de dimension $m$. On détermine
+  $m$ vecteurs formant une base de $N_\lambda$.
+L'union de toutes les bases $\mathcal{B}_\lambda$ des $N_\lambda$ forme une base $\mathcal{B}
+  = (v_1,\ldots,v_n)$ de $\Kk^n$.
+   
+  \item On définit l'endomorphisme $d$, par $d(v_i) = \lambda v_i$ pour chaque $v_i \in N_\lambda$.  
+  (Dans la base $\mathcal{B}$, la matrice de $d$ est diagonale.)
+  On note $\mathcal{B}_0 = (e_1,\ldots,e_n)$ la base canonique de $\Kk^n$. ($A$
+  est la matrice de l'endomorphisme $f$ dans la base $\mathcal{B}_0$.) 
+  $\Delta$ sera la matrice de $d$ dans la base $\mathcal{B}_0$,
+  c'est-à-dire que les colonnes de $\Delta$ sont les coordonnées des $d(e_i)$ exprimées dans la base $(e_1,\ldots,e_n)$. 
+  
+  \item On pose $N = A - \Delta$. Par le théorème \ref{th:dunford2}, $\Delta$ est diagonalisable, $N$ est nilpotente et $\Delta  N = N \Delta$. La matrice de passage $P$ de la base $\mathcal{B}$ vers la base canonique $\mathcal{B}_0$, transforme $\Delta$ en une matrice diagonale $D = P^{-1}\Delta P$. 
+\end{enumerate}
+
+
+On commence par un exemple où les calculs sont assez simples.
+\begin{exemple}
+Calculons la décomposition de Dunford de la matrice 
+$$A=\begin{pmatrix}1&1&1\cr 0&1&1\cr 0&0&2\end{pmatrix} \in M_3(\Rr).$$
+
+
+\'Evitons le piège d'écrire :
+$$A=\underbrace{\begin{pmatrix}1&0&0\cr 0&1&0\cr 0&0&2\end{pmatrix}}_{\tilde D}
++\underbrace{\begin{pmatrix}0&1&1\cr 0&0&1\cr 0&0&0\end{pmatrix}}_{\tilde N}$$
+$\tilde D$ est diagonale (donc diagonalisable) et $\tilde N$ est nilpotente,
+mais vérifier que les matrices \emph{ne commutent pas} :  
+$\tilde D \tilde N \neq \tilde N \tilde D$.
+%$DN=\left(\begin{matrix}0&1&1\cr 0&0&1\cr 0&0&0\end{matrix}\right)\neq ND=\left(\begin{matrix}0&1&2\cr 0&0&2\cr 0&0&0\end{matrix}\right).$$
+
+\bigskip 
+Calculons maintenant la décomposition de Dunford.
+
+\begin{enumerate}
+  \item Le polynôme caractéristique $\chi_A$ est égal à
+$$\chi_A(X) 
+= \det(A-XI_3) 
+= \begin{vmatrix}1-X & 1 & 1\cr 0 & 1-X & 1\cr 0 & 0 & 2-X\end{vmatrix}
+= -(X-1)^2(X-2).$$
+Nous avons donc deux valeurs propres qui sont $\lambda_1 = 1$ et $\lambda_2 = 2$. 
+La valeur propre $1$ est de multiplicité $m_1=2$, alors que pour la valeur propre $2$, $m_2=1$.
+
+  \item On note $N_1 = \Ker(A-I_3)^2$ et $N_2 = \Ker(A-2I_3)$. 
+ L'espace vectoriel $\Rr^3$ s'écrit comme somme directe :
+$$\Rr^3=\Ker(A-I_3)^2\oplus\Ker(A-2I_3).$$
+Déterminons ces sous-espaces caractéristiques. 
+  \begin{itemize}
+    \item Calcul de $N_1 = \Ker(A-I_3)^2$.
+    
+  On sait que c'est un espace vectoriel de dimension $m_1=2$.
+$$A-I_3 = \begin{pmatrix}0&1&1\cr0&0&1\cr0&0&1\end{pmatrix}\qquad \qquad 
+(A-I_3)^2 = \begin{pmatrix}0&0&2\cr0&0&1\cr0&0&1\end{pmatrix}.$$
+Ainsi $N_2 = \Ker(A-I_3)^2$ est le plan vectoriel engendré par les vecteurs $v_1=(1,0,0)$ et $v_2=(0,1,0)$.
+Donc 
+$$N_1=\Ker(A-I_3)^2=\Rr v_1 + \Rr v_2.$$
+
+Au passage, notons que la matrice $A$ n'est pas diagonalisable : en effet,
+la valeur propre $1$ est de multiplicité $2$, mais 
+$E_1 = \Ker(A-I_3) =\{v \in \Rr^3 \mid Av=v\}$ est de dimension seulement $1$ (en fait
+$E_1 = \Rr v_1$).
+
+    \item Calcul de $N_2 = \Ker(A-2I_3)$.
+    
+    On sait que c'est un espace vectoriel de dimension $m_2=1$.
+    Le noyau $\Ker(A-2I_3)=\{v\in \Rr^3 \mid Av=2v\}$, si $v=(x,y,z)$, on résout
+$$\left\{\begin{array}{rcl}
+x+y+z&=& 2x\cr
+y+z&=&2y\cr
+2z&=&2z
+\end{array}\right.\iff\left\{\begin{array}{rcl}
+-x+y+z&=&0\cr
+-y+z&=&0
+\end{array}\right.\iff\left\{\begin{array}{rcl}
+x&=&2z\cr
+y&=& z
+\end{array}\right.$$
+Le sous-espace $N_2=\Ker(A-2I_3)$ est donc la droite vectorielle engendrée par le vecteur $v_3=(2,1,1)$ :
+$N_2 = \Rr v_3$.
+
+
+    
+    \item La famille $\mathcal{B} = (v_1,v_2,v_3)$ est une base de $\Rr^3$ :
+    $$\Rr^3 = \underbrace{\Rr v_1 \oplus \Rr v_2}_{N_1} \oplus \underbrace{\Rr v_3}_{N_2}.$$
+  
+  \end{itemize}
+
+  \item 
+  On définit l'endomorphisme $d$  par $d(v_1)=v_1$, $d(v_2)= v_2$ (car $v_1,v_2 \in N_1$)
+  et $d(v_3) = 2v_3$ (car $v_3 \in N_2$).
+  Dans la base $\mathcal{B}$, la matrice de $d$ est donc la matrice diagonale
+  $D = \left(\begin{smallmatrix}1&0&0\cr 0&1&0\cr 0&0&2\end{smallmatrix}\right).$
+  Or nous voulons la matrice de $d$ dans la base canonique $\mathcal{B}_0 
+  = (e_1,e_2,e_3)$. (Les calculs vont être assez simples car $e_1=v_1$, $e_2=v_2$.)
+  
+  \begin{itemize}
+    \item $d(e_1) = d(1,0,0) = (1,0,0) = e_1$.
+    \item $d(e_2) = d(0,1,0) = (0,1,0) = e_2$.
+    \item On a $v_3 = (2,1,1) = 2e_1+e_2+e_3$ et aussi $e_3 = (0,0,1) = -2v_1-v_2+v_3$.
+    Donc 
+    \begin{align*}
+    d(e_3) &= d(-2v_1-v_2+v_3) 
+    = -2d(v_1)-d(v_2) +d(v_3)
+    = -2v_1-v_2+2v_3 \\
+    &= -2e_1-e_2+2(2e_1+e_2+e_3)
+    = 2e_1 + e_2 + 2e_3.
+    \end{align*}
+  \end{itemize}
+    Donc
+    $$\Delta = \Mat_{\mathcal{B}_0} d = 
+    \bordermatrix{
+       &d(e_1)&d(e_2)&d(e_3)\cr
+    e_1&1&0&2\cr 
+    e_2&0&1&1\cr 
+    e_3&0&0&2
+    }
+    .$$
+    
+  \item  On pose 
+  $$N = A - \Delta
+  = \begin{pmatrix}0&1&-1\cr 0&0&0\cr 0&0&0\end{pmatrix}.$$
+  La décomposition de Dunford est $A = \Delta + N$. 
+  Le théorème de la décomposition affirme que $\Delta$ est diagonalisable,
+  $N$ est nilpotente et $\Delta N = N \Delta$ (c'est un bon exercice de le vérifier
+  à la main).
+  
+  \item On note $P$ la matrice de passage de la base $\mathcal{B}_0$ vers la base $\mathcal{B}$. $P$ contient donc, en colonnes, les vecteurs de la nouvelle base $\mathcal{B} = (v_1,v_2,v_3)$ exprimés dans l'ancienne base 
+ $\mathcal{B}_0 = (e_1,e_2,e_3)$.  Comme
+ $v_1 = e_1$, $v_2 = e_2$ et $v_3 =  2e_1+e_2+e_3$, alors :
+ $$P=\bordermatrix{
+    &v_1&v_2&v_3\cr
+ e_1&1&0&2\cr  
+ e_2&0&1&1\cr 
+ e_3&0&0&1}\qquad \text{ et on calcule } \quad P^{-1}=\begin{pmatrix}1&0&-2\cr 0&1&-1\cr 0&0&1\end{pmatrix}.$$
+ Si besoin, on peut diagonaliser $\Delta$ : 
+ $$D = P^{-1} \Delta P = \begin{pmatrix}1&0&0\cr 0&1&0\cr 0&0&2\end{pmatrix}$$
+ 
+\end{enumerate}
+\end{exemple}
+
+
+\textbf{Remarque.} $D$ et $N$ sont uniques, mais il y a plusieurs choix possibles pour les  vecteurs $v_i$ et donc pour la matrice $P$.
+
+
+\bigskip
+%----------------------------------------------------
+\evidence{Pratique de la décomposition (suite)}
+
+
+\begin{exemple}
+Calculons la décomposition de Dunford de
+$$A=\begin{pmatrix}2&1&-1\cr 3&3&-4\cr 3&1&-2\end{pmatrix} \in M_3(\Rr).$$
+
+\begin{enumerate}
+  \item $\chi_A(X)=-(X+1)(X-2)^2$.
+ La valeur propre $-1$ est de multiplicité $1$, la valeur propre $2$ est de multiplicité $2$.  
+ 
+  \item 
+  \begin{itemize}
+    \item On calcule $N_{-1}=\Ker(A+I_3) = \Rr v_1$ où $v_1 =(0,1,1)$ (c'est bien un espace vectoriel de dimension $m_{-1} = 1$).
+    
+    \item Calcul de $N_2=\Ker(A-2I_3)^2$ qui va être de dimension $m_2=2$.
+    
+    $$A-2I_3 = \begin{pmatrix}0&1&-1\cr 3&1&-4\cr 3&1&-4\end{pmatrix}
+    \qquad \text{ et } \qquad 
+    (A-2I_3)^2 = \begin{pmatrix}0&0&0\cr -9&0&9\cr -9&0&9\end{pmatrix}$$
+    Pour une base de $N_2$, on choisit d'abord 
+    $v_2 \in E_2 = \Ker(A-2I_3) \subset N_2$, 
+    par exemple $v_2 = (1,1,1)$.
+    On cherche $v_3 \in N_2$, linéairement indépendant de $v_2$.
+    Par exemple $v_3 = (1,0,1)$. 
+    
+    \item La famille $\mathcal{B} = (v_1,v_2,v_3)$ est une base de $\Rr^3$ :
+    $$\Rr^3 = \underbrace{\Rr v_1 }_{N_{-1}} \oplus \underbrace{\Rr v_2 \oplus \Rr v_3}_{N_2}.$$
+    
+  \end{itemize}  
+  
+  \item On note $\mathcal{B}_0 = (e_1,e_2,e_3)$ la base canonique de $\Rr^3$.
+  La matrice de passage $P$ de la base $\mathcal{B}_0$ vers la base $\mathcal{B}$ s'obtient en écrivant les vecteurs $v_i$ en colonnes :
+  $$P=\begin{pmatrix}0&1&1\cr 1&1&0\cr1&1&1\end{pmatrix}
+  \qquad \text{ et donc } \qquad 
+  P^{-1} = \begin{pmatrix}-1 & 0 & 1 \\1 & 1 & -1 \\0 & -1 & 1\end{pmatrix}$$
+  
+  
+  \item  On définit l'endomorphisme $d$  par $d(v_1)=-v_1$, (car $v_1 \in N_{-1}$)
+  et $d(v_2)= 2v_2$, $d(v_3) = 2v_3$ (car $v_2,v_3 \in N_2$).
+  Dans la base $\mathcal{B} = (v_1,v_2,v_3)$ la matrice de $d$ est la matrice diagonale
+  $$D = \begin{pmatrix}-1&0&0\cr 0&2&0\cr 0&0&2\end{pmatrix}.$$
+  
+  
+  La matrice de $d$ dans la base $\mathcal{B}_0$ est
+  obtenue en exprimant $d(e_i)$ dans la base $(e_1,e_2,e_3)$, ou ce qui revient au même, par : 
+  $$\Delta = P D P^{-1} = \begin{pmatrix}2 & 0 & 0 \\3 & 2 & -3 \\3 & 0 & -1\end{pmatrix}.$$
+  
+  \item On pose 
+  $$N = A - \Delta=\begin{pmatrix}  0 & 1 & -1 \\0 & 1 & -1 \\0 & 1 & -1\end{pmatrix}.$$
+  La décomposition de Dunford est $A = \Delta + N$. 
+  On a bien $\Delta$ diagonalisable car $D = P^{-1}\Delta P$. Pour vous rassurer, vérifier 
+  que $N^2 = 0$ et que $\Delta N = N\Delta$. 
+  \end{enumerate}
+\end{exemple}
+
+ 
+\bigskip
+%----------------------------------------------------
+\evidence{Application au calcul de puissance.}
+
+
+La décomposition de Dunford est utile pour calculer les puissances d'une matrice.
+Nous verrons d'autres applications dans le chapitre \og{}Systèmes différentiels\fg{}.
+Voyons les étapes pour calculer $A^p$, où  $A\in M_n(\Kk)$ :
+\begin{enumerate}
+  \item \'Ecrire la décomposition de Dunford $A = \Delta + N$.  
+  
+  \item Diagonaliser $\Delta$ : $D = P^{-1}\Delta P$ avec $D$ matrice diagonale.
+  Comme $D$ est une matrice diagonale, on calcule facilement $D^k$, pour tout $k\ge1$.
+  
+  \item On note $N' = P^{-1}NP$. La matrice $N'$ est encore une matrice nilpotente. 
+  On calcule les puissances successives $N'^2$, $N'^3$,\ldots sachant qu'à partir d'un certain 
+  rang, tous les $N'^k$ sont nuls.
+  
+  \item Comme $D$ et $N'$ commutent (car $\Delta$ et $N$ commutent) alors 
+  on applique la formule du binôme de Newton :
+$$(D+N')^p=\sum_{k=0}^p \binom{p}{k} D^{p-k} N'^{k}.$$
+On a vu qu'à partir d'un certain rang, les matrices $N'^k$ sont toutes nulles. La somme a donc peu de termes non nuls.
+
+  \item On a $A = \Delta + N = P D P^{-1} + P N' P^{-1} = P(D+N')P^{-1}$.
+  Donc $A^p = \big(P(D+N')P^{-1}\big)^p = P (D+N')^p P^{-1}$.
+\end{enumerate}
+
+
+Reprenons l'exemple précédent.
+
+\begin{exemple}
+Calculons $A^p$, quel que soit $p\in \Nn$, pour 
+$$A=\begin{pmatrix}2&1&-1\cr 3&3&-4\cr 3&1&-2\end{pmatrix} \in M_3(\Rr).$$
+
+\begin{enumerate}
+  \item Nous avons déjà calculé la décomposition de Dunford :
+  $$\Delta = \begin{pmatrix}2 & 0 & 0 \\3 & 2 & -3 \\3 & 0 & -1\end{pmatrix}\qquad \qquad
+N = \begin{pmatrix}  0 & 1 & -1 \\0 & 1 & -1 \\0 & 1 & -1\end{pmatrix}.$$
+  \item On a aussi calculé la matrice de passage $P$ qui diagonalise $\Delta$.
+ $$\text{Avec }\quad P=\begin{pmatrix}0&1&1\cr 1&1&0\cr1&1&1\end{pmatrix} \qquad \text{ on a } \quad
+   D = P^{-1}\Delta P = \begin{pmatrix}-1&0&0\cr 0&2&0\cr 0&0&2\end{pmatrix}.$$
+   Et donc, pour tout $k\ge1$ :
+   $$D^k = \begin{pmatrix}(-1)^k&0&0\cr 0&2^k&0\cr 0&0&2^k\end{pmatrix}.$$
+  
+  \item Pour la partie nilpotente, on pose :
+   $$N' = P^{-1}NP = \begin{pmatrix}
+   0 & 0 & 0 \\0 & 0 & -1 \\0 & 0 & 0\end{pmatrix} \qquad \text{ avec } N'^2 = 0$$
+
+\item La formule de binôme de Newton se réduit donc à seulement deux termes :
+$$(D+N')^p = D^p + \binom{p}{1} D^{p-1}N' + \binom{p}{2} D^{p-2}N'^2 + \cdots
+= D^p + pD^{p-1}N'$$
+Donc 
+$$(D+N')^p =
+ \begin{pmatrix}(-1)^p&0&0\cr 0&2^p&0\cr 0&0&2^p\end{pmatrix}
++p\begin{pmatrix}0&0&0\cr 0&0&-2^{p-1}\cr 0&0&0\end{pmatrix}
+= \begin{pmatrix}(-1)^p&0&0\cr 0&2^p&-p2^{p-1}\cr 0&0&2^p\end{pmatrix}.$$
+
+  \item Ainsi, pour $p\ge0$ :
+  $$A^p = P (D+N')^p P^{-1}
+  = \begin{pmatrix}
+  2^{p} & p2^{p - 1}  & -p2^{p - 1}  \\
+2^{p} - (-1)^{p} & p2^{p - 1}  + 2^{p} & -p2^{p - 1} 
+- 2^{p} + (-1)^{p} \\
+2^{p} - (-1)^{p} & p2^{p - 1}  & -p2^{p - 1} +
+(-1)^{p}\end{pmatrix}$$
+\end{enumerate}
+\end{exemple}
+
+
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+\item Montrer que la décomposition de Dunford de la matrice
+$A = \left(\begin{smallmatrix}
+-6 & -5 & -5 \\
+2 & 0 & 6 \\
+-2 & 4 & -2
+  \end{smallmatrix}\right)$
+  est $A = \Delta + N$ avec
+  $\Delta = \left(\begin{smallmatrix}
+-6 & -5 & -5 \\
+0 & -1 & 5 \\
+0 & 5 & -1
+  \end{smallmatrix}\right)$
+  et $N = \left(\begin{smallmatrix}
+0 & 0 & 0 \\
+2 & 1 & 1 \\
+-2 & -1 & -1
+  \end{smallmatrix}\right)$.
+  Même exercice avec
+$$A' = \left(\begin{smallmatrix}
+1 & 2 & 3 \\
+0 & -2 & 3 \\
+0 & 0 & 1
+  \end{smallmatrix}\right)\qquad
+\Delta' =  \left(\begin{smallmatrix}
+1 & 2 & -2 \\
+0 & -2 & 3 \\
+0 & 0 & 1
+  \end{smallmatrix}\right) \qquad
+N' = \left(\begin{smallmatrix}
+0 & 0 & 5 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+  \end{smallmatrix}\right)  
+  $$
+  
+  
+\item Calculer la décomposition de Dunford de 
+$A = \left(\begin{smallmatrix}
+-3 & 3 & 6 & -2 \\
+-3 & 3 & 6 & -2 \\
+1 & -1 & 0 & 0 \\
+-7 & 9 & 10 & -4
+  \end{smallmatrix}\right)$.
+  Même exercice avec
+ $\left(\begin{smallmatrix}
+ 1 & 0 & 3 & -2 \\
+3 & 4 & -3 & 0 \\
+3 & 0 & 1 & -2 \\
+3 & 0 & -3 & 4
+  \end{smallmatrix}\right)$.
+  
+  
+  
+  
+  \item Montrer que la décomposition de Dunford de la matrice
+$A = \left(\begin{smallmatrix}
+7 & 1 \\
+-1 & 5
+  \end{smallmatrix}\right)$
+  est $A = \Delta + N$ avec
+  $\Delta = \left(\begin{smallmatrix}
+6 & 0 \\
+0 & 6
+  \end{smallmatrix}\right)$
+  et $N = \left(\begin{smallmatrix}
+1 & 1 \\
+-1 & -1
+  \end{smallmatrix}\right)$.
+  Calculer $A^p$, pour tout $p\ge0$. 
+  
+  Même exercice avec 
+  $$A' = \left(\begin{smallmatrix}
+8 & 4 & 0 \\
+-1 & 4 & 0 \\
+0 & 0 & -9
+  \end{smallmatrix}\right)\qquad
+\Delta' =  \left(\begin{smallmatrix}
+6 & 0 & 0 \\
+0 & 6 & 0 \\
+0 & 0 & -9
+  \end{smallmatrix}\right) \qquad
+N' = \left(\begin{smallmatrix}
+2 & 4 & 0 \\
+-1 & -2 & 0 \\
+0 & 0 & 0
+  \end{smallmatrix}\right)  
+  $$
+\end{enumerate}
+\end{miniexercices}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Réduction de Jordan}
+
+
+Nous allons montrer que toute matrice, dont le polynôme caractéristique est scindé, est semblable à une matrice diagonale par blocs, avec des blocs \og{}presque\fg{} diagonaux.
+
+
+%----------------------------------------------------
+\subsection{Blocs et matrices de Jordan}
+
+
+\begin{definition}
+Un \defi{bloc de Jordan} est une matrice de la forme :
+\[J(\lambda) = 
+\begin{pmatrix}
+\lambda&1&0&\hphantom{\;}0\hphantom{\;}\\
+0&\lambda&\ddots&0\\
+\vdots&\ddots&\ddots&1\\
+0&\ldots&0&\lambda
+\end{pmatrix}
+\in M_p(\Kk)\]
+où $\lambda \in \Kk, p \ge 1$.
+\end{definition}
+
+C'est donc une matrice triangulaire supérieure, avec des coefficients $\lambda$ sur la diagonale, des $1$ juste au-dessus de la diagonale, puis des $0$ encore au-dessus.
+
+
+\begin{exercicecours}
+Pour un bloc de Jordan de taille $p\times p$, calculer $(J(\lambda)-\lambda I_p)^k$, pour tout $k\ge 1$.
+En particulier, montrer que pour 
+$(J(\lambda)-\lambda I_p)^{p-1}$, il ne reste plus qu'un coefficient $1$, tout en haut à droite, 
+et $(J(\lambda)-\lambda I_p)^{p}$ est la matrice nulle.
+\end{exercicecours}
+
+
+\begin{exercicecours}
+Pour un bloc de Jordan $J(\lambda) \in M_p(\Kk)$,
+montrer que son polynôme caractéristique 
+est $(-1)^p(X-\lambda)^p$ et que son polynôme minimal 
+est $(X-\lambda)^p$.
+\end{exercicecours}
+
+
+\begin{definition}
+Une \defi{matrice de Jordan} est une matrice diagonale par blocs de la forme :
+\[\left(\begin{array}{c|c|c|c}
+J_1(\lambda_1)&&&\\\hline
+&J_2(\lambda_2)&&\\\hline
+&&\ddots&\\\hline
+&&&J_r(\lambda_r)
+\end{array}\right)\]
+où les $J_i(\lambda_i)$ sont des blocs de Jordan.
+\end{definition}
+
+Les blocs de Jordan peuvent être de tailles différentes, 
+les valeurs $\lambda_i \in \Kk$ sont quelconques (certaines d'entre elles peuvent être égales).
+
+\begin{exemple}
+Voici une matrice de Jordan : 
+
+
+
+\[
+\left(\begin{array}{cc|ccc|c|ccc}
+-3	&	1	&	0	&	0	&	0	&	0	&	0	&	0	&	0\\
+0	&	-3	&	0	&	0	&	0	&	0	&	0	&	0	&	0\\ \hline
+0	&	0	&	-3	&	1	&	0	&	0	&	0	&	0	&	0\\
+0	&	0	&	0	&	-3	& 	1	&	0	&	0	&	0	&	0\\
+0	&	0	&	0	&	0	& 	-3	&	0	&	0	&	0	&	0\\ \hline
+0	&	0	&	0	&	0	& 	0	&	2	&	0	&	0	&	0\\ \hline
+0	&	0	&	0	&	0	&	0	&	0	&	5	&	1	&	0\\
+0	&	0	&	0	&	0	&	0	&	0	&	0	&	5	& 	1\\
+0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	& 	5\\
+\end{array}\right)
+\]
+
+\bigskip
+
+\begin{itemize}
+  \item Elle est formée d'un bloc de Jordan $2 \times 2$ associé à la valeur propre $-3$,
+  \item un bloc de Jordan $3 \times 3$ associé à cette même valeur $-3$, 
+  \item un bloc de Jordan $1 \times 1$ associé à la valeur $2$, 
+  \item un bloc de Jordan $3 \times 3$ associé à la valeur $5$. 
+\end{itemize}
+\end{exemple}
+
+
+
+%----------------------------------------------------
+\subsection{\'Enoncé}
+
+\begin{theoreme}
+Si $A \in M_n(\Kk)$ a son polynôme caractéristique scindé sur $\Kk$, alors $A$ est semblable (sur $\Kk$) à une matrice de Jordan. Il existe donc $P \in M_n(\Kk)$ inversible telle que :
+\[ P^{-1}AP = \left(\begin{array}{c|c|c}
+J_1&&\\\hline
+&\ddots&\\\hline
+&&J_r
+\end{array}\right)\]
+où les $J_i$ sont des blocs de Jordan.
+\end{theoreme}
+
+Ce qui se reformule aussi :
+\begin{theoreme}
+Soit $f$ un endomorphisme de $E$ dont le polynôme caractéristique $\chi_f(X)$ est scindé sur $\Kk$.
+
+Il existe une base $\mathcal{B}$ de $E$ où la matrice de $f$ est de Jordan, c'est-à-dire  :
+\[ \Mat_{\mathcal{B}} (f) = 
+\left(\begin{array}{c|c|c}
+J_1&&\\\hline
+&\ddots&\\\hline
+&&J_r
+\end{array}\right)\]
+\end{theoreme}
+
+Nous admettons ces théorèmes, mais nous verrons sur des exemples comment obtenir la matrice de Jordan.
+
+\bigskip
+
+
+Voici des remarques importantes :
+\begin{itemize}
+  \item Les $\lambda$ qui apparaissent dans les blocs de Jordan, sont les valeurs propres de $A$ (ou de $f$) et donc les 
+racines du polynôme caractéristique.
+
+  \item Une même valeur $\lambda$ peut apparaître dans plusieurs
+  blocs différents.
+    
+  \item En particulier, ce théorème s'applique à toutes les matrices complexes.  
+  
+  \item \textbf{Unicité.} Cette décomposition est unique dans le sens où le nombre et la taille des blocs de Jordan ne dépendent que de $A$ (ou de $f$). Par contre, on s'autorise à permuter les blocs de Jordan entre eux.
+
+\end{itemize}
+
+\bigskip
+
+Voici d'autres remarques qui découlent du théorème :
+\begin{itemize}
+  \item Le nombre de blocs associés à la valeur propre $\lambda$ est égal à
+  la dimension du sous-espace propre $E_\lambda$.
+    
+  \item La somme des tailles des blocs de Jordan associés à $\lambda$
+  est la multiplicité de $\lambda$ comme racine du polynôme caractéristique.
+  
+  \item La taille du plus grand bloc de Jordan associé à $\lambda$ est la multiplicité de $\lambda$ comme racine du polynôme minimal.
+\end{itemize}
+
+
+%----------------------------------------------------
+\subsection{Exemples}
+
+Voici une méthode basique pour trouver la réduite de Jordan d'une matrice $A \in M_n(\Kk)$, 
+ainsi qu'une matrice de passage :
+
+\begin{itemize}
+  \item Calculer le polynôme caractéristique et les valeurs propres de $A$.
+  
+  \item Pour chaque valeur propre $\lambda$, calculer le sous-espace propre
+  $E_\lambda = \Ker(A-\lambda I_n)$ et trouver une base de $E_\lambda$.
+  Le nombre de blocs de Jordan associés à $\lambda$ est $\dim E_\lambda$.
+    
+  \item Pour chaque vecteur propre de la base, on construit le bloc de Jordan associé :
+  \begin{itemize}
+      \item Si $v_1 \in E_\lambda$ est un vecteur propre de la base de $E_\lambda$, alors on cherche
+  $v_2 \in \Kk^n$ tel que $(A-\lambda I_n)v_2 = v_1$. 
+      \item Puis on cherche s'il existe
+  $v_3 \in \Kk^n$ tel que $(A-\lambda I_n)v_3 = v_2$.
+      \item On arrête le processus lorsqu'il n'y pas de solution. 
+      \item On a $Av_1 = \lambda v_1$, puis $Av_2 = v_1 + \lambda v_2$, \ldots,
+  $Av_p = v_{p-1} + \lambda v_p$. 
+      \item Donc, dans le sous-espace engendré par ces $(v_1,v_2,\ldots,v_p)$ la matrice associé à $A$, dans cette base, est exactement le bloc de Jordan :
+  $$J(\lambda) = 
+  \bordermatrix{
+     & Av_1    & Av_2 & \cdots & Av_p \cr
+  v_1& \lambda&1&0&0 \cr
+  v_2& 0&\lambda&\ddots&0\cr
+   \vdots  & \vdots&\ddots&\ddots&1 \cr
+  v_p& 0&\ldots&0&\lambda }
+  $$ 
+  
+      \item On peut aussi savoir quand s'arrêter en utilisant le fait que le bloc de Jordan est toujours d'une taille $p$ inférieure ou égale à la multiplicité de $\lambda$
+  comme racine du polynôme caractéristique (et même du polynôme minimal).
+  \end{itemize}
+  
+  
+  \item On recommence avec $v'_1$, un autre vecteur de la base de $E_\lambda$ : on construit $v'_2$, $v'_3$,... ce qui conduit à un autre bloc de Jordan pour la valeur $\lambda$. On procède ainsi de suite pour tous les vecteurs de la base de $E_\lambda$ et ensuite bien sûr pour les autres valeurs propres. 
+\end{itemize}  
+ 
+  
+
+
+\begin{exemple}
+Soit 
+$$A = \begin{pmatrix}
+4 & 3 & -2 \\
+-3 & -1 & 3 \\
+2 & 3 & 0
+\end{pmatrix}
+\in M_3(\Rr)$$
+Calculons sa réduite de Jordan $J$ et une matrice de passage $P$ telle que 
+$P^{-1}AP = J$.
+
+\begin{enumerate}
+  \item On commence par calculer le polynôme caractéristique de $A$ :
+  $$\chi_A(X) = \det(A-XI_3) = 
+  \begin{vmatrix}
+  4-X & 3 & -2 \\
+  -3 & -1-X & 3 \\
+  2 & 3 & -X  
+  \end{vmatrix}
+  = - (X+1)(X-2)^2$$
+  
+  Il y a donc deux valeurs propres : $-1$ et $2$.
+  
+  \item \textbf{Valeur propre $-1$.}
+  
+  La valeur propre $-1$ est de multiplicité $1$. Le sous-espace propre associé $E_{-1} = \Ker(A+I_3) = \{ v \in \Rr^3 \mid Av = -v\}$ sera de dimension $1$. Après calculs, on trouve que $E_{-1} = \Rr v_1$ où
+  $v_1 = (-1,1,-1)$. Comme la multiplicité de $-1$ comme racine de $\chi_A(X)$ est $1$, alors
+  la valeur propre $-1$ sera juste associée à un bloc de Jordan de taille $1\times 1$.
+  
+  \item \textbf{Valeur propre $2$.}
+  
+  La valeur propre $2$ est de multiplicité $2$. Il faut déterminer le sous-espace propre associé $E_{2} = \Ker(A-2I_3) = \{ v \in \Rr^3 \mid Av = 2v\}$. 
+  Après calculs, on trouve que $E_{2} = \Rr v_2$ où
+  $v_2 = (1,0,1)$. Comme $E_2$ est un espace vectoriel de dimension $1$, alors que $2$ est racine de multiplicité $2$, la matrice $A$ n'est pas diagonalisable et on sait alors que la valeur propre $2$ sera associée un bloc de Jordan de taille $2\times 2$.
+
+  
+  \item \textbf{Bloc de Jordan.}
+
+  On cherche $v_3 \in \Rr^3$ tel que $(A-2I_3)v_3 = v_2$.
+  Si $v_3 = (x,y,z)$ alors
+  $$(A-2I_3)v_3 = v_2 
+  \iff 
+  \begin{pmatrix}
+  2 & 3 & -2 \\
+  -3 & -3 & 3 \\
+  2 & 3 & -2
+  \end{pmatrix}
+  \begin{pmatrix}
+  x \\ y \\ z
+  \end{pmatrix}
+  = \begin{pmatrix}1\\0 \\1\end{pmatrix}
+  \iff   
+  \left\{\begin{array}{rcl}
+  2x  + 3y -2z &=& 1\\
+  -3x -3y + 3z &=& 0 \\
+  2x  + 3y -2z &=& 1
+  \end{array}\right.
+  $$
+  $$
+  \iff
+  \left\{\begin{array}{rcl}
+  2x  + 3y -2z &=& 1\\
+  x +y - z &=& 0 \\
+  \end{array}\right.
+ \iff
+  \left\{\begin{array}{rcl}
+  2x  + 3y &=& 1+2z\\
+  x + y  &=& z \\
+  \end{array}\right. 
+  \iff
+ \left\{\begin{array}{rcl}
+  x &=& -1+z\\
+  y &=& 1 \\
+  \end{array}\right.   
+  $$
+  En prenant par exemple $z=0$ (n'importe quelle valeur conviendrait), on choisit
+  $v_3 = (-1,1,0)$.
+  
+  
+  \item \textbf{Matrice de Jordan.}
+  
+  Dans la base $(v_1,v_2,v_3)$, on a 
+  $Av_1 = -v_1$, $A v_ 2 = 2v_2$, et
+  comme $(A-2I_3) v_3 = v_2$ alors $A v_3 = v_2 + 2v_3$.
+  
+  La matrice associée à $A$ dans la base  $(v_1,v_2,v_3)$ est
+  donc :
+  $$J = %\begin{pmatrix}
+  \bordermatrix{
+  & Av_1 & Av_2 & Av_3 \cr
+  v_1&-1 & 0 & 0 \cr
+  v_2&0 & 2 & 1 \cr
+  v_3&0 & 0 & 2}
+  %\end{pmatrix}
+  $$
+
+  Autrement dit, $J = P^{-1}AP$ où $P$ est la matrice dont les colonnes sont les vecteurs $v_1, v_2, v_3$ exprimés dans la base canonique :
+$$P =  \begin{pmatrix}
+-1 & 1 & -1 \\
+1 & 0 & 1 \\
+-1 & 1 & 0
+\end{pmatrix} \qquad 
+\text{ et on a } \quad
+P^{-1} = \begin{pmatrix}
+1 & 1 & -1 \\
+1 & 1 & 0 \\
+-1 & 0 & 1
+\end{pmatrix}
+$$
+%
+%  \item \textbf{Seconde méthode.}
+%  
+%  On calcule $A-2I_3$ et $(A-2I_3)^2$ (on s'arrête là car la multiplicité de la valeur propre $2$ est $2$) :
+%$$A-2I_3 =  \begin{pmatrix}
+%
+%2 & 3 & -2 \\
+%-3 & -3 & 3 \\
+%2 & 3 & -2  
+%\end{pmatrix} \qquad 
+%\text{ et } \quad 
+%(A-2I_3)^2 =  \begin{pmatrix}
+% -9 & -9 & 9 \\
+%9 & 9 & -9 \\
+%-9 & -9 & 9
+%\end{pmatrix}
+%$$
+%On cherche $v'_3$ qui soit dans  $\Ker (A-2I_3)^2$ mais pas dans $\Ker(A-2I_3)$.
+%C'est-à-dire $(A-2I_3)^2v'_3 = 0$ mais $(A-2I_3) v'_3 \neq 0$.
+%Par exemple $v'_3 = (2,2,4)$ convient.
+%On pose 
+%$$v'_2 = (A-2I_3)v'_3 = (2,0,2).$$
+%
+%Comme $(A-2I_3) v'_2 = (A-2I_3)^2 v'_3 = 0$, donc $Av'_2 = 2v'_2$.
+%
+%Comme  $(A-2I_3)v'_3 = v'_2$, alors $Av'_3 = v'_2 + 2v'_3$.
+%La matrice associée à $A$ dans la base  $(v_1,v_2,v_3)$ est donc la même matrice de Jordan 
+%qu'auparavant :
+%  $$J = %\begin{pmatrix}
+%  \bordermatrix{
+%  & Av_1 & Av_2' & Av_3' \cr
+%  v_1&-1 & 0 & 0 \cr
+%  v_2'&0 & 2 & 1 \cr
+%  v_3'&0 & 0 & 2}
+%  %\end{pmatrix}
+%  $$
+%  Par contre la matrice de passage est différente :
+%$$P' =  \begin{pmatrix}
+%-1 & 2 & 2 \\
+%1 & 0 & 2 \\
+%-1 & 2 & 4
+%\end{pmatrix} \qquad 
+%\text{ et on a } \quad
+%P'^{-1} = \frac12\begin{pmatrix}
+%2 & 2 & -2 \\
+%3 & 1 & -2 \\
+%-1 & 0 & 1
+%\end{pmatrix}
+%$$  
+
+
+\end{enumerate}
+\end{exemple}
+
+\bigskip
+
+On recommence avec un exemple plus compliqué !
+
+\begin{exemple}
+Soit 
+$$A = \begin{pmatrix}
+5 & 0 & 4 & -2 & -3 \\
+-2 & 3 & -3 & 2 & 4 \\
+0 & 0 & 3 & 0 & 0 \\
+0 & 0 & 0 & 3 & 1 \\
+1 & 0 & 2 & -1 & 1
+\end{pmatrix}
+\in M_5(\Rr)$$
+Calculons sa réduite de Jordan $J$.
+
+\begin{enumerate}
+  \item Le polynôme caractéristique de $A$ :
+  $$\chi_A(X) = \det(A-XI_5) = \cdots = -(X-3)^5.$$
+  
+  Il y a donc une seule valeur propre : $\lambda = 3$.
+  
+  \item \textbf{Valeur propre $3$.}
+  
+  La valeur propre $3$ est de multiplicité $5$. 
+  Il faut ensuite calculer le sous-espace propre associé : 
+  $E_{3} = \Ker(A-3I_3) = \{ v \in \Rr^3 \mid Av = 3v\}$.
+  On calcule $A-3I_5$, et on trouve une base $(v_1,v_3)$ de $E_3$ :
+  $$v_1 =(0,1,0,0,0) \qquad \text{ et } \qquad  v_3 = (1,0,0,1,0).$$
+  Ainsi $\dim E_3 = 2$ alors que la multiplicité de $\lambda$ est $5$. La matrice $A$ n'est pas diagonalisable. 
+  Il y aura donc deux blocs de Jordan associés à la valeur propre $3$. (Cela peut être un taille de $1\times1$ avec un de taille $4\times 4$, ou bien $2\times 2$ avec $3\times 3$.)
+  
+  
+  \item \textbf{Matrice de Jordan.}
+
+  \begin{itemize}
+    \item On cherche si on peut trouver $v_2 \in \Rr^5$ tel que $(A-3I_3)v_2 = v_1$.
+  La seule solution est $v_2 = (-2,0,1,0,0)$.
+  Le processus s'arrête là, car il n'y a aucune solution $v$, au problème $(A-3I_3)v=v_2$.
+  (En effet la troisième ligne de $A-3I_3$ est nulle, alors que la troisième coordonnée de $v_2$ ne l'est pas.) On obtient donc un bloc de Jordan $2\times2$.  
+  
+    \item On fait le même travail pour l'autre bloc de Jordan, en partant du
+    vecteur $v_3 =  (1,0,0,1,0) \in E_3$.    
+     On cherche maintenant $v_4 \in \Rr^5$ tel que $(A-3I_3)v_4 = v_3$.
+    Après calculs, on trouve $v_4 = (2, 0, 0, 0, 1)$. 
+    On cherche $v_5$ tel que $(A-3I_3)v_5 = v_4$. On trouve
+    $v_5 = (-3, 0, 2, 0, 0)$. Le processus s'arrête là, ce qui correspond à un bloc de Jordan de taille 
+    $3\times 3$.
+    
+  \end{itemize}
+  On a $Av_1 = 3v_1$, $Av_2 = v_1+3v_2$, 
+  $Av_3 = 3v_3$, $Av_4 = v_3+3v_4$, $Av_5 = v_4+3v_5$.
+   
+  Dans la base $(v_1,v_2,v_3,v_4,v_5)$, la matrice associée à $A$ est :
+  $$J = \begin{pmatrix}
+  3 & 1 & 0 & 0 & 0 \\
+0 & 3 & 0 & 0 & 0 \\
+0 & 0 & 3 & 1 & 0 \\
+0 & 0 & 0 & 3 & 1 \\
+0 & 0 & 0 & 0 & 3
+  \end{pmatrix}$$
+  
+Ainsi $J = P^{-1}AP$, où la matrice $P$ est la matrice dont les colonnes sont les vecteurs 
+$v_1, \ldots, v_5$ exprimés dans la base canonique.
+
+
+\end{enumerate}
+\end{exemple}
+
+%----------------------------------------------------
+\subsection{Applications}
+
+\begin{exemple}
+Si $A \in M_n(\Cc)$, alors $A$ est semblable à sa transposée $A^T$.
+
+En effet, il suffit de le vérifier lorsque $A$ est un bloc de Jordan.
+\end{exemple}
+
+\begin{exemple}
+Si $N \in M_4(\Kk)$ est nilpotente (c'est-à-dire $N^4 = 0$), alors $N$ est semblable à une et une seule des $5$ matrices suivantes :
+\[
+\begin{pmatrix}
+0&0&0&0\\
+0&0&0&0\\
+0&0&0&0\\
+0&0&0&0
+\end{pmatrix}
+\quad 
+\begin{pmatrix}
+0&1&0&0\\
+0&0&0&0\\
+0&0&0&0\\
+0&0&0&0
+\end{pmatrix} \quad
+\begin{pmatrix}
+0&1&0&0\\
+0&0&0&0\\
+0&0&0&1\\
+0&0&0&0
+\end{pmatrix} \quad
+\begin{pmatrix}
+0&1&0&0\\
+0&0&1&0\\
+0&0&0&0\\
+0&0&0&0
+\end{pmatrix} \quad
+\begin{pmatrix}
+0&1&0&0\\
+0&0&1&0\\
+0&0&0&1\\
+0&0&0&0
+\end{pmatrix}
+ \] 
+
+Il y a une infinité de matrices nilpotentes $4 \times 4$, mais il n'y en a que $5$ à similitude près.
+
+\end{exemple}
+
+\begin{exemple}
+Si $A \in M_3(\Kk)$ a pour polynôme caractéristique : $ \chi_A(X) = -(X-1)(X-2)^2$ alors $A$ est semblable 
+à l'une des deux matrices suivantes :
+\[
+\begin{pmatrix}
+1&0&0\\
+0&2&0\\
+0&0&2
+\end{pmatrix} \qquad
+\begin{pmatrix}
+1&0&0\\
+0&2&1\\
+0&0&2
+\end{pmatrix}
+\]
+\end{exemple}
+
+
+ 
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Montrer que $J(\lambda)-\mu I_p$ est inversible si $\mu \neq \lambda$.
+  
+  \item Montrer qu'une matrice de Jordan est diagonalisable 
+  si et seulement si ses blocs sont tous de taille $1$.
+  
+  \item Montrer qu'un bloc de Jordan $J$ est semblable à sa transposée $J^T$.
+
+  \item Calculer la réduction de Jordan de la matrice 
+  $A = \left(\begin{smallmatrix}
+  2 & 2 & -8 \\8 & -4 & -17 \\-1 & 1 & 0 \end{smallmatrix}\right)$, 
+  c'est-à-dire trouver $P$ tel que $J = P^{-1}AP$ soit une matrice de Jordan.
+  Même exercice avec :
+  $$
+  \left(\begin{smallmatrix} 
+  3 & -1 & -1 \\ -1 & 5 & 1 \\ 2 & 0 & 4
+  \end{smallmatrix}\right) \quad
+  \left(\begin{smallmatrix} 
+  -2 & 2 & -4 & 9 \\ -2 & 2 & -3 & 6 \\ 1 & -1 & 2 & -3 \\ 0 & 0 & 0 & 1
+  \end{smallmatrix}\right) \quad
+  \left(\begin{smallmatrix} 
+  2 & -3 & 3 & -2 & 0 \\
+  2 & -1 & 0 & 1 & -2 \\
+  -3 & 0 & 5 & -6 & 3 \\
+  -4 & 0 & 5 & -6 & 4 \\
+  -2 & -3 & 7 & -6 & 4
+  \end{smallmatrix}\right) \quad
+  $$
+  
+    
+  
+  
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+
+
+\auteurs{
+
+D'après un cours de Sandra Delaunay et un cours d'Alexis Tchoudjem.
+
+Revu et augmenté par Arnaud Bodin.
+
+Relu par Stéphanie Bodin et Vianney Combet.
+}
+
+
+\finchapitre 
+\end{document}
+
+

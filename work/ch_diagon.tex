@@ -1,0 +1,1275 @@
+
+\documentclass[12pt, class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+% Commandes spécifiques à ce chapitre
+\newcommand{\Sp}{\text{sp}}
+
+
+\begin{document}
+
+
+%====================================================================
+\chapitre{Diagonalisation}
+%====================================================================
+
+
+
+La diagonalisation est une opération fondamentale des matrices.
+Nous allons énoncer des conditions qui déterminent exactement quand une matrice est diagonalisable.
+%Le point de vue de ce chapitre est celui des application linéaire.
+Nous reprenons pas à pas les notions du chapitre \og{}Valeurs propres, vecteurs propres\fg{},
+mais du point de vue plus théorique des applications linéaires.
+
+\bigskip
+
+\textbf{Notations.}
+
+Dans ce chapitre, $E$ est un $\Kk$-espace vectoriel.
+$\Kk$ est un corps. Dans les exemples de ce chapitre, $\Kk$ sera $\Rr$ ou $\Cc$.
+Sauf mention contraire, $E$ sera de dimension finie.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Valeurs propres, vecteurs propres}
+
+Commençons par définir les valeurs et les vecteurs propres d'une application linéaire.
+Il est important d'avoir d'abord compris le chapitre \og{}Valeurs propres, vecteurs propres\fg{}
+des matrices.
+
+%----------------------------------------------------
+\subsection{Définitions}
+
+\textbf{Rappel.} $f : E \to E$ est appelé un \defi{endomorphisme} si $f$ est une application linéaire de $E$ dans lui-même. Autrement dit, pour tout $v\in E$, $f(v) \in E$ et, en plus, pour tous $u,v \in E$ et tout $\alpha \in \Kk$ :
+$$f(u+v) = f(u)+f(v) \quad \text{ et } \quad f(\alpha v) = \alpha f(v)$$
+
+\begin{definition}
+Soit $f : E \to E$ un endomorphisme.
+\begin{itemize}
+  \item $\lambda \in \Kk$ est dite \defi{valeur propre} de l'endomorphisme $f$ s'il
+existe un vecteur non nul $v \in E$ tel que 
+\mybox{$f(v)=\lambda v$.}
+  \item Le vecteur $v$ est alors appelé \defi{vecteur propre} de $f$, associé à la valeur propre $\lambda$.
+  
+  \item Le \defi{spectre} de $f$ est l'ensemble des valeurs propres de $f$. 
+  Notation : $\Sp(f)$ (ou $\Sp_\Kk(f)$ si on veut préciser le corps de base). 
+
+\end{itemize}
+\end{definition} 
+ 
+Si $v$ est un vecteur propre alors, pour tout $\alpha \in \Kk^*$, $\alpha v$ est aussi un vecteur propre.
+ 
+
+ 
+Ces définitions sont bien sûr compatibles avec celles pour les matrices.
+Soit $A \in M_n(\Kk)$. Soit $f : \Kk^n \to \Kk^n$ l'application linéaire définie par  
+$f(v) = Av$ (où $v$ est considéré comme un vecteur colonne). Alors les valeurs propres (et les vecteurs propres) de $f$ sont celles de $A$.
+ 
+ 
+
+%----------------------------------------------------
+\subsection{Exemples}
+
+
+La principale source d'exemples provient des matrices et nous renvoyons encore une fois au chapitre \og{}Valeurs propres, vecteurs propres\fg{}.
+
+
+
+\begin{exemple}
+\label{ex:diagon1}
+Soit $f : \Rr^3 \to \Rr^3$ définie par 
+$$f(x,y,z) = \big(
+-2x-2y+ 2z, 
+-3x-y+3z,
+-x+y+z\big).$$
+
+\begin{enumerate}
+  \item \'Ecriture en terme de matrice. L'application $f$ s'écrit aussi
+  $f(X)=AX$ avec :
+$$
+X = \begin{pmatrix}
+x\\y\\z
+\end{pmatrix}
+\qquad \text { et } \qquad 
+A = \begin{pmatrix}
+-2 & -2 & 2 \\
+-3 & -1 & 3 \\
+-1 & 1 & 1
+\end{pmatrix}$$
+  
+  
+  \item Le vecteur $v_1 = (1,1,0)$ est vecteur propre.
+  
+  En effet, $f(1,1,0) = (-4,-4,0)$, autrement dit $f(v_1) = -4 v_1$. Ainsi $v_1$ est un vecteur propre associé à la valeur propre $\lambda_1 = -4$.
+  
+  Si on préfère faire les calculs avec les matrices, on considère $v_1$ comme un vecteur colonne et on calcule $Av_1 = -4v_1$.
+  
+  \item $\lambda_2 = 2$ est valeur propre.
+  
+  Pour le prouver, il s'agit de trouver un vecteur non nul dans $\Ker(f-\lambda_2 \id_{\Rr^3})$ pour $\lambda_2=2$.
+  Pour cela, on calcule $A - \lambda_2 I_3$ :
+  $$A-2I_3 =\begin{pmatrix}
+-4 & -2 & 2 \\
+-3 & -3 & 3 \\
+-1 & 1 & -1
+\end{pmatrix}$$
+  
+  On trouve que $v_2 = (0,1,1)$ est dans le noyau de $A-2I_3$, c'est-à-dire
+  $(A-2I_3)v_2$ est le vecteur nul. En d'autres termes, $v_2 \in \Ker(f-\lambda_2 \id_{\Rr^3})$,
+  c'est-à-dire $f(v_2) - 2v_2 = 0$, donc $f(v_2) = 2v_2$. Bilan : $v_2$ est un vecteur propre associé à la valeur propre $\lambda_2 = 2$.
+  
+  \item $\lambda_3 = 0$ est valeur propre.
+  
+  On peut faire juste comme au-dessus et trouver que $v_3 = (1,0,1)$ vérifie  $f(v_3)=(0,0,0)$.
+  Ainsi $f(v_3) = 0 \cdot v_3$. Bilan :  $v_3$ est vecteur propre associé à la valeur propre $\lambda_3 = 0$.
+  
+  \item On a trouvé $3$ valeurs propres, et il ne peut y en avoir plus car la matrice $A$ est de taille $3\times 3$. Conclusion : $\Sp(f) = \{-4,2,0\}$.
+
+\end{enumerate}
+\end{exemple}
+
+
+\begin{exemple}
+\label{ex:diagon2}
+Soit $f : \Rr^n \to \Rr^n$ l'application linéaire définie
+par $(x_1,\ldots,x_{n-1},x_n) \mapsto (x_1,\ldots,x_{n-1},0)$.
+Géométriquement, $f$ est une projection sur $\Rr^{n-1}\times \{0\} \subset \Rr^n$.
+Notons $e_1 = (1,0,0,\ldots)$, $e_2 = (0,1,0,\ldots)$,\ldots, $e_n = (0,\ldots,0,1)$ les $n$
+vecteurs de la base canonique de $\Rr^n$.
+
+Alors
+$$f(e_1)=e_1 \quad f(e_2)=e_2 \quad \ldots \quad f(e_{n-1})=e_{n-1} \quad \text { et } \quad f(e_n)= 0.$$
+
+Ainsi $e_1,\ldots,e_{n-1}$ sont des vecteurs propres associés à la valeur propre $1$.
+Et $e_n$ est un vecteur propre associé à la valeur propre $0$. Conclusion : $\Sp(f) = \{0,1\}$.
+\end{exemple}
+
+
+Voici d'autres exemples plus théoriques.
+
+\begin{exemple}
+\sauteligne
+\begin{enumerate}
+
+  \item Soit $E=\Rr_{n}[X]$ l'espace des polynômes de degré $\le n$. Soit $d : E \to E$, $P(X) \mapsto P'(X)$
+  l'application de dérivation. 
+Pour des raisons de degré, 
+\[P' =\lambda P \qquad \implies \qquad \lambda =0 \quad\text{et}\quad P \text{ constant}\]
+De plus, tout polynôme constant non nul est un vecteur propre de $d$, de valeur propre associée $0$ ; donc 
+$\Sp(d) = \{0\}$.
+
+  \item (Cet exemple est en dimension infinie.)
+   Soit $E =\mathcal{C}^\infty(\Rr)$ l'espace des fonctions infiniment dérivables de $\R$ dans $\R$. Soit 
+   $d : E \to E$, $\phi \mapsto \phi'$ l'application de dérivation.
+
+Pour tout $\lambda \in \Rr$, définissons la fonction 
+\[e_\lambda : \Rr \to \Rr, \quad x \mapsto \exp(\lambda x).\]
+On a $e_\lambda' = \lambda e_\lambda$, donc chaque fonction $e_\lambda$ est un vecteur propre de $d$ de valeur propre associée $\lambda$. Ici, $\Sp(d) = \Rr$.
+\end{enumerate}
+\end{exemple}
+
+
+
+
+%----------------------------------------------------
+\subsection{Sous-espaces propres}
+
+
+Cherchons une autre écriture de la relation de colinéarité définissant les vecteurs propres :
+\begin{align*}
+f(v) = \lambda v 
+ & \iff f(v) - \lambda v = 0 \\
+ & \iff (f-\lambda\id_E)(v)=0 \\
+ & \iff v\in\Ker(f-\lambda\id_E)
+\end{align*}
+
+D'où la définition :
+\begin{definition}
+Soit $f$ un endomorphisme de $E$. Soit $\lambda \in \Kk$.
+Le \defi{sous-espace propre} associé à $\lambda$ est le sous-espace vectoriel $E_\lambda$ défini par :
+\mybox{$E_\lambda = \Ker(f-\lambda \id_E)$}
+\end{definition} 
+On notera aussi ce sous-espace $E_\lambda(f)$ si on souhaite signaler sa dépendance vis-à-vis de l'endomorphisme $f$.
+
+Autrement dit :
+\mybox{$E_\lambda = \big\{v \in E \mid f(v) = \lambda v\big\}$}
+C'est le sous-espace vectoriel de $E$ constitué des vecteurs propres 
+de $f$ associés à la valeur propre $\lambda$, auquel on ajoute le vecteur nul.
+\^Etre valeur propre, c'est donc exactement avoir un sous-espace propre non trivial :
+$$\lambda \text{ valeur propre } \iff E_\lambda \neq \{ 0 \}$$
+
+
+\begin{remarque*}
+Plaçons-nous dans le cas où $E$ est de dimension finie.
+\begin{itemize}
+  \item Si $\lambda$ est une valeur propre de $f$, alors le sous-espace propre associé $E_\lambda$  est de dimension $\ge 1$. 
+  
+  
+  \item Le sous-espace propre $E_\lambda$ est stable par $f$, c'est-à-dire $f(E_\lambda) \subset E_\lambda$. 
+  En effet :
+\[v  \in \Ker (f-\lambda \id_E) \implies f(f(v)) = f(\lambda v) = \lambda f(v)
+\implies f(v) \in \Ker (f-\lambda \id_E)\]
+\end{itemize}
+\end{remarque*}
+
+
+
+
+\begin{theoreme}
+\label{th:vpsommedirecte}
+Soit $f$ un endomorphisme de $E$. Soient $\lambda_1,\ldots,\lambda_r$ des valeurs propres \evidence{distinctes} de $f$. Alors les sous-espaces propres associés $E_{\lambda_1},\ldots,E_{\lambda_r}$ sont en somme directe.
+\end{theoreme}
+
+On retrouve un résultat déjà prouvé dans le cas des matrices :
+\begin{corollaire}
+\label{cor:vpbislibre}
+Soient $\lambda_1,\dots,\lambda_r$ des valeurs propres distinctes de 
+$f$ et, pour $1\leq i\leq r$, soit $v_i$ un vecteur propre associé à 
+$\lambda_i$. Alors les $v_i$ sont linéairement indépendants.
+\end{corollaire}
+
+Cela implique que le nombre de valeurs propres est $\le \dim E$.
+
+Avant de lire les exemples et la preuve de ce théorème, lire si besoin la section suivante sur les sommes directes.
+
+\begin{exemple}
+Reprenons l'exemple \ref{ex:diagon1} avec $f : \Rr^3 \to \Rr^3$ définie par 
+$$f(x,y,z) = \big(
+-2x-2y+ 2z, 
+-3x-y+3z,
+-x+y+z\big).$$
+Nous avions trouvé les valeurs propres et les vecteurs propres associés suivants :
+$$
+\lambda_1 = -4
+\quad
+v_1 = (1,1,0)
+\qquad
+\lambda_2 = 2
+\quad
+v_2 = (0,1,1)
+\qquad 
+\lambda_3 = 0
+\quad
+v_3 = (1,0,1)$$
+Par le corollaire \ref{cor:vpbislibre}, 
+$(v_1,v_2,v_3)$ forme une famille libre de $\Rr^3$ (ce que l'on vérifie par un calcul direct).
+Mais trois vecteurs indépendants de $\Rr^3$ forment automatiquement une base.
+Conclusion : $(v_1,v_2,v_3)$ est une base de vecteurs propres de $\Rr^3$.
+
+Ce que l'on peut aussi écrire :
+$$\Rr^3 = \Rr v_1 \oplus \Rr v_2 \oplus \Rr v_3$$
+ou encore 
+$$\Rr^3 = E_{-4} \oplus E_2 \oplus E_0.$$
+\end{exemple}
+
+\begin{exemple}
+Reprenons l'exemple \ref{ex:diagon2}, avec $f : \Rr^n \to \Rr^n$ définie
+par $(x_1,\ldots,x_{n-1},x_n) \mapsto (x_1,\ldots,x_{n-1},0)$.
+
+Nous avions trouvé deux valeurs propres $0$ et $1$.
+
+Pour la valeur propre $0$, nous avions un seul vecteur propre $e_n = (0,\ldots,0,1)$,
+ainsi $E_0 = \Rr e_n$. Pour la valeur propre $1$, nous avions trouvé $n-1$ vecteurs propres linéairement indépendants $e_1 = (1,0,0,\ldots)$, $e_2 = (0,1,0,\ldots)$,\ldots, $e_{n-1} = (0,\ldots,0,1,0)$. Plus  précisément,
+$$E_1 = \Ker (f-\id_{\Rr^n})  = \Vect(e_1,\ldots,e_{n-1}) = \big\{ (x_1,x_2,\ldots,x_{n-1},0) \in \Rr^n \mid x_1,\ldots,x_{n-1} \in \Rr \big\} = \Rr^{n-1} \times \{0\}.$$
+
+Nous avons bien
+$$\Rr^n = E_0 \oplus E_1 = \big(\Rr e_n\big) \oplus \big(\Rr^{n-1}\times \{0\}\big).$$
+\end{exemple}
+
+
+\bigskip
+
+
+\begin{proof}[Preuve du théorème \ref{th:vpsommedirecte}]
+Pour chaque $1\le i\le r$, soit $v_i \in E_{\lambda_i}$. On suppose $v_1+\cdots+v_r=0$, et nous allons montrer
+par récurrence qu'alors $v_1=0$, $v_2=0$,\ldots, $v_r=0$.
+
+Si $r=1$, c'est vérifié. Fixons $r\ge2$ et supposons notre assertion vraie pour les familles de $r-1$ vecteurs.
+Soit une famille qui vérifie 
+\begin{equation}
+\label{eq:vpbis1}
+v_1 + v_2 +\cdots + v_{r-1} + v_r = 0.
+\end{equation}
+
+
+Par composition par l'application linéaire $f$,
+$$f(v_1) + f(v_2) +\cdots + f(v_{r-1}) + f(v_r) = 0.$$
+Mais comme $v_i \in E_{\lambda_i}$ alors $f(v_i)=\lambda_i v_i$ et donc :
+\begin{equation}
+\label{eq:vpbis2}
+\lambda_1 v_1 + \lambda_2 v_2 +\cdots + \lambda_{r-1} v_{r-1} + \lambda_r v_r  = 0.
+\end{equation}
+
+\`A partir des équations (\ref{eq:vpbis1}) et (\ref{eq:vpbis2}), on calcule
+l'expression $(\ref{eq:vpbis2}) - \lambda_r (\ref{eq:vpbis1})$ :
+\begin{equation*}
+\label{eq:vpbis3}
+(\lambda_1-\lambda_r)  v_1 + (\lambda_2-\lambda_r) v_2 +\cdots + (\lambda_{r-1}-\lambda_{r}) v_{r-1} = 0
+\end{equation*}
+(le vecteur $v_r$ n'apparaît plus dans cette expression).
+On applique l'hypothèse de récurrence à la famille de $n-1$ vecteurs $(\lambda_1-\lambda_r)  v_1$,
+\ldots,$(\lambda_{r-1}-\lambda_{r}) v_{r-1}$, ce qui implique que tous ces vecteurs sont nuls :
+$$(\lambda_1-\lambda_r)  v_1 = 0 \qquad \ldots \qquad (\lambda_{r-1}-\lambda_{r}) v_{r-1}=0$$
+Comme les valeurs propres sont distinctes, alors $\lambda_i - \lambda_r \neq 0$ (pour $i=1,\ldots,r-1$).
+Ainsi 
+$$v_1  = 0 \qquad \ldots \qquad v_{r-1} =0.$$
+L'équation (\ref{eq:vpbis1}) implique en plus
+$$v_r = 0.$$
+Cela termine la récurrence.
+\end{proof}
+
+
+%----------------------------------------------------
+\subsection{Rappels sur les sommes directes}
+\label{ssec:rapsommesdirectes}
+
+
+Il faut bien comprendre le vocabulaire suivant. On commence par le cas de deux sous-espaces.
+
+\begin{definition}
+Soient $E_1,E_2$ deux sous-espaces vectoriels d'un espace vectoriel $E$.
+\begin{itemize}
+  \item La \defi{somme} de $E_1$ et de $E_2$ est
+  $$E_1+E_2 = \big\{  v_1 + v_2 \mid v_1 \in E_1 \text{ et } v_2 \in E_2 \big\}.$$
+  
+ 
+  \item On dit que $E_1$ et $E_2$ sont en \defi{somme directe} si $E_1 \cap E_2 = \{0\}$.
+   
+
+  \item On dit que $E_1$ et $E_2$ sont en \defi{somme directe dans $E$} si 
+  $E_1 + E_2 = E$ et $E_1 \cap E_2 = \{0\}$. On note alors
+  $E = E_1 \oplus E_2$.
+  
+\end{itemize}
+\end{definition}
+
+Cela se généralise à plusieurs sous-espaces.
+\begin{definition}
+Soient $E_1,E_2, \ldots,E_r$ des sous-espaces vectoriels d'un espace vectoriel $E$.
+\begin{itemize}
+  \item La \defi{somme} de $E_1,E_2, \ldots,E_r$ est
+  $$E_1+E_2+\cdots + E_r = \big\{  v_1 + v_2 + \cdots + v_r \mid v_1 \in E_1, v_2 \in E_2,\ldots,v_r \in E_r \big\}.$$  
+ 
+ 
+  \item On dit que $E_1,E_2,\ldots,E_r$ sont en \defi{somme directe} si 
+  \[\forall v_1 \in E_1,\ldots,\forall v_r \in E_r \qquad v_1+ \cdots +v_r = 0 \implies v_1=0,\ldots, v_r = 0.\]
+
+  \item On dit que $E_1,E_2,\ldots,E_r$ sont en \defi{somme directe dans $E$} s'ils sont en somme directe et que $E_1+E_2+\cdots+E_r=E$.  
+  On note alors $E = E_1 \oplus E_2 \oplus \cdots \oplus E_r $.
+\end{itemize}
+\end{definition}
+
+\begin{exemple}
+\sauteligne
+\begin{itemize}
+  \item Si $(v_1,\ldots,v_n)$ est une famille libre de $E$, alors les droites $\Kk v_1,\ldots,\Kk v_n$ sont en somme directe. 
+
+  \item Si $(v_1,\ldots,v_n)$ est une base de $E$, alors les droites $\Kk v_1,\ldots,\Kk v_n$ sont en somme directe dans $E$ :  $E = \Kk v_1 \oplus \cdots \oplus \Kk v_n$.
+\end{itemize}
+\end{exemple}
+
+
+La notion de somme directe généralise celle de base :
+\begin{proposition}
+Les sous-espaces vectoriels $E_1,\ldots,E_r$ sont en somme directe
+si et seulement si, pour chaque $v \in E_1 + \cdots +E_r$, il existe $v_i \in E_i$ unique ($1\le i \le r$) tel que 
+$$v = v_1+v_2+\cdots+v_r.$$
+\end{proposition}
+En particulier, $E = E_1 \oplus \cdots \oplus E_r$ si et seulement si, pour tout  
+$v \in E$, il existe un unique $v_i \in E_i$ tel que
+$$v = v_1+v_2+\cdots+v_r.$$
+
+Voici une autre application : si $E = E_1 \oplus \cdots \oplus E_r$ et si $\mathcal{B}_i$ est une base de $E_i$ (pour $1 \le i \le r$) alors $\mathcal{B} = \mathcal{B}_1 \cup \ldots \cup \mathcal{B}_r$ est une base de $E$.
+
+\bigskip
+
+Il est facile de calculer la dimension d'une somme directe :
+\begin{proposition}
+\label{prop:dimsommedirecte}
+Les sous-espaces vectoriels $E_1,\ldots,E_r$ sont en somme directe
+si et seulement si
+\[\dim (E_1 + \cdots +E_r) = \dim E_1 +\cdots+\dim E_r .\]
+\end{proposition}
+En particulier, si $E = E_1 + \cdots + E_r$, alors les sous-espaces vectoriels $E_1,\ldots,E_r$ sont en somme directe dans $E$ si et seulement si
+\[\dim E  = \dim E_1 +\cdots+\dim E_r .\]
+
+
+
+
+
+ 
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Soit $f : E \to E$ un endomorphisme. Quel est le lien entre l'assertion \og{}$f$ injective\fg{} et les valeurs propres de $f$ ? Si $E$ est de dimension finie, que peut-on dire de plus ?
+  
+  \item Soit $f : E \to E$ un endomorphisme. Dire si les assertions suivantes sont vraies ou fausses. Justifier.
+  \begin{enumerate}
+    \item Si $\lambda_1$ et $\lambda_2$ sont valeurs propres, alors $\lambda_1+\lambda_2$ aussi.
+    \item Si $v_1$ et $v_2$ sont vecteurs propres, alors $v_1+v_2$ aussi.
+    \item Si $\lambda$ est valeur propre, alors $\mu\cdot\lambda$ aussi (pour $\mu\in \Kk^*$).
+    \item Si $v$ est vecteur propre, alors $\mu \cdot v$ aussi (pour $\mu\in \Kk^*$).    
+  \end{enumerate}
+
+  \item Soient $f,g : E \to E$ deux endomorphismes. Dire si les assertions suivantes sont vraies ou fausses. Justifier.
+  \begin{enumerate}
+    \item Si $\lambda$ est valeur propre pour $f$ et pour $g$, alors $\lambda$ est valeur propre 
+    pour $f+g$.
+    \item Si $v$ est vecteur propre pour $f$ et pour $g$, alors $v$ est vecteur propre 
+    pour $f+g$.
+    \item Si $\lambda$ est valeur propre pour $f$, alors $\mu \cdot\lambda$ est valeur propre 
+    pour $\mu \cdot f$ (pour $\mu\in \Kk^*$).
+    \item Si $v$ est vecteur propre pour $f$, alors $\mu \cdot v$ est vecteur propre 
+    pour $\mu \cdot f$ (pour $\mu\in \Kk^*$).
+  \end{enumerate}
+  
+  \item Montrer (sans utiliser le cours) que si $\lambda$ et $\mu$ sont deux valeurs propres distinctes d'un endomorphisme $f : E \to E$ alors $E_\lambda \cap E_\mu = \{ 0 \}$.
+  
+  \item Montrer que si $f : E \to E$ est un endomorphisme vérifiant $f^2 = f$ (c'est-à-dire, pour tout $x\in E$, $f(f(x))=f(x)$) alors $E_0 = \Ker f$ et $E_1 = \Im f$.  
+  
+  
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Polynôme caractéristique}
+
+Le polynôme caractéristique permet de trouver facilement les valeurs propres.
+Encore une fois, le chapitre \og{}Valeurs propres, vecteurs propres\fg{}
+sur les matrices fournit de nombreux exemples.
+
+
+%----------------------------------------------------
+\subsection{Polynôme caractéristique}
+
+
+\begin{definition}
+Soit $f : E \to E$ un endomorphisme d'un $\Kk$-espace vectoriel $E$ de dimension finie $n$.
+Soit $A\in M_n(\Kk)$ la matrice de $f$ dans une base $\mathcal{B}$.
+
+Le \defi{polynôme caractéristique} de $f$ est égal au polynôme caractéristique de la matrice $A$ :
+\mybox{$\chi_f(X) = \chi_A(X) = \det(A - XI_n).$}
+\end{definition}
+
+Le polynôme caractéristique est indépendant de la matrice $A$ (et du choix de la base $\mathcal{B}$).
+En effet, si $B$ est la matrice du même endomorphisme $f$ mais dans une autre base $\mathcal{B}'$, alors on sait qu'il existe $P \in M_n(\Kk)$ inversible telle que $B = P^{-1}AP$.
+On écrit :
+$$B-XI_n = P^{-1}(A-XI_n)P.$$
+Alors, 
+$$\chi_B(X) 
+= \det(B-XI_n)
+= \frac{1}{\det(P)} \cdot \det(A-XI_n) \cdot \det(P)
+= \det(A-XI_n) 
+= \chi_A(X).$$
+
+
+
+%----------------------------------------------------
+\subsection{Caractérisation des valeurs propres}
+
+\begin{proposition}
+\sauteligne
+\label{prop:diagonvpcarac}
+\mybox{$\lambda \text{ valeur propre de } f \quad \iff \quad
+\chi_f(\lambda) = 0$}
+\end{proposition}
+
+Voyons une autre formulation.
+Soit $f : E \to E$. Soit $A \in M_n(\Kk)$ sa matrice dans une base $\mathcal{B}$.
+Soit $\lambda \in \Kk$. Alors :
+\[\lambda \text{ valeur propre de $f$ } \iff \ \det (A-\lambda I_n) = 0\]
+
+\begin{proof}
+
+
+\begin{align*}
+\lambda \text{ est une valeur propre de } f
+&\quad\iff\quad \exists v \in E\setminus\{0\}, \quad  f(v) = \lambda v \\
+&\quad\iff\quad \Ker(f-\lambda \id_E) \neq \{0\} \\
+&\quad\iff\quad f-\lambda\id_E \text{ n'est pas injective} \\
+&\quad\iff\quad f-\lambda\id_E \text{ n'est pas bijective} \\
+&\quad\iff\quad A-\lambda I_n \text{ n'est pas inversible} \\
+&\quad\iff\quad \det (A-\lambda I_n) = 0 \\
+&\quad\iff\quad \chi_f(\lambda) = 0
+\end{align*}
+
+Noter que l'équivalence entre \og{}$f-\lambda\id_E$ non injective\fg{}
+et \og{}$f-\lambda\id_E$ non bijective\fg{} repose sur le fait que :
+(a) $f-\lambda\id_E$ est un endomorphisme (il va de $E$ dans lui-même)
+et (b) $E$ est de dimension finie.
+\end{proof}
+
+
+
+\begin{exemple}
+Si $D$ est la matrice diagonale
+$$D = \begin{pmatrix}
+\lambda_{1}&0&\cdots&0 \cr
+0&\lambda_{2}&\ddots&\vdots\cr
+\vdots&\ddots& \ddots &0\cr
+0&\cdots&0& \lambda_{n} \cr
+\end{pmatrix}$$ 
+alors $\chi_D(X) = (\lambda_1-X)\cdots(\lambda_n-X)$ et donc les $\lambda_i$ sont les racines de $\chi_D(X)$ et aussi
+les valeurs propres de $D$.
+\end{exemple}
+
+
+\begin{exemple}
+Soit $E$ un $\Cc$-espace vectoriel de dimension finie.
+Soit $f : E \to E$ une \defi{symétrie}, c'est-à-dire un endomorphisme qui vérifie
+$f^2 = -f$. Montrons que le polynôme caractéristique est de la forme $\chi_f(X) = \pm X^a(X+1)^b$ avec $a,b \ge0$.
+
+Pour cela, cherchons quelle peut être une valeur propre de $f$. Soit $\lambda \in \Kk$ une valeur propre, et soit $v \in E \setminus \{0\}$ un vecteur propre associé.
+Alors :
+\begin{align*}
+       f(v) = \lambda v 
+  & \implies f\big( f(v) \big)  = f(\lambda v) \\
+  & \implies -f(v) = \lambda  f(v) \qquad \text{ car } f^2 = -f \\
+  & \implies -\lambda v  = \lambda^2 v \qquad \text{ car $v$ vecteur propre} \\
+  & \implies -\lambda = \lambda^2 \qquad \text{ car $v$ non nul } \\
+  & \implies \lambda(\lambda+1) = 0 \\
+  & \implies \lambda = 0 \quad \text{ ou } \quad \lambda = -1
+\end{align*}
+Conséquence : les seules valeurs propres possibles sont $0$ ou $-1$.
+Par la proposition \ref{prop:diagonvpcarac}, les seules racines possibles de $\chi_f(X)$ sont 
+$0$ et $-1$. Donc $\chi_f(X) = \alpha X^a(X+1)^b$ où $\alpha\in \Cc^*$, $a,b\ge0$. Nous verrons juste après
+que le coefficient dominant est $\pm1$. Ainsi $\chi_f(X) = \pm X^a(X+1)^b$.
+\end{exemple}
+
+
+%----------------------------------------------------
+\subsection{Coefficients du polynôme caractéristique}
+
+
+
+\begin{proposition}
+\label{prop:polcartrdetbis}
+Soit $E$ un $\Kk$-espace vectoriel de dimension $n$.
+Soit $f : E \to E$ un endomorphisme. Soit $A$ la matrice de $f$ dans une base $\mathcal{B}$.
+Le polynôme caractéristique de $f$ est de degré $n$ et vérifie :
+$$\chi_f(X)=(-1)^n X^n + (-1)^{n-1}(\tr A)X^{n-1}+\dots+\det A.$$
+\end{proposition} 
+
+
+Si $f$ admet $n$ valeurs propres, qui sont donc toutes les racines de $\chi_f(X)$, alors de l'égalité
+$$\chi_f(X)=(-1)^n \prod_{i=1}^n(X-\lambda_i)$$
+on en déduit :
+
+\mybox{La somme des valeurs propres vaut $\tr A$.}
+
+\mybox{Le produit des valeurs propres vaut $\det A$.}
+
+
+\begin{proof}[Preuve de la proposition \ref{prop:polcartrdetbis}]
+Si $A=(a_{ij})_{1\le i,j\le n}$ est la matrice de $f$, on a
+$$\chi_f(X) = \det(A-XI_n) 
+= \begin{vmatrix}
+a_{11}-X&a_{12}&\cdots&a_{1n}\cr 
+a_{21}&a_{22}-X& \cdots &a_{2n} \cr
+\vdots&\vdots&\ddots & \vdots\cr
+a_{n1}&a_{n2}&\cdots&a_{nn}-X
+\end{vmatrix}.$$
+
+Par la définition du déterminant :
+$$\chi_f(X) = \sum_{\sigma\in \mathcal{S}_n}\epsilon(\sigma)b_{\sigma(1)1}\cdots b_{\sigma(n)n}
+\qquad  \text{ où } \  b_{ij}=a_{ij} \ \text{ si } \ i\neq j \quad \text{ et } \quad b_{ii}=a_{ii}-X$$
+On met à part la permutation identité :
+$$\chi_f(X) = (a_{11}-X)\cdots(a_{nn}-X)
++\sum_{\sigma\in \mathcal{S}_n,\sigma\neq\id}\epsilon(\sigma)b_{\sigma(1)1}\cdots b_{\sigma(n)n}.$$
+Or, si $\sigma\neq\id$, il y a au plus $n-2$ entiers $k$ tels que $\sigma(k)=k$, et donc le polynôme
+$$\sum_{\sigma\in \mathcal{S}_n,\sigma\neq\id}\epsilon(\sigma)b_{\sigma(1)1}\cdots b_{\sigma(n)n}$$
+est de degré au plus $n-2$.
+
+Conclusion :
+\begin{itemize}
+  \item Le polynôme $\chi_f(X)$ est de degré $n$.
+  \item Les termes de degré $n$ et $n-1$ proviennent du produit 
+$$(a_{11}-X)\cdots(a_{nn}-X)=(-1)^nX^n+(-1)^{n-1}(\tr A)X^{n-1}+\cdots$$   
+  \item Le terme constant, quant à lui, est donné par $\chi_f(0)=\det A$.
+\end{itemize}
+\end{proof}
+
+%----------------------------------------------------
+\subsection{Exemples et applications}
+
+Voyons quelques applications du polynôme caractéristique :
+
+\begin{itemize}  
+  \item Si $E$ est un $\Kk$-espace vectoriel de dimension $n$, alors tout endomorphisme $f :  E \to E$ admet au plus $n$ valeurs propres. En effet, le polynôme caractéristique de $f$ est un polynôme de degré $n$, donc admet au plus $n$ racines dans $\Kk$.
+
+  \item Si $E$ est un $\Cc$-espace vectoriel, alors tout endomorphisme $f :  E \to E$ admet  au moins une valeur propre. En effet, le polynôme caractéristique de $f$ est un polynôme complexe non constant donc admet (au moins) une racine $\lambda\in \Cc$. Alors $\lambda$ est une valeur propre de $f$.
+\end{itemize} 
+
+
+
+\begin{exemple}
+Soit $A \in M_n(\Rr)$ une matrice.
+Alors $A$ possède un sous-espace invariant de dimension $1$ ou $2$.
+
+\begin{proof}
+Considérons la matrice $A \in M_n(\Rr)$ comme une matrice de ${M}_n(\Cc)$.
+Alors $A$ possède une valeur propre $\lambda = a+\ii b \in \Cc$ ($a,b$ réels), et un  vecteur propre associé 
+ $Z=X+\ii Y \in \Cc^n \setminus\{0\}$ 
+où $X,Y \in \Rr^n$. 
+
+Alors :
+\begin{align*}
+A Z  = \lambda Z 
+  &\implies A(X+\ii Y) = (a+\ii b)(X+\ii Y) \\
+  &\implies AX + \ii AY = (aX -bY) + \ii (bX+aY) \\
+  &\implies \left\{\begin{array}{rcl} AX &=& aX-bY \\ AY &=& bX +a Y \end{array}\right. \\
+\end{align*}
+En particulier, $AX$ et $AY$ appartiennent à $\Vect(X,Y)$, donc le sous-espace (réel) $\Vect(X,Y)$ est stable par $A$. 
+Or $X$ ou $Y$ n'est pas nul, donc $\Vect(X, Y)$ est de dimension $1$ ou $2$. 
+\end{proof}
+\end{exemple}
+
+
+\begin{exemple}
+Soit $f$ un endomorphisme de $E$. Si $E$ est de dimension $n$ et si le polynôme caractéristique 
+$\chi_f(X) \in \Kk[X]$ admet $n$ racines distinctes dans $\Kk$, alors il existe une base 
+de $E$ formée de vecteurs propres de $f$.
+
+\begin{proof}
+Soient $\lambda_1,\ldots,\lambda_n \in \Kk$ les $n$ racines distinctes de $\chi_f(X)$. 
+Ce sont aussi $n$ valeurs propres de $f$. 
+Soient $v_1,\ldots,v_n$ des vecteurs propres associés.
+Par le corollaire \ref{cor:vpbislibre}, la famille $(v_1,\ldots,v_n)$ est une famille libre de $E$.
+C'est donc une famille libre à $n$ éléments dans un espace vectoriel de dimension $n$ : cela implique
+que $(v_1,\ldots,v_n)$ est une base de $E$.
+\end{proof}
+
+%Bien entendu la réciproque est fausse car par exemple si $n \ge 2$, toute base de $E$ est formée de vecteurs
+%propres de $\id_E$ et le polynôme caractéristiquede $\id_E$ est  $\chi_{\id_E}(X)=(X-1)^n$ qui n'a qu'une seule
+% racine : $1$. 
+\end{exemple}
+
+
+
+
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Calculer le polynôme caractéristique d'une matrice triangulaire.
+
+  \item Trouver une application linéaire $f : \Rr^2 \to \Rr^2$ qui n'admet aucune valeur propre réelle. Montrer que les valeurs propres complexes d'un tel endomorphisme $f$ seront toujours conjuguées.
+  
+  \item Calculer le polynôme caractéristique de $A
+  = \left(\begin{smallmatrix}
+  -1 & \alpha + 1 & 0 \\
+1 & \alpha & 1 \\
+3 & - \alpha - 1 & 2
+\end{smallmatrix}\right)$ en fonction de $\alpha \in \Rr$. Montrer que $-1$ est valeur propre et en déduire les autres valeurs propres.
+Quelle est la multiplicité de chaque valeur propre ? Trouver un vecteur propre pour chaque valeur propre.
+  
+  \item Soit $E$ un $\Cc$-espace vectoriel de dimension $n$. 
+  Soit $f : E \to E$ un endomorphisme tel que $f^n$ soit l'application nulle (c'est-à-dire, pour tout $x\in E$, $f\circ f \circ \cdots \circ f(x) = 0$). Si $\lambda$ est une valeur propre de $f$, que peut valoir $\lambda$ ? En déduire le polynôme caractéristique de $f$.
+  
+\end{enumerate}
+\end{miniexercices}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Diagonalisation}
+
+
+Dans le chapitre \og{}Valeurs propres, vecteurs propres\fg{},
+nous avions énoncé un critère qui permet de diagonaliser certaines matrices.
+Ici nous allons énoncer un critère plus fort : nous trouvons des conditions qui sont exactement équivalentes à ce qu'une matrice soit diagonalisable.
+
+
+%----------------------------------------------------
+\subsection{Endomorphisme diagonalisable}
+
+
+\begin{definition}
+On dit qu'un endomorphisme $f : E \to E$ est \defi{diagonalisable} 
+s'il existe une base de $E$ formée de vecteurs propres de $f$.
+\end{definition} 
+
+
+Rappelons que :
+\begin{definition}
+Soit $A$ une matrice de $M_n(\Kk)$. On dit que $A$ est \defi{diagonalisable} 
+sur $\Kk$ s'il existe une matrice $P\in M_n(\Kk)$ inversible telle que $P^{-1}AP$ soit diagonale.
+\end{definition} 
+
+Bien sûr, les deux définitions sont cohérentes :
+\begin{proposition}
+Si $A$ est la matrice de $f$ dans une base $\mathcal{B}$ quelconque alors :
+\mybox{$f$ diagonalisable \quad $\iff$ \quad $A$ diagonalisable}
+\end{proposition}
+
+Cette proposition est facile, mais il faut bien comprendre ce lien.
+
+\begin{proof}~
+\begin{itemize}
+\item $\Longrightarrow$. Soit $f$ un endomorphisme diagonalisable.
+\begin{itemize}
+  \item Si $D$ est la matrice de $f$ dans la base $(v_1,\ldots,v_n)$ formée de vecteurs propres, alors
+  $D$ est une matrice diagonale. En effet, comme $f(v_i) = \lambda_i v_i$, la matrice $D$ est diagonale et le $i$-ème coefficient de la diagonale est $\lambda_i$.
+
+  \item Si $A$ est la matrice de $f$ dans une base $\mathcal{B}$ quelconque, alors $A$ est semblable à la matrice $D$ ci-dessus. Il existe donc $P$ inversible telle que $D = P^{-1}AP$ soit diagonale.
+\end{itemize}
+
+\item $\Longleftarrow$. Soit $A$ une matrice diagonalisable.
+
+L'endomorphisme $f$, considéré comme une application $f : \Kk^n \to \Kk^n$, s'écrit $f(X)=AX$ où les coordonnées de $X$ s'expriment dans la base canonique
+$(Y_1,\ldots,Y_n)$ :
+$$Y_1 = \left(\begin{smallmatrix}1\\0\\0\\\vdots\end{smallmatrix}\right) \qquad
+Y_2 = \left(\begin{smallmatrix}0\\1\\0\\\vdots\end{smallmatrix}\right) \qquad \cdots$$
+
+Soit $P$ une matrice telle que $D = P^{-1}AP$ soit une matrice diagonale. Notons
+$\lambda_1,\ldots,\lambda_n$ les coefficients de la diagonale.
+Notons $(X_1,\ldots,X_n)$ les vecteurs colonnes de $P$.
+Ils s'obtiennent aussi comme $X_i = P Y_i$.
+Montrons que $X_i$ est un vecteur propre de $f$, associé à la valeur propre $\lambda_i$ :
+$$f(X_i) = AX_i = (PDP^{-1})(P Y_i) = PD Y_i = P (\lambda_i Y_i) = \lambda_i (P Y_i) = \lambda_i X_i.$$
+Comme $P$ est inversible, alors $(X_1,\ldots,X_n)$ est une base de vecteurs propres.
+\end{itemize}
+\end{proof}
+
+
+
+
+\begin{exemple}[Projection]
+On suppose que $E = F \oplus G$ avec $F$ et $G$ deux sous-espaces vectoriels de $E$. N'importe quel $v \in E$ se décompose de façon unique en
+ $v = x+y$ avec $x\in F$, $y\in G$.
+La projection sur $F$ suivant $G$ est l'endomorphisme de $E$ défini par :
+\[
+\begin{array}{cccc}
+p  : & E & \longrightarrow & E \\
+&v = x + y & \longmapsto & x 
+\end{array}
+\]
+
+\begin{itemize}
+  \item 
+Pour $v=x \in F$, on a $p(x)=x$ ; ces $x$ sont les vecteurs propres pour la valeur propre $1$ :
+\[F = \Ker (p -\id_E) = E_1(p).\]
+
+  \item 
+Pour $v=y \in G$, on a $p(y) = 0$ ;  ces $y$ sont les vecteurs propres pour la valeur propre $0$ :
+\[G = \Ker p = E_0(p).\]
+
+  \item 
+Comme $E = F \oplus G$, alors l'union d'une base de vecteurs propres de $E_1(p)$ et d'une base de vecteurs
+propres de $E_0(p)$ forme une base de vecteurs propres de $E$. 
+%Ainsi, $p$ est diagonalisable.
+
+  \item Conclusion : $p$ est diagonalisable. 
+
+\end{itemize}
+\end{exemple}
+
+
+\begin{exemple}[Réflexion]
+On suppose encore que $E =F \oplus G$. On définit la réflexion par rapport à $F$ suivant $G$ par :
+\[
+\begin{array}{cccc}
+r  : & E & \longrightarrow & E \\
+& v = x + y & \longmapsto & x - y
+\end{array}
+\]
+%C'est un endomorphisme de $E$ tel que $r^2 =\id_E$. 
+De façon semblable à l'exemple précédent, on montre que $r$ est diagonalisable avec 
+\[F =\Ker (r-\id_E) = E_1(r) \qquad \text{ et } \qquad G = \Ker(r+\id_E) = E_{-1}(r) .\]
+
+\end{exemple}
+
+
+
+\begin{proposition}
+Si $f$ est un endomorphisme de $E$ et si on note $\lambda_1,\ldots,\lambda_r$ ses valeurs propres distinctes 
+alors :
+\[f \text{ est diagonalisable } \iff E = \Ker (f -\lambda_1\id_E) \oplus \cdots \oplus \Ker (f -\lambda_r\id_E).\] 
+Autrement dit, $f$ est diagonalisable si et seulement si $E$ est somme directe des sous-espaces propres de $f$.
+\end{proposition}
+
+Notons que, dans les deux exemples précédents (la projection et la symétrie), l'espace vectoriel $E$ est bien la somme directe des deux seuls sous-espaces propres.
+ 
+\begin{proof}~
+\begin{itemize}
+
+\item $\Longrightarrow$.
+Par le théorème \ref{th:vpsommedirecte}, les sous-espaces propres de $f$ sont en somme directe. Notons $F = E_{\lambda_1} \oplus \cdots \oplus  E_{\lambda_r}$. Comme $f$ est supposé diagonalisable, alors il existe une base de $E$ formée de vecteurs propres de $f$. Mais ces vecteurs propres sont aussi des éléments de $F$. Ainsi $F$ contient une base de $E$. On en conclut que $E=F= E_{\lambda_1} \oplus \cdots \oplus  E_{\lambda_r}$. 
+
+
+\item $\Longleftarrow$.
+Par hypothèse, les sous-espaces propres sont en somme directe dans $E$. On choisit une base pour chacun des sous-espaces propres $E_{\lambda}= \Ker (f -\lambda \id_E)$. Les vecteurs de chacune de ces bases sont des vecteurs propres de $f$. L'union de ces bases est une base de $E$ formée de vecteurs propres de $f$, donc $f$ est diagonalisable.
+
+\end{itemize}
+\end{proof}
+
+
+%----------------------------------------------------
+\subsection{Rappels sur les polynômes}
+
+
+
+Rappelons quelques définitions.
+Soit $P(X) \in \Kk[X]$ un polynôme.
+\begin{itemize}
+  \item $\lambda \in \Kk$ est \defi{racine} de $P$ si $P(\lambda)=0$.
+  \item $\lambda \in \Kk$ est racine de $P$ si et seulement si $P(X) = (X-\lambda) Q(X)$ pour un polynôme $Q \in \Kk[X]$.
+  \item La \defi{multiplicité} de $\lambda \in \Kk$ dans $P$ est le plus grand entier $m$ tel que 
+  $P(X) = (X-\lambda)^m Q(X)$ pour un polynôme $Q \in \Kk[X]$.
+\end{itemize}
+
+
+\textbf{Notation.}  On note $m(\lambda)$ la multiplicité de $\lambda$ comme racine de $P$.
+
+\begin{itemize}
+
+  \item Une racine de multiplicité $1$ est une \defi{racine simple}.
+  \item Une racine de multiplicité $2$ est une \defi{racine double}\ldots   
+  \item Si $\lambda$ n'est pas racine de $P$, on posera $m(\lambda)=0$.
+  
+\end{itemize}  
+  
+  
+\begin{exemple}
+\sauteligne
+\begin{itemize}
+  \item $P(X) = (X-2)^3(X^2+X+1) \in \Rr[X]$ admet $2$ comme racine, et sa multiplicité est $3$.
+  \item Le même polynôme considéré cette fois dans $\Cc[X]$ s'écrit 
+  $$P(X) = (X-2)^3 \left(X+\frac12+\ii\frac{\sqrt{3}}{2}\right)\left(X+\frac12-\ii\frac{\sqrt{3}}{2}\right).$$
+  Les racines complexes $-\frac12\pm\ii\frac{\sqrt{3}}{2}$ sont chacune de multiplicité $1$.
+\end{itemize}
+\end{exemple}
+
+\begin{exemple}
+Si $\lambda_1,\ldots,\lambda_r$ sont deux à deux distincts et si
+\[P(X) =(X-\lambda_1)^{m_1}\cdots(X-\lambda_r)^{m_r},\]
+alors $m_i$ est la multiplicité de $\lambda_i$ dans $P(X)$, pour tout $i$ ($1\le i\le r$). 
+\end{exemple}
+
+
+
+\begin{definition}
+Un polynôme $P(X) \in \Kk[X]$ est \defi{scindé} sur $\Kk$ 
+s'il s'écrit 
+\[P(X) = a_n(X-\lambda_1)\cdots(X-\lambda_n)\]
+pour certains $\lambda_i \in \Kk$ et un $a_n \in \Kk^*$.
+
+\end{definition}
+
+Souvent, on regroupe les racines égales et on écrit :
+\[P(X) = a_n(X-\lambda_1)^{m(\lambda_1)}\cdots(X-\lambda_r)^{m(\lambda_r)}\]
+avec les $\lambda_i$ deux à deux distinctes et leurs multiplicités $m(\lambda_i)  \ge 1$.
+
+
+\begin{exemple}
+\sauteligne
+\begin{itemize}
+  \item Le polynôme $P(X) = (X-2)^3(X^2+X+1) \in \Rr[X]$ n'est pas scindé sur $\Rr$, car $X^2+X+1$ n'a pas de racine réelle. Par contre, il est scindé sur $\Cc$ (voir le commentaire ci-dessous).
+  
+  \item Le polynôme $P(X) = X^2+4X-3$ est scindé sur $\Rr$ car ses racines sont les réels
+  $\lambda_1 = -2 - \sqrt{7}$, $\lambda_2 = -2 + \sqrt{7}$. Il s'écrit donc aussi $P(X) = (X-\lambda_1)(X-\lambda_2)$.  
+\end{itemize}
+\end{exemple}
+
+\bigskip
+
+Quelques commentaires importants :
+\begin{itemize}  
+\item Pour un polynôme $P \in \Kk[X]$ non nul, on a :
+\[P \text{ scindé sur } \Kk \quad \iff \quad \sum_{\lambda \text{ racine de } P} m(\lambda) = \deg P\]
+
+  \item D'après le théorème de d'Alembert-Gauss :
+   \mybox{Tous les polynômes sont scindés lorsque le corps de base est $\Cc$.}
+
+  \item Et donc, si $\Kk = \Cc$, on a toujours :
+  \[\deg P = \sum_{\lambda \text{ racine de } P} m(\lambda).\]
+  
+\end{itemize}
+
+
+%----------------------------------------------------
+\subsection{Diagonalisation}
+\label{ssec:diagon}
+
+Nous allons énoncer un critère simple qui caractérise si un endomorphisme est diagonalisable ou pas. Ce critère se base sur le polynôme caractéristique et la dimension des sous-espaces propres, pour lesquels on établit un premier lien dans la proposition suivante. Les preuves seront faites dans la section \ref{ssec:preuvesdiagon}.
+
+\begin{proposition}
+\label{prop:dimElambda}
+Soient $f$ un endomorphisme de $E$ et $\chi_f$ son polynôme caractéristique.
+Soit $\lambda$ une valeur propre de $f$, de multiplicité $m(\lambda)$  comme racine de $\chi_f$, et soit $E_\lambda$ le sous-espace propre associé. Alors on a
+\mybox{$1\leq \dim E_\lambda\leq m(\lambda)$.}
+\end{proposition} 
+
+
+\'Enonçons maintenant le théorème principal de ce chapitre. C'est un critère pour savoir si un endomorphisme -- ou une matrice -- est diagonalisable. Contrairement aux critères précédents, il s'agit ici d'une équivalence.
+
+
+\begin{theoreme}
+\label{th:diagon}
+Soit $f :  E \to E$ un endomorphisme. Alors :
+\mybox{\begin{minipage}{0.8\textwidth}
+\[f \text{ est diagonalisable sur $\Kk$ } \quad\iff\quad \left\{\begin{array}{l}
+\text{i) } \chi_f(X) \mbox{ est scindé sur $\Kk$}\\
+\text{ et }\\
+\text{ii) pour toute valeur propre $\lambda$ de $f$,} \\ \quad m(\lambda) = \dim \Ker(f-\lambda \id_E).
+\end{array}\right.\]
+\end{minipage}}
+\end{theoreme}
+
+
+Voici une autre reformulation pour mieux comprendre ce théorème.
+
+Soit $f : E \to E$. L'endomorphisme $f$ est diagonalisable si et seulement si le polynôme caractéristique de $f$, $\chi_f(X)$, est scindé sur $\Kk$ et si, pour 
+chacune des racines $\lambda$, la multiplicité de $\lambda$ est égale 
+  à la dimension du sous-espace propre $E_\lambda = \Ker(f-\lambda \id_E)$.
+  
+\bigskip
+
+Bien évidemment, il faut savoir transcrire ce théorème en termes de matrices :
+  
+Soit $A \in M_n(K)$. Alors :
+\[A \text{ est diagonalisable sur $\Kk$ } \quad\iff\quad \left\{\begin{array}{l}
+\text{i) } \chi_A(X) \text{ est scindé sur $\Kk$}\\
+\text{ et }\\
+\text{ii) pour toute valeur propre $\lambda$ de $A$,} \\ \quad m(\lambda) = \dim \Ker(A-\lambda I_n).
+\end{array}\right.\]
+
+\begin{corollaire}
+\label{cor:diagon}
+Si le polynôme $\chi_f(X)$ (resp. $\chi_A(X)$) est scindé et si les racines sont simples, alors $f$ (resp. $A$) est diagonalisable.
+\end{corollaire}
+
+En effet, dans ce cas, la multiplicité $m(\lambda)$ vaut $1$ pour chaque valeur.
+Par la proposition \ref{prop:dimElambda}, on a $1 \le \dim E_\lambda \le m(\lambda)$, donc la dimension de chaque sous-espace propre est aussi $1$. Par le théorème \ref{th:diagon}, l'endomorphisme (ou la matrice) est diagonalisable.
+
+
+%----------------------------------------------------
+\subsection{Exemples}
+
+
+\begin{exemple}
+Toute matrice réelle $2 \times 2$ symétrique
+$A = \left(\begin{array}{cc}
+a & b \\
+b & d
+\end{array}\right)$
+est diagonalisable sur $\Rr$. 
+
+La trace vaut $\tr A = a+d$, le déterminant vaut $\det A = ad-b^2$.
+On utilise la formule de la proposition \ref{prop:polcartrdetbis} pour en déduire, sans calculs, que le polynôme caractéristique est :
+$$\chi_A(X) = X^2 - \tr(A) X + \det(A) = X^2 - (a+d) X + ad-b^2.$$
+
+Sans les calculer, montrons que $\chi_A(X)$ admet deux racines réelles.
+On calcule le discriminant de l'équation du second degré donnée par $\chi_A(X)=0$ :
+\begin{equation}
+\label{eq:diagiondelta}
+\Delta  = (a+d)^2 - 4(ad-b^2) = a^2+d^2 -2ad +4b^2 = (a-d)^2 + 4b^2.
+\end{equation}
+Cela prouve que $\Delta \ge 0$. Ainsi les deux racines $\lambda_1$ et $\lambda_2$ du polynôme caractéristique sont réelles.
+
+
+Conclusion :
+\begin{itemize}
+
+  \item Si $\Delta > 0$ alors ces deux racines sont réelles et distinctes. Ainsi $\chi_A(X) = (X-\lambda_1)(X-\lambda_2)$ est scindé à racines simples, donc la matrice $A$ est diagonalisable.
+  
+  \item Si $\Delta =0$ alors, par l'équation (\ref{eq:diagiondelta}), on a $(a-d)^2 = 0$ et $b^2=0$. Donc
+  $a=d$ et $b=0$. La matrice $A$ est une matrice diagonale (donc diagonalisable !).
+\end{itemize}
+\end{exemple}
+
+
+\begin{exemple}
+La matrice de permutation circulaire 
+\[A =
+\begin{pmatrix}
+0&\cdots&\cdots&0&1\\
+1&0&\cdots&\cdots&0\\
+0&1&\ddots&&\vdots\\
+\vdots&\ddots&\ddots&\ddots&\vdots\\
+0&\cdots&0&1&0
+\end{pmatrix}
+\in M_n(\Cc)\] 
+est diagonalisable sur $\Cc$.
+
+En effet :
+\begin{itemize}
+  \item son polynôme caractéristique est $\chi_A(X) = (-1)^n(X^n-1)$ (voir le chapitre \og{}Valeurs propres, vecteurs propres\fg{}, section \og{}Matrice compagnon\fg{}),
+  
+      
+  \item les valeurs propres sont les racines $n$-ièmes de l'unité :
+  \[1,e^{\ii\frac{2\pi}{n}},\ldots,e^{\ii\frac{2(n-1)\pi}{n}}\]
+  
+  \item les racines sont simples,  
+  
+  \item le polynôme caractéristique est bien sûr scindé sur $\Cc$,
+  
+  \item par le corollaire \ref{cor:diagon}, la matrice $A$ est donc diagonalisable.
+\end{itemize}
+
+Exercice : Trouver une base de vecteurs propres.
+\end{exemple}
+
+
+\begin{exemple}
+Soit $n \ge 2$. Soit la matrice
+\[A = 
+\begin{pmatrix}
+0&1&0&\cdots&0\\
+\vdots&\ddots&\ddots&\ddots&\vdots\\
+\vdots&&\ddots&\ddots&0\\
+\vdots&& &\ddots&1\\
+0&\cdots&\cdots&\cdots&0
+\end{pmatrix} \in M_n(\Kk)
+\]
+définie par des $1$ au-dessus de la diagonale.
+Cette matrice n'est jamais diagonalisable !
+En effet :
+\begin{itemize}
+  \item Le polynôme caractéristique de $A$ est $\chi_A(X) = (-1)^n X^n$ (la matrice est triangulaire, de diagonale nulle).
+  Donc $\lambda = 0$ est la seule valeur propre et $m(0) = n$.
+  \item Par contre, $E_0 = \Ker (A -\lambda I_n) = \Ker A$ est de dimension $\dim \Ker A < n$ car $A$ n'est pas la matrice nulle.
+  \item Comme $\dim E_0 < m(0)$ alors, par le théorème \ref{th:diagon}, $A$ n'est pas diagonalisable.
+\end{itemize}
+\end{exemple}
+
+
+
+
+%----------------------------------------------------
+\subsection{Diagonaliser}
+
+\defi{Diagonaliser} une matrice $A \in M_n(\Kk)$ signifie trouver, 
+si elles existent, $P \in M_n(\Kk)$ inversible et $D \in M_n(\Kk)$ diagonale telles que
+\[A = PDP^{-1} .\]
+
+\bigskip
+
+Soit $A \in M_n(\Kk)$ une matrice carrée $n \times n$. 
+Pour la diagonaliser :
+\begin{enumerate}
+  \item On calcule d'abord son polynôme caractéristique $\chi_A(X)$.
+
+  \item On cherche les racines de $\chi_A(X)$ : ce sont les valeurs propres de $A$.
+  Si $\chi_A(X)$ n'est pas scindé sur $\Kk$, alors $A$ n'est pas diagonalisable.
+  
+  \item Pour chaque valeur propre $\lambda$ de $A$, on cherche une base de $\Ker(A-\lambda I_n)$, 
+  c'est-à-dire on cherche une base de l'espace des solutions du système
+\[AX = \lambda X.\]
+
+  \item Si, pour toute valeur propre $\lambda$ de $A$, $\dim \Ker (A -\lambda I_n) = m(\lambda)$, alors 
+  $A$ est diagonalisable. Sinon elle n'est pas diagonalisable.
+  
+  \item Dans le cas diagonalisable, la réunion des bases des sous-espaces propres 
+  forme une base de vecteurs propres. Ainsi, si $P$ est la matrice dont les vecteurs 
+  colonnes sont ces vecteurs propres, alors $D=P^{-1}AP$ est une matrice diagonale dont les éléments diagonaux sont les valeurs propres $\lambda$ de $A$, chacune apparaissant $m(\lambda)$ fois. 
+ \end{enumerate} 
+
+
+On renvoie une dernière fois au chapitre \og{}Valeurs propres, vecteurs propres\fg{} pour des exemples de diagonalisation.
+
+
+
+\begin{exemple}
+Soit $$A=\left(\begin{matrix}1&0&0\cr0&1&0\cr1&-1&2\end{matrix}\right).$$
+Démontrons que $A$ est diagonalisable sur $\Rr$ et trouvons une matrice $P$ telle que $P^{-1}AP$ soit diagonale.
+
+
+\begin{enumerate}
+  \item Commençons par calculer le polynôme caractéristique de $A$ :
+$$\chi_A(X)
+= \det(A-XI_3) 
+= \begin{vmatrix}1-X&0&0\cr 0&1-X&0\cr1&-1&2-X\end{vmatrix}
+=(1-X)^2(2-X)$$
+  
+  \item Les racines du polynôme caractéristique sont les réels $1$ avec la multiplicité $m(1)=2$, et $2$ avec la multiplicité $m(2)=1$. On remarque de plus que le polynôme est scindé sur $\Rr$.
+
+  
+  \item Déterminons les sous-espaces propres associés.
+  \begin{itemize}
+    \item Soit $E_1$ le sous-espace propre associé à la valeur propre double $1$ : $E_1 = \Ker(A-I_3) = \{X \in \Rr^3 \mid A \cdot X=X\}$.
+Si on note $X = \left(\begin{smallmatrix}x\\y\\z\end{smallmatrix}\right)$ alors :
+$$X\in E_1\iff AX=X \iff \left\{\begin{array}{rcl}
+x&=&x\cr 
+y&=&y\cr 
+x-y+z&=&0
+\end{array}\right.\iff x-y+z = 0$$
+$E_1 = \left\lbrace\left(\begin{smallmatrix}x\\y\\-x+y\end{smallmatrix}\right) \mid x \in \Rr, y\in \Rr\right\rbrace$ est donc un plan vectoriel dont, par exemple, les vecteurs 
+$X_1=\left(\begin{smallmatrix}1\\0\\-1\end{smallmatrix}\right)$ et 
+$X_2=\left(\begin{smallmatrix}0\\1\\1\end{smallmatrix}\right)$ forment une base.
+
+    
+    \item Soit $E_2$ le sous-espace propre associé à la valeur propre simple $2$ : $E_2 = \Ker(A-2I_3) = \{ X \in\Rr^3 \mid  A\cdot X=2X\}$. Alors : 
+$$X\in E_2\iff A\cdot X=2X \iff \left\{\begin{array}{rcl}
+x&=&2x\cr 
+y&=&2y\cr 
+x-y+2z&=&2z
+\end{array}\right.\iff x=0 \text{ et } y=0$$
+$E_2 = \left\lbrace\left(\begin{smallmatrix}0\\0\\z\end{smallmatrix}\right) \mid z \in \Rr\right\rbrace$ est donc une droite vectorielle, dont le vecteur $X_3=\left(\begin{smallmatrix}0\\0\\1\end{smallmatrix}\right)$ est une base.
+
+    
+  \end{itemize}
+  
+  
+  \item Les dimensions des sous-espaces propres sont égales aux  multiplicités des valeurs propres correspondantes :
+  $\dim E_1 = 2 = m(1)$, $\dim E_2 = 1 = m(2)$. La matrice $A$ est donc diagonalisable.
+  
+  
+  \item Dans la base $(X_1, X_2, X_3)$, l'endomorphisme représenté par $A$ (dans la base canonique) a pour matrice
+$$D=\left(\begin{matrix}1&0&0\cr 0&1&0\cr 0&0&2\end{matrix}\right).$$
+Autrement dit, si on note $P$ la matrice de passage dont les vecteurs colonnes sont $X_1$, $X_2$ et $X_3$, c'est-à-dire
+$$P=\begin{pmatrix}1&0&0\cr 0&1&0\cr -1&1&1\end{pmatrix},$$
+alors $P^{-1}AP=D$.
+\end{enumerate}
+
+\end{exemple}
+
+
+
+%----------------------------------------------------
+\subsection{Preuves}
+\label{ssec:preuvesdiagon}
+
+Il nous reste à prouver la proposition \ref{prop:dimElambda} et le théorème \ref{th:diagon} de la section \ref{ssec:diagon}.
+Rappelons l'énoncé de la proposition \ref{prop:dimElambda}.
+
+\begin{proposition*}[Proposition \ref{prop:dimElambda}]
+Soient $f$ un endomorphisme de $E$ et $\chi_f$ son polynôme caractéristique.
+Soient $\lambda$ une valeur propre de $f$, de multiplicité $m(\lambda)$ comme racine de $\chi_f$, 
+et $E_\lambda$ le sous-espace propre associé. Alors on a
+$$1\leq \dim E_\lambda\leq m(\lambda).$$
+\end{proposition*} 
+
+
+\begin{proof}
+Tout d'abord, par définition d'une valeur propre et d'un sous-espace propre, on a $\dim E_\lambda\geq 1$.
+Notons $p=\dim E_\lambda$ et $(e_1,\dots,e_p)$ une base de $E_\lambda$.
+ On complète cette base en une base 
+$(e_1,\dots,e_p,e_{p+1},\dots,e_n)$ de $E$.
+Dans cette base, la matrice de $f$ est de la forme
+$$A=
+\left(\begin{array}{c|c}
+\lambda I_p & C \\ \hline 
+ 0 & B\end{array}\right).$$
+En effet, pour chaque $1\le i \le p$, on a $f(e_i) = \lambda e_i$. 
+Maintenant, en calculant le déterminant d'une matrice triangulaire par blocs :
+$$\det(A-XI_n)=\det((\lambda-X)I_p) \cdot \det(B-XI_{n-p})=(\lambda-X)^p\det(B-XI_{n-p}).$$
+Cela prouve que $(\lambda-X)^p$ divise $\chi_f(X)$ et donc, par définition 
+de la multiplicité d'une racine, on a $m(\lambda) \ge p$. 
+\end{proof} 
+
+
+
+Passons à la preuve du théorème \ref{th:diagon}.
+
+\begin{theoreme*}[Théorème \ref{th:diagon}]
+Soit  $f :  E \to E$ un endomorphisme. Alors :
+\[f \text{ est diagonalisable sur $\Kk$ } \quad\iff\quad \left\{\begin{array}{l}
+\text{i) } \chi_f(X) \mbox{ est scindé sur $\Kk$}\\
+\text{ et }\\
+\text{ii) pour toute valeur propre $\lambda$ de $f$,} \\ \quad m(\lambda) = \dim \Ker(f-\lambda \id_E).
+\end{array}\right.\]
+\end{theoreme*}
+
+
+\begin{proof}~
+\begin{itemize}
+
+\item $\Longrightarrow$.
+Supposons $f$ diagonalisable et notons $\lambda_1,\dots,\lambda_r$ ses valeurs propres et $m(\lambda_1),\ldots,m(\lambda_r)$ leurs multiplicités respectives dans $\chi_f(X)$.
+Comme $f$ est diagonalisable, alors il existe une base $\mathcal{B}$ 
+dans laquelle la matrice de $f$ est une matrice diagonale $D$.
+Notons $n_i$ le nombre de fois où $\lambda_i$ apparaît dans la diagonale de $D$.
+On a alors
+$$\chi_f(X)=\chi_D(X)=\prod_{i=1}^r(\lambda_i-X)^{n_i}.$$
+Cela prouve que $\chi_f(X)$ est scindé sur $\Kk$ 
+et que $m(\lambda_i)=n_i$ pour tout $1 \le i \le r$.
+
+Comme $D$ est diagonale, pour tout $1\leq i\leq r$, il existe $n_i$ vecteurs $v$ de la base $\mathcal{B}$ de $E$ 
+tels que $f(v)=\lambda_i v$. Il existe donc $n_i$ vecteurs linéairement indépendants dans $E_{\lambda_i}$, d'où 
+$\dim E_{\lambda_i}\ge n_i$.
+Mais on sait que $n_i=m(\lambda_i)$, donc $\dim E_{\lambda_i}\ge m(\lambda_i)$.
+Enfin, on a démontré dans la proposition \ref{prop:dimElambda} que $\dim E_{\lambda_i} \le m(\lambda_i)$, 
+d'où l'égalité.
+
+
+
+\item $\Longleftarrow$.
+On suppose que $\chi_f(X)$ est scindé sur $\Kk$ et que, pour toute racine $\lambda_i$ (avec $1 \le i \le r$), on a 
+$\dim E_{\lambda_i}=m(\lambda_i)$. En particulier, on a 
+$$\chi_f(X)=\prod_{i=1}^r(\lambda_i-X)^{m(\lambda_i)}.$$
+Notons $F=E_{\lambda_1} + \cdots +  E_{\lambda_r}$. On sait que les sous-espaces propres sont en somme directe d'après le théorème \ref{th:vpsommedirecte},
+donc $F=E_{\lambda_1} \oplus \cdots \oplus  E_{\lambda_r}$.
+Ainsi, par la proposition \ref{prop:dimsommedirecte}, $\dim F = \sum_{i=1}^r \dim E_{\lambda_i} = \sum_{i=1}^r m(\lambda_i) = \deg \chi_f = \dim E$.
+On en conclut que $F \subset E$ et $\dim F = \dim E$, d'où $F=E$.
+
+Pour chaque $1\leq i\leq r$, on note $\mathcal{B}_i$ une base de $E_{\lambda_i}$.
+Soit $\mathcal{B}=\bigcup_{i=1}^r\mathcal{B}_i$. Alors $\mathcal{B}$ est une base de $E$ (puisque c'est une base de $F$).
+Les vecteurs de $E_{\lambda_i}$ sont des vecteurs propres.
+Ainsi, il existe une base de $E$ formée de vecteurs propres de $f$, 
+ce qui prouve que $f$ est diagonalisable. 
+
+\end{itemize}
+\end{proof}
+
+
+
+
+%----------------------------------------------------
+\begin{miniexercices}
+\sauteligne
+\begin{enumerate}
+  \item Montrer que si $\lambda$ est racine simple du polynôme caractéristique alors
+  $\dim E_\lambda = 1$. Que peut-on dire pour une racine double ? 
+  
+  \item Soit $A = \left( \begin{smallmatrix} 1&1&1\\1&1&1\\1&1&1\\\end{smallmatrix}\right)$. Calculer le polynôme caractéristique de $A$. En déduire les valeurs propres.
+%Retrouver ce résultat en posant $v_1 = e_1-e_2$, $v_2 = e_1-e_3$, $v_3 = e_1+e_2+e_3$ (où $(e_1,e_2,e_3)$ forme la base canonique de $\Rr^3$). 
+Déterminer une base de chaque sous-espace propre.
+La matrice $A$ est-elle diagonalisable ? Généraliser au cas d'une matrice de taille $n\times n$ dont tous les coefficients sont $1$.
+
+
+  \item 
+ 
+Soit
+\[ A = \begin{pmatrix}
+1&1&0&\cdots&0\\
+0&1&1&\ddots&\vdots\\
+\vdots&\ddots&\ddots&\ddots&0\\
+\vdots&&\ddots&\ddots&1\\
+0&\cdots&\cdots&0&1
+\end{pmatrix} \in M_n(\Rr). \]
+Calculer le polynôme caractéristique de $A$, ses valeurs propres, leur multiplicité et la dimension des sous-espaces propres.
+$A$ est-elle diagonalisable ?
+
+%  \item  Soit $f$ un endomorphisme de $E$. On note $\lambda_1,\ldots,\lambda_r$ ses valeurs propres distinctes.
+%Montrer :
+%\[f \text{ est diagonalisable } \iff E = \Ker (f -\lambda_1\id_E) \oplus \cdots \oplus \Ker (f-\lambda_r\id_E).\] 
+
+  \item Soit $f$ un endomorphisme d'un $\Kk$-espace vectoriel $E$. On suppose qu'il existe un sous-espace $F$ de $E$ laissé stable par $f$. Notons $\chi_{f | F}$ le polynôme caractéristique de la restriction à $F$. Montrer alors que $\chi_{f | F}(X)$ divise $\chi_f(X)$ dans $\Kk[X]$.
+  \emph{Indication :} s'inspirer de la preuve de la proposition \ref{prop:dimElambda}.
+
+\end{enumerate}
+\end{miniexercices}
+
+
+
+
+
+\auteurs{
+\\
+D'après un cours de Sandra Delaunay et un cours d'Alexis Tchoudjem.
+
+Revu et augmenté par Arnaud Bodin.
+
+Relu par Stéphanie Bodin et Vianney Combet.
+
+}
+
+
+\finchapitre 
+\end{document}
+
+

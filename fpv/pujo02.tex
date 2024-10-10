@@ -1,0 +1,3992 @@
+
+\documentclass[class=report,crop=false]{standalone}
+\usepackage[screen]{../exo7book}
+
+\begin{document}
+
+%====================================================================
+\chapitre{Fonctions de plusieurs variables -- 2ème année -- Laurent Pujo-Menjouet}
+%====================================================================
+
+
+\tableofcontents
+
+% Commandes à virer
+\newcommand{\ou}{\mathscr{O}}
+\newcommand{\f}{\mathscr{F}}
+\newcommand{\mat}{\mathscr{M}}
+\newcommand{\co}{\mathscr{C}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%% Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{figure}[!h]
+%    \centering   \includegraphics[width=5 in]{Contours.jpg}
+    \caption{Représentation de la fonction $f: \R^2 \mapsto \R$ définie par
+  $(x,y) \mapsto z=\frac{\sin \left( x^{2}+3y^{2} \right)}{0.1+r^{2}}+\left( x^{2}+5y^{2} \right)\cdot \frac{\exp \left( 1-r^{2} \right)}{2},\;\mathrm{avec}\;\; r=\sqrt{x^{2}+y^{2}}$,
+et projection des courbes de niveau sur les plans $z=0$ et $z=9$.}
+      \label{fig:Contours}
+\end{figure}
+
+
+
+
+
+ Le but de ce cours est de \textbf{généraliser la notion de dérivée} d'une fonction
+d'une variable réelle à valeurs réelles à partir de la théorie du calcul différentiel appliquée aux fonctions
+de plusieurs variables. L'idée fondamentale de cette théorie est d'\textbf{approcher} une application ‘‘quelconque'' (de plusieurs variables réelles ici) par une application \textbf{ linéaire} au \textbf{voisinage}
+d'un point.\\ 
+$ $\\
+Le cadre général
+pour la mettre en œuvre est celui \textbf{des espaces vectoriels} (ce qui donne un sens au mot \textbf{"linéaire"} comme nous le verrons dans les chapitres qui suivent),
+munis d'une \textbf{norme} sur l'espace de départ (pour avoir une notion de \textbf{voisinage}) et une \textbf{norme}
+sur l'espace d'arrivée (pour savoir \textbf{"approcher"}).
+\\
+Nous verrons que de cette théorie
+découle plusieurs propriétés et théorèmes classiques importants ainsi que plusieurs applications notamment pour l'optimisation (voir le dernier chapitre du cours). \\
+$ $\\
+Toutefois,  avant de s'attaquer au calcul différentiel proprement dit, il paraît nécessaire de bien
+définir les notions de bases en topologie associées à cette théorie, à savoir:\\
+- les distances, boules ouvertes, fermées,\\
+- les ensembles ouverts, fermés, les normes, etc. 
+$ $\\
+ Nous ne le ferons pas dans le contexte des espaces
+vectoriels de dimension infinie (hors programme), mais dans le cas particulier des espaces $R^n$ (et le plus souvent les espaces où $\R^2$ et $\R^3$)
+qui sont des espaces vectoriels particuliers de dimension $n$ (dimension finie). \\
+Rappelons qu'en dimension 2 ($n=2$), on identifie un vecteur $x$ de coordonnées $(x_1,x_2)$
+avec un point du plan de coordonnées $(x_1,x_2)$ une fois fixée une origine. \\
+Ici, on généralisera cette identification en désignant le point ou le vecteur de coordonnées 
+  $(x_1,...,x_n)$ par $x=(x_1,...,x_n)\in \R^n$. \\
+  $ $ \\
+Rappelons enfin que l'\textbf{ON NE PEUT PAS DIVISER PAR UN VECTEUR}  ! \\
+ Or, dans $\mathbb{R}$, la d\'efinition de la d\'eriv\'ee fait
+intervenir le rapport $(f(x)-f(x_0))/(x-x_0)$. Elle
+implique donc de pouvoir diviser par $(x-x_0)$. 
+Mais dans $\mathbb{R}^n$  \c{c}a n'a pas de sens car la division par un vecteur
+n'est pas d\'efinie. Que faire alors si on ne peut pas d\'efinir la d\'eriv\'ee
+d'une fonction  $D\subset\mathbb{R}^n\rightarrow\mathbb{R}^n$? 
+C'est tout le but de ce cours: introduire une  notion généralisée de la dérivée:  la  \textbf{DIFFERENTIABILITE}.
+
+
+
+
+\chapter{Notion de topologie dans $\R^n$}
+
+
+
+  
+%\section{Un peu d'histoire}
+%\begin{figure}
+%\center \includegraphics [width=0.5\textwidth] {Leonhard_Euler.jpg}
+%\caption{   } 
+%\label{euler} 
+%\end{figure}
+
+
+
+\begin{figure}[!h]
+    \centering
+    [\color{blue} Leonhard Euler (1707-1783): en résolvant en 1736 le problème des sept
+ponts enjambant la rivière Pregolia à Königsberg en Prusse, il a ouvert la voie de la topologie. En effet, par la généralisation de ce
+problème,  Cauchy et L'Huillier entre autres commencèrent à développer la 
+théorie liée à cette discipline.]
+    {
+%        \includegraphics[width=1.1in]{Leonhard_Euler.jpg}
+        \label{fig:first_sub}
+    }
+    [Maurice René Fréchet (1878-1973): c'est à lui que l'on doit en  1906 les d'espaces métriques et les premières notions de topologie en cherchant à formaliser en termes abstraits les travaux de Volterra, Arzelà, Hadamard et Cantor.]
+    {
+%        \includegraphics[width=1.2in]{Frechet.jpg}
+        \label{fig:second_sub}
+    }
+    [\color{blue}Johann Benedict Listing (1808-1882): il est le premier à avoir employé le mot ‘‘topologie'']
+    {
+%        \includegraphics[width=1.0in]{J-B-Listing.jpg}
+        \label{fig:third_sub}
+    }
+    \caption{Quelques mathématiciens célèbres liés à la topologie.}
+    \label{fig:sample_subfigures}
+\end{figure}
+
+
+
+
+\section{Espaces métriques, distance}
+
+
+
+ Nous allons dans ce cours, nous intéresser aux fonctions $f:U \subset \R^p \rightarrow \R^q$ ($p,q \in \N^*$). Pour cela il faudra étudier tout d'abord la structure du domaine $U$ car le domaine
+est aussi important que la fonction comme nous le verrons.\\
+Nous allons donc définir de nouvelles notions: distances, normes, ouverts, fermés, etc. dans les domaines inclus dans $\R^n$ qui 
+nous seront utiles tout au long de ce semestre pour tous les nouveaux 
+outils abordés.\\
+Toutefois, même si nous travaillerons principalement dans $\R^2$, $\R^3$ ou de façon générale $\R^n$, nous pourrons de temps à autre donner des résultats plus généraux qui resteront valables dans des espaces autres que ceux-ci (ce sera le cas de ce premier chapitre). Mais ce ne seront pas n'importe quels espaces. Les définitions et propositions ci-dessous font en effet intervenir des combinaisons
+entre eux des éléments d'un même espace, des multiplications par des
+scalaires, etc. Par conséquent il est nécessaire que cet espace reste stable par combinaison linéaires de ses éléments, et les plus appropriés ici seront les espaces vectoriels que nous rappelons ci-dessous.\\
+
+
+
+\begin{definition}[ESPACES VECTORIELS]
+{\textcolor[rgb]{0.73,0.00,0.00}
+\noindent Soit $E$ un ensemble. On dispose sur cet ensemble d'une opération
+(notée additivement) et on dispose par ailleurs d'une application 
+$\K \times E \rightarrow E$  qui à tout couple $ (\lambda , x) $
+associe $\lambda x $.
+On dit que $E$ est un espace vectoriel lorsque
+\begin{itemize}
+\item[1.] $E$ est un groupe commutatif (pour l'addition)
+\item[2.] pour tout vecteur $x$ de $E$, $1.x=x$ ($1$ désignant le neutre de la
+multiplication de $\K$).
+\item[3.]pour tous $\lambda, \mu \in \K$ et pour tout vecteur $x$ de $E$,
+$(\lambda  \mu)x=\lambda   (\mu x)$
+\item[4.] pour tous $\lambda, \mu \in \K$ et pour tout vecteur $x$ de $E$,
+$(\lambda + \mu)x=\lambda x + \mu x$
+\item[5.] pour tout $\lambda \in \K$ et tous vecteurs $x,y \in E$, 
+$\lambda (x+y)=\lambda x + \lambda y$.
+\end{itemize} }
+\end{definition}
+
+
+
+
+\begin{exemple}
+ \textcolor[rgb]{0.00,0.59,0.00}
+{$ $\\  
+L'espace 
+\begin{equation*}
+\begin{array}{rcl}
+\R^n & = &\displaystyle \underbrace{\R \times ...\times \R}_{n-fois}\\
+   & = & \lbrace x=(x_1,...,x_n),\mathrm{tel\;\; que}\;\; x_i\in \R,\mathrm{pour\;\; tout}\;\; i \in \lbrace 1,...,n \rbrace \rbrace.
+\end{array}
+\end{equation*}
+$\R^n$ est un espace vectoriel de dimension $n$. C'est celui que nous utiliserons le plus souvent ici.
+}
+\end{exemple}
+
+\noindent Une fois donné l'espace vectoriel, il faut pouvoir évaluer ses éléments
+les uns par rapport aux autres. D'où la notion de distance.
+
+\begin{definition}[DISTANCE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+ \noindent Soit $E$ un ensemble non vide (on utilisera le plus souvent $\R^n$ ici). On dit qu'une application 
+ \begin{equation*}
+ \begin{array}{llll}
+d: & E \times E & \rightarrow & \R^+,\\
+ & (x,y) & \mapsto & d(x,y),
+\end{array}
+ \end{equation*}
+est une distance sur $E$ si elle vérifie 
+\begin{itemize}
+\item[1.](SEPARATION) pour tout $(x,y) \in E \times E$, $\lbrace x=y  \rbrace \Longleftrightarrow \lbrace d(x,y)=0 \rbrace$,
+\item[2.](SYMETRIE) pour tout $(x,y) \in E \times E$, $d(x,y)=d(y,x)$,
+\item[3.](INEGALITE TRIANGULAIRE) pour tout $(x,y,z) \in E \times E \times E$, 
+\begin{equation*}
+d(x,y) \leq d(x,z)+ d(z,y)
+\end{equation*}
+\end{itemize}
+ }
+ \end{definition}
+ 
+
+\begin{definition}[ESPACE METRIQUE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent  On appelle espace métrique tout couple $(E,d)$ où $E \neq \emptyset $ 
+ est un espace vectoriel et $d$ est une distance.
+ }
+ \end{definition}
+ 
+ 
+
+\begin{exemple}
+ \textcolor[rgb]{0.00,0.59,0.00}
+{$ $\\
+\begin{itemize}
+\item[1.] $E=\R$, muni de la distance $d$ définie pour tout $(x,y) \in \R^2$ par $d(x,y)=\vert x-y\vert$ est un espace métrique.
+\item[2.] $E= \R^n$, muni de la DISTANCE DE MANHATTAN $d_1$ définie pour tout $(x,y) \in  \R^n \times \R^n$  par
+\begin{equation*}
+d_1(x,y)=\displaystyle \sum_{i=1}^n \vert x_i-y_i\vert.
+\end{equation*}
+\item[3.] $E= \R^n$, muni de la DISTANCE EUCLIDIENNE $d_2$ définie pour tout $(x,y) \in  \R^n \times \R^n$  par
+\begin{equation*}
+d_2(x,y)= (\displaystyle \sum_{i=1}^n \vert x_i-y_i\vert^2)^{1/2}.
+\end{equation*}
+\item[4.] $E= \R^n$, muni de la DISTANCE DE MINKOWSKI $d_p$ définie pour tout $(x,y) \in  \R^n \times \R^n$  par
+\begin{equation*}
+d_p(x,y)= (\displaystyle \sum_{i=1}^n \vert x_i-y_i\vert^p)^{1/p}.
+\end{equation*}
+\item[5.] $E= \R^n$, muni de la DISTANCE INFINIE ou distance  TCHEBYCHEV $d_{\infty}$ définie pour tout $(x,y) \in  \R^n \times \R^n$  par
+\begin{equation*}
+d_{\infty}(x,y)= \displaystyle \sup_{i=1,...,n} \vert x_i-y_i\vert.
+\end{equation*}
+\end{itemize}
+Il est à noter que la distance de Manhattan est la distance de Minkowski pour $p=1$, la distance Euclidienne est la distance de Minkowski pour $p=2$ et la distance de Thcebychev est la distance de Minkowski quand $p \mapsto \infty$. Voir figure \ref{fig:distance} pour une illustration des différentes distances abordées dans cet exemple.
+\begin{figure}[!h]
+ %   \centering   \includegraphics[width=6 in]{distance.jpg}
+    \caption{Représentation de trois distances. 1. Plan de Manhattan qui, par ses rues quadrillées a donné son nom à la distance de Manhattan. 2. Cette distance est représentée en bleu, jaune et rouge dans la figure 2. On peut noter que la distance euclidienne dans cette figure est représentée en vert et correspond a la somme des diagonales des petits carrés (d'après le théorème de Pythagore). 3. Enfin dans la figure 3, est représentée la distance infinie qui correspond au nombre minimum de mouvements nécessaire au roi pour se déplacer de sa case (ici f6) à une autre case.  }
+      \label{fig:distance}
+\end{figure}
+}
+
+\end{exemple}
+
+ \noindent Pour rendre le cours plus simple, nous utiliserons plutôt la notion de norme dans tout le reste de notre cours, et les espaces vectoriels normés plutôt que les espaces métriques. Il se trouve que toute norme induit une distance (mais attention tout distance induit n'induit pas nécessairement une norme). Donc ce qui va suivre peut s'adapter parfaitement
+ dans le cadre des espaces métriques, tout en étant plus facilement compréhensible.
+
+\section{Normes des espaces vectoriels}
+
+\begin{definition}[NORME]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soit $E$ un espace vectoriel sur $\R$ (on utilisera en général $E=\R^n$). On appelle norme sur $E$ une
+application 
+\begin{equation*}
+\begin{array}{lll}
+E & \rightarrow & \R^+,\\
+x & \mapsto & \Vert x\Vert,
+\end{array}
+\end{equation*}
+et vérifie
+\begin{itemize}
+\item[1.](SEPARATION) pour tout $x \in E$, $\Vert x \Vert =0$ $\Longleftrightarrow$ $x=0$,
+\item[2.](HOMOGENEITE POSITIVE) pour tout $\lambda \in R$, pour tout $x\in E$ 
+$\Vert \lambda x \Vert=\vert \lambda \vert . \Vert x \Vert$,
+\item[3.](INEGALITE TRIANGULAIRE) pour tous $x,y \in E$, $\Vert x+y\Vert \leq \Vert x\Vert + \Vert y\Vert$.
+\end{itemize}
+}
+\end{definition}
+
+
+
+\begin{definition}[ESPACE VECTORIEL NORME]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Un espace vectoriel sur $\R$ muni de la norme est appelé espace vectoriel normé, 
+que l'on notera souvent $e.v.n.$.
+}
+\end{definition}
+
+\noindent On a la relation entre norme et distance dans le résultat suivant.
+
+
+\begin{proposition}[DISTANCE INDUITE PAR UNE NORME]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soit $E$ un $e.v.n.$ L'application
+\begin{equation*}
+\begin{array}{llll}
+d:&E \times E & \rightarrow & \R^+,\\
+ & (x,y) & \mapsto & d(x,y):=\Vert x-y\Vert,
+\end{array}
+\end{equation*}
+est une distance sur $E$. On l'appelle DISTANCE INDUITE sur $E$ par la NORME.
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Faite en cours.
+
+
+
+\begin{proposition}[PROPRIETES DES DISTANCES INDUITES PAR DES NORMES]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Cette distance possède les propriétés suivantes:
+\begin{itemize}
+\item[1.] pour tout $x \in E$, $d(0,x)= \Vert x \Vert$,
+\item[2.] pour tout $(x,y) \in E^2$, pour tout $\lambda \in \R$, $d(\lambda x, \lambda y)=\vert \lambda\vert d(x,y)$,
+\item[3.] pour tout $(x,y,z) \in E^3$, $d(x+z,y+z)=d(x,y)$.
+\end{itemize}
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+
+ 
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+\noindent ATTENTION: toute norme induit une distance, mais toutes les distances ne proviennent
+pas d'une norme.
+}
+\end{remarque*}
+
+
+
+\begin{exemple} \textcolor[rgb]{0.00,0.59,0.00}
+{IMPORTANT: normes classiques sur $\R^n$:\\
+Soient $x \in \R^n$, $x=(x_1,...,x_n)$, avec $x_i \in \R$ pour tout $i \in \lbrace 1, ..., n \rbrace$,
+et $p \in \R$ tel que $p \geq 1$, \\
+\begin{itemize}
+\item[1.] $\Vert x \Vert_1 = \displaystyle \sum_1^n \vert x_i \vert$ (NORME MANHATTAN),
+\item[2.] $\Vert x \Vert_2 =( \displaystyle \sum_1^n \vert x_i \vert ^2)^{1/2}$ (NORME EUCLIDIENNE),
+\item[3.] $\Vert x \Vert_p =( \displaystyle \sum_1^n \vert x_i \vert ^p)^{1/p}$ (NORME $p$, $p \geq 1$),
+\item[4.] $\Vert x \Vert_{\infty} =\displaystyle  \max_{1 \leq i \leq n} \vert x_i \vert$ (NORME INFINIE), 
+\end{itemize}
+sont des normes sur $\R^n$.
+}
+\end{exemple}
+
+\begin{proposition}[PROPRIETE DES NORMES]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Toute norme $\Vert . \Vert$ dans un $e.v.n$ $(E,\Vert . \Vert)$ vérifie, pour tous $x,y \in E$
+\begin{equation*}
+\left \vert \Vert x \Vert - \Vert y\Vert \right \vert \leq \Vert x-y\Vert.
+\end{equation*}
+}
+\end{proposition}
+
+
+\noindent \underline{\bf Preuve :}
+Faite en cours.
+
+
+
+\begin{definition}[NORMES EQUIVALENTES]
+\textcolor[rgb]{0.73,0.00,0.00}{
+Deux normes $\Vert . \Vert$ et $\Vert . \Vert '$ sur $E$ sont EQUIVALENTES   
+s'il existe deux constantes réelles $\lambda >0$ et $\mu >0$ telles que pour tout $x \in E$
+\begin{equation*}
+\lambda \Vert x \Vert \leq \Vert x \Vert ' \leq \mu  \Vert x \Vert.
+\end{equation*}
+On note alors:
+$\Vert . \Vert \sim \Vert . \Vert '$.
+}
+\end{definition}
+
+
+
+
+\begin{proposition}
+\textcolor[rgb]{0.50,0.00,0.25}{
+Cette définition induit  une relation d'équivalence.
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+
+
+\begin{proposition} [NORMES EQUIVALENTES ET DIMENSION FINIE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Sur $\R^n$ (et tout autre espace vectoriel normé de dimension finie) TOUTES les normes
+sont équivalentes.
+}
+\end{proposition}
+
+ \noindent \underline{\bf Preuve :}
+Pas faite en cours (abordé en TD).
+
+
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+\noindent Dans la suite du cours on notera donc (sauf précision) $\Vert . \Vert$ pour désigner une norme quelconque
+sur $\R^n$.
+}
+\end{remarque*}
+
+ 
+\noindent Nous nous plaçons désormais dans des espaces vectoriels normés $(E,\Vert . \Vert)$. En général nous prendrons $E=\R^n$. Il nous faudra ensuite nous approcher d'un élément de cet espace et regarder ce qu'il se passe autour de lui (comme par exemple, le définir comme la limite d'une 
+suite d'éléments de l'espace métrique). Il nous faudra donc définir la notion de voisinage. Et les outils que nous utiliserons ici sont les boules. 
+
+
+
+\section{Boules ouvertes, fermées et parties bornée}
+\begin{definition}[BOULE OUVERTE, FERMEE, SPHERE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent  Soit $(E,\Vert . \Vert)$ un $e.v.n$. Soient $a$ un point de $E$ et $r \in \R$, $r>0$.
+\begin{itemize}
+\item[1.] $\overline{B}_{\Vert . \Vert}(a,r)=\lbrace x\in E; \Vert x-a \Vert \leq r\rbrace$ 
+est appelé boule FERMEE de centre $a$ et de rayon $r$.
+\item[2.]$B_{\Vert . \Vert}(a,r)=\lbrace x\in E; \Vert x-a \Vert < r\rbrace$ 
+est appelé boule OUVERTE de centre $a$ et de rayon $r$.
+\item[3.]$S_{\Vert . \Vert}(a,r)=\lbrace x\in E; \Vert x-a \Vert = r\rbrace$ 
+est appelé SPHERE de centre $a$ et de rayon $r$.
+\end{itemize}
+ }
+  \end{definition}
+  
+\noindent Dans le cas où $a=0$ (vecteur nul) et $r=1$ on a ce qu'on appelle les boules ou sphères unités.  
+  
+\begin{definition}[BOULE UNITE OUVERTE, FERMEE, SPHERE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent  Soit $(E,\Vert . \Vert)$ un $e.v.n$.
+\begin{itemize}
+\item[1.] $\overline{B}_{\Vert . \Vert}(0,1)=\lbrace x\in E \Vert x \Vert \leq 1\rbrace$ 
+est appelé boule UNITE FERMEE.
+\item[2.]$B_{\Vert . \Vert}(a,r)=\lbrace x\in E; \Vert x \Vert < 1\rbrace$ 
+est appelé boule UNITE OUVERTE.
+\item[3.]$S_{\Vert . \Vert}(a,r)=\lbrace x\in E; \Vert x \Vert = 1\rbrace$ 
+est appelé SPHERE UNITE.
+\end{itemize}
+ }
+  \end{definition}
+ 
+ \begin{figure}[!h]
+%    \centering   \includegraphics[width=5 in]{boules.png}
+    \caption{Exemples sur $\R^2$ avec la norme euclidienne d'une boule
+    fermée (1.), ouverte (2.), et d'une sphère (3.) centrée en $a$ et de rayon $r$.}
+      \label{fig:boules}
+\end{figure}
+
+ \begin{figure}[!h]
+%    \centering   \includegraphics[width=4 in]{boules-p.jpg}
+    \caption{Exemples sur $\R^2$ avec la norme de Minkowski $p$ de la sphère unité (centrée en $0$ et de rayon $1$,
+    avec $p=1,2,4$ et $\infty$). Le cas $p=0.5$ est à part puisqu'on rappelle que $\Vert . \Vert_p$ avec $0<p<1$ n'est pas une norme sur $\R^n$). On dessine juste l'ensemble $\lbrace x \in \R^n, \Vert x \Vert_{0.5}=1 \rbrace$ }
+      \label{fig:boules-p}
+\end{figure}
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+\noindent Dans la suite et pour éviter les lourdeurs d'écriture nous ne mettrons pas la norme en indice et nous écrirons juste
+$\overline{B}(a,r)$, $B(a,r)$, et $S(a,r)$ lorsque l'on désignera  respectivement la boule fermée, ouverte ou la sphère de centre $a$ et de rayon $r$ pour une norme $\Vert . \Vert$ quelconque. Si jamais la norme devait être spécifiée, nous l'ajouterons alors en indice. }
+\end{remarque*}
+
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+\noindent \textbf{ATTENTION}: les boules ont des formes différentes selon les espaces métriques
+utilisés. Voir un exemple dans $\R^2$ pour la distance euclidienne dans la figure \ref{fig:boules}, ou la figure \ref{fig:boules-p} pour des distances $p$, où $p=0.5, 1,2, 4$ et $\infty$.}
+\end{remarque*}
+
+
+
+
+
+
+\begin{definition}[PARTIE BORNEE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soit $(E,\Vert . \Vert)$ un $e.v.n$. Une partie bornée $P$ de $E$ est une partie de $E$ pour laquelle on
+peut trouver une boule (ouverte ou fermée) qui contient tous les points de $P$ (voir figure \ref{fig:bornee} pour un exemple).
+}
+\end{definition}
+
+ \begin{figure}[!h]
+%    \centering   \includegraphics[width=4 in]{bornee.jpg}
+    \caption{Exemples sur $\R^2$ de partie bornée, avec la norme euclidienne.}
+      \label{fig:bornee}
+\end{figure}
+
+
+\section{Ouverts et fermés}
+
+\begin{definition}[PARTIE OUVERTE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soit $(E,\Vert . \Vert)$ un $e.v.n$. Une partie ouverte (ou un ouvert) de $E$ est une partie $U$ de $E$
+telle que pour tout $x \in U$, il existe $r >0$ réel, tel que $B(x,r) \subset U$. Autrement dit, 
+tout point de $U$ est le centre d'une boule ouverte de rayon non-nul, incluse dans $U$ (voir figure \ref{fig:ouvert} pour un exemple).
+}
+\end{definition}
+
+ \begin{figure}[!h]
+%    \centering   \includegraphics[width=4 in]{ouvert.jpg}
+    \caption{Exemples sur $\R^2$ de partie ouverte, avec la distance euclidienne.}
+      \label{fig:ouvert}
+\end{figure}
+
+
+
+\begin{definition}[PARTIE FERMEE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soit $(E,\Vert . \Vert)$ un $e.v.n$. Une partie fermée (ou un fermé) de $E$ est une partie telle que son complémentaire
+$U$ de $E$ est un ouvert. 
+}
+\end{definition}
+
+
+
+
+
+
+\begin{proposition}[BOULES OUVERTES, FERMEES]
+\textcolor[rgb]{0.50,0.00,0.25}{
+\noindent Soit $(E,\Vert . \Vert)$ un $e.v.n$. On a alors:
+ \begin{itemize}
+ \item[1.] une boule ouverte est un ouvert,
+ \item[2.] une boule fermée est un fermé.
+ \end{itemize}
+}
+\end{proposition}
+
+
+
+\noindent \underline{\bf Preuve :}
+Faite en cours.
+
+
+
+\begin{proposition}[INTERSECTION, REUNIONS D'OUVERTS, DE FERMES]
+\textcolor[rgb]{0.50,0.00,0.25}
+{ Soit $(E,\Vert . \Vert)$ un $e.v.n$.
+ \begin{itemize}
+  \item[1.] toute union finie ou infinie d'ouverts de $E$  est un ouvert,
+  \item[2.] toute intersection FINIE d'ouverts de $E$ et un ouvert,
+  \item[3.] toute union FINIE de fermés de $E$ est un fermé, 
+  \item[4.] toute intersection finie ou infinie de fermés de $E$ est un fermé,
+  \item[5.] les  ensembles à la fois ouverts et fermés de $E$ sont $\emptyset$ et $E$, et si ce sont les seuls on dira que l'espace est CONNEXE,
+ \item[6.] un ensemble fini de points de $E$ est fermé .
+ \end{itemize}
+}
+\end{proposition}
+\noindent \underline{\bf Preuve :}
+Faite en cours (en partie).
+
+
+\section{Position d'un point par rapport à une partie de $E$}
+
+Avant toute chose, énonçons la définition de voisinage d'un point. Toutes les autres définitions découleront de cette notion.
+
+\begin{definition}[VOISINAGE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent On dit qu'une partie $V$ de $E$ est un voisinage de $x \in E$
+si $V$ contient un ouvert contenant $x$.
+}
+\end{definition}
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+\noindent Cette définition revient à dire qu'une partie $V$ de $E$ est un voisinage de $x \in E$
+si $V$ contient une boule ouverte contenant $x$ (la boule peut être ou non centrée en $x$).
+}
+\end{remarque*}
+
+ \begin{figure}[!h]
+%    \centering   \includegraphics[width=4 in]{voisinage.jpg}
+    \caption{Exemples sur $\R^2$ de voisinage $V$ de $x$, avec la norme euclidienne.}
+      \label{fig:voisinage}
+\end{figure}
+
+\noindent Soit $(E,\Vert . \Vert)$ un $e.v.n$. Soit $A \subset E$ une partie quelconque de $E$. Alors $A$ contient au-moins
+un ouvert (en effet $\emptyset \subset A$). \\
+Soit $\ou_A$ l'ensemble de toutes les parties ouvertes de $E$ contenues dans $A$.
+Alors $\displaystyle \bigcup_{P \in \ou_A} P$ est un ouvert (comme réunion de parties quelconques
+d'ouverts).
+
+
+
+\begin{definition}[INTERIEUR]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soient $(E,\Vert . \Vert)$  un $e.v.n.$ et $A \subset E$. Un point $x$ de $E$ est dit intérieur à $A$ si $A$ est 
+un voisinage de $x$, autrement dit, si $A$ contient une boule ouverte contenant $x$. \\
+L'intérieur de $A$, noté $\overset{\circ}{A}$ ou $Int(A)$  est l'ensemble des points intérieurs à $A$. 
+}
+\end{definition}
+
+
+\begin{proposition}[PROPRIETE DE L'INTERIEUR]
+\textcolor[rgb]{0.50,0.00,0.25}{\vspace{0.1cm}
+Soient $(E,\Vert . \Vert)$  un $e.v.n.$ et $A \subset E$. L'intérieur de $A$  est la plus grande partie ouverte 
+incluse dans $A$.
+}
+\end{proposition}
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+ \begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+\noindent On a $x\in \overset{\circ}{A}=\displaystyle \bigcup_{P \in \ou_A} P$ .
+}
+\end{remarque*}
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+\noindent On a:
+\begin{itemize}
+\item[1.] $\overset{\circ}{A}$ est un ouvert,
+\item[2.] $\overset{\circ}{A} \subset A$,
+\item[3.] $A$ est un ouvert $\Longleftrightarrow \overset{\circ}{A}=A$.
+\end{itemize}
+}
+\end{remarque*}
+
+
+\noindent \underline{\bf Preuve :}
+(3.) fait en cours.\\
+$ $ \\
+
+
+
+\noindent Soit $(E,\Vert . \Vert)$ un $e.v.n$. Soit $A $ une partie quelconque de $E$. Alors $E$ contient au-moins
+une partie fermée contenant $A$ (en effet $E$ est fermé). \\
+Soit $\f$ l'ensemble des parties fermées contenant $A$. Alors $ \displaystyle \bigcap_{F \in \f} F$ est la
+plus petite partie fermée contenant $A$. Et $ \displaystyle \bigcap_{F \in \f} F$ est bien 
+une partie fermée (comme intersection de familles fermées).
+
+\begin{definition}[ADHERENCE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soient $(E,\Vert . \Vert)$  un $e.v.n.$ et $A \subset E$. Un point $x$ de $E$ est dit adhérent à $A$ si tout voisinage de $x$ rencontre $A$ , autrement dit, si toute boule ouverte contenant $x$ contient au-moins un élément de $A$.\\
+L'adhérence de $A \subset E$, notée $\overline{A}$ ou $adh(A)$,  est l'ensemble des points adhérents à $A$. 
+}
+\end{definition}
+
+\begin{proposition}[PROPRIETE DE L'ADHERENCE]
+\textcolor[rgb]{0.50,0.00,0.25}{\vspace{0.1cm}
+Soient $(E,\Vert . \Vert)$  un $e.v.n.$ et $A \subset E$. L'adhérence de $A$  est la plus petite fermée contenant
+}
+\end{proposition}
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+
+ \begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+\noindent On a $x\in \overline{A}=\displaystyle \bigcap_{F \in \f} F$.
+}
+\end{remarque*}
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+\noindent On a:
+\begin{itemize}
+\item[1.] $\overline{A}$ est un fermé,
+\item[2.] $A \subset \overline{A}$,
+\item[3.] $A$ est un fermé $\Longleftrightarrow A=\overline{A}$.
+\end{itemize}
+}
+\end{remarque*}
+
+
+\noindent \underline{\bf Preuve :}
+(3.) fait en cours.
+
+\begin{proposition}[ADHERENCE DU COMPLEMENTAIRE]
+\textcolor[rgb]{0.50,0.00,0.25}{\vspace{0.1cm}
+Soit $(E,\Vert . \Vert)$ un $e.v.n.$ et $A \subset E$. Alors  
+ \begin{equation*}
+  \overline{\complement_E A}= \complement_E \overset{\circ}{A}.
+ \end{equation*}
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Faite en cours.
+
+
+
+\begin{definition}[FRONTIERE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soit $(E,\Vert . \Vert)$ un $e.v.n$. On appelle frontière de $A \subset E$, notée $Fr(A)$ l'ensemble défini par
+$Fr(A)=\overline{A}-\overset{\circ}{A}$.\\
+On dit que $x$ est un point frontière de $A$ si et seulement si $x \in Fr(A)$.
+}
+\end{definition}
+
+ 
+
+\begin{proposition}[INTERSECTION OUVERT ET FERME]
+\textcolor[rgb]{0.50,0.00,0.25}{\vspace{0.1cm}
+Soit $(E,\Vert . \Vert)$ un $e.v.n$. Soient $A \subset E$ et $P$ un ouvert de $E$. Alors 
+ \begin{equation*}
+ A\cap P \neq \emptyset \Longleftrightarrow  \overline{A}\cap P \neq \emptyset
+ \end{equation*}
+}
+\end{proposition}
+
+
+
+\noindent \underline{\bf Preuve :}
+Faite en cours.
+
+
+
+\begin{proposition}[OUVERT, FERME, FRONTIERE]
+\textcolor[rgb]{0.50,0.00,0.25}{\vspace{0.1cm}
+Soit $(E,\Vert . \Vert)$ un $e.v.n$. Soient $A \subset E$, $x \in E$ et $r>0$, $r\in \R$. On a alors:
+ \begin{itemize}
+ \item[1.] $x \in \overset{\circ}{A}$ $\Longleftrightarrow $ il existe $r>0$, tel que $B(x,r) \subset A$,
+ \item[2.] $x \in \overline{A}$ $\Longleftrightarrow $pour tout $r>0$,  $B(x,r) \cap A \neq \emptyset$,
+ \item[3.] $x \in Fr(A)$ $\Longleftrightarrow $pour tout $r>0$,  $B(x,r) \cap A \neq \emptyset$ et $B(x,r) \cap \complement_E A \neq \emptyset$.
+ \end{itemize}
+}
+\end{proposition}
+
+
+
+\noindent \underline{\bf Preuve :}
+Faite en cours.
+
+
+
+\begin{proposition}[BOULE UNITE]
+\textcolor[rgb]{0.50,0.00,0.25}{\vspace{0.1cm}
+Soit $(E,\Vert . \Vert)$ un $e.v.n$.
+ \begin{itemize}
+ \item[1.] $Adh(B(0,1))=\overline{B}(0,1)$,
+ \item[2.] $Int(B(0,1))=B(0,1)$,
+ \item[3.] $Fr(B(0,1))=\lbrace x\in E; d(0,x) = 1 \rbrace$.
+ \end{itemize}
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.\\
+$ $\\
+
+
+
+
+
+\noindent Maintenant que les notions de bases qui nous intéressent sont établies,
+nous pouvons nous intéresser à des outils qui nous seront utiles dans certaines preuves du cours: les suites et la notion d'ensemble compact.
+
+
+
+\section{Suites numériques dans un espace vectoriel normé}
+
+Dans cette section, nous nous plaçons (sauf exception spécifiée) dans un $(E,\Vert . \Vert)$ un $e.v.n$ quelconque.
+
+\begin{definition}[SUITE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent On appelle {\bf suite} dans $E$ toute {\bf application}
+\begin{equation*}
+\displaystyle\left\{\begin{array}{ccc}\mathbb{N}&\rightarrow&E\\
+n&\mapsto& x_n.\end{array}\right.
+\end{equation*}
+On note une telle application $\left(x_n\right)_{n\in\mathbb{N}}$.}
+\end{definition}
+
+
+
+
+
+
+ 
+\begin{definition}[SUITE BORNEE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soit $\left(x_n\right)_{n\in\mathbb{N}}$, une suite de $E$ muni de la norme
+$\Vert . \Vert$. La suite $\left(x_n\right)_{n\in\mathbb{N}}$ est dite bornée si et seulement si l'ensemble
+$\lbrace x_n, \;n \in \N \rbrace$ est borné. Autrement dit, il existe $M>0$ tel que pour tout $n \in \N$, 
+$\Vert x_n \Vert \leq M$.
+}
+\end{definition}
+
+ 
+ 
+\begin{proposition}[SUITES BORNEES ET ESPACE VECTORIEL]
+\textcolor[rgb]{0.50,0.00,0.25}{
+L'ensemble des suites bornées dans un espace vectoriel normé est un espace vectoriel.
+}
+\end{proposition}
+
+ \noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+
+
+\begin{definition}[SUITE ET CONVERGENCE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soit $\left(x_n\right)_{n\in\mathbb{N}}$, une suite de $E$ muni de la norme
+$\Vert . \Vert$. On dit que $\left(x_n\right)_{n\in\mathbb{N}}$ converge dans $(E, \Vert.\Vert)$,
+si et seulement s'il existe $l \in E$, tel que pour tout $\varepsilon >0$, il existe $N \in \N$, tel
+que pour tout $n \geq N$, $\Vert x_n -l \Vert < \varepsilon$.
+} 
+\end{definition}
+
+
+ 
+
+%\begin{remarque*}
+%\textcolor[rgb]{0.00,0.00,1.00}{
+%\noindent 
+%\begin{equation*}
+%\displaystyle \lim_{n\rightarrow \infty}=l \Longleftrightarrow \mathrm{pour \; tout}\; \varepsilon>0,
+%\;\mathrm{il  \; existe}\; N\in \N, \;\mathrm{pour \; tout}\;n \geq N, \; x_n \in B_{\Vert. \Vert}(l,\varepsilon).
+%\end{equation*}
+%}
+%\end{remarque*}
+
+
+ 
+\begin{proposition}[LIMTE ET UNICITE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+La limite de la suite $\left(x_n\right)_{n\in\mathbb{N}}$ définie ci-dessus est UNIQUE.
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Faite en cours.
+
+
+
+\begin{proposition}[SUITES CONVERGENTES ET ESPACE VECTORIEL]
+\textcolor[rgb]{0.50,0.00,0.25}{
+L'ensemble des suites convergentes dans un espace vectoriel normé est un espace vectoriel.
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+ 
+
+\begin{proposition}[CONVERGENCES ET NORMES - DIMENSION FINIE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Sur $\R^n$, comme toutes les normes sont équivalentes , toute suite convergente pour l'une des normes
+est convergente pour l'autre.
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+
+ 
+ 
+\begin{definition}[SUITES ET PARTIES]
+\textcolor[rgb]{0.73,0.00,0.00}{
+Soit $A \subset E$. On dit que $\left(x_n\right)_{n\in\mathbb{N}}$ est une suite de points de $A$
+si et seulement si pour tout $n \in \N$, $x_n \in A$.
+}
+ \end{definition}
+ 
+  
+
+\begin{proposition}[LIMITE ET ADHERENCE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Si $\left(x_n\right)_{n\in\mathbb{N}}$ est une suite de points de $A$ et $\left(x_n\right)_{n\in\mathbb{N}}$ converge vers $l$, alors $l \in \overline{A}$.
+}
+\end{proposition}
+
+ \noindent \underline{\bf Preuve :}
+Faite en cours.
+
+\begin{proposition}[CARACTERISATION DES FERMES PAR LES SUITES]
+\textcolor[rgb]{0.50,0.00,0.25}{ 
+Soit $A \subset E$, alors $A$ est fermé si et seulement TOUTE suite de points de $A$ qui 
+converge a sa limite qui appartient à $A$.
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Faite en cours.
+ 
+\begin{definition}[SUITES DE CAUCHY]
+\textcolor[rgb]{0.73,0.00,0.00}{ 
+Soit $(x_n)_{n \in \N}$ une suite de $E$. On dit que $(x_n)_{n \in \N}$ est une suite de Cauchy si et seulement si
+pour tout $\varepsilon >0$, il existe  $N \in \N$, tel
+que pour tous $n,m \geq N$, $\Vert x_n -x_m \Vert < \varepsilon$.
+}
+\end{definition}
+
+\begin{proposition}[CAUCHY ET CONVERGENCE]
+\textcolor[rgb]{0.50,0.00,0.25}{ 
+Si une suite est convergente alors elle est de Cauchy.
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Faite en cours.
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{\textbf{\underline{ATTENTION}}: la réciproque n'est pas vraie en général. Par contre, le fait de travailler sur un espace où la réciproque est vraie serait bien pratique. En effet nous pourrions montrer la convergence d'une suite
+sans avoir à calculer la limite de cette suite. Les espaces dont la réciproque de la propriété ci-dessus.}
+\end{remarque*}
+
+\begin{definition}[ESPACE COMPLET]
+\textcolor[rgb]{0.73,0.00,0.00}{ 
+Si dans un ensemble, toute suite de Cauchy est convergente, on dit que l'ensemble est complet.
+}
+\end{definition}
+
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+\begin{itemize}
+\item Tout espace vectoriel normé complet est appelé espace de Banach.
+\item Les $e.v.n.$ $(\R^n, \Vert . \Vert)$ dans lesquels nous travaillerons pratiquement tout le temps, sont des
+espaces de Banach. Donc toute suite de Cauchy dans ces espaces sera convergente.
+\end{itemize}}
+\end{remarque*}
+$ $\\
+$ $\\
+
+\noindent \underline{\bf Présentons ci-dessous quelques résultats en dimension finie}. \\
+Nous allons considérer les espaces $R^p$ ici. Soit $\left\lbrace e_1, e_2,...,e_p \right\rbrace $ une base de $\R^p$. Pour tout 
+$x \in \R^p$, il existe un unique $p$-uplet $(x^1,x^2,..,x^p) \in \R^p$ tel que $x= \displaystyle \sum_{i=1}^p x^i e_i$. \\
+Pour tout $n \in  \N$, on aura donc (un élément d'une suite par exemple qui s'écrit)
+\begin{equation*}
+x_n= \displaystyle \sum_{i=1}^p x{_n}^i e_i.
+\end{equation*}
+
+\begin{proposition}[SUITES ET DIMENSION FINIE]
+\textcolor[rgb]{0.50,0.00,0.25}{ 
+Soit $(x_n)_{n\in \N}$ une suite convergente vers $l=(l_1,....,l_p)$ dans $(\R^p, \Vert . \Vert)$. Alors
+\begin{equation*}
+\displaystyle \lim_{n \rightarrow +\infty} x_n=l \Longleftrightarrow \displaystyle \lim_{n \rightarrow +\infty} x_n^i=l_i,
+\end{equation*}
+pour tout $i=1,...,p$.
+}
+\end{proposition}
+
+
+
+ 
+ \section{Ensemble compact}\label{compacite}
+ 
+ \noindent La notion de compacité sera utile dans la théorie de fonctions de plusieurs
+ variables. Il est donc utile de la rappeler ici. Et pour la définir, nous utilisons les sous-suites, d'où l'intérêt d'avoir rappeler quelques résultats
+ sur les suites dans la section précédente. Encore une fois, dans tout ce qui suit, nous nous placerons dans l'$e.v.n.$ 
+ $(E, \Vert . \Vert)$.
+ 
+ \begin{definition} [SOUS-SUITE OU SUITE EXTRAITE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soient $(x_n)_{n \in \N}$ une suite de $E$ et $\varphi: \N \rightarrow \N$
+une application strictement croissante, alors la suite $(x_{\varphi(n)})_{n \in \N}$ définie
+pour tout $n \in \N$ est appelée suite extraite
+ou sous-suite de la suite $(x_n)_{n \in \N}$.
+}
+\end{definition}
+
+ 
+ 
+\begin{definition}[RECOUVREMENT OUVERT]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soit $A \subset E$,  un recouvrement ouvert de $A$ est une famille 
+d'ouverts $(\ou_i)_i$ tels que $A \subset (\displaystyle \bigcup_{i \in I} \ou _i)$.
+}
+\end{definition}
+
+  
+ 
+\begin{definition}[SOUS-RECOUVREMENT OUVERT]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Considérer un sous-recouvrement ouvert d'un recouvrement donné d'une partie $A \subset E$, consiste à prendre une partie
+$J \subset I$ tel que  $A \subset (\displaystyle \bigcup_{j \in J} \ou _j)$.
+}
+\end{definition}
+
+ 
+ 
+ \begin{proposition}[SOUS-SUITE ET SOUS-RECOUVREMENT]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soit $A \subset E$, alors les deux propriétés suivantes sont équivalentes
+\begin{itemize}
+\item[1.]De toute suite de points de $A$ on peut extraire une sous-suite qui converge vers un point de $A$.
+\item[2.]De tout recouvrement ouvert de $A$ on peut extraire un sous-recouvrement fini.
+\end{itemize}
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+
+  
+ 
+\begin{definition}[COMPACT]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Une partie $A$ qui vérifie une de ces deux propriétés est un COMPACT.
+}
+\end{definition}
+
+
+
+\begin{definition} [COMPACT EN DIMENSION FINIE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soit $A \subset E$. Si $A$ est  FERME et BORNE dans $E$ on dit qu'il est COMPACT.
+}
+\end{definition}
+
+ 
+
+\begin{remarque*}\label{extremacompact}
+\textcolor[rgb]{0.00,0.00,1.00}{
+\noindent ATTENTION: on a toujours la propriété suivante: \\
+-Si $A$ est compact alors $A$ est un FERME BORNE.\\
+-MAIS la réciproque n'est pas toujours vraie en dimension infinie (elle l'est TOUJOURS par contre
+dans $\R^n$ (ce qui nous intéresse ici)).\\
+-Nous verrons quels sont les avantages de la compacité un peu plus tard. Notamment la compacité et la 
+continuité: toute fonction continue sur un compact est uniformément continue (nous verrons ce que cela 
+veut dire) sur ce compact et toute fonction continue sur un compact admet un minimum et un maximum.\\
+-On peut également énoncer la propriété suivante grâce à la compacité: \\
+Soit $E$ un espace vectoriel normé de dimension finie $n$, alors $E$ est ISOMORPHE à $\R^n$ (un corollaire à ce résultat nous permettrait de montrer l'équivalence des normes en dimension finie).
+}
+\end{remarque*}
+
+ \section{Ensemble convexe}\label{convexe1}
+La notion d'ensembles convexes (et plus tard de fonctions convexes) seront très utiles dans le chapitre sur 
+les extrema (maxima et minima) de fonctions. Il est donc utile de la rappeler ici dans cette dernière section.
+ 
+ \begin{definition} [ENSEMBLE CONVEXE]\label{convexe}
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soient $(E, \Vert. \Vert)$ et $C$ une partie de $E$. On dit que $C$ est un convexe si et seulement si
+pour tous $x,y \in C$, pour tout $\lambda \in [0,1]$, on a
+\begin{equation*}
+\lambda x + (1-\lambda)y \in C.
+\end{equation*}
+}
+\end{definition}
+
+Et on a enfin le résultat suivant.
+
+ \begin{proposition}[SOUS-SUITE ET SOUS-RECOUVREMENT]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Si $C$ est un ensemble convexe, $\overline{C}$ est également un convexe.
+}
+\end{proposition}
+ 
+
+\section{\textbf{HORS PROGRAMME:} Applications d'une $\textbf{e.v.n.}$ vers un $\textbf{e.v.n.}$ }
+\subsection{Généralités}
+Cette partie présente des résultats généraux intéressants qui restent hors programme pour la deuxième année de licence.
+ Cependant ils  pourront quand même être  très utiles pour les années suivantes.\\
+$ $\\
+Soient $(E,\Vert . \Vert)$ et $(F,\Vert . \Vert)$ deux espaces vectoriels normés et $U$ une partie ouverte non vide de $E$.
+On considère l'application $f: U \rightarrow F$.
+
+\begin{definition} [APPLICATION CONTINUE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soient $f: U \rightarrow F$ et $a \in U$. On dit que $f$ est continue en $a$ si et seulement si pour tout
+$\varepsilon >0$ il existe $\eta>0$ tel que pour tout $x \in U $ tels que 
+\begin{equation*}
+\Vert x-a \Vert < \eta \Longrightarrow \Vert f(x)-f(a) \Vert < \varepsilon
+\end{equation*}
+}
+\end{definition}
+
+
+\begin{definition} [CONTINUITE SUR $U$]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent On dit que $f$ est continue sur $U$ si et seulement $f$ est continue en tout point de $U$.
+}
+\end{definition}
+
+
+ \begin{proposition}[CONTINUITE ET IMAGE RECIPROQUE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soit $f: U \subset E \rightarrow F$. On a les équivalences suivantes.
+\begin{itemize}
+\item $f$ est continue sur $U$ si et seulement si l'image réciproque de toute partie ouverte de $F$ est un ouvert de $U$.
+\item $f$ est continue sur $U$ si et seulement si l'image réciproque de tout
+fermé de $F$ est un fermé de $U$.
+\end{itemize}
+}
+\end{proposition}
+
+
+ \begin{proposition}[CONTINUITE ET NORMES EQUIVALENTES]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Si $f:(E, \Vert . \Vert_E) \rightarrow (E, \Vert . \Vert_F)$ est continue sur $U \subset E$ et si $\Vert . \Vert_E^*\sim \Vert . \Vert_E$ et $\Vert . \Vert_F^*\sim \Vert . \Vert_F$. Alors $f:(E, \Vert . \Vert_E^*) \rightarrow (E, \Vert . \Vert_F^*)$ est également continue sur $U$ relativement à ces nouvelles normes.
+}
+\end{proposition}
+
+
+ \begin{proposition}[CONTINUITE ET SUITE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soit $f: U \subset E \rightarrow F$ continue sur $U$. Soit $(x_n)_{n \in \N}$ une suite de points de $U$ convergeant vers un point $x \in U$. Alors $(f(x_n))_{n \in \N}$ converge vers $f(x)$.
+}
+\end{proposition}
+
+ \begin{proposition}[RECIPROQUE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soit $f: U \subset E \rightarrow F$ une application.  Si pour toute suite $(x_n)_{n \in \N}$ convergeant vers $x \in U$ on a la suite  $(f(x_n))_{n \in \N}$ qui converge vers $f(x)$ alors $f$ est continue en $x$.
+}
+\end{proposition}
+
+ \begin{proposition}[CONTINUITE ET ADHERENCE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soient $f: U \subset E \rightarrow F$, $a \in U$, $A \subset U$ et $a \in \overline{A}$ . Si $f$ est continue en $a$ alors $f(a) \subset \overline{f(A)}$.
+}
+\end{proposition}
+
+\subsection{Opérations sur les fontions continues}
+
+ \begin{proposition}[ENSEMBLE DES FONCTIONS CONTINUES]
+\textcolor[rgb]{0.50,0.00,0.25}{
+L'ensemble des fonctions continues en un point $x \in U \subset E$ est un sous-espace vectoriel de l'espace vectoriel des fonctions.
+}
+\end{proposition}
+
+ \begin{proposition}[CONTINUITE ET COMPOSITION]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soient 
+\begin{equation*}
+\begin{array}{llll}
+f:& U \subset E & \rightarrow & F \\
+  & x & \mapsto &  f(x) \in U,
+\end{array} \;\;
+\begin{array}{llll}
+\mathrm{et} \;\; g:& U' \subset F & \rightarrow & G \\
+  & y=f(x) & \mapsto &  g(f(x)).
+\end{array},
+\end{equation*}
+$f$ est continue en $a$ et $g$ est continue en $f(a)$ alors $g \circ f$ est continue en $a$.
+}
+\end{proposition}
+
+
+\subsection{Extension de la définition de la continuité}
+
+
+\begin{definition} [CONTINUITE RELATIVE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soient $f: D \subset (E, \Vert . \Vert_E) \rightarrow (F, \Vert . \Vert_F)$ avec $D \neq \emptyset$ et $a \in D$. On dit que $f$ est continue en $a$
+relativement à $D$ si et seulement si  pour tout $\varepsilon >0$, il existe $\eta >0$, pour tout $x \in D$, 
+\begin{equation*}
+\Vert x-a \Vert_E < \eta \Longrightarrow \Vert f(x) - f(a) \Vert_F < \varepsilon.
+\end{equation*}
+}
+\end{definition}
+
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+La notion de continuité relative correspond au fait que la restriction de $f$ à la partie $D$ de $E$, noté $f\mid_D$ est continue en $a$. On notera que $f\mid_D$ peut être continue sans que $f$ soit continue en un seul point de $E$ (on pourrait par exemple prendre la fonction caractéristique d'une partie $D$ de $E$, où $D$ est dense sur $E$ ainsi que son complémentaire. Si cette application est définie de $E$ dans l'espace discret $\lbrace 0,1\rbrace$ alors elle n'est continue en aucun de ses points mais sa restriction à $D$ l'est.}
+\end{remarque*}
+
+ \begin{proposition}[CONTINUITE RELATIVE ET SUITE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soient $f: D \subset E \rightarrow F$, $D \neq \emptyset$. L'application $f$ est continue
+en $a$ relativement à $D$ si et seulement si pour toute suite $(x_n)_{n \in \N}$ de points de $D$ qui converge vers $a$, la suite image $(f(x_n))_{n \in \N}$ converge vers $f(a)$.
+}
+\end{proposition}
+
+ \begin{proposition}[CONTINUITE RELATIVE ET COMPACITE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soient $f: K \subset E \rightarrow F$, $K \neq \emptyset$, $K$ compact. Si $f$ est continue
+sur $K$ relativement à $K$ alors $f(K)$ est compact.
+}
+\end{proposition}
+
+ \begin{proposition}[CONTINUITE RELATIVE ET COMPACITE - APPLICATION]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soient $f: K \subset E \rightarrow \R$, $K \neq \emptyset$, $K$ compact. Si $f$ est continue
+sur $K$ relativement à $K$,
+\begin{itemize}
+\item[1.] $f$ est bornée sur $K$,
+\item[2.] $f$ atteint ses bornes.
+\end{itemize}
+}
+\end{proposition}
+
+\subsection{Cas des espaces de dimension finie}
+
+
+Soit $f D \subset (\R^p, \Vert . \Vert)_{\R^p} \rightarrow (\R^q, \Vert . \Vert_{\R^q})$,
+$D \neq \emptyset$. Soit $B=\lbrace b_1,...,b_p \rbrace$ une base de $\R^p$,
+alors pour tout $x \in D$, $x$ se décompose d'une manière unique dans $B$. Autrement dit, il existe $x_1,...,x_p \in \R$ tel que $x= \displaystyle \sum_{i=1}^p x_i b_i$. Donc $f(x)=  \displaystyle \sum_{i=1}^p f_i(x) h_i$
+où $\lbrace h_1,...,h_p \rbrace$ est une base de $\R^q$.
+
+ \begin{proposition}[CONTINUITE RELATIVE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Pour tout $i=1,...,q$, $f_i$ est continue en $a \in D$ relativement à $D$ si et seulement si  $f$ est continue en $a$ relativement à $D$.
+}
+\end{proposition}
+
+\subsection{Notion de continuité uniforme}
+
+Soit $f: D \rightarrow F$, une application continue en tout point $a \in D$ relativement à $D$. Il y a alors un problème de ``transfert''  des suites de Cauchy. D'où la définition suivante.
+
+\begin{definition} [CONTINUITE UNFORME]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soient $f: D \subset (E, \Vert . \Vert_E) \rightarrow (F, \Vert . \Vert_F)$ avec $D \neq \emptyset$. On dit que $f$ est uniformément continue sur $D$
+relativement à $D$ si et seulement si  pour tout $\varepsilon >0$, il existe $\eta >0$, pour tous $x,y \in D$, 
+\begin{equation*}
+\Vert x-y \Vert_E < \eta \Longrightarrow \Vert f(x) - f(y) \Vert_F < \varepsilon.
+\end{equation*}
+}
+\end{definition}
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+Pour bien faire la différence entre la continuité simple et la continuité uniforme en un point $x$ de $E$, on peut faire la comparaison entre les deux définitions suivantes (sans passer par la continuité relative pour simplifier les définitions) (qui mettront les choses au clair):\\
+l'application $f$ est continue de $E$ dans $F$ si et seulement si
+pour tout $x \in E$, pour tout $\varepsilon_x >0$, il existe $\eta_{\varepsilon, x} >0$, pour tout $y \in E$, 
+\begin{equation*}
+\Vert x-y \Vert_E < \eta_{\varepsilon, x} \Longrightarrow \Vert f(x) - f(y) \Vert_F < \varepsilon_x.
+\end{equation*}
+Et d'autre part \\
+l'application $f$ est uniformément continue de $E$ dans $F$ si et seulement si
+ $\varepsilon >0$, il existe $\eta_{\varepsilon} >0$, pour tous $x,y \in E$, 
+\begin{equation*}
+\Vert x-y \Vert_E < \eta_{\varepsilon} \Longrightarrow \Vert f(x) - f(y) \Vert_F < \varepsilon.
+\end{equation*}
+Autrement dit, dans la continuité uniforme le choix de $\varepsilon$ ne dépend pas de $x$, et celui de $\eta$ ne dépend que de celui de $\varepsilon$.
+}
+\end{remarque*}
+
+ \begin{proposition}[CONTINUITE RELATIVE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soient $f: D \subset (E, \Vert . \Vert_E) \rightarrow (F, \Vert . \Vert_F)$ avec $D \neq \emptyset$ une application uniformément continue sur $D$
+relativement à $D$. Si $(x_n)_{n\in \N}$ est une suite de Cauchy de points de $D$ alors $f(x_n)$ est  une suite de Cauchy dans $F$.
+}
+\end{proposition}
+
+\subsection{Applications linéaires continues}
+ \begin{proposition}[APPLICATIONS LINEAIRE CONTINUES]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soient $f:  (E, \Vert . \Vert_E) \rightarrow (F, \Vert . \Vert_F)$  une application linéaire. Alors les propriétés suivantes 
+sont équivalentes:
+\begin{itemize}
+\item[1.] $f$ est continue en un point $a$ de $E$,
+\item[2.] $f$ est continue en tous points de $E$,
+\item[3.] $f$ est bornée sur la boule unité fermée de $E$,
+\item[4.] $f$ est bornée sur la sphère unité de $E$,
+\item[5.] $f$ est bornante, c'est à dire que l'image d'un borné de $E$ est un borné de $F$.
+\end{itemize}
+}
+\end{proposition}
+
+ \begin{proposition}[APPLICATIONS LINEAIRE CONTINUES EN DIMENSION FINIE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soient $f:  (E, \Vert . \Vert_E) \rightarrow (F, \Vert . \Vert_F)$  une application linéaire avec $ \dim E < +\infty$, alors $f$ est continue.
+}
+\end{proposition}
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+Cette dernière proposition sera très utile pour nous étant donné que dans ce cours nous travaillerons principalement
+en dimension finie. Pour montrer la continuité de $f$ il faudra juste montrer alors $f$ est linéaire. 
+}
+\end{remarque*}
+
+
+ \noindent $(E, \Vert . \Vert_E)$ et $(F, \Vert . \Vert_F)$ deux $e.v.n.$, alors l'ensemble des applications linéaires continues de $E$ vers $F$, noté $\L (E,F)$ es un espace vectoriel. Comment normer  cet espace?
+ 
+ 
+ 
+ \begin{proposition}[APPLICATIONS LINEAIRE CONTINUES EN DIMENSION FINIE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soit $f \in \L(E,F)$, alors 
+\begin{equation*}
+\displaystyle \sup_{x \in \overline{B}(0,1)} \Vert f(x) \Vert_F= \displaystyle \sup_{x \in S(0,1)} \Vert f(x) \Vert_F = \displaystyle \sup_{x \in E, x \neq 0} \Vert f(x) \Vert_F,
+\end{equation*}
+et l'application $\vert \Vert ; \Vert \vert$ est une norme dans  $\L(E,F)$.
+}
+\end{proposition}
+ 
+ 
+\chapter{Fonctions de plusieurs variables. Limite. Continuité.}
+
+
+\begin{figure}[!h]
+    \centering
+    [\color{blue} James Gregory (1638-1675): mathématicien écossais, 
+    qui en 1667 donne une des premières définitions formelles de fonctions de 
+    plusieurs variables dans son ouvrage \textit{Vera circuli et hyperbolae quadratura}.]
+    {
+%        \includegraphics[width=1.2in]{James_Gregory.jpg}
+        \label{fig:James_Gregory}
+    }
+    [Joseph-Louis Lagrange (1736-1813): mathématicien italien, a étudié (entre autres), les extrema relatifs de fonctions de plusieurs variables. ]
+    {
+    %    \includegraphics[width=1.2in]{Joseph-Louis_Lagrange.jpeg}
+        \label{fig:Joseph-Louis_Lagrange}
+    }
+    [\color{blue}Gaspard Monge (1748-1818): mathématicien français, il étudie les surfaces et dans son ouvrage  \textit{Application de l'analyse à la géométrie } il introduit la notion de ligne de courbure et les termes ellipsoïde, hyperboloïde et paraboloïde.
+Dès 1801, il est le premier à utiliser systématiquement les équations aux dérivées partielles pour étudier les surfaces.]
+    {
+     %   \includegraphics[width=1.25in]{gaspard_monge.jpg}
+        \label{fig:gaspard_monge}
+    }
+    \caption{Quelques mathématiciens célèbres liés à l'étude de fonctions de plusieurs variables.}
+    \label{fig:math2}
+\end{figure}
+
+
+
+
+
+\textbf{Que sont les fonctions de plusieurs variables?} Dans ce chapitre nous allons étudier les fonctions de plusieurs variables dans des cadres particuliers ($\R^2$ ou $\R^3$), mais également dans un cadre très général ($\R^n$). 
+Nous n'étudierons pas le cas encore plus général dans lequel la dimension des
+espaces est infinie. Nous laissons cela pour un cours un peu plus avancé. Ces fonctions seront donc de la forme 
+\begin{equation*}
+f:E \subset \R^p \rightarrow F \subset \R^q,
+\end{equation*}
+où $p$ et $q$ sont des entiers naturels $>0$. Autrement dit, les éléments de l'ensemble de départ $E$ seront des vecteurs du type $x=(x_1,...,x_p)$, et les éléments de l'ensemble d'arrivée seront des vecteurs du type $f(x)=(f_1(x), ...,f_q(x))$, où $x$ est un vecteur de $E$.\\
+Nous considérons plusieurs cas de fonctions à plusieurs variables, donc voici quelques illustrations graphiques. \\
+
+\noindent Exemples de représentations graphiques de certaines classes de 
+fonctions de plusieurs variables.
+\begin{enumerate}
+\item $p=1,q=1$.  $f: I \subset \R \rightarrow J \subset \R$:  c'est le cas le plus simple, celui qui est connu depuis le lycée, 
+nous rappellerons si nécessaire quelques résultats concernant ce type de fonctions. 
+\item $p=1$, $q >1$. $f: I \subset \R \rightarrow F \subset \R^q$: elles sont représentées par exemple par des courbes  paramétrées ($q=2$ ou $3$),
+\item $=p=2$, $q = 1$. $f: E \subset \R^2 \rightarrow J \subset \R$: elles sont représentées par exemple par des surfaces (on les appelle également champs scalaires), ou des courbes de niveau,
+\item $p=2$, $q >1$. $f: E \subset \R^2 \rightarrow F \subset \R^q$: elles sont représentées par exemple par des surfaces paramétriques, ou des champs vectoriels ($q=2$ ou $3$).
+\item $p=3$, $q = 3$. $f: E \subset \R^3 \rightarrow F \subset \R^3$: elles sont représentées par exemple par des champs vectoriels.
+\end{enumerate}
+\begin{figure}[!h]
+    \centering
+    [\color{blue} (cas $p=q=1$) Courbe représentant la fonction $x \mapsto x \sin(x)$.]
+    {
+%        \includegraphics[width=2.5in]{courbe1d.jpg}
+        \label{fig:courbe1}
+    }
+    [(cas $p=1$, $q=3$) Courbe représentant la fonction $ t \mapsto ((2+\cos(1.5t))\cos(t),  (2+\cos(1.5t))\sin(t),\sin(1.5t))$ (nœud de trèfle). ]
+    {
+ %       \includegraphics[width=3in]{trefoil.jpg}
+        \label{fig:trefoil}
+    }\\
+    
+     [(cas $p=2$, $q=1$) Courbe représentant la fonction $ (x,y) \mapsto -x\cdot y\cdot e^{\left( -x^{2}-y^{2} \right)}$. ]
+    {
+  %      \includegraphics[width=3in]{courbe3D1.jpg}
+        \label{fig:courbe3D1}
+    }
+    [\color{blue}(cas $p=2$, $q=3$) Courbe représentant la fonction $ (u,v) \mapsto \left( (2+\sin(v))\cos(u), (2+\sin(v))\sin(u),u+\cos(v) \right)$. ]
+    {
+ %       \includegraphics[width=3in]{courbe3D2.jpg}
+        \label{fig:courbe3D2}
+    }
+    \caption{Quelques représentations graphiques illustrant des fonctions de plusieurs variables.}
+    \label{fig:courbes3D}
+\end{figure}
+\begin{figure}[!h]
+  %  \centering   \includegraphics[width=2 in]{VectorField.jpg}
+    \caption{Représentation du champ de vecteur donné par 
+  $(x,y,z) \mapsto (y / z,-x /  z,z / 4 )$.}
+      \label{fig:vectorfield}
+\end{figure}
+Dès que $p$ et $q$ sont $>3$, il est assez difficile d'avoir une vision
+graphique de leur représentation, mais cela ne veut pas dire qu'il n'y a pas 
+d'interprétation possible. Les variables peuvent représenter bien autre chose
+que l'espace: cela peut être des populations, des traits caractéristiques (taille, âge, maturité, gènes,...), etc. Nous essaierons de donner quelques illustrations tout au long de ce cours.
+
+
+
+Dans la suite de ce cours, nous distinguerons parfois des résultats pour deux types bien distincts de fonctions:\\
+- les fonctions scalaires $\R^p \rightarrow \R$ (qu'on appelle aussi fonctions réelles de variables réelles),\\
+-les fonctions vectorielles $\R^p \rightarrow \R^q$, $q>1$.\\
+
+\noindent ATTENTION: certains résultats seront donnés pour les fonctions scalaires alors que d'autres
+le seront pour les fonctions vectorielles.
+
+\section{Fonctions réelles de variable réelle}
+%: $f: E \subset \R^n \rightarrow \R$}
+\begin{definition}[FONCTION REELLE DE PLUSIEURS VARIABLES REELLES]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soient $E$ un sous-ensemble non vide de $\R^n$ et $G$ une partie de $E \times \R$ telle 
+que pour tout vecteur $x \in E$, il existe un nombre réel $y$ et un seul tel que le couple $(x,y)$ 
+appartienne à $G$. Alors le triplet $(f,E,\R)$ s'appelle fonction définie sur $E$ à valeurs dans $\R$.\\
+-on dit que $E$ est l'ensemble de départ de $f$ (ou le domaine de définition), et on le désigne par $D(f)$.\\
+-le sous-ensemble $\lbrace y \in \R$, il existe $x\in E, f(x)=y \rbrace$ est appelé l'image de $E$ par $f$ et il est noté $Im(f)$.\\
+-l'UNIQUE nombre réel $y$ correspondant à l'élément $x \in E$ par $f$ s'appelle l'image de $x$ par
+$f$ et se note $f(x)$.\\
+-la notation $f=(G,E,\R)$ n'est pas utilisée en pratique. On lui préfère la notation
+\begin{equation*}
+f:E \rightarrow \R.
+\end{equation*}
+}
+\end{definition}
+
+
+
+\begin{definition}[GRAPHES D'UNE FONCTION $f: E \subset \R^2 \rightarrow \R$ ]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soient $E$ un sous-ensemble non vide de $\R^2$  et $f:E \rightarrow \R$ une fonction  réelle de deux variables.
+\begin{itemize}
+\item[1.]L'ensemble des points de $\R^3$
+\begin{equation*}
+S=\lbrace (x,y,z) \in \R^3; (x,y) \in E, z=f(x,y) \rbrace
+\end{equation*}
+est appelé SURFACE REPRESENTATIVE de $f$. $S$ est également appelé GRAPHE de la fonction $f$.
+\item[2.] Soit $A=(a,b)$ un point intérieur de $E$. Les fonctions $\R \rightarrow \R$ telles que  $x \rightarrow f(x,b)$ et $y \rightarrow f(a,y)$ définies sur des intervalles ouverts contenant respectivement
+$a$ et $b$ sont appelées FONCTION PARTIELLES associées à $f$ au point $A$.
+\item[3.]Soit $k \in \R$. L'ensemble $L_k=\lbrace (x,y) \in E; f(x,y)=k\rbrace$ est appelé LIGNE DE NIVEAU $k$ de la fonction $f$.
+\end{itemize}\label{level}
+}
+\end{definition}
+
+\begin{figure}[!h]
+ %   \centering   \includegraphics[width=5 in]{Contours.jpg}
+    \caption{Illustration de la définition \ref{level} avec l'image de la couverture: représentation de la fonction $f: \R^2 \mapsto \R$ définie par
+  $(x,y) \mapsto z=\frac{\sin \left( x^{2}+3y^{2} \right)}{0.1+r^{2}}+\left( x^{2}+5y^{2} \right)\cdot \frac{\exp \left( 1-r^{2} \right)}{2},\;\mathrm{avec}\;\; r=\sqrt{x^{2}+y^{2}}$,
+et projection des courbes de niveau sur les plans $z=0$ et $z=9$.}
+      \label{fig:Contours2}
+\end{figure}
+
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+\noindent Pour les fonctions de 3 variables, la notion analogue à la ligne de niveau est celle
+de la SURFACE de niveau.
+\begin{figure}[!h]
+ %   \centering   \includegraphics[width=5 in]{levelsurfaces.jpg}
+    \caption{Surfaces de niveau pour illustrer la fonction $f: (x,y,z) \mapsto f(x,y,z)=x^2+y^2+z^2$. Les surfaces de niveaux sont données par l'équation $x^2+y^2+z^2=a^2$, où $a=1,2,3$ et elles ont été coupées pour laisser entrevoir les surfaces des différents niveaux.}
+      \label{fig:levelsurfaces}
+\end{figure}
+}
+\end{remarque*}
+
+\section{Notion de limite }
+\begin{definition}[FONCTION DEFINIE AU VOISINAGE D'UN POINT]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent On dit qu'une fonction $f:E \rightarrow \R$ est définie au voisinage d'un point
+$x_0$, si $x_0$ est un point intérieur à $E \cup \lbrace x_0 \rbrace$.
+}
+\end{definition}
+
+
+\begin{definition}[LIMITE D'UNE FONCTION $f: E \subset \R^n \rightarrow \R$]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent On dit qu'une fonction $f: E\subset \R^p \rightarrow \R$ définie au voisinage de $x_0$ admet 
+pour limite le nombre réel $l$ lorsque $x$ tend vers $x_0$ si pour tout $\varepsilon >0$ 
+on peut associer un nombre $\eta>0$ tel que les relations $x\in E$ et $0< \Vert x-x_0 \Vert <\eta$
+impliquent $\vert f(x)-l \vert < \varepsilon$. On écrit alors 
+\begin{equation*}
+\displaystyle \lim_{x\rightarrow x_0} f(x)=l.
+\end{equation*}
+}
+\end{definition}
+
+
+
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+\noindent 
+\begin{itemize}
+\item[1.] La notion de limite ici ne dépend pas des normes utilisées.
+\item[2.] La limite, si elle existe est unique.
+\item[3.] Nous pouvons généraliser ces définitions aux fonctions de $E \subset \R^p \rightarrow \R^q$.
+\end{itemize}
+}
+\end{remarque*}
+
+
+
+ 
+ \begin{proposition}[LIMITES ET SUITES D'UNE FONCTION $f: E \subset \R^n \rightarrow \R^q$ ]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Une fonction $f: E\subset \R^p \rightarrow \R^q$ définie au voisinage de $x_0$ admet une limite $l$ 
+lorsque $x$ tend vers $x_0$ si et seulement si pour toute suite $(x_n)_{n\in \N}$
+d'éléments de $\lbrace x \in E, x \neq x_0 \rbrace$ qui converge vers $x_0$, la suite
+$(f(x_n))_{n\in \N}$ converge vers $l$.
+}
+\end{proposition}
+
+
+
+\noindent \underline{\bf Preuve :}
+Faite en cours.
+
+
+ 
+ \begin{proposition}[OPERATIONS SUR LES LIMITES]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soient $f$ et $g$ deux fonctions de $E\subset \R^p \rightarrow \R^q$ telles que 
+$\displaystyle \lim_{x \rightarrow x_0} f(x)=l_1$ et $\displaystyle \lim_{x \rightarrow x_0} g(x)=l_2$, alors
+\begin{itemize}
+\item[1.] pour tout couple de nombres réels $\alpha$ et $\beta$, la limite de la fonction
+$\alpha f +\beta g$ lorsque $x \rightarrow x_0$ existe et est égale à $\alpha l_1+\beta l_2$.
+\item[2.] la limite de la fonction $fg$ quand $x \rightarrow x_0$ existe et elle est égale à $l_1l_2$.
+\item[3.]la limite de de $f/g$  si $l_2 \neq 0$ lorsque  $x \rightarrow x_0$ existe et est égale 
+à $l_1/l_2$.
+\end{itemize}
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+
+
+ \begin{proposition}[LIMITE D'UNE FONCTION COMPOSEE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soient :\\
+-$a \in \R$, $b=(b_1, ..., b_n) \in \R^n$ et $f:E \subset \R^n \rightarrow \R$ une fonction telle que pour tout $x=(x_1,...x_n) \in  E$,
+\begin{equation*}
+\displaystyle \lim_{x\rightarrow b} f(x)=l,
+\end{equation*}
+-soient 
+$g_1,... ,g_n: \R \rightarrow \R$, $n$ fonctions  réelles telles que  $\displaystyle \lim_{t \rightarrow a} g_i(t)=b_i$, pour tout $i=1,..., n$, \\
+-supposons de plus qu'il existe $\alpha \in  \R$, $\alpha >0$
+tel que pour tout $t$ avec $0<\vert t- a \vert < \alpha$ on ait $(g_1(t), ..., g_n(t)) \neq (b_1, ..., b_n)$
+alors,
+\begin{equation*}
+ \displaystyle \lim_{t \rightarrow a} f(g_1(t), ..., g_n(t))=l.
+\end{equation*} 
+}
+\end{proposition}
+
+
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+
+
+ \begin{proposition}[PERMUTATION DES LIMITES]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soit $f:\R^2 \rightarrow \R$ une fonction telle que $\displaystyle \lim_{(x,y) \rightarrow (a,b)} f(x,y)=l$.
+Supposons de plus que pour tout $x \in \R$ $\displaystyle \lim_{y\rightarrow b} f(x,y)$ existe et que 
+pour tout $y \in \R$, $\displaystyle \lim_{x\rightarrow a} f(x,y)$ existe. Alors
+\begin{equation*}
+\displaystyle \lim_{x \rightarrow a} (\displaystyle \lim_{y \rightarrow b} f(x,y))=\displaystyle \lim_{y \rightarrow b} (\displaystyle \lim_{x \rightarrow a} f(x,y))=l.
+\end{equation*}
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+
+
+
+
+
+\begin{theoreme}[THEOREME DES GENDARMES]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soient $f, g$ et $h$ trois fonctions de $\R^p \rightarrow \R^q$ vérifiant les deux propriétés suivantes:
+\begin{itemize}
+\item[1.] $\displaystyle \lim_{x \rightarrow x_0} f(x)=\displaystyle \lim_{x \rightarrow x_0} g(x)=l$
+\item[2.] il existe $\alpha \in \R$, $\alpha >0$ tel que pour tout $x \in \lbrace x \in E, 0< \Vert x-x_0 \Vert < \alpha \rbrace$ tel que $f(x) \leq h(x) \leq g(x)$.
+\end{itemize}
+Alors $\displaystyle \lim_{x \rightarrow x_0} h(x)=l$.
+}
+\end{theoreme}
+
+\noindent \underline{\bf Preuve :}
+Faite en cours.
+
+
+
+\section{Fonctions continues}
+\begin{definition}[FONCTION CONTINUE EN UN POINT]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soit $x_0$ un point intérieur de $E \subset \R^p$. Une fonctions $f: E \rightarrow \R^q$
+est continue en $x_0$ si et seulement $\displaystyle \lim_{x \rightarrow x_0} f(x)=f(x_0)$.
+}
+\end{definition}
+
+
+
+\noindent On peut formuler cette définition de façon équivalente à l'aide des suites.
+
+\begin{definition}[CONTINUITE ET SUITES]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soit $x_0$ un point intérieur de $E \subset \R^p$. Une fonction $f: E \rightarrow \R^q$
+est continue en $x_0$ si et seulement si pour toute suite  $(x_n)_{n \in \N}$ 
+d'éléments de $E$ qui converge vers $x_0$, la suite $(f(x_n))_{n \in \N}$ converge vers $f(x_0)$.
+}
+\end{definition}
+
+\begin{definition}[FONCTIONS PARTIELLES DANS $\R^n$]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soit $f: E \subset \R^p \rightarrow \R$. Soit $a=(a_1,...,a_p) \in E$, alors les 
+$p$ fonctions $f_1, ..., f_p$ définies par 
+\begin{equation*}
+\begin{array}{llll}
+f_j:& \lbrace x\in \R, (a_1,.., a_{j-1},x,a_{j+1},..,a_p) \in E\rbrace & \rightarrow & \R\\
+ & x & \mapsto & f_j(x)=f(a_1,.., a_{j-1},x,a_{j+1},..,a_p),
+\end{array}
+\end{equation*}
+pour $j=1,...,p$ sont appelées fonctions partielles en $a$.
+}
+\end{definition}
+
+
+
+ \begin{proposition}[CONTINUITE FONCTIONS PARTIELLES]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soit $f: E \subset \R^p \rightarrow \R^q$ une fonction continue au point $a=(a_1,...,a_p)$, alors les 
+$p$ fonctions $f_1, ..., f_p$ définies par 
+\begin{equation*}
+\begin{array}{llll}
+f_j:& \lbrace x\in \R, (a_1,.., a_{j-1},x,a_{j+1},..,a_p) \in E \rbrace & \rightarrow & \R^q \\
+ & x & \mapsto & f_j(x)=f(a_1,.., a_{j-1},x,a_{j+1},..,a_p),
+\end{array}
+\end{equation*}
+pour $j=1,...,p$ sont continues en $a_j$.
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Faite en cours.
+
+
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+\noindent 
+-ATTENTION:\\
+ -en général la réciproque est fausse!\\
+-Soit $l \in \R$, si $f: \R^2 \rightarrow \R$ une fonction telle que pour tout $\alpha \in \R$,
+$\displaystyle \lim_{x \rightarrow 0} f(x, \alpha x)=l$. Peut-on en conclure que $f$ 
+est continue au point $(0,0)$? La réponse est non.
+}
+\end{remarque*}
+
+
+
+\begin{theoreme}[OPERATIONS SUR LES FONCTIONS CONTINUES]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soient $f$ et $g$  deux fonctions de $\R^p$ dans $\R^q$ continues en $x_0$. Alors,
+\begin{itemize}
+\item[1.] pour tout couple de nombres réels $\alpha$ et $\beta$, la fonction 
+$\alpha f + \beta g$ est continue en $x_0$.
+\item[2.] de même $fg$ et $f/g$ (avec $g(x) \neq 0$ sur un voisinage de $x_0$) et $\Vert f \Vert$ sont continues en $x_0$.
+\item[3.] enfin, la composée de fonctions continues est continue.
+\end{itemize}
+}
+\end{theoreme}
+
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+
+
+\begin{definition}[PROLONGEMENT PAR CONTINUITE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soit $f: E \subset \R^p \rightarrow \R^q$. Soit $x_0$ un point adhérent à $E$ 
+n'appartenant pas à $E$. Si $f$ a une limite $l$ lorsque $x \rightarrow x_0$
+on peut étendre le domaine de définition de $f$ à $E \bigcup \lbrace x_0 \rbrace$
+en posant $f(x_0)=l$. On dit que l'on a prolongé $f$ par continuité au point $x_0$.
+}
+\end{definition}
+
+
+\begin{theoreme}[CRITERES DE CONTINUITE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soit $f:  E \subset \R^p \rightarrow F \subset \R^q$ une fonction  continue. Les
+propriétés suivantes sont équivalentes
+\begin{itemize}
+\item[1.] $f$ est continue en tout point de  $E$,
+\item[2.] pour tout ouvert  $U$ de $F$, $f^{-1}(U)$ est un ouvert de $E$.
+\item[3.] pour tout fermé  $V$ de $F$, $f^{-1}(V)$ est un fermé de $E$.
+\item[4.] pour toute suite $(x_n)_{n \in \N}$  de $E$ convergeant vers $z$,
+la suite $(f(x_n))_{n \in \N} $ converge vers $f(z)$ pour tout $z \in E$.
+\end{itemize}
+}
+\end{theoreme}
+
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+%\section{Cas particulier: applications linéaires et multilinéaires continues}
+%\subsection{Applications linéaires continues}
+%Nous allons donner ici le résultat dans des espaces vectoriels normés de dimension quelconque.
+%
+%
+%
+%
+% \begin{proposition}[CONTINUITE ET FONCTION LINEAIRE]
+%\textcolor[rgb]{0.50,0.00,0.25}{
+%Soient $E$, et $F$ des espaces vectoriels normés, et $f:E \rightarrow F$ une application linéaire.
+%Alors,
+%\begin{equation*}
+%f \mathrm{\;est \; continue\;} \Leftrightarrow \mathrm{\; il \; existe\;} k>0, \mathrm{\; pour \; tout\; } x \in E, \Vert f(x) \Vert \leq k \Vert x \Vert.
+%\end{equation*}
+%}
+%\end{proposition}
+%
+%\noindent \underline{\bf Preuve :}
+%Pas faite en cours
+%
+%\noindent  \underline{\bf Notation:}
+%\textcolor[rgb]{0.00,0.00,1.00}{
+%On note alors 
+%\begin{equation*}
+%\begin{array}{lll}
+%\Vert \vert f \vert \Vert &=& \displaystyle \sup_{\underset{x \neq 0}{x \in E}} 
+% \dfrac{\Vert f(x) \Vert}{\Vert x \Vert}\\
+% & =& \displaystyle  \sup_{\underset{\Vert x \Vert \leq 1}{x \in E}} 
+% \Vert f(x) \Vert\\
+% & = & \inf \lbrace k>0,  \mathrm{\; pour \; tout \;} x \in E, \Vert f(x) \Vert \leq k \Vert x \Vert \rbrace. 
+%\end{array}
+%\end{equation*}
+%}
+%
+%\noindent  \underline{\bf Notation:}
+%\textcolor[rgb]{0.00,0.00,1.00}{
+%On note en général \\
+%-$\L (E;F)$ l'ensemble des applications linéaires continues de $E$ dans $F$. Et c'est même un espace vectoriel normé (admis).\\
+%-$\Vert \vert . \vert \Vert$ définit une norme sur $\L (E;F)$ et si $f$ est continue on a 
+%\begin{equation*}
+%\Vert u (x)\Vert \leq \Vert \vert u \vert \Vert . \Vert x\Vert,
+%\end{equation*}
+%et c'est la meilleure inégalité.
+%}
+%
+%\begin{remarque*}
+%\textcolor[rgb]{0.00,0.00,1.00}{
+%\noindent 
+%IMPORTANT: si $E= \R^n$ (ou de manière générale $dim(E)<+\infty$), et  si $f$ est linéaire de $E \rightarrow F$ alors $f$ est CONTINUE!
+%}
+%\end{remarque*}
+%
+%\subsection{Applications multilinéaires continues}
+%\noindent Pour des raisons de clarté, nous nous intéressons dans cette section aux applications
+%s seulement, mais le cas multi-linéaire se généralise aisément.
+%
+%\begin{definition}[APPLICATIONS MULTILINEAIRES]
+%\textcolor[rgb]{0.73,0.00,0.00}{
+%\noindent Soient $E$, $F$ et $G$ des espaces vectoriels normés, alors toute application $\varphi:E \times F \rightarrow G$, est bilinéaire si:\\
+%-pour tout $x \in E$, $\varphi (x,.): F \rightarrow G$ est linéaire, et\\
+%-pour tout $y \in F$, $\varphi (.,y): E \rightarrow G$ est linéaire également.
+%}
+%\end{definition}
+%
+% \begin{proposition}[CONTINUITE ET BILINEARITE]
+%\textcolor[rgb]{0.50,0.00,0.25}{
+%Si $\varphi$ est bilinéaire alors
+%\begin{equation*}
+%\varphi \mathrm{\;est \;continue \;} \Leftrightarrow  \mathrm{\; il \; existe\;} k>0, \mathrm{\; pour \; tout\; } x \in E, \mathrm{\; pour \; tout\; } y \in F, 
+%\end{equation*}
+%\begin{equation*}
+% \Vert \varphi(x) \Vert \leq k \Vert x \Vert \Vert y \Vert.
+%\end{equation*}
+%}
+%\end{proposition}
+%
+%\noindent \underline{\bf Preuve :}
+%Pas faite en cours
+%
+%\noindent  \underline{\bf Notation:}
+%\textcolor[rgb]{0.00,0.00,1.00}{
+%On note alors 
+%\begin{equation*}
+%\begin{array}{lll}
+%\Vert \vert \varphi \vert \Vert &=& \displaystyle \sup_{\underset{(x,y) \neq (0,0)}{(x,y) \in (E \times F)}}  \dfrac{\Vert \varphi(x,y) \Vert}{\Vert x \Vert.\Vert y \Vert}\\
+% & = & \inf \lbrace k>0,  \mathrm{\; pour \; tout \;} (x,y) \in E\times F, \Vert \varphi(x,y) \Vert \leq k \Vert x \Vert.\Vert y \Vert \rbrace. 
+%\end{array}
+%\end{equation*}
+%}
+%
+%\begin{remarque*}
+%\textcolor[rgb]{0.00,0.00,1.00}{
+%\noindent 
+%IMPORTANT: si $E= \R^p$ et $F=R^q$ (ou de manière générale $dim(E)<+\infty$ et $dim(F)<+\infty$ ), et  si $\varphi$ est bilinéaire de $E\times F \rightarrow G$ alors $\varphi$ est CONTINUE!
+%}
+%\end{remarque*}
+
+\section{Coordonnées polaires}
+Lorsque l'on considère des application $f: E \subset \R^2 \rightarrow \R$, il est quelques fois plus facile de prouver des résultats de limite, continuité, etc. en passant par les coordonnées polaires en faisant le changement de variables de la façon suivante.
+
+
+\textcolor[rgb]{0.00,0.00,1.00}{
+Soit $\R^+=[0,\infty[$. Deux cas possibles se présentent. 
+\begin{enumerate}
+\item Soit $r=0$, et dans ce cas là, l'angle $\theta$ peut prendre toutes les valeurs
+sur $[0,2 \pi[$ étant donné que l'on reste au même point: l'origine.
+\item Soit $r \neq 0$. On a alors $x$ et $y$ qui ne peuvent être tous les deux nuls en même temps,  et alors on peut définir une 
+application bijective de $\R_{+}^* \times [0, 2\pi[$
+vers $\R^2$ donnée par les formules suivantes:
+\begin{equation*}
+\begin{array}{lll}
+\R_{+}^* \times [0, 2\pi[ & \rightarrow  & \R^2 \setminus\lbrace 0,0 \rbrace \\
+(r,\theta) & \mapsto & (x,y)=(r \cos (\theta), r \sin(\theta)),
+\end{array}
+\end{equation*}
+Son application réciproque est l'application 
+suivante :
+\begin{equation*}
+\begin{array}{lll}
+\R^2\setminus\lbrace 0,0 \rbrace  & \rightarrow  & \R^+ \times [0, 2\pi[ \\
+(x,y) & \mapsto & (r,\theta),
+\end{array}
+\end{equation*}
+où $r= \sqrt{x^2+y^2}$ et $\theta$ est défini de la façon suivante:
+\begin{equation*}
+\theta=\left\{
+\begin{array}{lllll}
+\arctan(x/y) & \mathrm{si}& x>0 & \mathrm{et}& y \geq 0,\\
+\arctan(x/y)+2\pi & \mathrm{si}& x>0 ,& \mathrm{et} & y<0,\\
+\arctan(x/y)+ \pi & \mathrm{si}& x<0 ,& & \\
+\dfrac{\pi}{2}& \mathrm{si}& x=0 & \mathrm{et} & y>0,\\
+- \dfrac{\pi}{2} & \mathrm{si}& x=0 & \mathrm{et} & y<0.
+\end{array} \right.
+\end{equation*}
+\end{enumerate}
+}
+
+
+\noindent Donc en particulier, on a $r^2=x^2+y^2$. \\
+Dans certains exemples d'étude de  continuité des fonctions, il est utile de passer aux coordonnées
+polaires: en effet, la condition sur deux variables $(x,y) \rightarrow 0$ devient une condition
+sur une seule variable $r \rightarrow 0$ et prouver la continuité d'une fonction devient plus facile (voir les exemples du cours).\\
+On aurait également pu considérer $\theta$ sur l'intervalle $]-\pi, \pi]$ au lieu de $[0, 2\pi[ $ mais alors il aurait fallu changer la fonction réciproque $\arctan$...(à faire en exercice).
+
+\begin{exemple} \textcolor[rgb]{0.00,0.59,0.00}
+{Voir en cours.
+}
+\end{exemple}
+
+\section{Continuité sur un compact}
+
+\begin{definition}[EXTREMA DE FONCTIONS A VALEURS SUR $\R$]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soient $f: E \subset  \R ^p\rightarrow \R$, $M$ (respectivement $m$) un nombre réel vérifiant les deux propriétés suivantes:
+\begin{itemize}
+\item[1.] pour tout élément $x \in E$, $f(x) \leq M$ (respectivement $f(x) \geq m$).
+\item[2.] $M$ (respectivemnt $m$) appartient à l'ensemble $Im (f )=\lbrace f(x); x\in E \rbrace$.
+\end{itemize}
+Alors le nombre réel $M$ (respectivement $m$) est appelé le maximum (respectivement le minimum) de la fonction $f$ sur $E$ et il est noté $\displaystyle \max_{x \in E} f(x)$ (respectivement $\displaystyle \min_{x \in E} f(x)$.\\
+D'autre part, si pour $x_0 \in E$, $f(x_0) \in E$, $f(x_0)= \displaystyle \max_{x \in E} f(x)$, 
+(respectivement $f(x_0)= \displaystyle \min_{x \in E} f(x)$), nous dirons que la fonction $f$
+atteint son maximum (respectivement son minimum).
+}
+\end{definition}
+
+\begin{theoreme}[CONTINUITE ET COMPACT]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soient $f:E \subset \R^p \rightarrow \R^q$ une fonction continue sur une partie $E \subset \R^p$
+et $K$ une partie compacte de $\R^p$ contenue dans $E$. Alors $f(K)$ est une partie compacte
+de $\R^q$.
+}
+\end{theoreme}
+
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+
+
+\begin{corollaire}[FONCTION BORNEE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Une fonction continue sur un compact est bornée et atteint ses bornes.
+}
+\end{corollaire}
+
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+\noindent 
+IMPORTANT: si $f:  E \subset \R^p \rightarrow \R$ le corollaire précédent signifie que les deux nombres 
+réels $\displaystyle \min_{x \in E} f(x)$ et $\displaystyle \max_{x \in E} f(x)$ existent 
+et sont atteints.
+}
+\end{remarque*}
+
+\section{Théorème des valeurs intermédiaires}
+
+\begin{definition}[ARC CONTINU]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent On dit qu'une partie $\Gamma$ de $\R^p$ est un arc continu si on peut trouver
+une application continue $\gamma: [a,b] \subset \R \rightarrow \R^p$ dont l'image soit $\Gamma$.
+L'application $\gamma$ est appelée un paramétrage de $\Gamma$. Les points de $\Gamma$, 
+$A=\gamma(a)$ et $B=\gamma(b)$ s'appellent les extrémités de $\Gamma$.
+}
+\end{definition}
+
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+\noindent 
+ATTENTION: 
+\begin{enumerate}
+\item $\Gamma$ est un objet géométrique tandis que $\gamma$, fonction
+continue, est un objet analytique. \\
+Un arc continu admet une infinité de paramétrages possibles.
+\item Ne pas confondre ensemble CONVEXE et ensemble CONNEXE. Dans un ensemble CONVEXE, le segment reliant deux points de cet ensemble doit se trouve en entier dans cet ensemble. Tandis qu'un ensemble CONNEXE (ensemble ``en un seul morceau'' peut ne pas être CONVEXE et posséder des éléments dont le segment qui relie deux de ces éléments puisse sortir de cet ensemble (voir figure \ref{fig:convexe}).
+\end{enumerate}
+}
+\end{remarque*}
+
+ \begin{figure}[!h]
+%    \centering   \includegraphics[width=3 in]{convexe.jpg}
+    \caption{Exemples sur $\R^2$ d'un ensemble CONVEXE $E$ à gauche et d'un ensemble CONNEXE non convexe $F$ à droite.}
+      \label{fig:convexe}
+\end{figure}
+
+\begin{definition}[CONNEXE PAR ARCS]
+\textcolor[rgb]{0.73,0.00,0.00}{
+\noindent Soit $E$ un sous-ensemble de $\R^p$. On dit que $E$ est connexe par arc
+si étant donnés deux points arbitraires $A$ et $B$ de $E$ on peut trouver un arc continu $\Gamma$, d'extrémités $A$, et $B$ entièrement contenu dans $E$.
+}
+\end{definition}
+
+\begin{exemple} \textcolor[rgb]{0.00,0.59,0.00}
+{Voir la figure \ref{fig:arc}.
+}
+\end{exemple}
+
+ \begin{figure}[!h]
+%    \centering   \includegraphics[width=2 in]{arc.jpg}
+    \caption{Exemples sur $\R^2$ d'un arc continu dans un ensemble $E \subset \R^2$}
+      \label{fig:arc}
+\end{figure}
+
+\begin{exemple} \textcolor[rgb]{0.00,0.59,0.00}
+{\begin{enumerate}
+\item Dans $E=\R$, tous les intervalles $I$ sont connexes par arc.
+\item  $\R^*$ n'est pas connexe par arc.
+\item Les ensembles convexes sont connexes par arc.
+\item Les boules étant convexes, elles sont connexes par arc.
+\item La réunion de deux connexes  par arc non disjoints est connexe par arc.
+\end{enumerate}
+Voir une illustration de connexité par arc sur  la figure \ref{fig:connexe}.
+}
+\end{exemple}
+
+ \begin{figure}[!h]
+%    \centering   \includegraphics[width=3 in]{connexe.jpg}
+    \caption{Exemples sur $\R^2$ de partie connexe par arc $E$ et de partie non connexe par arc $E_1 \sqcup E_2$.}
+      \label{fig:connexe}
+\end{figure}
+
+
+\begin{theoreme}[THEOREME DES VALEURS INTERMEDIAIRES]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soit $f: E \subset \R^p \rightarrow \R$ un fonction continue sur une partie $E \subset \R^p$
+connexe par arc. Soient $A$ et $B$ deux points de $E$. Pour tout nombre réel $r$ compris
+entre $f(A)$ et $f(B)$ il existe un point $C$ de $E$ tel que $f(C)=r$. 
+}
+\end{theoreme}
+
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+\chapter{Calcul différentiel}
+
+
+
+\begin{figure}[!h]
+    \centering
+    [\color{blue} Pierre de Fermat (1605/1608-1665): mathématicien français, 
+    il développe une méthode générale pour trouver les tangentes aux courbes, méthode qui sera considérée par la suite comme le fondement du calcul différentiel.]
+    {
+%        \includegraphics[width=1.2in]{Pierre_de_Fermat.jpg}
+        \label{fig:fermat}
+    }
+    [Charles Gustave Jacob Jacobi, ou Carl Gustav Jakob Jacobi, (1804  - 1851 ) , un mathématicien allemand, il est entre autre connu pour 
+    avoir été l'un des fondateurs du calcul des déterminants de matrices et notamment celui de la matrice jabobienne.]
+    {
+%        \includegraphics[width=1.5in]{Jacobi_2.jpeg}
+        \label{fig:jacobi}
+    }
+    [\color{blue} Hermann Schwarz (1843-1921), mathématicien allemand connu entre autre pour son célèbre théorème concernant les différentielles d'ordre 2, énoncé dans ce chapitre.]
+    {
+%        \includegraphics[width=1.2in]{schwarz.jpg}
+        \label{fig:schwarz}
+    }
+    \caption{Quelques mathématiciens célèbres liés à l'étude du calcul différentiel.}
+    \label{fig:math3}
+\end{figure}
+
+
+\section{Dérivées partielles}
+Rrppel : DERIVEE
+\textcolor[rgb]{0.73,0.00,0.00}{
+Soit $f: I \subset \R \rightarrow \R$ une fonction dérivable sur un intervalle $I \subset \R$. La dérivée de $f$ au point $a \in I$ est donnée par:
+\begin{equation*}
+f'(a)=\displaystyle \lim_{h \rightarrow 0} \dfrac{f(a+h)-f(a)}{h}=\displaystyle \lim_{x \rightarrow a} \dfrac{f(x)-f(a)}{x-a}
+\end{equation*}
+}
+
+\noindent Comme nous l'avons écrit dans l'introduction, si $f: E \subset \R^p \rightarrow \R^q$ et 
+$a \in E$. Une expression du type du rappel précédent n'a pas de sens parce que l'on ne peut pas diviser par un vecteur. Par contre, si on fixe toutes les composantes du vecteur $x$ sauf une, 
+on peut définir les dérivées partielles de cette fonction $f$ de la façon suivante.
+
+\begin{definition}[DERIVEE PARTIELLE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+Soient $f: E \subset \R^p \rightarrow \R$ et $a \in E$. Pour $i=1,...,p$, 
+on appelle dérivée partielle par rapport à $x_i$ de $f$ en $a=(a_1, ..., a_p)$, et on note
+$\dfrac{\partial f}{\partial x_i}(a)$ la dérivée de la fonction partielle de $f$ prise en $a_i$
+\begin{equation*}
+\dfrac{\partial f}{ \partial x_i }(a)= \displaystyle \lim_{x_i \rightarrow a_i} \dfrac{f(a_1, ..., x_i,...,a_p)-f(a_1,...,a_i,...,a_p)}{x_i-a_i}.
+\end{equation*}
+Pour une fonction de deux variables $f:E \subset \R^2 \rightarrow \R$ en un point $a=(a_1,a_2) \in E$
+les dérivées partielles de $f$ en $(a_1,a_2)$ sont les dérivées des fonctions partielles 
+$x_1 \rightarrow f(x_1,a_2)$ et $x_2 \rightarrow f(a_1,x_2)$, où $x_1$, et $x_2 \in \R$ qui se calculent de la façon suivante:
+\begin{equation*}
+\dfrac{\partial f}{ \partial x_1 }(a_1,a_2)= \displaystyle \lim_{h \rightarrow 0} \dfrac{f(a_1+h,a_2)-f(a_1,a_2)}{h},
+\end{equation*} et, 
+\begin{equation*}
+\dfrac{\partial f}{ \partial x_2 }(a_1,a_2)= \displaystyle \lim_{k \rightarrow 0} \dfrac{f(a_1,a_2+k)-f(a_1,a_2)}{k} .
+\end{equation*}
+On les note parfois $f'_{x_1}(a_1,a_2)$ et $f'_{x_2}(a_1,a_2)$.
+}
+ \end{definition}
+ 
+  \begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+\noindent 
+Si $f: E \subset \R^p \rightarrow \\R^q$ ce sont les composantes $f_j$ de $f$ pour $j=1,...,q$ qui admettent $p$ dérivées partielles.
+Nous le verrons un peu plus bas dans la définition de la matrice jacobienne.
+}
+\end{remarque*}
+ 
+ \begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+\noindent 
+Attention: une fonction peut posséder des dérivées partielles en un point sans pour autant être 
+continue en ce point! C'est pour cela que l'on donne la condition suffisante suivante pour qu'une 
+fonction soit continue en un point
+}
+\end{remarque*}
+
+\begin{theoreme}[CONDITION SUFFISANTE DE CONTINUITE]
+\textcolor[rgb]{0.50,0.00,0.25}{ 
+Soit $f: E \subset \R^p \rightarrow \R$ une fonction continue telle que les $p$ fonctions
+$\dfrac{\partial f}{\partial x_i}$, $i=1,...,p$ soient continues au point $(a_1,...,a_p) \in E$.
+Alors $f$ est aussi continue en ce point.
+}
+\end{theoreme}
+
+\noindent \underline{\bf Preuve :}
+Faite en cours.
+
+
+
+\begin{definition}[MATRICE JACOBIENNE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+La matrice des dérivées partielles de $f: E \subset \R^p \rightarrow \R^q$ s'appelle 
+la matrice jacobienne ou la Jacobienne de $f$. On la note $J(f)_{x_0}$, elle a $p$ 
+colonnes et $q$ lignes:
+\begin{equation*}
+ J(f)_{x_0}=\left(
+          \begin{array}{ccc}
+            \dfrac{\partial f_1(x_0)}{\partial x_1} & \ldots &  \dfrac{\partial f_1(x_0)}{\partial x_p}  \\
+            \vdots &  & \vdots \\
+           \dfrac{\partial f_q(x_0)}{\partial x_1}  & \ldots & \dfrac{\partial f_q(x_0)}{\partial x_p} \\
+          \end{array}
+        \right)\in \mat_{q,p}(\R).
+\end{equation*}
+Autrement dit, si $x=(x_1,...,x_p)$ pour une fonction vectorielle $f(x_1,...,x_p)$  à valeurs dans $\R^q$, la Jacobienne
+a pour colonnes les vecteurs $\dfrac{\partial f}{\partial x_i}$. En particulier, pour une fonction de 
+$p$ variables à valeurs réelles, la matrice jacobienne est juste une matrice ligne:
+\begin{equation*}
+J(f)_{(x_1,...,x_p)}=\left(\dfrac{\partial f(x)}{\partial x_1},...,\dfrac{\partial f(x)}{\partial x_p}\right)
+\end{equation*}
+et la transposée de ce vecteur est la matrice colonne
+\begin{equation*}
+grad(f)_{(x_1,...,x_p)}=\left(\dfrac{\partial f(x)}{\partial x_1},...,\dfrac{\partial f(x)}{\partial x_p}\right)^t.
+\end{equation*}
+$grad$ est appelé gradient de $f$ et il est noté $\nabla f(x)$ (qui se lit $nabla$ $f$ de $x$).
+}
+ \end{definition}
+
+\noindent On résume les cas particuliers dans la section suivante.
+
+\section{Opérateurs différentiels classiques}
+\subsection{Gradient}
+\noindent Pour une fonction \`a valeurs scalaires ($q=1$)
+\begin{equation*}
+  f :E \subset \R^p \rightarrow \R
+\end{equation*}
+dont les dérivées partielles existent, le gradient
+est d\'efini par
+\begin{equation*}
+\begin{array}{clll}
+    grad (f) :& E \subset \R^p & \rightarrow & \R^p \\
+     & x & \mapsto & (grad (f))(x):=\left(\dfrac{\partial f(x)}{\partial x_1},...,\dfrac{\partial f(x)}{\partial x_p}\right)^t.
+\end{array}
+  \end{equation*}
+  \subsection{Divergence} Pour une fonction  $f: E \subset \R^p \rightarrow \R^p$ ($q=p$)
+  de composante $f_1,...,f_p$ , dont toutes les dérivées partielles existent, on d\'efinit sa divergence par
+\begin{equation*}
+\begin{array}{clll}
+    div (f) :& E \subset \R^p & \rightarrow & \R \\
+     & x & \mapsto & (div (f))(x):= tr(J(f)_x)=\displaystyle \sum_{i=1}^p \dfrac{\partial f_i}{\partial x_i}(x),
+\end{array}
+  \end{equation*}
+  o\`u $tr(J(f)_x)$ est la trace de la matrice jacobienne. On peut \'ecrire parfois $div(f)=\nabla . f$, o\`u le produit scalaire canonique sur $\R^p$ est d\'efini par
+  \begin{equation*}
+    x.y=\displaystyle \sum_{i=1}^p x_iy_i.
+  \end{equation*}
+  \noindent  ATTENTION: ne pas confondre les notions de gradient et de divergence. $grad(f)$
+  est un vecteur alors que $div(f)$ est un scalaire!
+
+     \subsection{Rotationnel}
+  \noindent Si $p=3$ et $q=3$ pour une fonction  $f: E \subset \R^3 \rightarrow \R^3$
+  de composante $f_1,...,f_3$ dont toutes les dérivées partielles existent on d\'efinit le rotationnel de $f$ par
+\begin{equation*}
+\begin{array}{clll}
+    rot (f) :& E \subset \R^3 & \rightarrow & \R^3 \\
+     & x & \mapsto & (rot (f))(x),
+\end{array}
+  \end{equation*}
+  o\`u
+  \begin{equation*}
+    (rot f)(x)=\left(\dfrac{\partial f_3}{\partial x_2}(x)-\dfrac{\partial f_2}{\partial x_3}(x),
+    \dfrac{\partial f_1}{\partial x_3}(x)-\dfrac{\partial f_3}{\partial x_1}(x),
+    \dfrac{\partial f_2}{\partial x_1}(x)-\dfrac{\partial f_1}{\partial x_2}(x)\right)= \nabla \times f,
+  \end{equation*}
+  où $x \times y$ désigne le produit vectoriel entre les vecteurs $x$ et $y$.
+\section{Propriétés des dérivées partielles}\noindent Les dérivées partielles d'une fonction qui est obtenue par des opérations algébriques sur d'autres fonctions 
+(somme, produit, fraction) suivent les mêmes règles.\\
+Les dérivées partielles d'une composition de fonctions sont plus compliquées. Rappelons tout d'abord ce que l'on connaissait pour les applications de $\R$ dans $\R$.
+
+
+ \begin{proposition}[REGLE DES CHAINES]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soient 
+\begin{equation*}
+\begin{array}{llll}
+g:& I  \subset \R &\rightarrow & J \subset \R, \\
+ & x & \mapsto & g(x),
+\end{array}
+\;
+\begin{array}{llll}
+h:& J  \subset \R &\rightarrow &  \R, \\
+ & y & \mapsto & h(y),
+\end{array}
+\end{equation*}
+et, 
+\begin{equation*}
+\begin{array}{llll}
+f:& I  \subset \R &\rightarrow &  \R, \\
+ & x & \mapsto & f(x)=h(g(x)).
+\end{array}
+\end{equation*}
+On a
+\begin{equation*}
+\dfrac{df}{dx}(x_0)=\dfrac{dh}{dy}(g(x_0)).\dfrac{dg}{dx}(x_0),
+\end{equation*}
+que l'on écrivait plus souvent de la façon suivante: $f'(x_0)=h'(g(x_0)).g'(x_0)$.
+}
+\end{proposition}
+
+
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+
+
+\noindent En généralisant aux fonctions de $\R^p \rightarrow \R^q$, on obtient le résultat
+suivant pour les dérivées partielles.
+
+ 
+ \begin{proposition}[DERIVEE PARTIELLE D'UNE FONCTION COMPOSEE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soient 
+\begin{equation*}
+\begin{array}{llll}
+g:& D \subset \R^p &\rightarrow & E \subset \R^m, \\
+ & x & \mapsto & g(x),
+\end{array}
+\;
+\begin{array}{llll}
+h:& E  \subset \R^m &\rightarrow &  \R^q, \\
+ & y & \mapsto & h(y),
+\end{array}
+\end{equation*}
+et,
+\begin{equation*}
+\begin{array}{llll}
+f:& D  \subset \R^p &\rightarrow &  \R^q, \\
+ & x & \mapsto & f(x)=h(g(x)).
+\end{array}
+\end{equation*}
+des fonctions telles que les $p$ dérivées partielles de chacune des $m$ composantes de $g$ en $x_0 \in D$ existent et $h$ en $g(x_0) \in E$ soit une fonction continûment
+dérivable (\textit{i.e.} ses dérivées partielles existent et sont continues) alors pour tout $i=1,...,p,$
+et pour tout $j=1,...,q$ on a:
+\begin{enumerate}
+\item chaque $f_j$ possède une dérivée partielle par rapport à $x_i$ au point $x_0$,
+\item on a la formule suivante
+\begin{equation*}
+\begin{array}{lll}
+\dfrac{\partial f_j}{ \partial x_i}(x_0) & = & \dfrac{\partial (h \circ g)_j}{ \partial x_i}(x_0),\\
+ &=& \dfrac{\partial h_j}{ \partial y_1}(g(x_0))\dfrac{\partial g_1}{ \partial x_i}(x_0)+...+\dfrac{\partial h_j}{ \partial y_m}(g(x_0))\dfrac{\partial g_m}{ \partial x_i}(x_0),
+\end{array}
+\end{equation*}
+\end{enumerate}
+ce qui donne les entrées d'une matrice jacobienne de $f$ qui est un produit des matrices
+jacobiennes de $h$ et $g$. Autrement dit, 
+\begin{equation*}
+J(h \circ g)_x=J(h)_{g(x)}.J(g)_x.
+\end{equation*}
+}
+\end{proposition}
+
+
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+
+
+ \begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+\noindent 
+Attention: si dans l'énoncé de la proposition on ne suppose pas que les dérivées partielles de $f$ sont
+toutes continues au point $g(x_0)$ alors le résultat peut très bien cesser d'être vrai!\\
+Par contre, si en plus les applications partielles de $g$ sont de continûment dérivables alors $f$ aura ses dérivées partielles continues également en $x_0$.
+}
+\end{remarque*}
+
+\section{Notion de différentiabilité }
+
+\noindent Nous avons pour l'instant étudié la dérivabilité des composantes de $f$ pour se ramener aux cas que l'on connaissait
+des fonctions de $\R$ dans $\R$. Mais cela n'est pas satisfaisant dans le sens où l'on n'a pas de résultats propre à $f$ sans passer par les dérivées partielles. D'où l'intérêt de cette section de la notion de différentielle de $f$, qui pourrait être abordé dans le cas de la dimension infinie mais que l'on ne traitera qu'en dimension finie pour rester dans le cadre du programme. Nous donnerons des résultats permettant
+ de relier la différentielle d'une fonction avec ses dérivées partielles. 
+
+\begin{definition}[DIFFERENTIELLE EN UN POINT $a$]
+\textcolor[rgb]{0.73,0.00,0.00}{
+Soient $E$ un ouvert inclus dans $\R^q$,  $f: E \rightarrow \R^q$ une application et $a  \in E$.
+On dit que $f$ est différentiable au point $a$ si et seulement s'il existe une application linéaire
+$l \in \R^p \rightarrow \R^q$ vérifiant
+\begin{equation*}
+\displaystyle \lim_{\underset{x \neq a}{ x\rightarrow a}}  \dfrac{\Vert f(x)-f(a)-l(x-a)\Vert}{\Vert x-a \Vert}=0,
+\end{equation*}
+ou encore, en posant $h=x-a$,
+\begin{equation*}
+\displaystyle \lim_{\underset{h \neq 0}{h\rightarrow 0}}  \dfrac{\Vert f(a+h)-f(a)-l(h)\Vert}{\Vert h \Vert}=0,
+\end{equation*}
+}
+ \end{definition}
+
+ \begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{ \\
+-l'application $l$ est linéaire et continue (ici c'est évident puisqu'elle est linéaire en dimension finie, donc forcément continue),\\
+-cette application $l$ lorsqu'elle existe est unique et on la note $df_a$,\\
+-on peut également écrire cette définition sous la forme, pour tout $h \in \R^p$
+\begin{equation*}
+\Vert f(a+h)-f(a)-l(h)\Vert=r(h),
+\end{equation*}
+où $r(h)=o(\Vert h \Vert)$ est le reste. C'est à dire que pour tout $h \in \R^p$, 
+\begin{equation*}
+\displaystyle \lim_{\underset{h \neq 0}{h\rightarrow 0}}  \dfrac{\Vert r(h)\Vert}{\Vert h \Vert}=0,
+\end{equation*}
+-LIEN ENTRE DERIVEE ET DIFFERENTIABILITE: la fonction $f: I \subset \R \rightarrow \/R^q$ est différentiable si et seulement si elle est dérivable et pour tout $x \in I$, et $h \in \R$, on a
+\begin{equation*}
+df_x(h)=hf'(x),
+\end{equation*}
+-DIFFERENTIELLE D'UNE APPLICATION LINEAIRE: si $f:E \subset \R^p \rightarrow \R^q$ est linéaire, alors $f$ est différentiable sur $E$ et pour tous $x \in E$ et $h \in \R^p$,
+\begin{equation*}
+df_x(h)=f(h),
+\end{equation*} 
+-DIFFERENTIELLE D'UNE APPLICATION BILINEAIRE: si $B: E_1 \times E_2 \rightarrow \R^q$,
+où $E_1 \subset \R^{p_1}$ et $E_2 \subset \R^{p_2}$, alors $B$ est différentiable sur 
+$E_1 \times E_2$ et pour tous $(x_1,x_2) \in E_1 \times E_2$ et pour tous $(h_1,h_2)
+\in \R^{p_1} \times \R^{p_2}$,
+\begin{equation*}
+dB_{(x_1,x_2)}(h_1,h_2)=B(x_1,h_2)+B(h_1,x_2).
+\end{equation*} 
+}
+\end{remarque*}
+
+ \begin{proposition}[DERIVEE DIRECTIONNELLE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soit  $f: E \subset \R^p \rightarrow \R^q$ une fonction différentiable sur $E$ alors pour
+tous $x \in E$ et $h \in \R^p$ la fonction 
+  \begin{equation*}
+    \begin{array}{cllll}
+      g & : & \R & \rightarrow  & \R^q \\
+       & & x  & \mapsto & g(t):=f(x+th),
+    \end{array}
+  \end{equation*}
+est dérivable en $t=0$ et 
+\begin{equation*}
+g'(0)=df_x(h) (=\displaystyle \lim_{t \rightarrow 0} \dfrac{f(x+th)-f(x)}{t}).
+\end{equation*}
+C'est la dérivée de $f$ en $x$ suivant la direction $h$ (si $h$ est non nul), ou encore dérivée directionnelle. 
+}
+\end{proposition}
+
+
+ \begin{proposition}[DIFFERENTIELLE ET CONTINUITE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Une fonction $f: E \subset \R^p \rightarrow \R^q$ différentiable en un point $x \in E$ 
+au sens de la définition précédente est nécessairement continue au point $x$.
+}
+\end{proposition}
+
+
+\noindent \underline{\bf Preuve :}
+Faite en cours.
+
+\begin{definition}[DIFFERENTIELLE SUR UN OUVERT $E$]
+\textcolor[rgb]{0.73,0.00,0.00}{
+On dit que l'application $f$ est différentiable sur $E$ si elle est différentiable en tout point
+$x \in E$. Dans ce cas, on appelle la différentielle de $f$ la fonction
+  \begin{equation*}
+    \begin{array}{cllll}
+      df & : & E & \rightarrow  & \L(\R^p;\R^q) \\
+       & & x  & \mapsto & df_x,
+    \end{array}
+  \end{equation*}
+  où $\L(\R^p;\R^q)$ est l'ensemble des fonctions linéaires (donc continues car nous 
+  sommes en dimension finie) de $\R^p$ à valeurs dans $\R^q$.\\
+  Si de plus $df$ est continue, on dit que $f$ est continûment différentiable ou de
+  façon équivalente que $f$ est de classe $\co^1$.
+}
+ \end{definition}
+ 
+   \begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{ \\
+ATTENTION: bien remarquer que la formulation ci-dessus correspond à $df$ et non pas 
+à $df_x$ qui est d'après la définition toujours linéaire et continue de $\R^p$ dans $\R^q$.
+Autrement dit, ne pas confondre $df$ et $df_x$!\\
+}
+\end{remarque*}
+
+ \begin{remarque*}
+ 
+\textcolor[rgb]{0.00,0.00,1.00}{ Il faudra bien distinguer deux cas. Les fonctions à valeurs dans un espace produit, autrement 
+dit $f(x)$ sera un vecteur de composantes $f_i(x)$ pour tout $x$ dans l'espace de départ.
+Et le cas où $f$ est définie sur un espace produit, c'est à dire que $f$ sera définie pour tout $x \in E \subset \R^n$,
+$x$ étant un vecteur de $\R^n$.\\
+Bien entendu, la plupart du temps nous travaillerons sur le cas général qui est un mélange de ces deux cas, 
+et donc $f$ sera une fonction définie de $E \subset \R^n$ vers $\R^p$. Il faudra alors garder à l'esprit les résultats suivants.
+\begin{enumerate}
+\item Une fonction $f: I \subset \R \rightarrow \R^q$ définie pour tout $x$ dans $I$ par
+$f(x)=(f_1(x), ..., f_q(x))$ est différentiable en un point $x \in I$ 
+si et seulement si toutes composantes $f_i$ de $f$, $i=1,...,q$ sont différentiables 
+et $df_x(h)=(df_{1,x}(h),..., df_{q,x}(h))=hf'(x)$, où dans ce cas $h$ est un réel (scalaire) et $f'(x)$ est le vecteur de composantes
+les dérivées $f'_i(x)$. Attention, cela ne marche que si l'espace de départ est $\R$ ici. Cela ne marche plus du tout
+si l'espace de départ est inclus dans $\R^p$. On aura alors le résultat suivant.
+\item On considère une fonction $f: E \subset \R^p \rightarrow \R$ définie pour tout $x=(x_1,..,x_p)$ dans $E$ par
+$f(x) \in  \R$. \\
+Si $f$  est différentiable en un point $x \in E$ alors les dérivées partielles seront différentiables.
+Mais la réciproque sera FAUSSE en général. \\
+On peut résumer ce dernier point de la façon suivante:\\
+-Si $f$ est différentiable alors les applications partielles sont dérivables (c'est le résultat de la proposition \ref{diffder}).\\
+-PAR CONTRE,l'existence de la dérivée des applications partielles n'implique pas nécessairement la
+différentiabilité de $f$.\\
+-Mais, si les applications partielles sont continûment différentiables alors 
+$f$ est continûment différentiable (ce sera le résultat de la proposition \ref{derdiff}).
+\end{enumerate}
+Nous allons énoncer ces résultats dans les deux propositions suivantes.
+}
+\end{remarque*}
+
+
+
+
+
+
+
+ 
+
+
+ \begin{proposition}[DIFFERENTIABILITE ET DERIVEES PARTIELLES] \label{diffder}
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soient $f: E \subset \R^p \rightarrow \R^q$ et $a \in E$. On suppose $f$ différentiable en
+$a$, alors $f$ admet en $a$ les dérivées partielles: pour tout $i=1,...,p$, $\dfrac{\partial f}{\partial x_i }(a)$ et 
+\begin{equation*}
+\dfrac{\partial f}{\partial x_i }(a)=df_a(e_i),
+\end{equation*}
+où $e_i$ est un vecteur de $\R^p$ dont  la $i$ème composante est $1$ et le reste est $0$.\\
+Attention: quand on parle des dérivées partielles  de $f$, il s'agit en fait des dérivées partielles
+de chacune des applications $f_j$ (avec $f=(f_1, ..., f_q)$, $j=1,...,q$, car ne l'oublions pas, 
+$f$ est à valeurs dans $\R^q$.
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Faite en cours.
+
+  \begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{ \\
+Si l'on pose $h=(h_1,...,h_p)$, et si $f:E \subset  \R^p \rightarrow \R$ (attention ici 
+l'application est à valeurs dans $R$ !), on a 
+\begin{equation*}
+\begin{array}{lll}
+df_a(h_1,...,h_p) & =& df_a (\displaystyle \sum_{i=1}^p h_ie_i),\\
+ & =& \displaystyle \sum_{i=1}^p h_i df_a(e_i),\\
+ &=& \displaystyle \sum_{i=1}^p h_i  \dfrac{\partial f}{\partial x_i }(a),\\
+ & =& <\nabla f(a) \vert h >,
+\end{array}
+\end{equation*}
+où $\nabla f(a)=(\dfrac{\partial f}{\partial x_1 }(a),...,\dfrac{\partial f}{\partial x_p}(a))$ et
+$<. \vert . >$ est le produit scalaire canonique sur $R^p$, c'est  dire
+\begin{equation*}
+<x\vert y>=\displaystyle \sum_{i=1}^p x_i y_i.
+\end{equation*}
+}
+\end{remarque*}
+
+\noindent On peut en déduire une partie du résultat suivant.
+
+ \begin{proposition}[DERIVEES PARTIELLES ET DIFFERENTIABILITE]
+\textcolor[rgb]{0.50,0.00,0.25}{\label{derdiff}
+Soient $f: E \subset \R^p \rightarrow \R$ et $a \in E$. On suppose qu'il existe une
+boule ouverte centrée en $a$ et de rayon $\varepsilon >0$ telle que pour tout $x \in B(a,\varepsilon)$, les dérivées partielles $\dfrac{\partial f}{\partial x_i }(a)$, $i=1,...,p$
+existent et soient continues en $a$. Alors $f$ est différentiable en $a$ et de plus on a 
+\begin{equation*}
+df_a(h)=<\nabla f(a) \vert h>.
+\end{equation*}
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+ \begin{proposition}[GENERALISATION]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soient $f: E \subset \R^p \rightarrow \R^q$ et $a \in E$. On suppose qu'il existe une
+boule ouverte centrée en $a$ et de rayon $\varepsilon >0$ telle que pour tout $x \in B(a,\varepsilon)$, les dérivées partielles $\dfrac{\partial f_i}{\partial x_j }(a)$, $j=1,...,p$ et pour
+tout $i=1,...,q$, 
+existent et soient continues en $a$. Alors $f$ est différentiable en $a$ et de plus on a 
+\begin{equation*}
+df_a(h)=J(f)_a . h, 
+\end{equation*}
+où $J(f)_a$ est la matrice jabobienne de $f$ en $a$ avec $p$ colonnes et $q$ lignes.
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+  \begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{ \\
+Soit $f: E \subset \R^p \rightarrow \R^q$, $f$ est-elle différentiable en $a \in E$?\\
+-calculer sa matrice jacobienne et donc les dérivées partielles  $\dfrac{\partial f_i}{\partial x_j }(a)$ pour tous $i=1,..., q$ et $j=1,...,p$,
+s'il existe $j_0$ tel que $\dfrac{\partial f_j}{\partial x_{i_0} }(a)$ pour un $j$ n'existe pas alors $f$ n'est pas 
+différentiable.\\
+-sinon, considérons l'application linéaire $l: \R^p \rightarrow \R^q$ où $l(e_i)=\dfrac{\partial f}{\partial x_i }(a)$ pour tout $i=1,...,p$, et on regarde si
+\begin{equation*}
+\displaystyle \lim_{\underset{h \neq 0}{h\rightarrow 0}}  \dfrac{\Vert f(a+h)-f(a)-l(h)\Vert}{\Vert h \Vert}=0,
+\end{equation*}
+}
+\end{remarque*}
+
+\section{Opérations sur les fonctions différentiables}
+
+ \begin{proposition}[LINEARITE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soient $f,g: E \subset \R^p \rightarrow \R^q$ et $x \in E$. On suppose  $f$ et $g$
+différentiables en $x$, alors\\
+-$f+g$ est différentiable et $d(f+g)_x=df_x+dg_x$,\\
+-pour tout $\lambda \in \R$, $\lambda f$ est différentiable et $\d(\lambda f)_x=\lambda df_x$.\\
+ \\
+En termes de Jacobiennes:\\
+-$J(f+g)_x=J(f)_x+J(g)_x$,\\
+-$J(\lambda f)_x= \lambda J(f)_x$.
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+ \begin{proposition}[COMPOSITION]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soient $f: E \subset \R^p \rightarrow \R^n$ est différentiable en $x \in E$ et  $g: U \subset \R^n \rightarrow \R^q$ différentiable en $y=f(x) \in U$, alors la composée 
+$g \circ f$ est différentiable en $x$  et  
+\begin{equation*}
+d(g \circ f)_x (h)= dg_{f(x)}(df_x(h)),
+\end{equation*}
+pour tous $x \in E$ et $h \in  \R^p$. On l'écrit également sous la forme
+\begin{equation*}
+d(g \circ f)_x = dg_{f(x)} \circ df_x,
+\end{equation*}
+pour tout $x \in E$.
+ \\
+En termes de Jacobiennes:\\
+$d(g \circ f)_x=J(g \circ f)_x= J(g)_{f(x)}. J(f)(x)$.
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Pas faite en cours.
+
+  \begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{ \\
+Cette dernière proposition peut s'avérer utile lorsque l'on veut exprimer la différentielle de
+fonctions un peu ``compliquée''. Il suffit alors d'essayer de décomposer ces fonctions
+en fonctions classiques dont les différentielles sont connues et de rassembler les ``pièces du puzzle'' par la formule de différentielle d'une fonction composée. Ce résultat est valable 
+également en dimension infinie (hors programme), et il peut être utilisé lorsque le calcul
+des jacobiennes peut s'avérer trop long. 
+}
+\end{remarque*}
+
+\section{Propriétés géométriques des fonctions de plusieurs variables}
+\noindent Pour finir ce chapitre, nous allons donner quelques interprétations
+géométriques des différentielles. 
+
+\subsection{Gradient et ligne de niveau}
+\noindent Avant de donner le résultat directement, rappelons la définition d'un vecteur normal à une courbe en un point de cette courbe ainsi que la définition d'une ligne de niveau pour une fonction définie sur un domaine de  $\R^2$ à valeurs dans $\R$.
+\begin{definition}[VECTEUR PERPENDICULAIRE A UNE COURBE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+Soient $x$ un point d'une courbe $\Gamma \in \R^p$ et $T$ une droite tangent à $\Gamma$
+au point $x$. On dit qu'un vecteur $v$ est perpendiculaire à la courbe $\Gamma$ au point $x$
+si $v$ est perpendiculaire à $T$. \\
+Dans ce cas, on dit aussi que $v$ est normal à la courbe $\Gamma$ au point $x$.\\
+En particulier, cela signifie que le produit scalaire de $v$ et du vecteur directeur de
+$T$ est égal à $0$.
+}
+ \end{definition}
+
+
+\noindent Considérons $E \subset \R^2$, $f: E \rightarrow \R$ et $(x,y) \in E$ alors si 
+$f(x,y)=a$, $(x,y)$ appartient à la ligne de niveau $L_a (f)$.
+
+ \begin{proposition}[GRADIENT ET NORMALE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Le vecteur gradient $\nabla f(x,y)$ est normal à la courbe $L_a(f)$ au point $(x,y)$.
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Faite en cours.\\
+$ $\\
+\noindent On en déduit alors facilement la proposition suivante.
+
+ \begin{proposition}[TANGENTE A UNE COURBE DE NIVEAU]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soit $f: E \subset  \R^2 \rightarrow \R$ une fonction continûment différentiable sur $E$.
+L'équation du plan tangent à la courbe de niveau $L_a(f)$ correspondant à $f(x,y)=a$, $a \in \R$  en un point $P_0(x_0,y_0)$ de $L_a(f)$, tel que le gradient de $f$ en ce point soit non nul est donné par
+\begin{equation*}
+\dfrac{\partial f}{\partial x}(x_0,y_0)(x-x_0)+\dfrac{\partial f}{\partial y}(x_0,y_0)(y-y_0)=0.
+\end{equation*}
+ }
+\end{proposition}
+
+\subsection{Le gradient indique la ligne de plus grande pente}
+\noindent Sur le graphe de la fonction $f$ on prend un point $(x,y,a)$. Alors $(x,y)$
+est sur la ligne de niveau $a=f(x,y)$.
+
+ \begin{proposition}[GRADIENT ET PENTE]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Le vecteur gradient $\nabla f(x,y)$ indique la direction de plus grande pente positive sur $\Gamma_f$ à partir d'un point.
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Faite en cours.
+
+  \begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{ \\
+-En suivant la ligne de plus grande pente dans $E$ on a sur le graphe, le chemin le plus court
+à parcourir pour obtenir une variation donnée de $f$. Autrement dit, si l'on veut passer le plus vite
+possible du niveau $a$ au niveau $b$ à partir d'un point $(x,y)$ donné de niveau
+$f(x,y)=a$, il faut suivre le gradient.\\
+}
+\end{remarque*}
+
+\noindent On a des résultats similaires pour les surfaces de niveau. Pour cela rappelons ce qu'est l'équation d'un plan dans $\R^3$.
+
+ \begin{proposition}[EQUATION D'UN PLAN]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Considérons un plan $\mathscr{P}$ passant par le point $P_0(x_0,y_0,z_0)$ et de vecteur normal $n=(a,b,c)$. L'équation cartésienne de ce plan est alors 
+\begin{equation*}
+a(x-x_0)+b(y-y_0)+c(z-z_0)=0.
+\end{equation*}
+}
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Faite en cours.
+
+ \begin{proposition}[PLAN TANGENT A SURFACE DE NIVEAU]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soit $f: E \subset  \R^3 \rightarrow \R$ une fonction continûment différentiable sur $E$.
+L'équation du plan tangent à la surface de niveau $\mathscr{S}$ correspondant à $f(x,y,z)=a$, $a \in \R$  en un point $P_0(x_0,y_0,z_0)$ de $\mathscr{S}$, tel que le gradient de $f$ en ce point soit non nul est donné par
+\begin{equation*}
+\dfrac{\partial f}{\partial x}(x_0,y_0,z_0)(x-x_0)+\dfrac{\partial f}{\partial y}(x_0,y_0,z_0)(y-y_0)+\dfrac{\partial f}{\partial z}(x_0,y_0,z_0)(z-z_0)=0.
+\end{equation*}
+ }
+\end{proposition}
+
+\noindent \underline{\bf Preuve :}
+Faite en cours.
+
+\subsection{Plan tangent à un graphe d'une fonction de 2 variables}
+\noindent Attention ici, il ne faut pas confondre le graphe d'une fonction scalaire (à valeurs dans $\R$) de deux variables avec la surface de niveau. En effet, dans cette section nous nous intéressons à l'équation du plan tangent à la surface représentant une fonction $f:  E \subset  \R^2 \rightarrow \R$ qui est donnée par $f(x,y)=z$ pour tout $(x,y) \in E$, où $z$ est un réel image de $(x,y)$ par $f$. Rappelons que les surfaces de niveau pour une application $g$ définie sur un domaine de $\R^3$ la surface est donnée par $g(x,y,z)=a$, où $a$ est un réel. 
+
+ \begin{proposition}[PLAN TANGENT A UNE SURFACE ]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Soit $f: E \subset  \R^2 \rightarrow \R$ une fonction continûment différentiable sur $E$.
+L'équation du plan tangent à la surface  $\mathscr{S}$ définie par $f(x,y)=z$, $z\in \R$  en un point $P_0(x_0,y_0,z_0)$, où $z_0=f(x_0,y_0)$ de $\mathscr{S}$, tel que le gradient de $f$ en ce point soit non nul est donné par
+\begin{equation*}
+\dfrac{\partial f}{\partial x}(x_0,y_0)(x-x_0)+\dfrac{\partial f}{\partial y}(x_0,y_0)(y-y_0)-z+z_0)=0,
+\end{equation*}
+ou encore 
+ \begin{equation*}
+f(x,y)=f(x_0,y_0)+\dfrac{\partial f}{\partial x}(x_0,y_0)(x-x_0)+\dfrac{\partial f}{\partial y}(x_0,y_0)(y-y_0).
+\end{equation*}
+ }
+\end{proposition}
+
+  \chapter{Th\'eor\`eme des accroissements finis}
+  
+%\begin{figure}[!h]
+%  \centering
+%%    [\color{blue} Michel Rolle (1652-1719): mathématicien français, à l'origine du célèbre théorème qui porte son nom, qu'il a énoncé pour la première fois en 1691.]
+%%    {
+%%       \includegraphics[width=2in]{rolle.jpg}
+%%       \label{fig:rolle}
+%%    }
+%    [ ]
+%    {
+%        \includegraphics[width=1.2in]{varignon.jpg}
+%        \label{fig:varignon}
+%    }
+%    [\color{blue} ]
+%    {
+%        \includegraphics[width=1.2in]{varignon.jpg}
+%        \label{fig:gateaux
+%    }
+%    \caption{Quelques mathématiciens célèbres liés à la théorie des accroissements finis.}
+%    \label{fig:TAF}
+%\end{figure}
+
+\begin{figure}[!h]
+    \centering
+    [\color{blue} Michel Rolle (1652-1719): mathématicien français, à l'origine du célèbre théorème qui porte son nom, qu'il a énoncé pour la première fois en 1691.]
+    {
+%        \includegraphics[width=1.6in]{rolle.jpeg}
+        \label{fig:fermat}
+    }
+    [Pierre Varignon (1654-1722): mathématicien français, à l'origine du formalisme de la définition de vitesse instantanée et d'accélération, un des fondateurs de la mécanique analytique. Il a réussi à convaincre Rolle de l'utilité du calcul infinitésimal.]
+    {
+%        \includegraphics[width=1.3in]{varignon.jpg}
+        \label{fig:varignon}
+    }
+    [\color{blue} René Eugène Gateaux (1889-1914), mathématicien français à l'origine de la dérivée directionnelle portant son nom. ]
+    {
+%        \includegraphics[width=1.1in]{gateaux.jpg}
+        \label{fig:gateaux}
+    }
+    \caption{Quelques mathématiciens célèbres liés à la théorie des accroissements finis.}
+    \label{fig:math4}
+\end{figure}
+  
+  
+  Ce chapitre est dédié à l'un des résultats fondamentaux du calcul différentiel qui permettra de résoudre pas mal d'exercices. Nous allons commencer par des 
+  résultats connus pour des fonctions d'une variable réelle à valeurs réelles. Nous généraliserons un résultat analogue en dimension supérieure (pour l'espace de départ, puis pour l'espace d'arrivée). Nous terminerons enfin ce chapitre par une application.
+  \section{Fonction d'une variable r\'eelle \`a valeurs r\'eelles}
+  
+  \begin{theoreme}[RAPPEL: THEOREME DE ROLLE]
+  \textcolor[rgb]{0.44,0.00,0.87}{Soit $f:[a,b] \rightarrow \R$, o\`u $a<b$, une fonction continue sur $[a,b]$ et d\'erivable sur
+  $]a,b[$ telle que $f(a)=f(b)$. Alors il existe $c \in ]a,b[$ tel que $f'(c)=0$.}
+  \end{theoreme}
+  \noindent {\textbf{Preuve.}} Faite en cours.
+  
+  
+ \begin{theoreme}[EGALITE DES ACCROISSEMENTS FINIS]
+  \textcolor[rgb]{0.44,0.00,0.87}{
+    Soit $f:[a,b] \rightarrow \R$ continue, d\'erivable sur $]a,b[$,  o\`u $a<b$, alors il existe $c \in ]a,b[$ tel que
+    \begin{equation*}
+      f(b)-f(a)=(b-a)f'(c).
+    \end{equation*}}
+  \end{theoreme}
+  \noindent {\textbf{Preuve.}} Faite en cours.
+  \section{Fonction  d'une valeur sur un espace $\R^p$ et \`a valeurs r\'eelles}
+  Rappelons la définition d'un segment et d'un ensemble convexe (voir section (\ref{convexe})). Nous en aurons en effet besoin tout au long de ce chapitre étant donné que nous formulerons les résultats sur des convexes ouverts inclus dans l'ensemble de définition de $f$. Lorsque $f$ sera définie sur un domaine de $\R$ un tel ensemble sera un intervalle $I$ du type $]a,b[$ et si $f$ est à valeurs sur un domaine de $\R^p$ on notera cet ensemble convexe $U$.
+  \begin{definition}[SEGMENT]
+\textcolor[rgb]{0.98,0.00,0.00}{ 
+   On appelle segment ferm\'e (respectivement segment ouvert) d'extr\'emit\'es $a$ et $b$ d'une espace $\R^p$, l'ensemble
+  \begin{equation*}
+  [a,b] \;(\mathrm{resp.}\; ]a,b[)=\{ta+(1-t)b \;\mathrm{tel \;que\;} t\in[0,1]\;(\mathrm{resp.}\;t\in ]0,1[)\}.
+  \end{equation*}}
+  \end{definition}
+
+ \begin{definition}[ENSEMBLE CONVEXE]
+\textcolor[rgb]{0.98,0.00,0.00}{
+  On dit que $A \subset \R^p$ est convexe si pour tout $(a,b) \in A^2$, le segment ferm\'e $[a,b] \subset A$.}
+\end{definition}
+
+ \begin{theoreme}[DIFFERENTIABILITE SUR UN CONVEXE]
+\textcolor[rgb]{0.44,0.00,0.87}{
+   Soit $U \subset \R^p$, convexe et soit $f:U \rightarrow \R$ continue, et $[a,b] \subset U$. Si $f$ est diff\'erentiable en tout point
+   de $]a,b[$ alors il existe $c \in]a,b[$ tel que $f(b)-f(a)=df_c(b-a)$.}
+ \end{theoreme}
+   \noindent  {\textbf{Preuve.}} Faite en cours.
+   
+   \begin{remarque*}
+  \textcolor[rgb]{0.00,0.00,1.00}{
+   \textbf{ ATTENTION!} ce th\'eor\`eme ne s'applique pas au cas des applications $f:U \subset \R^p \rightarrow \R^q$, o\`u $q>1$,
+    - voir exemple en cours.}
+  \end{remarque*}
+ \section{Fonction d'une variable r\'eelle}
+ 
+ \begin{theoreme}[INEGALITE DES ACCROISSEMENTS FINIS (1)]
+\textcolor[rgb]{0.44,0.00,0.87}{ 
+   Soit $f: I \subset \R \rightarrow \R^q$ une fonction d\'erivable sur un intervalle ouvert $I$ et \`a valeur
+   dans $\R^q$. On suppose qu'il existe $k>0$ tel que
+   \begin{equation*}
+     \|f'(t)\|_{\R^q} \leq k \;\mathrm{\;quel \; que \; soit\;}t\in I.
+   \end{equation*}
+   Alors
+   \begin{equation}\label{TAF1}
+     \|f(x)-f(y)\|_{\R^q} \leq k|x-y| \;\mathrm{\;quel \; que \; soit\;}(x,y)\in I\times I.
+   \end{equation}}
+ \end{theoreme}
+    \noindent  {\textbf{Preuve.}} Pas faite en cours.
+    
+    
+    \begin{remarque*}
+ \textcolor[rgb]{0.00,0.00,1.00}{\label{remarqueTAF}
+   On remarque:
+   \begin{itemize}
+     \item[1.]que l'on peut avoir une in\'egalit\'e (\ref{TAF1}) plus fine en prenant
+   \begin{equation*}
+     k=\displaystyle \sup_{t \in [0,1]} \| f'(ty+(1-t)x) \|_{\R^q}.
+   \end{equation*}
+   On pourra alors dire
+   \begin{equation*}
+   \| f(x)-f(y) \|_{\R^q} \leq \displaystyle \sup_{t \in [0,1]} \| f'(ty+(1-t)x) \|_{\R^q} |x-y|,
+   \end{equation*}
+   pour tous $x,y \in I$.
+   \item[2.] que ce r\'esultat s'applique m\^eme pour $x$ et $y$ au bord de l'intervalle $I$ \`a condition que $f$ soit
+       continue sur l'intervalle ferm\'e $\overline{I}$ et que l'on ait une estimation de $f'$ sur l'intervalle ouvert $I$.
+\end{itemize}}
+   \end{remarque*}
+
+
+      \noindent  R\'esultat un peu plus g\'en\'eral.
+\begin{theoreme}[INEGALITE DES ACCROISSEMENTS FINIS (2)]
+ \textcolor[rgb]{0.44,0.00,0.87}{
+     Soit $f: I \subset \R \rightarrow \R^q$ une fonction d\'erivable sur un intervalle ouvert $I$ et \`a valeur
+   dans $\R^q$. On suppose qu'il existe une fonction $\varphi: I \rightarrow \R$ d\'erivable, telle que
+    \begin{equation*}
+     \|f'(t)\|_{\R^q} \leq \varphi'(t) \;\mathrm{\;quel \; que \; soit\;}t\in I.
+   \end{equation*}
+   Alors
+    \begin{equation*}
+     \|f(x)-f(y)\|_{\R^q} \leq |\varphi(x)-\varphi(y)| \;\mathrm{\;quel \; que \; soit\;}(x,y)\in I\times I.
+   \end{equation*}}
+ \end{theoreme}
+    \noindent  {\textbf{Preuve.}} Pas faite en cours.
+ \section{Th\'eor\`eme g\'en\'eral}
+ 
+  \begin{theoreme}[INEGALITE DES ACCROISSEMENTS FINIS (3)]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Soit $f:U \subset \R^p \rightarrow \R^q$ une fonction diff\'erentiable sur un ouvert CONVEXE U. On suppose qu'il existe
+$k>0$ tel que
+\begin{equation*}
+  |||df_u|||\leq k \mathrm{\;que \; que\; soit\;} u \in U.
+\end{equation*}
+Alors
+\begin{equation*}
+   \|f(x)-f(y)\|_{\R^q} \leq k \|x-y\|_{\R^p} \;\mathrm{\;quel \; que \; soit\;}(x,y)\in U\times U.
+\end{equation*}}
+\end{theoreme}
+  \noindent   {\textbf{Preuve.}} Faite en cours.
+  
+  
+  \begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+  On peut avoir en fait une in\'egalit\'e plus fine
+\begin{equation*}
+   \|f(x)-f(y)\|_{\R^q} \leq \underset{t\in [0,1]}{\sup}\|df_{(x+t(y-x))}\|  \|x-y\|_{\R^p}.
+\end{equation*}
+Et m\^eme mieux, par  2. de la Remarque \ref{remarqueTAF}, nous avons,
+\begin{equation*}
+   \|f(x)-f(y)\|_{\R^q} \leq \underset{t\in ]0,1[}{\sup}|||df_{(x+t(y-x))}|||  \|x-y\|_{\R^p}.
+\end{equation*}}
+\end{remarque*}
+
+\noindent Nous avons en fait un r\'esultat un peu plus g\'en\'eral qui ne n\'ecessite pas le fait que $U$ soit convexe. Il est donn\'e dans la proposition suivante.
+
+\begin{proposition}[INEGALITE DES ACCROISSEMENTS FINIS (4)]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Soit $f:U \subset \R^p \rightarrow \R^q$, $U$ ouvert de $\R^p$, et soient $x,y \in U$, tels que le segment $[x,y]=\{x+t(y-x),\; t\in [0,1]\} \subset U$.
+  On suppose que $f$ est continue sur $[x,y]$ et diff\'erentiable sur $]x,y[=\{x+t(y-x),\; t\in ]0,1[\} \subset U$. Alors
+ \begin{equation*}
+   \|f(x)-f(y)\|_{\R^q} \leq \underset{t\in ]0,1[}{\sup} \| df_{(x+t(y-x))}\|  \|x-y\|_{\R^p}.
+\end{equation*}}
+\end{proposition}
+\noindent Gr\^ace \`a cette proposition, nous pouvons d\'emontrer le corollaire suivant.
+
+\begin{corollaire}[FONCTION LIPSCHITZIENNE]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Soit $U \subset \R^p$ convexe et $f:U \rightarrow \R^q$ est de classe $\co^1$. Si
+$M=\underset{x\in \R^p}{\sup} |||df_u |||<+ \infty$. Alors $f$ est $M$-lipschitzienne sur $U$.}
+\end{corollaire}
+\section{Application}
+
+\begin{definition}[ENSEMBLE CONNEXE]
+\textcolor[rgb]{0.98,0.00,0.00}{
+  Un sous-ensemble d'espace topologique $X$ (par exemple $\R^n$) est dit CONNEXE s'il ne peut s'\'ecrire comme une r\'eunion disjointe de deux ouverts non vides ou de façon équivalente comme réunion disjointe de deux fermés non vides.}
+\end{definition}
+\noindent Cette d\'efinition est \'equivalente \`a la d\'efinition suivante.
+
+\begin{definition}[ENSEMBLE CONNEXE]
+\textcolor[rgb]{0.98,0.00,0.00}{
+  Un sous-ensemble d'un espace topologique $X$ (par exemple $\R^n$) est dit CONNEXE s'il n'admet pas de sous-ensemble \`a la fois ouvert et ferm\'e autre que l'ensemble vide et lui-m\^eme.}
+\end{definition}
+
+\begin{theoreme}[FONCTION CONSTANTE ET DIFFERENTIELLE NULLE]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Soit $f: U \subset \R^p \rightarrow \R^q$, o\`u $U$ est un ouvert de $\R^p$.
+\begin{itemize}
+  \item[1.] Si $f$ est constante sur $U$, alors $f$ est diff\'erentiable sur $U$ et pour tout $x \in U$ $df_x\equiv0$.
+  \item[2.] Si $U$ est CONNEXE, $f$ diff\'erentiable sur $U$ telle que $df_x\equiv 0$, alors $f$ est constante sur $U$.
+\end{itemize}}
+\end{theoreme}
+\noindent  {\textbf{Preuve.}} Pas faite en cours.
+
+
+
+
+
+\chapter{Diff\'eomorphismes}
+\section{Introduction}
+\noindent Soient $U$ et $V$ des OUVERTS ( non vides) de $\R^p$.
+\begin{definition}[DIFFEOMORPHISME]
+ \textcolor[rgb]{0.98,0.00,0.00}{ 
+  On dit qu'une application $f: U \rightarrow V$ est un diff\'eomorphisme de $U$ sur $V$
+si et seulement si
+\begin{itemize}
+  \item[1.] $f$ est une bijection,
+  \item[2.] $f$ est de classe $\co^1$, c'est \`a dire contin\^ument diff\'erentiable sur $U$,
+  \item[3.] $f^{-1}$ est de classe $\co^1$ sur $V$.
+\end{itemize}}
+\end{definition}
+
+\begin{proposition}[DIFFEOMORPHISME ET RECIPROQUE]
+ \textcolor[rgb]{0.44,0.00,0.87}{
+  Si $f: U \rightarrow V$ est un diff\'eomorphisme alors sa diff\'erentielle est en tout point de
+$U$ un isomorphisme (de $\R^p$ dans lui-même) et la diff\'erentielle de sa fonction r\'eciproque $f^{-1}$
+est li\'ee \`a celle de $f$ par la formule
+\begin{equation*}
+  d(f^{-1})_y=(df_{f^{-1}(y)})^{-1}, \;\;\mathrm{\; pour\; tout \;} y \in V.
+\end{equation*}}
+\end{proposition}
+
+\noindent {\textbf{Preuve.}} Faite en cours.
+
+%\begin{corollaire}[ESPACES ISOMORPHES ET DIMENSIONS] \textcolor[rgb]{0.44,0.00,0.87}{
+%  S'il existe un diff\'eomorphisme d'un ouvert de $E$ sur un ouvert de $F$, les deux espaces
+%sont ISOMORPHES. En particulier, si l'un deux est de dimension finie, l'autre aussi et sa dimension est la m\^eme.}
+%\end{corollaire}
+
+
+%\noindent {\textbf{Preuve.}} Pas faite en cours.
+
+\begin{proposition}[DIFFEOMORPHISME ET JACOBIENNE]
+ \textcolor[rgb]{0.44,0.00,0.87}{
+  Si $f: U \rightarrow V$ est un diff\'eomorphisme alors sa diff\'erentielle est en tout point de
+$U$ un isomorphisme (de $\R^p$ dans lui-même) et la diff\'erentielle de sa fonction r\'eciproque $f^{-1}$
+est li\'ee \`a celle de $f$ par la formule
+\begin{equation*}
+  J(f^{-1})_y=(J(f)_{f^{-1}(y)})^{-1}, \;\;\mathrm{\; pour\; tout \;} y \in V.
+\end{equation*}
+où $ J(f^{-1})_y$ et $(J(f)_{f^{-1}(y)})^{-1}$ sont respectivement la jacobienne de $f^{-1}$ en $y$ et la jacobienne de 
+$f$ en $f^{-1}$ en $y$.}
+\end{proposition}
+
+\noindent {\textbf{Preuve.}} Faite en cours.
+
+\section{Th\'eor\`eme d'inversion locale}
+\begin{theoreme}[THEOREME D'INVERSION LOCALE]
+\textcolor[rgb]{0.44,0.00,0.87}{
+Si
+\begin{itemize}
+  \item[1.]$f: U \rightarrow V$ est de classe $\co^1$,
+  \item[2.]$a \in U$ est tel que $df_a$ soit un isomorphisme (de $\R^p$ dans lui-même),
+  \end{itemize}
+alors il existe un voisinage ouvert $U_a$ de $a$ dans $U$ et un voisinage ouvert
+$V_b$ de $b=f(a)$ dans $V$ tel que la restriction de $f$ \`a $U_a$ soit un diff\'eomorphisme de $U_a$
+sur $V_b$.}
+\end{theoreme}
+
+\noindent {\textbf{Preuve.}} Pas faite en cours.
+
+\begin{corollaire}[THEOREME D'INVERSION GLOBALE]
+ \textcolor[rgb]{0.44,0.00,0.87}{
+  Soit $f: U \rightarrow \R^p$ une application de classe $\co^1$ avec $U$ un ouvert
+non vide. C'est un diff\'eomorphisme de $U$ sur $f(U)$ si et seulement si
+\begin{itemize}
+  \item[1.] elle est injective, et
+  \item[2.] sa diff\'erentielle est en tout point de $U$ un isomorphisme  (de $\R^p$ dans lui-même).
+\end{itemize}}
+\end{corollaire}
+
+\noindent {\textbf{Preuve.}} Pas faite en cours.
+
+\begin{corollaire} [FORMULATION AVEC JACOBIENNE]\textcolor[rgb]{0.44,0.00,0.87}{ \textbf{Dimension finie.}
+  Soit $U$ un ouvert de $\R^p$ et $f: U \rightarrow \R^p$ injective et de classe $\co^1$.
+Alors $f$ est un diff\'eomorphisme si et seulement si le d\'eterminant de sa matrice jacobienne
+(que l'on appelle jacobien de $f$) ne s'annule pas sur $U$.}
+\end{corollaire}
+
+\noindent {\textbf{Preuve.}} Pas faite en cours.
+
+\section{Th\'eor\`eme des fonctions implicites}
+
+\noindent Le th\'eor\`eme des fonctions implicites concerne la r\'esolution d'\'equations non-lin\'eaires de la forme
+\begin{equation*}
+  f(x,y)=0,
+\end{equation*}
+et doit son nom au fait que, sous les hypoth\`eses que l'on va pr\'eciser, on peut en tirer $y$ comme
+fonction de $x$: on dit alors que $f(x,y)=0$ d\'efinit implicitement $y$, ou encore $y$ comme
+fonction implicite de $x$.\\
+Donnons d'abord une formulation générale (qui peut être utilisée sans passer par les matrices jacobiennes),
+puis un cas particulier de fonctions de $\R^2$ à valeurs dans $\R$ pour finalement énoncé le résulat avec les matrices jacobiennes.
+
+
+
+
+\begin{theoreme}[THEOREME DES FONCTIONS IMPLICITES]\textcolor[rgb]{0.44,0.00,0.87}{
+ Soient $E$, $F$ et $G$, trois espaces de dimension finie.  Soit $U$ un ouvert de $E \times F$ et $f: U \rightarrow G$ une fonction de classe
+$\co^1$. On suppose qu'il existe $(a,b)  \in U$ tel que $f(a,b)=0_G$ et la diff\'erentielle partielle de $f$ par rapport \`a $y$,
+$d_2f$ est telle que $d_2f_{(a,b)}$ soit un isomorphisme de $F$ sur $G$. Alors
+il existe un voisinage ouvert $U_{(a,b)}$ de $(a,b)$ dans $U$, un voisinage ouvert $W_a$ de $a$ dans $E$ et une fonction de classe $\co^1(W_a,F)$
+\begin{equation*}
+  \varphi: W_a \rightarrow F
+\end{equation*}
+telle que
+\begin{equation*}
+  ((x,y) \in U_{(a,b)} \;\mathrm{et}\; f(x,y)=0_G)\Leftrightarrow y=\varphi(x).
+\end{equation*} }
+\end{theoreme}
+
+\noindent {\textbf{Preuve.}} Faite en cours.
+
+\begin{proposition}[DIFFERENTIELLES FONCTION IMPLICITE] \textcolor[rgb]{0.44,0.00,0.87}{
+Sous les hypoth\`eses du th\'eor\`eme des fonctions implicites, et quitte \`a r\'eduire $W_a$ on a
+\begin{equation*}
+  d\varphi_x(h)=-(d_2f_{(x,\varphi(x))})^{-1}d_1f_{(x,\varphi(x))}(h)
+\end{equation*}
+pour tout $x \in W_a$ et pour tout $h \in E$.}
+\end{proposition}
+
+\noindent {\textbf{Preuve.}} Faite en cours.
+
+
+%\noindent Voici un r\'esultat qui permet de simplifier la v\'erification des hypoth\`eses des th\'eor\`emes
+%d'inversion locale ou des fonctions implicites.
+%
+%\begin{theoreme} \textcolor[rgb]{0.44,0.00,0.87}{
+%  Si $E$ et $F$ sont des espaces de Banach, si $u$ est un application lin\'eaire continue et bijective de $E$ sur $F$,
+%alors sa r\'eciproque est continue.}
+%\end{theoreme}
+%\noindent N.B.:
+%\begin{itemize}
+%  \item[1.] on rappelle qu'en dimension finie ce r\'esultat n'a pas d'int\'er\^et puisque toutes les applications lin\'eaires sont continues.
+%  \item[2.] Ainsi, pour v\'erifier que $u$ est un isomorphisme de $E$ sur $F$, il suffit de v\'erifier que $u$ est lin\'eaire, continue et bijective.
+%\end{itemize}
+
+\begin{proposition}[FONCTIONS DE $E \subset \R^2 \mapsto \R$] 
+\textcolor[rgb]{0.44,0.00,0.87}{ 
+Soient $U \subset \R^2$, $U$ ouvert et $f:U \rightarrow \R$ une application
+de classe $\co^1$ sur $U$. On suppose qu'il existe $(a,b) \in U$ tel que 
+$f(a,b)=0$ et que $\dfrac{\partial f}{\partial y}(a,b) \neq 0$.
+Alors il existe un voisinage $U_{(a,b)}$ de $(a,b)$ dans $U$, un voisinage
+ouvert $W_a$ de $a$ dans $U$ et une fonction de classe $\co^1 (W_a, \R)$
+\begin{equation*}
+\varphi: W_a \rightarrow \R,
+\end{equation*}
+telle que
+\begin{equation*}
+((x,y) \in U_{(a,b)} \;\mathrm{et\;} f(x,y)=0)\Leftrightarrow y=\varphi(x),
+\end{equation*}
+et quitte à réduire $W_a$ on a 
+\begin{equation*}
+\dfrac{\partial f}{\partial y}(x,\varphi(x)) \neq 0, \; \mathrm{et \;}\varphi'(x)=-\dfrac{\dfrac{\partial f}{\partial x}(x,\varphi(x))}{\dfrac{\partial f}{\partial y}(x,\varphi(x))}
+\end{equation*}
+ }
+\end{proposition}
+
+\noindent {\textbf{Preuve.}} Pas faite en cours.
+
+\begin{proposition} [FONCTIONS DE $U \subset \R^{p+q} \mapsto \R^q$] 
+\textcolor[rgb]{0.44,0.00,0.87}{ 
+Soient $U \subset \R^p \times R^q$, $E$ ouvert et $f:U \rightarrow \R^q$ une application
+de classe $\co^1$ sur $U$. On note $f_i$, $i=1,...,q$ les composantes de $f$ chacune définie de $U$ à valeurs dans $\R$. On suppose qu'il existe $(a,b) \in U$ tel que  
+$f(a,b)=0$ et que la matrice définie par les coefficients
+$\lbrace(\dfrac{\partial f_i}{\partial x_{p+j}})(a,b)\rbrace_{1 \leq i,j \leq q} $ est inversible (autrement dit le déterminant de cette matrice
+est non nul).
+Alors il existe un voisinage $U_{(a,b)}$ de $(a,b)$ dans $U$, un voisinage
+ouvert $W_a$ de $a$ dans $\R^p$ et une fonction de classe $\co^1 (W_a, \R^q)$
+\begin{equation*}
+\varphi: W_a \rightarrow \R^q,
+\end{equation*}
+telle que
+\begin{equation*}
+((x,y) \in U_{(a,b)} \;\mathrm{et\;} f(x,y)=0)\Leftrightarrow y=\varphi(x),
+\end{equation*}
+et quitte à réduire $W_a$ on a la jacobienne de $\varphi$ en $(x_1,...,x_p)$\\
+$J_{\varphi}(x_1,...,x_p)= $
+\begin{equation*}
+-\left(
+\begin{array}{lll}
+\dfrac{\partial f_1}{\partial x_{p+1}}(x,\varphi(x))&...&\dfrac{\partial f_1}{\partial x_{p+q}}(x,\varphi(x))\\
+\vdots & &\vdots\\
+\dfrac{\partial f_q}{\partial x_{p+1}}(x,\varphi(x))&...&\dfrac{\partial f_q}{\partial x_{p+q}}(x,\varphi(x))
+ \end{array}
+\right)^{-1}
+\left(
+\begin{array}{lll}
+\dfrac{\partial f_1}{\partial x_{1}}(x,\varphi(x))&...&\dfrac{\partial f_1}{\partial x_{p}}(x,\varphi(x))\\
+\vdots & &\vdots\\
+\dfrac{\partial f_q}{\partial x_{1}}(x,\varphi(x))&...&\dfrac{\partial f_q}{\partial x_{p}}(x,\varphi(x))
+ \end{array}
+\right).
+\end{equation*}
+ }
+\end{proposition}
+
+\noindent {\textbf{Preuve.}} Pas faite en cours.
+
+
+
+\chapter{Formules de Taylor}
+
+\begin{figure}[!h]
+    \centering
+    [\color{blue} Brook Taylor  (1685-1731): mathématicien britannique, à l'origine de la notion du calcul des différences finies, on lui doit également la méthode d'intégration par parties, et bien entendu, ces célèbres développement en séries que nous étudions ici. Il publia le tout en 1715 dans \textit{Methodus incrementorum directa and reversed}.]
+    {
+ %       \includegraphics[width=1.25in]{BTaylor.jpeg}
+        \label{fig:fermat}
+    }
+    [William Henry Young (1863-1942): mathématicien britannique. L'une
+    des plus importantes contribution fut dans l'étude des fonctions de plusieurs variables
+    qu'il publia dans \textit{The fundamental theorems of the differential calculus} en 1910. On lui doit entre autres la formule du développement de Taylor-Young.]
+    {
+ %       \includegraphics[width=1.5in]{why.jpeg}
+        \label{fig:varignon}
+    }
+    [\color{blue} Hermann Amandus Schwarz (1843-1921), mathématicien allemand (né en Pologne). On lui doit entre autres l'inégalité de Cauchy-Scharwz mais également le célèbre théorème de Swharz énoncé dans ce chapitre. ]
+    {
+ %       \includegraphics[width=1.1in]{Schwarz.jpeg}
+        \label{fig:gateaux}
+    }
+    \caption{Quelques mathématiciens célèbres liés aux différentielles d'ordre supérieures ou égales à 2.}
+    \label{fig:math4}
+\end{figure}
+
+Avant de donner les formules de Taylor, qui dépendent des différentielles d'ordre $n \geq 1$ dans différents cas de fonctions: fonctions de $\R$ dans $\R$, fonctions de $\R$ dans $\R^q$ et
+fonctions de $\R^p$ dans $\R^q$, nous allons donner un aperçu de ce qu'est une différentielle d'ordre $2$ dans un premier temps, avec un 
+théorème de symétrie important: le théorème de Schwarz. Nous définirons également la matrice Hessienne qui nous servira beaucoup
+dans le chapitre \ref{extrema}  sur les extrema. 
+\section{Applications deux fois différentiables}
+
+\begin{definition}[APPLICATIONS DEUX FOIS DIFFERENTIABLES]
+\textcolor[rgb]{0.73,0.00,0.00}{
+Une fonction $f$ d\'efinie sur un OUVERT (non vide) $U \subset \R^p$  et \`a valeurs dans
+$\R^q$ est dite deux fois diff\'erentiable en $x \in U$ si
+\begin{itemize}
+  \item[1.] elle est diff\'erentiable dans un voisinage ouvert $U_x$ de $x$ et si,
+  \item[2.] sa diff\'erentielle $df: U_x \rightarrow \L(\R^p;\R^q)$ est diff\'erentiable en $x$.
+\end{itemize}
+ On dit que $f$ est deux fois diff\'erentiable dans $U$ si elle est diff\'erentiable en tout point de $U$.
+}
+ \end{definition}
+
+
+  \begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{ \\
+Par sa d\'efinition, la diff\'erentielle de $df$ en $x$, que l'on \'ecrit $d(df)_x$ est une application
+lin\'eaire continue de $\R^p$ dans $\L(\R^p;\R^q)$. Autrement dit, on a
+\begin{equation*}
+  df:U \rightarrow \L(\R^p;\R^q),
+\end{equation*}
+et
+\begin{equation*}
+  d(df)_x: U\rightarrow \L(\R^p,\L(\R^p;\R^q)).
+\end{equation*}
+ Mais elle s'identifie naturellement avec une application lin\'eaire
+continue sur $\R^p \times \R^p$(c'est à dire une application bilinéaire continue sur
+$\R^p$)  gr\^ace \`a la proposition suivante.
+}
+\end{remarque*}
+
+ \begin{proposition}[HORS-PROGRAMME: ESPACES ISOMETRIQUES]
+\textcolor[rgb]{0.50,0.00,0.25}{
+Les espaces $\L(\R^p;\L(\R^q;\R^n))$ et
+$\L(\R^p,\R^q;\R^n)$ munis des normes usuelles
+sont isom\'etriques.
+}
+\end{proposition}
+
+
+{\textbf{Preuve.}} Pas faite en cours.
+
+
+\begin{definition}[DIFFERENTIELLE SECONDE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+  La diff\'erentielle seconde d'une fonction $f: U\subset \R^p\rightarrow \R^q$ deux fois diff\'erentiable
+est l'application
+\begin{equation*}
+  \begin{array}{clll}
+    d^2 f:& U & \rightarrow & \L(\R^p,\R^p;\R^q) \\
+     & x & \mapsto & d^2f_x
+  \end{array}
+\end{equation*}
+d\'efinie par
+\begin{equation*}
+  d^2f_x(h,k)=d(df)_x(h)(k) \;\mathrm{\; pour \; tout\;} (h,k)\in \R^p \times \R^p.
+\end{equation*}}
+\end{definition}
+
+\begin{remarque*}\textcolor[rgb]{0.00,0.00,1.00}{
+  On peut interpr\'eter cette d\'efinition de la fa\c{c}on suivante (qu'on utilise en pratique
+pour calculer $d^2f$). Si $f$ est deux fois diff\'erentiable sur $U$, alors, quel que soit $k \in R^p$,
+l'application
+\begin{equation*}
+  \begin{array}{clll}
+    g:& U & \rightarrow & \R^q \\
+     & x & \mapsto & df_x(k)
+  \end{array}
+\end{equation*}
+est diff\'erentiable et
+\begin{equation*}
+  dg_x(h)=d^2f_x(h,k).
+\end{equation*}}
+\end{remarque*}
+
+\begin{theoreme}[THEOREME DE SCHWARZ]
+\textcolor[rgb]{0.50,0.00,0.25}{ Si $f: U \subset \R^p \rightarrow \R^q$ est deux fois diff\'erentiable en $x$ alors
+$d^2f_x$ est une application bilin\'eaire SYMETRIQUE. Autrement dit, pour tout $(h,k)\in \R^p \times \R^p$, on a
+\begin{equation*}
+  d^2f_x(h,k)=d^2f_x(k,h).
+\end{equation*}}
+\end{theoreme}
+
+\noindent \textbf{Preuve.} Pas faite en cours.
+
+\section{Exemples de diff\'erentielles d'ordre 2}
+Donnons ici quelques différentielles d'ordre 2 pour deux types de fonctions classiques: les applications affines et les applications quadratiques. 
+
+\begin{itemize}
+  \item[1.] Une application affine $f:x \mapsto l(x)+b$ avec $l \in \L(\R^p;\R^q)$ et $b \in \R^q$
+est deux fois diff\'erentiable et sa diff\'erentielle seconde est identiquement nulle.
+ \item[2.] Une application quadratique $f: x \mapsto \phi(x,x)$ avec $\phi \in \L(\R^p,\R^p;\R^q)$
+est deux fois diff\'erentiable et sa diff\'erentielle seconde est constante, et m\^eme \'egale \`a $2\phi$ si
+$\phi$ est sym\'etrique.
+\end{itemize}
+
+\section{Matrice Hessienne}
+
+\begin{definition}[MATRICE HESSIENNE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+  Soit $f: U \subset \R^p \rightarrow \R$ et soit $(e_1,...,e_p)$ la base canonique de $\R^p$.
+  Si $f$ est deux fois diff\'erentiable sur l'ouvert $U$ alors pour tout $x \in E$, pour tous $i,j \in \{1,...,p\}$
+  \begin{equation*}
+    d^2f_x(e_i,e_j)=\dfrac{\partial}{\partial x_i}\dfrac{\partial f}{\partial x_j}(x).
+  \end{equation*}
+  Alors la matrice
+  \begin{equation*}
+    d^2f_x:=Hess \;f_x:=\left(
+                          \begin{array}{ccc}
+                            \dfrac{\partial^2 f}{\partial x_1^2}(x) & \ldots &  \dfrac{\partial^2 f}{\partial x_1 \partial x_p}(x) \\
+                            \vdots &  & \vdots \\
+                            \dfrac{\partial^2 f}{\partial x_p \partial x_1}(x) & \ldots &  \dfrac{\partial^2 f}{\partial x_p^2}(x) \\
+                          \end{array}
+                        \right)
+  \end{equation*}
+  est appel\'ee matrice hessienne de $f$ en $x$.}
+\end{definition}
+\noindent Le th\'eor\`eme de Schwarz montre que les d\'eriv\'ees partielles crois\'ees sont \'egales, c'est \`a dire
+\begin{equation*}
+  \dfrac{\partial}{\partial x_i}\dfrac{\partial f}{\partial x_j}=\dfrac{\partial}{\partial x_j}\dfrac{\partial f}{\partial x_i}
+\end{equation*}
+pour tous $i,j \in \{1,...,p\}$. Et donc la matrice hessienne est sym\'etrique. Ces d\'eriv\'ees sont en g\'en\'eral not\'ees
+\begin{equation*}
+  \dfrac{\partial^2 f}{\partial x_i \partial x_j}.
+\end{equation*}
+Par bilin\'earit\'e, si $h$ et $k$ sont deux vecteurs de $\R^p$ de composantes $(h_1,...,h_p)$ et $(k_1,...,k_p)$
+respectivement, alors
+\begin{equation*}
+  d^2_xf(h,k)= ^th. Hess \; f_a.k=\displaystyle \sum_{i=1}^p  \displaystyle \sum_{j=1}^p h_ik_j   \dfrac{\partial^2 f}{\partial x_i \partial x_j}(x).
+\end{equation*}
+Autrement dit, $Hess \; f_a$ est la matrice de la forme bilin\'eaire $d^2f_a$ par rapport
+\`a la base canonique de $\R^p$. L'\'egalit\'e de Schwarz assure de plus que la matrice hessienne est sym\'etrique.
+
+
+
+
+\section{Diff\'erentielle d'ordre $k$}
+\noindent Pour les entiers $k \geq 2$, on d\'efinit par r\'ecurrence les notions suivantes, qui g\'en\'eralisent le cas $k=2$.
+
+\begin{definition}[APPLICATIONS $k$-FOIS DIFFERENTIABLES]
+\textcolor[rgb]{0.73,0.00,0.00}{
+ Soit une fonction $f$  d\'efinie sur un ouvert (non vide) $U$ de $\R^p$  et \`a valeurs dans un
+  $\R^q$, et $k$ un entier au moins \'egal \`a $2$. On dit qu'elle est:
+  \begin{itemize}
+    \item[1.] $k$ fois diff\'erentiable en $x \in U$  si
+    sa diff\'erentielle $df: U_x \rightarrow \L(\R^p;\R^q)$ est $(k-2)$ fois diff\'erentiable dans un voisinage ouvert $U_x$ de $x$, et sa $(k-1)^{i\grave{e}me}$ différentielle est diff\'erentiable en $x$.
+    \item[2.] $k$ fois diff\'erentiable dans $U$ si elle est $k$ fois diff\'erentiable en tout point de $U$.
+    \item[3.] de classe $\co^k$ si et seulement si sa diff\'erentielle est de classe $\co^{k-1}$.
+    \item[4.] de classe $\co^{\infty}$ si elle est de classe de $\co^k$ pour tout $k \geq 1$.
+  \end{itemize}
+}
+ \end{definition}
+
+
+
+\begin{proposition}[APPLICATIONS LINEAIRES ET CLASSE $\co^{\infty}$]
+\textcolor[rgb]{0.44,0.00,0.87}{ 
+Les applications lin\'eaires continues et plus g\'en\'eralement les applications $k$-lin\'eaires continues sont de classe $\co^{\infty}$.
+  }
+\end{proposition}
+
+\begin{theoreme}[COMPOSITION ET CLASSE $\co^{\infty}$]
+\textcolor[rgb]{0.44,0.00,0.87}{
+Considérons les espaces  $\R^p$, $\R^n$ et $\R^q$. Soient $U$ un ouvert de $\R^p$ et $V$ un ouvert de $\R^n$ contenant $f(U)$. Si
+  $f: U \subset \R^p \rightarrow \R^n$ est $k$ fois diff\'erentiable en $x \in U$ et $g: V \subset \R^n \rightarrow G$
+  est $k$ fois diff\'erentiable en $y=f(x) \in V$, alors $g \circ f$ est $k$ fois diff\'erentiable en $x$. Si $f$
+  est de classe $\co^k$ sur $U$ et $g$ est de classe $\co^k$ sur $V$ alors $g \circ f$ est de classe $\co^k$.
+ }
+\end{theoreme}
+
+\begin{theoreme}[DIFFEOMORPHISME ET CLASSE $\co^{\infty}$]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Si $f$ est un diff\'eomorphisme de $U$ sur $V$ et si $f$ est de classe $\co^k$ alors $f^{-1}$ est aussi de classe $\co^k$.
+ }
+\end{theoreme}
+
+\noindent Nous pouvons maintenant donner un résultat qui permettra d'établir de façon nécessaire et suffisante les différentielle d'ordre $k$, $k \in  \N$, qui généralisera le cas des différentielles d'ordre $2$. Par généralisation du théorème de Schwarz, il vient que si
+une fonction  $f$ est $k$ fois différentiable en un point $x$, sa différentielle d'ordre $k$  sera une application $k$-linéaire
+symétrique (nous ne montrerons pas ce résultat ici). Il est donc tout naturel de définir un tel espace dans laa définition ci-dessous
+après avoir rappelé ce qu'est une permutation.
+ 
+
+\begin{definition}[PERMUTATION]
+\textcolor[rgb]{0.73,0.00,0.00}{On appelle {\bf permutation} de $\mathbb{N}$ une bijection de $\mathbb{N}$ sur
+$\mathbb{N}$.
+}
+ \end{definition}
+
+\begin{definition}[APPLICATIONS SYMETRIQUE]
+\textcolor[rgb]{0.73,0.00,0.00}{
+  Soit $\L_k(\R^p;\R^q)$ l'espace des applications $k$-lin\'eaires continues sur
+  $(\R^p)^k$. Une application $\phi  \in \L_k(\R^p;\R^q)$ est dite sym\'etrique si pour tout permutation
+  $\sigma$ de l'ensemble $\{1,...,k\}$ et pour tout $k$-uplet $(x_1,...,x_k) \in (\R^p)^k$,
+  \begin{equation*}
+    \phi(x_{\sigma(1)},...,x_{\sigma(k)})= \phi(x_1,...,x_k).
+  \end{equation*}
+  On notera $\L^s_k(\R^p;\R^q)$ l'espace des applications $k$-lin\'eaires continues et sym\'etriques sur $(\R^p)^k$.
+}
+ \end{definition}
+\noindent Nous pouvons dès lors donner une condition nécessaire et suffisante pour qu'une fonction $f$ soit $k$-fois différentiable.
+\begin{theoreme}[CNS APPLICATION DIFFERENTIABLE]
+\textcolor[rgb]{0.44,0.00,0.87}{
+   Une fonction $f: U \subset \R^p\rightarrow \R^q$ est $k$ fois diff\'erentiable au point $x \in U$
+  si et seulement   s'il existe
+  \begin{itemize}
+    \item[1.] un voisinage ouvert $U_x$ de $x$ dans $U$,
+    \item[2.] des fonctions $d^nf : U_x \rightarrow \L^s_n(\R^p;\R^q)$ pour $n \leq k-1$, et
+    \item[3.] $d^kf_x \in \L^s_k (\R^p;\R^q)$
+  \end{itemize}
+ telles que
+ \begin{itemize}
+   \item[1.] $d^1f=df$ dans $U_x$, 
+   \item[2.] pour tout $n \leq k-2$, $d^nf$ est diff\'erentiable sur $U_x$, avec pour tout $y \in U_x$, et
+   pour tout $(h_1,...,h_{n+1}) \in (\R^p)^{n+1}$:
+   \begin{equation*}
+     d^{n+1}f_y(h_1,...,h_{n+1})=d_{n+1}g_{(h_1,...,h_n,y)}^{[n]}(h_{n+1}) 
+   \end{equation*}
+  où $g^{[n]}(h_1,...,h_n,y):=d^nf_y(h_1,...,h_n)$,
+   et enfin,
+   \item[3.] $d^{k-1}f$ est diff\'erentiable en $x$ et
+   \begin{equation*}
+     d^kf_x(h_1,...,h_k)=d_kg_{(h_1,...,h_{k-1},x)}^{[k-1]}(h_k) 
+   \end{equation*}
+où $g^{[k-1]}(h_1,...,h_{k-1},y):=d^{k-1}f_y(h_1,...,h_{k-1})$.
+ \end{itemize}
+ }
+\end{theoreme}
+
+
+\noindent De façon analogue aux différentielles d'ordre $2$, nous obtenons que si $h$ et $k$ et $l$ sont trois vecteurs de $\R^p$ de composantes $(h_1,...,h_p)$, $(k_1,...,k_p)$ et $(l_1,...,l_p)$
+respectivement, alors
+\begin{equation*}
+  d^3_xf(h,k,l)= \displaystyle \sum_{i=1}^p   \displaystyle \sum_{j=1}^p  \displaystyle \sum_{n=1}^p h_ik_j  l_n \dfrac{\partial^3 f}{\partial x_i \partial x_j \partial x_n}(x).
+\end{equation*}
+
+
+
+\noindent Les différentielles d'ordre supérieure à $1$ étant définies, nous pouvons nous intéresser désormais aux différents résultats
+concernant les formules de Taylor. Nous nous intéressons dans la section suivante aux formules de Taylor avec reste intégral, 
+aux formules de Taylor-Lagrange et enfin aux formules de Taylor-Young. 
+
+\section{Formule de Taylor avec reste int\'egral}
+\subsection{Fonction d'une variable r\'eelle \`a valeur r\'eelle}
+
+\noindent Commençons cette section par la formule déjà étudiée durant les années précédentes et qui correspond à la formule de Taylor avec
+reste intégral pour les fonctions d'une variable réelle à valeurs réelles.
+
+\noindent Soit $I \subset \R$ un ouvert non vide, nous avons alors le résultat suivant:
+
+\begin{theoreme}[TAYLOR AVEC RESTE INTEGRAL $f: I \subset \R \rightarrow \R$]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Soit $f \in \co^{p+1}(I, \R)$ et $a$, $b=a+h \in I$, alors
+  \begin{equation*}
+    f(a+h)=f(a)+\displaystyle \sum_{k=1}^p \dfrac{h^k}{k!}f^{(k)}(a)+\dfrac{h^{p+1}}{p!}\displaystyle \int_0^1(1-t)^p f^{(p+1)}(a+th)dt.
+  \end{equation*}}
+\end{theoreme}
+
+{\textbf{Preuve.}} Faite en cours.
+
+
+\noindent Poursuivons ensuite avec les fonctions d'une variable réelle à valeurs dans $\R^q$ (fonctions vectorielles). 
+\subsection{Fonction d'une variable r\'eelle \`a valeurs dans $\R^q$}
+
+Avant de donner les différentes formules de Taylor associées à cette section, nous allons montrer un lemme qui sera une des clés
+de beaucoup de preuves de ce chapitre. Nous allons également rappeler quelques résultats sur les intégrales de Riemann pour
+des fonctions définies sur un intervalle $[a,b]$ à valeurs dans $\R^q$.
+
+
+\begin{lemme}[FORMULE DERIVEE $n^{ieme}$]\label{lemmeTaylor}
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Soient $I$ un intervalle ouvert de $\R$,  et $g:I \rightarrow \R^q$ une fonction $(n+1)$ fois d\'erivable.
+  On note $g^{(k)}$ ses d\'eriv\'ees successives, $k \in \{1,...,n+1\}$. Alors, pour tout $t \in I$
+  on a
+  \begin{equation*}
+    \dfrac{d}{dt}\left(g(t)+ \displaystyle \sum_{k=1}^{n} \dfrac{(1-t)^k}{k!}g^{(k)(t)}\right)=\dfrac{(1-t)^n}{n!}g^{(n+1)}(t).
+  \end{equation*}}
+\end{lemme}
+
+{\textbf{Preuve.}} Faite en cours.
+
+\begin{proposition}[RAPPEL INTEGRALES]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Soient $a,b \in \R$, $a \leq b$. Alors l'int\'egrale de Riemann sur le segment
+  $[a,b]$ d\'efinit une application lin\'eaire continue sur l'espace $\co([a,b];\R^q)$ des fonctions continues sur $[a,b]$ et \`a valeurs
+  dans $\R^q$, muni de la norme sup. Pour tout $g\in \co([a,b];\R^q)$, l'int\'egrale de Riemann de $g$ sur le segment $[a,b]$, not\'ee
+  $\displaystyle \int_a^b g(t)dt$, v\'erifie l'in\'egalit\'e
+  \begin{equation*}
+    \|\displaystyle \int_a^b g(t)dt \| \leq \displaystyle \int_a^b \|g(t)\|dt \leq (b-a) \displaystyle \max_{t\in[a,b]}\|g(t)\|.
+  \end{equation*}
+  Quels que soient $x,y \in [a,b]$, on a par d\'efinition
+  \begin{equation*}
+    \displaystyle \int_x^y g(t)dt=-\displaystyle \int_y^x g(t)dt,
+  \end{equation*}
+  et donc $\displaystyle \int_x^x g(t)dt=0$, et
+  \begin{equation*}
+    \displaystyle \int_x^y g(t)dt= \displaystyle \int_x^z g(t)dt+ \displaystyle \int_z^y g(t)dt,
+  \end{equation*}
+  pour tout $z\in[a,b]$. De plus l'application $y \mapsto  \displaystyle \int_x^y g(t)dt$ est d\'erivable et sa d\'eriv\'ee
+  est $g$. \\
+  Inversement, pour toute primitive $G$ de $g$, on a
+  \begin{equation*}
+    G(y)-G(x)= \displaystyle \int_x^y g(t)dt.
+  \end{equation*}}
+\end{proposition}
+
+{\textbf{Preuve.}} Pas faite en cours.
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+  Dans notre cas, nous sommes en dimension finie $\R^q$ et pour simplifier $\displaystyle \int_a^b g(t)dt$ est simplement
+  le vecteur dont les composantes sont $\displaystyle \int_a^b g_i(t)dt$ o\`u les $g_i$ sont les $i \in{1,...,q}$
+  sont les composantes de $g$ dans la base canonique.}
+ \end{remarque*}
+ 
+ \noindent On obtient finalement le résultat suivant qui découle directement du lemme  \ref{lemmeTaylor}:
+ 
+ \begin{corollaire}[LIEN ENTRE DERIVEE ET INTEGRALE] \label{corrolaireTaylor}
+\textcolor[rgb]{0.44,0.00,0.87}{ 
+    Si $I$ est un intervalle ouvert de $\R$ contenant $[0,1]$,  et
+    $g:I \rightarrow \R^q$ une fonction de classe $\co^{(n+1)}$, alors
+    \begin{equation*}
+      g(1)-g(0)-\displaystyle \sum_{k=1}^{n} \dfrac{1}{k!}g^{(k)}(0)=\displaystyle \int_0^1 \dfrac{(1-t)^n}{n!}g^{(n+1)}(t)dt.
+    \end{equation*}}
+  \end{corollaire}
+  
+  \noindent Nous pouvons alors passer au cas le plus général de cette section qui sont les fonctions de $\R^p$ à valeurs dans $\R^q$.
+\subsection{Fonction de $\R^p$ \`a valeurs dans $\R^q$}
+Pour tout $h \in \R^p$ et $n \in \N^*$, on d\'esigne par $h^{[n]}$ le $n$-uplet de vecteurs tous \'egaux \`a $h$. En appliquant directement le résultat du corollaire \ref{corrolaireTaylor} à la fonction
+\begin{equation*}
+g: t \mapsto g(t):=f(x+th),
+\end{equation*}
+nous obtenons immédiatement le théorème suivant:
+
+\begin{theoreme}[TAYLOR AVEC RESTE INTEGRAL $f: U \subset \R^p \rightarrow \R^q$]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Si $U$ est un ouvert de $\R^p$,  et $f: U \rightarrow \R^q$ est une fonction
+  de classe $\co^{n+1}$, alors pour tout $(x,h) \in U \times \R^p$ tel que le segment
+  $[x,x+h]$ soit inclus dans $U$,
+  \begin{equation*}
+    f(x+h)=f(x)+ \displaystyle \sum_{k=1}^{n} \dfrac{1}{k!}d^kf_x(h^{[k]})+\displaystyle \int_0^1 \dfrac{(1-t)^n}{n!}d^{n+1}f_{x+th}(h^{[n+1]})dt.
+  \end{equation*}}
+\end{theoreme}
+
+
+{\textbf{Preuve.}} Pas faite en cours.
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+  Cette derni\`ere formule \`a l'ordre $2$ avec $p=1$, s'\'ecrit
+  \begin{equation*}
+    f(x+h)=f(x)+df_x(h)+ \displaystyle \int_0^1 (1-t)d^2f_{x+th}(h,h)dt.
+  \end{equation*}}
+\end{remarque*}
+
+
+
+
+\section{Formule de Taylor-Lagrange}
+\subsection{Fonction d'une variable r\'eelle \`a valeur dans $\R^q$}
+
+\noindent Dans cette section, les hypothèses de régularité de la fonction étudiée seront plus faibles que dans la section précedente (on ne demande plus à la fonction d'être de classe $\co^{n+1}$, mais ``juste'' d'être au-moins $n+1$-fois différentiable (ou dérivable si c'est une fonction d'une variable réelle). On perd par contre l'égalité avec le reste intégral précédent pour obtnir une inégalité définie dans les forumes de Taylor-Lagrange ci-dessous.
+
+
+\begin{proposition}[TAYLOR LAGRANGE  $f: I \subset \R \rightarrow \R^q$]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Si $I$ est un intervalle ouvert de $\R$ contenant $[0,1]$ et $g: I \rightarrow \R^q$
+  une fonction $(n+1)$ fois diff\'erentiable telle que
+  \begin{equation*}
+    \|g^{(n+1)}(t)\| \leq M,\;\mathrm{pour\; tout\;} t\in [0,1],
+  \end{equation*}
+  alors
+  \begin{equation*}
+    \|g(1)-g(0)-\displaystyle \sum_{k=1}^n \dfrac{1}{k!}g^{(k)}(0)\| \leq \dfrac{M}{(n+1) !}.
+  \end{equation*}}
+\end{proposition}
+
+{\textbf{Preuve.}} Faite en cours.
+
+\subsection{Fonction de $\R^p$ \`a valeur dans $\R^q$}
+
+\begin{theoreme}[TAYLOR LAGRANGE $f: U \subset \R^p \rightarrow \R^q$]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  \begin{itemize}
+  \item[1.] Si $U$ est un ouvert $\R^p$
+  \item[2.] si $(x,h) \in U \times \R^p$ est tel que le segment $[x,x+h]$ soit inclus dans $U$, et
+  \item[3.] si $f: U \rightarrow \R^q$ est une fonction $(n+1)$ fois diff\'erentiable telle que
+  \begin{equation*}
+    \displaystyle \max_{y\in[x,x+h]} \|d^{n+1}f_y\|_{\L_{n+1}(\R^p;\R^q)} \leq M,
+  \end{equation*}
+  alors
+  \begin{equation*}
+    \|f(x+h)-f(x)- \displaystyle \sum_{k=1}^n \dfrac{1}{k!}d^kf_x(h^{[k]})\| \leq \dfrac{M}{(n+1)!}\|h\|^{n+1}.
+  \end{equation*}
+\end{itemize}}
+\end{theoreme}
+
+{\textbf{Preuve.}} Faite en cours.
+
+\noindent La derni\`ere in\'egalit\'e qui g\'en\'eralise l'in\'egalit\'e des accroissements finis, est connue sous le nom
+de formule de Taylor avec reste de Lagrange, le reste \'etant cependant connu \`a travers une majoration
+contrairement au reste int\'egral qui est exact.
+\section{Formule de Taylor-Young}
+\noindent Cette formule est valable sous des hypoth\`eses encore moins fortes que dans les deux sections précédentes, et donc, pour cette raison, donne un r\'esultat seulement local.
+
+
+\begin{theoreme}[TAYLOR YOUNG]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Si $U$ est un ouvert de $\R^p$ et si $f: U \rightarrow \R^q$ est
+  une fonction $n$ fois diff\'erentiable en $x \in U$ alors
+  \begin{equation*}
+    \|f(x+h)-f(x)- \displaystyle \sum_{k=1}^n \dfrac{1}{k!} d^kf_x(h^{[k]})\| = o(\|h\|^n).
+  \end{equation*}}
+\end{theoreme}
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+  Dans l'\'enonc\'e de ce th\'eor\`eme, la notation de Landau $o$ signifie que le membre de gauche divis\'e par $\|h\|^n$
+  tend vers $0$ lorsque $h$ tend vers $0$. Il s'agit donc d'un r\'esultat local,
+  qui donne des renseignements sur le comportement de $f$ au voisinage de $x$ seulement.}
+\end{remarque*}
+\noindent {\textbf{Preuve.}} Faite en cours.
+
+
+\chapter{Extrema}\label{extrema}
+
+Ce chapitre est consacré à l'étude de l'existence de deux types d'extrema: les extrema libre et les extrema liés. Les seconds correspondent au cas où les extrema sont justement ``liés'' à des contraintes. Dans les deux cas, nous pourrons définir ce que l'on appelle extrema locaux (ou relatifs) et les extrema globaux (ou absolus). Il se pourra donc que des minima locaux par exemple ne soit pas globaux si l'on étend
+le domaine de définition de la fonction $f$. \\
+Nous ne nous intéresserons également qu'à l'étude de minima (pour simplifier le chapitre) étant donné que  les maxima des fonctions $f$ peuvent être vus comme les minima des fonction $-f$ .\\
+Enfin, nous ne nous intéresserons qu'aux fonctions scalaires (autrement dit les fonctions $f$ définies sur $\R^p$ à valeurs dans $\R$).\\
+$ $\\
+Avant de commencer par l'étude des extrema libres, faisons quelques petits rappels d'algèbre.
+
+\section{Rappels d'algèbre}
+
+\noindent On munit $R^p$ d'une norme quelconque notée $\Vert . \Vert$. \\
+Soit $B: \R^p \times \R^p \rightarrow \R$ une fonction bilinéaire symétrique (autrement dit pour tous $x,y \in \R^p$, les applications 
+de $\R^p \rightarrow \R$ définies par $B(x,.): y \mapsto B(x,y)$ et    $B(.,y): x \mapsto B(x,y)$ sont linéaires, et elle est symétrique si pour tout couple $(x,y) \in \R^p \times \R^p$ on a $B(x,y)=B(y,x)$. \\
+
+
+
+
+
+
+\begin{definition}[FORME QUADRATIQUE]
+\textcolor[rgb]{0.98,0.00,0.00}{
+On appelle forme quadratique associée à la fonction bilinéaire symétrique $B$ l'application 
+\begin{equation*}
+\begin{array}{llll}
+q: &\R^p &\rightarrow & \R \\
+    & x     & \mapsto     & B(x,x).
+\end{array}
+\end{equation*}
+}
+\end{definition}
+
+\noindent On a alors la proposition suivante. 
+
+\begin{proposition}[PROPRIETE FORME QUADRATIQUE]
+\textcolor[rgb]{0.44,0.00,0.87}{
+ Pour tous $x,y \in \R^p$ et pour tout $\lambda \in \R$ on a 
+ \begin{equation*}
+B(x,y)=\dfrac{1}{2}[q(x+y)-q(x)-q(y)],
+\end{equation*}
+et 
+ \begin{equation*}
+q(\lambda x)=B(\lambda x, \lambda x)= \lambda^2B(x,x)=\lambda^2q(x).
+\end{equation*}
+ }
+\end{proposition}
+
+\begin{definition}[FORME POSITIVE, NEGATIVE,...]
+\textcolor[rgb]{0.98,0.00,0.00}{
+Une forme quadratique associée $q$ est dite
+\begin{enumerate}
+\item positive si et seulement si pour tout $x \in \R^p$, $q(x) \geq 0$,
+\item définie positive si et seulement si pour tout $x \in \R^p \setminus \left\{0_{\R^p}\right\}$, $q(x)>0$,
+\item négative si et seulement si pour tout $x \in \R^p$, $q(x) \leq 0$,
+\item définie négative si et seulement si pour tout $x \in \R^p \setminus \left\{0_{\R^p}\right\}$, $q(x)<0$,
+\item elliptique sur $\R^p$ si et seulement s'il existe $\alpha >0$, tel que pour tout $x \in \R^p$, 
+\begin{equation}
+q(x) \geq \alpha \Vert x \Vert^2.
+\end{equation}
+\end{enumerate} 
+}
+\end{definition}
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+  On remarque qu'en dimension finie, $q$ est elliptique si et seulement si $q$ est définie positive. Si on n'est pas en dimension finie (hors programme) on a juste l'`èllipticité'' qui implique $q$ définie positive mais pas la réciproque.}
+\end{remarque*}
+
+\noindent Etant donné que certains résultats d'existence d'extrema font intervenir les matrices Hessiennes (qui sont des matrices symétriques), rappelons ici quelques résultats pour les matrices. 
+\begin{definition} [MATRICES SYMETRIQUES]
+\textcolor[rgb]{0.98,0.00,0.00}{
+  Soit
+  \begin{equation*}
+  A=\left(\begin{matrix}
+a_{1,1} & \cdots & a_{1,p} \\ 
+\vdots & \ddots & \vdots \\ 
+a_{p,1} & \cdots & a_{p,p}
+\end{matrix} \right)
+  \end{equation*}
+  une matrice carrée, $A \in \mat_p(\R)$. On dit que $A$ est symétrique si $a_{i,j}=a_{j,i}$
+  pour tout $i,j=1,...,p$.}
+\end{definition}
+
+\begin{definition}[FORMES QUADRATIQUES]
+\textcolor[rgb]{0.98,0.00,0.00}{ 
+  Soit
+ $A \in \mat_p(\R)$ une matrice symétrique, l'application
+ $x \in \R^p \mapsto q_A(x)=x^T.A.x$ est appelée forme quadratique
+ associée à $A$. }
+\end{definition}
+
+\begin{definition}[DEFINIE POSITIVE]
+\textcolor[rgb]{0.98,0.00,0.00}{
+  Soient
+ $A \in \mat_p(\R)$ une matrice symétrique et $q_A$ sa forme quadratique  associée. La matrice $A$ est dite:
+ \begin{itemize}
+  \item  SEMI-DEFINIE POSITIVE si $q_A(x)=x^T.A.x \geq 0$ pour tout $x\in \R^p$,
+ \item DEFINIE POSITIVE si $q_A(x)=x^T.A.x > 0$ pour tout $x\in \R^p\setminus\{0_{\R^p}\}$,
+ \item  SEMI-DEFINIE NEGATIVE si $q_A(x)=x^T.A.x \leq 0$ pour tout $x\in \R^p.$
+ \item DEFINIE NEGATIVE si $q_A(x)=x^T.A.x < 0$ pour tout $x\in \R^p\setminus\{0_{\R^p}\}$.
+ \end{itemize}}
+ \end{definition}
+
+
+\begin{definition}[k$^{i\grave{e}me}$ MINEUR DOMINANT]
+\textcolor[rgb]{0.98,0.00,0.00}{ 
+  Soit
+ $A \in \mat_p(\R)$ une matrice, pour tout $k=1,...,p$, on pose
+   \begin{equation*}
+  A_k=\left(\begin{matrix}
+a_{1,1} & \cdots & a_{1,k} \\ 
+\vdots & \ddots & \vdots \\ 
+a_{k,1} & \cdots & a_{k,k}
+\end{matrix} \right)
+  \end{equation*}
+  la k$^{i\grave{e}me}$ sous-matrice principale dominante et $\Delta_k$ son  déterminant de la k$^{i\grave{e}me}$  appelé le k$^{i\grave{e}me}$ mineur dominant de $A$.}
+ \end{definition}
+
+
+%\begin{theoreme}[DEFINIE POSITIVE, NEGATIVE,...]
+%\textcolor[rgb]{0.44,0.00,0.87}{
+%   Soit
+% $A \in \mat_p(\R)$ une matrice symétrique, alors
+% \begin{itemize}
+% \item $A$ est DEFINIE POSITIVE si et seulement si $\Delta_k > 0$ pour tout $k=1,...,p$,
+%  \item $A$ est DEFINIE NEGATIVE si et seulement si $\Delta_k < 0$ pour tout $k=1,...,p$,
+%  \item  si $(-1)^k\Delta_k > 0$ pour tout $k=1,...,p-1$ et $\Delta_p=0$ alors $A$ est SEMI-DEFINIE POSITIVE ,
+%  \item si $(-1)^k\Delta_k < 0$ pour tout $k=1,...,p-1$ et $\Delta_p=0$ alors  $A$ est SEMI-DEFINIE NEGATIVE,
+%  \item S'il existe un $l$ tel que $\Delta_{2l} <0$, ou s'il existe $m$ tel que $\Delta_1.\Delta_{2.m}<0$, alors $A$ est indéfinie.
+% \end{itemize}}
+%\end{theoreme}
+%
+%{\textbf{Preuve.}} Pas faite en cours.
+
+\noindent On peut prouver facilement si une matrice symétrique est définie positive grâce au résultat suivant.
+
+\begin{theoreme}[DEFINIE POSITIVE]
+\textcolor[rgb]{0.44,0.00,0.87}{
+   Soit
+ $A \in \mat_p(\R)$ une matrice symétrique, alors$A$ est DEFINIE POSITIVE si et seulement si l'une des propriétés suivantes est satisfaite:
+ \begin{itemize}
+ \item[1.] $\Delta_k > 0$ pour tout $k=1,...,n$,
+ \item[2.] $A$ est diagonalisable et ses valeurs propres sont strictement positives.
+ \end{itemize}}
+\end{theoreme}
+
+{\textbf{Preuve.}} Pas faite en cours.
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{$ $\\
+1) On remarque que si une matrice  $A \in \mat_p(\R)$ une matrice symétrique est DEFINIE POSITIVE on a les propriétés suivantes:\\
+-tous les coefficients diagonaux de $A$ sont des réels strictement positifs,\\
+-le déterminant de $A$ est strictement positif (c'est à dire que $A$ est inversible),\\
+- il existe une constante $\alpha >0$ telle que $x^T.A.x \geq \alpha \Vert x \Vert^2$, pour n'importe quelle norme $\Vert. \Vert$,\\
+2) Une matrice symétrique réelle est dite définie négative si son opposée (symétrique elle aussi) est définie positive.
+ }
+\end{remarque*}
+
+
+
+
+
+\section{Extrema libres}
+
+
+\begin{definition}[MINIMUM LOCAL ET GLOBAL]
+\textcolor[rgb]{0.98,0.00,0.00}{
+  Si $f$ est une fonction d\'efinie sur une partie $U$ de $\R^p$ et \`a valeurs r\'eelles, un point $a \in U$
+  est un minimum local (ou relatif) de $f$ s'il existe un voisinage $V_a$ de $a$ ouvert dans $U$ tel que
+  \begin{equation*}
+    f(x)\geq f(a) \;\mathrm{\;pour\;tout}\; x\in V_a.
+  \end{equation*}
+  On dira que $a$ est un minimum global (ou absolu) de $f$ si
+  \begin{equation*}
+    f(x) \geq f(a)\;\mathrm{\;pour\;tout}\; x\in U.
+  \end{equation*}
+  Un minimum est dit strict si l'in\'egalit\'e est stricte, c'est \`a dire $f(x)>f(a)$, pour tout $x\neq a$ (que ce soit local ou global).}
+\end{definition}
+
+
+\begin{definition}[POINT CRITIQUE]
+\textcolor[rgb]{0.98,0.00,0.00}{
+  Soient $U$ un ouvert non vide de $\R^p$ et $f: U  \rightarrow \R$ un application différentiable en  $a \in U$. On dit que $a \in U$ est un point critique de $f$
+  si $df_a=0$.}
+\end{definition}
+
+\begin{remarque*} $ $\\
+\textcolor[rgb]{0.00,0.00,1.00}{
+1. Noter que si $f: I \subset \R \rightarrow \R$, $a \in U$ est un point critique de $f$ si $f'a)=0$. \\
+2. Nous allons voir dans la proposition suivant qu'un extremum est un point critique, mais attention, la réciproque est fausse. 
+Ce n'est pas parce que l'on a un point critique que c'est un extremum. Par exemple, $0$ est un point critique de $f: x \mapsto x^3$ et pourtant ce n'est pas un extremum sur $\R$.
+}
+\end{remarque*}
+
+\noindent Dans toute la suite, nous allons donner des critères nécessaires (et on l'espère quelques fois suffisants) pour trouver l'existence de ces extrema locaux selon le degré de différentiabilité de la fonction $f$.
+\subsection{Condictions nécessaires du premier ordre}
+\noindent Rappelons ici un résultat pour les applications de $\R$  à valeurs dans $\R$.
+
+\begin{proposition}[RAPPEL: EXTREMA ET POINT CRITIQUE]
+\textcolor[rgb]{0.44,0.00,0.87}{
+ Soit $I$ un intervalle ouvert non vide de $\R$. Si $f: I \subset \R \rightarrow \R$ dérivable en $a \in I$
+et si $f$ admet un extremum local en $a$ alors $f'(a)=0$.  }
+\end{proposition}
+
+\noindent Si l'on passe maintenant dans un cadre plus général des fonctions de $\R^P \rightarrow \R$. Nous obtenons le résultat suivant.
+
+\begin{proposition}[REGLE DE FERMAT]
+\textcolor[rgb]{0.44,0.00,0.87}{
+ Soient $U$ un ouvert non vide de $\R^p$ et $f: U  \rightarrow \R$ une application différentiable en $a \in U$. Si $f$ est un extremum local en $a$ alors  $df_a=0$ (autrement dit, $a$ est un point critique), ce qui revient à dire que pour tout $i=1,...,p$, $\dfrac{\partial f}{\partial x_i}(a)=0$, ou encore le gradient de $f$ en $a$ est nul.}
+\end{proposition}
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+  Attention: 
+  \begin{itemize}
+  \item[1.]La condition précédente n'est pas suffisante car 
+  $a$ peut être un point critique de $f$ sans pour autant que $f$ possède d'extremum local. 
+  \item[2.] La condition $U$ ouvert est importante. En effet, il se peut 
+  que $f$ admette un extremum sur un domaine $U$ inclus dans $\R^p$
+  alors que ses dérivées partielles ne s'annuleront pas sur $U$. Ce qui nous ramène au rappel suivant (voir la remarque de la section \ref{compacite}).
+  \end{itemize}}
+  \end{remarque*}
+  
+
+
+\begin{proposition}[EXTREMA SUR UN COMPACT]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Soit $f:K\subset \R^p \rightarrow \R$, où $K$ est un compact de $\R^p$, une fonction continue alors $f$ atteint ses extrema dans $K$.}
+\end{proposition}
+
+
+
+{\textbf{Preuve.}} Pas faite en cours.
+
+\subsection{Conditions du second ordre}
+
+\noindent Dans cette section nous allons non seulement donner des conditions nécessaires mais également suffisantes qui permettront
+d'identifier des minima locaux dnas le cas où la fonction admet des différentielles secondes.\\
+$ $
+\\
+Commençons comme dans la section précédente par les fonctions de $\R \rightarrow \R$.
+
+
+\begin{proposition}[RAPPEL: EXTREMA ET POINT CRITIQUE]
+\textcolor[rgb]{0.44,0.00,0.87}{
+ Soit $I$ un intervalle ouvert non vide de $\R$. Si $f: I \subset \R \rightarrow \R$ dérivable en $a \in I$
+et si $f$ admet un MINIMUM local en $a$ alors $f'(a)=0$ (comme on l'a vu dans la section suivante), mais si de plus $f$ est deux fois 
+dérivable en $a$ alors $f''(a) \geq 0$.\\
+Inversement: Si $b \in I$ est tel que $f'(b)=0$ et $f''(b)>0$ alors $b$ est un minimum  local de $f$. }
+\end{proposition}
+
+
+
+
+
+
+{\textbf{Preuve.}}  Pas faite en cours.
+
+
+
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+  Attention! \\
+1. Les conditions $f'(a)=0$ et $f''(a) \geq 0$ ne sont pas suffisantes! On a besoin d'avoir $f''(a)>0$. On pourrait par exemple le voir avec $f: x \mapsto x^3$ en $x=0$.\\
+2. D'autre part, la condition $f''(a) >0$ n'est pas nécessaire (autrement dit on peut avoir $f''(a) \geq 0$. On pourrait par exemple le voir avec  $f: x \mapsto x^4$ en $x=0$.}
+\end{remarque*}
+
+
+\noindent Passons ensuite aux fonctions de $\R^p \rightarrow \R$.
+
+
+\begin{proposition}[MINIMA LOCAUX ORDRE 2]
+\textcolor[rgb]{0.44,0.00,0.87}{
+ Soient $U$ un ouvert non vide de $\R^p$ et $f: U  \rightarrow \R$ une application différentiable en $a \in U$. Si $f$ est un extremum local en $a$ alors  $df_a=0$ (comme on l'a vu dans la règle de fermat) mais si de plus $f$ est deux fois différentiable en $a$ alors
+ $d^2f_(a)(h,h) \geq 0$ pour tout $h \in \R^p$.\\
+ Inversement, si $b \in U$ est telle que $df_b=0$ et s'il existe $C>0$ tel que $d^2f_b (h,h) \geq C \Vert h \Vert^2$, pour tout $h \in \R^p$ alors $b$ est un minimum local de $f$}
+\end{proposition}
+
+\begin{remarque*} $ $\\
+\textcolor[rgb]{0.00,0.00,1.00}{
+1. On retrouve ici la notion de coercivité donnée dans le rappel tout au début de ce chapitre puisque $d^2f_a$ est une application bilinéaire symétrique (d'après le théorème de Schwarz).\\ 
+2. Comme nous sommes en dimension finie, la condition ``\textit{s'il existe $C>0$ tel que $d^2f_b (h,h) \geq C \Vert h \Vert^2$, pour tout $h \in \R^p$}'' revient à dire ``\textit{s'il existe $C>0$ tel que $d^2f_b (h,h) >0$ , pour tout $h \in \R^p \setminus 0_{\R^p}$}'' (car la coercivité est équivalent à dire que la fonction bilinéaire symétrique est définie positive en dimension finie).\\
+3. Ce résultat peut s'interpréter facilement avec les matrices Hessiennes. C'est ce que nous allons voir dans la section suivante.
+}
+\end{remarque*}
+
+\subsection{Critères avec les matrices Hessiennes}
+
+
+
+\begin{theoreme}[HESSIENNE ET EXTREMA LOCAUX ]
+\textcolor[rgb]{0.44,0.00,0.87}{
+   Soient $f:U \subset \R^p \rightarrow \R$ une fonction deux fois différentiable sur $U$ ouvert de $\R^p$, et $a \in U$ un point critique de $f$.
+ Alors la Hessienne de $f$,  $Hess(f) \in \mat_n(\R)$ est une matrice symétrique et 
+ \begin{itemize}
+ \item[1.]si $Hess f_a$ est DEFINIE POSITIVE alors $a$ est un minimum local strict de $f$ sur $U$,
+ \item[2.] si $Hess f_a$ est SEMI-DEFINIE POSITIVE alors $a$ est un minimum local  de $f$ sur $U$,
+ \item[3.]si $Hess f_a$ est DEFINIE NEGATIVE alors $a$ est un maximum local strict de $f$ sur $U$,
+ \item[4.] si $Hess f_a$ est SEMI-DEFINIE POSITIVE alors $a$ est un maximum local  de $f$ sur $U$,
+ \item[5.] S'il existe un $l$ tel que $\Delta_{2l} <0$, ou s'il existe $m$ tel que $\Delta_1.\Delta_{2.m}<0$, alors $A$ est indéfinie.
+ \end{itemize}}
+\end{theoreme}
+
+{\textbf{Preuve.}} Pas faite en cours.
+
+\begin{remarque*} $ $\\
+\textcolor[rgb]{0.00,0.00,1.00}{
+Pour appliquer ces résultats, il est utile d'utiliser les rappels d'algèbre du début de ce chapitre parmi lesquels: \\
+  d\'eterminer si $Hess \; f_a$ est d\'efinie n\'egative ou positive revient \`a d\'eterminer
+  les valeurs propres de $Hess \; f_a$.
+  \begin{itemize}
+    \item[1.] Si toutes les valeurs propres sont $>0$, $Hess \; f_a$ est d\'efinie positive.
+    \item[2.] Si toutes les valeurs propres sont $<0$, $Hess \; f_a$ est d\'efinie n\'egative.
+    \item[3.] Si les valeurs propres de $Hess \; f_a$ sont non nulles mais de signes diff\'erents, on dit que
+    $a$ est un point col (ou un point selle).
+  \end{itemize}}
+\end{remarque*}
+
+\noindent Nous pouvons également donner des résultats sur les extrema globaux:
+
+\begin{theoreme}[EXTREMA GLOBAUX ET HESSIENNE]
+\textcolor[rgb]{0.44,0.00,0.87}{ 
+  Soit $f:U\subset \R^p \rightarrow \R$, où $U$ est un ouvert de $\R^p$, et $f$ est deux fois différentiable sur $U$, soit $a \in U$ un point critique de $f$,
+  alors si 
+  \begin{equation*}
+  (x-a)^T.Hessf(a).(x-a) \geq 0 \;(\mathrm{resp.} \leq 0),
+\end{equation*}   
+pour tout $x \in U$, alors $a$ est un minimum global de $f$ sur $U$
+(resp. maximum global), et si les inégalités sont strictes les extrema sont stricts.}
+\end{theoreme}
+
+{\textbf{Preuve.}} Pas faite en cours.
+
+\subsection{Cas particulier où $f:\R^2 \rightarrow \R$}
+Dans le cas où p=2 ($f:\R^2 \rightarrow \R$, ce que l'on utilisera le plus souvent en exercice), nous utiliserons la notation de Monge qui nous sera bien utile, et plus rapide en général que les critères de section précédentes. 
+\begin{theoreme}[NOTATION DE MONGE]
+\textcolor[rgb]{0.44,0.00,0.87}{
+   Soient $f:U \subset \R^2 \rightarrow \R$ une fonction deux fois différentiable sur  $U$ ouvert de $\R^2$, et $(a,b) \in U$ un point critique de $f$.
+ On pose 
+ \begin{equation*}
+ r=\dfrac{\partial^2 f}{\partial x^2}(a,b),\;\;s=\dfrac{\partial^2 f}{\partial x \partial y}(a,b)
+  ,\;\; \mathrm{et}\; t=\dfrac{\partial^2 f}{\partial y^2}(a,b).
+\end{equation*}
+Alors
+ \begin{itemize}
+ \item[1.]si $rt-s^2>0$ et $r>0$,  $(a,b)$ est un minimum local  de $f$ sur $U$,
+ \item[2.] si $rt-s^2>0$ et $r<0$,  $(a,b)$ est un maximum local  de $f$ sur $U$,
+ \item[3.]si $rt-s^2<0$ la fonction n'admet pas d'extremum local, on dit alors que $(a,b)$ est un point SELLE ou COL.
+ \end{itemize}}
+\end{theoreme}
+
+
+{\textbf{Preuve.}} Pas faite en cours.
+
+
+
+
+\section{Extrema li\'es}
+
+
+\noindent Dans cette section, nous allons nous intéresser à la recherche des extrema sous certaines contraintes. Il paraît normal donc de
+définir ce que sont des contraintes. 
+
+\subsection{Contraintes}
+\begin{definition}[CONTRAINTES]
+\textcolor[rgb]{0.98,0.00,0.00}{
+  Si $f$ et $g_1$,...,$g_k$ sont des fonctions d\'efinies sur un ouvert $U \subset \R^p$ \`a valeurs dans $\R$, un point $a \in U$ tel que $g_1(a)=0$,...,$g_k(a)=0$
+est un minimum local de $f$ sous les contraintes $g_1$,...,$g_k$ s'il existe un voisinage $V_a$ de $a$
+tel que
+\begin{equation*}
+  f(x) \geq f(a)
+\end{equation*}
+pour tout $x \in V_a$ et $g_1(x)=0$, ..., $g_k(x)=0$.}
+\end{definition}
+
+
+\subsection{Extrema liés avec une seule contrainte}
+
+\noindent Commençons par les fonctions d'un espace $\R^2$ avec une seule contrainte:
+
+\begin{theoreme}[EXTREMA LIES ET GRADIENTS]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Soient $f,g: U \in \R^2 \rightarrow \R$ de classe $\co^1$,
+sur un ouvert $U$ de $\R^2$, soit $(a,b) \in U$ tels que
+\begin{itemize}
+\item[1.] $f$ soumise à la contrainte $g(x,y)=0$ admette un 
+extremum au point $(a,b)$,
+\item[2.] $\nabla g(a,b) \neq 0$,
+alors il existe un nombre réel $\lambda \neq 0$ tel que 
+$\nabla f(a,b) = \lambda \nabla g(a,b).$
+Autrement dit, on a
+\begin{equation*}
+\left\{
+\begin{array}{ccc}
+\dfrac{\partial f}{\partial x}(a,b)-\lambda \dfrac{\partial g}{\partial x} & = & 0, \\ 
+\dfrac{\partial f}{\partial y}(a,b)-\lambda \dfrac{\partial g}{\partial y}& = & 0, \\ 
+g(a,b) & = & 0. \\ 
+\end{array}\right.
+\end{equation*}
+\end{itemize} }
+\end{theoreme}
+
+
+{\textbf{Preuve.}} Pas faite en cours.
+
+\subsection{Extrema liés avec plusieurs contraintes}
+En généralisant le cas précédent, on peut donner les résultats sous les formes suivantes pour $k$ contraintes.
+
+
+\begin{definition}[$\Gamma$ REGULIER]
+\textcolor[rgb]{0.98,0.00,0.00}{
+  Soit $g: U \in \R^p \rightarrow \R^k$ une fonction de classe $\co^1$ et
+$\Gamma=g^{-1}(\{0\})$. On dit que $\Gamma$ est r\'egulier (ou encore qu'il satisfait \`a la condition de
+qualification non d\'eg\'en\'er\'ee) si pour tout $a \in \Gamma$, $dg_a: \R^p \rightarrow \R^k$ est surjective.}
+\end{definition}
+
+\begin{remarque*}
+\textcolor[rgb]{0.00,0.00,1.00}{
+  Si $g: U \in \R^p \rightarrow \R$ ($k=1$) (cas où l'on a une seule contrainte) la condition signifie seulement que pour tout $a \in \Gamma$,
+$dg_a \neq 0$.}
+\end{remarque*}
+
+\noindent On retrouve sans surprise le résultat de la section précédente à une seule contrainte:
+
+\begin{theoreme}[EXTREMA LIES (UNE CONTRAINTE)]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Soient $f,g: U \in \R^n \rightarrow \R$ de classe $\co^1$, soit $\Gamma=g^{-1}(\{0\})$ r\'eguli\`ere. Si $a \in \Gamma$
+est un extremum local de  $f_{\mid _\Gamma}$, alors il existe un unique $\lambda \in \R$ tel que
+\begin{equation*}
+  dfa + \lambda dg_a=0.
+\end{equation*}}
+\end{theoreme}
+
+{\textbf{Preuve.}} Pas faite en cours.
+
+N.B.: Le r\'eel $\lambda$ est appel\'e multiplicateur de Lagrange.
+
+\noindent Regradons maintenant ce qu'il se passe quand on a $k$ contraintes. 
+
+\begin{theoreme}[EXTREMA LIES ($k$ CONTRAINTES)]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Soient $f: U \in \R^p \rightarrow \R$ de classe $\co^1$, $g: U \in\R^p \rightarrow \R^k$,  et $\Gamma=g^{-1}(\{0\})$ r\'eguli\`ere. Si $a \in \Gamma$
+est un extremum local de  $f_{\mid _\Gamma}$, alors il existe un unique $\lambda=(\lambda_1,...,\lambda_k) \in \R^k$ tel que
+\begin{equation*}
+  dfa + \displaystyle \sum_{i=1}^p \lambda_i (dg_i)_a=0.
+\end{equation*}}
+\end{theoreme}
+
+\noindent Si jamais on est mal à l'aise avec la notion de $\Gamma$ régulière, il suffit juste de voir le résultat précédent de la façon suivante:\\
+1. on suppose que les fonctions $f$ et $g_1$,...,$g_k$ définies de $\R^p \rightarrow \R$ sont contin\^ument diff\'erentiables.\\
+2. on dit que les contraintes $g_1$,...,$g_k$ sont ind\'ependantes au point $a \in U$ si la famille de formes
+lin\'eaires continues $\{(dg_1)_a,...,(dg_k)_a\}$ est libre (ce qui revient exactement à dire que $g$ est $\Gamma$ régulière. Alors on a le résultat suivant équivalement au théorème précédent:
+
+
+\begin{theoreme}[CONDITION NECESSAIRE MINIMUM SOUS $k$  CONTRAINTES]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Soient $f$ et $g_1$,...,$g_k$ sont des fonctions de classe $\co^1$ d\'efinies sur un ouvert $U\subset \R^p$ d'un
+ \`a valeurs dans $\R$. Soit $a \in U$ tel que  $g_1(a)=0$,...,$g_k(a)=0$ et les contraintes
+$g_1$,...,$g_k$ sont ind\'ependantes au point $a$. Si $a$ est un minimum local de $f$ sous les contraintes
+$g_1$,...,$g_k$, alors il existe des r\'eels $\lambda_1$,...,$\lambda_k$ tels que
+\begin{equation*}
+  df_a=\lambda_1 (dg_1)_a+...+\lambda_k (dg_k)_a.
+\end{equation*}}
+\end{theoreme}
+
+
+{\textbf{Preuve.}} Pas faite en cours.\\
+Les r\'esultats pr\'esent\'es dans ce paragraphe sont li\'es \`a des probl\`emes d'extremum essentiellement
+sur des ouverts: et il est \`a noter que les conditions n\'ecessaires d'extremum local sont fausses
+lorsque $U$ n'est pas un ouvert. \\
+Nous allons dans la section suivante consid\'erer des probl\`emes d'extremum sur des sous-ensemble convexes de $E$.
+
+\section{Convexit\'e et minima}
+
+L'avantage de travailler sur des ensembles convexes avec des fonctions convexes (que l'on définit ci-dessous) c'est que lorsqu'il
+y a équivalence entre extremum local et global. Et du coup, l'étude des extrema se simplifie grandement dans le sens
+où l'on n'a pas besoin de chercher un extremum global parmi les extrema locaux.
+
+\begin{definition}[FONCTION CONVEXE]
+\textcolor[rgb]{0.98,0.00,0.00}{
+  Un sous-ensemble $C$ d'un $\R$-espace vectoriel $E$ est dit convexe si pour
+tous $x,y \in C$, pour tout $\theta \in [0,1]$, $\theta x+(1- \theta)y \in C$.
+Une fonction $f$ est d\'efinie sur un convexe $C$ \`a valeurs dans $\R$ est dite
+convexe, si pour tous $x,y \in C$,  pour tout $\theta \in [0,1]$,
+\begin{equation*}
+  f(\theta x+(1-\theta)y) \leq \theta f(x)+(1-\theta)f(y).
+\end{equation*}
+Elle est dite strictement convexe si l'in\'egalit\'e ci-dessus est stricte lorsque $x \neq y$ et
+$\theta \in ]0,1[$.}
+\end{definition}
+
+\begin{theoreme}[FONCTION CONVEXE]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Soit $f: U \rightarrow \R$ une fonction diff\'erentiable sur un ouvert $U$ de $\R^p$ et
+soit $C$ un sous-ensemble convexe de $U$. Alors $f_{\mid _C}$ est convexe si et seulement si, pour tous $x,y \in C$,
+\begin{equation*}
+  f(y) \geq f(x)+df_x(y-x).
+\end{equation*}
+Elle est strictement convexe si l'in\'egalit\'e ci-dessus est stricte pour $x \neq y$. En supposant
+en outre que $f$ est deux fois diff\'erentiable, $f_{\mid _C}$ est convexe si et seulement si, pour tous $x,y \in C$
+\begin{equation*}
+  d^2f_x(y-x,y-x) \geq 0.
+\end{equation*}
+Elle est strictement convexe si l'in\'egalit\'e ci-dessus est stricte pour $x \neq y$.}
+\end{theoreme}
+
+
+{\textbf{Preuve.}} Pas faite en cours.
+
+
+\begin{theoreme}[CONVEXITE ET MINIMUM]
+\textcolor[rgb]{0.44,0.00,0.87}{
+  Soit $f: U \rightarrow \R$ une fonction d\'efinie sur un ouvert $U$ de $\R^p$
+et soit $C$ un sous-ensemble convexe de $U$.
+\begin{itemize}
+  \item[1.] Si $f_{\mid _C}$ est convexe et admet un minimum local dans $C$, c'est un minimum global.
+  \item[2.] Si $f_{\mid _C}$ est strictement convexe alors elle admet au plus un minimum, et c'est un minimum strict.
+  \item[3.] Si $f$ est diff\'erentiable, une condition n\'ecessaire pour qu'un point $a \in C$ soit un minimum de $f_{\mid _C}$ est
+\begin{equation*}
+  df_a(y-a) \geq 0,
+\end{equation*}
+pour tout $y \in C$. Si de plus $f_{\mid _C}$ est convexe, cette condition est \'egalement suffisante.
+\end{itemize}}
+\end{theoreme}
+
+{\textbf{Preuve.}} Pas faite en cours.
+
+
+
+
+\auteurs{
+Laurent Pujo-Menjouet
+}
+
+
+\finchapitre 
+\end{document}
+
