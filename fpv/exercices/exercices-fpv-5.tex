@@ -1,0 +1,623 @@
+%%%%%%%%%%%%%%%%%% PREAMBULE %%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{fancybox}
+\usepackage{graphicx}
+%\usepackage{tikz}
+
+%----- Ensembles : entiers, reels, complexes -----
+\newcommand{\Nn}{\mathbb{N}} \newcommand{\N}{\mathbb{N}}
+\newcommand{\Zz}{\mathbb{Z}} \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Qq}{\mathbb{Q}} \newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Rr}{\mathbb{R}} \newcommand{\R}{\mathbb{R}}
+\newcommand{\Cc}{\mathbb{C}} \newcommand{\C}{\mathbb{C}}
+\newcommand{\Kk}{\mathbb{K}} \newcommand{\K}{\mathbb{K}}
+
+%----- Modifications de symboles -----
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\Re}{\mathop{\mathrm{Re}}\nolimits}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}\nolimits}
+\newcommand{\llbracket}{\left[\kern-0.15em\left[}
+\newcommand{\rrbracket}{\right]\kern-0.15em\right]}
+\renewcommand{\ge}{\geqslant} \renewcommand{\geq}{\geqslant}
+\renewcommand{\le}{\leqslant} \renewcommand{\leq}{\leqslant}
+
+%----- Fonctions usuelles -----
+\newcommand{\ch}{\mathop{\mathrm{ch}}\nolimits}
+\newcommand{\sh}{\mathop{\mathrm{sh}}\nolimits}
+\renewcommand{\tanh}{\mathop{\mathrm{th}}\nolimits}
+\newcommand{\cotan}{\mathop{\mathrm{cotan}}\nolimits}
+\newcommand{\Arcsin}{\mathop{\mathrm{arcsin}}\nolimits}
+\newcommand{\Arccos}{\mathop{\mathrm{arccos}}\nolimits}
+\newcommand{\Arctan}{\mathop{\mathrm{arctan}}\nolimits}
+\newcommand{\Argsh}{\mathop{\mathrm{argsh}}\nolimits}
+\newcommand{\Argch}{\mathop{\mathrm{argch}}\nolimits}
+\newcommand{\Argth}{\mathop{\mathrm{argth}}\nolimits}
+\newcommand{\pgcd}{\mathop{\mathrm{pgcd}}\nolimits} 
+
+%----- Structure des exercices ------
+%\theoremstyle{definition}
+
+\newtheoremstyle{exostyle}
+{15pt}
+{15pt}
+{\normalfont}
+{0pt}
+{\bfseries}
+{}
+{\newline}
+{\thmname{#1}~\thmnumber{#2} -- \thmnote{#3}}
+\theoremstyle{exostyle} 
+
+\newtheorem{exo}{Exercice}
+\newtheorem{ind}{Indications}
+\newtheorem{cor}{Correction}
+
+\newcommand{\exercice}[1]{} \newcommand{\finexercice}{}
+%\newcommand{\exercice}[1]{{\tiny\texttt{#1}}\vspace{-2ex}} % pour afficher le numero absolu, l'auteur...
+\newcommand{\enonce}{\begin{exo}} \newcommand{\finenonce}{\end{exo}}
+\newcommand{\indication}{\begin{ind}} \newcommand{\finindication}{\end{ind}}
+\newcommand{\correction}{\begin{cor}} \newcommand{\fincorrection}{\end{cor}}
+
+\newcommand{\noindication}{\stepcounter{ind}}
+\newcommand{\nocorrection}{\stepcounter{cor}}
+
+\newcommand{\fiche}[1]{} \newcommand{\finfiche}{}
+\newcommand{\titre}[1]{\centerline{\large \bf #1}}
+\newcommand{\addcommand}[1]{}
+\newcommand{\video}[1]{}
+
+%----- Presentation ------
+\setlength{\parindent}{0cm}
+
+\newcommand{\ExoSept}{\textbf{\textsf{Exo7}}}
+\newcommand{\LogoExoSept}{\setlength{\unitlength}{0.6em}
+	\begin{picture}(0,0)  \thicklines     \put(0,4){\line(0,1){3}}   \put(0,7){\line(1,0){3}}
+		\put(3,7){\line(0,-1){7}}  \put(0,4){\line(1,0){7}}   \put(3,0){\line(1,0){4}}
+		\put(7,0){\line(0,1){4}}   \put(3,7){\line(4,-3){4}}  \put(7,4){\line(3,4){3}}  
+		\put(10,8){\line(-4,3){4}} \put(3,7){\line(3,4){3}}   \put(4.6,6.8){\mbox{\ExoSept}}
+\end{picture}}
+
+%----- Commandes supplementaires ------
+
+\usepackage[a4paper, margin = 2cm]{geometry}
+\usepackage[charter]{mathdesign}
+%\usepackage{import}
+
+\usepackage{tikz}
+\usetikzlibrary{calc,shadows,arrows,shapes,patterns,matrix}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{fadings}
+\usetikzlibrary{external}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usetikzlibrary{backgrounds}
+\usepackage{tikz,tikz-3dplot}
+
+\newcommand{\sauteligne}{\leavevmode\vspace{-\baselineskip}}
+\newcommand{\grad}{\mathop{\mathrm{grad}}\nolimits} 
+
+\begin{document}
+
+	
+	
+%%%%%%%%%%%%%%%%%% ENTETE %%%%%%%%%%%%%%%%%%
+
+
+%\kern-2em
+\textsc{Feuille d'exercices 5}\hfill\textsc{Fonctions de plusieurs variables}
+
+\vspace*{0.5ex}
+\hrule\vspace*{1.5ex} 
+\hfil{\textbf{\Large \textsc{Gradient -- Théorème des accroissements finis}}}
+\vspace*{1ex} \hrule 
+\vspace*{5ex} 
+
+
+
+
+%===========================================
+\section{Tangentes et plans tangents}
+
+\exercice{}
+\enonce[Tangentes]
+\sauteligne
+\begin{center}
+	\begin{minipage}{0.4\textwidth}	
+		Soit $\mathcal{C}$ la courbe définie par l'équation :
+		\begin{equation*}
+			y^2 - x^2 (x + 1) = 0.
+		\end{equation*}	
+	\end{minipage} 	
+	\begin{minipage}{0.5\textwidth}	
+		\center	
+		\begin{tikzpicture}[scale=2]
+			\draw[->,>=latex] (-1.2, 0) -- (2, 0) node[below] {$x$};
+			\draw[->,>=latex] (0, -1.5) -- (0, 1.5) node[left] {$y$};
+			\draw[very thick,  domain=-1:1, smooth, variable=\x, blue,smooth,samples=100] plot ({\x}, {sqrt(\x*\x*(\x+1))});
+			\draw[very thick, domain=-1:1, smooth, variable=\x, blue,smooth,samples=100] plot ({\x}, {-sqrt(\x*\x*(\x+1))});
+			
+		\end{tikzpicture}
+	\end{minipage}  
+\end{center}
+\begin{enumerate}
+	\item Déterminer les points où les dérivées partielles de $f(x,y)=y^2-x^2(x+1)$ s'annulent simultanément. Est-ce que ces points appartiennent à $\mathcal{C}$ ?
+	Ces points seront exclus dans la suite de l'exercice.
+	\item Calculer l'équation de la tangente en un point de $\mathcal{C}$.
+	\item Pour quels points la tangente est-elle horizontale ? Verticale ?
+\end{enumerate}
+\finenonce
+
+\noindication
+
+\correction
+\begin{enumerate}
+	\item 
+	\[
+	\frac{\partial f}{\partial x}(x,y) = -3x^2 - 2x \qquad
+	\frac{\partial f}{\partial y}(x,y) = 2y.
+	\]
+	
+	Si en $(x,y)$ les deux dérivées partielles s'annulent, alors d'une part $2y=0$ donc $y=0$ et d'autre part $-3x^2 - 2x = -x(3x + 2) = 0$ donc $x=0$ ou $x=-\frac23$.
+	
+	Ainsi $f$ admet deux points critiques $(0,0)$ et $(-\frac23,0)$.
+	
+	On a $f(0,0)=0$ donc $(0,0) \in \mathcal{C}$, par contre $f (-\frac23,0) \neq 0$ donc $(-\frac23,0)  \notin \mathcal{C}$.
+	
+	\item On fixe $(x_0,y_0) \in \mathcal{C} \setminus \{ (0,0) \}$.
+	L'équation de la tangente en ce point est :
+	\[
+	\frac{\partial f}{\partial x}(x_0,y_0)(x-x_0)+\frac{\partial f}{\partial y}(x_0,y_0)(y-y_0)=0.
+	\]
+	Pour notre fonction $f$ cela donne :
+	\[
+	(-3x_0^2 - 2x_0)(x - x_0) + 2y_0(y - y_0) = 0,
+	\]
+	ou encore :
+	\[
+	(-3x_0^2 - 2x_0)x + 2y_0 y +3x_0^3 + 2x_0^2-2y_0^2 = 0.
+	\]
+	On peut encore simplifier un peu le terme constant en utilisant la relation $f(x_0,y_0)=0$ :
+	\[
+	-x_0(3x_0+2)x+2y_0y+x_0^3=0.
+	\]
+	
+	
+	\item 
+	Rappelons que l'équation de la tangente en $(x_0,y_0)$ est :
+	\[
+	\frac{\partial f}{\partial x}(x_0,y_0)(x-x_0)+\frac{\partial f}{\partial y}(x_0,y_0)(y-y_0)=0.
+	\]
+	Une droite horizontale a une équation du type $y=\mathrm{cst}$, donc la tangente est horizontale si et seulement si $\frac{\partial f}{\partial x}(x_0,y_0) = 0$.
+	Or 
+	\[
+	\frac{\partial f}{\partial x}(x,y) = 0
+	\iff -3x^2 - 2x = 0 
+	\iff x=0 \text{ ou } x=-\frac23.
+	\]
+	Si $x_0=0$ alors, comme $f(x_0,y_0)=0$, on obtient $y_0=0$, or le point $(0,0)$ est exclu de l'étude (la tangente n'y est pas bien définie).
+	Si $x_0=-\frac23$, alors $f(x_0,y_0)=0$ implique $y_0^2-\frac{4}{27}=0$, donc $y_0=\pm\frac{2}{3\sqrt3}$.
+	Bilan : il y a deux points où la tangente est horizontale : $(-\frac23,-\frac{2}{3\sqrt3})$, $(-\frac23,+\frac{2}{3\sqrt3})$.
+	
+	\medskip
+	
+	Une droite verticale a une équation du type $x=\mathrm{cst}$, donc la tangente est verticale si et seulement si $\frac{\partial f}{\partial y}(x_0,y_0) = 0$.
+	Or $\frac{\partial f}{\partial y}(x,y) = 0$ si et seulement si $y=0$.
+	Si $y_0=0$ alors la relation $f(x_0,y_0)=0$ implique $x_0=0$ ou $x_0=-1$.
+	On a exclu $(0,0)$, donc la tangente est verticale à $\mathcal{C}$ uniquement au point $(-1,0)$.
+\end{enumerate}
+\fincorrection
+
+\finexercice
+
+
+
+
+
+% Cette fiche contient les exercices : 2628 2629 2630 2631 2632 2634 2652 
+
+\exercice{2628, debievre, 2009/05/19}
+\enonce[Plans tangents]
+\sauteligne
+\begin{enumerate}
+	\item Trouver l'équation du plan tangent à la surface d'équation $z = \sin(\pi xy) \exp(2x^2y-1)$ au point $(1,\frac12,1)$.
+	\item Trouver l'équation du plan tangent à la surface d'équation $z = \sqrt{19-x^2-y^2}$ au point $(1,3,3)$.	
+    \item Trouver les points sur le paraboloïde d'équation $z=4x^2 +y^2$ où le plan tangent est parallèle au plan d'équation $x + 2y + z = 6$.
+    % Même question avec le plan d'équation $3x + 5y - 2z = 3$. 
+\end{enumerate}
+\finenonce
+
+\indication
+Le plan tangent à la surface d'équation  $z = f(x, y)$ au point $(x_0, y_0, f(x_0,y_0))$  est donné par l'équation :
+\begin{equation*} \label{tang1}
+	z = f(x_0, y_0) + \frac{\partial f}{\partial x}(x_0, y_0) (x - x_0) + \frac{\partial f}{\partial y}(x_0, y_0) (y - y_0).
+\end{equation*}
+\finindication
+
+\correction
+On répond à la dernière question.
+
+Le plan tangent à la surface d'équation  $z = f(x, y)$ au point $(x_0, y_0, f(x_0,y_0))$  est donné par l'équation :
+\begin{equation*} \label{tang1}
+	z = f(x_0, y_0) + \frac{\partial f}{\partial x}(x_0, y_0) (x - x_0) + \frac{\partial f}{\partial y}(x_0, y_0) (y - y_0).
+\end{equation*}
+Ainsi, le plan tangent à la surface d'équation 
+$z=4x^2 +y^2$ au point $(x_0,y_0,z_0)$  a pour équation :
+\begin{align*}
+	     & z =(4x_0^2 + y_0^2) + 8x_0 (x-x_0) + 2y_0 (y-y_0)  \\
+	\iff & z= 8x_0x +2y_0 y - (4x_0^2 + y_0^2).
+\end{align*}
+Donc l'équation est :
+\begin{equation*} \label{tang2}
+	8x_0 x + 2y_0 y - z = 4x_0^2 + y_0^2.
+\end{equation*}
+Pour que ce plan soit parallèle au plan d'équation $x + 2y + z = 6$,
+il faut et il suffit que leurs vecteurs normaux $(8x_0, 2y_0, -1)$ et $(1, 2, 1)$ soient colinéaires. Le facteur de colinéarité est $\lambda=-1$, 
+donc $x_0=-\frac18$ et $y_0=-1$.
+Par conséquent, le point recherché sur le paraboloïde est le point $(-\frac18,-1,\frac{17}{16})$.
+
+%De même, pour que le plan d'équation \eqref{tang2} soit parallèle au plan d'équation $3x + 5y - 2z = 3$,
+%il faut et il suffit que $(8x_0, 2y_0, 1)$ et $(\frac32, \frac52, 1)$ soient colinéaires,
+%donc que $x_0 = \frac3{16}$ et $y_0=\frac54$.
+%Par conséquent, le point recherché sur la paraboloïde est le point $(\frac3{16}, \frac54, \frac{109}{64})$.
+\fincorrection
+\finexercice
+
+
+
+\exercice{2629, debievre, 2009/05/19}
+\enonce[Y'a comme un problème]
+On demande à un étudiant de trouver l'équation du plan tangent à la surface d'équation
+$z = x^4 - y^2$ au point $(2, 3, 7)$.
+Sa réponse est
+\begin{equation*}
+	z = 4x^3 (x - 2) - 2y(y - 3).
+\end{equation*}
+\begin{enumerate}
+	\item Expliquer, sans calcul, pourquoi cela ne peut en aucun  cas être la bonne réponse.
+	\item Quelle est l'erreur commise par l'étudiant ?
+	\item Donner la réponse correcte.
+\end{enumerate}
+\finenonce
+
+\indication 
+Ne pas confondre les variables pour l'équation de la surface,
+les variables pour l'équation de la tangente en un point,
+et les coordonnées du point de contact.
+\finindication
+
+\correction
+\begin{enumerate} 
+	\item L'équation d'un plan tangent doit être une équation linéaire en $x$, $y$ et $z$ !
+	
+	En plus le point $(2,3,7)$ ne vérifie pas l'équation proposée.
+	
+	\item Il a confondu les coordonnées du point de contact et les variables de l'équation du plan.
+	\item L'équation du plan tangent à la surface $f(x,y,z)=k$ en $(x_0,y_0,z_0)$ est :
+	\[
+	\frac{\partial f}{\partial x}(x_0,y_0,z_0)(x-x_0)+\frac{\partial f}{\partial y}(x_0,y_0,z_0)(y-y_0)
+	+\frac{\partial f}{\partial z}(x_0,y_0,z_0)(z-z_0)=0.
+	\]
+	Ici $f(x,y,z) = x^4-y^2-z$, on vérifie d'abord que $f(2,3,7)=0$. 
+	Ensuite le plan tangent en $(2, 3, 7)$ a pour équation :
+	\begin{align*}
+		 &\frac{\partial f}{\partial x}(2,3,7) (x - 2) + \frac{\partial f}{\partial y}(2,3,7) (y - 3) + \frac{\partial f}{\partial z}(2,3,7) (z - 7) =0\\
+		& \iff 32(x - 2) - 6(y - 3) -z + 7 = 0 \\
+		&\iff z = 32x -6y - 39
+	\end{align*}
+	
+	
+	On aurait aussi pu considérer que la surface est le graphe de la fonction de deux variable $g(x,y) = x^4 - y^2$ et appliquer la formule adaptée :
+	\[
+	z = g(x_0, y_0) + \frac{\partial g}{\partial x}(x_0, y_0)(x - x_0) + \frac{\partial g}{\partial y}(x_0, y_0)(y - y_0).
+	\]  
+\end{enumerate}
+\fincorrection
+\finexercice
+
+
+
+\exercice{2631, debievre, 2009/05/19}
+\enonce[Cône]
+Soit $\mathcal{C}$ le cône d'équation $z^2 = x^2 + y^2$.
+On note $\mathcal{P}_{M_0}$ le plan tangent au cône $\mathcal{C}$ en $M_0 \in \mathcal{C} \setminus \{(0, 0, 0)\}$.
+\begin{enumerate}
+	\item  Déterminer un vecteur normal et l'équation du plan tangent $\mathcal{P}_{M_0}$
+	en un point $M_0(x_0,y_0,z_0)$ du cône autre que l'origine.
+	\item Déterminer les autres points du cône ayant le même plan tangent que $\mathcal{P}_{M_0}$.
+\end{enumerate}
+\finenonce
+
+\indication
+Un vecteur normal de la surface d'équation $f(x, y, z) = 0$ au point $(x_0, y_0, z_0)$  est le vecteur gradient en ce point.
+\finindication
+
+\correction
+Un vecteur normal de la surface d'équation $f(x, y, z) = 0$ au point $(x_0, y_0, z_0)$  est le vecteur gradient :
+\begin{equation*} \label{normal}
+	\left(
+	\frac{\partial f}{\partial x}(x_0, y_0, z_0),
+	\frac{\partial f}{\partial y}(x_0, y_0, z_0),
+	\frac{\partial f}{\partial z}(x_0, y_0, z_0)
+	\right).
+\end{equation*}
+
+\begin{enumerate} 
+	\item  Un vecteur normal du cône $\mathcal{C}$ au point $(x_0, y_0, z_0)$ de $\mathcal{C} \setminus \{(0, 0, 0)\}$
+	est le vecteur $(x_0, y_0, -z_0)$ et le plan tangent au cône $\mathcal{C}$ en ce point est donné par l'équation :
+	\begin{equation*}
+		x_0 (x - x_0) + y_0 (y - y_0) - z_0 (z - z_0) = 0,
+	\end{equation*}
+	c'est-à-dire :
+	\begin{equation*}
+		x_0 x + y_0 y - z_0 z =  x_0^2 + y_0^2 - z_0^2  = 0 \quad \text{car } M_0 \in \mathcal{C}.
+	\end{equation*}
+	
+	\item Pour que $M'_0 = (x'_0, y'_0, z'_0) \in \mathcal{C} \setminus \{(0, 0, 0)\}$ vérifie $\mathcal{P}_{M'_0} = \mathcal{P}_{M_0}$,
+	il faut et il suffit que les vecteurs $(x_0, y_0, -z_0)$ et $(x'_0, y'_0, -z'_0)$ soient colinéaires,
+	donc que $(x_0, y_0, z_0)$ et $(x'_0, y'_0, z'_0)$ soient colinéaires.
+	On en conclut que l'ensemble des points du cône ayant le même plan tangent que $\mathcal{P}_{M_0}$ est constitué de la droite $(OM_0)$ privée du point $O$.
+\end{enumerate}
+\fincorrection
+\finexercice
+
+
+
+
+
+%===========================================
+\section{Approximations -- Théorème des accroissements finis}
+
+\exercice{2634, debievre, 2009/05/19}  % + 2652
+\enonce[Approximations]
+Utiliser une approximation affine bien choisie pour calculer une valeur approchée des nombres suivants :
+\begin{equation*}
+\exp[\sin(3.16)\cos(0.02)],
+\qquad
+\arctan[\sqrt{4.03}-2\exp(0.01)],
+\qquad
+\exp[-0.02\sqrt{4.03}].
+\end{equation*}
+\finenonce
+
+\indication
+On prend
+\begin{align*}
+	f(x, y) &= \exp[\sin(\pi + x) \cos(y)] = \exp[-\sin(x) \cos(y)],\ (x_0, y_0) = (0, 0),\ (h, k) = (0.02 , 0.02) \\
+	f(x, y) &= \arctan\big[\sqrt{4 + x} - 2 \exp(y)\big],\ (x_0, y_0) = (4, 0),\ (h, k) = (0.03 , 0.01) \\
+	f(x, y) &= \exp[-x \sqrt{y}],\ (x_0, y_0) = (0, 4),\ (h, k) = (0.02 , 0.03).
+\end{align*}
+\finindication
+
+\correction 
+La formule de l'approximation affine à l'ordre $1$ (DL1) est : 
+\[
+f(x_0+h,y_0+k) \simeq f(x_0,y_0) + h \cdot \frac{\partial f}{\partial x}(x_0,y_0)
++k \cdot \frac{\partial f}{\partial y}(x_0,y_0).
+\]
+\begin{enumerate}
+	
+  \item Pour la première approximation on considère $3.16 \simeq \pi + 0.02$.
+On considère donc :
+\[f(x, y) = \exp[\sin(\pi + x) \cos(y)] = \exp[-\sin(x) \cos(y)], \quad (x_0, y_0) = (0, 0),\quad  (h, k) = (0.02 , 0.02).\]
+
+On calcule :
+\begin{align*}
+	f(x, y) &=\exp[\sin(\pi + x) \cdot \cos(y)]= \exp[-\sin (x) \cdot \cos (y)] \quad \implies \quad f(0, 0) = 1, \\
+	\frac{\partial f}{\partial x}(x, y) &= -\cos x \cdot\cos y\cdot \exp[-\sin x \cdot \cos y] \quad \implies \quad \frac{\partial f}{\partial x}(0, 0) = -1, \\
+	\frac{\partial f}{\partial y}(x, y) &= \sin x \cdot \sin y \cdot \exp[-\sin x \cdot \cos y] \quad \implies \quad \frac{\partial f}{\partial y}(0, 0) = 0.
+\end{align*}
+L'approximation affine de $f$ au voisinage de $(0, 0)$ s'écrit donc
+\begin{equation*}
+f(h, k) \simeq 1 - h.
+\end{equation*}
+Avec $h = k = 0.02$ on trouve $f(0.02, 0.02) \simeq 0.98$.
+
+%N.B. On peut faire mieux si nécessaire : Avec
+%\begin{align*}
+%	\frac{\partial^2 f}{\partial x^2}&= (\sin x \cos y
+%	+\cos^2 x \cos^2 y)\exp[-\sin x \cos y ]
+%	\\
+%	\frac{\partial^2 f}{\partial x \partial y}&
+%	= (\cos x \sin y+\cos x \cos y \sin x \sin y)\exp[-\sin x \cos y ]
+%	\\
+%	\frac{\partial^2 f}{\partial y^2}&=(\sin x \cos y
+%	+\sin^2 x \sin^2 y)\exp[-\sin x \cos y ]
+%\end{align*}
+%on trouve
+%\[
+%f(x,y)
+%=
+%f(0,0)+\frac{\partial f}{\partial x}(0,0)x+\frac{\partial f}{\partial y}(0,0)y
+%+\ldots
+%=1-x++\tfrac 12 x^2 +\ldots
+%\]
+%etc.
+
+  \item De même avec 
+  \[
+  f(x, y) = \arctan\big[\sqrt{4 + x} - 2 \exp(y)\big],\quad (x_0, y_0) = (0, 0),\quad (h, k) = (0.03 , 0.01).
+  \]
+\begin{align*}
+	\frac{\partial f}{\partial x}&= \frac 1 {2(1+(\sqrt{4+x}-2\exp(y))^2)\sqrt{4+x}}
+	\\
+	\frac{\partial f}{\partial y}&= \frac {-2\exp(y)} {1+(\sqrt{4+x}-2\exp(y))^2}
+\end{align*}
+etc. d'o\`u,  avec $\frac{\partial f}{\partial x}(0,0)=\tfrac 14$ et
+$\frac{\partial f}{\partial y}(0,0)=-2$,
+\[
+f(0+h,0+k)
+=
+f(0,0)+h\frac{\partial f}{\partial x}(0,0)+k\frac{\partial f}{\partial y}(0,0)
++\cdots
+=\tfrac 14 h-2k +\cdots 
+\]
+Avec $h=0.03$ et $k=0.01$ on trouve, pour
+$ \arctan[\sqrt{4.03}-2\exp(0.01)]$,
+la valeur approch\'ee $0.0075-0.02 =-0.0125$. 
+
+
+  \item
+  \[
+  f(x, y) = \exp[-x \sqrt{y}],\quad (x_0, y_0) = (0, 4),\quad (h, k) = (0.02 , 0.03)
+  \]
+  On trouve :
+  \[f(0+h,4+k) \simeq 1 -2 \cdot h + 0\cdot k.\]
+\end{enumerate}
+
+  \item 
+\fincorrection
+\finexercice
+
+
+\exercice{}
+\enonce[Résistances]
+Deux résistances $R_1$ et $R_2$ sont connectées en parallèle. La résistance totale $R$ du circuit est donnée par la formule 
+$$\frac{1}{R} = \frac{1}{R_1} + \frac{1}{R_2}.$$
+
+La résistance $R_1$ vaut environ $1$ ; $R_2$ vaut environ $2$ (en kilo-ohms).
+\'Ecrire l'approximation linéaire correspondante, puis donner une valeur approchée de $R$ lorsque $R_1 = 1.2$ et $R_2 = 1.9$.
+\finenonce
+\noindication
+\correction
+
+Posons
+\begin{equation*}
+	f(x, y) = \frac1{\frac1x + \frac1y} = \frac{xy}{x + y},
+\end{equation*}
+de sorte que $R = f(R_1,R_2)$. Par exemple, si $R_1 = 1$ et $R_2 = 2$, on trouve $R = \frac23 \simeq 0.666$.
+
+
+On calcule :
+\begin{equation*}
+\frac{\partial f}{\partial x}(x, y) = \frac{y^2}{(x + y)^2}
+\quad
+\text{et}
+\quad
+\frac{\partial f}{\partial y}(x, y) = \frac{x^2}{(x + y)^2}.
+\end{equation*}
+
+Posons $(x_0,y_0)=(1,2)$. On a
+\begin{equation*}
+f(x_0, y_0) = \frac23,
+\quad
+\frac{\partial f}{\partial x}(x_0, y_0) = \frac49
+\quad
+\text{et}
+\quad
+\frac{\partial f}{\partial y}(x_0, y_0) = \frac19.
+\end{equation*}
+L'approximation linéaire de $f$ au voisinage de $(x_0, y_0)$ s'écrit donc
+\begin{equation*}
+f(1+h, 2+k) \simeq \frac 23 + \frac49 h + \frac19 k.
+\end{equation*}
+Avec $h = 0.2$ et $k = -0.1$, on trouve $f(1.2 , 1.9) \simeq 0.744$.
+\fincorrection
+
+\finexercice
+
+
+\exercice{}
+
+\enonce[Théorème des accroissements finis]
+Démontrer les résultats suivants énoncés dans le cours.
+\begin{enumerate}
+	\item Soit $f: U \to \Rr$ une fonction de classe $\mathcal{C}^1$ sur un ouvert convexe $U \subset \Rr^2$
+	muni de la norme euclidienne.
+	On suppose qu'il existe $k > 0$ tel que
+	\begin{equation*}
+		\forall c \in U,\ \|\grad f (c)\| \leq k.
+	\end{equation*}
+	Alors
+	\begin{equation*}
+		\forall a, b \in U,\ \left| f(b)-f(a)  \right| \le k \| b -a \|.
+	\end{equation*}
+	\item Soit $f: U \to \Rr$ une fonction de classe $\mathcal{C}^1$ sur un ouvert convexe $U \subset \Rr^2$.
+	Si $\grad f (x, y) = (0,0)$ pour tout $(x, y) \in U$, alors $f$ est constante sur $U$.
+	\item Trouver toutes les fonctions $f : \Rr^2 \to \Rr$ de classe $\mathcal{C}^1$ telles que
+	\begin{equation*}
+		\forall (x, y) \in \Rr^2,\ \grad f (x, y) = (3x^2 + 2y, 2x - 2y).
+	\end{equation*} 	 	
+\end{enumerate}
+\finenonce
+
+\indication
+\begin{enumerate}
+	\item Appliquer le théorème des accroissements finis en une variable à la fonction $g(t) = f\big( (1-t)a + tb \big)$.
+	
+	\item Appliquer la question précédente.
+	
+	\item Intégrer d'abord $\frac{\partial f}{\partial x}$. Attention à la \og{}constante\fg{} !
+\end{enumerate}
+\finindication
+
+\correction
+\begin{enumerate}
+	\item Considérons $g : [0,1] \to \Rr$ définie par :
+	\[ g(t) = f\big( (1-t)a + tb \big). \]
+	On a $g(0)=f(a)$ et $g(1)=f(b)$.
+	Comme $f$ est $\mathcal{C}^1$ alors $f$ est continue et dérivable.
+	On peut donc appliquer le théorème des accroissements finis en une variable à la fonction $g$. Il existe $s \in {}]0,1[$ tel que :
+	\[g(1)-g(0) = g'(s) (1-0).\]
+	On a déjà dit que $g(0) =f(a)$ et $g(1)=f(b)$.
+	
+	Calculons $g'(t)$ comme la dérivée d'une composition. On peut refaire les calculs sur cet exemple ou bien utiliser la formule plus générale de la dérivée de $g(t) = f\big( x(t), y(t) \big)$ :
+	\[
+	g'(t) 
+	= 	x'(t) \frac{\partial f}{\partial x} + y'(t)\frac{\partial f}{\partial y}
+	= \left\langle \begin{pmatrix} x'(t) \\ y'(t) \end{pmatrix} \mid \grad f \big( x(t), y(t) \big)\right\rangle
+	\]
+	Appliqué à notre exemple et en notant $a=(a_1,a_2)$, $b=(b_1,b_2)$ :
+	\[
+	\begin{pmatrix}	x(t) \\ y(t) \end{pmatrix}
+	= (1-t)a + tb 
+	= \begin{pmatrix} (1-t)a_1+tb_1 \\ (1-t)a_2+tb_2 \end{pmatrix}
+	\qquad
+	\begin{pmatrix}	x'(t) \\ y'(t) \end{pmatrix}
+	= \begin{pmatrix} -a_1+b_1 \\ -a_2+b_2 \end{pmatrix}
+	= b-a
+	\]
+	Ainsi :
+	\[
+	g'(t) 
+	= \left\langle b-a \mid \grad f((1-t)a + tb) \right\rangle 
+	\]
+	Donc par l'inégalité de Cauchy-Schwarz :
+	\[ |g'(t)| \le \| b-a \| \cdot \| \grad f \| \le  k\| b-a \|.\]
+	
+	Ainsi l'égalité $g(1)-g(0) = g'(s)(1-0)$ implique l'inégalité :
+	\[ \left| f(b)-f(a)  \right| \le k \| b -a \|. \]
+	
+	\item Soient $a,b$ deux points de $U$. Comme $U$ est convexe on a le segment $[a,b]$ contenu dans $U$. Comme le gradient est partout nul, on peut choisir $k=0$ comme constante dans la formule de la question précédente, ce qui donne immédiatement :
+	\[| f(b) - f(a) | \le 0.\]
+	Et donc $f(a)=f(b)$. Ainsi la valeur de $f$ en deux points quelconque de $U$ est toujours la même, c'est exactement dire que $f$ est une fonction constante.
+	
+	\item Dans la pratique on intègre par rapport à une variable, puis par rapport à l'autre, en prenant bien soin d'expliquer les constantes d'intégration.
+	
+	Intégrer d'abord $\frac{\partial f}{\partial x}$. 
+	Comme $\frac{\partial f}{\partial x}(x,y) = 3x^2 + 2y$ alors :
+	\[
+	f(x,y) = x^3+2xy + C(y).
+	\]
+	$C$ est une constante pour la variable $x$, mais peut dépendre de la variable $y$, c'est donc une fonction de $y$.
+	
+	Repartant de cette expression, l'équation $\frac{\partial f}{\partial y}(x,y) = 2x - 2y$
+	devient :
+	\[
+	2x + C'(y) = 2x-2y. \]
+	Donc $C'(y) = -2y$ d'où $C(y) = -y^2+K$, où $K\in \Rr$.
+	Conclusion : les solutions cherchées sont de la forme  $f(x,y) = x^3+2xy-y^2+K$ et on vérifie qu'elles conviennent, quel que soit $K\in\Rr$.
+\end{enumerate}
+\fincorrection
+\finexercice
+
+\bigskip
+
+Corrections : Arnaud Bodin, Stephan de Bièvre. Relecture : Axel Renard.
+
+\end{document}

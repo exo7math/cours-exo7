@@ -1,0 +1,984 @@
+%%%%%%%%%%%%%%%%%% PREAMBULE %%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{fancybox}
+\usepackage{graphicx}
+%\usepackage{tikz}
+
+%----- Ensembles : entiers, reels, complexes -----
+\newcommand{\Nn}{\mathbb{N}} \newcommand{\N}{\mathbb{N}}
+\newcommand{\Zz}{\mathbb{Z}} \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Qq}{\mathbb{Q}} \newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Rr}{\mathbb{R}} \newcommand{\R}{\mathbb{R}}
+\newcommand{\Cc}{\mathbb{C}} \newcommand{\C}{\mathbb{C}}
+\newcommand{\Kk}{\mathbb{K}} \newcommand{\K}{\mathbb{K}}
+
+%----- Modifications de symboles -----
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\Re}{\mathop{\mathrm{Re}}\nolimits}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}\nolimits}
+\newcommand{\llbracket}{\left[\kern-0.15em\left[}
+\newcommand{\rrbracket}{\right]\kern-0.15em\right]}
+\renewcommand{\ge}{\geqslant} \renewcommand{\geq}{\geqslant}
+\renewcommand{\le}{\leqslant} \renewcommand{\leq}{\leqslant}
+
+%----- Fonctions usuelles -----
+\newcommand{\ch}{\mathop{\mathrm{ch}}\nolimits}
+\newcommand{\sh}{\mathop{\mathrm{sh}}\nolimits}
+\renewcommand{\tanh}{\mathop{\mathrm{th}}\nolimits}
+\newcommand{\cotan}{\mathop{\mathrm{cotan}}\nolimits}
+\newcommand{\Arcsin}{\mathop{\mathrm{arcsin}}\nolimits}
+\newcommand{\Arccos}{\mathop{\mathrm{arccos}}\nolimits}
+\newcommand{\Arctan}{\mathop{\mathrm{arctan}}\nolimits}
+\newcommand{\Argsh}{\mathop{\mathrm{argsh}}\nolimits}
+\newcommand{\Argch}{\mathop{\mathrm{argch}}\nolimits}
+\newcommand{\Argth}{\mathop{\mathrm{argth}}\nolimits}
+\newcommand{\pgcd}{\mathop{\mathrm{pgcd}}\nolimits} 
+
+%----- Structure des exercices ------
+%\theoremstyle{definition}
+
+\newtheoremstyle{exostyle}
+{15pt}
+{15pt}
+{\normalfont}
+{0pt}
+{\bfseries}
+{}
+{\newline}
+{\thmname{#1}~\thmnumber{#2} -- \thmnote{#3}}
+\theoremstyle{exostyle} 
+
+\newtheorem{exo}{Exercice}
+\newtheorem{ind}{Indications}
+\newtheorem{cor}{Correction}
+
+\newcommand{\exercice}[1]{} \newcommand{\finexercice}{}
+%\newcommand{\exercice}[1]{{\tiny\texttt{#1}}\vspace{-2ex}} % pour afficher le numero absolu, l'auteur...
+\newcommand{\enonce}{\begin{exo}} \newcommand{\finenonce}{\end{exo}}
+\newcommand{\indication}{\begin{ind}} \newcommand{\finindication}{\end{ind}}
+\newcommand{\correction}{\begin{cor}} \newcommand{\fincorrection}{\end{cor}}
+
+\newcommand{\noindication}{\stepcounter{ind}}
+\newcommand{\nocorrection}{\stepcounter{cor}}
+
+\newcommand{\fiche}[1]{} \newcommand{\finfiche}{}
+\newcommand{\titre}[1]{\centerline{\large \bf #1}}
+\newcommand{\addcommand}[1]{}
+\newcommand{\video}[1]{}
+
+%----- Presentation ------
+\setlength{\parindent}{0cm}
+
+\newcommand{\ExoSept}{\textbf{\textsf{Exo7}}}
+\newcommand{\LogoExoSept}{\setlength{\unitlength}{0.6em}
+	\begin{picture}(0,0)  \thicklines     \put(0,4){\line(0,1){3}}   \put(0,7){\line(1,0){3}}
+		\put(3,7){\line(0,-1){7}}  \put(0,4){\line(1,0){7}}   \put(3,0){\line(1,0){4}}
+		\put(7,0){\line(0,1){4}}   \put(3,7){\line(4,-3){4}}  \put(7,4){\line(3,4){3}}  
+		\put(10,8){\line(-4,3){4}} \put(3,7){\line(3,4){3}}   \put(4.6,6.8){\mbox{\ExoSept}}
+\end{picture}}
+
+%----- Commandes supplementaires ------
+
+\usepackage[a4paper, margin = 2cm]{geometry}
+\usepackage[charter]{mathdesign}
+%\usepackage{import}
+
+\usepackage{tikz}
+\usetikzlibrary{calc,shadows,arrows,shapes,patterns,matrix}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{fadings}
+\usetikzlibrary{external}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usetikzlibrary{backgrounds}
+\usepackage{tikz,tikz-3dplot}
+
+\newcommand{\sauteligne}{\leavevmode\vspace{-\baselineskip}}
+
+
+% A garder
+%\DeclareMathOperator{\grad}{grad}  % dans le préambule
+\newcommand{\grad}{\operatorname{grad}} % dans le document
+
+\begin{document}
+
+	
+	
+%%%%%%%%%%%%%%%%%% ENTETE %%%%%%%%%%%%%%%%%%
+
+
+%\kern-2em
+\textsc{Feuille d'exercices 3}\hfill\textsc{Fonctions de plusieurs variables}
+
+\vspace*{0.5ex}
+\hrule\vspace*{1.5ex} 
+\hfil{\textbf{\Large \textsc{Calcul différentiel}}}
+\vspace*{1ex} \hrule 
+\vspace*{5ex} 
+
+
+%===========================================
+\section{Dérivées partielles et dérivée directionnelle}
+
+% Cette fiche contient les exercices : 2622 2623 2624 
+
+\exercice{2622, debievre, 2009/05/19}
+\enonce[Dérivées partielles]
+Déterminer, pour chacune des fonctions suivantes, le domaine de définition. 
+Pour chacune de ces fonctions, calculer ensuite les dérivées partielles en chaque point du
+domaine de définition  lorsqu'elles existent:
+\begin{enumerate}
+	\item $f(x,y)=x^2\exp(xy)$
+	\item $f(x,y)=\ln(x+\sqrt{x^2+y^2})$
+	\item $f(x,y)=\sin^2 x+ \cos^2y$
+	\item $f(x,y,z)=x^2y^2\sqrt{z}$
+\end{enumerate}
+\finenonce
+
+\indication 
+Pour calculer les  dérivées partielles par rapport 
+à une variable, interpéter les autres variables comme param\`etres
+et utiliser les r\`egles ordinaires de calcul de la dérivée.
+\finindication
+
+\correction
+
+\noindent
+\begin{enumerate}  
+	
+	\item $D_f=\R^2$. 
+	\begin{align*}
+		\frac{\partial f}{\partial x}&= 2x\exp(xy)+x^2y\exp(xy)
+		\\
+		\frac{\partial f}{\partial y}&= x^3\exp(xy)
+	\end{align*}
+	\noindent
+	\item $D_f=\{(x,y) \in \Rr^2 \mid x > 0 \ \text{ou} \ y \ne 0\}$ (remarquer qu'on a toujours $x+\sqrt{x^2+y^2}\ge0$ car $|x| \le \sqrt{x^2+y^2}$).
+	\begin{align*}
+		\frac{\partial f}{\partial x}&= 
+		\frac{1+\frac{x}{\sqrt{x^2+y^2}}}{x+\sqrt{x^2+y^2}}= 
+		\frac 1{\sqrt{x^2+y^2}}
+		\\
+		\frac{\partial f}{\partial y}&=  
+		\frac{\frac{y}{\sqrt{x^2+y^2}}}{x+\sqrt{x^2+y^2}}
+		=\frac{y}{x\sqrt{x^2+y^2}+x^2+y^2}
+	\end{align*}
+	
+	\item $D_f=\R^2$. 
+	\begin{align*}
+		\frac{\partial f}{\partial x}&= 2\sin x \cos x = \sin(2x)
+		\\
+		\frac{\partial f}{\partial y}&= -2\sin y \cos y = -\sin(2y)
+	\end{align*}
+	
+	\item $D_f=\{(x,y,z) \in \Rr^3 \mid z \ge 0\}$.
+	\begin{align*}
+		\frac{\partial f}{\partial x}&= 2xy^2\sqrt{z}
+		\\
+		\frac{\partial f}{\partial y}&= 2x^2y\sqrt{z} 
+		\\
+		\frac{\partial f}{\partial z}&= \frac {x^2y^2}{2\sqrt{z}}  \quad (z\neq0)
+	\end{align*}
+\end{enumerate}
+\fincorrection
+\finexercice
+
+
+
+\exercice{2623, debievre, 2009/05/19}
+\enonce[Dérivées partielles et directionnelles]
+
+Soit $f$ la fonction sur $\R^2$ définie par $f(x,y)= x\cos y + y\exp x$. 
+\begin{enumerate}
+	\item Calculer ses dérivées partielles.
+	\item Soit $v=(\cos \theta, \sin \theta)$, $\theta\in [0,2\pi[$. Calculer $D_vf(0,0)$. Pour quelles valeurs de $\theta$ cette dérivée directionnelle de $f$ est-elle maximale/minimale? Que cela signifie-t-il?
+\end{enumerate}
+\finenonce
+
+\indication 
+Interpréter la dérivée directionnelle à l'aide de l'intersection du graphe 
+de la fonction avec un plan convenable.
+\finindication
+
+\correction
+\begin{enumerate}  
+	\item \[
+	\frac{\partial f}{\partial x}=\cos y + y\exp x 
+	\qquad
+	\frac{\partial f}{\partial y}=-x\sin y + \exp x.
+	\]
+	
+	\item Comme est différentiable alors 
+	\[D_vf(0,0)=\cos \theta \,\frac{\partial f}{\partial x}(0,0)
+	+\sin \theta \,\frac{\partial f}{\partial y}(0,0)
+	=\cos \theta +\sin \theta = \sqrt2 \sin\left(\theta+\frac\pi4\right).\]
+	Cette dérivée directionnelle de $f$ est maximale
+	quand $\sin \theta = \cos \theta = \frac{\sqrt{2}}{2}$, c'est-à-dire quand
+	$\theta =\frac \pi 4$,
+	et minimale quand $\sin \theta = \cos \theta = -\frac{\sqrt{2}}{2}$, 
+	c'est-à-dire quand  $\theta =\frac 54 \pi$.
+	
+	Signification géométrique:
+	Le plan engendré par le vecteur $(\cos \theta,\sin \theta ,0)$ 
+	et l'axe des $z$ rencontre le graphe $z=f(x,y)$ en une courbe.
+	Cela revient à prendre une tranche du graphe de $f$ dans la direction du vecteur.
+	Cette courbe est de pente maximale en valeur absolue pour
+	$\cos \theta=\sin \theta=\frac{\sqrt{2}}{2}$ et
+	$\cos \theta=\sin \theta=-\frac{\sqrt{2}}{2}$.
+	Les deux signes s'expliquent par les deux orientations possibles de cette courbe
+	(dans un sens on monte le plus possible, dans l'autre on descend le plus possible).
+\end{enumerate}
+\fincorrection
+\finexercice
+
+
+\exercice{2624, debievre, 2009/05/19}
+\enonce[Une fonction puissance]
+Soit $f:\R^2\rightarrow \R$ la fonction
+définie par $f(x,y)=(x^2+y^2)^x$ pour $(x,y)\not=(0,0)$ et
+$f(0,0)= 1$.
+\begin{enumerate}
+	\item La fonction $f$ est-elle continue en $(0,0)$?
+	\item Déterminer les dérivées partielles de $f$ en un point
+	quelconque distinct de l'origine.
+	\item  La fonction $f$ admet-elle des dérivées partielles par
+	rapport à $x$ et à $y$ en $(0,0)$?
+\end{enumerate}
+\finenonce
+
+\indication 
+On rappelle que $a^b = e^{b\ln(a)}$ pour $a>0$ et $b\in\Rr$.
+\begin{enumerate} 
+	\item Utiliser les coordonnées polaires $(r,\theta)$ dans le plan
+	et le fait que $\lim_{\begin{smallmatrix} r \to 0\\ r >0
+	\end{smallmatrix}} r \ln r =0$.
+\end{enumerate}
+\finindication
+
+\correction
+\begin{enumerate}  
+	\item  
+	\[f(x,y)=(x^2+y^2)^x= e^{x \ln (x^2+y^2)}=
+	 e^{2r\cos \theta\ln r}.\]
+	
+	Puisque $\cos \theta$
+	est borné,
+	$\lim_{\begin{smallmatrix} r \to 0\\ r >0
+	\end{smallmatrix}} 2r\cos \theta\ln r =0
+	$
+	d'où :
+	\[
+	\lim_{\begin{smallmatrix} (x,y) \to (0,0)\\ (x,y) \ne (0,0)
+	\end{smallmatrix}} f(x,y)=
+	e^0=1,
+	\]
+	car la fonction exponentielle est continue.
+	
+	\item  Dans $\R^2 \setminus \{(0,0)\}$ les dérivées partielles
+	par rapport aux variables $x$ et $y$ se calculent ainsi:
+	\begin{align*}\frac{\partial f}{\partial x}&
+		= \left(\ln (x^2+y^2)+\frac {2x^2}{x^2+y^2}\right)(x^2+y^2)^x
+		\\
+		\frac{\partial f}{\partial y}&
+		= \left(\frac {2xy}{x^2+y^2}\right)(x^2+y^2)^x
+	\end{align*}
+	
+	\item 
+	Calculons le taux d’accroissement définissant la dérivée partielle
+	$\frac{\partial f}{\partial x}$ en $(0,0)$ (en se limitant au cas $x>0$) :
+	\[
+	\frac{f(x,0)-f(0,0)}{x}
+	= \frac {(x^2)^x-1}x
+	= \frac { e^{2x \ln x} -1}x
+	\sim \frac{(1+2x\ln x) - 1}{x}
+	\sim 2 \ln x.
+	\]
+	Lorsque $x\to0$, le taux d'accroissement n'a pas une limite finie, donc $\frac{\partial f}{\partial x}$ n'existe pas en $(0,0)$.
+	
+	Par contre,
+	\[
+	\frac{f(0,y)-f(0,0)}{y}
+	= \frac {(y^2)^0-1}y
+	= 0.
+	\]
+	Donc $\frac{\partial f}{\partial y}(0,0)$ existe et vaut $0$.
+	
+\end{enumerate}
+\fincorrection
+\finexercice
+
+
+\exercice{1808, drutu, 2003/10/01}
+\sauteligne
+\enonce[Dérivées directionnelles]
+\sauteligne
+\begin{enumerate}
+	\item Calculer la dérivée directionnelle de la fonction $f(x,y)=e^{x^2+y^2}$ au point 
+	$P(1,0)$ suivant la bissectrice du premier quadrant.
+	
+	\item Calculer la dérivée directionnelle de la fonction $f(x,y,z)=x^2-3yz+5$ au point 
+	$P(1,2,1)$ dans une direction formant des angles égaux avec les trois axes de 
+	coordonnées.
+	
+	\item Calculer la dérivée directionnelle de la fonction 
+	$f(x,y,z)=xy+yz+zx$ au point 
+	$P(2,1,3)$ dans la direction joignant ce point au point $Q(5,5,15)$.
+\end{enumerate}
+\finenonce
+
+\indication
+Utiliser la formule :
+\[
+D_v f(P) = \langle \grad f (P) \mid v \rangle
+\]
+Pour le vecteur $v$, certains imposent qu'il soit unitaire (c'est-à-dire de norme $1$) d'autres pas.
+\finindication
+
+\correction
+Lorsque $f$ est différentiable alors la différentielle, la dérivée directionnelle, et le gradient encodent la même information et sont reliés  
+par les formules :
+\[
+	D_v f(P) = \mathrm{d} f (P) (v) = \langle \grad f (P) \mid v \rangle.
+\]
+Ici nos fonctions $f$ sont de classes $\mathcal{C}^1$ (et même $\mathcal{C}^\infty$) en tant que sommes, produits, composées de fonctions de classe $\mathcal{C}^1$.
+
+Il s'agit donc (a) de calculer les dérivées partielles de $f$ et son gradient, (b) de les évaluer au point considéré, (c) d'appliquer la formule selon le vecteur de direction.
+
+\begin{enumerate}
+	\item $f(x,y)=e^{x^2+y^2}$,
+	\[
+	\grad f(x, y) 
+	= \left( \frac{\partial f}{\partial x}(x,y), \frac{\partial f}{\partial y}(x,y) \right)
+	= \big( 2x e^{x^2 + y^2}, 2y e^{x^2 + y^2} \big).
+	\]
+	Au point $P(1,0)$ :
+	\[
+	\grad f(1, 0) 
+	= \big( 2 \cdot 1 \cdot e^{1^2 + 0^2}, 2 \cdot 0 \cdot e^{1^2 + 0^2} \big) = ( 2e, 0 ).
+	\]
+	
+	La bissectrice du premier quadrant est dirigée par tout vecteur $v$ non nul colinéaire au vecteur $(1,1)$. 
+	
+	Si on choisit $v = (1,1)$ alors :
+	\[
+	D_v f(P) 
+	= \langle \grad f (P) \mid v \rangle.
+	= \left\langle \begin{pmatrix}2e \\ 0 \end{pmatrix} \mid \begin{pmatrix}1 \\ 1 \end{pmatrix} \right\rangle
+	= 2e \cdot 1 + 0 \cdot 1 = 2e.
+	\]
+	
+	Si on préfère faire les calculs avec le vecteur unitaire $v = \left(\frac{1}{\sqrt2},\frac{1}{\sqrt2}\right)$, alors on trouve le résultat précédent avec un facteur $\frac{1}{\sqrt2}$ :
+	\[
+	D_v f(P) = \frac{2e}{\sqrt2} = \sqrt{2} e.
+	\]
+	
+	\item $f(x,y,z)=x^2-3yz+5$ 
+	\[
+	\frac{\partial f}{\partial x}(x,y,z) = 2x, \quad \frac{\partial f}{\partial y}(x,y,z) = -3z, \quad \frac{\partial f}{\partial z}(x,y,z) = -3y.
+	\]
+	Ainsi, le gradient est :
+	\[
+	\grad f(x, y, z) 
+	=\big( 2x, -3z, -3y \big).
+	\]
+	En $P=(1,2,1)$ :
+	\[
+	\grad f(1, 2, 1) = \big( 2, -3, -6 \big).
+	\]
+	
+	Un vecteur formant des angles égaux avec les trois axes de 
+	coordonnées est $(1,1,1)$, on choisit le vecteur unitaire correspondant $v = \frac{1}{\sqrt3}(1,1,1)$ et alors :
+	\[
+	D_v f(P) 
+	= \langle \grad f (P) \mid v \rangle
+	= \left\langle \begin{pmatrix}2 \\ -3 \\ -6 \end{pmatrix} \mid \frac{1}{\sqrt3}\begin{pmatrix}1 \\ 1 \\ 1 \end{pmatrix} \right\rangle
+	= -\frac{7}{\sqrt{3}}.
+	\]
+	
+	\item $f(x,y,z)=xy+yz+zx$ 
+	\[
+	\grad f(x, y, z) =  ( y + z, x + z, x + y ) \qquad \grad f(2,1,3) = (4, 5, 3).
+	\]
+	Le vecteur joignant $P$ à $Q$ est le vecteur $u = (3, 4, 12)$, sa norme est 
+	$\| u \| = \sqrt{3^2 + 4^2 + 12^2} = \sqrt{169} = 13$. Le vecteur unitaire associée est donc $v = \frac{u}{\|u\|} = \left( \frac{3}{13}, \frac{4}{13}, \frac{12}{13} \right)$.
+
+	Ainsi :
+	\[
+	D_v f(P) =
+	4 \cdot \frac{3}{13} + 5 \cdot \frac{4}{13} + 3 \cdot \frac{12}{13}
+	= \frac{68}{13}.
+	\]
+\end{enumerate}
+
+\fincorrection
+
+\finexercice
+
+
+\exercice{}
+\sauteligne
+\enonce[Équation aux dérivées partielles]
+Soit $f (x, y) = \exp\big( \frac{x^2 + y^2}{xy} \big)$. Montrer que pour tout $(x, y)$ dans le domaine de définition de $f$ on a l’égalité :
+$$x \cdot \frac{\partial f}{\partial x}(x, y) + y \cdot \frac{\partial f}{\partial y}(x, y) = 0.$$
+\finenonce
+
+\indication
+Calculer d'abord les dérivées partielles.
+\finindication
+
+\correction
+Calculons d'abord $\frac{\partial f}{\partial x}$ :
+\[
+\frac{\partial f}{\partial x}(x, y) 
+= \left( \frac{1}{y} - \frac{y}{x^2} \right) \exp\left( \frac{x^2 + y^2}{xy} \right) 
+= \left( \frac{1}{y} - \frac{y}{x^2} \right) f(x,y).
+\]
+La fonction étant symétrique en $x$ et $y$ (c'est-à-dire $f(y,x)=f(x,y)$) alors on a :
+\[
+\frac{\partial f}{\partial y}(x, y) 
+= \left( \frac{1}{x} - \frac{x}{y^2} \right) f(x,y).
+\]
+Ainsi :
+\[
+x \cdot \frac{\partial f}{\partial x}(x, y) + y \cdot \frac{\partial f}{\partial y}(x, y) 
+= \left( \frac{x}{y} - \frac{y}{x} \right) f(x,y) + \left( \frac{y}{x} - \frac{x}{y} \right) f(x,y)
+= 0.
+\]
+\fincorrection
+
+\finexercice
+
+%===========================================
+\section{Différentielle et fonction $\mathcal{C}^1$}
+
+
+% Cette fiche contient les exercices : 1800 1802 1807 1808 1809 1810 1811 1812 1815 1816 1817 1818 1820 1821 5888 
+
+\exercice{1820, drutu, 2003/10/01}
+
+\enonce[Différentielle]
+Calculer les différentielles des fonctions suivantes en un point arbitraire du domaine de définition :
+\begin{enumerate}
+	\item $f(x,y)=\sin ^2 x+\cos ^2 y$
+	
+	\item $f(x,y)=\ln \left( 1+\frac{x}{y}\right)$ 
+\end{enumerate}
+\finenonce
+
+\indication
+Pour $f : \Rr^2 \to \Rr$ différentiable en $(x_0,y_0)$, la formule est :
+\[
+	\mathrm{d} f(x_0,y_0)(h,k) = 
+	h \cdot \frac{\partial f}{\partial x}(x_0,y_0) + 
+	k \cdot \frac{\partial f}{\partial y}(x_0,y_0).
+\]
+\finindication 
+
+\correction
+Lorsque $f : \Rr^2 \to \Rr$ est différentiable alors sa différentielle se calcule par la formule :
+\[
+\mathrm{d} f(x_0,y_0)(h,k) = 
+h \cdot \frac{\partial f}{\partial x}(x_0,y_0) + 
+k \cdot \frac{\partial f}{\partial y}(x_0,y_0).
+\]
+On rappelle que $\mathrm{d} f(x_0,y_0) : \Rr^2 \to \Rr$ est une fonction linéaire (c'est la fonction linéaire qui approche au mieux $f$ autour de $(x_0,y_0)$).
+
+Ici nos fonctions $f$ sont différentiables sur leur domaine de définition car de classe $\mathcal{C}^1$ (et même $\mathcal{C}^\infty$) en tant que somme, produit, quotient, composée de fonctions de classe $\mathcal{C}^1$.
+
+Il s'agit donc (a) de calculer les dérivées partielles de $f$, et (b)  d'appliquer cette formule.
+\begin{enumerate}
+	\item $f(x,y)=\sin ^2 x+\cos ^2 y$.
+	
+	\[
+	\frac{\partial f}{\partial x}(x,y) = 2\sin x \cdot \cos x = \sin(2x)
+	\]
+	
+	\[
+	\frac{\partial f}{\partial y}(x,y) = -2\cos y \cdot \sin y   = -\sin(2y)
+	\]	
+	
+	Ainsi :
+	\[
+	\mathrm{d} f(x_0,y_0)(h,k) 
+	= h \sin(2x_0) -k \sin(2y_0).
+	\]
+	
+	Par exemple en $(x_0,y_0) = \left(\frac{\pi}{3}, \frac{\pi}{4}\right)\) :
+	\[
+	\mathrm{d}f\left(\tfrac{\pi}{3}, \tfrac{\pi}{4}\right)(h, k) = \tfrac{\sqrt{3}}{2} h - k.
+	\]
+	
+	\item $f(x,y)=\ln \left( 1+\frac{x}{y}\right)$.
+	
+	\[
+	\mathrm{d} f(x_0,y_0)(h,k) 
+	= h \cdot \frac{1}{x_0 + y_0} - k \cdot \frac{x_0}{y_0(x_0 + y_0)}.
+	\]
+	
+\end{enumerate}
+\fincorrection
+
+\finexercice
+
+
+\exercice{1800, ridde, 1999/11/01}
+
+\enonce[Fonction $\mathcal{C}^1$]
+Soit la fonction $f \colon \R^{2} \longrightarrow \R$ définie par
+\[
+\left\{\begin{array}{lll}
+	f(x, y)= xy \cdot \dfrac{x^{2}-y^{2}}
+	{x^{2} + y^{2}}& \mathrm{ si } &(x, y) \neq (0,0),\\[2ex]
+	f(0, 0)= 0.
+\end{array}\right.
+\]
+\'Etudier la continuité de $f$. Montrer que $f$ est de classe $\mathcal{C}^{1}$.
+\finenonce
+
+\indication
+Il est évident que, en tout point $(x,y)$ distinct de l'origine,
+la fonction $f$ est continue et que les dérivées partielles 
+existent et sont continues. Il suffit de montrer que
+$f$ est continue en $(0,0)$ et que les dérivées partielles 
+existent et sont continues.
+\finindication
+
+\correction
+
+\begin{enumerate}
+	\item En dehors de l'origine. 
+	
+	$f$ est de classe $\mathcal{C}^1$ sur $\Rr^2 \setminus\{(0,0)\}$ en tant que sommes, produits, quotients de fonctions de classe $\mathcal{C}^1$.
+	
+	En plus, en dehors de l'origine,
+	\begin{align*}
+		\frac{\partial f}{\partial x}(x,y)&= \frac{f(x,y)}x + xy \frac{\partial}{\partial x}
+		\left(\frac{x^{2}-y^{2}}{x^{2} + y^{2}}\right) = \frac{f(x,y)}x +  \frac{4x^{2}y^{3}}{(x^{2} + y^{2})^2}
+		\\
+		\frac{\partial f}{\partial y}(x,y)&= \frac{f(x,y)}y +  xy \frac{\partial}{\partial y}
+		\left(\frac{x^{2}-y^{2}}{x^{2} + y^{2}}\right)  = \frac{f(x,y)}y -  \frac{4x^{3}y^{2}}{(x^{2} + y^{2})^2} .
+	\end{align*}
+	
+	
+	\item Continuité à l'origine.
+	
+	Puisque $\left|\frac{x^{2}-y^{2}}{x^{2} + y^{2}}\right| \le \frac{x^2+y^2}{x^2+y^2}=1$ est borné,
+	\[ 
+	|f(x,y)| \le |xy| \xrightarrow[(x,y)\to(0,0)]{} 0
+	\]
+	d'où $f$ est continue en $(0,0)$.
+	
+	\item Dérivées partielles à l'origine.
+	
+	Comme $\frac{f(0+h,0)-f(0,0)}{h} = 0$ alors $\frac{\partial f}{\partial x}(0,0)=0$ et de même $\frac{\partial f}{\partial y}(0,0)=0$.
+	
+	\item Continuité des dérivées partielles à l'origine.
+	
+	Puisque
+	\[
+	\lim_{(x,y) \to (0,0)}\frac{x^{2}y^{3}}{(x^{2} + y^{2})^2}=0, \qquad 
+	\lim_{(x,y) \to (0,0)}\frac{x^{3}y^{2}}{(x^{2} + y^{2})^2}=0,
+	\]
+	il s'ensuit que
+	\[
+	\lim_{(u,v) \to (0,0)}\frac{\partial f}{\partial x}(u,v) =0, \qquad
+	\lim_{(u,v) \to (0,0)}\frac{\partial f}{\partial y}(u,v) =0,
+	\]
+	d'où les dérivées partielles $\frac{\partial f}{\partial x}$ et
+	$\frac{\partial f}{\partial y}$ sont continues en $(0,0)$.
+	
+	\item Conclusion.
+	
+	Les dérivées partielles existent et sont continues, ce qui est la définition de $f$ est de classe $\mathcal{C}^1$.
+	
+\end{enumerate}
+
+\fincorrection
+
+\finexercice
+
+
+
+\exercice{1809, drutu, 2003/10/01}
+
+\enonce[Étude du caractère $\mathcal{C}^1$]
+Étudier la continuité, ainsi que l'existence et la continuité des dérivées partielles premières, des fonctions suivantes :
+\begin{enumerate}
+	
+	
+	\item $$
+	f(x,y)=\left\{
+	\begin{array}{cc}
+		\dfrac{x|y|}{\sqrt{x^2+y^2}} & \mbox{ si }(x,y) \neq (0,0) \\[2ex]
+		0 & \mbox{ sinon. }
+	\end{array}
+	\right .
+	$$      
+	
+	\item $$
+	f(x,y)=\left\{
+	\begin{array}{cc}
+		\dfrac{x\sin y - y\sin x}{x^2+y^2} & \mbox{ si }(x,y) \neq (0,0) \\[2ex]
+		0 & \mbox{ sinon. }
+	\end{array}
+	\right .
+	$$
+	
+\end{enumerate}
+\finenonce
+
+\noindication
+
+\correction
+De façon générale une somme, produit, quotient, composition de fonctions de classe $\mathcal{C}^1$ est encore de classe $\mathcal{C}^1$ (c'est-à-dire les dérivées partielles existent et sont continues).
+Il s'agit donc d'étudier le caractère $\mathcal{C}^1$ juste aux points problématiques.
+
+
+\begin{enumerate}
+	
+	
+	\item $$
+	f(x,y)=\left\{
+	\begin{array}{cc}
+		\frac{x|y|}{\sqrt{x^2+y^2}} & \mbox{ si }(x,y) \neq (0,0) \\
+		0 & \mbox{ sinon. }
+	\end{array}
+	\right .
+	$$  
+	
+	Il y a deux sortes de problèmes : d'une part l'origine car la fonction y est définie \og{}à la main\fg{}, mais d'autre part il y a une valeur absolue. La valeur absolue est une fonction continue partout, mais non dérivable à l'origine.
+	
+	\begin{enumerate}
+		
+		\item Continuité en dehors de l'origine.
+		
+		Sur $\Rr^2 \setminus \{(0,0)\}$ $f$ est continue comme sommes, produits, quotients de fonctions continues.
+		
+		
+		\item Continuité en $(0,0)$.
+		
+		\[
+		f(r\cos\theta,r\sin\theta) = \frac{r^2\cos\theta|\sin\theta|}{r} = r\cos\theta|\sin\theta|
+		\]
+		Donc $|f(r\cos\theta,r\sin\theta)| \le r \xrightarrow[r\to0]{} f(0,0)=0$ et donc $f$ est continue à l'origine.
+		
+		\item Dérivées partielles en dehors de l'origine et de $(y=0)$.
+		
+		En tout point $(x_0,y_0)$ où $y_0 \neq 0$, $f$ est de classe $\mathcal{C}^1$ car $y \mapsto |y|$ est dérivable en dehors de l'origine.
+		
+		Pour \(y \neq 0\) :
+		\[
+		\frac{\partial f}{\partial x}(x, y) = \frac{|y| y^2}{(x^2 + y^2)^{3/2}} 
+		\qquad 
+		\frac{\partial f}{\partial y}(x, y) = \frac{ \operatorname{sgn}(y)x^3}{(x^2 + y^2)^{3/2}}.
+		\]
+		On a noté $\operatorname{sgn}(y) = \frac{y}{|y|}$ le signe $+1$ ou $-1$ d'un réel $y\neq 0$.
+		
+		\item Dérivées partielles aux points $(x_0,0)$.
+		
+		\[
+		\frac{f(x_0+h, 0) - f(x_0, 0)}{h}
+		= \frac{0 - 0}{h}
+		= 0 \xrightarrow[h\to0]{} 0 \quad\text{ donc } \frac{\partial f}{\partial x}(x_0,0) = 0.
+		\]
+		
+		Pour l'autre dérivée partielle, on calcule le taux d'accroissement :
+		\[
+		\frac{f(x_0, 0+k) - f(x_0, 0)}{k}
+		= \frac{|k|}{k}\frac{x_0}{\sqrt{x_0^2+k^2}}
+		\]
+		Si $x_0=0$, alors ce taux d'accroissement est nul et donc $\frac{\partial f}{\partial y}(0,0) = 0$.
+		Mais si $x_0 \neq 0$, $\frac{|k|}{k}$ n'a pas de limite en $0$, donc la dérivée partielle $\frac{\partial f}{\partial y}$ n'existe pas en $(x_0,0)$ pour $x_0\neq0$.
+		
+		Comme une des dérivées partielles n'existe pas en $(x_0,0)$ pour $x_0\neq0$, $f$ n'y est pas de classe $\mathcal{C}^1$.
+
+		
+		\item La fonction est-elle de classe $\mathcal{C}^1$ à l'origine ?
+		
+		Si on évalue $\frac{\partial f}{\partial x}(x, y)$ le long du chemin $\gamma(t) = (0,t)$ on s'aperçoit que lorsque $t \to 0^+$ cette dérivée partielle tend vers $1$ et donc pas vers $\frac{\partial f}{\partial x}(0,0) = 0$.
+		Ainsi la première dérivée partielle n'est pas continue à l'origine.
+		Conclusion : $f$ n'est pas $\mathcal{C}^1$ à l'origine.
+		
+		On montrerait de même, si on en avait besoin, que $\frac{\partial f}{\partial y}$ n'est pas continue à l'origine.
+ 		
+ 		
+	\end{enumerate}
+	    
+	
+	\item $$
+	f(x,y)=\left\{
+	\begin{array}{cc}
+		\frac{x\sin y - y\sin x}{x^2+y^2} & \mbox{ si }(x,y) \neq (0,0) \\
+		0 & \mbox{ sinon. }
+	\end{array}
+	\right .
+	$$
+	
+	$f$ est $\mathcal{C}^1$ sur $\Rr^2 \setminus \{(0,0)\}$. Le seul point problématique est l'origine. 
+	
+		\begin{enumerate}
+		\item Continuité en $(0,0)$.
+		
+		On prouve la continuité à l'origine en utilisant que $\sin(x) = x + o(x^2)$ et
+		$\sin(y) = y + o(y^2)$,
+		donc 
+		\[
+		f(x,y) = \frac{xy +o(xy^2) - xy + o(x^2y)}{x^2+y^2}
+		= \frac{o(xy^2) +o(x^2y)}{x^2+y^2} 
+		= \frac{o(x^2+y^2)}{x^2+y^2}\xrightarrow[(x,y)\to (0,0)]{} 0 = f(0,0)
+		\]
+		Donc $f$ est continue en $(0,0)$.
+		
+		Quelques explications : on sait que $x \le \sqrt{x^2+y^2}$ et $y \le \sqrt{x^2+y^2}$, donc $o(x)$ et $o()y$ sont aussi des $o(r)$ avec $r=\sqrt{x^2+y^2}$.
+		Ainsi $xy^2 \le r^{3/2}$, donc $o(xy^2)$ est à fortiori un $o(x^2+y^2)$. De même $o(x^2y)$ est aussi un $o(x^2+y^2)$.
+		Enfin par définition $\frac{o(u)}{u} \xrightarrow[u \to 0]{} 0$. 
+
+		
+		\item Dérivées partielles en dehors de l'origine.
+		
+		Pour \((x, y) \neq (0, 0)\) :
+		\[
+		\frac{\partial f}{\partial x}(x, y) = \frac{(y^2-x^2)\sin y  - y(x^2+y^2)\cos x + 2xy\sin x}{(x^2 + y^2)^2}
+		\]
+		\[
+		\frac{\partial f}{\partial y}(x, y) = \frac{(y^2-x^2)\sin x  + x(x^2+y^2)\cos y - 2xy\sin y}{(x^2 + y^2)^2}.
+		\]
+
+		
+		\item Dérivées partielles à l'origine.
+		
+		\[		
+		\frac{\partial f}{\partial x}(0,0) = 0 \qquad
+		\frac{\partial f}{\partial y}(0,0) = 0
+		\]
+		
+		
+		\item La fonction est-elle de classe $\mathcal{C}^1$ ?
+		
+		On procède comme pour la continuité :
+		\begin{align*}
+		&	(y^2-x^2)\sin y  - y(x^2+y^2)\cos x + 2xy\sin x \\
+		=& \ (y^2-x^2)(y+o(y^2)) - y(x^2+y^2)(1+o(x))+2xy(x+o(x^2)) \\
+		=& \ (y^2-x^2)o(y^2) - y(x^2+y^2)o(x) + 2xyo(x^2) \\
+		=& \ o(r^4)
+		\end{align*}
+		Où on a utilisé que $o(x)$ et $o()y$ sont aussi des $o(r)$ avec $r=\sqrt{x^2+y^2}$.
+		
+		Ainsi $\frac{\partial f}{\partial x}$ tend vers $\frac{\partial f}{\partial x}(0,0)$ et donc cette dérivée partielle est continue à l'origine.
+		
+		
+		Il en est de même pour $\frac{\partial f}{\partial y}$. Conclusion : $f$ est $\mathcal{C}^1$ à l'origine et donc sur $\Rr^2$.		
+		
+	\end{enumerate}
+
+\end{enumerate}
+\fincorrection
+
+\finexercice
+
+
+
+%===========================================
+\section{Contre-exemples}
+
+
+\exercice{1806, gourio, 2001/09/01}
+
+\enonce[Normes]
+Montrer que pour une norme $N$ sur $\Rr^2 $, les dérivées partielles n'existent pas en $(0,0)$.
+\finenonce
+
+\indication
+Revenir à la définition de la dérivée partielle $\frac{\partial N}{\partial x}(0,0)$ à l'aide du taux d'accroissement.
+\finindication
+
+\correction
+Supposons un instant que $N$ ait des dérivées partielles à l'origine, alors
+\[
+\frac{\partial N}{\partial x}(0, 0) = \lim_{h \to 0} \frac{N(h, 0) - N(0, 0)}{h} = \lim_{h \to 0} \frac{N(h, 0)}{h}.
+\]
+
+Voyons si cette limite existe vraiment.
+Par homogénéité, $N(h, 0) = |h| \cdot N(1, 0)$, donc :
+\[
+\frac{N(h, 0)}{h} = \frac{|h|}{h}{N(1,0)} 
+= \begin{cases} 
+	+N(1,0) & \text{ si $h>0$,} \\
+	-N(1,0) & \text{ si $h<0$.} \\	
+\end{cases}
+\]
+Mais, par positivité de la norme, $N(1,0) \neq 0$, donc $\frac{N(h, 0)}{h}$
+ne peut pas avoir de limite lorsque $h \to 0$.
+
+Ainsi la dérivée partielle de $N$ par rapport à $x$ en $(0,0)$ n'existe pas.
+\fincorrection
+\finexercice
+
+
+
+
+\exercice{1818, drutu, 2003/10/01}
+
+\enonce[Dérivées partielles d'une fonction non continue]
+On définit la fonction
+$$
+f(x,y)=\left\{
+\begin{array}{cc}
+	\dfrac{xy}{x^2+y^2} & \mbox{ si }(x,y) \neq (0,0) \\[2ex]
+	0 & \mbox{ sinon. }
+\end{array}
+\right .
+$$
+Montrer que $\frac{\partial }{\partial x} f(x,y)$ et $\frac{\partial }{\partial y}f(x,y)$ 
+existent en tout point de $\R^2$ bien 
+que $f$ ne soit pas continue en $(0,0)$.
+\finenonce
+
+\indication
+Il faut calculer les dérivées partielles sur $\Rr^2 \setminus \{(0,0)\}$,
+les dérivées partielles en $(0,0)$ puis montrer que $f$ n'est pas continue à l'origine.
+\finindication
+
+\correction
+\begin{enumerate}
+	\item Dérivées partielles en dehors de l'origine.
+	
+	Sur $\Rr^2 \setminus \{(0,0)\}$, $f$ est différentiable car elle est de classe $\mathcal{C}^1$ en tant que somme, produit, quotient de fonctions de classe $\mathcal{C}^1$.
+	
+	On calcule donc les dérivées partielles en $(x,y) \neq(0,0)$ :
+	\[
+	\frac{\partial f}{\partial x}(x,y) = \frac{y^3-x^2y}{(x^2 + y^2)^2}, \qquad \frac{\partial f}{\partial y}(x,y) = \frac{x^3 - xy^2}{(x^2 + y^2)^2}.
+	\]
+	
+	\item  Dérivées partielles à l'origine.
+	
+	Comme $f$ est définie comme un cas particulier à l'origine, on calcule la dérivée partielle en $(0,0)$ en revenant à la définition, via un taux d'accroissement :
+	\[
+	 \frac{f(0+h, 0) - f(0, 0)}{h} = \frac{h \cdot 0}{h^2 + 0^2} = 0 \xrightarrow[h\to0]{} 0
+	\]
+	Donc $\frac{\partial f}{\partial x}(0,0) = 0$.
+	Par symétrie, on a $\frac{\partial f}{\partial y}(0,0) = 0$. 
+	
+	Ainsi $f$ admet des dérivées partielles en tout point de $\Rr^2$.
+	
+	\item Non-continuité à l'origine.
+	
+	Sur le chemin $\gamma_1(t) = (t,0)$, $f(t,0) = \frac{0\cdot t}{t^2} = 0$,
+	et sur $\gamma_2(t) = (t,t)$, $f(t,t) = \frac{t^2}{2t^2} = \frac12$.
+	Lorsque $t\to0$ les deux limites sont différentes, donc $f$ n'est pas continue en $(0,0)$.
+	
+\end{enumerate}
+
+\medskip
+
+Conclusion : on sait que pour une fonction d'une variable $f :\Rr \to \Rr$, si $f$ est dérivable, alors $f$ est continue.
+L'exemple de cet exercice prouve que ce n'est pas le cas pour les fonctions de deux variables $f :\Rr^2 \to \Rr$ qui admet des dérivées partielles.
+Pour garantir la continuité il faudrait que $f$ soit différentiable ou bien de classe $\mathcal{C}^1$ sur $\Rr^2$.
+\fincorrection
+\finexercice
+
+
+\exercice{1812, drutu, 2003/10/01}
+
+\enonce[Dérivées partielles sans différentiabilité]
+Soit $f:\R^2 \to \R $, 
+$$
+f(x,y)=\left\{ 
+\begin{array}{cc}
+	\dfrac{x^2y+xy^2}{x^2+y^2} & \mbox{ si }(x,y)\neq (0,0) \\[2ex]
+	0 & \mbox{ si }(x,y)=(0,0) 
+\end{array}
+\right . 
+$$
+Montrer que $f$ est continue en $(0,0)$ et admet des dérivées partielles 
+et même des dérivées directionnelles dans toutes les directions, mais n'y est pas différentiable.
+\finenonce
+
+\noindication
+
+\correction
+\begin{enumerate}
+	\item $f$ est continue à l'origine.
+	
+	On passe en coordonnées polaires :
+	\[
+	\big| f(r\cos\theta,r\sin\theta) \big|
+	= \frac{r^3 |\cos^2\theta \sin\theta+\cos\theta\sin^2\theta|}{r^2} 
+	\le 2r 
+	\xrightarrow[r\to0]{} 0.
+	\]
+	Donc la limite de $f$ en $(0,0)$ vaut bien $f(0,0)$.
+	
+	\item $f$ admet des dérivées partielles.
+	
+	En dehors de l'origine $f$ est différentiable (et même $\mathcal{C}^1$) donc y admet des dérivées partielles. Comme $f$ est définie comme un cas particulier à l'origine, on calcule la dérivée partielle en $(0,0)$ via le taux d'accroissement :
+	\[
+	\frac{f(0+h, 0) - f(0, 0)}{h} = \frac{0}{h^2} \xrightarrow[h\to0]{} 0,
+	\qquad \text{ donc } \quad\frac{\partial f}{\partial x} (0,0) = 0.
+	\]
+	De même, comme $f(y,x)=f(x,y)$, $\frac{\partial f}{\partial y} (0,0) = 0$.
+	
+	Donc les deux dérivées partielles existent.
+	
+	\item $f$ admet des dérivées directionnelles.
+	
+	Si on note $v = (h,k)$ un vecteur unitaire, alors $h^2+k^2=1$, et 
+	\[
+	\frac{f(0+th, 0+tk) - f(0, 0)}{t} 
+	= \frac{t^3h^2k+t^3hk^2}{t^3(h^2+k^2)} 
+	= h^2k+hk^2.
+	\]
+
+	Ainsi 
+	\[D_v f(0,0) = \lim_{t\to 0} \frac{f(0+th, 0+tk) - f(0, 0)}{t} = h^2k+hk^2.\]
+
+	On retrouve bien sûr comme cas particuliers avec $(h,k)=(1,0)$ et $(h,k)=(0,1)$ que les deux dérivées partielles sont nulles à l'origine.
+
+	\item $f$ n'est pas différentiable.
+	
+	Supposons par l'absurde que $f$ soit différentiable, alors la différentielle en $(0,0)$ s'exprime avec les dérivées partielles :
+	\[
+	\mathrm{d} f(0,0)(h,k) 
+	= h \cdot \frac{\partial }{\partial x} f(0,0)
+	+ k \cdot \frac{\partial }{\partial y} f(0,0)
+	= h \cdot 0 + k \cdot 0 = 0
+	\]
+	
+	Nous avons donc le candidat à être la différentielle, c'est la fonction nulle $(h,k) \mapsto \ell(h,k)=0$, mais est-ce qu'elle convient ?
+	En effet pour être différentiable en $(0,0)$, $f$ doit vérifier :
+	\[
+	\lim_{(h,k) \rightarrow (0,0)} \frac{f(0 + h,0 + k) - f(0,0) - \ell(h,k)}{\|(h,k)\|} = 0.
+	\]
+	Notons $g(h,k)$ ce quotient : 
+	\[
+	g(h,k) = \frac{f(0 + h,0 + k) - f(0,0) - \ell(h,k)}{\|(h,k)\|}
+	= \frac{\frac{h^2k+hk^2}{h^2+k^2} - 0 - 0}{\sqrt{h^2+k^2}}
+	= \frac{h^2k+hk^2}{(h^2+k^2)^{\frac32}}
+	\]
+	Le long de $\gamma_1(t) = (t,t)$, $g(t,t) = \frac{2t^3}{(2t^2)^{\frac32}} = \frac{1}{\sqrt2}$. Donc $g$ ne tend vers $0$ à l'origine. Conclusion : $f$ n'est pas différentiable à l'origine.
+	
+	Une autre méthode : par l'absurde si $f$ était différentiable
+	alors pour n'importe quel vecteur $v=(h,k)$, on aurait 
+	\[D_v f(0,0) = h \cdot \frac{\partial }{\partial x} f(0,0)
+	+ k \cdot \frac{\partial }{\partial y} f(0,0)\]
+	Et donc ici on aurait $D_v f(0,0) = 0$.
+	Prenons $v=(h,k)=\frac{1}{\sqrt2}(1,1)$, on a vu à la question précédente que 
+	$D_v f(0,0) = h^2k+hk^2 = \frac{1}{\sqrt2} \neq 0$ ce qui fournit la contradiction.
+\end{enumerate}
+	
+\fincorrection
+
+\finexercice
+
+
+\bigskip
+
+Corrections : Arnaud Bodin. Relecture : Axel Renard.
+
+\end{document}

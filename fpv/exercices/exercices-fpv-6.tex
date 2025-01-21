@@ -1,0 +1,1396 @@
+%%%%%%%%%%%%%%%%%% PREAMBULE %%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{fancybox}
+\usepackage{graphicx}
+%\usepackage{tikz}
+
+%----- Ensembles : entiers, reels, complexes -----
+\newcommand{\Nn}{\mathbb{N}} \newcommand{\N}{\mathbb{N}}
+\newcommand{\Zz}{\mathbb{Z}} \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Qq}{\mathbb{Q}} \newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Rr}{\mathbb{R}} \newcommand{\R}{\mathbb{R}}
+\newcommand{\Cc}{\mathbb{C}} \newcommand{\C}{\mathbb{C}}
+\newcommand{\Kk}{\mathbb{K}} \newcommand{\K}{\mathbb{K}}
+
+%----- Modifications de symboles -----
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\Re}{\mathop{\mathrm{Re}}\nolimits}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}\nolimits}
+\newcommand{\llbracket}{\left[\kern-0.15em\left[}
+\newcommand{\rrbracket}{\right]\kern-0.15em\right]}
+\renewcommand{\ge}{\geqslant} \renewcommand{\geq}{\geqslant}
+\renewcommand{\le}{\leqslant} \renewcommand{\leq}{\leqslant}
+
+%----- Fonctions usuelles -----
+\newcommand{\ch}{\mathop{\mathrm{ch}}\nolimits}
+\newcommand{\sh}{\mathop{\mathrm{sh}}\nolimits}
+\renewcommand{\tanh}{\mathop{\mathrm{th}}\nolimits}
+\newcommand{\cotan}{\mathop{\mathrm{cotan}}\nolimits}
+\newcommand{\Arcsin}{\mathop{\mathrm{arcsin}}\nolimits}
+\newcommand{\Arccos}{\mathop{\mathrm{arccos}}\nolimits}
+\newcommand{\Arctan}{\mathop{\mathrm{arctan}}\nolimits}
+\newcommand{\Argsh}{\mathop{\mathrm{argsh}}\nolimits}
+\newcommand{\Argch}{\mathop{\mathrm{argch}}\nolimits}
+\newcommand{\Argth}{\mathop{\mathrm{argth}}\nolimits}
+\newcommand{\pgcd}{\mathop{\mathrm{pgcd}}\nolimits} 
+
+%----- Structure des exercices ------
+%\theoremstyle{definition}
+
+\newtheoremstyle{exostyle}
+{15pt}
+{15pt}
+{\normalfont}
+{0pt}
+{\bfseries}
+{}
+{\newline}
+{\thmname{#1}~\thmnumber{#2} -- \thmnote{#3}}
+\theoremstyle{exostyle} 
+
+\newtheorem{exo}{Exercice}
+\newtheorem{ind}{Indications}
+\newtheorem{cor}{Correction}
+
+\newcommand{\exercice}[1]{} \newcommand{\finexercice}{}
+%\newcommand{\exercice}[1]{{\tiny\texttt{#1}}\vspace{-2ex}} % pour afficher le numero absolu, l'auteur...
+\newcommand{\enonce}{\begin{exo}} \newcommand{\finenonce}{\end{exo}}
+\newcommand{\indication}{\begin{ind}} \newcommand{\finindication}{\end{ind}}
+\newcommand{\correction}{\begin{cor}} \newcommand{\fincorrection}{\end{cor}}
+
+\newcommand{\noindication}{\stepcounter{ind}}
+\newcommand{\nocorrection}{\stepcounter{cor}}
+
+\newcommand{\fiche}[1]{} \newcommand{\finfiche}{}
+\newcommand{\titre}[1]{\centerline{\large \bf #1}}
+\newcommand{\addcommand}[1]{}
+\newcommand{\video}[1]{}
+
+%----- Presentation ------
+\setlength{\parindent}{0cm}
+
+\newcommand{\ExoSept}{\textbf{\textsf{Exo7}}}
+\newcommand{\LogoExoSept}{\setlength{\unitlength}{0.6em}
+	\begin{picture}(0,0)  \thicklines     \put(0,4){\line(0,1){3}}   \put(0,7){\line(1,0){3}}
+		\put(3,7){\line(0,-1){7}}  \put(0,4){\line(1,0){7}}   \put(3,0){\line(1,0){4}}
+		\put(7,0){\line(0,1){4}}   \put(3,7){\line(4,-3){4}}  \put(7,4){\line(3,4){3}}  
+		\put(10,8){\line(-4,3){4}} \put(3,7){\line(3,4){3}}   \put(4.6,6.8){\mbox{\ExoSept}}
+\end{picture}}
+
+%----- Commandes supplementaires ------
+
+\usepackage[a4paper, margin = 2cm]{geometry}
+\usepackage[charter]{mathdesign}
+%\usepackage{import}
+
+\usepackage{tikz}
+\usetikzlibrary{calc,shadows,arrows,shapes,patterns,matrix}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{fadings}
+\usetikzlibrary{external}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usetikzlibrary{backgrounds}
+\usepackage{tikz,tikz-3dplot}
+
+\newcommand{\sauteligne}{\leavevmode\vspace{-\baselineskip}}
+
+\newcommand{\grad}{\operatorname{grad}} % dans le document
+\newcommand{\diver}{\operatorname{div}}
+\newcommand{\rot}{\operatorname{rot}}
+
+\begin{document}
+
+	
+	
+%%%%%%%%%%%%%%%%%% ENTETE %%%%%%%%%%%%%%%%%%
+
+
+%\kern-2em
+\textsc{Feuille d'exercices 6}\hfill\textsc{Fonctions de plusieurs variables}
+
+\vspace*{0.5ex}
+\hrule\vspace*{1.5ex} 
+\hfil{\textbf{\Large \textsc{Extremums}}}
+\vspace*{1ex} \hrule 
+\vspace*{5ex} 
+
+
+%===========================================
+\section{Dérivées partielles secondes}
+
+
+
+\exercice{}  
+% Modification de l'exercice 2638
+\enonce[Dérivées partielles secondes]
+Calculer les dérivées partielles secondes et la matrice hessienne des fonctions $f$ définies par les
+expressions suivantes :
+\[
+\sin^2(y/x) \qquad \text{ et } \qquad \exp(xyz).
+\]
+\finenonce
+
+\indication 
+La matrice hessienne est la matrice
+constituée des dérivées partielles secondes.
+Utiliser $\sin(2u)=2\sin u \cos u$ afin de simplifier les calculs.
+\finindication
+
+\correction
+\begin{enumerate}
+	\item $f(x,y) = \sin^2(y/x)$.
+	
+	Les dérivées partielles sont : 
+	\[
+	\frac{\partial f}{\partial x}(x,y) = -\frac{2y}{x^2}\sin(y/x)\cos(y/x) = -\frac{y}{x^2}\sin(2y/x),
+	\]
+	et 
+	\[
+	\qquad
+	\frac{\partial f}{\partial y}(x,y) = \frac{2}{x}\sin(y/x)\cos(y/x) = \frac{1}{x}\sin(2y/x).
+	\]
+	On a utilisé $\sin(2u)=2\sin u \cos u$.
+	
+	Désormais on omettra souvent les \og{}$(x,y)$\fg{}, c'est-à-dire qu'on écrira $\frac{\partial f}{\partial x}$ à la place de $\frac{\partial f}{\partial x}(x,y)$.
+	
+	On calcule les dérivées partielles secondes  :
+	\[
+	\frac{\partial^2 f}{\partial x^2} 
+	= \frac{\partial }{\partial x}\frac{\partial f}{\partial x}
+	= \frac{2y}{x^3}\sin(2y/x)+ \frac{2y^2}{x^4}\cos(2y/x).
+	\]
+	
+	\[
+	\frac{\partial^2 f}{\partial y^2} 
+	= \frac{\partial }{\partial y}\frac{\partial f}{\partial y}
+	= \frac{2}{x^2} \cos(2y/x).
+	\]	
+	
+	On sait que les dérivées croisées sont égales : $\frac{\partial^2 f}{\partial x \partial y} =  \frac{\partial^2 f}{\partial y \partial x}$ car $f$ est $\mathcal{C}^2$. Soit on en calcule une seule pour aller plus vite, soit on calcule les deux afin de se rassurer (cela vous garantit quasiment qu'elles sont exactes).
+	
+	\[
+	\frac{\partial^2 f}{\partial x \partial y}
+	= \frac{\partial^2 f}{\partial y \partial x}
+	= -\frac1{x^2}\sin(2y/x)  - \frac{2y}{x^3}\cos(2y/x)
+	.\]
+	
+	La matrice hessienne est le tableau des dérivées partielles secondes, par le lemme de Schwarz c'est une matrice symétrique :
+	\[
+	H_f (x,y) =
+	\begin{pmatrix}
+		\frac{\partial^2f}{\partial x^2}(x,y) &\frac{\partial^2f}{\partial x\partial y}(x,y) \\  \frac{\partial^2f}{\partial y\partial x}(x,y)&\frac{\partial^2f}{\partial y^2}(x,y)
+	\end{pmatrix}
+	\]
+	Ici :
+	\[
+	H_f (x,y) =	
+	\begin{pmatrix}	
+	\frac{2y}{x^3}\sin(2y/x)+ \frac{2y^2}{x^4}\cos(2y/x) &
+	-\frac1{x^2}\sin(2y/x)  - \frac{2y}{x^3}\cos(2y/x) \\
+	-\frac1{x^2}\sin(2y/x)  - \frac{2y}{x^3}\cos(2y/x) &
+	\frac{2}{x^2} \cos(2y/x)
+	\end{pmatrix}.
+	\]
+		
+
+	
+	\item $f(x,y,z) = \exp(xyz)$.
+	
+
+Les dérivées partielles sont :
+\[
+\frac{\partial f}{\partial x} = yz e^{xyz},
+\qquad
+\frac{\partial f}{\partial y} = xz e^{xyz},
+\qquad
+\frac{\partial f}{\partial z} = xy e^{xyz}.
+\]
+On calcule les dérivées partielles d'ordre 2 en se limitant à $6$ calculs par le lemme de Schwarz, on en déduit la matrice hessienne (qui est une matrice symétrique) :
+\[
+H_f=
+\begin{pmatrix}
+	\frac{\partial^2f}{\partial x^2}&\frac{\partial^2f}{\partial x\partial y}&\frac{\partial^2f}{\partial x\partial z}\\  \frac{\partial^2f}{\partial y\partial x}&\frac{\partial^2f}{\partial y^2}&\frac{\partial^2f}{\partial y\partial z}\\  \frac{\partial^2f}{\partial z\partial x}&\frac{\partial^2f}{\partial z\partial y}&\frac{\partial^2f}{\partial z^2}\\
+\end{pmatrix}
+=
+\begin{pmatrix}
+	y^2z^2 e^{xyz} & z(1 + xyz) e^{xyz} & y(1 + xyz) e^{xyz} \\
+	z(1 + xyz) e^{xyz} & x^2z^2 e^{xyz} & x(1 + xyz) e^{xyz} \\
+	y(1 + xyz) e^{xyz} & x(1 + xyz) e^{xyz} & x^2y^2 e^{xyz}
+\end{pmatrix}.
+\]
+
+\end{enumerate}
+
+
+\fincorrection
+\finexercice
+
+
+\exercice{4147, quercia, 2010/03/11}
+\enonce[Contre-exemple au théorème de Schwarz]
+
+Soit $f(x,y) = \dfrac{xy^3}{x^2+y^2}$ si $(x,y)\ne 0$ et $f(0,0)=0$.
+\begin{enumerate}
+	\item \'Etudier la continuité de~$f$ et de ses dérivées partielles premières sur~$\R^2$.
+	
+	\item Montrer que~$\frac{\partial^2 f}{\partial x \partial y}(0,0)\ne\frac{\partial^2 f}{\partial y \partial x}(0,0)$.
+\end{enumerate}
+\finenonce
+
+\noindication
+
+\correction
+\begin{enumerate}
+	\item 
+	Il est facile de vérifier que $f(x,y) \to 0$ en $(0,0)$, par exemple en calculant $f(r\cos\theta,r\sin\theta)$.
+	
+	On a, pour $(x,y) \neq (0,0)$ :
+	\[
+	\frac{\partial f}{\partial x}(x,y) = \frac{y^5-x^2y^3}{(x^2+y^2)^2} \longrightarrow 0 = \frac{\partial f}{\partial x}(0,0),\]
+	et
+	\[
+	\frac{\partial f}{\partial y}(x,y) = \frac{3x^3y^2 + xy^4}{(x^2+y^2)^2} \longrightarrow 0 = \frac{\partial f}{\partial y}(0,0).\]
+	Ainsi les dérivées partielles existent et sont continue sur $\Rr^2$ : $f$ est de classe $\mathcal{C}^1$.
+	
+	\item 
+	Calculons $\frac{\partial^2 f}{\partial x \partial y}(0,0)$.
+	Il s'agit de calculer la dérivée partielle $\frac{\partial }{\partial x}$ de la fonction $\frac{\partial f}{\partial y}$ :
+	On forme le taux d'accroissement et on calcule la limite :
+	\[
+	\frac{\frac{\partial f}{\partial y}(0+h,0) - \frac{\partial f}{\partial y}(0,0)}{h}
+	= \frac{0-0}{h} = 0 \to 0\]
+	Donc $\frac{\partial^2 f}{\partial x \partial y}(0,0)=0$.
+	
+	Pour $\frac{\partial^2 f}{\partial y \partial x}(0,0)$.
+	Il s'agit de calculer la dérivée partielle $\frac{\partial }{\partial y}$ de la fonction $\frac{\partial f}{\partial x}$ :
+	On forme le taux d'accroissement et on calcule la limite :
+	\[
+	\frac{\frac{\partial f}{\partial x}(0,0+k) - \frac{\partial f}{\partial x}(0,0)}{k}
+	= \frac{\frac{k^5}{k^4}-0}{k} = 1 \to 1\]
+	Donc $\frac{\partial^2 f}{\partial y \partial x}(0,0)=1$.
+	
+	Ainsi dans ce cas exceptionnel les dérivées croisées ne sont pas égales.
+	L'explication est que la fonction est de classe $\mathcal{C}^1$, mais pas de classe $\mathcal{C}^2$ comme on en aurait besoin dans le lemme de Schwarz.
+	
+	Noter qu'en dehors de $(0,0)$, $f$ est de classe $\mathcal{C}^2$ (en tant que somme, produit, quotient de fonctions de classe $\mathcal{C}^2$) et donc, pour tout $(x,y) \neq (0,0)$, on a bien :
+	\[
+	\frac{\partial^2 f}{\partial x \partial y}(x,y) = \frac{\partial^2 f}{\partial y \partial x}(x,y).
+	\]
+\end{enumerate}
+\fincorrection
+
+\finexercice
+
+
+
+
+
+%===========================================
+\section{Minimums et maximums}
+
+
+\exercice{2641, debievre, 2009/05/19}
+\enonce[Étude d'un point critique à l'origine]
+Pour chacune des fonctions suivantes étudier la nature du point
+critique donné :
+\begin{enumerate}
+	\item $f(x,y)=x^2-xy+y^2$ au point critique $(0,0)$,
+	\item $f(x,y)=x^2+2xy+y^2+6$ au point critique $(0,0)$,
+	\item $f(x,y)=x^3+2xy^2-y^4+x^2+3xy+y^2+10$ au point critique
+	$(0,0)$.
+\end{enumerate}
+\finenonce
+
+\indication 
+Calculer les dérivées partielles secondes au point critique et appliquer le critère de Monge.
+\finindication
+
+\correction
+\begin{enumerate}  
+	\item $f(x,y)=x^2-xy+y^2$ en $(0,0)$.
+	
+	On a $\frac{\partial f}{\partial x}(x,y) = 2x-y$ et $\frac{\partial f}{\partial y}(x,y) = 2y-x$ qui s'annulent simultanément en $(0,0)$.
+	
+	On calcule les dérivées partielles secondes en $(x,y)$ :
+	\[
+	\frac{\partial^2 f}{\partial x^2}(x,y) = 2
+	\qquad	
+	\frac{\partial^2 f}{\partial x \partial y}(x,y) = -1
+	\qquad
+	\frac{\partial^2 f}{\partial y^2}(x,y) = 2
+	\]	
+	Ce sont ici des fonctions constantes, on les évalue au point critique :
+	\[
+	r = \frac{\partial^2 f}{\partial x^2}(0,0) = 2
+\qquad	
+s = \frac{\partial^2 f}{\partial x \partial y}(0,0) = -1
+\qquad
+t = \frac{\partial^2 f}{\partial y^2}(0,0) = 2
+\]	
+	
+	\[
+	H_f (0,0)
+	= \begin{pmatrix} r & s\\ s & t \end{pmatrix}
+	= \begin{pmatrix} 2 & -1\\ -1 & 2 \end{pmatrix}
+	\]
+	D'où $\det H_f(0,0)= rt-s^2 = 3 > 0$ et $r>0$.
+	Par le critère de Monge, $f$ atteint un minimum local en $(0,0)$.
+	
+
+	
+	\item $f(x,y)=x^2+2xy+y^2+6$ en $(0,0)$.
+	
+	\[
+	\frac{\partial f}{\partial x}(x,y) = 2x+2y
+	\qquad
+	\frac{\partial f}{\partial y}(x,y) = 2x+2y
+	\]
+	\[
+	\frac{\partial^2 f}{\partial x^2}(x,y) = 2
+	\qquad	
+	\frac{\partial^2 f}{\partial x \partial y}(x,y) = 2
+	\qquad
+	\frac{\partial^2 f}{\partial y^2}(x,y) = 2
+	\]	
+	\[
+	H_f (0,0)
+	= \begin{pmatrix} r & s\\ s & t \end{pmatrix}
+	= \begin{pmatrix} 2 & 2 \\ 2 & 2 \end{pmatrix}
+	\]
+	Comme $\det H_f(0,0)= rt-s^2 = 0$, le critère de Monge ne permet pas de conclure !
+	
+	Il faut alors trouver une autre méthode.
+	Ici $f(x,y)=x^2+2xy+y^2+6 = (x+y)^2+6$ donc le point $(0,0)$
+	présente un minimum local (qui n'est pas strict).
+	
+	
+	\item $f(x,y)=x^3+2xy^2-y^4+x^2+3xy+y^2+10$ en $(0,0)$.
+		
+	\[
+	\frac{\partial f}{\partial x}(x,y) = 3x^2+2x+2y^2 +3y
+	\qquad
+	\frac{\partial f}{\partial y}(x,y) = 4xy-4y^3 +3x+2y
+	\]
+	\[
+	\frac{\partial^2 f}{\partial x^2}(x,y) = 6x +2
+	\qquad	
+	\frac{\partial^2 f}{\partial x \partial y}(x,y) = 4y+3
+	\qquad
+	\frac{\partial^2 f}{\partial y^2}(x,y) = -12y^2 +4x +2
+	\]	
+	\[
+	H_f (0,0)
+	= \begin{pmatrix} r & s\\ s & t \end{pmatrix}
+	= \begin{pmatrix} 2 & 3\\ 3 &  2 \end{pmatrix}
+	\]
+	
+	D'où $\det H_f(0,0)= rt-s^2 = -5 < 0$.
+	Par le critère de Monge en $(0,0)$, $f$ est un point-selle.
+	Ce n'est donc ni un minimum local, ni un maximum local.
+	
+	
+\end{enumerate}
+\fincorrection
+\finexercice
+
+
+
+\exercice{2642, debievre, 2009/05/19}
+\enonce[Recherche de minimums et maximums]
+Trouver les points critiques de la  fonction $f$  suivante et
+déterminer si ce sont des minimums locaux, des maximums locaux ou
+des points-selles :
+\[
+f(x,y)=\sin x+y^2-2y+1.
+\] 
+\finenonce
+
+\indication 
+Calculer les dérivées partielles secondes puis utiliser le critère de Monge
+\finindication
+
+\correction 
+Puisque
+\[
+\frac{\partial f}{\partial x}(x,y) = \cos x 
+\quad \text{ et } \quad
+\frac{\partial f}{\partial y}(x,y) = 2y-2,
+\]
+alors les points critiques sont les points
+\[ \big( (k+\tfrac12)\pi,1 \big)\,, \qquad k\in \Zz.\]
+En plus,
+\[H_f(x,y) =
+\begin{pmatrix} 
+	-\sin x & 0\\ 
+	0 & 2 
+\end{pmatrix}.
+\] 
+Comme $-\sin ((k+\tfrac12)\pi)=(-1)^{k+1}$, alors 
+\[H_f \big( (k+1/2)\pi,1 \big)
+=\begin{pmatrix} (-1)^{k+1} & 0\\ 0 & 2 \end{pmatrix}.\]
+Autrement dit $r =  (-1)^{k+1}$, $s=0$ et $t=2$.
+
+Par conséquent, 
+\begin{itemize}
+	\item si $k$ est impair, $rt-s^2 = 2$ et $r>0$, donc 
+le point $((k+1/2)\pi,1)$ est un minimum local,
+	\item si $k$ est pair, $rt-s^2 = -2$ et le point $((k+1/2)\pi,1)$ est un point-selle. 
+\end{itemize}
+\fincorrection
+\finexercice
+
+
+
+
+\exercice{4191, quercia, 2010/03/11}
+\enonce[\'Etude de points critiques]
+
+Chercher les extremums des fonctions $f(x,y)$ suivantes :
+\begin{enumerate}
+	\item $3xy - x^3 - y^3$
+		
+	\item $-2(x-y)^2+x^4+y^4$
+		
+	\item $2x+y-x^4-y^4$		
+
+	\item $\frac {xy}{(x+y)(1+x)(1+y)},\ x,y> 0$
+		
+	\item $x^2y^2(1+3x+2y)$
+	
+	\item $xe^y + ye^x$
+		
+	\item $x(\ln^2x + y^2)$, $x>0$
+		
+	\item $\sqrt{x^2+(1-y)^2} + \sqrt{y^2+(1-x)^2}$
+			
+\end{enumerate}
+\finenonce
+
+\indication
+Trouver les points critiques et appliquer le critère de Monge.
+\finindication
+
+\correction
+On va noter $f_x$ et $f_y$ les dérivées partielles premières, ainsi que $f_{xx}$, $f_{yy}$ et $f_{xy}=f_{yx}$ les dérivées partielles secondes (toutes les fonctions considérées sont $\mathcal{C}^2$).
+
+\begin{enumerate}
+	
+	%%%%%%%%%%%%
+	\item $f = 3xy - x^3 - y^3$.
+	
+	\begin{enumerate}
+		\item
+	\[
+	f_x = 3y-3x^2
+	\qquad
+	f_y = 3x-3y^2
+	\]
+	\[
+	f_{xx} = -6x
+	\qquad 
+	f_{xy}= 3
+	\qquad 
+	f_{yy}= -6y
+	\]
+	
+	\item Points critiques :
+	\[
+	\left\{
+	\begin{array}{l}
+	f_x = 0 \\
+	f_y = 0 
+	\end{array}
+	\right.
+	\iff
+	\left\{
+	\begin{array}{l}
+	y-x^2 = 0 \\	
+	x-y^2 = 0 
+	\end{array}
+	\right.	
+	\iff
+	\left\{
+	\begin{array}{l}
+	y-y^4 = 0 \\		
+	x=y^2 
+	\end{array}
+	\right.	
+	\iff
+	\left\{
+	\begin{array}{l}
+		y(1-y^3) = 0 \\
+		x=y^2
+	\end{array}
+	\right.	
+	\iff
+	\left\{
+	\begin{array}{l}
+		y = 0 \text{ ou } y = 1		\\
+		x=y^2 
+	\end{array}
+	\right.			
+	\]	
+	On a obtenu l'ordonnée $y=0$ ou $y=1$ des points critiques, on obtient l'abscisse par la relation $x=y^2$.
+	Ainsi les points critiques sont $(0,0)$ et $(1,1)$.
+	
+	\item Étude en $(0,0)$.
+	On calcule $r=f_{xx}(0,0) = 0$, $s=f_{xy}(0,0) = 3$, $t=f_{yy}(0,0) = 0$.
+	On a $rt-s^2 = -9$ et par le critère de Monge $(0,0)$ est un point-selle (ce n'est donc ni un minimum local, ni un maximum local).
+	
+	Autrement dit, on est dans le cas où $H_f(0,0) = \begin{pmatrix}r&s\\s&t\end{pmatrix}=\begin{pmatrix}0&3\\3&0\end{pmatrix}$
+	a un déterminant négatif et donc deux valeurs propres de signe contraire.
+	
+
+	
+	\item Étude en $(1,1)$.
+	On calcule $r=f_{xx}(1,1) = -6$, $s=f_{xy}(1,1) = 3$, $t=f_{yy}(1,1) = -6$.
+	On a $rt-s^2 = 27$ et $r<0$ donc par le critère de Monge $(0,0)$ est un maximum local.
+	
+	Autrement dit, on est dans le cas où $H_f(1,1) = \begin{pmatrix}r&s\\s&t\end{pmatrix}=\begin{pmatrix}-6&3\\3&-6\end{pmatrix}$
+	a deux valeurs propres négatives.
+	 
+	\end{enumerate}
+	
+	%%%%%%%%%%%%
+	\item $f= -2(x-y)^2+x^4+y^4$
+	
+	\begin{enumerate}
+	\item	
+	
+	\[
+	f_x = 4(x^3-x+y)
+	\qquad
+	f_y = 4(y^3-y+x)
+	\]
+	\[
+	f_{xx} = 4(3x^2-1)
+	\qquad 
+	f_{xy}= 4
+	\qquad 
+	f_{yy}= 4(3y^2-1)
+	\]
+	
+	\item Points critiques :
+	\[
+	\left\{
+	\begin{array}{l}
+		f_x = 0 \\
+		f_y = 0 
+	\end{array}
+	\right.
+	\iff
+	\left\{
+	\begin{array}{l}
+		x^3-x+y = 0 \\
+		y^3-y+x = 0 
+	\end{array}
+	\right.	
+	\]
+	Si on fait la somme de ces deux équations on obtient $x^3=-y^3$, donc $x=-y$ (les nombres sont des réels).
+	On substitue $y=-x$ dans la première équation, pour obtenir : $x^3-2x=0$ c'est-à-dire $x(x^2-2)=0$.
+	Ainsi $x=0$ ou $x=\pm\sqrt2$ et $y=-x$.
+	Les trois points critiques sont :
+	\[
+	(0,0) \qquad (+\sqrt2,-\sqrt2) \qquad (-\sqrt2,+\sqrt2)
+	\]
+	
+	\item Étude en $(0,0)$.
+	$r= -4$, $s=4$, $t=-4$, $rt-s^2 = 0$ et le critère de Monge ne permet pas de conclure.
+	Cependant sur $\gamma_1(t) = (t,t)$ on a $f(\gamma_1(t))= 2t^4 \ge f(0,0)$ ainsi $(0,0)$ ne peut pas être un maximum local ; mais d'autre part sur $\gamma_2(t) = (t,0)$ on a, lorsque $t\to0$, $f(\gamma_2(t))= -2t^2+t^4 \sim -2t^2 \le f(0,0)$ ainsi $(0,0)$ ne peut pas être un minimum local. Conclusion : $(0,0)$ est un point-selle.
+	
+	\item Étude en $\pm(\sqrt2,-\sqrt2)$.
+	$r=20$, $s=4$, $t=20$, $rt-s^2 = 384>0$ et $r>0$, par le critère de Monge, $f$ admet un minimum local en $(\sqrt2,-\sqrt2)$ et en $(-\sqrt2,\sqrt2)$.
+	
+	\end{enumerate}
+	
+
+	%%%%%%%%%%%%
+	\item $f = 2x+y-x^4-y^4$
+	
+	\[
+	f_x = 2-4x^3
+	\qquad
+	f_y = 1-4y^3
+	\]
+	\[
+	f_{xx} = -12x^2
+	\qquad 
+	f_{xy}= 0
+	\qquad 
+	f_{yy}= -12y^2
+	\]
+	
+	Point critique : $(2^{-1/3},4^{-1/3})$, c'est un maximum local par le critère de Monge.	
+	
+	
+	
+	%%%%%%%%%%%%
+	\item $f = \frac {xy}{(x+y)(1+x)(1+y)},\ x,y> 0$
+	
+	Des calculs un peu lourds donnent :
+	\[
+	f_x = \frac {y(y-x^2)}{(x+y)^2(1+x)^2(1+y)}
+	\qquad
+	f_y = \frac {x(x-y^2)}{(x+y)^2(1+x)(1+y)^2}
+	\]
+	
+	Les points critiques sont les solutions qui vérifient à la fois $y-x^2=0$ et $x-y^2=0$.
+	Donc $x=x^4$. La seule solution vérifiant $x>0,y>0$ est $(1,1)$.
+	En ce point $r=-\frac1{16}$, $s=\frac1{32}$, $t=-\frac1{16}$.
+	Donc $rt-s^2 > 0$ avec $r<0$. Il s'agit d'un maximum local.
+	
+	\textbf{Autre méthode.}
+	L'idée est d'utiliser le logarithme pour simplifier le calcul de la dérivée d'un produit.
+	En effet la dérivée de $\ln\big( u v \big)$ est simplement $\frac{u'}{u} + \frac{v'}{v}$.
+		
+	Comme on restreint l'étude au domaine $ D = \{ (x,y) \mid x>0, \, y>0\}$, tous les facteurs qui interviennent dans l'expression de $f$ sont strictement positifs. On peut donc écrire: 
+	\[
+	g(x,y) := \ln(f(x,y)) = \ln(x) + \ln(y) - \ln(x+y) - \ln(1+x) - \ln(1+y). 
+	\]
+	$g$ est de classe $\mathcal{C}^2$ comme composée de deux fonctions de classe $\mathcal{C}^2$. De plus, comme le logarithme est une fonction strictement croissante, les deux fonctions $f$ et $g$ atteignent leurs extremums locaux aux mêmes points de $D$. Nous allons donc chercher les extremums locaux de $g$, dont les dérivées partielles sont plus simples à calculer que celles de $f$.
+	
+	On a:
+	\[
+		g_x (x,y) =\frac{1}{x}-\frac{1}{x+y}-\frac{1}{1+x}  = \frac{y-x^2}{x(x+y)(1+x)}.
+	\]
+	
+	En remarquant que $g(x,y) = g(y,x)$, on obtient:
+	\[
+		g_y (x,y) = g_x(y,x) = \frac{1}{y}-\frac{1}{y+x}-\frac{1}{1+y} = \frac{x-y^2}{y(x+y)(1+y)}.
+	\]
+	
+	Comme précédemment, on trouve que l'unique point critique est $(1,1)$. 
+	
+	On a ensuite :
+	\[
+	g_{xx} = \frac{-1}{x^2}+\frac{1}{(x+y)^2} + \frac{1}{(1+x)^2}, \qquad g_{xy} = \frac{1}{(x+y)^2}, \qquad g_{yy}= \frac{-1}{y^2}+\frac{1}{(x+y)^2} + \frac{1}{(1+y)^2},
+	\]		
+	et donc $r=\frac{-1}{2}$, $s=\frac{1}{4}$ et $t=\frac{-1}{2}$. On a alors $rt-s^2 = \frac{1}{4} - \frac{1}{16} = \frac{3}{16} >0$ et $r<0$, ce qui implique que $g$ admet un maximum local en $(1,1)$. Par suite, $f$ admet également un maximum local en $(1,1)$.
+	
+	\emph{Remarque.} On peut montrer que $f(1,1) = \frac{1}{8}$ est même un maximum global (sur $D$) en utilisant l'inégalité
+	\[
+	ab \leq \frac{1}{2}(a^2+b^2), \quad \text{pour tous } a,b \in \mathbb{R}.
+	\]
+	Pour tout $(x,y) \in D$, on a en effet:
+	\begin{align*}
+		xy & = (\sqrt{x} \cdot \sqrt{y}) \cdot (1 \cdot \sqrt{x}) \cdot (1 \cdot \sqrt{y}) \\
+		& \leq \frac{1}{2}(x+y) \cdot \frac{1}{2}(1+x) \cdot \frac{1}{2}(1+y)
+	\end{align*}
+	et donc $f(x,y) \leq \frac{1}{8}$.
+	
+	
+
+	%%%%%%%%%%%%	
+	\item $f = x^2y^2(1+3x+2y)$
+	
+	\begin{enumerate}
+	\item	
+	\[
+	f_x = xy^2(9x+4y+2)
+	\qquad
+	f_y = 2x^2y(3x+3y+1)
+	\]
+	\[
+	f_{xx} = 2y^2(9x+2y+1)
+	\qquad 
+	f_{xy}= 2xy(9x+6y+2)
+	\qquad 
+	f_{yy}= 2x^2(3x+6y+1)
+	\]
+	
+	\item Points critiques : soit $x=0$ et alors n'importe quel $(0,y)$ est point critique, 
+	soit $y=0$ et alors n'importe quel $(x,0)$ est point critique.
+	Soit $x\neq0$ et $y\neq0$ et alors un point critique vérifie :
+	\[
+	\left\{
+	\begin{array}{l}
+		9x+4y+2 = 0 \\
+		3x+3y+1 = 0 
+	\end{array}
+	\right.
+	\iff
+	\left\{
+	\begin{array}{l}
+		x = -\frac{2}{15} \\
+		y = -\frac{1}{5} 
+	\end{array}
+	\right.	
+	\]
+	
+	Les points critiques sont donc les $(x,0)$, les $(0,y)$ et $(-\frac{2}{15},-\frac{1}{5})$.
+	
+	\item Étude en $(-\frac{2}{15},-\frac{1}{5})$.
+	$r = -\frac{6}{125}$, $s = -\frac{8}{375}$, $t = -\frac{8}{375}$. On a $rt-s^2>0$ et $r<0$ il s'agit donc d'un maximum local.
+	
+	\item Étude en $(x,0)$.	
+	$r = f_{xx}(x,0)= 0$, 
+	$s = f_{xy}(x,0)= 0$, 
+	$t = f_{yy}(x,0)= 2x^2(3x+1)$.
+	On a $rt-s^2=0$ et le critère de Monge ne permet pas de conclure.
+	On étudie $f$ à la main autour de $(x,0)$. On sait que $x^2y^2 \ge 0$, il s'agit donc juste d'étudier 
+	$1+3x+2y$ autour de $(x,y)=(x,0)$. Si $x > -\frac13$ alors $1+3x+2y > 0$ autour de $(x,0)$ donc $f(x,y) \sim kx^2y^2$ ($k\in\Rr_+^*$) et ainsi il s'agit d'un minimum local. De même si $x < -\frac13$ il s'agit d'un maximum local.
+	En $(-\frac13,0)$ c'est un point-selle.
+	
+	\item Étude en $(0,y)$.
+	De même : maximum local pour $y<-1/2$, minimum local pour $y > -1/2$, point-selle en $y=-1/2$.
+	
+	\end{enumerate}
+	
+	
+
+	
+	
+	%%%%%%%%%%%%
+	\item $f = xe^y + ye^x$
+	
+	\[
+	f_x = e^y + ye^x
+	\qquad
+	f_y = xe^y + e^x
+	\]
+
+	\[
+	f_{xx} = ye^x
+	\qquad 
+	f_{xy}= e^x + e^y
+	\qquad 
+	f_{yy}= xe^y
+	\]
+	
+	Recherche des point critiques : comme la fonction est symétrique (c'est-à-dire $f(x,y)=f(y,x)$) alors
+	un point critique $(x_0,y_0)$ vérifie $y_0=x_0$. Donc l'équation $f_x(x_0,y_0) = 0$ devient $e^{x_0}+x_0e^{x_0}=0$ d'où $x_0=-1$ et donc $y_0=-1$. Bilan : un seul point critique $(-1,-1)$.
+	
+	En ce point, $r=-1/e$, $s= +2/e$, $t=-1/e$. Donc $rt-s^2 <0$, il s'agit d'un point-selle.
+	
+	
+	%%%%%%%%%%%%
+	\item $f = x(\ln^2x + y^2)$, $x>0$
+	
+	\[
+	f_x = \ln^2x + 2\ln x + y^2
+	\qquad
+	f_y = 2xy
+	\]
+	\[
+	f_{xx} = 2\frac{\ln x+1}{x}
+	\qquad 
+	f_{xy}= 2y
+	\qquad 
+	f_{yy}= 2x
+	\]
+	
+	Recherche du point critique. Par hypothèse $x>0$, donc $y=0$ et par suite $\ln^2x + 2\ln x=0$,
+	d'où $\ln x(\ln x+2)=0$. Ainsi $x=1$ ou $x= e^{-2}$. Les points critiques sont $(1,0)$ et $(e^{-2},0)$.
+	
+	Le critère de Monge s'applique et indique que  $(1,0)$ est un minimum local alors que $(e^{-2},0)$ est un point-selle.
+	
+	
+	%%%%%%%%%%%%
+	\item $f = \sqrt{x^2+(1-y)^2} + \sqrt{y^2+(1-x)^2}$
+	
+	Le plus simple est d'interpréter géométriquement la fonction $f$ comme la somme des distances entre un point $M(x,y)$ et deux points $A(0,1)$ et $B(1,0)$ du plan.
+	Cette somme est minimale (et vaut la longueur $AB$) si et seulement si $M$ appartient au segment $[A,B]$ : donc $x \in[0,1]$ et $y=1-x$.
+	
+\end{enumerate}
+
+\fincorrection
+
+
+\exercice{4182, quercia, 2010/03/11}
+\enonce[Point non extrémal]
+On pose pour $(x,y)\in\R^2$~:
+$$f(x,y) = x^2+y^2-2x^2y - \frac{4x^6y^2}{(x^4+y^2)^2}\quad\text{si }(x,y)\ne 0,
+\qquad f(0,0)=0.$$
+\begin{enumerate}
+	\item Montrer que $f$ est continue sur $\R^2$.
+	
+	\item Soit $\theta\in\R$ fixé et $g_\theta(r) = f(r\cos\theta,r\sin\theta)$.
+	Montrer que $g_\theta$ admet un minimum local strict en~$r=0$.
+	
+	\item Calculer $f(x,x^2)$. Conclusion~?
+	
+\end{enumerate}
+\finenonce
+
+\indication
+$2x^4y^2 \le (x^4+y^2)^2$.
+\finindication
+
+\correction
+\begin{enumerate}
+	\item $f$ est continue en dehors de l'origine ;
+	$f$ est aussi continue en $(0,0)$ : 
+	tout d'abord $2x^4y^2 \le (x^4+y^2)^2$ car $(x^4+y^2)^2 = x^8 + y^4 + 2x^4y^2 \ge 2x^4y^2$.
+	Ainsi :
+	\[
+	0 \le \frac{4x^6y^2}{(x^4+y^2)^2} = 2x^2\frac{2x^4y^2}{(x^4+y^2)^2} \le 2x^2 \xrightarrow{} f(0,0) = 0.
+	\]
+	
+	\item 
+	
+	\[
+	g_\theta(r) = f(r\cos\theta,r\sin\theta) =  r^2 - r^3 c_{1,\theta} + r^4 c_{2,\theta}(r) 
+	= r^2 +o(r^2).\]
+	
+	Donc le long d'un rayon d'angle $\theta$ fixé, $g_\theta(r) \sim r^2$. 
+	Ainsi le long de ce rayon, $g_\theta$ admet un minimum local à l'origine, autrement dit sur chaque rayon les valeurs de $f$ sont supérieures à $f(0,0)$.
+	
+	
+	\item $f(x,x^2)=-x^4$. Donc $(0,0)$ n'est pas minimum local de~$f$ car on trouve aussi des valeurs inférieures à $f(0,0)$.
+\end{enumerate}
+
+
+\fincorrection
+
+\finexercice
+
+
+
+
+%===========================================
+\section{Applications}
+
+
+\exercice{4159, quercia, 2010/03/11}
+\enonce[Ajustement linéaire]
+
+Étant donnés $n$ couples de réels  
+$(x_i,y_i)$ avec $^1 \le i \le n$,
+on cherche une droite $D$ d'équation $y = ax+b$ telle que
+$E(a,b) = \sum_{i=1}^n (y_i-ax_i-b)^2$ soit minimal.
+
+On note
+$$\overline  x    = \frac 1n \sum_{i=1}^n x_i,\qquad
+\overline  y    = \frac 1n \sum_{i=1}^n y_i,\qquad
+\overline {x^2} = \frac 1n \sum_{i=1}^n x_i^2,\qquad
+\overline {xy} = \frac 1n \sum_{i=1}^n x_iy_i,$$
+et on suppose $\overline {x^2} \ne \overline x^2$.
+
+\begin{enumerate}
+	\item Résoudre le problème.
+	\item Interpréter la relation $\overline {x^2} \ne \overline x^2$
+	à l'aide de l'inégalité de Cauchy-Schwarz.
+\end{enumerate}
+\finenonce
+
+\indication
+Si la fonction $E$ atteint un minimum alors en ce ce minimum les deux dérivées partielles par rapport à $a$ et à $b$ s'annulent. Les variables sont bien $a$ et $b$ ; les $x_i$, $y_i$ sont des constantes.
+\finindication
+
+\correction
+\begin{enumerate}
+	\item 
+	Comme $E(a,b) = \sum_{i=1}^n (y_i-ax_i-b)^2$ alors :
+	\[
+	\frac{\partial E}{\partial a}(a,b) 
+	= \sum_{i=1}^n -2x_i(y_i-ax_i-b)
+	= -2n \overline {xy} + 2n a \overline{x^2} + 2nb \overline{x}.\]
+	Et 
+	\[
+	\frac{\partial E}{\partial b}(a,b) 
+	= \sum_{i=1}^n -2(y_i-ax_i-b)
+	= -2n \overline{y} + 2n a \overline{x} +2nb.\]
+		
+	La fonction $E$ est une somme de carrés, elle admet donc (au moins) un minimum global.
+	Ce minimum global est nécessairement un point critique. Calculons-le !
+	En un point critique les deux dérivées partielles s'annulent simultanément, donc
+	\begin{equation}
+		\label{Ea}
+		\tag{$E_a$}
+	\frac{\partial E}{\partial a}(a,b)	= 0 \iff - \overline {xy} +  a \overline{x^2} + b \overline{x} = 0
+	\end{equation}
+	\begin{equation}
+	\label{Eb}
+	\tag{$E_b$}
+	\frac{\partial E}{\partial b}(a,b)	= 0 \iff  - \overline{y} +  a \overline{x} + b= 0
+	\end{equation}	
+	On calcule $\eqref{Ea} - \overline{x} \eqref{Eb}$ pour obtenir :
+	\[
+	- \overline {xy}+ \overline{x} \cdot \overline{y} + a\big( \overline{x^2} -\overline{x}^2 \big) = 0.
+	\]
+	D'où :
+	\[
+	a = \frac{\overline {xy} - \overline  x \cdot \overline  y}{  \overline{x^2} - \overline{x}^2} = \frac{\text{Covariance}(x,y)}{\text{Variance}(x)}.
+	\]
+	Puis par \eqref{Eb} on en déduit :
+
+	\[b= \overline  y - a \overline  x.\]
+	
+	On a trouvé un seul point critique possible, c'est donc nécessairement le minimum global.
+	
+	\item  On applique Cauchy-Schwarz avec $X = (x_1,\ldots,x_n)$ et $Y= (1,\ldots,1)$.
+	Alors $\langle X \mid Y \rangle \le \| X \| \cdot \| Y \|$, donne
+	$\left( \sum x_i \right)^2 \le \left(\sum x_i^2\right) \ \times \ n$
+	donc $\overline{x}^2 \le \overline{x^2}$ (i.e. la variance est toujours positive ou nulle).
+	Le cas d'égalité de Cauchy-Schwarz, nous dit donc que $\overline{x}^2 = \overline{x^2}$, ssi $X = \lambda Y$ ($\lambda\in\Rr$), c'est-à-dire toutes les coordonnées de $X$ sont identiques, i.e. ssi $x_1=x_2=\cdots=x_n$.
+	
+\end{enumerate}
+\fincorrection
+\finexercice
+
+
+
+\exercice{2640, debievre, 2009/05/19}
+\enonce[L'équation des ondes]
+L'équation des ondes est l'équation aux dérivées partielles :
+\begin{equation}\label{eq:ondes}
+	\frac{\partial^2 f}{\partial x^2}-\frac{\partial^2 f}{\partial t^2}=0.
+\end{equation}
+Il s'agit de trouver la solution générale 
+$f\colon\R^2\to\R$, $(x,t) \mapsto f(x,t)$ (de classe $\mathcal{C}^2$) de cette équation.
+
+\begin{enumerate}
+	\item Grâce au changement de variables
+	\[
+	\Phi : \R^2 \longrightarrow \R^2,
+	\ (u,v) \longmapsto (x,t)=\left(\frac{u-v}{2}, \frac{u+v}{2}\right),
+	\]
+	la fonction $f$ se transforme en 
+	$F(u,v)= f \circ \Phi(u,v) = f(\frac{u-v}{2}, \frac{u+v}{2})$.
+	Montrer que pour que $f$ soit solution de (\ref{eq:ondes}) 
+	il faut et il suffit que
+	\begin{equation}\label{eq:ondesbis}
+		\frac{\partial^2F}{\partial u\partial v}=0 .
+	\end{equation}
+
+
+    \item Montrer que, si $F$ satisfait \`a (\ref{eq:ondesbis}), il existe deux fonctions $g_1,g_2\colon\R\to\R$ telles que
+    \[
+    F(u,v)=g_1(u)+g_2(v).
+    \]
+    
+    \item  \'Ecrire la solution générale de (\ref{eq:ondes}) et expliquer la phrase: ``En une dimension d'espace, toute solution de l'équation des ondes s'écrit comme somme d'une onde qui se déplace vers la droite et une qui se déplace vers la gauche.''
+
+	\item Trouver la solution unique de l'équation des ondes qui
+satisfait aux conditions initiales
+\begin{equation}
+	f(x,0)=\sin x, \qquad \frac{\partial f}{\partial t}(x,0)=-\cos x.
+	\label{in}
+\end{equation}
+
+\end{enumerate}
+
+\finenonce
+
+\noindication
+
+\correction
+\begin{enumerate}  
+	\item 
+	$F = f\circ \Phi$, on applique la formule \og{}$J_F = J_f \times J_\Phi$\fg{} où :
+	\[
+	J_F = \begin{pmatrix} \frac{\partial F}{\partial u} & \frac{\partial F}{\partial v} \end{pmatrix}
+	\qquad
+	J_f = \begin{pmatrix} \frac{\partial f}{\partial x} & \frac{\partial f}{\partial t}  \end{pmatrix}
+	\qquad
+	J_\Phi(u, v) =\begin{pmatrix} \frac12 & -\frac12 \\  \frac12 & \frac12 \end{pmatrix}
+	\]
+	Par la formule \og{}$J_F = J_f \times J_\Phi$\fg{} nous obtenons :
+	\begin{align*}
+		\frac{\partial F}{\partial u}&= 
+		\frac 12\frac{\partial f}{\partial x}+\frac 12\frac{\partial f}{\partial t}
+		\\
+		\frac{\partial F}{\partial v}&= 
+		-\frac 12\frac{\partial f}{\partial x}+\frac 12\frac{\partial f}{\partial t}
+	\end{align*}
+	Autrement dit, nous obtenons les identités d'opérateurs : 
+	\begin{align*}
+	\frac{\partial }{\partial u}
+	&=\frac12\left(\frac{\partial}{\partial x}+\frac{\partial}{\partial t}\right) \\
+	\frac{\partial }{\partial v}
+	&=\frac12\left(-\frac{\partial}{\partial x}+\frac{\partial}{\partial t}\right)
+	\end{align*}	
+	Nous avons appliqué ces identités à la fonction $f$, mais on peut aussi les appliquer à 
+	$\frac{\partial f}{\partial x}$ et $\frac{\partial f}{\partial x}$ afin de calculer $\frac{\partial^2 F}{\partial u \partial v}$ :
+	\begin{align*}
+	\frac{\partial^2 F}{\partial u \partial v}
+	&= \frac{\partial }{\partial u}\frac{\partial F}{\partial v} \\
+	&= \frac{\partial }{\partial u} \left( -\frac 12\frac{\partial f}{\partial x}+\frac 12\frac{\partial f}{\partial t} \right) \\
+	&= -\frac 12\frac{\partial }{\partial u}\frac{\partial f}{\partial x}+\frac 12\frac{\partial }{\partial u}\frac{\partial f}{\partial t} \\
+	&= -\frac 12\left(\frac12\frac{\partial}{\partial x}\frac{\partial f}{\partial x}+\frac12\frac{\partial}{\partial t}\frac{\partial f}{\partial x} \right) 
+	+\frac 12\left( \frac12\frac{\partial}{\partial x}\frac{\partial f}{\partial t}+\frac12\frac{\partial}{\partial t}\frac{\partial f}{\partial t} \right) \\
+	&= 	-\frac 14\frac{\partial^2 f}{\partial x^2}
+		+\frac 14\frac{\partial^2 f}{\partial t^2}
+	\end{align*}
+	
+	(On a utilisé $f$ de classe $\mathcal{C}^2$, pour simplifier les dérivées croisées.)
+	D'où pour que $f$ satisfasse l'équation \eqref{eq:ondes} il faut et il suffit que $F$ satisfasse l'équation
+	\eqref{eq:ondesbis}.
+	
+	\item Supposons que $F$ satisfasse l'équation \eqref{eq:ondesbis}.
+	Alors la fonction $\frac{\partial F}{\partial u}$ est une fonction, disons $h_1$, dépendant seulement de la variable $u$ et la fonction $\frac{\partial F}{\partial v}$ est une fonction, disons $h_2$, dépendant seulement de la variable $v$.
+	Par conséquent,
+	$F(u,v)= g_1(u)+g_2(v)$ o\`u $g'_1=h_1$ et $g'_2=h_2$.
+	
+	\item On remarque que $u=x+t$ et $v=t-x$. La solution générale de
+	\eqref{eq:ondes} s'écrit alors
+	\[
+	f(x,t)=g_1(u)+g_2(v)=g_1(x+t)+g_2(t-x) .
+	\]
+	En considérant $x$ comme la variable de position et $t$ la variable de temps, la fonction $g_1$ décrit
+	une onde qui se déplace vers la droite et la fonction $g_2$ décrit une onde qui se déplace vers la gauche.
+	
+	\item Enfin, pour trouver la solution unique satisfaisant aux conditions initiales \eqref{in} nous constatons que les conditions initiales entraînent les égalités :
+	\begin{align*}
+		f(x,0)&=g_1(x)+g_2(-x)=\sin x
+		\\
+		\frac {\partial f}{\partial x}(x,0)&=g'_1(x)-g'_2(-x)=\cos x
+		\\
+		\frac {\partial f}{\partial t}(x,0)&=g'_1(x)+g'_2(-x)=-\cos x
+	\end{align*}
+	d'o\`u $g'_1(x)=0$ et $g'_2(-x)=-\cos x$, c'est-à-dire 
+	$g_2(x)=\sin (-x)$. Par conséquent,
+	la solution unique cherchée $f$ s'écrit
+	\[
+	f(x,t)= \sin(x-t).
+	\]
+\end{enumerate}
+\fincorrection
+\finexercice
+
+
+%===========================================
+\section{Laplacien \& co}
+
+\exercice{}
+\enonce[Laplacien, gradient, divergence, rotationnel]
+Le \emph{laplacien} de $f : \Rr^n \to \Rr$ est :
+$$\Delta f(x) =
+\sum_{i=1}^n \frac{\partial^2 f}{\partial x_i^2}(x).$$
+
+\begin{enumerate}
+	\item Montrer $\Delta f(x) = \diver( \grad f(x) ) $.
+	
+	Cela justifie l'écriture $\Delta f(x) = \nabla \cdot \nabla f(x) =\nabla^2 f (x)$.
+	
+	\item Montrer $\diver( \rot F(x) ) = 0$ pour $F : \Rr^3 \to \Rr^3$ dont les composantes sont de classe $\mathcal{C}^2$.
+	
+	\item Montrer $\rot( \grad f(x) ) = (0,0,0)$ pour $f : \Rr^3 \to \Rr$ de classe $\mathcal{C}^2$.
+\end{enumerate}
+
+\finenonce
+
+\indication
+$f : \Rr^n \to \Rr$ :
+$$\grad f (x) = \begin{pmatrix}
+	\frac{\partial f}{\partial x_1}(x)\\
+	\vdots \\
+	\frac{\partial f}{\partial x_n}(x)
+\end{pmatrix}.$$
+
+
+$F = (f_1,\ldots,f_n) : \Rr^n \to \Rr^n$ 
+
+$$\diver F (x) = \sum_{i=1}^n \frac{\partial f_i}{\partial x_i}(x).$$
+
+
+$F = (f_1,f_2,f_3) : \Rr^3 \to \Rr^3$ 
+$$\rot F (x,y,z)=
+\begin{pmatrix}
+	\dfrac{\partial f_3}{\partial y}(x,y,z)-\dfrac{\partial f_2}{\partial z}(x,y,z) \\[2ex]
+	\dfrac{\partial f_1}{\partial z}(x,y,z)-\dfrac{\partial f_3}{\partial x}(x,y,z) \\[2ex]
+	\dfrac{\partial f_2}{\partial x}(x,y,z)-\dfrac{\partial f_1}{\partial y}(x,y,z)
+\end{pmatrix}.
+$$
+\finindication
+
+
+\correction
+\begin{enumerate}
+\item On rappelle que pour $f : \Rr^n \to \Rr$ :
+$$\grad f (x) = \begin{pmatrix}
+	\frac{\partial f}{\partial x_1}(x)\\
+	\vdots \\
+	\frac{\partial f}{\partial x_n}(x)
+\end{pmatrix}.$$
+
+Et pour $F = (f_1,\ldots,f_n) : \Rr^n \to \Rr^n$ :
+$$\diver F (x) = \sum_{i=1}^n \frac{\partial f_i}{\partial x_i}(x).$$
+
+Donc la divergence du gradient est :
+\begin{align*}
+\diver( \grad f(x) ) 
+&= \diver\begin{pmatrix}
+	\frac{\partial f}{\partial x_1}(x)\\
+	\vdots \\
+	\frac{\partial f}{\partial x_n}(x) \end{pmatrix} \\
+&= \frac{\partial }{\partial x_1}\frac{\partial f}{\partial x_1}(x) + \cdots + \frac{\partial }{\partial x_n}\frac{\partial f}{\partial x_n}(x) \\
+&= \frac{\partial^2 f}{\partial x_1^2}(x) + \cdots + \frac{\partial^2 f}{\partial x_n^2}(x) \\
+&= \Delta f(x).
+\end{align*}
+
+	
+
+\item Soit $F = (f_1,f_2,f_3) : \Rr^3 \to \Rr^3$.
+On rappelle que :
+$$\rot F (x,y,z)=
+\begin{pmatrix}
+	\dfrac{\partial f_3}{\partial y}(x,y,z)-\dfrac{\partial f_2}{\partial z}(x,y,z) \\[2ex]
+	\dfrac{\partial f_1}{\partial z}(x,y,z)-\dfrac{\partial f_3}{\partial x}(x,y,z) \\[2ex]
+	\dfrac{\partial f_2}{\partial x}(x,y,z)-\dfrac{\partial f_1}{\partial y}(x,y,z)
+\end{pmatrix}.
+$$
+\begin{align*}
+\diver( \rot F(x) ) 
+&=  \frac{\partial }{\partial x} \left( \frac{\partial f_3}{\partial y}-\frac{\partial f_2}{\partial z} \right)
++ \frac{\partial }{\partial y} \left( \frac{\partial f_1}{\partial z}-\frac{\partial f_3}{\partial x} \right)
++ \frac{\partial }{\partial z } \left( \frac{\partial f_2}{\partial x}-\frac{\partial f_1}{\partial y} \right) \\
+&= \frac{\partial^2 f_3}{\partial x \partial y} - \frac{\partial^2 f_2}{\partial x \partial z}
+\quad + \quad\frac{\partial^2 f_1}{\partial y \partial z} - \frac{\partial^2 f_3}{\partial y \partial x}
+\quad +\quad \frac{\partial^2 f_2}{\partial z \partial x} - \frac{\partial^2 f_1}{\partial z \partial y} \\
+&= 0.
+\end{align*}
+On a utilisé que les dérivées croisées sont égales car chaque $f_i$ est de classe $\mathcal{C}^2$.
+
+\item Soit $f : \Rr^3 \to \Rr$ de classe $\mathcal{C}^2$.
+\[
+\rot( \grad f(x) ) 
+= \rot \begin{pmatrix}
+	\frac{\partial f}{\partial x} \\
+	\frac{\partial f}{\partial y} \\
+	\frac{\partial f}{\partial z} \\
+	\end{pmatrix}  \\
+= \begin{pmatrix}
+	\frac{\partial }{\partial y}\frac{\partial f}{\partial z}-\frac{\partial }{\partial z}\frac{\partial f}{\partial y} \\[2ex]
+	\frac{\partial }{\partial z}\frac{\partial f}{\partial x}-\frac{\partial }{\partial x}\frac{\partial f}{\partial z} \\[2ex]
+	\frac{\partial }{\partial x}\frac{\partial f}{\partial y}-\frac{\partial }{\partial y}\frac{\partial f}{\partial x} 
+\end{pmatrix} \\
+= \begin{pmatrix} 0 \\ 0 \\0 \end{pmatrix}.
+\]
+
+\end{enumerate}
+\fincorrection
+
+\finexercice
+
+
+
+\exercice{4145, quercia, 2010/03/11}
+\enonce[Laplacien en dimension $n$]
+
+Soit $f$ une application de classe $\mathcal{C}^2$ de $\Rr_+^*$ dans $\Rr$.
+On définit une application $F$ de $\Rr^n\setminus\{0\}$ dans $\Rr$ par :
+$F(x_1,\dots,x_n) = f \left(\sqrt{x_1^2 + \dots + x_n^2}\,\right)$.
+Calculer le laplacien de $F$ en fonction de $f$.
+\finenonce
+
+\indication
+Dériver la composition $F = f \circ r$ par rapport à $x_i$. Puis dériver $\frac{\partial F}{\partial x_i}$ une seconde fois.
+Il faut trouver : $\Delta F = \frac{n-1}r f'(r) + f''(r)$.
+
+\finindication 
+
+\correction
+\begin{enumerate}
+	\item On note $r = \sqrt{x_1^2 + \dots + x_n^2}$ à la fois comme un nombre réel et une fonction $r : \Rr^n \to \Rr$. On a donc $F = f \circ r$.
+	
+	On va appliquer la formule \og{}$J_F = J_f \times J_r$\fg{}, sachant que 
+	\[
+	J_F = \begin{pmatrix} \frac{\partial F}{\partial x_1} &   \ldots & \frac{\partial F}{\partial x_n}\end{pmatrix}
+	\qquad
+	J_f = f'(r)
+	\qquad 
+	J_r = \begin{pmatrix} \frac{\partial r}{\partial x_1} &   \ldots & \frac{\partial r}{\partial x_n}\end{pmatrix}
+	= \begin{pmatrix} \frac{x_1}{r} &   \ldots & \frac{x_n}{r}\end{pmatrix}
+	\]
+	Ainsi :
+	\[
+	\frac{\partial F}{\partial x_i} = \frac{x_i}{r} \cdot f'(r).
+	\]
+	Autrement dit, on a une identité d'opérateurs :
+	\[
+	\frac{\partial}{\partial x_i} = \frac{x_i}{r} \cdot  \frac{d}{dr}.
+	\]	
+	
+	\item Dérivons $G = f'(r) = f' \circ r$ par rapport à $x_i$, en appliquant la même formule obtenue (avec $f'$ à la place de $f$) :
+	\[
+	\frac{\partial f'(r)}{\partial x_i} = \frac{x_i}{r} \cdot  f''(r) .
+	\]	
+	
+	\item On peut maintenant dériver $\frac{\partial F}{\partial x_i} = \frac{x_i}{r} \cdot  f'(r)$ par rapport à $x_i$ :
+	\begin{align*}
+	\frac{\partial^2 F}{\partial x_i^2} 
+	&= 	\frac{\partial }{\partial x_i}\frac{\partial F}{\partial x_i} \\
+	&=  \frac{\partial }{\partial x_i} \left( \frac{x_i}{r} \cdot  f'(r) \right) \\
+	&= \frac{\partial \frac{x_i}{r}}{\partial x_i} \cdot  f'(r) + \frac{x_i}{r} \cdot \frac{\partial f'(r)}{\partial x_i} 
+	 \\
+	&= 	\frac{r-\frac{x_i^2}{r}}{r^2} \cdot  f'(r) + \frac{x_i^2}{r^2}  \cdot f''(r) \\
+	&= 	\frac{r^2-x_i^2}{r^3} \cdot f'(r) + \frac{x_i^2}{r^2} \cdot  f''(r)\\	
+	\end{align*}
+	
+	\item On somme les équations précédentes :
+	
+	\begin{align*}	
+	\Delta F 
+	&= \frac{\partial^2 F}{\partial x_1^2} + \cdots + \frac{\partial^2 F}{\partial x_n^2} \\
+	&= \frac{nr^2 - (x_1^2+\cdots+x_n^2)}{r^3}  \cdot  f'(r) + \frac{x_1^2+\cdots+x_n^2}{r^2}  \cdot  f''(r) \\
+	&=  \frac{nr^2 - r^2}{r^3}  \cdot  f'(r)  + \frac{r^2}{r^2} \cdot  f''(r) \\	
+	&= \frac{n-1}{r}  \cdot  f'(r) + f''(r).	
+	\end{align*}	
+\end{enumerate}
+
+Conclusion :
+\[\Delta F = \frac{n-1}{r} f'(r) + f''(r).\]
+\fincorrection
+
+\finexercice
+
+
+
+
+
+\exercice{2639, debievre, 2009/05/19}
+\enonce[Laplacien en coordonnées polaires]
+Soit $f\colon \R^2\setminus\{(0,0)\}\longrightarrow \R$ 
+une fonction
+de classe $\mathcal{C}^2$ et soient $r$ et $\theta$ les coordonnées
+polaires standard dans le plan de telle sorte que
+l'association
+\[
+\Phi : {}]0,+\infty[ \times  [0,2\pi[ \longrightarrow  \R^2\setminus\{(0,0)\},
+\quad
+(r,\theta)\longmapsto (x,y)=(r\cos\theta, r\sin\theta),
+\]
+soit un changement de variables.
+Soit $F$ la fonction définie par 
+\[
+F(r,\theta)=f(r\cos\theta, r\sin\theta).
+\]
+C'est \og{}l'expression de $f$ 
+en coordonnées polaires\fg{}. 
+Le but de l'exercice est de prouver :
+\begin{equation*}
+	\frac{\partial^2 f}{\partial x^2}(x,y)+\frac{\partial^2 f}{\partial y^2}(x,y)=
+	\frac{\partial^2F}{\partial r^2}(r,\theta)+\frac{1}{r}\frac{\partial F}{\partial r}(r,\theta)+\frac{1}{r^2}\frac{\partial^2 F}{\partial \theta^2}(r,\theta).
+	\label{laplace}
+\end{equation*}
+
+Cette formule s'appelle l'expression du \og{}laplacien en coordonnées polaires\fg{}. 
+
+\begin{enumerate}
+	\item Calculer les dérivées partielles de $F$ par rapport à $r$ et $\theta$ en fonction des dérivées partielles de $f$ par rapport à $x$ et $y$ et obtenir les identités d'opérateurs :
+	\[
+	\frac{\partial}{\partial r} = \frac xr \cdot  \frac{\partial }{\partial x}+ \frac yr \cdot  \frac{\partial }{\partial y}
+	\qquad \text{ et } \qquad 
+	\frac{\partial }{\partial \theta} = -y  \cdot  \frac{\partial }{\partial x}+x \cdot  \frac{\partial }{\partial y}.
+	\]
+	
+	\item Calculer $\frac{\partial^2 F}{\partial r^2}$ en dérivant $\frac{\partial F}{\partial r}$  par rapport à $r$ et en utilisant que $x/r$ et $y/r$ ne dépendent pas de $r$.
+	
+	\item Calculer $\frac{\partial^2 F}{\partial \theta^2}$ en dérivant $\frac{\partial F}{\partial \theta}$  par rapport à $\theta$ et en montrant que $\frac{\partial x}{\partial \theta} = -y$ et $\frac{\partial y}{\partial \theta} = x$.
+	
+	\item Conclure.
+\end{enumerate}
+
+\finenonce
+
+\indication
+L'exercice ne dépend pas de la connaissance du Laplacien.
+\begin{enumerate}
+	\item On a $F = f \circ \Phi$, puis appliquer la formule \og{}$J_F = J_f \times J_\Phi$\fg{}.
+	
+	\item Il s'agir d’appliquer $\frac{\partial}{\partial r}$ à $\frac{\partial F}{\partial r} = \frac xr\frac{\partial f}{\partial x}+ \frac yr\frac{\partial f}{\partial y}$.
+	
+	\item Il s'agir d’appliquer $\frac{\partial}{\partial \theta}$ à $\frac{\partial F}{\partial \theta} = -y \frac{\partial f}{\partial x}+x\frac{\partial f}{\partial y}$.
+\end{enumerate}
+
+\finindication
+
+\correction
+\begin{enumerate}
+	\item On a $F = f \circ \Phi$. 
+	\[
+	J_F = \begin{pmatrix} \frac{\partial F}{\partial r} & \frac{\partial F}{\partial \theta} \end{pmatrix}
+	\qquad
+	J_f = \begin{pmatrix} \frac{\partial f}{\partial x} & \frac{\partial f}{\partial y}  \end{pmatrix}
+	\qquad
+	J_\Phi
+	= \begin{pmatrix}
+		\cos\theta & -r\sin\theta \\
+		\sin\theta & r\cos\theta
+	\end{pmatrix}.
+	\]
+	
+	Par la formule \og{}$J_F = J_f \times J_\Phi$\fg{}, on obtient :
+	\[
+	\frac{\partial F}{\partial r} = \cos\theta \cdot  \frac{\partial f}{\partial x}  + \sin\theta \cdot  \frac{\partial f}{\partial y} = \frac xr\frac{\partial f}{\partial x}+ \frac yr\frac{\partial f}{\partial y}.
+	\]
+	Ainsi on passe de l'opérateur $\frac{\partial }{\partial r}$ aux opérateurs $\frac{\partial }{\partial x}$, $\frac{\partial }{\partial y}$ par l'identité :
+	\[
+	\frac{\partial}{\partial r} = \frac xr\frac{\partial }{\partial x}+ \frac yr\frac{\partial }{\partial y}
+	\]
+
+	
+	Et on obtient aussi :
+	\[
+	\frac{\partial F}{\partial \theta} = -r\sin\theta\frac{\partial f}{\partial x}+ r\cos\theta\frac{\partial f}{\partial y} = -y \frac{\partial f}{\partial x}+x\frac{\partial f}{\partial y},
+	\]	
+	d'où :	
+	\[
+	\frac{\partial }{\partial \theta} = -y \frac{\partial }{\partial x}+x\frac{\partial }{\partial y}.
+	\]
+	
+	\item Pour calculer $\frac{\partial^2 F}{\partial r^2}$, on part de $\frac{\partial F}{\partial r} =  \frac xr f_x + \frac yr f_y$, et on dérive cette expression de nouveau par rapport à $r$.
+	\begin{align*}
+	\frac{\partial^2 F}{\partial r^2}
+	&= 	\frac{\partial }{\partial r} \frac{\partial F}{\partial r} \\
+	&= \frac{\partial }{\partial r} \left( \frac xr f_x + \frac yr f_y \right) \\
+	&= \frac xr \frac{\partial f_x}{\partial r} + \frac yr \frac{\partial f_y}{\partial r} \quad \text{ car $\frac xr=\cos\theta$ et $\frac yr=\sin\theta$ ne dépendent pas de $r$}\\
+	&= \frac xr \left( \frac xr \frac{\partial f_x}{\partial x}+ \frac yr\frac{\partial f_x}{\partial y} \right) +  \frac yr \left( \frac xr \frac{\partial f_y}{\partial x}+ \frac yr\frac{\partial f_y}{\partial y} \right) \\
+	&= \frac{1}{r^2} \left( x^2 f_{xx} + 2xy f_{xy} + y^2 f_{yy} \right) 
+	\end{align*}
+	
+	
+	\item 
+	Commençons par remarquer que :
+	\[\frac{\partial x}{\partial \theta} = \frac{\partial r\cos\theta}{\partial \theta} = -r\sin\theta = -y\]
+	et 
+	\[\frac{\partial y}{\partial \theta} = \frac{\partial r\sin\theta}{\partial \theta} = r\cos\theta = x.\]
+	
+	
+	
+	Pour calculer $\frac{\partial^2 F}{\partial \theta^2}$, on part de $\frac{\partial F}{\partial \theta} = -y f_x+x f_y$, et on dérive cette expression par rapport à $\theta$.
+	\begin{align*}
+		\frac{\partial^2 F}{\partial \theta^2}
+		&= 	\frac{\partial }{\partial \theta} \frac{\partial F}{\partial \theta} \\
+		&= \frac{\partial }{\partial \theta} \left( -y f_x + x f_y  \right) \\
+		&= \left( -\frac{\partial y}{\partial \theta} f_x  -y\frac{\partial f_x}{\partial \theta} \right) + 
+		\left( \frac{\partial x}{\partial \theta} f_y  + x\frac{\partial f_y}{\partial \theta} \right) \\
+		&= \left( -x f_x  -y\left( -y \frac{\partial f_x}{\partial x}+x\frac{\partial f_x}{\partial y} \right)\right) + 
+\left( -y f_y  + x\left( -y \frac{\partial f_y}{\partial x}+x\frac{\partial f_y}{\partial y} \right) \right) \\		
+		&= -x f_x -y f_y + x^2 f_{yy} - 2xyf_{xy} + y^2 f_{xx}
+	\end{align*}
+	
+	
+
+	
+	\item Il s'agit de faire une somme à partir des trois égalités obtenues :
+	\begin{align*}	
+	r\frac{\partial F}{\partial r} + r^2 \frac{\partial^2F}{\partial r^2} + \frac{\partial^2 F}{\partial \theta^2} \\
+	&= 
+	xf_x + yf_y \\
+	&\qquad + x^2 f_{xx} + 2xy f_{xy} + y^2 f_{yy} \\
+	&\qquad \qquad -x f_x -y f_y + x^2 f_{yy} - 2xyf_{xy} + y^2 f_{xx} \\
+	&= (x^2+y^2)(f_{xx}+f_{yy}) \\
+	&= r^2 (f_{xx}+f_{yy})
+	\end{align*}
+	D'où l'égalité recherchée.
+	
+\end{enumerate}
+\fincorrection
+\finexercice
+
+
+\bigskip
+
+Corrections : Arnaud Bodin, Stephan de Bièvre. Relecture : Axel Renard.
+
+\end{document}
+

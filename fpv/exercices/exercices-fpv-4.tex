@@ -1,0 +1,786 @@
+%%%%%%%%%%%%%%%%%% PREAMBULE %%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{fancybox}
+\usepackage{graphicx}
+%\usepackage{tikz}
+
+%----- Ensembles : entiers, reels, complexes -----
+\newcommand{\Nn}{\mathbb{N}} \newcommand{\N}{\mathbb{N}}
+\newcommand{\Zz}{\mathbb{Z}} \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Qq}{\mathbb{Q}} \newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Rr}{\mathbb{R}} \newcommand{\R}{\mathbb{R}}
+\newcommand{\Cc}{\mathbb{C}} \newcommand{\C}{\mathbb{C}}
+\newcommand{\Kk}{\mathbb{K}} \newcommand{\K}{\mathbb{K}}
+
+%----- Modifications de symboles -----
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\Re}{\mathop{\mathrm{Re}}\nolimits}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}\nolimits}
+\newcommand{\llbracket}{\left[\kern-0.15em\left[}
+\newcommand{\rrbracket}{\right]\kern-0.15em\right]}
+\renewcommand{\ge}{\geqslant} \renewcommand{\geq}{\geqslant}
+\renewcommand{\le}{\leqslant} \renewcommand{\leq}{\leqslant}
+
+%----- Fonctions usuelles -----
+\newcommand{\ch}{\mathop{\mathrm{ch}}\nolimits}
+\newcommand{\sh}{\mathop{\mathrm{sh}}\nolimits}
+\renewcommand{\tanh}{\mathop{\mathrm{th}}\nolimits}
+\newcommand{\cotan}{\mathop{\mathrm{cotan}}\nolimits}
+\newcommand{\Arcsin}{\mathop{\mathrm{arcsin}}\nolimits}
+\newcommand{\Arccos}{\mathop{\mathrm{arccos}}\nolimits}
+\newcommand{\Arctan}{\mathop{\mathrm{arctan}}\nolimits}
+\newcommand{\Argsh}{\mathop{\mathrm{argsh}}\nolimits}
+\newcommand{\Argch}{\mathop{\mathrm{argch}}\nolimits}
+\newcommand{\Argth}{\mathop{\mathrm{argth}}\nolimits}
+\newcommand{\pgcd}{\mathop{\mathrm{pgcd}}\nolimits} 
+
+%----- Structure des exercices ------
+%\theoremstyle{definition}
+
+\newtheoremstyle{exostyle}
+{15pt}
+{15pt}
+{\normalfont}
+{0pt}
+{\bfseries}
+{}
+{\newline}
+{\thmname{#1}~\thmnumber{#2} -- \thmnote{#3}}
+\theoremstyle{exostyle} 
+
+\newtheorem{exo}{Exercice}
+\newtheorem{ind}{Indications}
+\newtheorem{cor}{Correction}
+
+\newcommand{\exercice}[1]{} \newcommand{\finexercice}{}
+%\newcommand{\exercice}[1]{{\tiny\texttt{#1}}\vspace{-2ex}} % pour afficher le numero absolu, l'auteur...
+\newcommand{\enonce}{\begin{exo}} \newcommand{\finenonce}{\end{exo}}
+\newcommand{\indication}{\begin{ind}} \newcommand{\finindication}{\end{ind}}
+\newcommand{\correction}{\begin{cor}} \newcommand{\fincorrection}{\end{cor}}
+
+\newcommand{\noindication}{\stepcounter{ind}}
+\newcommand{\nocorrection}{\stepcounter{cor}}
+
+\newcommand{\fiche}[1]{} \newcommand{\finfiche}{}
+\newcommand{\titre}[1]{\centerline{\large \bf #1}}
+\newcommand{\addcommand}[1]{}
+\newcommand{\video}[1]{}
+
+%----- Presentation ------
+\setlength{\parindent}{0cm}
+
+\newcommand{\ExoSept}{\textbf{\textsf{Exo7}}}
+\newcommand{\LogoExoSept}{\setlength{\unitlength}{0.6em}
+	\begin{picture}(0,0)  \thicklines     \put(0,4){\line(0,1){3}}   \put(0,7){\line(1,0){3}}
+		\put(3,7){\line(0,-1){7}}  \put(0,4){\line(1,0){7}}   \put(3,0){\line(1,0){4}}
+		\put(7,0){\line(0,1){4}}   \put(3,7){\line(4,-3){4}}  \put(7,4){\line(3,4){3}}  
+		\put(10,8){\line(-4,3){4}} \put(3,7){\line(3,4){3}}   \put(4.6,6.8){\mbox{\ExoSept}}
+\end{picture}}
+
+%----- Commandes supplementaires ------
+
+\usepackage[a4paper, margin = 2cm]{geometry}
+\usepackage[charter]{mathdesign}
+%\usepackage{import}
+
+\usepackage{tikz}
+\usetikzlibrary{calc,shadows,arrows,shapes,patterns,matrix}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{fadings}
+\usetikzlibrary{external}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usetikzlibrary{backgrounds}
+\usepackage{tikz,tikz-3dplot}
+
+\newcommand{\sauteligne}{\leavevmode\vspace{-\baselineskip}}
+
+\newcommand{\grad}{\operatorname{grad}} % dans le document
+\newcommand{\diver}{\operatorname{div}}
+\newcommand{\rot}{\operatorname{rot}}
+
+\begin{document}
+
+	
+	
+%%%%%%%%%%%%%%%%%% ENTETE %%%%%%%%%%%%%%%%%%
+
+
+%\kern-2em
+\textsc{Feuille d'exercices 4}\hfill\textsc{Fonctions de plusieurs variables}
+
+\vspace*{0.5ex}
+\hrule\vspace*{1.5ex} 
+\hfil{\textbf{\Large \textsc{Matrice jacobienne}}}
+\vspace*{1ex} \hrule 
+\vspace*{5ex} 
+
+
+
+
+%===========================================
+\section{Matrice jacobienne et composition}
+
+% Cette fiche contient les exercices : 1801 1806 
+
+\exercice{1801, ridde, 1999/11/01}
+
+\exercice{}
+\enonce[Dérivées d'une composition]
+Soit $f : \R \rightarrow
+\R$ dérivable. Calculer les dérivées partielles de :
+\[
+g (x, y) = f (x + y),
+\qquad h (x, y) = f (x^{2} + y^{2}),
+\qquad k (x, y) = f (xy).
+\]
+\finenonce
+
+\indication 
+Pour calculer les  dérivées partielles par rapport 
+à une variable, interpréter les autres variables comme paramètres
+et utiliser les règles ordinaires de calcul de la dérivée.
+\finindication
+
+\correction
+\begin{align*}
+	&\frac{\partial g}{\partial x}(x,y) = f'(x+y)
+	&\qquad\frac{\partial g}{\partial y}(x,y) &= f'(x+y) \\
+	&\frac{\partial h}{\partial x}(x,y) = 2x f'(x^{2} + y^{2})
+	&\qquad\frac{\partial h}{\partial y}(x,y) &= 2y f'(x^{2} + y^{2}) \\
+	&\frac{\partial k}{\partial x}(x,y)= yf'(xy) 
+	&\qquad\frac{\partial k}{\partial y}(x,y)&= xf'(xy)
+\end{align*}	
+
+\fincorrection
+
+\finexercice
+
+
+\exercice{2626, debievre, 2009/05/19}
+\enonce[Équation aux dérivées partielles]
+Soit $f\colon\R^3 \rightarrow \R$ une fonction de classe $\mathcal{C}^1$
+et soit  $g\colon \R^3 \rightarrow \R$ la fonction définie par :
+\[
+g(x,y,z) = f(x-y,y-z,z-x). 
+\]
+Montrer que :
+\begin{equation*}
+	\frac{\partial g}{\partial x}  + \frac{\partial g}{\partial y}  + \frac{\partial g}{\partial z} = 0.
+	\label{ex3}
+\end{equation*}
+\finenonce
+
+\indication
+Écrire $g$ sous la forme $f \circ \Phi$ et appliquer la formule \og{}$J_g = J_f \times J_\Phi$\fg{}.
+\finindication
+
+\correction
+On a $g = f \circ \Phi$ où $\Phi : \Rr^3 \to \Rr^3$ est définie par $\Phi(x,y,z)=(x-y,y-z,z-x)$.
+On souhaite appliquer la formule de la matrice jacobienne d'une composition \og{}$J_g = J_f \times J_\Phi$\fg{}.
+Plus précisément :
+\[
+J_g(x,y,z) = J_f\big(\Phi(x,y,z)\big)  \times J_\Phi(x,y,z).
+\]
+Or les matrices jacobiennes de $f$ et $g$ sont des matrices-lignes :
+\[
+J_f(x,y,z) = \begin{pmatrix}
+	\frac{\partial f}{\partial x}(x,y,z)&
+	\frac{\partial f}{\partial y}(x,y,z)&
+	\frac{\partial f}{\partial z}(x,y,z)
+	\end{pmatrix}
+\]
+et
+\[
+J_g(x,y,z) = \begin{pmatrix}
+	\frac{\partial g}{\partial x}(x,y,z)& 
+	\frac{\partial g}{\partial y}(x,y,z)&
+	\frac{\partial g}{\partial z}(x,y,z)
+\end{pmatrix}.
+\]	
+La matrice jacobienne de $\Phi$ est ici une matrice ayant des coefficients indépendants de $x,y,z$ :
+\[
+J_\Phi(x,y,z) = 
+\begin{pmatrix}
+1 & - 1 & 0 \\
+0 & 1 & -1 \\
+-1 & 0 & 1	
+\end{pmatrix}.
+\]
+La formule \og{}$J_g = J_f \times J_\Phi$\fg{} permet donc d'exprimer les dérivées partielles de $g$ en fonction de celles de $f$. Par exemple on trouve :
+\[ 
+\frac{\partial g}{\partial x}(x,y,z) = 
+\frac{\partial f}{\partial x}\big(\Phi(x,y,z)\big)-\frac{\partial f}{\partial z}\big(\Phi(x,y,z)\big).
+\]
+On résume les résultats en :
+\begin{align*}
+	\frac{\partial g}{\partial x}
+	&=
+	\frac{\partial f}{\partial x}-\frac{\partial f}{\partial z}
+	\\
+	\frac{\partial g}{\partial y}
+	&=
+	\frac{\partial f}{\partial y}-\frac{\partial f}{\partial x}
+	\\
+	\frac{\partial g}{\partial z}
+	&=
+	\frac{\partial f}{\partial z}-\frac{\partial f}{\partial y}
+\end{align*}
+En faisant la somme, on obtient l'égalité cherchée.
+\fincorrection
+\finexercice
+
+
+
+
+\exercice{}  
+\enonce[Matrices jacobiennes et composition]
+% changement énoncé du 2627
+On considère les fonctions $f\colon \R^2\longrightarrow \R^3$ et
+$g\colon \R^3\longrightarrow \R$ définies par :
+\[
+f(x,y)= \big(\sin (x+y), xy, \exp(y^2)\big),\quad 
+g(u,v,w)= uvw .
+\]
+\begin{enumerate}
+	\item Calculer explicitement $g\circ f$.
+	\item En utilisant l'expression trouvée à la première question, calculer les dérivées partielles de $g\circ f$.
+	\item Déterminer les matrices jacobiennes $J_f(x,y)$ et $J_g(u,v,w)$ de $f$ et de $g$. 
+	\item Retrouver les dérivées partielles de $g$ en utilisant cette fois un produit approprié de matrices jacobiennes. 
+\end{enumerate}
+\finenonce
+
+\indication 
+Les variables $x,y,z$ et $u,v,w$ sont liées par la relation suivante :
+$f(x,y)=(\sin (x+y), xy, \exp(y^2))=(u,v,w)$.
+\finindication
+
+\correction
+\begin{enumerate} 
+	\item $g(f(x,y))= xy \cdot \sin (x+y) \cdot \exp(y^2)$
+	
+	\item \begin{align*}
+		\frac{\partial (g \circ f)}{\partial x}(x,y)
+		&= 
+		\big(\sin(x + y) + x \cos(x + y) \big) \cdot y \cdot  e^{y^2}
+		\\
+		\frac{\partial (g\circ f)}{\partial y}(x,y)
+		&=
+		\big((2y^2+1)\sin(x + y) + y \cos(x + y) \big) \cdot x \cdot  e^{y^2}
+	\end{align*}
+	\item On note $u,v,w$ les trois composantes de $f$,
+	c'est-à-dire : $f(x,y)=(\sin (x+y), xy, \exp(y^2))=(u,v,w)$.
+	Il faut considérer $u,v,w$ à la fois comme des fonctions (par exemple $(x,y) \mapsto u(x,y) = \sin(x+y)$) mais aussi comme le nom de nouvelles variables.
+	
+	Ainsi la matrice jacobienne $J_f$ de $f$ est une matrice $3\times2$ et s'écrit :
+\[
+		J_f(x,y)
+		=
+		\begin{pmatrix} 
+			\frac{\partial u}{\partial x}
+			&
+			\frac{\partial u}{\partial y}
+			\\
+			\frac{\partial v}{\partial x}
+			&
+			\frac{\partial v}{\partial y}
+			\\
+			\frac{\partial w}{\partial x}
+			&
+			\frac{\partial w}{\partial y}
+		\end{pmatrix}
+=
+		\begin{pmatrix}
+			\cos(x + y) & \cos(x + y) \\
+			y & x \\
+			0 & 2y e^{y^2}
+		\end{pmatrix}.
+\]
+	De même, la matrice jacobienne $\mathrm J_g$ de $g$ est une matrice-ligne:
+\[
+		J_g(u,v,w) = \begin{pmatrix}
+		\frac{\partial g}{\partial u} & \frac{\partial g}{\partial v} & \frac{\partial g}{\partial w} \end{pmatrix}
+		= \begin{pmatrix} vw & uw & uv \end{pmatrix}.
+\]
+On aura besoin de cette matrice exprimée à l'aide des variables $x,y,z$, c'est-à-dire où l'on a substitué $u,v,w$ par leur expression en $x$ et $y$ :
+\[
+J_g\big( f(x,y) \big) = 
+\begin{pmatrix}xy\exp(y^2)  & \sin (x+y)\exp(y^2) & \sin (x+y)xy \end{pmatrix}.
+\]
+
+
+	\item La matrice jacobienne $J_{g\circ f}$ de la fonction
+	composée  $g\circ f$ s'écrit comme produit matriciel : \og{}$J_{g\circ f} = J_g \times J_f$\fg{}.
+	Plus précisément cette formule est $J_{g\circ f} (x,y) = J_g (f(x,y)) \times J_f(x,y)$.
+	En gardant la notation simplifiée on a :
+	\[
+	J_{g\circ f}
+	= J_g \times J_f 
+	= \begin{pmatrix}
+		\frac{\partial g}{\partial u} & \frac{\partial g}{\partial v} & \frac{\partial g}{\partial w} \end{pmatrix}
+		\times 
+		\begin{pmatrix} 
+		\frac{\partial u}{\partial x}
+		&
+		\frac{\partial u}{\partial y}
+		\\
+		\frac{\partial v}{\partial x}
+		&
+		\frac{\partial v}{\partial y}
+		\\
+		\frac{\partial w}{\partial x}
+		&
+		\frac{\partial w}{\partial y}
+	\end{pmatrix}.
+	\]
+	Le résultat est une matrice-ligne de longueur $2$ qui est :
+	\[ J_{g\circ f} = \begin{pmatrix} 
+		\frac{\partial (g \circ f)}{\partial x} & \frac{\partial (g \circ f)}{\partial y}
+		\end{pmatrix}.
+	\]
+	En calculant le produit de matrice et en identifiant les coefficients de $J_{g\circ f}$ avec ceux de $J_g \times J_f$, on retrouve :
+\begin{align*}
+	\frac{\partial (g \circ f)}{\partial x}(x,y)
+	&= 
+	\big(\sin(x + y) + x \cos(x + y) \big) \cdot y \cdot  e^{y^2}
+	\\
+	\frac{\partial (g\circ f)}{\partial y}(x,y)
+	&=
+	\big((2y^2+1)\sin(x + y) + y \cos(x + y) \big) \cdot x \cdot  e^{y^2}
+\end{align*}
+\end{enumerate}
+\fincorrection
+\finexercice
+
+\exercice{}
+\enonce[Coordonnées polaires]
+Soit $\Phi : {}]0,+\infty[{}\times{}[0,2\pi[{}\rightarrow \Rr^2$ le changement de coordonnées polaires défini par :
+$$(r,\theta)\longmapsto (x,y) = (r\cos\theta,r\sin\theta).$$
+\begin{enumerate}
+	\item Calculer la matrice jacobienne de $\Phi$.
+	
+	\item Soit $f : \Rr^2 \to \Rr$, $(x,y) \mapsto f(x,y)$. 
+	On note $g = f \circ \Phi : \Rr^2 \to \Rr$, $(r,\theta) \mapsto f(r\cos\theta, r \sin\theta)$. 
+	Calculer les dérivées partielles de $g$ (par rapport à $r$ et $\theta$) en fonction des dérivées partielles de $f$ (par rapport à $x$ et $y$).
+	
+	\item On considère une solution $f$ de l'équation aux dérivées partielles :
+	$$y \frac{\partial f}{\partial x}- x\frac{\partial f}{\partial y}=0.$$
+	
+	Quelle équation satisfait alors $g = f \circ \Phi$ ?
+	Résoudre cette équation et l'équation initiale.
+	
+	% 
+\end{enumerate}
+\finenonce
+
+\noindication
+\correction
+\begin{enumerate}
+	\item Les deux composantes de $\Phi$ sont $x=r\cos\theta$ et $y=r\sin\theta$.
+	Ainsi :
+\[
+J_\Phi(r, \theta) =
+\begin{pmatrix}
+	\frac{\partial x}{\partial r} & \frac{\partial x}{\partial \theta} \\
+	\frac{\partial y}{\partial r} & \frac{\partial y}{\partial \theta}
+\end{pmatrix}
+= \begin{pmatrix}
+	\cos\theta & -r\sin\theta \\
+	\sin\theta & r\cos\theta
+\end{pmatrix}
+.
+\]
+  \item Comme $g = f\circ \Phi$, on applique la formule \og{}$J_g = J_f \times J_\Phi$\fg{} où :
+  \[
+  J_g = \begin{pmatrix} \frac{\partial g}{\partial r} & \frac{\partial g}{\partial \theta} \end{pmatrix}
+  \qquad
+  J_f = \begin{pmatrix} \frac{\partial f}{\partial x} & \frac{\partial f}{\partial y}  \end{pmatrix}.
+ \]
+ Par la formule \og{}$J_g = J_f \times J_\Phi$\fg{} on obtient :
+ \begin{align*}
+ \frac{\partial g}{\partial r} &= \cos\theta\frac{\partial f}{\partial x}  + \sin\theta\frac{\partial f}{\partial y},\\ 
+ \frac{\partial g}{\partial \theta} &= -r\sin\theta\frac{\partial f}{\partial x}+ r\cos\theta\frac{\partial f}{\partial y}.
+ \end{align*}
+
+ Il est plus rigoureux de préciser en quelles valeurs les fonctions doivent être évaluées, par exemple :
+  \[
+ \frac{\partial g}{\partial r}(r,\theta) = \cos\theta\frac{\partial f}{\partial x} (r\cos\theta,r\sin\theta) + \sin\theta\frac{\partial f}{\partial y}(r\cos\theta,r\sin\theta).
+ \] 
+ 
+  \item Supposons que $f(x,y)$ vérifie l'équation aux dérivées partielles $y \frac{\partial f}{\partial x}- x\frac{\partial f}{\partial y}=0$.
+  
+  Par la question précédente, et toujours en notant $x=r\cos\theta$, $y=r\sin\theta$, on remarque que :
+  \[
+  \frac{\partial g}{\partial \theta} = -r\sin\theta\frac{\partial f}{\partial x}+ r\cos\theta\frac{\partial f}{\partial y} 
+  = -y\frac{\partial f}{\partial x} + x\frac{\partial f}{\partial y}.
+  \]
+  Donc si $f(x,y)$ satisfait l'équation aux dérivées partielles précédente, alors $g(r,\theta)$ satisfait une équation très simple :
+  \[ \frac{\partial g}{\partial \theta} = 0.\]
+  
+  Il est facile de trouver les fonctions $g$ satisfaisant cette équation. 
+  Puisque la dérivée partielle de $g$ par rapport à $\theta$ est nulle cela signifie que $g$ ne dépend pas de la variable $\theta$, autrement dit elle ne dépend que de la variable $r$. Ainsi il existe une fonction $k : \Rr \to \Rr$, telle que :
+  \[ g(r,\theta) = k(r). \]
+  
+  Comme $x=r\cos\theta$, $y=r\sin\theta$ alors $r = \sqrt{x^2+y^2}$, donc
+  \[
+  g(r,\theta) = f(r\cos\theta,r\sin\theta) =  k(r) \]
+  et devient :
+  \[ f(x,y) = k\big(\sqrt{x^2+y^2}\big). \]  
+  
+  Quitte à changer $k$, on pourrait aussi écrire $f(x,y) = k(x^2+y^2)$.
+  
+  Géométriquement cela signifie que la valeur de $f$ en $(x,y)$ ne dépend que la distance $r$ entre $(x,y)$ et l'origine et pas de l'angle $\theta$ de ce point avec l'horizontale.
+  En particulier le graphe de $f$, est symétrique par rotation autour de l'axe $(Oz)$.
+  
+\end{enumerate}
+\fincorrection
+
+\finexercice
+
+
+\enonce[Fonctions homogènes]
+Soit $ f: \Rr^2 \to \Rr$ une fonction $\mathcal{C}^1$ telle que :
+\begin{equation}
+	\forall (x,y) \in \Rr^2  \quad \forall t>0 \qquad f(tx,ty)=tf(x,y). \label{eq:hom} \tag{H}
+\end{equation}
+Montrer que $ f$ est linéaire.
+
+\emph{Indication.} Commencer par dériver la formule d'homogénéité \eqref{eq:hom} par rapport à $t$.
+
+\finenonce
+
+\indication
+
+Utiliser que
+\[\frac{d}{dt} f\big( x(t),y(t) \big) = x'(t)	\frac{\partial f}{\partial x}\big( x(t),y(t) \big)  + y'(t)\frac{\partial f}{\partial y} \big( x(t),y(t) \big) .\]
+\finindication
+\correction
+
+On rappelle la formule :
+ \[\frac{d}{dt} f\big( x(t),y(t) \big) = x'(t)	\frac{\partial f}{\partial x}\big( x(t),y(t) \big)  + y'(t)\frac{\partial f}{\partial y} \big( x(t),y(t) \big) .\]
+  que l'on peut abréger en :
+   \[\frac{d}{dt} f\big( x(t),y(t) \big) = x'(t)	\frac{\partial f}{\partial x}  + y'(t)\frac{\partial f}{\partial y}.\]
+  
+  Fixons $(x_0,y_0)$ et $x(t) = tx_0$, $y(t)=ty_0$.
+  On note $g(t) = f(tx_0,ty_0)$, $t\in{}]0,+\infty[$.  
+  Alors d'une part $g$ est une fonction linéaire (pour sa variable $t$) car :
+  \[g(t) = f(tx_0,ty_0) = tf(x_0,y_0).\]
+  Donc sa dérivée est :
+  \[ g'(t) = f(x_0,y_0). \]
+
+  D'autre part $x'(t) = x_0$, $y'(t)=y_0$ donc par la formule de la dérivée d'une composition que l'on a rappelée ci-dessus, on a :
+  \[
+  g'(t) = \frac{d}{dt} f\big( x(t),y(t) \big) = x_0	\cdot \frac{\partial f}{\partial x} (tx_0,ty_0) + y_0 \cdot \frac{\partial f}{\partial y}(tx_0,ty_0).
+  \]
+  
+  Ainsi, quel que soit $t>0$ :
+  \[
+  f(x_0,y_0) = x_0 \cdot \frac{\partial f}{\partial x} (tx_0,ty_0) + y_0 \cdot  \frac{\partial f}{\partial y}(tx_0,ty_0).
+  \]
+  La fonction $f$ étant de classe $\mathcal{C}^1$, les dérivées partielles sont continues à l'origine. En particulier lorsque $t \to 0$, on trouve :
+   \[
+  f(x_0,y_0) = x_0 \cdot \frac{\partial f}{\partial x} (0,0) + y_0\cdot  \frac{\partial f}{\partial y}(0,0).
+  \]
+  Bilan : si on note $a=\frac{\partial f}{\partial x} (0,0)$ et $b = \frac{\partial f}{\partial y}(0,0)$, alors :
+  \[
+  f(x_0,y_0) = ax_0+by_0
+  \]
+  où $a,b\in\Rr$ sont des constantes (indépendantes de $(x_0,y_0)$).
+  La formule étant valable quel que soit $(x_0,y_0)$, $f$ est bien une fonction linéaire :
+  \[
+  f(x,y) = ax + by
+  \]
+  quel que soit $(x,y)\in\Rr^2$.
+
+   
+
+\fincorrection
+\finexercice
+
+%===========================================
+\section{Gradient, divergence, rotationnel}
+
+
+\exercice{}
+\enonce[Gradient, divergence, rotationnel]
+$\nabla$ (qui se lit \og{}nabla\fg{}) correspond à l'opérateur
+$\nabla = \begin{pmatrix} 
+	\frac{\partial}{\partial x_1}\\
+	\vdots\\
+	\frac{\partial }{\partial x_n}\end{pmatrix}.
+$
+
+
+Le \emph{gradient} de $f : \Rr^n \to \Rr$ est :
+$$\grad f(x) = \nabla f (x) =
+\begin{pmatrix} 
+	\frac{\partial f}{\partial x_1}(x)\\
+	\vdots \\ 
+	\frac{\partial f}{\partial x_n}(x)
+\end{pmatrix}.$$
+
+La \emph{divergence} de $F = (f_1,\ldots,f_n) : \Rr^n \to \Rr^n$ se calcule à l'aide du produit scalaire \og{}$\cdot$\fg{} : 
+$$\diver F(x) = \nabla \cdot F(x) = \sum_{i=1}^n \frac{\partial f_i}{\partial x_i}(x).$$
+
+Le \emph{rotationnel} de $F = (f_1, f_2, f_3) : \Rr^3 \to \Rr^3$  se calcule à l'aide du produit vectoriel \og{}$\wedge$\fg{} :
+$$\rot F (x,y,z) =  \nabla \wedge F(x,y,z) = \begin{pmatrix}
+	\dfrac{\partial f_3}{\partial y}(x,y,z)-\dfrac{\partial f_2}{\partial z}(x,y,z) \\[2ex]
+	\dfrac{\partial f_1}{\partial z}(x,y,z)-\dfrac{\partial f_3}{\partial x}(x,y,z) \\[2ex]
+	\dfrac{\partial f_2}{\partial x}(x,y,z)-\dfrac{\partial f_1}{\partial y}(x,y,z)
+\end{pmatrix}.
+$$
+
+
+\begin{enumerate}
+	\item Calculer le gradient de $f(x_1,\ldots,x_n) = \sum_{i=1}^n x_i^2$.
+	
+	\item Calculer la divergence et le rotationnel de 
+	$F(x,y,z) = (x^2z, y^2+xz, x^2y^2-z)$. 
+	Même question avec $F(x,y,z) = (x\cos y, y\cos z, z\cos x)$.
+		
+	\item Calculer le rotationnel de $F(x,y,z) = (2xy+z^3, x^2-2yz, 4z-y^2+3xz^2)$.
+	Trouver $f : \Rr^3 \to \Rr$ tel que $\grad f(x,y,z) = F(x,y,z)$.
+	On dit que $F$ dérive d'un potentiel scalaire.
+	
+	\item Soit $G(x,y,z) = (xyz, x^2+y^2+z^2, x+y+z)$. Soit $F = \rot(G)$ (on dit que $F$ dérive d'un potentiel vectoriel).
+	Calculer $\diver F$. 
+	
+	\item Soit $E : \Rr^3 \to \Rr^3$ le champ newtonien défini par :
+	$E(M) = k \frac{\overrightarrow{OM}}{\| \overrightarrow{OM} \|^3}$,
+	où $k$ est une constante, $O=(0,0,0)$ l'origine et $M(x,y,z) \in \Rr^3$.
+	Déterminer l'expression de $E$ via les coordonnées $(x,y,z)$ de $M$. Calculer la divergence et le rotationnel de $E$.
+	
+	% div = 0, rot = (0,0,0)
+	
+\end{enumerate}
+\finenonce
+
+\indication
+Pour la dernière question, divergence et rotationnel sont nuls.
+\finindication
+
+\correction
+\begin{enumerate}
+	\item $\frac{\partial f}{\partial x_i}(x) = 2x_i$, donc 
+	\[
+	\grad f(x) = \nabla f (x) =
+	2\begin{pmatrix} 
+		x_1 \\ \vdots \\ x_n
+	\end{pmatrix}
+	= 2x.
+	\]
+	
+	\item 	
+	\begin{enumerate}
+		\item $F(x,y,z) = (f_1,f_2,f_3) = (x^2z, y^2+xz, x^2y^2-z)$.
+		\[ 
+		\diver F(x) 
+		= \nabla \cdot F(x) 
+		= \frac{\partial f_1}{\partial x}(x,y,z)
+		+ \frac{\partial f_2}{\partial y}(x,y,z)
+		+ \frac{\partial f_3}{\partial z}(x,y,z)
+		= 2xz + 2y -1.
+		\]
+		
+		\[ 
+		\rot F (x,y,z) = \nabla \wedge F(x,y,z) = 
+		\begin{pmatrix}
+		\frac{\partial }{\partial x} \\	
+		\frac{\partial }{\partial y} \\			
+		\frac{\partial }{\partial z} 
+		\end{pmatrix} \wedge
+		\begin{pmatrix}
+			f_1 \\ f_2 \\ f_3
+		\end{pmatrix}
+		= 	\begin{pmatrix}
+			\frac{\partial f_3}{\partial y}-\frac{\partial f_2}{\partial z} \\[1ex]
+			\frac{\partial f_1}{\partial z}-\frac{\partial f_3}{\partial x} \\[1ex]
+			\frac{\partial f_2}{\partial x}-\frac{\partial f_1}{\partial y}
+		\end{pmatrix}
+		= 	\begin{pmatrix}	
+			2x^2y-x\\
+			x^2 -2xy^2\\
+			z
+			\end{pmatrix}.
+		\]
+							
+		\item$ F(x,y,z) = (x\cos y, y\cos z, z\cos x)$. 
+		\[ 
+		\diver F(x) = \cos y + \cos z + \cos x.		
+		\]
+		\[ 
+		\rot F (x,y,z) = 
+		\begin{pmatrix}
+			y\sin z \\ z \sin x \\ x \sin y
+		\end{pmatrix}.
+		\]
+	\end{enumerate}
+	
+	\item $F(x,y,z) = (2xy+z^3, x^2-2yz, 4z-y^2+3xz^2)$.
+	
+	\[
+	\rot F (x,y,z) = 
+	\begin{pmatrix}
+	0 \\ 0 \\ 0	
+	\end{pmatrix}.
+	\]
+	
+	Il existe un théorème qui dit que lorsque le rotationnel est nul, alors $F$ dérive d'un potentiel scalaire, c'est-à-dire que l'on peut trouver $f : \Rr^3 \to \Rr$ telle que $F = \grad f$.
+	
+	Cherchons donc un $f$ qui doit vérifier ici :
+	\[
+	\begin{pmatrix}	
+		\frac{\partial f}{\partial x} \\	
+		\frac{\partial f}{\partial y} \\			
+		\frac{\partial f}{\partial z} 
+	\end{pmatrix} 	
+	= 	
+	\begin{pmatrix}	
+	2xy+z^3 \\ x^2-2yz \\ 4z-y^2+3xz^2	
+	\end{pmatrix}.
+	\]
+	
+	Partons par exemple de l'équation $\frac{\partial f}{\partial x}(x,y,z) = 2xy+z^3$.
+	On l'intègre par rapport à la variable $x$ :
+	\[ f(x,y,z) = x^2y + xz^3 + C\]
+	où $C$ est une constante pour la variable $x$, mais attention ! elle peut dépendre des variables $y$ et $z$. Donc $C$ est en fait une fonction $C(y,z)$.
+	
+	On sait donc que $f(x,y,z) = x^2y + xz^3 + C(y,z)$, donc
+	\[\frac{\partial f}{\partial y}(x,y,z) = x^2+\frac{\partial C}{\partial y}(y,z).\]
+	Mais d'autre part on doit avoir :
+	\[
+	\frac{\partial f}{\partial y}(x,y,z) = x^2-2yz.
+	\]
+	Donc :
+	\[
+	x^2+\frac{\partial C}{\partial y}(y,z) = x^2-2yz,
+	\]
+	ce qui conduit à :
+	\[
+	\frac{\partial C}{\partial y}(y,z) = -2yz.
+	\]
+	On intègre cette fois par rapport à la variable $y$ pour trouver :
+	\[
+	C(y,z) = -y^2z + D(z),\]
+	et donc
+	\[
+	f(x,y,z) = x^2y + xz^3 -y^2z + D(z),
+	\]
+	où $D(z)$ est une fonction à déterminer.
+
+	En dérivant cette expression par rapport à $z$ et en identifiant avec la troisième composante du gradient, on doit avoir :
+	\[ 3xz^2 -y^2 + \frac{\partial D}{\partial z}(z) = 4z-y^2+3xz^2. \]
+	Donc $D'(z) = \frac{\partial D}{\partial z}(z) = 4z$. Donc $D(z)=2z^2+E$, où $E \in \Rr$ est une vraie constante. On peut choisir $E=0$.
+	
+	Bilan : $f(x,y,z) = x^2y + xz^3 - y^2z + 2z^2$.
+	
+	\item $G(x,y,z) = (xyz, x^2+y^2+z^2, x+y+z)$. 
+	
+	\[
+	F(x,y,z) = \rot(G) = \begin{pmatrix}
+		1-2z \\ -1+xy \\ 2x-xz
+	\end{pmatrix}.
+	\]
+	On calcule alors :
+	\[\diver F = 0.\]
+	
+	Remarque. Lorsque $F = \rot(G)$, on dit que $F$ dérive d'un potentiel vectoriel et alors il existe un théorème affirmant que l'on a toujours $\diver (\rot(G)) = 0$.
+
+	
+	\item  
+	\begin{enumerate}
+		\item Calcul de $E$.
+		
+		\[
+		\overrightarrow{OM} = (x, y, z) \qquad 
+		\| \overrightarrow{OM} \| = \sqrt{x^2 + y^2 + z^2}.
+		\]
+		Ainsi, le champ \( E \) s'écrit :
+		\[
+		E(M) = k \frac{\overrightarrow{OM}}{\| \overrightarrow{OM} \|^3} = k \frac{(x, y, z)}{(x^2 + y^2 + z^2)^{3/2}}
+		\]
+		C'est-à-dire
+		\[
+		E(x, y, z) = \left( \frac{kx}{(x^2 + y^2 + z^2)^{3/2}}, \frac{ky}{(x^2 + y^2 + z^2)^{3/2}}, \frac{kz}{(x^2 + y^2 + z^2)^{3/2}} \right).
+		\]
+		
+		\item Divergence.
+		
+		Notons $E = (f_1,f_2,f_3)$.
+		Alors avec $f_1(x,y,z) =  \frac{kx}{(x^2 + y^2 + z^2)^{3/2}}$, on a :
+		\[
+		\frac{\partial f_1}{\partial x} 
+		=  \frac{k}{(x^2 + y^2 + z^2)^{3/2}} - \frac{3kx^2}{(x^2 + y^2 + z^2)^{5/2}}.
+		\]
+		De façon similaire par symétrie, on obtient :
+		\[
+		\frac{\partial f_2}{\partial y} = \frac{k}{(x^2 + y^2 + z^2)^{3/2}} - \frac{3ky^2}{(x^2 + y^2 + z^2)^{5/2}},
+		\]
+		\[
+		\frac{\partial f_3}{\partial z} = \frac{k}{(x^2 + y^2 + z^2)^{3/2}} - \frac{3kz^2}{(x^2 + y^2 + z^2)^{5/2}}.
+		\]
+		
+		Pour calculer la divergence on fait la somme de ces trois dérivées :
+		\begin{align*}
+		\diver E &= 
+		\frac{\partial f_1}{\partial x} + \frac{\partial f_2}{\partial y} +\frac{\partial f_3}{\partial z} \\
+		&=  \frac{3k}{(x^2 + y^2 + z^2)^{3/2}} - \frac{3k(x^2+y^2+z^2)}{(x^2 + y^2 + z^2)^{5/2}} \\
+		&=  \frac{3k}{(x^2 + y^2 + z^2)^{3/2}} - \frac{3k}{(x^2 + y^2 + z^2)^{3/2}} \\
+		&= 0
+		\end{align*}		
+		Bilan : la divergence est nulle.
+		
+		
+		\item Rotationnel.
+		
+		\[\rot E (x,y,z) = 
+		\begin{pmatrix}
+			\frac{\partial }{\partial x} \\	
+			\frac{\partial }{\partial y} \\			
+			\frac{\partial }{\partial z} 
+		\end{pmatrix} \wedge
+		\begin{pmatrix}
+			f_1 \\ f_2 \\ f_3
+		\end{pmatrix}
+		= 	\begin{pmatrix}
+			\frac{\partial f_3}{\partial y}-\frac{\partial f_2}{\partial z} \\[1ex]
+			\frac{\partial f_1}{\partial z}-\frac{\partial f_3}{\partial x} \\[1ex]
+			\frac{\partial f_2}{\partial x}-\frac{\partial f_1}{\partial y}
+		\end{pmatrix}
+		\]
+		
+		Calculons $\frac{\partial f_3}{\partial y}$ où $f_3=\frac{kz}{(x^2 + y^2 + z^2)^{3/2}}$ :
+		\[
+		\frac{\partial f_3}{\partial y} = -\frac{3k yz} {(x^2 + y^2 + z^2)^{5/2}}.
+		\]
+		Calculons $\frac{\partial f_2}{\partial z}$ où $f_2=\frac{ky}{(x^2 + y^2 + z^2)^{3/2}}$ :
+		\[
+		\frac{\partial f_2}{\partial z} = -\frac{3k yz} {(x^2 + y^2 + z^2)^{5/2}}.\]	
+		
+		Ainsi la première composante du rotationnel est nulle :
+		\[
+		\frac{\partial f_3}{\partial y}-\frac{\partial f_2}{\partial z} = 0.
+		\]
+		Par symétrie on trouve aussi zéro pour les autres composantes.
+		
+		Conclusion : le rotationnel est le vecteur nul.
+			
+	\end{enumerate}			
+\end{enumerate}
+
+\fincorrection
+
+\finexercice
+
+
+\bigskip
+
+Corrections : Arnaud Bodin. Relecture : Axel Renard.
+
+\end{document}

@@ -1,0 +1,665 @@
+%%%%%%%%%%%%%%%%%% PREAMBULE %%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{fancybox}
+\usepackage{graphicx}
+%\usepackage{tikz}
+
+%----- Ensembles : entiers, reels, complexes -----
+\newcommand{\Nn}{\mathbb{N}} \newcommand{\N}{\mathbb{N}}
+\newcommand{\Zz}{\mathbb{Z}} \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Qq}{\mathbb{Q}} \newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Rr}{\mathbb{R}} \newcommand{\R}{\mathbb{R}}
+\newcommand{\Cc}{\mathbb{C}} \newcommand{\C}{\mathbb{C}}
+\newcommand{\Kk}{\mathbb{K}} \newcommand{\K}{\mathbb{K}}
+
+%----- Modifications de symboles -----
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\Re}{\mathop{\mathrm{Re}}\nolimits}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}\nolimits}
+\newcommand{\llbracket}{\left[\kern-0.15em\left[}
+\newcommand{\rrbracket}{\right]\kern-0.15em\right]}
+\renewcommand{\ge}{\geqslant} \renewcommand{\geq}{\geqslant}
+\renewcommand{\le}{\leqslant} \renewcommand{\leq}{\leqslant}
+
+%----- Fonctions usuelles -----
+\newcommand{\ch}{\mathop{\mathrm{ch}}\nolimits}
+\newcommand{\sh}{\mathop{\mathrm{sh}}\nolimits}
+\renewcommand{\tanh}{\mathop{\mathrm{th}}\nolimits}
+\newcommand{\cotan}{\mathop{\mathrm{cotan}}\nolimits}
+\newcommand{\Arcsin}{\mathop{\mathrm{arcsin}}\nolimits}
+\newcommand{\Arccos}{\mathop{\mathrm{arccos}}\nolimits}
+\newcommand{\Arctan}{\mathop{\mathrm{arctan}}\nolimits}
+\newcommand{\Argsh}{\mathop{\mathrm{argsh}}\nolimits}
+\newcommand{\Argch}{\mathop{\mathrm{argch}}\nolimits}
+\newcommand{\Argth}{\mathop{\mathrm{argth}}\nolimits}
+\newcommand{\pgcd}{\mathop{\mathrm{pgcd}}\nolimits} 
+
+%----- Structure des exercices ------
+%\theoremstyle{definition}
+
+\newtheoremstyle{exostyle}
+{15pt}
+{15pt}
+{\normalfont}
+{0pt}
+{\bfseries}
+{}
+{\newline}
+{\thmname{#1}~\thmnumber{#2} -- \thmnote{#3}}
+\theoremstyle{exostyle} 
+
+\newtheorem{exo}{Exercice}
+\newtheorem{ind}{Indications}
+\newtheorem{cor}{Correction}
+
+\newcommand{\exercice}[1]{} \newcommand{\finexercice}{}
+%\newcommand{\exercice}[1]{{\tiny\texttt{#1}}\vspace{-2ex}} % pour afficher le numero absolu, l'auteur...
+\newcommand{\enonce}{\begin{exo}} \newcommand{\finenonce}{\end{exo}}
+\newcommand{\indication}{\begin{ind}} \newcommand{\finindication}{\end{ind}}
+\newcommand{\correction}{\begin{cor}} \newcommand{\fincorrection}{\end{cor}}
+
+\newcommand{\noindication}{\stepcounter{ind}}
+\newcommand{\nocorrection}{\stepcounter{cor}}
+
+\newcommand{\fiche}[1]{} \newcommand{\finfiche}{}
+\newcommand{\titre}[1]{\centerline{\large \bf #1}}
+\newcommand{\addcommand}[1]{}
+\newcommand{\video}[1]{}
+
+%----- Presentation ------
+\setlength{\parindent}{0cm}
+
+\newcommand{\ExoSept}{\textbf{\textsf{Exo7}}}
+\newcommand{\LogoExoSept}{\setlength{\unitlength}{0.6em}
+	\begin{picture}(0,0)  \thicklines     \put(0,4){\line(0,1){3}}   \put(0,7){\line(1,0){3}}
+		\put(3,7){\line(0,-1){7}}  \put(0,4){\line(1,0){7}}   \put(3,0){\line(1,0){4}}
+		\put(7,0){\line(0,1){4}}   \put(3,7){\line(4,-3){4}}  \put(7,4){\line(3,4){3}}  
+		\put(10,8){\line(-4,3){4}} \put(3,7){\line(3,4){3}}   \put(4.6,6.8){\mbox{\ExoSept}}
+\end{picture}}
+
+%----- Commandes supplementaires ------
+
+\usepackage[a4paper, margin = 2cm]{geometry}
+\usepackage[charter]{mathdesign}
+%\usepackage{import}
+
+\usepackage{tikz}
+\usetikzlibrary{calc,shadows,arrows,shapes,patterns,matrix}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{fadings}
+\usetikzlibrary{external}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usetikzlibrary{backgrounds}
+\usepackage{tikz,tikz-3dplot}
+
+\newcommand{\sauteligne}{\leavevmode\vspace{-\baselineskip}}
+
+
+\usepackage{tkz-tab}
+
+\begin{document}
+
+	
+	
+%%%%%%%%%%%%%%%%%% ENTETE %%%%%%%%%%%%%%%%%%
+
+
+%\kern-2em
+\textsc{Feuille d'exercices 0}\hfill\textsc{Fonctions de plusieurs variables}
+
+\vspace*{0.5ex}
+\hrule\vspace*{1.5ex} 
+\hfil{\textbf{\Large \textsc{Mise en route}}}
+\vspace*{1ex} \hrule 
+\vspace*{5ex} 
+
+%===========================================
+%\section{}
+
+
+\exercice{}
+\enonce[Famille de cubiques]
+Soit la fonction $f_k : \Rr \to \Rr$, qui dépend d'un paramètre $k\in \Rr$,  définie par :
+$$f_k(x) = x^3 +x^2 -kx+1 $$
+\begin{enumerate}
+	\item Calculer la dérivée de $f_k$ et résoudre $f_k'(x) = 0$. 
+	
+	\item En déduire les variations de $f_k$ en fonction du paramètre $k$. En particulier déterminer où sont atteints les minimums et maximums locaux de $f_k$.
+	Représenter les différents types de graphes de $f_k$ que l'on peut obtenir.
+	
+	\item Calculer l'équation de la tangente au graphe de $f_k$ en $x=1$.
+\end{enumerate}
+\finenonce
+\indication
+Discuter selon les valeurs de $k$ par rapport à $-\frac13$.
+\finindication
+\correction
+\begin{enumerate}
+	\item $f'_k(x) = 3x^2+2x-k$.
+	Pour $k$ fixé, résolvons l'équation $3x^2+2x-k=0$, d'inconnue $x$.
+	C'est une équation du second degré de discriminant $\Delta = 4(3k+1)$.
+	
+	\begin{itemize}
+		\item Si $k < - \frac13$, $\Delta < 0$ et alors $f'_k$ ne s'annule pas sur $\Rr$.
+		\item Si $k = - \frac13$, $\Delta = 0$ et alors $f'_k(x)=0$ admet une solution (double) $x_0 = -\frac13$.
+		\item Si $k > - \frac13$, $\Delta > 0$, alors $f'_k(x)=0$ admet deux solutions :
+		$$x_1 = \frac{-1-\sqrt{3k+1}}{2} \qquad  x_2 = \frac{-1+\sqrt{3k+1}}{2}.$$
+	\end{itemize}
+			
+	
+	\item 
+	Remarquons déjà que, quel que soit $k\in\Rr$, $\lim_{-\infty} {f_k} = -\infty$ et $\lim_{+\infty} {f_k} = +\infty$.
+
+	
+	\begin{itemize}
+	\item Si $k < - \frac13$, alors en fait $f'_k(x) > 0$ pour tout $x \in \Rr$. Ainsi $f_k$ est une fonction strictement croissante sur $\Rr$.
+	
+	\begin{center}
+		\small	
+	\begin{minipage}{0.5\textwidth}	
+				\textbf{Cas $k < - \frac13$.}
+				
+		\begin{tikzpicture}[scale=0.9]
+			\tkzTabInit{$x$ / 1 , $f'_k(x)$ / 1, $f_k(x)$ / 2}{$-\infty$, $+\infty$}
+			\tkzTabLine{, +} 
+			\tkzTabVar{-/ $-\infty$,  +/ $+\infty$}
+		\end{tikzpicture}
+	\end{minipage}
+	\begin{minipage}{0.2\textwidth}	
+		\begin{tikzpicture}[scale=0.5]
+			\draw[very thin,color=gray] (-1.7,-4.5) grid (1.9,4.9);
+			
+			\draw[->,-latex, thick] (-1.7,0) -- (2.2,0) node[right] {$x$};
+			\draw[->,-latex, thick] (0,-4.5) -- (0,5.2) node[above] {$f_k(x)$};
+			
+			\def\k{-2}
+			
+			\draw[color=red, thick, domain=-1.5:0.8]    plot (\x,\x*\x*\x+\x*\x-\k*\x+1);
+			
+		\end{tikzpicture}		
+			\end{minipage}
+	\end{center}
+	 
+\bigskip	 
+	 
+	\item Si $k = - \frac13$, $\Delta = 0$ et alors $f'_k(x)=0$ admet une solution (double) $x_0 = -\frac13$.
+	Alors $f_k$ est aussi strictement croissante sur $\Rr$, mais avec un point d'inflexion en $x_0=0$, où le graphe de $f$ admet une tangente horizontale. La valeur $x_0$ n'est ni un maximum local, ni un minimum local.
+	
+	\begin{center}
+
+	\small	
+	\begin{minipage}{0.6\textwidth}	
+	\textbf{Cas $k = - \frac13$.}	
+		
+	\begin{tikzpicture}[scale=0.9]
+		\tkzTabInit{$x$ / 1 , $f'_k(x)$ / 1, $f_k(x)$ / 2}{$-\infty$, $x_0$, $+\infty$}
+		\tkzTabLine{, +, z, +, } 
+		\tkzTabVar{-/ $-\infty$, R/,  +/ $+\infty$}
+		\tkzTabIma{1}{3}{2}{$f_k(x_0)$}
+	\end{tikzpicture}
+	\end{minipage}
+	\begin{minipage}{0.2\textwidth}	
+	\begin{tikzpicture}[scale=0.7]
+		\draw[very thin,color=gray] (-1.7,-1.5) grid (1.9,3.6);
+		
+		\draw[->,-latex, thick] (-1.7,0) -- (2.2,0) node[right] {$x$};
+		\draw[->,-latex, thick] (0,-1.7) -- (0,4.0) node[above] {$f_k(x)$};
+		
+		\def\k{-1/3}
+		\coordinate (A) at (-1/3,0.97);
+		
+		\draw[color=red, thick, domain=-1.6:1]    plot (\x,\x*\x*\x+\x*\x-\k*\x+1);
+		\fill[blue] (A) circle(2pt);
+		\draw[blue,thick,->,-latex] (A) -- +(1,0);
+		\draw[blue,thick,->,-latex] (A) -- +(-1,0);		
+	\end{tikzpicture}
+	\end{minipage}	
+	
+\end{center}	
+
+\bigskip
+
+	
+	
+	\item Si $k > - \frac13$, $\Delta > 0$, alors $f'_k(x)=0$ admet deux solutions :
+	$$x_1 = \frac{-1-\sqrt{3k+1}}{2} \qquad  x_2 = \frac{-1+\sqrt{3k+1}}{2}.$$
+	$f'_k(x)$ s'annule est $x_1$ et $x_2$ ; elle est positive sur $]-\infty,x_1]$ et $[x_2,+\infty[$ ; elle est négative sur $[x_1,x_2]$.
+	Elle est donc croissante, puis décroissante, puis de nouveau croissante.
+	Elle admet un maximum local en $x_1$ (de valeur $f_k(x_1)$) et un minimum local en $x_2$ (de valeur $f_k(x_2)$).
+	
+	\end{itemize}
+		
+	\begin{center}
+	\small
+	\begin{minipage}{0.7\textwidth}	
+				\textbf{Cas $k > - \frac13$.}	
+				
+	\begin{tikzpicture}[scale=0.9]
+		\tkzTabInit{$x$ / 1 , $f'_k(x)$ / 1, $f_k(x)$ / 2}{$-\infty$, $x_1$, $x_2$, $+\infty$}
+		\tkzTabLine{, +, z, -, z, +, } 
+		\tkzTabVar{-/ $-\infty$, +/ $f_k(x_1)$,  -/ $f_k(x_2)$, +/ $+\infty$}
+	\end{tikzpicture}
+	\end{minipage}
+	\begin{minipage}{0.2\textwidth}			
+	\begin{tikzpicture}[scale=0.6]
+		\draw[very thin,color=gray] (-2.5,-1.5) grid (1.9,4.6);
+		
+		\draw[->,-latex, thick] (-2.5,0) -- (2.2,0) node[right] {$x$};
+		\draw[->,-latex, thick] (0,-1.7) -- (0,5.0) node[above] {$f_k(x)$};
+		
+		\def\k{1}
+		\coordinate (A) at (-1,2);
+		\coordinate (B) at (0.35,0.8);
+		
+		\draw[color=red, thick, domain=-2.1:1.4]    plot (\x,\x*\x*\x+\x*\x-\k*\x+1);
+		\fill[blue] (A) circle(2pt);
+		\draw[blue,thick,->,-latex] (A) -- +(1,0);
+		\draw[blue,thick,->,-latex] (A) -- +(-1,0);	
+		\fill[blue] (B) circle(2pt);
+		\draw[blue,thick,->,-latex] (B) -- +(1,0);
+		\draw[blue,thick,->,-latex] (B) -- +(-1,0);			
+			
+	\end{tikzpicture}
+	\end{minipage}
+	
+	
+	\end{center}	
+
+	
+	\item La formule générale d'une tangente au graphe de $f$ au point $(x_0, f(x_0))$ est :
+	$$y = (x-x_0) f'(x_0) + f(x_0).$$ 
+    Avec $x_0=1$, on a ici $f_k(1) = 3-k$ et $f'_k(1)=5-k$ et on obtient ainsi l'équation :
+    $$y = (5-k)x - 2.$$
+    
+\end{enumerate}
+\fincorrection
+\finexercice
+
+
+\exercice{}
+\enonce[Dérivées]
+Soient $f,g : \Rr \to \Rr$ deux fonctions dérivables. Soient $a,b \in\Rr$ et $k\in\Nn$ des constantes.
+Calculer les dérivées par rapport à la variable $x$ des expressions suivantes.
+
+\begin{enumerate}
+	\item $\ln(f(x)/g(x))$ (on suppose $f>0$ et $g>0$).
+	\item $f(x^2)$, \  $f(ax+b)$, \  $f^k(x)$, \  $f^2(e^x)$.
+	\item $f(g^2(x))$, \  $f^2(g(x))$.
+\end{enumerate}
+\finenonce
+\indication
+Il s'agit d'appliquer la formule de la dérivée d'une composition $f \circ g$ :
+$$(f \circ g)'(x) = f'\big( g(x) \big) \cdot g'(x)$$
+\finindication
+\correction
+Rappelons la formule de la dérivée d'une composition $f \circ g$ :
+$$(f \circ g)'(x) = f'\big( g(x) \big) \cdot g'(x)$$
+\begin{enumerate}
+	\item Notons $F_1(x) = \ln(f(x)/g(x))$.
+	On rappelle que la dérivée de $\ln(u(x))$ est $\frac{u'(x)}{u(x)}$.
+	Il est plus simple ici de commencer par utiliser l'identité $\ln(a/b) = \ln(a)-\ln(b)$, donc 
+	$F_1(x) =  \ln(f(x)) - \ln(g(x))$ et ainsi :
+	$$F_1'(x) = \frac{f'(x)}{f(x)} - \frac{g'(x)}{g(x)}.$$
+	
+	\item 
+	\begin{itemize}
+		\item Soit $F_2(x) = f(x^2)$. Il s'agit de la composition $f \circ g(x)$ où $g(x)=x^2$ (et donc $g'(x) = 2x$). Ainsi, $F_2'(x) = 2xf'(x^2)$.
+	
+		\item Soit $F_3(x) = f(ax+b)$. Il s'agit de de la composition $f \circ g(x)$ où $g(x)=ax+b$ (et donc $g'(x) = a$). Ainsi $F_3'(x) = af'(ax+b)$.
+		
+		\item Soit $F_4(x) = f^k(x) = \big( f(x) \big)^k$. Il s'agit de de la composition $u \circ v(x)$ où $u(x)= x^k$ (et donc $u'(x) = kx^{k-1}$) et $v(x) = f(x)$. Ainsi $F_4'(x) = kf'(x)f^{k-1}(x)$.	
+		
+		\item Soit $F_5(x) = f^2(e^x)$. Il s'agit de de la composition $u \circ v \circ w$ où $u(x)= x^2$ (et donc $u'(x) = 2x$) et $v(x) = f(x)$ et $w(x)=e^x$. 
+		On dérive d'abord $v \circ w$ : $\big( f(e^x) \big)' = e^x f'(e^x)$, puis $u \circ (v \circ w)$. Ainsi $F_5'(x) = 2 e^xf'(e^x)f(e^x)$.
+	\end{itemize}
+	
+	\item On procède de même pour 
+	$F_6(x) = f(g^2(x))$ : 
+	$F'_6(x) = 2 \cdot g'(x) \cdot g(x) \cdot f'\big( g^2(x) \big)$.
+	Et pour $F_7(x) = f^2(g(x))$ :
+	$F'_7(x) = 2 \cdot g'(x) \cdot f'(g(x)) \cdot f(g(x))$.	
+\end{enumerate}
+\fincorrection
+\finexercice
+
+
+\exercice{}
+\enonce[Trigonométrie hyperbolique]
+Le cosinus, sinus et tangente hyperboliques sont les fonctions définies par :
+$$\ch x = \frac{e^x+e^{-x}}{2}\qquad\qquad
+\sh x = \frac{e^x-e^{-x}}{2}\qquad\qquad
+\tanh x = \frac{\sh x}{\ch x}$$
+
+\begin{enumerate}
+	\item Montrer la relation $\ch^2 x - \sh^2 x =1$.
+	
+	\item Prouver les formules d'addition : 
+	$$\ch(a+b)=\ch(a)\ch(b)+\sh(a)\sh(b)$$
+	$$\sh(a+b)=\sh(a)\ch(b)+\ch(a)\sh(b)$$
+	$$\tanh(a+b)=\dfrac{\tanh(a)+\tanh(b)}{1+\tanh(a)\tanh(b)}$$
+	
+	\item Calculer les dérivées des trois fonctions ; étudier-les et tracer leur graphe.
+	
+	\item Montrer que $x \mapsto \sh x$ définie une bijection de $\Rr$ dans $\Rr$.	On note $\Argsh(x)$ sa bijection réciproque. En dérivant la relation $\sh(\Argsh(x)) = x$, calculer la dérivée de $\Argsh(x)$.
+	
+	\item Calculer la dérivée de $f(x)=\ln\big(x+ \sqrt{x^2+1}\big)$. En déduire une expression pour $\Argsh x$. 
+\end{enumerate}
+\finenonce
+\noindication
+\correction
+~
+\begin{enumerate}
+	\item
+	\[
+	\ch^2 x - \sh^2 x 
+	= \frac14 \left( (e^x+e^{-x})^2  -   (e^x-e^{-x})^2 \right)
+	= \frac14  \left( (e^{2x} + 2 + e^{-2x})   -  (e^{2x} - 2 + e^{-2x}) \right)
+	= 1.\]
+	
+	\item 
+	\[ 4 \big(\ch(a)\ch(b)+\sh(a)\sh(b)\big)
+	= (e^a+e^{-a})(e^b+e^{-b}) + (e^a-e^{-a})(e^b-e^{-b})
+	= 2\left(e^{a+b} + e^{-a-b}\right)
+	= 4 \ch(a+b)
+	\]
+	
+	On procède de même pour $\sh(a+b)$.
+	
+	\[
+	\frac{\tanh(a)+\tanh(b)}{1+\tanh(a)\tanh(b)}
+	= \frac{\frac{\sh a}{\ch a}+\frac{\sh b}{\ch b}}{1+\frac{\sh a}{\ch a}\frac{\sh b}{\ch b}}
+	= \frac{\frac{\sh a}{\ch a}+\frac{\sh b}{\ch b}}{1+\frac{\sh a}{\ch a}\frac{\sh b}{\ch b}} \times \frac{\ch a\ch b}{\ch a\ch b}
+	=  \frac{\sh a \ch b + \sh b \ch a}{\ch a \ch b + \sh a\sh b}
+	= \frac{\sh(a+b)}{\ch(a+b)}=\tanh(a+b) 
+	\]
+	
+	\item On a :
+	\[ 
+	\ch'(x) = \sh(x) \qquad
+	\sh'(x) = \ch(x) \qquad
+	\tanh'(x) = \frac{1}{\ch^2(x)} = 1-\tanh^2(x).
+	\]
+	
+	L'étude de ces fonctions ne posent pas de problèmes particuliers.
+	Voici leurs graphes :
+	
+	\begin{center}
+	\begin{minipage}{0.4\textwidth}
+	
+	\begin{tikzpicture}
+		\draw[->,>=latex, gray] (-2.5,0)--(2.5,0) node[below,black] {$x$};
+		\draw[->,>=latex, gray] (0,-3.5)--(0,4.2) node[right,black] {$y$};  
+		
+		\draw[ultra thick, color=red,domain=-2:2,samples=200,smooth] plot (\x,{0.5*(exp(\x)+exp(-\x))}) node[above left] {$\mathrm{ch} x$}; 
+		
+		\draw[ultra thick, color=blue,domain=-2:2,samples=200,smooth] plot (\x,{0.49*(exp(\x)-exp(-\x))}) node[right] {$\mathrm{sh} x$}; 
+		
+		% 
+		% 	 \draw[dashed,thick] (1,2.718) -- (0,2.718) node[left] {$e$};
+		%      \draw[dashed,thick] (1,2.718) -- (1,0);
+		%     \fill (0,2.718,0) circle (1.5pt);
+		
+		\fill (0,0) circle (1.5pt);     
+		\fill (1,0) circle (1.5pt);
+		\fill (0,1) circle (1.5pt);     
+		\node at (0,1)[above left] {$1$};
+		\node at (1,0)[below] {$1$};
+		\node at (0,0)[below right] {$0$};
+	\end{tikzpicture}
+	\end{minipage}
+	\qquad
+	\begin{minipage}{0.4\textwidth}	
+	\begin{tikzpicture}
+		
+		\draw[->,>=latex, gray] (-3,0)--(3.5,0) node[below,black] {$x$};
+		\draw[->,>=latex, gray] (0,-1.5)--(0,1.8) node[right,black] {$y$};
+		
+		\draw[ultra thick, color=green!70!black,domain=-3:3,samples=200,smooth] plot (\x,{0.95*(exp(\x)-exp(-\x))/(exp(\x)+exp(-\x))}) node[above] {$\mathrm{th} x$};
+		
+		%
+		% 	  \draw[ultra thick, color=blue,domain=-3:3,samples=200,smooth] plot ({0.95*(exp(\x)-exp(-\x))/(exp(\x)+exp(-\x))},\x) node[above] {$\mathrm{argth} x$};
+		
+		%
+		\draw[dashed] (-3,1) -- (3,1);
+		\draw[dashed] (-3,-1) -- (3,-1);
+		%  	 \draw[dashed] (1,-3) -- (1,3);
+		%  	 \draw[dashed] (-1,-3) -- (-1,3);
+		
+		%      \draw[dashed,thick] (1,2.718) -- (1,0);
+		%     \fill (0,2.718,0) circle (1.5pt);
+		
+		\fill (0,0) circle (1.5pt);
+		%    \fill (1,0) circle (1.5pt);
+		\fill (0,1) circle (1.5pt);
+		\fill (0,-1) circle (1.5pt);
+		%     \fill (-1,0) circle (1.5pt);
+		\node at (0,1)[above left] {$1$};
+		\node at (0,-1)[below left] {$-1$};
+		%      \node at (1,0)[below] {$1$};
+		%      \node at (-1,0)[below] {$-1$};
+		\node at (0,0)[below right] {$0$};
+	\end{tikzpicture}
+	\end{minipage}
+	\end{center}
+	
+	
+	\item 
+	La fonction $x \mapsto \sh(x)$ est continue, $\lim_{-\infty} \sh(x) = -\infty$ et $\lim_{+\infty} \sh(x) = +\infty$. Comme $\sh'(x)=\ch(x)>0$ alors la fonction sinus hyperbolique est strictement croissante. Ainsi elle réalise une bijection de $]-\infty,+\infty[$ vers $]-\infty,+\infty[$.
+	
+	Par définition d'une bijection réciproque on a $\sh(\Argsh x) = x$ quel que soit $x\in\Rr$.
+	On souhaite dériver cette identité : à droite on obtient $1$ (la dérivée de $x$), alors qu'à
+	gauche on applique la formule de la dérivée d'une composition. Ainsi :
+	\[\Argsh'(x) \cdot \sh'(\Argsh x) = 1, \]
+	donc
+	\[\Argsh'(x) \cdot \ch(\Argsh x) = 1. \]
+	
+	Par ailleurs on sait que $\ch^2 u -\sh^2 u = 1$, donc $\ch u = +\sqrt{1+\sh^2 u}$.
+	On applique cette égalité avec $u = \Argsh x$ et on utilise que $\sh(\Argsh x) = x$ pour obtenir :
+	\[\Argsh'(x) \cdot \sqrt{1+\sh^2(\Argsh x)} = 1.\]
+	
+	Donc 	\[\Argsh'(x) \cdot  \sqrt{1+x^2} = 1\]
+	et ainsi
+	\[\Argsh'(x) = \frac{1}{\sqrt{1+x^2}}.\]
+	
+	\item La dérivée de $f(x)=\ln\big(x+ \sqrt{x^2+1}\big)$ est $f'(x) = \frac{1}{\sqrt{1+x^2}}$.
+	Ainsi $x \mapsto f(x)$ et $x \mapsto \Argsh(x)$ ont la même dérivée.
+	En plus ces deux fonctions prennent la même valeur en $x=0$ : $f(0) = 0$ et comme $\sh(0)=0$ alors on a aussi $\Argsh(0)=0$. Ainsi $f(x)=\Argsh(x)$ pour tout $x\in\Rr$ :
+	\[ \Argsh(x) = \ln\big(x+ \sqrt{x^2+1}\big). \]
+	\end{enumerate}
+\fincorrection	
+	
+
+\exercice{3888, quercia, 2010/03/11}
+\enonce[Encadrements]
+\sauteligne
+\begin{enumerate}
+	\item Montrer que $\forall t > 0,\  \left(1+\frac 1t\right)^t < e$. En déduire 
+	$\forall x,y>0,\ \left(1+\frac xy\right)^y < e^x$.
+		
+	\item Montrer que : $\forall t > 1,\ e < \left(1+\frac 1{t-1}\right)^t$. En déduire 	
+	$\forall x,y>0,\ e^x < \left(1+\frac xy\right)^{x+y}$.	
+\end{enumerate}
+\finenonce
+
+\indication
+Passer au logarithme et étudier une fonction quitte à dériver deux fois.
+\finindication
+
+\correction
+\begin{enumerate}
+	\item Par la croissance du logarithme, l'inégalité $\left(1+\frac 1t\right)^t < e$ est équivalente à
+	$t\ln\left(1+\frac 1t\right) < 1$.
+	Étudions la fonction $f(t) = t\ln\left(1+\frac 1t\right)$ sur $]0,+\infty[$.
+	Sa dérivée est $f'(t) =  \ln\left(1+\frac 1t\right) - \frac{1}{t+1}$. Il n'est pas clair de déterminer directement le signe de $f'(t)$, on dérive donc une seconde fois :
+	$f''(t) = -\frac{1}{t(t+1)^2}$. Ainsi $f''(t) < 0$, donc $f'$ est strictement décroissante sur $]0,+\infty[$. 
+	
+	Calculons la limite de $f'(t)$ en $+\infty$. 
+	On effectue un développement limité (avec $1/t \to 0$):
+	$f'(t) \sim \frac 1t - \frac{1}{t+1} = \frac{1}{t(t+1)} \to 0$. Comme $f'$ est strictement décroissante et tend vers $0$, alors $f'(t)>0$ pour tout $t \in {}]0,+\infty[$. Ainsi $f$ est strictement croissante.
+	
+	Calculons la limite de $f$ en $+\infty$. $f(t) = t\ln\left(1+\frac 1t\right) \sim t \cdot \frac1t \to 1$. Comme $f$ est strictement croissante et tend vers $1$ alors $f(t) < 1$ pour tout $t \in {}]0,+\infty[$. Ce qui prouve l'inégalité cherchée. En posant $t = \frac{y}{x}$, on obtient la seconde inégalité.
+	
+	\begin{center}
+	
+	\small	
+
+		\begin{tikzpicture}[scale=0.9]
+			\tkzTabInit{$t$ / 1 , $f''(t)$ / 1, $f'(t)$ / 1, $f(t)$ / 1}{$0$, $+\infty$}
+			\tkzTabLine{, -, } 
+			\tkzTabVar{+/ ,  -/ $0$}
+			\tkzTabVar{-/ ,  +/ $1$}			
+		\end{tikzpicture}
+	
+	
+	\end{center}
+	
+
+	
+	\item Il s'agit en fait de prouver l'inégalité $t \ln\left(1+\frac 1{t-1}\right) > 1$.
+	On étudie cette fois la fonction $g(t) = t \ln\left(1+\frac 1{t-1}\right)$. L'étude est similaire : $g'(t) = \ln\left(1+\frac 1{t-1}\right)-\frac{1}{t-1}$, $g''(t) = \frac{1}{t(t-1)^2}$.
+	Par l'étude des variations et des limites, on prouve $g(t) > 1$ pour tout $t>0$ et l'inégalité voulue. En posant $t=\frac{x+y}{x}$, on obtient la seconde inégalité.
+	
+	
+\end{enumerate}
+\fincorrection
+\finexercice
+
+
+
+\exercice{5404, rouget, 2010/07/06}
+\enonce[Fonction expansive]
+Soit $f : [0,1] \to [0,1]$ telle que $\forall(x,y)\in [0,1]^2,\ |f(y)-f(x)|\geq|x-y|$. Montrer que $f=\mathrm{id}$ ou $f=1-\mathrm{id}$.
+\finenonce
+
+\indication
+Commencer par déterminer quelles sont les valeurs possibles pour $f(0)$ et $f(1)$.
+\finindication
+
+\correction
+\begin{itemize}
+	\item On a $0\leq f(0)\leq 1$ et $0\leq f(1)\leq 1$. Donc $|f(1)-f(0)|\leq1$. Mais, par hypothèse, $|f(1)-f(0)|\geq1$. Par suite, $|f(1)-f(0)|= 1$ et nécessairement, $(f(0),f(1)) = (0,1)$ ou $(f(0),f(1)) = (1,0)$.
+	
+	\item Supposons que $f(0)=0$ et $f(1)=1$ et montrons que $\forall x\in[0,1],\;f(x)=x$.
+Soit $x\in[0,1]$. On a $|f(x) -f(0)|\geq|x-0|$ ce qui fournit $f(x)\geq x$. On a aussi $|f(x)-f(1)| \ge |x-1|$ ce qui fournit $1-f(x)\geq 1-x$ et donc $f(x)\leq x$. Finalement, $\forall x\in[0,1],\;f(x)=x$ et $f=\mathrm{id}$.
+
+   \item Si $f(0)=1$ et $f(1)=0$, posons pour $x\in[0,1]$, $g(x)=1-f(x)$. Alors, $g(0)=0$, $g(1)=1$ puis, pour $x\in[0,1]$, $g(x)\in[0,1]$. Enfin,
+
+$$\forall(x,y)\in[0,1]^2,\;|g(y)-g(x)|=|f(y)-f(x)|\geq|y-x|.$$
+D'après l'étude du premier cas, $g=\mathrm{id}$ et donc $f=1-\mathrm{id}$. 
+
+  \item Réciproquement, $\mathrm{id}$ et $1-\mathrm{id}$ sont bien solutions du problème.
+\end{itemize}
+\fincorrection
+\finexercice
+
+
+
+\exercice{4195, quercia, 2010/03/11}
+\enonce[Loi de réfraction]
+Soient dans $\R^2$ : $A=(0,a)$, $B=(b,-c)$ et $M=(x,0)$ ($a,b,c > 0$).
+Un rayon lumineux parcourt la ligne brisée $AMB$ à la vitesse $v_1$ de $A$ à $M$
+et $v_2$ de $M$ à $B$.
+On note $\theta_1 = \text{angle}{(\vec j,\vec{MA})}$ et
+$\theta_2 = \text{angle}{(-\vec j,\vec{MB})}$.
+
+\begin{enumerate}
+	\item Faire une figure.
+	\item Montrer que le temps de parcours est minimal lorsque
+	$\frac {\sin\theta_1}{v_1} = \frac {\sin\theta_2}{v_2}$.
+\end{enumerate}
+\finenonce
+
+\indication
+Le lien entre temps, distance et vitesse est $v = \frac d t$.
+Étudier ensuite la fonction $x \mapsto t(x)$ qui calcule le temps du trajet de $A$ à $B$ en passant par $M$.
+\finindication
+
+\correction
+~
+\begin{center}
+\begin{tikzpicture}[scale=1.4]
+	
+	\draw[->,>=latex, gray] (-1.5,0)--(3.5,0); %node[below,black] {$x$};
+	\draw[->,>=latex, gray] (0,-2.5)--(0,4); % node[right,black] {$y$};  
+	
+	\coordinate (A) at (0,3	);
+	\coordinate (B) at (2.5,-2);
+	\coordinate (M) at (2,0)	;
+	
+	\draw[double] (M |- 0, 0.8) arc (90:125:0.8) node[midway, above,scale=0.8] {$\theta_1$};
+	\draw[double] (M |- 0, -1) arc (-90:-75:1) node[midway, below,scale=0.8] {$\theta_2$};
+	\draw[double] (0,3-0.8) arc (-90:-55:0.8) node[midway, below,scale=0.8] {$\theta_1$};
+	
+	\draw[<->,>=latex,blue] (0,-0.1) -- ++(2,0) node[midway,below]{$x$};
+	\draw[<->,>=latex,blue] (0,-2) -- ++(2.5,0) node[midway,below]{$b$};
+	\draw[<->,>=latex,blue] (-0.1,0) -- ++(0,3) node[midway,left]{$a$};
+	\draw[<->,>=latex,blue] (-0.1,0) -- ++(0,-2) node[midway,left]{$c$};
+	
+	\draw (M) -- ++(0,2);
+	\draw (M) -- ++(0,-2);
+	\draw[very thick, red] (A) -- (M) -- (B);
+	
+	%      \draw[dashed,thick] (1,2.718) -- (1,0);
+	%     \fill (0,2.718,0) circle (1.5pt);
+	
+	\fill (A) circle (2pt);     
+	\fill (B) circle (2pt);
+	\fill (M) circle (2pt);     
+	\node at (A)[above left] {$A$};
+	\node at (B)[below] {$B$};
+	\node at (M)[above right] {$M$};
+	
+	
+\end{tikzpicture}
+\end{center}
+
+
+Le temps parcouru est 
+$$t(x) 
+= \frac{MA}{v_1} + \frac{MB}{v_2}
+= \frac{\sqrt{x^2+a^2}}{v_1} + \frac{\sqrt{(b-x)^2+c^2}}{v_2}.$$
+On calcule :
+$$t'(x) = \frac{x}{v_1\sqrt{x^2+a^2}} - \frac{b-x}{v_2\sqrt{(b-x)^2+c^2}}$$
+Et on remarque que $\sin \theta_1 = x/MA$, $\sin\theta_2 = (b-x)/MB$, donc
+$$t'(x) = \frac{\sin \theta_1}{v_1} - \frac{\sin \theta_2}{v_2}.$$
+
+D'un point de vue de la physique, on sait qu'il existe un plus court chemin pour le trajet de la lumière.
+Pour $x_0$ associé à ce temps minimal, on a $t'(x_0)=0$, c'est-à-dire 
+$$\frac{\sin \theta_1}{v_1} = \frac{\sin \theta_2}{v_2}.$$
+
+
+
+D'un point de vue mathématique nous allons étudier la fonction $x \mapsto t(x)$ et montrer que le minimum existe et est unique.
+Calculons la dérivée seconde :
+\[
+t''(x) = \frac{a^2}{v_1(x^2+a^2)^{3/2}} + \frac{c^2}{v_2 ( (b-x)^2+c^2 )^{3/2}}
+\]
+Ainsi $t''(x) > 0$ quel que soit $x \ge 0$ donc $x \mapsto t'(x)$ est une fonction strictement croissante. Mais on a vu que la dérivée s'annule en $x_0$, qui est donc l'unique solution de $t'(x)=0$. Ainsi $t'(x)$ est négatif avant $x_0$ et positif après. On détermine alors les variations de $x \mapsto t(x)$ (voir ci-dessous) : la fonction est décroissante avant $x_0$, puis croissante, elle admet donc un minimum en $x_0$. 
+	
+\begin{center}
+	
+	\small	
+		\begin{tikzpicture}[scale=0.9]
+			\tkzTabInit{$x$ / 1 , $t''(x)$ / 1, $t'(x)$ / 1, $t(x)$ / 2}{0, $x_0$, $+\infty$}
+			\tkzTabLine{,,+} 			
+			\tkzTabVar{-/, R/,  +/ }
+			\tkzTabIma{1}{3}{2}{$0$}			
+			\tkzTabVar{+/ , -/ $t_{\min}$,  +/ $+\infty$}
+		\end{tikzpicture}
+
+\end{center}
+\fincorrection
+\finexercice
+
+\bigskip
+
+Corrections : Arnaud Bodin. Relecture : Axel Renard.
+
+\end{document}
